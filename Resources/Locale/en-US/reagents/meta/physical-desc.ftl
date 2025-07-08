@@ -106,3 +106,4 @@ reagent-physical-desc-cold-crunchy-sticky = cold, crunchy, and sticky
 reagent-physical-desc-dark = dark
 
 reagent-physical-desc-nebula = fizzy, sweet, and glittery
+reagent-physical-desc-non-newtonian = non-newtonian

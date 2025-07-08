@@ -42,3 +42,5 @@
   # These components are needed for certain triggers to work.
   - type: RadiationReceiver
   - type: Reactive
+    groups:
+      Acidic: [Touch]

@@ -1482,3 +1482,8 @@
   id: jammy
   flavorType: Complex
   description: flavor-complex-kelpwine
+
+- type: flavor
+  id: artifactglue
+  flavorType: Complex
+  description: flavor-complex-artifact-glue

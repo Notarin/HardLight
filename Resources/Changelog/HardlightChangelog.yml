@@ -6039,3 +6039,11 @@ Entries:
       message: Lowered Chemmaster max volume to 10000
   id: 674
   time: '2026-09-07T04:16:22-07:00'
+- author: Trylobyte
+  changes:
+    - type: Add
+      message: >-
+        Artifact Glue, made by mixing artifexium and space glue, has been added.
+        Pour 5u onto an artifact to restore 1 durability for all active nodes.
+  id: 675
+  time: '2026-09-07T07:08:51-07:00'

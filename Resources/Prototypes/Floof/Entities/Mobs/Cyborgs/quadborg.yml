@@ -10,7 +10,7 @@
     smallOffset: 0,0.1
     tinyOffset: 0,0.075
   - type: Inventory
-    speciesId: Borg
+    speciesId: quadborg # HardLight: Enables custom quadborg collars
     templateId: borgquad # Hardlight: Changes Quadborgs over to use our armor slots
   - type: Fixtures # HardLight
     fixtures:

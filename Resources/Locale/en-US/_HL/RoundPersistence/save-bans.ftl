@@ -17,3 +17,5 @@ saveban-hover-item-listing-restricted = { $variant ->
         [restricted]{"[color=orange]"}[bold]{ $name }[/bold] is restricted from being saved.{"[/color]"}
                 {"    [color=yellow]"}Reason{":"} { $reason }{"[/color]"}
     }
+
+saveban-stash-rejected = The item was rejected! Check for save bans.

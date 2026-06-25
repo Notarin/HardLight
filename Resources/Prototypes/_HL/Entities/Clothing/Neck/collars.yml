@@ -72,6 +72,9 @@
     equipDelay: 3
     unequipDelay: 10
   - type: GovernorLawAccess
+  - type: ClothingSpeedModifier  # Stacks with other slowdowns. Be careful!
+    walkModifier: 0.25
+    sprintModifier: 0.25 # So there's a bonus to wearing this over the medium armor
 
 - type: entity
   parent: ClothingNeckCollarBase

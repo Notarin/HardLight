@@ -70089,7 +70089,7 @@ entities:
     - type: Transform
       pos: 92.5,-22.5
       parent: 2
-- proto: CardBoxBlack
+- proto: PlayingCardDeckBoxBlack
   entities:
   - uid: 9136
     components:

@@ -19,9 +19,12 @@
     StarterPack: 4
     FunVendBoosterPack: 2
     PlayingCardDeckBoxBlack: 5
+    PlayingCardDeckBoxColonialCommand: 2
     NunoCardDeckBox: 2
     TarotCardDeckBox: 2
     GoFishCardDeckBox: 2
+    CardsAgainstNanotrassenCardDeckBox: 2
+    KingCardDeckBox: 2
   contrabandInventory:
     Basketball: 1
     # FoodSnackBoritos: 3 # Frontier

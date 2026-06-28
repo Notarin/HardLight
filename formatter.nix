@@ -5,10 +5,13 @@
       rev = "128222dc911b8e2e18939537bed1762b7f3a04aa";
     }),
   checkDir ? null,
+  stdenv,
   lib,
   writeShellScriptBin,
   formats,
   treefmt,
+  git,
+  git-lfs,
   csharpier,
   alejandra,
   deadnix,
@@ -22,10 +25,13 @@
     python3Packages = {inherit mdformat;};
   in {
     inherit
+      stdenv
       lib
       writeShellScriptBin
       treefmt
       formats
+      git
+      git-lfs
       csharpier
       alejandra
       deadnix

@@ -5,6 +5,7 @@
   inputs.flake-utils.url = "github:numtide/flake-utils";
 
   outputs = {
+    self,
     nixpkgs,
     flake-utils,
     ...
@@ -14,5 +15,6 @@
     in {
       devShells.default = import ./shell.nix {inherit pkgs;};
       formatter = pkgs.callPackage ./formatter.nix {};
+      checks.formatting = pkgs.callPackage ./formatter.nix {checkDir = self;};
     });
 }

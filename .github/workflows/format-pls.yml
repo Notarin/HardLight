@@ -1,0 +1,54 @@
+name: Format PR
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  fmt:
+    if: >
+      github.event.issue.pull_request && contains(github.event.comment.body, 'format pls') #magic___^_^___line
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Get PR info
+      id: pr
+      uses: actions/github-script@v9
+      with:
+        script: |
+          const pr = await github.rest.pulls.get({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            pull_number: context.issue.number,
+          });
+
+          core.setOutput("ref", pr.data.head.ref);
+          core.setOutput("repo", pr.data.head.repo.full_name);
+    - uses: actions/checkout@v7
+      with:
+        repository: ${{ steps.pr.outputs.repo }}
+        ref: ${{ steps.pr.outputs.ref }}
+        token: ${{ secrets.GITHUB_TOKEN }}
+        fetch-depth: 0
+    - uses: cachix/install-nix-action@v31
+      with:
+        nix_path: nixpkgs=channel:nixos-unstable
+    - name: Run formatter
+      run: nix fmt
+    - name: Commit and push changes
+      run: |
+        if git diff --quiet; then
+          echo "Nothing to commit."
+          exit 0
+        fi
+
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+
+        git add -A
+        git commit -m "style: tree-wide format"
+        git push

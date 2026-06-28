@@ -1,0 +1,111 @@
+name: Format PR
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  fmt:
+    if: github.event.issue.pull_request && contains(github.event.comment.body, 'format pls')
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: React 👀
+      uses: actions/github-script@v9
+      with:
+        script: |
+          await github.rest.reactions.createForIssueComment({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            comment_id: context.payload.comment.id,
+            content: "eyes",
+          });
+
+    - name: Get PR info
+      id: pr
+      uses: actions/github-script@v9
+      with:
+        script: |
+          const pr = await github.rest.pulls.get({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            pull_number: context.issue.number,
+          });
+
+          core.setOutput("ref", pr.data.head.ref);
+          core.setOutput("repo", pr.data.head.repo.full_name);
+
+    - uses: actions/checkout@v7
+      with:
+        repository: ${{ steps.pr.outputs.repo }}
+        ref: ${{ steps.pr.outputs.ref }}
+        fetch-depth: 0
+
+    - uses: cachix/install-nix-action@v31
+      with:
+        nix_path: nixpkgs=channel:nixos-unstable
+
+    - name: Run formatter
+      run: nix fmt
+
+    - name: Generate patch
+      id: patch
+      shell: bash
+      run: |
+        if git diff --quiet; then
+          echo "changed=false" >> "$GITHUB_OUTPUT"
+          exit 0
+        fi
+
+        echo "changed=true" >> "$GITHUB_OUTPUT"
+        git diff > format.patch
+
+    - name: Comment patch
+      if: steps.patch.outputs.changed == 'true'
+      uses: actions/github-script@v9
+      with:
+        script: |
+          const fs = require("fs");
+          const patch = fs.readFileSync("format.patch", "utf8");
+
+          await github.rest.issues.createComment({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.issue.number,
+            body: `Patch:
+          <details>
+          <summary>Patch</summary>
+
+          \`\`\`diff
+          ${patch}
+          \`\`\`
+          </details>`
+          });
+
+    - name: React 😕 on empty diff
+      if: steps.patch.outputs.changed == 'false'
+      uses: actions/github-script@v9
+      with:
+        script: |
+          await github.rest.reactions.createForIssueComment({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            comment_id: context.payload.comment.id,
+            content: "confused",
+          });
+
+    - name: React 👎 on failure
+      if: failure()
+      uses: actions/github-script@v9
+      with:
+        script: |
+          await github.rest.reactions.createForIssueComment({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            comment_id: context.payload.comment.id,
+            content: "-1",
+          });

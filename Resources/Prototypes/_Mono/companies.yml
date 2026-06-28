@@ -248,7 +248,7 @@
 - type: company
   id: AED
   form: Protagonist
-  name: Andromeda Engineering & Development # See https://discord.com/channels/1380477227912925194/1482867383592030462
+  name: Andromeda Engineering & Development
   color: "#BF7F40" # orange (Purple and Yellow mixed for both Engineering and Science)
   disabled: true # Open to devs, technical oriented mappers, and architecture oriented engineers.
   logins:

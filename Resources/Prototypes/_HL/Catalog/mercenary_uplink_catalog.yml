@@ -61,3 +61,19 @@
       whitelist:
         tags:
           - MercenaryUplink
+
+- type: listing
+  id: UplinkMercenaryNeuroshockGloves
+  name: uplink-mercenary-neuroshockgloves-name
+  description: uplink-mercenary-neuroshockgloves-desc
+  productEntity: ClothingHandsGlovesNeuroshock
+  icon: { sprite: Clothing/Hands/Gloves/neuroshockgloves.rsi, state: icon }
+  cost:
+    MercCoin: 20
+  categories:
+    - UplinkMercenaryUtility
+  conditions:
+    - !type:StoreWhitelistCondition
+      whitelist:
+        tags:
+          - MercenaryUplink

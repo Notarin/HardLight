@@ -10,3 +10,6 @@ uplink-mercenary-hfkatanagamma-desc = An experimental variant of the α-type hig
 
 uplink-mercenary-katanasheath-name = beginner's samurai blade kit
 uplink-mercenary-katanasheath-desc = A katana and a wakizashi, complete with a fancy sheath.
+
+uplink-mercenary-neuroshockgloves-name = Neuroshock Gloves
+uplink-mercenary-neuroshockgloves-desc = Electrically insulated gloves that deliver a precise neural shock, stunning without causing injury.

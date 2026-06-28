@@ -1,0 +1,24 @@
+- type: entity
+  parent: ClothingHandsGlovesBoxingRed
+  id: ClothingHandsGlovesNeuroshock
+  name: neuroshock gloves
+  description: Electrically insulated gloves that deliver a precise neural shock, stunning without causing injury.
+  components:
+  - type: Sprite
+    sprite: Clothing/Hands/Gloves/neuroshockgloves.rsi
+  - type: Clothing
+    sprite: Clothing/Hands/Gloves/neuroshockgloves.rsi
+  - type: StaminaDamageOnHit
+    damage: 15
+  - type: MeleeWeapon
+    attackRate: 1
+    damage:
+      types:
+        Blunt: 0
+    bluntStaminaDamageFactor: 0.0
+    soundHit:
+      collection: BoxingHit
+    animation: WeaponArcFist
+    mustBeEquippedToUse: true
+  - type: Insulated
+  - type: FingerprintMask

@@ -9,9 +9,8 @@ public sealed class PlumbingFilterBoundUserInterface : BoundUserInterface
 {
     private StarlightPlumbingFilterWindow? _window;
 
-    public PlumbingFilterBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-    }
+    public PlumbingFilterBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {

@@ -12,10 +12,17 @@ namespace Content.Server._HL.Damage;
 
 public sealed class HLBloodLevelPassiveDamageSystem : EntitySystem
 {
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly BloodstreamSystem _bloodstream = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IPrototypeManager _prototypes = default!;
+    [Dependency]
+    private readonly DamageableSystem _damageable = default!;
+
+    [Dependency]
+    private readonly BloodstreamSystem _bloodstream = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypes = default!;
 
     public override void Initialize()
     {
@@ -37,7 +44,12 @@ public sealed class HLBloodLevelPassiveDamageSystem : EntitySystem
         var curTime = _timing.CurTime;
 
         // Go through every entity with the component
-        var query = EntityQueryEnumerator<HLBloodLevelPassiveDamageComponent, DamageableComponent, MobStateComponent, BloodstreamComponent>();
+        var query = EntityQueryEnumerator<
+            HLBloodLevelPassiveDamageComponent,
+            DamageableComponent,
+            MobStateComponent,
+            BloodstreamComponent
+        >();
         while (query.MoveNext(out var uid, out var comp, out var damage, out var mobState, out var bloodstream))
         {
             // Make sure they're up for a damage tick
@@ -80,7 +92,10 @@ public sealed class HLBloodLevelPassiveDamageSystem : EntitySystem
                 var multiplier = MathF.Pow(comp.BloodLevelDamageMultiplier, power);
                 var damageToGive = comp.Damage * multiplier;
 
-                if (bloodstream.BleedAmount < comp.MinimumBleedAmount && bloodLevelPercentage > comp.MaximumBloodPercentage)
+                if (
+                    bloodstream.BleedAmount < comp.MinimumBleedAmount
+                    && bloodLevelPercentage > comp.MaximumBloodPercentage
+                )
                     _bloodstream.TryModifyBloodLevel(uid, -comp.BloodLevelDecrease, bloodstream);
 
                 _damageable.TryChangeDamage(uid, damageToGive, true, false, damage);
@@ -90,7 +105,11 @@ public sealed class HLBloodLevelPassiveDamageSystem : EntitySystem
         }
     }
 
-    public bool HasDamage(Entity<DamageableComponent> ent, ProtoId<DamageGroupPrototype> group, FixedPoint2 minimumDamage)
+    public bool HasDamage(
+        Entity<DamageableComponent> ent,
+        ProtoId<DamageGroupPrototype> group,
+        FixedPoint2 minimumDamage
+    )
     {
         if (ent.Comp.Damage.Empty)
             return false;

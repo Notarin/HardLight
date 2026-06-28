@@ -24,8 +24,7 @@ public sealed partial class NearbyComponentsRule : RulesRule
         var inRange = new HashSet<Entity<IComponent>>();
         var xformQuery = entManager.GetEntityQuery<TransformComponent>();
 
-        if (!xformQuery.TryGetComponent(uid, out var xform) ||
-            xform.MapUid == null)
+        if (!xformQuery.TryGetComponent(uid, out var xform) || xform.MapUid == null)
         {
             return false;
         }
@@ -43,9 +42,7 @@ public sealed partial class NearbyComponentsRule : RulesRule
             lookup.GetEntitiesInRange(compType.Component.GetType(), xform.MapID, worldPos, Range, inRange);
             foreach (var comp in inRange)
             {
-                if (Anchored &&
-                    (!xformQuery.TryGetComponent(comp, out var compXform) ||
-                     !compXform.Anchored))
+                if (Anchored && (!xformQuery.TryGetComponent(comp, out var compXform) || !compXform.Anchored))
                 {
                     continue;
                 }

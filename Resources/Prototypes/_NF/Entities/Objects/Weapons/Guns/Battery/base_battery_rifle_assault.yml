@@ -1,7 +1,7 @@
 #region frame
 - type: entity
   id: NFBaseWeaponFrameEnergyRifleAssault
-  parent: [ NFBaseWeaponEncumbranceRifleAssault, BaseWeaponBattery ]
+  parent: [NFBaseWeaponEncumbranceRifleAssault, BaseWeaponBattery]
   suffix: Frontier
   abstract: true
   components:
@@ -32,15 +32,15 @@
     fireRate: 3
     selectedMode: FullAuto
     availableModes:
-      - SemiAuto
-      - FullAuto
+    - SemiAuto
+    - FullAuto
   - type: SpeedModifiedOnWield
     walkModifier: 0.8
     sprintModifier: 0.8
   # - type: CursorOffsetRequiresWield
   # - type: EyeCursorOffset
-    # maxOffset: 2.5
-    # pvsIncrease: 0.25
+  # maxOffset: 2.5
+  # pvsIncrease: 0.25
   - type: Battery # Default: 30 shots with 80 fireCost
     maxCharge: 2400
     startingCharge: 2400
@@ -64,7 +64,7 @@
 
 - type: entity
   id: NFBaseWeaponFrameEnergyRifleAssaultCybersun
-  parent: [ BaseC3Contraband, NFBaseWeaponFrameEnergyRifleAssault ]
+  parent: [BaseC3Contraband, NFBaseWeaponFrameEnergyRifleAssault]
   abstract: true
   components:
   - type: Gun

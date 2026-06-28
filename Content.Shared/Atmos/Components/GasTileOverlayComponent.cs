@@ -32,8 +32,8 @@ public sealed class GasTileOverlayState(Dictionary<Vector2i, GasOverlayChunk> ch
 [Serializable, NetSerializable]
 public sealed class GasTileOverlayDeltaState(
     Dictionary<Vector2i, GasOverlayChunk> modifiedChunks,
-    HashSet<Vector2i> allChunks)
-    : ComponentState, IComponentDeltaState<GasTileOverlayState>
+    HashSet<Vector2i> allChunks
+) : ComponentState, IComponentDeltaState<GasTileOverlayState>
 {
     public readonly Dictionary<Vector2i, GasOverlayChunk> ModifiedChunks = modifiedChunks;
     public readonly HashSet<Vector2i> AllChunks = allChunks;

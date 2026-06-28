@@ -24,7 +24,7 @@
   parent: BaseBorgModuleRecipe
   id: BorgModuleStorage
   result: BorgModuleStorage
- 
+
 - type: latheRecipe
   id: OmniHandRight
   result: CyberneticsOmnihandRight
@@ -34,7 +34,7 @@
     Plastic: 300
     Plasma: 500
     Gold: 100
-    
+
 - type: latheRecipe
   id: OmniHandLeft
   result: CyberneticsOmnihandLeft

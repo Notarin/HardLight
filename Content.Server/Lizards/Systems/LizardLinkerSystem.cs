@@ -25,7 +25,11 @@ public sealed class LizardLinkerSystem : EntitySystem
         var enumerator = EntityQueryEnumerator<TrailLeaderComponent, TransformComponent>();
         while (enumerator.MoveNext(out var leaderUid, out var leaderComp, out var leaderXform))
         {
-            if (leaderXform.MapID == xform.MapID && leaderXform.Coordinates.TryDistance(EntityManager, xform.Coordinates, out var dist) && dist < 1.0f)
+            if (
+                leaderXform.MapID == xform.MapID
+                && leaderXform.Coordinates.TryDistance(EntityManager, xform.Coordinates, out var dist)
+                && dist < 1.0f
+            )
             {
                 ent.Comp.Leader = leaderUid;
                 Dirty(ent);

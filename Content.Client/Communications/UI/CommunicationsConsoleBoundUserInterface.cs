@@ -9,14 +9,14 @@ namespace Content.Client.Communications.UI
 {
     public sealed class CommunicationsConsoleBoundUserInterface : BoundUserInterface
     {
-        [Dependency] private readonly IConfigurationManager _cfg = default!;
+        [Dependency]
+        private readonly IConfigurationManager _cfg = default!;
 
         [ViewVariables]
         private CommunicationsConsoleMenu? _menu;
 
-        public CommunicationsConsoleBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-        {
-        }
+        public CommunicationsConsoleBoundUserInterface(EntityUid owner, Enum uiKey)
+            : base(owner, uiKey) { }
 
         protected override void Open()
         {
@@ -81,7 +81,10 @@ namespace Content.Client.Communications.UI
                 _menu.CanBroadcast = commsState.CanBroadcast;
                 _menu.CanCall = commsState.CanCall;
                 _menu.CountdownStarted = commsState.CountdownStarted;
-                _menu.AlertLevelSelectable = commsState.AlertLevels != null && !float.IsNaN(commsState.CurrentAlertDelay) && commsState.CurrentAlertDelay <= 0;
+                _menu.AlertLevelSelectable =
+                    commsState.AlertLevels != null
+                    && !float.IsNaN(commsState.CurrentAlertDelay)
+                    && commsState.CurrentAlertDelay <= 0;
                 _menu.CurrentLevel = commsState.CurrentAlert;
                 _menu.CountdownEnd = commsState.ExpectedCountdownEnd;
 

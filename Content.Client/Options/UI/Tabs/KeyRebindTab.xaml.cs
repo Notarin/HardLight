@@ -27,13 +27,15 @@ namespace Content.Client.Options.UI.Tabs
             EngineKeyFunctions.HideUI,
         };
 
-        [Dependency] private readonly IInputManager _inputManager = default!;
-        [Dependency] private readonly IConfigurationManager _cfg = default!;
+        [Dependency]
+        private readonly IInputManager _inputManager = default!;
+
+        [Dependency]
+        private readonly IConfigurationManager _cfg = default!;
 
         private BindButton? _currentlyRebinding;
 
-        private readonly Dictionary<BoundKeyFunction, KeyControl> _keyControls =
-            new();
+        private readonly Dictionary<BoundKeyFunction, KeyControl> _keyControls = new();
 
         private readonly List<Action> _deferCommands = new();
 
@@ -142,12 +144,14 @@ namespace Content.Client.Options.UI.Tabs
                 }
 
                 first = false;
-                KeybindsContainer.AddChild(new Label
-                {
-                    Text = Loc.GetString(headerContents),
-                    FontColorOverride = StyleNano.NanoGold,
-                    StyleClasses = { StyleNano.StyleClassLabelKeyText }
-                });
+                KeybindsContainer.AddChild(
+                    new Label
+                    {
+                        Text = Loc.GetString(headerContents),
+                        FontColorOverride = StyleNano.NanoGold,
+                        StyleClasses = { StyleNano.StyleClassLabelKeyText },
+                    }
+                );
             }
 
             void AddButton(BoundKeyFunction function)
@@ -157,7 +161,11 @@ namespace Content.Client.Options.UI.Tabs
                 _keyControls.Add(function, control);
             }
 
-            void AddCheckBox(string checkBoxName, bool currentState, Action<BaseButton.ButtonToggledEventArgs>? callBackOnClick)
+            void AddCheckBox(
+                string checkBoxName,
+                bool currentState,
+                Action<BaseButton.ButtonToggledEventArgs>? callBackOnClick
+            )
             {
                 CheckBox newCheckBox = new CheckBox() { Text = Loc.GetString(checkBoxName) };
                 newCheckBox.Pressed = currentState;
@@ -167,7 +175,11 @@ namespace Content.Client.Options.UI.Tabs
             }
 
             AddHeader("ui-options-header-general");
-            AddCheckBox("ui-options-hotkey-keymap", _cfg.GetCVar(CVars.DisplayUSQWERTYHotkeys), HandleToggleUSQWERTYCheckbox);
+            AddCheckBox(
+                "ui-options-hotkey-keymap",
+                _cfg.GetCVar(CVars.DisplayUSQWERTYHotkeys),
+                HandleToggleUSQWERTYCheckbox
+            );
 
             AddHeader("ui-options-header-movement");
             AddButton(EngineKeyFunctions.MoveUp);
@@ -507,10 +519,9 @@ namespace Content.Client.Options.UI.Tabs
                 Mod3 = mods[2],
                 Priority = _currentlyRebinding.Binding?.Priority ?? 0,
                 Type = bindType,
-                CanFocus = key == Keyboard.Key.MouseLeft
-                           || key == Keyboard.Key.MouseRight
-                           || key == Keyboard.Key.MouseMiddle,
-                CanRepeat = false
+                CanFocus =
+                    key == Keyboard.Key.MouseLeft || key == Keyboard.Key.MouseRight || key == Keyboard.Key.MouseMiddle,
+                CanRepeat = false,
             };
 
             _inputManager.RegisterBinding(registration);
@@ -568,28 +579,31 @@ namespace Content.Client.Options.UI.Tabs
                 Function = function;
                 var name = new Label
                 {
-                    Text = Loc.GetString(
-                        $"ui-options-function-{CaseConversion.PascalToKebab(function.FunctionName)}"),
+                    Text = Loc.GetString($"ui-options-function-{CaseConversion.PascalToKebab(function.FunctionName)}"),
                     HorizontalExpand = true,
-                    HorizontalAlignment = HAlignment.Left
+                    HorizontalAlignment = HAlignment.Left,
                 };
 
                 BindButton1 = new BindButton(parent, this, StyleBase.ButtonOpenRight);
                 BindButton2 = new BindButton(parent, this, StyleBase.ButtonOpenLeft);
-                ResetButton = new Button { Text = Loc.GetString("ui-options-bind-reset"), StyleClasses = { StyleBase.ButtonCaution } };
+                ResetButton = new Button
+                {
+                    Text = Loc.GetString("ui-options-bind-reset"),
+                    StyleClasses = { StyleBase.ButtonCaution },
+                };
 
                 var hBox = new BoxContainer
                 {
                     Orientation = LayoutOrientation.Horizontal,
                     Children =
                     {
-                        new Control {MinSize = new Vector2(5, 0)},
+                        new Control { MinSize = new Vector2(5, 0) },
                         name,
                         BindButton1,
                         BindButton2,
-                        new Control {MinSize = new Vector2(10, 0)},
-                        ResetButton
-                    }
+                        new Control { MinSize = new Vector2(10, 0) },
+                        ResetButton,
+                    },
                 };
 
                 ResetButton.OnPressed += args =>

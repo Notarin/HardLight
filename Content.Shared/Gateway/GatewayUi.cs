@@ -6,19 +6,19 @@ namespace Content.Shared.Gateway;
 [Serializable, NetSerializable]
 public enum GatewayVisuals : byte
 {
-    Active
+    Active,
 }
 
 [Serializable, NetSerializable]
 public enum GatewayVisualLayers : byte
 {
-    Portal
+    Portal,
 }
 
 [Serializable, NetSerializable]
 public enum GatewayUiKey : byte
 {
-    Key
+    Key,
 }
 
 [Serializable, NetSerializable]
@@ -51,8 +51,14 @@ public sealed class GatewayBoundUserInterfaceState : BoundUserInterfaceState
     /// </summary>
     public readonly TimeSpan UnlockTime;
 
-    public GatewayBoundUserInterfaceState(List<GatewayDestinationData> destinations,
-        NetEntity? current, TimeSpan nextReady, TimeSpan cooldown, TimeSpan nextUnlock, TimeSpan unlockTime)
+    public GatewayBoundUserInterfaceState(
+        List<GatewayDestinationData> destinations,
+        NetEntity? current,
+        TimeSpan nextReady,
+        TimeSpan cooldown,
+        TimeSpan nextUnlock,
+        TimeSpan unlockTime
+    )
     {
         Destinations = destinations;
         Current = current;

@@ -25,7 +25,16 @@ public sealed partial class Slipify : EntityEffect
         var fixtures = args.EntityManager.EnsureComponent<FixturesComponent>(args.TargetEntity);
         var body = args.EntityManager.EnsureComponent<PhysicsComponent>(args.TargetEntity);
         var shape = fixtures.Fixtures["fix1"].Shape;
-        fixtureSystem.TryCreateFixture(args.TargetEntity, shape, "slips", 1, false, (int)CollisionGroup.SlipLayer, manager: fixtures, body: body);
+        fixtureSystem.TryCreateFixture(
+            args.TargetEntity,
+            shape,
+            "slips",
+            1,
+            false,
+            (int)CollisionGroup.SlipLayer,
+            manager: fixtures,
+            body: body
+        );
         // Need to disable collision wake so that mobs can collide with and slip on it
         var collisionWake = args.EntityManager.EnsureComponent<CollisionWakeComponent>(args.TargetEntity);
         colWakeSystem.SetEnabled(args.TargetEntity, false, collisionWake);

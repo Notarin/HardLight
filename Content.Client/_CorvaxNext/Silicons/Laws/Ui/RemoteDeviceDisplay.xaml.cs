@@ -20,16 +20,16 @@ public sealed partial class RemoteDeviceDisplay : Control
 
         MoveButton.OnPressed += _ =>
         {
-            OnRemoteDeviceAction?.Invoke(new RemoteDeviceActionEvent(
-                RemoteDeviceActionEvent.RemoteDeviceActionType.MoveToDevice,
-                netEntityUid));
+            OnRemoteDeviceAction?.Invoke(
+                new RemoteDeviceActionEvent(RemoteDeviceActionEvent.RemoteDeviceActionType.MoveToDevice, netEntityUid)
+            );
         };
 
         TakeControlButton.OnPressed += _ =>
         {
-            OnRemoteDeviceAction?.Invoke(new RemoteDeviceActionEvent(
-                RemoteDeviceActionEvent.RemoteDeviceActionType.TakeControl,
-                netEntityUid));
+            OnRemoteDeviceAction?.Invoke(
+                new RemoteDeviceActionEvent(RemoteDeviceActionEvent.RemoteDeviceActionType.TakeControl, netEntityUid)
+            );
         };
     }
 }

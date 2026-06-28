@@ -1,18 +1,18 @@
+using Content.Server._NF.Power.Components; // Frontier
 using Content.Server.Audio;
 using Content.Server.Fluids.EntitySystems;
 using Content.Server.Materials;
 using Content.Server.Popups;
 using Content.Server.Power.Components;
 using Content.Server.Power.EntitySystems;
+using Content.Shared.Audio; // Frontier
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.FixedPoint;
+using Content.Shared.Materials; // Frontier
 using Content.Shared.Popups;
 using Content.Shared.Power.Generator;
-using Robust.Server.GameObjects;
 using Content.Shared.Radiation.Components; // Frontier
-using Content.Shared.Audio; // Frontier
-using Content.Shared.Materials; // Frontier
-using Content.Server._NF.Power.Components; // Frontier
+using Robust.Server.GameObjects;
 
 namespace Content.Server.Power.Generator;
 
@@ -22,15 +22,29 @@ namespace Content.Server.Power.Generator;
 /// <seealso cref="SolidFuelGeneratorAdapterComponent"/>
 public sealed class GeneratorSystem : SharedGeneratorSystem
 {
-    [Dependency] private readonly AppearanceSystem _appearance = default!;
-    [Dependency] private readonly AmbientSoundSystem _ambientSound = default!;
-    [Dependency] private readonly MaterialStorageSystem _materialStorage = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainer = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly PuddleSystem _puddle = default!;
+    [Dependency]
+    private readonly AppearanceSystem _appearance = default!;
 
-    [Dependency] private readonly PointLightSystem _pointLight = default!; // Frontier: Rads glow
-    [Dependency] private readonly SharedAmbientSoundSystem _ambientSoundSystem = default!; // Frontier: Rads sound
+    [Dependency]
+    private readonly AmbientSoundSystem _ambientSound = default!;
+
+    [Dependency]
+    private readonly MaterialStorageSystem _materialStorage = default!;
+
+    [Dependency]
+    private readonly SharedSolutionContainerSystem _solutionContainer = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly PuddleSystem _puddle = default!;
+
+    [Dependency]
+    private readonly PointLightSystem _pointLight = default!; // Frontier: Rads glow
+
+    [Dependency]
+    private readonly SharedAmbientSoundSystem _ambientSoundSystem = default!; // Frontier: Rads sound
 
     private EntityQuery<UpgradePowerSupplierComponent> _upgradeQuery; // Frontier: keeping upgradeable power supplies
 
@@ -74,16 +88,33 @@ public sealed class GeneratorSystem : SharedGeneratorSystem
 
     private void ChemicalEmpty(Entity<ChemicalFuelGeneratorAdapterComponent> entity, ref GeneratorEmpty args)
     {
-        if (!_solutionContainer.ResolveSolution(entity.Owner, entity.Comp.SolutionName, ref entity.Comp.Solution, out var solution))
+        if (
+            !_solutionContainer.ResolveSolution(
+                entity.Owner,
+                entity.Comp.SolutionName,
+                ref entity.Comp.Solution,
+                out var solution
+            )
+        )
             return;
 
         var spillSolution = _solutionContainer.SplitSolution(entity.Comp.Solution.Value, solution.Volume);
         _puddle.TrySpillAt(entity.Owner, spillSolution, out _);
     }
 
-    private void ChemicalGetClogged(Entity<ChemicalFuelGeneratorAdapterComponent> entity, ref GeneratorGetCloggedEvent args)
+    private void ChemicalGetClogged(
+        Entity<ChemicalFuelGeneratorAdapterComponent> entity,
+        ref GeneratorGetCloggedEvent args
+    )
     {
-        if (!_solutionContainer.ResolveSolution(entity.Owner, entity.Comp.SolutionName, ref entity.Comp.Solution, out var solution))
+        if (
+            !_solutionContainer.ResolveSolution(
+                entity.Owner,
+                entity.Comp.SolutionName,
+                ref entity.Comp.Solution,
+                out var solution
+            )
+        )
             return;
 
         foreach (var reagentQuantity in solution)
@@ -98,7 +129,14 @@ public sealed class GeneratorSystem : SharedGeneratorSystem
 
     private void ChemicalUseFuel(Entity<ChemicalFuelGeneratorAdapterComponent> entity, ref GeneratorUseFuel args)
     {
-        if (!_solutionContainer.ResolveSolution(entity.Owner, entity.Comp.SolutionName, ref entity.Comp.Solution, out var solution))
+        if (
+            !_solutionContainer.ResolveSolution(
+                entity.Owner,
+                entity.Comp.SolutionName,
+                ref entity.Comp.Solution,
+                out var solution
+            )
+        )
             return;
 
         var totalReagent = 0f;
@@ -122,7 +160,8 @@ public sealed class GeneratorSystem : SharedGeneratorSystem
                 ref fractionalReagent,
                 args.FuelUsed * removalPercentage,
                 multiplier * FixedPoint2.Epsilon.Float(),
-                availableReagent.Value);
+                availableReagent.Value
+            );
 
             entity.Comp.FractionalReagents[reagentId] = fractionalReagent;
             _solutionContainer.RemoveReagent(entity.Comp.Solution.Value, reagentId, FixedPoint2.FromCents(toRemove));
@@ -131,7 +170,14 @@ public sealed class GeneratorSystem : SharedGeneratorSystem
 
     private void ChemicalGetFuel(Entity<ChemicalFuelGeneratorAdapterComponent> entity, ref GeneratorGetFuelEvent args)
     {
-        if (!_solutionContainer.ResolveSolution(entity.Owner, entity.Comp.SolutionName, ref entity.Comp.Solution, out var solution))
+        if (
+            !_solutionContainer.ResolveSolution(
+                entity.Owner,
+                entity.Comp.SolutionName,
+                ref entity.Comp.Solution,
+                out var solution
+            )
+        )
             return;
 
         var fuel = 0f;
@@ -153,7 +199,8 @@ public sealed class GeneratorSystem : SharedGeneratorSystem
             ref component.FractionalMaterial,
             args.FuelUsed,
             component.Multiplier,
-            availableMaterial);
+            availableMaterial
+        );
 
         _materialStorage.TryChangeMaterialAmount(uid, component.FuelMaterial, -toRemove);
     }
@@ -169,7 +216,7 @@ public sealed class GeneratorSystem : SharedGeneratorSystem
             return 0;
 
         // worst (unrealistic) case: -5.5 -> -6.0 -> 6
-        var toRemove = -(int) MathF.Floor(fractional);
+        var toRemove = -(int)MathF.Floor(fractional);
         toRemove = Math.Min(availableQuantity, toRemove);
 
         fractional = Math.Max(0, fractional + toRemove);
@@ -179,19 +226,21 @@ public sealed class GeneratorSystem : SharedGeneratorSystem
     private void SolidGetFuel(
         EntityUid uid,
         SolidFuelGeneratorAdapterComponent component,
-        ref GeneratorGetFuelEvent args)
+        ref GeneratorGetFuelEvent args
+    )
     {
         var material = component.FractionalMaterial + _materialStorage.GetMaterialAmount(uid, component.FuelMaterial);
         args.Fuel = material * component.Multiplier;
     }
 
-    private void OnTargetPowerSet(EntityUid uid, FuelGeneratorComponent component,
-        PortableGeneratorSetTargetPowerMessage args)
+    private void OnTargetPowerSet(
+        EntityUid uid,
+        FuelGeneratorComponent component,
+        PortableGeneratorSetTargetPowerMessage args
+    )
     {
-        component.TargetPower = Math.Clamp(
-            args.TargetPower,
-            component.MinTargetPower / 1000,
-            component.MaxTargetPower / 1000) * 1000;
+        component.TargetPower =
+            Math.Clamp(args.TargetPower, component.MinTargetPower / 1000, component.MaxTargetPower / 1000) * 1000;
 
         TryUpdateGeneratorRadiation(uid, component.On, component); // Frontier
     }
@@ -228,6 +277,7 @@ public sealed class GeneratorSystem : SharedGeneratorSystem
             _ambientSoundSystem.SetAmbience(uid, false);
         }
     }
+
     // End Frontier
 
     public void SetFuelGeneratorOn(EntityUid uid, bool on, FuelGeneratorComponent? generator = null)

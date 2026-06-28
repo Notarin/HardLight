@@ -9,6 +9,7 @@ using Content.Shared.Popups;
 using Content.Shared.Shuttles.Components;
 using Content.Shared.Shuttles.Events;
 using Content.Shared.Shuttles.Systems;
+using Robust.Shared.Log;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Physics;
@@ -17,21 +18,37 @@ using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Dynamics.Joints;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Utility;
-using Robust.Shared.Log;
 
 namespace Content.Server.Shuttles.Systems
 {
     public sealed partial class DockingSystem : SharedDockingSystem
     {
-        [Dependency] private readonly IMapManager _mapManager = default!;
-        [Dependency] private readonly SharedMapSystem _mapSystem = default!;
-        [Dependency] private readonly DoorSystem _doorSystem = default!;
-        [Dependency] private readonly EntityLookupSystem _lookup = default!;
-        [Dependency] private readonly PathfindingSystem _pathfinding = default!;
-        [Dependency] private readonly ShuttleConsoleSystem _console = default!;
-        [Dependency] private readonly SharedJointSystem _jointSystem = default!;
-        [Dependency] private readonly SharedPopupSystem _popup = default!;
-        [Dependency] private readonly SharedTransformSystem _transform = default!;
+        [Dependency]
+        private readonly IMapManager _mapManager = default!;
+
+        [Dependency]
+        private readonly SharedMapSystem _mapSystem = default!;
+
+        [Dependency]
+        private readonly DoorSystem _doorSystem = default!;
+
+        [Dependency]
+        private readonly EntityLookupSystem _lookup = default!;
+
+        [Dependency]
+        private readonly PathfindingSystem _pathfinding = default!;
+
+        [Dependency]
+        private readonly ShuttleConsoleSystem _console = default!;
+
+        [Dependency]
+        private readonly SharedJointSystem _jointSystem = default!;
+
+        [Dependency]
+        private readonly SharedPopupSystem _popup = default!;
+
+        [Dependency]
+        private readonly SharedTransformSystem _transform = default!;
 
         private const string DockingJoint = "docking";
 
@@ -98,8 +115,10 @@ namespace Content.Server.Shuttles.Systems
 
         private void OnShutdown(EntityUid uid, DockingComponent component, ComponentShutdown args)
         {
-            if (component.DockedWith == null ||
-                Comp<MetaDataComponent>(uid).EntityLifeStage > EntityLifeStage.MapInitialized)
+            if (
+                component.DockedWith == null
+                || Comp<MetaDataComponent>(uid).EntityLifeStage > EntityLifeStage.MapInitialized
+            )
             {
                 return;
             }
@@ -123,8 +142,7 @@ namespace Content.Server.Shuttles.Systems
 
             var dockBUid = dockA.DockedWith;
 
-            if (dockBUid == null ||
-                !TryComp(dockBUid, out DockingComponent? dockB))
+            if (dockBUid == null || !TryComp(dockBUid, out DockingComponent? dockB))
             {
                 DebugTools.Assert(false);
                 Log.Error($"Tried to cleanup {dockAUid} but not docked?");
@@ -262,7 +280,8 @@ namespace Content.Server.Shuttles.Systems
                     Comp<PhysicsComponent>(gridA).Mass,
                     Comp<PhysicsComponent>(gridB).Mass,
                     out var stiffness,
-                    out var damping);
+                    out var damping
+                );
 
                 // These need playing around with
                 // Could also potentially have collideconnected false and stiffness 0 but it was a bit more suss???
@@ -287,7 +306,9 @@ namespace Content.Server.Shuttles.Systems
 
                 joint.LocalAnchorA = anchorA;
                 joint.LocalAnchorB = anchorB;
-                joint.ReferenceAngle = (float)(_transform.GetWorldRotation(gridBXform) - _transform.GetWorldRotation(gridAXform));
+                joint.ReferenceAngle = (float)(
+                    _transform.GetWorldRotation(gridBXform) - _transform.GetWorldRotation(gridAXform)
+                );
                 joint.CollideConnected = true;
                 joint.Stiffness = stiffness;
                 joint.Damping = damping;
@@ -297,15 +318,21 @@ namespace Content.Server.Shuttles.Systems
 
                 dockB.Comp.DockJoint = joint;
                 dockB.Comp.DockJointId = joint.ID;
-                _sawmill.Debug($"Created weld joint '{joint.ID}' between grids {gridA} and {gridB} for docks {dockAUid} <-> {dockBUid}.");
+                _sawmill.Debug(
+                    $"Created weld joint '{joint.ID}' between grids {gridA} and {gridB} for docks {dockAUid} <-> {dockBUid}."
+                );
             }
             else
             {
                 // If either grid lacks physics we cannot create a weld joint; docking will be visual/logic-only.
                 if (!hasPhysA)
-                    _sawmill.Warning($"Docking without PhysicsComponent on gridA {gridA}. No weld joint will be created.");
+                    _sawmill.Warning(
+                        $"Docking without PhysicsComponent on gridA {gridA}. No weld joint will be created."
+                    );
                 if (!hasPhysB)
-                    _sawmill.Warning($"Docking without PhysicsComponent on gridB {gridB}. No weld joint will be created.");
+                    _sawmill.Warning(
+                        $"Docking without PhysicsComponent on gridB {gridB}. No weld joint will be created."
+                    );
             }
 
             dockA.Comp.DockedWith = dockBUid;
@@ -391,8 +418,7 @@ namespace Content.Server.Shuttles.Systems
 
         private void OnRequestUndock(EntityUid uid, ShuttleConsoleComponent component, UndockRequestMessage args)
         {
-            if (!TryGetEntity(args.DockEntity, out var dockEnt) ||
-                !TryComp(dockEnt, out DockingComponent? dockComp))
+            if (!TryGetEntity(args.DockEntity, out var dockEnt) || !TryComp(dockEnt, out DockingComponent? dockComp))
             {
                 _popup.PopupCursor(Loc.GetString("shuttle-console-undock-fail"));
                 return;
@@ -421,10 +447,12 @@ namespace Content.Server.Shuttles.Systems
 
             var shuttleUid = Transform(console.Value).GridUid;
 
-            if (!TryGetEntity(args.DockEntity, out var ourDock) ||
-                !TryGetEntity(args.TargetDockEntity, out var targetDock) ||
-                !TryComp(ourDock, out DockingComponent? ourDockComp) ||
-                !TryComp(targetDock, out DockingComponent? targetDockComp))
+            if (
+                !TryGetEntity(args.DockEntity, out var ourDock)
+                || !TryGetEntity(args.TargetDockEntity, out var targetDock)
+                || !TryComp(ourDock, out DockingComponent? ourDockComp)
+                || !TryComp(targetDock, out DockingComponent? targetDockComp)
+            )
             {
                 _popup.PopupCursor(Loc.GetString("shuttle-console-dock-fail"));
                 return;
@@ -447,8 +475,7 @@ namespace Content.Server.Shuttles.Systems
             // End Frontier
 
             // Cheating?
-            if (!TryComp(ourDock, out TransformComponent? xformA) ||
-                xformA.GridUid != shuttleUid)
+            if (!TryComp(ourDock, out TransformComponent? xformA) || xformA.GridUid != shuttleUid)
             {
                 _popup.PopupCursor(Loc.GetString("shuttle-console-dock-fail"));
                 return;
@@ -467,8 +494,7 @@ namespace Content.Server.Shuttles.Systems
 
         public bool CanUndock(Entity<DockingComponent?> dock)
         {
-            if (!Resolve(dock, ref dock.Comp) ||
-                !dock.Comp.Docked)
+            if (!Resolve(dock, ref dock.Comp) || !dock.Comp.Docked)
             {
                 return false;
             }
@@ -481,8 +507,7 @@ namespace Content.Server.Shuttles.Systems
         /// </summary>
         public bool CanDock(Entity<DockingComponent> dockA, Entity<DockingComponent> dockB)
         {
-            if (dockA.Comp.DockedWith != null ||
-                dockB.Comp.DockedWith != null)
+            if (dockA.Comp.DockedWith != null || dockB.Comp.DockedWith != null)
             {
                 return false;
             }
@@ -501,8 +526,12 @@ namespace Content.Server.Shuttles.Systems
             var (worldPosA, worldRotA) = XformSystem.GetWorldPositionRotation(xformA);
             var (worldPosB, worldRotB) = XformSystem.GetWorldPositionRotation(xformB);
 
-            return CanDock(new MapCoordinates(worldPosA, xformA.MapID), worldRotA,
-                new MapCoordinates(worldPosB, xformB.MapID), worldRotB);
+            return CanDock(
+                new MapCoordinates(worldPosA, xformA.MapID),
+                worldRotA,
+                new MapCoordinates(worldPosB, xformB.MapID),
+                worldRotB
+            );
         }
 
         private void OnRequestUndockAll(EntityUid uid, ShuttleConsoleComponent component, UndockAllRequestMessage args)
@@ -514,8 +543,7 @@ namespace Content.Server.Shuttles.Systems
 
             foreach (var dockEntity in args.DockEntities)
             {
-                if (!TryGetEntity(dockEntity, out var dockEnt) ||
-                    !TryComp(dockEnt, out DockingComponent? dockComp))
+                if (!TryGetEntity(dockEntity, out var dockEnt) || !TryComp(dockEnt, out DockingComponent? dockComp))
                 {
                     continue;
                 }

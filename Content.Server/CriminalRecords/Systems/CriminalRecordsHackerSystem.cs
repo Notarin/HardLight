@@ -1,3 +1,4 @@
+using Content.Server._NF.SectorServices; // Frontier
 using Content.Server.Chat.Systems;
 using Content.Server.Station.Systems;
 using Content.Server.StationRecords.Systems;
@@ -9,19 +10,29 @@ using Content.Shared.Security;
 using Content.Shared.StationRecords;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
-using Content.Server._NF.SectorServices; // Frontier
 
 namespace Content.Server.CriminalRecords.Systems;
 
 public sealed class CriminalRecordsHackerSystem : SharedCriminalRecordsHackerSystem
 {
-    [Dependency] private readonly ChatSystem _chat = default!;
-    [Dependency] private readonly CriminalRecordsSystem _criminalRecords = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency]
+    private readonly ChatSystem _chat = default!;
+
+    [Dependency]
+    private readonly CriminalRecordsSystem _criminalRecords = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
     // [Dependency] private readonly StationSystem _station = default!; // Frontier
-    [Dependency] private readonly StationRecordsSystem _records = default!;
-    [Dependency] private readonly SectorServiceSystem _sectorService = default!;
+    [Dependency]
+    private readonly StationRecordsSystem _records = default!;
+
+    [Dependency]
+    private readonly SectorServiceSystem _sectorService = default!;
 
     public override void Initialize()
     {
@@ -38,7 +49,7 @@ public sealed class CriminalRecordsHackerSystem : SharedCriminalRecordsHackerSys
         // Frontier: sector-wide records
         // if (_station.GetOwningStation(ent) is not {} station)
         //     return;
-        if (_sectorService.GetServiceEntity() is not { Valid: true} station)
+        if (_sectorService.GetServiceEntity() is not { Valid: true } station)
             return;
         // End Frontier: sector-wide records
 
@@ -52,7 +63,11 @@ public sealed class CriminalRecordsHackerSystem : SharedCriminalRecordsHackerSys
             // main damage with this is existing arrest warrants are lost and to anger beepsky
         }
 
-        _chat.DispatchGlobalAnnouncement(Loc.GetString(ent.Comp.Announcement), playSound: true, colorOverride: Color.Red);
+        _chat.DispatchGlobalAnnouncement(
+            Loc.GetString(ent.Comp.Announcement),
+            playSound: true,
+            colorOverride: Color.Red
+        );
 
         // once is enough
         RemComp<CriminalRecordsHackerComponent>(ent);

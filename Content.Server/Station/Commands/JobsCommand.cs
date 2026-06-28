@@ -27,8 +27,7 @@ public sealed class JobsCommand : ToolshedCommand
     }
 
     [CommandImplementation("jobs")]
-    public IEnumerable<JobSlotRef> Jobs([PipedArgument] IEnumerable<EntityUid> stations)
-        => stations.SelectMany(Jobs);
+    public IEnumerable<JobSlotRef> Jobs([PipedArgument] IEnumerable<EntityUid> stations) => stations.SelectMany(Jobs);
 
     [CommandImplementation("job")]
     public JobSlotRef Job([PipedArgument] EntityUid station, ProtoId<JobPrototype> job)
@@ -39,16 +38,18 @@ public sealed class JobsCommand : ToolshedCommand
     }
 
     [CommandImplementation("job")]
-    public IEnumerable<JobSlotRef> Job([PipedArgument] IEnumerable<EntityUid> stations, ProtoId<JobPrototype> job)
-        => stations.Select(x => Job(x, job));
+    public IEnumerable<JobSlotRef> Job([PipedArgument] IEnumerable<EntityUid> stations, ProtoId<JobPrototype> job) =>
+        stations.Select(x => Job(x, job));
 
     [CommandImplementation("isinfinite")]
-    public bool IsInfinite([PipedArgument] JobSlotRef job, [CommandInverted] bool inverted)
-        => job.Infinite() ^ inverted;
+    public bool IsInfinite([PipedArgument] JobSlotRef job, [CommandInverted] bool inverted) =>
+        job.Infinite() ^ inverted;
 
     [CommandImplementation("isinfinite")]
-    public IEnumerable<bool> IsInfinite([PipedArgument] IEnumerable<JobSlotRef> jobs, [CommandInverted] bool inverted)
-        => jobs.Select(x => IsInfinite(x, inverted));
+    public IEnumerable<bool> IsInfinite(
+        [PipedArgument] IEnumerable<JobSlotRef> jobs,
+        [CommandInverted] bool inverted
+    ) => jobs.Select(x => IsInfinite(x, inverted));
 
     [CommandImplementation("adjust")]
     public JobSlotRef Adjust([PipedArgument] JobSlotRef @ref, int by)
@@ -59,9 +60,8 @@ public sealed class JobsCommand : ToolshedCommand
     }
 
     [CommandImplementation("adjust")]
-    public IEnumerable<JobSlotRef> Adjust([PipedArgument] IEnumerable<JobSlotRef> @ref, int by)
-        => @ref.Select(x => Adjust(x, by));
-
+    public IEnumerable<JobSlotRef> Adjust([PipedArgument] IEnumerable<JobSlotRef> @ref, int by) =>
+        @ref.Select(x => Adjust(x, by));
 
     [CommandImplementation("set")]
     public JobSlotRef Set([PipedArgument] JobSlotRef @ref, int by)
@@ -72,8 +72,8 @@ public sealed class JobsCommand : ToolshedCommand
     }
 
     [CommandImplementation("set")]
-    public IEnumerable<JobSlotRef> Set([PipedArgument] IEnumerable<JobSlotRef> @ref, int by)
-        => @ref.Select(x => Set(x, by));
+    public IEnumerable<JobSlotRef> Set([PipedArgument] IEnumerable<JobSlotRef> @ref, int by) =>
+        @ref.Select(x => Set(x, by));
 
     [CommandImplementation("amount")]
     public int Amount([PipedArgument] JobSlotRef @ref)
@@ -84,12 +84,16 @@ public sealed class JobsCommand : ToolshedCommand
     }
 
     [CommandImplementation("amount")]
-    public IEnumerable<int> Amount([PipedArgument] IEnumerable<JobSlotRef> @ref)
-        => @ref.Select(Amount);
+    public IEnumerable<int> Amount([PipedArgument] IEnumerable<JobSlotRef> @ref) => @ref.Select(Amount);
 }
 
 // Used for Toolshed queries.
-public readonly record struct JobSlotRef(string Job, EntityUid Station, StationJobsSystem Jobs, IEntityManager EntityManager)
+public readonly record struct JobSlotRef(
+    string Job,
+    EntityUid Station,
+    StationJobsSystem Jobs,
+    IEntityManager EntityManager
+)
 {
     public override string ToString()
     {

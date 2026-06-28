@@ -12,11 +12,20 @@ namespace Content.Server.Materials;
 /// <inheritdoc/>
 public sealed class OreSiloSystem : SharedOreSiloSystem
 {
-    [Dependency] private readonly EntityLookupSystem _entityLookup = default!;
-    [Dependency] private readonly NavMapSystem _navMap = default!;
-    [Dependency] private readonly PvsOverrideSystem _pvsOverride = default!;
-    [Dependency] private readonly SharedUserInterfaceSystem _userInterface = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly EntityLookupSystem _entityLookup = default!;
+
+    [Dependency]
+    private readonly NavMapSystem _navMap = default!;
+
+    [Dependency]
+    private readonly PvsOverrideSystem _pvsOverride = default!;
+
+    [Dependency]
+    private readonly SharedUserInterfaceSystem _userInterface = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     private const float OreSiloPreloadRangeSquared = 225f; // ~1 screen
     private const float ValidationInterval = 30f; // Validate connections every 30 seconds
@@ -60,11 +69,13 @@ public sealed class OreSiloSystem : SharedOreSiloSystem
             var name = Identity.Name(client, EntityManager);
             var beacon = _navMap.GetNearestBeaconString(client.Owner, onlyName: true);
 
-            var txt = Loc.GetString("ore-silo-ui-nf-itemlist-entry", // Frontier: use NF key
+            var txt = Loc.GetString(
+                "ore-silo-ui-nf-itemlist-entry", // Frontier: use NF key
                 ("name", name),
                 // ("beacon", beacon), // Frontier
                 ("linked", ent.Comp.Clients.Contains(client)),
-                ("inRange", true));
+                ("inRange", true)
+            );
 
             _clientInformation.Add((netEnt, txt, beacon));
         }
@@ -77,11 +88,13 @@ public sealed class OreSiloSystem : SharedOreSiloSystem
             var beacon = _navMap.GetNearestBeaconString(client, onlyName: true);
             var inRange = CanTransmitMaterials((ent, ent, xform), client);
 
-            var txt = Loc.GetString("ore-silo-ui-nf-itemlist-entry", // Frontier: use NF key
+            var txt = Loc.GetString(
+                "ore-silo-ui-nf-itemlist-entry", // Frontier: use NF key
                 ("name", name),
                 // ("beacon", beacon), // Frontier
                 ("linked", ent.Comp.Clients.Contains(client)),
-                ("inRange", inRange));
+                ("inRange", inRange)
+            );
 
             _clientInformation.Add((netEnt, txt, beacon));
         }
@@ -136,7 +149,9 @@ public sealed class OreSiloSystem : SharedOreSiloSystem
                 if (actorXform.GridUid != clientXform.GridUid)
                     continue;
 
-                if ((actorXform.LocalPosition - clientXform.LocalPosition).LengthSquared() <= OreSiloPreloadRangeSquared)
+                if (
+                    (actorXform.LocalPosition - clientXform.LocalPosition).LengthSquared() <= OreSiloPreloadRangeSquared
+                )
                     nowInRange.Add(clientComp.Silo.Value);
             }
 

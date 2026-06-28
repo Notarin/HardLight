@@ -1,4 +1,4 @@
-﻿- type: entity
+- type: entity
   parent: CMWeaponPistolBase
   id: CMWeaponPistolMK80
   name: MK80 pistol
@@ -19,7 +19,7 @@
     - Burst
     soundGunshot:
       path: /Audio/_RMC14/Weapons/Guns/Gunshots/gun_mk80.ogg
-  # - type: RMCSelectiveFire
+      # - type: RMCSelectiveFire
     # baseFireModes:
     # - SemiAuto
     # - Burst
@@ -30,12 +30,12 @@
     # baseFireRate: 2
     # burstScatterMult: 4
     # modifiers:
-      # Burst:
-        # fireDelay: 0.1665
-        # maxScatterModifier: 10
-        # useBurstScatterMult: true
-        # unwieldedScatterMultiplier: 2
-        # shotsToMaxScatter: 6
+    # Burst:
+    # fireDelay: 0.1665
+    # maxScatterModifier: 10
+    # useBurstScatterMult: true
+    # unwieldedScatterMultiplier: 2
+    # shotsToMaxScatter: 6
   - type: ItemSlots
     slots:
       gun_magazine:
@@ -47,33 +47,33 @@
           tags:
           - CMMagazinePistolMK80
         startingItem: CMMagazinePistolMK80
-  # - type: AttachableHolder
-    # slots:
+        # - type: AttachableHolder
+      # slots:
       # rmc-aslot-barrel:
-        # whitelist:
-          # tags:
-          # - RMCAttachmentBarrelCharger
-          # - RMCAttachmentExtendedBarrel
-          # - RMCAttachmentRecoilCompensator
-          # - RMCAttachmentSuppressor
+      # whitelist:
+      # tags:
+      # - RMCAttachmentBarrelCharger
+      # - RMCAttachmentExtendedBarrel
+      # - RMCAttachmentRecoilCompensator
+      # - RMCAttachmentSuppressor
       # rmc-aslot-rail:
-        # whitelist:
-          # tags:
-          # - RMCAttachmentRailFlashlight
-          # - RMCAttachmentS5RedDotSight
-          # - RMCAttachmentS6ReflexSight
+      # whitelist:
+      # tags:
+      # - RMCAttachmentRailFlashlight
+      # - RMCAttachmentS5RedDotSight
+      # - RMCAttachmentS6ReflexSight
       # rmc-aslot-underbarrel:
-        # locked: true
-        # startingAttachable: RMCAttachmentLaserLightModule
-        # whitelist:
-          # tags:
-          # - RMCAttachmentLaserLightModule
-  # - type: AttachableHolderVisuals
-    # offsets:
-      # rmc-aslot-barrel: 0.685, 0.125
-      # rmc-aslot-rail: -0.125, 0.215
-      # rmc-aslot-underbarrel: 0.284, -0.19
+      # locked: true
+      # startingAttachable: RMCAttachmentLaserLightModule
+      # whitelist:
+      # tags:
+      # - RMCAttachmentLaserLightModule
   - type: Tag
+    # - type: AttachableHolderVisuals
+    # offsets:
+    # rmc-aslot-barrel: 0.685, 0.125
+    # rmc-aslot-rail: -0.125, 0.215
+    # rmc-aslot-underbarrel: 0.284, -0.19
     tags:
     - Sidearm
     - RMCMK80
@@ -124,19 +124,19 @@
     damage:
       types:
         Piercing: 45
-  # - type: RMCProjectileDamageFalloff
-    # thresholds:
-    # - range: 22
+        # - type: RMCProjectileDamageFalloff
+      # thresholds:
+      # - range: 22
       # falloff: 9999
       # ignoreModifiers: true
-    # - range: 6
-      # falloff: 5
-  # - type: CMArmorPiercing
-    # amount: 30
-  # - type: RMCProjectileAccuracy
-    # accuracy: 105
-
 - type: Tag
+  # - range: 6
+  # falloff: 5
+  # - type: CMArmorPiercing
+  # amount: 30
+  # - type: RMCProjectileAccuracy
+  # accuracy: 105
+
   id: CMMagazinePistolMK80
 
 - type: Tag

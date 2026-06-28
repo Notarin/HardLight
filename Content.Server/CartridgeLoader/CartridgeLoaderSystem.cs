@@ -15,9 +15,14 @@ namespace Content.Server.CartridgeLoader;
 
 public sealed class CartridgeLoaderSystem : SharedCartridgeLoaderSystem
 {
-    [Dependency] private readonly ContainerSystem _containerSystem = default!;
-    [Dependency] private readonly UserInterfaceSystem _userInterfaceSystem = default!;
-    [Dependency] private readonly PdaSystem _pda = default!;
+    [Dependency]
+    private readonly ContainerSystem _containerSystem = default!;
+
+    [Dependency]
+    private readonly UserInterfaceSystem _userInterfaceSystem = default!;
+
+    [Dependency]
+    private readonly PdaSystem _pda = default!;
 
     public override void Initialize()
     {
@@ -45,7 +50,9 @@ public sealed class CartridgeLoaderSystem : SharedCartridgeLoaderSystem
         [NotNullWhen(true)] out T? program,
         bool installedOnly = false,
         CartridgeLoaderComponent? loader = null,
-        ContainerManagerComponent? containerManager = null) where T : IComponent
+        ContainerManagerComponent? containerManager = null
+    )
+        where T : IComponent
     {
         program = default;
         programUid = null;
@@ -77,7 +84,9 @@ public sealed class CartridgeLoaderSystem : SharedCartridgeLoaderSystem
         [NotNullWhen(true)] out EntityUid? programUid,
         bool installedOnly = false,
         CartridgeLoaderComponent? loader = null,
-        ContainerManagerComponent? containerManager = null) where T : IComponent
+        ContainerManagerComponent? containerManager = null
+    )
+        where T : IComponent
     {
         return TryGetProgram<T>(uid, out programUid, out _, installedOnly, loader, containerManager);
     }
@@ -86,7 +95,9 @@ public sealed class CartridgeLoaderSystem : SharedCartridgeLoaderSystem
         EntityUid uid,
         bool installedOnly = false,
         CartridgeLoaderComponent? loader = null,
-        ContainerManagerComponent? containerManager = null) where T : IComponent
+        ContainerManagerComponent? containerManager = null
+    )
+        where T : IComponent
     {
         return TryGetProgram<T>(uid, out _, out _, installedOnly, loader, containerManager);
     }
@@ -123,7 +134,12 @@ public sealed class CartridgeLoaderSystem : SharedCartridgeLoaderSystem
     /// This method is called "UpdateCartridgeUiState" but cartridges and a programs are the same. A cartridge is just a program as a visible item.
     /// </remarks>
     /// <seealso cref="Cartridges.NotekeeperCartridgeSystem.UpdateUiState"/>
-    public void UpdateCartridgeUiState(EntityUid loaderUid, BoundUserInterfaceState state, ICommonSession? session = default!, CartridgeLoaderComponent? loader = default!)
+    public void UpdateCartridgeUiState(
+        EntityUid loaderUid,
+        BoundUserInterfaceState state,
+        ICommonSession? session = default!,
+        CartridgeLoaderComponent? loader = default!
+    )
     {
         if (!Resolve(loaderUid, ref loader))
             return;
@@ -160,7 +176,11 @@ public sealed class CartridgeLoaderSystem : SharedCartridgeLoaderSystem
     /// <param name="cartridgeUid">The uid of the cartridge to be installed</param>
     /// <param name="loader">The cartridge loader component</param>
     /// <returns>Whether installing the cartridge was successful</returns>
-    public bool InstallCartridge(EntityUid loaderUid, EntityUid cartridgeUid, CartridgeLoaderComponent? loader = default!)
+    public bool InstallCartridge(
+        EntityUid loaderUid,
+        EntityUid cartridgeUid,
+        CartridgeLoaderComponent? loader = default!
+    )
     {
         if (!Resolve(loaderUid, ref loader))
             return false;
@@ -170,7 +190,10 @@ public sealed class CartridgeLoaderSystem : SharedCartridgeLoaderSystem
 
         foreach (var program in GetInstalled(loaderUid))
         {
-            if (TryComp(program, out CartridgeComponent? installedCartridge) && installedCartridge.ProgramName == loadedCartridge.ProgramName)
+            if (
+                TryComp(program, out CartridgeComponent? installedCartridge)
+                && installedCartridge.ProgramName == loadedCartridge.ProgramName
+            )
                 return false;
         }
 
@@ -190,7 +213,12 @@ public sealed class CartridgeLoaderSystem : SharedCartridgeLoaderSystem
     /// <param name="deinstallable">Whether the program can be deinstalled or not</param>
     /// <param name="loader">The cartridge loader component</param>
     /// <returns>Whether installing the cartridge was successful</returns>
-    public bool InstallProgram(EntityUid loaderUid, string prototype, bool deinstallable = true, CartridgeLoaderComponent? loader = default!)
+    public bool InstallProgram(
+        EntityUid loaderUid,
+        string prototype,
+        bool deinstallable = true,
+        CartridgeLoaderComponent? loader = default!
+    )
     {
         if (!Resolve(loaderUid, ref loader))
             return false;
@@ -213,7 +241,11 @@ public sealed class CartridgeLoaderSystem : SharedCartridgeLoaderSystem
 
         _containerSystem.Insert(installedProgram, container);
 
-        UpdateCartridgeInstallationStatus(installedProgram, deinstallable ? InstallationStatus.Installed : InstallationStatus.Readonly, cartridge);
+        UpdateCartridgeInstallationStatus(
+            installedProgram,
+            deinstallable ? InstallationStatus.Installed : InstallationStatus.Readonly,
+            cartridge
+        );
         cartridge.LoaderUid = loaderUid;
 
         RaiseLocalEvent(installedProgram, new CartridgeAddedEvent(loaderUid));
@@ -279,7 +311,11 @@ public sealed class CartridgeLoaderSystem : SharedCartridgeLoaderSystem
     /// <summary>
     /// Deactivates the currently active program or cartridge.
     /// </summary>
-    public void DeactivateProgram(EntityUid loaderUid, EntityUid programUid, CartridgeLoaderComponent? loader = default!)
+    public void DeactivateProgram(
+        EntityUid loaderUid,
+        EntityUid programUid,
+        CartridgeLoaderComponent? loader = default!
+    )
     {
         if (!Resolve(loaderUid, ref loader))
             return;
@@ -300,7 +336,11 @@ public sealed class CartridgeLoaderSystem : SharedCartridgeLoaderSystem
     /// <remarks>
     /// Programs wanting to use this functionality will have to provide a way to register and unregister themselves as background programs through their ui fragment.
     /// </remarks>
-    public void RegisterBackgroundProgram(EntityUid loaderUid, EntityUid cartridgeUid, CartridgeLoaderComponent? loader = default!)
+    public void RegisterBackgroundProgram(
+        EntityUid loaderUid,
+        EntityUid cartridgeUid,
+        CartridgeLoaderComponent? loader = default!
+    )
     {
         if (!Resolve(loaderUid, ref loader))
             return;
@@ -317,7 +357,11 @@ public sealed class CartridgeLoaderSystem : SharedCartridgeLoaderSystem
     /// <summary>
     /// Unregisters the given program as running in the background
     /// </summary>
-    public void UnregisterBackgroundProgram(EntityUid loaderUid, EntityUid cartridgeUid, CartridgeLoaderComponent? loader = default!)
+    public void UnregisterBackgroundProgram(
+        EntityUid loaderUid,
+        EntityUid cartridgeUid,
+        CartridgeLoaderComponent? loader = default!
+    )
     {
         if (!Resolve(loaderUid, ref loader))
             return;
@@ -331,7 +375,12 @@ public sealed class CartridgeLoaderSystem : SharedCartridgeLoaderSystem
         loader.BackgroundPrograms.Remove(cartridgeUid);
     }
 
-    public void SendNotification(EntityUid loaderUid, string header, string message, CartridgeLoaderComponent? loader = default!)
+    public void SendNotification(
+        EntityUid loaderUid,
+        string header,
+        string message,
+        CartridgeLoaderComponent? loader = default!
+    )
     {
         if (!Resolve(loaderUid, ref loader))
             return;
@@ -343,7 +392,11 @@ public sealed class CartridgeLoaderSystem : SharedCartridgeLoaderSystem
         RaiseLocalEvent(loaderUid, ref args);
     }
 
-    protected override void OnItemInserted(EntityUid uid, CartridgeLoaderComponent loader, EntInsertedIntoContainerMessage args)
+    protected override void OnItemInserted(
+        EntityUid uid,
+        CartridgeLoaderComponent loader,
+        EntInsertedIntoContainerMessage args
+    )
     {
         if (args.Container.ID != InstalledContainerId && args.Container.ID != loader.CartridgeSlot.ID)
             return;
@@ -360,7 +413,11 @@ public sealed class CartridgeLoaderSystem : SharedCartridgeLoaderSystem
         base.OnItemInserted(uid, loader, args);
     }
 
-    protected override void OnItemRemoved(EntityUid uid, CartridgeLoaderComponent loader, EntRemovedFromContainerMessage args)
+    protected override void OnItemRemoved(
+        EntityUid uid,
+        CartridgeLoaderComponent loader,
+        EntRemovedFromContainerMessage args
+    )
     {
         if (args.Container.ID != InstalledContainerId && args.Container.ID != loader.CartridgeSlot.ID)
             return;
@@ -407,7 +464,11 @@ public sealed class CartridgeLoaderSystem : SharedCartridgeLoaderSystem
         RelayEvent(component, new CartridgeDeviceNetPacketEvent(uid, args));
     }
 
-    private void OnLoaderUiMessage(EntityUid loaderUid, CartridgeLoaderComponent component, CartridgeLoaderUiMessage message)
+    private void OnLoaderUiMessage(
+        EntityUid loaderUid,
+        CartridgeLoaderComponent component,
+        CartridgeLoaderUiMessage message
+    )
     {
         var cartridge = GetEntity(message.CartridgeUid);
 
@@ -430,7 +491,9 @@ public sealed class CartridgeLoaderSystem : SharedCartridgeLoaderSystem
                     RaiseLocalEvent(component.ActiveProgram.Value, new CartridgeUiReadyEvent(loaderUid));
                 break;
             default:
-                throw new ArgumentOutOfRangeException($"Unrecognized UI action passed from cartridge loader ui {message.Action}.");
+                throw new ArgumentOutOfRangeException(
+                    $"Unrecognized UI action passed from cartridge loader ui {message.Action}."
+                );
         }
     }
 
@@ -454,7 +517,8 @@ public sealed class CartridgeLoaderSystem : SharedCartridgeLoaderSystem
     /// <param name="loader">The cartritge loader component</param>
     /// <param name="args">The event to be relayed</param>
     /// <param name="skipBackgroundPrograms">Whether to skip relaying the event to programs running in the background</param>
-    private void RelayEvent<TEvent>(CartridgeLoaderComponent loader, TEvent args, bool skipBackgroundPrograms = false) where TEvent : notnull
+    private void RelayEvent<TEvent>(CartridgeLoaderComponent loader, TEvent args, bool skipBackgroundPrograms = false)
+        where TEvent : notnull
     {
         if (loader.ActiveProgram.HasValue)
             RaiseLocalEvent(loader.ActiveProgram.Value, args);
@@ -482,7 +546,11 @@ public sealed class CartridgeLoaderSystem : SharedCartridgeLoaderSystem
         UpdateUiState(loaderUid, null, loader);
     }
 
-    private void UpdateCartridgeInstallationStatus(EntityUid cartridgeUid, InstallationStatus installationStatus, CartridgeComponent cartridgeComponent)
+    private void UpdateCartridgeInstallationStatus(
+        EntityUid cartridgeUid,
+        InstallationStatus installationStatus,
+        CartridgeComponent cartridgeComponent
+    )
     {
         cartridgeComponent.InstallationStatus = installationStatus;
         Dirty(cartridgeUid, cartridgeComponent);

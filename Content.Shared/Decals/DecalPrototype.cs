@@ -7,15 +7,23 @@ namespace Content.Shared.Decals
     [Prototype]
     public sealed partial class DecalPrototype : IPrototype, IInheritingPrototype
     {
-        [IdDataField] public string ID { get; private set; } = null!;
-        [DataField("sprite")] public SpriteSpecifier Sprite { get; private set; } = SpriteSpecifier.Invalid;
-        [DataField("tags")] public List<string> Tags = new();
-        [DataField("showMenu")] public bool ShowMenu = true;
+        [IdDataField]
+        public string ID { get; private set; } = null!;
+
+        [DataField("sprite")]
+        public SpriteSpecifier Sprite { get; private set; } = SpriteSpecifier.Invalid;
+
+        [DataField("tags")]
+        public List<string> Tags = new();
+
+        [DataField("showMenu")]
+        public bool ShowMenu = true;
 
         /// <summary>
         /// If the decal is rotated compared to our eye should we snap it to south.
         /// </summary>
-        [DataField("snapCardinals")] public bool SnapCardinals = false;
+        [DataField("snapCardinals")]
+        public bool SnapCardinals = false;
 
         /// <summary>
         /// True if this decal is cleanable by default.
@@ -41,6 +49,5 @@ namespace Content.Shared.Decals
         [NeverPushInheritance]
         [AbstractDataField]
         public bool Abstract { get; private set; }
-
     }
 }

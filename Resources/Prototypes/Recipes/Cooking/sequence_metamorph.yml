@@ -11,22 +11,22 @@
     range:
       min: 3
       max: 4
-  - !type:IngredientsWithTags # 1 meat cutlet
-    tags:
+  - !type:IngredientsWithTags
+    tags: # 1 meat cutlet
     - Cooked
     - Cutlet
     - Meat
     count:
       min: 1
       max: 2
-  - !type:IngredientsWithTags # 1 cheese
-    tags:
+  - !type:IngredientsWithTags
+    tags: # 1 cheese
     - Cheese
     count:
       min: 1
       max: 2
-  - !type:LastElementHasTags # last bun
-    tags:
+  - !type:LastElementHasTags
+    tags: # last bun
     - Bun
 
 - type: metamorphRecipe
@@ -38,8 +38,8 @@
     range:
       min: 2
       max: 3
-  - !type:IngredientsWithTags # 1 chicken meat
-    tags:
+  - !type:IngredientsWithTags
+    tags: # 1 chicken meat
     - Cooked
     - Cutlet
     - Meat
@@ -47,13 +47,13 @@
     count:
       min: 1
       max: 2
-  - !type:FoodHasReagent # 5 +- 2 mayo
-    reagent: Mayo
+  - !type:FoodHasReagent
+    reagent: Mayo # 5 +- 2 mayo
     count:
-     min: 3
-     max: 7
-  - !type:LastElementHasTags # last bun
-    tags:
+      min: 3
+      max: 7
+  - !type:LastElementHasTags
+    tags: # last bun
     - Bun
 
 - type: metamorphRecipe
@@ -65,16 +65,16 @@
     range:
       min: 3
       max: 4
-  - !type:IngredientsWithTags # 2 crab meat
-    tags:
+  - !type:IngredientsWithTags
+    tags: # 2 crab meat
     - Cooked
     - Meat
     - Crab
     count:
       min: 2
       max: 3
-  - !type:LastElementHasTags # last bun
-    tags:
+  - !type:LastElementHasTags
+    tags: # last bun
     - Bun
 
 - type: metamorphRecipe
@@ -86,8 +86,8 @@
     range:
       min: 3
       max: 4
-  - !type:IngredientsWithTags # 1 duck meat
-    tags:
+  - !type:IngredientsWithTags
+    tags: # 1 duck meat
     - Cooked
     - Cutlet
     - Meat
@@ -95,14 +95,14 @@
     count:
       min: 1
       max: 2
-  - !type:IngredientsWithTags # 1 cheese
-    tags:
+  - !type:IngredientsWithTags
+    tags: # 1 cheese
     - Cheese
     count:
       min: 1
       max: 2
-  - !type:LastElementHasTags # last bun
-    tags:
+  - !type:LastElementHasTags
+    tags: # last bun
     - Bun
 
 - type: metamorphRecipe
@@ -114,12 +114,12 @@
     range:
       min: 2
       max: 3
-  - !type:IngredientsWithTags # 1 brain
-    tags:
+  - !type:IngredientsWithTags
+    tags: # 1 brain
     - Brain
     count:
       min: 1
       max: 2
-  - !type:LastElementHasTags # last bun
-    tags:
+  - !type:LastElementHasTags
+    tags: # last bun
     - Bun

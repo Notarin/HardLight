@@ -50,8 +50,6 @@
   - FairyRings
   - AfraidDark
 
-
-
 # Your Moods are a strictly-kept secret, and should never be revealed to anyone.
 - type: thavenMood
   id: SecretMoods
@@ -224,8 +222,8 @@
   moodVars:
     clothes: MoodClothes
   conflicts:
-    - HardsuitsGood
-    - BirthdaySuit
+  - HardsuitsGood
+  - BirthdaySuit
 
 # Hats and helmets make your hair look bad. You cannot wear them.
 - type: thavenMood
@@ -358,7 +356,6 @@
 #    item: ThavenMoodItem
 #  conflicts:
 #    - ItemGood
-
 
 #  You detest the color [COLOR]. It disgusts you, and you want anything of that color removed from your vicinity.
 #- type: thavenMood

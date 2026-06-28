@@ -4,6 +4,4 @@ namespace Content.Server.StationEvents.Components;
 /// Gamerule component to mess up ai/borg laws when started.
 /// </summary>
 [RegisterComponent]
-public sealed partial class IonStormRuleComponent : Component
-{
-}
+public sealed partial class IonStormRuleComponent : Component { }

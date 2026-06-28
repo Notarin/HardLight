@@ -24,7 +24,8 @@ public sealed partial class SkinHsvAdjustColoring : LayerColoringType
 
         var hsv = Color.ToHsv(s);
         hsv.X = (hsv.X + HueAdjust / 360f) % 1f;
-        if (hsv.X < 0f) hsv.X += 1f;
+        if (hsv.X < 0f)
+            hsv.X += 1f;
         hsv.Y = Math.Clamp(hsv.Y + SaturationAdjust / 100f, 0f, 1f);
         hsv.Z = Math.Clamp(hsv.Z + ValueAdjust / 100f, 0f, 1f);
         return Color.FromHsv(hsv);

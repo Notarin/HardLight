@@ -1,45 +1,45 @@
 - type: quickPhrase
-  parent: [ BaseCivilianPhrase, BaseLocationPhrase ]
+  parent: [BaseCivilianPhrase, BaseLocationPhrase]
   id: BaseCivilianLocationPhrase
   abstract: true
 
 - type: quickPhrase
-  parent: [ BaseCommandPhrase, BaseLocationPhrase ]
+  parent: [BaseCommandPhrase, BaseLocationPhrase]
   id: BaseCommandLocationPhrase
   abstract: true
 
 - type: quickPhrase
-  parent: [ BaseEngineeringPhrase, BaseLocationPhrase ]
+  parent: [BaseEngineeringPhrase, BaseLocationPhrase]
   id: BaseEngineeringLocationPhrase
   abstract: true
 
 - type: quickPhrase
-  parent: [ BaseEpistemicsPhrase, BaseLocationPhrase ]
+  parent: [BaseEpistemicsPhrase, BaseLocationPhrase]
   id: BaseEpistemicsLocationPhrase
   abstract: true
 
 - type: quickPhrase
-  parent: [ BaseJusticePhrase, BaseLocationPhrase ]
+  parent: [BaseJusticePhrase, BaseLocationPhrase]
   id: BaseJusticeLocationPhrase
   abstract: true
 
 - type: quickPhrase
-  parent: [ BaseLogisticsPhrase, BaseLocationPhrase ]
+  parent: [BaseLogisticsPhrase, BaseLocationPhrase]
   id: BaseLogisticsLocationPhrase
   abstract: true
 
 - type: quickPhrase
-  parent: [ BaseMedicalPhrase, BaseLocationPhrase ]
+  parent: [BaseMedicalPhrase, BaseLocationPhrase]
   id: BaseMedicalLocationPhrase
   abstract: true
 
 - type: quickPhrase
-  parent: [ BaseSecurityPhrase, BaseLocationPhrase ]
+  parent: [BaseSecurityPhrase, BaseLocationPhrase]
   id: BaseSecurityLocationPhrase
   abstract: true
 
 - type: quickPhrase
-  parent: [ BaseServicePhrase, BaseLocationPhrase ]
+  parent: [BaseServicePhrase, BaseLocationPhrase]
   id: BaseServiceLocationPhrase
   abstract: true
 

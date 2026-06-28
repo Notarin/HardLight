@@ -10,10 +10,17 @@ namespace Content.Client.Buckle;
 
 internal sealed class BuckleSystem : SharedBuckleSystem
 {
-    [Dependency] private readonly RotationVisualizerSystem _rotationVisualizerSystem = default!;
-    [Dependency] private readonly IEyeManager _eye = default!;
-    [Dependency] private readonly SharedTransformSystem _xformSystem = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly RotationVisualizerSystem _rotationVisualizerSystem = default!;
+
+    [Dependency]
+    private readonly IEyeManager _eye = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _xformSystem = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     public override void Initialize()
     {
@@ -121,9 +128,11 @@ internal sealed class BuckleSystem : SharedBuckleSystem
         if (!TryComp<RotationVisualsComponent>(uid, out var rotVisuals))
             return;
 
-        if (!Appearance.TryGetData<bool>(uid, BuckleVisuals.Buckled, out var buckled, args.Component) ||
-            !buckled ||
-            args.Sprite == null)
+        if (
+            !Appearance.TryGetData<bool>(uid, BuckleVisuals.Buckled, out var buckled, args.Component)
+            || !buckled
+            || args.Sprite == null
+        )
         {
             _rotationVisualizerSystem.SetHorizontalAngle((uid, rotVisuals), rotVisuals.DefaultRotation);
             return;

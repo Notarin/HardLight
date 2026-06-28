@@ -15,11 +15,20 @@ namespace Content.Server.Ninja.Systems;
 /// </summary>
 public sealed class SpiderChargeSystem : SharedSpiderChargeSystem
 {
-    [Dependency] private readonly MindSystem _mind = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly SharedRoleSystem _role = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SpaceNinjaSystem _ninja = default!;
+    [Dependency]
+    private readonly MindSystem _mind = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly SharedRoleSystem _role = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly SpaceNinjaSystem _ninja = default!;
 
     public override void Initialize()
     {
@@ -57,8 +66,11 @@ public sealed class SpiderChargeSystem : SharedSpiderChargeSystem
         // assumes warp point still exists
         var targetXform = Transform(obj.Target.Value);
         var locXform = Transform(args.Target);
-        if (locXform.MapID != targetXform.MapID ||
-            (_transform.GetWorldPosition(locXform) - _transform.GetWorldPosition(targetXform)).LengthSquared() > comp.Range * comp.Range)
+        if (
+            locXform.MapID != targetXform.MapID
+            || (_transform.GetWorldPosition(locXform) - _transform.GetWorldPosition(targetXform)).LengthSquared()
+                > comp.Range * comp.Range
+        )
         {
             _popup.PopupEntity(Loc.GetString("spider-charge-too-far"), user, user);
             args.Cancelled = true;

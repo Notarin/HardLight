@@ -11,9 +11,14 @@ namespace Content.Server.Xenoarchaeology.XenoArtifacts.Effects.Systems;
 /// </summary>
 public sealed class LightFlickerArtifactSystem : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly GhostSystem _ghost = default!;
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly EntityLookupSystem _lookup = default!;
+
+    [Dependency]
+    private readonly GhostSystem _ghost = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -24,7 +29,7 @@ public sealed class LightFlickerArtifactSystem : EntitySystem
     private void OnActivated(EntityUid uid, LightFlickerArtifactComponent component, ArtifactActivatedEvent args)
     {
         var lights = GetEntityQuery<PoweredLightComponent>();
-        foreach (var light in _lookup.GetEntitiesInRange(uid, component.Radius, LookupFlags.StaticSundries ))
+        foreach (var light in _lookup.GetEntitiesInRange(uid, component.Radius, LookupFlags.StaticSundries))
         {
             if (!lights.HasComponent(light))
                 continue;

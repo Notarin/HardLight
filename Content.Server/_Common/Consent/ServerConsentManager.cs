@@ -1,6 +1,9 @@
 // SPDX-FileCopyrightText: Copyright (c) 2024-2025 Space Wizards Federation
 // SPDX-License-Identifier: MIT
 
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Content.Server.Database;
 using Content.Shared._Common.Consent;
 using Content.Shared.Administration.Logs;
@@ -10,20 +13,28 @@ using Robust.Shared.Configuration;
 using Robust.Shared.Network;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Content.Server._Common.Consent;
 
 public sealed class ServerConsentManager : IServerConsentManager
 {
-    [Dependency] private readonly IConfigurationManager _configManager = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IServerNetManager _netManager = default!;
-    [Dependency] private readonly IServerDbManager _db = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
+    [Dependency]
+    private readonly IConfigurationManager _configManager = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly IServerNetManager _netManager = default!;
+
+    [Dependency]
+    private readonly IServerDbManager _db = default!;
+
+    [Dependency]
+    private readonly ISharedAdminLogManager _adminLogger = default!;
 
     public event Action<ICommonSession, PlayerConsentSettings>? OnConsentUpdated;
 
@@ -59,8 +70,11 @@ public sealed class ServerConsentManager : IServerConsentManager
         // Log the change
         var session = _playerManager.GetSessionByChannel(message.MsgChannel);
         var togglesPretty = String.Join(", ", message.Consent.Toggles.Select(t => $"[{t.Key}: {t.Value}]"));
-        _adminLogger.Add(LogType.Consent, LogImpact.Medium,
-            $"{session:Player} updated consent setting to: '{message.Consent.Freetext}' with toggles {togglesPretty}");
+        _adminLogger.Add(
+            LogType.Consent,
+            LogImpact.Medium,
+            $"{session:Player} updated consent setting to: '{message.Consent.Freetext}' with toggles {togglesPretty}"
+        );
 
         // Persistence
         if (ShouldStoreInDb(message.MsgChannel.AuthType))
@@ -106,7 +120,9 @@ public sealed class ServerConsentManager : IServerConsentManager
     {
         return _consent.TryGetValue(targetUserId, out var consentSettings)
             && consentSettings.ReadReceipts is not null
-            && consentSettings.ReadReceipts.Any(x => x.ReaderUserId == readerUserId && x.ReadAt < consentSettings.ConsentFreetextUpdatedAt);
+            && consentSettings.ReadReceipts.Any(x =>
+                x.ReaderUserId == readerUserId && x.ReadAt < consentSettings.ConsentFreetextUpdatedAt
+            );
     }
 
     public async Task UpdateReadReceipt(NetUserId readerUserId, NetUserId targetUserId)

@@ -16,7 +16,7 @@
   - type: Sprite
     sprite: _NF/Objects/Misc/mail_capsule.rsi
     layers:
-      - state: icon-empty
+    - state: icon-empty
   - type: ItemSlots
     slots:
       mail_slot:
@@ -99,14 +99,12 @@
     damageContainer: Inorganic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 20 #excess damage avoids cost of spawning entities.
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 10
       behaviors:
       - !type:PlaySoundBehavior
@@ -114,7 +112,7 @@
           collection: GlassBreak
       - !type:EmptyAllContainersBehaviour
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: DamageOnLand
     damage:
       types:
@@ -131,11 +129,11 @@
     - 0,0,4,3
   - type: StorageFill
     contents:
-      - id: MailCapsulePrimed
-        amount: 10
+    - id: MailCapsulePrimed
+      amount: 10
   - type: Sprite
     layers:
-      - state: box
+    - state: box
 
 # A bag full of mail capsules, for the ERT mail carrier
 - type: entity
@@ -145,5 +143,5 @@
   components:
   - type: StorageFill
     contents:
-      - id: MailCapsulePrimed
-        amount: 10
+    - id: MailCapsulePrimed
+      amount: 10

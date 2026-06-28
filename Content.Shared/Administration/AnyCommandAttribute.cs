@@ -9,8 +9,5 @@ namespace Content.Shared.Administration
     /// </summary>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     [MeansImplicitUse]
-    public sealed class AnyCommandAttribute : Attribute
-    {
-
-    }
+    public sealed class AnyCommandAttribute : Attribute { }
 }

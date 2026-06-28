@@ -1,7 +1,7 @@
 #region frame
 - type: entity
   id: NFBaseWeaponFrameMachinePistol
-  parent: [ NFBaseWeaponEncumbranceMachinePistol, NFBaseItemWeaponGunMagazineFed ]
+  parent: [NFBaseWeaponEncumbranceMachinePistol, NFBaseItemWeaponGunMagazineFed]
   name: machine pistol
   abstract: true
   components:
@@ -39,7 +39,7 @@
 
 - type: entity
   id: NFBaseWeaponFrameMachinePistolGorlex
-  parent: [ BaseC3SyndicateContraband, NFBaseWeaponFrameMachinePistol ]
+  parent: [BaseC3SyndicateContraband, NFBaseWeaponFrameMachinePistol]
   abstract: true
   components:
   - type: Gun

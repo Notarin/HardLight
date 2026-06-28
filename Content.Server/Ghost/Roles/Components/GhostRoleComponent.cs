@@ -10,11 +10,14 @@ namespace Content.Server.Ghost.Roles.Components;
 [Access(typeof(GhostRoleSystem))]
 public sealed partial class GhostRoleComponent : Component
 {
-    [DataField("name")] private string _roleName = "Unknown";
+    [DataField("name")]
+    private string _roleName = "Unknown";
 
-    [DataField("description")] private string _roleDescription = "Unknown";
+    [DataField("description")]
+    private string _roleDescription = "Unknown";
 
-    [DataField("rules")] private string _roleRules = "ghost-role-component-default-rules";
+    [DataField("rules")]
+    private string _roleRules = "ghost-role-component-default-rules";
 
     // Actually make use of / enforce this requirement?
     // Why is this even here.
@@ -25,7 +28,8 @@ public sealed partial class GhostRoleComponent : Component
     /// <summary>
     /// Whether the <see cref="MakeSentientCommand"/> should run on the mob.
     /// </summary>
-    [ViewVariables(VVAccess.ReadWrite)] [DataField("makeSentient")]
+    [ViewVariables(VVAccess.ReadWrite)]
+    [DataField("makeSentient")]
     public bool MakeSentient = true;
 
     /// <summary>
@@ -121,4 +125,3 @@ public sealed partial class GhostRoleComponent : Component
     public ProtoId<GhostRolePrototype>? Prototype { get; set; }
     // End Frontier
 }
-

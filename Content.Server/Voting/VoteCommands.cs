@@ -20,7 +20,8 @@ namespace Content.Server.Voting
     [AnyCommand]
     public sealed class CreateVoteCommand : IConsoleCommand
     {
-        [Dependency] private readonly IAdminLogManager _adminLogger = default!;
+        [Dependency]
+        private readonly IAdminLogManager _adminLogger = default!;
 
         public string Command => "createvote";
         public string Description => Loc.GetString("cmd-createvote-desc");
@@ -35,10 +36,15 @@ namespace Content.Server.Voting
             }
             if (args.Length != 3 && args[0] == StandardVoteType.Votekick.ToString())
             {
-                shell.WriteError(Loc.GetString("shell-wrong-arguments-number-need-specific", ("properAmount", 3), ("currentAmount", args.Length)));
+                shell.WriteError(
+                    Loc.GetString(
+                        "shell-wrong-arguments-number-need-specific",
+                        ("properAmount", 3),
+                        ("currentAmount", args.Length)
+                    )
+                );
                 return;
             }
-
 
             if (!Enum.TryParse<StandardVoteType>(args[0], ignoreCase: true, out var type))
             {
@@ -50,7 +56,11 @@ namespace Content.Server.Voting
 
             if (shell.Player != null && !mgr.CanCallVote(shell.Player, type))
             {
-                _adminLogger.Add(LogType.Vote, LogImpact.Medium, $"{shell.Player} failed to start {type.ToString()} vote");
+                _adminLogger.Add(
+                    LogType.Vote,
+                    LogImpact.Medium,
+                    $"{shell.Player} failed to start {type.ToString()} vote"
+                );
                 shell.WriteError(Loc.GetString("cmd-createvote-cannot-call-vote-now"));
                 return;
             }
@@ -73,11 +83,20 @@ namespace Content.Server.Voting
     [AdminCommand(AdminFlags.Moderator)]
     public sealed class CreateCustomCommand : LocalizedEntityCommands
     {
-        [Dependency] private readonly IVoteManager _voteManager = default!;
-        [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-        [Dependency] private readonly IChatManager _chatManager = default!;
-        [Dependency] private readonly VoteWebhooks _voteWebhooks = default!;
-        [Dependency] private readonly IConfigurationManager _cfg = default!;
+        [Dependency]
+        private readonly IVoteManager _voteManager = default!;
+
+        [Dependency]
+        private readonly IAdminLogManager _adminLogger = default!;
+
+        [Dependency]
+        private readonly IChatManager _chatManager = default!;
+
+        [Dependency]
+        private readonly VoteWebhooks _voteWebhooks = default!;
+
+        [Dependency]
+        private readonly IConfigurationManager _cfg = default!;
 
         private ISawmill _sawmill = default!;
 
@@ -91,17 +110,13 @@ namespace Content.Server.Voting
 
             if (args.Length < 3 || args.Length > MaxArgCount)
             {
-                shell.WriteError(Loc.GetString("shell-need-between-arguments",("lower", 3), ("upper", 10)));
+                shell.WriteError(Loc.GetString("shell-need-between-arguments", ("lower", 3), ("upper", 10)));
                 return;
             }
 
             var title = args[0];
 
-            var options = new VoteOptions
-            {
-                Title = title,
-                Duration = TimeSpan.FromSeconds(30),
-            };
+            var options = new VoteOptions { Title = title, Duration = TimeSpan.FromSeconds(30) };
 
             for (var i = 1; i < args.Length; i++)
             {
@@ -111,26 +126,49 @@ namespace Content.Server.Voting
             options.SetInitiatorOrServer(shell.Player);
 
             if (shell.Player != null)
-                _adminLogger.Add(LogType.Vote, LogImpact.Medium, $"{shell.Player} initiated a custom vote: {options.Title} - {string.Join("; ", options.Options.Select(x => x.text))}");
+                _adminLogger.Add(
+                    LogType.Vote,
+                    LogImpact.Medium,
+                    $"{shell.Player} initiated a custom vote: {options.Title} - {string.Join("; ", options.Options.Select(x => x.text))}"
+                );
             else
-                _adminLogger.Add(LogType.Vote, LogImpact.Medium, $"Initiated a custom vote: {options.Title} - {string.Join("; ", options.Options.Select(x => x.text))}");
+                _adminLogger.Add(
+                    LogType.Vote,
+                    LogImpact.Medium,
+                    $"Initiated a custom vote: {options.Title} - {string.Join("; ", options.Options.Select(x => x.text))}"
+                );
 
             var vote = _voteManager.CreateVote(options);
 
-            var webhookState = _voteWebhooks.CreateWebhookIfConfigured(options, _cfg.GetCVar(CCVars.DiscordVoteWebhook));
+            var webhookState = _voteWebhooks.CreateWebhookIfConfigured(
+                options,
+                _cfg.GetCVar(CCVars.DiscordVoteWebhook)
+            );
 
             vote.OnFinished += (_, eventArgs) =>
             {
                 if (eventArgs.Winner == null)
                 {
-                    var ties = string.Join(", ", eventArgs.Winners.Select(c => args[(int) c]));
-                    _adminLogger.Add(LogType.Vote, LogImpact.Medium, $"Custom vote {options.Title} finished as tie: {ties}");
-                    _chatManager.DispatchServerAnnouncement(Loc.GetString("cmd-customvote-on-finished-tie", ("ties", ties)));
+                    var ties = string.Join(", ", eventArgs.Winners.Select(c => args[(int)c]));
+                    _adminLogger.Add(
+                        LogType.Vote,
+                        LogImpact.Medium,
+                        $"Custom vote {options.Title} finished as tie: {ties}"
+                    );
+                    _chatManager.DispatchServerAnnouncement(
+                        Loc.GetString("cmd-customvote-on-finished-tie", ("ties", ties))
+                    );
                 }
                 else
                 {
-                    _adminLogger.Add(LogType.Vote, LogImpact.Medium, $"Custom vote {options.Title} finished: {args[(int) eventArgs.Winner]}");
-                    _chatManager.DispatchServerAnnouncement(Loc.GetString("cmd-customvote-on-finished-win", ("winner", args[(int) eventArgs.Winner])));
+                    _adminLogger.Add(
+                        LogType.Vote,
+                        LogImpact.Medium,
+                        $"Custom vote {options.Title} finished: {args[(int)eventArgs.Winner]}"
+                    );
+                    _chatManager.DispatchServerAnnouncement(
+                        Loc.GetString("cmd-customvote-on-finished-win", ("winner", args[(int)eventArgs.Winner]))
+                    );
                 }
 
                 _voteWebhooks.UpdateWebhookIfConfigured(webhookState, eventArgs);
@@ -172,7 +210,13 @@ namespace Content.Server.Voting
 
             if (args.Length != 2)
             {
-                shell.WriteError(Loc.GetString("shell-wrong-arguments-number-need-specific", ("properAmount", 2), ("currentAmount", args.Length)));
+                shell.WriteError(
+                    Loc.GetString(
+                        "shell-wrong-arguments-number-need-specific",
+                        ("properAmount", 2),
+                        ("currentAmount", args.Length)
+                    )
+                );
                 return;
             }
 
@@ -318,17 +362,27 @@ namespace Content.Server.Voting
             if (mgr.TryGetVote(id, out var activeVote))
             {
                 shell.WriteLine($"[{activeVote.Id}] ACTIVE - {activeVote.InitiatorText}: {activeVote.Title}");
-                WriteVoteBreakdown(shell, activeVote.OptionTexts, activeVote.CastVotes
-                    .Select(pair => (pair.Key.Name, pair.Key.UserId.ToString(), pair.Value)));
+                WriteVoteBreakdown(
+                    shell,
+                    activeVote.OptionTexts,
+                    activeVote.CastVotes.Select(pair => (pair.Key.Name, pair.Key.UserId.ToString(), pair.Value))
+                );
                 return;
             }
 
             if (mgr.TryGetHistoricalVote(id, out var historicalVote))
             {
                 var status = historicalVote.Cancelled ? "CANCELLED" : "FINISHED";
-                shell.WriteLine($"[{historicalVote.Id}] {status} - {historicalVote.InitiatorText}: {historicalVote.Title}");
-                WriteVoteBreakdown(shell, historicalVote.OptionTexts, historicalVote.CastVotes
-                    .Select(entry => (entry.PlayerName, entry.UserId.ToString(), entry.OptionId)));
+                shell.WriteLine(
+                    $"[{historicalVote.Id}] {status} - {historicalVote.InitiatorText}: {historicalVote.Title}"
+                );
+                WriteVoteBreakdown(
+                    shell,
+                    historicalVote.OptionTexts,
+                    historicalVote.CastVotes.Select(entry =>
+                        (entry.PlayerName, entry.UserId.ToString(), entry.OptionId)
+                    )
+                );
                 return;
             }
 
@@ -342,7 +396,10 @@ namespace Content.Server.Voting
             {
                 var active = mgr.ActiveVotes.Select(v => new CompletionOption(v.Id.ToString(), v.Title));
                 var history = mgr.HistoricalVotes.Select(v => new CompletionOption(v.Id.ToString(), v.Title));
-                return CompletionResult.FromHintOptions(active.Concat(history), Loc.GetString("cmd-voteinspect-arg-id"));
+                return CompletionResult.FromHintOptions(
+                    active.Concat(history),
+                    Loc.GetString("cmd-voteinspect-arg-id")
+                );
             }
 
             return CompletionResult.Empty;
@@ -351,7 +408,8 @@ namespace Content.Server.Voting
         private static void WriteVoteBreakdown(
             IConsoleShell shell,
             IReadOnlyList<string> optionTexts,
-            IEnumerable<(string playerName, string userId, int optionId)> votes)
+            IEnumerable<(string playerName, string userId, int optionId)> votes
+        )
         {
             var groupedVotes = votes
                 .OrderBy(vote => vote.playerName, StringComparer.OrdinalIgnoreCase)
@@ -373,9 +431,10 @@ namespace Content.Server.Voting
 
             foreach (var vote in groupedVotes)
             {
-                var optionLabel = vote.optionId >= 0 && vote.optionId < optionTexts.Count
-                    ? optionTexts[vote.optionId]
-                    : Loc.GetString("cmd-voteinspect-unknown-option");
+                var optionLabel =
+                    vote.optionId >= 0 && vote.optionId < optionTexts.Count
+                        ? optionTexts[vote.optionId]
+                        : Loc.GetString("cmd-voteinspect-unknown-option");
 
                 shell.WriteLine($"  {vote.playerName} ({vote.userId}) -> [{vote.optionId}] {optionLabel}");
             }
@@ -385,7 +444,8 @@ namespace Content.Server.Voting
     [AdminCommand(AdminFlags.Moderator)]
     public sealed class CancelVoteCommand : IConsoleCommand
     {
-        [Dependency] private readonly IAdminLogManager _adminLogger = default!;
+        [Dependency]
+        private readonly IAdminLogManager _adminLogger = default!;
 
         public string Command => "cancelvote";
         public string Description => Loc.GetString("cmd-cancelvote-desc");
@@ -419,8 +479,8 @@ namespace Content.Server.Voting
             var mgr = IoCManager.Resolve<IVoteManager>();
             if (args.Length == 1)
             {
-                var options = mgr.ActiveVotes
-                    .OrderBy(v => v.Id)
+                var options = mgr
+                    .ActiveVotes.OrderBy(v => v.Id)
                     .Select(v => new CompletionOption(v.Id.ToString(), v.Title));
 
                 return CompletionResult.FromHintOptions(options, Loc.GetString("cmd-cancelvote-arg-id"));

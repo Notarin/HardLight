@@ -7,19 +7,25 @@ namespace Content.Server.Pinpointer;
 
 public sealed class StationMapSystem : EntitySystem
 {
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
-    [Dependency] private readonly PowerCellSystem _cell = default!;
+    [Dependency]
+    private readonly UserInterfaceSystem _ui = default!;
+
+    [Dependency]
+    private readonly PowerCellSystem _cell = default!;
 
     public override void Initialize()
     {
         base.Initialize();
         SubscribeLocalEvent<StationMapUserComponent, EntParentChangedMessage>(OnUserParentChanged);
 
-        Subs.BuiEvents<StationMapComponent>(StationMapUiKey.Key, subs =>
-        {
-            subs.Event<BoundUIOpenedEvent>(OnStationMapOpened);
-            subs.Event<BoundUIClosedEvent>(OnStationMapClosed);
-        });
+        Subs.BuiEvents<StationMapComponent>(
+            StationMapUiKey.Key,
+            subs =>
+            {
+                subs.Event<BoundUIOpenedEvent>(OnStationMapOpened);
+                subs.Event<BoundUIClosedEvent>(OnStationMapClosed);
+            }
+        );
     }
 
     private void OnStationMapClosed(EntityUid uid, StationMapComponent component, BoundUIClosedEvent args)

@@ -17,16 +17,13 @@ namespace Content.Client.Info
 
         public LinkBanner()
         {
-            var buttons = new BoxContainer
-            {
-                Orientation = LayoutOrientation.Horizontal
-            };
+            var buttons = new BoxContainer { Orientation = LayoutOrientation.Horizontal };
             AddChild(buttons);
 
             var uriOpener = IoCManager.Resolve<IUriOpener>();
             _cfg = IoCManager.Resolve<IConfigurationManager>();
 
-            var rulesButton = new Button() {Text = Loc.GetString("server-info-rules-button")};
+            var rulesButton = new Button() { Text = Loc.GetString("server-info-rules-button") };
             rulesButton.OnPressed += args => new RulesAndInfoWindow().Open();
             buttons.AddChild(rulesButton);
 
@@ -45,7 +42,8 @@ namespace Content.Client.Info
             buttons.AddChild(guidebookButton);
 
             var changelogButton = new ChangelogButton();
-            changelogButton.OnPressed += args => UserInterfaceManager.GetUIController<ChangelogUIController>().ToggleWindow();
+            changelogButton.OnPressed += args =>
+                UserInterfaceManager.GetUIController<ChangelogUIController>().ToggleWindow();
             buttons.AddChild(changelogButton);
 
             void AddInfoButton(string loc, CVarDef<string> cVar)

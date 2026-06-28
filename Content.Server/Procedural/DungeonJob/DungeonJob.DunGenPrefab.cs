@@ -14,10 +14,18 @@ public sealed partial class DungeonJob
     /// <summary>
     /// <see cref="PrefabDunGen"/>
     /// </summary>
-    private async Task<Dungeon> GeneratePrefabDunGen(Vector2i position, DungeonData data, PrefabDunGen prefab, HashSet<Vector2i> reservedTiles, Random random)
+    private async Task<Dungeon> GeneratePrefabDunGen(
+        Vector2i position,
+        DungeonData data,
+        PrefabDunGen prefab,
+        HashSet<Vector2i> reservedTiles,
+        Random random
+    )
     {
-        if (!data.Tiles.TryGetValue(DungeonDataKey.FallbackTile, out var tileProto) ||
-            !data.Whitelists.TryGetValue(DungeonDataKey.Rooms, out var roomWhitelist))
+        if (
+            !data.Tiles.TryGetValue(DungeonDataKey.FallbackTile, out var tileProto)
+            || !data.Whitelists.TryGetValue(DungeonDataKey.Rooms, out var roomWhitelist)
+        )
         {
             LogDataError(typeof(PrefabDunGen));
             return Dungeon.Empty;
@@ -40,8 +48,7 @@ public sealed partial class DungeonJob
         // Need to sort to make the RNG deterministic (at least without prototype changes).
         foreach (var roomA in roomPackProtos.Values)
         {
-            roomA.Sort((x, y) =>
-                string.Compare(x.ID, y.ID, StringComparison.Ordinal));
+            roomA.Sort((x, y) => string.Compare(x.ID, y.ID, StringComparison.Ordinal));
         }
 
         var roomProtos = new Dictionary<Vector2i, List<DungeonRoomPrototype>>(_prototype.Count<DungeonRoomPrototype>());
@@ -72,8 +79,7 @@ public sealed partial class DungeonJob
 
         foreach (var roomA in roomProtos.Values)
         {
-            roomA.Sort((x, y) =>
-                string.Compare(x.ID, y.ID, StringComparison.Ordinal));
+            roomA.Sort((x, y) => string.Compare(x.ID, y.ID, StringComparison.Ordinal));
         }
 
         var tiles = new List<(Vector2i, Tile)>();
@@ -119,7 +125,7 @@ public sealed partial class DungeonJob
                 for (var j = 0; j < 4; j++)
                 {
                     var index = (startIndex + j) % 4;
-                    var dir = (DirectionFlag) Math.Pow(2, index);
+                    var dir = (DirectionFlag)Math.Pow(2, index);
                     Vector2i aPackDimensions;
 
                     if ((dir & (DirectionFlag.East | DirectionFlag.West)) != 0x0)
@@ -173,7 +179,7 @@ public sealed partial class DungeonJob
             // Actual spawn cud here.
             // Pickout the room pack template to get the room dimensions we need.
             // TODO: Need to be able to load entities on top of other entities but das a lot of effo
-            var packCenter = (Vector2) pack.Size / 2;
+            var packCenter = (Vector2)pack.Size / 2;
 
             foreach (var roomSize in pack.Rooms)
             {
@@ -193,7 +199,9 @@ public sealed partial class DungeonJob
                         {
                             for (var y = roomSize.Bottom; y < roomSize.Top; y++)
                             {
-                                var index = Vector2.Transform(new Vector2(x, y) + _grid.TileSizeHalfVector - packCenter, matty).Floored();
+                                var index = Vector2
+                                    .Transform(new Vector2(x, y) + _grid.TileSizeHalfVector - packCenter, matty)
+                                    .Floored();
 
                                 if (reservedTiles.Contains(index))
                                     continue;
@@ -247,7 +255,9 @@ public sealed partial class DungeonJob
                             continue;
                         }
 
-                        var tilePos = Vector2.Transform(new Vector2i(x + room.Offset.X, y + room.Offset.Y) + tileOffset, dungeonMatty).Floored();
+                        var tilePos = Vector2
+                            .Transform(new Vector2i(x + room.Offset.X, y + room.Offset.Y) + tileOffset, dungeonMatty)
+                            .Floored();
 
                         if (reservedTiles.Contains(tilePos))
                             continue;
@@ -311,7 +321,7 @@ public sealed partial class DungeonJob
             // Pick an entrance that isn't taken.
             for (var i = 0; i < 4; i++)
             {
-                var dir = (Direction) ((i + offset) * 2 % 8);
+                var dir = (Direction)((i + offset) * 2 % 8);
                 Vector2i entrancePos;
 
                 switch (dir)

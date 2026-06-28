@@ -40,7 +40,7 @@ public sealed partial class PublicTransitRoutePrototype : IPrototype
     public string? DockTag { get; private set; } = null;
 
     /// <summary>
-    /// The 
+    /// The
     /// </summary>
     [DataField]
     public EntProtoId? SignEntity { get; private set; } = null;

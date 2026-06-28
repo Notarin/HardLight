@@ -10,7 +10,12 @@ namespace Content.Shared.Access.Components;
 
 [RegisterComponent, NetworkedComponent]
 [AutoGenerateComponentState]
-[Access(typeof(SharedIdCardSystem), typeof(SharedPdaSystem), typeof(SharedAgentIdCardSystem), Other = AccessPermissions.ReadWrite)]
+[Access(
+    typeof(SharedIdCardSystem),
+    typeof(SharedPdaSystem),
+    typeof(SharedAgentIdCardSystem),
+    Other = AccessPermissions.ReadWrite
+)]
 public sealed partial class IdCardComponent : Component
 {
     [DataField]
@@ -20,7 +25,12 @@ public sealed partial class IdCardComponent : Component
 
     [DataField]
     [AutoNetworkedField]
-    [Access(typeof(SharedIdCardSystem), typeof(SharedPdaSystem), typeof(SharedAgentIdCardSystem), Other = AccessPermissions.ReadWrite)]
+    [Access(
+        typeof(SharedIdCardSystem),
+        typeof(SharedPdaSystem),
+        typeof(SharedAgentIdCardSystem),
+        Other = AccessPermissions.ReadWrite
+    )]
     public LocId? JobTitle;
 
     [DataField]
@@ -28,8 +38,17 @@ public sealed partial class IdCardComponent : Component
     private string? _jobTitle;
 
     [AutoNetworkedField, ViewVariables] // Floof
-    [Access(typeof(SharedIdCardSystem), typeof(SharedPdaSystem), typeof(SharedAgentIdCardSystem), Other = AccessPermissions.ReadWriteExecute)]
-    public string? LocalizedJobTitle { set => _jobTitle = value; get => _jobTitle; }
+    [Access(
+        typeof(SharedIdCardSystem),
+        typeof(SharedPdaSystem),
+        typeof(SharedAgentIdCardSystem),
+        Other = AccessPermissions.ReadWriteExecute
+    )]
+    public string? LocalizedJobTitle
+    {
+        set => _jobTitle = value;
+        get => _jobTitle;
+    }
 
     public string? JobTitleText => _jobTitle ?? (JobTitle is { } jobTitle ? Loc.GetString(jobTitle) : null);
 
@@ -71,15 +90,12 @@ public sealed partial class IdCardComponent : Component
 
     // Frontier: sounds for shipyard RCD, etc.
     [DataField]
-    public SoundSpecifier ErrorSound =
-        new SoundPathSpecifier("/Audio/Effects/Cargo/buzz_sigh.ogg");
+    public SoundSpecifier ErrorSound = new SoundPathSpecifier("/Audio/Effects/Cargo/buzz_sigh.ogg");
 
     [DataField]
-    public SoundSpecifier SwipeSound =
-        new SoundPathSpecifier("/Audio/Machines/id_swipe.ogg");
+    public SoundSpecifier SwipeSound = new SoundPathSpecifier("/Audio/Machines/id_swipe.ogg");
 
     [DataField]
-    public SoundSpecifier InsertSound =
-        new SoundPathSpecifier("/Audio/Machines/id_insert.ogg");
+    public SoundSpecifier InsertSound = new SoundPathSpecifier("/Audio/Machines/id_insert.ogg");
     // End Frontier
 }

@@ -1,6 +1,6 @@
+using Content.Shared.Inventory;
 using Content.Shared.Speech;
 using Robust.Shared.Prototypes;
-using Content.Shared.Inventory;
 
 namespace Content.Shared.Chat;
 

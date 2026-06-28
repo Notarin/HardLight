@@ -12,13 +12,15 @@ namespace Content.Client.Chemistry.UI
     {
         private IEntityManager _entManager;
         private EntityUid _owner;
+
         [ViewVariables]
         private TransferAmountWindow? _window;
 
-        public TransferAmountBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
+        public TransferAmountBoundUserInterface(EntityUid owner, Enum uiKey)
+            : base(owner, uiKey)
         {
-          _owner = owner;
-          _entManager = IoCManager.Resolve<IEntityManager>();
+            _owner = owner;
+            _entManager = IoCManager.Resolve<IEntityManager>();
         }
 
         protected override void Open()

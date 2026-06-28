@@ -1,3 +1,4 @@
+using System.Linq;
 using Content.Client.Stylesheets;
 using Content.Shared.Atmos;
 using Content.Shared.Atmos.Components;
@@ -8,7 +9,6 @@ using Robust.Client.Graphics;
 using Robust.Client.ResourceManagement;
 using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.XAML;
-using System.Linq;
 
 namespace Content.Client.Atmos.Consoles;
 
@@ -33,7 +33,10 @@ public sealed partial class AtmosMonitoringEntryContainer : BoxContainer
 
         // Load fonts
         var headerFont = new VectorFont(_cache.GetResource<FontResource>("/Fonts/NotoSans/NotoSans-Bold.ttf"), 11);
-        var normalFont = new VectorFont(_cache.GetResource<FontResource>("/Fonts/NotoSansDisplay/NotoSansDisplay-Regular.ttf"), 11);
+        var normalFont = new VectorFont(
+            _cache.GetResource<FontResource>("/Fonts/NotoSansDisplay/NotoSansDisplay-Regular.ttf"),
+            11
+        );
 
         // Set fonts
         TemperatureHeaderLabel.FontOverride = headerFont;
@@ -51,12 +54,18 @@ public sealed partial class AtmosMonitoringEntryContainer : BoxContainer
     public void UpdateEntry(AtmosMonitoringConsoleEntry updatedData, bool isFocus)
     {
         // Load fonts
-        var normalFont = new VectorFont(_cache.GetResource<FontResource>("/Fonts/NotoSansDisplay/NotoSansDisplay-Regular.ttf"), 11);
+        var normalFont = new VectorFont(
+            _cache.GetResource<FontResource>("/Fonts/NotoSansDisplay/NotoSansDisplay-Regular.ttf"),
+            11
+        );
 
         // Update name and values
         if (!string.IsNullOrEmpty(updatedData.Address))
-            NetworkNameLabel.Text = Loc.GetString("atmos-alerts-window-alarm-label", ("name", updatedData.EntityName), ("address", updatedData.Address));
-
+            NetworkNameLabel.Text = Loc.GetString(
+                "atmos-alerts-window-alarm-label",
+                ("name", updatedData.EntityName),
+                ("address", updatedData.Address)
+            );
         else
             NetworkNameLabel.Text = Loc.GetString(updatedData.EntityName);
 
@@ -89,18 +98,24 @@ public sealed partial class AtmosMonitoringEntryContainer : BoxContainer
         var tempK = (FixedPoint2)updatedData.TemperatureData;
         var tempC = (FixedPoint2)TemperatureHelpers.KelvinToCelsius(tempK.Float());
 
-        TemperatureLabel.Text = isNotVacuum ?
-            Loc.GetString("atmos-alerts-window-temperature-value", ("valueInC", tempC), ("valueInK", tempK)) :
-            Loc.GetString("atmos-alerts-window-invalid-value");
+        TemperatureLabel.Text = isNotVacuum
+            ? Loc.GetString("atmos-alerts-window-temperature-value", ("valueInC", tempC), ("valueInK", tempK))
+            : Loc.GetString("atmos-alerts-window-invalid-value");
 
         TemperatureLabel.FontColorOverride = isNotVacuum ? Color.DarkGray : StyleNano.DisabledFore;
 
         // Update pressure
-        PressureLabel.Text = Loc.GetString("atmos-alerts-window-pressure-value", ("value", (FixedPoint2)updatedData.PressureData));
+        PressureLabel.Text = Loc.GetString(
+            "atmos-alerts-window-pressure-value",
+            ("value", (FixedPoint2)updatedData.PressureData)
+        );
         PressureLabel.FontColorOverride = isNotVacuum ? Color.DarkGray : StyleNano.DisabledFore;
 
         // Update total mol
-        TotalMolLabel.Text = Loc.GetString("atmos-alerts-window-total-mol-value", ("value", (FixedPoint2)updatedData.TotalMolData));
+        TotalMolLabel.Text = Loc.GetString(
+            "atmos-alerts-window-total-mol-value",
+            ("value", (FixedPoint2)updatedData.TotalMolData)
+        );
         TotalMolLabel.FontColorOverride = isNotVacuum ? Color.DarkGray : StyleNano.DisabledFore;
 
         // Update other present gases
@@ -123,7 +138,6 @@ public sealed partial class AtmosMonitoringEntryContainer : BoxContainer
 
             GasGridContainer.AddChild(gasLabel);
         }
-
         else
         {
             // Add an entry for each gas
@@ -132,11 +146,18 @@ public sealed partial class AtmosMonitoringEntryContainer : BoxContainer
                 var gasPercent = (FixedPoint2)0f;
                 gasPercent = percent * 100f;
 
-                var gasAbbreviation = Atmospherics.GasAbbreviations.GetValueOrDefault(gas, Loc.GetString("gas-unknown-abbreviation"));
+                var gasAbbreviation = Atmospherics.GasAbbreviations.GetValueOrDefault(
+                    gas,
+                    Loc.GetString("gas-unknown-abbreviation")
+                );
 
                 var gasLabel = new Label()
                 {
-                    Text = Loc.GetString("atmos-alerts-window-other-gases-value", ("shorthand", gasAbbreviation), ("value", gasPercent)),
+                    Text = Loc.GetString(
+                        "atmos-alerts-window-other-gases-value",
+                        ("shorthand", gasAbbreviation),
+                        ("value", gasPercent)
+                    ),
                     FontOverride = normalFont,
                     HorizontalAlignment = HAlignment.Center,
                     VerticalAlignment = VAlignment.Center,

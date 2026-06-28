@@ -3,9 +3,9 @@ using Content.Shared.Damage.Prototypes;
 using Content.Shared.FixedPoint;
 using JetBrains.Annotations;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Serialization;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype.Dictionary;
 using Robust.Shared.Utility;
-using Robust.Shared.Serialization;
 
 namespace Content.Shared.Damage
 {
@@ -26,12 +26,18 @@ namespace Content.Shared.Damage
 
         // These exist solely so the wiki works. Please do not touch them or use them.
         [JsonPropertyName("types")]
-        [DataField("types", customTypeSerializer: typeof(PrototypeIdDictionarySerializer<FixedPoint2, DamageTypePrototype>))]
+        [DataField(
+            "types",
+            customTypeSerializer: typeof(PrototypeIdDictionarySerializer<FixedPoint2, DamageTypePrototype>)
+        )]
         [UsedImplicitly]
-        private Dictionary<string,FixedPoint2>? _damageTypeDictionary;
+        private Dictionary<string, FixedPoint2>? _damageTypeDictionary;
 
         [JsonPropertyName("groups")]
-        [DataField("groups", customTypeSerializer: typeof(PrototypeIdDictionarySerializer<FixedPoint2, DamageGroupPrototype>))]
+        [DataField(
+            "groups",
+            customTypeSerializer: typeof(PrototypeIdDictionarySerializer<FixedPoint2, DamageGroupPrototype>)
+        )]
         [UsedImplicitly]
         private Dictionary<string, FixedPoint2>? _damageGroupDictionary;
 
@@ -157,7 +163,7 @@ namespace Content.Shared.Damage
                 if (modifierSet.Coefficients.TryGetValue(key, out var coefficient))
                     newValue *= coefficient; // coefficients can heal you, e.g. cauterizing bleeding
 
-                if(newValue != 0)
+                if (newValue != 0)
                     newDamage.DamageDict[key] = FixedPoint2.New(newValue);
             }
 
@@ -170,7 +176,10 @@ namespace Content.Shared.Damage
         /// <param name="damageSpec"></param>
         /// <param name="modifierSets"></param>
         /// <returns></returns>
-        public static DamageSpecifier ApplyModifierSets(DamageSpecifier damageSpec, IEnumerable<DamageModifierSet> modifierSets)
+        public static DamageSpecifier ApplyModifierSets(
+            DamageSpecifier damageSpec,
+            IEnumerable<DamageModifierSet> modifierSets
+        )
         {
             bool any = false;
             DamageSpecifier newDamage = damageSpec;
@@ -412,5 +421,5 @@ namespace Content.Shared.Damage
 
         public FixedPoint2 this[string key] => DamageDict[key];
     }
-    #endregion
+        #endregion
 }

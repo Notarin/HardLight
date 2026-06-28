@@ -40,8 +40,7 @@ public enum ShadekinState : byte
     Low = 2,
     Annoying = 3,
     High = 4,
-    Extreme = 5
-
+    Extreme = 5,
 }
 #endregion
 

@@ -1,5 +1,5 @@
-using Content.Shared.Verbs;
 using Content.Shared.Animals.Components;
+using Content.Shared.Verbs;
 using Robust.Shared.Player;
 
 namespace Content.Shared.Animals.Systems;
@@ -24,14 +24,19 @@ public abstract class SharedLewdEggLayingSystem : EntitySystem
     {
         // Todo figure out how to only make verb appear for player mobs
         var target = args.Target;
-        if (!args.CanInteract || user.Owner == target || !user.Comp.hasEggs() || !TryComp(target, out ActorComponent? actor))
+        if (
+            !args.CanInteract
+            || user.Owner == target
+            || !user.Comp.hasEggs()
+            || !TryComp(target, out ActorComponent? actor)
+        )
             return;
 
         InnateVerb verbLayEgg = new()
         {
             Act = () => AttemptLayInside(user, target),
             Text = Loc.GetString($"lay-egg-inside-verb-get-text"),
-            Priority = 1
+            Priority = 1,
         };
         args.Verbs.Add(verbLayEgg);
     }
@@ -47,5 +52,4 @@ public abstract class SharedLewdEggLayingSystem : EntitySystem
     }
 
     protected virtual void AttemptLayInside(Entity<LewdEggLayingComponent> user, EntityUid target) { }
-
 }

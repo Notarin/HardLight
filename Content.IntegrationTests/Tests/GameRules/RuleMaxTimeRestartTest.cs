@@ -1,10 +1,10 @@
+using System.IO;
 using Content.Server.GameTicking;
 using Content.Server.GameTicking.Rules;
 using Content.Server.GameTicking.Rules.Components;
 using Content.Shared.GameTicking.Components;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Timing;
-using System.IO;
 
 namespace Content.IntegrationTests.Tests.GameRules
 {
@@ -63,7 +63,7 @@ namespace Content.IntegrationTests.Tests.GameRules
 
             WriteProbe("RuleMaxTimeRestartTest: reached in-round");
 
-            var ticks = sGameTiming.TickRate * (int) Math.Ceiling(maxTime.RoundMaxTime.TotalSeconds * 1.1f);
+            var ticks = sGameTiming.TickRate * (int)Math.Ceiling(maxTime.RoundMaxTime.TotalSeconds * 1.1f);
             await pair.RunTicksSync(ticks);
 
             WriteProbe("RuleMaxTimeRestartTest: completed max-time ticks");
@@ -75,7 +75,7 @@ namespace Content.IntegrationTests.Tests.GameRules
 
             WriteProbe("RuleMaxTimeRestartTest: reached post-round");
 
-            ticks = sGameTiming.TickRate * (int) Math.Ceiling(maxTime.RoundEndDelay.TotalSeconds * 1.1f);
+            ticks = sGameTiming.TickRate * (int)Math.Ceiling(maxTime.RoundEndDelay.TotalSeconds * 1.1f);
             await pair.RunTicksSync(ticks);
 
             WriteProbe("RuleMaxTimeRestartTest: completed restart-delay ticks");

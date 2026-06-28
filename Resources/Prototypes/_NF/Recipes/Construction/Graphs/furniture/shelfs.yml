@@ -4,10 +4,10 @@
   graph:
   - node: start
     edges:
-# White wall freezer
+    # White wall freezer
     - to: ShelfWallFreezerWhite
       completed:
-        - !type:SnapToGrid
+      - !type:SnapToGrid
       steps:
       - material: Steel
         amount: 5
@@ -25,7 +25,7 @@
         icon:
           sprite: Objects/Misc/module.rsi
           state: door_electronics
-# White wall freezer deconstructs
+          # White wall freezer deconstructs
   - node: ShelfWallFreezerWhite
     entity: ShelfWallFreezerWhite
     edges:
@@ -53,10 +53,10 @@
         amount: 1
       - !type:EmptyAllContainers
       - !type:DeleteEntity
-# Dark wall freezer
+      # Dark wall freezer
     - to: ShelfWallFreezerDark
       completed:
-        - !type:SnapToGrid
+      - !type:SnapToGrid
       steps:
       - material: Steel
         amount: 5
@@ -74,7 +74,7 @@
         icon:
           sprite: Objects/Misc/module.rsi
           state: door_electronics
-# Dark wall freezer deconstructs
+          # Dark wall freezer deconstructs
   - node: ShelfWallFreezerDark
     entity: ShelfWallFreezerDark
     edges:

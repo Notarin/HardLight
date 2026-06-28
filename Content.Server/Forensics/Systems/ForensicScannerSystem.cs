@@ -1,59 +1,95 @@
 using System.Linq;
 using System.Text;
+using Content.Server._NF.Bank; // Frontier
+using Content.Server._NF.SectorServices; // Frontier
+using Content.Server._NF.Smuggling; // Frontier
+using Content.Server._NF.Smuggling.Components; // Frontier
+using Content.Server.Chemistry.Containers.EntitySystems;
 using Content.Server.Popups;
-using Content.Shared.UserInterface;
+using Content.Server.Radio.EntitySystems; // Frontier
+using Content.Server.Stack; // Frontier
+using Content.Shared._NF.Bank; // Frontier
+using Content.Shared._NF.Bank.BUI; // Frontier
+using Content.Shared._NF.Bank.Components; // Frontier
+using Content.Shared._NF.CCVar; // Frontier
+using Content.Shared.Containers.ItemSlots; // Frontier
 using Content.Shared.DoAfter;
+using Content.Shared.FixedPoint; // Frontier
 using Content.Shared.Forensics;
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Interaction;
 using Content.Shared.Paper;
-using Content.Shared.Verbs;
+using Content.Shared.Radio; // Frontier
+using Content.Shared.Stacks; // Frontier
 using Content.Shared.Tag;
-using Robust.Shared.Audio.Systems;
+using Content.Shared.UserInterface;
+using Content.Shared.Verbs;
 using Robust.Server.GameObjects;
 using Robust.Shared.Audio;
-using Robust.Shared.Timing;
-using Content.Server.Chemistry.Containers.EntitySystems;
-using Robust.Shared.Prototypes;
-using Content.Server._NF.SectorServices; // Frontier
-using Content.Server._NF.Smuggling; // Frontier
-using Content.Server._NF.Smuggling.Components; // Frontier
-using Content.Server.Radio.EntitySystems; // Frontier
-using Content.Server.Stack; // Frontier
-using Content.Shared._NF.Bank; // Frontier
-using Content.Shared._NF.Bank.Components; // Frontier
-using Content.Server._NF.Bank; // Frontier
-using Content.Shared._NF.Bank.BUI; // Frontier
-using Content.Shared._NF.CCVar; // Frontier
-using Content.Shared.Containers.ItemSlots; // Frontier
-using Content.Shared.FixedPoint; // Frontier
-using Content.Shared.Stacks; // Frontier
-using Content.Shared.Radio; // Frontier
+using Robust.Shared.Audio.Systems;
 using Robust.Shared.Configuration; // Frontier
+using Robust.Shared.Prototypes;
+using Robust.Shared.Timing;
+
 // todo: remove this stinky LINQy
 
 namespace Content.Server.Forensics
 {
     public sealed class ForensicScannerSystem : EntitySystem
     {
-        [Dependency] private readonly IGameTiming _gameTiming = default!;
-        [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
-        [Dependency] private readonly UserInterfaceSystem _uiSystem = default!;
-        [Dependency] private readonly PopupSystem _popupSystem = default!;
-        [Dependency] private readonly PaperSystem _paperSystem = default!;
-        [Dependency] private readonly SharedHandsSystem _handsSystem = default!;
-        [Dependency] private readonly SharedAudioSystem _audioSystem = default!;
-        [Dependency] private readonly MetaDataSystem _metaData = default!;
-        [Dependency] private readonly ForensicsSystem _forensicsSystem = default!;
-        [Dependency] private readonly TagSystem _tag = default!;
-        [Dependency] private readonly StackSystem _stackSystem = default!; // Frontier
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!; // Frontier
-        [Dependency] private readonly RadioSystem _radio = default!; // Frontier
-        [Dependency] private readonly DeadDropSystem _deadDrop = default!; // Frontier
-        [Dependency] private readonly ItemSlotsSystem _itemSlots = default!; // Frontier
-        [Dependency] private readonly SectorServiceSystem _service = default!; // Frontier
-        [Dependency] private readonly IConfigurationManager _cfg = default!; // Frontier
-        [Dependency] private readonly BankSystem _bank = default!; // Frontier
+        [Dependency]
+        private readonly IGameTiming _gameTiming = default!;
+
+        [Dependency]
+        private readonly SharedDoAfterSystem _doAfterSystem = default!;
+
+        [Dependency]
+        private readonly UserInterfaceSystem _uiSystem = default!;
+
+        [Dependency]
+        private readonly PopupSystem _popupSystem = default!;
+
+        [Dependency]
+        private readonly PaperSystem _paperSystem = default!;
+
+        [Dependency]
+        private readonly SharedHandsSystem _handsSystem = default!;
+
+        [Dependency]
+        private readonly SharedAudioSystem _audioSystem = default!;
+
+        [Dependency]
+        private readonly MetaDataSystem _metaData = default!;
+
+        [Dependency]
+        private readonly ForensicsSystem _forensicsSystem = default!;
+
+        [Dependency]
+        private readonly TagSystem _tag = default!;
+
+        [Dependency]
+        private readonly StackSystem _stackSystem = default!; // Frontier
+
+        [Dependency]
+        private readonly IPrototypeManager _prototypeManager = default!; // Frontier
+
+        [Dependency]
+        private readonly RadioSystem _radio = default!; // Frontier
+
+        [Dependency]
+        private readonly DeadDropSystem _deadDrop = default!; // Frontier
+
+        [Dependency]
+        private readonly ItemSlotsSystem _itemSlots = default!; // Frontier
+
+        [Dependency]
+        private readonly SectorServiceSystem _service = default!; // Frontier
+
+        [Dependency]
+        private readonly IConfigurationManager _cfg = default!; // Frontier
+
+        [Dependency]
+        private readonly BankSystem _bank = default!; // Frontier
 
         // Frontier: payout constants
         // Temporary values, sane defaults, will be overwritten by CVARs.
@@ -69,11 +105,12 @@ namespace Content.Server.Forensics
         private const float InactiveUsedDeadDropFUCReward = 1.0f;
         private const int DropPodSpesoReward = 20000;
         private const float DropPodFUCReward = 2.0f;
+
         // End Frontier: payout constants
 
         private static readonly ProtoId<TagPrototype> DNASolutionScannableTag = "DNASolutionScannable";
         private static readonly ProtoId<StackPrototype> FrontierUplinkCoinId = "FrontierUplinkCoin";
-        private static readonly ProtoId<RadioChannelPrototype> ColSecChannelId = "ColSec";  // HardLight
+        private static readonly ProtoId<RadioChannelPrototype> ColSecChannelId = "ColSec"; // HardLight
 
         public override void Initialize()
         {
@@ -100,7 +137,13 @@ namespace Content.Server.Forensics
         ///     Rewards the NFSD department for scanning a dead drop.
         ///     Gives some amount of spesos and FUC to the
         /// </summary>
-        private void GiveReward(EntityUid uidOrigin, EntityUid target, int spesoAmount, FixedPoint2 fucAmount, string msg)
+        private void GiveReward(
+            EntityUid uidOrigin,
+            EntityUid target,
+            int spesoAmount,
+            FixedPoint2 fucAmount,
+            string msg
+        )
         {
             _audioSystem.PlayPvs(_audioSystem.ResolveSound(_confirmSound), uidOrigin);
 
@@ -133,17 +176,28 @@ namespace Content.Server.Forensics
             string msgString = Loc.GetString(msg);
             if (fucAmount >= 1)
             {
-                msgString = msgString + " " + Loc.GetString("forensic-reward-amount",
-                ("spesos", BankSystemExtensions.ToSpesoString(spesoAmount)),
-                ("fuc", BankSystemExtensions.ToFUCString(fucAmount.Int())));
+                msgString =
+                    msgString
+                    + " "
+                    + Loc.GetString(
+                        "forensic-reward-amount",
+                        ("spesos", BankSystemExtensions.ToSpesoString(spesoAmount)),
+                        ("fuc", BankSystemExtensions.ToFUCString(fucAmount.Int()))
+                    );
             }
             else
             {
-                msgString = msgString + " " + Loc.GetString("forensic-reward-amount-speso-only",
-                ("spesos", BankSystemExtensions.ToSpesoString(spesoAmount)));
+                msgString =
+                    msgString
+                    + " "
+                    + Loc.GetString(
+                        "forensic-reward-amount-speso-only",
+                        ("spesos", BankSystemExtensions.ToSpesoString(spesoAmount))
+                    );
             }
             _radio.SendRadioMessage(uidOrigin, msgString, channel, uidOrigin);
         }
+
         // End Frontier: add dead drop rewards
 
         private void UpdateUserInterface(EntityUid uid, ForensicScannerComponent component)
@@ -156,7 +210,8 @@ namespace Content.Server.Forensics
                 component.Residues,
                 component.LastScannedName,
                 component.PrintCooldown,
-                component.PrintReadyAt);
+                component.PrintReadyAt
+            );
 
             _uiSystem.SetUiState(uid, ForensicScannerUiKey.Key, state);
         }
@@ -216,11 +271,19 @@ namespace Content.Server.Forensics
                         // Otherwise, if it's been used, pay out at a reduced rate and compromise it.
                         else if (deadDrop.DeadDropCalled)
                         {
-                            GiveReward(uid, target, InactiveUsedDeadDropSpesoReward, InactiveUsedDeadDropFUCReward, "forensic-reward-dead-drop-used-gone");
+                            GiveReward(
+                                uid,
+                                target,
+                                InactiveUsedDeadDropSpesoReward,
+                                InactiveUsedDeadDropFUCReward,
+                                "forensic-reward-dead-drop-used-gone"
+                            );
                             _deadDrop.CompromiseDeadDrop(target, deadDrop);
                         }
                     }
-                    else if (TryComp<ContrabandPodGridComponent>(Transform(target).GridUid, out var pod) && !pod.Scanned)
+                    else if (
+                        TryComp<ContrabandPodGridComponent>(Transform(target).GridUid, out var pod) && !pod.Scanned
+                    )
                     {
                         GiveReward(uid, target, DropPodSpesoReward, DropPodFUCReward, "forensic-reward-pod");
                         pod.Scanned = true;
@@ -231,7 +294,8 @@ namespace Content.Server.Forensics
                 if (_tag.HasTag(args.Args.Target.Value, DNASolutionScannableTag))
                 {
                     scanner.SolutionDNAs = _forensicsSystem.GetSolutionsDNA(args.Args.Target.Value);
-                } else
+                }
+                else
                 {
                     scanner.SolutionDNAs = new();
                 }
@@ -247,11 +311,21 @@ namespace Content.Server.Forensics
         /// </remarks>
         private void StartScan(EntityUid uid, ForensicScannerComponent component, EntityUid user, EntityUid target)
         {
-            _doAfterSystem.TryStartDoAfter(new DoAfterArgs(EntityManager, user, component.ScanDelay, new ForensicScannerDoAfterEvent(), uid, target: target, used: uid)
-            {
-                BreakOnMove = true,
-                NeedHand = true
-            });
+            _doAfterSystem.TryStartDoAfter(
+                new DoAfterArgs(
+                    EntityManager,
+                    user,
+                    component.ScanDelay,
+                    new ForensicScannerDoAfterEvent(),
+                    uid,
+                    target: target,
+                    used: uid
+                )
+                {
+                    BreakOnMove = true,
+                    NeedHand = true,
+                }
+            );
         }
 
         private void OnUtilityVerb(EntityUid uid, ForensicScannerComponent component, GetVerbsEvent<UtilityVerb> args)
@@ -264,7 +338,7 @@ namespace Content.Server.Forensics
                 Act = () => StartScan(uid, component, args.User, args.Target),
                 IconEntity = GetNetEntity(uid),
                 Text = Loc.GetString("forensic-scanner-verb-text"),
-                Message = Loc.GetString("forensic-scanner-verb-message")
+                Message = Loc.GetString("forensic-scanner-verb-message"),
             };
 
             args.Verbs.Add(verb);
@@ -278,7 +352,11 @@ namespace Content.Server.Forensics
             StartScan(uid, component, args.User, args.Target.Value);
         }
 
-        private void OnAfterInteractUsing(EntityUid uid, ForensicScannerComponent component, AfterInteractUsingEvent args)
+        private void OnAfterInteractUsing(
+            EntityUid uid,
+            ForensicScannerComponent component,
+            AfterInteractUsingEvent args
+        )
         {
             if (args.Handled || !args.CanReach)
                 return;
@@ -310,7 +388,11 @@ namespace Content.Server.Forensics
             _popupSystem.PopupEntity(Loc.GetString("forensic-scanner-match-none"), uid, args.User);
         }
 
-        private void OnBeforeActivatableUIOpen(EntityUid uid, ForensicScannerComponent component, BeforeActivatableUIOpenEvent args)
+        private void OnBeforeActivatableUIOpen(
+            EntityUid uid,
+            ForensicScannerComponent component,
+            BeforeActivatableUIOpenEvent args
+        )
         {
             UpdateUserInterface(uid, component);
         }
@@ -344,7 +426,10 @@ namespace Content.Server.Forensics
                 return;
             }
 
-            _metaData.SetEntityName(printed, Loc.GetString("forensic-scanner-report-title", ("entity", component.LastScannedName)));
+            _metaData.SetEntityName(
+                printed,
+                Loc.GetString("forensic-scanner-report-title", ("entity", component.LastScannedName))
+            );
 
             var text = new StringBuilder();
 
@@ -380,12 +465,11 @@ namespace Content.Server.Forensics
             }
 
             _paperSystem.SetContent((printed, paperComp), text.ToString());
-            _audioSystem.PlayPvs(component.SoundPrint, uid,
-                AudioParams.Default
-                .WithVariation(0.25f)
-                .WithVolume(3f)
-                .WithRolloffFactor(2.8f)
-                .WithMaxDistance(4.5f));
+            _audioSystem.PlayPvs(
+                component.SoundPrint,
+                uid,
+                AudioParams.Default.WithVariation(0.25f).WithVolume(3f).WithRolloffFactor(2.8f).WithMaxDistance(4.5f)
+            );
 
             component.PrintReadyAt = _gameTiming.CurTime + component.PrintCooldown;
         }

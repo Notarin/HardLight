@@ -4,7 +4,7 @@
   id: ShipMissileASM417
   name: ASM-417 Mini Missile
   parent: BaseBulletTrigger
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -55,7 +55,7 @@
   id: ShipMissileASM302
   name: ASM-302 missile
   parent: BaseBulletTrigger
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -106,7 +106,7 @@
   id: ShipMissileASM501
   name: ASM-501 missile
   parent: BaseBulletTrigger
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -157,7 +157,7 @@
   id: ShipMissileASM557
   name: ASM-557 Hybrid EMP Missile
   parent: BaseBulletTrigger
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -212,7 +212,7 @@
   id: ShipMissileSerpent
   name: serpent torpedo
   parent: BaseTorpedo
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -264,7 +264,7 @@
   id: ShipMissileEntropy
   name: electron torpedo
   parent: BaseTorpedo
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -318,12 +318,11 @@
         Blunt: 0.5
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 2500
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:ExplodeBehavior
       - !type:PlaySoundBehavior
         sound:

@@ -14,19 +14,31 @@ namespace Content.Client.NodeContainer
     [UsedImplicitly]
     public sealed class NodeGroupSystem : EntitySystem
     {
-        [Dependency] private readonly IOverlayManager _overlayManager = default!;
-        [Dependency] private readonly EntityLookupSystem _entityLookup = default!;
-        [Dependency] private readonly IMapManager _mapManager = default!;
-        [Dependency] private readonly IInputManager _inputManager = default!;
-        [Dependency] private readonly IResourceCache _resourceCache = default!;
+        [Dependency]
+        private readonly IOverlayManager _overlayManager = default!;
+
+        [Dependency]
+        private readonly EntityLookupSystem _entityLookup = default!;
+
+        [Dependency]
+        private readonly IMapManager _mapManager = default!;
+
+        [Dependency]
+        private readonly IInputManager _inputManager = default!;
+
+        [Dependency]
+        private readonly IResourceCache _resourceCache = default!;
 
         public bool VisEnabled { get; private set; }
 
         public Dictionary<int, NodeVis.GroupData> Groups { get; } = new();
         public HashSet<string> Filtered { get; } = new();
 
-        public Dictionary<EntityUid, (NodeVis.GroupData group, NodeVis.NodeDatum node)[]>
-            Entities { get; private set; } = new();
+        public Dictionary<EntityUid, (NodeVis.GroupData group, NodeVis.NodeDatum node)[]> Entities
+        {
+            get;
+            private set;
+        } = new();
 
         public Dictionary<(int group, int node), NodeVis.NodeDatum> NodeLookup { get; private set; } = new();
 
@@ -67,13 +79,13 @@ namespace Content.Client.NodeContainer
                 }
             }
 
-            Entities = Groups.Values
-                .SelectMany(g => g.Nodes, (data, nodeData) => (data, nodeData))
+            Entities = Groups
+                .Values.SelectMany(g => g.Nodes, (data, nodeData) => (data, nodeData))
                 .GroupBy(n => GetEntity(n.nodeData.Entity))
                 .ToDictionary(g => g.Key, g => g.ToArray());
 
-            NodeLookup = Groups.Values
-                .SelectMany(g => g.Nodes, (data, nodeData) => (data, nodeData))
+            NodeLookup = Groups
+                .Values.SelectMany(g => g.Nodes, (data, nodeData) => (data, nodeData))
                 .ToDictionary(n => (n.data.NetId, n.nodeData.NetId), n => n.nodeData);
         }
 
@@ -91,7 +103,8 @@ namespace Content.Client.NodeContainer
                     _mapManager,
                     _inputManager,
                     _resourceCache,
-                    EntityManager);
+                    EntityManager
+                );
 
                 _overlayManager.AddOverlay(overlay);
             }

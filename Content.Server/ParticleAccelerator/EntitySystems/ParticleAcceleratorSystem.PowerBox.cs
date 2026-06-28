@@ -9,10 +9,16 @@ public sealed partial class ParticleAcceleratorSystem
 {
     private void InitializePowerBoxSystem()
     {
-        SubscribeLocalEvent<ParticleAcceleratorPowerBoxComponent, PowerConsumerReceivedChanged>(PowerBoxReceivedChanged);
+        SubscribeLocalEvent<ParticleAcceleratorPowerBoxComponent, PowerConsumerReceivedChanged>(
+            PowerBoxReceivedChanged
+        );
     }
 
-    private void PowerBoxReceivedChanged(EntityUid uid, ParticleAcceleratorPowerBoxComponent component, ref PowerConsumerReceivedChanged args)
+    private void PowerBoxReceivedChanged(
+        EntityUid uid,
+        ParticleAcceleratorPowerBoxComponent component,
+        ref PowerConsumerReceivedChanged args
+    )
     {
         if (!TryComp<MultipartMachinePartComponent>(uid, out var part))
             return;
@@ -20,7 +26,10 @@ public sealed partial class ParticleAcceleratorSystem
             return;
 
         var master = part.Master!.Value;
-        if (controller.Enabled && args.ReceivedPower >= args.DrawRate * ParticleAcceleratorControlBoxComponent.RequiredPowerRatio)
+        if (
+            controller.Enabled
+            && args.ReceivedPower >= args.DrawRate * ParticleAcceleratorControlBoxComponent.RequiredPowerRatio
+        )
             PowerOn(master, comp: controller);
         else
             PowerOff(master, comp: controller);

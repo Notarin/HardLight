@@ -7,10 +7,10 @@
 using System.Linq;
 using Content.Server.Administration.Managers;
 using Content.Server.EUI;
-using Content.Shared.Administration;
-using Content.Shared.Eui;
 using Content.Shared._Impstation.Thaven;
 using Content.Shared._Impstation.Thaven.Components;
+using Content.Shared.Administration;
+using Content.Shared.Eui;
 
 namespace Content.Server._Impstation.Thaven;
 

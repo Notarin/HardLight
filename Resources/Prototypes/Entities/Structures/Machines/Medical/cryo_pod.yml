@@ -10,36 +10,34 @@
     noRot: true
     offset: 0, 0.5
     layers:
-      - sprite: Structures/Piping/Atmospherics/pipe.rsi
-        state: pipeHalf
-        offset: 0, -0.5
-        map: [ "enum.PipeVisualLayers.Pipe" ]
-      - state: pod-open
-        map: [ "enum.CryoPodVisualLayers.Base" ]
-      - state: cover-on
-        map: [ "enum.CryoPodVisualLayers.Cover" ]
-        visible: false
-      - state: pod-panel
-        map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
-        visible: false
+    - sprite: Structures/Piping/Atmospherics/pipe.rsi
+      state: pipeHalf
+      offset: 0, -0.5
+      map: ["enum.PipeVisualLayers.Pipe"]
+    - state: pod-open
+      map: ["enum.CryoPodVisualLayers.Base"]
+    - state: cover-on
+      map: ["enum.CryoPodVisualLayers.Cover"]
+      visible: false
+    - state: pod-panel
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
+      visible: false
   - type: InteractionOutline
   - type: Transform
     noRot: true
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.5,-0.5,0.5,0.90"
         density: 200
         mask:
-          - MachineMask
+        - MachineMask
         layer:
-          - MachineLayer
+        - MachineLayer
   - type: ContainerContainer
     containers:
-      scanner-body:
-        !type:ContainerSlot
+      scanner-body: !type:ContainerSlot
         showEnts: true
       beakerSlot: !type:ContainerSlot {}
       machine_board: !type:Container
@@ -58,25 +56,23 @@
     damageModifierSet: StructuralMetallic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
-        - !type:EmptyAllContainersBehaviour
-        - !type:PlaySoundBehavior
-          sound:
-            collection: WindowShatter
-        - !type:ChangeConstructionNodeBehavior
-          node: machineFrame
-        - !type:DoActsBehavior
-          acts: [ "Destruction" ]
+      - !type:EmptyAllContainersBehaviour
+      - !type:PlaySoundBehavior
+        sound:
+          collection: WindowShatter
+      - !type:ChangeConstructionNodeBehavior
+        node: machineFrame
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
   - type: ApcPowerReceiver
     powerLoad: 3000
   - type: ExtensionCableReceiver
   - type: NodeContainer
     nodes:
-      port:
-        !type:PortablePipeNode
+      port: !type:PortablePipeNode
         nodeGroupID: Pipe
         pipeDirection: South
   - type: AtmosMonitoringConsoleDevice
@@ -86,7 +82,7 @@
       beakerSlot:
         whitelist:
           components:
-            - FitsInDispenser
+          - FitsInDispenser
   - type: ItemToggle
   - type: HealthAnalyzer
     scanDelay: 0
@@ -107,7 +103,7 @@
     enabled: false
   - type: EmptyOnMachineDeconstruct
     containers:
-      - scanner-body
+    - scanner-body
   - type: CryoPod
   - type: CryoPodAir
   - type: ContainerTemperatureDamageThresholds

@@ -13,9 +13,17 @@ namespace Content.Server.Destructible.Thresholds.Behaviors
             if (!system.EntityManager.TryGetComponent<ContainerManagerComponent>(owner, out var containerManager))
                 return;
 
-            foreach (var container in system.EntityManager.System<SharedContainerSystem>().GetAllContainers(owner, containerManager))
+            foreach (
+                var container in system
+                    .EntityManager.System<SharedContainerSystem>()
+                    .GetAllContainers(owner, containerManager)
+            )
             {
-                system.ContainerSystem.EmptyContainer(container, true, system.EntityManager.GetComponent<TransformComponent>(owner).Coordinates);
+                system.ContainerSystem.EmptyContainer(
+                    container,
+                    true,
+                    system.EntityManager.GetComponent<TransformComponent>(owner).Coordinates
+                );
             }
         }
     }

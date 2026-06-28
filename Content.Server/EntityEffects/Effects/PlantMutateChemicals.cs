@@ -12,7 +12,9 @@ namespace Content.Server.EntityEffects.Effects;
 /// </summary>
 public sealed partial class PlantMutateChemicals : EntityEffect
 {
-    private static readonly ProtoId<WeightedRandomFillSolutionPrototype> RandomPickBotanyReagentId = "RandomPickBotanyReagent";
+    private static readonly ProtoId<WeightedRandomFillSolutionPrototype> RandomPickBotanyReagentId =
+        "RandomPickBotanyReagent";
+
     public override void Effect(EntityEffectBaseArgs args)
     {
         var plantholder = args.EntityManager.GetComponent<PlantHolderComponent>(args.TargetEntity);

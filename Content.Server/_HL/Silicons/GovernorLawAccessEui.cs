@@ -23,7 +23,8 @@ public sealed class GovernorLawAccessEui : BaseEui
     public GovernorLawAccessEui(
         SiliconLawSystem siliconLawSystem,
         InventorySystem inventory,
-        EntityManager entityManager)
+        EntityManager entityManager
+    )
     {
         _siliconLawSystem = siliconLawSystem;
         _inventory = inventory;
@@ -101,6 +102,6 @@ public sealed class GovernorLawAccessEui : BaseEui
             return false;
 
         return _inventory.TryGetSlotEntity(_target, "neck", out var neckItem)
-               && _entityManager.HasComponent<GovernorLawAccessComponent>(neckItem);
+            && _entityManager.HasComponent<GovernorLawAccessComponent>(neckItem);
     }
 }

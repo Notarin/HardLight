@@ -7,7 +7,7 @@
     sprite: _RMC14/Objects/Weapons/Guns/Ammunition/Magazines/xm88.rsi
     layers:
     - state: SOCOM1
-      map: [ "base" ]
+      map: ["base"]
   - type: CartridgeAmmo
     proto: RMCBullet458SOCOM
   - type: Stack
@@ -34,6 +34,6 @@
 - type: stack
   id: RMCCartridge458SOCOM
   name: rmc-handful-458-socom-name
-  icon: { sprite: /Textures/_RMC14/Objects/Weapons/Guns/Ammunition/Magazines/xm88.rsi, state: SOCOM1 }
+  icon: {sprite: /Textures/_RMC14/Objects/Weapons/Guns/Ammunition/Magazines/xm88.rsi, state: SOCOM1}
   spawn: RMCCartridge458SOCOM
   maxCount: 9

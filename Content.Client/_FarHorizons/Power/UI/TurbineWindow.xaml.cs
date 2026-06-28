@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Content.Client.UserInterface.Controls;
 using Content.Shared._FarHorizons.Power.Generation.FissionGenerator;
 using Content.Shared.IdentityManagement;
@@ -8,7 +9,6 @@ using Robust.Client.Graphics;
 using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.XAML;
 using Robust.Shared.Timing;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Content.Client._FarHorizons.Power.UI;
 
@@ -19,12 +19,14 @@ namespace Content.Client._FarHorizons.Power.UI;
 public sealed partial class TurbineWindow : FancyWindow
 {
     // Dependencies
-    [Dependency] private readonly IEntityManager _entityManager = null!;
+    [Dependency]
+    private readonly IEntityManager _entityManager = null!;
     private readonly LockSystem _lock;
 
     #region Variables
     //Colors for the RPM meter. (lit)
-    private static readonly Color[] _speedColors = [
+    private static readonly Color[] _speedColors =
+    [
         Color.FromHex("#BB3232"),
         Color.FromHex("#BB3232"),
         Color.FromHex("#BB3232"),
@@ -200,9 +202,9 @@ public sealed partial class TurbineWindow : FancyWindow
     {
         UpdateIndicators(msg);
 
-        if(!_suppressFlowUpdate)
+        if (!_suppressFlowUpdate)
             TurbineFlowRateLabel.Text = Math.Round(msg.FlowRate).ToString();
-        if(!_suppressStatorUpdate)
+        if (!_suppressStatorUpdate)
             TurbineStatorLoadLabel.Text = Math.Round(msg.StatorLoad).ToString();
 
         var locktarget = _isMonitor ? _monitor : _turbine;
@@ -221,7 +223,7 @@ public sealed partial class TurbineWindow : FancyWindow
         _speedLevel = ContentHelpers.RoundToNearestLevels(msg.RPM, msg.BestRPM * 1.2, _speedMeter.Length);
 
         var bladeExists = msg.Blade != null;
-        if(bladeExists)
+        if (bladeExists)
         {
             BladeEntityView.SetEntity(msg.Blade!.Value);
             BladeInfoName.Text = Identity.Name(_entityManager.GetEntity(msg.Blade!.Value), _entityManager);
@@ -265,7 +267,7 @@ public sealed partial class TurbineWindow : FancyWindow
 
         foreach (var kvp in _repeatQueue)
         {
-            if(kvp.Value > 0)
+            if (kvp.Value > 0)
             {
                 _repeatQueue[kvp.Key] -= args.DeltaSeconds;
                 continue;

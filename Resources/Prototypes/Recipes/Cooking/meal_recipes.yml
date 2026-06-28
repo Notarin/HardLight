@@ -1647,7 +1647,7 @@
     Sugar: 5
     Raisins: 10 # Frontier
   # solids: # Frontier
-    # FoodSnackRaisins: 1 # Frontier
+  # FoodSnackRaisins: 1 # Frontier
   recipeType: Oven # Frontier
 
 - type: microwaveMealRecipe
@@ -2082,7 +2082,7 @@
   group: Soup
   #todo Add blackpepper
   #reagents:
-    #blackpepper: 5
+  #blackpepper: 5
   solids:
     FoodChiliPepper: 1
     FoodCheeseSlice: 2
@@ -2611,7 +2611,6 @@
     FoodButterSlice: 1
     ShardGlass: 1
   recipeType: Oven # Frontier
-
 
 - type: microwaveMealRecipe
   id: RecipeInertAnomalyMeat

@@ -17,9 +17,8 @@ namespace Content.Client.Chemistry.UI
         [ViewVariables]
         private ReagentDispenserWindow? _window;
 
-        public ReagentDispenserBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-        {
-        }
+        public ReagentDispenserBoundUserInterface(EntityUid owner, Enum uiKey)
+            : base(owner, uiKey) { }
 
         /// <summary>
         /// Called each time a dispenser UI instance is opened. Generates the dispenser window and fills it with
@@ -35,12 +34,14 @@ namespace Content.Client.Chemistry.UI
             _window.SetInfoFromEntity(EntMan, Owner);
 
             // Setup static button actions.
-            _window.EjectButton.OnPressed += _ => SendMessage(new ItemSlotButtonPressedEvent(SharedReagentDispenser.OutputSlotName));
+            _window.EjectButton.OnPressed += _ =>
+                SendMessage(new ItemSlotButtonPressedEvent(SharedReagentDispenser.OutputSlotName));
             _window.ClearButton.OnPressed += _ => SendMessage(new ReagentDispenserClearContainerSolutionMessage());
 
             _window.AmountGrid.OnButtonPressed += s => SendMessage(new ReagentDispenserSetDispenseAmountMessage(s));
 
-            _window.OnDispenseReagentButtonPressed += (id) => SendMessage(new ReagentDispenserDispenseReagentMessage(id));
+            _window.OnDispenseReagentButtonPressed += (id) =>
+                SendMessage(new ReagentDispenserDispenseReagentMessage(id));
             _window.OnEjectJugButtonPressed += (id) => SendMessage(new ItemSlotButtonPressedEvent(id));
             _window.OnToggleValveButtonPressed += () => SendMessage(new ReagentDispenserToggleValveMessage()); // Starlight-edit: Plumbing valve
         }
@@ -56,7 +57,7 @@ namespace Content.Client.Chemistry.UI
         {
             base.UpdateState(state);
 
-            var castState = (ReagentDispenserBoundUserInterfaceState) state;
+            var castState = (ReagentDispenserBoundUserInterfaceState)state;
             _window?.UpdateState(castState); //Update window state
         }
     }

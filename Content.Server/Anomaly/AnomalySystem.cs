@@ -26,20 +26,45 @@ namespace Content.Server.Anomaly;
 /// </summary>
 public sealed partial class AnomalySystem : SharedAnomalySystem
 {
-    [Dependency] private readonly IConfigurationManager _configuration = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly AmbientSoundSystem _ambient = default!;
-    [Dependency] private readonly AtmosphereSystem _atmosphere = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly ExplosionSystem _explosion = default!;
-    [Dependency] private readonly MaterialStorageSystem _material = default!;
-    [Dependency] private readonly SharedPointLightSystem _pointLight = default!;
+    [Dependency]
+    private readonly IConfigurationManager _configuration = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototype = default!;
+
+    [Dependency]
+    private readonly AmbientSoundSystem _ambient = default!;
+
+    [Dependency]
+    private readonly AtmosphereSystem _atmosphere = default!;
+
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfter = default!;
+
+    [Dependency]
+    private readonly ExplosionSystem _explosion = default!;
+
+    [Dependency]
+    private readonly MaterialStorageSystem _material = default!;
+
+    [Dependency]
+    private readonly SharedPointLightSystem _pointLight = default!;
+
     // [Dependency] private readonly StationSystem _station = default!; // Frontier
-    [Dependency] private readonly RadioSystem _radio = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly RadiationSystem _radiation = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
+    [Dependency]
+    private readonly RadioSystem _radio = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly RadiationSystem _radiation = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly UserInterfaceSystem _ui = default!;
 
     public const float MinParticleVariation = 0.8f;
     public const float MaxParticleVariation = 1.2f;
@@ -63,8 +88,16 @@ public sealed partial class AnomalySystem : SharedAnomalySystem
     private void OnMapInit(Entity<AnomalyComponent> anomaly, ref MapInitEvent args)
     {
         anomaly.Comp.NextPulseTime = Timing.CurTime + GetPulseLength(anomaly.Comp) * 3; // longer the first time
-        ChangeAnomalyStability(anomaly, Random.NextFloat(anomaly.Comp.InitialStabilityRange.Item1 , anomaly.Comp.InitialStabilityRange.Item2), anomaly.Comp);
-        ChangeAnomalySeverity(anomaly, Random.NextFloat(anomaly.Comp.InitialSeverityRange.Item1, anomaly.Comp.InitialSeverityRange.Item2), anomaly.Comp);
+        ChangeAnomalyStability(
+            anomaly,
+            Random.NextFloat(anomaly.Comp.InitialStabilityRange.Item1, anomaly.Comp.InitialStabilityRange.Item2),
+            anomaly.Comp
+        );
+        ChangeAnomalySeverity(
+            anomaly,
+            Random.NextFloat(anomaly.Comp.InitialSeverityRange.Item1, anomaly.Comp.InitialSeverityRange.Item2),
+            anomaly.Comp
+        );
 
         ShuffleParticlesEffect(anomaly);
         anomaly.Comp.Continuity = _random.NextFloat(anomaly.Comp.MinContituty, anomaly.Comp.MaxContituty);
@@ -74,7 +107,12 @@ public sealed partial class AnomalySystem : SharedAnomalySystem
     public void ShuffleParticlesEffect(Entity<AnomalyComponent> anomaly)
     {
         var particles = new List<AnomalousParticleType>
-            { AnomalousParticleType.Delta, AnomalousParticleType.Epsilon, AnomalousParticleType.Zeta, AnomalousParticleType.Sigma };
+        {
+            AnomalousParticleType.Delta,
+            AnomalousParticleType.Epsilon,
+            AnomalousParticleType.Zeta,
+            AnomalousParticleType.Sigma,
+        };
 
         anomaly.Comp.SeverityParticleType = Random.PickAndTake(particles);
         anomaly.Comp.DestabilizingParticleType = Random.PickAndTake(particles);
@@ -156,7 +194,8 @@ public sealed partial class AnomalySystem : SharedAnomalySystem
 
         var severityValue = 1 / (1 + MathF.Pow(MathF.E, -7 * (component.Severity - 0.5f)));
 
-        return (int) ((component.MaxPointsPerSecond - component.MinPointsPerSecond) * severityValue * multiplier) + component.MinPointsPerSecond;
+        return (int)((component.MaxPointsPerSecond - component.MinPointsPerSecond) * severityValue * multiplier)
+            + component.MinPointsPerSecond;
     }
 
     /// <summary>
@@ -172,7 +211,7 @@ public sealed partial class AnomalySystem : SharedAnomalySystem
             AnomalousParticleType.Epsilon => Loc.GetString("anomaly-particles-epsilon"),
             AnomalousParticleType.Zeta => Loc.GetString("anomaly-particles-zeta"),
             AnomalousParticleType.Sigma => Loc.GetString("anomaly-particles-sigma"),
-            _ => throw new ArgumentOutOfRangeException()
+            _ => throw new ArgumentOutOfRangeException(),
         };
     }
 

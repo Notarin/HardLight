@@ -27,10 +27,18 @@ public sealed partial class TimelineDisruptorComponent : Component
     /// <summary>
     /// Time where disruption will end
     /// </summary>
-    [DataField(customTypeSerializer: typeof(TimeOffsetSerializer)), ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
+    [
+        DataField(customTypeSerializer: typeof(TimeOffsetSerializer)),
+        ViewVariables(VVAccess.ReadWrite),
+        AutoNetworkedField
+    ]
     public TimeSpan DisruptionEndTime;
 
-    [DataField(customTypeSerializer: typeof(TimeOffsetSerializer)), ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
+    [
+        DataField(customTypeSerializer: typeof(TimeOffsetSerializer)),
+        ViewVariables(VVAccess.ReadWrite),
+        AutoNetworkedField
+    ]
     public TimeSpan NextSecond;
 
     /// <summary>
@@ -43,7 +51,9 @@ public sealed partial class TimelineDisruptorComponent : Component
     public SoundSpecifier? DisruptionCompleteSound = new SoundPathSpecifier("/Audio/Goobstation/Effects/ding.ogg");
 
     [DataField]
-    public SoundSpecifier? DusruptionSound = new SoundPathSpecifier("/Audio/Goobstation/Effects/ChronoLegionnaire/timeline_disruptor.ogg");
+    public SoundSpecifier? DusruptionSound = new SoundPathSpecifier(
+        "/Audio/Goobstation/Effects/ChronoLegionnaire/timeline_disruptor.ogg"
+    );
 
     [DataField]
     public EntityUid? DisruptionSoundStream;
@@ -53,6 +63,5 @@ public sealed partial class TimelineDisruptorComponent : Component
 public enum TimelineDisruptiorVisuals : byte
 {
     Disrupting,
-    ContainerInserted
+    ContainerInserted,
 }
-

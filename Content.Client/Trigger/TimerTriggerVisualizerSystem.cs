@@ -9,7 +9,8 @@ namespace Content.Client.Trigger;
 
 public sealed class TimerTriggerVisualizerSystem : VisualizerSystem<TimerTriggerVisualsComponent>
 {
-    [Dependency] private readonly SharedAudioSystem _audioSystem = default!;
+    [Dependency]
+    private readonly SharedAudioSystem _audioSystem = default!;
 
     public override void Initialize()
     {
@@ -22,11 +23,13 @@ public sealed class TimerTriggerVisualizerSystem : VisualizerSystem<TimerTrigger
         comp.PrimingAnimation = new Animation
         {
             Length = TimeSpan.MaxValue,
-            AnimationTracks = {
-                new AnimationTrackSpriteFlick() {
+            AnimationTracks =
+            {
+                new AnimationTrackSpriteFlick()
+                {
                     LayerKey = TriggerVisualLayers.Base,
-                    KeyFrames = { new AnimationTrackSpriteFlick.KeyFrame(comp.PrimingSprite, 0f) }
-                }
+                    KeyFrames = { new AnimationTrackSpriteFlick.KeyFrame(comp.PrimingSprite, 0f) },
+                },
             },
         };
 
@@ -35,26 +38,43 @@ public sealed class TimerTriggerVisualizerSystem : VisualizerSystem<TimerTrigger
             comp.PrimingAnimation.AnimationTracks.Add(
                 new AnimationTrackPlaySound()
                 {
-                    KeyFrames = { new AnimationTrackPlaySound.KeyFrame(_audioSystem.ResolveSound(comp.PrimingSound), 0) }
+                    KeyFrames =
+                    {
+                        new AnimationTrackPlaySound.KeyFrame(_audioSystem.ResolveSound(comp.PrimingSound), 0),
+                    },
                 }
             );
         }
     }
 
-    protected override void OnAppearanceChange(EntityUid uid, TimerTriggerVisualsComponent comp, ref AppearanceChangeEvent args)
+    protected override void OnAppearanceChange(
+        EntityUid uid,
+        TimerTriggerVisualsComponent comp,
+        ref AppearanceChangeEvent args
+    )
     {
-        if (args.Sprite == null
-        || !TryComp<AnimationPlayerComponent>(uid, out var animPlayer))
+        if (args.Sprite == null || !TryComp<AnimationPlayerComponent>(uid, out var animPlayer))
             return;
 
-        if (!AppearanceSystem.TryGetData<TriggerVisualState>(uid, TriggerVisuals.VisualState, out var state, args.Component))
+        if (
+            !AppearanceSystem.TryGetData<TriggerVisualState>(
+                uid,
+                TriggerVisuals.VisualState,
+                out var state,
+                args.Component
+            )
+        )
             state = TriggerVisualState.Unprimed;
 
         switch (state)
         {
             case TriggerVisualState.Primed:
                 if (!AnimationSystem.HasRunningAnimation(uid, animPlayer, TimerTriggerVisualsComponent.AnimationKey))
-                    AnimationSystem.Play((uid, animPlayer), comp.PrimingAnimation, TimerTriggerVisualsComponent.AnimationKey);
+                    AnimationSystem.Play(
+                        (uid, animPlayer),
+                        comp.PrimingAnimation,
+                        TimerTriggerVisualsComponent.AnimationKey
+                    );
                 break;
             case TriggerVisualState.Unprimed:
                 SpriteSystem.LayerSetRsiState((uid, args.Sprite), TriggerVisualLayers.Base, comp.UnprimedSprite);
@@ -67,5 +87,5 @@ public sealed class TimerTriggerVisualizerSystem : VisualizerSystem<TimerTrigger
 
 public enum TriggerVisualLayers : byte
 {
-    Base
+    Base,
 }

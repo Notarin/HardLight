@@ -6,6 +6,5 @@ namespace Content.Shared.Abilities.Psionics
     /// Only use this for the status effect, please.
     /// </summary>
     [RegisterComponent, NetworkedComponent]
-    public sealed partial class PsionicsDisabledComponent : Component
-    {}
+    public sealed partial class PsionicsDisabledComponent : Component { }
 }

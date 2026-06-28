@@ -87,7 +87,7 @@ public sealed class MsgVoteAuditResponse : NetMessage
             buffer.Write(InspectTitle);
             buffer.Write(InspectInitiator);
             buffer.Write(InspectStatus);
-            buffer.Write((byte) Math.Min(Options.Length, 255));
+            buffer.Write((byte)Math.Min(Options.Length, 255));
             foreach (var opt in Options)
             {
                 buffer.Write(opt.Text);

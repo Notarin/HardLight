@@ -55,7 +55,8 @@ public sealed class StaticFieldValidationTest
     }
 
     [TestPrototypes]
-    private const string TestPrototypes = @"
+    private const string TestPrototypes =
+        @"
 - type: entity
   id: StaticFieldTestEnt
 

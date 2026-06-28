@@ -8,18 +8,18 @@
   - type: Sprite
     sprite: Objects/Fun/spectrallocator.rsi
     layers:
-      - state: icon
-      - state: screen
-        shader: unshaded
-        visible: false
-        map: ["enum.ToggleVisuals.Layer"]
+    - state: icon
+    - state: screen
+      shader: unshaded
+      visible: false
+      map: ["enum.ToggleVisuals.Layer"]
   - type: Appearance
   - type: GenericVisualizer
     visuals:
       enum.ToggleVisuals.Toggled:
         enum.ToggleVisuals.Layer:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
   - type: ItemToggle
   - type: ProximityBeeper
   - type: ProximityDetector
@@ -39,7 +39,7 @@
 
 - type: entity
   id: SpectralLocator
-  parent: [ SpectralLocatorUnpowered, PowerCellSlotSmallItem ]
+  parent: [SpectralLocatorUnpowered, PowerCellSlotSmallItem]
   suffix: Powered
   components:
   - type: PowerCellDraw

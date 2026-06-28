@@ -7,6 +7,5 @@ using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Systems;
 
 namespace Content.Client.Starlight.Knockback;
-public sealed partial class KnockbackSystem : SharedKnockbackSystem
-{
-}
+
+public sealed partial class KnockbackSystem : SharedKnockbackSystem { }

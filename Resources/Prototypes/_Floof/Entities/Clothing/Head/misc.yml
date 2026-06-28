@@ -1,7 +1,7 @@
 - type: entity
   parent: ClothingHeadHatHoodWinterBase
   id: ClothingHeadHatHoodMarsHoodieHood
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   name: pink hoodie hood
   components:
   - type: Sprite

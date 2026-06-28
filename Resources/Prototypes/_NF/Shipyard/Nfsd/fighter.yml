@@ -7,7 +7,7 @@
   category: Micro
   group: Custom
   access: Security
-  mapchecker_group_override: Security  # Treat this as a security vessel for mapchecker purposes
+  mapchecker_group_override: Security # Treat this as a security vessel for mapchecker purposes
   shuttlePath: /Maps/_NF/Shuttles/Nfsd/fighter.yml
   guidebookPage: Null
   class:
@@ -24,10 +24,9 @@
     Fighter:
       stationProto: StandardFrontierSecurityVessel
       components:
-        - type: StationNameSetup
-          mapNameTemplate: 'Fighter {1}'
-          nameGenerator:
-            !type:NanotrasenNameGenerator
-            prefixCreator: '14'
-        - type: StationJobs
-          availableJobs: {}
+      - type: StationNameSetup
+        mapNameTemplate: 'Fighter {1}'
+        nameGenerator: !type:NanotrasenNameGenerator
+          prefixCreator: '14'
+      - type: StationJobs
+        availableJobs: {}

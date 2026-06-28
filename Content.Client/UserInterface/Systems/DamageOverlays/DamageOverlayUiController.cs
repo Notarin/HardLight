@@ -16,10 +16,14 @@ namespace Content.Client.UserInterface.Systems.DamageOverlays;
 [UsedImplicitly]
 public sealed class DamageOverlayUiController : UIController
 {
-    [Dependency] private readonly IOverlayManager _overlayManager = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
+    [Dependency]
+    private readonly IOverlayManager _overlayManager = default!;
 
-    [UISystemDependency] private readonly MobThresholdSystem _mobThresholdSystem = default!;
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [UISystemDependency]
+    private readonly MobThresholdSystem _mobThresholdSystem = default!;
     private Overlays.DamageOverlay _overlay = default!;
 
     public override void Initialize()
@@ -57,7 +61,6 @@ public sealed class DamageOverlayUiController : UIController
 
     private void OnThresholdCheck(ref MobThresholdChecked args)
     {
-
         if (args.Target != _playerManager.LocalEntity)
             return;
         UpdateOverlays(args.Target, args.MobState, args.Damageable, args.Threshold);
@@ -72,11 +75,18 @@ public sealed class DamageOverlayUiController : UIController
     }
 
     //TODO: Jezi: adjust oxygen and hp overlays to use appropriate systems once bodysim is implemented
-    private void UpdateOverlays(EntityUid entity, MobStateComponent? mobState, DamageableComponent? damageable = null, MobThresholdsComponent? thresholds = null)
+    private void UpdateOverlays(
+        EntityUid entity,
+        MobStateComponent? mobState,
+        DamageableComponent? damageable = null,
+        MobThresholdsComponent? thresholds = null
+    )
     {
-        if (mobState == null && !EntityManager.TryGetComponent(entity, out mobState) ||
-            thresholds == null && !EntityManager.TryGetComponent(entity, out thresholds) ||
-            damageable == null && !EntityManager.TryGetComponent(entity, out  damageable))
+        if (
+            mobState == null && !EntityManager.TryGetComponent(entity, out mobState)
+            || thresholds == null && !EntityManager.TryGetComponent(entity, out thresholds)
+            || damageable == null && !EntityManager.TryGetComponent(entity, out damageable)
+        )
             return;
 
         if (!_mobThresholdSystem.TryGetIncapThreshold(entity, out var foundThreshold, thresholds))
@@ -124,8 +134,13 @@ public sealed class DamageOverlayUiController : UIController
             }
             case MobState.Critical:
             {
-                if (!_mobThresholdSystem.TryGetDeadPercentage(entity,
-                        FixedPoint2.Max(0.0, damageable.TotalDamage), out var critLevel))
+                if (
+                    !_mobThresholdSystem.TryGetDeadPercentage(
+                        entity,
+                        FixedPoint2.Max(0.0, damageable.TotalDamage),
+                        out var critLevel
+                    )
+                )
                     return;
                 _overlay.CritLevel = critLevel.Value.Float();
 

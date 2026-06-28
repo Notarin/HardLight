@@ -26,11 +26,20 @@ namespace Content.Client.Examine
     [UsedImplicitly]
     public sealed class ExamineSystem : ExamineSystemShared
     {
-        [Dependency] private readonly IUserInterfaceManager _userInterfaceManager = default!;
-        [Dependency] private readonly IPlayerManager _playerManager = default!;
-        [Dependency] private readonly IEyeManager _eyeManager = default!;
-        [Dependency] private readonly VerbSystem _verbSystem = default!;
-        [Dependency] private readonly SpriteSystem _sprite = default!;
+        [Dependency]
+        private readonly IUserInterfaceManager _userInterfaceManager = default!;
+
+        [Dependency]
+        private readonly IPlayerManager _playerManager = default!;
+
+        [Dependency]
+        private readonly IEyeManager _eyeManager = default!;
+
+        [Dependency]
+        private readonly VerbSystem _verbSystem = default!;
+
+        [Dependency]
+        private readonly SpriteSystem _sprite = default!;
 
         private List<Verb> _verbList = new();
 
@@ -55,8 +64,11 @@ namespace Content.Client.Examine
 
             SubscribeLocalEvent<ItemComponent, DroppedEvent>(OnExaminedItemDropped);
 
-            CommandBinds.Builder
-                .Bind(ContentKeyFunctions.ExamineEntity, new PointerInputCmdHandler(HandleExamine, outsidePrediction: true))
+            CommandBinds
+                .Builder.Bind(
+                    ContentKeyFunctions.ExamineEntity,
+                    new PointerInputCmdHandler(HandleExamine, outsidePrediction: true)
+                )
                 .Register<ExamineSystem>();
 
             _idCounter = 0;
@@ -75,8 +87,10 @@ namespace Content.Client.Examine
 
         public override void Update(float frameTime)
         {
-            if (_examineTooltipOpen is not {Visible: true}) return;
-            if (!_examinedEntity.Valid || _playerManager.LocalEntity is not { } player) return;
+            if (_examineTooltipOpen is not { Visible: true })
+                return;
+            if (!_examinedEntity.Valid || _playerManager.LocalEntity is not { } player)
+                return;
 
             if (!CanExamine(player, _examinedEntity))
                 CloseTooltip();
@@ -88,7 +102,13 @@ namespace Content.Client.Examine
             base.Shutdown();
         }
 
-        public override bool CanExamine(EntityUid examiner, MapCoordinates target, Ignored? predicate = null, EntityUid? examined = null, ExaminerComponent? examinerComp = null)
+        public override bool CanExamine(
+            EntityUid examiner,
+            MapCoordinates target,
+            Ignored? predicate = null,
+            EntityUid? examined = null,
+            ExaminerComponent? examinerComp = null
+        )
         {
             if (!Resolve(examiner, ref examinerComp, false))
                 return false;
@@ -116,8 +136,7 @@ namespace Content.Client.Examine
                 return false;
             }
 
-            if (_playerManager.LocalEntity is not { } player ||
-                !CanExamine(player, entity))
+            if (_playerManager.LocalEntity is not { } player || !CanExamine(player, entity))
             {
                 return false;
             }
@@ -138,7 +157,7 @@ namespace Content.Client.Examine
             // Center it on the entity if they use the verb instead.
             verb.Act = () => DoExamine(args.Target, false);
             verb.Text = Loc.GetString("examine-verb-name");
-            verb.Icon = new SpriteSpecifier.Texture(new ("/Textures/Interface/VerbIcons/examine.svg.192dpi.png"));
+            verb.Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/examine.svg.192dpi.png"));
             verb.ShowOnExamineTooltip = false;
             verb.ClientExclusive = true;
             args.Verbs.Add(verb);
@@ -163,7 +182,13 @@ namespace Content.Client.Examine
             UpdateTooltipInfo(player.Value, entity, ev.Message, ev.Verbs, getVerbs: false);
         }
 
-        public override void SendExamineTooltip(EntityUid player, EntityUid target, FormattedMessage message, bool getVerbs, bool centerAtCursor)
+        public override void SendExamineTooltip(
+            EntityUid player,
+            EntityUid target,
+            FormattedMessage message,
+            bool getVerbs,
+            bool centerAtCursor
+        )
         {
             OpenTooltip(player, target, centerAtCursor);
             UpdateTooltipInfo(player, target, message, getVerbs: getVerbs);
@@ -174,7 +199,13 @@ namespace Content.Client.Examine
         ///     not fill it with information. This is done when the server sends examine info/verbs,
         ///     or immediately if it's entirely clientside.
         /// </summary>
-        public void OpenTooltip(EntityUid player, EntityUid target, bool centeredOnCursor=true, bool openAtOldTooltip=true, bool knowTarget = true)
+        public void OpenTooltip(
+            EntityUid player,
+            EntityUid target,
+            bool centeredOnCursor = true,
+            bool openAtOldTooltip = true,
+            bool knowTarget = true
+        )
         {
             // Close any examine tooltip that might already be opened
             // Before we do that, save its position. We'll prioritize opening any new popups there if
@@ -213,7 +244,7 @@ namespace Content.Client.Examine
             {
                 Name = "ExaminePopupVbox",
                 Orientation = LayoutOrientation.Vertical,
-                MaxWidth = _examineTooltipOpen.MaxWidth
+                MaxWidth = _examineTooltipOpen.MaxWidth,
             };
             panel.AddChild(vBox);
 
@@ -221,18 +252,14 @@ namespace Content.Client.Examine
             {
                 Orientation = LayoutOrientation.Horizontal,
                 SeparationOverride = 5,
-                Margin = new Thickness(6, 0, 6, 0)
+                Margin = new Thickness(6, 0, 6, 0),
             };
 
             vBox.AddChild(hBox);
 
             if (EntityManager.HasComponent<SpriteComponent>(target))
             {
-                var spriteView = new SpriteView
-                {
-                    OverrideDirection = Direction.South,
-                    SetSize = new Vector2(32, 32)
-                };
+                var spriteView = new SpriteView { OverrideDirection = Direction.South, SetSize = new Vector2(32, 32) };
                 spriteView.SetEntity(target);
                 hBox.AddChild(spriteView);
             }
@@ -261,7 +288,13 @@ namespace Content.Client.Examine
         /// <summary>
         ///     Fills the examine tooltip with a message and buttons if applicable.
         /// </summary>
-        public void UpdateTooltipInfo(EntityUid player, EntityUid target, FormattedMessage message, List<Verb>? verbs=null, bool getVerbs = true)
+        public void UpdateTooltipInfo(
+            EntityUid player,
+            EntityUid target,
+            FormattedMessage message,
+            List<Verb>? verbs = null,
+            bool getVerbs = true
+        )
         {
             var vBox = _examineTooltipOpen?.GetChild(0).GetChild(0);
             if (vBox == null)
@@ -279,7 +312,7 @@ namespace Content.Client.Examine
                 if (string.IsNullOrWhiteSpace(text))
                     continue;
 
-                var richLabel = new RichTextLabel() { Margin = new Thickness(4, 4, 0, 4)};
+                var richLabel = new RichTextLabel() { Margin = new Thickness(4, 4, 0, 4) };
                 richLabel.SetMessage(message);
                 vBox.AddChild(richLabel);
                 break;
@@ -331,7 +364,7 @@ namespace Content.Client.Examine
                 Orientation = LayoutOrientation.Horizontal,
                 HorizontalAlignment = Control.HAlignment.Left,
                 VerticalAlignment = Control.VAlignment.Center,
-                HorizontalExpand = true
+                HorizontalExpand = true,
             };
 
             var clickExamineBox = new BoxContainer
@@ -340,7 +373,7 @@ namespace Content.Client.Examine
                 Orientation = LayoutOrientation.Horizontal,
                 HorizontalAlignment = Control.HAlignment.Right,
                 VerticalAlignment = Control.VAlignment.Center,
-                HorizontalExpand = true
+                HorizontalExpand = true,
             };
 
             // Examine button time
@@ -420,7 +453,9 @@ namespace Content.Client.Examine
                     _idCounter += 1;
                 if (_idCounter == int.MaxValue)
                     _idCounter = 0;
-                RaiseNetworkEvent(new ExamineSystemMessages.RequestExamineInfoMessage(GetNetEntity(entity), _idCounter, true));
+                RaiseNetworkEvent(
+                    new ExamineSystemMessages.RequestExamineInfoMessage(GetNetEntity(entity), _idCounter, true)
+                );
             }
 
             RaiseLocalEvent(entity, new ClientExaminedEvent(entity, playerEnt.Value));

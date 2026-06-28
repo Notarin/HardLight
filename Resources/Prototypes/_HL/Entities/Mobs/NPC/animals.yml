@@ -17,13 +17,13 @@
     speciesId: fox
   - type: Puller
     needsHands: false
-     
+
 - type: entity
   name: Large compsognathus
   id: MobDinosaurCompyFriendly
   parent: MobSpaceBasic
   description: It probably thinks you are its mother. Poor creature.
-#  categories: [ HideSpawnMenu ] # Frontier
+  #  categories: [ HideSpawnMenu ] # Frontier
   components:
   - type: Butcherable
     spawned:
@@ -33,7 +33,7 @@
       amount: 15
   - type: Metabolizer
     solutionOnBody: false
-    metabolizerTypes: [ Animal ]
+    metabolizerTypes: [Animal]
     groups:
     - id: Medicine
     - id: Cryogenic
@@ -52,7 +52,7 @@
     drawdepth: Mobs
     sprite: _NF/Mobs/Dinosaurs/compy.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: compy
       scale: 0.8, 0.8
   - type: DamageStateVisuals
@@ -81,9 +81,9 @@
     proto: lizard
   - type: Tag
     tags:
-      - CannotSuicide
-      - DoorBumpOpener
-      - FootstepSound
+    - CannotSuicide
+    - DoorBumpOpener
+    - FootstepSound
   - type: NoSlip
   - type: LizardAccent
   - type: Vocal
@@ -98,8 +98,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.25
         density: 1000
         mask:
@@ -119,7 +118,7 @@
   - type: Tool
     speedModifier: 3
     qualities:
-      - Prying
+    - Prying
   - type: Prying
     pryPowered: true
     force: true
@@ -167,7 +166,7 @@
     altDisarm: false
     angle: 0
     soundHit:
-     collection: AlienClaw
+      collection: AlienClaw
     animation: WeaponArcBite
     wideAnimation: WeaponArcClaw
     damage:

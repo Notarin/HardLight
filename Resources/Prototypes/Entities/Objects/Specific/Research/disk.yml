@@ -52,7 +52,7 @@
   id: ResearchDiskDebug
   name: research point disk
   suffix: DEBUG, DO NOT MAP
-  categories: [ DoNotMap ]
+  categories: [DoNotMap]
   description: A disk for the R&D server containing all the points you could ever need.
   components:
   - type: ResearchDisk
@@ -63,7 +63,7 @@
   id: TechnologyDisk
   name: technology disk
   description: A disk for the R&D server containing research technology.
-  categories: [ HideSpawnMenu ] # Frontier: no tech disks
+  categories: [HideSpawnMenu] # Frontier: no tech disks
   components:
   - type: Sprite
     sprite: Objects/Misc/module.rsi
@@ -88,7 +88,7 @@
   parent: TechnologyDisk
   id: TechnologyDiskRare
   suffix: rare.
-  categories: [ HideSpawnMenu ] # Frontier: no tech disks
+  categories: [HideSpawnMenu] # Frontier: no tech disks
   components:
   - type: TechnologyDisk
     tierWeightPrototype: RareTechDiskTierWeights

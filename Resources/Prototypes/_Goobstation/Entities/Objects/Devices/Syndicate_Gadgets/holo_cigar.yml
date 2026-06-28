@@ -15,7 +15,7 @@
     scale: 0.8, 0.8
   - type: Clothing
     sprite: Objects/Consumable/Smokeables/Cigars/cigar.rsi
-    slots: [ mask ]
+    slots: [mask]
     equippedPrefix: unlit
   - type: Item
     size: Tiny

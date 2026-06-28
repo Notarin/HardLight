@@ -1,5 +1,5 @@
-using Content.Shared.Atmos;
 using Content.Shared._NF.Atmos.Systems;
+using Content.Shared.Atmos;
 
 namespace Content.Shared._NF.Atmos.Components;
 

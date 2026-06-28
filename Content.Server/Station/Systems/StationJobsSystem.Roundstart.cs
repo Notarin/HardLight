@@ -1,4 +1,5 @@
 using System.Linq;
+using Content.Server._NF.Roles.Systems;
 using Content.Server.Administration.Managers;
 using Content.Server.Antag;
 using Content.Server.Players.PlayTimeTracking;
@@ -7,7 +8,6 @@ using Content.Server.Station.Events;
 using Content.Shared.Players.PlayTimeTracking;
 using Content.Shared.Preferences;
 using Content.Shared.Roles;
-using Content.Server._NF.Roles.Systems;
 using Robust.Server.Player;
 using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
@@ -19,11 +19,20 @@ namespace Content.Server.Station.Systems;
 // Contains code for round-start spawning.
 public sealed partial class StationJobsSystem
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IBanManager _banManager = default!;
-    [Dependency] private readonly AntagSelectionSystem _antag = default!;
-    [Dependency] private readonly PlayTimeTrackingSystem _playTime = default!; // Frontier
-    [Dependency] private readonly JobTrackingSystem _jobTracking = default!; // Frontier
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly IBanManager _banManager = default!;
+
+    [Dependency]
+    private readonly AntagSelectionSystem _antag = default!;
+
+    [Dependency]
+    private readonly PlayTimeTrackingSystem _playTime = default!; // Frontier
+
+    [Dependency]
+    private readonly JobTrackingSystem _jobTracking = default!; // Frontier
 
     private Dictionary<int, HashSet<string>> _jobsByWeight = default!;
     private List<int> _orderedWeights = default!;
@@ -58,7 +67,11 @@ public sealed partial class StationJobsSystem
     /// as there may end up being more round-start slots than available slots, which can cause weird behavior.
     /// A warning to all who enter ye cursed lands: This function is long and mildly incomprehensible. Best used without touching.
     /// </remarks>
-    public Dictionary<NetUserId, (ProtoId<JobPrototype>?, EntityUid)> AssignJobs(Dictionary<NetUserId, HumanoidCharacterProfile> profiles, IReadOnlyList<EntityUid> stations, bool useRoundStartJobs = true)
+    public Dictionary<NetUserId, (ProtoId<JobPrototype>?, EntityUid)> AssignJobs(
+        Dictionary<NetUserId, HumanoidCharacterProfile> profiles,
+        IReadOnlyList<EntityUid> stations,
+        bool useRoundStartJobs = true
+    )
     {
         DebugTools.Assert(stations.Count > 0);
 
@@ -91,7 +104,6 @@ public sealed partial class StationJobsSystem
         {
             ApplyActiveRoleCountsToRoundStartJobs(stationJobs);
         }
-
 
         // We reuse this collection. It tracks what jobs we're currently trying to select players for.
         var currentlySelectingJobs = new Dictionary<EntityUid, Dictionary<ProtoId<JobPrototype>, int?>>(stations.Count);
@@ -177,17 +189,13 @@ public sealed partial class StationJobsSystem
                     }
                 }
 
-
                 // Clear for reuse.
                 stationTotalSlots.Clear();
 
                 // Intentionally discounts the value of uncapped slots! They're only a single slot when deciding a station's share.
                 foreach (var (station, jobs) in currentlySelectingJobs)
                 {
-                    stationTotalSlots.Add(
-                        station,
-                        (int)jobs.Values.Sum(x => x ?? 1)
-                        );
+                    stationTotalSlots.Add(station, (int)jobs.Values.Sum(x => x ?? 1));
                 }
 
                 var totalSlots = 0;
@@ -212,7 +220,8 @@ public sealed partial class StationJobsSystem
                 foreach (var station in stations)
                 {
                     // Calculates the percent share then multiplies.
-                    stationShares[station] = (int)Math.Floor(((float)stationTotalSlots[station] / totalSlots) * candidates.Count);
+                    stationShares[station] = (int)
+                        Math.Floor(((float)stationTotalSlots[station] / totalSlots) * candidates.Count);
                     distributed += stationShares[station];
                 }
 
@@ -269,7 +278,8 @@ public sealed partial class StationJobsSystem
                         }
                     } while (priorCount != stationShares[station]);
                 }
-                done: ;
+                done:
+                ;
             }
         }
 
@@ -291,7 +301,9 @@ public sealed partial class StationJobsSystem
         return counts;
     }
 
-    private void ApplyActiveRoleCountsToRoundStartJobs(Dictionary<EntityUid, Dictionary<ProtoId<JobPrototype>, int?>> stationJobs)
+    private void ApplyActiveRoleCountsToRoundStartJobs(
+        Dictionary<EntityUid, Dictionary<ProtoId<JobPrototype>, int?>> stationJobs
+    )
     {
         if (stationJobs.Count == 0)
             return;
@@ -356,7 +368,8 @@ public sealed partial class StationJobsSystem
         ref Dictionary<NetUserId, (ProtoId<JobPrototype>?, EntityUid)> assignedJobs,
         IEnumerable<NetUserId> allPlayersToAssign,
         IReadOnlyDictionary<NetUserId, HumanoidCharacterProfile> profiles,
-        IReadOnlyList<EntityUid> stations)
+        IReadOnlyList<EntityUid> stations
+    )
     {
         var givenStations = stations.ToList();
         if (givenStations.Count == 0)
@@ -430,8 +443,7 @@ public sealed partial class StationJobsSystem
 
             jobs.ExtendedAccess = count <= thresh;
 
-            Log.Debug("Station {Station} on extended access: {ExtendedAccess}",
-                Name(station), jobs.ExtendedAccess);
+            Log.Debug("Station {Station} on extended access: {ExtendedAccess}", Name(station), jobs.ExtendedAccess);
         }
     }
 
@@ -442,7 +454,11 @@ public sealed partial class StationJobsSystem
     /// <param name="selectedPriority">Priority to find, if any.</param>
     /// <param name="profiles">Profiles to look in.</param>
     /// <returns>Players and a list of their matching jobs.</returns>
-    private Dictionary<NetUserId, List<string>> GetPlayersJobCandidates(int? weight, JobPriority? selectedPriority, Dictionary<NetUserId, HumanoidCharacterProfile> profiles)
+    private Dictionary<NetUserId, List<string>> GetPlayersJobCandidates(
+        int? weight,
+        JobPriority? selectedPriority,
+        Dictionary<NetUserId, HumanoidCharacterProfile> profiles
+    )
     {
         var outputDict = new Dictionary<NetUserId, List<string>>(profiles.Count);
 
@@ -466,7 +482,10 @@ public sealed partial class StationJobsSystem
                 if (!_prototypeManager.TryIndex(jobId, out var job))
                     continue;
 
-                if (!job.CanBeAntag && (!_player.TryGetSessionById(player, out var session) || antagBlocked.Contains(session)))
+                if (
+                    !job.CanBeAntag
+                    && (!_player.TryGetSessionById(player, out var session) || antagBlocked.Contains(session))
+                )
                     continue;
 
                 if (weight is not null && job.Weight != weight.Value)

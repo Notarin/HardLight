@@ -1,21 +1,32 @@
+using Content.Shared.IgnitionSource.Components;
 using Content.Shared.Interaction;
 using Content.Shared.Item;
 using Content.Shared.Smoking;
 using Content.Shared.Temperature;
 using Robust.Shared.Audio.Systems;
-using Content.Shared.IgnitionSource.Components;
 using Robust.Shared.Timing;
 
 namespace Content.Shared.IgnitionSource.EntitySystems;
 
 public sealed partial class MatchstickSystem : EntitySystem
 {
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedItemSystem _item = default!;
-    [Dependency] private readonly SharedPointLightSystem _lights = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedIgnitionSourceSystem _ignition = default!;
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedItemSystem _item = default!;
+
+    [Dependency]
+    private readonly SharedPointLightSystem _lights = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly SharedIgnitionSourceSystem _ignition = default!;
 
     public override void Initialize()
     {

@@ -1,11 +1,11 @@
-using Robust.Shared.Random;
+using Content.Shared._NF.AirFreshener.Components;
 using Content.Shared.Examine;
 using Content.Shared.IdentityManagement;
-using Robust.Shared.Network;
 using Content.Shared.Inventory;
-using Content.Shared._NF.AirFreshener.Components;
 using Content.Shared.Popups;
+using Robust.Shared.Network;
 using Robust.Shared.Player;
+using Robust.Shared.Random;
 
 namespace Content.Server._NF.Traits.Assorted;
 
@@ -14,10 +14,17 @@ namespace Content.Server._NF.Traits.Assorted;
 /// </summary>
 public sealed class StinkyTraitSystem : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly InventorySystem _inventory = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly INetManager _net = default!;
+
+    [Dependency]
+    private readonly InventorySystem _inventory = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -28,8 +35,10 @@ public sealed class StinkyTraitSystem : EntitySystem
 
     private void SetupStinkyTrait(EntityUid uid, StinkyTraitComponent component, ComponentStartup args)
     {
-        component.NextIncidentTime =
-            _random.NextFloat(component.TimeBetweenIncidents.X, component.TimeBetweenIncidents.Y);
+        component.NextIncidentTime = _random.NextFloat(
+            component.TimeBetweenIncidents.X,
+            component.TimeBetweenIncidents.Y
+        );
     }
 
     public void AdjustStinkyTraitTimer(EntityUid uid, int timerReset, StinkyTraitComponent? stinky = null)
@@ -79,8 +88,10 @@ public sealed class StinkyTraitSystem : EntitySystem
                 component.IsActive = OnAirFreshener(pocket4);
 
             // Set the new time.
-            component.NextIncidentTime +=
-                _random.NextFloat(component.TimeBetweenIncidents.X, component.TimeBetweenIncidents.Y);
+            component.NextIncidentTime += _random.NextFloat(
+                component.TimeBetweenIncidents.X,
+                component.TimeBetweenIncidents.Y
+            );
 
             if (!component.IsActive)
                 continue;

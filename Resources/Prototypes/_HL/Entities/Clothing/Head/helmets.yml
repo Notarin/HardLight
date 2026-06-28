@@ -21,9 +21,9 @@
     - Hair
 
 - type: entity
-  parent: [ ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase ]
+  parent: [ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase]
   id: ClothingHeadHelmetHardsuitLuxmax
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   name: luxury maxim hardsuit helmet
   description: This thing is made of solid gold, its a wonder you can keep your head up with it on.
   components:
@@ -37,9 +37,9 @@
   - type: PointLight
     radius: 7
     energy: 3
-    
+
 - type: entity
-  parent: [ ClothingHeadBase, BaseC3ExpeditionContraband, ContrabandClothing ]
+  parent: [ClothingHeadBase, BaseC3ExpeditionContraband, ContrabandClothing]
   id: ClothingHeadHelmetAberrant
   name: aberrant helmet
   description: Wearing this helmet feels like putting your head inside of someone's corpse. But hey, at least it can open up for eating.

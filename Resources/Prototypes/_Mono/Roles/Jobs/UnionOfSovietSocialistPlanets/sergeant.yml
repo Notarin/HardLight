@@ -4,10 +4,10 @@
   description: job-description-ussp-sergeant
   playTimeTracker: JobUSSPSergeant
   requirements:
-  # - !type:DepartmentTimeRequirement
-  #   department: UnionOfSovietSocialistPlanets
-  #   time: 54000 # 15 hours
   - !type:OverallPlaytimeRequirement
+    # - !type:DepartmentTimeRequirement
+    #   department: UnionOfSovietSocialistPlanets
+    #   time: 54000 # 15 hours
     time: 72000 # 20 hrs
   startingGear: USSPSergeantGear
   alwaysUseSpawner: true

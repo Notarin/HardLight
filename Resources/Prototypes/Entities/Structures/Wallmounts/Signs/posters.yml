@@ -11,15 +11,14 @@
     snapCardinals: true
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 5
       behaviors:
       - !type:PlaySoundBehavior
         sound:
           path: /Audio/Effects/poster_broken.ogg
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:SpawnEntitiesBehavior
         spawn:
           PosterBroken:
@@ -41,15 +40,14 @@
     state: poster_broken
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 5
       behaviors:
       - !type:PlaySoundBehavior
         sound:
           path: /Audio/Effects/poster_broken.ogg
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: StaticPrice
     price: 1
 

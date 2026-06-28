@@ -13,7 +13,10 @@ public sealed partial class UpgradePowerSupplierComponent : Component
     /// <summary>
     /// The machine part that affects the power supplu.
     /// </summary>
-    [DataField("machinePartPowerSupply", customTypeSerializer: typeof(PrototypeIdSerializer<MachinePartPrototype>)), ViewVariables(VVAccess.ReadWrite)]
+    [
+        DataField("machinePartPowerSupply", customTypeSerializer: typeof(PrototypeIdSerializer<MachinePartPrototype>)),
+        ViewVariables(VVAccess.ReadWrite)
+    ]
     public string MachinePartPowerSupply = "Capacitor";
 
     /// <summary>

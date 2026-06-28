@@ -1,7 +1,6 @@
 using System.Linq;
 using System.Numerics;
 using Content.Server.Shuttles.Save;
-using Content.Tests;
 using Content.Shared.Actions;
 using Content.Shared.CCVar;
 using Content.Shared.Chemistry;
@@ -11,6 +10,7 @@ using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.FixedPoint;
 using Content.Shared.Light.Components;
 using Content.Shared.Shuttles.Save;
+using Content.Tests;
 using Robust.Shared.Configuration;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Map;
@@ -93,13 +93,21 @@ public sealed class ShipSerializationTest : ContentUnitTest
 
                 // Entities: expect at least the two we spawned, though additional infrastructure entities (grid, etc.) may appear.
                 // We only store entities with valid prototypes; ensure count >=2 and contains our prototypes.
-                Assert.That(g.Entities, Has.Count.GreaterThanOrEqualTo(2), $"Expected at least 2 entities, got {g.Entities.Count}");
+                Assert.That(
+                    g.Entities,
+                    Has.Count.GreaterThanOrEqualTo(2),
+                    $"Expected at least 2 entities, got {g.Entities.Count}"
+                );
             });
 
             var protos = g.Entities.Select(e => e.Prototype).ToHashSet();
             Assert.Multiple(() =>
             {
-                Assert.That(protos, Does.Contain("AirlockShuttle"), "Serialized entities missing AirlockShuttle prototype");
+                Assert.That(
+                    protos,
+                    Does.Contain("AirlockShuttle"),
+                    "Serialized entities missing AirlockShuttle prototype"
+                );
                 Assert.That(protos, Does.Contain("ChairBrass"), "Serialized entities missing ChairBrass prototype");
             });
         });
@@ -139,8 +147,14 @@ public sealed class ShipSerializationTest : ContentUnitTest
             entManager.RunMapInit(sourceGridUid, entManager.GetComponent<MetaDataComponent>(sourceGridUid));
             mapSys.SetTile(sourceGridUid, sourceGridComp, Vector2i.Zero, new Tile(1));
 
-            flashlight = entManager.SpawnEntity("FlashlightLantern", new EntityCoordinates(sourceGridUid, new Vector2(0.5f, 0.5f)));
-            Assert.That(xformSys.AnchorEntity(flashlight, entManager.GetComponent<TransformComponent>(flashlight)), Is.True);
+            flashlight = entManager.SpawnEntity(
+                "FlashlightLantern",
+                new EntityCoordinates(sourceGridUid, new Vector2(0.5f, 0.5f))
+            );
+            Assert.That(
+                xformSys.AnchorEntity(flashlight, entManager.GetComponent<TransformComponent>(flashlight)),
+                Is.True
+            );
         });
 
         await server.WaitRunTicks(1);
@@ -159,16 +173,30 @@ public sealed class ShipSerializationTest : ContentUnitTest
             data = shipSer.SerializeShip(sourceGridUid, new NetUserId(Guid.NewGuid()), "ActionShip");
             var gridData = data.Grids.Single();
 
-            Assert.That(gridData.Entities.SelectMany(entity => entity.Components)
+            Assert.That(
+                gridData
+                    .Entities.SelectMany(entity => entity.Components)
                     .Any(component => ActionComponentTypes.Contains(component.Type)),
                 Is.False,
-                "Ship serialization should not persist generated action entities.");
+                "Ship serialization should not persist generated action entities."
+            );
 
-            Assert.That(gridData.Entities.SelectMany(entity => entity.Components)
-                    .Any(component => (component.YamlData?.Contains("toggleActionEntity", StringComparison.OrdinalIgnoreCase) ?? false)
-                        || (component.YamlData?.Contains("selfToggleActionEntity", StringComparison.OrdinalIgnoreCase) ?? false)),
+            Assert.That(
+                gridData
+                    .Entities.SelectMany(entity => entity.Components)
+                    .Any(component =>
+                        (
+                            component.YamlData?.Contains("toggleActionEntity", StringComparison.OrdinalIgnoreCase)
+                            ?? false
+                        )
+                        || (
+                            component.YamlData?.Contains("selfToggleActionEntity", StringComparison.OrdinalIgnoreCase)
+                            ?? false
+                        )
+                    ),
                 Is.False,
-                "Ship serialization should scrub runtime action entity references from component YAML.");
+                "Ship serialization should scrub runtime action entity references from component YAML."
+            );
 
             restoredGrid = shipSer.ReconstructShipOnMap(data, targetMap.MapId, Vector2.Zero);
         });
@@ -211,7 +239,11 @@ public sealed class ShipSerializationTest : ContentUnitTest
                     actionCount++;
             }
 
-            Assert.That(actionCount, Is.EqualTo(2), "Reconstructed flashlight should recreate exactly its two runtime actions.");
+            Assert.That(
+                actionCount,
+                Is.EqualTo(2),
+                "Reconstructed flashlight should recreate exactly its two runtime actions."
+            );
         });
 
         await pair.CleanReturnAsync();
@@ -261,7 +293,15 @@ public sealed class ShipSerializationTest : ContentUnitTest
             solution!.AddSolution(new Solution("Water", FixedPoint2.New(10)), protoManager);
             solutionSystem.UpdateChemicals(solutionEnt!.Value, false);
 
-            Assert.That(appearanceSystem.TryGetData(beaker, SolutionContainerVisuals.FillFraction, out originalFill, beakerAppearance), Is.True);
+            Assert.That(
+                appearanceSystem.TryGetData(
+                    beaker,
+                    SolutionContainerVisuals.FillFraction,
+                    out originalFill,
+                    beakerAppearance
+                ),
+                Is.True
+            );
             Assert.That(originalFill, Is.GreaterThan(0f));
         });
 
@@ -282,7 +322,11 @@ public sealed class ShipSerializationTest : ContentUnitTest
             var foundRestoredBeaker = false;
             AppearanceComponent? restoredAppearance = null;
             EntityUid restoredBeaker = default;
-            var beakerQuery = entManager.EntityQueryEnumerator<AppearanceComponent, TransformComponent, SolutionContainerManagerComponent>();
+            var beakerQuery = entManager.EntityQueryEnumerator<
+                AppearanceComponent,
+                TransformComponent,
+                SolutionContainerManagerComponent
+            >();
             while (beakerQuery.MoveNext(out var uid, out var appearance, out var xform, out var solutionManager))
             {
                 if (xform.GridUid != restoredGrid)
@@ -299,8 +343,20 @@ public sealed class ShipSerializationTest : ContentUnitTest
 
             Assert.That(foundRestoredBeaker, Is.True, "Expected reconstructed ship to contain the beaker.");
             Assert.That(restoredAppearance, Is.Not.Null);
-            Assert.That(appearanceSystem.TryGetData(restoredBeaker, SolutionContainerVisuals.FillFraction, out float restoredFill, restoredAppearance), Is.True);
-            Assert.That(restoredFill, Is.EqualTo(originalFill).Within(0.001f), "Restored beaker should retain its fill-level appearance data.");
+            Assert.That(
+                appearanceSystem.TryGetData(
+                    restoredBeaker,
+                    SolutionContainerVisuals.FillFraction,
+                    out float restoredFill,
+                    restoredAppearance
+                ),
+                Is.True
+            );
+            Assert.That(
+                restoredFill,
+                Is.EqualTo(originalFill).Within(0.001f),
+                "Restored beaker should retain its fill-level appearance data."
+            );
 
             Assert.That(solutionSystem.TryGetSolution(restoredBeaker, "beaker", out _, out var restoredSolution));
             Assert.That(restoredSolution!.Volume.Float(), Is.EqualTo(10f).Within(0.001f));

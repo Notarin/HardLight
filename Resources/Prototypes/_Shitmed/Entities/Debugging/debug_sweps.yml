@@ -7,7 +7,7 @@
   components:
   - type: Tag
     tags:
-      - Debug
+    - Debug
   - type: Sprite
     sprite: Objects/Weapons/Melee/debug.rsi
     state: icon
@@ -27,7 +27,7 @@
   components:
   - type: Tag
     tags:
-      - Debug
+    - Debug
   - type: MeleeWeapon
     damage:
       types:
@@ -40,7 +40,7 @@
   components:
   - type: Tag
     tags:
-      - Debug
+    - Debug
   - type: MeleeWeapon
     damage:
       types:
@@ -55,7 +55,7 @@
   components:
   - type: Tag
     tags:
-      - Debug
+    - Debug
   - type: Sprite
     sprite: Objects/Weapons/Melee/debug.rsi
     state: icon
@@ -75,7 +75,7 @@
   components:
   - type: Tag
     tags:
-      - Debug
+    - Debug
   - type: MeleeWeapon
     damage:
       types:

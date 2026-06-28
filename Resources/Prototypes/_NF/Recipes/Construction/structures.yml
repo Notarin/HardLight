@@ -8,7 +8,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: WoodSecretDoorConstruction
@@ -20,7 +20,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: UraniumSecretDoorConstruction
@@ -32,7 +32,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: ShuttleSecretDoorConstruction
@@ -44,7 +44,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: CrateStorageRackConstruction
@@ -56,8 +56,8 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
-    
+  - !type:TileNotBlocked
+
 - type: construction
   id: NFLightTubeShieldedFixture
   graph: LightFixture
@@ -69,7 +69,7 @@
   canRotate: true
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: NFLightSmallShieldedFixture
@@ -82,4 +82,4 @@
   canRotate: true
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked

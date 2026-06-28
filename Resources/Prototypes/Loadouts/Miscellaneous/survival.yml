@@ -86,7 +86,6 @@
     back:
     - BoxMimeNitrogen
 
-
 # Engineering / Extended
 - type: loadout
   id: EmergencyOxygenExtended

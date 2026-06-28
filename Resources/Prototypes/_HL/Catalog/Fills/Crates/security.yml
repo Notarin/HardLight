@@ -6,8 +6,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: ClothingNeckIFFCyan
-        amount: 12
+    - id: ClothingNeckIFFCyan
+      amount: 12
 
 - type: entity
   id: CrateBorgArmor
@@ -17,12 +17,12 @@
   components:
   - type: StorageFill
     contents:
-      - id: SyntheticBorgArmorLight
-        amount: 1
-      - id: SyntheticBorgArmorMedium
-        amount: 1
-      - id: SyntheticBorgArmorHeavy
-        amount: 1
+    - id: SyntheticBorgArmorLight
+      amount: 1
+    - id: SyntheticBorgArmorMedium
+      amount: 1
+    - id: SyntheticBorgArmorHeavy
+      amount: 1
 
 - type: entity
   id: CrateBorgLight
@@ -32,10 +32,10 @@
   components:
   - type: StorageFill
     contents:
-      - id: SyntheticBorgArmorLight
-        amount: 1
-      - id: SyntheticBorgArmorLightShield
-        amount: 1
+    - id: SyntheticBorgArmorLight
+      amount: 1
+    - id: SyntheticBorgArmorLightShield
+      amount: 1
 
 - type: entity
   id: CrateNullspaceDeterrenceKit

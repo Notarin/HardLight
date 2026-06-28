@@ -12,9 +12,14 @@ namespace Content.Server.Implants;
 
 public sealed partial class ImplanterSystem : SharedImplanterSystem
 {
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
+    [Dependency]
+    private readonly PopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfter = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
 
     public override void Initialize()
     {
@@ -77,7 +82,15 @@ public sealed partial class ImplanterSystem : SharedImplanterSystem
     /// <param name="implanter">The implanter being used</param>
     public void TryImplant(ImplanterComponent component, EntityUid user, EntityUid target, EntityUid implanter)
     {
-        var args = new DoAfterArgs(EntityManager, user, component.ImplantTime, new ImplantEvent(), implanter, target: target, used: implanter)
+        var args = new DoAfterArgs(
+            EntityManager,
+            user,
+            component.ImplantTime,
+            new ImplantEvent(),
+            implanter,
+            target: target,
+            used: implanter
+        )
         {
             BreakOnDamage = true,
             BreakOnMove = true,
@@ -90,7 +103,12 @@ public sealed partial class ImplanterSystem : SharedImplanterSystem
         _popup.PopupEntity(Loc.GetString("injector-component-injecting-user"), target, user);
 
         var userName = Identity.Entity(user, EntityManager);
-        _popup.PopupEntity(Loc.GetString("implanter-component-implanting-target", ("user", userName)), user, target, PopupType.LargeCaution);
+        _popup.PopupEntity(
+            Loc.GetString("implanter-component-implanting-target", ("user", userName)),
+            user,
+            target,
+            PopupType.LargeCaution
+        );
     }
 
     /// <summary>
@@ -103,7 +121,15 @@ public sealed partial class ImplanterSystem : SharedImplanterSystem
     //TODO: Remove when surgery is in
     public void TryDraw(ImplanterComponent component, EntityUid user, EntityUid target, EntityUid implanter)
     {
-        var args = new DoAfterArgs(EntityManager, user, component.DrawTime, new DrawEvent(), implanter, target: target, used: implanter)
+        var args = new DoAfterArgs(
+            EntityManager,
+            user,
+            component.DrawTime,
+            new DrawEvent(),
+            implanter,
+            target: target,
+            used: implanter
+        )
         {
             BreakOnDamage = true,
             BreakOnMove = true,
@@ -112,7 +138,6 @@ public sealed partial class ImplanterSystem : SharedImplanterSystem
 
         if (_doAfter.TryStartDoAfter(args))
             _popup.PopupEntity(Loc.GetString("injector-component-injecting-user"), target, user);
-
     }
 
     private void OnImplant(EntityUid uid, ImplanterComponent component, ImplantEvent args)

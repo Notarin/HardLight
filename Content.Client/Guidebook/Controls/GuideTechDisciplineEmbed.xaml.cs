@@ -17,7 +17,8 @@ namespace Content.Client.Guidebook.Controls;
 [UsedImplicitly, GenerateTypedNameReferences]
 public sealed partial class GuideTechDisciplineEmbed : BoxContainer, IDocumentTag
 {
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototype = default!;
 
     public GuideTechDisciplineEmbed()
     {
@@ -26,10 +27,14 @@ public sealed partial class GuideTechDisciplineEmbed : BoxContainer, IDocumentTa
         MouseFilter = MouseFilterMode.Stop;
     }
 
-    public GuideTechDisciplineEmbed(string group) : this()
+    public GuideTechDisciplineEmbed(string group)
+        : this()
     {
-        var prototypes = _prototype.EnumeratePrototypes<TechnologyPrototype>()
-            .Where(p => p.Discipline.Equals(group)).OrderBy(p => p.Tier).ThenBy(p => Loc.GetString(p.Name));
+        var prototypes = _prototype
+            .EnumeratePrototypes<TechnologyPrototype>()
+            .Where(p => p.Discipline.Equals(group))
+            .OrderBy(p => p.Tier)
+            .ThenBy(p => Loc.GetString(p.Name));
         foreach (var tech in prototypes)
         {
             var embed = new GuideTechnologyEmbed(tech);
@@ -46,8 +51,11 @@ public sealed partial class GuideTechDisciplineEmbed : BoxContainer, IDocumentTa
             return false;
         }
 
-        var prototypes = _prototype.EnumeratePrototypes<TechnologyPrototype>()
-            .Where(p => p.Discipline.Equals(group)).OrderBy(p => p.Tier).ThenBy(p => Loc.GetString(p.Name));
+        var prototypes = _prototype
+            .EnumeratePrototypes<TechnologyPrototype>()
+            .Where(p => p.Discipline.Equals(group))
+            .OrderBy(p => p.Tier)
+            .ThenBy(p => Loc.GetString(p.Name));
         foreach (var tech in prototypes)
         {
             var embed = new GuideTechnologyEmbed(tech);

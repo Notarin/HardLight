@@ -1,16 +1,19 @@
+using Content.Server._NF.SectorServices; // Frontier
 using Content.Server.Power.Components;
 using Content.Server.Station.Systems;
 using Content.Shared.AlertLevel;
 using Content.Shared.Power;
-using Content.Server._NF.SectorServices; // Frontier
 
 namespace Content.Server.AlertLevel;
 
 public sealed class AlertLevelDisplaySystem : EntitySystem
 {
     // [Dependency] private readonly StationSystem _stationSystem = default!; // Frontier
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SectorServiceSystem _sectorService = default!; // Frontier
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SectorServiceSystem _sectorService = default!; // Frontier
 
     public override void Initialize()
     {
@@ -40,6 +43,7 @@ public sealed class AlertLevelDisplaySystem : EntitySystem
             }
         }
     }
+
     private void OnPowerChanged(EntityUid uid, AlertLevelDisplayComponent alertLevelDisplay, ref PowerChangedEvent args)
     {
         if (!TryComp(uid, out AppearanceComponent? appearance))

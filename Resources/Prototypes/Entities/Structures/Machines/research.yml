@@ -1,6 +1,6 @@
 - type: entity
   id: ResearchAndDevelopmentServer
-  parent: [ BaseMachinePowered, ConstructibleMachine ]
+  parent: [BaseMachinePowered, ConstructibleMachine]
   name: R&D server
   description: Contains the collective knowledge of the station's scientists. Destroying it would send them back to the stone age. You don't want that do you?
   components:
@@ -9,10 +9,10 @@
     sprite: Structures/Machines/server.rsi
     snapCardinals: true # Frontier
     layers:
-      - state: server
-      - state: variant-research
-      - state: server_o
-        map: ["enum.WiresVisualLayers.MaintenancePanel"]
+    - state: server
+    - state: variant-research
+    - state: server_o
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
   - type: ResearchServer
   - type: DisableToolUse
     anchoring: True
@@ -31,14 +31,12 @@
     board: ResearchAndDevelopmentServerMachineCircuitboard
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 600
       behaviors:
-        - !type:DoActsBehavior
-          acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 300
       behaviors:
       - !type:DoActsBehavior
@@ -103,14 +101,12 @@
           False: {visible: false}
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 400
       behaviors:
-        - !type:DoActsBehavior
-          acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 200
       behaviors:
       - !type:DoActsBehavior

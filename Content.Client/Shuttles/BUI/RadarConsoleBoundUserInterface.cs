@@ -13,9 +13,8 @@ public sealed class RadarConsoleBoundUserInterface : BoundUserInterface
     [ViewVariables]
     private RadarConsoleWindow? _window;
 
-    public RadarConsoleBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-    }
+    public RadarConsoleBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {

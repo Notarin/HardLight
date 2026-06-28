@@ -12,8 +12,11 @@ namespace Content.Shared.SprayPainter;
 /// </summary>
 public sealed class SprayPainterAmmoSystem : EntitySystem
 {
-    [Dependency] private readonly SharedChargesSystem _charges = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency]
+    private readonly SharedChargesSystem _charges = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
 
     public override void Initialize()
     {
@@ -28,9 +31,11 @@ public sealed class SprayPainterAmmoSystem : EntitySystem
         if (args.Handled || !args.CanReach)
             return;
 
-        if (args.Target is not { Valid: true } target ||
-            !HasComp<SprayPainterComponent>(target) ||
-            !TryComp<LimitedChargesComponent>(target, out var charges))
+        if (
+            args.Target is not { Valid: true } target
+            || !HasComp<SprayPainterComponent>(target)
+            || !TryComp<LimitedChargesComponent>(target, out var charges)
+        )
             return;
 
         var user = args.User;

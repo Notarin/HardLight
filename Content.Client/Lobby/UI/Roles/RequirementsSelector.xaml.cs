@@ -50,7 +50,7 @@ public sealed partial class RequirementsSelector : BoxContainer
             Text = Loc.GetString("role-timer-locked"),
             Visible = true,
             HorizontalAlignment = HAlignment.Center,
-            StyleClasses = {StyleBase.StyleClassLabelSubText},
+            StyleClasses = { StyleBase.StyleClassLabelSubText },
         };
 
         _lockStripe = new StripeBack()
@@ -59,10 +59,7 @@ public sealed partial class RequirementsSelector : BoxContainer
             HorizontalExpand = true,
             HasMargins = false,
             MouseFilter = MouseFilterMode.Stop,
-            Children =
-            {
-                requirementsLabel
-            }
+            Children = { requirementsLabel },
         };
 
         Help.OnPressed += _ =>
@@ -81,7 +78,8 @@ public sealed partial class RequirementsSelector : BoxContainer
         int titleSize,
         string? description,
         TextureRect? icon = null,
-        List<ProtoId<GuideEntryPrototype>>? guides = null)
+        List<ProtoId<GuideEntryPrototype>>? guides = null
+    )
     {
         foreach (var (text, value) in items)
         {

@@ -4,6 +4,4 @@
 ///     Used on Silicon's minds to get the appropriate mind role
 /// </summary>
 [RegisterComponent]
-public sealed partial class SiliconBrainRoleComponent : BaseMindRoleComponent
-{
-}
+public sealed partial class SiliconBrainRoleComponent : BaseMindRoleComponent { }

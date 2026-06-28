@@ -8,9 +8,8 @@ public sealed class DeimplantBoundUserInterface : BoundUserInterface
     [ViewVariables]
     private DeimplantChoiceWindow? _window;
 
-    public DeimplantBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-    }
+    public DeimplantBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {
@@ -20,7 +19,7 @@ public sealed class DeimplantBoundUserInterface : BoundUserInterface
 
         _window.OnImplantChange += implant => SendMessage(new DeimplantChangeVerbMessage(implant));
     }
-    
+
     public void UpdateState(Dictionary<string, string> implantList, string? implant)
     {
         if (_window != null)

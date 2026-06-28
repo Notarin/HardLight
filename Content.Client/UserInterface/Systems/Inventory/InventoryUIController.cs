@@ -26,15 +26,27 @@ using static Content.Client.Inventory.ClientInventorySystem;
 
 namespace Content.Client.UserInterface.Systems.Inventory;
 
-public sealed class InventoryUIController : UIController, IOnStateEntered<GameplayState>, IOnStateExited<GameplayState>,
-    IOnSystemChanged<ClientInventorySystem>, IOnSystemChanged<HandsSystem>
+public sealed class InventoryUIController
+    : UIController,
+        IOnStateEntered<GameplayState>,
+        IOnStateExited<GameplayState>,
+        IOnSystemChanged<ClientInventorySystem>,
+        IOnSystemChanged<HandsSystem>
 {
-    [Dependency] private readonly IEntityManager _entities = default!;
+    [Dependency]
+    private readonly IEntityManager _entities = default!;
 
-    [UISystemDependency] private readonly ClientInventorySystem _inventorySystem = default!;
-    [UISystemDependency] private readonly HandsSystem _handsSystem = default!;
-    [UISystemDependency] private readonly ContainerSystem _container = default!;
-    [UISystemDependency] private readonly SpriteSystem _sprite = default!;
+    [UISystemDependency]
+    private readonly ClientInventorySystem _inventorySystem = default!;
+
+    [UISystemDependency]
+    private readonly HandsSystem _handsSystem = default!;
+
+    [UISystemDependency]
+    private readonly ContainerSystem _container = default!;
+
+    [UISystemDependency]
+    private readonly SpriteSystem _sprite = default!;
 
     private EntityUid? _playerUid;
     private InventorySlotsComponent? _playerInventory;
@@ -70,8 +82,11 @@ public sealed class InventoryUIController : UIController, IOnStateEntered<Gamepl
         LayoutContainer.SetAnchorPreset(_strippingWindow, LayoutContainer.LayoutPreset.Center);
 
         //bind open inventory key to OpenInventoryMenu;
-        CommandBinds.Builder
-            .Bind(ContentKeyFunctions.OpenInventoryMenu, InputCmdHandler.FromDelegate(_ => ToggleInventoryBar()))
+        CommandBinds
+            .Builder.Bind(
+                ContentKeyFunctions.OpenInventoryMenu,
+                InputCmdHandler.FromDelegate(_ => ToggleInventoryBar())
+            )
             .Register<ClientInventorySystem>();
     }
 
@@ -187,10 +202,7 @@ public sealed class InventoryUIController : UIController, IOnStateEntered<Gamepl
             }
             else
             {
-                _inventoryHotbar.AddChild(new Control
-                {
-                    MinSize = new Vector2(64, 64)
-                });
+                _inventoryHotbar.AddChild(new Control { MinSize = new Vector2(64, 64) });
             }
         }
 
@@ -250,7 +262,6 @@ public sealed class InventoryUIController : UIController, IOnStateEntered<Gamepl
         UpdateInventoryHotbar(_playerInventory);
         var shouldBeVisible = !_inventoryHotbar.Visible;
         _inventoryHotbar.Visible = shouldBeVisible;
-
     }
 
     // Neuron Activation
@@ -328,12 +339,14 @@ public sealed class InventoryUIController : UIController, IOnStateEntered<Gamepl
     {
         var player = _playerUid;
 
-        if (!control.MouseIsHovering ||
-            _playerInventory == null ||
-            !_entities.TryGetComponent<HandsComponent>(player, out var hands) ||
-            hands.ActiveHandEntity is not { } held ||
-            !_entities.TryGetComponent(held, out SpriteComponent? sprite) ||
-            !_inventorySystem.TryGetSlotContainer(player.Value, control.SlotName, out var container, out var slotDef))
+        if (
+            !control.MouseIsHovering
+            || _playerInventory == null
+            || !_entities.TryGetComponent<HandsComponent>(player, out var hands)
+            || hands.ActiveHandEntity is not { } held
+            || !_entities.TryGetComponent(held, out SpriteComponent? sprite)
+            || !_inventorySystem.TryGetSlotContainer(player.Value, control.SlotName, out var container, out var slotDef)
+        )
         {
             control.ClearHover();
             return;
@@ -342,8 +355,9 @@ public sealed class InventoryUIController : UIController, IOnStateEntered<Gamepl
         // Set green / red overlay at 50% transparency
         var hoverEntity = _entities.SpawnEntity("hoverentity", MapCoordinates.Nullspace);
         var hoverSprite = _entities.GetComponent<SpriteComponent>(hoverEntity);
-        var fits = _inventorySystem.CanEquip(player.Value, held, control.SlotName, out _, slotDef) &&
-                   _container.CanInsert(held, container);
+        var fits =
+            _inventorySystem.CanEquip(player.Value, held, control.SlotName, out _, slotDef)
+            && _container.CanInsert(held, container);
 
         if (!fits && _entities.TryGetComponent<StorageComponent>(container.ContainedEntity, out var storage))
         {
@@ -478,7 +492,6 @@ public sealed class InventoryUIController : UIController, IOnStateEntered<Gamepl
         _handsSystem.OnPlayerItemRemoved -= OnItemRemoved;
         _handsSystem.OnPlayerSetActiveHand -= SetActiveHand;
     }
-
 
     private void OnItemAdded(string name, EntityUid entity)
     {

@@ -7,6 +7,4 @@ namespace Content.Server.Objectives.Components;
 /// Depends on <see cref="TargetObjectiveComponent"/> to function.
 /// </summary>
 [RegisterComponent, Access(typeof(HelpProgressConditionSystem))]
-public sealed partial class HelpProgressConditionComponent : Component
-{
-}
+public sealed partial class HelpProgressConditionComponent : Component { }

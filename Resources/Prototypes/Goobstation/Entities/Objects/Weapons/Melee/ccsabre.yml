@@ -1,6 +1,6 @@
 - type: entity
   name: colonial officer's sabre # HardLight rename
-  parent: [ BaseSword, BaseColcommContraband ] # HardLight change centcom to colcom contra
+  parent: [BaseSword, BaseColcommContraband] # HardLight change centcom to colcom contra
   id: CCOfficerSabre
   description: A ceremonial weapon belonging to a high ranking Colonial Command official. #HardLight rename
   components:

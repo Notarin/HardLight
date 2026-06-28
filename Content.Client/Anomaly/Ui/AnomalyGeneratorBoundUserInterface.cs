@@ -9,9 +9,8 @@ public sealed class AnomalyGeneratorBoundUserInterface : BoundUserInterface
 {
     private AnomalyGeneratorWindow? _window;
 
-    public AnomalyGeneratorBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-    }
+    public AnomalyGeneratorBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {
@@ -35,4 +34,3 @@ public sealed class AnomalyGeneratorBoundUserInterface : BoundUserInterface
         _window?.UpdateState(msg);
     }
 }
-

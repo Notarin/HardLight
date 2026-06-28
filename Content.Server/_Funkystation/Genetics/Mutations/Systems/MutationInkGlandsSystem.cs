@@ -1,8 +1,8 @@
 using Content.Server._Funkystation.Genetics.Mutations.Components;
-using Content.Shared.Actions;
-using Content.Shared._Funkystation.Genetics.Events;
 using Content.Server.Fluids.EntitySystems;
 using Content.Server.Forensics;
+using Content.Shared._Funkystation.Genetics.Events;
+using Content.Shared.Actions;
 using Content.Shared.Chemistry.Components;
 using Content.Shared.FixedPoint;
 using Robust.Shared.Audio.Systems;
@@ -11,10 +11,17 @@ namespace Content.Server._Funkystation.Genetics.Mutations.Systems;
 
 public sealed class MutationInkGlandsSystem : EntitySystem
 {
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
-    [Dependency] private readonly PuddleSystem _puddle = default!;
-    [Dependency] private readonly ForensicsSystem _forensics = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency]
+    private readonly SharedActionsSystem _actions = default!;
+
+    [Dependency]
+    private readonly PuddleSystem _puddle = default!;
+
+    [Dependency]
+    private readonly ForensicsSystem _forensics = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
 
     private const string ReagentId = "Ink";
 

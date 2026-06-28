@@ -15,8 +15,7 @@
     damageContainer: Inorganic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 10
       behaviors:
       - !type:TriggerBehavior
@@ -28,8 +27,8 @@
     visuals:
       enum.Trigger.TriggerVisuals.VisualState:
         enum.ConstructionVisuals.Layer:
-          Primed: { state: primed }
-          Unprimed: { state: icon }
+          Primed: {state: primed}
+          Unprimed: {state: icon}
   - type: Tag
     tags:
     - HandGrenade
@@ -201,7 +200,7 @@
 - type: entity
   name: dephasing grenade
   description: Causes localized instability in bluespace, dephasing things into real space if they are near enough to it.
-  parent: [ GrenadeBase, BaseC2ContrabandUnredeemable ]
+  parent: [GrenadeBase, BaseC2ContrabandUnredeemable]
   id: GrenadeDePhase
   components:
   - type: Sprite

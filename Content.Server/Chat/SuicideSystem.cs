@@ -1,4 +1,5 @@
 using Content.Server.Ghost;
+using Content.Shared._EinsteinEngines.Silicon.Components;
 using Content.Shared.Administration.Logs;
 using Content.Shared.Chat;
 using Content.Shared.Damage;
@@ -14,21 +15,32 @@ using Content.Shared.Mobs.Systems;
 using Content.Shared.Popups;
 using Content.Shared.Tag;
 using Robust.Shared.Player;
-using Content.Shared._EinsteinEngines.Silicon.Components;
-
 using Robust.Shared.Prototypes;
 
 namespace Content.Server.Chat;
 
 public sealed class SuicideSystem : EntitySystem
 {
-    [Dependency] private readonly EntityLookupSystem _entityLookupSystem = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly TagSystem _tagSystem = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly GhostSystem _ghostSystem = default!;
-    [Dependency] private readonly SharedSuicideSystem _suicide = default!;
+    [Dependency]
+    private readonly EntityLookupSystem _entityLookupSystem = default!;
+
+    [Dependency]
+    private readonly ISharedAdminLogManager _adminLogger = default!;
+
+    [Dependency]
+    private readonly TagSystem _tagSystem = default!;
+
+    [Dependency]
+    private readonly MobStateSystem _mobState = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly GhostSystem _ghostSystem = default!;
+
+    [Dependency]
+    private readonly SharedSuicideSystem _suicide = default!;
 
     private static readonly ProtoId<TagPrototype> CannotSuicideTag = "CannotSuicide";
 
@@ -118,8 +130,10 @@ public sealed class SuicideSystem : EntitySystem
         var suicideByEnvironmentEvent = new SuicideByEnvironmentEvent(victim);
 
         // Try to suicide by raising an event on the held item
-        if (EntityManager.TryGetComponent(victim, out HandsComponent? handsComponent)
-            && handsComponent.ActiveHandEntity is { } item)
+        if (
+            EntityManager.TryGetComponent(victim, out HandsComponent? handsComponent)
+            && handsComponent.ActiveHandEntity is { } item
+        )
         {
             RaiseLocalEvent(item, suicideByEnvironmentEvent);
             if (suicideByEnvironmentEvent.Handled)
@@ -132,7 +146,13 @@ public sealed class SuicideSystem : EntitySystem
         // Try to suicide by nearby entities, like Microwaves or Crematoriums, by raising an event on it
         // Returns upon being handled by any entity
         var itemQuery = GetEntityQuery<ItemComponent>();
-        foreach (var entity in _entityLookupSystem.GetEntitiesInRange(victim, 1, LookupFlags.Approximate | LookupFlags.Static))
+        foreach (
+            var entity in _entityLookupSystem.GetEntitiesInRange(
+                victim,
+                1,
+                LookupFlags.Approximate | LookupFlags.Static
+            )
+        )
         {
             // Skip any nearby items that can be picked up, we already checked the active held item above
             if (itemQuery.HasComponent(entity))
@@ -155,7 +175,10 @@ public sealed class SuicideSystem : EntitySystem
         if (args.Handled)
             return;
 
-        var othersMessage = Loc.GetString("suicide-command-default-text-others", ("name", Identity.Entity(victim, EntityManager)));
+        var othersMessage = Loc.GetString(
+            "suicide-command-default-text-others",
+            ("name", Identity.Entity(victim, EntityManager))
+        );
         _popup.PopupEntity(othersMessage, victim, Filter.PvsExcept(victim), true);
 
         var selfMessage = Loc.GetString("suicide-command-default-text-self");

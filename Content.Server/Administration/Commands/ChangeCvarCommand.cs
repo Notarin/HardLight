@@ -17,9 +17,14 @@ namespace Content.Server.Administration.Commands;
 [AnyCommand]
 public sealed class ChangeCvarCommand : IConsoleCommand
 {
-    [Dependency] private readonly IConfigurationManager _configurationManager = default!;
-    [Dependency] private readonly IAdminLogManager _adminLogManager = default!;
-    [Dependency] private readonly CVarControlManager _cVarControlManager = default!;
+    [Dependency]
+    private readonly IConfigurationManager _configurationManager = default!;
+
+    [Dependency]
+    private readonly IAdminLogManager _adminLogManager = default!;
+
+    [Dependency]
+    private readonly CVarControlManager _cVarControlManager = default!;
 
     /// <summary>
     /// Searches the list of cvars for a cvar that matches the search string.
@@ -39,7 +44,7 @@ public sealed class ChangeCvarCommand : IConsoleCommand
                 c.Name.Contains(args[1], StringComparison.OrdinalIgnoreCase)
                 || c.ShortHelp?.Contains(args[1], StringComparison.OrdinalIgnoreCase) == true
                 || c.LongHelp?.Contains(args[1], StringComparison.OrdinalIgnoreCase) == true
-                ) // Might be very slow and stupid, but eh.
+            ) // Might be very slow and stupid, but eh.
             .ToList();
 
         if (matches.Count == 0)
@@ -69,6 +74,7 @@ public sealed class ChangeCvarCommand : IConsoleCommand
     public string Command => "changecvar";
     public string Description { get; } = Loc.GetString("cmd-changecvar-desc");
     public string Help { get; } = Loc.GetString("cmd-changecvar-help");
+
     public void Execute(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length == 0)
@@ -171,20 +177,27 @@ public sealed class ChangeCvarCommand : IConsoleCommand
 
                 if (!allowed)
                 {
-                    shell.WriteError(Loc.GetString("cmd-changecvar-value-out-of-range",
-                        ("min", control.Min ?? "-∞"),
-                        ("max", control.Max ?? "∞")));
+                    shell.WriteError(
+                        Loc.GetString(
+                            "cmd-changecvar-value-out-of-range",
+                            ("min", control.Min ?? "-∞"),
+                            ("max", control.Max ?? "∞")
+                        )
+                    );
                     return;
                 }
 
                 var oldValue = _configurationManager.GetCVar<object>(cvar);
                 _configurationManager.SetCVar(cvar, parsed);
-                _adminLogManager.Add(LogType.AdminCommands,
+                _adminLogManager.Add(
+                    LogType.AdminCommands,
                     LogImpact.Extreme,
                     $"{shell.Player!.Name} ({shell.Player!.UserId}) changed CVAR {cvar} from {oldValue.ToString()} to {parsed.ToString()}"
-                    );
+                );
 
-                shell.WriteLine(Loc.GetString("cmd-changecvar-success", ("cvar", cvar), ("old", oldValue), ("value", parsed)));
+                shell.WriteLine(
+                    Loc.GetString("cmd-changecvar-success", ("cvar", cvar), ("old", oldValue), ("value", parsed))
+                );
             }
             catch (FormatException)
             {
@@ -200,9 +213,9 @@ public sealed class ChangeCvarCommand : IConsoleCommand
         if (args.Length == 1)
         {
             return CompletionResult.FromHintOptions(
-                cvars
-                    .Select(c => new CompletionOption(c.Name, c.ShortHelp ?? c.Name)),
-                Loc.GetString("cmd-changecvar-arg-name"));
+                cvars.Select(c => new CompletionOption(c.Name, c.ShortHelp ?? c.Name)),
+                Loc.GetString("cmd-changecvar-arg-name")
+            );
         }
 
         var cvar = args[0];

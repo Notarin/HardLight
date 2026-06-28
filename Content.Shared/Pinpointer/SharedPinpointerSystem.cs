@@ -13,9 +13,14 @@ namespace Content.Shared.Pinpointer;
 
 public abstract class SharedPinpointerSystem : EntitySystem
 {
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly EmagSystem _emag = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!; // Frontier
+    [Dependency]
+    private readonly ISharedAdminLogManager _adminLogger = default!;
+
+    [Dependency]
+    private readonly EmagSystem _emag = default!;
+
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfter = default!; // Frontier
 
     public override void Initialize()
     {
@@ -51,8 +56,15 @@ public abstract class SharedPinpointerSystem : EntitySystem
         // if (component.UpdateTargetName)
         //     component.TargetName = component.Target == null ? null : Identity.Name(component.Target.Value, EntityManager);
 
-        var daArgs = new DoAfterArgs(EntityManager, args.User, TimeSpan.FromSeconds(component.RetargetDoAfter),
-            new PinpointerDoAfterEvent(), uid, args.Target, uid)
+        var daArgs = new DoAfterArgs(
+            EntityManager,
+            args.User,
+            TimeSpan.FromSeconds(component.RetargetDoAfter),
+            new PinpointerDoAfterEvent(),
+            uid,
+            args.Target,
+            uid
+        )
         {
             BreakOnDamage = true,
             BreakOnWeightlessMove = true,
@@ -88,9 +100,14 @@ public abstract class SharedPinpointerSystem : EntitySystem
         // End Frontier: two-way pinpointer tracking
 
         component.Target = args.Target;
-        _adminLogger.Add(LogType.Action, LogImpact.Low, $"{ToPrettyString(args.User):player} set target of {ToPrettyString(uid):pinpointer} to {ToPrettyString(component.Target):target}");
+        _adminLogger.Add(
+            LogType.Action,
+            LogImpact.Low,
+            $"{ToPrettyString(args.User):player} set target of {ToPrettyString(uid):pinpointer} to {ToPrettyString(component.Target):target}"
+        );
         if (component.UpdateTargetName)
-            component.TargetName = component.Target == null ? null : Identity.Name(component.Target.Value, EntityManager);
+            component.TargetName =
+                component.Target == null ? null : Identity.Name(component.Target.Value, EntityManager);
     }
 
     /// <summary>
@@ -131,10 +148,7 @@ public abstract class SharedPinpointerSystem : EntitySystem
     /// <summary>
     ///     Update direction from pinpointer to selected target (if it was set)
     /// </summary>
-    protected virtual void UpdateDirectionToTarget(EntityUid uid, PinpointerComponent? pinpointer = null)
-    {
-
-    }
+    protected virtual void UpdateDirectionToTarget(EntityUid uid, PinpointerComponent? pinpointer = null) { }
 
     private void OnExamined(EntityUid uid, PinpointerComponent component, ExaminedEvent args)
     {
@@ -192,7 +206,6 @@ public abstract class SharedPinpointerSystem : EntitySystem
         Dirty(uid, pinpointer);
     }
 
-
     /// <summary>
     ///     Toggle Pinpointer screen. If it has target it will start tracking it.
     /// </summary>
@@ -241,6 +254,4 @@ public abstract class SharedPinpointerSystem : EntitySystem
 
 // Frontier - do-after
 [Serializable, NetSerializable]
-public sealed partial class PinpointerDoAfterEvent : SimpleDoAfterEvent
-{
-}
+public sealed partial class PinpointerDoAfterEvent : SimpleDoAfterEvent { }

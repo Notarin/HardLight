@@ -1,16 +1,15 @@
+using System.Collections.Generic;
+using System.Linq;
 using Content.Shared.Cargo.Components;
 using Content.Shared.Containers.ItemSlots;
 using Content.Shared.Stacks;
 using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Content.Shared._NF.Bank.Components;
 
 [RegisterComponent, NetworkedComponent]
-
 public sealed partial class StationBankATMComponent : Component
 {
     [DataField]
@@ -25,12 +24,10 @@ public sealed partial class StationBankATMComponent : Component
     public SectorBankAccount Account = SectorBankAccount.Invalid;
 
     [DataField]
-    public SoundSpecifier ErrorSound =
-        new SoundPathSpecifier("/Audio/Effects/Cargo/buzz_sigh.ogg");
+    public SoundSpecifier ErrorSound = new SoundPathSpecifier("/Audio/Effects/Cargo/buzz_sigh.ogg");
 
     [DataField]
-    public SoundSpecifier ConfirmSound =
-        new SoundPathSpecifier("/Audio/Effects/Cargo/ping.ogg");
+    public SoundSpecifier ConfirmSound = new SoundPathSpecifier("/Audio/Effects/Cargo/ping.ogg");
 }
 
 public enum SectorBankAccount : byte
@@ -62,8 +59,8 @@ public static class SectorBankAccountMapping
         { SectorBankAccount.Medical, "Medical" },
     };
 
-    public static bool TryGetCargoAccountId(SectorBankAccount sector, out string? id)
-        => ToCargoAccountId.TryGetValue(sector, out id);
+    public static bool TryGetCargoAccountId(SectorBankAccount sector, out string? id) =>
+        ToCargoAccountId.TryGetValue(sector, out id);
 
     public static bool TryGetSectorBankAccount(string id, out SectorBankAccount sector)
     {
@@ -82,7 +79,8 @@ public static class SectorBankAccountMapping
     public static void SetSyncedBalance(
         StationBankAccountComponent stationBank,
         SectorBankAccount sectorAccount,
-        int newBalance)
+        int newBalance
+    )
     {
         if (!TryGetCargoAccountId(sectorAccount, out var protoId) || protoId == null)
             return;
@@ -90,9 +88,7 @@ public static class SectorBankAccountMapping
         stationBank.Accounts[protoId] = newBalance;
     }
 
-    public static int GetSyncedBalance(
-        StationBankAccountComponent stationBank,
-        SectorBankAccount sectorAccount)
+    public static int GetSyncedBalance(StationBankAccountComponent stationBank, SectorBankAccount sectorAccount)
     {
         if (!TryGetCargoAccountId(sectorAccount, out var protoId) || protoId == null)
             return 0;

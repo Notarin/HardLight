@@ -5,4 +5,7 @@ using Robust.Shared.Prototypes;
 namespace Content.Server._NF.Players.GhostRole.Events;
 
 [ByRefEvent]
-public readonly record struct GhostRolesGetCandidatesEvent(NetUserId Player, List<ProtoId<GhostRolePrototype>> GhostRoles);
+public readonly record struct GhostRolesGetCandidatesEvent(
+    NetUserId Player,
+    List<ProtoId<GhostRolePrototype>> GhostRoles
+);

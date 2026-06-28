@@ -12,7 +12,8 @@ namespace Content.Shared.Beeper.Systems;
 /// </summary>
 public sealed class ProximityBeeperSystem : EntitySystem
 {
-    [Dependency] private readonly BeeperSystem _beeper = default!;
+    [Dependency]
+    private readonly BeeperSystem _beeper = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -21,7 +22,11 @@ public sealed class ProximityBeeperSystem : EntitySystem
         SubscribeLocalEvent<ProximityBeeperComponent, ProximityTargetUpdatedEvent>(OnProximityTargetUpdate);
     }
 
-    private void OnProximityTargetUpdate(EntityUid owner, ProximityBeeperComponent proxBeeper, ref ProximityTargetUpdatedEvent args)
+    private void OnProximityTargetUpdate(
+        EntityUid owner,
+        ProximityBeeperComponent proxBeeper,
+        ref ProximityTargetUpdatedEvent args
+    )
     {
         if (!TryComp<BeeperComponent>(owner, out var beeper))
             return;
@@ -35,12 +40,20 @@ public sealed class ProximityBeeperSystem : EntitySystem
         if (args.Distance <= proxBeeper.MinRange)
             _beeper.SetIntervalScaling(owner, 0, beeper);
         else
-            _beeper.SetIntervalScaling(owner, (args.Distance - proxBeeper.MinRange) / (args.Detector.Range - proxBeeper.MinRange), beeper);
+            _beeper.SetIntervalScaling(
+                owner,
+                (args.Distance - proxBeeper.MinRange) / (args.Detector.Range - proxBeeper.MinRange),
+                beeper
+            );
         // End Frontier
         _beeper.SetMute(owner, false, beeper);
     }
 
-    private void OnNewProximityTarget(EntityUid owner, ProximityBeeperComponent proxBeeper, ref NewProximityTargetEvent args)
+    private void OnNewProximityTarget(
+        EntityUid owner,
+        ProximityBeeperComponent proxBeeper,
+        ref NewProximityTargetEvent args
+    )
     {
         _beeper.SetMute(owner, args.Target == null);
     }

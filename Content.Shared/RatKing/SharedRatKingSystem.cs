@@ -16,13 +16,26 @@ namespace Content.Shared.RatKing;
 
 public abstract class SharedRatKingSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _gameTiming = default!; // Used for rummage cooldown
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] protected readonly IPrototypeManager PrototypeManager = default!;
-    [Dependency] protected readonly IRobustRandom Random = default!;
-    [Dependency] private readonly SharedActionsSystem _action = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!; // Used for rummage cooldown
+
+    [Dependency]
+    private readonly INetManager _net = default!;
+
+    [Dependency]
+    protected readonly IPrototypeManager PrototypeManager = default!;
+
+    [Dependency]
+    protected readonly IRobustRandom Random = default!;
+
+    [Dependency]
+    private readonly SharedActionsSystem _action = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfter = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -123,45 +136,63 @@ public abstract class SharedRatKingSystem : EntitySystem
 
     private void OnGetVerb(EntityUid uid, RatKingRummageableComponent component, GetVerbsEvent<AlternativeVerb> args)
     {
-        if (!TryComp<RummagerComponent>(args.User, out var rummager)
+        if (
+            !TryComp<RummagerComponent>(args.User, out var rummager)
             || component.Looted
             || _gameTiming.CurTime < component.LastLooted + component.RummageCooldown
-            || _gameTiming.CurTime < rummager.LastRummaged + rummager.Cooldown) // Frontier: cooldown per rummager
+            || _gameTiming.CurTime < rummager.LastRummaged + rummager.Cooldown
+        ) // Frontier: cooldown per rummager
             // DeltaV - Use RummagerComponent instead of RatKingComponent
             // (This is so we can give Rodentia rummage abilities)
             // Additionally, adds a cooldown check
             return;
 
-        args.Verbs.Add(new AlternativeVerb
-        {
-            Text = Loc.GetString("rat-king-rummage-text"),
-            Priority = 0,
-            Act = () =>
+        args.Verbs.Add(
+            new AlternativeVerb
             {
-                _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, component.RummageDuration,
-                    new RatKingRummageDoAfterEvent(), uid, uid)
+                Text = Loc.GetString("rat-king-rummage-text"),
+                Priority = 0,
+                Act = () =>
                 {
-                    BlockDuplicate = true,
-                    BreakOnDamage = true,
-                    BreakOnMove = true,
-                    DistanceThreshold = 2f
-                });
+                    _doAfter.TryStartDoAfter(
+                        new DoAfterArgs(
+                            EntityManager,
+                            args.User,
+                            component.RummageDuration,
+                            new RatKingRummageDoAfterEvent(),
+                            uid,
+                            uid
+                        )
+                        {
+                            BlockDuplicate = true,
+                            BreakOnDamage = true,
+                            BreakOnMove = true,
+                            DistanceThreshold = 2f,
+                        }
+                    );
+                },
             }
-        });
+        );
     }
 
-    private void OnDoAfterComplete(EntityUid uid, RatKingRummageableComponent component, RatKingRummageDoAfterEvent args)
+    private void OnDoAfterComplete(
+        EntityUid uid,
+        RatKingRummageableComponent component,
+        RatKingRummageDoAfterEvent args
+    )
     {
         // DeltaV - Rummaging an object updates the looting cooldown rather than a "previously looted" check.
-        // Note that the "Looted" boolean can still be checked (by mappers/admins) 
+        // Note that the "Looted" boolean can still be checked (by mappers/admins)
         // to disable rummaging on the object indefinitely, but rummaging will no
         // longer permanently prevent future rummaging.
         var time = _gameTiming.CurTime;
-        if (args.Cancelled
+        if (
+            args.Cancelled
             || component.Looted
             || time < component.LastLooted + component.RummageCooldown
             || !TryComp<RummagerComponent>(args.User, out var rummager) // Frontier: must be a rummager (also, verify cooldowns)
-            || time < rummager.LastRummaged + rummager.Cooldown) // Frontier: check cooldown
+            || time < rummager.LastRummaged + rummager.Cooldown
+        ) // Frontier: check cooldown
             return;
 
         component.LastLooted = time;
@@ -184,19 +215,10 @@ public abstract class SharedRatKingSystem : EntitySystem
         }
     }
 
-    public virtual void UpdateServantNpc(EntityUid uid, RatKingOrderType orderType)
-    {
+    public virtual void UpdateServantNpc(EntityUid uid, RatKingOrderType orderType) { }
 
-    }
-
-    public virtual void DoCommandCallout(EntityUid uid, RatKingComponent component)
-    {
-
-    }
+    public virtual void DoCommandCallout(EntityUid uid, RatKingComponent component) { }
 }
 
 [Serializable, NetSerializable]
-public sealed partial class RatKingRummageDoAfterEvent : SimpleDoAfterEvent
-{
-
-}
+public sealed partial class RatKingRummageDoAfterEvent : SimpleDoAfterEvent { }

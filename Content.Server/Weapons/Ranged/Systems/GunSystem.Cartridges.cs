@@ -24,7 +24,11 @@ public sealed partial class GunSystem
         if (damageSpec == null)
             return;
 
-        _damageExamine.AddDamageExamine(args.Message, Damageable.ApplyUniversalAllModifiers(damageSpec), Loc.GetString("damage-projectile"));
+        _damageExamine.AddDamageExamine(
+            args.Message,
+            Damageable.ApplyUniversalAllModifiers(damageSpec),
+            Loc.GetString("damage-projectile")
+        );
     }
 
     private DamageSpecifier? GetProjectileDamage(string proto)
@@ -32,10 +36,14 @@ public sealed partial class GunSystem
         if (!ProtoManager.TryIndex<EntityPrototype>(proto, out var entityProto))
             return null;
 
-        if (entityProto.Components
-            .TryGetValue(_factory.GetComponentName(typeof(ProjectileComponent)), out var projectile))
+        if (
+            entityProto.Components.TryGetValue(
+                _factory.GetComponentName(typeof(ProjectileComponent)),
+                out var projectile
+            )
+        )
         {
-            var p = (ProjectileComponent) projectile.Component;
+            var p = (ProjectileComponent)projectile.Component;
 
             if (!p.Damage.Empty)
             {

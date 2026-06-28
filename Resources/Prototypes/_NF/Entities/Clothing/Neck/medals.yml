@@ -10,7 +10,7 @@
     sprite: _NF/Clothing/Neck/Medals/star_gold.rsi
   - type: Tag
     tags:
-      - Medal
+    - Medal
 
 - type: entity
   parent: ClothingNeckBase
@@ -24,7 +24,7 @@
     sprite: _NF/Clothing/Neck/Medals/shield_gold.rsi
   - type: Tag
     tags:
-      - Medal
+    - Medal
 
 - type: entity
   parent: ClothingNeckBase
@@ -38,7 +38,7 @@
     sprite: _NF/Clothing/Neck/Medals/shield_silver.rsi
   - type: Tag
     tags:
-      - Medal
+    - Medal
 
 - type: entity
   parent: ClothingNeckBase
@@ -52,7 +52,7 @@
     sprite: _NF/Clothing/Neck/Medals/shield_bronze.rsi
   - type: Tag
     tags:
-      - Medal
+    - Medal
 
 - type: entity
   parent: ClothingNeckBase
@@ -66,7 +66,7 @@
     sprite: _NF/Clothing/Neck/Medals/star_civviesilver.rsi
   - type: Tag
     tags:
-      - Medal
+    - Medal
 
 - type: entity
   parent: ClothingNeckBase
@@ -80,7 +80,7 @@
     sprite: _NF/Clothing/Neck/Medals/shield_civviegold.rsi
   - type: Tag
     tags:
-      - Medal
+    - Medal
 
 - type: entity
   parent: ClothingNeckBase
@@ -94,7 +94,7 @@
     sprite: _NF/Clothing/Neck/Medals/blood_drop.rsi
   - type: Tag
     tags:
-      - Medal
+    - Medal
 
 # just a little joke :)
 - type: entity
@@ -109,7 +109,7 @@
     sprite: _NF/Clothing/Neck/Medals/glorious_order.rsi
   - type: Tag
     tags:
-      - Medal
+    - Medal
   - type: Construction
     graph: ClothingNeckMedalGloriousOrder
     node: GloriousOrder

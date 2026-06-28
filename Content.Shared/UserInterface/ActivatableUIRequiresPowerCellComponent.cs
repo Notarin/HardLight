@@ -7,7 +7,4 @@ namespace Content.Shared.UserInterface;
 /// Specifies that the attached entity requires <see cref="PowerCellDrawComponent"/> power.
 /// </summary>
 [RegisterComponent, NetworkedComponent]
-public sealed partial class ActivatableUIRequiresPowerCellComponent : Component
-{
-
-}
+public sealed partial class ActivatableUIRequiresPowerCellComponent : Component { }

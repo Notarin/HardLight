@@ -13,4 +13,4 @@
     tags:
     - SpiderCraft
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked

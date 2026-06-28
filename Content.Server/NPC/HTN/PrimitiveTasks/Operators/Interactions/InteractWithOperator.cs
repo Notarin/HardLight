@@ -7,7 +7,8 @@ namespace Content.Server.NPC.HTN.PrimitiveTasks.Operators.Interactions;
 
 public sealed partial class InteractWithOperator : HTNOperator
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
     private SharedDoAfterSystem _doAfterSystem = default!;
 
     public override void Initialize(IEntitySystemManager sysManager)
@@ -30,13 +31,11 @@ public sealed partial class InteractWithOperator : HTNOperator
 
     public string CurrentDoAfter = "CurrentInteractWithDoAfter";
 
-
     // Ensure that CurrentDoAfter doesn't exist as we enter this operator,
     // the code currently relies on the result of a TryGetValue
     public override void Startup(NPCBlackboard blackboard)
     {
         blackboard.Remove<ushort>(CurrentDoAfter);
-
     }
 
     // Not really sure if we should clean it up, I guess some operator could use it
@@ -61,17 +60,19 @@ public sealed partial class InteractWithOperator : HTNOperator
                 {
                     DoAfterStatus.Running => HTNOperatorStatus.Continuing,
                     DoAfterStatus.Finished => HTNOperatorStatus.Finished,
-                    _ => HTNOperatorStatus.Failed
+                    _ => HTNOperatorStatus.Failed,
                 };
             }
 
             nextId = doAfter.NextId;
         }
 
-
-        if (_entManager.TryGetComponent<UseDelayComponent>(owner, out var useDelay) && _entManager.System<UseDelaySystem>().IsDelayed((owner, useDelay)) ||
-            !blackboard.TryGetValue<EntityUid>(TargetKey, out var moveTarget, _entManager) ||
-            !_entManager.TryGetComponent<TransformComponent>(moveTarget, out var targetXform))
+        if (
+            _entManager.TryGetComponent<UseDelayComponent>(owner, out var useDelay)
+                && _entManager.System<UseDelaySystem>().IsDelayed((owner, useDelay))
+            || !blackboard.TryGetValue<EntityUid>(TargetKey, out var moveTarget, _entManager)
+            || !_entManager.TryGetComponent<TransformComponent>(moveTarget, out var targetXform)
+        )
         {
             return HTNOperatorStatus.Continuing;
         }
@@ -91,7 +92,7 @@ public sealed partial class InteractWithOperator : HTNOperator
         }
 
         // We shouldn't arrive here if we start a doafter, so fail if we expected a doafter
-        if(ExpectDoAfter)
+        if (ExpectDoAfter)
             return HTNOperatorStatus.Failed;
 
         return HTNOperatorStatus.Finished;

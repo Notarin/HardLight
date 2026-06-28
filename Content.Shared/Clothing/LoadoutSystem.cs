@@ -19,10 +19,17 @@ public sealed class LoadoutSystem : EntitySystem
 {
     // Shared so we can predict it for placement manager.
 
-    [Dependency] private readonly ActorSystem _actors = default!;
-    [Dependency] private readonly SharedStationSpawningSystem _station = default!;
-    [Dependency] private readonly IPrototypeManager _protoMan = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency]
+    private readonly ActorSystem _actors = default!;
+
+    [Dependency]
+    private readonly SharedStationSpawningSystem _station = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _protoMan = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
 
     public override void Initialize()
     {
@@ -65,7 +72,10 @@ public sealed class LoadoutSystem : EntitySystem
 
         if (count == 1)
         {
-            if (gear.Equipment.Count == 1 && _protoMan.TryIndex<EntityPrototype>(gear.Equipment.Values.First(), out var proto))
+            if (
+                gear.Equipment.Count == 1
+                && _protoMan.TryIndex<EntityPrototype>(gear.Equipment.Values.First(), out var proto)
+            )
             {
                 return proto.ID;
             }
@@ -98,7 +108,7 @@ public sealed class LoadoutSystem : EntitySystem
             return GetName(gear);
         }
 
-        return GetName((IEquipmentLoadout) loadout);
+        return GetName((IEquipmentLoadout)loadout);
     }
 
     /// <summary>
@@ -113,7 +123,10 @@ public sealed class LoadoutSystem : EntitySystem
 
         if (count == 1)
         {
-            if (gear.Equipment.Count == 1 && _protoMan.TryIndex<EntityPrototype>(gear.Equipment.Values.First(), out var proto))
+            if (
+                gear.Equipment.Count == 1
+                && _protoMan.TryIndex<EntityPrototype>(gear.Equipment.Values.First(), out var proto)
+            )
             {
                 return proto.Name;
             }
@@ -145,8 +158,11 @@ public sealed class LoadoutSystem : EntitySystem
         Equip(uid, component.StartingGear, component.RoleLoadout);
     }
 
-    public void Equip(EntityUid uid, List<ProtoId<StartingGearPrototype>>? startingGear,
-        List<ProtoId<RoleLoadoutPrototype>>? loadoutGroups)
+    public void Equip(
+        EntityUid uid,
+        List<ProtoId<StartingGearPrototype>>? startingGear,
+        List<ProtoId<RoleLoadoutPrototype>>? loadoutGroups
+    )
     {
         // First, randomly pick a startingGear profile from those specified, and equip it.
         if (startingGear != null && startingGear.Count > 0)

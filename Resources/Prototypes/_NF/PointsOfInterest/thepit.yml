@@ -33,5 +33,5 @@
     ThePit:
       stationProto: DeadDropFrontierOutpost
       components:
-        - type: StationNameSetup
-          mapNameTemplate: "The Pit"
+      - type: StationNameSetup
+        mapNameTemplate: "The Pit"

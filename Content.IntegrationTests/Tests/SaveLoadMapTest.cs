@@ -66,8 +66,10 @@ namespace Content.IntegrationTests.Tests
             await server.WaitAssertion(() =>
             {
                 {
-                    if (!mapManager.TryFindGridAt(newMap, new Vector2(10, 10), out var gridUid, out var mapGrid) ||
-                        !sEntities.TryGetComponent<TransformComponent>(gridUid, out var gridXform))
+                    if (
+                        !mapManager.TryFindGridAt(newMap, new Vector2(10, 10), out var gridUid, out var mapGrid)
+                        || !sEntities.TryGetComponent<TransformComponent>(gridUid, out var gridXform)
+                    )
                     {
                         Assert.Fail();
                         return;
@@ -76,12 +78,17 @@ namespace Content.IntegrationTests.Tests
                     Assert.Multiple(() =>
                     {
                         Assert.That(xformSystem.GetWorldPosition(gridXform), Is.EqualTo(new Vector2(10, 10)));
-                        Assert.That(mapSystem.GetTileRef(gridUid, mapGrid, new Vector2i(0, 0)).Tile, Is.EqualTo(new Tile(typeId: 1, flags: 1, variant: 255)));
+                        Assert.That(
+                            mapSystem.GetTileRef(gridUid, mapGrid, new Vector2i(0, 0)).Tile,
+                            Is.EqualTo(new Tile(typeId: 1, flags: 1, variant: 255))
+                        );
                     });
                 }
                 {
-                    if (!mapManager.TryFindGridAt(newMap, new Vector2(-8, -8), out var gridUid, out var mapGrid) ||
-                        !sEntities.TryGetComponent<TransformComponent>(gridUid, out var gridXform))
+                    if (
+                        !mapManager.TryFindGridAt(newMap, new Vector2(-8, -8), out var gridUid, out var mapGrid)
+                        || !sEntities.TryGetComponent<TransformComponent>(gridUid, out var gridXform)
+                    )
                     {
                         Assert.Fail();
                         return;
@@ -90,7 +97,10 @@ namespace Content.IntegrationTests.Tests
                     Assert.Multiple(() =>
                     {
                         Assert.That(xformSystem.GetWorldPosition(gridXform), Is.EqualTo(new Vector2(-8, -8)));
-                        Assert.That(mapSystem.GetTileRef(gridUid, mapGrid, new Vector2i(0, 0)).Tile, Is.EqualTo(new Tile(typeId: 2, flags: 1, variant: 254)));
+                        Assert.That(
+                            mapSystem.GetTileRef(gridUid, mapGrid, new Vector2i(0, 0)).Tile,
+                            Is.EqualTo(new Tile(typeId: 2, flags: 1, variant: 254))
+                        );
                     });
                 }
             });

@@ -13,7 +13,8 @@ namespace Content.Shared.Tools.Systems;
 
 public abstract partial class SharedToolSystem
 {
-    [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!;
+    [Dependency]
+    private readonly ActionBlockerSystem _actionBlocker = default!;
 
     public void InitializeWelder()
     {
@@ -21,14 +22,18 @@ public abstract partial class SharedToolSystem
         SubscribeLocalEvent<WelderComponent, ExaminedEvent>(OnWelderExamine);
         SubscribeLocalEvent<WelderComponent, AfterInteractEvent>(OnWelderAfterInteract);
 
-        SubscribeLocalEvent<WelderComponent, ToolUseAttemptEvent>((uid, comp, ev) =>
-        {
-            CanCancelWelderUse((uid, comp), ev.User, ev.Fuel, ev);
-        });
-        SubscribeLocalEvent<WelderComponent, DoAfterAttemptEvent<ToolDoAfterEvent>>((uid, comp, ev) =>
-        {
-            CanCancelWelderUse((uid, comp), ev.Event.User, ev.Event.Fuel, ev);
-        });
+        SubscribeLocalEvent<WelderComponent, ToolUseAttemptEvent>(
+            (uid, comp, ev) =>
+            {
+                CanCancelWelderUse((uid, comp), ev.User, ev.Fuel, ev);
+            }
+        );
+        SubscribeLocalEvent<WelderComponent, DoAfterAttemptEvent<ToolDoAfterEvent>>(
+            (uid, comp, ev) =>
+            {
+                CanCancelWelderUse((uid, comp), ev.Event.User, ev.Event.Fuel, ev);
+            }
+        );
         SubscribeLocalEvent<WelderComponent, ToolDoAfterEvent>(OnWelderDoAfter);
 
         SubscribeLocalEvent<WelderComponent, ItemToggledEvent>(OnToggle);
@@ -37,12 +42,22 @@ public abstract partial class SharedToolSystem
 
     public virtual void TurnOn(Entity<WelderComponent> entity, EntityUid? user)
     {
-        if (!SolutionContainerSystem.TryGetSolution(entity.Owner, entity.Comp.FuelSolutionName, out var solutionComp, out _))
+        if (
+            !SolutionContainerSystem.TryGetSolution(
+                entity.Owner,
+                entity.Comp.FuelSolutionName,
+                out var solutionComp,
+                out _
+            )
+        )
             return;
 
         SolutionContainerSystem.RemoveReagent(solutionComp.Value, entity.Comp.FuelReagent, entity.Comp.FuelLitCost);
-        AdminLogger.Add(LogType.InteractActivate, LogImpact.Low,
-            $"{ToPrettyString(user):user} toggled {ToPrettyString(entity.Owner):welder} on");
+        AdminLogger.Add(
+            LogType.InteractActivate,
+            LogImpact.Low,
+            $"{ToPrettyString(user):user} toggled {ToPrettyString(entity.Owner):welder} on"
+        );
 
         entity.Comp.Enabled = true;
         Dirty(entity, entity.Comp);
@@ -50,22 +65,32 @@ public abstract partial class SharedToolSystem
 
     public void TurnOff(Entity<WelderComponent> entity, EntityUid? user)
     {
-        AdminLogger.Add(LogType.InteractActivate, LogImpact.Low,
-            $"{ToPrettyString(user):user} toggled {ToPrettyString(entity.Owner):welder} off");
+        AdminLogger.Add(
+            LogType.InteractActivate,
+            LogImpact.Low,
+            $"{ToPrettyString(user):user} toggled {ToPrettyString(entity.Owner):welder} off"
+        );
         entity.Comp.Enabled = false;
         Dirty(entity, entity.Comp);
     }
 
-    public (FixedPoint2 fuel, FixedPoint2 capacity) GetWelderFuelAndCapacity(EntityUid uid, WelderComponent? welder = null, SolutionContainerManagerComponent? solutionContainer = null)
+    public (FixedPoint2 fuel, FixedPoint2 capacity) GetWelderFuelAndCapacity(
+        EntityUid uid,
+        WelderComponent? welder = null,
+        SolutionContainerManagerComponent? solutionContainer = null
+    )
     {
         if (!Resolve(uid, ref welder, ref solutionContainer))
             return default;
 
-        if (!SolutionContainerSystem.TryGetSolution(
+        if (
+            !SolutionContainerSystem.TryGetSolution(
                 (uid, solutionContainer),
                 welder.FuelSolutionName,
                 out _,
-                out var fuelSolution))
+                out var fuelSolution
+            )
+        )
         {
             return default;
         }
@@ -96,11 +121,15 @@ public abstract partial class SharedToolSystem
             {
                 var (fuel, capacity) = GetWelderFuelAndCapacity(entity.Owner, entity.Comp);
 
-                args.PushMarkup(Loc.GetString("welder-component-on-examine-detailed-message",
-                    ("colorName", fuel < capacity / FixedPoint2.New(4f) ? "darkorange" : "orange"),
-                    ("fuelLeft", fuel),
-                    ("fuelCapacity", capacity),
-                    ("status", string.Empty))); // Lit status is handled above
+                args.PushMarkup(
+                    Loc.GetString(
+                        "welder-component-on-examine-detailed-message",
+                        ("colorName", fuel < capacity / FixedPoint2.New(4f) ? "darkorange" : "orange"),
+                        ("fuelLeft", fuel),
+                        ("fuelCapacity", capacity),
+                        ("status", string.Empty)
+                    )
+                ); // Lit status is handled above
             }
         }
     }
@@ -113,10 +142,17 @@ public abstract partial class SharedToolSystem
         if (args.Target is not { Valid: true } target || !args.CanReach)
             return;
 
-        if (TryComp(target, out ReagentTankComponent? tank)
+        if (
+            TryComp(target, out ReagentTankComponent? tank)
             && tank.TankType == ReagentTankType.Fuel
             && SolutionContainerSystem.TryGetDrainableSolution(target, out var targetSoln, out var targetSolution)
-            && SolutionContainerSystem.TryGetSolution(entity.Owner, entity.Comp.FuelSolutionName, out var solutionComp, out var welderSolution))
+            && SolutionContainerSystem.TryGetSolution(
+                entity.Owner,
+                entity.Comp.FuelSolutionName,
+                out var solutionComp,
+                out var welderSolution
+            )
+        )
         {
             var trans = FixedPoint2.Min(welderSolution.AvailableVolume, targetSolution.Volume);
             if (trans > 0)
@@ -124,7 +160,11 @@ public abstract partial class SharedToolSystem
                 var drained = SolutionContainerSystem.Drain(target, targetSoln.Value, trans);
                 SolutionContainerSystem.TryAddSolution(solutionComp.Value, drained);
                 _audioSystem.PlayPredicted(entity.Comp.WelderRefill, entity, user: args.User);
-                _popup.PopupClient(Loc.GetString("welder-component-after-interact-refueled-message"), entity, args.User);
+                _popup.PopupClient(
+                    Loc.GetString("welder-component-after-interact-refueled-message"),
+                    entity,
+                    args.User
+                );
             }
             else if (welderSolution.AvailableVolume <= 0)
             {
@@ -132,14 +172,23 @@ public abstract partial class SharedToolSystem
             }
             else
             {
-                _popup.PopupClient(Loc.GetString("welder-component-no-fuel-in-tank", ("owner", args.Target)), entity, args.User);
+                _popup.PopupClient(
+                    Loc.GetString("welder-component-no-fuel-in-tank", ("owner", args.Target)),
+                    entity,
+                    args.User
+                );
             }
 
             args.Handled = true;
         }
     }
 
-    private void CanCancelWelderUse(Entity<WelderComponent> entity, EntityUid user, float requiredFuel, CancellableEntityEventArgs ev)
+    private void CanCancelWelderUse(
+        Entity<WelderComponent> entity,
+        EntityUid user,
+        float requiredFuel,
+        CancellableEntityEventArgs ev
+    )
     {
         if (!ItemToggle.IsActivated(entity.Owner))
         {
@@ -183,7 +232,9 @@ public abstract partial class SharedToolSystem
             return;
         }
 
-        if (!SolutionContainerSystem.TryGetSolution(entity.Owner, entity.Comp.FuelSolutionName, out _, out var solution))
+        if (
+            !SolutionContainerSystem.TryGetSolution(entity.Owner, entity.Comp.FuelSolutionName, out _, out var solution)
+        )
         {
             args.Cancelled = true;
             args.Popup = Loc.GetString("welder-component-no-fuel-message");
@@ -221,10 +272,21 @@ public abstract partial class SharedToolSystem
             if (!welder.Enabled)
                 continue;
 
-            if (!SolutionContainerSystem.TryGetSolution((uid, solutionContainer), welder.FuelSolutionName, out var solutionComp, out var solution))
+            if (
+                !SolutionContainerSystem.TryGetSolution(
+                    (uid, solutionContainer),
+                    welder.FuelSolutionName,
+                    out var solutionComp,
+                    out var solution
+                )
+            )
                 continue;
 
-            SolutionContainerSystem.RemoveReagent(solutionComp.Value, welder.FuelReagent, welder.FuelConsumption * welder.WelderUpdateTimer.TotalSeconds);
+            SolutionContainerSystem.RemoveReagent(
+                solutionComp.Value,
+                welder.FuelReagent,
+                welder.FuelConsumption * welder.WelderUpdateTimer.TotalSeconds
+            );
 
             if (solution.GetTotalPrototypeQuantity(welder.FuelReagent) <= FixedPoint2.Zero)
                 ItemToggle.Toggle(uid);

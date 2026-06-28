@@ -20,12 +20,12 @@
   # Starlight-start: Languages
   - type: LanguageKnowledge
     speaks:
-      - GalacticCommon
-      - Thaveyan
+    - GalacticCommon
+    - Thaveyan
     understands:
-      - GalacticCommon
-      - Thaveyan
-      - Carptongue
+    - GalacticCommon
+    - Thaveyan
+    - Carptongue
   # Starlight-end
   - type: Hunger
   - type: Thirst
@@ -71,13 +71,12 @@
   - type: Butcherable
     butcheringType: Spike
     spawned:
-      - id: FoodThavenMeat
-        amount: 5
+    - id: FoodThavenMeat
+      amount: 5
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.35
         density: 120
         restitution: 0.0
@@ -157,7 +156,7 @@
 - type: entity
   parent: BaseSpeciesDummy
   id: MobThavenDummy
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: HumanoidAppearance
     species: Thaven

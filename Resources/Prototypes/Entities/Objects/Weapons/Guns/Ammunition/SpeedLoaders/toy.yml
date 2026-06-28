@@ -6,12 +6,12 @@
   components:
   - type: Tag
     tags:
-      - SpeedLoaderCap
+    - SpeedLoaderCap
   - type: SpeedLoader
   - type: BallisticAmmoProvider
     whitelist:
       tags:
-        - CartridgeCap
+      - CartridgeCap
     capacity: 6
   - type: Sprite
     layers:

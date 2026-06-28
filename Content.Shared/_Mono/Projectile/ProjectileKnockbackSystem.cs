@@ -1,17 +1,20 @@
+using System.Numerics;
 using Content.Shared.Projectiles;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Systems;
-using System.Numerics;
 
 namespace Content.Shared._Mono.Projectile;
 
 public sealed partial class ProjectileKnockbackSystem : EntitySystem
 {
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency]
+    private readonly SharedPhysicsSystem _physics = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
 
     private EntityQuery<PhysicsComponent> _physQuery;
     private EntityQuery<MapGridComponent> _gridQuery;
@@ -28,9 +31,7 @@ public sealed partial class ProjectileKnockbackSystem : EntitySystem
 
     private void OnHit(Entity<ProjectileKnockbackComponent> ent, ref ProjectileHitEvent args)
     {
-        if (!_physQuery.TryComp(args.Target, out var targetBody)
-            || !_physQuery.TryComp(ent, out var selfBody)
-        )
+        if (!_physQuery.TryComp(args.Target, out var targetBody) || !_physQuery.TryComp(ent, out var selfBody))
             return;
 
         var toEnt = args.Target;

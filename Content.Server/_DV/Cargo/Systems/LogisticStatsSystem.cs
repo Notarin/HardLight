@@ -17,7 +17,7 @@ public sealed partial class LogisticStatsSystem : EntitySystem // Frontier: Shar
         component.Metrics = component.Metrics with
         {
             Earnings = component.Metrics.Earnings + earnedMoney,
-            OpenedCount = component.Metrics.OpenedCount + 1
+            OpenedCount = component.Metrics.OpenedCount + 1,
         };
         UpdateLogisticsStats(); // Frontier: remove EntityUid from args
     }
@@ -28,7 +28,7 @@ public sealed partial class LogisticStatsSystem : EntitySystem // Frontier: Shar
         component.Metrics = component.Metrics with
         {
             ExpiredLosses = component.Metrics.ExpiredLosses + lostMoney,
-            ExpiredCount = component.Metrics.ExpiredCount + 1
+            ExpiredCount = component.Metrics.ExpiredCount + 1,
         };
         UpdateLogisticsStats(); // Frontier: remove EntityUid from args
     }
@@ -39,7 +39,7 @@ public sealed partial class LogisticStatsSystem : EntitySystem // Frontier: Shar
         component.Metrics = component.Metrics with
         {
             DamagedLosses = component.Metrics.DamagedLosses + lostMoney,
-            DamagedCount = component.Metrics.DamagedCount + 1
+            DamagedCount = component.Metrics.DamagedCount + 1,
         };
         UpdateLogisticsStats(); // Frontier: remove EntityUid from args
     }
@@ -50,7 +50,7 @@ public sealed partial class LogisticStatsSystem : EntitySystem // Frontier: Shar
         component.Metrics = component.Metrics with
         {
             TamperedLosses = component.Metrics.TamperedLosses + lostMoney,
-            TamperedCount = component.Metrics.TamperedCount + 1
+            TamperedCount = component.Metrics.TamperedCount + 1,
         };
         UpdateLogisticsStats(); // Frontier: remove EntityUid from args
     }
@@ -61,7 +61,5 @@ public sealed partial class LogisticStatsSystem : EntitySystem // Frontier: Shar
 // Frontier: removed station EntityUid as an argument in LogisticStatsUpdatedEvent
 public sealed class LogisticStatsUpdatedEvent : EntityEventArgs
 {
-    public LogisticStatsUpdatedEvent()
-    {
-    }
+    public LogisticStatsUpdatedEvent() { }
 }

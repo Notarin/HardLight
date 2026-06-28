@@ -16,13 +16,23 @@ public sealed partial class RadarBlipSystem : EntitySystem
 {
     private const double BlipStaleSeconds = 3.0;
     private static readonly List<(Vector2, float, Color, RadarBlipShape)> EmptyBlipList = new();
-    private static readonly List<(NetEntity? Grid, Vector2 Position, float Scale, Color Color, RadarBlipShape Shape)> EmptyRawBlipList = new();
+    private static readonly List<(
+        NetEntity? Grid,
+        Vector2 Position,
+        float Scale,
+        Color Color,
+        RadarBlipShape Shape
+    )> EmptyRawBlipList = new();
     private TimeSpan _lastRequestTime = TimeSpan.Zero;
+
     // Minimum time between requests.  Slightly larger than the server-side value.
     private static readonly TimeSpan RequestThrottle = TimeSpan.FromMilliseconds(1250);
 
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedTransformSystem _xform = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _xform = default!;
 
     private TimeSpan _lastUpdatedTime;
     private List<(NetEntity? Grid, Vector2 Position, float Scale, Color Color, RadarBlipShape Shape)> _blips = new();
@@ -127,7 +137,13 @@ public sealed partial class RadarBlipSystem : EntitySystem
         if (_blips.Count == 0)
             return _blips;
 
-        var filteredBlips = new List<(NetEntity? Grid, Vector2 Position, float Scale, Color Color, RadarBlipShape Shape)>(_blips.Count);
+        var filteredBlips = new List<(
+            NetEntity? Grid,
+            Vector2 Position,
+            float Scale,
+            Color Color,
+            RadarBlipShape Shape
+        )>(_blips.Count);
 
         foreach (var blip in _blips)
         {

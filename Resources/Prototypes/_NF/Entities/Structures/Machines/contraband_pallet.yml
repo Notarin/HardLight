@@ -12,12 +12,11 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.45,-0.45,0.45,0.45"
         density: 15
         mask:
-          - MachineMask
+        - MachineMask
   - type: ContrabandPallet
   - type: StaticPrice
     price: 100

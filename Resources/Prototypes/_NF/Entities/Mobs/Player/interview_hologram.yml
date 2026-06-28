@@ -14,8 +14,7 @@
   - type: Fixtures
     fixtures: # Fixtures taken from species/base.yml
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.35
         density: 185
         restitution: 0.0
@@ -72,7 +71,7 @@
 - type: entity
   id: InterviewHologramContractor
   parent: InterviewHologram
-  categories: [ HideSpawnMenu, DoNotMap ]
+  categories: [HideSpawnMenu, DoNotMap]
   components:
   - type: InterviewHologram
     job: Contractor
@@ -80,7 +79,7 @@
 - type: entity
   id: InterviewHologramPilot
   parent: InterviewHologram
-  categories: [ HideSpawnMenu, DoNotMap ]
+  categories: [HideSpawnMenu, DoNotMap]
   components:
   - type: InterviewHologram
     job: Pilot
@@ -88,7 +87,7 @@
 - type: entity
   id: InterviewHologramMercenary
   parent: InterviewHologram
-  categories: [ HideSpawnMenu, DoNotMap ]
+  categories: [HideSpawnMenu, DoNotMap]
   components:
   - type: InterviewHologram
     job: Mercenary

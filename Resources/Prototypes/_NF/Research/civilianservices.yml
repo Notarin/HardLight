@@ -129,4 +129,4 @@
   position: 2, -4
   cost: 5000
   recipeUnlocks:
-    - JanicartFlatpack
+  - JanicartFlatpack

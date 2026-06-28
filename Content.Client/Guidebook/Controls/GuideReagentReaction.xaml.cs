@@ -32,7 +32,8 @@ public sealed partial class GuideReagentReaction : BoxContainer, ISearchableCont
         _protoMan = protoMan;
     }
 
-    public GuideReagentReaction(ReactionPrototype prototype, IPrototypeManager protoMan, IEntitySystemManager sysMan) : this(protoMan)
+    public GuideReagentReaction(ReactionPrototype prototype, IPrototypeManager protoMan, IEntitySystemManager sysMan)
+        : this(protoMan)
     {
         Container container = ReactantsContainer;
         SetReagents(prototype.Reactants, ref container, protoMan);
@@ -60,11 +61,14 @@ public sealed partial class GuideReagentReaction : BoxContainer, ISearchableCont
         SetMixingCategory(mixingCategories, prototype, sysMan);
     }
 
-    public GuideReagentReaction(EntityPrototype prototype,
+    public GuideReagentReaction(
+        EntityPrototype prototype,
         Solution solution,
         IReadOnlyList<ProtoId<MixingCategoryPrototype>> categories,
         IPrototypeManager protoMan,
-        IEntitySystemManager sysMan) : this(protoMan)
+        IEntitySystemManager sysMan
+    )
+        : this(protoMan)
     {
         var icon = sysMan.GetEntitySystem<SpriteSystem>().GetPrototypeIcon(prototype).GetFrame(RsiDirection.South, 0);
         var entContainer = new BoxContainer
@@ -72,13 +76,7 @@ public sealed partial class GuideReagentReaction : BoxContainer, ISearchableCont
             Orientation = LayoutOrientation.Horizontal,
             HorizontalExpand = true,
             HorizontalAlignment = HAlignment.Center,
-            Children =
-            {
-                new TextureRect
-                {
-                    Texture = icon
-                }
-            }
+            Children = { new TextureRect { Texture = icon } },
         };
         var nameLabel = new RichTextLabel();
         nameLabel.SetMarkup(Loc.GetString("guidebook-reagent-sources-ent-wrapper", ("name", prototype.Name)));
@@ -90,31 +88,37 @@ public sealed partial class GuideReagentReaction : BoxContainer, ISearchableCont
         SetMixingCategory(categories, null, sysMan);
     }
 
-    public GuideReagentReaction(GasPrototype prototype,
+    public GuideReagentReaction(
+        GasPrototype prototype,
         IReadOnlyList<ProtoId<MixingCategoryPrototype>> categories,
         IPrototypeManager protoMan,
-        IEntitySystemManager sysMan) : this(protoMan)
+        IEntitySystemManager sysMan
+    )
+        : this(protoMan)
     {
         var label = new RichTextLabel();
-        label.SetMarkup(Loc.GetString("guidebook-reagent-sources-gas-wrapper",
-            ("name", Loc.GetString(prototype.Name).ToLower())));
+        label.SetMarkup(
+            Loc.GetString("guidebook-reagent-sources-gas-wrapper", ("name", Loc.GetString(prototype.Name).ToLower()))
+        );
 
         ReactantsContainer.Visible = true;
         ReactantsContainer.AddChild(label);
 
         if (prototype.Reagent != null)
         {
-            var quantity = new Dictionary<string, FixedPoint2>
-            {
-                { prototype.Reagent, FixedPoint2.New(0.21f) }
-            };
+            var quantity = new Dictionary<string, FixedPoint2> { { prototype.Reagent, FixedPoint2.New(0.21f) } };
             Container productContainer = ProductsContainer;
             SetReagents(quantity, ref productContainer, protoMan, false);
         }
         SetMixingCategory(categories, null, sysMan);
     }
 
-    private void SetReagents(List<ReagentQuantity> reagents, ref Container container, IPrototypeManager protoMan, bool addLinks = true)
+    private void SetReagents(
+        List<ReagentQuantity> reagents,
+        ref Container container,
+        IPrototypeManager protoMan,
+        bool addLinks = true
+    )
     {
         var amounts = new Dictionary<string, FixedPoint2>();
         foreach (var (reagent, quantity) in reagents)
@@ -128,7 +132,8 @@ public sealed partial class GuideReagentReaction : BoxContainer, ISearchableCont
         Dictionary<string, ReactantPrototype> reactants,
         ref Container container,
         IPrototypeManager protoMan,
-        bool addLinks = true)
+        bool addLinks = true
+    )
     {
         var amounts = new Dictionary<string, FixedPoint2>();
         foreach (var (reagent, reactantPrototype) in reactants)
@@ -143,7 +148,8 @@ public sealed partial class GuideReagentReaction : BoxContainer, ISearchableCont
         Dictionary<ProtoId<MixingCategoryPrototype>, ReactantPrototype> reactants,
         ref Container container,
         IPrototypeManager protoMan,
-        bool addLinks = true)
+        bool addLinks = true
+    )
     {
         var amounts = new Dictionary<string, FixedPoint2>();
         foreach (var (reagent, reactantPrototype) in reactants)
@@ -153,14 +159,24 @@ public sealed partial class GuideReagentReaction : BoxContainer, ISearchableCont
         SetReagents(amounts, ref container, protoMan, addLinks);
     }
 
-    private void SetReagents(Dictionary<string, FixedPoint2> reagents, ref Container container, IPrototypeManager protoMan, bool addLinks = true)
+    private void SetReagents(
+        Dictionary<string, FixedPoint2> reagents,
+        ref Container container,
+        IPrototypeManager protoMan,
+        bool addLinks = true
+    )
     {
         foreach (var (product, amount) in reagents.OrderByDescending(p => p.Value))
         {
             var productProto = protoMan.Index<ReagentPrototype>(product);
             var msg = new FormattedMessage();
-            msg.AddMarkupOrThrow(Loc.GetString("guidebook-reagent-recipes-reagent-display",
-                ("reagent", productProto.LocalizedName), ("ratio", amount)));
+            msg.AddMarkupOrThrow(
+                Loc.GetString(
+                    "guidebook-reagent-recipes-reagent-display",
+                    ("reagent", productProto.LocalizedName),
+                    ("ratio", amount)
+                )
+            );
 
             var label = new GuidebookRichPrototypeLink();
             if (addLinks)
@@ -171,7 +187,11 @@ public sealed partial class GuideReagentReaction : BoxContainer, ISearchableCont
         container.Visible = true;
     }
 
-    private void SetMixingCategory(IReadOnlyList<ProtoId<MixingCategoryPrototype>> mixingCategories, ReactionPrototype? prototype, IEntitySystemManager sysMan)
+    private void SetMixingCategory(
+        IReadOnlyList<ProtoId<MixingCategoryPrototype>> mixingCategories,
+        ReactionPrototype? prototype,
+        IEntitySystemManager sysMan
+    )
     {
         var foo = new List<MixingCategoryPrototype>();
         foreach (var cat in mixingCategories)
@@ -181,7 +201,11 @@ public sealed partial class GuideReagentReaction : BoxContainer, ISearchableCont
         SetMixingCategory(foo, prototype, sysMan);
     }
 
-    private void SetMixingCategory(IReadOnlyList<MixingCategoryPrototype> mixingCategories, ReactionPrototype? prototype, IEntitySystemManager sysMan)
+    private void SetMixingCategory(
+        IReadOnlyList<MixingCategoryPrototype> mixingCategories,
+        ReactionPrototype? prototype,
+        IEntitySystemManager sysMan
+    )
     {
         if (mixingCategories.Count == 0)
             return;
@@ -192,16 +216,19 @@ public sealed partial class GuideReagentReaction : BoxContainer, ISearchableCont
             MixTexture.Texture = sysMan.GetEntitySystem<SpriteSystem>().Frame0(primaryCategory.Icon);
         }
 
-        var mixingVerb = ContentLocalizationManager.FormatList(mixingCategories
-            .Select(p => Loc.GetString(p.VerbText)).ToList());
+        var mixingVerb = ContentLocalizationManager.FormatList(
+            mixingCategories.Select(p => Loc.GetString(p.VerbText)).ToList()
+        );
 
         var minTemp = prototype?.MinimumTemperature ?? 0;
         var maxTemp = prototype?.MaximumTemperature ?? float.PositiveInfinity;
-        var text = Loc.GetString("guidebook-reagent-recipes-mix-info",
+        var text = Loc.GetString(
+            "guidebook-reagent-recipes-mix-info",
             ("verb", mixingVerb),
             ("minTemp", minTemp),
             ("maxTemp", maxTemp),
-            ("hasMax", !float.IsPositiveInfinity(maxTemp)));
+            ("hasMax", !float.IsPositiveInfinity(maxTemp))
+        );
 
         MixLabel.SetMarkup(text);
     }

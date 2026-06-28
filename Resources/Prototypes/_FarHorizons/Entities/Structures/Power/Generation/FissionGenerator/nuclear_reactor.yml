@@ -3,7 +3,7 @@
   id: BaseNuclearReactor
   parent: BaseStructure
   abstract: true
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   name: nuclear reactor
   description: A nuclear reactor vessel, with slots for fuel rods and other components. Hey wait, didn't one of these explode once?
   components:
@@ -12,70 +12,69 @@
     layers:
     - state: reactor
       visible: true
-      map: [ "enum.ReactorVisualLayers.Sprite" ]
+      map: ["enum.ReactorVisualLayers.Sprite"]
     - state: reactor_status_active
       shader: unshaded
       visible: false
-      map: [ "enum.ReactorVisualLayers.Status" ]
+      map: ["enum.ReactorVisualLayers.Status"]
     - state: reactor_gas_input_lights
       shader: unshaded
       visible: false
-      map: [ "enum.ReactorVisualLayers.Input" ]
+      map: ["enum.ReactorVisualLayers.Input"]
     - state: reactor_gas_output_lights
       shader: unshaded
       visible: false
-      map: [ "enum.ReactorVisualLayers.Output" ]
+      map: ["enum.ReactorVisualLayers.Output"]
     - state: reactor_lights_warning
       shader: unshaded
       visible: false
-      map: [ "enum.ReactorVisualLayers.Lights" ]
+      map: ["enum.ReactorVisualLayers.Lights"]
     - state: reactor_fire
       visible: false
-      map: [ "enum.ReactorVisualLayers.Smoke" ]
+      map: ["enum.ReactorVisualLayers.Smoke"]
     - state: reactor_smoke
       visible: false
-      map: [ "enum.ReactorVisualLayers.Fire" ]
+      map: ["enum.ReactorVisualLayers.Fire"]
   - type: GenericVisualizer
     visuals:
       enum.ReactorVisuals.Sprite:
         enum.ReactorVisualLayers.Sprite:
-          Normal: { state: reactor }
-          Melted: { state: reactorbroken }
+          Normal: {state: reactor}
+          Melted: {state: reactorbroken}
       enum.ReactorVisuals.Status:
         enum.ReactorVisualLayers.Status:
-          Off: { visible: false}
-          Active: { state: reactor_status_active, visible: true }
-          Overheat: { state: reactor_status_overheat, visible: true }
-          Meltdown: { state: reactor_status_meltdown, visible: true }
+          Off: {visible: false}
+          Active: {state: reactor_status_active, visible: true}
+          Overheat: {state: reactor_status_overheat, visible: true}
+          Meltdown: {state: reactor_status_meltdown, visible: true}
       enum.ReactorVisuals.Input:
         enum.ReactorVisualLayers.Input:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
       enum.ReactorVisuals.Output:
         enum.ReactorVisualLayers.Output:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
       enum.ReactorVisuals.Lights:
         enum.ReactorVisualLayers.Lights:
-          LightsOff: { visible: false }
-          LightsWarning: { state: reactor_lights_warning, visible: true }
-          LightsMeltdown: { state: reactor_lights_meltdown, visible: true }
+          LightsOff: {visible: false}
+          LightsWarning: {state: reactor_lights_warning, visible: true}
+          LightsMeltdown: {state: reactor_lights_meltdown, visible: true}
       enum.ReactorVisuals.Smoke:
         enum.ReactorVisualLayers.Smoke:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
       enum.ReactorVisuals.Fire:
         enum.ReactorVisualLayers.Fire:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
   - type: Appearance
   - type: InteractionOutline
   - type: Rotatable
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-2.5,-2.5,2.5,2"
         density: 190
         mask:
@@ -88,8 +87,7 @@
     damageModifierSet: StructuralReactorCasing
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 1000
       behaviors:
       - !type:SpawnEntitiesBehavior
@@ -117,7 +115,7 @@
       part_slot:
         whitelist:
           components:
-            - ReactorPart
+          - ReactorPart
   - type: NuclearReactor
   - type: DeviceNetwork
     deviceNetId: Wireless
@@ -127,11 +125,11 @@
   - type: DeviceLinkSource
     range: 50
     ports:
-      - NuclearReactorDataSender
+    - NuclearReactorDataSender
   - type: DeviceLinkSink
     ports:
-      - InsertControlRods
-      - RetractControlRods
+    - InsertControlRods
+    - RetractControlRods
   - type: ActivatableUI
     key: enum.NuclearReactorUiKey.Key
   - type: ActivatableUIRequiresAnchor
@@ -149,7 +147,7 @@
   id: NuclearReactorCrew
   parent: BaseNuclearReactor
   abstract: true
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: AccessReader # You got a permit for that meltdown?
     access: [["Engineering"]]
@@ -205,8 +203,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-2.5,-2.5,2.5,2"
         density: 190
         mask:
@@ -234,8 +231,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-1.5,-1.5,1.5,1.5"
         density: 190
         mask:
@@ -253,11 +249,10 @@
     outletPos: 1, 1
     outletRot: 180
     arrowPrototype: ReactorSmallFlowArrow
-    gridbounds: [ 12, 11, 0, 0 ]
+    gridbounds: [12, 11, 0, 0]
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 700
       behaviors:
       - !type:SpawnEntitiesBehavior
@@ -299,8 +294,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-1.5,-1.5,1.5,1.5"
         density: 190
         mask:
@@ -318,7 +312,7 @@
   id: NuclearReactorSalvage
   parent: BaseNuclearReactor
   abstract: true
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
 
 - type: entity
   id: NuclearReactorNormalSalvage
@@ -364,8 +358,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-1.5,-1.5,1.5,1.5"
         density: 190
         mask:
@@ -383,7 +376,7 @@
     outletPos: 1, 1
     outletRot: 180
     arrowPrototype: ReactorSmallFlowArrow
-    gridbounds: [ 12, 11, 0, 0 ]
+    gridbounds: [12, 11, 0, 0]
 
 - type: entity
   id: NuclearReactorSmallRandomSalvage
@@ -410,13 +403,13 @@
   parent: BaseItem
   name: nuclear debris
   description: You do not see the graphite on the floor. You're in shock. Report to medical.
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _FarHorizons/Structures/Power/Generation/FissionGenerator/nuclear_debris.rsi
     layers:
-      - state: graphite_damaged_0
-        map: [ "base" ]
+    - state: graphite_damaged_0
+      map: ["base"]
   - type: Item
     size: Huge
   - type: RandomSprite
@@ -439,62 +432,59 @@
 # Arrows to indicate flow
 - type: entity
   id: ReactorFlowArrow
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
-    - type: Sprite
-      sprite: Markers/teg_arrow.rsi
-      color: "#FFFFFFBB"
-      layers:
-        - state: arrow
-          rotation: 90
-          offset: 3, 1
-        - state: arrow
-          rotation: 90
-          offset: -3, -1
-    - type: TimedDespawn
-      lifetime: 2
-    - type: Tag
-      tags:
-        - HideContextMenu
+  - type: Sprite
+    sprite: Markers/teg_arrow.rsi
+    color: "#FFFFFFBB"
+    layers:
+    - state: arrow
+      rotation: 90
+      offset: 3, 1
+    - state: arrow
+      rotation: 90
+      offset: -3, -1
+  - type: TimedDespawn
+    lifetime: 2
+  - type: Tag
+    tags:
+    - HideContextMenu
 
 - type: entity
   id: ReactorSmallFlowArrow
   parent: ReactorFlowArrow
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
-    - type: Sprite
-      layers:
-        - state: arrow
-          rotation: 0
-          offset: -1, 2
-        - state: arrow
-          rotation: 180
-          offset: 1, 2
+  - type: Sprite
+    layers:
+    - state: arrow
+      rotation: 0
+      offset: -1, 2
+    - state: arrow
+      rotation: 180
+      offset: 1, 2
 
 # Pipes the reactor uses to connect to the pipe network
 - type: entity
   id: ReactorGasPipe
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Transform
     anchored: true
   - type: Anchorable
   - type: NodeContainer
     nodes:
-      pipe:
-        !type:PipeNode
+      pipe: !type:PipeNode
         nodeGroupID: Pipe
         pipeDirection: South
         volume: 1000
         pipeLayer: 0
-      pipe1:
-        !type:PipeNode
+      pipe1: !type:PipeNode
         nodeGroupID: Pipe
         pipeDirection: South
         volume: 1000
         pipeLayer: 1
-      pipe2:
-        !type:PipeNode
+      pipe2: !type:PipeNode
         nodeGroupID: Pipe
         pipeDirection: South
         volume: 1000
@@ -508,11 +498,11 @@
   - type: PipeRestrictOverlap
   - type: Tag
     tags:
-      - HideContextMenu
+    - HideContextMenu
 
 - type: entity
   id: ReactorAlarmEntity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: AmbientSound
     volume: -3

@@ -55,8 +55,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.2,-0.3,0.2,0.4"
         density: 200
         mask:
@@ -70,18 +69,18 @@
     visuals:
       enum.OpenableVisuals.Opened:
         enum.OpenableVisuals.Layer:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
       enum.PaperLabelVisuals.HasLabel:
         enum.PaperLabelVisuals.Layer:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
       enum.PaperLabelVisuals.LabelType:
         enum.PaperLabelVisuals.Layer:
-          Paper: { state: paper }
-          Bounty: { state: paper }
-          CaptainsPaper: { state: paper }
-          Invoice: { state: paper }
+          Paper: {state: paper}
+          Bounty: {state: paper}
+          CaptainsPaper: {state: paper}
+          Invoice: {state: paper}
   - type: Appearance
   - type: PaperLabel
     labelSlot:

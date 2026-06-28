@@ -12,22 +12,22 @@
     noRot: true
     drawdepth: Mobs
     layers:
-      - state: bles
-      - state: bles-unlit
-        shader: unshaded
-      - state: bles-glass
-      - map: ["enum.SmesVisualLayers.Charge"]
-        state: "bles-og1" # -og0 does not exist
-        shader: unshaded
-        visible: false
-      - map: ["enum.SmesVisualLayers.Input"]
-        state: "bles-oc0"
-        shader: unshaded
-      - map: ["enum.SmesVisualLayers.Output"]
-        state: "bles-op1"
-        shader: unshaded
-      - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
-        state: bles-open
+    - state: bles
+    - state: bles-unlit
+      shader: unshaded
+    - state: bles-glass
+    - map: ["enum.SmesVisualLayers.Charge"]
+      state: "bles-og1" # -og0 does not exist
+      shader: unshaded
+      visible: false
+    - map: ["enum.SmesVisualLayers.Input"]
+      state: "bles-oc0"
+      shader: unshaded
+    - map: ["enum.SmesVisualLayers.Output"]
+      state: "bles-op1"
+      shader: unshaded
+    - map: ["enum.WiresVisualLayers.MaintenancePanel"]
+      state: bles-open
   - type: UpgradeBattery
     maxChargeMultiplier: 1 # non-upgradeable
     baseMaxCharge: 80000000
@@ -58,8 +58,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.45,-0.45,0.45,0.45"
         density: 500
         mask:

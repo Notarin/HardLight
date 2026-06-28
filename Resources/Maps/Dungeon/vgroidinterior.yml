@@ -2701,4 +2701,3 @@ entities:
     - type: Transform
       pos: 22.5,7.5
       parent: 1
-...

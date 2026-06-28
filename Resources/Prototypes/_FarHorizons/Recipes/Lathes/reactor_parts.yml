@@ -133,7 +133,6 @@
     Steel: 500
     Diamond: 1000
 
-
 # Gas Channel Rods
 # 5 Steel + 5 Material
 - type: latheRecipe

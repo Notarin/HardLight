@@ -6,12 +6,12 @@
 - type: entity
   id: BasicHitscan
   abstract: true
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
 
 - type: entity
   id: PulsedPlasma
   parent: BasicHitscan
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: HitscanBasicDamage
     damage:

@@ -1,7 +1,7 @@
 
 - type: entity
   id: ClothingShoesBootsPunkRandomized
-  parent: [ ClothingShoesMilitaryBase, RecyclableItemClothSmall ]
+  parent: [ClothingShoesMilitaryBase, RecyclableItemClothSmall]
   name: punk boots
   description: Deez boots were made for stompin', an' stompin' on ya bucket dey'll do.
   suffix: Random visuals
@@ -10,19 +10,19 @@
     sprite: _NF/Clothing/Shoes/Boots/punk.rsi
     layers:
     - state: icon_base_boots_01
-      map: [ "boots_main" ]
+      map: ["boots_main"]
     - state: icon_decor_base_boots_01
-      map: [ "boots_decor" ]
+      map: ["boots_decor"]
   - type: Clothing
     sprite: _NF/Clothing/Shoes/Boots/punk.rsi
     clothingVisuals:
       shoes:
       - state: base_boots_01
-        map: [ "clothing_boots_main" ]
+        map: ["clothing_boots_main"]
       - state: mask_null
-        map: [ "clothing_boots_decor" ]
+        map: ["clothing_boots_decor"]
       - state: mask_null
-        map: [ "clothing_boots_overlay" ]
+        map: ["clothing_boots_overlay"]
   - type: RandomSprite
     available:
     # decor present

@@ -52,8 +52,10 @@ public sealed partial class PathfindingSystem
             return 0f;
         }
 
-        if ((request.CollisionLayer & end.Data.CollisionMask) != 0x0 ||
-            (request.CollisionMask & end.Data.CollisionLayer) != 0x0)
+        if (
+            (request.CollisionLayer & end.Data.CollisionMask) != 0x0
+            || (request.CollisionMask & end.Data.CollisionLayer) != 0x0
+        )
         {
             var isDoor = (end.Data.Flags & PathfindingBreadcrumbFlag.Door) != 0x0;
             var isAccess = (end.Data.Flags & PathfindingBreadcrumbFlag.Access) != 0x0;
@@ -109,10 +111,13 @@ public sealed partial class PathfindingSystem
             var nextData = next.Data;
 
             // If they collinear, continue
-            if (i != 0 && i != vertices.Count - 1 &&
-                prevData.Equals(currentData) &&
-                currentData.Equals(nextData) &&
-                IsCollinear(prev, current, next, tolerance))
+            if (
+                i != 0
+                && i != vertices.Count - 1
+                && prevData.Equals(currentData)
+                && currentData.Equals(nextData)
+                && IsCollinear(prev, current, next, tolerance)
+            )
             {
                 continue;
             }

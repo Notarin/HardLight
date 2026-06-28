@@ -58,15 +58,15 @@
   - type: PseudoItem
     storedOffset: "0,17"
     shape:
-      - 0,0,1,4
-      - 0,2,3,4
-      - 4,0,5,4
+    - 0,0,1,4
+    - 0,2,3,4
+    - 4,0,5,4
 
 - type: entity
   save: false
   parent: MobHumanDummy
   id: MobKitsuneDummy
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   name: Urist McHands
   description: A dummy kitsune meant to be used in character setup.
   components:

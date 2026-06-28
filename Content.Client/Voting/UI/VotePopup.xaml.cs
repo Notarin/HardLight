@@ -13,9 +13,14 @@ namespace Content.Client.Voting.UI
     [GenerateTypedNameReferences]
     public sealed partial class VotePopup : Control
     {
-        [Dependency] private readonly IGameTiming _gameTiming = default!;
-        [Dependency] private readonly IVoteManager _voteManager = default!;
-        [Dependency] private readonly IEntityNetworkManager _net = default!;
+        [Dependency]
+        private readonly IGameTiming _gameTiming = default!;
+
+        [Dependency]
+        private readonly IVoteManager _voteManager = default!;
+
+        [Dependency]
+        private readonly IEntityNetworkManager _net = default!;
 
         private readonly VoteManager.ActiveVote _vote;
         private readonly Button[] _voteButtons;
@@ -42,11 +47,7 @@ namespace Content.Client.Voting.UI
 
             for (var i = 0; i < _voteButtons.Length; i++)
             {
-                var button = new Button
-                {
-                    ToggleMode = true,
-                    Group = group
-                };
+                var button = new Button { ToggleMode = true, Group = group };
                 _voteButtons[i] = button;
                 VoteOptionsContainer.AddChild(button);
                 var i1 = i;
@@ -64,7 +65,11 @@ namespace Content.Client.Voting.UI
                 var entry = _vote.Entries[i];
                 if (_vote.DisplayVotes)
                 {
-                    _voteButtons[i].Text = Loc.GetString("ui-vote-button", ("text", entry.Text), ("votes", entry.Votes));
+                    _voteButtons[i].Text = Loc.GetString(
+                        "ui-vote-button",
+                        ("text", entry.Text),
+                        ("votes", entry.Votes)
+                    );
                 }
                 else
                 {
@@ -97,11 +102,15 @@ namespace Content.Client.Voting.UI
             // Round up a second.
             timeLeft = TimeSpan.FromSeconds(Math.Ceiling(timeLeft.TotalSeconds));
 
-            TimeLeftBar.Value = Math.Min(1, (float) ((curTime.TotalSeconds - _vote.StartTime.TotalSeconds) /
-                                                     (_vote.EndTime.TotalSeconds - _vote.StartTime.TotalSeconds)));
+            TimeLeftBar.Value = Math.Min(
+                1,
+                (float)(
+                    (curTime.TotalSeconds - _vote.StartTime.TotalSeconds)
+                    / (_vote.EndTime.TotalSeconds - _vote.StartTime.TotalSeconds)
+                )
+            );
 
             TimeLeftText.Text = $"{timeLeft:m\\:ss}";
         }
     }
 }
-

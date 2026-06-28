@@ -42,7 +42,7 @@ namespace Content.Server.Roboisseur.Roboisseur
             "roboisseur-request-3",
             "roboisseur-request-4",
             "roboisseur-request-5",
-            "roboisseur-request-6"
+            "roboisseur-request-6",
         };
 
         [DataField("impatientMessages")]
@@ -58,7 +58,7 @@ namespace Content.Server.Roboisseur.Roboisseur
         {
             "roboisseur-request-second-1",
             "roboisseur-request-second-2",
-            "roboisseur-request-second-3"
+            "roboisseur-request-second-3",
         };
 
         [DataField("rewardMessages")]
@@ -68,7 +68,7 @@ namespace Content.Server.Roboisseur.Roboisseur
             "roboisseur-thanks-2",
             "roboisseur-thanks-3",
             "roboisseur-thanks-4",
-            "roboisseur-thanks-5"
+            "roboisseur-thanks-5",
         };
 
         [DataField("rewardMessagesTier2")]
@@ -78,7 +78,7 @@ namespace Content.Server.Roboisseur.Roboisseur
             "roboisseur-thanks-second-2",
             "roboisseur-thanks-second-3",
             "roboisseur-thanks-second-4",
-            "roboisseur-thanks-second-5"
+            "roboisseur-thanks-second-5",
         };
 
         [DataField("rejectMessages")]
@@ -86,7 +86,7 @@ namespace Content.Server.Roboisseur.Roboisseur
         {
             "roboisseur-deny-1",
             "roboisseur-deny-2",
-            "roboisseur-deny-3"
+            "roboisseur-deny-3",
         };
 
         [DataField("tier2Protos")]
@@ -110,7 +110,7 @@ namespace Content.Server.Roboisseur.Roboisseur
             "FoodMothMacBalls",
             "FoodSoupNettle",
             "FoodBurgerDuck",
-            "FoodBurgerBaseball"
+            "FoodBurgerBaseball",
         };
 
         [DataField("tier3Protos")]
@@ -126,7 +126,7 @@ namespace Content.Server.Roboisseur.Roboisseur
             "FoodSoupChiliCold",
             "FoodSoupBisque",
             "FoodCakeSlime",
-            "FoodBurgerCrazy"
+            "FoodBurgerCrazy",
         };
 
         [DataField("robossuierRewards")]
@@ -220,7 +220,7 @@ namespace Content.Server.Roboisseur.Roboisseur
             "FoodBreadMeatXeno",
             "FoodCakeBrain",
             "FoodBurgerBrain",
-            "FoodSaladCaesar"
+            "FoodSaladCaesar",
         };
     }
 }

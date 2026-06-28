@@ -4,40 +4,65 @@ using Content.Server.Fluids.EntitySystems;
 using Content.Server.Forensics;
 using Content.Server.Popups;
 using Content.Server.Stunnable;
-using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Chemistry.Components;
+using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Chemistry.Reagent;
+using Content.Shared.FloofStation;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Nutrition.Components;
 using Content.Shared.Nutrition.EntitySystems;
 using Content.Shared.StatusEffect;
 using Robust.Server.Audio;
 using Robust.Shared.Audio;
-using Robust.Shared.Prototypes;
-using Content.Shared.FloofStation;
 using Robust.Shared.Containers;
+using Robust.Shared.Prototypes;
 
 namespace Content.Server.Medical
 {
     public sealed class VomitSystem : EntitySystem
     {
-        [Dependency] private readonly IPrototypeManager _proto = default!;
-        [Dependency] private readonly AudioSystem _audio = default!;
-        [Dependency] private readonly BodySystem _body = default!;
-        [Dependency] private readonly HungerSystem _hunger = default!;
-        [Dependency] private readonly PopupSystem _popup = default!;
-        [Dependency] private readonly PuddleSystem _puddle = default!;
-        [Dependency] private readonly SharedSolutionContainerSystem _solutionContainer = default!;
-        [Dependency] private readonly StunSystem _stun = default!;
-        [Dependency] private readonly ThirstSystem _thirst = default!;
-        [Dependency] private readonly ForensicsSystem _forensics = default!;
-        [Dependency] private readonly BloodstreamSystem _bloodstream = default!;
+        [Dependency]
+        private readonly IPrototypeManager _proto = default!;
+
+        [Dependency]
+        private readonly AudioSystem _audio = default!;
+
+        [Dependency]
+        private readonly BodySystem _body = default!;
+
+        [Dependency]
+        private readonly HungerSystem _hunger = default!;
+
+        [Dependency]
+        private readonly PopupSystem _popup = default!;
+
+        [Dependency]
+        private readonly PuddleSystem _puddle = default!;
+
+        [Dependency]
+        private readonly SharedSolutionContainerSystem _solutionContainer = default!;
+
+        [Dependency]
+        private readonly StunSystem _stun = default!;
+
+        [Dependency]
+        private readonly ThirstSystem _thirst = default!;
+
+        [Dependency]
+        private readonly ForensicsSystem _forensics = default!;
+
+        [Dependency]
+        private readonly BloodstreamSystem _bloodstream = default!;
 
         private static readonly ProtoId<SoundCollectionPrototype> VomitCollection = new("Vomit");
 
-        private readonly SoundSpecifier _vomitSound = new SoundCollectionSpecifier(VomitCollection,
-            AudioParams.Default.WithVariation(0.2f).WithVolume(-4f));
-        [Dependency] private readonly SharedContainerSystem _containerSystem = default!;
+        private readonly SoundSpecifier _vomitSound = new SoundCollectionSpecifier(
+            VomitCollection,
+            AudioParams.Default.WithVariation(0.2f).WithVolume(-4f)
+        );
+
+        [Dependency]
+        private readonly SharedContainerSystem _containerSystem = default!;
 
         /// <summary>
         /// Make an entity vomit, if they have a stomach.
@@ -72,7 +97,14 @@ namespace Content.Server.Medical
             // Empty the stomach out into it
             foreach (var stomach in stomachList)
             {
-                if (_solutionContainer.ResolveSolution(stomach.Owner, StomachSystem.DefaultSolutionName, ref stomach.Comp1.Solution, out var sol))
+                if (
+                    _solutionContainer.ResolveSolution(
+                        stomach.Owner,
+                        StomachSystem.DefaultSolutionName,
+                        ref stomach.Comp1.Solution,
+                        out var sol
+                    )
+                )
                 {
                     solution.AddSolution(sol, _proto);
                     sol.RemoveAllSolution();
@@ -87,9 +119,18 @@ namespace Content.Server.Medical
                 var vomitAmount = solutionSize;
 
                 // Takes 10% of the chemicals removed from the chem stream
-                if (_solutionContainer.ResolveSolution(uid, bloodStream.ChemicalSolutionName, ref bloodStream.ChemicalSolution))
+                if (
+                    _solutionContainer.ResolveSolution(
+                        uid,
+                        bloodStream.ChemicalSolutionName,
+                        ref bloodStream.ChemicalSolution
+                    )
+                )
                 {
-                    var vomitChemstreamAmount = _solutionContainer.SplitSolution(bloodStream.ChemicalSolution.Value, vomitAmount);
+                    var vomitChemstreamAmount = _solutionContainer.SplitSolution(
+                        bloodStream.ChemicalSolution.Value,
+                        vomitAmount
+                    );
                     vomitChemstreamAmount.ScaleSolution(chemMultiplier);
                     solution.AddSolution(vomitChemstreamAmount, _proto);
 

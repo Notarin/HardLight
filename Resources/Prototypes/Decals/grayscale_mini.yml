@@ -1,6 +1,6 @@
 - type: decal
   id: minitile_diagonal
-  tags: ["station","overlay"]
+  tags: ["station", "overlay"]
   defaultCustomColor: true
   sprite:
     sprite: Decals/Overlays/greyscalediagonal.rsi
@@ -8,7 +8,7 @@
 
 - type: decal
   id: minitile_diagonal90
-  tags: ["station","overlay"]
+  tags: ["station", "overlay"]
   defaultCustomColor: true
   sprite:
     sprite: Decals/Overlays/greyscalediagonal.rsi
@@ -16,7 +16,7 @@
 
 - type: decal
   id: minitile_diagonal180
-  tags: ["station","overlay"]
+  tags: ["station", "overlay"]
   defaultCustomColor: true
   sprite:
     sprite: Decals/Overlays/greyscalediagonal.rsi
@@ -24,7 +24,7 @@
 
 - type: decal
   id: minitile_diagonal270
-  tags: ["station","overlay"]
+  tags: ["station", "overlay"]
   defaultCustomColor: true
   sprite:
     sprite: Decals/Overlays/greyscalediagonal.rsi

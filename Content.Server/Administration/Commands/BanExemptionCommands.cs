@@ -9,8 +9,11 @@ namespace Content.Server.Administration.Commands;
 [AdminCommand(AdminFlags.Ban)]
 public sealed class BanExemptionUpdateCommand : LocalizedCommands
 {
-    [Dependency] private readonly IServerDbManager _dbManager = default!;
-    [Dependency] private readonly IPlayerLocator _playerLocator = default!;
+    [Dependency]
+    private readonly IServerDbManager _dbManager = default!;
+
+    [Dependency]
+    private readonly IPlayerLocator _playerLocator = default!;
 
     public override string Command => "ban_exemption_update";
 
@@ -44,10 +47,13 @@ public sealed class BanExemptionUpdateCommand : LocalizedCommands
         }
 
         await _dbManager.UpdateBanExemption(playerData.UserId, flags);
-        shell.WriteLine(LocalizationManager.GetString(
-            "cmd-ban_exemption_update-success",
-            ("player", player),
-            ("uid", playerData.UserId)));
+        shell.WriteLine(
+            LocalizationManager.GetString(
+                "cmd-ban_exemption_update-success",
+                ("player", player),
+                ("uid", playerData.UserId)
+            )
+        );
     }
 
     public override CompletionResult GetCompletion(IConsoleShell shell, string[] args)
@@ -57,15 +63,19 @@ public sealed class BanExemptionUpdateCommand : LocalizedCommands
 
         return CompletionResult.FromHintOptions(
             Enum.GetNames<ServerBanExemptFlags>(),
-            LocalizationManager.GetString("cmd-ban_exemption_update-arg-flag"));
+            LocalizationManager.GetString("cmd-ban_exemption_update-arg-flag")
+        );
     }
 }
 
 [AdminCommand(AdminFlags.Ban)]
 public sealed class BanExemptionGetCommand : LocalizedCommands
 {
-    [Dependency] private readonly IServerDbManager _dbManager = default!;
-    [Dependency] private readonly IPlayerLocator _playerLocator = default!;
+    [Dependency]
+    private readonly IServerDbManager _dbManager = default!;
+
+    [Dependency]
+    private readonly IPlayerLocator _playerLocator = default!;
 
     public override string Command => "ban_exemption_get";
 
@@ -96,7 +106,7 @@ public sealed class BanExemptionGetCommand : LocalizedCommands
         var first = true;
         for (var i = 0; i < sizeof(ServerBanExemptFlags) * 8; i++)
         {
-            var mask = (ServerBanExemptFlags) (1 << i);
+            var mask = (ServerBanExemptFlags)(1 << i);
             if ((mask & flags) == 0)
                 continue;
 
@@ -107,9 +117,7 @@ public sealed class BanExemptionGetCommand : LocalizedCommands
             joined.Append(mask.ToString());
         }
 
-        shell.WriteLine(LocalizationManager.GetString(
-            "cmd-ban_exemption_get-show",
-            ("flags", joined.ToString())));
+        shell.WriteLine(LocalizationManager.GetString("cmd-ban_exemption_get-show", ("flags", joined.ToString())));
     }
 
     public override CompletionResult GetCompletion(IConsoleShell shell, string[] args)

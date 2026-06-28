@@ -12,8 +12,11 @@ namespace Content.Client.Doors;
 /// <inheritdoc/>
 public sealed class TurnstileSystem : SharedTurnstileSystem
 {
-    [Dependency] private readonly AnimationPlayerSystem _animationPlayer = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly AnimationPlayerSystem _animationPlayer = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     private static readonly EntProtoId ExamineArrow = "TurnstileArrow";
 
@@ -34,7 +37,11 @@ public sealed class TurnstileSystem : SharedTurnstileSystem
 
         if (!TryComp<SpriteComponent>(ent, out var sprite))
             return;
-        _sprite.LayerSetRsiState((ent.Owner, sprite), TurnstileVisualLayers.Base, new RSI.StateId(ent.Comp.DefaultState));
+        _sprite.LayerSetRsiState(
+            (ent.Owner, sprite),
+            TurnstileVisualLayers.Base,
+            new RSI.StateId(ent.Comp.DefaultState)
+        );
     }
 
     private void OnExamined(Entity<TurnstileComponent> ent, ref ExaminedEvent args)
@@ -44,7 +51,9 @@ public sealed class TurnstileSystem : SharedTurnstileSystem
 
     protected override void PlayAnimation(EntityUid uid, string stateId)
     {
-        if (!TryComp<AnimationPlayerComponent>(uid, out var animation) || !TryComp<SpriteComponent>(uid, out var sprite))
+        if (
+            !TryComp<AnimationPlayerComponent>(uid, out var animation) || !TryComp<SpriteComponent>(uid, out var sprite)
+        )
             return;
         var ent = (uid, animation);
 
@@ -62,10 +71,7 @@ public sealed class TurnstileSystem : SharedTurnstileSystem
                 new AnimationTrackSpriteFlick
                 {
                     LayerKey = TurnstileVisualLayers.Base,
-                    KeyFrames =
-                    {
-                        new AnimationTrackSpriteFlick.KeyFrame(state.StateId, 0f),
-                    },
+                    KeyFrames = { new AnimationTrackSpriteFlick.KeyFrame(state.StateId, 0f) },
                 },
             },
             Length = TimeSpan.FromSeconds(animLength),

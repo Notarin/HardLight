@@ -1,11 +1,11 @@
+using System.Collections.Generic;
 using Content.Shared.Damage;
 using Content.Shared.Damage.Prototypes;
+using Content.Shared.FixedPoint;
 using NUnit.Framework;
 using Robust.Shared.IoC;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.Manager;
-using System.Collections.Generic;
-using Content.Shared.FixedPoint;
 
 namespace Content.Tests.Shared
 {
@@ -16,26 +16,25 @@ namespace Content.Tests.Shared
     [TestOf(typeof(DamageGroupPrototype))]
     public sealed class DamageTest : ContentUnitTest
     {
-
-      private static readonly ProtoId<DamageGroupPrototype> BruteGroupId = "Brute";
-      private static readonly ProtoId<DamageTypePrototype> RadiationId = "Radiation";
-      private static readonly ProtoId<DamageTypePrototype> SlashId = "Slash";
-      private static readonly ProtoId<DamageTypePrototype> PiercingId = "Piercing";
+        private static readonly ProtoId<DamageGroupPrototype> BruteGroupId = "Brute";
+        private static readonly ProtoId<DamageTypePrototype> RadiationId = "Radiation";
+        private static readonly ProtoId<DamageTypePrototype> SlashId = "Slash";
+        private static readonly ProtoId<DamageTypePrototype> PiercingId = "Piercing";
 
         private static Dictionary<string, float> _resistanceCoefficientDict = new()
         {
             // "missing" blunt entry
-            { "Piercing", -2 },// Turn Piercing into Healing
+            { "Piercing", -2 }, // Turn Piercing into Healing
             { "Slash", 3 },
             { "Radiation", 1.5f },
         };
 
         private static Dictionary<string, float> _resistanceReductionDict = new()
         {
-            { "Blunt", - 5 },
+            { "Blunt", -5 },
             // "missing" piercing entry
             { "Slash", 8 },
-            { "Radiation", 0.5f },  // Fractional adjustment
+            { "Radiation", 0.5f }, // Fractional adjustment
         };
 
         private IPrototypeManager _prototypeManager;
@@ -147,7 +146,7 @@ namespace Content.Tests.Shared
             DamageModifierSetPrototype modifierSet = new()
             {
                 Coefficients = _resistanceCoefficientDict,
-                FlatReduction = _resistanceReductionDict
+                FlatReduction = _resistanceReductionDict,
             };
 
             //damage is initially   20 / 20 / 10 / 30
@@ -165,12 +164,13 @@ namespace Content.Tests.Shared
             damageSpec = DamageSpecifier.ApplyModifierSet(damageSpec, modifierSet);
             Assert.That(damageSpec.DamageDict["Blunt"], Is.EqualTo(FixedPoint2.New(30)));
             Assert.That(damageSpec.DamageDict["Piercing"], Is.EqualTo(FixedPoint2.New(-40))); // resistances don't apply to healing
-            Assert.That(!damageSpec.DamageDict.ContainsKey("Slash"));  // Reduction reduced to 0, and removed from specifier
+            Assert.That(!damageSpec.DamageDict.ContainsKey("Slash")); // Reduction reduced to 0, and removed from specifier
             Assert.That(damageSpec.DamageDict["Radiation"], Is.EqualTo(FixedPoint2.New(65.62)));
         }
 
         // Default damage Yaml
-        private string _damagePrototypes = @"
+        private string _damagePrototypes =
+            @"
 - type: damageType
   id: Blunt
   name: damage-type-blunt

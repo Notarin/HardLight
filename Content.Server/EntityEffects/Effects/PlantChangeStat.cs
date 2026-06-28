@@ -33,7 +33,14 @@ public sealed partial class PlantChangeStat : EntityEffect
 
         if (member == null)
         {
-            mutationSys.Log.Error(this.GetType().Name + " Error: Member " + TargetValue + " not found on " + plantHolder.GetType().Name + ". Did you misspell it?");
+            mutationSys.Log.Error(
+                this.GetType().Name
+                    + " Error: Member "
+                    + TargetValue
+                    + " not found on "
+                    + plantHolder.GetType().Name
+                    + ". Did you misspell it?"
+            );
             return;
         }
 

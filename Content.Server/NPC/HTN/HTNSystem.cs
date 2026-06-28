@@ -3,42 +3,58 @@ using System.Numerics; // Mono
 using System.Text;
 using System.Threading;
 using Content.Server.Administration.Managers;
-using Robust.Shared.CPUJob.JobQueues;
-using Robust.Shared.CPUJob.JobQueues.Queues;
 using Content.Server.NPC.HTN.PrimitiveTasks;
 using Content.Server.NPC.Systems;
-using Content.Shared.CCVar;
-using Content.Shared.Administration;
-using Content.Shared.Mobs;
-using Content.Shared.NPC;
-using JetBrains.Annotations;
-using Robust.Shared.Configuration;
-using Robust.Shared.Player;
-using Robust.Shared.Prototypes;
-using Robust.Shared.Map; // Mono
-using Robust.Shared.Utility;
 using Content.Server.Worldgen; // Frontier
 using Content.Server.Worldgen.Components; // Frontier
 using Content.Server.Worldgen.Systems; // Frontier
+using Content.Shared.Administration;
+using Content.Shared.CCVar;
+using Content.Shared.Mobs;
+using Content.Shared.NPC;
+using JetBrains.Annotations;
 using Robust.Server.GameObjects; // Frontier
 using Robust.Shared;
+using Robust.Shared.Configuration;
+using Robust.Shared.CPUJob.JobQueues;
+using Robust.Shared.CPUJob.JobQueues.Queues;
+using Robust.Shared.Map; // Mono
+using Robust.Shared.Player;
+using Robust.Shared.Prototypes;
+using Robust.Shared.Utility;
 
 namespace Content.Server.NPC.HTN;
 
 public sealed class HTNSystem : EntitySystem
 {
-    [Dependency] private readonly IAdminManager _admin = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly NPCSystem _npc = default!;
-    [Dependency] private readonly NPCUtilitySystem _utility = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
+    [Dependency]
+    private readonly IAdminManager _admin = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly NPCSystem _npc = default!;
+
+    [Dependency]
+    private readonly NPCUtilitySystem _utility = default!;
+
+    [Dependency]
+    private readonly EntityLookupSystem _lookup = default!;
+
     // Frontier
-    [Dependency] private readonly WorldControllerSystem _world = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
+    [Dependency]
+    private readonly WorldControllerSystem _world = default!;
+
+    [Dependency]
+    private readonly TransformSystem _transform = default!;
     private EntityQuery<WorldControllerComponent> _mapQuery;
     private EntityQuery<LoadedChunkComponent> _loadedQuery;
     private EntityQuery<ActorComponent> _actorQuery;
+
     // Frontier
 
     private float _netMaxUpdateRange;
@@ -62,11 +78,15 @@ public sealed class HTNSystem : EntitySystem
         _mapQuery = GetEntityQuery<WorldControllerComponent>(); // Frontier
         _loadedQuery = GetEntityQuery<LoadedChunkComponent>(); // Frontier
         _actorQuery = GetEntityQuery<ActorComponent>();
-        _cfg.OnValueChanged(CVars.NetMaxUpdateRange, value =>
-        {
-            _netMaxUpdateRange = value;
-            _netMaxUpdateRangeSquared = value * value;
-        }, true);
+        _cfg.OnValueChanged(
+            CVars.NetMaxUpdateRange,
+            value =>
+            {
+                _netMaxUpdateRange = value;
+                _netMaxUpdateRangeSquared = value * value;
+            },
+            true
+        );
         SubscribeLocalEvent<HTNComponent, MobStateChangedEvent>(_npc.OnMobStateChange);
         SubscribeLocalEvent<HTNComponent, MapInitEvent>(_npc.OnNPCMapInit);
         SubscribeLocalEvent<HTNComponent, PlayerAttachedEvent>(_npc.OnPlayerNPCAttach);
@@ -243,7 +263,7 @@ public sealed class HTNSystem : EntitySystem
             if (!comp.Enabled)
                 continue;
 
-            if (!IsNPCActive(uid))  // Frontier
+            if (!IsNPCActive(uid)) // Frontier
                 continue; // Frontier
 
             if (comp.PlanningJob != null)
@@ -294,7 +314,11 @@ public sealed class HTNSystem : EntitySystem
                     // Startup the first task and anything else we need to do.
                     if (comp.Plan != null)
                     {
-                        StartupTask(comp.Plan.Tasks[comp.Plan.Index], comp.Blackboard, comp.Plan.Effects[comp.Plan.Index]);
+                        StartupTask(
+                            comp.Plan.Tasks[comp.Plan.Index],
+                            comp.Blackboard,
+                            comp.Plan.Effects[comp.Plan.Index]
+                        );
                     }
 
                     // Send debug info
@@ -312,11 +336,10 @@ public sealed class HTNSystem : EntitySystem
                             AppendDebugText(root, text, comp.Plan.BranchTraversalRecord, btr, ref level);
                         }
 
-                        RaiseNetworkEvent(new HTNMessage()
-                        {
-                            Uid = GetNetEntity(uid),
-                            Text = text.ToString(),
-                        }, session.Channel);
+                        RaiseNetworkEvent(
+                            new HTNMessage() { Uid = GetNetEntity(uid), Text = text.ToString() },
+                            session.Channel
+                        );
                     }
                 }
                 // Keeping old plan
@@ -349,7 +372,11 @@ public sealed class HTNSystem : EntitySystem
         if (!HasPlayerInRange(entity))
             return false;
 
-        var chunk = _world.GetOrCreateChunk(WorldGen.WorldToChunkCoords(_transform.GetWorldPosition(transform)).Floored(), transform.MapUid.Value, worldComponent);
+        var chunk = _world.GetOrCreateChunk(
+            WorldGen.WorldToChunkCoords(_transform.GetWorldPosition(transform)).Floored(),
+            transform.MapUid.Value,
+            worldComponent
+        );
 
         if (!_loadedQuery.TryGetComponent(chunk, out var loaded) || loaded.Loaders is null)
             return false;
@@ -523,7 +550,11 @@ public sealed class HTNSystem : EntitySystem
                     }
 
                     ConditionalShutdown(component.Plan, currentOperator, blackboard, HTNPlanState.TaskFinished);
-                    StartupTask(component.Plan.Tasks[component.Plan.Index], component.Blackboard, component.Plan.Effects[component.Plan.Index]);
+                    StartupTask(
+                        component.Plan.Tasks[component.Plan.Index],
+                        component.Blackboard,
+                        component.Plan.Effects[component.Plan.Index]
+                    );
                     break;
                 default:
                     throw new InvalidOperationException();
@@ -533,8 +564,10 @@ public sealed class HTNSystem : EntitySystem
 
     public void ShutdownTask(HTNOperator currentOperator, NPCBlackboard blackboard, HTNOperatorStatus status)
     {
-        if (currentOperator is IHtnConditionalShutdown conditional &&
-            (conditional.ShutdownState & HTNPlanState.TaskFinished) != 0x0)
+        if (
+            currentOperator is IHtnConditionalShutdown conditional
+            && (conditional.ShutdownState & HTNPlanState.TaskFinished) != 0x0
+        )
         {
             conditional.ConditionalShutdown(blackboard);
         }
@@ -553,8 +586,10 @@ public sealed class HTNSystem : EntitySystem
 
         foreach (var task in component.Plan.Tasks)
         {
-            if (task.Operator is IHtnConditionalShutdown conditional &&
-                (conditional.ShutdownState & HTNPlanState.PlanFinished) != 0x0)
+            if (
+                task.Operator is IHtnConditionalShutdown conditional
+                && (conditional.ShutdownState & HTNPlanState.PlanFinished) != 0x0
+            )
             {
                 conditional.ConditionalShutdown(blackboard);
             }
@@ -568,7 +603,12 @@ public sealed class HTNSystem : EntitySystem
     /// <summary>
     /// Shuts down the current operator conditionally.
     /// </summary>
-    private void ConditionalShutdown(HTNPlan plan, HTNOperator currentOperator, NPCBlackboard blackboard, HTNPlanState state)
+    private void ConditionalShutdown(
+        HTNPlan plan,
+        HTNOperator currentOperator,
+        NPCBlackboard blackboard,
+        HTNPlanState state
+    )
     {
         if (currentOperator is not IHtnConditionalShutdown conditional)
             return;
@@ -614,7 +654,10 @@ public sealed class HTNSystem : EntitySystem
             0.02,
             _prototypeManager,
             component.RootTask,
-            component.Blackboard.ShallowClone(), branchTraversal, cancelToken.Token);
+            component.Blackboard.ShallowClone(),
+            branchTraversal,
+            cancelToken.Token
+        );
 
         _planQueue.EnqueueJob(job);
         component.PlanningJob = job;

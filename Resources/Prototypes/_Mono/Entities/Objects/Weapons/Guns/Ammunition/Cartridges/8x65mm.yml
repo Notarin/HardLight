@@ -1,13 +1,13 @@
 - type: entity
   id: BaseCartridge8x65mmSKR
   name: cartridge (8x65mm SKR)
-  parent: [ BaseCartridge, BaseC1Contraband ] # Frontier: BaseSecurityContraband<BaseC1Contraband
+  parent: [BaseCartridge, BaseC1Contraband] # Frontier: BaseSecurityContraband<BaseC1Contraband
   abstract: true
   components:
   - type: Tag
     tags:
-      - Cartridge
-      - Cartridge8x65mmSKR
+    - Cartridge
+    - Cartridge8x65mmSKR
   - type: CartridgeAmmo
     proto: Bullet8x65mmSKR
     deleteOnSpawn: true

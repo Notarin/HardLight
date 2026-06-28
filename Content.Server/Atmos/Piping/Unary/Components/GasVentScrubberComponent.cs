@@ -69,7 +69,7 @@ namespace Content.Server.Atmos.Piping.Unary.Components
                 FilterGases = FilterGases,
                 PumpDirection = PumpDirection,
                 VolumeRate = TransferRate,
-                WideNet = WideNet
+                WideNet = WideNet,
             };
         }
 

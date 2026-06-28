@@ -11,12 +11,11 @@ public sealed partial class Oxygenate : EntityEffect
     public float Factor = 1f;
 
     // JUSTIFICATION: This is internal magic that players never directly interact with.
-    protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys)
-        => null;
+    protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys) =>
+        null;
 
     public override void Effect(EntityEffectBaseArgs args)
     {
-
         var multiplier = 1f;
         if (args is EntityEffectReagentArgs reagentArgs)
         {

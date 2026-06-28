@@ -97,7 +97,6 @@
       map: ["closed-coin"]
       visible: false
 
-
 - type: entity
   parent: ClothingWalletLeatherBrown
   id: ClothingWalletLeatherRed

@@ -11,8 +11,11 @@ namespace Content.Shared.Atmos.EntitySystems;
 /// </summary>
 public abstract class SharedGasPressureRegulatorSystem : EntitySystem
 {
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] protected readonly SharedUserInterfaceSystem UserInterfaceSystem = default!;
+    [Dependency]
+    private readonly ISharedAdminLogManager _adminLogger = default!;
+
+    [Dependency]
+    protected readonly SharedUserInterfaceSystem UserInterfaceSystem = default!;
 
     public override void Initialize()
     {
@@ -20,7 +23,8 @@ public abstract class SharedGasPressureRegulatorSystem : EntitySystem
 
         SubscribeLocalEvent<GasPressureRegulatorComponent, ExaminedEvent>(OnExamined);
         SubscribeLocalEvent<GasPressureRegulatorComponent, GasPressureRegulatorChangeThresholdMessage>(
-            OnThresholdChangeMessage);
+            OnThresholdChangeMessage
+        );
     }
 
     /// <summary>
@@ -35,15 +39,24 @@ public abstract class SharedGasPressureRegulatorSystem : EntitySystem
 
         using (args.PushGroup(nameof(GasPressureRegulatorComponent)))
         {
-            args.PushMarkup(Loc.GetString("gas-pressure-regulator-system-examined",
-                ("statusColor", ent.Comp.Enabled ? "green" : "red"),
-                ("open", ent.Comp.Enabled)));
+            args.PushMarkup(
+                Loc.GetString(
+                    "gas-pressure-regulator-system-examined",
+                    ("statusColor", ent.Comp.Enabled ? "green" : "red"),
+                    ("open", ent.Comp.Enabled)
+                )
+            );
 
-            args.PushMarkup(Loc.GetString("gas-pressure-regulator-examined-threshold-pressure",
-                ("threshold", $"{ent.Comp.Threshold:0.#}")));
+            args.PushMarkup(
+                Loc.GetString(
+                    "gas-pressure-regulator-examined-threshold-pressure",
+                    ("threshold", $"{ent.Comp.Threshold:0.#}")
+                )
+            );
 
-            args.PushMarkup(Loc.GetString("gas-pressure-regulator-examined-flow-rate",
-                ("flowRate", $"{ent.Comp.FlowRate:0.#}")));
+            args.PushMarkup(
+                Loc.GetString("gas-pressure-regulator-examined-flow-rate", ("flowRate", $"{ent.Comp.FlowRate:0.#}"))
+            );
         }
     }
 
@@ -52,19 +65,21 @@ public abstract class SharedGasPressureRegulatorSystem : EntitySystem
     /// </summary>
     /// <param name="ent">The <see cref="Entity{T}"/> of the valve.</param>
     /// <param name="args">The received pressure from the <see cref="GasPressurePumpChangeOutputPressureMessage"/>message.</param>
-    private void OnThresholdChangeMessage(Entity<GasPressureRegulatorComponent> ent,
-        ref GasPressureRegulatorChangeThresholdMessage args)
+    private void OnThresholdChangeMessage(
+        Entity<GasPressureRegulatorComponent> ent,
+        ref GasPressureRegulatorChangeThresholdMessage args
+    )
     {
         ent.Comp.Threshold = Math.Max(0f, args.ThresholdPressure);
-        _adminLogger.Add(LogType.AtmosVolumeChanged,
+        _adminLogger.Add(
+            LogType.AtmosVolumeChanged,
             LogImpact.Medium,
-            $"{ToPrettyString(args.Actor):player} set the pressure threshold on {ToPrettyString(ent):device} to {ent.Comp.Threshold}");
+            $"{ToPrettyString(args.Actor):player} set the pressure threshold on {ToPrettyString(ent):device} to {ent.Comp.Threshold}"
+        );
         // Dirty the entire entity to ensure we get all of that Fresh:tm: UI info from the server.
         Dirty(ent);
         UpdateUi(ent);
     }
 
-    protected virtual void UpdateUi(Entity<GasPressureRegulatorComponent> ent)
-    {
-    }
+    protected virtual void UpdateUi(Entity<GasPressureRegulatorComponent> ent) { }
 }

@@ -5,7 +5,13 @@ namespace Content.Shared.Clock;
 /// <summary>
 /// This is used for globally managing the time on-station
 /// </summary>
-[RegisterComponent, NetworkedComponent, AutoGenerateComponentState, AutoGenerateComponentPause, Access(typeof(SharedClockSystem))]
+[
+    RegisterComponent,
+    NetworkedComponent,
+    AutoGenerateComponentState,
+    AutoGenerateComponentPause,
+    Access(typeof(SharedClockSystem))
+]
 public sealed partial class GlobalTimeManagerComponent : Component
 {
     /// <summary>

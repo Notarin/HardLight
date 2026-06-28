@@ -17,11 +17,11 @@
     - id: BookRandomStory
       amount: !type:RangeNumberSelector
         range: 0, 4
-    # Guidebooks
     - !type:NestedSelector
+      # Guidebooks
       tableId: RandomGuidebookTable
-    # Handwritten books
     - !type:NestedSelector
+      # Handwritten books
       rolls: !type:RangeNumberSelector
         range: 0, 2
       tableId: RandomHandwrittenBookTable

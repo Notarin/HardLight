@@ -1,6 +1,7 @@
 // SPDX-FileCopyrightText: Copyright (c) 2024-2025 Space Wizards Federation
 // SPDX-License-Identifier: MIT
 
+using System.Linq;
 using Content.Client._Common.Consent.UI;
 using Content.Client.UserInterface.Controls;
 using Content.Shared._Common.CCVar;
@@ -13,16 +14,20 @@ using Robust.Client.UserInterface.XAML;
 using Robust.Shared.Configuration;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
-using System.Linq;
 
 namespace Content.Client._Common.Consent.UI.Windows;
 
 [GenerateTypedNameReferences]
 public sealed partial class ConsentWindow : FancyWindow
 {
-    [Dependency] private readonly IClientConsentManager _consentManager = default!;
-    [Dependency] private readonly IConfigurationManager _configManager = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+    [Dependency]
+    private readonly IClientConsentManager _consentManager = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _configManager = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
 
     private List<ConsentToggleControl> _consentToggles = new();
 
@@ -47,8 +52,7 @@ public sealed partial class ConsentWindow : FancyWindow
         NonconColorblindCheckBox.OnToggled += args =>
             _configManager.SetCVar(ConsentSystemCCVars.ConsentNonconColorblindPalette, args.Pressed);
 
-        var consentToggles = _prototypeManager.EnumeratePrototypes<ConsentTogglePrototype>()
-            .OrderBy(x => x.SortKey);
+        var consentToggles = _prototypeManager.EnumeratePrototypes<ConsentTogglePrototype>().OrderBy(x => x.SortKey);
         foreach (var toggle in consentToggles)
         {
             var toggleControl = new ConsentToggleControl(toggle);
@@ -83,7 +87,11 @@ public sealed partial class ConsentWindow : FancyWindow
 
         if (length > maxLength)
         {
-            SaveLabel.Text = Loc.GetString("consent-window-char-limit-warning", ("length", length), ("maxLength", maxLength));
+            SaveLabel.Text = Loc.GetString(
+                "consent-window-char-limit-warning",
+                ("length", length),
+                ("maxLength", maxLength)
+            );
             SaveConsentSettings.Disabled = true;
 
             return;

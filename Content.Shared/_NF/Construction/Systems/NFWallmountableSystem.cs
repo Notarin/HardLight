@@ -16,14 +16,29 @@ namespace Content.Shared._NF.Construction.Systems;
 /// </summary>
 public sealed partial class NFWallmountableSystem : EntitySystem
 {
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly SharedInteractionSystem _interaction = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly TagSystem _tag = default!;
+    [Dependency]
+    private readonly INetManager _net = default!;
+
+    [Dependency]
+    private readonly ActionBlockerSystem _actionBlocker = default!;
+
+    [Dependency]
+    private readonly EntityLookupSystem _lookup = default!;
+
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfter = default!;
+
+    [Dependency]
+    private readonly SharedInteractionSystem _interaction = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly TagSystem _tag = default!;
 
     private const float IntersectionRange = 0.35f; // The range to look for wallmounts around the center of a wall.
 
@@ -55,14 +70,16 @@ public sealed partial class NFWallmountableSystem : EntitySystem
 
         var mountString = Loc.GetString("nf-wallmountable-component-verb-mount");
 
-        args.Verbs.Add(new UtilityVerb
-        {
-            IconEntity = GetNetEntity(ent),
-            Text = mountString,
-            Disabled = !canMount,
-            Message = canMount ? mountString : Loc.GetString("nf-wallmountable-component-verb-cant-mount"),
-            Act = () => TryMount(ent, user, target)
-        });
+        args.Verbs.Add(
+            new UtilityVerb
+            {
+                IconEntity = GetNetEntity(ent),
+                Text = mountString,
+                Disabled = !canMount,
+                Message = canMount ? mountString : Loc.GetString("nf-wallmountable-component-verb-cant-mount"),
+                Act = () => TryMount(ent, user, target),
+            }
+        );
     }
 
     /// <summary>
@@ -77,8 +94,10 @@ public sealed partial class NFWallmountableSystem : EntitySystem
         if (!UserCanMountOnTarget(args.User, args.Target.Value))
             return;
 
-        if (!IsMountableTarget(ent.Comp, args.Target.Value)
-            || !TryMount(ent, args.User, args.Target.Value, checkAccess: false))
+        if (
+            !IsMountableTarget(ent.Comp, args.Target.Value)
+            || !TryMount(ent, args.User, args.Target.Value, checkAccess: false)
+        )
         {
             _popup.PopupPredicted(Loc.GetString("nf-wallmountable-component-verb-cant-mount"), args.User, args.User);
         }
@@ -95,9 +114,11 @@ public sealed partial class NFWallmountableSystem : EntitySystem
             return;
 
         // Sanity check.
-        if (!UserCanMountOnTarget(args.User, args.Target.Value)
+        if (
+            !UserCanMountOnTarget(args.User, args.Target.Value)
             || !IsMountableTarget(ent.Comp, args.Target.Value)
-            || !IsTargetClear(ent.Comp, args.Target.Value))
+            || !IsTargetClear(ent.Comp, args.Target.Value)
+        )
             return;
 
         if (_net.IsClient)
@@ -111,7 +132,9 @@ public sealed partial class NFWallmountableSystem : EntitySystem
         if (ent.Comp.RotateToUser)
         {
             // Get world position from target to user (facing them when placed)
-            var destWorldRotation = (_transform.GetWorldPosition(args.User) - _transform.GetWorldPosition(targetXform)).ToWorldAngle();
+            var destWorldRotation = (
+                _transform.GetWorldPosition(args.User) - _transform.GetWorldPosition(targetXform)
+            ).ToWorldAngle();
 
             var parentAngle = _transform.GetWorldRotation(targetXform);
 
@@ -135,14 +158,18 @@ public sealed partial class NFWallmountableSystem : EntitySystem
     /// <param name="target">The wall to mount the entity on.</param>
     /// <param name="checkAccess">Whether or not to check that the user has access to the wall.</param>
     /// <returns>Whether or not a doafter was started to mount the item on the wall.</returns>
-    private bool TryMount(Entity<NFWallmountableComponent> ent, EntityUid user, EntityUid target, bool checkAccess = true)
+    private bool TryMount(
+        Entity<NFWallmountableComponent> ent,
+        EntityUid user,
+        EntityUid target,
+        bool checkAccess = true
+    )
     {
         var time = ent.Comp.DoAfterTime;
 
         if (checkAccess)
         {
-            if (!UserCanMountOnTarget(user, target)
-                || !IsMountableTarget(ent.Comp, target))
+            if (!UserCanMountOnTarget(user, target) || !IsMountableTarget(ent.Comp, target))
             {
                 return false;
             }

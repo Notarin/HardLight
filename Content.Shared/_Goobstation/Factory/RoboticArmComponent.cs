@@ -101,19 +101,18 @@ public sealed partial class RoboticArmComponent : Component
     /// </summary>
     [DataField]
     public float MovingPowerDraw = 200f; // DeltaV - was 3000f
-
     #endregion
 }
 
 [Serializable, NetSerializable]
 public enum RoboticArmVisuals : byte
 {
-    HasItem
+    HasItem,
 }
 
 [Serializable, NetSerializable]
 public enum RoboticArmLayers : byte
 {
     Arm,
-    Powered
+    Powered,
 }

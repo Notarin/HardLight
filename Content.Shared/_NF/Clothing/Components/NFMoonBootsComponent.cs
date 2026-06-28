@@ -1,7 +1,7 @@
+using Content.Shared._NF.Clothing.EntitySystems;
 using Content.Shared.Alert;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
-using Content.Shared._NF.Clothing.EntitySystems;
 
 namespace Content.Shared._NF.Clothing.Components;
 

@@ -1,6 +1,6 @@
-using Robust.Shared.Containers;
 using Content.Shared.Weapons.Ranged.Components;
 using Content.Shared.Weapons.Ranged.Systems;
+using Robust.Shared.Containers;
 
 namespace Content.Shared.Soul;
 

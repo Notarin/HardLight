@@ -1,7 +1,7 @@
 - type: entity
   id: BaseCartridgeLightRifle
   name: cartridge (.30 rifle)
-  parent: [ BaseCartridge, BaseC1Contraband ] # Frontier: BaseSecurityContraband<BaseC1Contraband
+  parent: [BaseCartridge, BaseC1Contraband] # Frontier: BaseSecurityContraband<BaseC1Contraband
   abstract: true
   components:
   - type: Tag
@@ -22,7 +22,7 @@
     price: 1
 
 - type: entity
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   id: CartridgeLightRifle
   name: cartridge (.30 rifle)
   parent: BaseCartridgeLightRifle
@@ -31,7 +31,7 @@
     proto: BulletLightRifle # Frontier
 
 - type: entity
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   id: CartridgeLightRiflePractice
   name: cartridge (.30 rifle practice)
   parent: BaseCartridgeLightRifle
@@ -40,13 +40,13 @@
     proto: BulletLightRiflePractice # Frontier
   - type: Sprite
     layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
-      - state: tip
-        color: "#dbdbdb"
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      color: "#dbdbdb"
 
 - type: entity
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   id: CartridgeLightRifleIncendiary
   name: cartridge (.30 rifle incendiary)
   parent: BaseCartridgeLightRifle
@@ -55,13 +55,13 @@
     proto: BulletLightRifleIncendiary # Frontier
   - type: Sprite
     layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
-      - state: tip
-        color: "#ff6e52"
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      color: "#ff6e52"
 
 - type: entity
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   id: CartridgeLightRifleUranium
   name: cartridge (.30 rifle uranium)
   parent: BaseCartridgeLightRifle
@@ -70,7 +70,7 @@
     proto: BulletLightRifleUranium # Frontier
   - type: Sprite
     layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
-      - state: tip
-        color: "#65fe08"
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      color: "#65fe08"

@@ -20,12 +20,12 @@
     visuals:
       enum.PowerDeviceVisuals.Powered:
         enum.PowerDeviceVisualLayers.Powered:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
       enum.GatewayVisuals.Active:
         enum.GatewayVisualLayers.Portal:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
   - type: InteractionOutline
   - type: WorldLoader
   - type: Physics
@@ -35,8 +35,7 @@
   - type: Fixtures
     fixtures:
       portalFixture:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.25,-0.48,0.25,0.48"
         mask:
         - FullTileMask

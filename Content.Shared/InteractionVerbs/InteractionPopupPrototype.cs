@@ -80,6 +80,6 @@ public sealed partial class InteractionPopupPrototype : IPrototype
     {
         Success,
         Fail,
-        Delayed
+        Delayed,
     }
 }

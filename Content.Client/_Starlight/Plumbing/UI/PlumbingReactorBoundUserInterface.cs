@@ -10,9 +10,8 @@ public sealed class PlumbingReactorBoundUserInterface : BoundUserInterface
 {
     private PlumbingReactorWindow? _window;
 
-    public PlumbingReactorBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-    }
+    public PlumbingReactorBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {

@@ -1,5 +1,5 @@
 - type: entity
-  parent: [ HoloprojectorSecurity, BaseC2ContrabandUnredeemable ]
+  parent: [HoloprojectorSecurity, BaseC2ContrabandUnredeemable]
   id: HoloprojectorNfsd
   name: ColSec holobarrier projector
   description: Creates a solid but fragile holographic barrier.

@@ -15,13 +15,13 @@
     BoxDonkSoftBox: 4
     TargetDartsFlatpack: 2
     BoxDarts: 4
-  # Weapons
+    # Weapons
     NFRevolverCapGun: 2
     FoamCrossbow: 2
     NFWeaponEnergyPistolDisablerPractice: 4
     NFWeaponEnergyRifleCarbinePractice: 4
-  # Magazines
-  # Ammo boxes
+    # Magazines
+    # Ammo boxes
     NFBoxCartridgeCap: 4
     NFBoxDonkSoftBox: 4
     NFAmmunitionBoxPistol35Practice: 10

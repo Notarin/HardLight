@@ -1,13 +1,16 @@
-using Content.Shared.Abilities.Psionics;
 using Content.Client.Chat.Managers;
+using Content.Shared.Abilities.Psionics;
 using Robust.Client.Player;
 
 namespace Content.Client.Nyanotrasen.Chat
 {
     public sealed class PsionicChatUpdateSystem : EntitySystem
     {
-        [Dependency] private readonly IChatManager _chatManager = default!;
-        [Dependency] private readonly IPlayerManager _playerManager = default!;
+        [Dependency]
+        private readonly IChatManager _chatManager = default!;
+
+        [Dependency]
+        private readonly IPlayerManager _playerManager = default!;
 
         public override void Initialize()
         {

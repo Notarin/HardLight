@@ -40,5 +40,4 @@ public sealed class ReturnToBodyEui : BaseEui
         SendMessage(new ReturnToBodyMessage(false));
         _menu.Close();
     }
-
 }

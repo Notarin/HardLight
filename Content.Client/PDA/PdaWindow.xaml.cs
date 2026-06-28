@@ -9,18 +9,15 @@ namespace Content.Client.PDA;
 [GenerateTypedNameReferences]
 public partial class PdaWindow : BaseWindow
 {
-
     public string? BorderColor
     {
         get => Background.ActualModulateSelf.ToHex();
-
         set => Background.ModulateSelfOverride = Color.FromHex(value, Color.White);
     }
 
     public string? AccentHColor
     {
         get => AccentH.ActualModulateSelf.ToHex();
-
         set
         {
             AccentH.ModulateSelfOverride = Color.FromHex(value, Color.White);
@@ -31,7 +28,6 @@ public partial class PdaWindow : BaseWindow
     public string? AccentVColor
     {
         get => AccentV.ActualModulateSelf.ToHex();
-
         set
         {
             AccentV.ModulateSelfOverride = Color.FromHex(value, Color.White);

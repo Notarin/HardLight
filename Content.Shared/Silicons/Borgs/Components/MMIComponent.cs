@@ -47,12 +47,12 @@ public sealed partial class MMIComponent : Component
 public enum MMIVisuals : byte
 {
     BrainPresent,
-    HasMind
+    HasMind,
 }
 
 [Serializable, NetSerializable]
 public enum MMIVisualLayers : byte
 {
     Brain,
-    Base
+    Base,
 }

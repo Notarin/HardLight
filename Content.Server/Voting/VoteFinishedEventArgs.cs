@@ -1,6 +1,5 @@
 ﻿using System.Collections.Immutable;
 
-
 namespace Content.Server.Voting
 {
     public sealed class VoteFinishedEventArgs : EventArgs
@@ -16,7 +15,7 @@ namespace Content.Server.Voting
         public readonly ImmutableArray<object> Winners;
 
         /// <summary>
-        ///     Stores all the votes in a string, for webhooks. 
+        ///     Stores all the votes in a string, for webhooks.
         /// </summary>
         public readonly List<int> Votes;
 

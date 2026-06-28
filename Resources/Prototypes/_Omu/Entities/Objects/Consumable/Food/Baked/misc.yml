@@ -8,9 +8,9 @@
   components:
   - type: FlavorProfile
     flavors:
-      - sweet
-      - chocolate
-      - coffee
+    - sweet
+    - chocolate
+    - coffee
   - type: Sprite
     sprite: _Omu/Objects/Consumable/Food/Baked/misc.rsi
     state: tiramisu-lazy
@@ -33,9 +33,9 @@
   components:
   - type: FlavorProfile
     flavors:
-      - sweet
-      - chocolate
-      - coffee
+    - sweet
+    - chocolate
+    - coffee
   - type: Sprite
     sprite: _Omu/Objects/Consumable/Food/Baked/misc.rsi
     state: tiramisu-fancy

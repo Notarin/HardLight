@@ -20,18 +20,18 @@ namespace Content.IntegrationTests.Tests.Construction
                     prototype = spawn.Prototype;
                     return protoMan.TryIndex<EntityPrototype>(spawn.Prototype, out _);
                 case ConditionalAction conditional:
-                    var valid = IsValid(conditional.Action, protoMan, out var protoA) & IsValid(conditional.Else, protoMan, out var protoB);
+                    var valid =
+                        IsValid(conditional.Action, protoMan, out var protoA)
+                        & IsValid(conditional.Else, protoMan, out var protoB);
 
                     if (!string.IsNullOrEmpty(protoA) && string.IsNullOrEmpty(protoB))
                     {
                         prototype = protoA;
                     }
-
                     else if (string.IsNullOrEmpty(protoA) && !string.IsNullOrEmpty(protoB))
                     {
                         prototype = protoB;
                     }
-
                     else
                     {
                         prototype = $"{protoA}, {protoB}";
@@ -63,27 +63,37 @@ namespace Content.IntegrationTests.Tests.Construction
                     {
                         foreach (var action in node.Actions)
                         {
-                            if (IsValid(action, protoMan, out var prototype)) continue;
+                            if (IsValid(action, protoMan, out var prototype))
+                                continue;
 
                             valid = false;
-                            message.Append($"Invalid entity prototype \"{prototype}\" on graph action in node \"{node.Name}\" of graph \"{graph.ID}\"\n");
+                            message.Append(
+                                $"Invalid entity prototype \"{prototype}\" on graph action in node \"{node.Name}\" of graph \"{graph.ID}\"\n"
+                            );
                         }
 
                         foreach (var edge in node.Edges)
                         {
                             foreach (var action in edge.Completed)
                             {
-                                if (IsValid(action, protoMan, out var prototype)) continue;
+                                if (IsValid(action, protoMan, out var prototype))
+                                    continue;
 
                                 valid = false;
-                                message.Append($"Invalid entity prototype \"{prototype}\" on graph action in edge \"{edge.Target}\" of node \"{node.Name}\" of graph \"{graph.ID}\"\n");
+                                message.Append(
+                                    $"Invalid entity prototype \"{prototype}\" on graph action in edge \"{edge.Target}\" of node \"{node.Name}\" of graph \"{graph.ID}\"\n"
+                                );
                             }
                         }
                     }
                 }
             });
 
-            Assert.That(valid, Is.True, $"One or more SpawnPrototype actions specified invalid entity prototypes!\n{message}");
+            Assert.That(
+                valid,
+                Is.True,
+                $"One or more SpawnPrototype actions specified invalid entity prototypes!\n{message}"
+            );
             await pair.CleanReturnAsync();
         }
 
@@ -111,7 +121,8 @@ namespace Content.IntegrationTests.Tests.Construction
 
                             valid = false;
                             message.Append(
-                                $"Invalid target \"{edge.Target}\" in edge on node \"{node.Name}\" of graph \"{graph.ID}\"\n");
+                                $"Invalid target \"{edge.Target}\" in edge on node \"{node.Name}\" of graph \"{graph.ID}\"\n"
+                            );
                         }
                     }
                 }

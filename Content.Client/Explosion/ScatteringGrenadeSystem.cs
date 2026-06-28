@@ -2,7 +2,4 @@
 
 namespace Content.Client.Explosion;
 
-public sealed class ScatteringGrenadeSystem : SharedScatteringGrenadeSystem
-{
-
-}
+public sealed class ScatteringGrenadeSystem : SharedScatteringGrenadeSystem { }

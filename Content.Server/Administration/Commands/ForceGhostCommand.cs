@@ -11,10 +11,17 @@ namespace Content.Server.Administration.Commands;
 [AdminCommand(AdminFlags.Admin)]
 public sealed class ForceGhostCommand : LocalizedEntityCommands
 {
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly GameTicker _gameTicker = default!;
-    [Dependency] private readonly SharedMindSystem _mind = default!;
-    [Dependency] private readonly GhostSystem _ghost = default!;
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly GameTicker _gameTicker = default!;
+
+    [Dependency]
+    private readonly SharedMindSystem _mind = default!;
+
+    [Dependency]
+    private readonly GhostSystem _ghost = default!;
 
     public override string Command => "forceghost";
 
@@ -32,8 +39,10 @@ public sealed class ForceGhostCommand : LocalizedEntityCommands
             return;
         }
 
-        if (!_gameTicker.PlayerGameStatuses.TryGetValue(player.UserId, out var playerStatus) ||
-            playerStatus is not PlayerGameStatus.JoinedGame)
+        if (
+            !_gameTicker.PlayerGameStatuses.TryGetValue(player.UserId, out var playerStatus)
+            || playerStatus is not PlayerGameStatus.JoinedGame
+        )
         {
             shell.WriteLine(Loc.GetString("cmd-forceghost-error-lobby"));
             return;
@@ -52,7 +61,8 @@ public sealed class ForceGhostCommand : LocalizedEntityCommands
         {
             return CompletionResult.FromHintOptions(
                 CompletionHelper.SessionNames(players: _playerManager),
-                Loc.GetString("cmd-forceghost-hint"));
+                Loc.GetString("cmd-forceghost-hint")
+            );
         }
 
         return CompletionResult.Empty;

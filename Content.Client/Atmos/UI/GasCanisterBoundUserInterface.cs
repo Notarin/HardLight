@@ -17,9 +17,8 @@ namespace Content.Client.Atmos.UI
         [ViewVariables]
         private GasCanisterWindow? _window;
 
-        public GasCanisterBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-        {
-        }
+        public GasCanisterBoundUserInterface(EntityUid owner, Enum uiKey)
+            : base(owner, uiKey) { }
 
         protected override void Open()
         {
@@ -60,11 +59,16 @@ namespace Content.Client.Atmos.UI
         protected override void UpdateState(BoundUserInterfaceState state)
         {
             base.UpdateState(state);
-            if (_window == null || state is not GasCanisterBoundUserInterfaceState cast || !EntMan.TryGetComponent(Owner, out GasCanisterComponent? component))
+            if (
+                _window == null
+                || state is not GasCanisterBoundUserInterfaceState cast
+                || !EntMan.TryGetComponent(Owner, out GasCanisterComponent? component)
+            )
                 return;
 
             var canisterLabel = Identity.Name(Owner, EntMan);
-            var tankLabel = component.GasTankSlot.Item != null ? Identity.Name(component.GasTankSlot.Item.Value, EntMan) : null;
+            var tankLabel =
+                component.GasTankSlot.Item != null ? Identity.Name(component.GasTankSlot.Item.Value, EntMan) : null;
 
             _window.SetCanisterLabel(canisterLabel);
             _window.SetCanisterPressure(cast.CanisterPressure);
@@ -80,7 +84,8 @@ namespace Content.Client.Atmos.UI
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
-            if (!disposing) return;
+            if (!disposing)
+                return;
             _window?.Dispose();
         }
     }

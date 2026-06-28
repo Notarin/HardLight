@@ -3,14 +3,15 @@ using Content.Server.DeviceNetwork.Systems;
 using Content.Shared.DeviceLinking;
 using Content.Shared.DeviceLinking.Events;
 using Content.Shared.DeviceNetwork;
-using Content.Shared.DeviceNetwork.Events;
 using Content.Shared.DeviceNetwork.Components;
+using Content.Shared.DeviceNetwork.Events;
 
 namespace Content.Server.DeviceLinking.Systems;
 
 public sealed class DeviceLinkSystem : SharedDeviceLinkSystem
 {
-    [Dependency] private readonly DeviceNetworkSystem _deviceNetworkSystem = default!;
+    [Dependency]
+    private readonly DeviceNetworkSystem _deviceNetworkSystem = default!;
 
     public override void Initialize()
     {
@@ -32,13 +33,18 @@ public sealed class DeviceLinkSystem : SharedDeviceLinkSystem
                 continue;
             }
 
-            if(component.InvokeCounter > 0)
+            if (component.InvokeCounter > 0)
                 component.InvokeCounter--;
         }
     }
 
     #region Sending & Receiving
-    public override void InvokePort(EntityUid uid, string port, NetworkPayload? data = null, DeviceLinkSourceComponent? sourceComponent = null)
+    public override void InvokePort(
+        EntityUid uid,
+        string port,
+        NetworkPayload? data = null,
+        DeviceLinkSourceComponent? sourceComponent = null
+    )
     {
         if (!Resolve(uid, ref sourceComponent) || !sourceComponent.Outputs.TryGetValue(port, out var sinks))
             return;
@@ -62,7 +68,13 @@ public sealed class DeviceLinkSystem : SharedDeviceLinkSystem
     /// <summary>
     /// Raises an event on or sends a network packet directly to a sink from a source.
     /// </summary>
-    private void InvokeDirect(Entity<DeviceLinkSourceComponent> source, Entity<DeviceLinkSinkComponent?> sink, string sourcePort, string sinkPort, NetworkPayload? data)
+    private void InvokeDirect(
+        Entity<DeviceLinkSourceComponent> source,
+        Entity<DeviceLinkSinkComponent?> sink,
+        string sourcePort,
+        string sinkPort,
+        NetworkPayload? data
+    )
     {
         if (!Resolve(sink, ref sink.Comp))
             return;
@@ -86,10 +98,7 @@ public sealed class DeviceLinkSystem : SharedDeviceLinkSystem
             return;
         }
 
-        var payload = new NetworkPayload()
-        {
-            [InvokedPort] = sinkPort
-        };
+        var payload = new NetworkPayload() { [InvokedPort] = sinkPort };
 
         if (data != null)
         {
@@ -102,7 +111,7 @@ public sealed class DeviceLinkSystem : SharedDeviceLinkSystem
         }
 
         // force using wireless network so things like atmos devices are able to send signals
-        var network = (int) DeviceNetworkComponent.DeviceNetIdDefaults.Wireless;
+        var network = (int)DeviceNetworkComponent.DeviceNetIdDefaults.Wireless;
         _deviceNetworkSystem.QueuePacket(source, sinkNetwork.Address, payload, sinkNetwork.ReceiveFrequency, network);
     }
 
@@ -129,7 +138,7 @@ public sealed class DeviceLinkSystem : SharedDeviceLinkSystem
             return;
 
         var eventArgs = new SignalReceivedEvent(port, args.Sender, args.Data);
-        RaiseLocalEvent(uid,  ref eventArgs);
+        RaiseLocalEvent(uid, ref eventArgs);
     }
 
     /// <summary>
@@ -146,7 +155,7 @@ public sealed class DeviceLinkSystem : SharedDeviceLinkSystem
 
         var payload = new NetworkPayload()
         {
-            [DeviceNetworkConstants.LogicState] = signal ? SignalState.High : SignalState.Low
+            [DeviceNetworkConstants.LogicState] = signal ? SignalState.High : SignalState.Low,
         };
         InvokeDirect(ent, args.Sink, args.SourcePort, args.SinkPort, payload);
     }

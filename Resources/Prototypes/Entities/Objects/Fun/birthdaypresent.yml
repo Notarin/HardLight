@@ -9,24 +9,24 @@
   - type: Sprite
     sprite: _NF/Objects/Fun/birthdaypresent.rsi
     layers:
-      - state: icon
+    - state: icon
   - type: SpawnItemsOnUse
     items:
-      - id: FoodCakeBirthdaySlice
-      - id: PaperFrontierBirthday
-      - id: ClothingHeadHatPartyRed
-        orGroup: Hat
-      - id: ClothingHeadHatPartyBlue
-        orGroup: Hat
-      - id: ClothingHeadHatPartyYellow
-        orGroup: Hat
-      - id: ClothingHeadHatPartyGreen
-        orGroup: Hat
+    - id: FoodCakeBirthdaySlice
+    - id: PaperFrontierBirthday
+    - id: ClothingHeadHatPartyRed
+      orGroup: Hat
+    - id: ClothingHeadHatPartyBlue
+      orGroup: Hat
+    - id: ClothingHeadHatPartyYellow
+      orGroup: Hat
+    - id: ClothingHeadHatPartyGreen
+      orGroup: Hat
 
 - type: entity
   id: PaperFrontierBirthday
   name: Anniversary Notice
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   suffix: "birthday"
   parent: Paper
   components:
@@ -35,7 +35,7 @@
     stampedBy:
     - stampedColor: '#006600FF'
       stampedName: Central Admiralty of Frontier
-    content: |2
+    content: |
 
                           [head=1]Anniversary Notice[/head]
 

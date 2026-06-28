@@ -7,6 +7,4 @@ namespace Content.Client.Shuttles;
 /// Managed by <see cref="ThrusterSystem"/>
 /// </summary>
 [RegisterComponent, NetworkedComponent, Access(typeof(ThrusterSystem))]
-public sealed partial class ThrusterComponent : Component
-{
-}
+public sealed partial class ThrusterComponent : Component { }

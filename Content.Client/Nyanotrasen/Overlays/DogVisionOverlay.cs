@@ -1,18 +1,22 @@
 using System.Numerics;
+using Content.Shared.Abilities;
 using Robust.Client.Graphics;
 using Robust.Client.Player;
 using Robust.Shared.Enums;
 using Robust.Shared.Prototypes;
-using Content.Shared.Abilities;
 
 namespace Content.Client.Nyanotrasen.Overlays;
 
 public sealed partial class DogVisionOverlay : Overlay
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] IEntityManager _entityManager = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
 
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    IEntityManager _entityManager = default!;
 
     public override bool RequestScreenTexture => true;
     public override OverlaySpace Space => OverlaySpace.WorldSpace;
@@ -28,10 +32,13 @@ public sealed partial class DogVisionOverlay : Overlay
 
     protected override bool BeforeDraw(in OverlayDrawArgs args)
     {
-        if (_playerManager.LocalEntity is not { Valid: true } player
-            || (!
-                _entityManager.HasComponent<DogVisionComponent>(player)
-                && !_entityManager.HasComponent<DogVisionNoBypassComponent>(player)))
+        if (
+            _playerManager.LocalEntity is not { Valid: true } player
+            || (
+                !_entityManager.HasComponent<DogVisionComponent>(player)
+                && !_entityManager.HasComponent<DogVisionNoBypassComponent>(player)
+            )
+        )
         {
             return false;
         }

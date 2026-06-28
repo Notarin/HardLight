@@ -11,33 +11,50 @@ using Content.Shared.Mobs.Systems;
 using Robust.Server.GameObjects;
 using Robust.Server.Player;
 using Robust.Shared.Configuration;
+using Robust.Shared.Enums;
 using Robust.Shared.GameObjects;
 using Robust.Shared.IoC;
 using Robust.Shared.Log;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Physics.Components;
-using Robust.Shared.Enums;
 using Robust.Shared.Player;
 using Robust.Shared.Timing;
 
 namespace Content.Server._HL.Cleanup;
 
 /// <summary>
-/// Cleanup script that deletes all GRIDLESS entities if they aren't within 120m of a player. 
+/// Cleanup script that deletes all GRIDLESS entities if they aren't within 120m of a player.
 /// Also cleans up ghosts with no player attatched, and prevents orphan grids from being deleted if a player is on it
 /// </summary>
 public sealed class ServerCleanupSystem : EntitySystem
 {
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IEntityManager _entityManager = default!;
-    [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
-    [Dependency] private readonly MindSystem _mindSystem = default!;
-    [Dependency] private readonly GameTicker _gameTicker = default!;
-    [Dependency] private readonly MobStateSystem _mobStateSystem = default!;
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
+
+    [Dependency]
+    private readonly IMapManager _mapManager = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
+
+    [Dependency]
+    private readonly IEntityManager _entityManager = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transformSystem = default!;
+
+    [Dependency]
+    private readonly MindSystem _mindSystem = default!;
+
+    [Dependency]
+    private readonly GameTicker _gameTicker = default!;
+
+    [Dependency]
+    private readonly MobStateSystem _mobStateSystem = default!;
 
     private ISawmill _sawmill = default!;
     private TimeSpan _nextGhostCleanup = TimeSpan.Zero;
@@ -165,10 +182,12 @@ public sealed class ServerCleanupSystem : EntitySystem
             {
                 _disconnectedPlayers.Remove(mind.UserId.Value);
 
-                _sawmill.Info($"Cleaning up disconnected player entity {ToPrettyString(uid)} " +
-                              $"(user: {mind.UserId}, disconnected for >{DisconnectGracePeriod.TotalMinutes:F0}m)");
+                _sawmill.Info(
+                    $"Cleaning up disconnected player entity {ToPrettyString(uid)} "
+                        + $"(user: {mind.UserId}, disconnected for >{DisconnectGracePeriod.TotalMinutes:F0}m)"
+                );
             }
-			
+
             QueueDel(uid);
             cleanedUp++;
         }
@@ -211,9 +230,11 @@ public sealed class ServerCleanupSystem : EntitySystem
                 continue;
 
             var pos = _transformSystem.GetWorldPosition(playerXform);
-            var key = (playerXform.MapID,
-                       (int)MathF.Floor(pos.X / FloatingEntitySafeRadius),
-                       (int)MathF.Floor(pos.Y / FloatingEntitySafeRadius));
+            var key = (
+                playerXform.MapID,
+                (int)MathF.Floor(pos.X / FloatingEntitySafeRadius),
+                (int)MathF.Floor(pos.Y / FloatingEntitySafeRadius)
+            );
             if (!playerBuckets.TryGetValue(key, out var list))
             {
                 list = new List<Vector2>();
@@ -230,7 +251,7 @@ public sealed class ServerCleanupSystem : EntitySystem
         {
             if (!EntityManager.EntityExists(uid) || EntityManager.IsQueuedForDeletion(uid))
                 continue;
-			
+
             if (xform.MapID == MapId.Nullspace)
                 continue;
 
@@ -251,7 +272,7 @@ public sealed class ServerCleanupSystem : EntitySystem
 
             if (IsAncestorOnGrid(xform))
                 continue;
-			
+
             var entityPos = _transformSystem.GetWorldPosition(xform);
             var entityMap = xform.MapID;
             var cx = (int)MathF.Floor(entityPos.X / FloatingEntitySafeRadius);
@@ -287,7 +308,9 @@ public sealed class ServerCleanupSystem : EntitySystem
             if (!EntityManager.EntityExists(uid))
                 continue;
 
-            _sawmill.Debug($"Deleting floating entity {ToPrettyString(uid)} (not on grid, no players within {FloatingEntitySafeRadius} tiles)");
+            _sawmill.Debug(
+                $"Deleting floating entity {ToPrettyString(uid)} (not on grid, no players within {FloatingEntitySafeRadius} tiles)"
+            );
             QueueDel(uid);
             deleted++;
         }
@@ -300,7 +323,7 @@ public sealed class ServerCleanupSystem : EntitySystem
 
     /// <summary>
     /// Walks up the parent chain of an entity's transform to check whether any ancestor is parented to a grid.
-	/// This catches entities inside containers or held by other entities that are themselves on a grid.
+    /// This catches entities inside containers or held by other entities that are themselves on a grid.
     /// </summary>
     private bool IsAncestorOnGrid(TransformComponent xform)
     {
@@ -341,8 +364,10 @@ public sealed class ServerCleanupSystem : EntitySystem
 
         foreach (var session in _playerManager.Sessions)
         {
-            if (session.UserId == mind.UserId.Value
-                && (session.Status == SessionStatus.InGame || session.Status == SessionStatus.Connected))
+            if (
+                session.UserId == mind.UserId.Value
+                && (session.Status == SessionStatus.InGame || session.Status == SessionStatus.Connected)
+            )
             {
                 return true;
             }
@@ -353,7 +378,6 @@ public sealed class ServerCleanupSystem : EntitySystem
 
     /// <summary>
     /// When a grid is about to be deleted (from orphaned grid cleanup, shipyard save/delete, or any other source), this handler checks for players on/inside the grid
-	
     private void OnGridTerminating(EntityUid gridUid, MapGridComponent grid, ref EntityTerminatingEvent args)
     {
         var rescued = 0;
@@ -398,7 +422,7 @@ public sealed class ServerCleanupSystem : EntitySystem
                 }
             }
         }
-		
+
         foreach (var playerUid in playersToRescue)
         {
             if (!EntityManager.EntityExists(playerUid))
@@ -410,19 +434,23 @@ public sealed class ServerCleanupSystem : EntitySystem
 
         if (rescued > 0)
         {
-            _sawmill.Warning($"Player protection: rescued {rescued} player(s) from grid {ToPrettyString(gridUid)} before deletion.");
+            _sawmill.Warning(
+                $"Player protection: rescued {rescued} player(s) from grid {ToPrettyString(gridUid)} before deletion."
+            );
         }
     }
 
     /// <summary>
     /// Relocates a player entity to a safe location when their current grid is being deleted.
-	/// Tries to find a nearby grid to place them on, or spawns them as a ghost at the default map if no safe grid is found.
+    /// Tries to find a nearby grid to place them on, or spawns them as a ghost at the default map if no safe grid is found.
     /// </summary>
     private bool RescuePlayerFromDeletingGrid(EntityUid playerUid, EntityUid deletingGridUid)
     {
-        if (!EntityManager.EntityExists(playerUid)
+        if (
+            !EntityManager.EntityExists(playerUid)
             || EntityManager.IsQueuedForDeletion(playerUid)
-            || TerminatingOrDeleted(playerUid))
+            || TerminatingOrDeleted(playerUid)
+        )
             return false;
 
         if (!TryComp<TransformComponent>(playerUid, out var playerXform))
@@ -431,7 +459,9 @@ public sealed class ServerCleanupSystem : EntitySystem
         var playerWorldPos = _transformSystem.GetWorldPosition(playerXform);
         var mapId = playerXform.MapID;
 
-        _sawmill.Info($"Rescuing player {ToPrettyString(playerUid)} from deleting grid {ToPrettyString(deletingGridUid)}");
+        _sawmill.Info(
+            $"Rescuing player {ToPrettyString(playerUid)} from deleting grid {ToPrettyString(deletingGridUid)}"
+        );
 
         EntityUid? bestGrid = null;
         var bestDistance = float.MaxValue;
@@ -463,7 +493,9 @@ public sealed class ServerCleanupSystem : EntitySystem
             var targetCoords = new EntityCoordinates(bestGrid.Value, Vector2.Zero);
             if (TrySetCoordinatesSafely(playerUid, targetCoords))
             {
-                _sawmill.Info($"Relocated player {ToPrettyString(playerUid)} to nearby grid {ToPrettyString(bestGrid.Value)}");
+                _sawmill.Info(
+                    $"Relocated player {ToPrettyString(playerUid)} to nearby grid {ToPrettyString(bestGrid.Value)}"
+                );
                 return true;
             }
         }
@@ -483,29 +515,35 @@ public sealed class ServerCleanupSystem : EntitySystem
         {
             if (TrySetCoordinatesSafely(playerUid, new EntityCoordinates(defaultMapUid, Vector2.Zero)))
             {
-                _sawmill.Warning($"Emergency relocation: moved player {ToPrettyString(playerUid)} to default map origin.");
+                _sawmill.Warning(
+                    $"Emergency relocation: moved player {ToPrettyString(playerUid)} to default map origin."
+                );
                 return true;
             }
         }
 
-        _sawmill.Warning($"Could not find safe relocation target for player {ToPrettyString(playerUid)} while grid {ToPrettyString(deletingGridUid)} was terminating.");
+        _sawmill.Warning(
+            $"Could not find safe relocation target for player {ToPrettyString(playerUid)} while grid {ToPrettyString(deletingGridUid)} was terminating."
+        );
         return false;
     }
 
     private bool IsSafeRelocationTarget(EntityUid uid)
     {
         return uid.IsValid()
-               && EntityManager.EntityExists(uid)
-               && !EntityManager.IsQueuedForDeletion(uid)
-               && !TerminatingOrDeleted(uid);
+            && EntityManager.EntityExists(uid)
+            && !EntityManager.IsQueuedForDeletion(uid)
+            && !TerminatingOrDeleted(uid);
     }
 
     private bool TrySetCoordinatesSafely(EntityUid entityUid, EntityCoordinates coordinates)
     {
-        if (!EntityManager.EntityExists(entityUid)
+        if (
+            !EntityManager.EntityExists(entityUid)
             || EntityManager.IsQueuedForDeletion(entityUid)
             || TerminatingOrDeleted(entityUid)
-            || !IsSafeRelocationTarget(coordinates.EntityId))
+            || !IsSafeRelocationTarget(coordinates.EntityId)
+        )
             return false;
 
         try
@@ -515,7 +553,9 @@ public sealed class ServerCleanupSystem : EntitySystem
         }
         catch (Exception ex)
         {
-            _sawmill.Warning($"Failed to relocate {ToPrettyString(entityUid)} to {ToPrettyString(coordinates.EntityId)} during grid termination: {ex.Message}");
+            _sawmill.Warning(
+                $"Failed to relocate {ToPrettyString(entityUid)} to {ToPrettyString(coordinates.EntityId)} during grid termination: {ex.Message}"
+            );
             return false;
         }
     }

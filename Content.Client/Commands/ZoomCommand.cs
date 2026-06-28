@@ -1,19 +1,24 @@
+using System.Numerics;
 using Content.Client.Movement.Systems;
 using Content.Shared.Movement.Components;
 using JetBrains.Annotations;
 using Robust.Client.Graphics;
 using Robust.Client.Player;
 using Robust.Shared.Console;
-using System.Numerics;
 
 namespace Content.Client.Commands;
 
 [UsedImplicitly]
 public sealed class ZoomCommand : LocalizedCommands
 {
-    [Dependency] private readonly IEntityManager _entityManager = default!;
-    [Dependency] private readonly IEyeManager _eyeManager = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entityManager = default!;
+
+    [Dependency]
+    private readonly IEyeManager _eyeManager = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
 
     public override string Command => "zoom";
 

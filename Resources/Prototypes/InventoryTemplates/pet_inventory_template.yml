@@ -9,7 +9,7 @@
     displayName: Mask
     whitelist:
       tags:
-        - PetWearable
+      - PetWearable
 
   - name: suitstorage
     slotTexture: suit_storage
@@ -20,6 +20,5 @@
     displayName: Suit Storage
     whitelist:
       components:
-        - GasTank
-
+      - GasTank
 

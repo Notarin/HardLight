@@ -22,13 +22,26 @@ public sealed partial class BountyContractSystem : SharedBountyContractSystem
 {
     private ISawmill _sawmill = default!;
 
-    [Dependency] private readonly CartridgeLoaderSystem _cartridgeLoader = default!;
-    [Dependency] private readonly StationRecordsSystem _records = default!;
-    [Dependency] private readonly AccessReaderSystem _accessReader = default!;
-    [Dependency] private readonly NFAccessSystemUtilities _accessUtils = default!;
-    [Dependency] private readonly ChatSystem _chat = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IAdminLogManager _adminLog = default!;
+    [Dependency]
+    private readonly CartridgeLoaderSystem _cartridgeLoader = default!;
+
+    [Dependency]
+    private readonly StationRecordsSystem _records = default!;
+
+    [Dependency]
+    private readonly AccessReaderSystem _accessReader = default!;
+
+    [Dependency]
+    private readonly NFAccessSystemUtilities _accessUtils = default!;
+
+    [Dependency]
+    private readonly ChatSystem _chat = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private readonly IAdminLogManager _adminLog = default!;
 
     public override void Initialize()
     {
@@ -59,7 +72,10 @@ public sealed partial class BountyContractSystem : SharedBountyContractSystem
     }
 
     // Returns a list of all readable collections that a user can see.
-    private List<ProtoId<BountyContractCollectionPrototype>> GetReadableCollections(EntityUid user, BountyContractDataComponent? bounties = null)
+    private List<ProtoId<BountyContractCollectionPrototype>> GetReadableCollections(
+        EntityUid user,
+        BountyContractDataComponent? bounties = null
+    )
     {
         var returnList = new List<ProtoId<BountyContractCollectionPrototype>>();
         if (bounties == null)
@@ -85,7 +101,11 @@ public sealed partial class BountyContractSystem : SharedBountyContractSystem
         return returnList;
     }
 
-    private bool HasReadAccess(EntityUid user, ProtoId<BountyContractCollectionPrototype> collection, BountyContractDataComponent? bounties = null)
+    private bool HasReadAccess(
+        EntityUid user,
+        ProtoId<BountyContractCollectionPrototype> collection,
+        BountyContractDataComponent? bounties = null
+    )
     {
         if (bounties == null)
         {
@@ -98,10 +118,18 @@ public sealed partial class BountyContractSystem : SharedBountyContractSystem
         if (!_proto.TryIndex(collection, out var collectionProto))
             return false;
 
-        return _accessUtils.IsAllowed(_accessReader.FindAccessTags(user), collectionProto.ReadAccess, collectionProto.ReadGroups);
+        return _accessUtils.IsAllowed(
+            _accessReader.FindAccessTags(user),
+            collectionProto.ReadAccess,
+            collectionProto.ReadGroups
+        );
     }
 
-    private bool HasWriteAccess(EntityUid user, ProtoId<BountyContractCollectionPrototype> collection, BountyContractDataComponent? bounties = null)
+    private bool HasWriteAccess(
+        EntityUid user,
+        ProtoId<BountyContractCollectionPrototype> collection,
+        BountyContractDataComponent? bounties = null
+    )
     {
         if (bounties == null)
         {
@@ -114,10 +142,18 @@ public sealed partial class BountyContractSystem : SharedBountyContractSystem
         if (!_proto.TryIndex(collection, out var collectionProto))
             return false;
 
-        return _accessUtils.IsAllowed(_accessReader.FindAccessTags(user), collectionProto.WriteAccess, collectionProto.WriteGroups);
+        return _accessUtils.IsAllowed(
+            _accessReader.FindAccessTags(user),
+            collectionProto.WriteAccess,
+            collectionProto.WriteGroups
+        );
     }
 
-    private bool HasDeleteAccess(EntityUid user, ProtoId<BountyContractCollectionPrototype> collection, BountyContractDataComponent? bounties = null)
+    private bool HasDeleteAccess(
+        EntityUid user,
+        ProtoId<BountyContractCollectionPrototype> collection,
+        BountyContractDataComponent? bounties = null
+    )
     {
         if (bounties == null)
         {
@@ -130,7 +166,11 @@ public sealed partial class BountyContractSystem : SharedBountyContractSystem
         if (!_proto.TryIndex(collection, out var collectionProto))
             return false;
 
-        return _accessUtils.IsAllowed(_accessReader.FindAccessTags(user), collectionProto.DeleteAccess, collectionProto.DeleteGroups);
+        return _accessUtils.IsAllowed(
+            _accessReader.FindAccessTags(user),
+            collectionProto.DeleteAccess,
+            collectionProto.DeleteGroups
+        );
     }
 
     /// <summary>
@@ -148,7 +188,8 @@ public sealed partial class BountyContractSystem : SharedBountyContractSystem
     /// <param name="pdaAlert">Should PDAs send a localized alert?</param>
     /// <param name="actor">The entity posting the bounty.</param>
     /// <returns>New bounty contract. Null if contract creation failed.</returns>
-    public BountyContract? TryCreateBountyContract(ProtoId<BountyContractCollectionPrototype> collection,
+    public BountyContract? TryCreateBountyContract(
+        ProtoId<BountyContractCollectionPrototype> collection,
         BountyContractCategory category,
         string name,
         int reward,
@@ -157,13 +198,16 @@ public sealed partial class BountyContractSystem : SharedBountyContractSystem
         string? description = null,
         string? vessel = null,
         string? dna = null,
-        string? author = null)
+        string? author = null
+    )
     {
         var data = GetContracts();
-        if (data == null
+        if (
+            data == null
             || data.Contracts == null
             || !data.Contracts.TryGetValue(collection, out var contracts)
-            || !HasWriteAccess(authorUid, collection))
+            || !HasWriteAccess(authorUid, collection)
+        )
         {
             return null;
         }
@@ -177,8 +221,17 @@ public sealed partial class BountyContractSystem : SharedBountyContractSystem
 
         // create a new contract
         var contractId = data.LastId++;
-        var contract = new BountyContract(contractId, category, name, reward, GetNetEntity(authorUid),
-            dna, vessel, description, author);
+        var contract = new BountyContract(
+            contractId,
+            category,
+            name,
+            reward,
+            GetNetEntity(authorUid),
+            dna,
+            vessel,
+            description,
+            author
+        );
 
         // try to save it
         if (!contracts.TryAdd(contractId, contract))
@@ -199,17 +252,29 @@ public sealed partial class BountyContractSystem : SharedBountyContractSystem
         if (notificationType == BountyContractNotificationType.PDA)
         {
             var sender = Loc.GetString("bounty-contracts-announcement-pda-name");
-            var target = !string.IsNullOrEmpty(contract.Vessel) && contract.Vessel != Loc.GetString("bounty-contracts-ui-create-vessel-unknown")
-                ? $"{contract.Name} ({contract.Vessel})"
-                : contract.Name;
-            var msg = Loc.GetString(announcement,
-                ("target", target), ("reward", BankSystemExtensions.ToSpesoString(contract.Reward)));
+            var target =
+                !string.IsNullOrEmpty(contract.Vessel)
+                && contract.Vessel != Loc.GetString("bounty-contracts-ui-create-vessel-unknown")
+                    ? $"{contract.Name} ({contract.Vessel})"
+                    : contract.Name;
+            var msg = Loc.GetString(
+                announcement,
+                ("target", target),
+                ("reward", BankSystemExtensions.ToSpesoString(contract.Reward))
+            );
 
             var pdaList = EntityQueryEnumerator<CartridgeLoaderComponent>();
             while (pdaList.MoveNext(out var loaderUid, out var loaderComp))
             {
-                if (_cartridgeLoader.TryGetProgram<BountyContractsCartridgeComponent>(loaderUid, out _, out var cartComp, true, loaderComp)
-                    && cartComp.NotificationsEnabled)
+                if (
+                    _cartridgeLoader.TryGetProgram<BountyContractsCartridgeComponent>(
+                        loaderUid,
+                        out _,
+                        out var cartComp,
+                        true,
+                        loaderComp
+                    ) && cartComp.NotificationsEnabled
+                )
                 {
                     _cartridgeLoader.SendNotification(loaderUid, sender, msg, loaderComp);
                 }
@@ -218,16 +283,24 @@ public sealed partial class BountyContractSystem : SharedBountyContractSystem
         else if (notificationType == BountyContractNotificationType.Radio)
         {
             var sender = Loc.GetString("bounty-contracts-announcement-radio-name");
-            var target = !string.IsNullOrEmpty(contract.Vessel) && contract.Vessel != Loc.GetString("bounty-contracts-ui-create-vessel-unknown")
-                ? $"{contract.Name} ({contract.Vessel})"
-                : contract.Name;
-            var msg = Loc.GetString(announcement,
-                ("target", target), ("reward", BankSystemExtensions.ToSpesoString(contract.Reward)));
+            var target =
+                !string.IsNullOrEmpty(contract.Vessel)
+                && contract.Vessel != Loc.GetString("bounty-contracts-ui-create-vessel-unknown")
+                    ? $"{contract.Name} ({contract.Vessel})"
+                    : contract.Name;
+            var msg = Loc.GetString(
+                announcement,
+                ("target", target),
+                ("reward", BankSystemExtensions.ToSpesoString(contract.Reward))
+            );
             var color = Color.FromHex("#D7D7BE");
             _chat.DispatchGlobalAnnouncement(msg, sender, false, colorOverride: color);
         }
 
-        _adminLog.Add(LogType.BountyContractCreated, $"{ToPrettyString(actor):actor} posted a {category} bounty with ID {contractId} in the {collection} collection for ${reward}: {description ?? ""}");
+        _adminLog.Add(
+            LogType.BountyContractCreated,
+            $"{ToPrettyString(actor):actor} posted a {category} bounty with ID {contractId} in the {collection} collection for ${reward}: {description ?? ""}"
+        );
 
         return contract;
     }
@@ -255,7 +328,11 @@ public sealed partial class BountyContractSystem : SharedBountyContractSystem
     /// <summary>
     ///     Try to get all bounty contracts available within a particular collection.
     /// </summary>
-    public IEnumerable<BountyContract> GetPermittedContracts(Entity<BountyContractsCartridgeComponent> cartridge, EntityUid loader, out ProtoId<BountyContractCollectionPrototype>? newCollection)
+    public IEnumerable<BountyContract> GetPermittedContracts(
+        Entity<BountyContractsCartridgeComponent> cartridge,
+        EntityUid loader,
+        out ProtoId<BountyContractCollectionPrototype>? newCollection
+    )
     {
         newCollection = null;
         var data = GetContracts();
@@ -265,8 +342,10 @@ public sealed partial class BountyContractSystem : SharedBountyContractSystem
 
         if (cartridge.Comp.Collection != null)
         {
-            if (data.Contracts.TryGetValue(cartridge.Comp.Collection.Value, out var contracts)
-                && HasReadAccess(loader, cartridge.Comp.Collection.Value, data))
+            if (
+                data.Contracts.TryGetValue(cartridge.Comp.Collection.Value, out var contracts)
+                && HasReadAccess(loader, cartridge.Comp.Collection.Value, data)
+            )
             {
                 newCollection = cartridge.Comp.Collection.Value;
                 return contracts.Values;
@@ -305,7 +384,10 @@ public sealed partial class BountyContractSystem : SharedBountyContractSystem
                 return false;
 
             collection.Remove(contractId);
-            _adminLog.Add(LogType.BountyContractRemoved, $"{ToPrettyString(actor):actor} deleted bounty with ID {contractId}");
+            _adminLog.Add(
+                LogType.BountyContractRemoved,
+                $"{ToPrettyString(actor):actor} deleted bounty with ID {contractId}"
+            );
             return true;
         }
 

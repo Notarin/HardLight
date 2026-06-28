@@ -168,8 +168,7 @@
     canTransferDeed: false
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 250
       behaviors:
       - !type:PlaySoundBehavior
@@ -204,7 +203,7 @@
   - type: UserInterface
     interfaces:
       enum.ShipyardConsoleUiKey.Expedition:
-       type: ShipyardConsoleBoundUserInterface
+        type: ShipyardConsoleBoundUserInterface
   - type: Sprite
     sprite: _NF/Structures/Machines/computers.rsi
     layers:

@@ -5,18 +5,15 @@ using Robust.Shared.Serialization;
 namespace Content.Shared.Forensics;
 
 [Serializable, NetSerializable]
-public sealed partial class ForensicScannerDoAfterEvent : SimpleDoAfterEvent
-{
-}
+public sealed partial class ForensicScannerDoAfterEvent : SimpleDoAfterEvent { }
 
 [Serializable, NetSerializable]
 public sealed partial class ForensicPadDoAfterEvent : DoAfterEvent
 {
-    [DataField("sample", required: true)] public  string Sample = default!;
+    [DataField("sample", required: true)]
+    public string Sample = default!;
 
-    private ForensicPadDoAfterEvent()
-    {
-    }
+    private ForensicPadDoAfterEvent() { }
 
     public ForensicPadDoAfterEvent(string sample)
     {
@@ -27,9 +24,7 @@ public sealed partial class ForensicPadDoAfterEvent : DoAfterEvent
 }
 
 [Serializable, NetSerializable]
-public sealed partial class CleanForensicsDoAfterEvent : SimpleDoAfterEvent
-{
-}
+public sealed partial class CleanForensicsDoAfterEvent : SimpleDoAfterEvent { }
 
 /// <summary>
 /// An event to apply DNA evidence from a donor onto some recipient.

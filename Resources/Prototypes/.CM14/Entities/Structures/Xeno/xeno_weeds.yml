@@ -1,4 +1,4 @@
-﻿- type: entity # TODO CM14 sound
+- type: entity # TODO CM14 sound
   id: XenoWeeds
   name: weeds
   description: Weird black weeds...
@@ -26,8 +26,7 @@
       fix1:
         hard: false
         density: 7
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.5,-0.5,0.5,0.5"
         layer:
         - MidImpassable
@@ -52,12 +51,11 @@
         Cold: 5 #per second, scales with temperature & other constants
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 10
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: Barotrauma
     damage:
       types:
@@ -111,16 +109,16 @@
         weed14: ""
     - 0:
         weed15: ""
-#  - type: SlowContacts # TODO CM14 slow down
-#    walkSpeedModifier: 0.5
-#    sprintSpeedModifier: 0.5
-#  - type: Physics
-#    bodyType: Static
-#  - type: FootstepModifier
-#    footstepSoundCollection:
-#      collection: FootstepWater
-#      params:
-#        volume: 8
+        #  - type: SlowContacts # TODO CM14 slow down
+        #    walkSpeedModifier: 0.5
+        #    sprintSpeedModifier: 0.5
+        #  - type: Physics
+        #    bodyType: Static
+        #  - type: FootstepModifier
+        #    footstepSoundCollection:
+        #      collection: FootstepWater
+        #      params:
+        #        volume: 8
   - type: Construction
     graph: ResinStructures
     node: XenoWeeds
@@ -159,12 +157,11 @@
     damageModifierSet: Wood
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 10
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: RandomSprite
     available:
     - 0:
@@ -326,8 +323,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.5,-0.5,0.5,0.5"
         layer:
         - WallLayer

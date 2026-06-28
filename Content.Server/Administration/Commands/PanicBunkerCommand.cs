@@ -9,7 +9,8 @@ namespace Content.Server.Administration.Commands;
 [AdminCommand(AdminFlags.Server)]
 public sealed class PanicBunkerCommand : LocalizedCommands
 {
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
 
     public override string Command => "panicbunker";
 
@@ -19,16 +20,16 @@ public sealed class PanicBunkerCommand : LocalizedCommands
         if (toggle == null)
             return;
 
-        shell.WriteLine(Loc.GetString(toggle.Value
-            ? "panicbunker-command-enabled"
-            : "panicbunker-command-disabled"));
+        shell.WriteLine(Loc.GetString(toggle.Value ? "panicbunker-command-enabled" : "panicbunker-command-disabled"));
     }
 
     public static bool? Toggle(CVarDef<bool> cvar, IConsoleShell shell, string[] args, IConfigurationManager config)
     {
         if (args.Length > 1)
         {
-            shell.WriteError(Robust.Shared.Localization.Loc.GetString("shell-need-between-arguments", ("lower", 0), ("upper", 1)));
+            shell.WriteError(
+                Robust.Shared.Localization.Loc.GetString("shell-need-between-arguments", ("lower", 0), ("upper", 1))
+            );
             return null;
         }
 
@@ -53,7 +54,8 @@ public sealed class PanicBunkerCommand : LocalizedCommands
 [AdminCommand(AdminFlags.Server)]
 public sealed class PanicBunkerDisableWithAdminsCommand : LocalizedCommands
 {
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
 
     public override string Command => "panicbunker_disable_with_admins";
 
@@ -63,17 +65,21 @@ public sealed class PanicBunkerDisableWithAdminsCommand : LocalizedCommands
         if (toggle == null)
             return;
 
-        shell.WriteLine(LocalizationManager.GetString(toggle.Value
-            ? "panicbunker-command-disable-with-admins-enabled"
-            : "panicbunker-command-disable-with-admins-disabled"
-        ));
+        shell.WriteLine(
+            LocalizationManager.GetString(
+                toggle.Value
+                    ? "panicbunker-command-disable-with-admins-enabled"
+                    : "panicbunker-command-disable-with-admins-disabled"
+            )
+        );
     }
 }
 
 [AdminCommand(AdminFlags.Server)]
 public sealed class PanicBunkerEnableWithoutAdminsCommand : LocalizedCommands
 {
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
 
     public override string Command => "panicbunker_enable_without_admins";
 
@@ -83,17 +89,21 @@ public sealed class PanicBunkerEnableWithoutAdminsCommand : LocalizedCommands
         if (toggle == null)
             return;
 
-        shell.WriteLine(LocalizationManager.GetString(toggle.Value
-            ? "panicbunker-command-enable-without-admins-enabled"
-            : "panicbunker-command-enable-without-admins-disabled"
-        ));
+        shell.WriteLine(
+            LocalizationManager.GetString(
+                toggle.Value
+                    ? "panicbunker-command-enable-without-admins-enabled"
+                    : "panicbunker-command-enable-without-admins-disabled"
+            )
+        );
     }
 }
 
 [AdminCommand(AdminFlags.Server)]
 public sealed class PanicBunkerCountDeadminnedCommand : LocalizedCommands
 {
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
 
     public override string Command => "panicbunker_count_deadminned_admins";
 
@@ -103,17 +113,21 @@ public sealed class PanicBunkerCountDeadminnedCommand : LocalizedCommands
         if (toggle == null)
             return;
 
-        shell.WriteLine(LocalizationManager.GetString(toggle.Value
-            ? "panicbunker-command-count-deadminned-admins-enabled"
-            : "panicbunker-command-count-deadminned-admins-disabled"
-        ));
+        shell.WriteLine(
+            LocalizationManager.GetString(
+                toggle.Value
+                    ? "panicbunker-command-count-deadminned-admins-enabled"
+                    : "panicbunker-command-count-deadminned-admins-disabled"
+            )
+        );
     }
 }
 
 [AdminCommand(AdminFlags.Server)]
 public sealed class PanicBunkerShowReasonCommand : LocalizedCommands
 {
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
 
     public override string Command => "panicbunker_show_reason";
 
@@ -123,17 +137,19 @@ public sealed class PanicBunkerShowReasonCommand : LocalizedCommands
         if (toggle == null)
             return;
 
-        shell.WriteLine(Loc.GetString(toggle.Value
-            ? "panicbunker-command-show-reason-enabled"
-            : "panicbunker-command-show-reason-disabled"
-        ));
+        shell.WriteLine(
+            Loc.GetString(
+                toggle.Value ? "panicbunker-command-show-reason-enabled" : "panicbunker-command-show-reason-disabled"
+            )
+        );
     }
 }
 
 [AdminCommand(AdminFlags.Server)]
 public sealed class PanicBunkerMinAccountAgeCommand : LocalizedCommands
 {
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
 
     public override string Command => "panicbunker_min_account_age";
 
@@ -142,7 +158,9 @@ public sealed class PanicBunkerMinAccountAgeCommand : LocalizedCommands
         if (args.Length == 0)
         {
             var current = _cfg.GetCVar(CCVars.PanicBunkerMinAccountAge);
-            shell.WriteLine(LocalizationManager.GetString("panicbunker-command-min-account-age-is", ("minutes", current)));
+            shell.WriteLine(
+                LocalizationManager.GetString("panicbunker-command-min-account-age-is", ("minutes", current))
+            );
         }
 
         if (args.Length > 1)
@@ -158,14 +176,15 @@ public sealed class PanicBunkerMinAccountAgeCommand : LocalizedCommands
         }
 
         _cfg.SetCVar(CCVars.PanicBunkerMinAccountAge, minutes);
-    shell.WriteLine(LocalizationManager.GetString("panicbunker-command-min-account-age-set", ("minutes", minutes)));
+        shell.WriteLine(LocalizationManager.GetString("panicbunker-command-min-account-age-set", ("minutes", minutes)));
     }
 }
 
 [AdminCommand(AdminFlags.Server)]
 public sealed class PanicBunkerMinOverallMinutesCommand : LocalizedCommands
 {
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
 
     public override string Command => "panicbunker_min_overall_minutes";
 

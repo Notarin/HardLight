@@ -7,7 +7,7 @@ public enum NetworkConfiguratorUiKey
 {
     List,
     Configure,
-    Link
+    Link,
 }
 
 [Serializable, NetSerializable]
@@ -18,7 +18,7 @@ public enum NetworkConfiguratorButtonKey
     Edit,
     Clear,
     Copy,
-    Show
+    Show,
 }
 
 /// <summary>
@@ -39,9 +39,7 @@ public sealed class NetworkConfiguratorRemoveDeviceMessage : BoundUserInterfaceM
 /// Message sent when the clear button was pressed
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class NetworkConfiguratorClearDevicesMessage : BoundUserInterfaceMessage
-{
-}
+public sealed class NetworkConfiguratorClearDevicesMessage : BoundUserInterfaceMessage { }
 
 [Serializable, NetSerializable]
 public sealed class NetworkConfiguratorButtonPressedMessage : BoundUserInterfaceMessage
@@ -55,10 +53,7 @@ public sealed class NetworkConfiguratorButtonPressedMessage : BoundUserInterface
 }
 
 [Serializable, NetSerializable]
-public sealed class NetworkConfiguratorClearLinksMessage : BoundUserInterfaceMessage
-{
-
-}
+public sealed class NetworkConfiguratorClearLinksMessage : BoundUserInterfaceMessage { }
 
 [Serializable, NetSerializable]
 public sealed class NetworkConfiguratorToggleLinkMessage : BoundUserInterfaceMessage

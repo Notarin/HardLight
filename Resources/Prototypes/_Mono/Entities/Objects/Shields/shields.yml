@@ -2,8 +2,7 @@
   name: hardlight shield
   parent: BaseItem
   id: HardlightShield
-  description: Z-22 produced hardlight shield, when folded, can even fit in your pocket. Its more emmitive than reflective,
-    unlike its blue cousins.
+  description: Z-22 produced hardlight shield, when folded, can even fit in your pocket. Its more emmitive than reflective, unlike its blue cousins.
   components:
   - type: ItemToggle
     predictable: false

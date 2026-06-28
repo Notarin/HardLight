@@ -53,11 +53,9 @@ public sealed partial class EnvelopeComponent : Component
     {
         Open,
         Sealed,
-        Torn
+        Torn,
     }
 }
 
 [Serializable, NetSerializable]
-public sealed partial class EnvelopeDoAfterEvent : SimpleDoAfterEvent
-{
-}
+public sealed partial class EnvelopeDoAfterEvent : SimpleDoAfterEvent { }

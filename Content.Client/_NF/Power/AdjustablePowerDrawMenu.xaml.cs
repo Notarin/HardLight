@@ -14,7 +14,8 @@ namespace Content.Client._NF.Power;
 public sealed partial class AdjustablePowerDrawMenu : FancyWindow
 {
     // Dependencies
-    [Dependency] private readonly IEntityManager _entityManager = null!;
+    [Dependency]
+    private readonly IEntityManager _entityManager = null!;
 
     // The entity that this UI is for.
     private EntityUid _entity;
@@ -125,6 +126,7 @@ public sealed partial class AdjustablePowerDrawMenu : FancyWindow
         TogglePowerButton.Pressed = on;
 
         TogglePowerButton.Text = Loc.GetString(
-            on ? "comp-gas-pump-ui-status-enabled" : "comp-gas-pump-ui-status-disabled");
+            on ? "comp-gas-pump-ui-status-enabled" : "comp-gas-pump-ui-status-disabled"
+        );
     }
 }

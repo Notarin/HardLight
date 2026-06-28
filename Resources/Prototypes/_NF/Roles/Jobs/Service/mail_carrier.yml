@@ -6,8 +6,8 @@
   alwaysUseSpawner: false # HardLight: true<false
   playTimeTracker: JobMailCarrier
   requirements:
-    - !type:OverallPlaytimeRequirement
-      time: 10800
+  - !type:OverallPlaytimeRequirement
+    time: 10800
   canBeAntag: false
   weight: -10 # HardLight: 90<-10
   icon: "JobIconMailCarrier"
@@ -21,12 +21,12 @@
   - Frontier # Frontier
   special:
   - !type:AddImplantSpecial
-    implants: [ MindShieldImplant ]
-  - !type:GiveItemOnHolidaySpecial # Frontier
+    implants: [MindShieldImplant]
+  - !type:GiveItemOnHolidaySpecial
     holiday: FrontierBirthday # Frontier
     prototype: FrontierBirthdayGift # Frontier
 
-- type: startingGear
+- type: startingGear # Frontier
   id: MailCarrierGear
   equipment:
     head: ClothingHeadMailCarrier

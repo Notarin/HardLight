@@ -1,6 +1,6 @@
 using Content.Server.Chat.Systems;
-using Content.Shared.Chat; // For InGameICChatType
 using Content.Server.Ghost.Components;
+using Content.Shared.Chat; // For InGameICChatType
 using Content.Shared.Random.Helpers;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
@@ -10,10 +10,17 @@ namespace Content.Server.Ghost;
 
 public sealed class SpookySpeakerSystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly ChatSystem _chat = default!;
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly ChatSystem _chat = default!;
 
     public override void Initialize()
     {

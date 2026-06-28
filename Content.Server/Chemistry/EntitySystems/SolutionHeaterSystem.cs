@@ -1,9 +1,9 @@
 using Content.Server.Chemistry.Components;
 using Content.Server.Construction;
 using Content.Server.Power.EntitySystems;
-using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Chemistry;
 using Content.Shared.Chemistry.Components.SolutionManager;
+using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Placeable;
 using Content.Shared.Power;
 
@@ -11,9 +11,14 @@ namespace Content.Server.Chemistry.EntitySystems;
 
 public sealed class SolutionHeaterSystem : EntitySystem
 {
-    [Dependency] private readonly PowerReceiverSystem _powerReceiver = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainer = default!;
+    [Dependency]
+    private readonly PowerReceiverSystem _powerReceiver = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SharedSolutionContainerSystem _solutionContainer = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -68,12 +73,16 @@ public sealed class SolutionHeaterSystem : EntitySystem
     {
         var heatRating = args.PartRatings[entity.Comp.MachinePartHeatMultiplier] - 1;
 
-        entity.Comp.HeatPerSecond = entity.Comp.BaseHeatPerSecond * MathF.Pow(entity.Comp.PartRatingHeatMultiplier, heatRating);
+        entity.Comp.HeatPerSecond =
+            entity.Comp.BaseHeatPerSecond * MathF.Pow(entity.Comp.PartRatingHeatMultiplier, heatRating);
     }
 
     private void OnUpgradeExamine(Entity<SolutionHeaterComponent> entity, ref UpgradeExamineEvent args)
     {
-        args.AddPercentageUpgrade("solution-heater-upgrade-heat", entity.Comp.HeatPerSecond / entity.Comp.BaseHeatPerSecond);
+        args.AddPercentageUpgrade(
+            "solution-heater-upgrade-heat",
+            entity.Comp.HeatPerSecond / entity.Comp.BaseHeatPerSecond
+        );
     }
 
     private void OnItemPlaced(Entity<SolutionHeaterComponent> entity, ref ItemPlacedEvent args)
@@ -92,7 +101,11 @@ public sealed class SolutionHeaterSystem : EntitySystem
     {
         base.Update(frameTime);
 
-        var query = EntityQueryEnumerator<ActiveSolutionHeaterComponent, SolutionHeaterComponent, ItemPlacerComponent>();
+        var query = EntityQueryEnumerator<
+            ActiveSolutionHeaterComponent,
+            SolutionHeaterComponent,
+            ItemPlacerComponent
+        >();
         while (query.MoveNext(out _, out _, out var heater, out var placer))
         {
             foreach (var heatingEntity in placer.PlacedEntities)

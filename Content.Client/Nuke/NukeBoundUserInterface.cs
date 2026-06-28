@@ -12,9 +12,8 @@ namespace Content.Client.Nuke
         [ViewVariables]
         private NukeMenu? _menu;
 
-        public NukeBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-        {
-        }
+        public NukeBoundUserInterface(EntityUid owner, Enum uiKey)
+            : base(owner, uiKey) { }
 
         protected override void Open()
         {

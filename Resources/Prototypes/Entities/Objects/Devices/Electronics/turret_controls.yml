@@ -1,5 +1,5 @@
 - type: entity
-  categories: [ HideSpawnMenu ] # Hardlight change
+  categories: [HideSpawnMenu] # Hardlight change
   parent: BaseElectronics
   id: WeaponEnergyTurretStationControlPanelElectronicsBase
   name: sentry turret control panel electronics

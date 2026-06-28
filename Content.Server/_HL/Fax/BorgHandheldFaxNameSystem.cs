@@ -45,8 +45,7 @@ public sealed class BorgHandheldFaxNameSystem : EntitySystem
 
         foreach (var hand in hands.Hands.Values)
         {
-            if (hand.HeldEntity is not { } held ||
-                !HasComp<BorgHandheldFaxNameComponent>(held))
+            if (hand.HeldEntity is not { } held || !HasComp<BorgHandheldFaxNameComponent>(held))
             {
                 continue;
             }

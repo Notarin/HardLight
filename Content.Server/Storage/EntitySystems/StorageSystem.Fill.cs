@@ -49,8 +49,9 @@ public sealed partial class StorageSystem
             var ent = Spawn(spawnPrototype, coordinates);
 
             // No, you are not allowed to fill a container with entity spawners.
-            DebugTools.Assert(!_prototype.Index<EntityPrototype>(spawnPrototype)
-                .HasComponent(typeof(RandomSpawnerComponent)));
+            DebugTools.Assert(
+                !_prototype.Index<EntityPrototype>(spawnPrototype).HasComponent(typeof(RandomSpawnerComponent))
+            );
 
             if (!TryComp<ItemComponent>(ent, out var itemComp))
             {
@@ -63,8 +64,7 @@ public sealed partial class StorageSystem
         }
 
         // we order the items from biggest to smallest to try and reduce poor placement in the grid.
-        var sortedItems = items
-            .OrderByDescending(x => ItemSystem.GetItemShape(x.Comp).GetArea());
+        var sortedItems = items.OrderByDescending(x => ItemSystem.GetItemShape(x.Comp).GetArea());
 
         ClearCantFillReasons();
         foreach (var ent in sortedItems)
@@ -81,7 +81,9 @@ public sealed partial class StorageSystem
                     reason += $", {reasons}";
             }
 
-            Log.Error($"Tried to StorageFill {ToPrettyString(ent)} inside {ToPrettyString(uid)} but can't. reason: {reason}");
+            Log.Error(
+                $"Tried to StorageFill {ToPrettyString(ent)} inside {ToPrettyString(uid)} but can't. reason: {reason}"
+            );
             ClearCantFillReasons();
             Del(ent);
         }
@@ -100,8 +102,7 @@ public sealed partial class StorageSystem
         foreach (var item in spawnItems)
         {
             // No, you are not allowed to fill a container with entity spawners.
-            DebugTools.Assert(!_prototype.Index<EntityPrototype>(item)
-                .HasComponent(typeof(RandomSpawnerComponent)));
+            DebugTools.Assert(!_prototype.Index<EntityPrototype>(item).HasComponent(typeof(RandomSpawnerComponent)));
             var ent = Spawn(item, coordinates);
 
             // Frontier: handle humanoid spawner cases

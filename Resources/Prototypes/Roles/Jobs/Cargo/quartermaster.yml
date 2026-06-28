@@ -5,15 +5,15 @@
   playTimeTracker: JobQuartermaster
   setPreference: true
   requirements:
-    - !type:RoleTimeRequirement
-      role: JobCargoTechnician
-      time: 1800 # 5 hrs
-    - !type:RoleTimeRequirement
-      role: JobSalvageSpecialist
-      time: 9000 # 2.5 hrs
-    - !type:DepartmentTimeRequirement
-      department: Cargo
-      time: 3600 # 10 hours
+  - !type:RoleTimeRequirement
+    role: JobCargoTechnician
+    time: 1800 # 5 hrs
+  - !type:RoleTimeRequirement
+    role: JobSalvageSpecialist
+    time: 9000 # 2.5 hrs
+  - !type:DepartmentTimeRequirement
+    department: Cargo
+    time: 3600 # 10 hours
   weight: 20 # HardLight: 10<20
   startingGear: QuartermasterGear
   icon: "JobIconQuarterMaster"
@@ -35,7 +35,7 @@
   - GeneralAccess # Frontier
   special:
   - !type:AddImplantSpecial
-    implants: [ MindShieldImplant ]
+    implants: [MindShieldImplant]
   - !type:AddComponentSpecial
     components:
     - type: CommandStaff

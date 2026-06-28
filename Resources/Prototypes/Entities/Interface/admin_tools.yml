@@ -3,7 +3,7 @@
 
 - type: entity
   id: AdminCamera
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   name: admin camera
   description: We are watching you.
   components:

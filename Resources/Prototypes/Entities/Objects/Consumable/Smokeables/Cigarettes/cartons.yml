@@ -1,6 +1,6 @@
 - type: entity
   id: CigCartonGreen
-  parent: [ BoxCardboard, BaseBagOpenClose ]
+  parent: [BoxCardboard, BaseBagOpenClose]
   name: Spessman's Smokes carton
   description: "A carton containing 6 packets of Spessman's Smokes."
   components:
@@ -15,8 +15,8 @@
     - 0,0,4,1
   - type: StorageFill
     contents:
-      - id: CigPackGreen
-        amount: 5
+    - id: CigPackGreen
+      amount: 5
   - type: Tag
     tags:
     - Trash
@@ -38,8 +38,8 @@
     sprite: Objects/Consumable/Smokeables/Cigarettes/Cartons/red.rsi
   - type: StorageFill
     contents:
-      - id: CigPackRed
-        amount: 5
+    - id: CigPackRed
+      amount: 5
 
 - type: entity
   id: CigCartonBlue
@@ -54,8 +54,8 @@
     sprite: Objects/Consumable/Smokeables/Cigarettes/Cartons/blue.rsi
   - type: StorageFill
     contents:
-      - id: CigPackBlue
-        amount: 5
+    - id: CigPackBlue
+      amount: 5
 
 - type: entity
   id: CigCartonBlack
@@ -70,8 +70,8 @@
     sprite: Objects/Consumable/Smokeables/Cigarettes/Cartons/black.rsi
   - type: StorageFill
     contents:
-      - id: CigPackBlack
-        amount: 5
+    - id: CigPackBlack
+      amount: 5
 
 - type: entity
   id: CigCartonMixed
@@ -86,6 +86,6 @@
     sprite: Objects/Consumable/Smokeables/Cigarettes/Cartons/mixed.rsi
   - type: StorageFill
     contents:
-      - id: CigPackMixedMedical
-      - id: CigPackMixed
-      - id: CigPackMixedNasty
+    - id: CigPackMixedMedical
+    - id: CigPackMixed
+    - id: CigPackMixedNasty

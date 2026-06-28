@@ -46,8 +46,6 @@ public sealed partial class TileToolDoAfterEvent : DoAfterEvent
 
     public override bool IsDuplicate(DoAfterEvent other)
     {
-        return other is TileToolDoAfterEvent otherTile
-               && Grid == otherTile.Grid
-               && GridTile == otherTile.GridTile;
+        return other is TileToolDoAfterEvent otherTile && Grid == otherTile.Grid && GridTile == otherTile.GridTile;
     }
 }

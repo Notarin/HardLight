@@ -45,7 +45,7 @@ public partial class SharedMartialArtsSystem
         if (martialArtsKnowledge.MartialArtsForm != MartialArtsForms.CorporateJudo)
             return;
 
-        if(!TryComp<MeleeWeaponComponent>(args.Wearer, out var meleeWeaponComponent))
+        if (!TryComp<MeleeWeaponComponent>(args.Wearer, out var meleeWeaponComponent))
             return;
 
         meleeWeaponComponent.Damage = martialArtsKnowledge.OriginalFistDamage;
@@ -60,9 +60,11 @@ public partial class SharedMartialArtsSystem
 
     private void OnJudoThrow(Entity<CanPerformComboComponent> ent, ref JudoThrowPerformedEvent args)
     {
-        if (!_proto.TryIndex(ent.Comp.BeingPerformed, out var proto)
+        if (
+            !_proto.TryIndex(ent.Comp.BeingPerformed, out var proto)
             || !TryUseMartialArt(ent, proto.MartialArtsForm, out var target, out var downed)
-            || downed)
+            || downed
+        )
             return;
 
         _stun.TryKnockdown(target, TimeSpan.FromSeconds(proto.ParalyzeTime), false);
@@ -75,23 +77,29 @@ public partial class SharedMartialArtsSystem
 
     private void OnJudoEyepoke(Entity<CanPerformComboComponent> ent, ref JudoEyePokePerformedEvent args)
     {
-        if (!_proto.TryIndex(ent.Comp.BeingPerformed, out var proto)
-            || !TryUseMartialArt(ent, proto.MartialArtsForm, out var target, out _))
+        if (
+            !_proto.TryIndex(ent.Comp.BeingPerformed, out var proto)
+            || !TryUseMartialArt(ent, proto.MartialArtsForm, out var target, out _)
+        )
             return;
 
         if (!TryComp(target, out StatusEffectsComponent? status))
             return;
 
-        _status.TryAddStatusEffect<TemporaryBlindnessComponent>(target,
+        _status.TryAddStatusEffect<TemporaryBlindnessComponent>(
+            target,
             "TemporaryBlindness",
             TimeSpan.FromSeconds(2),
             true,
-            status);
-        _status.TryAddStatusEffect<BlurryVisionComponent>(target,
+            status
+        );
+        _status.TryAddStatusEffect<BlurryVisionComponent>(
+            target,
             "BlurryVision",
             TimeSpan.FromSeconds(5),
             false,
-            status);
+            status
+        );
         DoDamage(ent, target, proto.DamageType, proto.ExtraDamage, out _);
         _audio.PlayPvs(new SoundPathSpecifier("/Audio/Weapons/genhit3.ogg"), target);
         ComboPopup(ent, target, proto.Name);
@@ -99,8 +107,10 @@ public partial class SharedMartialArtsSystem
 
     private void OnJudoArmbar(Entity<CanPerformComboComponent> ent, ref JudoArmbarPerformedEvent args)
     {
-        if (!_proto.TryIndex(ent.Comp.BeingPerformed, out var proto)
-            || !TryUseMartialArt(ent, proto.MartialArtsForm, out var target, out var downed))
+        if (
+            !_proto.TryIndex(ent.Comp.BeingPerformed, out var proto)
+            || !TryUseMartialArt(ent, proto.MartialArtsForm, out var target, out var downed)
+        )
             return;
 
         switch (downed)

@@ -9,7 +9,8 @@ namespace Content.Shared.HealthExaminable;
 
 public sealed class HealthExaminableSystem : EntitySystem
 {
-    [Dependency] private readonly ExamineSystemShared _examineSystem = default!;
+    [Dependency]
+    private readonly ExamineSystemShared _examineSystem = default!;
 
     public override void Initialize()
     {
@@ -36,7 +37,7 @@ public sealed class HealthExaminableSystem : EntitySystem
             Category = VerbCategory.Examine,
             Disabled = !detailsRange,
             Message = detailsRange ? null : Loc.GetString("health-examinable-verb-disabled"),
-            Icon = new SpriteSpecifier.Texture(new ("/Textures/Interface/VerbIcons/rejuvenate.svg.192dpi.png"))
+            Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/rejuvenate.svg.192dpi.png")),
         };
 
         args.Verbs.Add(verb);
@@ -61,7 +62,10 @@ public sealed class HealthExaminableSystem : EntitySystem
             foreach (var threshold in component.Thresholds)
             {
                 var str = $"health-examinable-{component.LocPrefix}-{type}-{threshold}";
-                var tempLocStr = Loc.GetString($"health-examinable-{component.LocPrefix}-{type}-{threshold}", ("target", Identity.Entity(uid, EntityManager)));
+                var tempLocStr = Loc.GetString(
+                    $"health-examinable-{component.LocPrefix}-{type}-{threshold}",
+                    ("target", Identity.Entity(uid, EntityManager))
+                );
 
                 // i.e., this string doesn't exist, because theres nothing for that threshold
                 if (tempLocStr == str)

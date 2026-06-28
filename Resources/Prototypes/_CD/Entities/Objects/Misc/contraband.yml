@@ -9,7 +9,7 @@
     state: brown_icon
 
 - type: entity
-  parent: [BaseItem, BaseC3Contraband]  
+  parent: [BaseItem, BaseC3Contraband]
   id: BaseOpenedPacket
   abstract: true
   components:

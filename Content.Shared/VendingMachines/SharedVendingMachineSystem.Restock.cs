@@ -9,19 +9,25 @@ namespace Content.Shared.VendingMachines;
 
 public abstract partial class SharedVendingMachineSystem
 {
-    public bool TryAccessMachine(EntityUid uid,
+    public bool TryAccessMachine(
+        EntityUid uid,
         VendingMachineRestockComponent restock,
         VendingMachineComponent machineComponent,
         EntityUid user,
-        EntityUid target)
+        EntityUid target
+    )
     {
         if (!TryComp<WiresPanelComponent>(target, out var panel) || !panel.Open)
         {
-            Popup.PopupPredictedCursor(Loc.GetString("vending-machine-restock-needs-panel-open",
+            Popup.PopupPredictedCursor(
+                Loc.GetString(
+                    "vending-machine-restock-needs-panel-open",
                     ("this", uid),
                     ("user", user),
-                    ("target", target)),
-                user);
+                    ("target", target)
+                ),
+                user
+            );
 
             return false;
         }
@@ -29,16 +35,25 @@ public abstract partial class SharedVendingMachineSystem
         return true;
     }
 
-    public bool TryMatchPackageToMachine(EntityUid uid,
+    public bool TryMatchPackageToMachine(
+        EntityUid uid,
         VendingMachineRestockComponent component,
         VendingMachineComponent machineComponent,
         EntityUid user,
-        EntityUid target)
+        EntityUid target
+    )
     {
         if (!component.CanRestock.Contains(machineComponent.PackPrototypeId))
         {
-            Popup.PopupPredictedCursor(Loc.GetString("vending-machine-restock-invalid-inventory", ("this", uid), ("user", user),
-                ("target", target)), user);
+            Popup.PopupPredictedCursor(
+                Loc.GetString(
+                    "vending-machine-restock-invalid-inventory",
+                    ("this", uid),
+                    ("user", user),
+                    ("target", target)
+                ),
+                user
+            );
 
             return false;
         }
@@ -62,8 +77,15 @@ public abstract partial class SharedVendingMachineSystem
 
         args.Handled = true;
 
-        var doAfterArgs = new DoAfterArgs(EntityManager, args.User, (float)component.RestockDelay.TotalSeconds, new RestockDoAfterEvent(), target,
-            target: target, used: uid)
+        var doAfterArgs = new DoAfterArgs(
+            EntityManager,
+            args.User,
+            (float)component.RestockDelay.TotalSeconds,
+            new RestockDoAfterEvent(),
+            target,
+            target: target,
+            used: uid
+        )
         {
             BreakOnMove = true,
             BreakOnDamage = true,
@@ -74,12 +96,12 @@ public abstract partial class SharedVendingMachineSystem
             return;
 
         var selfMessage = Loc.GetString("vending-machine-restock-start-self", ("target", target));
-        var othersMessage = Loc.GetString("vending-machine-restock-start-others", ("user", Identity.Entity(args.User, EntityManager)), ("target", target));
-        Popup.PopupPredicted(selfMessage,
-            othersMessage,
-            uid,
-            args.User,
-            PopupType.Medium);
+        var othersMessage = Loc.GetString(
+            "vending-machine-restock-start-others",
+            ("user", Identity.Entity(args.User, EntityManager)),
+            ("target", target)
+        );
+        Popup.PopupPredicted(selfMessage, othersMessage, uid, args.User, PopupType.Medium);
 
         Audio.PlayPredicted(component.SoundRestockStart, uid, args.User);
     }

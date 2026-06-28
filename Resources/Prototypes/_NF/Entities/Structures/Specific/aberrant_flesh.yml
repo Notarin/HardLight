@@ -15,8 +15,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.45
         density: 500
         mask:
@@ -41,25 +40,21 @@
   - type: RangedDamageSound
     soundGroups:
       Brute:
-        collection:
-          MeatBulletImpact
+        collection: MeatBulletImpact
     soundTypes:
       Heat:
-        collection:
-          MeatLaserImpact
+        collection: MeatLaserImpact
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 60
       behaviors:
       - !type:PlaySoundBehavior
         sound:
           collection: gib
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 30
       behaviors:
       - !type:DoActsBehavior

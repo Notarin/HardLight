@@ -14,8 +14,8 @@
     - state: icon
     - state: icon-on
       visible: False
-      map: [ "enum.ToggleVisuals.Layer" ]
-    # End Frontier
+      map: ["enum.ToggleVisuals.Layer"]
+      # End Frontier
   - type: Clothing
     sprite: Objects/Specific/Mining/ore_bag.rsi
     quickEquip: false
@@ -31,8 +31,8 @@
     areaInsert: true
     whitelist:
       tags:
-        - ArtifactFragment
-        - Ore
+      - ArtifactFragment
+      - Ore
   - type: Dumpable
   - type: NFOreBag # Frontier
   # Begin DeltaV Additions: toggle magnet from White Dream
@@ -53,6 +53,6 @@
     visuals:
       enum.ToggleVisuals.Toggled:
         enum.ToggleVisuals.Layer:
-          True: { visible: True }
-          False: { visible: False }
+          True: {visible: True}
+          False: {visible: False}
   # End DeltaV Additions

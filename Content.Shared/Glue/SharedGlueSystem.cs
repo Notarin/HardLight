@@ -1,5 +1,3 @@
 namespace Content.Shared.Glue;
 
-public abstract class SharedGlueSystem : EntitySystem
-{
-}
+public abstract class SharedGlueSystem : EntitySystem { }

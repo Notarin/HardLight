@@ -24,7 +24,11 @@ public sealed partial class SwapTeleporterComponent : Component
     /// <summary>
     /// the time at which <see cref="TeleportDelay"/> ends and the teleportation occurs
     /// </summary>
-    [DataField(customTypeSerializer: typeof(TimeOffsetSerializer)), ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
+    [
+        DataField(customTypeSerializer: typeof(TimeOffsetSerializer)),
+        ViewVariables(VVAccess.ReadWrite),
+        AutoNetworkedField
+    ]
     public TimeSpan? TeleportTime;
 
     /// <summary>
@@ -36,7 +40,11 @@ public sealed partial class SwapTeleporterComponent : Component
     /// <summary>
     /// The time at which <see cref="Cooldown"/> ends and teleportation can occur again.
     /// </summary>
-    [DataField(customTypeSerializer: typeof(TimeOffsetSerializer)), ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
+    [
+        DataField(customTypeSerializer: typeof(TimeOffsetSerializer)),
+        ViewVariables(VVAccess.ReadWrite),
+        AutoNetworkedField
+    ]
     [AutoPausedField]
     public TimeSpan NextTeleportUse;
 
@@ -62,5 +70,5 @@ public sealed partial class SwapTeleporterComponent : Component
 [Serializable, NetSerializable]
 public enum SwapTeleporterVisuals : byte
 {
-    Linked
+    Linked,
 }

@@ -8,7 +8,7 @@
     mayTransfer: true
     whitelist:
       tags:
-        - CartridgeCaselessRifle
+      - CartridgeCaselessRifle
     proto: CartridgeCaselessRifle # Frontier
     capacity: 60
   - type: Item

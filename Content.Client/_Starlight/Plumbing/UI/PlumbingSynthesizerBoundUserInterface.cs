@@ -9,9 +9,8 @@ public sealed class PlumbingSynthesizerBoundUserInterface : BoundUserInterface
 {
     private PlumbingSynthesizerWindow? _window;
 
-    public PlumbingSynthesizerBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-    }
+    public PlumbingSynthesizerBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {

@@ -9,5 +9,6 @@ public sealed partial class LeashedComponent : Component
     public string? JointId = null;
 
     [NonSerialized]
-    public EntityUid? Puller = null, Anchor = null;
+    public EntityUid? Puller = null,
+        Anchor = null;
 }

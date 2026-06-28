@@ -124,7 +124,12 @@ public sealed class RoundedStyleBoxFlat : StyleBox
     private void DrawRoundedBorder(DrawingHandleScreen handle, UIBox2 box, Thickness thickness, float radius)
     {
         var outer = CreateRoundedRectVertices(box, radius);
-        var innerBox = new UIBox2(box.Left + thickness.Left, box.Top + thickness.Top, box.Right - thickness.Right, box.Bottom - thickness.Bottom);
+        var innerBox = new UIBox2(
+            box.Left + thickness.Left,
+            box.Top + thickness.Top,
+            box.Right - thickness.Right,
+            box.Bottom - thickness.Bottom
+        );
         var innerRadius = Math.Max(0, radius - Math.Max(thickness.Left, thickness.Top));
         var inner = CreateRoundedRectVertices(innerBox, innerRadius);
 
@@ -140,9 +145,7 @@ public sealed class RoundedStyleBoxFlat : StyleBox
         handle.DrawPrimitives(DrawPrimitiveTopology.TriangleStrip, vertices.ToArray(), BorderColor);
     }
 
-    public RoundedStyleBoxFlat()
-    {
-    }
+    public RoundedStyleBoxFlat() { }
 
     public RoundedStyleBoxFlat(Color backgroundColor, float cornerRadius = 0f)
     {
@@ -150,7 +153,8 @@ public sealed class RoundedStyleBoxFlat : StyleBox
         CornerRadius = cornerRadius;
     }
 
-    public RoundedStyleBoxFlat(RoundedStyleBoxFlat other) : base(other)
+    public RoundedStyleBoxFlat(RoundedStyleBoxFlat other)
+        : base(other)
     {
         BackgroundColor = other.BackgroundColor;
         BorderColor = other.BorderColor;
@@ -166,7 +170,7 @@ public sealed class RoundedStyleBoxFlat : StyleBox
             Margin.Bottom => BorderThickness.Bottom,
             Margin.Right => BorderThickness.Right,
             Margin.Left => BorderThickness.Left,
-            _ => throw new ArgumentOutOfRangeException(nameof(margin), margin, null)
+            _ => throw new ArgumentOutOfRangeException(nameof(margin), margin, null),
         };
     }
 }

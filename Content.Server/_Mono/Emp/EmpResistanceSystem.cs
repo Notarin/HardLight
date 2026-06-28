@@ -11,7 +11,8 @@ namespace Content.Server._Mono.Emp;
 /// </summary>
 public sealed class EmpResistanceSystem : EntitySystem
 {
-    [Dependency] private readonly ExamineSystemShared _examine = default!;
+    [Dependency]
+    private readonly ExamineSystemShared _examine = default!;
 
     public override void Initialize()
     {
@@ -25,18 +26,24 @@ public sealed class EmpResistanceSystem : EntitySystem
 
         var msg = FormatEmp(ent.Comp, battery);
 
-        _examine.AddDetailedExamineVerb(args, ent.Comp, msg,
+        _examine.AddDetailedExamineVerb(
+            args,
+            ent.Comp,
+            msg,
             Loc.GetString("battery-examinable-verb-text"),
             "/Textures/Interface/VerbIcons/smite.svg.192dpi.png",
-            Loc.GetString("battery-examinable-verb-message"));
+            Loc.GetString("battery-examinable-verb-message")
+        );
     }
 
     private FormattedMessage FormatEmp(EmpResistanceComponent res, BatteryComponent battery)
     {
         var msg = new FormattedMessage();
-        msg.AddMarkupOrThrow(res.Coefficient == 0
-            ? Loc.GetString("battery-examine-emp-null")
-            : Loc.GetString("battery-examine-emp", ("energy", battery.MaxCharge / res.Coefficient)));
+        msg.AddMarkupOrThrow(
+            res.Coefficient == 0
+                ? Loc.GetString("battery-examine-emp-null")
+                : Loc.GetString("battery-examine-emp", ("energy", battery.MaxCharge / res.Coefficient))
+        );
         return msg;
     }
 }

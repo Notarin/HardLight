@@ -9,7 +9,8 @@ namespace Content.Server._Mono.Traits.Physical;
 /// </summary>
 public sealed class LethargySystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     public override void Initialize()
     {
@@ -59,5 +60,3 @@ public sealed class LethargySystem : EntitySystem
         Dirty(ent, stamina);
     }
 }
-
-

@@ -25,7 +25,8 @@ public sealed class JobTest
     private static string _map = "JobTestMap";
 
     [TestPrototypes]
-    private static readonly string JobTestMap = @$"
+    private static readonly string JobTestMap =
+        @$"
 - type: gameMap
   id: {_map}
   mapName: {_map}
@@ -71,14 +72,16 @@ public sealed class JobTest
     [Test]
     public async Task StartRoundTest()
     {
-        await using var pair = await PoolManager.GetServerClient(new PoolSettings
-        {
-            DummyTicker = false,
-            Connected = true,
-            InLobby = true,
-            Fresh = true, // HL: Tests that edit the round state break stuff on future tests
-            Destructive = true
-        });
+        await using var pair = await PoolManager.GetServerClient(
+            new PoolSettings
+            {
+                DummyTicker = false,
+                Connected = true,
+                InLobby = true,
+                Fresh = true, // HL: Tests that edit the round state break stuff on future tests
+                Destructive = true,
+            }
+        );
 
         pair.Server.CfgMan.SetCVar(CCVars.GameMap, _map);
         var ticker = pair.Server.System<GameTicker>();
@@ -107,14 +110,16 @@ public sealed class JobTest
     [Test]
     public async Task JobPreferenceTest()
     {
-        await using var pair = await PoolManager.GetServerClient(new PoolSettings
-        {
-            DummyTicker = false,
-            Connected = true,
-            InLobby = true,
-            Fresh = true,
-            Destructive = true
-        });
+        await using var pair = await PoolManager.GetServerClient(
+            new PoolSettings
+            {
+                DummyTicker = false,
+                Connected = true,
+                InLobby = true,
+                Fresh = true,
+                Destructive = true,
+            }
+        );
 
         pair.Server.CfgMan.SetCVar(CCVars.GameMap, _map);
         var ticker = pair.Server.System<GameTicker>();
@@ -148,14 +153,16 @@ public sealed class JobTest
     [Test]
     public async Task JobWeightTest()
     {
-        await using var pair = await PoolManager.GetServerClient(new PoolSettings
-        {
-            DummyTicker = false,
-            Connected = true,
-            InLobby = true,
-            Fresh = true,
-            Destructive = true
-        });
+        await using var pair = await PoolManager.GetServerClient(
+            new PoolSettings
+            {
+                DummyTicker = false,
+                Connected = true,
+                InLobby = true,
+                Fresh = true,
+                Destructive = true,
+            }
+        );
 
         pair.Server.CfgMan.SetCVar(CCVars.GameMap, _map);
         var ticker = pair.Server.System<GameTicker>();
@@ -168,7 +175,11 @@ public sealed class JobTest
         Assert.That(captain.Weight, Is.GreaterThan(engineer.Weight));
         Assert.That(engineer.Weight, Is.EqualTo(passenger.Weight));
 
-        await pair.SetJobPriorities((Passenger, JobPriority.Medium), (Engineer, JobPriority.High), (Captain, JobPriority.Low));
+        await pair.SetJobPriorities(
+            (Passenger, JobPriority.Medium),
+            (Engineer, JobPriority.High),
+            (Captain, JobPriority.Low)
+        );
         ticker.ToggleReadyAll(true);
         await pair.Server.WaitPost(() => ticker.StartRound());
         await pair.RunTicksSync(10);
@@ -185,14 +196,16 @@ public sealed class JobTest
     [Test]
     public async Task JobPriorityTest()
     {
-        await using var pair = await PoolManager.GetServerClient(new PoolSettings
-        {
-            DummyTicker = false,
-            Connected = true,
-            InLobby = true,
-            Fresh = true,
-            Destructive = true
-        });
+        await using var pair = await PoolManager.GetServerClient(
+            new PoolSettings
+            {
+                DummyTicker = false,
+                Connected = true,
+                InLobby = true,
+                Fresh = true,
+                Destructive = true,
+            }
+        );
 
         pair.Server.CfgMan.SetCVar(CCVars.GameMap, _map);
         var ticker = pair.Server.System<GameTicker>();

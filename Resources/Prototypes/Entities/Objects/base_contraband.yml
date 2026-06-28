@@ -30,7 +30,6 @@
 #   - type: Contraband
 #     severity: Syndicate
 
-
 # # minor contraband not departmentally restricted -- improvised weapons etc
 # - type: entity
 #   id: BaseMinorContraband
@@ -64,7 +63,7 @@
   abstract: true
   components:
   - type: Contraband
-    allowedDepartments: [ CentralCommand ]
+    allowedDepartments: [CentralCommand]
 
 - type: entity
   id: BaseCommandContraband
@@ -72,7 +71,7 @@
   abstract: true
   components:
   - type: Contraband
-    allowedDepartments: [ Command ]
+    allowedDepartments: [Command]
 
 - type: entity
   id: BaseSecurityContraband
@@ -80,7 +79,7 @@
   abstract: true
   components:
   - type: Contraband
-    allowedDepartments: [ Security ]
+    allowedDepartments: [Security]
 
 # - type: entity
 #   id: BaseEngineeringContraband
@@ -129,7 +128,7 @@
   abstract: true
   components:
   - type: Contraband
-    allowedDepartments: [ CentralCommand, Command ]
+    allowedDepartments: [CentralCommand, Command]
 
 # - type: entity
 #   id: BaseSecurityCommandContraband
@@ -204,8 +203,8 @@
   abstract: true
   components:
   - type: Contraband
-    allowedDepartments: [ Security ]
-    allowedJobs: [ Lawyer ]
+    allowedDepartments: [Security]
+    allowedJobs: [Lawyer]
 
 # - type: entity
 #   id: BaseJanitorContraband

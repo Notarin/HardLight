@@ -4,7 +4,7 @@
   id: SyndieOmniHand
   suffix: Unremoveable
   description: Advanced and illegal engineering cybernetic, useful for many construction tasks. Has a manipulator to use your hand normally when tools are not active.
-  components: 
+  components:
   - type: Unremoveable
   - type: Tool
   - type: Sprite
@@ -34,8 +34,8 @@
     visuals:
       enum.ToggleVisuals.Toggled:
         enum.ToggleVisuals.Layer:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
   - type: Item
     sprite: _HL/Objects/Tools/syndie_omnihand.rsi
     size: Normal
@@ -59,7 +59,7 @@
             - state: inhand-right
         - type: Tool
           qualities:
-            - Prying
+          - Prying
           speedModifier: 2.0
         - type: Prying
           speedModifier: 3.0
@@ -85,7 +85,7 @@
         components:
         - type: Tool
           qualities:
-            - Screwing
+          - Screwing
           speedModifier: 2
           useSound:
             path: /Audio/Items/drill_use.ogg
@@ -116,7 +116,7 @@
         - type: ToolTileCompatible
         - type: Tool
           qualities:
-            - Cutting
+          - Cutting
           speedModifier: 2
           useSound:
             path: /Audio/Items/jaws_cut.ogg
@@ -146,7 +146,7 @@
         components:
         - type: Tool
           qualities:
-            - Anchoring
+          - Anchoring
           speedModifier: 2
           useSound:
             path: /Audio/Items/drill_use.ogg
@@ -176,7 +176,7 @@
         components:
         - type: Tool
           qualities:
-            - Pulsing
+          - Pulsing
         - type: NetworkConfigurator
         - type: Item
           sprite: _HL/Objects/Tools/syndie_omnihand.rsi
@@ -266,46 +266,46 @@
               Blunt: 5
   - type: Tag
     tags:
-      - Multitool
-      - DoorElectronicsConfigurator
-      - Wrench
-      - PlantSampleTaker
-      - Wirecutter
-      - Screwdriver
-      
+    - Multitool
+    - DoorElectronicsConfigurator
+    - Wrench
+    - PlantSampleTaker
+    - Wirecutter
+    - Screwdriver
+
 - type: entity
   id: CyberneticsSyndieOmnihandRight
   parent: [RightArmCybernetic, BaseC3SyndicateContraband]
   name: right syndicate omnihand "S.I.P. 666"
   description: Have you ever been jealous of borgs and their built-in tools? Well that issue is now solved forever!
   components:
-    - type: Sprite
-      sprite: _HL/Objects/Tools/syndie_omnihand.rsi
-      layers:
-        - state: omnihand
-    - type: BodyPart
-      onAdd:
-        - type: SyndieOmniHand
-     
+  - type: Sprite
+    sprite: _HL/Objects/Tools/syndie_omnihand.rsi
+    layers:
+    - state: omnihand
+  - type: BodyPart
+    onAdd:
+    - type: SyndieOmniHand
+
 - type: entity
   id: CyberneticsSyndieOmnihandLeft
   parent: [LeftArmCybernetic, BaseC3SyndicateContraband]
   name: left syndicate omnihand "S.I.P. 666"
   description: Have you ever been jealous of  borgs and their built-in tools? Well that issue is now solved forever!
   components:
-    - type: Sprite
-      sprite: _HL/Objects/Tools/syndie_omnihand.rsi
-      layers:
-        - state: omnihand
-    - type: BodyPart
-      onAdd:
-        - type: SyndieOmniHand
-     
+  - type: Sprite
+    sprite: _HL/Objects/Tools/syndie_omnihand.rsi
+    layers:
+    - state: omnihand
+  - type: BodyPart
+    onAdd:
+    - type: SyndieOmniHand
+
 - type: entity
   id: ActionToggleSyndieOmniHand
   name: Toggle Syndicate Omnitool hand
   description: Turns your arm into a set of illegal tools.
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: InstantAction
     useDelay: 2

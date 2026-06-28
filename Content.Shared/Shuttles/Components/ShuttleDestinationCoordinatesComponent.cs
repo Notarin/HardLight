@@ -1,4 +1,5 @@
 namespace Content.Shared.Shuttles.Components;
+
 using Robust.Shared.GameObjects;
 using Robust.Shared.GameStates;
 

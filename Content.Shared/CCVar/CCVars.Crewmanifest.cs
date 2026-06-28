@@ -12,13 +12,19 @@ public sealed partial class CCVars
     ///     Having administrator priveledge ignores this, but will still
     ///     hide the button in UI windows.
     /// </summary>
-    public static readonly CVarDef<bool> CrewManifestWithoutEntity =
-        CVarDef.Create("crewmanifest.no_entity", true, CVar.REPLICATED);
+    public static readonly CVarDef<bool> CrewManifestWithoutEntity = CVarDef.Create(
+        "crewmanifest.no_entity",
+        true,
+        CVar.REPLICATED
+    );
 
     /// <summary>
     ///     Setting this allows the crew manifest to be viewed from 'unsecure'
     ///     entities, such as the PDA.
     /// </summary>
-    public static readonly CVarDef<bool> CrewManifestUnsecure =
-        CVarDef.Create("crewmanifest.unsecure", true, CVar.REPLICATED);
+    public static readonly CVarDef<bool> CrewManifestUnsecure = CVarDef.Create(
+        "crewmanifest.unsecure",
+        true,
+        CVar.REPLICATED
+    );
 }

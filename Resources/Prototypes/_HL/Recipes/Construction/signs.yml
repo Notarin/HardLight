@@ -9,7 +9,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignDirectionalAtmos
@@ -22,7 +22,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignDirectionalBar
@@ -35,7 +35,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignDirectionalBridge
@@ -48,7 +48,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignDirectionalBrig
@@ -61,7 +61,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignDirectionalChapel
@@ -74,7 +74,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignDirectionalChemistry
@@ -87,7 +87,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignDirectionalCryo
@@ -100,7 +100,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignDirectionalDorms
@@ -113,7 +113,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignDirectionalEng
@@ -126,7 +126,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignDirectionalEvac
@@ -139,7 +139,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignDirectionalExam
@@ -152,7 +152,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignDirectionalFood
@@ -165,7 +165,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignDirectionalGravity
@@ -178,7 +178,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignDirectionalHop
@@ -191,7 +191,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignDirectionalHydro
@@ -204,7 +204,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignDirectionalIcu
@@ -217,7 +217,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignDirectionalJanitor
@@ -230,7 +230,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignDirectionalLibrary
@@ -243,7 +243,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignDirectionalMed
@@ -256,7 +256,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignDirectionalSalvage
@@ -269,7 +269,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignDirectionalSci
@@ -282,7 +282,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignDirectionalSec
@@ -295,7 +295,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignDirectionalSolar
@@ -308,7 +308,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignDirectionalSupply
@@ -321,7 +321,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignDirectionalWash
@@ -334,7 +334,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignDirectionalEscapePod
@@ -347,7 +347,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignAi
@@ -360,7 +360,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignAiUpload
@@ -373,7 +373,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignArcade
@@ -386,7 +386,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignArmory
@@ -399,7 +399,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignToolStorage
@@ -412,7 +412,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignAnomaly
@@ -425,7 +425,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignAnomaly2
@@ -438,7 +438,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignAtmos
@@ -451,7 +451,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignBar
@@ -464,7 +464,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignBath
@@ -477,7 +477,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignKitchen
@@ -490,7 +490,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignTheater
@@ -503,7 +503,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignBarbershop
@@ -516,7 +516,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignBio
@@ -529,7 +529,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignBiohazard
@@ -542,7 +542,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignBridge
@@ -555,7 +555,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignCanisters
@@ -568,7 +568,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignCargo
@@ -581,7 +581,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignCargoDock
@@ -594,7 +594,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignChapel
@@ -607,7 +607,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignChem
@@ -620,7 +620,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignCloning
@@ -633,7 +633,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignConference
@@ -646,7 +646,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignCryo
@@ -659,7 +659,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignDisposalSpace
@@ -672,7 +672,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignDoors
@@ -685,7 +685,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignRestroom
@@ -698,7 +698,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignMaterials
@@ -711,7 +711,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignEngine
@@ -724,7 +724,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignEngineering
@@ -737,7 +737,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignEscapePods
@@ -750,7 +750,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignEVA
@@ -763,7 +763,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignElectrical
@@ -776,7 +776,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignExamroom
@@ -789,7 +789,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignFire
@@ -802,7 +802,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignGravity
@@ -815,7 +815,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignHead
@@ -828,7 +828,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignHydro1
@@ -841,7 +841,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignInterrogation
@@ -854,7 +854,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignJanitor
@@ -867,7 +867,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignLaundromat
@@ -880,7 +880,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignLawyer
@@ -893,7 +893,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignLibrary
@@ -906,7 +906,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignMail
@@ -919,7 +919,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignMedical
@@ -932,7 +932,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignMorgue
@@ -945,7 +945,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignNews
@@ -958,7 +958,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignNosmoking
@@ -971,7 +971,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignGenpop
@@ -984,7 +984,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignPrison
@@ -997,7 +997,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignPsychology
@@ -1010,7 +1010,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignReception
@@ -1023,7 +1023,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignRND
@@ -1036,7 +1036,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignRobo
@@ -1049,7 +1049,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignSalvage
@@ -1062,7 +1062,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignScience
@@ -1075,7 +1075,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignServer
@@ -1088,7 +1088,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignCans
@@ -1101,7 +1101,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignCansScience
@@ -1114,7 +1114,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignShipDock
@@ -1127,7 +1127,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignSpace
@@ -1140,7 +1140,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignSurgery
@@ -1153,7 +1153,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignTelecomms
@@ -1166,7 +1166,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignToxins
@@ -1179,7 +1179,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignVault
@@ -1192,7 +1192,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignVirology
@@ -1205,7 +1205,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignCorrosives
@@ -1218,7 +1218,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignCryogenics
@@ -1231,7 +1231,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignDanger
@@ -1244,7 +1244,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignExplosives
@@ -1257,7 +1257,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignFlammable
@@ -1270,7 +1270,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignLaser
@@ -1283,7 +1283,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignMagnetics
@@ -1296,7 +1296,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignMemetic
@@ -1309,7 +1309,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignSecure
@@ -1322,7 +1322,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignSecurearea
@@ -1335,7 +1335,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignShock
@@ -1348,7 +1348,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignOptical
@@ -1361,7 +1361,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignOxidants
@@ -1374,7 +1374,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignRadiation
@@ -1387,7 +1387,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignXenobio
@@ -1400,7 +1400,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignZomlab
@@ -1413,7 +1413,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignSecureMedRed
@@ -1426,7 +1426,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignSecureSmall
@@ -1439,7 +1439,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignSecureSmallRed
@@ -1452,7 +1452,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignBlankMed
@@ -1465,7 +1465,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignMagneticsMed
@@ -1478,7 +1478,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignDangerMed
@@ -1491,7 +1491,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: ExplosivesSignMed
@@ -1504,7 +1504,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignCryogenicsMed
@@ -1517,7 +1517,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignElectricalMed
@@ -1530,7 +1530,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignBiohazardMed
@@ -1543,7 +1543,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignRadiationMed
@@ -1556,7 +1556,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignFlammableMed
@@ -1569,7 +1569,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignLaserMed
@@ -1582,7 +1582,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignSecureMed
@@ -1595,7 +1595,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignVox
@@ -1608,7 +1608,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: WarningAir
@@ -1621,7 +1621,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: WarningCO2
@@ -1634,7 +1634,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: WarningN2
@@ -1647,7 +1647,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: WarningN2O
@@ -1660,7 +1660,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: WarningO2
@@ -1673,7 +1673,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: WarningPlasma
@@ -1686,7 +1686,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: WarningTritium
@@ -1699,7 +1699,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: WarningWaste
@@ -1712,7 +1712,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignSmoking
@@ -1725,7 +1725,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignSomethingOld
@@ -1738,7 +1738,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignSomethingOld2
@@ -1751,7 +1751,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignSecurity
@@ -1764,7 +1764,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignPlaque
@@ -1777,7 +1777,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignKiddiePlaque
@@ -1790,7 +1790,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignNanotrasen1
@@ -1803,7 +1803,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignNanotrasen2
@@ -1816,7 +1816,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignNanotrasen3
@@ -1829,7 +1829,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignNanotrasen4
@@ -1842,7 +1842,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignNanotrasen5
@@ -1855,7 +1855,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignRedOne
@@ -1868,7 +1868,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignRedTwo
@@ -1881,7 +1881,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignRedThree
@@ -1894,7 +1894,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignRedFour
@@ -1907,7 +1907,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignRedFive
@@ -1920,7 +1920,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignRedSix
@@ -1933,7 +1933,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignRedSeven
@@ -1946,7 +1946,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignRedEight
@@ -1959,7 +1959,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignRedNine
@@ -1972,7 +1972,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignRedZero
@@ -1985,7 +1985,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignSurvival
@@ -1998,7 +1998,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignNTMine
@@ -2011,4 +2011,4 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition

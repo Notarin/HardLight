@@ -4,9 +4,7 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
-
 namespace Content.Shared._Floof.Lock;
-
 
 /// <summary>
 ///     When applied to a lockable entity, allows installing an adittional layer of security upon it
@@ -47,7 +45,8 @@ public sealed partial class IdLockComponent : Component
     public HashSet<ProtoId<AccessLevelPrototype>> MasterAccesses = new();
 
     [DataField, AutoNetworkedField]
-    public TimeSpan LockTime = TimeSpan.FromSeconds(1), UnlockTime = TimeSpan.FromSeconds(1);
+    public TimeSpan LockTime = TimeSpan.FromSeconds(1),
+        UnlockTime = TimeSpan.FromSeconds(1);
 
     /// <summary>
     ///     Time to unlock the lock using a master ID.
@@ -76,13 +75,15 @@ public sealed partial class IdLockComponent : Component
         ///     Locked.
         /// </summary>
         Engaged,
+
         /// <summary>
         ///     Unlocked.
         /// </summary>
         Disengaged,
+
         /// <summary>
         ///     Opened via a master ID, can be locked again without erasing the owner info.
         /// </summary>
-        TemporarilyDisengaged
+        TemporarilyDisengaged,
     }
 }

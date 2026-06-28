@@ -13,7 +13,8 @@ namespace Content.Client._Goobstation.Factory.UI;
 [GenerateTypedNameReferences]
 public sealed partial class NameFilterWindow : FancyWindow
 {
-    [Dependency] private readonly EntityManager _entMan = default!;
+    [Dependency]
+    private readonly EntityManager _entMan = default!;
 
     public event Action<string>? OnSetName;
     public event Action<NameFilterMode>? OnSetMode;
@@ -25,13 +26,13 @@ public sealed partial class NameFilterWindow : FancyWindow
 
         foreach (var mode in Enum.GetValues<NameFilterMode>())
         {
-            ModeButton.AddItem(Loc.GetString($"name-filter-mode-{mode}"), (int) mode);
+            ModeButton.AddItem(Loc.GetString($"name-filter-mode-{mode}"), (int)mode);
         }
 
         ModeButton.OnItemSelected += args =>
         {
             ModeButton.SelectId(args.Id);
-            OnSetMode?.Invoke((NameFilterMode) args.Id);
+            OnSetMode?.Invoke((NameFilterMode)args.Id);
         };
 
         NameEdit.OnTextChanged += _ => OnSetName?.Invoke(NameEdit.Text);
@@ -42,7 +43,7 @@ public sealed partial class NameFilterWindow : FancyWindow
         if (!_entMan.TryGetComponent<NameFilterComponent>(uid, out var comp))
             return;
 
-        ModeButton.SelectId((int) comp.Mode);
+        ModeButton.SelectId((int)comp.Mode);
         var max = comp.MaxLength;
         NameEdit.IsValid = name => name.Length < max;
         NameEdit.Text = comp.Name;

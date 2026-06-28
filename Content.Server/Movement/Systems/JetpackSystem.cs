@@ -10,14 +10,17 @@ namespace Content.Server.Movement.Systems;
 
 public sealed class JetpackSystem : SharedJetpackSystem
 {
-    [Dependency] private readonly GasTankSystem _gasTank = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly GasTankSystem _gasTank = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     protected override bool CanEnable(EntityUid uid, JetpackComponent component)
     {
-        return base.CanEnable(uid, component) &&
-               TryComp<GasTankComponent>(uid, out var gasTank) &&
-               !(gasTank.Air.TotalMoles < component.MoleUsage);
+        return base.CanEnable(uid, component)
+            && TryComp<GasTankComponent>(uid, out var gasTank)
+            && !(gasTank.Air.TotalMoles < component.MoleUsage);
     }
 
     public override void Update(float frameTime)
@@ -39,8 +42,7 @@ public sealed class JetpackSystem : SharedJetpackSystem
             if (usedAir == null)
                 continue;
 
-            var usedEnoughAir =
-                MathHelper.CloseTo(usedAir.TotalMoles, comp.MoleUsage, comp.MoleUsage/100);
+            var usedEnoughAir = MathHelper.CloseTo(usedAir.TotalMoles, comp.MoleUsage, comp.MoleUsage / 100);
 
             if (!usedEnoughAir)
             {

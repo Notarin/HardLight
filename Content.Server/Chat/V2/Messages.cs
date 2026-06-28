@@ -66,11 +66,7 @@ public sealed class LoocCreatedEvent(EntityUid speaker, string message) : IChatE
 /// <summary>
 /// Raised locally when a character speaks on the radio.
 /// </summary>
-public sealed class RadioCreatedEvent(
-    EntityUid speaker,
-    string message,
-    RadioChannelPrototype channel)
-    : IChatEvent
+public sealed class RadioCreatedEvent(EntityUid speaker, string message, RadioChannelPrototype channel) : IChatEvent
 {
     public uint Id { get; set; }
     public EntityUid Sender { get; set; } = speaker;
@@ -91,4 +87,3 @@ public sealed class WhisperCreatedEvent(EntityUid speaker, string message, float
     public float MinRange = minRange;
     public float MaxRange = maxRange;
 }
-

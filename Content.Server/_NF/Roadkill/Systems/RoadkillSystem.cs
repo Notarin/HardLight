@@ -18,11 +18,20 @@ namespace Content.Server._NF.Roadkill.Systems;
 /// </summary>
 public sealed class RoadkillSystem : EntitySystem
 {
-    [Dependency] private readonly PhysicsSystem _physics = default!;
-    [Dependency] private readonly AudioSystem _audio = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly MobThresholdSystem _mobThreshold = default!;
-    [Dependency] private readonly DamageableSystem _damageable = default!;
+    [Dependency]
+    private readonly PhysicsSystem _physics = default!;
+
+    [Dependency]
+    private readonly AudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly MobStateSystem _mobState = default!;
+
+    [Dependency]
+    private readonly MobThresholdSystem _mobThreshold = default!;
+
+    [Dependency]
+    private readonly DamageableSystem _damageable = default!;
 
     private readonly ProtoId<DamageTypePrototype> _bluntDamageType = "Blunt";
     private readonly FixedPoint2 _extraDamage = 20;
@@ -41,11 +50,13 @@ public sealed class RoadkillSystem : EntitySystem
 
         // Roadkill collision: roadkillable thing might not be on a grid (e.g. it flew in onto a lattice grid but slams into a wall at high speed)
         // but the thing it collides with should be on a grid (not space) and not be an item
-        if (ourXform.MapUid == null
+        if (
+            ourXform.MapUid == null
             || ourXform.MapUid != otherXform.MapUid
             || otherXform.GridUid == null
             || HasComp<ProjectileComponent>(args.OtherEntity)
-            || HasComp<ItemComponent>(args.OtherEntity))
+            || HasComp<ItemComponent>(args.OtherEntity)
+        )
             return;
 
         var ourVelocity = _physics.GetMapLinearVelocity(ent, args.OurBody, ourXform);
@@ -65,9 +76,11 @@ public sealed class RoadkillSystem : EntitySystem
                 return;
 
             // Try to apply damage if this thing can take damage.
-            if (_mobThreshold.TryGetThresholdForState(ent, MobState.Dead, out var threshold) &&
-                TryComp<DamageableComponent>(ent, out var damageableComponent) &&
-                damageableComponent.TotalDamage < threshold)
+            if (
+                _mobThreshold.TryGetThresholdForState(ent, MobState.Dead, out var threshold)
+                && TryComp<DamageableComponent>(ent, out var damageableComponent)
+                && damageableComponent.TotalDamage < threshold
+            )
             {
                 var damage = new DamageSpecifier();
                 damage.DamageDict[_bluntDamageType] = threshold.Value - damageableComponent.TotalDamage + _extraDamage;

@@ -12,9 +12,7 @@
     id: CourierIDCard
   - type: Appearance
     appearanceDataInit:
-      enum.PdaVisuals.PdaType:
-        !type:String
-        pda-mailcarrier
+      enum.PdaVisuals.PdaType: !type:String pda-mailcarrier
   - type: PdaBorderColor
     borderColor: "#e39751"
     accentVColor: "#050c4d"
@@ -22,8 +20,8 @@
     state: pda-mailcarrier
   - type: CartridgeLoader # DeltaV - Courier Performance # Frontier - pushed to cartridge loadouts
     preinstalled:
-      - CrewManifestCartridge
-      - NotekeeperCartridge
-      - NewsReaderCartridge
-      - MailMetricsCartridge
-      - NanoChatCartridge
+    - CrewManifestCartridge
+    - NotekeeperCartridge
+    - NewsReaderCartridge
+    - MailMetricsCartridge
+    - NanoChatCartridge

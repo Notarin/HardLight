@@ -1,6 +1,6 @@
-using Robust.Shared.Prototypes;
 using Content.Shared.Humanoid;
 using Robust.Shared.GameStates;
+using Robust.Shared.Prototypes;
 
 namespace Content.Shared._Shitmed.Medical.Surgery.Steps;
 
@@ -25,5 +25,4 @@ public sealed partial class SurgeryRemoveMarkingStepComponent : Component
     /// </summary>
     [DataField]
     public EntProtoId? ItemSpawn = default!;
-
 }

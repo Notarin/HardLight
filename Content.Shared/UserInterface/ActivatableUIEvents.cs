@@ -1,9 +1,11 @@
 using Robust.Shared.Player;
 
 namespace Content.Shared.UserInterface;
+
 public sealed class ActivatableUIOpenAttemptEvent : CancellableEntityEventArgs
 {
     public EntityUid User { get; }
+
     public ActivatableUIOpenAttemptEvent(EntityUid who)
     {
         User = who;
@@ -14,6 +16,7 @@ public sealed class UserOpenActivatableUIAttemptEvent : CancellableEntityEventAr
 {
     public EntityUid User { get; }
     public EntityUid Target { get; }
+
     public UserOpenActivatableUIAttemptEvent(EntityUid who, EntityUid target)
     {
         User = who;
@@ -41,12 +44,11 @@ public sealed class AfterActivatableUIOpenEvent : EntityEventArgs
 public sealed class BeforeActivatableUIOpenEvent : EntityEventArgs
 {
     public EntityUid User { get; }
+
     public BeforeActivatableUIOpenEvent(EntityUid who)
     {
         User = who;
     }
 }
 
-public sealed class ActivatableUIPlayerChangedEvent : EntityEventArgs
-{
-}
+public sealed class ActivatableUIPlayerChangedEvent : EntityEventArgs { }

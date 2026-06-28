@@ -32,8 +32,12 @@ public abstract class UnequipAttemptEventBase : CancellableEntityEventArgs
     /// </summary>
     public string? Reason;
 
-    public UnequipAttemptEventBase(EntityUid unequipee, EntityUid unEquipTarget, EntityUid equipment,
-        SlotDefinition slotDefinition)
+    public UnequipAttemptEventBase(
+        EntityUid unequipee,
+        EntityUid unEquipTarget,
+        EntityUid equipment,
+        SlotDefinition slotDefinition
+    )
     {
         UnEquipTarget = unEquipTarget;
         Equipment = equipment;
@@ -45,16 +49,22 @@ public abstract class UnequipAttemptEventBase : CancellableEntityEventArgs
 
 public sealed class BeingUnequippedAttemptEvent : UnequipAttemptEventBase
 {
-    public BeingUnequippedAttemptEvent(EntityUid unequipee, EntityUid unEquipTarget, EntityUid equipment,
-        SlotDefinition slotDefinition) : base(unequipee, unEquipTarget, equipment, slotDefinition)
-    {
-    }
+    public BeingUnequippedAttemptEvent(
+        EntityUid unequipee,
+        EntityUid unEquipTarget,
+        EntityUid equipment,
+        SlotDefinition slotDefinition
+    )
+        : base(unequipee, unEquipTarget, equipment, slotDefinition) { }
 }
 
 public sealed class IsUnequippingAttemptEvent : UnequipAttemptEventBase
 {
-    public IsUnequippingAttemptEvent(EntityUid unequipee, EntityUid unEquipTarget, EntityUid equipment,
-        SlotDefinition slotDefinition) : base(unequipee, unEquipTarget, equipment, slotDefinition)
-    {
-    }
+    public IsUnequippingAttemptEvent(
+        EntityUid unequipee,
+        EntityUid unEquipTarget,
+        EntityUid equipment,
+        SlotDefinition slotDefinition
+    )
+        : base(unequipee, unEquipTarget, equipment, slotDefinition) { }
 }

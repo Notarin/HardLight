@@ -10,9 +10,8 @@ public sealed class CryostorageBoundUserInterface : BoundUserInterface
     [ViewVariables]
     private CryostorageMenu? _menu;
 
-    public CryostorageBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-    }
+    public CryostorageBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {
@@ -22,12 +21,16 @@ public sealed class CryostorageBoundUserInterface : BoundUserInterface
 
         _menu.SlotRemoveButtonPressed += (ent, slot) =>
         {
-            SendMessage(new CryostorageRemoveItemBuiMessage(ent, slot, CryostorageRemoveItemBuiMessage.RemovalType.Inventory));
+            SendMessage(
+                new CryostorageRemoveItemBuiMessage(ent, slot, CryostorageRemoveItemBuiMessage.RemovalType.Inventory)
+            );
         };
 
         _menu.HandRemoveButtonPressed += (ent, hand) =>
         {
-            SendMessage(new CryostorageRemoveItemBuiMessage(ent, hand, CryostorageRemoveItemBuiMessage.RemovalType.Hand));
+            SendMessage(
+                new CryostorageRemoveItemBuiMessage(ent, hand, CryostorageRemoveItemBuiMessage.RemovalType.Hand)
+            );
         };
     }
 

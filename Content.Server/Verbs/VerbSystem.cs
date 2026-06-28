@@ -13,9 +13,14 @@ namespace Content.Server.Verbs
 {
     public sealed class VerbSystem : SharedVerbSystem
     {
-        [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-        [Dependency] private readonly PopupSystem _popupSystem = default!;
-        [Dependency] private readonly IAdminManager _adminMgr = default!;
+        [Dependency]
+        private readonly ISharedAdminLogManager _adminLogger = default!;
+
+        [Dependency]
+        private readonly PopupSystem _popupSystem = default!;
+
+        [Dependency]
+        private readonly IAdminManager _adminMgr = default!;
 
         public override void Initialize()
         {
@@ -30,11 +35,13 @@ namespace Content.Server.Verbs
 
             if (!EntityManager.EntityExists(GetEntity(args.EntityUid)))
             {
-                Log.Warning($"{nameof(HandleVerbRequest)} called on a non-existent entity with id {args.EntityUid} by player {player}.");
+                Log.Warning(
+                    $"{nameof(HandleVerbRequest)} called on a non-existent entity with id {args.EntityUid} by player {player}."
+                );
                 return;
             }
 
-            if (player.AttachedEntity is not {} attached)
+            if (player.AttachedEntity is not { } attached)
             {
                 Log.Warning($"{nameof(HandleVerbRequest)} called by player {player} with no attached entity.");
                 return;
@@ -44,8 +51,10 @@ namespace Content.Server.Verbs
             // this, and some verbs (e.g. view variables) won't even care about whether an entity is accessible through
             // the entity menu or not.
 
-            var force = args.AdminRequest && eventArgs.SenderSession is { } playerSession &&
-                        _adminMgr.HasAdminFlag(playerSession, AdminFlags.Admin);
+            var force =
+                args.AdminRequest
+                && eventArgs.SenderSession is { } playerSession
+                && _adminMgr.HasAdminFlag(playerSession, AdminFlags.Admin);
 
             List<Type> verbTypes = new();
             foreach (var key in args.VerbTypes)
@@ -58,8 +67,10 @@ namespace Content.Server.Verbs
                     Log.Error($"Unknown verb type received: {key}");
             }
 
-            var response =
-                new VerbsResponseEvent(args.EntityUid, GetLocalVerbs(GetEntity(args.EntityUid), attached, verbTypes, force));
+            var response = new VerbsResponseEvent(
+                args.EntityUid,
+                GetLocalVerbs(GetEntity(args.EntityUid), attached, verbTypes, force)
+            );
             RaiseNetworkEvent(response, player.Channel);
         }
 
@@ -91,8 +102,7 @@ namespace Content.Server.Verbs
         {
             // first get the held item. again.
             EntityUid? holding = null;
-            if (TryComp(user, out HandsComponent? hands) &&
-                hands.ActiveHandEntity is EntityUid heldEntity)
+            if (TryComp(user, out HandsComponent? hands) && hands.ActiveHandEntity is EntityUid heldEntity)
             {
                 holding = heldEntity;
             }
@@ -108,13 +118,19 @@ namespace Content.Server.Verbs
 
             if (holding == null)
             {
-                _adminLogger.Add(LogType.Verb, verb.Impact,
-                        $"{ToPrettyString(user):user} {executionText} the [{verbText:verb}] verb targeting {ToPrettyString(target):target}");
+                _adminLogger.Add(
+                    LogType.Verb,
+                    verb.Impact,
+                    $"{ToPrettyString(user):user} {executionText} the [{verbText:verb}] verb targeting {ToPrettyString(target):target}"
+                );
             }
             else
             {
-                _adminLogger.Add(LogType.Verb, verb.Impact,
-                       $"{ToPrettyString(user):user} {executionText} the [{verbText:verb}] verb targeting {ToPrettyString(target):target} while holding {ToPrettyString(holding.Value):held}");
+                _adminLogger.Add(
+                    LogType.Verb,
+                    verb.Impact,
+                    $"{ToPrettyString(user):user} {executionText} the [{verbText:verb}] verb targeting {ToPrettyString(target):target} while holding {ToPrettyString(holding.Value):held}"
+                );
             }
         }
     }

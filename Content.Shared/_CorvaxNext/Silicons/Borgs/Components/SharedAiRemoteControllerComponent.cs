@@ -6,19 +6,29 @@ namespace Content.Shared._CorvaxNext.Silicons.Borgs.Components;
 [RegisterComponent]
 public sealed partial class AiRemoteControllerComponent : Component
 {
-    [DataField] public EntityUid? AiHolder;
-    [DataField] public EntityUid? LinkedMind;
+    [DataField]
+    public EntityUid? AiHolder;
 
-    [DataField] public string[]? PreviouslyTransmitterChannels;
-    [DataField] public string[]? PreviouslyActiveRadioChannels;
+    [DataField]
+    public EntityUid? LinkedMind;
 
-    [DataField] public EntProtoId BackToAiAction = "ActionBackToAi";
-    [DataField] public EntityUid? BackToAiActionEntity;
+    [DataField]
+    public string[]? PreviouslyTransmitterChannels;
+
+    [DataField]
+    public string[]? PreviouslyActiveRadioChannels;
+
+    [DataField]
+    public EntProtoId BackToAiAction = "ActionBackToAi";
+
+    [DataField]
+    public EntityUid? BackToAiActionEntity;
 
     [Serializable, NetSerializable]
     public sealed class RemoteDeviceActionMessage : BoundUserInterfaceMessage
     {
         public readonly RemoteDeviceActionEvent? RemoteAction;
+
         public RemoteDeviceActionMessage(RemoteDeviceActionEvent remoteDeviceAction)
         {
             RemoteAction = remoteDeviceAction;
@@ -32,8 +42,9 @@ public sealed class RemoteDeviceActionEvent : EntityEventArgs
     public enum RemoteDeviceActionType
     {
         MoveToDevice,
-        TakeControl
+        TakeControl,
     }
+
     public RemoteDeviceActionType ActionType;
     public NetEntity Target;
 

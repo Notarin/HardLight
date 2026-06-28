@@ -1,10 +1,10 @@
 using Content.Server.Cargo.Systems;
 using Content.Server.Chat.Systems;
-using Content.Shared.Chat; // For InGameICChatType
 using Content.Server.Station.Systems;
 using Content.Server.StationRecords.Systems;
 using Content.Shared.Cargo.Components;
 using Content.Shared.Cargo.Prototypes;
+using Content.Shared.Chat; // For InGameICChatType
 using Content.Shared.Delivery;
 using Content.Shared.FingerprintReader;
 using Content.Shared.Labels.EntitySystems;
@@ -21,16 +21,35 @@ namespace Content.Server.Delivery;
 /// </summary>
 public sealed partial class DeliverySystem : SharedDeliverySystem
 {
-    [Dependency] private readonly CargoSystem _cargo = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly StationRecordsSystem _records = default!;
-    [Dependency] private readonly StationSystem _station = default!;
-    [Dependency] private readonly FingerprintReaderSystem _fingerprintReader = default!;
-    [Dependency] private readonly LabelSystem _label = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly ChatSystem _chat = default!;
-    [Dependency] private readonly IPrototypeManager _protoMan = default!;
+    [Dependency]
+    private readonly CargoSystem _cargo = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly StationRecordsSystem _records = default!;
+
+    [Dependency]
+    private readonly StationSystem _station = default!;
+
+    [Dependency]
+    private readonly FingerprintReaderSystem _fingerprintReader = default!;
+
+    [Dependency]
+    private readonly LabelSystem _label = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly ChatSystem _chat = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _protoMan = default!;
 
     /// <summary>
     /// Default reason to use if the penalization is triggered
@@ -87,7 +106,8 @@ public sealed partial class DeliverySystem : SharedDeliverySystem
         _cargo.UpdateBankAccount(
             stationAccountEnt,
             (int)(ent.Comp.BaseSpesoReward * multiplier),
-           _cargo.CreateAccountDistribution((ent.Comp.RecipientStation.Value, account)));
+            _cargo.CreateAccountDistribution((ent.Comp.RecipientStation.Value, account))
+        );
     }
 
     /// <summary>
@@ -112,10 +132,7 @@ public sealed partial class DeliverySystem : SharedDeliverySystem
 
         reason ??= Loc.GetString(DefaultMessage);
 
-        var dist = new Dictionary<ProtoId<CargoAccountPrototype>, double>()
-        {
-            { ent.Comp.PenaltyBankAccount, 1.0 }
-        };
+        var dist = new Dictionary<ProtoId<CargoAccountPrototype>, double>() { { ent.Comp.PenaltyBankAccount, 1.0 } };
 
         var penaltyAccountBalance = stationAccount.Accounts[ent.Comp.PenaltyBankAccount];
         var calculatedPenalty = (int)(ent.Comp.BaseSpesoPenalty * multiplier);
@@ -124,12 +141,14 @@ public sealed partial class DeliverySystem : SharedDeliverySystem
         if (calculatedPenalty > penaltyAccountBalance)
             calculatedPenalty = Math.Max(0, penaltyAccountBalance);
 
-        _cargo.UpdateBankAccount(
-            (ent.Comp.RecipientStation.Value, stationAccount),
-            -calculatedPenalty,
-            dist);
+        _cargo.UpdateBankAccount((ent.Comp.RecipientStation.Value, stationAccount), -calculatedPenalty, dist);
 
-        var message = Loc.GetString("delivery-penalty-message", ("reason", reason), ("spesos", calculatedPenalty), ("account", localizedAccountName.ToUpper()));
+        var message = Loc.GetString(
+            "delivery-penalty-message",
+            ("reason", reason),
+            ("spesos", calculatedPenalty),
+            ("account", localizedAccountName.ToUpper())
+        );
         _chat.TrySendInGameICMessage(ent, message, InGameICChatType.Speak, hideChat: true);
 
         ent.Comp.WasPenalized = true;

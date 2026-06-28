@@ -8,7 +8,7 @@
     mayTransfer: true
     whitelist:
       tags:
-        - Cartridge57x28mmFMJ
+      - Cartridge57x28mmFMJ
     proto: Cartridge57x28mmFMJ
     capacity: 70 # 60->70 Two mags per box
   - type: Item

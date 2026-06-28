@@ -20,12 +20,23 @@ namespace Content.Server.Crayon;
 
 public sealed class CrayonSystem : SharedCrayonSystem
 {
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly DecalSystem _decals = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly UserInterfaceSystem _uiSystem = default!;
+    [Dependency]
+    private readonly IAdminLogManager _adminLogger = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly DecalSystem _decals = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly UserInterfaceSystem _uiSystem = default!;
 
     public override void Initialize()
     {
@@ -34,14 +45,22 @@ public sealed class CrayonSystem : SharedCrayonSystem
         SubscribeLocalEvent<CrayonComponent, CrayonSelectMessage>(OnCrayonBoundUI);
         SubscribeLocalEvent<CrayonComponent, CrayonColorMessage>(OnCrayonBoundUIColor);
         SubscribeLocalEvent<CrayonComponent, UseInHandEvent>(OnCrayonUse, before: new[] { typeof(FoodSystem) });
-        SubscribeLocalEvent<CrayonComponent, AfterInteractEvent>(OnCrayonAfterInteract, after: new[] { typeof(FoodSystem) });
+        SubscribeLocalEvent<CrayonComponent, AfterInteractEvent>(
+            OnCrayonAfterInteract,
+            after: new[] { typeof(FoodSystem) }
+        );
         SubscribeLocalEvent<CrayonComponent, DroppedEvent>(OnCrayonDropped);
         SubscribeLocalEvent<CrayonComponent, ComponentGetState>(OnCrayonGetState);
     }
 
     private static void OnCrayonGetState(EntityUid uid, CrayonComponent component, ref ComponentGetState args)
     {
-        args.State = new CrayonComponentState(component.Color, component.SelectedState, component.Charges, component.Capacity);
+        args.State = new CrayonComponentState(
+            component.Color,
+            component.SelectedState,
+            component.Charges,
+            component.Capacity
+        );
     }
 
     private void OnCrayonAfterInteract(EntityUid uid, CrayonComponent component, AfterInteractEvent args)
@@ -67,7 +86,15 @@ public sealed class CrayonSystem : SharedCrayonSystem
             return;
         }
 
-        if (!_decals.TryAddDecal(component.SelectedState, args.ClickLocation.Offset(new Vector2(-0.5f, -0.5f)), out _, component.Color, cleanable: true))
+        if (
+            !_decals.TryAddDecal(
+                component.SelectedState,
+                args.ClickLocation.Offset(new Vector2(-0.5f, -0.5f)),
+                out _,
+                component.Color,
+                cleanable: true
+            )
+        )
             return;
 
         if (component.UseSound != null)
@@ -82,13 +109,21 @@ public sealed class CrayonSystem : SharedCrayonSystem
         }
         // End Frontier
 
-        _adminLogger.Add(LogType.CrayonDraw, LogImpact.Low, $"{EntityManager.ToPrettyString(args.User):user} drew a {component.Color:color} {component.SelectedState}");
+        _adminLogger.Add(
+            LogType.CrayonDraw,
+            LogImpact.Low,
+            $"{EntityManager.ToPrettyString(args.User):user} drew a {component.Color:color} {component.SelectedState}"
+        );
         args.Handled = true;
 
         if (component.DeleteEmpty && component.Charges <= 0)
             UseUpCrayon(uid, args.User);
         else
-            _uiSystem.ServerSendUiMessage(uid, SharedCrayonComponent.CrayonUiKey.Key, new CrayonUsedMessage(component.SelectedState));
+            _uiSystem.ServerSendUiMessage(
+                uid,
+                SharedCrayonComponent.CrayonUiKey.Key,
+                new CrayonUsedMessage(component.SelectedState)
+            );
     }
 
     private void OnCrayonUse(EntityUid uid, CrayonComponent component, UseInHandEvent args)
@@ -104,14 +139,21 @@ public sealed class CrayonSystem : SharedCrayonSystem
 
         _uiSystem.TryToggleUi(uid, SharedCrayonComponent.CrayonUiKey.Key, args.User);
 
-        _uiSystem.SetUiState(uid, SharedCrayonComponent.CrayonUiKey.Key, new CrayonBoundUserInterfaceState(component.SelectedState, component.SelectableColor, component.Color));
+        _uiSystem.SetUiState(
+            uid,
+            SharedCrayonComponent.CrayonUiKey.Key,
+            new CrayonBoundUserInterfaceState(component.SelectedState, component.SelectableColor, component.Color)
+        );
         args.Handled = true;
     }
 
     private void OnCrayonBoundUI(EntityUid uid, CrayonComponent component, CrayonSelectMessage args)
     {
         // Check if the selected state is valid
-        if (!_prototypeManager.TryIndex<DecalPrototype>(args.State, out var prototype) || !prototype.Tags.Contains("crayon"))
+        if (
+            !_prototypeManager.TryIndex<DecalPrototype>(args.State, out var prototype)
+            || !prototype.Tags.Contains("crayon")
+        )
             return;
 
         component.SelectedState = args.State;
@@ -141,7 +183,9 @@ public sealed class CrayonSystem : SharedCrayonSystem
         component.Charges = component.Capacity;
 
         // Get the first one from the catalog and set it as default
-        var decal = _prototypeManager.EnumeratePrototypes<DecalPrototype>().FirstOrDefault(x => x.Tags.Contains("crayon"));
+        var decal = _prototypeManager
+            .EnumeratePrototypes<DecalPrototype>()
+            .FirstOrDefault(x => x.Tags.Contains("crayon"));
         component.SelectedState = decal?.ID ?? string.Empty;
         Dirty(uid, component);
     }

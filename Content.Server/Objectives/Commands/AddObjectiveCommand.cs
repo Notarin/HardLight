@@ -13,10 +13,17 @@ namespace Content.Server.Objectives.Commands;
 [AdminCommand(AdminFlags.Admin)]
 public sealed class AddObjectiveCommand : LocalizedEntityCommands
 {
-    [Dependency] private readonly IPlayerManager _players = default!;
-    [Dependency] private readonly IPrototypeManager _prototypes = default!;
-    [Dependency] private readonly SharedMindSystem _mind = default!;
-    [Dependency] private readonly ObjectivesSystem _objectives = default!;
+    [Dependency]
+    private readonly IPlayerManager _players = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypes = default!;
+
+    [Dependency]
+    private readonly SharedMindSystem _mind = default!;
+
+    [Dependency]
+    private readonly ObjectivesSystem _objectives = default!;
 
     public override string Command => "addobjective";
 
@@ -40,8 +47,7 @@ public sealed class AddObjectiveCommand : LocalizedEntityCommands
             return;
         }
 
-        if (!_prototypes.TryIndex<EntityPrototype>(args[1], out var proto) ||
-            !proto.HasComponent<ObjectiveComponent>())
+        if (!_prototypes.TryIndex<EntityPrototype>(args[1], out var proto) || !proto.HasComponent<ObjectiveComponent>())
         {
             shell.WriteError(Loc.GetString("cmd-addobjective-objective-not-found", ("obj", args[1])));
             return;
@@ -68,6 +74,7 @@ public sealed class AddObjectiveCommand : LocalizedEntityCommands
 
         return CompletionResult.FromHintOptions(
             _objectives.Objectives(),
-            Loc.GetString(Loc.GetString("cmd-add-objective-obj-completion")));
+            Loc.GetString(Loc.GetString("cmd-add-objective-obj-completion"))
+        );
     }
 }

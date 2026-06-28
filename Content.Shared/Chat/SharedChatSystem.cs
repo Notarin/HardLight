@@ -4,8 +4,8 @@ using Content.Shared.Popups;
 using Content.Shared.Radio;
 using Content.Shared.Speech;
 using Robust.Shared.Prototypes;
-using Robust.Shared.Utility;
 using Robust.Shared.Serialization;
+using Robust.Shared.Utility;
 
 namespace Content.Shared.Chat;
 
@@ -33,8 +33,11 @@ public abstract class SharedChatSystem : EntitySystem
 
     public static readonly ProtoId<SpeechVerbPrototype> DefaultSpeechVerb = "Default";
 
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
 
     /// <summary>
     /// Cache of the keycodes for faster lookup.
@@ -57,8 +60,7 @@ public abstract class SharedChatSystem : EntitySystem
 
     private void CacheRadios()
     {
-        _keyCodes = _prototypeManager.EnumeratePrototypes<RadioChannelPrototype>()
-            .ToFrozenDictionary(x => x.KeyCode);
+        _keyCodes = _prototypeManager.EnumeratePrototypes<RadioChannelPrototype>().ToFrozenDictionary(x => x.KeyCode);
     }
 
     /// <summary>
@@ -91,10 +93,7 @@ public abstract class SharedChatSystem : EntitySystem
     /// <remarks>
     /// This is primarily for the chat emote sanitizer, which can match against ":b" as an emote, which is a valid radio keycode.
     /// </remarks>
-    public void GetRadioKeycodePrefix(EntityUid source,
-        string input,
-        out string output,
-        out string prefix)
+    public void GetRadioKeycodePrefix(EntityUid source, string input, out string output, out string prefix)
     {
         prefix = string.Empty;
         output = input;
@@ -129,7 +128,8 @@ public abstract class SharedChatSystem : EntitySystem
         string input,
         out string output,
         out RadioChannelPrototype? channel,
-        bool quiet = false)
+        bool quiet = false
+    )
     {
         output = input.Trim();
         channel = null;
@@ -198,12 +198,7 @@ public abstract class SharedChatSystem : EntitySystem
         if (string.IsNullOrEmpty(message))
             return message;
 
-        for
-        (
-            var index = message.IndexOf(theWordI);
-            index != -1;
-            index = message.IndexOf(theWordI, index + 1)
-        )
+        for (var index = message.IndexOf(theWordI); index != -1; index = message.IndexOf(theWordI, index + 1))
         {
             // Stops the code If It's tryIng to capItalIze the letter I In the mIddle of words
             // Repeating the code twice is the simplest option
@@ -273,10 +268,19 @@ public abstract class SharedChatSystem : EntitySystem
     /// Injects a tag around all found instances of a specific string in a ChatMessage.
     /// Excludes strings inside other tags and brackets.
     /// </summary>
-    public static string InjectTagAroundString(ChatMessage message, string targetString, string tag, string? tagParameter)
+    public static string InjectTagAroundString(
+        ChatMessage message,
+        string targetString,
+        string tag,
+        string? tagParameter
+    )
     {
         var rawmsg = message.WrappedMessage;
-        rawmsg = Regex.Replace(rawmsg, "(?i)(" + targetString + ")(?-i)(?![^[]*])", $"[{tag}={tagParameter}]$1[/{tag}]");
+        rawmsg = Regex.Replace(
+            rawmsg,
+            "(?i)(" + targetString + ")(?-i)(?![^[]*])",
+            $"[{tag}={tagParameter}]$1[/{tag}]"
+        );
         return rawmsg;
     }
 
@@ -304,7 +308,7 @@ public enum InGameICChatType : byte
     Subtle, // Floofstation
     SubtleOOC, // Den
     Whisper,
-    Telepathic
+    Telepathic,
 }
 
 /// <summary>
@@ -314,7 +318,7 @@ public enum InGameICChatType : byte
 public enum InGameOOCChatType : byte
 {
     Looc,
-    Dead
+    Dead,
 }
 
 /// <summary>
@@ -325,12 +329,16 @@ public enum ChatTransmitRange : byte
 {
     /// Acts normal, ghosts can hear across the map, etc.
     Normal,
+
     /// Normal but ghosts are still range-limited.
     GhostRangeLimit,
+
     /// Hidden from the chat window.
     HideChat,
+
     /// Ghosts can't hear or see it at all. Regular players can if in-range.
     NoGhosts,
+
     /// Ghosts hear in range, and skip admin spam checks (server use)
     GhostRangeLimitNoAdminCheck,
 }

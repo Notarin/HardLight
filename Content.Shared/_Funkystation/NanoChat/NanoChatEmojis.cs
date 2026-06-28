@@ -29,7 +29,8 @@ public static class NanoChatEmojis
                 var prototypeManager = IoCManager.Resolve<IPrototypeManager>();
                 _cachedEmojis = new Dictionary<string, SpriteSpecifier>();
 
-                var sortedEmojis = prototypeManager.EnumeratePrototypes<NanoChatEmojiPrototype>()
+                var sortedEmojis = prototypeManager
+                    .EnumeratePrototypes<NanoChatEmojiPrototype>()
                     .OrderBy(proto => proto.Category)
                     .ThenBy(proto => proto.ID);
 

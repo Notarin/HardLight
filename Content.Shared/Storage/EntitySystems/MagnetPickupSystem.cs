@@ -16,18 +16,18 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-using Content.Shared.Storage.Components; // Frontier: Server<Shared
 using Content.Shared.Examine;
 using Content.Shared.Hands.Components;
 using Content.Shared.Inventory;
+using Content.Shared.Item; // Frontier
 using Content.Shared.Item.ItemToggle; // DeltaV
+using Content.Shared.Storage.Components; // Frontier: Server<Shared
 using Content.Shared.Verbs; // Frontier
 using Content.Shared.Whitelist;
 using Robust.Shared.Map;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
-using Content.Shared.Item; // Frontier
 
 namespace Content.Shared.Storage.EntitySystems;
 
@@ -36,15 +36,27 @@ namespace Content.Shared.Storage.EntitySystems;
 /// </summary>
 public sealed class MagnetPickupSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    // [Dependency] private readonly InventorySystem _inventory = default!; // Frontier
-    [Dependency] private readonly ItemToggleSystem _toggle = default!; // DeltaV
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedStorageSystem _storage = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
-    [Dependency] private readonly SharedItemSystem _item = default!; // Frontier
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
+    [Dependency]
+    private readonly EntityLookupSystem _lookup = default!;
+
+    // [Dependency] private readonly InventorySystem _inventory = default!; // Frontier
+    [Dependency]
+    private readonly ItemToggleSystem _toggle = default!; // DeltaV
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly SharedStorageSystem _storage = default!;
+
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelistSystem = default!;
+
+    [Dependency]
+    private readonly SharedItemSystem _item = default!; // Frontier
 
     private static readonly TimeSpan ScanDelay = TimeSpan.FromSeconds(1);
     public TimeSpan NextScan = TimeSpan.Zero;
@@ -67,10 +79,15 @@ public sealed class MagnetPickupSystem : EntitySystem
     {
         component.NextScan = _timing.CurTime;
     }
-    */ // Mono
+    */
+    // Mono
 
     // Frontier: togglable magnets
-    private void AddToggleMagnetVerb(EntityUid uid, MagnetPickupComponent component, GetVerbsEvent<AlternativeVerb> args)
+    private void AddToggleMagnetVerb(
+        EntityUid uid,
+        MagnetPickupComponent component,
+        GetVerbsEvent<AlternativeVerb> args
+    )
     {
         // Magnet run by other means (e.g. toggles)
         if (!component.MagnetCanBeEnabled)
@@ -90,7 +107,7 @@ public sealed class MagnetPickupSystem : EntitySystem
             },
             Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/Spare/poweronoff.svg.192dpi.png")),
             Text = Loc.GetString("magnet-pickup-component-toggle-verb"),
-            Priority = component.MagnetTogglePriority // Frontier: 3 < component.MagnetTogglePriority
+            Priority = component.MagnetTogglePriority, // Frontier: 3 < component.MagnetTogglePriority
         };
 
         args.Verbs.Add(verb);
@@ -103,10 +120,19 @@ public sealed class MagnetPickupSystem : EntitySystem
         if (!component.MagnetCanBeEnabled)
             return;
 
-        args.PushMarkup(Loc.GetString("magnet-pickup-component-on-examine-main",
-                        ("stateText", Loc.GetString(component.MagnetEnabled
-                        ? "magnet-pickup-component-magnet-on"
-                        : "magnet-pickup-component-magnet-off"))));
+        args.PushMarkup(
+            Loc.GetString(
+                "magnet-pickup-component-on-examine-main",
+                (
+                    "stateText",
+                    Loc.GetString(
+                        component.MagnetEnabled
+                            ? "magnet-pickup-component-magnet-on"
+                            : "magnet-pickup-component-magnet-off"
+                    )
+                )
+            )
+        );
     }
 
     //Toggles the magnet on the ore bag/box
@@ -119,6 +145,7 @@ public sealed class MagnetPickupSystem : EntitySystem
         comp.MagnetEnabled = !comp.MagnetEnabled;
         Dirty(uid, comp);
     }
+
     // End Frontier: togglable magnets
 
     public override void Update(float frameTime)
@@ -131,7 +158,12 @@ public sealed class MagnetPickupSystem : EntitySystem
 
         NextScan += ScanDelay;
 
-        var query = EntityQueryEnumerator<MagnetPickupComponent, StorageComponent, TransformComponent, MetaDataComponent>();
+        var query = EntityQueryEnumerator<
+            MagnetPickupComponent,
+            StorageComponent,
+            TransformComponent,
+            MetaDataComponent
+        >();
         while (query.MoveNext(out var uid, out var comp, out var storage, out var xform, out var meta))
         {
             // Frontier: combine DeltaV/White Dream's magnet toggle with old system
@@ -168,7 +200,9 @@ public sealed class MagnetPickupSystem : EntitySystem
             var moverCoords = _transform.GetMoverCoordinates(uid, xform);
             var count = 0; // Frontier
 
-            foreach (var near in _lookup.GetEntitiesInRange(uid, comp.Range, LookupFlags.Dynamic | LookupFlags.Sundries))
+            foreach (
+                var near in _lookup.GetEntitiesInRange(uid, comp.Range, LookupFlags.Dynamic | LookupFlags.Sundries)
+            )
             {
                 // Frontier: stop spamming bags
                 count++;

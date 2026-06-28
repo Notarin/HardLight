@@ -53,7 +53,13 @@ public sealed partial class MedicalTeleportImplantComponent : Component
     /// <summary>
     /// Next time at which a teleport may occur. Server-only; not networked.
     /// </summary>
-    [ViewVariables(VVAccess.ReadWrite), DataField("nextAllowedTeleport", customTypeSerializer: typeof(Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.TimeOffsetSerializer))]
+    [
+        ViewVariables(VVAccess.ReadWrite),
+        DataField(
+            "nextAllowedTeleport",
+            customTypeSerializer: typeof(Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.TimeOffsetSerializer)
+        )
+    ]
     public TimeSpan NextAllowedTeleport = TimeSpan.Zero;
 
     #region HardLight: Add localisable and configurable radio messages

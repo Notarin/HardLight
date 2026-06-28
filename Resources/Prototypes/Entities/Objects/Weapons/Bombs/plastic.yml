@@ -20,8 +20,7 @@
     damageContainer: Inorganic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 50
       behaviors:
       - !type:DoActsBehavior
@@ -33,8 +32,8 @@
     visuals:
       enum.Trigger.TriggerVisuals.VisualState:
         base:
-          Primed: { state: primed }
-          Unprimed: { state: complete }
+          Primed: {state: primed}
+          Unprimed: {state: complete}
 
 - type: entity
   name: composition C-4
@@ -65,7 +64,7 @@
   - type: TimerStartOnSignal
   - type: DeviceLinkSink
     ports:
-      - Timer
+    - Timer
   - type: Explosive # Powerful explosion in a very small radius. Doesn't break underplating.
     explosionType: DemolitionCharge
     totalIntensity: 60

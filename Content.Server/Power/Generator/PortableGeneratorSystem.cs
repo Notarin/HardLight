@@ -2,6 +2,7 @@ using Content.Server.DoAfter;
 using Content.Server.Popups;
 using Content.Server.Power.Components;
 using Content.Server.Power.EntitySystems;
+using Content.Shared.ActionBlocker; // Frontier
 using Content.Shared.DoAfter;
 using Content.Shared.Power.Generator;
 using Content.Shared.Verbs;
@@ -10,7 +11,6 @@ using Robust.Server.GameObjects;
 using Robust.Shared.Player;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
-using Content.Shared.ActionBlocker; // Frontier
 
 namespace Content.Server.Power.Generator;
 
@@ -20,15 +20,32 @@ namespace Content.Server.Power.Generator;
 /// <seealso cref="PortableGeneratorComponent"/>
 public sealed class PortableGeneratorSystem : SharedPortableGeneratorSystem
 {
-    [Dependency] private readonly UserInterfaceSystem _uiSystem = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly DoAfterSystem _doAfter = default!;
-    [Dependency] private readonly AudioSystem _audio = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly GeneratorSystem _generator = default!;
-    [Dependency] private readonly PowerSwitchableSystem _switchable = default!;
-    [Dependency] private readonly ActiveGeneratorRevvingSystem _revving = default!;
-    [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!; // Frontier
+    [Dependency]
+    private readonly UserInterfaceSystem _uiSystem = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly DoAfterSystem _doAfter = default!;
+
+    [Dependency]
+    private readonly AudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly GeneratorSystem _generator = default!;
+
+    [Dependency]
+    private readonly PowerSwitchableSystem _switchable = default!;
+
+    [Dependency]
+    private readonly ActiveGeneratorRevvingSystem _revving = default!;
+
+    [Dependency]
+    private readonly ActionBlockerSystem _actionBlocker = default!; // Frontier
 
     public override void Initialize()
     {
@@ -43,7 +60,9 @@ public sealed class PortableGeneratorSystem : SharedPortableGeneratorSystem
         SubscribeLocalEvent<PortableGeneratorComponent, AutoGeneratorStartedEvent>(OnAutoGeneratorStarted);
         SubscribeLocalEvent<PortableGeneratorComponent, PortableGeneratorStartMessage>(GeneratorStartMessage);
         SubscribeLocalEvent<PortableGeneratorComponent, PortableGeneratorStopMessage>(GeneratorStopMessage);
-        SubscribeLocalEvent<PortableGeneratorComponent, PortableGeneratorSwitchOutputMessage>(GeneratorSwitchOutputMessage);
+        SubscribeLocalEvent<PortableGeneratorComponent, PortableGeneratorSwitchOutputMessage>(
+            GeneratorSwitchOutputMessage
+        );
 
         SubscribeLocalEvent<FuelGeneratorComponent, SwitchPowerCheckEvent>(OnSwitchPowerCheck);
 
@@ -56,7 +75,11 @@ public sealed class PortableGeneratorSystem : SharedPortableGeneratorSystem
             _generator.SetFuelGeneratorOn(uid, true);
     }
 
-    private void GeneratorSwitchOutputMessage(EntityUid uid, PortableGeneratorComponent component, PortableGeneratorSwitchOutputMessage args)
+    private void GeneratorSwitchOutputMessage(
+        EntityUid uid,
+        PortableGeneratorComponent component,
+        PortableGeneratorSwitchOutputMessage args
+    )
     {
         var fuelGenerator = Comp<FuelGeneratorComponent>(uid);
         if (fuelGenerator.On)
@@ -65,12 +88,20 @@ public sealed class PortableGeneratorSystem : SharedPortableGeneratorSystem
         _switchable.Cycle(uid, args.Actor);
     }
 
-    private void GeneratorStopMessage(EntityUid uid, PortableGeneratorComponent component, PortableGeneratorStopMessage args)
+    private void GeneratorStopMessage(
+        EntityUid uid,
+        PortableGeneratorComponent component,
+        PortableGeneratorStopMessage args
+    )
     {
         StopGenerator(uid, component, args.Actor);
     }
 
-    private void GeneratorStartMessage(EntityUid uid, PortableGeneratorComponent component, PortableGeneratorStartMessage args)
+    private void GeneratorStartMessage(
+        EntityUid uid,
+        PortableGeneratorComponent component,
+        PortableGeneratorStartMessage args
+    )
     {
         StartGenerator(uid, component, args.Actor);
     }
@@ -84,13 +115,15 @@ public sealed class PortableGeneratorSystem : SharedPortableGeneratorSystem
         if (!_actionBlocker.CanComplexInteract(user)) // Frontier
             return; // Frontier
 
-        _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, user, component.StartTime, new GeneratorStartedEvent(), uid, uid)
-        {
-            BreakOnDamage = true,
-            BreakOnMove = true,
-            NeedHand = true,
-            BreakOnDropItem = false,
-        });
+        _doAfter.TryStartDoAfter(
+            new DoAfterArgs(EntityManager, user, component.StartTime, new GeneratorStartedEvent(), uid, uid)
+            {
+                BreakOnDamage = true,
+                BreakOnMove = true,
+                NeedHand = true,
+                BreakOnDropItem = false,
+            }
+        );
     }
 
     private void StopGenerator(EntityUid uid, PortableGeneratorComponent component, EntityUid user)
@@ -109,7 +142,11 @@ public sealed class PortableGeneratorSystem : SharedPortableGeneratorSystem
         GeneratorTugged(uid, component, args.User, out args.Repeat);
     }
 
-    private void OnAutoGeneratorStarted(EntityUid uid, PortableGeneratorComponent component, ref AutoGeneratorStartedEvent args)
+    private void OnAutoGeneratorStarted(
+        EntityUid uid,
+        PortableGeneratorComponent component,
+        ref AutoGeneratorStartedEvent args
+    )
     {
         GeneratorTugged(uid, component, null, out var repeat);
 
@@ -143,7 +180,6 @@ public sealed class PortableGeneratorSystem : SharedPortableGeneratorSystem
                 return;
 
             _popup.PopupEntity(Loc.GetString("portable-generator-start-success"), uid, user.Value);
-
         }
         else
         {
@@ -157,8 +193,11 @@ public sealed class PortableGeneratorSystem : SharedPortableGeneratorSystem
         }
     }
 
-    private void GetAlternativeVerb(EntityUid uid, PortableGeneratorComponent component,
-        GetVerbsEvent<AlternativeVerb> args)
+    private void GetAlternativeVerb(
+        EntityUid uid,
+        PortableGeneratorComponent component,
+        GetVerbsEvent<AlternativeVerb> args
+    )
     {
         if (!args.CanAccess || !args.CanInteract)
             return;
@@ -205,9 +244,11 @@ public sealed class PortableGeneratorSystem : SharedPortableGeneratorSystem
             else
             {
                 verb.Disabled = disabled; // Frontier
-                verb.Message = Loc.GetString(reliable
-                    ? "portable-generator-verb-start-msg-reliable"
-                    : "portable-generator-verb-start-msg-unreliable");
+                verb.Message = Loc.GetString(
+                    reliable
+                        ? "portable-generator-verb-start-msg-reliable"
+                        : "portable-generator-verb-start-msg-unreliable"
+                );
             }
 
             args.Verbs.Add(verb);
@@ -234,7 +275,8 @@ public sealed class PortableGeneratorSystem : SharedPortableGeneratorSystem
         EntityUid uid,
         PortableGeneratorComponent comp,
         FuelGeneratorComponent fuelComp,
-        PowerSupplierComponent powerSupplier)
+        PowerSupplierComponent powerSupplier
+    )
     {
         if (!_uiSystem.IsUiOpen(uid, GeneratorComponentUiKey.Key))
             return;
@@ -249,6 +291,7 @@ public sealed class PortableGeneratorSystem : SharedPortableGeneratorSystem
         _uiSystem.SetUiState(
             uid,
             GeneratorComponentUiKey.Key,
-            new PortableGeneratorComponentBuiState(fuelComp, fuel, clogged, networkStats));
+            new PortableGeneratorComponentBuiState(fuelComp, fuel, clogged, networkStats)
+        );
     }
 }

@@ -27,9 +27,9 @@ public sealed partial class MobThresholdsComponent : Component
     [DataField("stateAlertDict")]
     public Dictionary<MobState, ProtoId<AlertPrototype>> StateAlertDict = new()
     {
-        {MobState.Alive, "HumanHealth"},
-        {MobState.Critical, "HumanCrit"},
-        {MobState.Dead, "HumanDead"},
+        { MobState.Alive, "HumanHealth" },
+        { MobState.Critical, "HumanCrit" },
+        { MobState.Dead, "HumanDead" },
     };
 
     [DataField]
@@ -63,13 +63,14 @@ public sealed class MobThresholdsComponentState : ComponentState
 
     public bool AllowRevives;
 
-    public MobThresholdsComponentState(Dictionary<FixedPoint2, MobState> unsortedThresholds,
+    public MobThresholdsComponentState(
+        Dictionary<FixedPoint2, MobState> unsortedThresholds,
         bool triggersAlerts,
         MobState currentThresholdState,
-        Dictionary<MobState,
-        ProtoId<AlertPrototype>> stateAlertDict,
+        Dictionary<MobState, ProtoId<AlertPrototype>> stateAlertDict,
         bool showOverlays,
-        bool allowRevives)
+        bool allowRevives
+    )
     {
         UnsortedThresholds = unsortedThresholds;
         TriggersAlerts = triggersAlerts;

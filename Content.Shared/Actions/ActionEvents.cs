@@ -41,7 +41,12 @@ public sealed class GetItemActionsEvent : EntityEventArgs
     /// </summary>
     public bool InHands => SlotFlags == null;
 
-    public GetItemActionsEvent(ActionContainerSystem system, EntityUid user, EntityUid provider, SlotFlags? slotFlags = null)
+    public GetItemActionsEvent(
+        ActionContainerSystem system,
+        EntityUid user,
+        EntityUid provider,
+        SlotFlags? slotFlags = null
+    )
     {
         _system = system;
         User = user;

@@ -1,6 +1,6 @@
 using Content.Server.Administration;
-using Content.Shared.Administration;
 using Content.Shared._NF.Shipyard.Components;
+using Content.Shared.Administration;
 using Robust.Shared.Console;
 using Robust.Shared.GameObjects;
 using Robust.Shared.IoC;
@@ -11,8 +11,11 @@ namespace Content.Server.Shuttles.Save
     [AdminCommand(AdminFlags.Debug)]
     public sealed class SaveShipCommand : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _entityManager = default!;
-        [Dependency] private readonly IEntitySystemManager _entitySystemManager = default!;
+        [Dependency]
+        private readonly IEntityManager _entityManager = default!;
+
+        [Dependency]
+        private readonly IEntitySystemManager _entitySystemManager = default!;
 
         public string Command => "saveship";
         public string Description => "Save a ship from a shuttle deed";

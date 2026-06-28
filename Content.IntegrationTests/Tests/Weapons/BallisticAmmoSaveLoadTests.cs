@@ -12,7 +12,8 @@ namespace Content.IntegrationTests.Tests.Weapons;
 public sealed class BallisticAmmoSaveLoadTests
 {
     [TestPrototypes] // HL: Added custom weapon prototype to deal with fillFromPrototype defaulting to True now.
-    private const string Prototypes = @"
+    private const string Prototypes =
+        @"
 - type: entity
   categories: [ HideSpawnMenu ]
   id: MagazinePistolTest
@@ -30,6 +31,7 @@ public sealed class BallisticAmmoSaveLoadTests
     - state: mag-1
       map: [""enum.GunVisualLayers.Mag""]
 ";
+
     [TestCase(0)]
     [TestCase(3)]
     public async Task MagazineCountPersistsAcrossGridSaveLoad(int remainingRounds)
@@ -45,7 +47,10 @@ public sealed class BallisticAmmoSaveLoadTests
 
         await server.WaitPost(() =>
         {
-            var magazine = entManager.SpawnEntity("MagazinePistolTest", new EntityCoordinates(testMap.Grid, new Vector2(0.5f, 0.5f)));
+            var magazine = entManager.SpawnEntity(
+                "MagazinePistolTest",
+                new EntityCoordinates(testMap.Grid, new Vector2(0.5f, 0.5f))
+            );
             var ballistic = entManager.GetComponent<BallisticAmmoProviderComponent>(magazine);
 
             Assert.That(ballistic.FillFromPrototype, Is.False);

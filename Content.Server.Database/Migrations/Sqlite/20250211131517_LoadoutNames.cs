@@ -15,15 +15,14 @@ namespace Content.Server.Database.Migrations.Sqlite
                 table: "profile_role_loadout",
                 type: "TEXT",
                 maxLength: 256,
-                nullable: true);
+                nullable: true
+            );
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "entity_name",
-                table: "profile_role_loadout");
+            migrationBuilder.DropColumn(name: "entity_name", table: "profile_role_loadout");
         }
     }
 }

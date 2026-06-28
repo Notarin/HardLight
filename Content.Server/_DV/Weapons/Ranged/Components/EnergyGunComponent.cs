@@ -1,6 +1,6 @@
+using Content.Server._DV.Weapons.Ranged.Systems;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
-using Content.Server._DV.Weapons.Ranged.Systems;
 
 namespace Content.Server._DV.Weapons.Ranged.Components;
 

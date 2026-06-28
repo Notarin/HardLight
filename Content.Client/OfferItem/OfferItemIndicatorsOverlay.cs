@@ -21,10 +21,14 @@ public sealed class OfferItemIndicatorsOverlay : Overlay
 
     private readonly Color _mainColor = Color.White.WithAlpha(0.3f);
     private readonly Color _strokeColor = Color.Black.WithAlpha(0.5f);
-    private readonly float _scale = 0.6f;  // 1 is a little big
+    private readonly float _scale = 0.6f; // 1 is a little big
 
-    public OfferItemIndicatorsOverlay(IInputManager input, IEntityManager entMan,
-            IEyeManager eye, OfferItemSystem offerSys)
+    public OfferItemIndicatorsOverlay(
+        IInputManager input,
+        IEntityManager entMan,
+        IEyeManager eye,
+        OfferItemSystem offerSys
+    )
     {
         _inputManager = input;
         _entMan = entMan;
@@ -32,8 +36,9 @@ public sealed class OfferItemIndicatorsOverlay : Overlay
         _offer = offerSys;
 
         var spriteSys = _entMan.EntitySysManager.GetEntitySystem<SpriteSystem>();
-        _sight = spriteSys.Frame0(new SpriteSpecifier.Rsi(new ResPath("/Textures/Interface/Misc/give_item.rsi"),
-            "give_item"));
+        _sight = spriteSys.Frame0(
+            new SpriteSpecifier.Rsi(new ResPath("/Textures/Interface/Misc/give_item.rsi"), "give_item")
+        );
     }
 
     protected override bool BeforeDraw(in OverlayDrawArgs args)
@@ -51,7 +56,6 @@ public sealed class OfferItemIndicatorsOverlay : Overlay
         if (mousePosMap.MapId != args.MapId)
             return;
 
-
         var mousePos = mouseScreenPosition.Position;
         var uiScale = (args.ViewportControl as Control)?.UIScale ?? 1f;
         var limitedScale = uiScale > 1.25f ? 1.25f : uiScale;
@@ -64,9 +68,7 @@ public sealed class OfferItemIndicatorsOverlay : Overlay
         var sightSize = sight.Size * scale;
         var expandedSize = sightSize + new Vector2(7f, 7f);
 
-        screen.DrawTextureRect(sight,
-            UIBox2.FromDimensions(centerPos - sightSize * 0.5f, sightSize), _strokeColor);
-        screen.DrawTextureRect(sight,
-            UIBox2.FromDimensions(centerPos - expandedSize * 0.5f, expandedSize), _mainColor);
+        screen.DrawTextureRect(sight, UIBox2.FromDimensions(centerPos - sightSize * 0.5f, sightSize), _strokeColor);
+        screen.DrawTextureRect(sight, UIBox2.FromDimensions(centerPos - expandedSize * 0.5f, expandedSize), _mainColor);
     }
 }

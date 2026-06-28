@@ -3,417 +3,413 @@
   start: start
   graph:
 
-    # ---------- Start node ----------
-    - node: start
-      actions:
-        - !type:DestroyEntity {}
-      edges:
-        # -- Dark grass (on-grid, passable floor) --
-        - to: ManaDarkGrassDeco
-          completed:
-            - !type:SnapToGrid {}
-          steps:
-            - material: ManaWoodPlank
-              amount: 1
-              doAfter: 1
+  # ---------- Start node ----------
+  - node: start
+    actions:
+    - !type:DestroyEntity {}
+    edges:
+    # -- Dark grass (on-grid, passable floor) --
+    - to: ManaDarkGrassDeco
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: ManaWoodPlank
+        amount: 1
+        doAfter: 1
 
-        # -- Dark stone / basalt (on-grid, passable floor) --
-        - to: ManaDarkStoneDeco
-          completed:
-            - !type:SnapToGrid {}
-          steps:
-            - material: ManaWoodPlank
-              amount: 1
-              doAfter: 1
+    # -- Dark stone / basalt (on-grid, passable floor) --
+    - to: ManaDarkStoneDeco
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: ManaWoodPlank
+        amount: 1
+        doAfter: 1
 
-        # -- Anomaly floral carpets (off-grid, floor-level) --
-        - to: ManaAnomalyPlantDeco
-          steps:
-            - material: ManaWoodPlank
-              amount: 1
-              doAfter: 1
-        - to: ManaAnomalyHarvestDeco
-          steps:
-            - material: ManaWoodPlank
-              amount: 1
-              doAfter: 1
+    # -- Anomaly floral carpets (off-grid, floor-level) --
+    - to: ManaAnomalyPlantDeco
+      steps:
+      - material: ManaWoodPlank
+        amount: 1
+        doAfter: 1
+    - to: ManaAnomalyHarvestDeco
+      steps:
+      - material: ManaWoodPlank
+        amount: 1
+        doAfter: 1
 
-        # -- Anomaly bulb (off-grid, small prop) --
-        - to: ManaAnomalyBulbDeco
-          steps:
-            - material: ManaWoodPlank
-              amount: 1
-              doAfter: 1
+    # -- Anomaly bulb (off-grid, small prop) --
+    - to: ManaAnomalyBulbDeco
+      steps:
+      - material: ManaWoodPlank
+        amount: 1
+        doAfter: 1
 
-        # -- Floral carpet (on-grid, slowdown) --
-        - to: ManaFloralCarpetDeco
-          completed:
-            - !type:SnapToGrid {}
-          steps:
-            - material: ManaWoodPlank
-              amount: 1
-              doAfter: 1
+    # -- Floral carpet (on-grid, slowdown) --
+    - to: ManaFloralCarpetDeco
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: ManaWoodPlank
+        amount: 1
+        doAfter: 1
 
-        # -- Mana pool (on-grid, slowdown + water sounds) --
-        - to: ManaPoolDeco
-          completed:
-            - !type:SnapToGrid {}
-          steps:
-            - material: ManaWoodPlank
-              amount: 1
-              doAfter: 1
+    # -- Mana pool (on-grid, slowdown + water sounds) --
+    - to: ManaPoolDeco
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: ManaWoodPlank
+        amount: 1
+        doAfter: 1
 
-        # -- Trees and crystals (grid-snap; collidable) --
-        - to: ManaShadowTreeDeco
-          completed:
-            - !type:SnapToGrid {}
-          steps:
-            - material: ManaWoodPlank
-              amount: 1
-              doAfter: 1
-        - to: ManaLargeTreeDeco
-          completed:
-            - !type:SnapToGrid {}
-          steps:
-            - material: ManaWoodPlank
-              amount: 1
-              doAfter: 1
-        - to: ManaGlowingTreeDeco
-          completed:
-            - !type:SnapToGrid {}
-          steps:
-            - material: ManaWoodPlank
-              amount: 1
-              doAfter: 1
-        - to: ManaBoulderDeco
-          completed:
-            - !type:SnapToGrid {}
-          steps:
-            - material: ManaWoodPlank
-              amount: 1
-              doAfter: 1
-        - to: ManaCrystalTealDeco
-          completed:
-            - !type:SnapToGrid {}
-          steps:
-            - material: ManaWoodPlank
-              amount: 1
-              doAfter: 1
-        - to: ManaCrystalPinkDeco
-          completed:
-            - !type:SnapToGrid {}
-          steps:
-            - material: ManaWoodPlank
-              amount: 1
-              doAfter: 1
+    # -- Trees and crystals (grid-snap; collidable) --
+    - to: ManaShadowTreeDeco
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: ManaWoodPlank
+        amount: 1
+        doAfter: 1
+    - to: ManaLargeTreeDeco
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: ManaWoodPlank
+        amount: 1
+        doAfter: 1
+    - to: ManaGlowingTreeDeco
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: ManaWoodPlank
+        amount: 1
+        doAfter: 1
+    - to: ManaBoulderDeco
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: ManaWoodPlank
+        amount: 1
+        doAfter: 1
+    - to: ManaCrystalTealDeco
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: ManaWoodPlank
+        amount: 1
+        doAfter: 1
+    - to: ManaCrystalPinkDeco
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: ManaWoodPlank
+        amount: 1
+        doAfter: 1
 
-        # -- Chromite walls (5 mana wood each) --
-        - to: ManaWallChromiteDeco
-          completed:
-            - !type:SnapToGrid {}
-          steps:
-            - material: ManaWoodPlank
-              amount: 5
-              doAfter: 3
-        - to: ManaWallChromitePlasmaDeco
-          completed:
-            - !type:SnapToGrid {}
-          steps:
-            - material: ManaWoodPlank
-              amount: 5
-              doAfter: 3
-        - to: ManaWallChromiteArtifactDeco
-          completed:
-            - !type:SnapToGrid {}
-          steps:
-            - material: ManaWoodPlank
-              amount: 5
-              doAfter: 3
-        - to: ManaWallChromiteBrickDeco
-          completed:
-            - !type:SnapToGrid {}
-          steps:
-            - material: ManaWoodPlank
-              amount: 5
-              doAfter: 3
+    # -- Chromite walls (5 mana wood each) --
+    - to: ManaWallChromiteDeco
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: ManaWoodPlank
+        amount: 5
+        doAfter: 3
+    - to: ManaWallChromitePlasmaDeco
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: ManaWoodPlank
+        amount: 5
+        doAfter: 3
+    - to: ManaWallChromiteArtifactDeco
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: ManaWoodPlank
+        amount: 5
+        doAfter: 3
+    - to: ManaWallChromiteBrickDeco
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: ManaWoodPlank
+        amount: 5
+        doAfter: 3
 
-        # -- Magic candles (off-grid, anchorable) --
-        - to: ManaMagicCandle1Deco
-          steps:
-            - material: ManaWoodPlank
-              amount: 1
-              doAfter: 1
-        - to: ManaMagicCandle1BDeco
-          steps:
-            - material: ManaWoodPlank
-              amount: 1
-              doAfter: 1
-        - to: ManaMagicCandle2Deco
-          steps:
-            - material: ManaWoodPlank
-              amount: 1
-              doAfter: 1
-        - to: ManaMagicCandle2BDeco
-          steps:
-            - material: ManaWoodPlank
-              amount: 1
-              doAfter: 1
+    # -- Magic candles (off-grid, anchorable) --
+    - to: ManaMagicCandle1Deco
+      steps:
+      - material: ManaWoodPlank
+        amount: 1
+        doAfter: 1
+    - to: ManaMagicCandle1BDeco
+      steps:
+      - material: ManaWoodPlank
+        amount: 1
+        doAfter: 1
+    - to: ManaMagicCandle2Deco
+      steps:
+      - material: ManaWoodPlank
+        amount: 1
+        doAfter: 1
+    - to: ManaMagicCandle2BDeco
+      steps:
+      - material: ManaWoodPlank
+        amount: 1
+        doAfter: 1
 
-    # ---------- Deconstruct nodes — all yield mana wood via Prying ----------
+  # ---------- Deconstruct nodes — all yield mana wood via Prying ----------
 
-    - node: ManaDarkGrassDeco
-      entity: ManaDarkGrassDeco
-      edges:
-        - to: start
-          completed:
-            - !type:SpawnPrototype
-              prototype: MaterialManaWoodPlank1
-              amount: 1
-          steps:
-            - tool: Cutting
-              doAfter: 1
+  - node: ManaDarkGrassDeco
+    entity: ManaDarkGrassDeco
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: MaterialManaWoodPlank1
+        amount: 1
+      steps:
+      - tool: Cutting
+        doAfter: 1
 
-    - node: ManaDarkStoneDeco
-      entity: ManaDarkStoneDeco
-      edges:
-        - to: start
-          completed:
-            - !type:SpawnPrototype
-              prototype: MaterialManaWoodPlank1
-              amount: 1
-          steps:
-            - tool: Prying
-              doAfter: 1
+  - node: ManaDarkStoneDeco
+    entity: ManaDarkStoneDeco
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: MaterialManaWoodPlank1
+        amount: 1
+      steps:
+      - tool: Prying
+        doAfter: 1
 
-    - node: ManaAnomalyPlantDeco
-      entity: ManaAnomalyPlantDeco
-      edges:
-        - to: start
-          completed:
-            - !type:SpawnPrototype
-              prototype: MaterialManaWoodPlank1
-              amount: 1
-          steps:
-            - tool: Cutting
-              doAfter: 1
+  - node: ManaAnomalyPlantDeco
+    entity: ManaAnomalyPlantDeco
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: MaterialManaWoodPlank1
+        amount: 1
+      steps:
+      - tool: Cutting
+        doAfter: 1
 
-    - node: ManaAnomalyHarvestDeco
-      entity: ManaAnomalyHarvestDeco
-      edges:
-        - to: start
-          completed:
-            - !type:SpawnPrototype
-              prototype: MaterialManaWoodPlank1
-              amount: 1
-          steps:
-            - tool: Cutting
-              doAfter: 1
+  - node: ManaAnomalyHarvestDeco
+    entity: ManaAnomalyHarvestDeco
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: MaterialManaWoodPlank1
+        amount: 1
+      steps:
+      - tool: Cutting
+        doAfter: 1
 
-    - node: ManaAnomalyBulbDeco
-      entity: ManaAnomalyBulbDeco
-      edges:
-        - to: start
-          completed:
-            - !type:SpawnPrototype
-              prototype: MaterialManaWoodPlank1
-              amount: 1
-          steps:
-            - tool: Cutting
-              doAfter: 1
+  - node: ManaAnomalyBulbDeco
+    entity: ManaAnomalyBulbDeco
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: MaterialManaWoodPlank1
+        amount: 1
+      steps:
+      - tool: Cutting
+        doAfter: 1
 
-    - node: ManaFloralCarpetDeco
-      entity: ManaFloralCarpetDeco
-      edges:
-        - to: start
-          completed:
-            - !type:SpawnPrototype
-              prototype: MaterialManaWoodPlank1
-              amount: 1
-          steps:
-            - tool: Cutting
-              doAfter: 1
+  - node: ManaFloralCarpetDeco
+    entity: ManaFloralCarpetDeco
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: MaterialManaWoodPlank1
+        amount: 1
+      steps:
+      - tool: Cutting
+        doAfter: 1
 
-    - node: ManaPoolDeco
-      entity: ManaPoolDeco
-      edges:
-        - to: start
-          completed:
-            - !type:SpawnPrototype
-              prototype: MaterialManaWoodPlank1
-              amount: 1
-          steps:
-            - tool: Prying
-              doAfter: 1
+  - node: ManaPoolDeco
+    entity: ManaPoolDeco
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: MaterialManaWoodPlank1
+        amount: 1
+      steps:
+      - tool: Prying
+        doAfter: 1
 
-    - node: ManaShadowTreeDeco
-      entity: ManaShadowTreeDeco
-      edges:
-        - to: start
-          completed:
-            - !type:SpawnPrototype
-              prototype: MaterialManaWoodPlank1
-              amount: 1
-          steps:
-            - tool: Prying
-              doAfter: 1
+  - node: ManaShadowTreeDeco
+    entity: ManaShadowTreeDeco
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: MaterialManaWoodPlank1
+        amount: 1
+      steps:
+      - tool: Prying
+        doAfter: 1
 
-    - node: ManaLargeTreeDeco
-      entity: ManaLargeTreeDeco
-      edges:
-        - to: start
-          completed:
-            - !type:SpawnPrototype
-              prototype: MaterialManaWoodPlank1
-              amount: 1
-          steps:
-            - tool: Prying
-              doAfter: 1
+  - node: ManaLargeTreeDeco
+    entity: ManaLargeTreeDeco
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: MaterialManaWoodPlank1
+        amount: 1
+      steps:
+      - tool: Prying
+        doAfter: 1
 
-    - node: ManaGlowingTreeDeco
-      entity: ManaGlowingTreeDeco
-      edges:
-        - to: start
-          completed:
-            - !type:SpawnPrototype
-              prototype: MaterialManaWoodPlank1
-              amount: 1
-          steps:
-            - tool: Prying
-              doAfter: 1
+  - node: ManaGlowingTreeDeco
+    entity: ManaGlowingTreeDeco
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: MaterialManaWoodPlank1
+        amount: 1
+      steps:
+      - tool: Prying
+        doAfter: 1
 
-    - node: ManaBoulderDeco
-      entity: ManaBoulderDeco
-      edges:
-        - to: start
-          completed:
-            - !type:SpawnPrototype
-              prototype: MaterialManaWoodPlank1
-              amount: 1
-          steps:
-            - tool: Prying
-              doAfter: 1
+  - node: ManaBoulderDeco
+    entity: ManaBoulderDeco
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: MaterialManaWoodPlank1
+        amount: 1
+      steps:
+      - tool: Prying
+        doAfter: 1
 
-    - node: ManaCrystalTealDeco
-      entity: ManaCrystalTealDeco
-      edges:
-        - to: start
-          completed:
-            - !type:SpawnPrototype
-              prototype: MaterialManaWoodPlank1
-              amount: 1
-          steps:
-            - tool: Prying
-              doAfter: 1
+  - node: ManaCrystalTealDeco
+    entity: ManaCrystalTealDeco
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: MaterialManaWoodPlank1
+        amount: 1
+      steps:
+      - tool: Prying
+        doAfter: 1
 
-    - node: ManaCrystalPinkDeco
-      entity: ManaCrystalPinkDeco
-      edges:
-        - to: start
-          completed:
-            - !type:SpawnPrototype
-              prototype: MaterialManaWoodPlank1
-              amount: 1
-          steps:
-            - tool: Prying
-              doAfter: 1
+  - node: ManaCrystalPinkDeco
+    entity: ManaCrystalPinkDeco
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: MaterialManaWoodPlank1
+        amount: 1
+      steps:
+      - tool: Prying
+        doAfter: 1
 
-    - node: ManaWallChromiteDeco
-      entity: ManaWallChromiteDeco
-      edges:
-        - to: start
-          completed:
-            - !type:SpawnPrototype
-              prototype: MaterialManaWoodPlank1
-              amount: 5
-          steps:
-            - tool: Prying
-              doAfter: 3
+  - node: ManaWallChromiteDeco
+    entity: ManaWallChromiteDeco
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: MaterialManaWoodPlank1
+        amount: 5
+      steps:
+      - tool: Prying
+        doAfter: 3
 
-    - node: ManaWallChromitePlasmaDeco
-      entity: ManaWallChromitePlasmaDeco
-      edges:
-        - to: start
-          completed:
-            - !type:SpawnPrototype
-              prototype: MaterialManaWoodPlank1
-              amount: 5
-          steps:
-            - tool: Prying
-              doAfter: 3
+  - node: ManaWallChromitePlasmaDeco
+    entity: ManaWallChromitePlasmaDeco
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: MaterialManaWoodPlank1
+        amount: 5
+      steps:
+      - tool: Prying
+        doAfter: 3
 
-    - node: ManaWallChromiteArtifactDeco
-      entity: ManaWallChromiteArtifactDeco
-      edges:
-        - to: start
-          completed:
-            - !type:SpawnPrototype
-              prototype: MaterialManaWoodPlank1
-              amount: 5
-          steps:
-            - tool: Prying
-              doAfter: 3
+  - node: ManaWallChromiteArtifactDeco
+    entity: ManaWallChromiteArtifactDeco
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: MaterialManaWoodPlank1
+        amount: 5
+      steps:
+      - tool: Prying
+        doAfter: 3
 
-    - node: ManaWallChromiteBrickDeco
-      entity: ManaWallChromiteBrickDeco
-      edges:
-        - to: start
-          completed:
-            - !type:SpawnPrototype
-              prototype: MaterialManaWoodPlank1
-              amount: 5
-          steps:
-            - tool: Prying
-              doAfter: 3
+  - node: ManaWallChromiteBrickDeco
+    entity: ManaWallChromiteBrickDeco
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: MaterialManaWoodPlank1
+        amount: 5
+      steps:
+      - tool: Prying
+        doAfter: 3
 
-    - node: ManaMagicCandle1Deco
-      entity: ManaMagicCandle1Deco
-      edges:
-        - to: start
-          completed:
-            - !type:SpawnPrototype
-              prototype: MaterialManaWoodPlank1
-              amount: 1
-          steps:
-            - tool: Prying
-              doAfter: 1
+  - node: ManaMagicCandle1Deco
+    entity: ManaMagicCandle1Deco
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: MaterialManaWoodPlank1
+        amount: 1
+      steps:
+      - tool: Prying
+        doAfter: 1
 
-    - node: ManaMagicCandle1BDeco
-      entity: ManaMagicCandle1BDeco
-      edges:
-        - to: start
-          completed:
-            - !type:SpawnPrototype
-              prototype: MaterialManaWoodPlank1
-              amount: 1
-          steps:
-            - tool: Prying
-              doAfter: 1
+  - node: ManaMagicCandle1BDeco
+    entity: ManaMagicCandle1BDeco
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: MaterialManaWoodPlank1
+        amount: 1
+      steps:
+      - tool: Prying
+        doAfter: 1
 
-    - node: ManaMagicCandle2Deco
-      entity: ManaMagicCandle2Deco
-      edges:
-        - to: start
-          completed:
-            - !type:SpawnPrototype
-              prototype: MaterialManaWoodPlank1
-              amount: 1
-          steps:
-            - tool: Prying
-              doAfter: 1
+  - node: ManaMagicCandle2Deco
+    entity: ManaMagicCandle2Deco
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: MaterialManaWoodPlank1
+        amount: 1
+      steps:
+      - tool: Prying
+        doAfter: 1
 
-    - node: ManaMagicCandle2BDeco
-      entity: ManaMagicCandle2BDeco
-      edges:
-        - to: start
-          completed:
-            - !type:SpawnPrototype
-              prototype: MaterialManaWoodPlank1
-              amount: 1
-          steps:
-            - tool: Prying
-              doAfter: 1
-
-
-
-
+  - node: ManaMagicCandle2BDeco
+    entity: ManaMagicCandle2BDeco
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: MaterialManaWoodPlank1
+        amount: 1
+      steps:
+      - tool: Prying
+        doAfter: 1
 

@@ -1,6 +1,7 @@
-using Robust.Shared.Prototypes;
-using Content.Shared.Chat.TypingIndicator;
 using Content.Client.Chat.TypingIndicator;
+using Content.Shared.Chat.TypingIndicator;
+using Robust.Shared.Prototypes;
+
 namespace Content.Client.Paper.UI;
 
 public sealed partial class PaperBoundUserInterface

@@ -8,8 +8,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - oily
-      - bread
+    - oily
+    - bread
   - type: Food
   - type: Sprite
     sprite: Objects/Consumable/Food/Baked/pizza.rsi
@@ -42,8 +42,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - oily
-      - bread
+    - oily
+    - bread
   - type: Food
   - type: Sprite
     sprite: Objects/Consumable/Food/Baked/pizza.rsi
@@ -77,9 +77,9 @@
   components:
   - type: FlavorProfile
     flavors:
-      - cheesy
-      - oily
-      - bread
+    - cheesy
+    - oily
+    - bread
   - type: Sprite
     layers:
     - state: margherita
@@ -94,9 +94,9 @@
   components:
   - type: FlavorProfile
     flavors:
-      - cheesy
-      - oily
-      - bread
+    - cheesy
+    - oily
+    - bread
   - type: Sprite
     layers:
     - state: margherita-slice
@@ -109,10 +109,10 @@
   components:
   - type: FlavorProfile
     flavors:
-      - meaty
-      - cheesy
-      - oily
-      - bread
+    - meaty
+    - cheesy
+    - oily
+    - bread
   - type: Sprite
     layers:
     - state: meat
@@ -131,10 +131,10 @@
   components:
   - type: FlavorProfile
     flavors:
-      - meaty
-      - cheesy
-      - oily
-      - bread
+    - meaty
+    - cheesy
+    - oily
+    - bread
   - type: Sprite
     layers:
     - state: meat-slice
@@ -153,9 +153,9 @@
   components:
   - type: FlavorProfile
     flavors:
-      - mushroom
-      - oily
-      - bread
+    - mushroom
+    - oily
+    - bread
   - type: Sprite
     layers:
     - state: mushroom
@@ -170,9 +170,9 @@
   components:
   - type: FlavorProfile
     flavors:
-      - mushroom
-      - oily
-      - bread
+    - mushroom
+    - oily
+    - bread
   - type: Sprite
     layers:
     - state: mushroom-slice
@@ -186,12 +186,12 @@
   components:
   - type: FlavorProfile
     flavors:
-      - eggplant
-      - corn
-      - tomato
-      - oily
-      - cheesy
-      - bread
+    - eggplant
+    - corn
+    - tomato
+    - oily
+    - cheesy
+    - bread
   - type: Sprite
     layers:
     - state: vegetable
@@ -219,13 +219,13 @@
   components:
   - type: FlavorProfile
     flavors:
-      - eggplant
-      - corn
-      - tomato
-      - carrot
-      - oily
-      - cheesy
-      - bread
+    - eggplant
+    - corn
+    - tomato
+    - carrot
+    - oily
+    - cheesy
+    - bread
   - type: Sprite
     layers:
     - state: vegetable-slice
@@ -253,7 +253,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - donk
+    - donk
   - type: Sprite
     layers:
     - state: donkpocket
@@ -277,7 +277,6 @@
     - Meat
     - Pizza
 
-
 - type: entity
   name: slice of donk-pocket pizza
   parent: FoodPizzaSliceBase
@@ -286,7 +285,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - donk
+    - donk
   - type: Sprite
     layers:
     - state: donkpocket-slice
@@ -318,10 +317,10 @@
   components:
   - type: FlavorProfile
     flavors:
-      - oily
-      - bread
-      - cheesy
-      - leafy
+    - oily
+    - bread
+    - cheesy
+    - leafy
   - type: Sprite
     layers:
     - state: dank
@@ -347,10 +346,10 @@
   components:
   - type: FlavorProfile
     flavors:
-      - oily
-      - bread
-      - cheesy
-      - leafy
+    - oily
+    - bread
+    - cheesy
+    - leafy
   - type: Sprite
     layers:
     - state: dank-slice
@@ -375,10 +374,10 @@
   components:
   - type: FlavorProfile
     flavors:
-      - meaty
-      - cheesy
-      - oily
-      - bread
+    - meaty
+    - cheesy
+    - oily
+    - bread
   - type: Sprite
     layers:
     - state: sassysage
@@ -397,10 +396,10 @@
   components:
   - type: FlavorProfile
     flavors:
-      - meaty
-      - cheesy
-      - oily
-      - bread
+    - meaty
+    - cheesy
+    - oily
+    - bread
   - type: Sprite
     layers:
     - state: sassysage-slice
@@ -419,11 +418,11 @@
   components:
   - type: FlavorProfile
     flavors:
-      - meaty
-      - pineapple
-      - cheesy
-      - oily
-      - bread
+    - meaty
+    - pineapple
+    - cheesy
+    - oily
+    - bread
   - type: Sprite
     layers:
     - state: pineapple
@@ -442,11 +441,11 @@
   components:
   - type: FlavorProfile
     flavors:
-      - meaty
-      - pineapple
-      - cheesy
-      - oily
-      - bread
+    - meaty
+    - pineapple
+    - cheesy
+    - oily
+    - bread
   - type: Sprite
     layers:
     - state: pineapple-slice
@@ -466,11 +465,11 @@
   components:
   - type: FlavorProfile
     flavors:
-      - meaty
-      - cheesy
-      - oily
-      - bread
-      - gunpowder
+    - meaty
+    - cheesy
+    - oily
+    - bread
+    - gunpowder
   - type: Sprite
     layers:
     - state: arnold
@@ -504,11 +503,11 @@
   components:
   - type: FlavorProfile
     flavors:
-      - meaty
-      - cheesy
-      - oily
-      - bread
-      - gunpowder
+    - meaty
+    - cheesy
+    - oily
+    - bread
+    - gunpowder
   - type: Sprite
     layers:
     - state: arnold-slice
@@ -543,9 +542,9 @@
   components:
   - type: FlavorProfile
     flavors:
-      - bitter
-      - terrible
-      - mushroom
+    - bitter
+    - terrible
+    - mushroom
   - type: Sprite
     layers:
     - state: moldy-slice
@@ -714,8 +713,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - bread
-      - numbingtranquility
+    - bread
+    - numbingtranquility
   - type: Sprite
     layers:
     - state: worldpeas
@@ -741,8 +740,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - bread
-      - numbingtranquility
+    - bread
+    - numbingtranquility
   - type: Sprite
     layers:
     - state: worldpeas-slice

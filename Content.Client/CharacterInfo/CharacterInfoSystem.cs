@@ -7,7 +7,8 @@ namespace Content.Client.CharacterInfo;
 
 public sealed class CharacterInfoSystem : EntitySystem
 {
-    [Dependency] private readonly IPlayerManager _players = default!;
+    [Dependency]
+    private readonly IPlayerManager _players = default!;
 
     public event Action<CharacterData>? OnCharacterUpdate;
 

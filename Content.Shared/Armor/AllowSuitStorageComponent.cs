@@ -12,8 +12,5 @@ public sealed partial class AllowSuitStorageComponent : Component
     /// Whitelist for what entities are allowed in the suit storage slot.
     /// </summary>
     [DataField]
-    public EntityWhitelist Whitelist = new()
-    {
-        Components = new[] {"Item"}
-    };
+    public EntityWhitelist Whitelist = new() { Components = new[] { "Item" } };
 }

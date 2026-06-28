@@ -27,7 +27,7 @@
 - type: entity
   id: CrateRadioStationVinyls5
   parent: CrateGenericSteel
-  name:  5 vinyls crate
+  name: 5 vinyls crate
   description: A crate with 5 random vinyls to play with the vinyl player. Collect them all!
   components:
   - type: EntityTableContainerFill
@@ -38,7 +38,6 @@
           tableId: RandomVinylSleeve
           rolls: !type:ConstantNumberSelector
             value: 5
-
 
 - type: entityTable
   id: RandomCDDisk

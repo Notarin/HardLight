@@ -7,7 +7,8 @@ namespace Content.Shared.Construction.Prototypes;
 [Prototype]
 public sealed partial class ConstructionPrototype : IPrototype
 {
-    [DataField("conditions")] private List<IConstructionCondition> _conditions = new();
+    [DataField("conditions")]
+    private List<IConstructionCondition> _conditions = new();
 
     /// <summary>
     ///     Hide from the construction list
@@ -62,9 +63,11 @@ public sealed partial class ConstructionPrototype : IPrototype
     [DataField]
     public EntityWhitelist? EntityWhitelist { get; private set; }
 
-    [DataField] public string Category { get; private set; } = string.Empty;
+    [DataField]
+    public string Category { get; private set; } = string.Empty;
 
-    [DataField("objectType")] public ConstructionType Type { get; private set; } = ConstructionType.Structure;
+    [DataField("objectType")]
+    public ConstructionType Type { get; private set; } = ConstructionType.Structure;
 
     [ViewVariables]
     [IdDataField]

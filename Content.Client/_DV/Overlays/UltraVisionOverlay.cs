@@ -1,18 +1,22 @@
+using System.Numerics;
+using Content.Shared.Abilities;
 using Robust.Client.Graphics;
 using Robust.Client.Player;
 using Robust.Shared.Enums;
 using Robust.Shared.Prototypes;
-using Content.Shared.Abilities;
-using System.Numerics;
 
 namespace Content.Client._DV.Overlays;
 
 public sealed partial class UltraVisionOverlay : Overlay
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] IEntityManager _entityManager = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
 
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    IEntityManager _entityManager = default!;
 
     public override bool RequestScreenTexture => true;
     public override OverlaySpace Space => OverlaySpace.WorldSpace;
@@ -27,10 +31,13 @@ public sealed partial class UltraVisionOverlay : Overlay
 
     protected override bool BeforeDraw(in OverlayDrawArgs args)
     {
-        if (_playerManager.LocalEntity is not { Valid: true } player
-            || (!
-                _entityManager.HasComponent<UltraVisionComponent>(player)
-                && !_entityManager.HasComponent<UltraVisionNoBypassComponent>(player)))
+        if (
+            _playerManager.LocalEntity is not { Valid: true } player
+            || (
+                !_entityManager.HasComponent<UltraVisionComponent>(player)
+                && !_entityManager.HasComponent<UltraVisionNoBypassComponent>(player)
+            )
+        )
         {
             return false;
         }

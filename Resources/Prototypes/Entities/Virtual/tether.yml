@@ -1,6 +1,6 @@
 - type: entity
   id: TetherEntity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Physics
     bodyType: Dynamic
@@ -8,6 +8,5 @@
   - type: Fixtures
     fixtures:
       tether:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.35

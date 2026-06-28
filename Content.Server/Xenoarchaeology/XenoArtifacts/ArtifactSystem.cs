@@ -3,6 +3,8 @@ using System.Linq;
 using System.Numerics;
 using Content.Server.Cargo.Systems;
 using Content.Server.Power.EntitySystems;
+using Content.Server.Station.Components; // Frontier
+using Content.Server.Station.Systems; // Frontier
 using Content.Server.Xenoarchaeology.Equipment.Components;
 using Content.Server.Xenoarchaeology.XenoArtifacts.Events;
 using Content.Shared.Tiles;
@@ -14,23 +16,37 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Serialization.Manager;
 using Robust.Shared.Timing;
-using Content.Server.Station.Components; // Frontier
-using Content.Server.Station.Systems; // Frontier
 
 namespace Content.Server.Xenoarchaeology.XenoArtifacts;
 
 public sealed partial class ArtifactSystem : EntitySystem
 {
-    [Dependency] private readonly IComponentFactory _componentFactory = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly ISerializationManager _serialization = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
-    [Dependency] private readonly IEntityManager _entityManager = default!;
-    [Dependency] private readonly StationSystem _station = default!; // Frontier
+    [Dependency]
+    private readonly IComponentFactory _componentFactory = default!;
 
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototype = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly ISerializationManager _serialization = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly TransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly IEntityManager _entityManager = default!;
+
+    [Dependency]
+    private readonly StationSystem _station = default!; // Frontier
 
     public override void Initialize()
     {
@@ -78,7 +94,7 @@ public sealed partial class ArtifactSystem : EntitySystem
         var sumValue = component.NodeTree.Sum(n => GetNodePointValue(n, component, getMaxPrice));
         var fullyExploredBonus = component.NodeTree.All(x => x.Triggered) || getMaxPrice ? 1.25f : 1;
 
-        return (int) (sumValue * fullyExploredBonus) - component.ConsumedPoints - component.SkippedPoints; // Frontier: subtract SkippedPoints
+        return (int)(sumValue * fullyExploredBonus) - component.ConsumedPoints - component.SkippedPoints; // Frontier: subtract SkippedPoints
     }
 
     /// <summary>
@@ -139,7 +155,12 @@ public sealed partial class ArtifactSystem : EntitySystem
     }
 
     // Frontier: activate and randomly disintegrate an artifact.
-    public void NFActivateArtifact(EntityUid uid, float disintegrateProb, float disintegrateProbOffStationGrid, float range)
+    public void NFActivateArtifact(
+        EntityUid uid,
+        float disintegrateProb,
+        float disintegrateProbOffStationGrid,
+        float range
+    )
     {
         if (!TryComp<ArtifactComponent>(uid, out var artifactComp))
             return;
@@ -181,6 +202,7 @@ public sealed partial class ArtifactSystem : EntitySystem
             artifactComp.RemoveGainedPoints = oldRemove;
         }
     }
+
     // End Frontier
 
     /// <summary>
@@ -191,7 +213,12 @@ public sealed partial class ArtifactSystem : EntitySystem
     /// <param name="component"></param>
     /// <param name="logMissing">Set this to false if you don't know if the entity is an artifact.</param>
     /// <returns></returns>
-    public bool TryActivateArtifact(EntityUid uid, EntityUid? user = null, ArtifactComponent? component = null, bool logMissing = true)
+    public bool TryActivateArtifact(
+        EntityUid uid,
+        EntityUid? user = null,
+        ArtifactComponent? component = null,
+        bool logMissing = true
+    )
     {
         if (!Resolve(uid, ref component, logMissing))
             return false;
@@ -233,10 +260,7 @@ public sealed partial class ArtifactSystem : EntitySystem
         _audio.PlayPvs(component.ActivationSound, uid);
         component.LastActivationTime = _gameTiming.CurTime;
 
-        var ev = new ArtifactActivatedEvent
-        {
-            Activator = user
-        };
+        var ev = new ArtifactActivatedEvent { Activator = user };
         RaiseLocalEvent(uid, ev, true);
 
         var currentNode = GetNodeFromId(component.CurrentNodeId.Value, component);
@@ -269,20 +293,26 @@ public sealed partial class ArtifactSystem : EntitySystem
         Log.Debug($"our node: {currentNode.Id}");
         Log.Debug($"other nodes: {string.Join(", ", allNodes)}");
 
-        if (TryComp<BiasedArtifactComponent>(uid, out var bias) &&
-            TryComp<TraversalDistorterComponent>(bias.Provider, out var trav) &&
-            _random.Prob(trav.BiasChance) &&
-            this.IsPowered(bias.Provider, EntityManager))
+        if (
+            TryComp<BiasedArtifactComponent>(uid, out var bias)
+            && TryComp<TraversalDistorterComponent>(bias.Provider, out var trav)
+            && _random.Prob(trav.BiasChance)
+            && this.IsPowered(bias.Provider, EntityManager)
+        )
         {
             switch (trav.BiasDirection)
             {
                 case BiasDirection.Up:
-                    var upNodes = allNodes.Where(x => GetNodeFromId(x, component).Depth < currentNode.Depth).ToHashSet();
+                    var upNodes = allNodes
+                        .Where(x => GetNodeFromId(x, component).Depth < currentNode.Depth)
+                        .ToHashSet();
                     if (upNodes.Count != 0)
                         allNodes = upNodes;
                     break;
                 case BiasDirection.Down:
-                    var downNodes = allNodes.Where(x => GetNodeFromId(x, component).Depth > currentNode.Depth).ToHashSet();
+                    var downNodes = allNodes
+                        .Where(x => GetNodeFromId(x, component).Depth > currentNode.Depth)
+                        .ToHashSet();
                     if (downNodes.Count != 0)
                         allNodes = downNodes;
                     break;
@@ -312,7 +342,12 @@ public sealed partial class ArtifactSystem : EntitySystem
     /// <param name="component"></param>
     /// <typeparam name="T"></typeparam>
     /// <returns></returns>
-    public bool TryGetNodeData<T>(EntityUid uid, string key, [NotNullWhen(true)] out T? data, ArtifactComponent? component = null)
+    public bool TryGetNodeData<T>(
+        EntityUid uid,
+        string key,
+        [NotNullWhen(true)] out T? data,
+        ArtifactComponent? component = null
+    )
     {
         data = default;
 

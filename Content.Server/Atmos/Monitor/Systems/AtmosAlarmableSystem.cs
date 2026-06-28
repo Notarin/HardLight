@@ -4,6 +4,7 @@ using Content.Server.Atmos.Monitor.Components;
 using Content.Server.DeviceNetwork.Systems;
 using Content.Shared.Atmos.Monitor;
 using Content.Shared.DeviceNetwork;
+using Content.Shared.DeviceNetwork.Components;
 using Content.Shared.DeviceNetwork.Events;
 using Content.Shared.Power;
 using Content.Shared.Tag;
@@ -11,16 +12,22 @@ using Robust.Server.Audio;
 using Robust.Server.GameObjects;
 using Robust.Shared.Audio;
 using Robust.Shared.Prototypes;
-using Content.Shared.DeviceNetwork.Components;
 
 namespace Content.Server.Atmos.Monitor.Systems;
 
 public sealed class AtmosAlarmableSystem : EntitySystem
 {
-    [Dependency] private readonly AppearanceSystem _appearance = default!;
-    [Dependency] private readonly AudioSystem _audioSystem = default!;
-    [Dependency] private readonly DeviceNetworkSystem _deviceNet = default!;
-    [Dependency] private readonly AtmosDeviceNetworkSystem _atmosDevNetSystem = default!;
+    [Dependency]
+    private readonly AppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly AudioSystem _audioSystem = default!;
+
+    [Dependency]
+    private readonly DeviceNetworkSystem _deviceNet = default!;
+
+    [Dependency]
+    private readonly AtmosDeviceNetworkSystem _atmosDevNetSystem = default!;
 
     /// <summary>
     ///     An alarm. Has three valid states: Normal, Warning, Danger.
@@ -55,7 +62,8 @@ public sealed class AtmosAlarmableSystem : EntitySystem
             uid,
             TryGetHighestAlert(uid, out var alarm) ? alarm.Value : AtmosAlarmType.Normal,
             component,
-            false);
+            false
+        );
     }
 
     private void OnPowerChange(EntityUid uid, AtmosAlarmableComponent component, ref PowerChangedEvent args)
@@ -74,19 +82,23 @@ public sealed class AtmosAlarmableSystem : EntitySystem
                 uid,
                 TryGetHighestAlert(uid, out var alarm) ? alarm.Value : AtmosAlarmType.Normal,
                 component,
-                false);
+                false
+            );
         }
     }
 
     private void OnPacketRecv(EntityUid uid, AtmosAlarmableComponent component, DeviceNetworkPacketEvent args)
     {
-        if (component.IgnoreAlarms) return;
+        if (component.IgnoreAlarms)
+            return;
 
         if (!EntityManager.TryGetComponent(uid, out DeviceNetworkComponent? netConn))
             return;
 
-        if (!args.Data.TryGetValue(DeviceNetworkConstants.Command, out string? cmd)
-            || !args.Data.TryGetValue(AlertSource, out HashSet<ProtoId<TagPrototype>>? sourceTags))
+        if (
+            !args.Data.TryGetValue(DeviceNetworkConstants.Command, out string? cmd)
+            || !args.Data.TryGetValue(AlertSource, out HashSet<ProtoId<TagPrototype>>? sourceTags)
+        )
         {
             return;
         }
@@ -108,7 +120,10 @@ public sealed class AtmosAlarmableSystem : EntitySystem
                     break;
                 }
 
-                if (args.Data.TryGetValue(AlertTypes, out HashSet<AtmosMonitorThresholdType>? types) && component.MonitorAlertTypes != null)
+                if (
+                    args.Data.TryGetValue(AlertTypes, out HashSet<AtmosMonitorThresholdType>? types)
+                    && component.MonitorAlertTypes != null
+                )
                 {
                     isValid = types.Any(type => component.MonitorAlertTypes.Contains(type));
                 }
@@ -143,8 +158,7 @@ public sealed class AtmosAlarmableSystem : EntitySystem
                 Reset(uid, component);
                 break;
             case SyncAlerts:
-                if (!args.Data.TryGetValue(SyncAlerts,
-                        out IReadOnlyDictionary<string, AtmosAlarmType>? alarms))
+                if (!args.Data.TryGetValue(SyncAlerts, out IReadOnlyDictionary<string, AtmosAlarmType>? alarms))
                 {
                     break;
                 }
@@ -184,7 +198,12 @@ public sealed class AtmosAlarmableSystem : EntitySystem
         RaiseLocalEvent(uid, new AtmosAlarmEvent(type), true);
     }
 
-    public void SyncAlertsToNetwork(EntityUid uid, string? address = null, AtmosAlarmableComponent? alarmable = null, TagComponent? tags = null)
+    public void SyncAlertsToNetwork(
+        EntityUid uid,
+        string? address = null,
+        AtmosAlarmableComponent? alarmable = null,
+        TagComponent? tags = null
+    )
     {
         if (!Resolve(uid, ref alarmable, ref tags) || alarmable.ReceiveOnly)
         {
@@ -195,7 +214,7 @@ public sealed class AtmosAlarmableSystem : EntitySystem
         {
             [DeviceNetworkConstants.Command] = SyncAlerts,
             [SyncAlerts] = alarmable.NetworkAlarmStates,
-            [AlertSource] = tags.Tags
+            [AlertSource] = tags.Tags,
         };
 
         _deviceNet.QueuePacket(uid, address, payload);
@@ -208,8 +227,13 @@ public sealed class AtmosAlarmableSystem : EntitySystem
     /// <param name="uid"></param>
     /// <param name="alarmType"></param>
     /// <param name="alarmable"></param>
-    public void ForceAlert(EntityUid uid, AtmosAlarmType alarmType,
-        AtmosAlarmableComponent? alarmable = null, DeviceNetworkComponent? devNet = null, TagComponent? tags = null)
+    public void ForceAlert(
+        EntityUid uid,
+        AtmosAlarmType alarmType,
+        AtmosAlarmableComponent? alarmable = null,
+        DeviceNetworkComponent? devNet = null,
+        TagComponent? tags = null
+    )
     {
         if (!Resolve(uid, ref alarmable, ref devNet, ref tags))
         {
@@ -232,7 +256,7 @@ public sealed class AtmosAlarmableSystem : EntitySystem
         {
             [DeviceNetworkConstants.Command] = AlertCmd,
             [DeviceNetworkConstants.CmdSetState] = alarmType,
-            [AlertSource] = tags.Tags
+            [AlertSource] = tags.Tags,
         };
 
         _deviceNet.QueuePacket(uid, null, payload);
@@ -255,11 +279,7 @@ public sealed class AtmosAlarmableSystem : EntitySystem
 
         if (!alarmable.ReceiveOnly)
         {
-            var payload = new NetworkPayload
-            {
-                [DeviceNetworkConstants.Command] = ResetAll,
-                [AlertSource] = tags.Tags
-            };
+            var payload = new NetworkPayload { [DeviceNetworkConstants.Command] = ResetAll, [AlertSource] = tags.Tags };
 
             _deviceNet.QueuePacket(uid, null, payload);
         }
@@ -282,8 +302,11 @@ public sealed class AtmosAlarmableSystem : EntitySystem
     /// <param name="alarm"></param>
     /// <param name="alarmable"></param>
     /// <returns></returns>
-    public bool TryGetHighestAlert(EntityUid uid, [NotNullWhen(true)] out AtmosAlarmType? alarm,
-        AtmosAlarmableComponent? alarmable = null)
+    public bool TryGetHighestAlert(
+        EntityUid uid,
+        [NotNullWhen(true)] out AtmosAlarmType? alarm,
+        AtmosAlarmableComponent? alarmable = null
+    )
     {
         alarm = null;
 

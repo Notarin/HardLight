@@ -14,13 +14,24 @@ namespace Content.Server.Communications;
 
 public sealed class CommsHackerSystem : SharedCommsHackerSystem
 {
-    [Dependency] private readonly ChatSystem _chat = default!;
-    [Dependency] private readonly GameTicker _gameTicker = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency]
+    private readonly ChatSystem _chat = default!;
+
+    [Dependency]
+    private readonly GameTicker _gameTicker = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
     // TODO: remove when generic check event is used
-    [Dependency] private readonly NinjaGlovesSystem _gloves = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
+    [Dependency]
+    private readonly NinjaGlovesSystem _gloves = default!;
+
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfter = default!;
 
     public override void Initialize()
     {
@@ -42,12 +53,20 @@ public sealed class CommsHackerSystem : SharedCommsHackerSystem
         if (!_gloves.AbilityCheck(uid, args, out var target))
             return;
 
-        var doAfterArgs = new DoAfterArgs(EntityManager, uid, comp.Delay, new TerrorDoAfterEvent(), target: target, used: uid, eventTarget: uid)
+        var doAfterArgs = new DoAfterArgs(
+            EntityManager,
+            uid,
+            comp.Delay,
+            new TerrorDoAfterEvent(),
+            target: target,
+            used: uid,
+            eventTarget: uid
+        )
         {
             BreakOnDamage = true,
             BreakOnMove = true,
             MovementThreshold = 0.5f,
-            CancelDuplicate = false
+            CancelDuplicate = false,
         };
 
         _doAfter.TryStartDoAfter(doAfterArgs);
@@ -79,7 +98,11 @@ public sealed class CommsHackerSystem : SharedCommsHackerSystem
     public void CallInThreat(NinjaHackingThreatPrototype ninjaHackingThreat)
     {
         _gameTicker.StartGameRule(ninjaHackingThreat.Rule, out _);
-        _chat.DispatchGlobalAnnouncement(Loc.GetString(ninjaHackingThreat.Announcement), playSound: true, colorOverride: Color.Red);
+        _chat.DispatchGlobalAnnouncement(
+            Loc.GetString(ninjaHackingThreat.Announcement),
+            playSound: true,
+            colorOverride: Color.Red
+        );
     }
 }
 

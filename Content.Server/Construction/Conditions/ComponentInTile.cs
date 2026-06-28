@@ -39,7 +39,8 @@ namespace Content.Server.Construction.Conditions
 
         public bool Condition(EntityUid uid, IEntityManager entityManager)
         {
-            if (string.IsNullOrEmpty(Component)) return false;
+            if (string.IsNullOrEmpty(Component))
+                return false;
 
             var type = IoCManager.Resolve<IComponentFactory>().GetRegistration(Component).Type;
 
@@ -48,14 +49,21 @@ namespace Content.Server.Construction.Conditions
                 return false;
 
             var transformSys = entityManager.System<SharedTransformSystem>();
-            var indices = transform.Coordinates.ToVector2i(entityManager, IoCManager.Resolve<IMapManager>(), transformSys);
+            var indices = transform.Coordinates.ToVector2i(
+                entityManager,
+                IoCManager.Resolve<IMapManager>(),
+                transformSys
+            );
             var lookup = entityManager.EntitySysManager.GetEntitySystem<EntityLookupSystem>();
-
 
             if (!entityManager.TryGetComponent<MapGridComponent>(transform.GridUid.Value, out var grid))
                 return !HasEntity;
 
-            if (!entityManager.System<SharedMapSystem>().TryGetTileRef(transform.GridUid.Value, grid, indices, out var tile))
+            if (
+                !entityManager
+                    .System<SharedMapSystem>()
+                    .TryGetTileRef(transform.GridUid.Value, grid, indices, out var tile)
+            )
                 return !HasEntity;
 
             var entities = tile.GetEntitiesInTile(LookupFlags.Approximate | LookupFlags.Static, lookup);
@@ -83,11 +91,7 @@ namespace Content.Server.Construction.Conditions
             if (string.IsNullOrEmpty(GuideText))
                 yield break;
 
-            yield return new ConstructionGuideEntry()
-            {
-                Localization = GuideText,
-                Icon = GuideIcon,
-            };
+            yield return new ConstructionGuideEntry() { Localization = GuideText, Icon = GuideIcon };
         }
     }
 }

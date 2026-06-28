@@ -2,7 +2,4 @@
 
 /// <seealso cref="TegSystem"/>
 [RegisterComponent]
-public sealed partial class TegCirculatorComponent : Component
-{
-
-}
+public sealed partial class TegCirculatorComponent : Component { }

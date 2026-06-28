@@ -7,11 +7,11 @@
   - type: Sprite
     sprite: Objects/Devices/jammer.rsi
     layers:
-        - state: jammer
-        - state: jammer_high_charge
-          map: ["enum.RadioJammerLayers.LED"]
-          shader: unshaded
-          visible: false
+    - state: jammer
+    - state: jammer_high_charge
+      map: ["enum.RadioJammerLayers.LED"]
+      shader: unshaded
+      visible: false
   - type: RadioJammer
     settings:
     - wattage: 1
@@ -41,8 +41,8 @@
     visuals:
       enum.RadioJammerVisuals.LEDOn:
         RadioJammerLayers.LED:
-          True: { visible: True }
-          False: { visible: False }
+          True: {visible: True}
+          False: {visible: False}
       enum.RadioJammerVisuals.ChargeLevel:
         RadioJammerLayers.LED:
           Low: {state: jammer_low_charge}

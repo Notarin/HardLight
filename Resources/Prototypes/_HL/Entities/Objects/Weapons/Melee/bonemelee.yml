@@ -20,7 +20,7 @@
   - type: Construction
     graph: BoneKnife
     node: BoneKnife
-   
+
 - type: entity
   name: dinosaur fang
   parent: [BaseItem, BaseC1Contraband] # Frontier: added BaseC3CultContraband
@@ -42,8 +42,8 @@
   - type: DisarmMalus
   - type: Tag
     tags:
-      - DinoFang
-      
+    - DinoFang
+
 - type: entity
   name: fang knife
   parent: [BaseC1Contraband, CombatKnife] # BaseSecurityCargoContraband<BaseC1Contraband
@@ -116,7 +116,7 @@
   - type: Construction
     graph: BoneHalberd
     node: BoneHalberd
-      
+
 - type: entity
   name: bone hatchet
   parent: [BaseItem, BaseC1Contraband]
@@ -146,7 +146,7 @@
   - type: Construction
     graph: BoneHatchet
     node: BoneHatchet
-      
+
 - type: entity
   name: bone club
   parent: [BaseItem, BaseC1Contraband]

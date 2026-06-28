@@ -10,7 +10,4 @@ namespace Content.Server.Speech.Components;
 ///     Removes contractions (e.g. "can't," "don't," etc.)
 /// </summary>
 [RegisterComponent]
-public sealed partial class NoContractionsAccentComponent : Component
-{
-
-}
+public sealed partial class NoContractionsAccentComponent : Component { }

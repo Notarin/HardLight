@@ -1,3 +1,4 @@
+using System.Linq;
 using Content.Server.Construction.Components;
 using Content.Server.Containers;
 using Content.Shared.Construction;
@@ -8,15 +9,12 @@ using Content.Shared.Database;
 using Robust.Server.Containers;
 using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
-using System.Linq;
 
 namespace Content.Server.Construction
 {
     public sealed partial class ConstructionSystem
     {
-        private void InitializeGraphs()
-        {
-        }
+        private void InitializeGraphs() { }
 
         /// <summary>
         ///     Sets a container on an entity as being handled by Construction. This essentially means that it will
@@ -94,7 +92,10 @@ namespace Content.Server.Construction
         /// <summary>
         ///     Variant of <see cref="GetCurrentEdge"/> that returns both the node and edge.
         /// </summary>
-        public (ConstructionGraphNode?, ConstructionGraphEdge?) GetCurrentNodeAndEdge(EntityUid uid, ConstructionComponent? construction = null)
+        public (ConstructionGraphNode?, ConstructionGraphEdge?) GetCurrentNodeAndEdge(
+            EntityUid uid,
+            ConstructionComponent? construction = null
+        )
         {
             if (!Resolve(uid, ref construction, false))
                 return (null, null);
@@ -181,8 +182,10 @@ namespace Content.Server.Construction
         /// <param name="construction">The construction component of the target entity. Will be resolved if null.</param>
         /// <returns>A tuple containing the current edge and step the entity's construction state is at.</returns>
         /// <remarks>The edge, step or both could be null. A valid construction state does not necessarily need them.</remarks>
-        public (ConstructionGraphEdge? edge, ConstructionGraphStep? step) GetCurrentEdgeAndStep(EntityUid uid,
-            ConstructionComponent? construction = null)
+        public (ConstructionGraphEdge? edge, ConstructionGraphStep? step) GetCurrentEdgeAndStep(
+            EntityUid uid,
+            ConstructionComponent? construction = null
+        )
         {
             if (!Resolve(uid, ref construction, false))
                 return default;
@@ -240,25 +243,35 @@ namespace Content.Server.Construction
         /// <param name="construction">The construction component of the target entity. Will be resolved if null.</param>
         /// <returns>Whether the node change succeeded or not. Also returns false if the entity does not have a <see cref="ConstructionComponent"/>.</returns>
         /// <remarks>This method also updates the construction pathfinding automatically, if the node change succeeds.</remarks>
-        public bool ChangeNode(EntityUid uid, EntityUid? userUid, string id, bool performActions = true, ConstructionComponent? construction = null)
+        public bool ChangeNode(
+            EntityUid uid,
+            EntityUid? userUid,
+            string id,
+            bool performActions = true,
+            ConstructionComponent? construction = null
+        )
         {
             if (!Resolve(uid, ref construction))
                 return false;
 
-            if (GetCurrentGraph(uid, construction) is not { } graph
-            || GetNodeFromGraph(graph, id) is not { } node)
+            if (GetCurrentGraph(uid, construction) is not { } graph || GetNodeFromGraph(graph, id) is not { } node)
                 return false;
 
             var oldNode = construction.Node;
             construction.Node = id;
 
             if (userUid != null)
-                _adminLogger.Add(LogType.Construction, LogImpact.Low,
-                    $"{ToPrettyString(userUid.Value):player} changed {ToPrettyString(uid):entity}'s node from \"{oldNode}\" to \"{id}\"");
+                _adminLogger.Add(
+                    LogType.Construction,
+                    LogImpact.Low,
+                    $"{ToPrettyString(userUid.Value):player} changed {ToPrettyString(uid):entity}'s node from \"{oldNode}\" to \"{id}\""
+                );
 
             // ChangeEntity will handle the pathfinding update.
-            if (node.Entity.GetId(uid, userUid, new(EntityManager)) is { } newEntity
-                && ChangeEntity(uid, userUid, newEntity, construction, oldNode) != null)
+            if (
+                node.Entity.GetId(uid, userUid, new(EntityManager)) is { } newEntity
+                && ChangeEntity(uid, userUid, newEntity, construction, oldNode) != null
+            )
                 return true;
 
             if (performActions)
@@ -287,12 +300,16 @@ namespace Content.Server.Construction
         /// <param name="containerManager">The container manager component of the target entity. Will be resolved if null,
         ///                                but it is an optional component and not required for the method to work.</param>
         /// <returns>The new entity, or null if the method did not succeed.</returns>
-        private EntityUid? ChangeEntity(EntityUid uid, EntityUid? userUid, string newEntity,
+        private EntityUid? ChangeEntity(
+            EntityUid uid,
+            EntityUid? userUid,
+            string newEntity,
             ConstructionComponent? construction = null,
             string? previousNode = null,
             MetaDataComponent? metaData = null,
             TransformComponent? transform = null,
-            ContainerManagerComponent? containerManager = null)
+            ContainerManagerComponent? containerManager = null
+        )
         {
             if (!Resolve(uid, ref construction, ref metaData, ref transform))
             {
@@ -309,8 +326,10 @@ namespace Content.Server.Construction
             // E.g., if an entity with the 'AirlockCommand' prototype was to be replaced with a new entity that
             // had the 'Airlock' prototype, and DoNotReplaceInheritingEntities was true, the code block would
             // exit here because 'AirlockCommand' is derived from 'Airlock'
-            if (GetCurrentNode(uid, construction)?.DoNotReplaceInheritingEntities == true &&
-                metaData.EntityPrototype?.ID != null)
+            if (
+                GetCurrentNode(uid, construction)?.DoNotReplaceInheritingEntities == true
+                && metaData.EntityPrototype?.ID != null
+            )
             {
                 var parents = PrototypeManager.EnumerateParents<EntityPrototype>(metaData.EntityPrototype.ID)?.ToList();
 
@@ -369,7 +388,10 @@ namespace Content.Server.Construction
             newTransform.Anchored = transform.Anchored;
 
             // Preserve stack information when changing prototypes (e.g., roasting a stack of beans)
-            if (TryComp<Shared.Stacks.StackComponent>(uid, out var oldStack) && TryComp<Shared.Stacks.StackComponent>(newUid, out var newStack))
+            if (
+                TryComp<Shared.Stacks.StackComponent>(uid, out var oldStack)
+                && TryComp<Shared.Stacks.StackComponent>(newUid, out var newStack)
+            )
             {
                 // Copy non-count properties first
                 newStack.Unlimited = oldStack.Unlimited;
@@ -431,7 +453,11 @@ namespace Content.Server.Construction
 
             // If ChangeEntity has ran, then the entity uid has changed and the
             // new entity should be initialized by this point.
-            var afterChangeEv = new AfterConstructionChangeEntityEvent(construction.Graph, construction.Node, previousNode);
+            var afterChangeEv = new AfterConstructionChangeEntityEvent(
+                construction.Graph,
+                construction.Node,
+                previousNode
+            );
             RaiseLocalEvent(newUid, ref afterChangeEv);
 
             return newUid;
@@ -449,7 +475,14 @@ namespace Content.Server.Construction
         /// <param name="construction">The construction component of the target entity. Will be resolved if null.</param>
         /// <returns>Whether the construction graph change succeeded or not. Returns false if the entity does not have
         ///          a <see cref="ConstructionComponent"/>.</returns>
-        public bool ChangeGraph(EntityUid uid, EntityUid? userUid, string graphId, string nodeId, bool performActions = true, ConstructionComponent? construction = null)
+        public bool ChangeGraph(
+            EntityUid uid,
+            EntityUid? userUid,
+            string graphId,
+            string nodeId,
+            bool performActions = true,
+            ConstructionComponent? construction = null
+        )
         {
             if (!Resolve(uid, ref construction))
                 return false;
@@ -489,7 +522,5 @@ namespace Content.Server.Construction
     /// <param name="CurrentNode">New node that has become active.</param>
     /// <param name="PreviousNode">Previous node that was active on the graph.</param>
     [ByRefEvent]
-    public record struct AfterConstructionChangeEntityEvent(string Graph, string CurrentNode, string? PreviousNode)
-    {
-    }
+    public record struct AfterConstructionChangeEntityEvent(string Graph, string CurrentNode, string? PreviousNode) { }
 }

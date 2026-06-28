@@ -9,7 +9,7 @@
     sprite: Tiles/Misc/bananium.rsi
     drawdepth: FloorTiles
     layers:
-      - state: bananium
+    - state: bananium
   - type: Transform
     anchored: true
   - type: FootstepModifier
@@ -17,7 +17,7 @@
       collection: FootstepClown
   - type: Tag
     tags:
-      - Catwalk
+    - Catwalk
   - type: Construction
     graph: FloorBananium
     node: BananiumFloor
@@ -26,14 +26,12 @@
     damageModifierSet: Metallic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 500
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 200
       behaviors:
       - !type:SpawnEntitiesBehavior
@@ -42,7 +40,7 @@
             min: 0
             max: 1
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: Slippery
   - type: StepTrigger
     intersectRatio: 0.2
@@ -51,15 +49,13 @@
   - type: Fixtures
     fixtures:
       slips:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.4,-0.3,0.4,0.3"
         hard: false
         layer:
         - SlipLayer
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.4,-0.3,0.4,0.3"
         density: 1000
         mask:

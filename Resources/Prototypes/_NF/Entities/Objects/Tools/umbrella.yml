@@ -53,7 +53,7 @@
     - state: flashlight-overlay
       shader: unshaded
       visible: false
-      map: [ "light" ]
+      map: ["light"]
   - type: Item
     sprite: _NF/Objects/Tools/umbrella.rsi
     storedRotation: -45

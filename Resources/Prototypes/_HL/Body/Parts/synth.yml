@@ -2,7 +2,7 @@
 # TODO BODY: Part damage
 - type: entity
   id: PartSynth
-  parent: [ BaseItem, BasePart ]
+  parent: [BaseItem, BasePart]
   name: "synth body part"
   abstract: true
   components:
@@ -17,7 +17,7 @@
 - type: entity
   id: HeadSynth
   name: "synth head"
-  parent: [ PartSynth, BaseHead ]
+  parent: [PartSynth, BaseHead]
   components:
   - type: Sprite
     sprite: _HL/Mobs/Species/Synth/parts.rsi
@@ -33,7 +33,7 @@
 - type: entity
   id: TorsoSynth
   name: "synth torso"
-  parent: [ PartSynth, BaseTorso ]
+  parent: [PartSynth, BaseTorso]
   components:
   - type: Sprite
     sprite: _HL/Mobs/Species/Synth/parts.rsi
@@ -49,7 +49,7 @@
 - type: entity
   id: LeftArmSynth
   name: "left synth arm"
-  parent: [ PartSynth, BaseLeftArm ]
+  parent: [PartSynth, BaseLeftArm]
   components:
   - type: Sprite
     sprite: _HL/Mobs/Species/Synth/parts.rsi
@@ -58,7 +58,7 @@
 - type: entity
   id: RightArmSynth
   name: "right synth arm"
-  parent: [ PartSynth, BaseRightArm ]
+  parent: [PartSynth, BaseRightArm]
   components:
   - type: Sprite
     sprite: _HL/Mobs/Species/Synth/parts.rsi
@@ -67,7 +67,7 @@
 - type: entity
   id: LeftHandSynth
   name: "left synth hand"
-  parent: [ PartSynth, BaseLeftHand ]
+  parent: [PartSynth, BaseLeftHand]
   components:
   - type: Sprite
     sprite: _HL/Mobs/Species/Synth/parts.rsi
@@ -76,7 +76,7 @@
 - type: entity
   id: RightHandSynth
   name: "right synth hand"
-  parent: [ PartSynth, BaseRightHand ]
+  parent: [PartSynth, BaseRightHand]
   components:
   - type: Sprite
     sprite: _HL/Mobs/Species/Synth/parts.rsi
@@ -85,7 +85,7 @@
 - type: entity
   id: LeftLegSynth
   name: "left synth leg"
-  parent: [ PartSynth, BaseLeftLeg ]
+  parent: [PartSynth, BaseLeftLeg]
   components:
   - type: Sprite
     sprite: _HL/Mobs/Species/Synth/parts.rsi
@@ -94,7 +94,7 @@
 - type: entity
   id: RightLegSynth
   name: "right synth leg"
-  parent: [ PartSynth, BaseRightLeg ]
+  parent: [PartSynth, BaseRightLeg]
   components:
   - type: Sprite
     sprite: _HL/Mobs/Species/Synth/parts.rsi
@@ -103,7 +103,7 @@
 - type: entity
   id: LeftFootSynth
   name: "left synth foot"
-  parent: [ PartSynth, BaseLeftFoot ]
+  parent: [PartSynth, BaseLeftFoot]
   components:
   - type: Sprite
     sprite: _HL/Mobs/Species/Synth/parts.rsi
@@ -112,7 +112,7 @@
 - type: entity
   id: RightFootSynth
   name: "right synth foot"
-  parent: [ PartSynth, BaseRightFoot ]
+  parent: [PartSynth, BaseRightFoot]
   components:
   - type: Sprite
     sprite: _HL/Mobs/Species/Synth/parts.rsi

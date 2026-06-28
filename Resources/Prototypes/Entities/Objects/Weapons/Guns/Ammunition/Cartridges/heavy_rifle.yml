@@ -1,13 +1,13 @@
 - type: entity
   id: BaseCartridgeHeavyRifle
   name: cartridge (.20 rifle)
-  parent: [ BaseCartridge, BaseC1Contraband ] # Frontier: BaseSecurityContraband<BaseC1Contraband
+  parent: [BaseCartridge, BaseC1Contraband] # Frontier: BaseSecurityContraband<BaseC1Contraband
   abstract: true
   components:
   - type: Tag
     tags:
-      - Cartridge
-      - CartridgeHeavyRifle
+    - Cartridge
+    - CartridgeHeavyRifle
   - type: CartridgeAmmo
     proto: BulletHeavyRifle # Frontier
     deleteOnSpawn: true
@@ -22,7 +22,7 @@
     price: 1
 
 - type: entity
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   id: CartridgeMinigun
   name: cartridge (.10 rifle)
   parent: BaseCartridgeHeavyRifle

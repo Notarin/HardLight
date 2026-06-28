@@ -3,8 +3,8 @@ using Content.Server.Chemistry.Containers.EntitySystems;
 using Content.Server.EUI;
 using Content.Shared.Administration;
 using Content.Shared.Chemistry.Components.SolutionManager;
-using Content.Shared.Eui;
 using Content.Shared.Chemistry.EntitySystems;
+using Content.Shared.Eui;
 using JetBrains.Annotations;
 using Robust.Shared.Timing;
 
@@ -16,8 +16,11 @@ namespace Content.Server.Administration.UI
     [UsedImplicitly]
     public sealed class EditSolutionsEui : BaseEui
     {
-        [Dependency] private readonly IEntityManager _entityManager = default!;
-        [Dependency] private readonly IGameTiming _gameTiming = default!;
+        [Dependency]
+        private readonly IEntityManager _entityManager = default!;
+
+        [Dependency]
+        private readonly IGameTiming _gameTiming = default!;
         private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
         public readonly EntityUid Target;
 
@@ -44,7 +47,10 @@ namespace Content.Server.Administration.UI
         {
             List<(string Name, NetEntity Solution)>? netSolutions;
 
-            if (_entityManager.TryGetComponent(Target, out SolutionContainerManagerComponent? container) && container.Containers.Count > 0)
+            if (
+                _entityManager.TryGetComponent(Target, out SolutionContainerManagerComponent? container)
+                && container.Containers.Count > 0
+            )
             {
                 netSolutions = new();
                 foreach (var (name, solution) in _solutionContainerSystem.EnumerateSolutions((Target, container)))

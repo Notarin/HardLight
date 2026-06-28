@@ -26,15 +26,24 @@ namespace Content.Client.Verbs.UI
     ///     open a verb menu for a given entity, add verbs to it, and add server-verbs when the server response is
     ///     received.
     /// </remarks>
-    public sealed class VerbMenuUIController : UIController,
-        IOnStateEntered<GameplayState>, IOnStateExited<GameplayState>,
-        IOnStateEntered<MappingState>, IOnStateExited<MappingState>
+    public sealed class VerbMenuUIController
+        : UIController,
+            IOnStateEntered<GameplayState>,
+            IOnStateExited<GameplayState>,
+            IOnStateEntered<MappingState>,
+            IOnStateExited<MappingState>
     {
-        [Dependency] private readonly IPlayerManager _playerManager = default!;
-        [Dependency] private readonly ContextMenuUIController _context = default!;
+        [Dependency]
+        private readonly IPlayerManager _playerManager = default!;
 
-        [UISystemDependency] private readonly CombatModeSystem _combatMode = default!;
-        [UISystemDependency] private readonly VerbSystem _verbSystem = default!;
+        [Dependency]
+        private readonly ContextMenuUIController _context = default!;
+
+        [UISystemDependency]
+        private readonly CombatModeSystem _combatMode = default!;
+
+        [UISystemDependency]
+        private readonly VerbSystem _verbSystem = default!;
 
         public NetEntity CurrentTarget;
         public SortedSet<Verb> CurrentVerbs = new();
@@ -81,8 +90,8 @@ namespace Content.Client.Verbs.UI
         private bool CanOpenVerbMenuInCombat(EntityUid user)
         {
             return EntityManager.HasComponent<StationAiTurretComponent>(user)
-                   || EntityManager.HasComponent<BorgBrainComponent>(user)
-                   || EntityManager.HasComponent<StationAiHeldComponent>(user);
+                || EntityManager.HasComponent<BorgBrainComponent>(user)
+                || EntityManager.HasComponent<StationAiHeldComponent>(user);
         }
 
         /// <summary>
@@ -93,7 +102,7 @@ namespace Content.Client.Verbs.UI
         /// <param name="popup">
         ///     If this is not null, verbs will be placed into the given popup instead.
         /// </param>
-        public void OpenVerbMenu(EntityUid target, bool force = false, ContextMenuPopup? popup=null)
+        public void OpenVerbMenu(EntityUid target, bool force = false, ContextMenuPopup? popup = null)
         {
             DebugTools.Assert(target.IsValid());
             OpenVerbMenu(EntityManager.GetNetEntity(target), force, popup);
@@ -107,10 +116,10 @@ namespace Content.Client.Verbs.UI
         /// <param name="popup">
         ///     If this is not null, verbs will be placed into the given popup instead.
         /// </param>
-        public void OpenVerbMenu(NetEntity target, bool force = false, ContextMenuPopup? popup=null)
+        public void OpenVerbMenu(NetEntity target, bool force = false, ContextMenuPopup? popup = null)
         {
             DebugTools.Assert(target.IsValid());
-            if (_playerManager.LocalEntity is not {Valid: true} user)
+            if (_playerManager.LocalEntity is not { Valid: true } user)
                 return;
 
             if (!force && _combatMode.IsInCombatMode(user) && !CanOpenVerbMenuInCombat(user))
@@ -204,7 +213,7 @@ namespace Content.Client.Verbs.UI
                 var subElement = new VerbMenuElement(verb)
                 {
                     IconVisible = drawIcons,
-                    TextVisible = !category.IconsOnly
+                    TextVisible = !category.IconsOnly,
                 };
                 _context.AddElement(element.SubMenu, subElement);
             }
@@ -258,8 +267,10 @@ namespace Content.Client.Verbs.UI
                 if (verbElement.SubMenu == null || verbElement.SubMenu.ChildCount == 0)
                     return;
 
-                if (verbElement.SubMenu.MenuBody.ChildCount != 1
-                    || verbElement.SubMenu.MenuBody.Children.First() is not VerbMenuElement verbMenuElement)
+                if (
+                    verbElement.SubMenu.MenuBody.ChildCount != 1
+                    || verbElement.SubMenu.MenuBody.Children.First() is not VerbMenuElement verbMenuElement
+                )
                 {
                     _context.OpenSubMenu(verbElement);
                     return;

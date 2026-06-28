@@ -1,8 +1,8 @@
 using Content.Shared.Humanoid;
-using Content.Shared.Store;
 using Content.Shared.Humanoid.Prototypes;
-using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype.Set;
 using Content.Shared.Mind;
+using Content.Shared.Store;
+using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype.Set;
 
 namespace Content.Server.Store.Conditions;
 

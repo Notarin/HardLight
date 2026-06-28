@@ -9,7 +9,8 @@ namespace Content.Server.Xenoarchaeology.XenoArtifacts;
 
 public sealed partial class ArtifactSystem
 {
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelistSystem = default!;
 
     private const int MaxEdgesPerNode = 4;
 
@@ -31,7 +32,7 @@ public sealed partial class ArtifactSystem
 
         _usedNodeIds.Clear();
 
-        var uninitializedNodes = new List<ArtifactNode> { new(){ Id = GetValidNodeId() } };
+        var uninitializedNodes = new List<ArtifactNode> { new() { Id = GetValidNodeId() } };
         var createdNodes = 1;
 
         while (uninitializedNodes.Count > 0)
@@ -51,7 +52,7 @@ public sealed partial class ArtifactSystem
                     break;
                 }
 
-                var child = new ArtifactNode {Id = GetValidNodeId(), Depth = node.Depth + 1};
+                var child = new ArtifactNode { Id = GetValidNodeId(), Depth = node.Depth + 1 };
                 node.Edges.Add(child.Id);
                 child.Edges.Add(node.Id);
 
@@ -81,30 +82,36 @@ public sealed partial class ArtifactSystem
 
     private string GetRandomTrigger(EntityUid artifact, ref ArtifactNode node)
     {
-        var allTriggers = _prototype.EnumeratePrototypes<ArtifactTriggerPrototype>()
-            .Where(x => _whitelistSystem.IsWhitelistPassOrNull(x.Whitelist, artifact) &&
-            _whitelistSystem.IsBlacklistFailOrNull(x.Blacklist, artifact)).ToList();
+        var allTriggers = _prototype
+            .EnumeratePrototypes<ArtifactTriggerPrototype>()
+            .Where(x =>
+                _whitelistSystem.IsWhitelistPassOrNull(x.Whitelist, artifact)
+                && _whitelistSystem.IsBlacklistFailOrNull(x.Blacklist, artifact)
+            )
+            .ToList();
         var validDepth = allTriggers.Select(x => x.TargetDepth).Distinct().ToList();
 
         var weights = GetDepthWeights(validDepth, node.Depth);
         var selectedRandomTargetDepth = GetRandomTargetDepth(weights);
-        var targetTriggers = allTriggers
-            .Where(x => x.TargetDepth == selectedRandomTargetDepth).ToList();
+        var targetTriggers = allTriggers.Where(x => x.TargetDepth == selectedRandomTargetDepth).ToList();
 
         return _random.Pick(targetTriggers).ID;
     }
 
     private string GetRandomEffect(EntityUid artifact, ref ArtifactNode node)
     {
-        var allEffects = _prototype.EnumeratePrototypes<ArtifactEffectPrototype>()
-            .Where(x => _whitelistSystem.IsWhitelistPassOrNull(x.Whitelist, artifact) &&
-            _whitelistSystem.IsBlacklistFailOrNull(x.Blacklist, artifact)).ToList();
+        var allEffects = _prototype
+            .EnumeratePrototypes<ArtifactEffectPrototype>()
+            .Where(x =>
+                _whitelistSystem.IsWhitelistPassOrNull(x.Whitelist, artifact)
+                && _whitelistSystem.IsBlacklistFailOrNull(x.Blacklist, artifact)
+            )
+            .ToList();
         var validDepth = allEffects.Select(x => x.TargetDepth).Distinct().ToList();
 
         var weights = GetDepthWeights(validDepth, node.Depth);
         var selectedRandomTargetDepth = GetRandomTargetDepth(weights);
-        var targetEffects = allEffects
-            .Where(x => x.TargetDepth == selectedRandomTargetDepth).ToList();
+        var targetEffects = allEffects.Where(x => x.TargetDepth == selectedRandomTargetDepth).ToList();
 
         return _random.Pick(targetEffects).ID;
     }
@@ -121,7 +128,8 @@ public sealed partial class ArtifactSystem
         var weights = new Dictionary<int, float>();
         foreach (var d in depths)
         {
-            var w = 10f / (0.75f * MathF.Sqrt(2 * MathF.PI)) * MathF.Pow(MathF.E, -MathF.Pow((d - targetDepth) / 0.75f, 2));
+            var w =
+                10f / (0.75f * MathF.Sqrt(2 * MathF.PI)) * MathF.Pow(MathF.E, -MathF.Pow((d - targetDepth) / 0.75f, 2));
             weights.Add(d, w);
         }
         return weights;

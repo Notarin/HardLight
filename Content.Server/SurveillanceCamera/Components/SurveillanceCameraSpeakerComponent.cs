@@ -8,9 +8,11 @@ namespace Content.Server.SurveillanceCamera;
 public sealed partial class SurveillanceCameraSpeakerComponent : Component
 {
     // mostly copied from Speech
-    [DataField("speechEnabled")] public bool SpeechEnabled = true;
+    [DataField("speechEnabled")]
+    public bool SpeechEnabled = true;
 
-    [ViewVariables] public float SpeechSoundCooldown = 0.5f;
+    [ViewVariables]
+    public float SpeechSoundCooldown = 0.5f;
 
     public TimeSpan LastSoundPlayed = TimeSpan.Zero;
 }

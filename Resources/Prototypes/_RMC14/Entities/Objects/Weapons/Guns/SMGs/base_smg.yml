@@ -1,6 +1,6 @@
-﻿- type: entity
+- type: entity
   abstract: true
-  parent: [ CMBaseWeaponRifle, BaseC3ExpeditionContraband ]
+  parent: [CMBaseWeaponRifle, BaseC3ExpeditionContraband]
   id: CMBaseWeaponSMG
   components:
   - type: Item
@@ -13,38 +13,38 @@
     - Burst
     - FullAuto
   # - type: RMCSelectiveFire
-    # baseFireModes:
-    # - SemiAuto
-    # - Burst
-    # - FullAuto
-    # modifiers:
-      # FullAuto:
-        # maxScatterModifier: 12
-        # useBurstScatterMult: true
-        # unwieldedScatterMultiplier: 2
-        # shotsToMaxScatter: 4
+  # baseFireModes:
+  # - SemiAuto
+  # - Burst
+  # - FullAuto
+  # modifiers:
+  # FullAuto:
+  # maxScatterModifier: 12
+  # useBurstScatterMult: true
+  # unwieldedScatterMultiplier: 2
+  # shotsToMaxScatter: 4
   # - type: WieldableSpeedModifiers
-    # base: 0.725
-    # light: 1
-    # medium: 1
-    # heavy: 1
+  # base: 0.725
+  # light: 1
+  # medium: 1
+  # heavy: 1
   - type: WieldDelay
     baseDelay: 0.2
   # - type: RMCNameItemOnVend
-    # item: PrimaryGun
+  # item: PrimaryGun
   # - type: GunUnskilledPenalty
-    # angleIncrease: 20
+  # angleIncrease: 20
   - type: Tag
     tags:
     - RMCWeaponSMG
-  # - type: GunDualWielding
+    # - type: GunDualWielding
     # weaponGroup: Submachinegun
-  # - type: GunPointBlank
-  # - type: GunGroupPenalty
-  # - type: WieldedCrosshair
+    # - type: GunPointBlank
+    # - type: GunGroupPenalty
+    # - type: WieldedCrosshair
     # rsi:
-      # sprite: _RMC14/Interface/MousePointer/pistol_mouse.rsi
-      # state: all
+    # sprite: _RMC14/Interface/MousePointer/pistol_mouse.rsi
+    # state: all
 
 - type: entity
   parent: BaseCartridgeCaselessRifle

@@ -57,8 +57,7 @@
         damageModifierSet: ManifestedSpirit
       - type: Destructible
         thresholds:
-        - trigger:
-            !type:DamageTrigger
+        - trigger: !type:DamageTrigger
             damage: 100
           behaviors:
           - !type:DoActsBehavior

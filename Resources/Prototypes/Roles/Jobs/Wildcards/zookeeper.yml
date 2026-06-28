@@ -5,8 +5,8 @@
   playTimeTracker: JobZookeeper
   setPreference: true
   requirements:
-    - !type:OverallPlaytimeRequirement
-      time: 10800
+  - !type:OverallPlaytimeRequirement
+    time: 10800
   startingGear: ZookeeperGear
   icon: "JobIconZookeeper"
   supervisors: job-supervisors-hop
@@ -20,8 +20,8 @@
   - !type:GiveItemOnHolidaySpecial
     holiday: MonkeyDay
     prototype: MonkeyCubeBox
-  # Starlight-start: Languages
   - !type:AddComponentSpecial
+    # Starlight-start: Languages
     components:
     - type: AdditionalLanguageKnowledge # If we just put in LanguageKnowledge, it'd overwrite your normal languages
       understands:
@@ -41,7 +41,7 @@
       # While spoken by some crew, these are spoken by slimes and spiders as their language
       - Bubblish
       - Chittin
-  # Starlight-end
+      # Starlight-end
 
 - type: startingGear
   id: ZookeeperGear

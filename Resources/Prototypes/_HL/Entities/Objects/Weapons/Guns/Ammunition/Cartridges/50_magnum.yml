@@ -6,8 +6,8 @@
   components:
   - type: Tag
     tags:
-      - Cartridge
-      - Cartridge50_magnumFMJ
+    - Cartridge
+    - Cartridge50_magnumFMJ
   - type: CartridgeAmmo
     proto: Bullet50_magnumFMJ
     deleteOnSpawn: true

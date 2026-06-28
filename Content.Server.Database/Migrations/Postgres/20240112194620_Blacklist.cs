@@ -13,21 +13,18 @@ namespace Content.Server.Database.Migrations.Postgres
         {
             migrationBuilder.CreateTable(
                 name: "blacklist",
-                columns: table => new
-                {
-                    user_id = table.Column<Guid>(type: "uuid", nullable: false)
-                },
+                columns: table => new { user_id = table.Column<Guid>(type: "uuid", nullable: false) },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_blacklist", x => x.user_id);
-                });
+                }
+            );
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "blacklist");
+            migrationBuilder.DropTable(name: "blacklist");
         }
     }
 }

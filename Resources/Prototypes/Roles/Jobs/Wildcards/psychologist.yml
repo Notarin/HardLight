@@ -5,8 +5,8 @@
   playTimeTracker: JobPsychologist
   setPreference: true
   requirements:
-    - !type:OverallPlaytimeRequirement
-      time: 10800
+  - !type:OverallPlaytimeRequirement
+    time: 10800
   weight: -10 # HardLight
   startingGear: PsychologistGear
   icon: "JobIconPsychologist"
@@ -14,7 +14,7 @@
   access:
   - Medical
   - Maintenance
-#  - Psychologist # DeltaV - Add Psychologist access later
+  #  - Psychologist # DeltaV - Add Psychologist access later
   extendedAccess:
   - Chemistry
   accessGroups: # Frontier

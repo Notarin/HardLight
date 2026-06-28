@@ -6,17 +6,17 @@ namespace Content.Server.EntityEffects.Effects;
 
 public sealed partial class Paralyze : EntityEffect
 {
-    [DataField] public double ParalyzeTime = 2;
+    [DataField]
+    public double ParalyzeTime = 2;
 
     /// <remarks>
     ///     true - refresh paralyze time,  false - accumulate paralyze time
     /// </remarks>
-    [DataField] public bool Refresh = true;
+    [DataField]
+    public bool Refresh = true;
 
-    protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys)
-        => Loc.GetString("reagent-effect-guidebook-paralyze",
-            ("chance", Probability),
-            ("time", ParalyzeTime));
+    protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys) =>
+        Loc.GetString("reagent-effect-guidebook-paralyze", ("chance", Probability), ("time", ParalyzeTime));
 
     public override void Effect(EntityEffectBaseArgs args)
     {
@@ -27,7 +27,7 @@ public sealed partial class Paralyze : EntityEffect
             paralyzeTime *= (double)reagentArgs.Scale;
         }
 
-        args.EntityManager.System<StunSystem>().TryParalyze(args.TargetEntity, TimeSpan.FromSeconds(paralyzeTime), Refresh);
+        args.EntityManager.System<StunSystem>()
+            .TryParalyze(args.TargetEntity, TimeSpan.FromSeconds(paralyzeTime), Refresh);
     }
 }
-

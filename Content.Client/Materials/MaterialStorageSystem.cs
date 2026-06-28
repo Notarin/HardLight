@@ -5,9 +5,14 @@ namespace Content.Client.Materials;
 
 public sealed class MaterialStorageSystem : SharedMaterialStorageSystem
 {
-    [Dependency] private readonly AppearanceSystem _appearance = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly AppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly TransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     public override void Initialize()
     {
@@ -41,12 +46,14 @@ public sealed class MaterialStorageSystem : SharedMaterialStorageSystem
         }
     }
 
-    public override bool TryInsertMaterialEntity(EntityUid user,
+    public override bool TryInsertMaterialEntity(
+        EntityUid user,
         EntityUid toInsert,
         EntityUid receiver,
         MaterialStorageComponent? storage = null,
         MaterialComponent? material = null,
-        PhysicalCompositionComponent? composition = null)
+        PhysicalCompositionComponent? composition = null
+    )
     {
         if (!base.TryInsertMaterialEntity(user, toInsert, receiver, storage, material, composition))
             return false;
@@ -55,15 +62,27 @@ public sealed class MaterialStorageSystem : SharedMaterialStorageSystem
     }
 
     // Frontier: partial stack insertion
-    public override bool TryInsertMaxPossibleMaterialEntity(EntityUid user,
+    public override bool TryInsertMaxPossibleMaterialEntity(
+        EntityUid user,
         EntityUid toInsert,
         EntityUid receiver,
         out bool empty,
         MaterialStorageComponent? storage = null,
         MaterialComponent? material = null,
-        PhysicalCompositionComponent? composition = null)
+        PhysicalCompositionComponent? composition = null
+    )
     {
-        if (!base.TryInsertMaxPossibleMaterialEntity(user, toInsert, receiver, out empty, storage, material, composition))
+        if (
+            !base.TryInsertMaxPossibleMaterialEntity(
+                user,
+                toInsert,
+                receiver,
+                out empty,
+                storage,
+                material,
+                composition
+            )
+        )
             return false;
         if (empty)
             _transform.DetachEntity(toInsert, Transform(toInsert));
@@ -74,5 +93,5 @@ public sealed class MaterialStorageSystem : SharedMaterialStorageSystem
 
 public enum MaterialStorageVisualLayers : byte
 {
-    Inserting
+    Inserting,
 }

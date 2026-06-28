@@ -1,11 +1,12 @@
+// Starlight Start: DockCableSystem
+using System.Collections.Generic;
 using Content.Server.NodeContainer;
 using Content.Server.NodeContainer.Nodes;
 using Content.Shared.NodeContainer;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
-// Starlight Start: DockCableSystem
-using System.Collections.Generic;
 using Robust.Shared.Utility;
+
 // Starlight End
 
 namespace Content.Server.Power.Nodes
@@ -18,24 +19,29 @@ namespace Content.Server.Power.Nodes
 
         public void AddAlwaysReachable(CableNode node)
         {
-            if (node == this) return;
+            if (node == this)
+                return;
             _alwaysReachable ??= new();
             _alwaysReachable.Add(node);
         }
 
         public void RemoveAlwaysReachable(CableNode node)
         {
-            if (_alwaysReachable == null) return;
+            if (_alwaysReachable == null)
+                return;
             _alwaysReachable.Remove(node);
         }
 
         public HashSet<CableNode>? GetAlwaysReachable() => _alwaysReachable;
+
         // Starlight End
-        public override IEnumerable<Node> GetReachableNodes(TransformComponent xform,
+        public override IEnumerable<Node> GetReachableNodes(
+            TransformComponent xform,
             EntityQuery<NodeContainerComponent> nodeQuery,
             EntityQuery<TransformComponent> xformQuery,
             MapGridComponent? grid,
-            IEntityManager entMan)
+            IEntityManager entMan
+        )
         {
             // Starlight Start: DockCableSystem
             if (_alwaysReachable != null)
@@ -86,7 +92,7 @@ namespace Content.Server.Power.Nodes
                     if (dir == Direction.Invalid)
                     {
                         // On own tile, block direction it faces
-                        terminalDirs |= 1 << (int) xformQuery.GetComponent(node.Owner).LocalRotation.GetCardinalDir();
+                        terminalDirs |= 1 << (int)xformQuery.GetComponent(node.Owner).LocalRotation.GetCardinalDir();
                     }
                     else
                     {
@@ -94,7 +100,7 @@ namespace Content.Server.Power.Nodes
                         if (terminalDir.GetOpposite() == dir)
                         {
                             // Target tile has a terminal towards us, block the direction.
-                            terminalDirs |= 1 << (int) dir;
+                            terminalDirs |= 1 << (int)dir;
                             break;
                         }
                     }
@@ -104,12 +110,13 @@ namespace Content.Server.Power.Nodes
             foreach (var (dir, node) in nodeDirs)
             {
                 // If there is a wire terminal connecting across this direction, skip the node.
-                if (dir != Direction.Invalid && (terminalDirs & (1 << (int) dir)) != 0)
+                if (dir != Direction.Invalid && (terminalDirs & (1 << (int)dir)) != 0)
                     continue;
 
                 yield return node;
             }
         }
+
         // Starlight Start: DockCableSystem
         public override void OnAnchorStateChanged(IEntityManager entityManager, bool anchored)
         {

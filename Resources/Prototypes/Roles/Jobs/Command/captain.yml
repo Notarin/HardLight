@@ -5,34 +5,34 @@
   playTimeTracker: JobCaptain # HardLight/ Why is this here?
   setPreference: false # Frontier
   requirements:
-    - !type:DepartmentTimeRequirement
-      department: Engineering
-      time: 14400 # 4 hours
-    - !type:DepartmentTimeRequirement
-      department: Medical
-      time: 14400 # 4 hours
-    - !type:DepartmentTimeRequirement
-      department: Science
-      time: 14400 # 4 hours
-    - !type:DepartmentTimeRequirement
-      department: Security
-      time: 14400 # 4 hours
-    - !type:DepartmentTimeRequirement
-      department: Command
-      time: 14400 # 4 hours
+  - !type:DepartmentTimeRequirement
+    department: Engineering
+    time: 14400 # 4 hours
+  - !type:DepartmentTimeRequirement
+    department: Medical
+    time: 14400 # 4 hours
+  - !type:DepartmentTimeRequirement
+    department: Science
+    time: 14400 # 4 hours
+  - !type:DepartmentTimeRequirement
+    department: Security
+    time: 14400 # 4 hours
+  - !type:DepartmentTimeRequirement
+    department: Command
+    time: 14400 # 4 hours
   weight: 20
   startingGear: CaptainGear
   icon: "JobIconCaptain"
-# Frontier: commented out below, separate access
-#  requireAdminNotify: true
-#  joinNotifyCrew: true
-#  supervisors: job-supervisors-centcom
-#  canBeAntag: false
+  # Frontier: commented out below, separate access
+  #  requireAdminNotify: true
+  #  joinNotifyCrew: true
+  #  supervisors: job-supervisors-centcom
+  #  canBeAntag: false
   access:
-    - Captain # Just making sure in the case of any error that this role cannot be used for any bad doing.
+  - Captain # Just making sure in the case of any error that this role cannot be used for any bad doing.
   accessGroups:
   # - AllAccess
-    - GeneralAccess
+  - GeneralAccess
   # special:
   # - !type:AddComponentSpecial
   #   components:
@@ -42,11 +42,11 @@
 - type: startingGear
   id: CaptainGear
   equipment:
-# HL start - Add NF-style departmental loadouts
-#    shoes: ClothingShoesBootsLaceup
-#    eyes: ClothingEyesGlassesSunglasses
-#    gloves: ClothingHandsGlovesCaptain
-# HL end
+    # HL start - Add NF-style departmental loadouts
+    #    shoes: ClothingShoesBootsLaceup
+    #    eyes: ClothingEyesGlassesSunglasses
+    #    gloves: ClothingHandsGlovesCaptain
+    # HL end
     id: StationCaptainPDA
     ears: ClothingHeadsetAltCommand
   storage:

@@ -1,34 +1,33 @@
 using System.Linq;
 using System.Numerics;
-using Content.Shared.Body.Components;
-using Content.Shared.Body.Organ;
-using Content.Shared.Body.Part;
-using Content.Shared.Body.Prototypes;
-using Content.Shared.DragDrop;
-using Content.Shared.Gibbing.Components;
-using Content.Shared.Gibbing.Events;
-using Content.Shared.Gibbing.Systems;
-using Content.Shared.Inventory;
-using Robust.Shared.Audio;
-using Robust.Shared.Audio.Systems;
-using Robust.Shared.Containers;
-using Robust.Shared.Map;
-using Robust.Shared.Utility;
-
 // Shitmed Change
 using Content.Shared._Shitmed.Body.Events;
 using Content.Shared._Shitmed.Body.Part;
 using Content.Shared._Shitmed.Humanoid.Events;
 using Content.Shared._Shitmed.Targeting;
-using Content.Shared.Silicons.Borgs.Components;
+using Content.Shared.Body.Components;
+using Content.Shared.Body.Organ;
+using Content.Shared.Body.Part;
+using Content.Shared.Body.Prototypes;
 using Content.Shared.Containers.ItemSlots;
 using Content.Shared.Damage;
+using Content.Shared.DragDrop;
 using Content.Shared.FixedPoint;
+using Content.Shared.Gibbing.Components;
+using Content.Shared.Gibbing.Events;
+using Content.Shared.Gibbing.Systems;
 using Content.Shared.Humanoid;
+using Content.Shared.Inventory;
 using Content.Shared.Inventory.Events;
 using Content.Shared.Rejuvenate;
+using Content.Shared.Silicons.Borgs.Components;
 using Content.Shared.Standing;
+using Robust.Shared.Audio;
+using Robust.Shared.Audio.Systems;
+using Robust.Shared.Containers;
+using Robust.Shared.Map;
 using Robust.Shared.Timing;
+using Robust.Shared.Utility;
 
 namespace Content.Shared.Body.Systems;
 
@@ -41,11 +40,20 @@ public partial class SharedBodySystem
      * - Each "connection" is a body part (e.g. arm, hand, etc.) and each part can also contain organs.
      */
 
-    [Dependency] private readonly InventorySystem _inventory = default!;
-    [Dependency] private readonly GibbingSystem _gibbingSystem = default!;
-    [Dependency] private readonly SharedAudioSystem _audioSystem = default!;
-    [Dependency] private readonly ItemSlotsSystem _slots = default!; // Shitmed Change
-    [Dependency] private readonly IGameTiming _gameTiming = default!; // Shitmed Change
+    [Dependency]
+    private readonly InventorySystem _inventory = default!;
+
+    [Dependency]
+    private readonly GibbingSystem _gibbingSystem = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audioSystem = default!;
+
+    [Dependency]
+    private readonly ItemSlotsSystem _slots = default!; // Shitmed Change
+
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!; // Shitmed Change
 
     private const float GibletLaunchImpulse = 8;
     private const float GibletLaunchImpulseVariance = 3;
@@ -62,7 +70,6 @@ public partial class SharedBodySystem
         SubscribeLocalEvent<BodyComponent, StandAttemptEvent>(OnStandAttempt); // Shitmed Change
         SubscribeLocalEvent<BodyComponent, ProfileLoadFinishedEvent>(OnProfileLoadFinished); // Shitmed change
         SubscribeLocalEvent<BodyComponent, IsEquippingAttemptEvent>(OnBeingEquippedAttempt); // Shitmed Change
-
     }
 
     private void OnBodyInserted(Entity<BodyComponent> ent, ref EntInsertedIntoContainerMessage args)
@@ -188,7 +195,12 @@ public partial class SharedBodySystem
                 cameFromEntities[connection] = childPart;
 
                 var childPartComponent = Comp<BodyPartComponent>(childPart);
-                var partSlot = CreatePartSlot(parentEntity, connection, childPartComponent.PartType, parentPartComponent);
+                var partSlot = CreatePartSlot(
+                    parentEntity,
+                    connection,
+                    childPartComponent.PartType,
+                    parentPartComponent
+                );
                 // Shitmed Change Start
                 childPartComponent.ParentSlot = partSlot;
                 Dirty(childPart, childPartComponent);
@@ -231,7 +243,8 @@ public partial class SharedBodySystem
     public IEnumerable<BaseContainer> GetBodyContainers(
         EntityUid id,
         BodyComponent? body = null,
-        BodyPartComponent? rootPart = null)
+        BodyPartComponent? rootPart = null
+    )
     {
         if (!Resolve(id, ref body, logMissing: false))
         {
@@ -256,10 +269,10 @@ public partial class SharedBodySystem
     public IEnumerable<(EntityUid Id, BodyPartComponent Component)> GetBodyChildren(
         EntityUid? id,
         BodyComponent? body = null,
-        BodyPartComponent? rootPart = null)
+        BodyPartComponent? rootPart = null
+    )
     {
-        if (id is null
-            || !Resolve(id.Value, ref body, logMissing: false))
+        if (id is null || !Resolve(id.Value, ref body, logMissing: false))
         {
             yield break;
         }
@@ -276,7 +289,8 @@ public partial class SharedBodySystem
 
     public IEnumerable<(EntityUid Id, OrganComponent Component)> GetBodyOrgans(
         EntityUid? bodyId,
-        BodyComponent? body = null)
+        BodyComponent? body = null
+    )
     {
         if (bodyId is null || !Resolve(bodyId.Value, ref body, logMissing: false))
             yield break;
@@ -296,9 +310,7 @@ public partial class SharedBodySystem
     /// <param name="bodyId"></param>
     /// <param name="body"></param>
     /// <returns></returns>
-    public IEnumerable<BodyPartSlot> GetBodyAllSlots(
-        EntityUid bodyId,
-        BodyComponent? body = null)
+    public IEnumerable<BodyPartSlot> GetBodyAllSlots(EntityUid bodyId, BodyComponent? body = null)
     {
         if (!Resolve(bodyId, ref body, logMissing: false))
         {
@@ -326,7 +338,8 @@ public partial class SharedBodySystem
         SoundSpecifier? gibSoundOverride = null,
         // Shitmed Change
         GibType gib = GibType.Gib,
-        GibContentsOption contents = GibContentsOption.Drop)
+        GibContentsOption contents = GibContentsOption.Drop
+    )
     {
         var gibs = new HashSet<EntityUid>();
 
@@ -342,19 +355,36 @@ public partial class SharedBodySystem
         gibs.EnsureCapacity(parts.Length);
         foreach (var part in parts)
         {
-
-            _gibbingSystem.TryGibEntityWithRef(bodyId, part.Id, gib, contents, ref gibs, // Shitmed Change
-                playAudio: false, launchGibs: true, launchDirection: splatDirection, launchImpulse: GibletLaunchImpulse * splatModifier,
-                launchImpulseVariance: GibletLaunchImpulseVariance, launchCone: splatCone);
+            _gibbingSystem.TryGibEntityWithRef(
+                bodyId,
+                part.Id,
+                gib,
+                contents,
+                ref gibs, // Shitmed Change
+                playAudio: false,
+                launchGibs: true,
+                launchDirection: splatDirection,
+                launchImpulse: GibletLaunchImpulse * splatModifier,
+                launchImpulseVariance: GibletLaunchImpulseVariance,
+                launchCone: splatCone
+            );
 
             if (!gibOrgans)
                 continue;
 
             foreach (var organ in GetPartOrgans(part.Id, part.Component))
             {
-                _gibbingSystem.TryGibEntityWithRef(bodyId, organ.Id, GibType.Drop, GibContentsOption.Skip,
-                    ref gibs, playAudio: false, launchImpulse: GibletLaunchImpulse * splatModifier,
-                    launchImpulseVariance:GibletLaunchImpulseVariance, launchCone: splatCone);
+                _gibbingSystem.TryGibEntityWithRef(
+                    bodyId,
+                    organ.Id,
+                    GibType.Drop,
+                    GibContentsOption.Skip,
+                    ref gibs,
+                    playAudio: false,
+                    launchImpulse: GibletLaunchImpulse * splatModifier,
+                    launchImpulseVariance: GibletLaunchImpulseVariance,
+                    launchCone: splatCone
+                );
             }
         }
 
@@ -380,7 +410,8 @@ public partial class SharedBodySystem
         Vector2? splatDirection = null,
         float splatModifier = 1,
         Angle splatCone = default,
-        SoundSpecifier? gibSoundOverride = null)
+        SoundSpecifier? gibSoundOverride = null
+    )
     {
         var gibs = new HashSet<EntityUid>();
 
@@ -396,18 +427,35 @@ public partial class SharedBodySystem
             RemovePartChildren((partId, part), bodyEnt);
             foreach (var organ in GetPartOrgans(partId, part))
             {
-                _gibbingSystem.TryGibEntityWithRef(bodyEnt, organ.Id, GibType.Drop, GibContentsOption.Skip,
-                    ref gibs, playAudio: false, launchImpulse: GibletLaunchImpulse * splatModifier,
-                    launchImpulseVariance: GibletLaunchImpulseVariance, launchCone: splatCone);
+                _gibbingSystem.TryGibEntityWithRef(
+                    bodyEnt,
+                    organ.Id,
+                    GibType.Drop,
+                    GibContentsOption.Skip,
+                    ref gibs,
+                    playAudio: false,
+                    launchImpulse: GibletLaunchImpulse * splatModifier,
+                    launchImpulseVariance: GibletLaunchImpulseVariance,
+                    launchCone: splatCone
+                );
             }
             var ev = new BodyPartDroppedEvent((partId, part));
             RaiseLocalEvent(bodyEnt, ref ev);
         }
 
-        _gibbingSystem.TryGibEntityWithRef(partId, partId, GibType.Gib, GibContentsOption.Drop, ref gibs,
-                playAudio: true, launchGibs: true, launchDirection: splatDirection, launchImpulse: GibletLaunchImpulse * splatModifier,
-                launchImpulseVariance: GibletLaunchImpulseVariance, launchCone: splatCone);
-
+        _gibbingSystem.TryGibEntityWithRef(
+            partId,
+            partId,
+            GibType.Gib,
+            GibContentsOption.Drop,
+            ref gibs,
+            playAudio: true,
+            launchGibs: true,
+            launchDirection: splatDirection,
+            launchImpulse: GibletLaunchImpulse * splatModifier,
+            launchImpulseVariance: GibletLaunchImpulseVariance,
+            launchCone: splatCone
+        );
 
         if (HasComp<InventoryComponent>(partId))
         {
@@ -421,8 +469,7 @@ public partial class SharedBodySystem
         return gibs;
     }
 
-    public virtual bool BurnPart(EntityUid partId,
-        BodyPartComponent? part = null)
+    public virtual bool BurnPart(EntityUid partId, BodyPartComponent? part = null)
     {
         if (!Resolve(partId, ref part, logMissing: false))
             return false;
@@ -437,11 +484,28 @@ public partial class SharedBodySystem
             DropSlotContents((partId, part));
             RemovePartChildren((partId, part), bodyEnt);
             foreach (var organ in GetPartOrgans(partId, part))
-                _gibbingSystem.TryGibEntityWithRef(bodyEnt, organ.Id, GibType.Drop, GibContentsOption.Skip,
-                    ref gibs, playAudio: false, launchImpulse: GibletLaunchImpulse, launchImpulseVariance: GibletLaunchImpulseVariance);
+                _gibbingSystem.TryGibEntityWithRef(
+                    bodyEnt,
+                    organ.Id,
+                    GibType.Drop,
+                    GibContentsOption.Skip,
+                    ref gibs,
+                    playAudio: false,
+                    launchImpulse: GibletLaunchImpulse,
+                    launchImpulseVariance: GibletLaunchImpulseVariance
+                );
 
-            _gibbingSystem.TryGibEntityWithRef(partId, partId, GibType.Gib, GibContentsOption.Gib, ref gibs,
-                playAudio: false, launchGibs: true, launchImpulse: GibletLaunchImpulse, launchImpulseVariance: GibletLaunchImpulseVariance);
+            _gibbingSystem.TryGibEntityWithRef(
+                partId,
+                partId,
+                GibType.Gib,
+                GibContentsOption.Gib,
+                ref gibs,
+                playAudio: false,
+                launchGibs: true,
+                launchImpulse: GibletLaunchImpulse,
+                launchImpulseVariance: GibletLaunchImpulseVariance
+            );
 
             if (HasComp<InventoryComponent>(partId))
                 foreach (var item in _inventory.GetHandOrInventoryEntities(partId))
@@ -456,12 +520,12 @@ public partial class SharedBodySystem
 
     private void OnProfileLoadFinished(EntityUid uid, BodyComponent component, ProfileLoadFinishedEvent args)
     {
-        if (!HasComp<HumanoidAppearanceComponent>(uid)
-            || TerminatingOrDeleted(uid)
-            || !Initialized(uid)) // We do this last one for urists on test envs.
+        if (!HasComp<HumanoidAppearanceComponent>(uid) || TerminatingOrDeleted(uid) || !Initialized(uid)) // We do this last one for urists on test envs.
             return;
 
-        Logger.Debug($"{ToPrettyString(uid)}: ProfileLoadFinished with {HasComp<HumanoidAppearanceComponent>(uid)} and {component}");
+        Logger.Debug(
+            $"{ToPrettyString(uid)}: ProfileLoadFinished with {HasComp<HumanoidAppearanceComponent>(uid)} and {component}"
+        );
         foreach (var part in GetBodyChildren(uid, component))
             EnsureComp<BodyPartAppearanceComponent>(part.Id);
     }
@@ -474,24 +538,26 @@ public partial class SharedBodySystem
 
     private void OnBeingEquippedAttempt(Entity<BodyComponent> ent, ref IsEquippingAttemptEvent args)
     {
-        if (!TryComp(args.EquipTarget, out BodyComponent? targetBody)
+        if (
+            !TryComp(args.EquipTarget, out BodyComponent? targetBody)
             || targetBody.Prototype == null
-            || HasComp<BorgChassisComponent>(args.EquipTarget))
+            || HasComp<BorgChassisComponent>(args.EquipTarget)
+        )
             return;
 
-        if (TryGetPartFromSlotContainer(args.Slot, out var bodyPart)
-            && bodyPart is not null)
+        if (TryGetPartFromSlotContainer(args.Slot, out var bodyPart) && bodyPart is not null)
         {
             var bodyPartString = bodyPart.Value.ToString().ToLower();
             var prototype = Prototypes.Index(targetBody.Prototype.Value);
-            var hasPartConnection = prototype.Slots.Values.Any(slot =>
-                slot.Connections.Contains(bodyPartString));
+            var hasPartConnection = prototype.Slots.Values.Any(slot => slot.Connections.Contains(bodyPartString));
 
-            if (hasPartConnection
-                && !GetBodyChildrenOfType(args.EquipTarget, bodyPart.Value).Any())
+            if (hasPartConnection && !GetBodyChildrenOfType(args.EquipTarget, bodyPart.Value).Any())
             {
-                _popup.PopupClient(Loc.GetString("equip-part-missing-error",
-                    ("target", args.EquipTarget), ("part", bodyPartString)), args.Equipee, args.Equipee);
+                _popup.PopupClient(
+                    Loc.GetString("equip-part-missing-error", ("target", args.EquipTarget), ("part", bodyPartString)),
+                    args.Equipee,
+                    args.Equipee
+                );
                 args.Cancel();
             }
         }

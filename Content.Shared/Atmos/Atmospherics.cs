@@ -1,4 +1,5 @@
 using Robust.Shared.Serialization;
+
 // ReSharper disable InconsistentNaming
 
 namespace Content.Shared.Atmos
@@ -225,7 +226,7 @@ namespace Content.Shared.Atmos
         public const float SuperSaturationEnds = 10f; // Frontier: SuperSaturationThreshold / 3 < 10
 
         public const float OxygenBurnRateBase = 1.4f;
-        public const float PlasmaMinimumBurnTemperature = (100f+T0C);
+        public const float PlasmaMinimumBurnTemperature = (100f + T0C);
         public const float PlasmaUpperTemperature = 700; // Frontier: (1370f+T0C)<700
         public const float PlasmaOxygenFullburn = 10f;
         public const float PlasmaBurnRateDelta = 9f;
@@ -371,6 +372,6 @@ namespace Content.Shared.Atmos
         WaterVapor = 5,
         Ammonia = 6,
         NitrousOxide = 7,
-        Frezon = 8
+        Frezon = 8,
     }
 }

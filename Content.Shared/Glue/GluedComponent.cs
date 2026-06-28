@@ -6,7 +6,6 @@ namespace Content.Shared.Glue;
 [Access(typeof(SharedGlueSystem))]
 public sealed partial class GluedComponent : Component
 {
-
     [DataField("until", customTypeSerializer: typeof(TimeOffsetSerializer)), ViewVariables(VVAccess.ReadWrite)]
     public TimeSpan Until;
 

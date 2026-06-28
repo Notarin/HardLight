@@ -1,4 +1,4 @@
-﻿- type: entity
+- type: entity
   abstract: true
   save: false
   parent: BaseMobSpeciesOrganic # HardLight: Removed redundant brackets
@@ -28,7 +28,7 @@
   - type: Speech
     speechSounds: Vulpkanin
     speechVerb: Vulpkanin
-    allowedEmotes: [ 'Bark', 'Snarl', 'Whine', 'Pout', 'Howl', 'Growl', 'Yip', 'Awoo', 'Yap', 'Gekker', 'Purr' ] # Starlight: Yip; DV: Awoo, Yap, Gekker; HardLight: Pout, Purr
+    allowedEmotes: ['Bark', 'Snarl', 'Whine', 'Pout', 'Howl', 'Growl', 'Yip', 'Awoo', 'Yap', 'Gekker', 'Purr'] # Starlight: Yip; DV: Awoo, Yap, Gekker; HardLight: Pout, Purr
   - type: Vocal
     sounds:
       Male: MaleVulpkanin
@@ -90,13 +90,13 @@
     - Breasts
     # HL end
   # Starlight start
-    # our vulpkanin hair follows normal human layout
-    #markingsDisplacement:
-    #  Hair:
-    #    sizeMaps:
-    #      32:
-    #        sprite: Mobs/Species/Vulpkanin/displacement.rsi
-    #        state: hair
+  # our vulpkanin hair follows normal human layout
+  #markingsDisplacement:
+  #  Hair:
+  #    sizeMaps:
+  #      32:
+  #        sprite: Mobs/Species/Vulpkanin/displacement.rsi
+  #        state: hair
   - type: Carriable # DV: Carrying system from nyanotrasen.
   - type: Inventory
     speciesId: vulpkanin
@@ -130,10 +130,10 @@
     specificHeat: 46
     coldDamage:
       types:
-        Cold : 0.05 # per second, scales with temperature & other constants
+        Cold: 0.05 # per second, scales with temperature & other constants
     heatDamage:
       types:
-        Heat : 1.75 # per second, scales with temperature & other constants
+        Heat: 1.75 # per second, scales with temperature & other constants
   - type: ContentEye
     targetZoom: "1.125, 1.125"
     maxZoom: "1.125, 1.125"
@@ -147,7 +147,7 @@
 - type: entity
   parent: BaseSpeciesDummy
   id: MobVulpkaninDummy
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: HumanoidAppearance
     species: Vulpkanin

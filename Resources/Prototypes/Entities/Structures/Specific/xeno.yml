@@ -9,12 +9,10 @@
   - type: RangedDamageSound
     soundGroups:
       Brute:
-        collection:
-          MeatBulletImpact
+        collection: MeatBulletImpact
     soundTypes:
       Heat:
-        collection:
-          MeatLaserImpact
+        collection: MeatLaserImpact
   - type: Transform
     anchored: true
   - type: Clickable
@@ -22,9 +20,9 @@
   - type: Sprite
     sprite: Structures/Specific/xeno_building.rsi
     layers:
-      - state: wardingtower
-      - state: wardingtower-unshaded
-        shader: unshaded
+    - state: wardingtower
+    - state: wardingtower-unshaded
+      shader: unshaded
   - type: Damageable
     damageContainer: StructuralInorganic
     damageModifierSet: Metallic
@@ -33,22 +31,20 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.5,-0.5,0.5,0.5"
         mask:
-          - FullTileMask
+        - FullTileMask
         layer:
-          - WallLayer
+        - WallLayer
         density: 1000
   - type: Destructible
     thresholds:
-      - trigger:
-          !type:DamageTrigger
-          damage: 50
-        behaviors:
-          - !type:DoActsBehavior
-            acts: [ "Destruction" ]
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
 
 - type: entity
   parent: XenoWardingTower
@@ -69,8 +65,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.35,-0.35,0.35,0.35"
         density: 60
         mask:

@@ -1,5 +1,5 @@
 - type: entity
-  parent: [ ClothingOuterBaseLarge, BaseC3WizardContraband ]
+  parent: [ClothingOuterBaseLarge, BaseC3WizardContraband]
   id: ClothingOuterArmourAlchemist
   name: alchemist armour
   description: An armoured gambeson and accompanying leather armour, stained with more than an ounce of prevention. The lightweight materials don't compromise movement while the enchantments keep it protective.

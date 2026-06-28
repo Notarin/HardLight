@@ -36,7 +36,11 @@ public abstract partial class SharedMartialArtsSystem
         }
     }
 
-    private void DoKravMaga(Entity<KravMagaComponent> ent, EntityUid hitEntity, RequireProjectileTargetComponent reguireProjectileTargetComponent)
+    private void DoKravMaga(
+        Entity<KravMagaComponent> ent,
+        EntityUid hitEntity,
+        RequireProjectileTargetComponent reguireProjectileTargetComponent
+    )
     {
         if (ent.Comp.SelectedMoveComp == null)
             return;
@@ -45,7 +49,7 @@ public abstract partial class SharedMartialArtsSystem
         switch (ent.Comp.SelectedMove)
         {
             case KravMagaMoves.LegSweep:
-                if(_netManager.IsClient)
+                if (_netManager.IsClient)
                     return;
                 _stun.TryKnockdown(hitEntity, TimeSpan.FromSeconds(4), true);
                 break;

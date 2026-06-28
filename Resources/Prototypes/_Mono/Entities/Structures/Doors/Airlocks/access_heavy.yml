@@ -15,7 +15,7 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsSecurity ]
+      board: [DoorElectronicsSecurity]
 
 - type: entity
   parent: AirlockHeavyTSFMC
@@ -24,7 +24,7 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsArmory ]
+      board: [DoorElectronicsArmory]
 
 # PDV
 
@@ -43,7 +43,7 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsPirate ]
+      board: [DoorElectronicsPirate]
 
 # USSP
 
@@ -62,7 +62,7 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsUSSP ]
+      board: [DoorElectronicsUSSP]
 
 - type: entity
   parent: AirlockHeavyUSSP
@@ -71,7 +71,7 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsUSSPHigh ]
+      board: [DoorElectronicsUSSPHigh]
 
 - type: entity
   parent: AirlockHeavyUSSP
@@ -80,7 +80,7 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsUSSPCommand ]
+      board: [DoorElectronicsUSSPCommand]
 
 # CC
 
@@ -101,7 +101,7 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsFrontier ]
+      board: [DoorElectronicsFrontier]
 
 - type: entity
   parent: AirlockHeavySecurity
@@ -110,7 +110,7 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsFrontierBridge ]
+      board: [DoorElectronicsFrontierBridge]
 
 - type: entity
   parent: AirlockHeavySecurity
@@ -119,7 +119,7 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsFrontierCommand ]
+      board: [DoorElectronicsFrontierCommand]
 
 # Command (CC)
 
@@ -140,7 +140,7 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsFrontierBridge ]
+      board: [DoorElectronicsFrontierBridge]
 
 - type: entity
   parent: AirlockHeavyCommand
@@ -149,7 +149,7 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsFrontierCommand ]
+      board: [DoorElectronicsFrontierCommand]
 
 # Command (Ship captain)
 
@@ -160,4 +160,4 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsCaptain ]
+      board: [DoorElectronicsCaptain]

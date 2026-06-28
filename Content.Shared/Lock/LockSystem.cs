@@ -1,8 +1,10 @@
+using Content.Shared._Floof.Lock; // HardLight
 using Content.Shared.Access.Components;
 using Content.Shared.Access.Systems;
 using Content.Shared.ActionBlocker;
 using Content.Shared.Construction.Components;
 using Content.Shared.DoAfter;
+using Content.Shared.Emag.Components;
 using Content.Shared.Emag.Systems;
 using Content.Shared.Examine;
 using Content.Shared.IdentityManagement;
@@ -14,11 +16,9 @@ using Content.Shared.UserInterface;
 using Content.Shared.Verbs;
 using Content.Shared.Wires;
 using JetBrains.Annotations;
+using Robust.Shared.Audio; // Frontier - DEMAG
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Utility;
-using Content.Shared.Emag.Components;
-using Robust.Shared.Audio; // Frontier - DEMAG
-using Content.Shared._Floof.Lock; // HardLight
 
 namespace Content.Shared.Lock;
 
@@ -28,14 +28,29 @@ namespace Content.Shared.Lock;
 [UsedImplicitly]
 public sealed class LockSystem : EntitySystem
 {
-    [Dependency] private readonly AccessReaderSystem _accessReader = default!;
-    [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!;
-    [Dependency] private readonly ActivatableUISystem _activatableUI = default!;
-    [Dependency] private readonly EmagSystem _emag = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearanceSystem = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedPopupSystem _sharedPopupSystem = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
+    [Dependency]
+    private readonly AccessReaderSystem _accessReader = default!;
+
+    [Dependency]
+    private readonly ActionBlockerSystem _actionBlocker = default!;
+
+    [Dependency]
+    private readonly ActivatableUISystem _activatableUI = default!;
+
+    [Dependency]
+    private readonly EmagSystem _emag = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearanceSystem = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _sharedPopupSystem = default!;
+
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfter = default!;
 
     /// <inheritdoc />
     public override void Initialize()
@@ -95,10 +110,12 @@ public sealed class LockSystem : EntitySystem
 
     private void OnExamined(EntityUid uid, LockComponent lockComp, ExaminedEvent args)
     {
-        args.PushText(Loc.GetString(lockComp.Locked
-                ? "lock-comp-on-examined-is-locked"
-                : "lock-comp-on-examined-is-unlocked",
-            ("entityName", Identity.Name(uid, EntityManager))));
+        args.PushText(
+            Loc.GetString(
+                lockComp.Locked ? "lock-comp-on-examined-is-locked" : "lock-comp-on-examined-is-unlocked",
+                ("entityName", Identity.Name(uid, EntityManager))
+            )
+        );
     }
 
     /// <summary>
@@ -132,7 +149,8 @@ public sealed class LockSystem : EntitySystem
                     BreakOnMove = true,
                     NeedHand = true,
                     BreakOnDropItem = false,
-                });
+                }
+            );
         }
 
         Lock(uid, user, lockComp);
@@ -152,8 +170,11 @@ public sealed class LockSystem : EntitySystem
 
         if (user is { Valid: true })
         {
-            _sharedPopupSystem.PopupClient(Loc.GetString("lock-comp-do-lock-success",
-                ("entityName", Identity.Name(uid, EntityManager))), uid, user);
+            _sharedPopupSystem.PopupClient(
+                Loc.GetString("lock-comp-do-lock-success", ("entityName", Identity.Name(uid, EntityManager))),
+                uid,
+                user
+            );
         }
 
         _audio.PlayPredicted(lockComp.LockSound, uid, user);
@@ -185,8 +206,11 @@ public sealed class LockSystem : EntitySystem
 
         if (user is { Valid: true })
         {
-            _sharedPopupSystem.PopupClient(Loc.GetString("lock-comp-do-unlock-success",
-                ("entityName", Identity.Name(uid, EntityManager))), uid, user.Value);
+            _sharedPopupSystem.PopupClient(
+                Loc.GetString("lock-comp-do-unlock-success", ("entityName", Identity.Name(uid, EntityManager))),
+                uid,
+                user.Value
+            );
         }
 
         _audio.PlayPredicted(lockComp.UnlockSound, uid, user);
@@ -198,7 +222,6 @@ public sealed class LockSystem : EntitySystem
         var ev = new LockToggledEvent(false);
         RaiseLocalEvent(uid, ref ev, true);
     }
-
 
     /// <summary>
     /// Attmempts to unlock a given entity
@@ -231,7 +254,8 @@ public sealed class LockSystem : EntitySystem
                     BreakOnMove = true,
                     NeedHand = true,
                     BreakOnDropItem = false,
-                });
+                }
+            );
         }
 
         Unlock(uid, user, lockComp);
@@ -330,9 +354,7 @@ public sealed class LockSystem : EntitySystem
             return;
 
         // Never force-lock while a locked wires panel is open, or the panel can become uncloseable.
-        if (HasComp<LockedWiresPanelComponent>(uid) &&
-            TryComp<WiresPanelComponent>(uid, out var panel) &&
-            panel.Open)
+        if (HasComp<LockedWiresPanelComponent>(uid) && TryComp<WiresPanelComponent>(uid, out var panel) && panel.Open)
         {
             args.Handled = true;
             return;
@@ -355,6 +377,7 @@ public sealed class LockSystem : EntitySystem
 
         args.Handled = true;
     }
+
     // End Frontier: demag
 
     private void OnDoAfterLock(EntityUid uid, LockComponent component, LockDoAfter args)
@@ -389,13 +412,14 @@ public sealed class LockSystem : EntitySystem
 
         if (!args.Silent)
         {
-            _sharedPopupSystem.PopupClient(Loc.GetString("construction-step-condition-wire-panel-close"),
+            _sharedPopupSystem.PopupClient(
+                Loc.GetString("construction-step-condition-wire-panel-close"),
                 ent,
-                args.User);
+                args.User
+            );
         }
         args.Cancelled = true;
     }
-
 
     private void OnAttemptChangePanel(Entity<LockedWiresPanelComponent> ent, ref AttemptChangePanelEvent args)
     {
@@ -405,10 +429,11 @@ public sealed class LockSystem : EntitySystem
         if (!TryComp<LockComponent>(ent, out var lockComp) || !lockComp.Locked)
             return;
 
-        _sharedPopupSystem.PopupClient(Loc.GetString("lock-comp-generic-fail",
-            ("target", Identity.Entity(ent, EntityManager))),
+        _sharedPopupSystem.PopupClient(
+            Loc.GetString("lock-comp-generic-fail", ("target", Identity.Entity(ent, EntityManager))),
             ent,
-            args.User);
+            args.User
+        );
         args.Cancelled = true;
     }
 
@@ -420,14 +445,19 @@ public sealed class LockSystem : EntitySystem
         if (!TryComp<LockComponent>(ent, out var lockComp) || !lockComp.Locked)
             return;
 
-        _sharedPopupSystem.PopupClient(Loc.GetString("lock-comp-generic-fail",
-                ("target", Identity.Entity(ent, EntityManager))),
+        _sharedPopupSystem.PopupClient(
+            Loc.GetString("lock-comp-generic-fail", ("target", Identity.Entity(ent, EntityManager))),
             ent,
-            args.User);
+            args.User
+        );
         args.Cancel();
     }
 
-    private void OnUIOpenAttempt(EntityUid uid, ActivatableUIRequiresLockComponent component, ActivatableUIOpenAttemptEvent args)
+    private void OnUIOpenAttempt(
+        EntityUid uid,
+        ActivatableUIRequiresLockComponent component,
+        ActivatableUIOpenAttemptEvent args
+    )
     {
         if (args.Cancelled)
             return;
@@ -437,7 +467,11 @@ public sealed class LockSystem : EntitySystem
             args.Cancel();
             if (lockComp.Locked && !IsIdLockEngaged(uid)) // HardLight: Added && !IsIdLockEngaged(uid)
             {
-                _sharedPopupSystem.PopupClient(Loc.GetString("entity-storage-component-locked-message"), uid, args.User);
+                _sharedPopupSystem.PopupClient(
+                    Loc.GetString("entity-storage-component-locked-message"),
+                    uid,
+                    args.User
+                );
             }
 
             _audio.PlayPredicted(component.AccessDeniedSound, uid, args.User);
@@ -449,9 +483,10 @@ public sealed class LockSystem : EntitySystem
     private bool IsIdLockEngaged(EntityUid uid)
     {
         return TryComp<IdLockComponent>(uid, out var idLock)
-               && idLock.Enabled
-               && idLock.State == IdLockComponent.LockState.Engaged;
+            && idLock.Enabled
+            && idLock.State == IdLockComponent.LockState.Engaged;
     }
+
     // HardLight end
 
     private void LockToggled(EntityUid uid, ActivatableUIRequiresLockComponent component, LockToggledEvent args)

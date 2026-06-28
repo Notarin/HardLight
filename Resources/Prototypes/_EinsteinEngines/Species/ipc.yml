@@ -68,19 +68,19 @@
     Head:
       points: 4
       required: true
-      defaultMarkings: [ MobIPCHeadDefault ]
+      defaultMarkings: [MobIPCHeadDefault]
     Chest:
       points: 1
       required: true
-      defaultMarkings: [ MobIPCTorsoDefault ]
+      defaultMarkings: [MobIPCTorsoDefault]
     Legs:
       points: 8
       required: true
-      defaultMarkings: [ MobIPCLLegDefault, MobIPCLFootDefault, MobIPCRLegDefault, MobIPCRFootDefault ]
+      defaultMarkings: [MobIPCLLegDefault, MobIPCLFootDefault, MobIPCRLegDefault, MobIPCRFootDefault]
     Arms:
       points: 8
       required: true
-      defaultMarkings: [ MobIPCLArmDefault, MobIPCLHandDefault, MobIPCRArmDefault, MobIPCRHandDefault ]
+      defaultMarkings: [MobIPCLArmDefault, MobIPCLHandDefault, MobIPCRArmDefault, MobIPCRHandDefault]
     HeadSide:
       points: 1
       required: false

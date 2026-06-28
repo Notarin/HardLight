@@ -1,7 +1,7 @@
 - type: entity
   id: ClothingBackpackTactical
   name: tactical pack
-  parent: [ NFClothingDuffel, RecyclableItemClothDurable ]
+  parent: [NFClothingDuffel, RecyclableItemClothDurable]
   description: A tactical pack for your tactical needs
   components:
   - type: Sprite
@@ -23,7 +23,7 @@
 - type: entity
   id: ClothingBackpackExplorer
   name: explorer pack
-  parent: [ NFClothingDuffel, RecyclableItemClothDurable ]
+  parent: [NFClothingDuffel, RecyclableItemClothDurable]
   description: Large pack for all your gear and supplies
   components:
   - type: Sprite
@@ -43,7 +43,7 @@
 - type: entity
   id: ClothingRucksack
   name: rucksack
-  parent: [ NFClothingDuffel, RecyclableItemClothDurable ]
+  parent: [NFClothingDuffel, RecyclableItemClothDurable]
   description: Sacks to haul your burdens
   components:
   - type: Sprite
@@ -62,7 +62,7 @@
 - type: entity
   id: ClothingBackpackTacticalHolding
   name: tactical pack of holding
-  parent: [ NFClothingBackpack, RecyclableItemClothDurable ]
+  parent: [NFClothingBackpack, RecyclableItemClothDurable]
   description: An extra large tactical pack for all your extra tacticool needs. It is unwieldy due to condensed gravitational emissions.
   components:
   - type: Sprite

@@ -2,7 +2,7 @@
   id: Bullet45_ACPFMJ
   name: bullet (.45 ACP FMJ)
   parent: BaseBullet
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -13,7 +13,7 @@
   id: Bullet45_ACPImprovised
   name: bullet (.45 ACP improvised)
   parent: BaseBullet
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -25,7 +25,7 @@
   id: Bullet45_ACPPractice
   name: bullet (.45 ACP practice)
   parent: BaseBulletPractice
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -36,7 +36,7 @@
   id: Bullet45_ACPRubber
   name: bullet (.45 ACP rubber)
   parent: BaseBulletRubber
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -47,7 +47,7 @@
   id: Bullet45_ACPIncendiary
   parent: BaseBulletIncendiary
   name: bullet (.45 ACP incendiary)
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -59,7 +59,7 @@
   id: Bullet45_ACPUranium
   parent: BaseBulletUranium
   name: bullet (.45 ACP uranium)
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -72,7 +72,7 @@
   id: Bullet45_ACPEmp
   name: bullet (.45 ACP emp)
   parent: BaseBulletEmp
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:

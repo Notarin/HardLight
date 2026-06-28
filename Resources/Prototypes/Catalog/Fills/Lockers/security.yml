@@ -2,7 +2,7 @@
   id: LockerWardenFilledHardsuit
   suffix: Filled, Hardsuit
   parent: LockerWarden
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   components:
   - type: EntityTableContainerFill
     containers:
@@ -17,7 +17,7 @@
   id: LockerWardenFilled
   suffix: Filled
   parent: LockerWarden
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   components:
   - type: EntityTableContainerFill
     containers:
@@ -29,7 +29,7 @@
   table: !type:AllSelector
     children:
     - id: FlashlightSeclite
-#    - id: WeaponDisabler # Frontier
+      #    - id: WeaponDisabler # Frontier
     - id: WeaponEnergyRevolver # HL
     - id: NFWeaponEnergySubMachineGunDisabler # HL
     - id: WeaponEnergyShotgun
@@ -64,7 +64,7 @@
   table: !type:AllSelector
     children:
     - id: ClothingOuterHardsuitWarden
-#    - id: OxygenTankFilled
+      #    - id: OxygenTankFilled
     - id: NFTankO2N2EqualFilled # Frontier
     - id: ClothingMaskBreath
     - id: JetpackSecurityFilled # Frontier
@@ -74,7 +74,7 @@
   id: LockerSecurityFilled
   suffix: Filled
   parent: LockerSecurity
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   components:
   - type: EntityTableContainerFill
     containers:
@@ -87,7 +87,7 @@
     children:
     - id: FlashlightSeclite
       prob: 0.8
-#    - id: WeaponDisabler # Frontier
+      #    - id: WeaponDisabler # Frontier
     - id: WeaponEnergyRevolver # HL
     - id: NFWeaponEnergySubMachineGunDisabler # HL
     - id: Bola
@@ -113,7 +113,7 @@
   id: LockerBrigmedicFilled
   suffix: Brigmedic, Filled
   parent: LockerBrigmedic
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   components:
   - type: EntityTableContainerFill
     containers:
@@ -125,13 +125,13 @@
   table: !type:AllSelector
     children:
     - id: ClothingEyesGlassesSecurity
-#    - id: WeaponDisabler # Frontier
+      #    - id: WeaponDisabler # Frontier
     - id: WeaponEnergyRevolver # HL
     - id: NFWeaponEnergySubMachineGunDisabler # HL
     - id: Bola
     - id: TrackingImplanter
     - id: TrackingImplanter
-#    - id: ClothingOuterHardsuitBrigmedic # HL: Moved to HLFillHardsuitBrigmedic
+      #    - id: ClothingOuterHardsuitBrigmedic # HL: Moved to HLFillHardsuitBrigmedic
     - id: BoxSterileMask
     - id: ClothingHeadHatBeretBrigmedic
     - id: ClothingOuterCoatAMG
@@ -161,7 +161,7 @@
   id: LockerDetectiveFilled
   suffix: Filled
   parent: LockerDetective
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   components:
   - type: EntityTableContainerFill
     containers:
@@ -197,22 +197,22 @@
   id: ClosetBombFilled
   parent: ClosetBomb
   suffix: Filled
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   components:
   - type: StorageFill
     contents:
-      - id: ClothingHeadHelmetBombSuit
-      - id: ClothingOuterSuitBomb
-      - id: Wirecutter
-      - id: Screwdriver
-      - id: Multitool
-        prob: 0.5
+    - id: ClothingHeadHelmetBombSuit
+    - id: ClothingOuterSuitBomb
+    - id: Wirecutter
+    - id: Screwdriver
+    - id: Multitool
+      prob: 0.5
 
 - type: entity
-  parent: [GunSafeBaseSecure, BaseC1Contraband ] # Frontier: BaseSecurityContraband<BaseC1Contraband
+  parent: [GunSafeBaseSecure, BaseC1Contraband] # Frontier: BaseSecurityContraband<BaseC1Contraband
   id: GunSafeDisabler
   name: disabler safe
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   components:
   - type: EntityTableContainerFill
     containers:
@@ -226,13 +226,12 @@
       value: 5
     children:
     - id: NFWeaponEnergySubMachineGunDisabler # HL
-    
 
 - type: entity
-  parent: [GunSafeBaseSecure, BaseC2ContrabandUnredeemable ] # Frontier: BaseSecurityContraband<BaseC2ContrabandUnredeemable
+  parent: [GunSafeBaseSecure, BaseC2ContrabandUnredeemable] # Frontier: BaseSecurityContraband<BaseC2ContrabandUnredeemable
   id: GunSafePistolMk58
   name: mk58 safe
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   components:
   - type: EntityTableContainerFill
     containers:
@@ -250,10 +249,10 @@
     - id: Magazine45_ACPPistolFMJ #HL
 
 - type: entity
-  parent: [GunSafeBaseSecure, BaseC2ContrabandUnredeemable ] # Frontier: BaseSecurityContraband<BaseC2ContrabandUnredeemable
+  parent: [GunSafeBaseSecure, BaseC2ContrabandUnredeemable] # Frontier: BaseSecurityContraband<BaseC2ContrabandUnredeemable
   id: GunSafeRifleLecter
   name: Lecter safe # Frontier: caps
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   components:
   - type: EntityTableContainerFill
     containers:
@@ -271,10 +270,10 @@
     - id: Magazine556x45mmFMJ # HL
 
 - type: entity
-  parent: [GunSafeBaseSecure, BaseC2ContrabandUnredeemable ] # Frontier: BaseSecurityContraband<BaseC2ContrabandUnredeemable
+  parent: [GunSafeBaseSecure, BaseC2ContrabandUnredeemable] # Frontier: BaseSecurityContraband<BaseC2ContrabandUnredeemable
   id: GunSafeSubMachineGunDrozd
   name: Drozd safe # Frontier: caps
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   components:
   - type: EntityTableContainerFill
     containers:
@@ -292,10 +291,10 @@
     - id: Magazine9x19mmSubMachineGunFMJ # HL
 
 - type: entity
-  parent: [GunSafeBaseSecure, BaseC2ContrabandUnredeemable ] # Frontier: BaseSecurityContraband<BaseC2ContrabandUnredeemable
+  parent: [GunSafeBaseSecure, BaseC2ContrabandUnredeemable] # Frontier: BaseSecurityContraband<BaseC2ContrabandUnredeemable
   id: GunSafeShotgunEnforcer
   name: Enforcer safe # Frontier: caps
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   components:
   - type: EntityTableContainerFill
     containers:
@@ -313,10 +312,10 @@
     - id: AmmoBox12_gaugeBuckshot #HL
 
 - type: entity
-  parent: [GunSafeBaseSecure, BaseC2ContrabandUnredeemable ] # Frontier: BaseSecurityContraband<BaseC2ContrabandUnredeemable
+  parent: [GunSafeBaseSecure, BaseC2ContrabandUnredeemable] # Frontier: BaseSecurityContraband<BaseC2ContrabandUnredeemable
   id: GunSafeShotgunKammerer
   name: Kammerer safe # Frontier: caps
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   components:
   - type: EntityTableContainerFill
     containers:
@@ -335,9 +334,9 @@
 - type: entity
   id: GunSafeSubMachineGunWt550
   suffix: Wt550
-  parent: [GunSafeBaseSecure, BaseC2ContrabandUnredeemable ] # Frontier: BaseSecurityContraband<BaseC2ContrabandUnredeemable
+  parent: [GunSafeBaseSecure, BaseC2ContrabandUnredeemable] # Frontier: BaseSecurityContraband<BaseC2ContrabandUnredeemable
   name: WT-550 safe # Frontier: caps
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   components:
   - type: EntityTableContainerFill
     containers:
@@ -358,7 +357,7 @@
   parent: [GunSafeBaseSecure] # Frontier: remove BaseSecurityContraband
   id: GunSafeLaserCarbine
   name: laser safe
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   components:
   - type: EntityTableContainerFill
     containers:

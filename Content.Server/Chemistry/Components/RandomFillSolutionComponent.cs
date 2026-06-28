@@ -19,6 +19,10 @@ public sealed partial class RandomFillSolutionComponent : Component
     /// <summary>
     ///     Weighted random fill prototype Id. Used to pick reagent and quantity.
     /// </summary>
-    [DataField("weightedRandomId", required: true, customTypeSerializer: typeof(PrototypeIdSerializer<WeightedRandomFillSolutionPrototype>))]
+    [DataField(
+        "weightedRandomId",
+        required: true,
+        customTypeSerializer: typeof(PrototypeIdSerializer<WeightedRandomFillSolutionPrototype>)
+    )]
     public string? WeightedRandomId;
 }

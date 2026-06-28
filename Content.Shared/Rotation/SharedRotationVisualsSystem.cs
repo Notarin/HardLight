@@ -17,7 +17,6 @@ public abstract class SharedRotationVisualsSystem : EntitySystem
         Dirty(ent);
     }
 
-
     /// <summary>
     /// Resets the rotation an entity will have when it is "horizontal" back to it's default value.
     /// </summary>

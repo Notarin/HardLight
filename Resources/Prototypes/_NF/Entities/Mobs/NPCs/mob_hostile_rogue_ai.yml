@@ -6,7 +6,7 @@
   components:
   - type: HTN
     rootTask:
-       task: SimpleHostileCompound
+      task: SimpleHostileCompound
     blackboard:
       NavClimb: true
       NavInteract: true
@@ -21,7 +21,7 @@
   components:
   - type: HTN
     rootTask:
-       task: SimpleRangedHostileCompound
+      task: SimpleRangedHostileCompound
     blackboard:
       NavClimb: true
       NavInteract: true
@@ -76,11 +76,11 @@
       52: 0.5
   - type: HealthExaminable
     examinableTypes:
-      - Blunt
-      - Slash
-      - Piercing
-      - Heat
-      - Shock
+    - Blunt
+    - Slash
+    - Piercing
+    - Heat
+    - Shock
     locPrefix: silicon
   - type: Stamina
     critThreshold: 100
@@ -119,8 +119,8 @@
     footstepSoundCollection:
       collection: FootstepBorg
   - type: MovementSpeedModifier
-    baseWalkSpeed : 4.5
-    baseSprintSpeed : 4.5
+    baseWalkSpeed: 4.5
+    baseSprintSpeed: 4.5
 
 - type: entity
   parent:
@@ -138,27 +138,27 @@
     sprite: _NF/Mobs/RogueSilicons/robots.rsi
     layers:
     - state: body_generic
-      map: [ "body" ]
+      map: ["body"]
     - state: head_generic
-      map: [ "head" ]
+      map: ["head"]
     - state: head_generic_eye
-      map: [ "eyes" ]
+      map: ["eyes"]
       color: "#990000"
       shader: unshaded
     - state: l_arm_generic
-      map: [ "leftArm" ]
+      map: ["leftArm"]
     - state: r_arm_generic
-      map: [ "rightArm" ]
+      map: ["rightArm"]
     - state: l_leg_generic
-      map: [ "leftLeg" ]
+      map: ["leftLeg"]
     - state: r_leg_generic
-      map: [ "rightLeg" ]
+      map: ["rightLeg"]
     - state: mask_null
-      map: [ "decor" ]
+      map: ["decor"]
     - state: mask_null
-      map: [ "overlay" ]
+      map: ["overlay"]
     - state: mask_null
-      map: [ "overlayUnshaded" ]
+      map: ["overlayUnshaded"]
       shader: unshaded
   - type: DamageStateVisuals
     rotate: true
@@ -208,14 +208,13 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.30 # Lowered the value, to allow them to fit through the airlocks
         density: 100
         mask:
-          - FlyingMobMask
+        - FlyingMobMask
         layer:
-          - FlyingMobLayer
+        - FlyingMobLayer
   - type: DamageStateVisuals
     rotate: true
   - type: RotationVisuals
@@ -261,62 +260,62 @@
   - MobPassiveRegenStrong
   - MobRogueSiliconAISimpleMelee
   id: MobRogueSiliconScrap
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: RandomSprite
     available:
-      - body:
-          body_generic: ""
-          body_light: ""
-          body_servo: ""
-        head:
-          head_generic: ""
-          head_heavy: ""
-          head_light: ""
-          head_sturdy: ""
-          head_servo: ""
-        eyes:
-          head_generic_eye: Emagged
-          head_heavy_eye: Emagged
-          head_light_eye: Emagged
-          head_sturdy_eye: Emagged
-          head_servo_eye: Emagged
-        leftArm:
-          l_arm_generic: ""
-          l_arm_heavy: ""
-          l_arm_light: ""
-          l_arm_sturdy: ""
-          l_arm_servo: ""
-          mask_null: ""
-        rightArm:
-          r_arm_generic: ""
-          r_arm_heavy: ""
-          r_arm_light: ""
-          r_arm_sturdy: ""
-          r_arm_servo: ""
-          mask_null: ""
-        leftLeg:
-          l_leg_generic: ""
-          l_leg_light: ""
-          l_leg_thruster: ""
-          l_leg_treads: ""
-          l_leg_servo: ""
-        rightLeg:
-          r_leg_generic: ""
-          r_leg_light: ""
-          r_leg_thruster: ""
-          r_leg_treads: ""
-          r_leg_servo: ""
-        decor:
-          mask_null: ""
-        overlay:
-          overlay_openbrain: ""
-          overlay_openmodule: ""
-          overlay_openwires: ""
-          mask_null: ""
-        overlayUnshaded:
-          overlay_critdmg: ""
-          mask_null: ""
+    - body:
+        body_generic: ""
+        body_light: ""
+        body_servo: ""
+      head:
+        head_generic: ""
+        head_heavy: ""
+        head_light: ""
+        head_sturdy: ""
+        head_servo: ""
+      eyes:
+        head_generic_eye: Emagged
+        head_heavy_eye: Emagged
+        head_light_eye: Emagged
+        head_sturdy_eye: Emagged
+        head_servo_eye: Emagged
+      leftArm:
+        l_arm_generic: ""
+        l_arm_heavy: ""
+        l_arm_light: ""
+        l_arm_sturdy: ""
+        l_arm_servo: ""
+        mask_null: ""
+      rightArm:
+        r_arm_generic: ""
+        r_arm_heavy: ""
+        r_arm_light: ""
+        r_arm_sturdy: ""
+        r_arm_servo: ""
+        mask_null: ""
+      leftLeg:
+        l_leg_generic: ""
+        l_leg_light: ""
+        l_leg_thruster: ""
+        l_leg_treads: ""
+        l_leg_servo: ""
+      rightLeg:
+        r_leg_generic: ""
+        r_leg_light: ""
+        r_leg_thruster: ""
+        r_leg_treads: ""
+        r_leg_servo: ""
+      decor:
+        mask_null: ""
+      overlay:
+        overlay_openbrain: ""
+        overlay_openmodule: ""
+        overlay_openwires: ""
+        mask_null: ""
+      overlayUnshaded:
+        overlay_critdmg: ""
+        mask_null: ""
 
 - type: entity
   parent:
@@ -324,49 +323,49 @@
   - MobPassiveRegenStrong
   - MobRogueSiliconAISimpleMelee
   id: MobRogueSiliconScrapThreads
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: RandomSprite
     available:
-      - body:
-          body_generic: ""
-          body_light: ""
-        head:
-          head_generic: ""
-          head_heavy: ""
-          head_light: ""
-          head_sturdy: ""
-        eyes:
-          head_generic_eye: Emagged
-          head_heavy_eye: Emagged
-          head_light_eye: Emagged
-          head_sturdy_eye: Emagged
-        leftArm:
-          l_arm_generic: ""
-          l_arm_heavy: ""
-          l_arm_light: ""
-          l_arm_sturdy: ""
-          mask_null: ""
-        rightArm:
-          r_arm_generic: ""
-          r_arm_heavy: ""
-          r_arm_light: ""
-          r_arm_sturdy: ""
-          mask_null: ""
-        leftLeg:
-          mask_null: ""
-        rightLeg:
-          mask_null: ""
-        decor:
-          leg_treads: ""
-        overlay:
-          overlay_openbrain: ""
-          overlay_openmodule: ""
-          overlay_openwires: ""
-          mask_null: ""
-        overlayUnshaded:
-          overlay_critdmg: ""
-          mask_null: ""
+    - body:
+        body_generic: ""
+        body_light: ""
+      head:
+        head_generic: ""
+        head_heavy: ""
+        head_light: ""
+        head_sturdy: ""
+      eyes:
+        head_generic_eye: Emagged
+        head_heavy_eye: Emagged
+        head_light_eye: Emagged
+        head_sturdy_eye: Emagged
+      leftArm:
+        l_arm_generic: ""
+        l_arm_heavy: ""
+        l_arm_light: ""
+        l_arm_sturdy: ""
+        mask_null: ""
+      rightArm:
+        r_arm_generic: ""
+        r_arm_heavy: ""
+        r_arm_light: ""
+        r_arm_sturdy: ""
+        mask_null: ""
+      leftLeg:
+        mask_null: ""
+      rightLeg:
+        mask_null: ""
+      decor:
+        leg_treads: ""
+      overlay:
+        overlay_openbrain: ""
+        overlay_openmodule: ""
+        overlay_openwires: ""
+        mask_null: ""
+      overlayUnshaded:
+        overlay_critdmg: ""
+        mask_null: ""
 
 - type: entity
   parent:
@@ -374,49 +373,49 @@
   - MobPassiveRegenStrong
   - MobRogueSiliconAISimpleMelee
   id: MobRogueSiliconScrapThrusters
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: RandomSprite
     available:
-      - body:
-          body_generic: ""
-          body_light: ""
-        head:
-          head_generic: ""
-          head_heavy: ""
-          head_light: ""
-          head_sturdy: ""
-        eyes:
-          head_generic_eye: Emagged
-          head_heavy_eye: Emagged
-          head_light_eye: Emagged
-          head_sturdy_eye: Emagged
-        leftArm:
-          l_arm_generic: ""
-          l_arm_heavy: ""
-          l_arm_light: ""
-          l_arm_sturdy: ""
-          mask_null: ""
-        rightArm:
-          r_arm_generic: ""
-          r_arm_heavy: ""
-          r_arm_light: ""
-          r_arm_sturdy: ""
-          mask_null: ""
-        leftLeg:
-          mask_null: ""
-        rightLeg:
-          mask_null: ""
-        decor:
-          leg_thruster: ""
-        overlay:
-          overlay_openbrain: ""
-          overlay_openmodule: ""
-          overlay_openwires: ""
-          mask_null: ""
-        overlayUnshaded:
-          overlay_critdmg: ""
-          mask_null: ""
+    - body:
+        body_generic: ""
+        body_light: ""
+      head:
+        head_generic: ""
+        head_heavy: ""
+        head_light: ""
+        head_sturdy: ""
+      eyes:
+        head_generic_eye: Emagged
+        head_heavy_eye: Emagged
+        head_light_eye: Emagged
+        head_sturdy_eye: Emagged
+      leftArm:
+        l_arm_generic: ""
+        l_arm_heavy: ""
+        l_arm_light: ""
+        l_arm_sturdy: ""
+        mask_null: ""
+      rightArm:
+        r_arm_generic: ""
+        r_arm_heavy: ""
+        r_arm_light: ""
+        r_arm_sturdy: ""
+        mask_null: ""
+      leftLeg:
+        mask_null: ""
+      rightLeg:
+        mask_null: ""
+      decor:
+        leg_thruster: ""
+      overlay:
+        overlay_openbrain: ""
+        overlay_openmodule: ""
+        overlay_openwires: ""
+        mask_null: ""
+      overlayUnshaded:
+        overlay_critdmg: ""
+        mask_null: ""
   - type: PointLight
     radius: 2.5
     color: orange
@@ -425,14 +424,13 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.30 # Lowered the value, to allow them to fit through the airlocks
         density: 100
         mask:
-          - FlyingMobMask
+        - FlyingMobMask
         layer:
-          - FlyingMobLayer
+        - FlyingMobLayer
   - type: FootstepModifier
     footstepSoundCollection:
       path: /Audio/_NF/Effects/silence.ogg
@@ -446,7 +444,7 @@
   parent:
   - MobRogueSiliconScrapThrusters
   id: MobRogueSiliconScrapThrustersRanged
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: HitscanBatteryAmmoProvider
     proto: NFRedLightLaser
@@ -472,7 +470,7 @@
   - MobPassiveRegenStrong
   - MobRogueSiliconAISimpleMelee
   id: MobRogueSiliconScrapFlayer
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: MeleeWeapon
     attackRate: 1.0
@@ -487,44 +485,44 @@
       path: /Audio/Weapons/bladeslice.ogg
   - type: RandomSprite
     available:
-      - body:
-          body_generic: ""
-          body_light: ""
-        head:
-          head_generic: ""
-          head_heavy: ""
-          head_light: ""
-          head_sturdy: ""
-        eyes:
-          head_generic_eye: Emagged
-          head_heavy_eye: Emagged
-          head_light_eye: Emagged
-          head_sturdy_eye: Emagged
-        leftArm:
-          l_arm_generic: ""
-          l_arm_heavy: ""
-          l_arm_light: ""
-          l_arm_sturdy: ""
-        rightArm:
-          r_arm_generic: ""
-          r_arm_heavy: ""
-          r_arm_light: ""
-          r_arm_sturdy: ""
-          mask_null: ""
-        leftLeg:
-          l_leg_generic: ""
-          l_leg_light: ""
-        rightLeg:
-          r_leg_generic: ""
-          r_leg_light: ""
-        decor:
-          decor_body_gibs: ""
-          decor_head_gibs: ""
-          decor_head_body_gibs: ""
-        overlay:
-          overlay_l_arm_claws: ""
-          overlay_lr_arm_claws: ""
-          overlay_r_arm_claws: ""
+    - body:
+        body_generic: ""
+        body_light: ""
+      head:
+        head_generic: ""
+        head_heavy: ""
+        head_light: ""
+        head_sturdy: ""
+      eyes:
+        head_generic_eye: Emagged
+        head_heavy_eye: Emagged
+        head_light_eye: Emagged
+        head_sturdy_eye: Emagged
+      leftArm:
+        l_arm_generic: ""
+        l_arm_heavy: ""
+        l_arm_light: ""
+        l_arm_sturdy: ""
+      rightArm:
+        r_arm_generic: ""
+        r_arm_heavy: ""
+        r_arm_light: ""
+        r_arm_sturdy: ""
+        mask_null: ""
+      leftLeg:
+        l_leg_generic: ""
+        l_leg_light: ""
+      rightLeg:
+        r_leg_generic: ""
+        r_leg_light: ""
+      decor:
+        decor_body_gibs: ""
+        decor_head_gibs: ""
+        decor_head_body_gibs: ""
+      overlay:
+        overlay_l_arm_claws: ""
+        overlay_lr_arm_claws: ""
+        overlay_r_arm_claws: ""
 
 - type: entity
   parent:
@@ -532,7 +530,7 @@
   - MobRogueSiliconProjectileBatteryAmmo
   id: MobRogueSiliconDroneLethals
   description: Hacked by a rogue AI, these security drones are programmed to kill.
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     drawdepth: Mobs
@@ -556,7 +554,7 @@
   - MobRogueSiliconProjectileBatteryAmmo
   id: MobRogueSiliconDroneNonLethals
   description: These engineering drones are capable of shooting disabler bolts. Dangerous in combination with other enemies.
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     drawdepth: Mobs
@@ -583,7 +581,7 @@
   - MobRogueSiliconProjectileBatteryAmmo
   id: MobRogueSiliconDroneScience
   description: A science drone, this rogue drone comes equipped with an experimental C.H.I.M.P. cannon.
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     drawdepth: Mobs
@@ -609,15 +607,15 @@
   id: MobRogueSiliconViscerator
   name: viscerator unit
   description: Small, quick, and nimble, these drones are designed to chase its targets through narrow areas and incapacitate those it catches. Often accompanies catcher units.
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     drawdepth: Mobs
     sprite: _NF/Mobs/RogueSilicons/viscerator.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: base
-    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+    - map: ["enum.DamageStateVisualLayers.BaseUnshaded"]
       state: base_lights
       shader: unshaded
   - type: MobState
@@ -641,7 +639,7 @@
       7: 0.7
       10: 0.5
   - type: MovementSpeedModifier
-    baseSprintSpeed : 5
+    baseSprintSpeed: 5
     baseWalkSpeed: 5
   - type: MeleeWeapon
     attackRate: 1.0
@@ -664,7 +662,7 @@
   id: MobRogueSiliconServo
   name: servo unit
   description: With its programming rewritten, this crash test dummy will stop at nothing in exacting its revenge.
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Loadout
     prototypes:
@@ -702,7 +700,7 @@
   id: MobRogueSiliconHerder
   name: herder unit
   description: This rogue silicon unit's primary directive is to corral and herd captives. Its stun prod can be used to good effect, take caution.
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Loadout
     prototypes:
@@ -761,7 +759,7 @@
   id: MobRogueSiliconHunter
   name: hunter unit
   description: These mobile drones are tasked with reconnaissance, threat identification, and target elimination.
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Loadout
     prototypes:
@@ -817,7 +815,7 @@
   id: MobRogueSiliconCatcher
   name: catcher unit
   description: Equipped with bolas, this unit is designed to slow, capture, and detain targets.
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Loadout
     prototypes:
@@ -885,7 +883,7 @@
   id: MobRogueSiliconTesla
   name: tesla unit
   description: Originally designed to service tesla power generators, this silicon's equipment has been repurposed as a makeshift stun gun.
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Loadout
     prototypes:
@@ -957,7 +955,7 @@
   id: MobRogueSiliconGuardian
   name: guardian unit
   description: An advanced security silicon, typically used to safeguard high-security areas such as vaults and server rooms. After being hacked, this unit carries out the AI's will.
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Loadout
     prototypes:
@@ -966,19 +964,18 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.45
         density: 100
         mask:
-          - FlyingMobMask
+        - FlyingMobMask
         layer:
-          - FlyingMobLayer
+        - FlyingMobLayer
   - type: Sprite
     drawdepth: Mobs
     sprite: _NF/Mobs/RogueSilicons/netguardian.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: netguardian
   - type: DamageStateVisuals
     states:
@@ -1028,7 +1025,7 @@
   id: MobRogueSiliconBoss
   name: one star unit
   description: An autonomous combat-grade mech, typically used for offensive operations. Now a rogue AI's elite guard. Equipped with missile launchers, exercise extreme caution.
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Loadout
     prototypes:
@@ -1084,67 +1081,67 @@
   - NFMobRoadkillable
   id: MobRogueSiliconScrapAsteroid
   name: malfunctioning scrap unit
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: MovementSpeedModifier
-    baseWalkSpeed : 3.6 # -20% from normal speed
-    baseSprintSpeed : 3.6 # -20% from normal speed
+    baseWalkSpeed: 3.6 # -20% from normal speed
+    baseSprintSpeed: 3.6 # -20% from normal speed
   - type: Loadout
     prototypes:
     - MobRogueSiliconLootT0
   - type: RandomSprite
     available:
-      - body:
-          body_generic: ""
-          body_light: ""
-          body_servo: ""
-        head:
-          head_generic: ""
-          head_heavy: ""
-          head_light: ""
-          head_sturdy: ""
-          head_servo: ""
-        eyes:
-          head_generic_eye: Emagged
-          head_heavy_eye: Emagged
-          head_light_eye: Emagged
-          head_sturdy_eye: Emagged
-          head_servo_eye: Emagged
-        leftArm:
-          l_arm_generic: ""
-          l_arm_heavy: ""
-          l_arm_light: ""
-          l_arm_sturdy: ""
-          l_arm_servo: ""
-          mask_null: ""
-        rightArm:
-          r_arm_generic: ""
-          r_arm_heavy: ""
-          r_arm_light: ""
-          r_arm_sturdy: ""
-          r_arm_servo: ""
-          mask_null: ""
-        leftLeg:
-          l_leg_generic: ""
-          l_leg_light: ""
-          l_leg_thruster: ""
-          l_leg_treads: ""
-          l_leg_servo: ""
-        rightLeg:
-          r_leg_generic: ""
-          r_leg_light: ""
-          r_leg_thruster: ""
-          r_leg_treads: ""
-          r_leg_servo: ""
-        decor:
-          mask_null: ""
-        overlay:
-          overlay_openbrain: ""
-          overlay_openmodule: ""
-          overlay_openwires: ""
-          mask_null: ""
-        overlayUnshaded:
-          overlay_critdmg: ""
+    - body:
+        body_generic: ""
+        body_light: ""
+        body_servo: ""
+      head:
+        head_generic: ""
+        head_heavy: ""
+        head_light: ""
+        head_sturdy: ""
+        head_servo: ""
+      eyes:
+        head_generic_eye: Emagged
+        head_heavy_eye: Emagged
+        head_light_eye: Emagged
+        head_sturdy_eye: Emagged
+        head_servo_eye: Emagged
+      leftArm:
+        l_arm_generic: ""
+        l_arm_heavy: ""
+        l_arm_light: ""
+        l_arm_sturdy: ""
+        l_arm_servo: ""
+        mask_null: ""
+      rightArm:
+        r_arm_generic: ""
+        r_arm_heavy: ""
+        r_arm_light: ""
+        r_arm_sturdy: ""
+        r_arm_servo: ""
+        mask_null: ""
+      leftLeg:
+        l_leg_generic: ""
+        l_leg_light: ""
+        l_leg_thruster: ""
+        l_leg_treads: ""
+        l_leg_servo: ""
+      rightLeg:
+        r_leg_generic: ""
+        r_leg_light: ""
+        r_leg_thruster: ""
+        r_leg_treads: ""
+        r_leg_servo: ""
+      decor:
+        mask_null: ""
+      overlay:
+        overlay_openbrain: ""
+        overlay_openmodule: ""
+        overlay_openwires: ""
+        mask_null: ""
+      overlayUnshaded:
+        overlay_critdmg: ""
 
 - type: entity
   parent:
@@ -1153,54 +1150,54 @@
   - NFMobRoadkillable
   id: MobRogueSiliconScrapThreadsAsteroid
   name: malfunctioning scrap unit
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: MovementSpeedModifier
-    baseWalkSpeed : 3.6 # -20% from normal speed
-    baseSprintSpeed : 3.6 # -20% from normal speed
+    baseWalkSpeed: 3.6 # -20% from normal speed
+    baseSprintSpeed: 3.6 # -20% from normal speed
   - type: Loadout
     prototypes:
     - MobRogueSiliconLootT0
   - type: RandomSprite
     available:
-      - body:
-          body_generic: ""
-          body_light: ""
-        head:
-          head_generic: ""
-          head_heavy: ""
-          head_light: ""
-          head_sturdy: ""
-        eyes:
-          head_generic_eye: Emagged
-          head_heavy_eye: Emagged
-          head_light_eye: Emagged
-          head_sturdy_eye: Emagged
-        leftArm:
-          l_arm_generic: ""
-          l_arm_heavy: ""
-          l_arm_light: ""
-          l_arm_sturdy: ""
-          mask_null: ""
-        rightArm:
-          r_arm_generic: ""
-          r_arm_heavy: ""
-          r_arm_light: ""
-          r_arm_sturdy: ""
-          mask_null: ""
-        leftLeg:
-          mask_null: ""
-        rightLeg:
-          mask_null: ""
-        decor:
-          leg_treads: ""
-        overlay:
-          overlay_openbrain: ""
-          overlay_openmodule: ""
-          overlay_openwires: ""
-          mask_null: ""
-        overlayUnshaded:
-          overlay_critdmg: ""
+    - body:
+        body_generic: ""
+        body_light: ""
+      head:
+        head_generic: ""
+        head_heavy: ""
+        head_light: ""
+        head_sturdy: ""
+      eyes:
+        head_generic_eye: Emagged
+        head_heavy_eye: Emagged
+        head_light_eye: Emagged
+        head_sturdy_eye: Emagged
+      leftArm:
+        l_arm_generic: ""
+        l_arm_heavy: ""
+        l_arm_light: ""
+        l_arm_sturdy: ""
+        mask_null: ""
+      rightArm:
+        r_arm_generic: ""
+        r_arm_heavy: ""
+        r_arm_light: ""
+        r_arm_sturdy: ""
+        mask_null: ""
+      leftLeg:
+        mask_null: ""
+      rightLeg:
+        mask_null: ""
+      decor:
+        leg_treads: ""
+      overlay:
+        overlay_openbrain: ""
+        overlay_openmodule: ""
+        overlay_openwires: ""
+        mask_null: ""
+      overlayUnshaded:
+        overlay_critdmg: ""
 
 - type: entity
   parent:
@@ -1209,54 +1206,54 @@
   - NFMobRoadkillable
   id: MobRogueSiliconScrapThrustersAsteroid
   name: malfunctioning scrap unit
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: MovementSpeedModifier
-    baseWalkSpeed : 3.6 # -20% from normal speed
-    baseSprintSpeed : 3.6 # -20% from normal speed
+    baseWalkSpeed: 3.6 # -20% from normal speed
+    baseSprintSpeed: 3.6 # -20% from normal speed
   - type: Loadout
     prototypes:
     - MobRogueSiliconLootT0
   - type: RandomSprite
     available:
-      - body:
-          body_generic: ""
-          body_light: ""
-        head:
-          head_generic: ""
-          head_heavy: ""
-          head_light: ""
-          head_sturdy: ""
-        eyes:
-          head_generic_eye: Emagged
-          head_heavy_eye: Emagged
-          head_light_eye: Emagged
-          head_sturdy_eye: Emagged
-        leftArm:
-          l_arm_generic: ""
-          l_arm_heavy: ""
-          l_arm_light: ""
-          l_arm_sturdy: ""
-          mask_null: ""
-        rightArm:
-          r_arm_generic: ""
-          r_arm_heavy: ""
-          r_arm_light: ""
-          r_arm_sturdy: ""
-          mask_null: ""
-        leftLeg:
-          mask_null: ""
-        rightLeg:
-          mask_null: ""
-        decor:
-          leg_thruster: ""
-        overlay:
-          overlay_openbrain: ""
-          overlay_openmodule: ""
-          overlay_openwires: ""
-          mask_null: ""
-        overlayUnshaded:
-          overlay_critdmg: ""
+    - body:
+        body_generic: ""
+        body_light: ""
+      head:
+        head_generic: ""
+        head_heavy: ""
+        head_light: ""
+        head_sturdy: ""
+      eyes:
+        head_generic_eye: Emagged
+        head_heavy_eye: Emagged
+        head_light_eye: Emagged
+        head_sturdy_eye: Emagged
+      leftArm:
+        l_arm_generic: ""
+        l_arm_heavy: ""
+        l_arm_light: ""
+        l_arm_sturdy: ""
+        mask_null: ""
+      rightArm:
+        r_arm_generic: ""
+        r_arm_heavy: ""
+        r_arm_light: ""
+        r_arm_sturdy: ""
+        mask_null: ""
+      leftLeg:
+        mask_null: ""
+      rightLeg:
+        mask_null: ""
+      decor:
+        leg_thruster: ""
+      overlay:
+        overlay_openbrain: ""
+        overlay_openmodule: ""
+        overlay_openwires: ""
+        mask_null: ""
+      overlayUnshaded:
+        overlay_critdmg: ""
   - type: PointLight
     radius: 2.5
     color: orange
@@ -1265,14 +1262,13 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.30 # Lowered the value, to allow them to fit through the airlocks
         density: 100
         mask:
-          - FlyingMobMask
+        - FlyingMobMask
         layer:
-          - FlyingMobLayer
+        - FlyingMobLayer
   - type: FootstepModifier
     footstepSoundCollection:
       path: /Audio/_NF/Effects/silence.ogg
@@ -1286,11 +1282,11 @@
   parent:
   - MobRogueSiliconScrapThrustersAsteroid
   id: MobRogueSiliconScrapThrustersRangedAsteroid
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: MovementSpeedModifier
-    baseWalkSpeed : 2.6
-    baseSprintSpeed : 2.6
+    baseWalkSpeed: 2.6
+    baseSprintSpeed: 2.6
   - type: Loadout
     prototypes:
     - MobRogueSiliconLootT1

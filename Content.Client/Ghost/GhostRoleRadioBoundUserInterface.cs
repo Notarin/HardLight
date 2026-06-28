@@ -8,7 +8,8 @@ namespace Content.Client.Ghost;
 
 public sealed class GhostRoleRadioBoundUserInterface(EntityUid owner, Enum uiKey) : BoundUserInterface(owner, uiKey)
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
 
     private SimpleRadialMenu? _ghostRoleRadioMenu;
 
@@ -40,14 +41,18 @@ public sealed class GhostRoleRadioBoundUserInterface(EntityUid owner, Enum uiKey
             if (!_prototypeManager.Resolve(ghostRoleProtoId, out var ghostRoleProto))
                 continue;
 
-            var option = new RadialMenuActionOption<ProtoId<GhostRolePrototype>>(SendGhostRoleRadioMessage, ghostRoleProtoId)
+            var option = new RadialMenuActionOption<ProtoId<GhostRolePrototype>>(
+                SendGhostRoleRadioMessage,
+                ghostRoleProtoId
+            )
             {
                 ToolTip = Loc.GetString(ghostRoleProto.Name),
                 // pick the icon if it exists, otherwise fallback to the ghost role's entity
-                IconSpecifier = ghostRoleProto.IconPrototype != null
-                                && _prototypeManager.Resolve(ghostRoleProto.IconPrototype, out var iconProto)
-                    ? RadialMenuIconSpecifier.With(iconProto)
-                    : RadialMenuIconSpecifier.With(ghostRoleProto.EntityPrototype)
+                IconSpecifier =
+                    ghostRoleProto.IconPrototype != null
+                    && _prototypeManager.Resolve(ghostRoleProto.IconPrototype, out var iconProto)
+                        ? RadialMenuIconSpecifier.With(iconProto)
+                        : RadialMenuIconSpecifier.With(ghostRoleProto.EntityPrototype),
             };
             list.Add(option);
         }

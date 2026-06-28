@@ -56,7 +56,7 @@
     solution: bucket
   - type: Tag
     tags:
-      - Bucket
+    - Bucket
   # - type: PhysicalComposition # Frontier
   #   materialComposition:
   #     Plastic: 50

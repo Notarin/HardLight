@@ -11,15 +11,21 @@ namespace Content.Server.Xenoarchaeology.XenoArtifacts.Effects.Systems;
 /// </summary>
 public sealed class ChemicalPuddleArtifactSystem : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly ArtifactSystem _artifact = default!;
-    [Dependency] private readonly PuddleSystem _puddle = default!;
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly ArtifactSystem _artifact = default!;
+
+    [Dependency]
+    private readonly PuddleSystem _puddle = default!;
 
     /// <summary>
     /// The key for the node data entry containing
     /// the chemicals that the puddle is made of.
     /// </summary>
     public const string NodeDataChemicalList = "nodeDataChemicalList";
+
     /// <summary>
     /// Frontier: the key for the node data entry containing
     /// the amount of chemicals spawned so far from this node.
@@ -52,7 +58,10 @@ public sealed class ChemicalPuddleArtifactSystem : EntitySystem
         // Frontier: maximum volume per node
         if (!_artifact.TryGetNodeData(uid, NodeDataVolumeSpawned, out FixedPoint2 volumeSpawned))
             volumeSpawned = 0;
-        FixedPoint2 volumeToSpawn = FixedPoint2.Min(component.ChemicalSolution.MaxVolume, component.MaximumVolume - volumeSpawned);
+        FixedPoint2 volumeToSpawn = FixedPoint2.Min(
+            component.ChemicalSolution.MaxVolume,
+            component.MaximumVolume - volumeSpawned
+        );
         volumeToSpawn = FixedPoint2.Max(0, volumeToSpawn);
         _artifact.SetNodeData(uid, NodeDataVolumeSpawned, volumeSpawned + volumeToSpawn, artifact);
 

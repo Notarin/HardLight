@@ -1,14 +1,17 @@
 using Content.Server.Chemistry.Components;
-using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Chemistry.Components.SolutionManager;
+using Content.Shared.Chemistry.EntitySystems;
 using Robust.Shared.Timing;
 
 namespace Content.Server.Chemistry.EntitySystems;
 
 public sealed class SolutionPurgeSystem : EntitySystem
 {
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainer = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly SharedSolutionContainerSystem _solutionContainer = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     public override void Update(float frameTime)
     {

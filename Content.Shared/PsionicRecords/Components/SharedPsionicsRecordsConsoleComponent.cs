@@ -6,7 +6,6 @@ using Robust.Shared.Prototypes;
 /// <summary>
 /// EVERYTHING HERE IS A MODIFIED VERSION OF CRIMINAL RECORDS
 /// </summary>
-
 namespace Content.Shared.PsionicsRecords.Components;
 
 /// <summary>

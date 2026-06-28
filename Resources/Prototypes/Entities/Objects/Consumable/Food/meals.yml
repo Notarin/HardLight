@@ -34,8 +34,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - cheesy
-      - potatoes
+    - cheesy
+    - potatoes
   - type: Sprite
     state: loadedbakedpotato
 # Tastes like potato.
@@ -48,8 +48,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - potatoes
-      - salty
+    - potatoes
+    - salty
   - type: Sprite
     state: fries
 # Tastes like fries, salt.
@@ -62,9 +62,9 @@
   components:
   - type: FlavorProfile
     flavors:
-      - potatoes
-      - salty
-      - cheesy
+    - potatoes
+    - salty
+    - cheesy
   - type: Sprite
     state: fries-cheesy
 # Tastes like fries, cheese.
@@ -77,8 +77,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - carrots
-      - salty
+    - carrots
+    - salty
   - type: Sprite
     state: fries-carrot
   - type: Tag
@@ -104,7 +104,7 @@
     - FoodPlateSmall
   - type: FlavorProfile
     flavors:
-      - nachos
+    - nachos
   - type: Sprite
     state: nachos
   - type: SolutionContainerManager
@@ -131,8 +131,8 @@
     - FoodPlateSmall
   - type: FlavorProfile
     flavors:
-      - nachos
-      - cheesy
+    - nachos
+    - cheesy
   - type: Sprite
     state: nachos-cheesy
   - type: SolutionContainerManager
@@ -161,9 +161,9 @@
     - FoodPlateSmall
   - type: FlavorProfile
     flavors:
-      - nachos
-      - tomato
-      - spicy
+    - nachos
+    - tomato
+    - spicy
   - type: Sprite
     state: nachos-cuban
   - type: SolutionContainerManager
@@ -189,7 +189,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - minty
+    - minty
   - type: Sprite
     state: mint
   - type: SolutionContainerManager
@@ -210,8 +210,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - eggplant
-      - cheesy
+    - eggplant
+    - cheesy
   - type: Sprite
     state: eggplantparm
   - type: SolutionContainerManager
@@ -238,8 +238,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - sweet
-      - potatoes
+    - sweet
+    - potatoes
   - type: Sprite
     state: yakiimo
 # Tastes like sweet potato.
@@ -252,9 +252,9 @@
   components:
   - type: FlavorProfile
     flavors:
-      - fishy
-      - batter
-      - spicy
+    - fishy
+    - batter
+    - spicy
   - type: Sprite
     state: cubancarp
   - type: SolutionContainerManager
@@ -282,8 +282,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - meaty
-      - cabbage
+    - meaty
+    - cabbage
   - type: Sprite
     state: cornedbeef
   - type: SolutionContainerManager
@@ -310,8 +310,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - meaty
-      - fishy
+    - meaty
+    - fishy
   - type: Sprite
     state: bearsteak
   - type: SolutionContainerManager
@@ -338,8 +338,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - meaty
-      - butter
+    - meaty
+    - butter
   - type: Sprite
     state: pigblanket
   - type: SolutionContainerManager
@@ -363,12 +363,12 @@
   description: BBQ ribs, slathered in a healthy coating of BBQ sauce. The least vegan thing to ever exist.
   components:
   - type: Food
-    trash: 
+    trash:
     - FoodKebabSkewer
   - type: FlavorProfile
     flavors:
-      - meaty
-      - smokey
+    - meaty
+    - smokey
   - type: Sprite
     state: ribs
   - type: SolutionContainerManager
@@ -397,9 +397,9 @@
   components:
   - type: FlavorProfile
     flavors:
-      - egg
-      - bacon
-      - bun
+    - egg
+    - bacon
+    - bun
   - type: Sprite
     state: benedict
   - type: SolutionContainerManager
@@ -426,8 +426,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - egg
-      - cheesy
+    - egg
+    - cheesy
   - type: Sprite
     state: omelette
   - type: SolutionContainerManager
@@ -452,9 +452,9 @@
   components:
   - type: FlavorProfile
     flavors:
-      - egg
-      - salty
-      - peppery
+    - egg
+    - salty
+    - peppery
   - type: Sprite
     state: friedegg
   - type: SolutionContainerManager
@@ -481,8 +481,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - milk
-      - chocolate
+    - milk
+    - chocolate
   - type: Sprite
     state: milkape
 # Tastes like milk, chocolate, the jungle.
@@ -495,7 +495,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - memoryleek
+    - memoryleek
   - type: Sprite
     state: memoryLeek
   - type: SolutionContainerManager
@@ -538,11 +538,11 @@
   id: FoodMealQueso
   description: A classic dipping sauce that you can't go wrong with.
   components:
-    - type: FlavorProfile
-      flavors:
-        - cheesy
-    - type: Sprite
-      state: queso
+  - type: FlavorProfile
+    flavors:
+    - cheesy
+  - type: Sprite
+    state: queso
 # Its queso! Everyone loves queso... Right?.
 
 - type: entity
@@ -553,7 +553,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - fishy
+    - fishy
   - type: Sprite
     state: sashimi
   - type: SolutionContainerManager
@@ -576,25 +576,25 @@
   id: FoodMealEnchiladas
   description: Viva La Mexico!
   components:
-    - type: FlavorProfile
-      flavors:
-        - meaty
-    - type: Sprite
-      state: enchiladas
-    - type: SolutionContainerManager
-      solutions:
-        food:
-          maxVol: 15
-          reagents:
-          - ReagentId: Nutriment
-            Quantity: 8
-          - ReagentId: CapsaicinOil
-            Quantity: 6
-          - ReagentId: Flavorol
-            Quantity: 5
-    - type: Tag
-      tags:
-      - Meat
+  - type: FlavorProfile
+    flavors:
+    - meaty
+  - type: Sprite
+    state: enchiladas
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 15
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 8
+        - ReagentId: CapsaicinOil
+          Quantity: 6
+        - ReagentId: Flavorol
+          Quantity: 5
+  - type: Tag
+    tags:
+    - Meat
 # What do Europeans eat instead of enchiladas? 25.4 millimeter-iladas.
 
 - type: entity
@@ -605,8 +605,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - fruity
-      - sour
+    - fruity
+    - sour
   - type: Sprite
     state: melonfruitbowl
   - type: SolutionContainerManager
@@ -635,12 +635,12 @@
   description: Buttery.
   components:
   - type: Food
-    trash: 
+    trash:
     - FoodPlate
   - type: FlavorProfile
     flavors:
-      - corn
-      - butter
+    - corn
+    - butter
   - type: Sprite
     state: corn-in-butter
   - type: SolutionContainerManager

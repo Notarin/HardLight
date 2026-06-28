@@ -1,6 +1,6 @@
 - type: entity
   id: MachineMaterialSilo
-  parent: [ BaseMachinePowered, ConstructibleMachine ]
+  parent: [BaseMachinePowered, ConstructibleMachine]
   name: material silo
   description: An advanced machine, capable of using bluespace technology to transmit materials to nearby machines.
   components:
@@ -9,14 +9,14 @@
     snapCardinals: true
     layers:
     - state: silo
-      map: [ "base" ]
+      map: ["base"]
   - type: Appearance
   - type: GenericVisualizer
     visuals:
       enum.PowerDeviceVisuals.Powered:
         base:
-          True: { state: silo_active }
-          False: { state: silo }
+          True: {state: silo_active}
+          False: {state: silo}
   - type: OreSilo
   - type: MaterialStorage
     whitelist:
@@ -44,8 +44,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.4,-0.4,0.4,0.4"
         density: 190
         mask:
@@ -54,8 +53,7 @@
         - MachineLayer
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 300
       behaviors:
       - !type:PlaySoundBehavior
@@ -73,4 +71,4 @@
     range: 0.30
   - type: DeviceLinkSink
     ports:
-      - FillbotAnyItem
+    - FillbotAnyItem

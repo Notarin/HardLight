@@ -1,5 +1,5 @@
-using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 using Content.Server.Explosion.EntitySystems;
+using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
 namespace Content.Server.Explosion.Components;
 

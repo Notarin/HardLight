@@ -8,7 +8,8 @@ namespace Content.Server.NPC.HTN.Preconditions;
 /// </summary>
 public sealed partial class GunAmmoPrecondition : HTNPrecondition
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
 
     [DataField("minPercent")]
     public float MinPercent = 0f;
@@ -33,7 +34,7 @@ public sealed partial class GunAmmoPrecondition : HTNPrecondition
         if (ammoEv.Capacity == 0)
             percent = 0f;
         else
-            percent = ammoEv.Count / (float) ammoEv.Capacity;
+            percent = ammoEv.Count / (float)ammoEv.Capacity;
 
         percent = System.Math.Clamp(percent, 0f, 1f);
 

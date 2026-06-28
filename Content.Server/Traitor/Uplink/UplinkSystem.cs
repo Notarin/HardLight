@@ -15,12 +15,23 @@ namespace Content.Server.Traitor.Uplink;
 
 public sealed class UplinkSystem : EntitySystem
 {
-    [Dependency] private readonly InventorySystem _inventorySystem = default!;
-    [Dependency] private readonly SharedHandsSystem _handsSystem = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly StoreSystem _store = default!;
-    [Dependency] private readonly SharedSubdermalImplantSystem _subdermalImplant = default!;
-    [Dependency] private readonly SharedMindSystem _mind = default!;
+    [Dependency]
+    private readonly InventorySystem _inventorySystem = default!;
+
+    [Dependency]
+    private readonly SharedHandsSystem _handsSystem = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private readonly StoreSystem _store = default!;
+
+    [Dependency]
+    private readonly SharedSubdermalImplantSystem _subdermalImplant = default!;
+
+    [Dependency]
+    private readonly SharedMindSystem _mind = default!;
 
     public static readonly ProtoId<CurrencyPrototype> TelecrystalCurrencyPrototype = new("Telecrystal");
     private const string FallbackUplinkImplant = "UplinkImplant";
@@ -38,7 +49,8 @@ public sealed class UplinkSystem : EntitySystem
         EntityUid user,
         FixedPoint2 balance,
         EntityUid? uplinkEntity = null,
-        bool giveDiscounts = false)
+        bool giveDiscounts = false
+    )
     {
         // Try to find target item if none passed
 
@@ -70,16 +82,18 @@ public sealed class UplinkSystem : EntitySystem
         store.AccountOwner = mind;
 
         store.Balance.Clear();
-        _store.TryAddCurrency(new Dictionary<string, FixedPoint2> { { TelecrystalCurrencyPrototype, balance } },
+        _store.TryAddCurrency(
+            new Dictionary<string, FixedPoint2> { { TelecrystalCurrencyPrototype, balance } },
             uplink,
-            store);
+            store
+        );
 
         var uplinkInitializedEvent = new StoreInitializedEvent(
             TargetUser: mind,
             Store: uplink,
             UseDiscounts: giveDiscounts,
-            Listings: _store.GetAvailableListings(mind, uplink, store)
-                .ToArray());
+            Listings: _store.GetAvailableListings(mind, uplink, store).ToArray()
+        );
         RaiseLocalEvent(ref uplinkInitializedEvent);
     }
 
@@ -124,7 +138,10 @@ public sealed class UplinkSystem : EntitySystem
                 if (!pdaUid.ContainedEntity.HasValue)
                     continue;
 
-                if (HasComp<PdaComponent>(pdaUid.ContainedEntity.Value) || HasComp<StoreComponent>(pdaUid.ContainedEntity.Value))
+                if (
+                    HasComp<PdaComponent>(pdaUid.ContainedEntity.Value)
+                    || HasComp<StoreComponent>(pdaUid.ContainedEntity.Value)
+                )
                     return pdaUid.ContainedEntity.Value;
             }
         }

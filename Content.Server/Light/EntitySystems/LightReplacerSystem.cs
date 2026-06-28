@@ -2,8 +2,8 @@ using System.Linq;
 using Content.Server.Light.Components;
 using Content.Shared.Examine;
 using Content.Shared.Interaction;
-using Content.Shared.Light.EntitySystems;
 using Content.Shared.Light.Components;
+using Content.Shared.Light.EntitySystems;
 using Content.Shared.Popups;
 using Content.Shared.Storage;
 using JetBrains.Annotations;
@@ -16,10 +16,17 @@ namespace Content.Server.Light.EntitySystems;
 [UsedImplicitly]
 public sealed class LightReplacerSystem : SharedLightReplacerSystem
 {
-    [Dependency] private readonly PoweredLightSystem _poweredLight = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
+    [Dependency]
+    private readonly PoweredLightSystem _poweredLight = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popupSystem = default!;
 
     public override void Initialize()
     {
@@ -85,7 +92,7 @@ public sealed class LightReplacerSystem : SharedLightReplacerSystem
         // behaviour will depends on target type
         if (eventArgs.Target != null)
         {
-            var targetUid = (EntityUid) eventArgs.Target;
+            var targetUid = (EntityUid)eventArgs.Target;
 
             // replace broken light in fixture?
             if (TryComp<PoweredLightComponent>(targetUid, out var fixture))
@@ -116,8 +123,13 @@ public sealed class LightReplacerSystem : SharedLightReplacerSystem
     ///     using light replacer. Light fixture should have <see cref="PoweredLightComponent"/>.
     /// </summary>
     /// <returns>True if successfully replaced light, false otherwise</returns>
-    public bool TryReplaceBulb(EntityUid replacerUid, EntityUid fixtureUid, EntityUid? userUid = null,
-        LightReplacerComponent? replacer = null, PoweredLightComponent? fixture = null)
+    public bool TryReplaceBulb(
+        EntityUid replacerUid,
+        EntityUid fixtureUid,
+        EntityUid? userUid = null,
+        LightReplacerComponent? replacer = null,
+        PoweredLightComponent? fixture = null
+    )
     {
         if (!Resolve(replacerUid, ref replacer))
             return false;
@@ -135,8 +147,9 @@ public sealed class LightReplacerSystem : SharedLightReplacerSystem
         }
 
         // try get first inserted bulb of the same type as targeted light fixtutre
-        var bulb = replacer.InsertedBulbs.ContainedEntities.FirstOrDefault(
-            e => CompOrNull<LightBulbComponent>(e)?.Type == fixture.BulbType);
+        var bulb = replacer.InsertedBulbs.ContainedEntities.FirstOrDefault(e =>
+            CompOrNull<LightBulbComponent>(e)?.Type == fixture.BulbType
+        );
 
         // found bulb in inserted storage
         if (bulb.Valid) // FirstOrDefault can return default/invalid uid.
@@ -150,8 +163,7 @@ public sealed class LightReplacerSystem : SharedLightReplacerSystem
         {
             if (userUid != null)
             {
-                var msg = Loc.GetString("comp-light-replacer-missing-light",
-                    ("light-replacer", replacerUid));
+                var msg = Loc.GetString("comp-light-replacer-missing-light", ("light-replacer", replacerUid));
                 _popupSystem.PopupEntity(msg, replacerUid, userUid.Value);
             }
             return false;
@@ -171,8 +183,14 @@ public sealed class LightReplacerSystem : SharedLightReplacerSystem
     ///     Try to insert a new bulb inside light replacer
     /// </summary>
     /// <returns>True if successfully inserted light, false otherwise</returns>
-    public bool TryInsertBulb(EntityUid replacerUid, EntityUid bulbUid, EntityUid? userUid = null, bool showTooltip = false,
-        LightReplacerComponent? replacer = null, LightBulbComponent? bulb = null)
+    public bool TryInsertBulb(
+        EntityUid replacerUid,
+        EntityUid bulbUid,
+        EntityUid? userUid = null,
+        bool showTooltip = false,
+        LightReplacerComponent? replacer = null,
+        LightBulbComponent? bulb = null
+    )
     {
         if (!Resolve(replacerUid, ref replacer))
             return false;
@@ -195,8 +213,11 @@ public sealed class LightReplacerSystem : SharedLightReplacerSystem
         var hasInsert = _container.Insert(bulbUid, replacer.InsertedBulbs);
         if (hasInsert && showTooltip && userUid != null)
         {
-            var msg = Loc.GetString("comp-light-replacer-insert-light",
-                ("light-replacer", replacerUid), ("bulb", bulbUid));
+            var msg = Loc.GetString(
+                "comp-light-replacer-insert-light",
+                ("light-replacer", replacerUid),
+                ("bulb", bulbUid)
+            );
             _popupSystem.PopupEntity(msg, replacerUid, userUid.Value, PopupType.Medium);
         }
 
@@ -210,8 +231,13 @@ public sealed class LightReplacerSystem : SharedLightReplacerSystem
     ///     Returns true if storage contained at least one light bulb
     ///     which was successfully inserted inside light replacer
     /// </returns>
-    public bool TryInsertBulbsFromStorage(EntityUid replacerUid, EntityUid storageUid, EntityUid? userUid = null,
-        LightReplacerComponent? replacer = null, StorageComponent? storage = null)
+    public bool TryInsertBulbsFromStorage(
+        EntityUid replacerUid,
+        EntityUid storageUid,
+        EntityUid? userUid = null,
+        LightReplacerComponent? replacer = null,
+        StorageComponent? storage = null
+    )
     {
         if (!Resolve(replacerUid, ref replacer))
             return false;
@@ -223,8 +249,10 @@ public sealed class LightReplacerSystem : SharedLightReplacerSystem
 
         foreach (var ent in storagedEnts)
         {
-            if (TryComp<LightBulbComponent>(ent, out var bulb) &&
-                TryInsertBulb(replacerUid, ent, userUid, false, replacer, bulb))
+            if (
+                TryComp<LightBulbComponent>(ent, out var bulb)
+                && TryInsertBulb(replacerUid, ent, userUid, false, replacer, bulb)
+            )
             {
                 insertedBulbs++;
             }

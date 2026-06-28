@@ -1,4 +1,4 @@
-﻿- type: entity
+- type: entity
   name: M54CE2 heavy assault rifle
   parent: CMBaseWeaponRifle
   id: WeaponRifleM54CE2
@@ -8,9 +8,9 @@
     sprite: _RMC14/Objects/Weapons/Guns/Rifles/m54ce2/desert.rsi
     layers:
     - state: base
-      map: [ "enum.GunVisualLayers.Base" ]
+      map: ["enum.GunVisualLayers.Base"]
     - state: mag-0
-      map: [ "enum.GunVisualLayers.Mag" ]
+      map: ["enum.GunVisualLayers.Mag"]
   - type: Clothing
     sprite: _RMC14/Objects/Weapons/Guns/Rifles/m54ce2/desert.rsi
   - type: Tag
@@ -26,7 +26,7 @@
     - Burst
     soundGunshot:
       collection: CMM54CShoot
-  # - type: RMCSelectiveFire
+      # - type: RMCSelectiveFire
     # baseFireModes:
     # - SemiAuto
     # - Burst
@@ -36,26 +36,26 @@
     # baseFireRate: 5
     # burstScatterMult: 6
     # modifiers:
-      # Burst:
-        # fireDelay: 0.1332
-        # maxScatterModifier: 10
-        # useBurstScatterMult: true
-        # unwieldedScatterMultiplier: 2
-        # shotsToMaxScatter: 6
-      # FullAuto:
-        # maxScatterModifier: 14
-        # useBurstScatterMult: true
-        # unwieldedScatterMultiplier: 2
-        # shotsToMaxScatter: 30
-  # - type: RMCWeaponAccuracy
+    # Burst:
+    # fireDelay: 0.1332
+    # maxScatterModifier: 10
+    # useBurstScatterMult: true
+    # unwieldedScatterMultiplier: 2
+    # shotsToMaxScatter: 6
+    # FullAuto:
+    # maxScatterModifier: 14
+    # useBurstScatterMult: true
+    # unwieldedScatterMultiplier: 2
+    # shotsToMaxScatter: 30
+  - type: ItemSlots
+    # - type: RMCWeaponAccuracy
     # accuracyMultiplier: 1
     # accuracyMultiplierUnwielded: 0.5
-  # - type: WieldableSpeedModifiers
+    # - type: WieldableSpeedModifiers
     # base: 0.5
     # light: 0.69
     # medium: 0.75
     # heavy: 0.806
-  - type: ItemSlots
     slots:
       gun_magazine:
         name: Magazine
@@ -67,43 +67,43 @@
           tags:
           - CMMagazineRifleM54CE2
   - type: GunRequiresWield
-  # - type: AttachableHolder
+    # - type: AttachableHolder
     # slots:
-      # rmc-aslot-barrel:
-        # whitelist:
-          # tags:
-          # - RMCAttachmentBarrelCharger
-          # - RMCAttachmentRecoilCompensator
-          # - RMCAttachmentSuppressor
-      # rmc-aslot-rail:
-        # whitelist:
-          # tags:
-          # - RMCAttachmentRailFlashlight
-          # - RMCAttachmentMagneticHarness
-          # - RMCAttachmentS5RedDotSight
-          # - RMCAttachmentS6ReflexSight
-      # rmc-aslot-underbarrel:
-        # startingAttachable: RMCAttachmentBipod
-        # whitelist:
-          # tags:
-          # - RMCAttachmentAngledGrip
-          # - RMCAttachmentBipod
-          # - RMCAttachmentBurstFireAssembly
-          # - RMCAttachmentFlashlightGrip
-          # - RMCAttachmentVerticalGrip
-  # - type: AttachableHolderVisuals # CHANGE THESE WHEN THIS THING GETS ITS OWN SPRITE
+    # rmc-aslot-barrel:
+    # whitelist:
+    # tags:
+    # - RMCAttachmentBarrelCharger
+    # - RMCAttachmentRecoilCompensator
+    # - RMCAttachmentSuppressor
+    # rmc-aslot-rail:
+    # whitelist:
+    # tags:
+    # - RMCAttachmentRailFlashlight
+    # - RMCAttachmentMagneticHarness
+    # - RMCAttachmentS5RedDotSight
+    # - RMCAttachmentS6ReflexSight
+    # rmc-aslot-underbarrel:
+    # startingAttachable: RMCAttachmentBipod
+    # whitelist:
+    # tags:
+    # - RMCAttachmentAngledGrip
+    # - RMCAttachmentBipod
+    # - RMCAttachmentBurstFireAssembly
+    # - RMCAttachmentFlashlightGrip
+    # - RMCAttachmentVerticalGrip
+    # - type: AttachableHolderVisuals # CHANGE THESE WHEN THIS THING GETS ITS OWN SPRITE
     # offsets:
-      # rmc-aslot-barrel: 0.81, 0.029
-      # rmc-aslot-rail: 0.125, 0.185
-      # rmc-aslot-stock: -0.875, 0.0325
-      # rmc-aslot-underbarrel: 0.35, -0.4
-  # - type: ItemCamouflage
+    # rmc-aslot-barrel: 0.81, 0.029
+    # rmc-aslot-rail: 0.125, 0.185
+    # rmc-aslot-stock: -0.875, 0.0325
+    # rmc-aslot-underbarrel: 0.35, -0.4
+    # - type: ItemCamouflage
     # camouflageVariations:
-      # Jungle: _RMC14/Objects/Weapons/Guns/Rifles/m54ce2/jungle.rsi
-      # Desert: _RMC14/Objects/Weapons/Guns/Rifles/m54ce2/desert.rsi
-      # Snow: _RMC14/Objects/Weapons/Guns/Rifles/m54ce2/snow.rsi
-      # Classic: _RMC14/Objects/Weapons/Guns/Rifles/m54ce2/classic.rsi
-      # Urban: _RMC14/Objects/Weapons/Guns/Rifles/m54ce2/urban.rsi
+    # Jungle: _RMC14/Objects/Weapons/Guns/Rifles/m54ce2/jungle.rsi
+    # Desert: _RMC14/Objects/Weapons/Guns/Rifles/m54ce2/desert.rsi
+    # Snow: _RMC14/Objects/Weapons/Guns/Rifles/m54ce2/snow.rsi
+    # Classic: _RMC14/Objects/Weapons/Guns/Rifles/m54ce2/classic.rsi
+    # Urban: _RMC14/Objects/Weapons/Guns/Rifles/m54ce2/urban.rsi
 
 - type: entity
   parent: CMMagazineRifleM54C
@@ -133,13 +133,13 @@
     steps: 2
     zeroVisible: false
   - type: Appearance
-  # - type: ItemCamouflage
+    # - type: ItemCamouflage
     # camouflageVariations:
-      # Jungle: _RMC14/Objects/Weapons/Guns/Ammunition/Magazines/m54ce2/jungle.rsi
-      # Desert: _RMC14/Objects/Weapons/Guns/Ammunition/Magazines/m54ce2/desert.rsi
-      # Snow: _RMC14/Objects/Weapons/Guns/Ammunition/Magazines/m54ce2/snow.rsi
-      # Classic: _RMC14/Objects/Weapons/Guns/Ammunition/Magazines/m54ce2/classic.rsi
-      # Urban: _RMC14/Objects/Weapons/Guns/Ammunition/Magazines/m54ce2/urban.rsi
+    # Jungle: _RMC14/Objects/Weapons/Guns/Ammunition/Magazines/m54ce2/jungle.rsi
+    # Desert: _RMC14/Objects/Weapons/Guns/Ammunition/Magazines/m54ce2/desert.rsi
+    # Snow: _RMC14/Objects/Weapons/Guns/Ammunition/Magazines/m54ce2/snow.rsi
+    # Classic: _RMC14/Objects/Weapons/Guns/Ammunition/Magazines/m54ce2/classic.rsi
+    # Urban: _RMC14/Objects/Weapons/Guns/Ammunition/Magazines/m54ce2/urban.rsi
 
 - type: Tag
   id: WeaponRifleM54CE2

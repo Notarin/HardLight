@@ -1,9 +1,9 @@
 using System.Linq;
 using Content.Server.UserInterface;
 using Content.Shared.Arcade;
-using Robust.Shared.Utility;
 using Robust.Server.GameObjects;
 using Robust.Server.Player;
+using Robust.Shared.Utility;
 
 namespace Content.Server.Arcade
 {
@@ -21,21 +21,29 @@ namespace Content.Server.Arcade
         public HighScorePlacement RegisterHighScore(string name, int score)
         {
             var entry = new BlockGameMessages.HighScoreEntry(name, score);
-            return new HighScorePlacement(TryInsertIntoList(_roundHighscores, entry), TryInsertIntoList(_globalHighscores, entry));
+            return new HighScorePlacement(
+                TryInsertIntoList(_roundHighscores, entry),
+                TryInsertIntoList(_globalHighscores, entry)
+            );
         }
 
         public List<BlockGameMessages.HighScoreEntry> GetLocalHighscores() => GetSortedHighscores(_roundHighscores);
 
         public List<BlockGameMessages.HighScoreEntry> GetGlobalHighscores() => GetSortedHighscores(_globalHighscores);
 
-        private List<BlockGameMessages.HighScoreEntry> GetSortedHighscores(List<BlockGameMessages.HighScoreEntry> highScoreEntries)
+        private List<BlockGameMessages.HighScoreEntry> GetSortedHighscores(
+            List<BlockGameMessages.HighScoreEntry> highScoreEntries
+        )
         {
             var result = highScoreEntries.ShallowClone();
             result.Sort((p1, p2) => p2.Score.CompareTo(p1.Score));
             return result;
         }
 
-        private int? TryInsertIntoList(List<BlockGameMessages.HighScoreEntry> highScoreEntries, BlockGameMessages.HighScoreEntry entry)
+        private int? TryInsertIntoList(
+            List<BlockGameMessages.HighScoreEntry> highScoreEntries,
+            BlockGameMessages.HighScoreEntry entry
+        )
         {
             if (highScoreEntries.Count < 5)
             {
@@ -43,24 +51,28 @@ namespace Content.Server.Arcade
                 return GetPlacement(highScoreEntries, entry);
             }
 
-            if (highScoreEntries.Min(e => e.Score) >= entry.Score) return null;
+            if (highScoreEntries.Min(e => e.Score) >= entry.Score)
+                return null;
 
             var lowestHighscore = highScoreEntries.Min();
 
-            if (lowestHighscore == null) return null;
+            if (lowestHighscore == null)
+                return null;
 
             highScoreEntries.Remove(lowestHighscore);
             highScoreEntries.Add(entry);
             return GetPlacement(highScoreEntries, entry);
-
         }
 
-        private int? GetPlacement(List<BlockGameMessages.HighScoreEntry> highScoreEntries, BlockGameMessages.HighScoreEntry entry)
+        private int? GetPlacement(
+            List<BlockGameMessages.HighScoreEntry> highScoreEntries,
+            BlockGameMessages.HighScoreEntry entry
+        )
         {
             int? placement = null;
             if (highScoreEntries.Contains(entry))
             {
-                highScoreEntries.Sort((p1,p2) => p2.Score.CompareTo(p1.Score));
+                highScoreEntries.Sort((p1, p2) => p2.Score.CompareTo(p1.Score));
                 placement = 1 + highScoreEntries.IndexOf(entry);
             }
 

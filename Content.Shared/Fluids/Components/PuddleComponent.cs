@@ -29,7 +29,8 @@ namespace Content.Shared.Fluids.Components
         [DataField]
         public float TransferTolerance = 0.005f;
 
-        [DataField("solution")] public string SolutionName = "puddle";
+        [DataField("solution")]
+        public string SolutionName = "puddle";
 
         /// <summary>
         /// Default minimum speed someone must be moving to slip for all reagents.

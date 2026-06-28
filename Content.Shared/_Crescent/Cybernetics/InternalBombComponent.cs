@@ -17,7 +17,5 @@ namespace Content.Shared.Cybernetics
         public EntityUid? Action;
     }
 }
-public sealed partial class InternalBombActivatedEvent : InstantActionEvent
-{
 
-}
+public sealed partial class InternalBombActivatedEvent : InstantActionEvent { }

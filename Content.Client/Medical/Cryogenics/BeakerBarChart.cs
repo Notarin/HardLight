@@ -11,12 +11,11 @@ using Robust.Shared.Utility;
 
 namespace Content.Client.Medical.Cryogenics;
 
-
 public sealed class BeakerBarChart : Control
 {
     private sealed class Entry
     {
-        public float WidthFraction;  // This entry's width as a fraction of the chart's total width (between 0 and 1)
+        public float WidthFraction; // This entry's width as a fraction of the chart's total width (between 0 and 1)
         public float TargetAmount;
         public string Uid; // This UID is used to track entries between frames, for animation.
         public string? Tooltip;
@@ -59,7 +58,6 @@ public sealed class BeakerBarChart : Control
 
     private readonly List<Entry> _entries = new();
 
-
     public BeakerBarChart()
     {
         MouseFilter = MouseFilterMode.Pass;
@@ -85,7 +83,8 @@ public sealed class BeakerBarChart : Control
         float amount,
         Color color,
         Color? textColor = null,
-        string? tooltip = null)
+        string? tooltip = null
+    )
     {
         // If we can find an old entry we're allowed to update, update that one.
         if (TryFindUpdateableEntry(uid, out var index))
@@ -109,7 +108,7 @@ public sealed class BeakerBarChart : Control
             Text = label,
             ClipText = true,
             FontColorOverride = textColor,
-            Margin = new Thickness(4, 0, 0, 0)
+            Margin = new Thickness(4, 0, 0, 0),
         };
         AddChild(childLabel);
 
@@ -120,7 +119,7 @@ public sealed class BeakerBarChart : Control
                 WidthFraction = (_hasBeenDrawn ? 0 : amount / Capacity),
                 TargetAmount = amount,
                 Tooltip = tooltip,
-                Color = color
+                Color = color,
             }
         );
 
@@ -176,7 +175,7 @@ public sealed class BeakerBarChart : Control
     protected override void FrameUpdate(FrameEventArgs args)
     {
         // Tween the amounts to their target amounts.
-        const float tweenInverseHalfLife = 8;  // Half life of tween is 1/n
+        const float tweenInverseHalfLife = 8; // Half life of tween is 1/n
         var hasChanged = false;
 
         foreach (var entry in _entries)
@@ -246,9 +245,12 @@ public sealed class BeakerBarChart : Control
         for (int i = 0; i <= Capacity / unitsPerNotch; i++)
         {
             var x = i * unitWidth;
-            var height = (i % BigNotchInterval    == 0 ? BigNotchHeight :
-                          i % MediumNotchInterval == 0 ? MediumNotchHeight :
-                                                         SmallNotchHeight) * PixelHeight;
+            var height =
+                (
+                    i % BigNotchInterval == 0 ? BigNotchHeight
+                    : i % MediumNotchInterval == 0 ? MediumNotchHeight
+                    : SmallNotchHeight
+                ) * PixelHeight;
             var start = new Vector2(x, PixelHeight);
             var end = new Vector2(x, PixelHeight - height);
             handle.DrawLine(start, end, NotchColor);

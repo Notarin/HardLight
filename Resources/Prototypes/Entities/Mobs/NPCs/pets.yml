@@ -189,8 +189,8 @@
   # Starlight-end
   - type: NpcFactionMember
     factions:
-      - PetsNT
-      - Cat
+    - PetsNT
+    - Cat
   - type: HTN
     rootTask:
       task: SimpleHostileCompound
@@ -223,8 +223,8 @@
   # Starlight-end
   - type: NpcFactionMember
     factions:
-      - PetsNT
-      - Cat
+    - PetsNT
+    - Cat
   - type: Grammar
     attributes:
       proper: true
@@ -253,12 +253,11 @@
   # Starlight-end
   - type: NpcFactionMember
     factions:
-      - Cat
+    - Cat
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.35
         density: 40
         mask:
@@ -308,7 +307,7 @@
   # Starlight-end
   - type: NpcFactionMember
     factions:
-      - Cat
+    - Cat
   - type: Sprite
     drawdepth: Mobs
     sprite: Mobs/Pets/bingus.rsi
@@ -319,8 +318,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.35
         density: 12
         mask:
@@ -385,8 +383,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.35
         density: 20
         mask:
@@ -488,8 +485,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.35
         density: 50
         mask:
@@ -566,7 +562,7 @@
     drawdepth: Mobs
     sprite: Mobs/Animals/possum_old.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: possum_old
   - type: DamageStateVisuals
     states:
@@ -589,7 +585,7 @@
     drawdepth: Mobs
     sprite: Mobs/Animals/possum.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: poppy
   - type: DamageStateVisuals
     states:
@@ -777,23 +773,23 @@
       path: /Audio/Animals/snake_hiss.ogg
   - type: NpcFactionMember
     factions:
-      - PetsNT
+    - PetsNT
   # Starlight start
   - type: OptionsVisualizer
     visuals:
       base:
-        - options: Default
-          data:
-            drawdepth: Mobs
-            sprite: Mobs/Pets/shiva.rsi
-            map: ["enum.DamageStateVisualLayers.Base", "movement"]
-            state: shiva
-        - options: Arachnophobia
-          data:
-            drawdepth: Mobs
-            sprite: _Starlight/Mobs/Animals/Spiders/Arachnophobia/shiva.rsi
-            map: ["enum.DamageStateVisualLayers.Base", "movement"]
-            state: shiva
+      - options: Default
+        data:
+          drawdepth: Mobs
+          sprite: Mobs/Pets/shiva.rsi
+          map: ["enum.DamageStateVisualLayers.Base", "movement"]
+          state: shiva
+      - options: Arachnophobia
+        data:
+          drawdepth: Mobs
+          sprite: _Starlight/Mobs/Animals/Spiders/Arachnophobia/shiva.rsi
+          map: ["enum.DamageStateVisualLayers.Base", "movement"]
+          state: shiva
   # Starlight end
   - type: SpriteMovement
     movementLayers:
@@ -867,7 +863,7 @@
     rules: ghost-role-information-nonantagonist-rules
   - type: GhostTakeoverAvailable
   - type: Loadout
-    prototypes: [ BoxingKangarooGear ]
+    prototypes: [BoxingKangarooGear]
 
 - type: entity
   name: Smile
@@ -886,12 +882,12 @@
   # Starlight-end
   - type: Sprite
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: rainbow_baby_slime
-    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+    - map: ["enum.DamageStateVisualLayers.BaseUnshaded"]
       state: aslime-_3
       shader: unshaded
-    - map: [ "head" ]
+    - map: ["head"]
   - type: Inventory
     speciesId: slime
     templateId: head
@@ -934,8 +930,7 @@
   - type: Bloodstream
     bloodlossHealDamage:
       types:
-        Bloodloss:
-          -0.8
+        Bloodloss: -0.8
   - type: Temperature
     heatDamageThreshold: 800
     coldDamageThreshold: 0
@@ -1001,7 +996,7 @@
     - VimPilot
     - AnomalyHost
   - type: Loadout
-    prototypes: [ MobMonkeyGear ]
+    prototypes: [MobMonkeyGear]
   - type: Grammar
     attributes:
       proper: true
@@ -1014,15 +1009,15 @@
   id: MobCrabAtmos
   description: The noble and stalwart defender of Atmosia. Viva!
   components:
-#  - type: GhostRole
-#    prob: 1
-#    makeSentient: true
-#    allowSpeech: true
-#    allowMovement: true
-#    name: ghost-role-information-tropico-name
-#    description: ghost-role-information-tropico-description
-#    rules: ghost-role-information-nonantagonist-rules
-#  - type: GhostTakeoverAvailable
+  #  - type: GhostRole
+  #    prob: 1
+  #    makeSentient: true
+  #    allowSpeech: true
+  #    allowMovement: true
+  #    name: ghost-role-information-tropico-name
+  #    description: ghost-role-information-tropico-description
+  #    rules: ghost-role-information-nonantagonist-rules
+  #  - type: GhostTakeoverAvailable
   - type: Tag
     tags:
     - VimPilot
@@ -1031,6 +1026,6 @@
     attributes:
       proper: true
       gender: male
-#  - type: AlwaysRevolutionaryConvertible
+      #  - type: AlwaysRevolutionaryConvertible
   - type: StealTarget
     stealGroup: AnimalTropico

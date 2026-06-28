@@ -44,7 +44,7 @@
     roleType: Familiar
 
 - type: entity
-  parent: [ BaseMindRoleAntag, MindRoleGhostRoleNeutral ]
+  parent: [BaseMindRoleAntag, MindRoleGhostRoleNeutral]
   id: MindRoleGhostRoleFreeAgent
   name: Ghost Role (Free Agent)
   components:
@@ -71,7 +71,7 @@
     roleType: Silicon
 
 - type: entity
-  parent: [ BaseMindRoleAntag, MindRoleGhostRoleNeutral ]
+  parent: [BaseMindRoleAntag, MindRoleGhostRoleNeutral]
   id: MindRoleGhostRoleSiliconAntagonist
   name: Ghost Role (Silicon Antagonist)
   components:
@@ -81,12 +81,12 @@
     sortWeight: 30
 
 - type: entity
-  parent: [ BaseMindRoleAntag, MindRoleGhostRoleNeutral ]
+  parent: [BaseMindRoleAntag, MindRoleGhostRoleNeutral]
   id: MindRoleGhostRoleSoloAntagonist
   name: Ghost Role (Solo Antagonist)
 
 - type: entity
-  parent: [ BaseMindRoleAntag, MindRoleGhostRoleNeutral ]
+  parent: [BaseMindRoleAntag, MindRoleGhostRoleNeutral]
   id: MindRoleGhostRoleTeamAntagonist
   name: Ghost Role (Team Antagonist)
   components:

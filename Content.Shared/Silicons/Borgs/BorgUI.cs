@@ -5,7 +5,7 @@ namespace Content.Shared.Silicons.Borgs;
 [Serializable, NetSerializable]
 public enum BorgUiKey : byte
 {
-    Key
+    Key,
 }
 
 [Serializable, NetSerializable]
@@ -23,16 +23,10 @@ public sealed class BorgBuiState : BoundUserInterfaceState
 }
 
 [Serializable, NetSerializable]
-public sealed class BorgEjectBrainBuiMessage : BoundUserInterfaceMessage
-{
-
-}
+public sealed class BorgEjectBrainBuiMessage : BoundUserInterfaceMessage { }
 
 [Serializable, NetSerializable]
-public sealed class BorgEjectBatteryBuiMessage : BoundUserInterfaceMessage
-{
-
-}
+public sealed class BorgEjectBatteryBuiMessage : BoundUserInterfaceMessage { }
 
 [Serializable, NetSerializable]
 public sealed class BorgSetNameBuiMessage : BoundUserInterfaceMessage

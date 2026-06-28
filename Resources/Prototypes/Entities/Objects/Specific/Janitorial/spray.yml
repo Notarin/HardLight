@@ -98,7 +98,7 @@
           Quantity: 100
   - type: Tag
     tags:
-      - Spray
+    - Spray
 
 - type: entity
   parent: SprayBottle
@@ -134,7 +134,7 @@
 - type: entity
   id: Vapor
   name: "vapor"
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: SolutionContainerManager
     solutions:
@@ -155,8 +155,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.25,-0.25,0.25,0.25"
         hard: false
         mask:
@@ -170,7 +169,7 @@
 - type: entity
   id: BigVapor
   parent: Vapor
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: Effects/chempuff.rsi
@@ -182,8 +181,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.6,-0.6,0.6,0.6"
         hard: false
         mask:

@@ -9,11 +9,10 @@ public sealed class EyeColorPicker : Control
     public Action<bool>? OnGlowingChanged; //starlight
 
     private readonly ColorSelectorSliders _colorSelectors;
+
     //starlight start
-    private readonly CheckBox _glowCheckBox = new CheckBox()
-    {
-        Text = Loc.GetString("marking-glowing")
-    };
+    private readonly CheckBox _glowCheckBox = new CheckBox() { Text = Loc.GetString("marking-glowing") };
+
     //starlight end
 
     public void SetData(Color color, bool isGlowing) //starlight edited function signature
@@ -24,10 +23,7 @@ public sealed class EyeColorPicker : Control
 
     public EyeColorPicker()
     {
-        var vBox = new BoxContainer
-        {
-            Orientation = BoxContainer.LayoutOrientation.Vertical
-        };
+        var vBox = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Vertical };
         AddChild(vBox);
 
         vBox.AddChild(_colorSelectors = new ColorSelectorSliders());

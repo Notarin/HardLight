@@ -6,7 +6,7 @@
   plantRsi: _NF/Objects/Specific/Hydroponics/spesostree.rsi
   packetPrototype: SpesosTreeSeeds
   productPrototypes:
-    - SpaceCash
+  - SpaceCash
   harvestRepeat: Repeat
   lifespan: 45
   maturation: 15
@@ -24,7 +24,7 @@
   plantRsi: _NF/Objects/Specific/Hydroponics/pear.rsi
   packetPrototype: PearSeeds
   productPrototypes:
-    - FoodPear
+  - FoodPear
   harvestRepeat: Repeat
   lifespan: 55
   maturation: 6
@@ -50,7 +50,7 @@
   plantRsi: _NF/Objects/Specific/Hydroponics/coffee.rsi
   packetPrototype: CoffeeSeeds
   productPrototypes:
-    - FoodCoffee
+  - FoodCoffee
   lifespan: 25
   maturation: 9
   production: 1
@@ -78,7 +78,7 @@
   plantRsi: _NF/Objects/Specific/Hydroponics/avocado.rsi
   packetPrototype: AvocadoSeeds
   productPrototypes:
-    - FoodAvocado
+  - FoodAvocado
   lifespan: 55
   maturation: 6
   production: 6
@@ -106,7 +106,7 @@
   plantRsi: _NF/Objects/Specific/Hydroponics/cucumber.rsi
   packetPrototype: CucumberSeeds
   productPrototypes:
-    - FoodCucumber
+  - FoodCucumber
   lifespan: 50
   maturation: 7
   production: 5
@@ -132,7 +132,7 @@
   plantRsi: _NF/Objects/Specific/Hydroponics/bees.rsi
   packetPrototype: BeeSeeds
   productPrototypes:
-    - FoodHoneyComb
+  - FoodHoneyComb
   lifespan: 60
   maturation: 7
   production: 5
@@ -158,7 +158,7 @@
   plantRsi: _NF/Objects/Specific/Hydroponics/everyspice.rsi
   packetPrototype: EveryspiceSeeds
   productPrototypes:
-    - FoodEveryspice
+  - FoodEveryspice
   harvestRepeat: Repeat
   lifespan: 25
   maturation: 6
@@ -181,7 +181,7 @@
   plantRsi: _NF/Objects/Specific/Hydroponics/monkanana.rsi
   packetPrototype: MonkananaSeeds
   productPrototypes:
-    - FoodMonkanana
+  - FoodMonkanana
   harvestRepeat: Repeat
   lifespan: 50
   maturation: 12

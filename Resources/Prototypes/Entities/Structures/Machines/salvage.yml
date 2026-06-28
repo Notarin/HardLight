@@ -1,5 +1,5 @@
 - type: entity
-  parent: [ BaseMachinePowered, ConstructibleMachine ]
+  parent: [BaseMachinePowered, ConstructibleMachine]
   id: SalvageMagnet
   name: salvage magnet
   description: Pulls in salvage.
@@ -10,16 +10,16 @@
     - state: salvage-magnet
     - state: salvage-magnet-ready
       visible: false
-      map: [ "ready" ]
+      map: ["ready"]
     - state: salvage-magnet-ready-blinking
       visible: false
-      map: [ "readyBlinking" ]
+      map: ["readyBlinking"]
     - state: salvage-magnet-unready
       visible: false
-      map: [ "unready" ]
+      map: ["unready"]
     - state: salvage-magnet-unready-blinking
       visible: false
-      map: [ "unreadyBlinking" ]
+      map: ["unreadyBlinking"]
     - state: salvage-magnet-o4
       map: ["chargeState"]
       shader: unshaded

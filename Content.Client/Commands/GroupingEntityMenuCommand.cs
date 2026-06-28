@@ -7,11 +7,17 @@ namespace Content.Client.Commands;
 
 public sealed class GroupingEntityMenuCommand : LocalizedCommands
 {
-    [Dependency] private readonly IConfigurationManager _configurationManager = default!;
+    [Dependency]
+    private readonly IConfigurationManager _configurationManager = default!;
 
     public override string Command => "entitymenug";
 
-    public override string Help => LocalizationManager.GetString($"cmd-{Command}-help", ("command", Command), ("groupingTypesCount", EntityMenuUIController.GroupingTypesCount));
+    public override string Help =>
+        LocalizationManager.GetString(
+            $"cmd-{Command}-help",
+            ("command", Command),
+            ("groupingTypesCount", EntityMenuUIController.GroupingTypesCount)
+        );
 
     public override void Execute(IConsoleShell shell, string argStr, string[] args)
     {
@@ -36,6 +42,8 @@ public sealed class GroupingEntityMenuCommand : LocalizedCommands
         var cvar = CCVars.EntityMenuGroupingType;
 
         _configurationManager.SetCVar(cvar, id);
-        shell.WriteLine(LocalizationManager.GetString($"cmd-{Command}-notify", ("cvar", _configurationManager.GetCVar(cvar))));
+        shell.WriteLine(
+            LocalizationManager.GetString($"cmd-{Command}-notify", ("cvar", _configurationManager.GetCVar(cvar)))
+        );
     }
 }

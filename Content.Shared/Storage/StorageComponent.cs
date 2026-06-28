@@ -257,7 +257,6 @@ namespace Content.Shared.Storage
         }
     }
 
-
     /// <summary>
     /// Network event for displaying an animation of entities flying into a storage entity
     /// </summary>
@@ -269,7 +268,12 @@ namespace Content.Shared.Storage
         public readonly List<NetCoordinates> EntityPositions;
         public readonly List<Angle> EntityAngles;
 
-        public AnimateInsertingEntitiesEvent(NetEntity storage, List<NetEntity> storedEntities, List<NetCoordinates> entityPositions, List<Angle> entityAngles)
+        public AnimateInsertingEntitiesEvent(
+            NetEntity storage,
+            List<NetEntity> storedEntities,
+            List<NetCoordinates> entityPositions,
+            List<Angle> entityAngles
+        )
         {
             Storage = storage;
             StoredEntities = storedEntities;
@@ -291,13 +295,13 @@ namespace Content.Shared.Storage
         Open,
         HasContents,
         StorageUsed,
-        Capacity
+        Capacity,
     }
 
     [Serializable, NetSerializable]
     public enum StorageDefaultOrientation : byte
     {
         Horizontal,
-        Vertical
+        Vertical,
     }
 }

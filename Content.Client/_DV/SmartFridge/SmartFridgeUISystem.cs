@@ -5,7 +5,8 @@ namespace Content.Client._DV.SmartFridge;
 
 public sealed class SmartFridgeUISystem : EntitySystem
 {
-    [Dependency] private readonly SharedUserInterfaceSystem _uiSystem = default!;
+    [Dependency]
+    private readonly SharedUserInterfaceSystem _uiSystem = default!;
 
     public override void Initialize()
     {

@@ -11,20 +11,17 @@ namespace Content.Server.Database.Migrations.Postgres
         {
             migrationBuilder.CreateTable(
                 name: "whitelist",
-                columns: table => new
-                {
-                    user_id = table.Column<Guid>(type: "uuid", nullable: false)
-                },
+                columns: table => new { user_id = table.Column<Guid>(type: "uuid", nullable: false) },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_whitelist", x => x.user_id);
-                });
+                }
+            );
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "whitelist");
+            migrationBuilder.DropTable(name: "whitelist");
         }
     }
 }

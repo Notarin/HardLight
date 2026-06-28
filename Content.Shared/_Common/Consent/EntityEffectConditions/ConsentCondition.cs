@@ -16,8 +16,7 @@ public sealed partial class ConsentCondition : EntityEffectCondition
 
     public override bool Condition(EntityEffectBaseArgs args)
     {
-        return args.EntityManager.System<SharedConsentSystem>()
-            .HasConsent(args.TargetEntity, Consent);
+        return args.EntityManager.System<SharedConsentSystem>().HasConsent(args.TargetEntity, Consent);
     }
 
     public override string GuidebookExplanation(IPrototypeManager prototype)

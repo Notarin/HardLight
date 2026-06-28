@@ -1,9 +1,9 @@
-using Content.Shared.Humanoid.Prototypes;
 using Content.Shared.Dataset;
+using Content.Shared.Humanoid.Prototypes;
 using Content.Shared.Random.Helpers;
-using Robust.Shared.Random;
-using Robust.Shared.Prototypes;
 using Robust.Shared.Enums;
+using Robust.Shared.Prototypes;
+using Robust.Shared.Random;
 
 namespace Content.Shared.Humanoid
 {
@@ -12,8 +12,11 @@ namespace Content.Shared.Humanoid
     /// </summary>
     public sealed class NamingSystem : EntitySystem
     {
-        [Dependency] private readonly IRobustRandom _random = default!;
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+        [Dependency]
+        private readonly IRobustRandom _random = default!;
+
+        [Dependency]
+        private readonly IPrototypeManager _prototypeManager = default!;
         private static readonly ProtoId<SpeciesPrototype> HumanSpeciesId = "Human";
 
         public string GetName(string species, Gender? gender = null)
@@ -29,29 +32,46 @@ namespace Content.Shared.Humanoid
             switch (speciesProto.Naming)
             {
                 case SpeciesNaming.First:
-                    return Loc.GetString("namepreset-first",
-                        ("first", GetFirstName(speciesProto, gender)));
+                    return Loc.GetString("namepreset-first", ("first", GetFirstName(speciesProto, gender)));
                 // Start of Nyano - Summary: for Oni naming
                 case SpeciesNaming.LastNoFirst:
-                    return Loc.GetString("namepreset-lastnofirst",
-                        ("first", GetFirstName(speciesProto, gender)), ("last", GetLastName(speciesProto)));
+                    return Loc.GetString(
+                        "namepreset-lastnofirst",
+                        ("first", GetFirstName(speciesProto, gender)),
+                        ("last", GetLastName(speciesProto))
+                    );
                 // End of Nyano - Summary: for Oni naming
                 case SpeciesNaming.TheFirstofLast:
-                    return Loc.GetString("namepreset-thefirstoflast",
-                        ("first", GetFirstName(speciesProto, gender)), ("last", GetLastName(speciesProto)));
+                    return Loc.GetString(
+                        "namepreset-thefirstoflast",
+                        ("first", GetFirstName(speciesProto, gender)),
+                        ("last", GetLastName(speciesProto))
+                    );
                 case SpeciesNaming.FirstDashFirst:
-                    return Loc.GetString("namepreset-firstdashfirst",
-                        ("first1", GetFirstName(speciesProto, gender)), ("first2", GetFirstName(speciesProto, gender)));
+                    return Loc.GetString(
+                        "namepreset-firstdashfirst",
+                        ("first1", GetFirstName(speciesProto, gender)),
+                        ("first2", GetFirstName(speciesProto, gender))
+                    );
                 case SpeciesNaming.FirstDashLast: // Goobstation
-                    return Loc.GetString("namepreset-firstdashlast",
-                        ("first", GetFirstName(speciesProto, gender)), ("last", GetLastName(speciesProto)));
+                    return Loc.GetString(
+                        "namepreset-firstdashlast",
+                        ("first", GetFirstName(speciesProto, gender)),
+                        ("last", GetLastName(speciesProto))
+                    );
                 case SpeciesNaming.LastFirst: // DeltaV: Rodentia name scheme
-                    return Loc.GetString("namepreset-lastfirst",
-                        ("last", GetLastName(speciesProto)), ("first", GetFirstName(speciesProto, gender)));
+                    return Loc.GetString(
+                        "namepreset-lastfirst",
+                        ("last", GetLastName(speciesProto)),
+                        ("first", GetFirstName(speciesProto, gender))
+                    );
                 case SpeciesNaming.FirstLast:
                 default:
-                    return Loc.GetString("namepreset-firstlast",
-                        ("first", GetFirstName(speciesProto, gender)), ("last", GetLastName(speciesProto)));
+                    return Loc.GetString(
+                        "namepreset-firstlast",
+                        ("first", GetFirstName(speciesProto, gender)),
+                        ("last", GetLastName(speciesProto))
+                    );
             }
         }
 

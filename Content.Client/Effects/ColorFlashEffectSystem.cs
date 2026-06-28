@@ -11,9 +11,14 @@ namespace Content.Client.Effects;
 
 public sealed class ColorFlashEffectSystem : SharedColorFlashEffectSystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly AnimationPlayerSystem _animation = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly AnimationPlayerSystem _animation = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     /// <summary>
     /// It's a little on the long side but given we use multiple colours denoting what happened it makes it easier to register.
@@ -38,7 +43,11 @@ public sealed class ColorFlashEffectSystem : SharedColorFlashEffectSystem
         OnColorFlashEffect(new ColorFlashEffectEvent(color, GetNetEntityList(entities)));
     }
 
-    private void OnEffectAnimationCompleted(EntityUid uid, ColorFlashEffectComponent component, AnimationCompletedEvent args)
+    private void OnEffectAnimationCompleted(
+        EntityUid uid,
+        ColorFlashEffectComponent component,
+        AnimationCompletedEvent args
+    )
     {
         if (args.Key != AnimationKey)
             return;
@@ -90,10 +99,10 @@ public sealed class ColorFlashEffectSystem : SharedColorFlashEffectSystem
                     KeyFrames =
                     {
                         new AnimationTrackProperty.KeyFrame(color, 0f),
-                        new AnimationTrackProperty.KeyFrame(sprite.Color, AnimationLength)
-                    }
-                }
-            }
+                        new AnimationTrackProperty.KeyFrame(sprite.Color, AnimationLength),
+                    },
+                },
+            },
         };
     }
 

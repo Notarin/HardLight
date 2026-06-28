@@ -1,24 +1,25 @@
+using Content.Shared.Explosion;
+using Content.Shared.Gravity;
 using Content.Shared.Interaction.Events;
-using Content.Shared.Throwing;
-using Content.Shared.Weapons.Ranged.Events;
-using Content.Shared.Mobs;
-using Robust.Shared.Physics.Events;
-using Robust.Shared.Prototypes;
 using Content.Shared.Item;
+using Content.Shared.Mobs;
+using Content.Shared.Movement.Events;
 using Content.Shared.Movement.Pulling.Components;
 using Content.Shared.Movement.Pulling.Systems;
-using Content.Shared.Explosion;
-using Content.Shared.Movement.Events;
-using Content.Shared.Gravity;
-using Content.Shared.Weapons.Ranged.Components;
-using Content.Shared.Weapons.Reflect;
 using Content.Shared.Stunnable;
+using Content.Shared.Throwing;
+using Content.Shared.Weapons.Ranged.Components;
+using Content.Shared.Weapons.Ranged.Events;
+using Content.Shared.Weapons.Reflect;
+using Robust.Shared.Physics.Events;
+using Robust.Shared.Prototypes;
 
 namespace Content.Shared._Starlight.NullSpace;
 
 public abstract partial class SharedNullSpaceSystem : EntitySystem
 {
-    [Dependency] private readonly PullingSystem _pulling = default!;
+    [Dependency]
+    private readonly PullingSystem _pulling = default!;
     public EntProtoId _shadekinShadow = "ShadekinShadow";
 
     public override void Initialize()
@@ -122,7 +123,11 @@ public abstract partial class SharedNullSpaceSystem : EntitySystem
         args.Cancelled = true;
     }
 
-    private void OnGetExplosionResistance(EntityUid uid, NullSpaceComponent component, ref GetExplosionResistanceEvent args)
+    private void OnGetExplosionResistance(
+        EntityUid uid,
+        NullSpaceComponent component,
+        ref GetExplosionResistanceEvent args
+    )
     {
         args.DamageCoefficient = 0;
     }

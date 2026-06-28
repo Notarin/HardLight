@@ -22,16 +22,35 @@ namespace Content.Client.Popups
 {
     public sealed class PopupSystem : SharedPopupSystem
     {
-        [Dependency] private readonly IConfigurationManager _configManager = default!;
-        [Dependency] private readonly IInputManager _inputManager = default!;
-        [Dependency] private readonly IOverlayManager _overlay = default!;
-        [Dependency] private readonly IPlayerManager _playerManager = default!;
-        [Dependency] private readonly IPrototypeManager _prototype = default!;
-        [Dependency] private readonly IGameTiming _timing = default!;
-        [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
-        [Dependency] private readonly IReplayRecordingManager _replayRecording = default!;
-        [Dependency] private readonly ExamineSystemShared _examine = default!;
-        [Dependency] private readonly SharedTransformSystem _transform = default!;
+        [Dependency]
+        private readonly IConfigurationManager _configManager = default!;
+
+        [Dependency]
+        private readonly IInputManager _inputManager = default!;
+
+        [Dependency]
+        private readonly IOverlayManager _overlay = default!;
+
+        [Dependency]
+        private readonly IPlayerManager _playerManager = default!;
+
+        [Dependency]
+        private readonly IPrototypeManager _prototype = default!;
+
+        [Dependency]
+        private readonly IGameTiming _timing = default!;
+
+        [Dependency]
+        private readonly IUserInterfaceManager _uiManager = default!;
+
+        [Dependency]
+        private readonly IReplayRecordingManager _replayRecording = default!;
+
+        [Dependency]
+        private readonly ExamineSystemShared _examine = default!;
+
+        [Dependency]
+        private readonly SharedTransformSystem _transform = default!;
 
         public IReadOnlyList<WorldPopupLabel> WorldLabels => _orderedWorldLabels; // HardLight: IReadOnlyCollection<IReadOnlyList; _aliveWorldLabels.Values<_orderedWorldLabels
         public IReadOnlyList<CursorPopupLabel> CursorLabels => _orderedCursorLabels; // HardLight: IReadOnlyCollection<IReadOnlyList; _aliveCursorLabels.Values<_orderedWorldLabels
@@ -53,10 +72,11 @@ namespace Content.Client.Popups
             { PopupType.MediumCaution, "12" },
             { PopupType.Large, "15" },
             { PopupType.LargeCaution, "15" },
-            { PopupType.Cryptic, "15" }
+            { PopupType.Cryptic, "15" },
         };
 
         private bool _shouldLogInChat;
+
         // WD EDIT END
 
         public override void Initialize()
@@ -65,8 +85,8 @@ namespace Content.Client.Popups
             SubscribeNetworkEvent<PopupCoordinatesEvent>(OnPopupCoordinatesEvent);
             SubscribeNetworkEvent<PopupEntityEvent>(OnPopupEntityEvent);
             /* SubscribeNetworkEvent<RoundRestartCleanupEvent>(OnRoundRestart); */
-            _overlay
-                .AddOverlay(new PopupOverlay(
+            _overlay.AddOverlay(
+                new PopupOverlay(
                     _configManager,
                     EntityManager,
                     _playerManager,
@@ -75,31 +95,46 @@ namespace Content.Client.Popups
                     _uiManager.GetUIController<PopupUIController>(),
                     _examine,
                     _transform,
-                    this));
+                    this
+                )
+            );
 
             // WD EDIT START
             _shouldLogInChat = _configManager.GetCVar(CCVars.LogInChat);
-            _configManager.OnValueChanged(CCVars.LogInChat, log => { _shouldLogInChat = log; });
+            _configManager.OnValueChanged(
+                CCVars.LogInChat,
+                log =>
+                {
+                    _shouldLogInChat = log;
+                }
+            );
             // WD EDIT END
         }
 
         public override void Shutdown()
         {
             base.Shutdown();
-            _overlay
-                .RemoveOverlay<PopupOverlay>();
+            _overlay.RemoveOverlay<PopupOverlay>();
         }
 
         private void WrapAndRepeatPopup(PopupLabel existingLabel, string popupMessage)
         {
             existingLabel.TotalTime = 0;
             existingLabel.Repeats += 1;
-            existingLabel.Text = Loc.GetString("popup-system-repeated-popup-stacking-wrap",
+            existingLabel.Text = Loc.GetString(
+                "popup-system-repeated-popup-stacking-wrap",
                 ("popup-message", popupMessage),
-                ("count", existingLabel.Repeats));
+                ("count", existingLabel.Repeats)
+            );
         }
 
-        private void PopupMessage(string? message, PopupType type, EntityCoordinates coordinates, EntityUid? entity, bool recordReplay)
+        private void PopupMessage(
+            string? message,
+            PopupType type,
+            EntityCoordinates coordinates,
+            EntityUid? entity,
+            bool recordReplay
+        )
         {
             if (message == null)
                 return;
@@ -107,16 +142,22 @@ namespace Content.Client.Popups
             if (recordReplay && _replayRecording.IsRecording)
             {
                 if (entity != null)
-                    _replayRecording.RecordClientMessage(new PopupEntityEvent(message, type, GetNetEntity(entity.Value)));
+                    _replayRecording.RecordClientMessage(
+                        new PopupEntityEvent(message, type, GetNetEntity(entity.Value))
+                    );
                 else
-                    _replayRecording.RecordClientMessage(new PopupCoordinatesEvent(message, type, GetNetCoordinates(coordinates)));
+                    _replayRecording.RecordClientMessage(
+                        new PopupCoordinatesEvent(message, type, GetNetCoordinates(coordinates))
+                    );
             }
 
             // WD EDIT START
-            if (_shouldLogInChat &&
-                _playerManager.LocalEntity != null &&
-                _examine.InRangeUnOccluded(_playerManager.LocalEntity.Value, coordinates, 10) &&
-                type != PopupType.Cryptic)
+            if (
+                _shouldLogInChat
+                && _playerManager.LocalEntity != null
+                && _examine.InRangeUnOccluded(_playerManager.LocalEntity.Value, coordinates, 10)
+                && type != PopupType.Cryptic
+            )
             {
                 var fontsize = FontSizeDict.GetValueOrDefault(type, "10");
                 var fontcolor = type is PopupType.LargeCaution or PopupType.MediumCaution or PopupType.SmallCaution
@@ -124,7 +165,13 @@ namespace Content.Client.Popups
                     : "#AEABC4";
 
                 var wrappedMessage = $"[font size={fontsize}][color={fontcolor}]{message}[/color][/font]";
-                var chatMsg = new ChatMessage(ChatChannel.Emotes, message, wrappedMessage, GetNetEntity(EntityUid.Invalid), null);
+                var chatMsg = new ChatMessage(
+                    ChatChannel.Emotes,
+                    message,
+                    wrappedMessage,
+                    GetNetEntity(EntityUid.Invalid),
+                    null
+                );
                 _uiManager.GetUIController<ChatUIController>().ProcessChatMessage(chatMsg);
             }
             // WD EDIT END
@@ -148,24 +195,43 @@ namespace Content.Client.Popups
         }
 
         #region Abstract Method Implementations
-        public override void PopupCoordinates(string? message, EntityCoordinates coordinates, PopupType type = PopupType.Small)
+        public override void PopupCoordinates(
+            string? message,
+            EntityCoordinates coordinates,
+            PopupType type = PopupType.Small
+        )
         {
             PopupMessage(message, type, coordinates, null, true);
         }
 
-        public override void PopupCoordinates(string? message, EntityCoordinates coordinates, ICommonSession recipient, PopupType type = PopupType.Small)
+        public override void PopupCoordinates(
+            string? message,
+            EntityCoordinates coordinates,
+            ICommonSession recipient,
+            PopupType type = PopupType.Small
+        )
         {
             if (_playerManager.LocalSession == recipient)
                 PopupMessage(message, type, coordinates, null, true);
         }
 
-        public override void PopupCoordinates(string? message, EntityCoordinates coordinates, EntityUid recipient, PopupType type = PopupType.Small)
+        public override void PopupCoordinates(
+            string? message,
+            EntityCoordinates coordinates,
+            EntityUid recipient,
+            PopupType type = PopupType.Small
+        )
         {
             if (_playerManager.LocalEntity == recipient)
                 PopupMessage(message, type, coordinates, null, true);
         }
 
-        public override void PopupPredictedCoordinates(string? message, EntityCoordinates coordinates, EntityUid? recipient, PopupType type = PopupType.Small)
+        public override void PopupPredictedCoordinates(
+            string? message,
+            EntityCoordinates coordinates,
+            EntityUid? recipient,
+            PopupType type = PopupType.Small
+        )
         {
             if (recipient != null && _timing.IsFirstTimePredicted)
                 PopupCoordinates(message, coordinates, recipient.Value, type);
@@ -217,34 +283,64 @@ namespace Content.Client.Popups
                 PopupCursor(message, type);
         }
 
-        public override void PopupPredictedCursor(string? message, ICommonSession recipient, PopupType type = PopupType.Small)
+        public override void PopupPredictedCursor(
+            string? message,
+            ICommonSession recipient,
+            PopupType type = PopupType.Small
+        )
         {
             PopupCursor(message, recipient, type);
         }
 
-        public override void PopupPredictedCursor(string? message, EntityUid recipient, PopupType type = PopupType.Small)
+        public override void PopupPredictedCursor(
+            string? message,
+            EntityUid recipient,
+            PopupType type = PopupType.Small
+        )
         {
             PopupCursor(message, recipient, type);
         }
 
-        public override void PopupCoordinates(string? message, EntityCoordinates coordinates, Filter filter, bool replayRecord, PopupType type = PopupType.Small)
+        public override void PopupCoordinates(
+            string? message,
+            EntityCoordinates coordinates,
+            Filter filter,
+            bool replayRecord,
+            PopupType type = PopupType.Small
+        )
         {
             PopupCoordinates(message, coordinates, type);
         }
 
-        public override void PopupEntity(string? message, EntityUid uid, EntityUid recipient, PopupType type = PopupType.Small)
+        public override void PopupEntity(
+            string? message,
+            EntityUid uid,
+            EntityUid recipient,
+            PopupType type = PopupType.Small
+        )
         {
             if (_playerManager.LocalEntity == recipient)
                 PopupEntity(message, uid, type);
         }
 
-        public override void PopupEntity(string? message, EntityUid uid, ICommonSession recipient, PopupType type = PopupType.Small)
+        public override void PopupEntity(
+            string? message,
+            EntityUid uid,
+            ICommonSession recipient,
+            PopupType type = PopupType.Small
+        )
         {
             if (_playerManager.LocalSession == recipient)
                 PopupEntity(message, uid, type);
         }
 
-        public override void PopupEntity(string? message, EntityUid uid, Filter filter, bool recordReplay, PopupType type = PopupType.Small)
+        public override void PopupEntity(
+            string? message,
+            EntityUid uid,
+            Filter filter,
+            bool recordReplay,
+            PopupType type = PopupType.Small
+        )
         {
             if (!filter.Recipients.Contains(_playerManager.LocalSession))
                 return;
@@ -261,7 +357,12 @@ namespace Content.Client.Popups
                 PopupCursor(message, recipient.Value, type);
         }
 
-        public override void PopupClient(string? message, EntityUid uid, EntityUid? recipient, PopupType type = PopupType.Small)
+        public override void PopupClient(
+            string? message,
+            EntityUid uid,
+            EntityUid? recipient,
+            PopupType type = PopupType.Small
+        )
         {
             if (recipient == null)
                 return;
@@ -270,7 +371,12 @@ namespace Content.Client.Popups
                 PopupEntity(message, uid, recipient.Value, type);
         }
 
-        public override void PopupClient(string? message, EntityCoordinates coordinates, EntityUid? recipient, PopupType type = PopupType.Small)
+        public override void PopupClient(
+            string? message,
+            EntityCoordinates coordinates,
+            EntityUid? recipient,
+            PopupType type = PopupType.Small
+        )
         {
             if (recipient == null)
                 return;
@@ -285,19 +391,37 @@ namespace Content.Client.Popups
                 PopupMessage(message, type, transform.Coordinates, uid, true);
         }
 
-        public override void PopupPredicted(string? message, EntityUid uid, EntityUid? recipient, PopupType type = PopupType.Small)
+        public override void PopupPredicted(
+            string? message,
+            EntityUid uid,
+            EntityUid? recipient,
+            PopupType type = PopupType.Small
+        )
         {
             if (recipient != null && _timing.IsFirstTimePredicted)
                 PopupEntity(message, uid, recipient.Value, type);
         }
 
-        public override void PopupPredicted(string? message, EntityUid uid, EntityUid? recipient, Filter filter, bool recordReplay, PopupType type = PopupType.Small)
+        public override void PopupPredicted(
+            string? message,
+            EntityUid uid,
+            EntityUid? recipient,
+            Filter filter,
+            bool recordReplay,
+            PopupType type = PopupType.Small
+        )
         {
             if (recipient != null && _timing.IsFirstTimePredicted)
                 PopupEntity(message, uid, recipient.Value, type);
         }
 
-        public override void PopupPredicted(string? recipientMessage, string? othersMessage, EntityUid uid, EntityUid? recipient, PopupType type = PopupType.Small)
+        public override void PopupPredicted(
+            string? recipientMessage,
+            string? othersMessage,
+            EntityUid uid,
+            EntityUid? recipient,
+            PopupType type = PopupType.Small
+        )
         {
             if (recipient != null && _timing.IsFirstTimePredicted)
                 PopupEntity(recipientMessage, uid, recipient.Value, type);
@@ -325,11 +449,11 @@ namespace Content.Client.Popups
                 PopupMessage(ev.Message, ev.Type, transform.Coordinates, entity, false);
         }
 
-/*         private void OnRoundRestart(RoundRestartCleanupEvent ev)
-        {
-            _aliveCursorLabels.Clear();
-            _aliveWorldLabels.Clear();
-        } */
+        /*         private void OnRoundRestart(RoundRestartCleanupEvent ev)
+                {
+                    _aliveCursorLabels.Clear();
+                    _aliveWorldLabels.Clear();
+                } */
 
         #endregion
 
@@ -342,9 +466,11 @@ namespace Content.Client.Popups
                 return Math.Max(timeToDisplay + 4f, MinimumPopupLifetime);
             }
 
-            return Math.Clamp(PopupLifetimePerCharacter * label.Text.Length,
+            return Math.Clamp(
+                PopupLifetimePerCharacter * label.Text.Length,
                 MinimumPopupLifetime,
-                MaximumPopupLifetime);
+                MaximumPopupLifetime
+            );
         }
 
         public override void FrameUpdate(float frameTime)
@@ -420,11 +546,10 @@ namespace Content.Client.Popups
             string Message,
             PopupType Type,
             EntityCoordinates Coordinates,
-            EntityUid? Entity);
+            EntityUid? Entity
+        );
 
         [UsedImplicitly]
-        private record struct CursorPopupData(
-            string Message,
-            PopupType Type);
+        private record struct CursorPopupData(string Message, PopupType Type);
     }
 }

@@ -10,7 +10,8 @@ namespace Content.Server.Nutrition.EntitySystems
 {
     public sealed partial class SmokingSystem
     {
-        [Dependency] private readonly ItemSlotsSystem _itemSlotsSystem = default!;
+        [Dependency]
+        private readonly ItemSlotsSystem _itemSlotsSystem = default!;
 
         private void InitializePipes()
         {
@@ -50,10 +51,12 @@ namespace Content.Server.Nutrition.EntitySystems
         public void OnPipeAfterInteract(Entity<SmokingPipeComponent> entity, ref AfterInteractEvent args)
         {
             var targetEntity = args.Target;
-            if (targetEntity == null ||
-                !args.CanReach ||
-                !EntityManager.TryGetComponent(entity, out SmokableComponent? smokable) ||
-                smokable.State == SmokableState.Lit)
+            if (
+                targetEntity == null
+                || !args.CanReach
+                || !EntityManager.TryGetComponent(entity, out SmokableComponent? smokable)
+                || smokable.State == SmokableState.Lit
+            )
                 return;
 
             var isHotEvent = new IsHotEvent();
@@ -81,8 +84,15 @@ namespace Content.Server.Nutrition.EntitySystems
 
             EntityUid contents = entity.Comp.BowlSlot.Item.Value;
 
-            if (!TryComp<SolutionContainerManagerComponent>(contents, out var reagents) ||
-                !_solutionContainerSystem.TryGetSolution(smokable.Owner, smokable.Comp.Solution, out var pipeSolution, out _))
+            if (
+                !TryComp<SolutionContainerManagerComponent>(contents, out var reagents)
+                || !_solutionContainerSystem.TryGetSolution(
+                    smokable.Owner,
+                    smokable.Comp.Solution,
+                    out var pipeSolution,
+                    out _
+                )
+            )
                 return false;
 
             foreach (var (_, soln) in _solutionContainerSystem.EnumerateSolutions((contents, reagents)))

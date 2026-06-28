@@ -7,8 +7,11 @@ namespace Content.Client.Goobstation.ChronoLegionnaire;
 
 public sealed class StasisOverlaySystem : EntitySystem
 {
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IOverlayManager _overlayManager = default!;
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
+
+    [Dependency]
+    private readonly IOverlayManager _overlayManager = default!;
 
     private StasisOverlay _overlay = default!;
 

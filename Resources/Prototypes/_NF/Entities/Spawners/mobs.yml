@@ -5,11 +5,11 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - state: ai
+    - state: green
+    - state: ai
   - type: ConditionalSpawner
     prototypes:
-      - MobCatClippy
+    - MobCatClippy
 
 - type: entity
   name: Clarpy Spawner
@@ -18,11 +18,11 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - state: ai
+    - state: green
+    - state: ai
   - type: ConditionalSpawner
     prototypes:
-      - MobCatClarpy
+    - MobCatClarpy
 
 - type: entity
   name: Cappy Spawner
@@ -31,11 +31,11 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - state: ai
+    - state: green
+    - state: ai
   - type: ConditionalSpawner
     prototypes:
-      - MobCatCappy
+    - MobCatCappy
 
 # Adopted from space-wizards #26265 (Thank you, PolterTzi)
 - type: entity
@@ -45,8 +45,8 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - state: ai
+    - state: green
+    - state: ai
   - type: ConditionalSpawner
     prototypes:
-      - MobKoboldYipyip
+    - MobKoboldYipyip

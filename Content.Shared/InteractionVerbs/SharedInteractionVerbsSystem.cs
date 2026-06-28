@@ -27,13 +27,26 @@ public abstract class SharedInteractionVerbsSystem : EntitySystem
     private readonly InteractionAction.VerbDependencies _verbDependencies = new();
     private List<InteractionVerbPrototype> _globalPrototypes = default!;
 
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfters = default!;
-    [Dependency] private readonly ContestsSystem _contests = default!;
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly SharedPopupSystem _popups = default!;
-    [Dependency] private readonly IPrototypeManager _protoMan = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfters = default!;
+
+    [Dependency]
+    private readonly ContestsSystem _contests = default!;
+
+    [Dependency]
+    private readonly INetManager _net = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popups = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _protoMan = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     public override void Initialize()
     {
@@ -49,7 +62,8 @@ public abstract class SharedInteractionVerbsSystem : EntitySystem
 
     private void LoadGlobalVerbs()
     {
-        _globalPrototypes = _protoMan.EnumeratePrototypes<InteractionVerbPrototype>()
+        _globalPrototypes = _protoMan
+            .EnumeratePrototypes<InteractionVerbPrototype>()
             .Where(v => v is { Global: true, Abstract: false })
             .ToList();
     }
@@ -101,8 +115,10 @@ public abstract class SharedInteractionVerbsSystem : EntitySystem
     // TODO this function is an active battlefield
     public bool StartVerb(InteractionVerbPrototype proto, InteractionArgs args, bool force = false)
     {
-        if (!TryComp<OwnInteractionVerbsComponent>(args.User, out var ownInteractions)
-            || !force && !CheckVerbCooldown(proto, args, out _, ownInteractions))
+        if (
+            !TryComp<OwnInteractionVerbsComponent>(args.User, out var ownInteractions)
+            || !force && !CheckVerbCooldown(proto, args, out _, ownInteractions)
+        )
             return false;
 
         // If contest advantage wasn't calculated yet, calculate it now and ensure it's in the allowed range
@@ -110,9 +126,11 @@ public abstract class SharedInteractionVerbsSystem : EntitySystem
         if (args.ContestAdvantage is null)
             CalculateAdvantage(proto, ref args, out contestAdvantageValid);
 
-        if (!_net.IsClient
+        if (
+            !_net.IsClient
             && !force
-            && (!contestAdvantageValid || proto.Action?.CanPerform(args, proto, true, _verbDependencies) != true))
+            && (!contestAdvantageValid || proto.Action?.CanPerform(args, proto, true, _verbDependencies) != true)
+        )
         {
             CreateVerbEffects(proto.EffectFailure, Fail, proto, args);
             return false;
@@ -154,9 +172,10 @@ public abstract class SharedInteractionVerbsSystem : EntitySystem
             Broadcast = true,
             BreakOnHandChange = proto.RequiresHands,
             NeedHand = proto.RequiresHands,
-            RequireCanInteract = proto.RequiresUnblocked && proto.RequiresCanAccess && !proto.ExemptFromInteractionBlocker,
+            RequireCanInteract =
+                proto.RequiresUnblocked && proto.RequiresCanAccess && !proto.ExemptFromInteractionBlocker,
             Delay = delay,
-            Event = new InteractionVerbDoAfterEvent(proto.ID, args)
+            Event = new InteractionVerbDoAfterEvent(proto.ID, args),
         };
 
         var isSuccess = _doAfters.TryStartDoAfter(doAfter);
@@ -176,9 +195,11 @@ public abstract class SharedInteractionVerbsSystem : EntitySystem
         if (_net.IsClient)
             return; // this leads to issues
 
-        if (!PerformChecks(proto, ref args, out _, out _) && !force
+        if (
+            !PerformChecks(proto, ref args, out _, out _) && !force
             || !proto.Action!.CanPerform(args, proto, false, _verbDependencies) && !force
-            || !proto.Action.Perform(args, proto, _verbDependencies))
+            || !proto.Action.Perform(args, proto, _verbDependencies)
+        )
         {
             CreateVerbEffects(proto.EffectFailure, Fail, proto, args);
             return;
@@ -195,7 +216,8 @@ public abstract class SharedInteractionVerbsSystem : EntitySystem
     ///     Creates verbs for all listed prototypes that match their own requirements. Uses the provided factory to create new verb instances.
     /// </summary>
     // Note: using `where T : Verb, new()` here results in a sandbox violation... Yea we peasants don't get OOP in ss14.
-    private void AddAll<T>(IEnumerable<InteractionVerbPrototype> verbs, GetVerbsEvent<T> args, Func<T> factory) where T : Verb
+    private void AddAll<T>(IEnumerable<InteractionVerbPrototype> verbs, GetVerbsEvent<T> args, Func<T> factory)
+        where T : Verb
     {
         // Don't add verbs to ghosts. Ghost system will also cancel all verbs by/on non-admin ghosts.
         if (TryComp<GhostComponent>(args.User, out var ghost) && !ghost.CanGhostInteract)
@@ -238,10 +260,18 @@ public abstract class SharedInteractionVerbsSystem : EntitySystem
     ///     Performs all requirement/action checks on the verb. Returns true if the verb can be executed right now.
     ///     The skipAdding output param indicates whether the caller should skip adding this verb to the verb list, if applicable.
     /// </summary>
-    private bool PerformChecks(InteractionVerbPrototype proto, ref InteractionArgs args, out bool skipAdding, [NotNullWhen(false)] out string? errorLocale)
+    private bool PerformChecks(
+        InteractionVerbPrototype proto,
+        ref InteractionArgs args,
+        out bool skipAdding,
+        [NotNullWhen(false)] out string? errorLocale
+    )
     {
-        if (!proto.AllowSelfInteract && args.User == args.Target
-            || !Transform(args.User).Coordinates.TryDistance(EntityManager, Transform(args.Target).Coordinates, out var distance))
+        if (
+            !proto.AllowSelfInteract && args.User == args.Target
+            || !Transform(args.User)
+                .Coordinates.TryDistance(EntityManager, Transform(args.Target).Coordinates, out var distance)
+        )
         {
             skipAdding = true;
             errorLocale = "interaction-verb-invalid-target";
@@ -250,7 +280,10 @@ public abstract class SharedInteractionVerbsSystem : EntitySystem
 
         if (proto.Requirement?.IsMet(args, proto, _verbDependencies) == false)
         {
-            if (args.Blackboard.TryGetValue("interaction-verb-failure-locale", out var locale) && locale is string localeStr)
+            if (
+                args.Blackboard.TryGetValue("interaction-verb-failure-locale", out var locale)
+                && locale is string localeStr
+            )
             {
                 errorLocale = localeStr;
             }
@@ -277,9 +310,11 @@ public abstract class SharedInteractionVerbsSystem : EntitySystem
             return false;
         }
 
-        if ((!proto.ExemptFromInteractionBlocker && proto.RequiresUnblocked && !args.CanInteract)
+        if (
+            (!proto.ExemptFromInteractionBlocker && proto.RequiresUnblocked && !args.CanInteract)
             || (!proto.ExemptFromInteractionBlocker && proto.RequiresCanAccess && !args.CanAccess)
-            || !proto.Range.IsInRange(distance))
+            || !proto.Range.IsInRange(distance)
+        )
         {
             errorLocale = "interaction-verb-cannot-reach";
             return false;
@@ -338,7 +373,12 @@ public abstract class SharedInteractionVerbsSystem : EntitySystem
     /// <summary>
     ///     Checks if the verb is on cooldown. Returns true if the verb can be used right now.
     /// </summary>
-    private bool CheckVerbCooldown(InteractionVerbPrototype proto, InteractionArgs args, out TimeSpan remainingTime, OwnInteractionVerbsComponent? comp = null)
+    private bool CheckVerbCooldown(
+        InteractionVerbPrototype proto,
+        InteractionArgs args,
+        out TimeSpan remainingTime,
+        OwnInteractionVerbsComponent? comp = null
+    )
     {
         remainingTime = TimeSpan.Zero;
         if (!Resolve(args.User, ref comp))
@@ -352,7 +392,12 @@ public abstract class SharedInteractionVerbsSystem : EntitySystem
         return remainingTime <= TimeSpan.Zero;
     }
 
-    private void StartVerbCooldown(InteractionVerbPrototype proto, InteractionArgs args, TimeSpan cooldown, OwnInteractionVerbsComponent? comp = null)
+    private void StartVerbCooldown(
+        InteractionVerbPrototype proto,
+        InteractionArgs args,
+        TimeSpan cooldown,
+        OwnInteractionVerbsComponent? comp = null
+    )
     {
         if (!Resolve(args.User, ref comp))
             return;
@@ -369,7 +414,12 @@ public abstract class SharedInteractionVerbsSystem : EntitySystem
         }
     }
 
-    private void CreateVerbEffects(InteractionVerbPrototype.EffectSpecifier? specifier, InteractionPopupPrototype.Prefix prefix, InteractionVerbPrototype proto, InteractionArgs args)
+    private void CreateVerbEffects(
+        InteractionVerbPrototype.EffectSpecifier? specifier,
+        InteractionPopupPrototype.Prefix prefix,
+        InteractionVerbPrototype proto,
+        InteractionArgs args
+    )
     {
         // Not doing effects on client because it causes issues
         if (specifier is null || _net.IsClient)
@@ -388,12 +438,14 @@ public abstract class SharedInteractionVerbsSystem : EntitySystem
         {
             var locPrefix = $"interaction-{proto.ID}-{prefix.ToString().ToLower()}";
 
-            var userIdentity = user.Valid && EntityManager.EntityExists(user)
-                ? Identity.Entity(user, EntityManager)
-                : EntityUid.Invalid;
-            var targetIdentity = target.Valid && EntityManager.EntityExists(target)
-                ? Identity.Entity(target, EntityManager)
-                : EntityUid.Invalid;
+            var userIdentity =
+                user.Valid && EntityManager.EntityExists(user)
+                    ? Identity.Entity(user, EntityManager)
+                    : EntityUid.Invalid;
+            var targetIdentity =
+                target.Valid && EntityManager.EntityExists(target)
+                    ? Identity.Entity(target, EntityManager)
+                    : EntityUid.Invalid;
 
             (string, object)[] localeArgs =
             [
@@ -401,23 +453,42 @@ public abstract class SharedInteractionVerbsSystem : EntitySystem
                 ("target", targetIdentity),
                 ("used", used ?? EntityUid.Invalid),
                 ("selfTarget", user == target),
-                ("hasUsed", used != null)
+                ("hasUsed", used != null),
             ];
 
             // User popup
             var userSuffix = popup.SelfSuffix ?? popup.OthersSuffix;
             if (userSuffix is not null)
-                PopupEffects(Loc.GetString($"{locPrefix}-{userSuffix}-popup", localeArgs), userTarget, Filter.Entities(user), false, popup);
+                PopupEffects(
+                    Loc.GetString($"{locPrefix}-{userSuffix}-popup", localeArgs),
+                    userTarget,
+                    Filter.Entities(user),
+                    false,
+                    popup
+                );
 
             // Target popup
             var targetSuffix = popup.TargetSuffix ?? popup.OthersSuffix;
             if (targetSuffix is not null && user != target)
-                PopupEffects(Loc.GetString($"{locPrefix}-{targetSuffix}-popup", localeArgs), targetTarget, Filter.Entities(target), false, popup);
+                PopupEffects(
+                    Loc.GetString($"{locPrefix}-{targetSuffix}-popup", localeArgs),
+                    targetTarget,
+                    Filter.Entities(target),
+                    false,
+                    popup
+                );
 
             // Others popup
             var othersSuffix = popup.OthersSuffix;
             if (othersSuffix is not null)
-                PopupEffects(Loc.GetString($"{locPrefix}-{othersSuffix}-popup", localeArgs), othersTarget, othersFilter, true, popup, clip: true);
+                PopupEffects(
+                    Loc.GetString($"{locPrefix}-{othersSuffix}-popup", localeArgs),
+                    othersTarget,
+                    othersFilter,
+                    true,
+                    popup,
+                    clip: true
+                );
         }
 
         // Sounds
@@ -431,7 +502,14 @@ public abstract class SharedInteractionVerbsSystem : EntitySystem
         }
     }
 
-    private void PopupEffects(string message, EntityUid target, Filter filter, bool recordReplay, InteractionPopupPrototype popup, bool clip = false)
+    private void PopupEffects(
+        string message,
+        EntityUid target,
+        Filter filter,
+        bool recordReplay,
+        InteractionPopupPrototype popup,
+        bool clip = false
+    )
     {
         // Sending a chat message will result in a popup anyway
         // TODO this needs to be fixed probably. Popups and chat messages should be independent.
@@ -441,9 +519,13 @@ public abstract class SharedInteractionVerbsSystem : EntitySystem
             _popups.PopupEntity(message, target, filter, recordReplay, popup.PopupType);
     }
 
-    protected virtual void SendChatLog(string message, EntityUid source, Filter filter, InteractionPopupPrototype popup, bool clip)
-    {
-    }
+    protected virtual void SendChatLog(
+        string message,
+        EntityUid source,
+        Filter filter,
+        InteractionPopupPrototype popup,
+        bool clip
+    ) { }
 
     #endregion
 }

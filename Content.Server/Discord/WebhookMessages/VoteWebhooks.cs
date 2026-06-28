@@ -1,21 +1,31 @@
+using System.Text.Json;
+using System.Text.Json.Nodes;
 using Content.Server.GameTicking;
 using Content.Server.Voting;
 using Robust.Server;
 using Robust.Shared.Utility;
-using System.Text.Json;
-using System.Text.Json.Nodes;
 
 namespace Content.Server.Discord.WebhookMessages;
 
 public sealed class VoteWebhooks : IPostInjectInit
 {
-    [Dependency] private readonly IEntitySystemManager _entSys = default!;
-    [Dependency] private readonly DiscordWebhook _discord = default!;
-    [Dependency] private readonly IBaseServer _baseServer = default!;
+    [Dependency]
+    private readonly IEntitySystemManager _entSys = default!;
+
+    [Dependency]
+    private readonly DiscordWebhook _discord = default!;
+
+    [Dependency]
+    private readonly IBaseServer _baseServer = default!;
 
     private ISawmill _sawmill = default!;
 
-    public WebhookState? CreateWebhookIfConfigured(VoteOptions voteOptions, string? webhookUrl = null, string? customVoteName = null, string? customVoteMessage = null)
+    public WebhookState? CreateWebhookIfConfigured(
+        VoteOptions voteOptions,
+        string? webhookUrl = null,
+        string? customVoteName = null,
+        string? customVoteMessage = null
+    )
     {
         // All this webhook code is complete garbage.
         // I tried to clean it up somewhat, at least to fix the glaring bugs in it.
@@ -34,7 +44,7 @@ public sealed class VoteWebhooks : IPostInjectInit
             var newVote = new WebhookEmbedField
             {
                 Name = voteOption.text,
-                Value = Loc.GetString("custom-vote-webhook-option-pending")
+                Value = Loc.GetString("custom-vote-webhook-option-pending"),
             };
             fields.Add(newVote);
         }
@@ -52,31 +62,28 @@ public sealed class VoteWebhooks : IPostInjectInit
         {
             Username = voteName,
             Embeds = new List<WebhookEmbed>
+            {
+                new()
                 {
-                    new()
+                    Title = voteOptions.InitiatorText,
+                    Color = 13438992, // #CD1010
+                    Description = description,
+                    Footer = new WebhookEmbedFooter
                     {
-                        Title = voteOptions.InitiatorText,
-                        Color = 13438992, // #CD1010
-                        Description = description,
-                        Footer = new WebhookEmbedFooter
-                        {
-                            Text = Loc.GetString(
-                                "custom-vote-webhook-footer",
-                                ("serverName", serverName),
-                                ("roundId", runId),
-                                ("runLevel", runLevel)),
-                        },
-
-                        Fields = fields,
+                        Text = Loc.GetString(
+                            "custom-vote-webhook-footer",
+                            ("serverName", serverName),
+                            ("roundId", runId),
+                            ("runLevel", runLevel)
+                        ),
                     },
+
+                    Fields = fields,
                 },
+            },
         };
 
-        var state = new WebhookState
-        {
-            WebhookUrl = webhookUrl,
-            Payload = payload,
-        };
+        var state = new WebhookState { WebhookUrl = webhookUrl, Payload = payload };
 
         CreateWebhookMessage(state, payload);
 
@@ -95,7 +102,12 @@ public sealed class VoteWebhooks : IPostInjectInit
         {
             var oldName = embed.Fields[i].Name;
             var newValue = finished.Votes[i].ToString();
-            embed.Fields[i] = new WebhookEmbedField { Name = oldName, Value = newValue, Inline = true };
+            embed.Fields[i] = new WebhookEmbedField
+            {
+                Name = oldName,
+                Value = newValue,
+                Inline = true,
+            };
         }
 
         state.Payload.Embeds[0] = embed;
@@ -118,7 +130,12 @@ public sealed class VoteWebhooks : IPostInjectInit
         for (var i = 0; i < embed.Fields.Count; i++)
         {
             var oldName = embed.Fields[i].Name;
-            embed.Fields[i] = new WebhookEmbedField { Name = oldName, Value = Loc.GetString("custom-vote-webhook-option-cancelled"), Inline = true };
+            embed.Fields[i] = new WebhookEmbedField
+            {
+                Name = oldName,
+                Value = Loc.GetString("custom-vote-webhook-option-cancelled"),
+                Inline = true,
+            };
         }
 
         state.Payload.Embeds[0] = embed;
@@ -152,7 +169,9 @@ public sealed class VoteWebhooks : IPostInjectInit
     {
         if (state.MessageId == 0)
         {
-            _sawmill.Warning("Failed to deliver update to custom vote webhook: message ID was zero. This likely indicates a previous connection error sending the original message.");
+            _sawmill.Warning(
+                "Failed to deliver update to custom vote webhook: message ID was zero. This likely indicates a previous connection error sending the original message."
+            );
             return;
         }
 

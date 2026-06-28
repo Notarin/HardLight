@@ -21,9 +21,14 @@ namespace Content.Client.Viewport
     /// </summary>
     public sealed class ScalingViewport : Control, IViewportControl
     {
-        [Dependency] private readonly IClyde _clyde = default!;
-        [Dependency] private readonly IEntityManager _entityManager = default!;
-        [Dependency] private readonly IInputManager _inputManager = default!;
+        [Dependency]
+        private readonly IClyde _clyde = default!;
+
+        [Dependency]
+        private readonly IEntityManager _entityManager = default!;
+
+        [Dependency]
+        private readonly IInputManager _inputManager = default!;
 
         // Internal viewport creation is deferred.
         private IClydeViewport? _viewport;
@@ -75,7 +80,8 @@ namespace Content.Client.Viewport
 
         // Do not need to InvalidateViewport() since it doesn't affect viewport creation.
 
-        [ViewVariables(VVAccess.ReadWrite)] public Vector2i? FixedStretchSize { get; set; }
+        [ViewVariables(VVAccess.ReadWrite)]
+        public Vector2i? FixedStretchSize { get; set; }
 
         [ViewVariables(VVAccess.ReadWrite)]
         public ScalingViewportStretchMode StretchMode
@@ -191,7 +197,7 @@ namespace Content.Client.Viewport
             DebugTools.AssertNotNull(_viewport);
 
             var vpSize = _viewport!.Size;
-            var ourSize = (Vector2) PixelSize;
+            var ourSize = (Vector2)PixelSize;
 
             if (FixedStretchSize == null)
             {
@@ -214,13 +220,13 @@ namespace Content.Client.Viewport
                 // Size
                 var pos = (ourSize - size) / 2;
 
-                return (UIBox2i) UIBox2.FromDimensions(pos, size);
+                return (UIBox2i)UIBox2.FromDimensions(pos, size);
             }
             else
             {
                 // Center only, no scaling.
                 var pos = (ourSize - FixedStretchSize.Value) / 2;
-                return (UIBox2i) UIBox2.FromDimensions(pos, FixedStretchSize.Value);
+                return (UIBox2i)UIBox2.FromDimensions(pos, FixedStretchSize.Value);
             }
         }
 
@@ -230,16 +236,16 @@ namespace Content.Client.Viewport
 
             var vpSizeBase = ViewportSize;
             var ourSize = PixelSize;
-            var (ratioX, ratioY) = ourSize / (Vector2) vpSizeBase;
+            var (ratioX, ratioY) = ourSize / (Vector2)vpSizeBase;
             var ratio = Math.Min(ratioX, ratioY);
             var renderScale = 1;
             switch (_renderScaleMode)
             {
                 case ScalingViewportRenderScaleMode.CeilInt:
-                    renderScale = (int) Math.Ceiling(ratio);
+                    renderScale = (int)Math.Ceiling(ratio);
                     break;
                 case ScalingViewportRenderScaleMode.FloorInt:
-                    renderScale = (int) Math.Floor(ratio);
+                    renderScale = (int)Math.Floor(ratio);
                     break;
                 case ScalingViewportRenderScaleMode.Fixed:
                     renderScale = _fixedRenderScale;
@@ -253,10 +259,8 @@ namespace Content.Client.Viewport
 
             _viewport = _clyde.CreateViewport(
                 ViewportSize * renderScale,
-                new TextureSampleParameters
-                {
-                    Filter = StretchMode == ScalingViewportStretchMode.Bilinear,
-                });
+                new TextureSampleParameters { Filter = StretchMode == ScalingViewportStretchMode.Bilinear }
+            );
 
             _viewport.RenderScale = new Vector2(renderScale, renderScale);
 
@@ -331,7 +335,7 @@ namespace Content.Client.Viewport
             EnsureViewportCreated();
 
             var drawBox = GetDrawBox();
-            var scaleFactor = drawBox.Size / (Vector2) _viewport!.Size;
+            var scaleFactor = drawBox.Size / (Vector2)_viewport!.Size;
 
             if (scaleFactor.X == 0 || scaleFactor.Y == 0)
                 // Basically a nonsense scenario, at least make sure to return something that can be inverted.
@@ -385,7 +389,7 @@ namespace Content.Client.Viewport
         /// <summary>
         ///     Ceiling to the closest integer scale possible.
         /// </summary>
-        CeilInt
+        CeilInt,
     }
 
     /// <summary>
@@ -406,6 +410,6 @@ namespace Content.Client.Viewport
         /// <summary>
         ///     The viewport will ignore the vertical dimension, and will exclusively consider the horizontal dimension for scaling.
         /// </summary>
-        Vertical
+        Vertical,
     }
 }

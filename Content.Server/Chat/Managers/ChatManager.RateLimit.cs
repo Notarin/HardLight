@@ -11,14 +11,17 @@ internal sealed partial class ChatManager
 
     private void RegisterRateLimits()
     {
-        _rateLimitManager.Register(RateLimitKey,
-            new RateLimitRegistration(CCVars.ChatRateLimitPeriod,
+        _rateLimitManager.Register(
+            RateLimitKey,
+            new RateLimitRegistration(
+                CCVars.ChatRateLimitPeriod,
                 CCVars.ChatRateLimitCount,
                 RateLimitPlayerLimited,
                 CCVars.ChatRateLimitAnnounceAdminsDelay,
                 RateLimitAlertAdmins,
-                LogType.ChatRateLimited)
-            );
+                LogType.ChatRateLimited
+            )
+        );
     }
 
     private void RateLimitPlayerLimited(ICommonSession player)

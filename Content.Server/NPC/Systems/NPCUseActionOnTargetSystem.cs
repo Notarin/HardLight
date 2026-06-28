@@ -7,8 +7,11 @@ namespace Content.Server.NPC.Systems;
 
 public sealed class NPCUseActionOnTargetSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly SharedActionsSystem _actions = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -39,13 +42,7 @@ public sealed class NPCUseActionOnTargetSystem : EntitySystem
             action.Event.Coords = Transform(target).Coordinates;
         }
 
-        _actions.PerformAction(user,
-            null,
-            user.Comp.ActionEnt.Value,
-            action,
-            action.BaseEvent,
-            _timing.CurTime,
-            false);
+        _actions.PerformAction(user, null, user.Comp.ActionEnt.Value, action, action.BaseEvent, _timing.CurTime, false);
         return true;
     }
 

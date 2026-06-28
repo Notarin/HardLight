@@ -1,7 +1,7 @@
 #region frame
 - type: entity
   id: NFBaseWeaponFrameEnergyPistol
-  parent: [ NFBaseWeaponEncumbrancePistol, BaseWeaponBatterySmall ]
+  parent: [NFBaseWeaponEncumbrancePistol, BaseWeaponBatterySmall]
   suffix: Frontier
   abstract: true
   components:
@@ -103,8 +103,8 @@
     visuals:
       enum.EnergyGunFireModeVisuals.State:
         Firemode:
-          Disabler: { state: mode-disabler }
-          Lethal: { state: mode-lethal }
+          Disabler: {state: mode-disabler}
+          Lethal: {state: mode-lethal}
 
 - type: entity
   id: NFBaseWeaponEnergyPistolDisabler

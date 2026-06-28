@@ -20,7 +20,11 @@ public sealed partial class PullerComponent : Component
     /// Next time the puller can throw what is being pulled.
     /// Used to avoid spamming it for infinite spin + velocity.
     /// </summary>
-    [DataField(customTypeSerializer: typeof(TimeOffsetSerializer)), AutoNetworkedField, Access(Other = AccessPermissions.ReadWriteExecute)]
+    [
+        DataField(customTypeSerializer: typeof(TimeOffsetSerializer)),
+        AutoNetworkedField,
+        Access(Other = AccessPermissions.ReadWriteExecute)
+    ]
     public TimeSpan NextThrow;
 
     [DataField]
@@ -88,10 +92,7 @@ public sealed partial class PullerComponent : Component
     public List<EntityUid> GrabVirtualItems = new();
 
     [ViewVariables]
-    public Dictionary<GrabStage, int> GrabVirtualItemStageCount = new()
-    {
-        { GrabStage.Suffocate, 1 },
-    };
+    public Dictionary<GrabStage, int> GrabVirtualItemStageCount = new() { { GrabStage.Suffocate, 1 } };
 
     [DataField]
     public float GrabThrownSpeed = 7f;

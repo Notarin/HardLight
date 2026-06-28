@@ -14,12 +14,12 @@
     - BorgChassis
   chatMessages: ["chat-emote-msg-bubble"]
   chatTriggers:
-    # Frontier: emote consistency
-    - bubble
-    - bubbles
-    - bubbling
-    - bubbled
-    # End Frontier: emote consistency
+  # Frontier: emote consistency
+  - bubble
+  - bubbles
+  - bubbling
+  - bubbled
+  # End Frontier: emote consistency
 
 - type: emote
   id: Pop
@@ -36,12 +36,12 @@
     - BorgChassis
   chatMessages: ["chat-emote-msg-pop"]
   chatTriggers:
-    # Frontier: emote consistency
-    - pop
-    - pops
-    - popping
-    - popped
-    # End Frontier: emote consistency
+  # Frontier: emote consistency
+  - pop
+  - pops
+  - popping
+  - popped
+  # End Frontier: emote consistency
 
 # hand emotes
 - type: emote
@@ -57,14 +57,14 @@
     - BorgChassis
   chatMessages: ["chat-emote-msg-crack"]
   chatTriggers:
-    - crack knuckles
-    - cracks knuckles
-    - cracking knuckles
-    - cracked knuckles
-    - cracks their knuckles
-    - cracks her knuckles
-    - cracks his knuckles
-    - cracks its knuckles
+  - crack knuckles
+  - cracks knuckles
+  - cracking knuckles
+  - cracked knuckles
+  - cracks their knuckles
+  - cracks her knuckles
+  - cracks his knuckles
+  - cracks its knuckles
 
 - type: emote
   id: Coo
@@ -80,6 +80,6 @@
     - SiliconEmotes
   chatMessages: ["chat-emote-msg-coo"]
   chatTriggers:
-    - coo
-    - coos
-    - cooed
+  - coo
+  - coos
+  - cooed

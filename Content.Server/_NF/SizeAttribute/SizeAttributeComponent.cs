@@ -1,4 +1,3 @@
-
 using Content.Shared._NF.Cloning;
 
 namespace Content.Server.SizeAttribute

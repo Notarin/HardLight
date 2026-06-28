@@ -13,9 +13,14 @@ namespace Content.Shared.Chemistry;
 [UsedImplicitly]
 public sealed class ReactiveSystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IRobustRandom _robustRandom = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _robustRandom = default!;
+
+    [Dependency]
+    private readonly ISharedAdminLogManager _adminLogger = default!;
 
     public void DoEntityReaction(EntityUid uid, Solution solution, ReactionMethod method)
     {
@@ -32,8 +37,13 @@ public sealed class ReactiveSystem : EntitySystem
         ReactionEntity(uid, method, proto, reagentQuantity, source);
     }
 
-    public void ReactionEntity(EntityUid uid, ReactionMethod method, ReagentPrototype proto,
-        ReagentQuantity reagentQuantity, Solution? source)
+    public void ReactionEntity(
+        EntityUid uid,
+        ReactionMethod method,
+        ReagentPrototype proto,
+        ReagentQuantity reagentQuantity,
+        Solution? source
+    )
     {
         if (!TryComp(uid, out ReactiveComponent? reactive))
             return;
@@ -43,7 +53,16 @@ public sealed class ReactiveSystem : EntitySystem
         RaiseLocalEvent(uid, ref ev);
 
         // If we have a source solution, use the reagent quantity we have left. Otherwise, use the reaction volume specified.
-        var args = new EntityEffectReagentArgs(uid, EntityManager, null, source, source?.GetReagentQuantity(reagentQuantity.Reagent) ?? reagentQuantity.Quantity, proto, method, 1f);
+        var args = new EntityEffectReagentArgs(
+            uid,
+            EntityManager,
+            null,
+            source,
+            source?.GetReagentQuantity(reagentQuantity.Reagent) ?? reagentQuantity.Quantity,
+            proto,
+            method,
+            1f
+        );
 
         // First, check if the reagent wants to apply any effects.
         if (proto.ReactiveEffects != null && reactive.ReactiveGroups != null)
@@ -67,8 +86,11 @@ public sealed class ReactiveSystem : EntitySystem
                     if (effect.ShouldLog)
                     {
                         var entity = args.TargetEntity;
-                        _adminLogger.Add(LogType.ReagentEffect, effect.LogImpact,
-                            $"Reactive effect {effect.GetType().Name:effect} of reagent {proto.ID:reagent} with method {method} applied on entity {ToPrettyString(entity):entity} at {Transform(entity).Coordinates:coordinates}");
+                        _adminLogger.Add(
+                            LogType.ReagentEffect,
+                            effect.LogImpact,
+                            $"Reactive effect {effect.GetType().Name:effect} of reagent {proto.ID:reagent} with method {method} applied on entity {ToPrettyString(entity):entity} at {Transform(entity).Coordinates:coordinates}"
+                        );
                     }
 
                     effect.Effect(args);
@@ -95,8 +117,11 @@ public sealed class ReactiveSystem : EntitySystem
                     if (effect.ShouldLog)
                     {
                         var entity = args.TargetEntity;
-                        _adminLogger.Add(LogType.ReagentEffect, effect.LogImpact,
-                            $"Reactive effect {effect.GetType().Name:effect} of {ToPrettyString(entity):entity} using reagent {proto.ID:reagent} with method {method} at {Transform(entity).Coordinates:coordinates}");
+                        _adminLogger.Add(
+                            LogType.ReagentEffect,
+                            effect.LogImpact,
+                            $"Reactive effect {effect.GetType().Name:effect} of {ToPrettyString(entity):entity} using reagent {proto.ID:reagent} with method {method} at {Transform(entity).Coordinates:coordinates}"
+                        );
                     }
 
                     effect.Effect(args);
@@ -105,11 +130,12 @@ public sealed class ReactiveSystem : EntitySystem
         }
     }
 }
+
 public enum ReactionMethod
 {
-Touch,
-Injection,
-Ingestion,
+    Touch,
+    Injection,
+    Ingestion,
 }
 
 [ByRefEvent]

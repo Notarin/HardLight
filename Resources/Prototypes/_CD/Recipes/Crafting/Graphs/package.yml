@@ -4,10 +4,10 @@
   graph:
   - node: start
     edges:
-    - to: emptyPacket 
+    - to: emptyPacket
       steps:
       - material: Cardboard
         amount: 1
         doAfter: 3
-  - node: emptyPacket 
-    entity: EmptyPacket 
+  - node: emptyPacket
+    entity: EmptyPacket

@@ -13,9 +13,8 @@ public sealed class MechBoundUserInterface : BoundUserInterface
     [ViewVariables]
     private MechMenu? _menu;
 
-    public MechBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-    }
+    public MechBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {
@@ -66,4 +65,3 @@ public sealed class MechBoundUserInterface : BoundUserInterface
         return component?.Ui;
     }
 }
-

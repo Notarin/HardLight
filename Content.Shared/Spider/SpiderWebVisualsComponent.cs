@@ -5,5 +5,5 @@ namespace Content.Shared.Spider;
 [Serializable, NetSerializable]
 public enum SpiderWebVisuals
 {
-    Variant
+    Variant,
 }

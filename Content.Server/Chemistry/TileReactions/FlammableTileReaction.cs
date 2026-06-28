@@ -11,13 +11,16 @@ namespace Content.Server.Chemistry.TileReactions
     [DataDefinition]
     public sealed partial class FlammableTileReaction : ITileReaction
     {
-        [DataField("temperatureMultiplier")] private float _temperatureMultiplier = 1.15f;
+        [DataField("temperatureMultiplier")]
+        private float _temperatureMultiplier = 1.15f;
 
-        public FixedPoint2 TileReact(TileRef tile,
+        public FixedPoint2 TileReact(
+            TileRef tile,
             ReagentPrototype reagent,
             FixedPoint2 reactVolume,
             IEntityManager entityManager,
-            List<ReagentData>? data)
+            List<ReagentData>? data
+        )
         {
             if (reactVolume <= FixedPoint2.Zero || tile.Tile.IsEmpty)
                 return FixedPoint2.Zero;

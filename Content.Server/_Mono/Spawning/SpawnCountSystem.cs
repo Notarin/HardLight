@@ -11,9 +11,15 @@ namespace Content.Server._Mono.Spawning;
 /// </summary>
 public sealed class SpawnCountSystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly StackSystem _stack = default!;
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly StackSystem _stack = default!;
+
     public override void Initialize()
     {
         base.Initialize();
@@ -50,7 +56,6 @@ public sealed class SpawnCountSystem : EntitySystem
             SpawnEntity(prototype, coordinates, stackCount - i);
         }
     }
-
 
     private void SpawnEntity(string? prototype, EntityCoordinates coordinates, int stackCount)
     {

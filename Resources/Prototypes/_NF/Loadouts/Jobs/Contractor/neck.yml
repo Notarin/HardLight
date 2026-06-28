@@ -59,8 +59,8 @@
   - !type:GroupLoadoutEffect
     proto: ContractorT1
   hideEffects:
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 500
   equipment:
     neck: ClothingNeckTieSci
@@ -71,8 +71,8 @@
   - !type:GroupLoadoutEffect
     proto: ContractorT1
   hideEffects:
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 500
   equipment:
     neck: ClothingNeckLawyerbadge
@@ -119,8 +119,8 @@
   - !type:GroupLoadoutEffect
     proto: ContractorT1
   hideEffects:
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 500
   equipment:
     neck: ClothingNeckStethoscope
@@ -150,8 +150,8 @@
   - !type:GroupLoadoutEffect
     proto: ContractorT2
   hideEffects:
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 1000
   equipment:
     neck: ClothingNeckCloakCap
@@ -162,8 +162,8 @@
   - !type:GroupLoadoutEffect
     proto: ContractorT2
   hideEffects:
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 1000
   equipment:
     neck: ClothingNeckCloakMiner
@@ -183,8 +183,8 @@
   - !type:GroupLoadoutEffect
     proto: ContractorT2
   hideEffects:
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 1000
   equipment:
     neck: ClothingNeckScarfChaplainStole
@@ -195,8 +195,8 @@
   - !type:GroupLoadoutEffect
     proto: ContractorT2
   hideEffects:
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 1000
   equipment:
     neck: ClothingNeckStoleChaplain
@@ -306,8 +306,8 @@
   - !type:GroupLoadoutEffect
     proto: ContractorT2
   hideEffects:
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 1000
   equipment:
     neck: ClothingNeckIFFNeutral
@@ -318,8 +318,8 @@
   - !type:GroupLoadoutEffect
     proto: ContractorT2
   hideEffects:
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 1000
   equipment:
     neck: ClothingNeckIFFGreen
@@ -330,8 +330,8 @@
   - !type:GroupLoadoutEffect
     proto: ContractorT2
   hideEffects:
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 1000
   equipment:
     neck: ClothingNeckIFFRed
@@ -342,8 +342,8 @@
   - !type:GroupLoadoutEffect
     proto: ContractorT2
   hideEffects:
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 1000
   equipment:
     neck: ClothingNeckIFFBlue
@@ -354,8 +354,8 @@
   - !type:GroupLoadoutEffect
     proto: ContractorT2
   hideEffects:
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 1000
   equipment:
     neck: ClothingNeckIFFCyan
@@ -366,8 +366,8 @@
   - !type:GroupLoadoutEffect
     proto: ContractorT2
   hideEffects:
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 1000
   equipment:
     neck: ClothingNeckIFFOrange
@@ -378,8 +378,8 @@
   - !type:GroupLoadoutEffect
     proto: ContractorT2
   hideEffects:
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 1000
   equipment:
     neck: ClothingNeckIFFPurple
@@ -390,8 +390,8 @@
   - !type:GroupLoadoutEffect
     proto: ContractorT2
   hideEffects:
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 1000
   equipment:
     neck: ClothingNeckMantleCap
@@ -403,8 +403,8 @@
   - !type:GroupLoadoutEffect
     proto: ContractorT3
   hideEffects:
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 2500
   equipment:
     neck: ClothingNeckCloakCapFormal
@@ -415,8 +415,8 @@
   - !type:GroupLoadoutEffect
     proto: ContractorT3
   hideEffects:
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 2500
   equipment:
     neck: ClothingNeckCloakQm
@@ -427,8 +427,8 @@
   - !type:GroupLoadoutEffect
     proto: ContractorT3
   hideEffects:
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 2500
   equipment:
     neck: ClothingNeckMantleQM
@@ -439,8 +439,8 @@
   - !type:GroupLoadoutEffect
     proto: ContractorT3
   hideEffects:
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 2500
   equipment:
     neck: ClothingCloakCmo
@@ -451,8 +451,8 @@
   - !type:GroupLoadoutEffect
     proto: ContractorT3
   hideEffects:
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 2500
   equipment:
     neck: ClothingNeckMantleCMO
@@ -463,8 +463,8 @@
   - !type:GroupLoadoutEffect
     proto: ContractorT3
   hideEffects:
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 2500
   equipment:
     neck: ClothingNeckCloakRd
@@ -475,8 +475,8 @@
   - !type:GroupLoadoutEffect
     proto: ContractorT3
   hideEffects:
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 2500
   equipment:
     neck: ClothingNeckMantleRD
@@ -487,8 +487,8 @@
   - !type:GroupLoadoutEffect
     proto: ContractorT3
   hideEffects:
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 2500
   equipment:
     neck: ClothingNeckCloakCe
@@ -499,8 +499,8 @@
   - !type:GroupLoadoutEffect
     proto: ContractorT3
   hideEffects:
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 2500
   equipment:
     neck: ClothingNeckMantleCE

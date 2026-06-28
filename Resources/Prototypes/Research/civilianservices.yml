@@ -11,11 +11,10 @@
   position: 2, 10
   cost: 12000
 
-
 - type: technology
   id: Hydroponics
   technologyPrerequisites:
-    - BasicParts
+  - BasicParts
   name: research-technology-basic-hydroponics
   icon:
     sprite: Structures/Machines/seed_extractor.rsi
@@ -40,7 +39,7 @@
 - type: technology
   id: CritterMechs
   technologyPrerequisites:
-    - MechBasic
+  - MechBasic
   name: research-technology-critter-mechs
   icon:
     sprite: Objects/Specific/Mech/mecha.rsi
@@ -64,7 +63,7 @@
 - type: technology
   id: AudioVisualCommunication
   technologyPrerequisites:
-    - BasicParts
+  - BasicParts
   name: research-technology-audio-visual-communication
   icon:
     sprite: Structures/Wallmounts/camera.rsi
@@ -95,11 +94,11 @@
   position: 4, -2
   cost: 7500
   recipeUnlocks:
-    - ComputerTelevisionCircuitboard
-    - SynthesizerInstrument
-    - DawInstrumentMachineCircuitboard
-    - MassMediaCircuitboard
-    - JukeboxCircuitBoard
+  - ComputerTelevisionCircuitboard
+  - SynthesizerInstrument
+  - DawInstrumentMachineCircuitboard
+  - MassMediaCircuitboard
+  - JukeboxCircuitBoard
 
 - type: technology
   id: RoboticCleanliness
@@ -154,7 +153,7 @@
 - type: technology
   id: BiochemicalStasis
   technologyPrerequisites:
-    - IndustrialMedicine
+  - IndustrialMedicine
   name: research-technology-biochemical-stasis
   icon:
     sprite: Structures/Machines/stasis_bed.rsi
@@ -174,8 +173,8 @@
 - type: technology
   id: AdvancedTreatment
   technologyPrerequisites:
-    - SuperParts
-    - IndustrialMedicine
+  - SuperParts
+  - IndustrialMedicine
   name: research-technology-advanced-treatment
   icon:
     sprite: _Shitmed/Objects/Specific/Medical/Surgery/e-scalpel.rsi
@@ -199,7 +198,7 @@
 - type: technology
   id: CyberneticEnhancements
   technologyPrerequisites:
-    - AdvancedTreatment
+  - AdvancedTreatment
   name: research-technology-cybernetic-enhancements
   icon:
     sprite: _Shitmed/Mobs/Species/IPC/organs.rsi
@@ -237,7 +236,7 @@
 - type: technology
   id: AdvancedCleaning
   technologyPrerequisites:
-    - BasicParts
+  - BasicParts
   name: research-technology-advanced-cleaning
   icon:
     sprite: Objects/Specific/Janitorial/advmop.rsi
@@ -256,7 +255,7 @@
 - type: technology
   id: HONKMech
   technologyPrerequisites:
-    - CritterMechs
+  - CritterMechs
   name: research-technology-honk-mech
   icon:
     sprite: Objects/Specific/Mech/mecha.rsi
@@ -291,13 +290,13 @@
   - WeaponSprayNozzle
   - ClothingBackpackWaterTank
 
-    # Tier 3
+  # Tier 3
 
-    # - type: technology # Frontier
-    # id: BluespaceCargoTransport
-    # name: research-technology-bluespace-cargo-transport
-    # icon:
-    # sprite: Structures/cargo_telepad.rsi
+  # - type: technology # Frontier
+  # id: BluespaceCargoTransport
+  # name: research-technology-bluespace-cargo-transport
+  # icon:
+  # sprite: Structures/cargo_telepad.rsi
   # state: display
   # discipline: CivilianServices
   # tier: 3
@@ -321,8 +320,8 @@
 - type: technology
   id: BluespaceChemistry
   technologyPrerequisites:
-    - SuperParts
-    - BiochemicalStasis
+  - SuperParts
+  - BiochemicalStasis
   name: research-technology-bluespace-chemistry
   icon:
     sprite: Objects/Specific/Chemistry/beaker_bluespace.rsi

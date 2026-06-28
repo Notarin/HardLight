@@ -1,7 +1,7 @@
 - type: entity
   id: StationRadioServer
   name: station radio server
-  parent: [ BaseMachinePowered, ConstructibleMachine ]
+  parent: [BaseMachinePowered, ConstructibleMachine]
   description: A rack of servers, controls whether your voice is being broadcasted or not
   components:
   - type: Sprite
@@ -26,7 +26,7 @@
 
 - type: entity
   id: StationRadioRig
-  parent: [ BaseMachinePowered, ConstructibleMachine ]
+  parent: [BaseMachinePowered, ConstructibleMachine]
   name: station radio rig
   description: A collection of everything you need to play music over the station.
   components:
@@ -34,7 +34,7 @@
     sprite: _Goobstation/Structures/Machines/StationRadio/radiostationrig.rsi
     layers:
     - state: icon
-    # TODO: unlit & maints panel sprite
+      # TODO: unlit & maints panel sprite
   - type: DeviceLinkSink
     ports:
     - StationRadioRigPort

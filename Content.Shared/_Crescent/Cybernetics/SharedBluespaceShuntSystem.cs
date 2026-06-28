@@ -12,11 +12,17 @@ namespace Content.Shared.Cybernetics
 {
     public sealed class SharedBluespaceShuntSystem : EntitySystem
     {
+        [Dependency]
+        private readonly ExamineSystemShared _examine = default!;
 
-        [Dependency] private readonly ExamineSystemShared _examine = default!;
-        [Dependency] private readonly SharedPopupSystem _popup = default!;
-        [Dependency] private readonly SharedTransformSystem _transform = default!;
-        [Dependency] private readonly IGameTiming _timing = default!;
+        [Dependency]
+        private readonly SharedPopupSystem _popup = default!;
+
+        [Dependency]
+        private readonly SharedTransformSystem _transform = default!;
+
+        [Dependency]
+        private readonly IGameTiming _timing = default!;
 
         private const float MaxTeleportDistance = 10f; // Maximum teleportation distance in tiles
 
@@ -26,8 +32,6 @@ namespace Content.Shared.Cybernetics
 
             SubscribeLocalEvent<BluespaceShuntComponent, BluespaceShuntEvent>(OnBluespaceShunt);
         }
-
-
 
         private void OnBluespaceShunt(Entity<BluespaceShuntComponent> ent, ref BluespaceShuntEvent args)
         {

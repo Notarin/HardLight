@@ -8,7 +8,8 @@ namespace Content.Shared.Mobs.Events;
 ///     Event for allowing the interrupting and change of the mob threshold severity alert
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class BeforeAlertSeverityCheckEvent(ProtoId<AlertPrototype> currentAlert, short severity) : EntityEventArgs
+public sealed class BeforeAlertSeverityCheckEvent(ProtoId<AlertPrototype> currentAlert, short severity)
+    : EntityEventArgs
 {
     public bool CancelUpdate = false;
     public ProtoId<AlertPrototype> CurrentAlert = currentAlert;

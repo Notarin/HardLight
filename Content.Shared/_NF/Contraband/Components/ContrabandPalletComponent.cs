@@ -7,7 +7,10 @@ namespace Content.Shared._NF.Contraband.Components;
 [Access(typeof(SharedContrabandTurnInSystem))]
 public sealed partial class ContrabandPalletConsoleComponent : Component
 {
-    [ViewVariables(VVAccess.ReadWrite), DataField("cashType", serverOnly: true, customTypeSerializer:typeof(PrototypeIdSerializer<StackPrototype>))]
+    [
+        ViewVariables(VVAccess.ReadWrite),
+        DataField("cashType", serverOnly: true, customTypeSerializer: typeof(PrototypeIdSerializer<StackPrototype>))
+    ]
     public string RewardType = "FrontierUplinkCoin";
 
     [ViewVariables(VVAccess.ReadWrite), DataField(serverOnly: true)]

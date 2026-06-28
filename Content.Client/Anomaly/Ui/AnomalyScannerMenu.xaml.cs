@@ -10,7 +10,8 @@ namespace Content.Client.Anomaly.Ui;
 [GenerateTypedNameReferences]
 public sealed partial class AnomalyScannerMenu : FancyWindow
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     public FormattedMessage LastMessage = new();
     public TimeSpan? NextPulseTime;

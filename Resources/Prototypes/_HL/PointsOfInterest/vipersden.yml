@@ -34,9 +34,9 @@
     VipersDen:
       stationProto: StandardFrontierOutpost
       components:
-        - type: StationNameSetup
-          mapNameTemplate: "Viper's Den"
-        - type: StationJobs
-          availableJobs: {}
-        - type: StationDeadDropHintExempt
-        - type: BindToStationVariationPassExemption
+      - type: StationNameSetup
+        mapNameTemplate: "Viper's Den"
+      - type: StationJobs
+        availableJobs: {}
+      - type: StationDeadDropHintExempt
+      - type: BindToStationVariationPassExemption

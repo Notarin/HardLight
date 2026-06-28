@@ -7,7 +7,8 @@ namespace Content.Client.CM14.IconSmoothing;
 
 public sealed class IconSmoothRandomSystem : EntitySystem
 {
-    [Dependency] private readonly IReflectionManager _reflection = default!;
+    [Dependency]
+    private readonly IReflectionManager _reflection = default!;
 
     private EntityQuery<RandomSpriteComponent> _randomSpriteQuery;
     private EntityQuery<SpriteComponent> _spriteQuery;
@@ -22,10 +23,15 @@ public sealed class IconSmoothRandomSystem : EntitySystem
         SubscribeLocalEvent<IconSmoothRandomComponent, IconSmoothingUpdatedEvent>(OnOverrideIconSmoothingUpdated);
     }
 
-    private void OnOverrideIconSmoothingUpdated(Entity<IconSmoothRandomComponent> ent, ref IconSmoothingUpdatedEvent args)
+    private void OnOverrideIconSmoothingUpdated(
+        Entity<IconSmoothRandomComponent> ent,
+        ref IconSmoothingUpdatedEvent args
+    )
     {
-        if (!_randomSpriteQuery.TryGetComponent(ent, out var random) ||
-            !_spriteQuery.TryGetComponent(ent, out var sprite))
+        if (
+            !_randomSpriteQuery.TryGetComponent(ent, out var random)
+            || !_spriteQuery.TryGetComponent(ent, out var sprite)
+        )
             return;
 
         foreach (var layer in random.Selected)

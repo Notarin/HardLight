@@ -22,14 +22,12 @@
   - type: Rotatable
   - type: Destructible
     thresholds:
-    - trigger: # for nukes
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 200
       behaviors:
       - !type:DoActsBehavior
         acts: ["Destruction"]
-    - trigger: # regular damage trigger (replace with broken pipe)
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:PlaySoundBehavior
@@ -89,14 +87,13 @@
   components:
   - type: NodeContainer
     nodes:
-      pipe:
-        !type:PipeNode
+      pipe: !type:PipeNode
         nodeGroupID: Pipe
         pipeDirection: South
   - type: Sprite
     layers:
     - state: pipeHalf
-      map: [ "enum.PipeVisualLayers.Pipe" ]
+      map: ["enum.PipeVisualLayers.Pipe"]
   - type: AtmosPipeLayers
     alternativePrototypes:
       Primary: GasPipeHalf
@@ -124,14 +121,13 @@
   components:
   - type: NodeContainer
     nodes:
-      pipe:
-        !type:PipeNode
+      pipe: !type:PipeNode
         nodeGroupID: Pipe
         pipeDirection: Longitudinal
   - type: Sprite
     layers:
     - state: pipeStraight
-      map: [ "enum.PipeVisualLayers.Pipe" ]
+      map: ["enum.PipeVisualLayers.Pipe"]
   - type: AtmosPipeLayers
     alternativePrototypes:
       Primary: GasPipeStraight
@@ -167,14 +163,13 @@
   components:
   - type: NodeContainer
     nodes:
-      pipe:
-        !type:PipeNode
+      pipe: !type:PipeNode
         nodeGroupID: Pipe
         pipeDirection: SWBend
   - type: Sprite
     layers:
-      - state: pipeBend
-        map: [ "enum.PipeVisualLayers.Pipe" ]
+    - state: pipeBend
+      map: ["enum.PipeVisualLayers.Pipe"]
   - type: AtmosPipeLayers
     alternativePrototypes:
       Primary: GasPipeBend
@@ -217,14 +212,13 @@
   components:
   - type: NodeContainer
     nodes:
-      pipe:
-        !type:PipeNode
+      pipe: !type:PipeNode
         nodeGroupID: Pipe
         pipeDirection: TSouth
   - type: Sprite
     layers:
-      - state: pipeTJunction
-        map: [ "enum.PipeVisualLayers.Pipe" ]
+    - state: pipeTJunction
+      map: ["enum.PipeVisualLayers.Pipe"]
   - type: AtmosPipeLayers
     alternativePrototypes:
       Primary: GasPipeTJunction
@@ -262,14 +256,13 @@
     noRot: true
   - type: NodeContainer
     nodes:
-      pipe:
-        !type:PipeNode
+      pipe: !type:PipeNode
         nodeGroupID: Pipe
         pipeDirection: Fourway
   - type: Sprite
     layers:
-      - state: pipeFourway
-        map: [ "enum.PipeVisualLayers.Pipe" ]
+    - state: pipeFourway
+      map: ["enum.PipeVisualLayers.Pipe"]
   - type: AtmosPipeLayers
     alternativePrototypes:
       Primary: GasPipeFourway
@@ -307,8 +300,8 @@
     drawdepth: ThinPipe
     state: pipeBroken
     layers:
-      - state: pipeBroken
-        map: [ "enum.PipeVisualLayers.Pipe" ]
+    - state: pipeBroken
+      map: ["enum.PipeVisualLayers.Pipe"]
   - type: AtmosPipeLayers
     numberOfPipeLayers: 1
   - type: Construction
@@ -318,8 +311,7 @@
     size: Small
   - type: Destructible
     thresholds: # override parent to avoid recursive destruction
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:DoActsBehavior
@@ -341,14 +333,14 @@
     sprite: Structures/Piping/Atmospherics/manifold.rsi
     layers:
     - state: pipeManifold
-      map: [ "enum.PipeVisualLayers.Pipe" ]
+      map: ["enum.PipeVisualLayers.Pipe"]
   - type: AtmosPipeLayers
     pipeLayersLocked: true
   - type: PipeAppearance
     sprite:
-    - { sprite: Structures/Piping/Atmospherics/manifold.rsi, state: pipeConnector }
-    - { sprite: Structures/Piping/Atmospherics/manifold.rsi, state: pipeConnector_alt1 }
-    - { sprite: Structures/Piping/Atmospherics/manifold.rsi, state: pipeConnector_alt2 }
+    - {sprite: Structures/Piping/Atmospherics/manifold.rsi, state: pipeConnector}
+    - {sprite: Structures/Piping/Atmospherics/manifold.rsi, state: pipeConnector_alt1}
+    - {sprite: Structures/Piping/Atmospherics/manifold.rsi, state: pipeConnector_alt2}
   - type: Construction
     graph: GasPipe
     node: manifold
@@ -361,33 +353,27 @@
       state: storageManifold
   - type: NodeContainer
     nodes:
-      south0:
-        !type:PipeNode
+      south0: !type:PipeNode
         nodeGroupID: Pipe
         pipeDirection: South
         pipeLayer: 0
-      south1:
-        !type:PipeNode
+      south1: !type:PipeNode
         nodeGroupID: Pipe
         pipeDirection: South
         pipeLayer: 1
-      south2:
-        !type:PipeNode
+      south2: !type:PipeNode
         nodeGroupID: Pipe
         pipeDirection: South
         pipeLayer: 2
-      north0:
-        !type:PipeNode
+      north0: !type:PipeNode
         nodeGroupID: Pipe
         pipeDirection: North
         pipeLayer: 0
-      north1:
-        !type:PipeNode
+      north1: !type:PipeNode
         nodeGroupID: Pipe
         pipeDirection: North
         pipeLayer: 1
-      north2:
-        !type:PipeNode
+      north2: !type:PipeNode
         nodeGroupID: Pipe
         pipeDirection: North
         pipeLayer: 2

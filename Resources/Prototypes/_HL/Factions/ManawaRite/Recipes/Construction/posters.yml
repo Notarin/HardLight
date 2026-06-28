@@ -9,4 +9,4 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition

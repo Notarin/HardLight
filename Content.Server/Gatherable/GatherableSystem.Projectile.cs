@@ -14,10 +14,12 @@ public sealed partial class GatherableSystem
 
     private void OnProjectileCollide(Entity<GatheringProjectileComponent> gathering, ref StartCollideEvent args)
     {
-        if (!args.OtherFixture.Hard ||
-            args.OurFixtureId != SharedProjectileSystem.ProjectileFixture ||
-            gathering.Comp.Amount <= 0 ||
-            !TryComp<GatherableComponent>(args.OtherEntity, out var gatherable))
+        if (
+            !args.OtherFixture.Hard
+            || args.OurFixtureId != SharedProjectileSystem.ProjectileFixture
+            || gathering.Comp.Amount <= 0
+            || !TryComp<GatherableComponent>(args.OtherEntity, out var gatherable)
+        )
         {
             return;
         }

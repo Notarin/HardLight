@@ -1,4 +1,5 @@
 using Content.Server._Common.Consent;
+using Content.Server._FS.DiscordAuth; // Floofstation
 using Content.Server._NF.Auth;
 using Content.Server.Administration;
 using Content.Server.Administration.Logs;
@@ -23,6 +24,7 @@ using Content.Server.Players.RateLimiting;
 using Content.Server.Preferences.Managers;
 using Content.Server.ServerInfo;
 using Content.Server.ServerUpdates;
+using Content.Server.Shuttles;
 using Content.Server.Voting.Managers;
 using Content.Server.Worldgen.Tools;
 using Content.Shared.Administration.Logs;
@@ -31,8 +33,6 @@ using Content.Shared.Chat;
 using Content.Shared.Kitchen;
 using Content.Shared.Players.PlayTimeTracking;
 using Content.Shared.Players.RateLimiting;
-using Content.Server._FS.DiscordAuth; // Floofstation
-using Content.Server.Shuttles;
 
 namespace Content.Server.IoC
 {

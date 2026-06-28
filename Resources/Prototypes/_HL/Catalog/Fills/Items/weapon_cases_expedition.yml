@@ -2,7 +2,7 @@
   parent: WeaponCaseLong
   id: WeaponCaseLongVortex
   suffix: Dungeon, Vortex
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: StorageFill
     contents:

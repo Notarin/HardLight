@@ -4,8 +4,8 @@
   description: job-description-technical-assistant
   playTimeTracker: JobTechnicalAssistant
   requirements:
-    - !type:OverallPlaytimeRequirement
-      time: 3600 # 1 hr
+  - !type:OverallPlaytimeRequirement
+    time: 3600 # 1 hr
     # - !type:DepartmentTimeRequirement
     #   department: Engineering
     #   time: 18000 #5 hrs

@@ -46,7 +46,8 @@ namespace Content.Server.Atmos.Reactions
         /// <summary>
         ///     A list of effects this will produce.
         /// </summary>
-        [DataField("effects")] private List<IGasReactionEffect> _effects = new();
+        [DataField("effects")]
+        private List<IGasReactionEffect> _effects = new();
 
         /// <summary>
         /// Process all reaction effects.
@@ -55,7 +56,12 @@ namespace Content.Server.Atmos.Reactions
         /// <param name="holder">The container of this gas mixture</param>
         /// <param name="atmosphereSystem">The atmosphere system</param>
         /// <param name="heatScale">Scaling factor that should be applied to all heat input or outputs.</param>
-        public ReactionResult React(GasMixture mixture, IGasMixtureHolder? holder, AtmosphereSystem atmosphereSystem, float heatScale)
+        public ReactionResult React(
+            GasMixture mixture,
+            IGasMixtureHolder? holder,
+            AtmosphereSystem atmosphereSystem,
+            float heatScale
+        )
         {
             var result = ReactionResult.NoReaction;
 

@@ -42,10 +42,12 @@ public sealed partial class DungeonJob
                 {
                     var neighbor = new Vector2i(tile.X + x, tile.Y + y);
 
-                    if (dungeon.CorridorTiles.Contains(neighbor) ||
-                        dungeon.RoomExteriorTiles.Contains(neighbor) ||
-                        dungeon.RoomTiles.Contains(neighbor) ||
-                        dungeon.Entrances.Contains(neighbor))
+                    if (
+                        dungeon.CorridorTiles.Contains(neighbor)
+                        || dungeon.RoomExteriorTiles.Contains(neighbor)
+                        || dungeon.RoomTiles.Contains(neighbor)
+                        || dungeon.Entrances.Contains(neighbor)
+                    )
                     {
                         continue;
                     }
@@ -77,8 +79,7 @@ public sealed partial class DungeonJob
                         var neighbor = new Vector2(node.X + x, node.Y + y).Floored();
 
                         // Diagonals still matter here.
-                        if (dungeon.RoomTiles.Contains(neighbor) ||
-                            dungeon.RoomExteriorTiles.Contains(neighbor))
+                        if (dungeon.RoomTiles.Contains(neighbor) || dungeon.RoomExteriorTiles.Contains(neighbor))
                         {
                             // Try
 
@@ -120,12 +121,20 @@ public sealed partial class DungeonJob
 
                 // Shrink by 0.01 to avoid polygon overlap from neighboring tiles.
                 // TODO: Uhh entityset re-usage.
-                foreach (var ent in _lookup.GetEntitiesIntersecting(_gridUid, new Box2(neighbor * grid.TileSize, (neighbor + 1) * grid.TileSize).Enlarged(-0.1f), flags))
+                foreach (
+                    var ent in _lookup.GetEntitiesIntersecting(
+                        _gridUid,
+                        new Box2(neighbor * grid.TileSize, (neighbor + 1) * grid.TileSize).Enlarged(-0.1f),
+                        flags
+                    )
+                )
                 {
-                    if (!_physicsQuery.TryGetComponent(ent, out var physics) ||
-                        !physics.Hard ||
-                        (DungeonSystem.CollisionMask & physics.CollisionLayer) == 0x0 &&
-                        (DungeonSystem.CollisionLayer & physics.CollisionMask) == 0x0)
+                    if (
+                        !_physicsQuery.TryGetComponent(ent, out var physics)
+                        || !physics.Hard
+                        || (DungeonSystem.CollisionMask & physics.CollisionLayer) == 0x0
+                            && (DungeonSystem.CollisionLayer & physics.CollisionMask) == 0x0
+                    )
                     {
                         continue;
                     }

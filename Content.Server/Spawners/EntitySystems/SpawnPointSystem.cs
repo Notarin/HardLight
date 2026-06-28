@@ -13,12 +13,23 @@ namespace Content.Server.Spawners.EntitySystems;
 
 public sealed class SpawnPointSystem : EntitySystem
 {
-    [Dependency] private readonly GameTicker _gameTicker = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
-    [Dependency] private readonly StationSystem _stationSystem = default!;
-    [Dependency] private readonly StationSpawningSystem _stationSpawning = default!;
-    [Dependency] private readonly TurfSystem _turf = default!;
+    [Dependency]
+    private readonly GameTicker _gameTicker = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _mapSystem = default!;
+
+    [Dependency]
+    private readonly StationSystem _stationSystem = default!;
+
+    [Dependency]
+    private readonly StationSpawningSystem _stationSpawning = default!;
+
+    [Dependency]
+    private readonly TurfSystem _turf = default!;
 
     public override void Initialize()
     {
@@ -34,7 +45,7 @@ public sealed class SpawnPointSystem : EntitySystem
         var points = EntityQueryEnumerator<SpawnPointComponent, TransformComponent>();
         var possiblePositions = new List<EntityCoordinates>();
 
-        while ( points.MoveNext(out var uid, out var spawnPoint, out var xform))
+        while (points.MoveNext(out var uid, out var spawnPoint, out var xform))
         {
             if (args.Station != null && _stationSystem.GetOwningStation(uid, xform) != args.Station)
                 continue;
@@ -42,8 +53,8 @@ public sealed class SpawnPointSystem : EntitySystem
             // Delta-V: Allow setting a desired SpawnPointType
             if (args.DesiredSpawnPointType != SpawnPointType.Unset)
             {
-                var isMatchingJob = spawnPoint.SpawnType == SpawnPointType.Job &&
-                    (args.Job == null || spawnPoint.Job == args.Job);
+                var isMatchingJob =
+                    spawnPoint.SpawnType == SpawnPointType.Job && (args.Job == null || spawnPoint.Job == args.Job);
 
                 switch (args.DesiredSpawnPointType)
                 {
@@ -62,24 +73,30 @@ public sealed class SpawnPointSystem : EntitySystem
                 possiblePositions.Add(xform.Coordinates);
             }
 
-            if (_gameTicker.RunLevel != GameRunLevel.InRound &&
-                spawnPoint.SpawnType == SpawnPointType.Job &&
-                (args.Job == null || spawnPoint.Job == args.Job))
+            if (
+                _gameTicker.RunLevel != GameRunLevel.InRound
+                && spawnPoint.SpawnType == SpawnPointType.Job
+                && (args.Job == null || spawnPoint.Job == args.Job)
+            )
             {
                 possiblePositions.Add(xform.Coordinates);
             }
         }
 
-        if (possiblePositions.Count == 0
+        if (
+            possiblePositions.Count == 0
             && args.Station is { } station
-            && TryFindStationGatewayPosition(station, out var stationGateway)) // HardLight: prefer the station gateway over a random open tile
+            && TryFindStationGatewayPosition(station, out var stationGateway)
+        ) // HardLight: prefer the station gateway over a random open tile
         {
             possiblePositions.Add(stationGateway);
         }
 
-        if (possiblePositions.Count == 0
+        if (
+            possiblePositions.Count == 0
             && args.Station is { } stationFb
-            && TryFindStationFallbackPosition(stationFb, out var stationFallback))
+            && TryFindStationFallbackPosition(stationFb, out var stationFallback)
+        )
         {
             possiblePositions.Add(stationFallback);
         }
@@ -108,7 +125,8 @@ public sealed class SpawnPointSystem : EntitySystem
             args.Job,
             args.HumanoidCharacterProfile,
             args.Station,
-            session: args.Session); // Frontier
+            session: args.Session
+        ); // Frontier
     }
 
     // HardLight: latejoin/passenger fallback. When a station has no matching spawn points,
@@ -144,8 +162,7 @@ public sealed class SpawnPointSystem : EntitySystem
             return false;
 
         var largestGrid = _stationSystem.GetLargestGrid(stationData);
-        if (largestGrid is { } gridUid
-            && TryFindGridFallbackPosition(gridUid, out coords))
+        if (largestGrid is { } gridUid && TryFindGridFallbackPosition(gridUid, out coords))
         {
             return true;
         }

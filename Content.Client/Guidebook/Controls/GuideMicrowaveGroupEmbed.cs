@@ -3,8 +3,8 @@ using System.Linq;
 using Content.Client.Guidebook.Richtext;
 using Content.Shared.Kitchen;
 using JetBrains.Annotations;
-using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface;
+using Robust.Client.UserInterface.Controls;
 using Robust.Shared.Prototypes;
 
 namespace Content.Client.Guidebook.Controls;
@@ -15,7 +15,8 @@ namespace Content.Client.Guidebook.Controls;
 [UsedImplicitly]
 public sealed partial class GuideMicrowaveGroupEmbed : BoxContainer, IDocumentTag
 {
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototype = default!;
 
     public GuideMicrowaveGroupEmbed()
     {
@@ -24,7 +25,8 @@ public sealed partial class GuideMicrowaveGroupEmbed : BoxContainer, IDocumentTa
         MouseFilter = MouseFilterMode.Stop;
     }
 
-    public GuideMicrowaveGroupEmbed(string group) : this()
+    public GuideMicrowaveGroupEmbed(string group)
+        : this()
     {
         CreateEntries(group);
     }
@@ -46,7 +48,8 @@ public sealed partial class GuideMicrowaveGroupEmbed : BoxContainer, IDocumentTa
 
     private void CreateEntries(string group)
     {
-        var prototypes = _prototype.EnumeratePrototypes<FoodRecipePrototype>()
+        var prototypes = _prototype
+            .EnumeratePrototypes<FoodRecipePrototype>()
             .Where(p => p.Group.Equals(group))
             .OrderBy(p => p.Name);
 

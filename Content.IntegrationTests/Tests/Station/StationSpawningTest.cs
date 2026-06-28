@@ -73,15 +73,20 @@ public sealed class StationSpawningTest
             Assert.That(grids, Is.Not.Null);
 
             gridUid = grids!.First().Owner;
-            station = stationSystem.InitializeNewStation(shipProto.Stations["Station"], new[] { gridUid }, "No Spawn Ship");
+            station = stationSystem.InitializeNewStation(
+                shipProto.Stations["Station"],
+                new[] { gridUid },
+                "No Spawn Ship"
+            );
             entityManager.EnsureComponent<StationMemberComponent>(gridUid).Station = station;
 
-            spawned = stationSpawning.SpawnPlayerCharacterOnStation(
+            spawned =
+                stationSpawning.SpawnPlayerCharacterOnStation(
                     station,
                     StationJobsSystem.ShipFreelancerInterviewJobId,
                     HumanoidCharacterProfile.Random(),
-                    spawnPointType: SpawnPointType.LateJoin)
-                ?? EntityUid.Invalid;
+                    spawnPointType: SpawnPointType.LateJoin
+                ) ?? EntityUid.Invalid;
         });
 
         await server.WaitRunTicks(1);

@@ -13,9 +13,9 @@ using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.RichText;
 using Robust.Client.UserInterface.XAML;
 using Robust.Shared.Console;
-using Robust.Shared.Prototypes;
 using Robust.Shared.IoC;
 using Robust.Shared.Network;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
@@ -24,7 +24,8 @@ namespace Content.Client.Administration.UI.Bwoink
     [GenerateTypedNameReferences]
     public sealed partial class BwoinkPanel : BoxContainer
     {
-        [Dependency] private readonly IPrototypeManager _prototype = default!;
+        [Dependency]
+        private readonly IPrototypeManager _prototype = default!;
 
         // Extend the default allowed rich-text tags to include cmdlink so that
         // admin-side item-mention hyperlinks produced by RenderItemMentions are
@@ -64,9 +65,8 @@ namespace Content.Client.Administration.UI.Bwoink
         private List<string> PeopleTyping { get; set; } = new();
         public event Action<string>? InputTextChanged;
 
-        public BwoinkPanel(Action<string> messageSender) : this(messageSender, null)
-        {
-        }
+        public BwoinkPanel(Action<string> messageSender)
+            : this(messageSender, null) { }
 
         public BwoinkPanel(Action<string> messageSender, NetUserId? adminChannelId)
         {
@@ -149,11 +149,14 @@ namespace Content.Client.Administration.UI.Bwoink
             var msg = new FormattedMessage();
             msg.PushColor(Color.LightGray);
 
-            var text = PeopleTyping.Count == 0
-                ? string.Empty
-                : Loc.GetString("bwoink-system-typing-indicator",
-                    ("players", string.Join(", ", PeopleTyping)),
-                    ("count", PeopleTyping.Count));
+            var text =
+                PeopleTyping.Count == 0
+                    ? string.Empty
+                    : Loc.GetString(
+                        "bwoink-system-typing-indicator",
+                        ("players", string.Join(", ", PeopleTyping)),
+                        ("count", PeopleTyping.Count)
+                    );
 
             msg.AddText(text);
             msg.Pop();
@@ -169,14 +172,17 @@ namespace Content.Client.Administration.UI.Bwoink
                     return;
 
                 PeopleTyping.Add(name);
-                Timer.Spawn(TimeSpan.FromSeconds(10), () =>
-                {
-                    if (Disposed)
-                        return;
+                Timer.Spawn(
+                    TimeSpan.FromSeconds(10),
+                    () =>
+                    {
+                        if (Disposed)
+                            return;
 
-                    PeopleTyping.Remove(name);
-                    UpdateTypingIndicator();
-                });
+                        PeopleTyping.Remove(name);
+                        UpdateTypingIndicator();
+                    }
+                );
             }
             else
             {
@@ -242,7 +248,9 @@ namespace Content.Client.Administration.UI.Bwoink
             }
 
             var itemName = string.IsNullOrWhiteSpace(response.ItemName) ? response.PrototypeId : response.ItemName;
-            window.AddMarkup($"Spawned [color=goldenrod]{FormattedMessage.EscapeText(itemName)}[/color] ([color=lightgray]{FormattedMessage.EscapeText(response.PrototypeId)}[/color]) at ({response.SpawnPosition.X:F0}, {response.SpawnPosition.Y:F0}).");
+            window.AddMarkup(
+                $"Spawned [color=goldenrod]{FormattedMessage.EscapeText(itemName)}[/color] ([color=lightgray]{FormattedMessage.EscapeText(response.PrototypeId)}[/color]) at ({response.SpawnPosition.X:F0}, {response.SpawnPosition.Y:F0})."
+            );
             window.OpenCentered();
         }
 
@@ -275,7 +283,7 @@ namespace Content.Client.Administration.UI.Bwoink
             var renderedBody = new StringBuilder(body.Length + 32);
             var cursor = 0;
 
-            for (var index = 0; index < matches.Count;)
+            for (var index = 0; index < matches.Count; )
             {
                 var maxLen = Math.Min(3, matches.Count - index);
                 var bestLen = 0;
@@ -367,9 +375,11 @@ namespace Content.Client.Administration.UI.Bwoink
         private bool EnsureItemLookup()
         {
             var currentProtoCount = _prototype.Count<EntityPrototype>();
-            if (_itemLookupBuilt &&
-                _itemLookupPrototypeCount == currentProtoCount &&
-                _itemKeywordToPrototypes.Count > 0)
+            if (
+                _itemLookupBuilt
+                && _itemLookupPrototypeCount == currentProtoCount
+                && _itemKeywordToPrototypes.Count > 0
+            )
             {
                 return true;
             }
@@ -550,7 +560,9 @@ namespace Content.Client.Administration.UI.Bwoink
                 return;
             }
 
-            window.AddMarkup($"[color=goldenrod]{Loc.GetString("bwoink-triage-ship-inspect-header", ("count", response.Ships.Length))}[/color]");
+            window.AddMarkup(
+                $"[color=goldenrod]{Loc.GetString("bwoink-triage-ship-inspect-header", ("count", response.Ships.Length))}[/color]"
+            );
 
             foreach (var ship in response.Ships)
             {
@@ -563,7 +575,8 @@ namespace Content.Client.Administration.UI.Bwoink
                     : "[color=salmon]offline[/color]";
                 var voucherChip = ship.PurchasedWithVoucher ? " [color=cyan](voucher)[/color]" : string.Empty;
                 window.AddMarkup(
-                    $"  [color=white]{displayName}[/color]{voucherChip} — {ship.MapName} @ ({ship.WorldPosition.X:F0}, {ship.WorldPosition.Y:F0}) — {ftlChip} — owner {onlineChip}");
+                    $"  [color=white]{displayName}[/color]{voucherChip} — {ship.MapName} @ ({ship.WorldPosition.X:F0}, {ship.WorldPosition.Y:F0}) — {ftlChip} — owner {onlineChip}"
+                );
             }
 
             window.OpenCentered();
@@ -629,71 +642,98 @@ namespace Content.Client.Administration.UI.Bwoink
             var console = IoCManager.Resolve<IClientConsoleHost>();
             var channelArg = $"\"{channel}\"";
 
-            TriageActionContainer.AddChild(MakeShortcutButton(
-                Loc.GetString("bwoink-triage-action-player-panel"),
-                () => console.ExecuteCommand($"playerpanel {channelArg}")));
+            TriageActionContainer.AddChild(
+                MakeShortcutButton(
+                    Loc.GetString("bwoink-triage-action-player-panel"),
+                    () => console.ExecuteCommand($"playerpanel {channelArg}")
+                )
+            );
 
-            TriageActionContainer.AddChild(MakeShortcutButton(
-                Loc.GetString("bwoink-triage-action-inspect-ships"),
-                () =>
-                {
-                    var system = IoCManager.Resolve<IEntityManager>().System<BwoinkSystem>();
-                    system.RequestPlayerShipInspection(channel);
-                }));
+            TriageActionContainer.AddChild(
+                MakeShortcutButton(
+                    Loc.GetString("bwoink-triage-action-inspect-ships"),
+                    () =>
+                    {
+                        var system = IoCManager.Resolve<IEntityManager>().System<BwoinkSystem>();
+                        system.RequestPlayerShipInspection(channel);
+                    }
+                )
+            );
 
-            TriageActionContainer.AddChild(MakeShortcutButton(
-                Loc.GetString("bwoink-triage-action-snapshot"),
-                () =>
-                {
-                    var system = IoCManager.Resolve<IEntityManager>().System<BwoinkSystem>();
-                    system.RequestPlayerSnapshot(channel);
-                }));
+            TriageActionContainer.AddChild(
+                MakeShortcutButton(
+                    Loc.GetString("bwoink-triage-action-snapshot"),
+                    () =>
+                    {
+                        var system = IoCManager.Resolve<IEntityManager>().System<BwoinkSystem>();
+                        system.RequestPlayerSnapshot(channel);
+                    }
+                )
+            );
 
-            TriageActionContainer.AddChild(MakeShortcutButton(
-                Loc.GetString("bwoink-triage-action-banking"),
-                () =>
-                {
-                    var system = IoCManager.Resolve<IEntityManager>().System<BwoinkSystem>();
-                    system.RequestPlayerBankInfo(channel);
-                }));
+            TriageActionContainer.AddChild(
+                MakeShortcutButton(
+                    Loc.GetString("bwoink-triage-action-banking"),
+                    () =>
+                    {
+                        var system = IoCManager.Resolve<IEntityManager>().System<BwoinkSystem>();
+                        system.RequestPlayerBankInfo(channel);
+                    }
+                )
+            );
 
-            TriageActionContainer.AddChild(MakeShortcutButton(
-                Loc.GetString("bwoink-triage-action-unstick-ship"),
-                () =>
-                {
-                    var system = IoCManager.Resolve<IEntityManager>().System<BwoinkSystem>();
-                    _pendingUnstickPreviewOwner = channel.UserId.ToString();
-                    system.RequestUnstickPlayerShipPreview(channel);
-                }));
+            TriageActionContainer.AddChild(
+                MakeShortcutButton(
+                    Loc.GetString("bwoink-triage-action-unstick-ship"),
+                    () =>
+                    {
+                        var system = IoCManager.Resolve<IEntityManager>().System<BwoinkSystem>();
+                        _pendingUnstickPreviewOwner = channel.UserId.ToString();
+                        system.RequestUnstickPlayerShipPreview(channel);
+                    }
+                )
+            );
 
-            TriageActionContainer.AddChild(MakeShortcutButton(
-                Loc.GetString("bwoink-triage-action-tp-station"),
-                () =>
-                {
-                    var system = IoCManager.Resolve<IEntityManager>().System<BwoinkSystem>();
-                    system.RequestTeleportPlayerToStation(channel);
-                }));
+            TriageActionContainer.AddChild(
+                MakeShortcutButton(
+                    Loc.GetString("bwoink-triage-action-tp-station"),
+                    () =>
+                    {
+                        var system = IoCManager.Resolve<IEntityManager>().System<BwoinkSystem>();
+                        system.RequestTeleportPlayerToStation(channel);
+                    }
+                )
+            );
 
-            TriageActionContainer.AddChild(MakeShortcutButton(
-                Loc.GetString("bwoink-triage-action-tp-ship"),
-                () =>
-                {
-                    var system = IoCManager.Resolve<IEntityManager>().System<BwoinkSystem>();
-                    system.RequestTeleportPlayerToShip(channel);
-                }));
+            TriageActionContainer.AddChild(
+                MakeShortcutButton(
+                    Loc.GetString("bwoink-triage-action-tp-ship"),
+                    () =>
+                    {
+                        var system = IoCManager.Resolve<IEntityManager>().System<BwoinkSystem>();
+                        system.RequestTeleportPlayerToShip(channel);
+                    }
+                )
+            );
 
-            TriageActionContainer.AddChild(MakeShortcutButton(
-                Loc.GetString("bwoink-triage-action-assign-deed"),
-                () => OpenAssignDeedWindow(channel)));
+            TriageActionContainer.AddChild(
+                MakeShortcutButton(
+                    Loc.GetString("bwoink-triage-action-assign-deed"),
+                    () => OpenAssignDeedWindow(channel)
+                )
+            );
 
-            TriageActionContainer.AddChild(MakeShortcutButton(
-                Loc.GetString("bwoink-triage-action-save-ship"),
-                () =>
-                {
-                    var system = IoCManager.Resolve<IEntityManager>().System<BwoinkSystem>();
-                    _pendingSaveShipPreviewOwner = channel.UserId.ToString();
-                    system.RequestSaveShipPreview(channel);
-                }));
+            TriageActionContainer.AddChild(
+                MakeShortcutButton(
+                    Loc.GetString("bwoink-triage-action-save-ship"),
+                    () =>
+                    {
+                        var system = IoCManager.Resolve<IEntityManager>().System<BwoinkSystem>();
+                        _pendingSaveShipPreviewOwner = channel.UserId.ToString();
+                        system.RequestSaveShipPreview(channel);
+                    }
+                )
+            );
         }
 
         private void RenderTriageBar(NetUserId channel, string category)
@@ -722,8 +762,7 @@ namespace Content.Client.Administration.UI.Bwoink
             {
                 var localized = Loc.GetString(extra.LocaleKey);
                 var command = extra.CommandFactory(channelArg);
-                TriageActionContainer.AddChild(MakeShortcutButton(localized,
-                    () => console.ExecuteCommand(command)));
+                TriageActionContainer.AddChild(MakeShortcutButton(localized, () => console.ExecuteCommand(command)));
             }
 
             TriageBar.Visible = true;
@@ -731,11 +770,7 @@ namespace Content.Client.Administration.UI.Bwoink
 
         private static Button MakeShortcutButton(string text, Action onPressed)
         {
-            var button = new Button
-            {
-                Text = text,
-                StyleClasses = { "OpenLeft" },
-            };
+            var button = new Button { Text = text, StyleClasses = { "OpenLeft" } };
             button.OnPressed += _ => onPressed();
             return button;
         }
@@ -784,21 +819,15 @@ namespace Content.Client.Administration.UI.Bwoink
             switch (category.Trim().ToLowerInvariant())
             {
                 case "respawn":
-                    yield return new TriageShortcut(
-                        "bwoink-triage-action-respawn",
-                        arg => $"respawn {arg}");
+                    yield return new TriageShortcut("bwoink-triage-action-respawn", arg => $"respawn {arg}");
                     break;
                 case "stuck":
                 case "lost":
-                    yield return new TriageShortcut(
-                        "bwoink-triage-action-follow",
-                        arg => $"follow {arg}");
+                    yield return new TriageShortcut("bwoink-triage-action-follow", arg => $"follow {arg}");
                     break;
                 case "harassment":
                 case "grief":
-                    yield return new TriageShortcut(
-                        "bwoink-triage-action-notes",
-                        arg => $"adminnotes {arg}");
+                    yield return new TriageShortcut("bwoink-triage-action-notes", arg => $"adminnotes {arg}");
                     break;
             }
         }
@@ -820,10 +849,7 @@ namespace Content.Client.Administration.UI.Bwoink
             }
 
             // Create banking management window
-            var bankingWindow = new BankingManagementWindow(
-                channel.UserId.ToString(),
-                channel,
-                response.Balance);
+            var bankingWindow = new BankingManagementWindow(channel.UserId.ToString(), channel, response.Balance);
             bankingWindow.OpenCentered();
         }
 
@@ -838,10 +864,14 @@ namespace Content.Client.Administration.UI.Bwoink
             var window = new TriageInfoWindow(Loc.GetString("bwoink-triage-popup-unstick-title"));
             if (response.Success)
             {
-                window.AddMarkup(Loc.GetString("bwoink-unstick-success",
-                    ("ship", response.ShipName ?? "Unknown"),
-                    ("x", (int)response.NewPosition.X),
-                    ("y", (int)response.NewPosition.Y)));
+                window.AddMarkup(
+                    Loc.GetString(
+                        "bwoink-unstick-success",
+                        ("ship", response.ShipName ?? "Unknown"),
+                        ("x", (int)response.NewPosition.X),
+                        ("y", (int)response.NewPosition.Y)
+                    )
+                );
             }
             else
             {
@@ -893,11 +923,15 @@ namespace Content.Client.Administration.UI.Bwoink
             var shipName = string.IsNullOrWhiteSpace(response.ShipName) ? "Unknown" : response.ShipName;
             var confirmWindow = new TriageInfoWindow(Loc.GetString("bwoink-triage-popup-unstick-title"));
             confirmWindow.AddMarkup(Loc.GetString("bwoink-unstick-confirm", ("ship", shipName)));
-            confirmWindow.AddActionButton(Loc.GetString("bwoink-unstick-confirm-button"), () =>
-            {
-                var system = IoCManager.Resolve<IEntityManager>().System<BwoinkSystem>();
-                system.RequestUnstickPlayerShip(channel);
-            }, closeOnPressed: true);
+            confirmWindow.AddActionButton(
+                Loc.GetString("bwoink-unstick-confirm-button"),
+                () =>
+                {
+                    var system = IoCManager.Resolve<IEntityManager>().System<BwoinkSystem>();
+                    system.RequestUnstickPlayerShip(channel);
+                },
+                closeOnPressed: true
+            );
             confirmWindow.OpenCentered();
         }
 
@@ -933,11 +967,15 @@ namespace Content.Client.Administration.UI.Bwoink
             var shipName = string.IsNullOrWhiteSpace(response.ShipName) ? "Unknown" : response.ShipName;
             var confirmSaveWindow = new TriageInfoWindow(Loc.GetString("bwoink-triage-popup-save-ship-title"));
             confirmSaveWindow.AddMarkup(Loc.GetString("bwoink-save-ship-confirm", ("ship", shipName)));
-            confirmSaveWindow.AddActionButton(Loc.GetString("bwoink-save-ship-confirm-button"), () =>
-            {
-                var system = IoCManager.Resolve<IEntityManager>().System<BwoinkSystem>();
-                system.RequestSaveShip(channel);
-            }, closeOnPressed: true);
+            confirmSaveWindow.AddActionButton(
+                Loc.GetString("bwoink-save-ship-confirm-button"),
+                () =>
+                {
+                    var system = IoCManager.Resolve<IEntityManager>().System<BwoinkSystem>();
+                    system.RequestSaveShip(channel);
+                },
+                closeOnPressed: true
+            );
             confirmSaveWindow.OpenCentered();
         }
 
@@ -952,9 +990,13 @@ namespace Content.Client.Administration.UI.Bwoink
             var window = new TriageInfoWindow(Loc.GetString("bwoink-triage-popup-save-ship-title"));
             if (response.Success)
             {
-                window.AddMarkup(Loc.GetString("bwoink-save-ship-success",
-                    ("ship", response.ShipName ?? "Unknown"),
-                    ("evicted", response.EvictedCount)));
+                window.AddMarkup(
+                    Loc.GetString(
+                        "bwoink-save-ship-success",
+                        ("ship", response.ShipName ?? "Unknown"),
+                        ("evicted", response.EvictedCount)
+                    )
+                );
             }
             else
             {
@@ -983,10 +1025,14 @@ namespace Content.Client.Administration.UI.Bwoink
             var window = new TriageInfoWindow(Loc.GetString("bwoink-triage-popup-tp-station-title"));
             if (response.Success)
             {
-                window.AddMarkup(Loc.GetString("bwoink-tp-station-success",
-                    ("destination", response.DestinationName ?? "Station"),
-                    ("x", (int)response.DestinationPosition.X),
-                    ("y", (int)response.DestinationPosition.Y)));
+                window.AddMarkup(
+                    Loc.GetString(
+                        "bwoink-tp-station-success",
+                        ("destination", response.DestinationName ?? "Station"),
+                        ("x", (int)response.DestinationPosition.X),
+                        ("y", (int)response.DestinationPosition.Y)
+                    )
+                );
             }
             else
             {
@@ -1057,16 +1103,18 @@ namespace Content.Client.Administration.UI.Bwoink
             {
                 var msg = response.Success
                     ? Loc.GetString("bwoink-assign-deed-success", ("ship", response.ShipName ?? "the ship"))
-                    : Loc.GetString(response.Error switch
-                    {
-                        "not-authorized" => "bwoink-assign-deed-error-not-authorized",
-                        "invalid-owner" => "bwoink-assign-deed-error-invalid-owner",
-                        "offline" => "bwoink-assign-deed-error-offline",
-                        "no-attached-entity" => "bwoink-assign-deed-error-no-attached-entity",
-                        "no-id-card" => "bwoink-assign-deed-error-no-id-card",
-                        "no-ship" => "bwoink-assign-deed-error-no-ship",
-                        _ => "bwoink-assign-deed-error-generic",
-                    });
+                    : Loc.GetString(
+                        response.Error switch
+                        {
+                            "not-authorized" => "bwoink-assign-deed-error-not-authorized",
+                            "invalid-owner" => "bwoink-assign-deed-error-invalid-owner",
+                            "offline" => "bwoink-assign-deed-error-offline",
+                            "no-attached-entity" => "bwoink-assign-deed-error-no-attached-entity",
+                            "no-id-card" => "bwoink-assign-deed-error-no-id-card",
+                            "no-ship" => "bwoink-assign-deed-error-no-ship",
+                            _ => "bwoink-assign-deed-error-generic",
+                        }
+                    );
                 _assignDeedWindow.ShowStatus(response.Success, msg);
 
                 // Refresh the list after a successful assign so the new ownership shows.
@@ -1089,10 +1137,14 @@ namespace Content.Client.Administration.UI.Bwoink
             var window = new TriageInfoWindow(Loc.GetString("bwoink-triage-popup-tp-ship-title"));
             if (response.Success)
             {
-                window.AddMarkup(Loc.GetString("bwoink-tp-ship-success",
-                    ("ship", response.ShipName ?? "their ship"),
-                    ("x", (int)response.DestinationPosition.X),
-                    ("y", (int)response.DestinationPosition.Y)));
+                window.AddMarkup(
+                    Loc.GetString(
+                        "bwoink-tp-ship-success",
+                        ("ship", response.ShipName ?? "their ship"),
+                        ("x", (int)response.DestinationPosition.X),
+                        ("y", (int)response.DestinationPosition.Y)
+                    )
+                );
             }
             else
             {

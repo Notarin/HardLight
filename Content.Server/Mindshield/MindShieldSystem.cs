@@ -16,10 +16,17 @@ namespace Content.Server.Mindshield;
 /// </summary>
 public sealed class MindShieldSystem : EntitySystem
 {
-    [Dependency] private readonly IAdminLogManager _adminLogManager = default!;
-    [Dependency] private readonly RoleSystem _roleSystem = default!;
-    [Dependency] private readonly MindSystem _mindSystem = default!;
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
+    [Dependency]
+    private readonly IAdminLogManager _adminLogManager = default!;
+
+    [Dependency]
+    private readonly RoleSystem _roleSystem = default!;
+
+    [Dependency]
+    private readonly MindSystem _mindSystem = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popupSystem = default!;
 
     public override void Initialize()
     {
@@ -50,10 +57,16 @@ public sealed class MindShieldSystem : EntitySystem
             return;
         }
 
-        if (_mindSystem.TryGetMind(implanted, out var mindId, out _) &&
-            _roleSystem.MindTryRemoveRole<RevolutionaryRoleComponent>(mindId))
+        if (
+            _mindSystem.TryGetMind(implanted, out var mindId, out _)
+            && _roleSystem.MindTryRemoveRole<RevolutionaryRoleComponent>(mindId)
+        )
         {
-            _adminLogManager.Add(LogType.Mind, LogImpact.Medium, $"{ToPrettyString(implanted)} was deconverted due to being implanted with a Mindshield.");
+            _adminLogManager.Add(
+                LogType.Mind,
+                LogImpact.Medium,
+                $"{ToPrettyString(implanted)} was deconverted due to being implanted with a Mindshield."
+            );
         }
     }
 
@@ -62,4 +75,3 @@ public sealed class MindShieldSystem : EntitySystem
         RemComp<MindShieldComponent>(args.Container.Owner);
     }
 }
-

@@ -1,10 +1,10 @@
 using System.IO;
 using System.Linq;
+using Content.IntegrationTests.Tests._NF;
+using Content.Shared.Atmos;
 using Robust.Shared.ContentPack;
 using Robust.Shared.Utility;
 using YamlDotNet.RepresentationModel;
-using Content.IntegrationTests.Tests._NF;
-using Content.Shared.Atmos;
 
 namespace Content.IntegrationTests.Tests._HL.Maps;
 
@@ -14,15 +14,14 @@ namespace Content.IntegrationTests.Tests._HL.Maps;
 [TestFixture]
 public sealed class AtmosTests
 {
-
     private const bool SkipTestMaps = true;
     private const string TestMapsPath = "/Maps/_NF/Test/";
     private static readonly string[] GameMaps = FrontierConstants.GameMapPrototypes;
 
     /// <summary>
-	/// Checks any GridAtmosphere on a shuttle and makes sure the amount of gasses matches what we have. Maps will fail to load if these don't match.
+    /// Checks any GridAtmosphere on a shuttle and makes sure the amount of gasses matches what we have. Maps will fail to load if these don't match.
     /// We have to directly parse the .yml as trying to load the files in-engine throws errors all over the place
-	/// </summary>
+    /// </summary>
     [Test]
     public async Task TestAtmosMixGasCountShuttle()
     {
@@ -35,7 +34,11 @@ public sealed class AtmosTests
         var mapFolder = new ResPath("/Maps");
         var maps = resourceManager
             .ContentFindFiles(mapFolder)
-            .Where(filePath => filePath.Extension == "yml" && !filePath.Filename.StartsWith(".", StringComparison.Ordinal) && filePath.EnumerateSegments().Any(s => s == "Shuttles"))
+            .Where(filePath =>
+                filePath.Extension == "yml"
+                && !filePath.Filename.StartsWith(".", StringComparison.Ordinal)
+                && filePath.EnumerateSegments().Any(s => s == "Shuttles")
+            )
             .ToArray();
         //maps = [new ResPath("/Maps/_Mono/Shuttles/World/ramdronesmall.yml")];
 
@@ -85,7 +88,11 @@ public sealed class AtmosTests
                             foreach (YamlMappingNode mix in mixes.Children.Cast<YamlMappingNode>())
                             {
                                 var moles = (YamlSequenceNode)mix.Children["moles"];
-                                Assert.That(moles.Count(), Is.EqualTo(Atmospherics.AdjustedNumberOfGases), $"Invalid Mole count in map: {rootedPath}");
+                                Assert.That(
+                                    moles.Count(),
+                                    Is.EqualTo(Atmospherics.AdjustedNumberOfGases),
+                                    $"Invalid Mole count in map: {rootedPath}"
+                                );
                             }
                         }
                     }

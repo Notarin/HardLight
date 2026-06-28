@@ -35,7 +35,10 @@ public sealed class TileHistoryDeltaState : ComponentState, IComponentDeltaState
     public Dictionary<Vector2i, TileHistoryChunk> ChunkHistory;
     public HashSet<Vector2i> AllHistoryChunks;
 
-    public TileHistoryDeltaState(Dictionary<Vector2i, TileHistoryChunk> chunkHistory, HashSet<Vector2i> allHistoryChunks)
+    public TileHistoryDeltaState(
+        Dictionary<Vector2i, TileHistoryChunk> chunkHistory,
+        HashSet<Vector2i> allHistoryChunks
+    )
     {
         ChunkHistory = chunkHistory;
         AllHistoryChunks = allHistoryChunks;
@@ -109,9 +112,7 @@ public sealed partial class TileHistoryChunk
     [ViewVariables]
     public GameTick LastModified;
 
-    public TileHistoryChunk()
-    {
-    }
+    public TileHistoryChunk() { }
 
     public TileHistoryChunk(TileHistoryChunk other)
     {

@@ -44,7 +44,7 @@
   name: fire
   description:
   parent: BaseBullet
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: PointLight
     color: "#E25822"

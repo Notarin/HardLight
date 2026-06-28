@@ -4,8 +4,8 @@ using Content.Shared.Access;
 using Content.Shared.Access.Components;
 using Content.Shared.Access.Systems;
 using Content.Shared.DeviceNetwork.Components;
-using Content.Shared.Doors.Electronics;
 using Content.Shared.Doors;
+using Content.Shared.Doors.Electronics;
 using Content.Shared.Interaction;
 using Robust.Server.GameObjects;
 using Robust.Shared.Prototypes;
@@ -14,8 +14,11 @@ namespace Content.Server.Doors.Electronics;
 
 public sealed class DoorElectronicsSystem : EntitySystem
 {
-    [Dependency] private readonly UserInterfaceSystem _uiSystem = default!;
-    [Dependency] private readonly AccessReaderSystem _accessReader = default!;
+    [Dependency]
+    private readonly UserInterfaceSystem _uiSystem = default!;
+
+    [Dependency]
+    private readonly AccessReaderSystem _accessReader = default!;
 
     public override void Initialize()
     {
@@ -45,7 +48,8 @@ public sealed class DoorElectronicsSystem : EntitySystem
     private void OnChangeConfiguration(
         EntityUid uid,
         DoorElectronicsComponent component,
-        DoorElectronicsUpdateConfigurationMessage args)
+        DoorElectronicsUpdateConfigurationMessage args
+    )
     {
         var accessReader = EnsureComp<AccessReaderComponent>(uid);
         _accessReader.SetAccesses(uid, accessReader, args.AccessList);
@@ -54,15 +58,13 @@ public sealed class DoorElectronicsSystem : EntitySystem
     private void OnAccessReaderChanged(
         EntityUid uid,
         DoorElectronicsComponent component,
-        AccessReaderConfigurationChangedEvent args)
+        AccessReaderConfigurationChangedEvent args
+    )
     {
         UpdateUserInterface(uid, component);
     }
 
-    private void OnBoundUIOpened(
-        EntityUid uid,
-        DoorElectronicsComponent component,
-        BoundUIOpenedEvent args)
+    private void OnBoundUIOpened(EntityUid uid, DoorElectronicsComponent component, BoundUIOpenedEvent args)
     {
         UpdateUserInterface(uid, component);
     }

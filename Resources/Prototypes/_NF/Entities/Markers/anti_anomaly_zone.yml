@@ -8,9 +8,9 @@
   - type: Sprite
     sprite: Structures/Specific/Anomalies/ice_anom.rsi
     layers:
-      - state: anom
-      - sprite: Markers/cross.rsi
-        state: pink
+    - state: anom
+    - sprite: Markers/cross.rsi
+      state: pink
   - type: AntiAnomalyZone
     zoneRadius: 10
 
@@ -22,7 +22,7 @@
   components:
   - type: AntiAnomalyZone
     zoneRadius: 20
-    
+
 - type: entity
   parent: AntiAnomalyZone
   id: AntiAnomalyZone50

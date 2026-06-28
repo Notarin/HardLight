@@ -1,28 +1,28 @@
-using Content.Shared.Dataset;
-using Content.Shared.Bed.Sleep;
-using Content.Server.Chat.Systems;
 using Content.Server.Chat.Managers;
-using Robust.Shared.Random;
-using Robust.Shared.Prototypes;
+using Content.Server.Chat.Systems;
+using Content.Shared.Bed.Sleep;
+using Content.Shared.Dataset;
 using Robust.Server.GameObjects;
 using Robust.Shared.Player;
+using Robust.Shared.Prototypes;
+using Robust.Shared.Random;
 
 namespace Content.Server.Psionics.Dreams
 {
     public sealed class DreamsSystem : EntitySystem
     {
-        [Dependency] private readonly IRobustRandom _random = default!;
-        [Dependency] private readonly IChatManager _chatManager = default!;
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+        [Dependency]
+        private readonly IRobustRandom _random = default!;
+
+        [Dependency]
+        private readonly IChatManager _chatManager = default!;
+
+        [Dependency]
+        private readonly IPrototypeManager _prototypeManager = default!;
         private float _accumulator = 0f;
         private float _updateRate = 15f;
 
-        public readonly IReadOnlyList<string> DreamSetPrototypes = new[]
-        {
-            "adjectives",
-            "names_first",
-            "verbs",
-        };
+        public readonly IReadOnlyList<string> DreamSetPrototypes = new[] { "adjectives", "names_first", "verbs" };
 
         public override void Update(float frameTime)
         {
@@ -46,11 +46,21 @@ namespace Content.Server.Psionics.Dreams
 
                 var msg = _random.Pick(set.Values) + "..."; //todo... does the seperator need loc?
 
-                var messageWrap = Loc.GetString("chat-manager-send-telepathic-chat-wrap-message",
-                    ("telepathicChannelName", Loc.GetString("chat-manager-telepathic-channel-name")), ("message", msg));
+                var messageWrap = Loc.GetString(
+                    "chat-manager-send-telepathic-chat-wrap-message",
+                    ("telepathicChannelName", Loc.GetString("chat-manager-telepathic-channel-name")),
+                    ("message", msg)
+                );
 
-                _chatManager.ChatMessageToOne(Shared.Chat.ChatChannel.Telepathic,
-                msg, messageWrap, sleeper.Owner, false, actor.PlayerSession.Channel, Color.PaleVioletRed);
+                _chatManager.ChatMessageToOne(
+                    Shared.Chat.ChatChannel.Telepathic,
+                    msg,
+                    messageWrap,
+                    sleeper.Owner,
+                    false,
+                    actor.PlayerSession.Channel,
+                    Color.PaleVioletRed
+                );
             }
         }
     }

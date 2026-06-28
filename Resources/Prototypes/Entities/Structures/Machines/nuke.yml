@@ -1,5 +1,5 @@
 - type: entity
-  parent: [BaseStructure, StructureWheeled, BaseC3ContrabandUnredeemable ] # Frontier: BaseMajorContraband<BaseC3ContrabandUnredeemable
+  parent: [BaseStructure, StructureWheeled, BaseC3ContrabandUnredeemable] # Frontier: BaseMajorContraband<BaseC3ContrabandUnredeemable
   id: NuclearBomb
   name: nuclear fission explosive
   description: You probably shouldn't stick around to see if this is armed.
@@ -33,28 +33,27 @@
     visuals:
       enum.HolidayVisuals.Holiday:
         christmas:
-          festive: { visible: true }
+          festive: {visible: true}
         pride:
-          pride: { visible: true }
+          pride: {visible: true}
       enum.NukeVisuals.Deployed:
         enum.NukeVisualLayers.Base:
-          False: { state: nuclearbomb_base }
-          True:  { state: nuclearbomb_deployed }
+          False: {state: nuclearbomb_base}
+          True: {state: nuclearbomb_deployed}
         enum.NukeVisualLayers.Unlit:
-          True:  { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
       enum.NukeVisuals.State:
         enum.NukeVisualLayers.Unlit:
-          Idle:        { state: nuclearbomb_deployed_unlit }
-          Armed:       { state: nuclearbomb_timing }
-          YoureFucked: { state: nuclearbomb_exploding }
+          Idle: {state: nuclearbomb_deployed_unlit}
+          Armed: {state: nuclearbomb_timing}
+          YoureFucked: {state: nuclearbomb_exploding}
   - type: Physics
     bodyType: Static
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.45
         density: 255 # Has "bluespace technology" to make it lighter, whatever that means. Don't mind the fact that this is lighter then a high capacity fuel tank.
         mask:
@@ -152,7 +151,7 @@
       map: ["christmas"]
       visible: false
     - state: nuclearbomb_gay
-      map: [ "pride" ]
+      map: ["pride"]
       visible: false
   - type: Appearance
   - type: HolidayVisuals
@@ -165,16 +164,15 @@
     visuals:
       enum.HolidayVisuals.Holiday:
         christmas:
-          festive: { visible: true }
+          festive: {visible: true}
         pride:
-          pride: { visible: true }
+          pride: {visible: true}
   - type: Physics
     bodyType: Dynamic
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.45
         density: 255
         mask:

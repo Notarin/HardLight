@@ -4,16 +4,19 @@ using Content.Shared.Movement.Components;
 using Robust.Shared.GameStates;
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 using Robust.Shared.Timing;
-using Robust.Shared.Prototypes;
 
 namespace Content.Shared.Gravity
 {
     public abstract partial class SharedGravitySystem : EntitySystem
     {
-        [Dependency] protected readonly IGameTiming Timing = default!;
-        [Dependency] private readonly AlertsSystem _alerts = default!;
+        [Dependency]
+        protected readonly IGameTiming Timing = default!;
+
+        [Dependency]
+        private readonly AlertsSystem _alerts = default!;
 
         public static readonly ProtoId<AlertPrototype> WeightlessAlert = "Weightless";
 
@@ -51,10 +54,8 @@ namespace Content.Shared.Gravity
         {
             entity.Comp ??= Transform(entity);
 
-            return _gravityQuery.HasComp(entity.Comp.GridUid) ||
-                   _gravityQuery.HasComp(entity.Comp.MapUid);
+            return _gravityQuery.HasComp(entity.Comp.GridUid) || _gravityQuery.HasComp(entity.Comp.MapUid);
         }
-
 
         /// <summary>
         /// Checks if a given entity is currently standing on a grid or map that has gravity of some kind.
@@ -63,8 +64,8 @@ namespace Content.Shared.Gravity
         {
             entity.Comp ??= Transform(entity);
 
-            return _gravityQuery.TryComp(entity.Comp.GridUid, out var gravity) && gravity.Enabled ||
-                   _gravityQuery.TryComp(entity.Comp.MapUid, out var mapGravity) && mapGravity.Enabled;
+            return _gravityQuery.TryComp(entity.Comp.GridUid, out var gravity) && gravity.Enabled
+                || _gravityQuery.TryComp(entity.Comp.MapUid, out var mapGravity) && mapGravity.Enabled;
         }
 
         public override void Initialize()
@@ -106,7 +107,7 @@ namespace Content.Shared.Gravity
         private void OnGravityChange(ref GravityChangedEvent ev)
         {
             var alerts = AllEntityQuery<AlertsComponent, TransformComponent>();
-            while(alerts.MoveNext(out var uid, out _, out var xform))
+            while (alerts.MoveNext(out var uid, out _, out var xform))
             {
                 if (xform.GridUid != ev.ChangedGridIndex)
                     continue;
@@ -164,7 +165,8 @@ namespace Content.Shared.Gravity
     }
 
     [ByRefEvent]
-    public record struct IsWeightlessEvent(EntityUid Entity, bool IsWeightless = false, bool Handled = false) : IInventoryRelayEvent
+    public record struct IsWeightlessEvent(EntityUid Entity, bool IsWeightless = false, bool Handled = false)
+        : IInventoryRelayEvent
     {
         SlotFlags IInventoryRelayEvent.TargetSlots => ~SlotFlags.POCKET;
     }

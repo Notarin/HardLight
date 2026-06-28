@@ -12,10 +12,16 @@ public sealed partial class DungeonJob
     /// <summary>
     /// <see cref="CorridorClutterDunGen"/>
     /// </summary>
-    private async Task PostGen(CorridorClutterDunGen gen, DungeonData data, Dungeon dungeon, HashSet<Vector2i> reservedTiles, Random random)
+    private async Task PostGen(
+        CorridorClutterDunGen gen,
+        DungeonData data,
+        Dungeon dungeon,
+        HashSet<Vector2i> reservedTiles,
+        Random random
+    )
     {
         var physicsQuery = _entManager.GetEntityQuery<PhysicsComponent>();
-        var count = (int) Math.Ceiling(dungeon.CorridorTiles.Count * gen.Chance);
+        var count = (int)Math.Ceiling(dungeon.CorridorTiles.Count * gen.Chance);
 
         while (count > 0)
         {
@@ -26,9 +32,7 @@ public sealed partial class DungeonJob
 
             while (enumerator.MoveNext(out var ent))
             {
-                if (!physicsQuery.TryGetComponent(ent, out var physics) ||
-                    !physics.CanCollide ||
-                    !physics.Hard)
+                if (!physicsQuery.TryGetComponent(ent, out var physics) || !physics.CanCollide || !physics.Hard)
                 {
                     continue;
                 }

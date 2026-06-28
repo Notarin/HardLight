@@ -24,7 +24,8 @@ public sealed class LocalizedDatasetPrototypeTest : ContentUnitTest
         _prototypeManager.ResolveResults();
     }
 
-    private const string TestPrototypes = @"
+    private const string TestPrototypes =
+        @"
 - type: localizedDataset
   id: Test
   values:
@@ -50,8 +51,14 @@ public sealed class LocalizedDatasetPrototypeTest : ContentUnitTest
         Assert.That(testPrototype.Values[1], Is.EqualTo("test-dataset-2"));
         Assert.That(testPrototype.Values[2], Is.EqualTo("test-dataset-3"));
         Assert.That(testPrototype.Values[3], Is.EqualTo("test-dataset-4"));
-        Assert.Throws<IndexOutOfRangeException>(() => { var x = testPrototype.Values[4]; });
-        Assert.Throws<IndexOutOfRangeException>(() => { var x = testPrototype.Values[-1]; });
+        Assert.Throws<IndexOutOfRangeException>(() =>
+        {
+            var x = testPrototype.Values[4];
+        });
+        Assert.Throws<IndexOutOfRangeException>(() =>
+        {
+            var x = testPrototype.Values[-1];
+        });
 
         // Make sure that the enumerator gets all of the values
         Assert.That(testPrototype.Values[^1], Is.EqualTo("test-dataset-4"));

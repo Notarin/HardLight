@@ -1,10 +1,10 @@
 using Content.Client.Guidebook.RichText;
+using Content.Client.UserInterface.ControlExtensions;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Shared.Input;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
-using Content.Client.UserInterface.ControlExtensions;
 
 namespace Content.Client.Guidebook.Controls;
 
@@ -31,7 +31,8 @@ public sealed class GuidebookRichPrototypeLink : Control, IPrototypeLinkControl
         _richTextLabel.SetMessage(_message, null, TextLinkTag.LinkColor);
     }
 
-    public GuidebookRichPrototypeLink() : base()
+    public GuidebookRichPrototypeLink()
+        : base()
     {
         MouseFilter = MouseFilterMode.Pass;
         OnKeyBindDown += HandleClick;

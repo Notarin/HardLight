@@ -4,18 +4,18 @@
 - type: entity
   id: Magazine9x19mmImprovised
   name: "Improvised Pistol Magazine (9x19mm)"
-  parent: [ BaseItem, BaseC1Contraband ]
+  parent: [BaseItem, BaseC1Contraband]
   components:
   - type: Tag
     tags:
-      - Magazine9x19mm
-      - Magazine9x19mmImprovised
+    - Magazine9x19mm
+    - Magazine9x19mmImprovised
   - type: BallisticAmmoProvider
     proto: null
     mayTransfer: true
     whitelist:
       tags:
-        - Cartridge9x19mm # HardLight: generic tag accepts all 9x19mm variants (FMJ, incendiary, uranium, rubber, improvised, etc.)
+      - Cartridge9x19mm # HardLight: generic tag accepts all 9x19mm variants (FMJ, incendiary, uranium, rubber, improvised, etc.)
     capacity: 6
   - type: Item
     inhandVisuals:
@@ -46,18 +46,18 @@
 - type: entity
   id: Magazine9x19mmSubMachineGunImprovised
   name: Improvised SMG magazine (9x19mm)
-  parent: [ BaseItem, BaseC1Contraband ]
+  parent: [BaseItem, BaseC1Contraband]
   components:
   - type: Tag
     tags:
-      - Magazine9x19mmSMGImprovised
+    - Magazine9x19mmSMGImprovised
   - type: BallisticAmmoProvider
     proto: null
     mayTransfer: true
     whitelist:
       tags:
-        - Cartridge9x19mm # HardLight: generic tag accepts all 9x19mm variants (FMJ, incendiary, uranium, rubber, improvised, etc.)
-        - Cartridge57x28mmFMJ # Hardlight, higher damage, no variants, purely for variety
+      - Cartridge9x19mm # HardLight: generic tag accepts all 9x19mm variants (FMJ, incendiary, uranium, rubber, improvised, etc.)
+      - Cartridge57x28mmFMJ # Hardlight, higher damage, no variants, purely for variety
     capacity: 20
   - type: Item
     inhandVisuals:

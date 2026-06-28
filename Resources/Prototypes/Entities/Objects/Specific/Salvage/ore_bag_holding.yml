@@ -13,15 +13,15 @@
     - state: icon
     - state: icon-on
       visible: false
-      map: [ "enum.ToggleVisuals.Layer" ]
+      map: ["enum.ToggleVisuals.Layer"]
     - state: icon-unlit
       shader: unshaded
   - type: GenericVisualizer
     visuals:
       enum.ToggleVisuals.Toggled:
         enum.ToggleVisuals.Layer:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
   # End Frontier: sprite revisions
   - type: Clothing
     sprite: _NF/Objects/Specific/Mining/ore_bag_holding.rsi # Frontier

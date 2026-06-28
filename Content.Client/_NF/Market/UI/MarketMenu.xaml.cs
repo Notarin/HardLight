@@ -15,8 +15,11 @@ namespace Content.Client._NF.Market.UI;
 [GenerateTypedNameReferences]
 public sealed partial class MarketMenu : FancyWindow
 {
-    [Dependency] private readonly IPrototypeManager _protoManager = default!;
-    [Dependency] private readonly IComponentFactory _componentFactory = default!;
+    [Dependency]
+    private readonly IPrototypeManager _protoManager = default!;
+
+    [Dependency]
+    private readonly IComponentFactory _componentFactory = default!;
 
     public event Action<BaseButton.ButtonEventArgs>? OnAddToCart1;
     public event Action<BaseButton.ButtonEventArgs>? OnAddToCart5;
@@ -74,8 +77,15 @@ public sealed partial class MarketMenu : FancyWindow
         else
             CartEntitiesCount.FontColorOverride = null;
         BalanceLabel.Text = BankSystemExtensions.ToSpesoString(uiState.Balance);
-        CartBalanceLabel.Text = Loc.GetString("market-cart-balance", ("cost", BankSystemExtensions.ToSpesoString(uiState.CartBalance)), ("cratecost", BankSystemExtensions.ToSpesoString(uiState.TransactionCost)));
-        PurchaseCart.Text = Loc.GetString("market-purchase-cart-button", ("cost", BankSystemExtensions.ToSpesoString(uiState.CartBalance + uiState.TransactionCost)));
+        CartBalanceLabel.Text = Loc.GetString(
+            "market-cart-balance",
+            ("cost", BankSystemExtensions.ToSpesoString(uiState.CartBalance)),
+            ("cratecost", BankSystemExtensions.ToSpesoString(uiState.TransactionCost))
+        );
+        PurchaseCart.Text = Loc.GetString(
+            "market-purchase-cart-button",
+            ("cost", BankSystemExtensions.ToSpesoString(uiState.CartBalance + uiState.TransactionCost))
+        );
         SetUiEnabled(uiState.Enabled);
         PurchaseCart.Disabled = uiState.CartDataList.Count <= 0;
     }
@@ -89,7 +99,13 @@ public sealed partial class MarketMenu : FancyWindow
         AddRows(Cart, true, cartData, marketModifier, enabled);
     }
 
-    private void AddRows(Control container, bool isCart, List<MarketData> data, float marketModifier, bool enabled = true)
+    private void AddRows(
+        Control container,
+        bool isCart,
+        List<MarketData> data,
+        float marketModifier,
+        bool enabled = true
+    )
     {
         foreach (var marketData in data.OrderBy(md => md.Prototype))
         {
@@ -115,9 +131,12 @@ public sealed partial class MarketMenu : FancyWindow
                     Title = { Text = prototype.Name },
                     Quantity = { Text = marketData.Quantity.ToString() },
                     Price = { Text = GetPriceString(marketData.Quantity, unitPrice) },
-                    Icon = { Texture = sprite.Icon?.Default }
+                    Icon = { Texture = sprite.Icon?.Default },
                 };
-                productRow.Return.OnPressed += args => { OnReturn?.Invoke(args); };
+                productRow.Return.OnPressed += args =>
+                {
+                    OnReturn?.Invoke(args);
+                };
                 productRow.Return.Disabled = !enabled;
 
                 container.AddChild(productRow);
@@ -127,7 +146,11 @@ public sealed partial class MarketMenu : FancyWindow
                 var priceText = GetPriceString(marketData.Quantity, unitPrice);
                 if (marketData.Quantity > 1)
                 {
-                    priceText = Loc.GetString("market-price-each", ("total", priceText), ("unitPrice", GetPriceString(1, unitPrice)));
+                    priceText = Loc.GetString(
+                        "market-price-each",
+                        ("total", priceText),
+                        ("unitPrice", GetPriceString(1, unitPrice))
+                    );
                 }
 
                 var productRow = new MarketProductRow(prototype)
@@ -135,16 +158,22 @@ public sealed partial class MarketMenu : FancyWindow
                     Title = { Text = prototype.Name },
                     Quantity = { Text = Loc.GetString("market-quantity-available", ("quantity", marketData.Quantity)) },
                     Price = { Text = priceText },
-                    Icon = { Texture = sprite.Icon?.Default }
+                    Icon = { Texture = sprite.Icon?.Default },
                 };
-                productRow.AddToCart1.OnPressed += args => { OnAddToCart1?.Invoke(args); };
+                productRow.AddToCart1.OnPressed += args =>
+                {
+                    OnAddToCart1?.Invoke(args);
+                };
                 productRow.AddToCart1.Disabled = !enabled;
 
                 if (marketData.Quantity > 1)
                 {
                     productRow.AddToCartAll.Visible = true;
                     productRow.AddToCartAll.Disabled = !enabled;
-                    productRow.AddToCartAll.OnPressed += args => { OnAddToCartAll?.Invoke(args); };
+                    productRow.AddToCartAll.OnPressed += args =>
+                    {
+                        OnAddToCartAll?.Invoke(args);
+                    };
                 }
                 else
                     productRow.AddToCartAll.Visible = false;
@@ -153,7 +182,10 @@ public sealed partial class MarketMenu : FancyWindow
                 {
                     productRow.AddToCart5.Visible = true;
                     productRow.AddToCart5.Disabled = !enabled;
-                    productRow.AddToCart5.OnPressed += args => { OnAddToCart5?.Invoke(args); };
+                    productRow.AddToCart5.OnPressed += args =>
+                    {
+                        OnAddToCart5?.Invoke(args);
+                    };
                 }
                 else
                     productRow.AddToCart5.Visible = false;
@@ -162,7 +194,10 @@ public sealed partial class MarketMenu : FancyWindow
                 {
                     productRow.AddToCart10.Visible = true;
                     productRow.AddToCart10.Disabled = !enabled;
-                    productRow.AddToCart10.OnPressed += args => { OnAddToCart10?.Invoke(args); };
+                    productRow.AddToCart10.OnPressed += args =>
+                    {
+                        OnAddToCart10?.Invoke(args);
+                    };
                 }
                 else
                     productRow.AddToCart10.Visible = false;
@@ -171,11 +206,13 @@ public sealed partial class MarketMenu : FancyWindow
                 {
                     productRow.AddToCart30.Visible = true;
                     productRow.AddToCart30.Disabled = !enabled;
-                    productRow.AddToCart30.OnPressed += args => { OnAddToCart30?.Invoke(args); };
+                    productRow.AddToCart30.OnPressed += args =>
+                    {
+                        OnAddToCart30?.Invoke(args);
+                    };
                 }
                 else
                     productRow.AddToCart30.Visible = false;
-
 
                 container.AddChild(productRow);
             }

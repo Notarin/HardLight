@@ -1,45 +1,69 @@
+using Content.Server.AlertLevel;
+using Content.Server.Atmos.EntitySystems;
+using Content.Server.Chat.Systems;
+using Content.Server.DoAfter;
+using Content.Server.Explosion.EntitySystems;
+using Content.Server.Kitchen.Components;
+using Content.Server.Popups;
+using Content.Server.Station.Systems;
+using Content.Shared.Actions.Events;
+using Content.Shared.Atmos;
+using Content.Shared.Audio;
+using Content.Shared.DoAfter;
+using Content.Shared.Examine;
+using Content.Shared.Interaction;
+using Content.Shared.Mobs.Components;
+using Content.Shared.Projectiles;
+using Content.Shared.Supermatter.Components;
+using Robust.Server.GameObjects;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Configuration;
 using Robust.Shared.Containers;
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Events;
-using Robust.Server.GameObjects;
-using Content.Shared.Atmos;
-using Content.Shared.Interaction;
-using Content.Shared.Projectiles;
-using Content.Shared.Mobs.Components;
-using Content.Server.Atmos.EntitySystems;
-using Content.Server.Chat.Systems;
-using Content.Server.Explosion.EntitySystems;
-using Content.Shared.Supermatter.Components;
-using Content.Server.AlertLevel;
-using Content.Server.Station.Systems;
-using Content.Server.Kitchen.Components;
-using Content.Shared.DoAfter;
-using Content.Shared.Examine;
-using Content.Server.DoAfter;
-using Content.Server.Popups;
-using Content.Shared.Audio;
-using Content.Shared.Actions.Events;
 
 namespace Content.Server.Supermatter.Systems;
 
 public sealed partial class SupermatterSystem : EntitySystem
 {
-    [Dependency] private readonly AtmosphereSystem _atmosphere = default!;
-    [Dependency] private readonly ChatSystem _chat = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly ExplosionSystem _explosion = default!;
-    [Dependency] private readonly TransformSystem _xform = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedAmbientSoundSystem _ambient = default!;
-    [Dependency] private readonly AlertLevelSystem _alert = default!;
-    [Dependency] private readonly StationSystem _station = default!;
-    [Dependency] private readonly DoAfterSystem _doAfter = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly IConfigurationManager _config = default!;
+    [Dependency]
+    private readonly AtmosphereSystem _atmosphere = default!;
 
+    [Dependency]
+    private readonly ChatSystem _chat = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly ExplosionSystem _explosion = default!;
+
+    [Dependency]
+    private readonly TransformSystem _xform = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedAmbientSoundSystem _ambient = default!;
+
+    [Dependency]
+    private readonly AlertLevelSystem _alert = default!;
+
+    [Dependency]
+    private readonly StationSystem _station = default!;
+
+    [Dependency]
+    private readonly DoAfterSystem _doAfter = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _config = default!;
 
     public override void Initialize()
     {
@@ -53,7 +77,6 @@ public sealed partial class SupermatterSystem : EntitySystem
         SubscribeLocalEvent<SupermatterComponent, ExaminedEvent>(OnExamine);
         SubscribeLocalEvent<SupermatterComponent, SupermatterDoAfterEvent>(OnGetSliver);
     }
-
 
     public override void Update(float frameTime)
     {
@@ -74,7 +97,6 @@ public sealed partial class SupermatterSystem : EntitySystem
             }
         }
     }
-
 
     public void Cycle(EntityUid uid, SupermatterComponent sm, float frameTime)
     {
@@ -119,9 +141,11 @@ public sealed partial class SupermatterSystem : EntitySystem
             sm.Activated = true;
 
         var target = args.OtherEntity;
-        if (args.OtherBody.BodyType == BodyType.Static
+        if (
+            args.OtherBody.BodyType == BodyType.Static
             || HasComp<SupermatterImmuneComponent>(target)
-            || _container.IsEntityInContainer(uid))
+            || _container.IsEntityInContainer(uid)
+        )
             return;
 
         if (!HasComp<ProjectileComponent>(target))
@@ -136,7 +160,7 @@ public sealed partial class SupermatterSystem : EntitySystem
         if (TryComp<SupermatterFoodComponent>(target, out var food))
             sm.Power += food.Energy;
         else if (TryComp<ProjectileComponent>(target, out var projectile))
-            sm.Power += (float) projectile.Damage.GetTotal();
+            sm.Power += (float)projectile.Damage.GetTotal();
         else
             sm.Power++;
 
@@ -193,7 +217,12 @@ public sealed partial class SupermatterSystem : EntitySystem
         sm.Damage += sm.DamageDelaminationPoint / 10;
 
         var integrity = GetIntegrity(sm).ToString("0.00");
-        SendSupermatterAnnouncement(uid, Loc.GetString("supermatter-announcement-cc-tamper", ("integrity", integrity)), true, "Central Command");
+        SendSupermatterAnnouncement(
+            uid,
+            Loc.GetString("supermatter-announcement-cc-tamper", ("integrity", integrity)),
+            true,
+            "Central Command"
+        );
 
         Spawn(sm.SliverPrototype, _transform.GetMapCoordinates(args.User));
         _popup.PopupClient(Loc.GetString("supermatter-tamper-end"), uid, args.User);
@@ -204,6 +233,8 @@ public sealed partial class SupermatterSystem : EntitySystem
     private void OnExamine(EntityUid uid, SupermatterComponent sm, ref ExaminedEvent args)
     {
         if (args.IsInDetailsRange)
-            args.PushMarkup(Loc.GetString("supermatter-examine-integrity", ("integrity", GetIntegrity(sm).ToString("0.00"))));
+            args.PushMarkup(
+                Loc.GetString("supermatter-examine-integrity", ("integrity", GetIntegrity(sm).ToString("0.00")))
+            );
     }
 }

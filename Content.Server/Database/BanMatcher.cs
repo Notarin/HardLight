@@ -41,10 +41,12 @@ public static class BanMatcher
             return false;
 
         var playerAddr = player.Address;
-        if (!player.ExemptFlags.HasFlag(ServerBanExemptFlags.IP)
+        if (
+            !player.ExemptFlags.HasFlag(ServerBanExemptFlags.IP)
             && playerAddr != null
             && ban.Addresses.Any(addr => playerAddr.IsInSubnet(addr))
-            && (!ban.ExemptFlags.HasFlag(ServerBanExemptFlags.BlacklistedRange) || player.IsNewPlayer))
+            && (!ban.ExemptFlags.HasFlag(ServerBanExemptFlags.BlacklistedRange) || player.IsNewPlayer)
+        )
         {
             return true;
         }
@@ -59,8 +61,7 @@ public static class BanMatcher
             switch (banHwid.Type)
             {
                 case HwidType.Legacy:
-                    if (player.HWId is { Length: > 0 } hwIdVar
-                        && hwIdVar.AsSpan().SequenceEqual(banHwid.Hwid.AsSpan()))
+                    if (player.HWId is { Length: > 0 } hwIdVar && hwIdVar.AsSpan().SequenceEqual(banHwid.Hwid.AsSpan()))
                     {
                         return true;
                     }

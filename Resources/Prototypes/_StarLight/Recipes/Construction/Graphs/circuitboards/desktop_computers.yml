@@ -138,22 +138,22 @@
       - tool: Screwing
         doAfter: 2
 
-#  - node: salvageJob
-#    entity: SalvageJobBoardComputerCircuitboard
-#    edges:
-#    - to: salvageJobDesktop
-#      steps:
-#      - tool: Screwing
-#        doAfter: 2
-#  - node: salvageJobDesktop
-#    entity: SalvageJobBoardComputerCircuitboardDesktop
-#    edges:
-#    - to: salvageJob
-#      steps:
-#      - tool: Screwing
-#        doAfter: 2
-
   - node: cargoRequest
+    #  - node: salvageJob
+    #    entity: SalvageJobBoardComputerCircuitboard
+    #    edges:
+    #    - to: salvageJobDesktop
+    #      steps:
+    #      - tool: Screwing
+    #        doAfter: 2
+    #  - node: salvageJobDesktop
+    #    entity: SalvageJobBoardComputerCircuitboardDesktop
+    #    edges:
+    #    - to: salvageJob
+    #      steps:
+    #      - tool: Screwing
+    #        doAfter: 2
+
     entity: CargoRequestComputerCircuitboard
     edges:
     - to: cargoRequestDesktop

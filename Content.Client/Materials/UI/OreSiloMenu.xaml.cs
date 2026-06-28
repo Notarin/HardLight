@@ -20,7 +20,7 @@ public sealed partial class OreSiloMenu : FancyWindow
         {
             var item = ClientList[args.ItemIndex];
             // a little bit of null suppression makes me feel great! :-)
-            OnClientEntryPressed?.Invoke((NetEntity) item.Metadata!);
+            OnClientEntryPressed?.Invoke((NetEntity)item.Metadata!);
         };
     }
 
@@ -35,19 +35,18 @@ public sealed partial class OreSiloMenu : FancyWindow
         var orderedClients = state.Clients.OrderBy(t => t.Item3).ThenBy(t => t.Item1.Id);
         foreach (var (ent, _, _) in orderedClients)
         {
-            items.Add(new ItemList.Item(ClientList)
-            {
-                Metadata = ent
-            });
+            items.Add(new ItemList.Item(ClientList) { Metadata = ent });
         }
 
-        ClientList.SetItems(items,
+        ClientList.SetItems(
+            items,
             (item1, item2) =>
             {
-                var ent1 = (NetEntity) item1.Metadata!;
-                var ent2 = (NetEntity) item2.Metadata!;
+                var ent1 = (NetEntity)item1.Metadata!;
+                var ent2 = (NetEntity)item2.Metadata!;
                 return ent1.CompareTo(ent2);
-            });
+            }
+        );
 
         var entTextDict = state.Clients.Select(t => (t.Item1, t.Item2)).ToDictionary();
         using var enumerator = ClientList.GetEnumerator();
@@ -61,4 +60,3 @@ public sealed partial class OreSiloMenu : FancyWindow
         }
     }
 }
-

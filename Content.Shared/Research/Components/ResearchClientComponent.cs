@@ -28,9 +28,7 @@ namespace Content.Shared.Research.Components
     ///     Sent to the server when the client deselects a research server.
     /// </summary>
     [Serializable, NetSerializable]
-    public sealed class ResearchClientServerDeselectedMessage : BoundUserInterfaceMessage
-    {
-    }
+    public sealed class ResearchClientServerDeselectedMessage : BoundUserInterfaceMessage { }
 
     /// <summary>
     ///     Sent to the server when the client chooses a research server.
@@ -50,9 +48,7 @@ namespace Content.Shared.Research.Components
     ///     Request that the server updates the client.
     /// </summary>
     [Serializable, NetSerializable]
-    public sealed class ResearchClientSyncMessage : BoundUserInterfaceMessage
-    {
-    }
+    public sealed class ResearchClientSyncMessage : BoundUserInterfaceMessage { }
 
     [NetSerializable, Serializable]
     public enum ResearchClientUiKey
@@ -68,7 +64,12 @@ namespace Content.Shared.Research.Components
         public int[] ServerIds;
         public int SelectedServerId;
 
-        public ResearchClientBoundInterfaceState(int serverCount, string[] serverNames, int[] serverIds, int selectedServerId = -1)
+        public ResearchClientBoundInterfaceState(
+            int serverCount,
+            string[] serverNames,
+            int[] serverIds,
+            int selectedServerId = -1
+        )
         {
             ServerCount = serverCount;
             ServerNames = serverNames;

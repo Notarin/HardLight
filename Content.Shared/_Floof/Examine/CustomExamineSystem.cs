@@ -1,7 +1,7 @@
 using System.Text.RegularExpressions;
+using Content.Shared._Common.Consent;
 using Content.Shared.ActionBlocker;
 using Content.Shared.Administration.Managers;
-using Content.Shared._Common.Consent;
 using Content.Shared.Examine;
 using Content.Shared.Interaction;
 using Robust.Shared.Player;
@@ -9,24 +9,37 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
-
 namespace Content.Shared._Floof.Examine;
-
 
 public abstract class SharedCustomExamineSystem : EntitySystem
 {
     public static ProtoId<ConsentTogglePrototype> NsfwDescConsent = "NSFWDescriptions";
-    public static int PublicMaxLength = 256, SubtleMaxLength = 256;
+    public static int PublicMaxLength = 256,
+        SubtleMaxLength = 256;
+
     /// <summary>Max length of any content field, INCLUDING markup.</summary>
     public static int AbsolutelyMaxLength = 1024;
 
-    private static readonly Regex BadMarkupRegex = new("\\[.*?head.*?\\]", RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(5));
+    private static readonly Regex BadMarkupRegex = new(
+        "\\[.*?head.*?\\]",
+        RegexOptions.IgnoreCase,
+        TimeSpan.FromMilliseconds(5)
+    );
 
-    [Dependency] private readonly SharedConsentSystem _consent = default!;
-    [Dependency] private readonly ExamineSystemShared _examine = default!;
-    [Dependency] private readonly ISharedAdminManager _admin = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!;
+    [Dependency]
+    private readonly SharedConsentSystem _consent = default!;
+
+    [Dependency]
+    private readonly ExamineSystemShared _examine = default!;
+
+    [Dependency]
+    private readonly ISharedAdminManager _admin = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly ActionBlockerSystem _actionBlocker = default!;
 
     public override void Initialize()
     {
@@ -46,14 +59,19 @@ public abstract class SharedCustomExamineSystem : EntitySystem
         {
             // Lots of code duplication, blegh.
             var allowNsfw = _consent.HasConsent(args.Examiner, NsfwDescConsent);
-            bool hasPublic = publicData.Content is not null, hasSubtle = subtleData.Content is not null;
+            bool hasPublic = publicData.Content is not null,
+                hasSubtle = subtleData.Content is not null;
 
             bool publicConsentHidden = hasPublic && publicData.RequiresConsent && !allowNsfw,
-                 subtleConsentHidden = hasSubtle && subtleData.RequiresConsent && !allowNsfw;
+                subtleConsentHidden = hasSubtle && subtleData.RequiresConsent && !allowNsfw;
 
             // If subtle is shown, then public is guaranteed to also be shown - this is to avoid extra raycasts
-            bool subtleRangeHidden = hasSubtle && !_examine.InRangeUnOccluded(args.Examiner, args.Examined, subtleData.VisibilityRange),
-                 publicRangeHidden = hasPublic && (!hasSubtle || subtleRangeHidden) && !_examine.InRangeUnOccluded(args.Examiner, args.Examined, publicData.VisibilityRange);
+            bool subtleRangeHidden =
+                    hasSubtle && !_examine.InRangeUnOccluded(args.Examiner, args.Examined, subtleData.VisibilityRange),
+                publicRangeHidden =
+                    hasPublic
+                    && (!hasSubtle || subtleRangeHidden)
+                    && !_examine.InRangeUnOccluded(args.Examiner, args.Examined, publicData.VisibilityRange);
 
             if (hasPublic && !publicConsentHidden && !publicRangeHidden)
             {
@@ -80,7 +98,10 @@ public abstract class SharedCustomExamineSystem : EntitySystem
             }
 
             // If something is hidden due to consent preferences, add a note (but only if in range)
-            if (hasPublic && !publicRangeHidden && publicConsentHidden || hasSubtle && !subtleRangeHidden && subtleConsentHidden)
+            if (
+                hasPublic && !publicRangeHidden && publicConsentHidden
+                || hasSubtle && !subtleRangeHidden && subtleConsentHidden
+            )
             {
                 var hiddenText = Loc.GetString("custom-examine-nsfw-hidden");
                 try
@@ -105,9 +126,7 @@ public abstract class SharedCustomExamineSystem : EntitySystem
     {
         bool Check(CustomExamineData data)
         {
-            if (data.Content is null
-                || data.ExpireTime.Ticks <= 0
-                || data.ExpireTime > _timing.CurTime)
+            if (data.Content is null || data.ExpireTime.Ticks <= 0 || data.ExpireTime > _timing.CurTime)
                 return false;
 
             data.Content = null;

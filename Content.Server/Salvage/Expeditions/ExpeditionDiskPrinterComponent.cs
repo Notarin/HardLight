@@ -12,14 +12,7 @@ public sealed partial class ExpeditionDiskPrinterComponent : Component
     public string DiskPrototype = "ExpeditionCoordinatesDisk";
 
     [DataField("difficulties")]
-    public List<string> Difficulties =
-    [
-        "NFEasy",
-        "NFModerate",
-        "NFHazardous",
-        "NFExtreme",
-        "NFNightmare",
-    ];
+    public List<string> Difficulties = ["NFEasy", "NFModerate", "NFHazardous", "NFExtreme", "NFNightmare"];
 
     [DataField]
     public SoundSpecifier PrintSound = new SoundPathSpecifier("/Audio/Machines/terminal_insert_disc.ogg");

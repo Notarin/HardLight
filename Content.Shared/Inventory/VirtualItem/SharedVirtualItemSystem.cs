@@ -26,11 +26,20 @@ namespace Content.Shared.Inventory.VirtualItem;
 /// </remarks>
 public abstract class SharedVirtualItemSystem : EntitySystem
 {
-    [Dependency] private readonly SharedContainerSystem _containerSystem = default!;
-    [Dependency] private readonly SharedItemSystem _itemSystem = default!;
-    [Dependency] private readonly InventorySystem _inventorySystem = default!;
-    [Dependency] private readonly SharedHandsSystem _handsSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency]
+    private readonly SharedContainerSystem _containerSystem = default!;
+
+    [Dependency]
+    private readonly SharedItemSystem _itemSystem = default!;
+
+    [Dependency]
+    private readonly InventorySystem _inventorySystem = default!;
+
+    [Dependency]
+    private readonly SharedHandsSystem _handsSystem = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
 
     private static readonly EntProtoId VirtualItem = "VirtualItem";
 
@@ -42,7 +51,9 @@ public abstract class SharedVirtualItemSystem : EntitySystem
         SubscribeLocalEvent<VirtualItemComponent, BeingUnequippedAttemptEvent>(OnBeingUnequippedAttempt);
 
         SubscribeLocalEvent<VirtualItemComponent, BeforeRangedInteractEvent>(OnBeforeRangedInteract);
-        SubscribeLocalEvent<VirtualItemComponent, GettingInteractedWithAttemptEvent>(OnGettingInteractedWithAttemptEvent);
+        SubscribeLocalEvent<VirtualItemComponent, GettingInteractedWithAttemptEvent>(
+            OnGettingInteractedWithAttemptEvent
+        );
 
         SubscribeLocalEvent<VirtualItemComponent, GetUsedEntityEvent>(OnGetUsedEntity);
     }
@@ -74,7 +85,10 @@ public abstract class SharedVirtualItemSystem : EntitySystem
         args.Handled = true;
     }
 
-    private void OnGettingInteractedWithAttemptEvent(Entity<VirtualItemComponent> ent, ref GettingInteractedWithAttemptEvent args)
+    private void OnGettingInteractedWithAttemptEvent(
+        Entity<VirtualItemComponent> ent,
+        ref GettingInteractedWithAttemptEvent args
+    )
     {
         // No interactions with a virtual item, please.
         args.Cancelled = true;
@@ -111,7 +125,13 @@ public abstract class SharedVirtualItemSystem : EntitySystem
     }
 
     /// <inheritdoc cref="TrySpawnVirtualItemInHand(Robust.Shared.GameObjects.EntityUid,Robust.Shared.GameObjects.EntityUid,bool)"/>
-    public bool TrySpawnVirtualItemInHand(EntityUid blockingEnt, EntityUid user, [NotNullWhen(true)] out EntityUid? virtualItem, bool dropOthers = false, Hand? empty = null)
+    public bool TrySpawnVirtualItemInHand(
+        EntityUid blockingEnt,
+        EntityUid user,
+        [NotNullWhen(true)] out EntityUid? virtualItem,
+        bool dropOthers = false,
+        Hand? empty = null
+    )
     {
         virtualItem = null;
         if (empty == null && !_handsSystem.TryGetEmptyHand(user, out empty))
@@ -179,7 +199,13 @@ public abstract class SharedVirtualItemSystem : EntitySystem
     }
 
     /// <inheritdoc cref="TrySpawnVirtualItemInInventory(Robust.Shared.GameObjects.EntityUid,Robust.Shared.GameObjects.EntityUid,string,bool)"/>
-    public bool TrySpawnVirtualItemInInventory(EntityUid blockingEnt, EntityUid user, string slot, bool force, [NotNullWhen(true)] out EntityUid? virtualItem)
+    public bool TrySpawnVirtualItemInInventory(
+        EntityUid blockingEnt,
+        EntityUid user,
+        string slot,
+        bool force,
+        [NotNullWhen(true)] out EntityUid? virtualItem
+    )
     {
         if (!TrySpawnVirtualItem(blockingEnt, user, out virtualItem))
             return false;
@@ -229,7 +255,11 @@ public abstract class SharedVirtualItemSystem : EntitySystem
     /// <param name="blockingEnt">The entity we will make a virtual entity copy of</param>
     /// <param name="user">The entity that we want to insert the virtual entity</param>
     /// <param name="virtualItem">The virtual item, if spawned</param>
-    public bool TrySpawnVirtualItem(EntityUid blockingEnt, EntityUid user, [NotNullWhen(true)] out EntityUid? virtualItem)
+    public bool TrySpawnVirtualItem(
+        EntityUid blockingEnt,
+        EntityUid user,
+        [NotNullWhen(true)] out EntityUid? virtualItem
+    )
     {
         var pos = Transform(user).Coordinates;
         virtualItem = PredictedSpawnAttachedTo(VirtualItem, pos);

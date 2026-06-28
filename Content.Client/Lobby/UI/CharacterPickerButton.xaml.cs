@@ -34,7 +34,8 @@ public sealed partial class CharacterPickerButton : ContainerButton
         IPrototypeManager prototypeManager,
         ButtonGroup group,
         ICharacterProfile profile,
-        bool isSelected)
+        bool isSelected
+    )
     {
         RobustXamlLoader.Load(this);
         _entManager = entityManager;
@@ -45,11 +46,15 @@ public sealed partial class CharacterPickerButton : ContainerButton
 
         if (profile is not HumanoidCharacterProfile humanoid)
         {
-            _previewDummy = entityManager.SpawnEntity(prototypeManager.Index<SpeciesPrototype>(SharedHumanoidAppearanceSystem.DefaultSpecies).DollPrototype, MapCoordinates.Nullspace);
+            _previewDummy = entityManager.SpawnEntity(
+                prototypeManager.Index<SpeciesPrototype>(SharedHumanoidAppearanceSystem.DefaultSpecies).DollPrototype,
+                MapCoordinates.Nullspace
+            );
         }
         else
         {
-            _previewDummy = UserInterfaceManager.GetUIController<LobbyUIController>()
+            _previewDummy = UserInterfaceManager
+                .GetUIController<LobbyUIController>()
                 .LoadProfileEntity(humanoid, null, true);
 
             var highPriorityJob = humanoid.JobPriorities.SingleOrDefault(p => p.Value == JobPriority.High).Key;

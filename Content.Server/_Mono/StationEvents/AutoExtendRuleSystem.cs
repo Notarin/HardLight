@@ -11,9 +11,14 @@ namespace Content.Server._Mono.StationEvents;
 // VRS: Ported from Triad_Sector — monitors player proximity to event entities and extends duration if players are present.
 public sealed class AutoExtendRuleSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
+
+    [Dependency]
+    private readonly MobStateSystem _mobState = default!;
 
     public override void Update(float frameTime)
     {
@@ -55,16 +60,18 @@ public sealed class AutoExtendRuleSystem : EntitySystem
                 {
                     var exists = _player.TryGetSessionById(playerData.UserId, out var session);
 
-                    if (!exists || session == null
+                    if (
+                        !exists
+                        || session == null
                         || session.AttachedEntity is not { Valid: true } playerEnt
                         || HasComp<GhostComponent>(playerEnt)
-                        || _mobState.IsDead(playerEnt))
+                        || _mobState.IsDead(playerEnt)
+                    )
                         continue;
 
                     var playerCoords = Transform(playerEnt).Coordinates;
 
-                    if (ourCoords.TryDistance(EntityManager, playerCoords, out var distance) &&
-                        distance <= checkRadius)
+                    if (ourCoords.TryDistance(EntityManager, playerCoords, out var distance) && distance <= checkRadius)
                     {
                         hasNearbyPlayer = true;
                         break;

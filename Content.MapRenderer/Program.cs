@@ -19,14 +19,14 @@ namespace Content.MapRenderer
     internal sealed class Program
     {
         private const string NoMapsChosenMessage = "No maps were chosen";
-        private static readonly Func<string, string> ChosenMapIdNotIntMessage = id => $"The chosen id is not a valid integer: {id}";
+        private static readonly Func<string, string> ChosenMapIdNotIntMessage = id =>
+            $"The chosen id is not a valid integer: {id}";
         private static readonly Func<int, string> NoMapFoundWithIdMessage = id => $"No map found with chosen id: {id}";
 
         private static readonly MapPainter MapPainter = new();
 
         internal static async Task Main(string[] args)
         {
-
             if (!CommandLineArguments.TryParse(args, out var arguments))
                 return;
 
@@ -36,8 +36,8 @@ namespace Content.MapRenderer
                 Console.WriteLine("Didn't specify any maps to paint! Loading the map list...");
 
                 await using var pair = await PoolManager.GetServerClient();
-                var mapIds = pair.Server
-                    .ResolveDependency<IPrototypeManager>()
+                var mapIds = pair
+                    .Server.ResolveDependency<IPrototypeManager>()
                     .EnumeratePrototypes<GameMapPrototype>()
                     .Where(map => !pair.IsTestPrototype(map))
                     .Select(map => map.ID)
@@ -46,7 +46,7 @@ namespace Content.MapRenderer
                 Array.Sort(mapIds);
 
                 Console.WriteLine("Map List");
-                Console.WriteLine(string.Join('\n', mapIds.Select((id, i) => $"{i,3}: {id}")));
+                Console.WriteLine(string.Join('\n', mapIds.Select((id, i) => $"{i, 3}: {id}")));
                 Console.WriteLine("Select one, multiple separated by commas or \"all\":");
                 Console.Write("> ");
                 var input = Console.ReadLine();
@@ -111,8 +111,8 @@ namespace Content.MapRenderer
 
                 Console.Write("Fetching map prototypes... ");
                 await using var pair = await PoolManager.GetServerClient();
-                var mapPrototypes = pair.Server
-                    .ResolveDependency<IPrototypeManager>()
+                var mapPrototypes = pair
+                    .Server.ResolveDependency<IPrototypeManager>()
                     .EnumeratePrototypes<GameMapPrototype>()
                     .ToArray();
                 Console.WriteLine("[Done]");
@@ -153,7 +153,7 @@ namespace Content.MapRenderer
                 var mapViewerData = new MapViewerData
                 {
                     Id = map,
-                    Name = Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(map)
+                    Name = Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(map),
                 };
 
                 mapViewerData.ParallaxLayers.Add(LayerGroup.DefaultParallax());
@@ -179,7 +179,7 @@ namespace Content.MapRenderer
                                 {
                                     Method = WebpEncodingMethod.BestQuality,
                                     FileFormat = WebpFileFormatType.Lossless,
-                                    TransparentColorMode = WebpTransparentColorMode.Preserve
+                                    TransparentColorMode = WebpTransparentColorMode.Preserve,
                                 };
 
                                 await grid.SaveAsync(savePath, encoder);
@@ -193,7 +193,9 @@ namespace Content.MapRenderer
 
                         grid.Dispose();
 
-                        mapViewerData.Grids.Add(new GridLayer(renderedGrid, Path.Combine(map, Path.GetFileName(savePath))));
+                        mapViewerData.Grids.Add(
+                            new GridLayer(renderedGrid, Path.Combine(map, Path.GetFileName(savePath)))
+                        );
 
                         mapNames.Add(fileName);
                         i++;

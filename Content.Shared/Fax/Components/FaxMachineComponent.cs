@@ -214,11 +214,19 @@ public sealed partial class FaxPrintout
     [DataField] // Frontier
     public bool StampProtected { get; private set; } // Frontier
 
-    private FaxPrintout()
-    {
-    }
+    private FaxPrintout() { }
 
-    public FaxPrintout(string content, string name, string? label = null, string? prototypeId = null, string? stampState = null, List<StampDisplayInfo>? stampedBy = null, bool locked = false, string? senderFaxName = null, bool stampProtected = false) // Frontier: add stampProtected
+    public FaxPrintout(
+        string content,
+        string name,
+        string? label = null,
+        string? prototypeId = null,
+        string? stampState = null,
+        List<StampDisplayInfo>? stampedBy = null,
+        bool locked = false,
+        string? senderFaxName = null,
+        bool stampProtected = false
+    ) // Frontier: add stampProtected
     {
         Content = content;
         Name = name;

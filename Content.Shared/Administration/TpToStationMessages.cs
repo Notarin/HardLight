@@ -32,7 +32,8 @@ public sealed class TeleportPlayerToStationResponseMessage : EntityEventArgs
         bool success,
         string? error = null,
         string? destinationName = null,
-        Vector2 destinationPosition = default)
+        Vector2 destinationPosition = default
+    )
     {
         OwnerUserId = ownerUserId;
         Success = success;

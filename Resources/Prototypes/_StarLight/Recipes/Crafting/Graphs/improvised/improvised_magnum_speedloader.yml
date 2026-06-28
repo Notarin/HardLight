@@ -2,12 +2,12 @@
   id: Improvised45MagnumSpeedLoaderGraph
   start: start
   graph:
-    - node: start
-      edges:
-        - to: shell
-          steps:
-            - material: Steel
-              amount: 6
-              doAfter: 5
-    - node: shell
-      entity: SpeedLoader45MagnumImprovised
+  - node: start
+    edges:
+    - to: shell
+      steps:
+      - material: Steel
+        amount: 6
+        doAfter: 5
+  - node: shell
+    entity: SpeedLoader45MagnumImprovised

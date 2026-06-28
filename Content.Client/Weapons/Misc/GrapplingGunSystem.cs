@@ -13,9 +13,14 @@ namespace Content.Client.Weapons.Misc;
 
 public sealed class GrapplingGunSystem : SharedGrapplingGunSystem
 {
-    [Dependency] private readonly HandsSystem _hands = default!;
-    [Dependency] private readonly InputSystem _input = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
+    [Dependency]
+    private readonly HandsSystem _hands = default!;
+
+    [Dependency]
+    private readonly InputSystem _input = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
 
     public override void Update(float frameTime)
     {
@@ -32,9 +37,11 @@ public sealed class GrapplingGunSystem : SharedGrapplingGunSystem
         if (!TryComp<GrapplingGunComponent>(handUid, out var grappling))
             return;
 
-        if (!TryComp<JointComponent>(handUid, out var jointComp) ||
-            !jointComp.GetJoints.TryGetValue(GrapplingJoint, out var joint) ||
-            joint is not DistanceJoint distance)
+        if (
+            !TryComp<JointComponent>(handUid, out var jointComp)
+            || !jointComp.GetJoints.TryGetValue(GrapplingJoint, out var joint)
+            || joint is not DistanceJoint distance
+        )
         {
             return;
         }
@@ -44,8 +51,7 @@ public sealed class GrapplingGunSystem : SharedGrapplingGunSystem
 
         var reelKey = _input.CmdStates.GetState(EngineKeyFunctions.UseSecondary) == BoundKeyState.Down;
 
-        if (!TryComp<CombatModeComponent>(local, out var combatMode) ||
-            !combatMode.IsInCombatMode)
+        if (!TryComp<CombatModeComponent>(local, out var combatMode) || !combatMode.IsInCombatMode)
         {
             reelKey = false;
         }

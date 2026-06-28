@@ -7,7 +7,6 @@ namespace Content.Server.Construction.Completions;
 /// <summary>
 ///     This graph action is used to set values on entities with the <see cref="WiresPanelSecurityComponent"/>
 /// </summary>
-
 [UsedImplicitly]
 [DataDefinition]
 public sealed partial class SetWiresPanelSecurity : IGraphAction

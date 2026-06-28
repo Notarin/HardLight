@@ -43,16 +43,16 @@
   components:
   - type: StorageFill
     contents:
-      - id: StasisCage
-        amount: 4
-      - id: MedkitCombatStasiziumFilled
-      - id: StasisBaton
-      - id: FreedomImplanter
-      - id: ScramImplanter
-      - id: MindShieldImplanter
-      - id: RCDChrono
-      - id: ChronoTeleporter
-      - id: HandHeldMassScanner
-      - id: Flash
-      - id: TimelineDisruptorFlatpack
-      - id: DeathAcidifierImplanter
+    - id: StasisCage
+      amount: 4
+    - id: MedkitCombatStasiziumFilled
+    - id: StasisBaton
+    - id: FreedomImplanter
+    - id: ScramImplanter
+    - id: MindShieldImplanter
+    - id: RCDChrono
+    - id: ChronoTeleporter
+    - id: HandHeldMassScanner
+    - id: Flash
+    - id: TimelineDisruptorFlatpack
+    - id: DeathAcidifierImplanter

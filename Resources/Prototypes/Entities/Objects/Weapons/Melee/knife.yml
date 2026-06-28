@@ -363,7 +363,7 @@
   components:
   - type: Tag
     tags:
-      - Knife
+    - Knife
   - type: Sprite
     sprite: Objects/Weapons/Melee/kitchen_knife.rsi
     state: icon
@@ -401,9 +401,9 @@
     doAfterDuration: 4.0
   - type: Utensil
     types:
-      - Knife
+    - Knife
   - type: Tool
     qualities:
-      - Slicing
+    - Slicing
     useSound:
       path: /Audio/Items/Culinary/chop.ogg

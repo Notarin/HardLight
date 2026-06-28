@@ -1,8 +1,8 @@
 using System;
-using Content.Server.GameTicking;
 using Content.Server._Hardlight.StationPay;
-using Content.Shared.CCVar;
+using Content.Server.GameTicking;
 using Content.Shared._NF.Bank.Components;
+using Content.Shared.CCVar;
 using Content.Shared.GameTicking;
 using Content.Shared.Roles;
 using Robust.Server.Player;
@@ -20,7 +20,8 @@ public sealed class StationPaySystemTests
     private const string TestMapId = "StationPayTestMap";
 
     [TestPrototypes]
-    private const string Prototypes = @"
+    private const string Prototypes =
+        @"
 - type: gameMap
   id: StationPayTestMap
   mapName: StationPayTestMap
@@ -40,14 +41,16 @@ public sealed class StationPaySystemTests
     [Test]
     public async Task StationJobPaysDuringRoundTest()
     {
-        await using var pair = await PoolManager.GetServerClient(new PoolSettings
-        {
-            DummyTicker = false,
-            Connected = true,
-            InLobby = true,
-            Fresh = true,
-            Destructive = true // Messing with the round state breaks the pair for future tests
-        });
+        await using var pair = await PoolManager.GetServerClient(
+            new PoolSettings
+            {
+                DummyTicker = false,
+                Connected = true,
+                InLobby = true,
+                Fresh = true,
+                Destructive = true, // Messing with the round state breaks the pair for future tests
+            }
+        );
 
         var server = pair.Server;
         var ticker = server.System<GameTicker>();
@@ -83,11 +86,14 @@ public sealed class StationPaySystemTests
             Assert.That(ticker.RunLevel, Is.EqualTo(GameRunLevel.InRound));
 
             var account = server.EntMan.GetComponent<BankAccountComponent>(attached);
-            Assert.That(account.Balance, Is.GreaterThan(initialBalance), "Expected station pay to deposit during the round once the payout delay elapsed.");
+            Assert.That(
+                account.Balance,
+                Is.GreaterThan(initialBalance),
+                "Expected station pay to deposit during the round once the payout delay elapsed."
+            );
         });
 
         await server.WaitPost(() => ticker.RestartRound());
         await pair.CleanReturnAsync();
-
     }
 }

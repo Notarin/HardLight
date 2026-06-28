@@ -1,8 +1,8 @@
 using System.Numerics;
 using Content.Shared.DoAfter;
+using Content.Shared.Whitelist;
 using Robust.Shared.Audio;
 using Robust.Shared.Containers;
-using Content.Shared.Whitelist;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 

@@ -11,9 +11,14 @@ namespace Content.Server.Xenoarchaeology.XenoArtifacts.Effects.Systems;
 /// </summary>
 public sealed class ChargeBatteryArtifactSystem : EntitySystem
 {
-    [Dependency] private readonly BatterySystem _battery = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
+    [Dependency]
+    private readonly BatterySystem _battery = default!;
+
+    [Dependency]
+    private readonly EntityLookupSystem _lookup = default!;
+
+    [Dependency]
+    private readonly TransformSystem _transform = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -23,7 +28,12 @@ public sealed class ChargeBatteryArtifactSystem : EntitySystem
 
     private void OnActivated(EntityUid uid, ChargeBatteryArtifactComponent component, ArtifactActivatedEvent args)
     {
-        foreach (var battery in _lookup.GetEntitiesInRange<BatteryComponent>(_transform.GetMapCoordinates(uid), component.Radius))
+        foreach (
+            var battery in _lookup.GetEntitiesInRange<BatteryComponent>(
+                _transform.GetMapCoordinates(uid),
+                component.Radius
+            )
+        )
         {
             _battery.SetCharge(battery, battery.Comp.MaxCharge, battery);
         }

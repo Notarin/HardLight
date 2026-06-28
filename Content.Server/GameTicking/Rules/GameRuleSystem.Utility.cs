@@ -12,7 +12,8 @@ using Robust.Shared.Random;
 
 namespace Content.Server.GameTicking.Rules;
 
-public abstract partial class GameRuleSystem<T> where T: IComponent
+public abstract partial class GameRuleSystem<T>
+    where T : IComponent
 {
     protected EntityQueryEnumerator<ActiveGameRuleComponent, T, GameRuleComponent> QueryActiveRules()
     {
@@ -61,10 +62,12 @@ public abstract partial class GameRuleSystem<T> where T: IComponent
         return true;
     }
 
-    protected bool TryFindRandomTile(out Vector2i tile,
+    protected bool TryFindRandomTile(
+        out Vector2i tile,
         [NotNullWhen(true)] out EntityUid? targetStation,
         out EntityUid targetGrid,
-        out EntityCoordinates targetCoords)
+        out EntityCoordinates targetCoords
+    )
     {
         tile = default;
         targetStation = EntityUid.Invalid;
@@ -72,19 +75,23 @@ public abstract partial class GameRuleSystem<T> where T: IComponent
         targetCoords = EntityCoordinates.Invalid;
         if (TryGetRandomStation(out targetStation))
         {
-            return TryFindRandomTileOnStation((targetStation.Value, Comp<StationDataComponent>(targetStation.Value)),
+            return TryFindRandomTileOnStation(
+                (targetStation.Value, Comp<StationDataComponent>(targetStation.Value)),
                 out tile,
                 out targetGrid,
-                out targetCoords);
+                out targetCoords
+            );
         }
 
         return false;
     }
 
-    protected bool TryFindRandomTileOnStation(Entity<StationDataComponent> station,
+    protected bool TryFindRandomTileOnStation(
+        Entity<StationDataComponent> station,
         out Vector2i tile,
         out EntityUid targetGrid,
-        out EntityCoordinates targetCoords)
+        out EntityCoordinates targetCoords
+    )
     {
         tile = default;
         targetCoords = EntityCoordinates.Invalid;
@@ -113,12 +120,14 @@ public abstract partial class GameRuleSystem<T> where T: IComponent
 
         for (var i = 0; i < 10; i++)
         {
-            var randomX = RobustRandom.Next((int) aabb.Left, (int) aabb.Right);
-            var randomY = RobustRandom.Next((int) aabb.Bottom, (int) aabb.Top);
+            var randomX = RobustRandom.Next((int)aabb.Left, (int)aabb.Right);
+            var randomY = RobustRandom.Next((int)aabb.Bottom, (int)aabb.Top);
 
             tile = new Vector2i(randomX, randomY);
-            if (_atmosphere.IsTileSpace(targetGrid, Transform(targetGrid).MapUid, tile)
-                || _atmosphere.IsTileAirBlocked(targetGrid, tile, mapGridComp: gridComp))
+            if (
+                _atmosphere.IsTileSpace(targetGrid, Transform(targetGrid).MapUid, tile)
+                || _atmosphere.IsTileAirBlocked(targetGrid, tile, mapGridComp: gridComp)
+            )
             {
                 continue;
             }

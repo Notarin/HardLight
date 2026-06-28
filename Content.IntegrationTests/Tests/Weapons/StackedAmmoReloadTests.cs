@@ -8,7 +8,8 @@ namespace Content.IntegrationTests.Tests.Weapons;
 public sealed class StackedAmmoReloadTests : InteractionTest
 {
     [TestPrototypes] // HL: Added custom weapon prototype to deal with fillFromPrototype defaulting to True now.
-    private const string Prototypes = @"
+    private const string Prototypes =
+        @"
 - type: entity
   parent: [ RMCBaseWeaponShotgun, RMCBaseAttachableHolder ]
   name: M42A2 Pump Shotgun
@@ -31,6 +32,7 @@ public sealed class StackedAmmoReloadTests : InteractionTest
   - type: Gun
     shotsPerBurst: 1
 ";
+
     [Test]
     public async Task ShotgunHandfulLoadsOneShellAtATime()
     {

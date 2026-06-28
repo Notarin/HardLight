@@ -6,10 +6,12 @@ namespace Content.Client.Fluids;
 
 public sealed class PuddleDebugOverlaySystem : SharedPuddleDebugOverlaySystem
 {
-    [Dependency] private readonly IOverlayManager _overlayManager = default!;
+    [Dependency]
+    private readonly IOverlayManager _overlayManager = default!;
 
     public readonly Dictionary<EntityUid, PuddleOverlayDebugMessage> TileData = new();
     private PuddleOverlay? _overlay;
+
     public override void Initialize()
     {
         base.Initialize();

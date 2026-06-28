@@ -1,6 +1,6 @@
 - type: entity
   id: TemporaryEntityForTimedDespawnSpawners
-  categories: [ HideSpawnMenu, Spawner ]
+  categories: [HideSpawnMenu, Spawner]
   components:
   - type: Transform
     anchored: True

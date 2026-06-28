@@ -15,7 +15,7 @@ public abstract class DevicePortPrototype
     /// <summary>
     ///     Localization string for the port name. Displayed in the linking UI.
     /// </summary>
-    [DataField("name", required:true)]
+    [DataField("name", required: true)]
     public string Name = default!;
 
     /// <summary>
@@ -27,9 +27,7 @@ public abstract class DevicePortPrototype
 }
 
 [Prototype]
-public sealed partial class SinkPortPrototype : DevicePortPrototype, IPrototype
-{
-}
+public sealed partial class SinkPortPrototype : DevicePortPrototype, IPrototype { }
 
 [Prototype]
 public sealed partial class SourcePortPrototype : DevicePortPrototype, IPrototype

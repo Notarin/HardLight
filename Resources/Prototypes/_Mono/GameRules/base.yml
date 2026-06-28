@@ -23,13 +23,13 @@
   id: MonoAISTCShuttleSpawnerScheduler
   parent: BaseGameRule
   components:
-    - type: BasicStationEventScheduler
-      scheduledGameRules: !type:NestedSelector
-        tableId: DamagedAIShipsTable
-      minimumTimeUntilFirstEvent: 3600 # 1 hour
-      minMaxEventTiming:
-        min: 5400 # 90 minutes between events
-        max: 7200 # 120 minutes between events
+  - type: BasicStationEventScheduler
+    scheduledGameRules: !type:NestedSelector
+      tableId: DamagedAIShipsTable
+    minimumTimeUntilFirstEvent: 3600 # 1 hour
+    minMaxEventTiming:
+      min: 5400 # 90 minutes between events
+      max: 7200 # 120 minutes between events
 
 - type: entity
   id: MonoAISTCShuttleSpawnerSchedulerTier2

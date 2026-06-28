@@ -1,15 +1,14 @@
+using Content.Shared.Animals.Systems;
 using Content.Shared.Storage;
 using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
-using Content.Shared.Animals.Systems;
 
 namespace Content.Shared.Animals.Components; // Moved this to Shared so the client can use it for verb drawing.
 
 /// <summary>
 ///     This component handles prizeball laying for the prizeball layer trait
 /// </summary>
-
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState(fieldDeltas: true)]
 public sealed partial class PrizeballLayingComponent : Component
 {
@@ -28,7 +27,7 @@ public sealed partial class PrizeballLayingComponent : Component
         "action-popup-lay-pball-flavor-1",
         "action-popup-lay-pball-flavor-2",
         "action-popup-lay-pball-flavor-3",
-        "action-popup-lay-pball-flavor-4"
+        "action-popup-lay-pball-flavor-4",
     };
 
     /// <summary>
@@ -94,27 +93,32 @@ public sealed partial class PrizeballLayingComponent : Component
     /// The number of prizeballs produced since last flavor text
     /// </summary>
     public bool Temporary = false;
+
     public bool hasPballs()
     {
         return pballs >= 1.0f;
     }
+
     public bool isHeavyOfPballs()
     {
         return pballs >= PballSlowThreshold;
     }
+
     public bool isFullOfPballs()
     {
         return pballs >= MaxPballs;
     }
+
     public bool doFlavor()
     {
-        if(pballsFlavorAccum >= FlavorFreq)
+        if (pballsFlavorAccum >= FlavorFreq)
         {
             pballsFlavorAccum -= FlavorFreq;
             return true;
         }
         return false;
     }
+
     public void makeTempFrom(PrizeballLayingComponent other)
     {
         FlavorMessages = other.FlavorMessages;

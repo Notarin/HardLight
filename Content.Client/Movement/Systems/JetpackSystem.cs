@@ -12,11 +12,20 @@ namespace Content.Client.Movement.Systems;
 
 public sealed class JetpackSystem : SharedJetpackSystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly ClothingSystem _clothing = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly ClothingSystem _clothing = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _mapSystem = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     public override void Initialize()
     {
@@ -72,9 +81,11 @@ public sealed class JetpackSystem : SharedJetpackSystem
     {
         var uidXform = Transform(uid);
         // Don't show particles unless the user is moving.
-        if (Container.TryGetContainingContainer((uid, uidXform, null), out var container) &&
-            TryComp<PhysicsComponent>(container.Owner, out var body) &&
-            body.LinearVelocity.LengthSquared() < 1f)
+        if (
+            Container.TryGetContainingContainer((uid, uidXform, null), out var container)
+            && TryComp<PhysicsComponent>(container.Owner, out var body)
+            && body.LinearVelocity.LengthSquared() < 1f
+        )
         {
             return;
         }
@@ -84,7 +95,10 @@ public sealed class JetpackSystem : SharedJetpackSystem
 
         if (TryComp<MapGridComponent>(gridUid, out var grid))
         {
-            coordinates = new EntityCoordinates(gridUid.Value, _mapSystem.WorldToLocal(gridUid.Value, grid, _transform.ToMapCoordinates(coordinates).Position));
+            coordinates = new EntityCoordinates(
+                gridUid.Value,
+                _mapSystem.WorldToLocal(gridUid.Value, grid, _transform.ToMapCoordinates(coordinates).Position)
+            );
         }
         else if (uidXform.MapUid != null)
         {

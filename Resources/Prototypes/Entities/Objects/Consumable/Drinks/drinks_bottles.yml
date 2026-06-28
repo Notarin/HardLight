@@ -27,13 +27,12 @@
     damageContainer: Inorganic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 5
       behaviors:
-      - !type:SpillBehavior { }
+      - !type:SpillBehavior {}
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: TrashOnSolutionEmpty
     solution: drink
   - type: PhysicalComposition
@@ -63,21 +62,20 @@
     damageContainer: Inorganic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 5
       behaviors:
       - !type:PlaySoundBehavior
         sound:
           collection: GlassBreak
-      - !type:SpillBehavior { }
+      - !type:SpillBehavior {}
       - !type:SpawnEntitiesBehavior
         spawn:
           BrokenBottle:
             min: 1
             max: 1
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: Tool
     qualities:
     - Rolling
@@ -101,8 +99,8 @@
           False: {state: "icon"}
   - type: Sprite
     layers:
-      - state: icon
-        map: ["enum.OpenableVisuals.Layer"]
+    - state: icon
+      map: ["enum.OpenableVisuals.Layer"]
 
 - type: entity
   id: DrinkBottleVisualsAll
@@ -118,11 +116,11 @@
   - type: Sprite
     sprite: Objects/Consumable/Drinks/alco-bottle.rsi
     layers:
-      - state: icon
-        map: ["enum.OpenableVisuals.Layer"]
-      - state: fill-1
-        map: ["enum.SolutionContainerLayers.Fill"]
-        visible: false
+    - state: icon
+      map: ["enum.OpenableVisuals.Layer"]
+    - state: fill-1
+      map: ["enum.SolutionContainerLayers.Fill"]
+      visible: false
   - type: SolutionContainerVisuals
     maxFillLevels: 5
     fillBaseName: fill-
@@ -162,11 +160,11 @@
   - type: Sprite
     sprite: Objects/Consumable/Drinks/alco-bottle.rsi
     layers:
-      - state: icon_blue
-        map: ["enum.OpenableVisuals.Layer"]
-      - state: fill-1
-        map: ["enum.SolutionContainerLayers.Fill"]
-        visible: false
+    - state: icon_blue
+      map: ["enum.OpenableVisuals.Layer"]
+    - state: fill-1
+      map: ["enum.SolutionContainerLayers.Fill"]
+      visible: false
   - type: SolutionContainerVisuals
     maxFillLevels: 6
     fillBaseName: fill-
@@ -337,11 +335,11 @@
   - type: Sprite
     sprite: Objects/Consumable/Drinks/alco-bottle.rsi
     layers:
-      - state: icon_green
-        map: ["enum.OpenableVisuals.Layer"]
-      - state: fill-1
-        map: ["enum.SolutionContainerLayers.Fill"]
-        visible: false
+    - state: icon_green
+      map: ["enum.OpenableVisuals.Layer"]
+    - state: fill-1
+      map: ["enum.SolutionContainerLayers.Fill"]
+      visible: false
   - type: SolutionContainerVisuals
     maxFillLevels: 6
     fillBaseName: fill-
@@ -564,7 +562,7 @@
 - type: entity
   parent: [DrinkBottleVisualsAll, DrinkBottleGlassBaseFull]
   id: DrinkBeerGrowler # Needs to be renamed DrinkBeerBottleFull
-  name: beer growler  # beer it is. coffee. beer? coff-ee? be-er? c-o... b-e
+  name: beer growler # beer it is. coffee. beer? coff-ee? be-er? c-o... b-e
   description: An alcoholic beverage made from malted grains, hops, yeast, and water. XL growler bottle.
   components:
   - type: SolutionContainerManager
@@ -648,11 +646,11 @@
   - type: Sprite
     sprite: Objects/Consumable/Drinks/waterbottle.rsi
     layers:
-      - state: icon
-        map: ["enum.OpenableVisuals.Layer"]
-      - state: icon-1
-        map: ["enum.SolutionContainerLayers.Fill"]
-        visible: false
+    - state: icon
+      map: ["enum.OpenableVisuals.Layer"]
+    - state: icon-1
+      map: ["enum.SolutionContainerLayers.Fill"]
+      visible: false
   - type: Appearance
   - type: SolutionContainerVisuals
     maxFillLevels: 5

@@ -1,16 +1,16 @@
+using System.Diagnostics.CodeAnalysis;
 using Content.Server.Emp;
+using Content.Server.Kitchen.Components;
 using Content.Server.Power.Components;
+using Content.Server.Power.EntitySystems;
+using Content.Server.UserInterface;
+using Content.Shared.Containers.ItemSlots;
 using Content.Shared.Examine;
+using Content.Shared.Popups;
 using Content.Shared.PowerCell;
 using Content.Shared.PowerCell.Components;
 using Content.Shared.Rounding;
 using Robust.Shared.Containers;
-using System.Diagnostics.CodeAnalysis;
-using Content.Server.Kitchen.Components;
-using Content.Server.Power.EntitySystems;
-using Content.Server.UserInterface;
-using Content.Shared.Containers.ItemSlots;
-using Content.Shared.Popups;
 using ActivatableUISystem = Content.Shared.UserInterface.ActivatableUISystem;
 
 namespace Content.Server.PowerCell;
@@ -20,13 +20,26 @@ namespace Content.Server.PowerCell;
 /// </summary>
 public sealed partial class PowerCellSystem : SharedPowerCellSystem
 {
-    [Dependency] private readonly ActivatableUISystem _activatable = default!;
-    [Dependency] private readonly BatterySystem _battery = default!;
-    [Dependency] private readonly SharedContainerSystem _containerSystem = default!;
-    [Dependency] private readonly ItemSlotsSystem _itemSlotsSystem = default!;
-    [Dependency] private readonly SharedAppearanceSystem _sharedAppearanceSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly RiggableSystem _riggableSystem = default!;
+    [Dependency]
+    private readonly ActivatableUISystem _activatable = default!;
+
+    [Dependency]
+    private readonly BatterySystem _battery = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _containerSystem = default!;
+
+    [Dependency]
+    private readonly ItemSlotsSystem _itemSlotsSystem = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _sharedAppearanceSystem = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly RiggableSystem _riggableSystem = default!;
 
     public override void Initialize()
     {
@@ -71,16 +84,22 @@ public sealed partial class PowerCellSystem : SharedPowerCellSystem
         _sharedAppearanceSystem.SetData(uid, PowerCellVisuals.ChargeLevel, level);
 
         // If this power cell is inside a cell-slot, inform that entity that the power has changed (for updating visuals n such).
-        if (_containerSystem.TryGetContainingContainer((uid, null, null), out var container)
+        if (
+            _containerSystem.TryGetContainingContainer((uid, null, null), out var container)
             && TryComp(container.Owner, out PowerCellSlotComponent? slot)
-            && _itemSlotsSystem.TryGetSlot(container.Owner, slot.CellSlotId, out var itemSlot))
+            && _itemSlotsSystem.TryGetSlot(container.Owner, slot.CellSlotId, out var itemSlot)
+        )
         {
             if (itemSlot.Item == uid)
                 RaiseLocalEvent(container.Owner, new PowerCellChangedEvent(false));
         }
     }
 
-    protected override void OnCellRemoved(EntityUid uid, PowerCellSlotComponent component, EntRemovedFromContainerMessage args)
+    protected override void OnCellRemoved(
+        EntityUid uid,
+        PowerCellSlotComponent component,
+        EntRemovedFromContainerMessage args
+    )
     {
         base.OnCellRemoved(uid, component, args);
 
@@ -93,7 +112,12 @@ public sealed partial class PowerCellSystem : SharedPowerCellSystem
 
     #region Activatable
     /// <inheritdoc/>
-    public override bool HasActivatableCharge(EntityUid uid, PowerCellDrawComponent? battery = null, PowerCellSlotComponent? cell = null, EntityUid? user = null)
+    public override bool HasActivatableCharge(
+        EntityUid uid,
+        PowerCellDrawComponent? battery = null,
+        PowerCellSlotComponent? cell = null,
+        EntityUid? user = null
+    )
     {
         // Default to true if we don't have the components.
         if (!Resolve(uid, ref battery, ref cell, false))
@@ -106,7 +130,12 @@ public sealed partial class PowerCellSystem : SharedPowerCellSystem
     /// Tries to use the <see cref="PowerCellDrawComponent.UseRate"/> for this entity.
     /// </summary>
     /// <param name="user">Popup to this user with the relevant detail if specified.</param>
-    public bool TryUseActivatableCharge(EntityUid uid, PowerCellDrawComponent? battery = null, PowerCellSlotComponent? cell = null, EntityUid? user = null)
+    public bool TryUseActivatableCharge(
+        EntityUid uid,
+        PowerCellDrawComponent? battery = null,
+        PowerCellSlotComponent? cell = null,
+        EntityUid? user = null
+    )
     {
         // Default to true if we don't have the components.
         if (!Resolve(uid, ref battery, ref cell, false))
@@ -114,7 +143,11 @@ public sealed partial class PowerCellSystem : SharedPowerCellSystem
 
         if (TryUseCharge(uid, battery.UseRate, cell, user))
         {
-            _sharedAppearanceSystem.SetData(uid, PowerCellSlotVisuals.Enabled, HasActivatableCharge(uid, battery, cell, user));
+            _sharedAppearanceSystem.SetData(
+                uid,
+                PowerCellSlotVisuals.Enabled,
+                HasActivatableCharge(uid, battery, cell, user)
+            );
             _activatable.CheckUsage(uid);
             return true;
         }
@@ -127,7 +160,8 @@ public sealed partial class PowerCellSystem : SharedPowerCellSystem
         EntityUid uid,
         PowerCellDrawComponent? battery = null,
         PowerCellSlotComponent? cell = null,
-        EntityUid? user = null)
+        EntityUid? user = null
+    )
     {
         if (!Resolve(uid, ref battery, ref cell, false))
             return true;
@@ -165,7 +199,12 @@ public sealed partial class PowerCellSystem : SharedPowerCellSystem
     /// <summary>
     /// Tries to use charge from a slotted battery.
     /// </summary>
-    public bool TryUseCharge(EntityUid uid, float charge, PowerCellSlotComponent? component = null, EntityUid? user = null)
+    public bool TryUseCharge(
+        EntityUid uid,
+        float charge,
+        PowerCellSlotComponent? component = null,
+        EntityUid? user = null
+    )
     {
         if (!TryGetBatteryFromSlot(uid, out var batteryEnt, out var battery, component))
         {
@@ -187,15 +226,21 @@ public sealed partial class PowerCellSystem : SharedPowerCellSystem
         return true;
     }
 
-    public bool TryGetBatteryFromSlot(EntityUid uid, [NotNullWhen(true)] out BatteryComponent? battery, PowerCellSlotComponent? component = null)
+    public bool TryGetBatteryFromSlot(
+        EntityUid uid,
+        [NotNullWhen(true)] out BatteryComponent? battery,
+        PowerCellSlotComponent? component = null
+    )
     {
         return TryGetBatteryFromSlot(uid, out _, out battery, component);
     }
 
-    public bool TryGetBatteryFromSlot(EntityUid uid,
+    public bool TryGetBatteryFromSlot(
+        EntityUid uid,
         [NotNullWhen(true)] out EntityUid? batteryEnt,
         [NotNullWhen(true)] out BatteryComponent? battery,
-        PowerCellSlotComponent? component = null)
+        PowerCellSlotComponent? component = null
+    )
     {
         if (!Resolve(uid, ref component, false))
         {

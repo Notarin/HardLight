@@ -15,9 +15,14 @@ namespace Content.Server.Power.EntitySystems
     [UsedImplicitly]
     public sealed class CableMultitoolSystem : EntitySystem
     {
-        [Dependency] private readonly ToolSystem _toolSystem = default!;
-        [Dependency] private readonly PowerNetSystem _pnSystem = default!;
-        [Dependency] private readonly ExamineSystemShared _examineSystem = default!;
+        [Dependency]
+        private readonly ToolSystem _toolSystem = default!;
+
+        [Dependency]
+        private readonly PowerNetSystem _pnSystem = default!;
+
+        [Dependency]
+        private readonly ExamineSystemShared _examineSystem = default!;
 
         public override void Initialize()
         {
@@ -29,7 +34,12 @@ namespace Content.Server.Power.EntitySystems
 
         private void OnAfterInteractUsing(EntityUid uid, CableComponent component, AfterInteractUsingEvent args)
         {
-            if (args.Handled || args.Target == null || !args.CanReach || !_toolSystem.HasQuality(args.Used, SharedToolSystem.PulseQuality))
+            if (
+                args.Handled
+                || args.Target == null
+                || !args.CanReach
+                || !_toolSystem.HasQuality(args.Used, SharedToolSystem.PulseQuality)
+            )
                 return;
 
             var markup = FormattedMessage.FromMarkupOrThrow(GenerateCableMarkup(uid));
@@ -54,12 +64,12 @@ namespace Content.Server.Power.EntitySystems
                     Message = Loc.GetString("cable-multitool-system-verb-tooltip"),
                     Text = Loc.GetString("cable-multitool-system-verb-name"),
                     Category = VerbCategory.Examine,
-                    Icon = new SpriteSpecifier.Texture(new ("/Textures/Interface/VerbIcons/zap.svg.192dpi.png")),
+                    Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/zap.svg.192dpi.png")),
                     Act = () =>
                     {
                         var markup = FormattedMessage.FromMarkupOrThrow(GenerateCableMarkup(uid));
                         _examineSystem.SendExamineTooltip(args.User, uid, markup, false, false);
-                    }
+                    },
                 };
 
                 args.Verbs.Add(verb);
@@ -75,12 +85,13 @@ namespace Content.Server.Power.EntitySystems
             {
                 if (!(node.Value.NodeGroup is IBasePowerNet))
                     continue;
-                var p = (IBasePowerNet) node.Value.NodeGroup;
+                var p = (IBasePowerNet)node.Value.NodeGroup;
                 var ps = _pnSystem.GetNetworkStatistics(p.NetworkNode);
 
                 float storageRatio = ps.InStorageCurrent / Math.Max(ps.InStorageMax, 1.0f);
                 float outStorageRatio = ps.OutStorageCurrent / Math.Max(ps.OutStorageMax, 1.0f);
-                return Loc.GetString("cable-multitool-system-statistics",
+                return Loc.GetString(
+                    "cable-multitool-system-statistics",
                     ("supplyc", ps.SupplyCurrent),
                     ("supplyb", ps.SupplyBatteries),
                     ("supplym", ps.SupplyTheoretical),

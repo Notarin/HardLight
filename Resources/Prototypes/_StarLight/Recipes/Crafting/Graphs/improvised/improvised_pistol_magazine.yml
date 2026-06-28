@@ -2,12 +2,12 @@
   id: Improvised9x19mmMagazineGraph
   start: start
   graph:
-    - node: start
-      edges:
-        - to: shell
-          steps:
-            - material: Steel
-              amount: 5
-              doAfter: 2
-    - node: shell
-      entity: Magazine9x19mmImprovised
+  - node: start
+    edges:
+    - to: shell
+      steps:
+      - material: Steel
+        amount: 5
+        doAfter: 2
+  - node: shell
+    entity: Magazine9x19mmImprovised

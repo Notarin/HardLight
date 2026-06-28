@@ -80,12 +80,12 @@
 
 # Uplinks
 - type: entity
-  parent: [ BaseItem, StorePresetMercenaryUplink ]
+  parent: [BaseItem, StorePresetMercenaryUplink]
   id: BaseMercenaryUplinkRadio
   name: mercenary uplink
   description: Retro looking old radio... But like, Merc-flavored...
   suffix: Empty
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     sprite: Objects/Devices/communication.rsi

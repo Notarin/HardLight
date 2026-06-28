@@ -19,13 +19,26 @@ namespace Content.Client.MainMenu
     // Instantiated dynamically through the StateManager, Dependencies will be resolved.
     public sealed class MainScreen : Robust.Client.State.State
     {
-        [Dependency] private readonly IBaseClient _client = default!;
-        [Dependency] private readonly IClientNetManager _netManager = default!;
-        [Dependency] private readonly IConfigurationManager _configurationManager = default!;
-        [Dependency] private readonly IGameController _controllerProxy = default!;
-        [Dependency] private readonly IResourceCache _resourceCache = default!;
-        [Dependency] private readonly IUserInterfaceManager _userInterfaceManager = default!;
-        [Dependency] private readonly ILogManager _logManager = default!;
+        [Dependency]
+        private readonly IBaseClient _client = default!;
+
+        [Dependency]
+        private readonly IClientNetManager _netManager = default!;
+
+        [Dependency]
+        private readonly IConfigurationManager _configurationManager = default!;
+
+        [Dependency]
+        private readonly IGameController _controllerProxy = default!;
+
+        [Dependency]
+        private readonly IResourceCache _resourceCache = default!;
+
+        [Dependency]
+        private readonly IUserInterfaceManager _userInterfaceManager = default!;
+
+        [Dependency]
+        private readonly ILogManager _logManager = default!;
 
         private ISawmill _sawmill = default!;
 
@@ -100,7 +113,8 @@ namespace Content.Client.MainMenu
                 var invalidReason = Loc.GetString(reason.ToText());
                 _userInterfaceManager.Popup(
                     Loc.GetString("main-menu-invalid-username-with-reason", ("invalidReason", invalidReason)),
-                    Loc.GetString("main-menu-invalid-username"));
+                    Loc.GetString("main-menu-invalid-username")
+                );
                 return;
             }
 
@@ -181,7 +195,7 @@ namespace Content.Client.MainMenu
 
         private void _onConnectFailed(object? _, NetConnectFailArgs args)
         {
-            _userInterfaceManager.Popup(Loc.GetString("main-menu-failed-to-connect",("reason", args.Reason)));
+            _userInterfaceManager.Popup(Loc.GetString("main-menu-failed-to-connect", ("reason", args.Reason)));
             _netManager.ConnectFailed -= _onConnectFailed;
             _setConnectingState(false);
         }

@@ -7,7 +7,7 @@
   name: 'Anomalous Lab'
   minimumDistance: 7000
   maximumDistance: 10800
-  spawnGamePreset: [ NFAdventure, NFPirate ]
+  spawnGamePreset: [NFAdventure, NFPirate]
   spawnGroup: ScienceLab
   gridPath: /Maps/_Mono/POI/anomalouslab.yml
   addComponents:
@@ -24,8 +24,8 @@
     MonoAnomalousLab:
       stationProto: StandardFrontierOutpost
       components:
-        - type: StationNameSetup
-          mapNameTemplate: 'Anomalous Lab'
-        - type: StationJobs
-          availableJobs: {}
-        - type: StationDeadDropHintExempt
+      - type: StationNameSetup
+        mapNameTemplate: 'Anomalous Lab'
+      - type: StationJobs
+        availableJobs: {}
+      - type: StationDeadDropHintExempt

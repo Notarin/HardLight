@@ -17,11 +17,13 @@ public static class MarketDataExtensions
     /// <remarks>
     /// For existing data, increaseAmount is not validated. Any update that would result in a non-positive quantity results in item removal.
     /// </remarks>
-    public static void Upsert(this List<MarketData> marketDataList,
+    public static void Upsert(
+        this List<MarketData> marketDataList,
         string entityPrototypeId,
         int increaseAmount,
         double estimatedPrice,
-        string? stackPrototypeId = null)
+        string? stackPrototypeId = null
+    )
     {
         // Find the MarketData for the given EntityPrototype.
         var prototypeMarketData = marketDataList.FirstOrDefault(md => md.Prototype == entityPrototypeId);
@@ -37,10 +39,14 @@ public static class MarketDataExtensions
         else if (increaseAmount > 0)
         {
             // If it doesn't exist, create a new MarketData and add it to the list.
-            marketDataList.Add(new MarketData(entityPrototypeId,
-                stackPrototypeId ?? prototypeMarketData?.StackPrototype,
-                increaseAmount,
-                estimatedPrice));
+            marketDataList.Add(
+                new MarketData(
+                    entityPrototypeId,
+                    stackPrototypeId ?? prototypeMarketData?.StackPrototype,
+                    increaseAmount,
+                    estimatedPrice
+                )
+            );
         }
     }
 

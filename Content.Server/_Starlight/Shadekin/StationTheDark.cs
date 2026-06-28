@@ -7,7 +7,8 @@ namespace Content.Server._Starlight.Shadekin;
 
 public sealed class StationTheDarkSystem : EntitySystem
 {
-    [Dependency] private readonly MapLoaderSystem _loader = default!;
+    [Dependency]
+    private readonly MapLoaderSystem _loader = default!;
 
     private readonly ResPath _map = new("/Maps/_HL/TheDark.yml");
     private EntityUid? _thedark;

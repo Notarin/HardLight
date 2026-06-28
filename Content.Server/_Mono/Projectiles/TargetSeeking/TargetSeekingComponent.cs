@@ -121,5 +121,5 @@ public enum TrackingMethod
     /// <summary>
     /// Even more accurate tracking.
     /// </summary>
-    AdvancedPredictive = 3
+    AdvancedPredictive = 3,
 }

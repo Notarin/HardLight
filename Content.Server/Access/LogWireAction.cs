@@ -52,7 +52,12 @@ public sealed partial class LogWireAction : ComponentWireAction<AccessReaderComp
     {
         _access.LogAccess((wire.Owner, comp), Loc.GetString(PulseLog));
         comp.LoggingDisabled = true;
-        WiresSystem.StartWireAction(wire.Owner, PulseTimeout, PulseTimeoutKey.Key, new TimedWireEvent(AwaitPulseCancel, wire));
+        WiresSystem.StartWireAction(
+            wire.Owner,
+            PulseTimeout,
+            PulseTimeoutKey.Key,
+            new TimedWireEvent(AwaitPulseCancel, wire)
+        );
     }
 
     public override void Update(Wire wire)
@@ -69,6 +74,6 @@ public sealed partial class LogWireAction : ComponentWireAction<AccessReaderComp
 
     private enum PulseTimeoutKey : byte
     {
-        Key
+        Key,
     }
 }

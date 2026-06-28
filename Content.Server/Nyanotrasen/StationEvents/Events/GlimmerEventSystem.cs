@@ -1,15 +1,21 @@
 using Content.Server.GameTicking.Rules.Components;
 using Content.Server.Psionics.Glimmer;
-using Content.Shared.Psionics.Glimmer;
 using Content.Shared.GameTicking.Components;
+using Content.Shared.Psionics.Glimmer;
 
 namespace Content.Server.StationEvents.Events
 {
     public sealed class GlimmerEventSystem : StationEventSystem<GlimmerEventComponent>
     {
-        [Dependency] private readonly GlimmerSystem _glimmerSystem = default!;
+        [Dependency]
+        private readonly GlimmerSystem _glimmerSystem = default!;
 
-        protected override void Ended(EntityUid uid, GlimmerEventComponent component, GameRuleComponent gameRule, GameRuleEndedEvent args)
+        protected override void Ended(
+            EntityUid uid,
+            GlimmerEventComponent component,
+            GameRuleComponent gameRule,
+            GameRuleEndedEvent args
+        )
         {
             base.Ended(uid, component, gameRule, args);
 

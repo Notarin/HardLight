@@ -9,19 +9,30 @@ using Content.Shared.PDA;
 using Content.Shared.Roles;
 using Content.Shared.StatusIcon;
 using Robust.Shared.Prototypes;
-using Robust.Shared.Timing;
 using Robust.Shared.Serialization; // Frontier
+using Robust.Shared.Timing;
 
 namespace Content.Shared.Access.Systems;
 
 public abstract class SharedIdCardSystem : EntitySystem
 {
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedAccessSystem _access = default!;
-    [Dependency] private readonly InventorySystem _inventorySystem = default!;
-    [Dependency] private readonly MetaDataSystem _metaSystem = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+    [Dependency]
+    private readonly ISharedAdminLogManager _adminLogger = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly SharedAccessSystem _access = default!;
+
+    [Dependency]
+    private readonly InventorySystem _inventorySystem = default!;
+
+    [Dependency]
+    private readonly MetaDataSystem _metaSystem = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
 
     public override void Initialize()
     {
@@ -75,9 +86,11 @@ public abstract class SharedIdCardSystem : EntitySystem
     public bool TryFindIdCard(EntityUid uid, out Entity<IdCardComponent> idCard)
     {
         // check held item?
-        if (TryComp(uid, out HandsComponent? hands) &&
-            hands.ActiveHandEntity is EntityUid heldItem &&
-            TryGetIdCard(heldItem, out idCard))
+        if (
+            TryComp(uid, out HandsComponent? hands)
+            && hands.ActiveHandEntity is EntityUid heldItem
+            && TryGetIdCard(heldItem, out idCard)
+        )
         {
             return true;
         }
@@ -105,8 +118,7 @@ public abstract class SharedIdCardSystem : EntitySystem
             return true;
         }
 
-        if (TryComp(uid, out PdaComponent? pda)
-        && TryComp(pda.ContainedId, out idCardComp))
+        if (TryComp(uid, out PdaComponent? pda) && TryComp(pda.ContainedId, out idCardComp))
         {
             idCard = (pda.ContainedId.Value, idCardComp);
             return true;
@@ -149,13 +161,21 @@ public abstract class SharedIdCardSystem : EntitySystem
 
         if (player != null)
         {
-            _adminLogger.Add(LogType.Identity, LogImpact.Low,
-                $"{ToPrettyString(player.Value):player} has changed the job title of {ToPrettyString(uid):entity} to {jobTitle} ");
+            _adminLogger.Add(
+                LogType.Identity,
+                LogImpact.Low,
+                $"{ToPrettyString(player.Value):player} has changed the job title of {ToPrettyString(uid):entity} to {jobTitle} "
+            );
         }
         return true;
     }
 
-    public bool TryChangeJobIcon(EntityUid uid, JobIconPrototype jobIcon, IdCardComponent? id = null, EntityUid? player = null)
+    public bool TryChangeJobIcon(
+        EntityUid uid,
+        JobIconPrototype jobIcon,
+        IdCardComponent? id = null,
+        EntityUid? player = null
+    )
     {
         if (!Resolve(uid, ref id, logMissing: false))
         {
@@ -172,8 +192,11 @@ public abstract class SharedIdCardSystem : EntitySystem
 
         if (player != null)
         {
-            _adminLogger.Add(LogType.Identity, LogImpact.Low,
-                $"{ToPrettyString(player.Value):player} has changed the job icon of {ToPrettyString(uid):entity} to {jobIcon} ");
+            _adminLogger.Add(
+                LogType.Identity,
+                LogImpact.Low,
+                $"{ToPrettyString(player.Value):player} has changed the job icon of {ToPrettyString(uid):entity} to {jobIcon} "
+            );
         }
 
         return true;
@@ -227,8 +250,11 @@ public abstract class SharedIdCardSystem : EntitySystem
 
         if (player != null)
         {
-            _adminLogger.Add(LogType.Identity, LogImpact.Low,
-                $"{ToPrettyString(player.Value):player} has changed the name of {ToPrettyString(uid):entity} to {fullName} ");
+            _adminLogger.Add(
+                LogType.Identity,
+                LogImpact.Low,
+                $"{ToPrettyString(player.Value):player} has changed the name of {ToPrettyString(uid):entity} to {fullName} "
+            );
         }
         return true;
     }
@@ -249,18 +275,14 @@ public abstract class SharedIdCardSystem : EntitySystem
         var jobSuffix = string.IsNullOrWhiteSpace(jobTitle) ? string.Empty : $" ({jobTitle})";
 
         var val = string.IsNullOrWhiteSpace(id.FullName)
-            ? Loc.GetString(id.NameLocId,
-                ("jobSuffix", jobSuffix))
-            : Loc.GetString(id.FullNameLocId,
-                ("fullName", id.FullName),
-                ("jobSuffix", jobSuffix));
+            ? Loc.GetString(id.NameLocId, ("jobSuffix", jobSuffix))
+            : Loc.GetString(id.FullNameLocId, ("fullName", id.FullName), ("jobSuffix", jobSuffix));
         _metaSystem.SetEntityName(uid, val);
     }
 
     private static string ExtractFullTitle(IdCardComponent idCardComponent)
     {
-        return $"{idCardComponent.FullName} ({CultureInfo.CurrentCulture.TextInfo.ToTitleCase(idCardComponent.JobTitleText ?? string.Empty)})"
-            .Trim();
+        return $"{idCardComponent.FullName} ({CultureInfo.CurrentCulture.TextInfo.ToTitleCase(idCardComponent.JobTitleText ?? string.Empty)})".Trim();
     }
 
     public void SetExpireTime(Entity<ExpireIdCardComponent?> ent, TimeSpan time)
@@ -317,7 +339,12 @@ public abstract class SharedIdCardSystem : EntitySystem
         public readonly List<ProtoId<AccessLevelPrototype>> AccessList;
         public readonly string JobPrototype;
 
-        public WriteToTargetIdMessage(string fullName, string jobTitle, List<ProtoId<AccessLevelPrototype>> accessList, string jobPrototype)
+        public WriteToTargetIdMessage(
+            string fullName,
+            string jobTitle,
+            List<ProtoId<AccessLevelPrototype>> accessList,
+            string jobPrototype
+        )
         {
             FullName = fullName;
             JobTitle = jobTitle;

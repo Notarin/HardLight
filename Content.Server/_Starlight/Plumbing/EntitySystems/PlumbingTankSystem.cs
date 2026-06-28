@@ -15,9 +15,14 @@ namespace Content.Server._Starlight.Plumbing.EntitySystems;
 [UsedImplicitly]
 public sealed class PlumbingTankSystem : EntitySystem
 {
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionSystem = default!;
-    [Dependency] private readonly NodeContainerSystem _nodeContainer = default!;
-    [Dependency] private readonly PlumbingPullSystem _pullSystem = default!;
+    [Dependency]
+    private readonly SharedSolutionContainerSystem _solutionSystem = default!;
+
+    [Dependency]
+    private readonly NodeContainerSystem _nodeContainer = default!;
+
+    [Dependency]
+    private readonly PlumbingPullSystem _pullSystem = default!;
 
     public override void Initialize()
     {
@@ -28,7 +33,14 @@ public sealed class PlumbingTankSystem : EntitySystem
     private void OnTankUpdate(Entity<PlumbingTankComponent> ent, ref PlumbingDeviceUpdateEvent args)
     {
         // Get our tank solution
-        if (!_solutionSystem.TryGetSolution(ent.Owner, ent.Comp.SolutionName, out var tankSolutionEnt, out var tankSolution))
+        if (
+            !_solutionSystem.TryGetSolution(
+                ent.Owner,
+                ent.Comp.SolutionName,
+                out var tankSolutionEnt,
+                out var tankSolution
+            )
+        )
             return;
 
         if (tankSolution.AvailableVolume <= 0)
@@ -41,7 +53,13 @@ public sealed class PlumbingTankSystem : EntitySystem
         if (inletNode.PlumbingNet == null)
             return;
 
-        var (_, nextIndex) = _pullSystem.PullFromNetwork(ent.Owner, inletNode.PlumbingNet, tankSolutionEnt.Value, ent.Comp.TransferAmount, ent.Comp.RoundRobinIndex);
+        var (_, nextIndex) = _pullSystem.PullFromNetwork(
+            ent.Owner,
+            inletNode.PlumbingNet,
+            tankSolutionEnt.Value,
+            ent.Comp.TransferAmount,
+            ent.Comp.RoundRobinIndex
+        );
         ent.Comp.RoundRobinIndex = nextIndex;
     }
 }

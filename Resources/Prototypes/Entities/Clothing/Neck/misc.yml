@@ -8,7 +8,7 @@
     sprite: Clothing/Neck/Misc/headphones.rsi
     layers:
     - state: icon
-      map: [ "enum.ToggleVisuals.Layer" ]
+      map: ["enum.ToggleVisuals.Layer"]
   - type: Clothing
     equippedPrefix: off
     sprite: Clothing/Neck/Misc/headphones.rsi

@@ -38,8 +38,7 @@ public ref struct LogStringHandler
             format = argument[0] == '@' ? argument[1..] : argument;
         }
 
-        if (Values.TryAdd(format, value) ||
-            Values[format] == (object?) value)
+        if (Values.TryAdd(format, value) || Values[format] == (object?)value)
         {
             return;
         }
@@ -78,7 +77,12 @@ public ref struct LogStringHandler
         _handler.AppendFormatted(value, alignment);
     }
 
-    public void AppendFormatted<T>(T value, int alignment, string? format, [CallerArgumentExpression("value")] string? argument = null)
+    public void AppendFormatted<T>(
+        T value,
+        int alignment,
+        string? format,
+        [CallerArgumentExpression("value")] string? argument = null
+    )
     {
         AddFormat(format, value, argument);
         _handler.AppendFormatted(value, alignment, format);

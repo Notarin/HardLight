@@ -12,7 +12,10 @@ namespace Content.Shared.VendingMachines
         [IdDataField]
         public string ID { get; private set; } = default!;
 
-        [DataField("startingInventory", customTypeSerializer:typeof(PrototypeIdDictionarySerializer<uint, EntityPrototype>))]
+        [DataField(
+            "startingInventory",
+            customTypeSerializer: typeof(PrototypeIdDictionarySerializer<uint, EntityPrototype>)
+        )]
         public Dictionary<string, uint> StartingInventory { get; private set; } = new();
 
         /// <summary>
@@ -29,10 +32,16 @@ namespace Content.Shared.VendingMachines
         [DataField("inheritAsUnlimited")]
         public bool InheritAsUnlimited;
 
-        [DataField("emaggedInventory", customTypeSerializer:typeof(PrototypeIdDictionarySerializer<uint, EntityPrototype>))]
+        [DataField(
+            "emaggedInventory",
+            customTypeSerializer: typeof(PrototypeIdDictionarySerializer<uint, EntityPrototype>)
+        )]
         public Dictionary<string, uint>? EmaggedInventory { get; private set; }
 
-        [DataField("contrabandInventory", customTypeSerializer:typeof(PrototypeIdDictionarySerializer<uint, EntityPrototype>))]
+        [DataField(
+            "contrabandInventory",
+            customTypeSerializer: typeof(PrototypeIdDictionarySerializer<uint, EntityPrototype>)
+        )]
         public Dictionary<string, uint>? ContrabandInventory { get; private set; }
     }
 }

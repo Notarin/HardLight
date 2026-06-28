@@ -15,8 +15,12 @@ namespace Content.Shared.FloofStation;
 */
 public abstract class SharedVoreSystem : EntitySystem
 {
-    [Dependency] private readonly SharedConsentSystem _consent = default!;
-    [Dependency] private readonly INetManager _netManager = default!;
+    [Dependency]
+    private readonly SharedConsentSystem _consent = default!;
+
+    [Dependency]
+    private readonly INetManager _netManager = default!;
+
     public override void Initialize()
     {
         base.Initialize();
@@ -33,13 +37,15 @@ public abstract class SharedVoreSystem : EntitySystem
 
     private void PhaseNomVerb(EntityUid uid, VoreComponent component, GetVerbsEvent<InnateVerb> args)
     {
-        if (!HasComp<NullSpaceComponent>(uid)
+        if (
+            !HasComp<NullSpaceComponent>(uid)
             || HasComp<NullSpaceComponent>(args.Target)
             || args.User == args.Target
             || !HasComp<VoreComponent>(args.Target)
             || !_consent.HasConsent(args.Target, "Vore")
             || !_consent.HasConsent(args.User, "Vore")
-            || HasComp<VoredComponent>(args.User))
+            || HasComp<VoredComponent>(args.User)
+        )
             return;
 
         InnateVerb verbDevour = new()
@@ -48,20 +54,22 @@ public abstract class SharedVoreSystem : EntitySystem
             Text = Loc.GetString("vore-devour"),
             Category = VerbCategory.Vore,
             Icon = new SpriteSpecifier.Rsi(new ResPath("Interface/Actions/devour.rsi"), "icon-on"),
-            Priority = -1
+            Priority = -1,
         };
         args.Verbs.Add(verbDevour);
     }
 
     private void DevourVerb(EntityUid uid, VoreComponent component, GetVerbsEvent<InnateVerb> args)
     {
-        if (!args.CanInteract
+        if (
+            !args.CanInteract
             || !args.CanAccess
             || args.User == args.Target
             || !HasComp<VoreComponent>(args.Target)
             || !_consent.HasConsent(args.Target, "Vore")
             || !_consent.HasConsent(args.User, "Vore")
-            || HasComp<VoredComponent>(args.User))
+            || HasComp<VoredComponent>(args.User)
+        )
             return;
 
         InnateVerb verbDevour = new()
@@ -70,7 +78,7 @@ public abstract class SharedVoreSystem : EntitySystem
             Text = Loc.GetString("vore-devour"),
             Category = VerbCategory.Vore,
             Icon = new SpriteSpecifier.Rsi(new ResPath("Interface/Actions/devour.rsi"), "icon-on"),
-            Priority = -1
+            Priority = -1,
         };
         args.Verbs.Add(verbDevour);
     }
@@ -89,7 +97,7 @@ public abstract class SharedVoreSystem : EntitySystem
                 Text = Loc.GetString("vore-show-examine-on"),
                 Category = VerbCategory.Vore,
                 Priority = 0,
-                Message = "Will show to bystanders examine text that suggests you've consumed people"
+                Message = "Will show to bystanders examine text that suggests you've consumed people",
             };
             args.Verbs.Add(verbHideExamine);
         }
@@ -101,7 +109,7 @@ public abstract class SharedVoreSystem : EntitySystem
                 Text = Loc.GetString("vore-show-examine-off"),
                 Category = VerbCategory.Vore,
                 Priority = 0,
-                Message = "Will show to bystanders examine text that suggests you've consumed people"
+                Message = "Will show to bystanders examine text that suggests you've consumed people",
             };
             args.Verbs.Add(verbShowExamine);
         }
@@ -117,16 +125,14 @@ public abstract class SharedVoreSystem : EntitySystem
                 Text = Loc.GetString("vore-release", ("entity", prey)),
                 Category = VerbCategory.Vore,
                 Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/eject.svg.192dpi.png")),
-                Priority = 2
+                Priority = 2,
             };
             args.Verbs.Add(verbRelease);
 
             if (!TryComp<VoredComponent>(prey, out var vored))
                 return;
 
-            if (_consent.HasConsent(prey, "Digestion")
-                && HasComp<DamageableComponent>(args.Target)
-                && !vored.Digesting)
+            if (_consent.HasConsent(prey, "Digestion") && HasComp<DamageableComponent>(args.Target) && !vored.Digesting)
             {
                 InnateVerb verbDigest = new()
                 {
@@ -135,7 +141,7 @@ public abstract class SharedVoreSystem : EntitySystem
                     Category = VerbCategory.Vore,
                     Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/cutlery.svg.192dpi.png")),
                     Priority = 1,
-                    ConfirmationPopup = true
+                    ConfirmationPopup = true,
                 };
                 args.Verbs.Add(verbDigest);
             }
@@ -156,6 +162,8 @@ public abstract class SharedVoreSystem : EntitySystem
     public virtual void TryDevour(EntityUid uid, EntityUid target, VoreComponent? component = null) { }
 
     public virtual void Digest(EntityUid uid, VoredComponent? component = null) { }
+
     public virtual void StopDigest(EntityUid uid, VoredComponent? component = null) { }
+
     public virtual void ReleasePrey(EntityUid uid, VoredComponent? compnent = null) { }
 }

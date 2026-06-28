@@ -29,25 +29,43 @@ namespace Content.Client.UserInterface.Systems.Sandbox;
 [UsedImplicitly]
 public sealed class SandboxUIController : UIController, IOnStateChanged<GameplayState>, IOnSystemChanged<SandboxSystem>
 {
-    [Dependency] private readonly IConsoleHost _console = default!;
-    [Dependency] private readonly IEyeManager _eye = default!;
-    [Dependency] private readonly IInputManager _input = default!;
-    [Dependency] private readonly ILightManager _light = default!;
-    [Dependency] private readonly IClientAdminManager _admin = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
+    [Dependency]
+    private readonly IConsoleHost _console = default!;
 
-    [UISystemDependency] private readonly DebugPhysicsSystem _debugPhysics = default!;
-    [UISystemDependency] private readonly MarkerSystem _marker = default!;
-    [UISystemDependency] private readonly SandboxSystem _sandbox = default!;
+    [Dependency]
+    private readonly IEyeManager _eye = default!;
+
+    [Dependency]
+    private readonly IInputManager _input = default!;
+
+    [Dependency]
+    private readonly ILightManager _light = default!;
+
+    [Dependency]
+    private readonly IClientAdminManager _admin = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
+
+    [UISystemDependency]
+    private readonly DebugPhysicsSystem _debugPhysics = default!;
+
+    [UISystemDependency]
+    private readonly MarkerSystem _marker = default!;
+
+    [UISystemDependency]
+    private readonly SandboxSystem _sandbox = default!;
 
     private SandboxWindow? _window;
 
     // TODO hud refactor cache
-    private EntitySpawningUIController EntitySpawningController => UIManager.GetUIController<EntitySpawningUIController>();
+    private EntitySpawningUIController EntitySpawningController =>
+        UIManager.GetUIController<EntitySpawningUIController>();
     private TileSpawningUIController TileSpawningController => UIManager.GetUIController<TileSpawningUIController>();
     private DecalPlacerUIController DecalPlacerController => UIManager.GetUIController<DecalPlacerUIController>();
 
-    private MenuButton? SandboxButton => UIManager.GetActiveUIWidgetOrNull<MenuBar.Widgets.GameTopMenuBar>()?.SandboxButton;
+    private MenuButton? SandboxButton =>
+        UIManager.GetActiveUIWidgetOrNull<MenuBar.Widgets.GameTopMenuBar>()?.SandboxButton;
 
     public void OnStateEntered(GameplayState state)
     {
@@ -56,32 +74,40 @@ public sealed class SandboxUIController : UIController, IOnStateChanged<Gameplay
 
         CheckSandboxVisibility();
 
-        _input.SetInputCommand(ContentKeyFunctions.OpenEntitySpawnWindow,
+        _input.SetInputCommand(
+            ContentKeyFunctions.OpenEntitySpawnWindow,
             InputCmdHandler.FromDelegate(_ =>
             {
                 if (!_admin.CanAdminPlace())
                     return;
                 EntitySpawningController.ToggleWindow();
-            }));
-        _input.SetInputCommand(ContentKeyFunctions.OpenSandboxWindow,
-            InputCmdHandler.FromDelegate(_ => ToggleWindow()));
-        _input.SetInputCommand(ContentKeyFunctions.OpenTileSpawnWindow,
+            })
+        );
+        _input.SetInputCommand(
+            ContentKeyFunctions.OpenSandboxWindow,
+            InputCmdHandler.FromDelegate(_ => ToggleWindow())
+        );
+        _input.SetInputCommand(
+            ContentKeyFunctions.OpenTileSpawnWindow,
             InputCmdHandler.FromDelegate(_ =>
             {
                 if (!_admin.CanAdminPlace())
                     return;
                 TileSpawningController.ToggleWindow();
-            }));
-        _input.SetInputCommand(ContentKeyFunctions.OpenDecalSpawnWindow,
+            })
+        );
+        _input.SetInputCommand(
+            ContentKeyFunctions.OpenDecalSpawnWindow,
             InputCmdHandler.FromDelegate(_ =>
             {
                 if (!_admin.CanAdminPlace())
                     return;
                 DecalPlacerController.ToggleWindow();
-            }));
+            })
+        );
 
-        CommandBinds.Builder
-            .Bind(ContentKeyFunctions.EditorCopyObject, new PointerInputCmdHandler(Copy))
+        CommandBinds
+            .Builder.Bind(ContentKeyFunctions.EditorCopyObject, new PointerInputCmdHandler(Copy))
             .Register<SandboxSystem>();
     }
 
@@ -114,8 +140,14 @@ public sealed class SandboxUIController : UIController, IOnStateChanged<Gameplay
         _window.OpenCentered();
         _window.Close();
 
-        _window.OnOpen += () => { SandboxButton!.Pressed = true; };
-        _window.OnClose += () => { SandboxButton!.Pressed = false; };
+        _window.OnOpen += () =>
+        {
+            SandboxButton!.Pressed = true;
+        };
+        _window.OnClose += () =>
+        {
+            SandboxButton!.Pressed = false;
+        };
 
         // TODO: These need moving to opened so at least if they're not synced properly on open they work.
         _window.ToggleLightButton.Pressed = !_light.Enabled;

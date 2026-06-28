@@ -1,6 +1,3 @@
 ﻿namespace Content.Shared.CardboardBox;
 
-public abstract class SharedCardboardBoxSystem : EntitySystem
-{
-
-}
+public abstract class SharedCardboardBoxSystem : EntitySystem { }

@@ -8,7 +8,8 @@ namespace Content.Client.CM14.Xenos.Egg;
 /// </summary>
 public sealed class XenoEggVisualsSystem : EntitySystem
 {
-    [Dependency] private readonly SpriteSystem _spriteSystem = default!;
+    [Dependency]
+    private readonly SpriteSystem _spriteSystem = default!;
 
     public override void Initialize()
     {
@@ -41,7 +42,7 @@ public sealed class XenoEggVisualsSystem : EntitySystem
             XenoEggState.Growing => ent.Comp.GrowingState,
             XenoEggState.Grown => ent.Comp.GrownState,
             XenoEggState.Opened => ent.Comp.OpenedState,
-            _ => ent.Comp.ItemState
+            _ => ent.Comp.ItemState,
         };
 
         sprite.LayerSetState(XenoEggLayers.Base, state);

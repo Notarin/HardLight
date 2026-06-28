@@ -9,9 +9,14 @@ namespace Content.Client._HL.Aphrodisiac;
 
 public sealed class AphrodisiacSystem : SharedAphrodisiacSystem
 {
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IOverlayManager _overlayMan = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
+
+    [Dependency]
+    private readonly IOverlayManager _overlayMan = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
 
     private AphrodisiacOverlay _overlay = default!;
     private bool _showEffects;
@@ -48,9 +53,11 @@ public sealed class AphrodisiacSystem : SharedAphrodisiacSystem
             return;
         }
 
-        if (_player.LocalEntity is { } local
+        if (
+            _player.LocalEntity is { } local
             && HasComp<AphrodisiacStatusEffectComponent>(local)
-            && !_overlayMan.HasOverlay<AphrodisiacOverlay>())
+            && !_overlayMan.HasOverlay<AphrodisiacOverlay>()
+        )
         {
             _overlayMan.AddOverlay(_overlay);
         }
@@ -74,7 +81,11 @@ public sealed class AphrodisiacSystem : SharedAphrodisiacSystem
         _overlayMan.RemoveOverlay(_overlay);
     }
 
-    private void OnPlayerAttached(EntityUid uid, AphrodisiacStatusEffectComponent component, LocalPlayerAttachedEvent args)
+    private void OnPlayerAttached(
+        EntityUid uid,
+        AphrodisiacStatusEffectComponent component,
+        LocalPlayerAttachedEvent args
+    )
     {
         if (!_showEffects)
             return;
@@ -82,7 +93,11 @@ public sealed class AphrodisiacSystem : SharedAphrodisiacSystem
         _overlayMan.AddOverlay(_overlay);
     }
 
-    private void OnPlayerDetached(EntityUid uid, AphrodisiacStatusEffectComponent component, LocalPlayerDetachedEvent args)
+    private void OnPlayerDetached(
+        EntityUid uid,
+        AphrodisiacStatusEffectComponent component,
+        LocalPlayerDetachedEvent args
+    )
     {
         _overlay.CurrentAphrodisiacPower = 0;
         _overlayMan.RemoveOverlay(_overlay);

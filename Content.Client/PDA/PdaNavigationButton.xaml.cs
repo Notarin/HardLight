@@ -10,7 +10,6 @@ namespace Content.Client.PDA;
 [GenerateTypedNameReferences]
 public sealed partial class PdaNavigationButton : ContainerButton
 {
-
     private bool _isCurrent;
     private bool _isActive = true;
 
@@ -21,7 +20,7 @@ public sealed partial class PdaNavigationButton : ContainerButton
     {
         BackgroundColor = Color.FromHex("#202023"),
         BorderColor = Color.FromHex("#5a5a5a"),
-        BorderThickness = new Thickness(0, 0, 0, 2)
+        BorderThickness = new Thickness(0, 0, 0, 2),
     };
 
     public string InactiveBgColor { get; set; } = "#202320";

@@ -33,7 +33,6 @@ namespace Content.Shared.Ghost.Roles
         /// if <see cref="Kind"/> is <see cref="GhostRoleKind.RaffleInProgress"/>, specifies when raffle finishes.
         /// </summary>
         public TimeSpan RaffleEndTime { get; set; }
-
     }
 
     [NetSerializable, Serializable]
@@ -104,6 +103,6 @@ namespace Content.Shared.Ghost.Roles
         /// <summary>
         /// Role is raffle role and currently being raffled, and player joined raffle.
         /// </summary>
-        RaffleJoined
+        RaffleJoined,
     }
 }

@@ -18,7 +18,6 @@
         - ReagentId: THC
           Quantity: 15
 
-
 - type: entity
   name: dried cannabis leaves
   parent: [BaseItem, RecyclableItemOrganicTiny] # Frontier: added RecyclableItemOrganicTiny
@@ -62,7 +61,7 @@
     node: ground
   - type: Tag
     tags:
-      - Smokable
+    - Smokable
   - type: Item
     size: Tiny
 
@@ -97,8 +96,8 @@
           Quantity: 2
         - ReagentId: Happiness
           Quantity: 2
-#       - ReagentId: ColorfulReagent
-#         Quantity: 1
+          #       - ReagentId: ColorfulReagent
+          #         Quantity: 1
         - ReagentId: Psicodine
           Quantity: 0.6
 
@@ -124,8 +123,8 @@
           Quantity: 1.6
         - ReagentId: Happiness
           Quantity: 1.6
-#       - ReagentId: ColorfulReagent
-#         Quantity: 0.8
+          #       - ReagentId: ColorfulReagent
+          #         Quantity: 0.8
         - ReagentId: Psicodine
           Quantity: 0.48
   - type: Sprite
@@ -153,8 +152,8 @@
           Quantity: 2.66
         - ReagentId: Happiness
           Quantity: 2.66
-#       - ReagentId: ColorfulReagent
-#         Quantity: 1.33
+          #       - ReagentId: ColorfulReagent
+          #         Quantity: 1.33
         - ReagentId: Psicodine
           Quantity: 0.8
   - type: Sprite
@@ -252,6 +251,6 @@
     node: ground
   - type: Tag
     tags:
-      - Smokable
+    - Smokable
   - type: Item
     size: Tiny

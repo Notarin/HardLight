@@ -1,5 +1,5 @@
-using Content.Shared.Singularity.EntitySystems;
 using Content.Shared.Singularity.Components;
+using Content.Shared.Singularity.EntitySystems;
 
 namespace Content.Client.Singularity.Systems;
 
@@ -8,5 +8,4 @@ namespace Content.Client.Singularity.Systems;
 /// Manages <see cref="SingularityGeneratorComponent"/>s.
 /// Exists to make relevant signal handlers (ie: <see cref="SharedSingularityGeneratorSystem.OnEmagged"/>) work on the client.
 /// </summary>
-public sealed class SingularityGeneratorSystem : SharedSingularityGeneratorSystem
-{}
+public sealed class SingularityGeneratorSystem : SharedSingularityGeneratorSystem { }

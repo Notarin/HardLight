@@ -1,42 +1,42 @@
 - type: entity
   id: RadioJammerMicroreactor
-  parent: [ BaseMicroreactorItem, RadioJammer ]
+  parent: [BaseMicroreactorItem, RadioJammer]
 
 - type: entity
   id: ClothingShoesBootsSpeedMicroreactor
-  parent: [ BaseMicroreactorItem, ClothingShoesBootsSpeed ]
+  parent: [BaseMicroreactorItem, ClothingShoesBootsSpeed]
 
 - type: entity
   id: DefibrillatorCompactMicroreactor
-  parent: [ BaseMicroreactorItem, DefibrillatorCompact ]
+  parent: [BaseMicroreactorItem, DefibrillatorCompact]
 
 - type: entity
   id: HandheldCrewMonitorMicroreactor
-  parent: [ BaseMicroreactorItem, HandheldCrewMonitor ]
+  parent: [BaseMicroreactorItem, HandheldCrewMonitor]
 
 - type: entity
   id: HandheldHealthAnalyzerMicroreactor
-  parent: [ BaseMicroreactorItem, HandheldHealthAnalyzer ]
+  parent: [BaseMicroreactorItem, HandheldHealthAnalyzer]
 
 - type: entity
   id: HolofanProjectorAntiqueProto
-  parent: [ BaseAntiqueProtoItem, HolofanProjector ]
+  parent: [BaseAntiqueProtoItem, HolofanProjector]
 
 - type: entity
   id: ClothingShoesBootsSpeedAntiqueProto
-  parent: [ BaseAntiqueProtoItem, ClothingShoesBootsSpeed ]
+  parent: [BaseAntiqueProtoItem, ClothingShoesBootsSpeed]
 
 - type: entity
   id: FlashlightSecliteAntiqueProto
-  parent: [ BaseAntiqueProtoItem, FlashlightSeclite ]
+  parent: [BaseAntiqueProtoItem, FlashlightSeclite]
 
 - type: entity
   id: HoloprojectorNfsdAntiqueProto
-  parent: [ BaseAntiqueProtoItem, HoloprojectorNfsd ]
+  parent: [BaseAntiqueProtoItem, HoloprojectorNfsd]
 
 - type: entity
   id: HoloprojectorRadiationAntiqueProto
-  parent: [ BaseAntiqueProtoItem, RadiationBlockingProjector ]
+  parent: [BaseAntiqueProtoItem, RadiationBlockingProjector]
 
 # Base Item with Microreactor
 - type: entity
@@ -67,8 +67,6 @@
       cell_slot:
         name: power-cell-slot-component-slot-name-default
         startingItem: PowerCellAntiqueProto
-
-
 
 # a recharging Disabler SMG
 - type: entity

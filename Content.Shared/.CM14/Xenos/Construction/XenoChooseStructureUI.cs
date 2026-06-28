@@ -6,7 +6,7 @@ namespace Content.Shared.CM14.Xenos.Construction;
 [Serializable, NetSerializable]
 public enum XenoChooseStructureUI : byte
 {
-    Key
+    Key,
 }
 
 [Serializable, NetSerializable]

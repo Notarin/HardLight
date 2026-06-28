@@ -4,22 +4,22 @@
   id: MagazineAsmgtUniversalEmpty
   name: ASMGT-compatible box magazine
   description: |-
-   Universal ASMGT-compatible ammo box capable of accepting .20, .25, .30 and .35 cartridges.
+    Universal ASMGT-compatible ammo box capable of accepting .20, .25, .30 and .35 cartridges.
   suffix: empty
   components:
   - type: Tag
     tags:
-      - MagazineAsmgt
+    - MagazineAsmgt
   - type: Item
     size: Small
   - type: BallisticAmmoProvider
     mayTransfer: true
     whitelist:
       tags:
-        - Cartridge9x19mmFMJ
-        - Cartridge556x45mmFMJ
-        - Cartridge762x39mmFMJ
-        - Cartridge635x40mmCaseless
+      - Cartridge9x19mmFMJ
+      - Cartridge556x45mmFMJ
+      - Cartridge762x39mmFMJ
+      - Cartridge635x40mmCaseless
     capacity: 50
   - type: ContainerContainer
     containers:

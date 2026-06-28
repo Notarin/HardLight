@@ -4,26 +4,26 @@
   id: FoodThaSlop #tha slop
   description: A synthetic mixture of protein, carbohydrates, and vitamins, amino acids and minerals. Everything the body needs, and absolutely disgusting.
   components:
-    - type: FlavorProfile
-      flavors:
-        - thaslop
-    - type: Food
-      trash:
-        - FoodPacketMRETrash
-    - type: Sprite
-      sprite: _HL/Objects/Consumable/Food/tha_slop.rsi
-      layers:
-        - state: thaslop
-    - type: SolutionContainerManager
-      solutions:
-        food:
-          maxVol: 30
-          reagents:
-            - ReagentId: Nutriment
-              Quantity: 20
-    - type: Tag
-      tags:
-        - Meat
+  - type: FlavorProfile
+    flavors:
+    - thaslop
+  - type: Food
+    trash:
+    - FoodPacketMRETrash
+  - type: Sprite
+    sprite: _HL/Objects/Consumable/Food/tha_slop.rsi
+    layers:
+    - state: thaslop
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 30
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 20
+  - type: Tag
+    tags:
+    - Meat
 
 - type: entity
   name: Empty Nutrient Paste Meal Container
@@ -31,12 +31,12 @@
   id: FoodThaSlopTrash
   description: The empty container of a nutrient paste meal.
   components:
-    - type: Sprite
-      sprite: _HL/Objects/Consumable/Food/tha_slop.rsi
-      layers:
-        - state: emptyslopcan
-    - type: StaticPrice
-      price: 6
+  - type: Sprite
+    sprite: _HL/Objects/Consumable/Food/tha_slop.rsi
+    layers:
+    - state: emptyslopcan
+  - type: StaticPrice
+    price: 6
 
 - type: entity
   name: Nutrient Paste Drink
@@ -44,19 +44,19 @@
   id: FoodThaSlopDrink
   description: A synthetic drinkable mixture of protein, carbohydrates, vitamins, amino acids and minerals. Everything the body needs, and absolutely disgusting.
   components:
-    - type: Food
-      trash:
-        - FoodThaSlopTrash
-    - type: Sprite
-      layers:
-        - state: slopcan
-    - type: SolutionContainerManager
-      solutions:
-        food:
-          maxVol: 20
-          reagents:
-            - ReagentId: Nutriment
-              Quantity: 15
+  - type: Food
+    trash:
+    - FoodThaSlopTrash
+  - type: Sprite
+    layers:
+    - state: slopcan
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 20
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 15
 
 - type: entity
   name: Vegetarian Nutrient Paste Drink
@@ -64,12 +64,12 @@
   id: FoodVeggieThaSlopDrink
   description: A synthetic drinkable mixture of plant-based protein, carbohydrates, vitamins, amino acids and minerals. Everything the body needs, and absolutely disgusting.
   components:
-    - type: Tag
-      tags:
-      - Vegetable
-    - type: Sprite
-      layers:
-        - state: veggieslopcan
+  - type: Tag
+    tags:
+    - Vegetable
+  - type: Sprite
+    layers:
+    - state: veggieslopcan
 
 - type: entity
   name: Meat Nutrient Paste Drink
@@ -77,12 +77,12 @@
   id: FoodMeatThaSlopDrink
   description: A synthetic drinkable mixture of animal-based protein, carbohydrates, vitamins, amino acids and minerals. Everything the body needs, and absolutely disgusting.
   components:
-    - type: Tag
-      tags:
-        - Meat
-    - type: Sprite
-      layers:
-        - state: meatslopcan
+  - type: Tag
+    tags:
+    - Meat
+  - type: Sprite
+    layers:
+    - state: meatslopcan
 
 - type: entity
   name: Vegetarian Nutrient Paste Meal
@@ -90,12 +90,12 @@
   id: FoodVeggieThaSlop
   description: A synthetic mixture of plant-based protein, carbohydrates, vitamins, amino acids and minerals. Everything the body needs, and absolutely disgusting.
   components:
-    - type: Tag
-      tags:
-      - Vegetable
-    - type: Sprite
-      layers:
-        - state: veggiepaste
+  - type: Tag
+    tags:
+    - Vegetable
+  - type: Sprite
+    layers:
+    - state: veggiepaste
 
 - type: entity
   name: Meat Nutrient Paste Meal
@@ -103,12 +103,12 @@
   id: FoodMeatThaSlop
   description: A synthetic mixture of animal-based protein, carbohydrates, vitamins, amino acids and minerals. Everything the body needs, and absolutely disgusting.
   components:
-    - type: Tag
-      tags:
-      - Meat
-    - type: Sprite
-      layers:
-        - state: meatpaste
+  - type: Tag
+    tags:
+    - Meat
+  - type: Sprite
+    layers:
+    - state: meatpaste
 
 - type: entity
   name: Nutrient Paste Brick
@@ -118,14 +118,14 @@
   components:
   - type: Sprite
     layers:
-      - state: slopbrick
+    - state: slopbrick
   - type: SolutionContainerManager
     solutions:
       food:
         maxVol: 50
         reagents:
-          - ReagentId: Nutriment
-            Quantity: 40
+        - ReagentId: Nutriment
+          Quantity: 40
 
 - type: entity
   name: Vegetarian Nutrient Paste Brick
@@ -135,7 +135,7 @@
   components:
   - type: Sprite
     layers:
-      - state: veggiebrick
+    - state: veggiebrick
 
 - type: entity
   name: Meat Nutrient Paste Brick
@@ -143,9 +143,9 @@
   id: FoodMeatThaSlopBrick
   description: A synthetic mixture of animal-based protein, carbohydrates, vitamins, amino acids and minerals. Everything the body needs, and absolutely disgusting.
   components:
-    - type: Sprite
-      layers:
-      - state: meatbrick
+  - type: Sprite
+    layers:
+    - state: meatbrick
 
 - type: entity
   name: meat on a bone

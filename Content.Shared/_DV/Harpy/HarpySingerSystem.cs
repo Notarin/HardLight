@@ -4,7 +4,8 @@ namespace Content.Shared._DV.Harpy;
 
 public abstract class SharedHarpySingerSystem : EntitySystem
 {
-    [Dependency] private readonly SharedActionsSystem _actionsSystem = default!;
+    [Dependency]
+    private readonly SharedActionsSystem _actionsSystem = default!;
 
     public override void Initialize()
     {

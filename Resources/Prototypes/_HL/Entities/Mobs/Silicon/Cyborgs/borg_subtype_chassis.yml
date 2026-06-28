@@ -554,7 +554,7 @@
     selectedBorgType: service
   - type: BorgSwitchableSubtype
     borgSubtype: BorgServiceSubtypeK4tAlt2
- 
+
 - type: entity
   id: BorgChassisSecSecbug
   parent: BorgChassisSelectable

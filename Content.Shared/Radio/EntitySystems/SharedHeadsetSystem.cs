@@ -14,7 +14,11 @@ public abstract class SharedHeadsetSystem : EntitySystem
         SubscribeLocalEvent<HeadsetComponent, GotUnequippedEvent>(OnGotUnequipped);
     }
 
-    private void OnGetDefault(EntityUid uid, HeadsetComponent component, InventoryRelayedEvent<GetDefaultRadioChannelEvent> args)
+    private void OnGetDefault(
+        EntityUid uid,
+        HeadsetComponent component,
+        InventoryRelayedEvent<GetDefaultRadioChannelEvent> args
+    )
     {
         if (!component.Enabled || !component.IsEquipped)
         {
@@ -23,7 +27,7 @@ public abstract class SharedHeadsetSystem : EntitySystem
         }
 
         if (TryComp(uid, out EncryptionKeyHolderComponent? keyHolder))
-            args.Args.Channel ??= keyHolder.DefaultChannel; 
+            args.Args.Channel ??= keyHolder.DefaultChannel;
     }
 
     protected virtual void OnGotEquipped(EntityUid uid, HeadsetComponent component, GotEquippedEvent args)

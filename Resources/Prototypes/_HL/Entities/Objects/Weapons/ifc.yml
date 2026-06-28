@@ -20,7 +20,7 @@
   - type: TimerStartOnSignal
   - type: DeviceLinkSink
     ports:
-      - Timer
+    - Timer
   - type: Explosive
     explosionType: DemolitionCharge
     totalIntensity: 960

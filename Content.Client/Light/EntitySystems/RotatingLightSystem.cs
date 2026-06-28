@@ -8,7 +8,8 @@ namespace Content.Client.Light.EntitySystems;
 
 public sealed class RotatingLightSystem : SharedRotatingLightSystem
 {
-    [Dependency] private readonly AnimationPlayerSystem _animations = default!;
+    [Dependency]
+    private readonly AnimationPlayerSystem _animations = default!;
 
     private Animation GetAnimation(float speed)
     {
@@ -28,10 +29,10 @@ public sealed class RotatingLightSystem : SharedRotatingLightSystem
                         new AnimationTrackProperty.KeyFrame(Angle.Zero, 0),
                         new AnimationTrackProperty.KeyFrame(Angle.FromDegrees(120), third),
                         new AnimationTrackProperty.KeyFrame(Angle.FromDegrees(240), third),
-                        new AnimationTrackProperty.KeyFrame(Angle.FromDegrees(360), third)
-                    }
-                }
-            }
+                        new AnimationTrackProperty.KeyFrame(Angle.FromDegrees(360), third),
+                    },
+                },
+            },
         };
     }
 
@@ -78,7 +79,11 @@ public sealed class RotatingLightSystem : SharedRotatingLightSystem
     /// <summary>
     /// Play the light rotation animation.
     /// </summary>
-    public void PlayAnimation(EntityUid uid, RotatingLightComponent? comp = null, AnimationPlayerComponent? player = null)
+    public void PlayAnimation(
+        EntityUid uid,
+        RotatingLightComponent? comp = null,
+        AnimationPlayerComponent? player = null
+    )
     {
         if (!Resolve(uid, ref comp, ref player) || !comp.Enabled)
             return;

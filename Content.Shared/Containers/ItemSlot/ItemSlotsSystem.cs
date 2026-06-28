@@ -27,13 +27,26 @@ namespace Content.Shared.Containers.ItemSlots
     /// </remarks>
     public sealed partial class ItemSlotsSystem : EntitySystem
     {
-        [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-        [Dependency] private readonly ActionBlockerSystem _actionBlockerSystem = default!;
-        [Dependency] private readonly SharedContainerSystem _containers = default!;
-        [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-        [Dependency] private readonly SharedHandsSystem _handsSystem = default!;
-        [Dependency] private readonly SharedAudioSystem _audioSystem = default!;
-        [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
+        [Dependency]
+        private readonly ISharedAdminLogManager _adminLogger = default!;
+
+        [Dependency]
+        private readonly ActionBlockerSystem _actionBlockerSystem = default!;
+
+        [Dependency]
+        private readonly SharedContainerSystem _containers = default!;
+
+        [Dependency]
+        private readonly SharedPopupSystem _popupSystem = default!;
+
+        [Dependency]
+        private readonly SharedHandsSystem _handsSystem = default!;
+
+        [Dependency]
+        private readonly SharedAudioSystem _audioSystem = default!;
+
+        [Dependency]
+        private readonly EntityWhitelistSystem _whitelistSystem = default!;
 
         public override void Initialize()
         {
@@ -103,7 +116,8 @@ namespace Content.Shared.Containers.ItemSlots
             {
                 if (existing.Local)
                     Log.Error(
-                        $"Duplicate item slot key. Entity: {EntityManager.GetComponent<MetaDataComponent>(uid).EntityName} ({uid}), key: {id}");
+                        $"Duplicate item slot key. Entity: {EntityManager.GetComponent<MetaDataComponent>(uid).EntityName} ({uid}), key: {id}"
+                    );
                 else
                     // server state takes priority
                     slot.CopyFrom(existing);
@@ -138,10 +152,12 @@ namespace Content.Shared.Containers.ItemSlots
                 Dirty(uid, itemSlots);
         }
 
-        public bool TryGetSlot(EntityUid uid,
+        public bool TryGetSlot(
+            EntityUid uid,
             string slotId,
             [NotNullWhen(true)] out ItemSlot? itemSlot,
-            ItemSlotsComponent? component = null)
+            ItemSlotsComponent? component = null
+        )
         {
             itemSlot = null;
 
@@ -286,11 +302,13 @@ namespace Content.Shared.Containers.ItemSlots
         /// </summary>
         /// <param name="excludeUserAudio">If true, will exclude the user when playing sound. Does nothing client-side.
         /// Useful for predicted interactions</param>
-        private void Insert(EntityUid uid,
+        private void Insert(
+            EntityUid uid,
             ItemSlot slot,
             EntityUid item,
             EntityUid? user,
-            bool excludeUserAudio = false)
+            bool excludeUserAudio = false
+        )
         {
             bool? inserted = slot.ContainerSlot != null ? _containers.Insert(item, slot.ContainerSlot) : null;
             // ContainerSlot automatically raises a directed EntInsertedIntoContainerMessage
@@ -301,9 +319,11 @@ namespace Content.Shared.Containers.ItemSlots
                 // Frontier modification: adds extra things to the log
                 var extraLogs = LoggingExtensions.GetExtraLogs(EntityManager, item);
 
-                _adminLogger.Add(LogType.Action,
+                _adminLogger.Add(
+                    LogType.Action,
                     LogImpact.Low,
-                    $"{ToPrettyString(user.Value)} inserted {ToPrettyString(item)}{extraLogs} into {slot.ContainerSlot?.ID + " slot of "}{ToPrettyString(uid)}");
+                    $"{ToPrettyString(user.Value)} inserted {ToPrettyString(item)}{extraLogs} into {slot.ContainerSlot?.ID + " slot of "}{ToPrettyString(uid)}"
+                );
             }
 
             _audioSystem.PlayPredicted(slot.InsertSound, uid, excludeUserAudio ? user : null);
@@ -313,11 +333,7 @@ namespace Content.Shared.Containers.ItemSlots
         ///     Check whether a given item can be inserted into a slot. Unless otherwise specified, this will return
         ///     false if the slot is already filled.
         /// </summary>
-        public bool CanInsert(EntityUid uid,
-            EntityUid usedUid,
-            EntityUid? user,
-            ItemSlot slot,
-            bool swap = false)
+        public bool CanInsert(EntityUid uid, EntityUid usedUid, EntityUid? user, ItemSlot slot, bool swap = false)
         {
             if (slot.ContainerSlot == null)
                 return false;
@@ -344,8 +360,10 @@ namespace Content.Shared.Containers.ItemSlots
 
         private bool CanInsertWhitelist(EntityUid usedUid, ItemSlot slot)
         {
-            if (_whitelistSystem.IsWhitelistFail(slot.Whitelist, usedUid)
-                || _whitelistSystem.IsBlacklistPass(slot.Blacklist, usedUid))
+            if (
+                _whitelistSystem.IsWhitelistFail(slot.Whitelist, usedUid)
+                || _whitelistSystem.IsBlacklistPass(slot.Blacklist, usedUid)
+            )
                 return false;
             return true;
         }
@@ -354,12 +372,14 @@ namespace Content.Shared.Containers.ItemSlots
         ///     Tries to insert item into a specific slot.
         /// </summary>
         /// <returns>False if failed to insert item</returns>
-        public bool TryInsert(EntityUid uid,
+        public bool TryInsert(
+            EntityUid uid,
             string id,
             EntityUid item,
             EntityUid? user,
             ItemSlotsComponent? itemSlots = null,
-            bool excludeUserAudio = false)
+            bool excludeUserAudio = false
+        )
         {
             if (!Resolve(uid, ref itemSlots))
                 return false;
@@ -374,11 +394,13 @@ namespace Content.Shared.Containers.ItemSlots
         ///     Tries to insert item into a specific slot.
         /// </summary>
         /// <returns>False if failed to insert item</returns>
-        public bool TryInsert(EntityUid uid,
+        public bool TryInsert(
+            EntityUid uid,
             ItemSlot slot,
             EntityUid item,
             EntityUid? user,
-            bool excludeUserAudio = false)
+            bool excludeUserAudio = false
+        )
         {
             if (!CanInsert(uid, item, user, slot))
                 return false;
@@ -392,11 +414,13 @@ namespace Content.Shared.Containers.ItemSlots
         ///     Does not check action blockers.
         /// </summary>
         /// <returns>False if failed to insert item</returns>
-        public bool TryInsertFromHand(EntityUid uid,
+        public bool TryInsertFromHand(
+            EntityUid uid,
             ItemSlot slot,
             EntityUid user,
             HandsComponent? hands = null,
-            bool excludeUserAudio = false)
+            bool excludeUserAudio = false
+        )
         {
             if (!Resolve(user, ref hands, false))
                 return false;
@@ -426,21 +450,27 @@ namespace Content.Shared.Containers.ItemSlots
         ///     Useful for predicted interactions
         /// </param>
         /// <returns>False if failed to insert item</returns>
-        public bool TryInsertEmpty(Entity<ItemSlotsComponent?> ent,
+        public bool TryInsertEmpty(
+            Entity<ItemSlotsComponent?> ent,
             EntityUid item,
             EntityUid? user,
-            bool excludeUserAudio = false)
+            bool excludeUserAudio = false
+        )
         {
             if (!Resolve(ent, ref ent.Comp, false))
                 return false;
 
             TryComp(user, out HandsComponent? handsComp);
 
-            if (!TryGetAvailableSlot(ent,
+            if (
+                !TryGetAvailableSlot(
+                    ent,
                     item,
                     user == null ? null : (user.Value, handsComp),
                     out var itemSlot,
-                    emptyOnly: true))
+                    emptyOnly: true
+                )
+            )
                 return false;
 
             if (user != null && !_handsSystem.TryDrop(user.Value, item, handsComp: handsComp))
@@ -460,17 +490,17 @@ namespace Content.Shared.Containers.ItemSlots
         /// <param name="emptyOnly"> True only returns slots that are empty.
         /// False returns any slot that is able to receive <paramref name="item"/>.</param>
         /// <returns>True when a slot is found. Otherwise, false.</returns>
-        public bool TryGetAvailableSlot(Entity<ItemSlotsComponent?> ent,
+        public bool TryGetAvailableSlot(
+            Entity<ItemSlotsComponent?> ent,
             EntityUid item,
             Entity<HandsComponent?>? userEnt,
             [NotNullWhen(true)] out ItemSlot? itemSlot,
-            bool emptyOnly = false)
+            bool emptyOnly = false
+        )
         {
             itemSlot = null;
 
-            if (userEnt is { } user
-                && Resolve(user, ref user.Comp)
-                && _handsSystem.IsHolding(user, item))
+            if (userEnt is { } user && Resolve(user, ref user.Comp) && _handsSystem.IsHolding(user, item))
             {
                 if (!_handsSystem.CanDrop(user, item, user.Comp))
                     return false;
@@ -555,9 +585,11 @@ namespace Content.Shared.Containers.ItemSlots
 
             // Logging
             if (ejected != null && ejected.Value && user != null)
-                _adminLogger.Add(LogType.Action,
+                _adminLogger.Add(
+                    LogType.Action,
                     LogImpact.Low,
-                    $"{ToPrettyString(user.Value)} ejected {ToPrettyString(item)} from {slot.ContainerSlot?.ID + " slot of "}{ToPrettyString(uid)}");
+                    $"{ToPrettyString(user.Value)} ejected {ToPrettyString(item)} from {slot.ContainerSlot?.ID + " slot of "}{ToPrettyString(uid)}"
+                );
 
             _audioSystem.PlayPredicted(slot.EjectSound, uid, excludeUserAudio ? user : null);
         }
@@ -566,11 +598,13 @@ namespace Content.Shared.Containers.ItemSlots
         ///     Try to eject an item from a slot.
         /// </summary>
         /// <returns>False if item slot is locked or has no item inserted</returns>
-        public bool TryEject(EntityUid uid,
+        public bool TryEject(
+            EntityUid uid,
             ItemSlot slot,
             EntityUid? user,
             [NotNullWhen(true)] out EntityUid? item,
-            bool excludeUserAudio = false)
+            bool excludeUserAudio = false
+        )
         {
             item = null;
 
@@ -592,12 +626,14 @@ namespace Content.Shared.Containers.ItemSlots
         ///     Try to eject item from a slot.
         /// </summary>
         /// <returns>False if the id is not valid, the item slot is locked, or it has no item inserted</returns>
-        public bool TryEject(EntityUid uid,
+        public bool TryEject(
+            EntityUid uid,
             string id,
             EntityUid? user,
             [NotNullWhen(true)] out EntityUid? item,
             ItemSlotsComponent? itemSlots = null,
-            bool excludeUserAudio = false)
+            bool excludeUserAudio = false
+        )
         {
             item = null;
 
@@ -633,9 +669,11 @@ namespace Content.Shared.Containers.ItemSlots
 
         #region Verbs
 
-        private void AddAlternativeVerbs(EntityUid uid,
+        private void AddAlternativeVerbs(
+            EntityUid uid,
             ItemSlotsComponent itemSlots,
-            GetVerbsEvent<AlternativeVerb> args)
+            GetVerbsEvent<AlternativeVerb> args
+        )
         {
             if (args.Hands == null || !args.CanAccess || !args.CanInteract)
             {
@@ -652,21 +690,20 @@ namespace Content.Shared.Containers.ItemSlots
                     if (slot.InsertOnInteract || !CanInsert(uid, args.Using.Value, args.User, slot))
                         continue;
 
-                    var verbSubject = slot.Name != string.Empty
-                        ? Loc.GetString(slot.Name)
-                        : Name(args.Using.Value);
+                    var verbSubject = slot.Name != string.Empty ? Loc.GetString(slot.Name) : Name(args.Using.Value);
 
                     AlternativeVerb verb = new()
                     {
                         IconEntity = GetNetEntity(args.Using),
-                        Act = () => Insert(uid, slot, args.Using.Value, args.User, excludeUserAudio: true)
+                        Act = () => Insert(uid, slot, args.Using.Value, args.User, excludeUserAudio: true),
                     };
 
                     if (slot.InsertVerbText != null)
                     {
                         verb.Text = Loc.GetString(slot.InsertVerbText);
                         verb.Icon = new SpriteSpecifier.Texture(
-                            new("/Textures/Interface/VerbIcons/insert.svg.192dpi.png"));
+                            new("/Textures/Interface/VerbIcons/insert.svg.192dpi.png")
+                        );
                     }
                     else if (slot.EjectOnInteract)
                     {
@@ -674,7 +711,8 @@ namespace Content.Shared.Containers.ItemSlots
                         // category, we will use a single "Place <item>" verb.
                         verb.Text = Loc.GetString("place-item-verb-text", ("subject", verbSubject));
                         verb.Icon = new SpriteSpecifier.Texture(
-                            new("/Textures/Interface/VerbIcons/drop.svg.192dpi.png"));
+                            new("/Textures/Interface/VerbIcons/drop.svg.192dpi.png")
+                        );
                     }
                     else
                     {
@@ -706,14 +744,15 @@ namespace Content.Shared.Containers.ItemSlots
                 if (!_actionBlockerSystem.CanPickup(args.User, slot.Item!.Value))
                     continue;
 
-                var verbSubject = slot.Name != string.Empty
-                    ? Loc.GetString(slot.Name)
-                    : EntityManager.GetComponent<MetaDataComponent>(slot.Item.Value).EntityName ?? string.Empty;
+                var verbSubject =
+                    slot.Name != string.Empty
+                        ? Loc.GetString(slot.Name)
+                        : EntityManager.GetComponent<MetaDataComponent>(slot.Item.Value).EntityName ?? string.Empty;
 
                 AlternativeVerb verb = new()
                 {
                     IconEntity = GetNetEntity(slot.Item),
-                    Act = () => TryEjectToHands(uid, slot, args.User, excludeUserAudio: true)
+                    Act = () => TryEjectToHands(uid, slot, args.User, excludeUserAudio: true),
                 };
 
                 if (slot.EjectVerbText == null)
@@ -731,9 +770,11 @@ namespace Content.Shared.Containers.ItemSlots
             }
         }
 
-        private void AddInteractionVerbsVerbs(EntityUid uid,
+        private void AddInteractionVerbsVerbs(
+            EntityUid uid,
             ItemSlotsComponent itemSlots,
-            GetVerbsEvent<InteractionVerb> args)
+            GetVerbsEvent<InteractionVerb> args
+        )
         {
             if (args.Hands == null || !args.CanAccess || !args.CanInteract)
                 return;
@@ -747,14 +788,12 @@ namespace Content.Shared.Containers.ItemSlots
                 if (!_actionBlockerSystem.CanPickup(args.User, slot.Item!.Value))
                     continue;
 
-                var verbSubject = slot.Name != string.Empty
-                    ? Loc.GetString(slot.Name)
-                    : Name(slot.Item!.Value);
+                var verbSubject = slot.Name != string.Empty ? Loc.GetString(slot.Name) : Name(slot.Item!.Value);
 
                 InteractionVerb takeVerb = new()
                 {
                     IconEntity = GetNetEntity(slot.Item),
-                    Act = () => TryEjectToHands(uid, slot, args.User, excludeUserAudio: true)
+                    Act = () => TryEjectToHands(uid, slot, args.User, excludeUserAudio: true),
                 };
 
                 if (slot.EjectVerbText == null)
@@ -775,31 +814,29 @@ namespace Content.Shared.Containers.ItemSlots
                 if (!slot.InsertOnInteract || !CanInsert(uid, args.Using.Value, args.User, slot))
                     continue;
 
-                var verbSubject = slot.Name != string.Empty
-                    ? Loc.GetString(slot.Name)
-                    : Name(args.Using.Value);
+                var verbSubject = slot.Name != string.Empty ? Loc.GetString(slot.Name) : Name(args.Using.Value);
 
                 InteractionVerb insertVerb = new()
                 {
                     IconEntity = GetNetEntity(args.Using),
-                    Act = () => Insert(uid, slot, args.Using.Value, args.User, excludeUserAudio: true)
+                    Act = () => Insert(uid, slot, args.Using.Value, args.User, excludeUserAudio: true),
                 };
 
                 if (slot.InsertVerbText != null)
                 {
                     insertVerb.Text = Loc.GetString(slot.InsertVerbText);
-                    insertVerb.Icon =
-                        new SpriteSpecifier.Texture(
-                            new ResPath("/Textures/Interface/VerbIcons/insert.svg.192dpi.png"));
+                    insertVerb.Icon = new SpriteSpecifier.Texture(
+                        new ResPath("/Textures/Interface/VerbIcons/insert.svg.192dpi.png")
+                    );
                 }
                 else if (slot.EjectOnInteract)
                 {
                     // Inserting/ejecting is a primary interaction for this entity. Instead of using the insert
                     // category, we will use a single "Place <item>" verb.
                     insertVerb.Text = Loc.GetString("place-item-verb-text", ("subject", verbSubject));
-                    insertVerb.Icon =
-                        new SpriteSpecifier.Texture(
-                            new ResPath("/Textures/Interface/VerbIcons/drop.svg.192dpi.png"));
+                    insertVerb.Icon = new SpriteSpecifier.Texture(
+                        new ResPath("/Textures/Interface/VerbIcons/drop.svg.192dpi.png")
+                    );
                 }
                 else
                 {

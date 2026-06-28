@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Damage;
 using Content.Shared.DoAfter;
@@ -10,7 +11,6 @@ using Content.Shared.NPC.Components;
 using Content.Shared.Popups;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Serialization;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Content.Shared.Silicons.Bots;
 
@@ -19,12 +19,23 @@ namespace Content.Shared.Silicons.Bots;
 /// </summary>
 public sealed class MedibotSystem : EntitySystem
 {
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly EmagSystem _emag = default!;
-    [Dependency] private SharedInteractionSystem _interaction = default!;
-    [Dependency] private SharedSolutionContainerSystem _solutionContainer = default!;
-    [Dependency] private SharedPopupSystem _popup = default!;
-    [Dependency] private SharedDoAfterSystem _doAfter = default!;
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly EmagSystem _emag = default!;
+
+    [Dependency]
+    private SharedInteractionSystem _interaction = default!;
+
+    [Dependency]
+    private SharedSolutionContainerSystem _solutionContainer = default!;
+
+    [Dependency]
+    private SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private SharedDoAfterSystem _doAfter = default!;
 
     public override void Initialize()
     {
@@ -56,18 +67,22 @@ public sealed class MedibotSystem : EntitySystem
 
     private void OnInteract(Entity<MedibotComponent> medibot, ref UserActivateInWorldEvent args)
     {
-        if (!CheckInjectable(medibot!, args.Target, true)) return;
+        if (!CheckInjectable(medibot!, args.Target, true))
+            return;
 
-        _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, 2f, new MedibotInjectDoAfterEvent(), args.User, args.Target)
-        {
-            BlockDuplicate = true,
-            BreakOnMove = true,
-        });
+        _doAfter.TryStartDoAfter(
+            new DoAfterArgs(EntityManager, args.User, 2f, new MedibotInjectDoAfterEvent(), args.User, args.Target)
+            {
+                BlockDuplicate = true,
+                BreakOnMove = true,
+            }
+        );
     }
 
     private void OnInject(EntityUid uid, MedibotComponent comp, ref MedibotInjectDoAfterEvent args)
     {
-        if (args.Cancelled) return;
+        if (args.Cancelled)
+            return;
 
         if (args.Target is { } target)
             TryInject(uid, target);
@@ -79,7 +94,11 @@ public sealed class MedibotSystem : EntitySystem
     /// <remarks>
     /// This only exists because allowing other execute would allow modifying the dictionary, and Read access does not cover TryGetValue.
     /// </remarks>
-    public bool TryGetTreatment(MedibotComponent comp, MobState state, [NotNullWhen(true)] out MedibotTreatment? treatment)
+    public bool TryGetTreatment(
+        MedibotComponent comp,
+        MobState state,
+        [NotNullWhen(true)] out MedibotTreatment? treatment
+    )
     {
         return comp.Treatments.TryGetValue(state, out treatment);
     }
@@ -89,7 +108,8 @@ public sealed class MedibotSystem : EntitySystem
     /// </summary>
     public bool CheckInjectable(Entity<MedibotComponent?> medibot, EntityUid target, bool manual = false)
     {
-        if (!Resolve(medibot, ref medibot.Comp, false)) return false;
+        if (!Resolve(medibot, ref medibot.Comp, false))
+            return false;
 
         if (HasComp<NPCRecentlyInjectedComponent>(target))
         {
@@ -97,9 +117,12 @@ public sealed class MedibotSystem : EntitySystem
             return false;
         }
 
-        if (!TryComp<MobStateComponent>(target, out var mobState)) return false;
-        if (!TryComp<DamageableComponent>(target, out var damageable)) return false;
-        if (!_solutionContainer.TryGetInjectableSolution(target, out _, out _)) return false;
+        if (!TryComp<MobStateComponent>(target, out var mobState))
+            return false;
+        if (!TryComp<DamageableComponent>(target, out var damageable))
+            return false;
+        if (!_solutionContainer.TryGetInjectableSolution(target, out _, out _))
+            return false;
 
         if (mobState.CurrentState != MobState.Alive && mobState.CurrentState != MobState.Critical)
         {
@@ -114,7 +137,11 @@ public sealed class MedibotSystem : EntitySystem
             return false;
         }
 
-        if (!TryGetTreatment(medibot.Comp, mobState.CurrentState, out var treatment) || !treatment.IsValid(total) && !manual) return false;
+        if (
+            !TryGetTreatment(medibot.Comp, mobState.CurrentState, out var treatment)
+            || !treatment.IsValid(total) && !manual
+        )
+            return false;
 
         return true;
     }
@@ -124,13 +151,18 @@ public sealed class MedibotSystem : EntitySystem
     /// </summary>
     public bool TryInject(Entity<MedibotComponent?> medibot, EntityUid target)
     {
-        if (!Resolve(medibot, ref medibot.Comp, false)) return false;
+        if (!Resolve(medibot, ref medibot.Comp, false))
+            return false;
 
-        if (!_interaction.InRangeUnobstructed(medibot.Owner, target)) return false;
+        if (!_interaction.InRangeUnobstructed(medibot.Owner, target))
+            return false;
 
-        if (!TryComp<MobStateComponent>(target, out var mobState)) return false;
-        if (!TryGetTreatment(medibot.Comp, mobState.CurrentState, out var treatment)) return false;
-        if (!_solutionContainer.TryGetInjectableSolution(target, out var injectable, out _)) return false;
+        if (!TryComp<MobStateComponent>(target, out var mobState))
+            return false;
+        if (!TryGetTreatment(medibot.Comp, mobState.CurrentState, out var treatment))
+            return false;
+        if (!_solutionContainer.TryGetInjectableSolution(target, out var injectable, out _))
+            return false;
 
         EnsureComp<NPCRecentlyInjectedComponent>(target);
         _solutionContainer.TryAddReagent(injectable.Value, treatment.Reagent, treatment.Quantity, out _);

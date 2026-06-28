@@ -8,8 +8,7 @@ using Robust.Shared.Map;
 namespace Content.Client.Shuttles.UI;
 
 [GenerateTypedNameReferences]
-public sealed partial class RadarConsoleWindow : FancyWindow,
-    IComputerWindow<NavInterfaceState>
+public sealed partial class RadarConsoleWindow : FancyWindow, IComputerWindow<NavInterfaceState>
 {
     public RadarConsoleWindow()
     {

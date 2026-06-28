@@ -12,6 +12,7 @@ public sealed partial class BankATMMenu : FancyWindow
     public Action? WithdrawRequest;
     public Action? DepositRequest;
     public int Amount;
+
     public BankATMMenu()
     {
         RobustXamlLoader.Load(this);

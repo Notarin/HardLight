@@ -1,7 +1,4 @@
 namespace Content.Shared.Procedural;
 
 [ImplicitDataDefinitionForInheritors]
-public partial interface IDunGenLayer
-{
-
-}
+public partial interface IDunGenLayer { }

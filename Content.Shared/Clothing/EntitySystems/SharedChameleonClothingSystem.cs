@@ -13,15 +13,32 @@ namespace Content.Shared.Clothing.EntitySystems;
 
 public abstract class SharedChameleonClothingSystem : EntitySystem
 {
-    [Dependency] private readonly IComponentFactory _factory = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly ClothingSystem _clothingSystem = default!;
-    [Dependency] private readonly ContrabandSystem _contraband = default!;
-    [Dependency] private readonly MetaDataSystem _metaData = default!;
-    [Dependency] private readonly SharedItemSystem _itemSystem = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly TagSystem _tag = default!;
-    [Dependency] protected readonly SharedUserInterfaceSystem UI = default!;
+    [Dependency]
+    private readonly IComponentFactory _factory = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private readonly ClothingSystem _clothingSystem = default!;
+
+    [Dependency]
+    private readonly ContrabandSystem _contraband = default!;
+
+    [Dependency]
+    private readonly MetaDataSystem _metaData = default!;
+
+    [Dependency]
+    private readonly SharedItemSystem _itemSystem = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly TagSystem _tag = default!;
+
+    [Dependency]
+    protected readonly SharedUserInterfaceSystem UI = default!;
 
     private static readonly ProtoId<TagPrototype> WhitelistChameleonTag = "WhitelistChameleon";
 
@@ -49,8 +66,7 @@ public abstract class SharedChameleonClothingSystem : EntitySystem
     // This 100% makes sure that server and client have exactly same data.
     protected void UpdateVisuals(EntityUid uid, ChameleonClothingComponent component)
     {
-        if (string.IsNullOrEmpty(component.Default) ||
-            !_proto.TryIndex(component.Default, out EntityPrototype? proto))
+        if (string.IsNullOrEmpty(component.Default) || !_proto.TryIndex(component.Default, out EntityPrototype? proto))
             return;
 
         // world sprite icon
@@ -65,22 +81,25 @@ public abstract class SharedChameleonClothingSystem : EntitySystem
         }
 
         // item sprite logic
-        if (TryComp(uid, out ItemComponent? item) &&
-            proto.TryGetComponent(out ItemComponent? otherItem, _factory))
+        if (TryComp(uid, out ItemComponent? item) && proto.TryGetComponent(out ItemComponent? otherItem, _factory))
         {
             _itemSystem.CopyVisuals(uid, otherItem, item);
         }
 
         // clothing sprite logic
-        if (TryComp(uid, out ClothingComponent? clothing) &&
-            proto.TryGetComponent("Clothing", out ClothingComponent? otherClothing))
+        if (
+            TryComp(uid, out ClothingComponent? clothing)
+            && proto.TryGetComponent("Clothing", out ClothingComponent? otherClothing)
+        )
         {
             _clothingSystem.CopyVisuals(uid, otherClothing, clothing);
         }
 
         // appearance data logic
-        if (TryComp(uid, out AppearanceComponent? appearance) &&
-            proto.TryGetComponent("Appearance", out AppearanceComponent? appearanceOther))
+        if (
+            TryComp(uid, out AppearanceComponent? appearance)
+            && proto.TryGetComponent("Appearance", out AppearanceComponent? appearanceOther)
+        )
         {
             _appearance.AppendData(appearanceOther, uid);
             Dirty(uid, appearance);
@@ -106,12 +125,14 @@ public abstract class SharedChameleonClothingSystem : EntitySystem
         // Can't pass args from a ref event inside of lambdas
         var user = args.User;
 
-        args.Verbs.Add(new InteractionVerb()
-        {
-            Text = Loc.GetString("chameleon-component-verb-text"),
-            Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/settings.svg.192dpi.png")),
-            Act = () => UI.TryToggleUi(ent.Owner, ChameleonUiKey.Key, user)
-        });
+        args.Verbs.Add(
+            new InteractionVerb()
+            {
+                Text = Loc.GetString("chameleon-component-verb-text"),
+                Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/settings.svg.192dpi.png")),
+                Act = () => UI.TryToggleUi(ent.Owner, ChameleonUiKey.Key, user),
+            }
+        );
     }
 
     protected virtual void UpdateSprite(EntityUid uid, EntityPrototype proto) { }
@@ -119,7 +140,11 @@ public abstract class SharedChameleonClothingSystem : EntitySystem
     /// <summary>
     ///     Check if this entity prototype is valid target for chameleon item.
     /// </summary>
-    public bool IsValidTarget(EntityPrototype proto, SlotFlags chameleonSlot = SlotFlags.NONE, string? requiredTag = null)
+    public bool IsValidTarget(
+        EntityPrototype proto,
+        SlotFlags chameleonSlot = SlotFlags.NONE,
+        string? requiredTag = null
+    )
     {
         // check if entity is valid
         if (proto.Abstract || proto.HideSpawnMenu)

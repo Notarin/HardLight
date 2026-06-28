@@ -1,21 +1,28 @@
-using Robust.Shared.Audio;
 using Content.Server.Chat;
 using Content.Server.Chat.Systems;
 using Content.Shared.Speech;
+using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
-using Robust.Shared.Timing;
 using Robust.Shared.Random;
+using Robust.Shared.Timing;
 
 namespace Content.Server.Speech
 {
     public sealed class SpeechSoundSystem : EntitySystem
     {
-        [Dependency] private readonly IGameTiming _gameTiming = default!;
-        [Dependency] private readonly IPrototypeManager _protoManager = default!;
-        [Dependency] private readonly IRobustRandom _random = default!;
-        [Dependency] private readonly SharedAudioSystem _audio = default!;
+        [Dependency]
+        private readonly IGameTiming _gameTiming = default!;
+
+        [Dependency]
+        private readonly IPrototypeManager _protoManager = default!;
+
+        [Dependency]
+        private readonly IRobustRandom _random = default!;
+
+        [Dependency]
+        private readonly SharedAudioSystem _audio = default!;
 
         public override void Initialize()
         {
@@ -38,7 +45,7 @@ namespace Content.Server.Speech
             {
                 '?' => prototype.AskSound,
                 '!' => prototype.ExclaimSound,
-                _ => prototype.SaySound
+                _ => prototype.SaySound,
             };
 
             // Use exclaim sound if most characters are uppercase.
@@ -53,7 +60,7 @@ namespace Content.Server.Speech
                 contextSound = prototype.ExclaimSound;
             }
 
-            var scale = (float) _random.NextGaussian(1, prototype.Variation);
+            var scale = (float)_random.NextGaussian(1, prototype.Variation);
             contextSound.Params = ent.Comp.AudioParams.WithPitchScale(scale);
             return contextSound;
         }

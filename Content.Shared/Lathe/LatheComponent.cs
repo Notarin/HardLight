@@ -23,6 +23,7 @@ namespace Content.Shared.Lathe
         /// </summary>
         [DataField]
         public List<ProtoId<LatheRecipePackPrototype>> DynamicPacks = new();
+
         // Note that this shouldn't be modified dynamically.
         // I.e., this + the static recipies should represent all recipies that the lathe can ever make
         // Otherwise the material arbitrage test and/or LatheSystem.GetAllBaseRecipes needs to be updated
@@ -120,6 +121,7 @@ namespace Content.Shared.Lathe
         /// </summary>
         [DataField]
         public float PartRatingMaterialUseMultiplier = DefaultPartRatingMaterialUseMultiplier;
+
         // End Frontier
 
         // Frontier: restored for machine part upgrades
@@ -175,6 +177,7 @@ namespace Content.Shared.Lathe
             ItemsRequested = itemsRequested;
         }
     }
+
     // End Frontier
 
     /// <summary>

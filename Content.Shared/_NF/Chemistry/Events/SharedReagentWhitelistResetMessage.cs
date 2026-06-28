@@ -4,7 +4,6 @@ using Robust.Shared.Serialization;
 
 namespace Content.Shared._NF.Chemistry.Events;
 
-
 /// <summary>
 ///     Sends a message to change the associated injector component's ReagentWhitelist to null,
 ///     allowing all Reagents to be drawn by that injector
@@ -12,8 +11,5 @@ namespace Content.Shared._NF.Chemistry.Events;
 [Serializable, NetSerializable]
 public sealed class ReagentWhitelistResetMessage : BoundUserInterfaceMessage
 {
-    public ReagentWhitelistResetMessage()
-    {
-
-    }
+    public ReagentWhitelistResetMessage() { }
 }

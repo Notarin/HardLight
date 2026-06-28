@@ -14,12 +14,23 @@ namespace Content.Shared.Devour;
 
 public abstract class SharedDevourSystem : EntitySystem
 {
-    [Dependency] protected readonly SharedAudioSystem _audioSystem = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedActionsSystem _actionsSystem = default!;
-    [Dependency] protected readonly SharedContainerSystem ContainerSystem = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
+    [Dependency]
+    protected readonly SharedAudioSystem _audioSystem = default!;
+
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfterSystem = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly SharedActionsSystem _actionsSystem = default!;
+
+    [Dependency]
+    protected readonly SharedContainerSystem ContainerSystem = default!;
+
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelistSystem = default!;
 
     public override void Initialize()
     {
@@ -57,13 +68,23 @@ public abstract class SharedDevourSystem : EntitySystem
                 case MobState.Critical:
                 case MobState.Dead:
 
-                    _doAfterSystem.TryStartDoAfter(new DoAfterArgs(EntityManager, uid, component.DevourTime, new DevourDoAfterEvent(), uid, target: target, used: uid)
-                    {
-                        BreakOnMove = true,
-                    });
+                    _doAfterSystem.TryStartDoAfter(
+                        new DoAfterArgs(
+                            EntityManager,
+                            uid,
+                            component.DevourTime,
+                            new DevourDoAfterEvent(),
+                            uid,
+                            target: target,
+                            used: uid
+                        )
+                        {
+                            BreakOnMove = true,
+                        }
+                    );
                     break;
                 default:
-                    _popupSystem.PopupClient(Loc.GetString("devour-action-popup-message-fail-target-alive"), uid,uid);
+                    _popupSystem.PopupClient(Loc.GetString("devour-action-popup-message-fail-target-alive"), uid, uid);
                     break;
             }
 
@@ -75,10 +96,20 @@ public abstract class SharedDevourSystem : EntitySystem
         if (component.SoundStructureDevour != null)
             _audioSystem.PlayPredicted(component.SoundStructureDevour, uid, uid, component.SoundStructureDevour.Params);
 
-        _doAfterSystem.TryStartDoAfter(new DoAfterArgs(EntityManager, uid, component.StructureDevourTime, new DevourDoAfterEvent(), uid, target: target, used: uid)
-        {
-            BreakOnMove = true,
-        });
+        _doAfterSystem.TryStartDoAfter(
+            new DoAfterArgs(
+                EntityManager,
+                uid,
+                component.StructureDevourTime,
+                new DevourDoAfterEvent(),
+                uid,
+                target: target,
+                used: uid
+            )
+            {
+                BreakOnMove = true,
+            }
+        );
     }
 }
 
@@ -91,5 +122,5 @@ public sealed partial class DevourDoAfterEvent : SimpleDoAfterEvent { }
 public enum FoodPreference : byte
 {
     Humanoid = 0,
-    All = 1
+    All = 1,
 }

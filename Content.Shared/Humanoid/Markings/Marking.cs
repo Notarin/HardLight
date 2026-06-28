@@ -16,32 +16,23 @@ namespace Content.Shared.Humanoid.Markings
         [DataField]
         public bool IsGlowing = false; //starlight
 
-        private Marking()
-        {
-        }
+        private Marking() { }
 
-        public Marking(string markingId,
-            List<Color> markingColors, bool isGlowing) //starlight, glowing
+        public Marking(string markingId, List<Color> markingColors, bool isGlowing) //starlight, glowing
         {
             MarkingId = markingId;
             _markingColors = markingColors;
             IsGlowing = isGlowing; //starlight
         }
 
-        public Marking(string markingId,
-            List<Color> markingColors,
-            bool isGlowing,
-            MarkingCategories category)
+        public Marking(string markingId, List<Color> markingColors, bool isGlowing, MarkingCategories category)
             : this(markingId, markingColors.Count, isGlowing, category)
         {
             _markingColors = markingColors;
         }
 
-        public Marking(string markingId,
-            IReadOnlyList<Color> markingColors, bool isGlowing) //starlight, glowing
-            : this(markingId, new List<Color>(markingColors), isGlowing)
-        {
-        }
+        public Marking(string markingId, IReadOnlyList<Color> markingColors, bool isGlowing) //starlight, glowing
+            : this(markingId, new List<Color>(markingColors), isGlowing) { }
 
         public Marking(string markingId, int colorCount)
         {
@@ -197,8 +188,7 @@ namespace Content.Shared.Humanoid.Markings
         [ViewVariables]
         public bool Forced;
 
-        public void SetColor(int colorIndex, Color color) =>
-            _markingColors[colorIndex] = color;
+        public void SetColor(int colorIndex, Color color) => _markingColors[colorIndex] = color;
 
         public void SetColor(Color color)
         {

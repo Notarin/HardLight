@@ -25,7 +25,6 @@ public sealed partial class FirestarterComponent : Component
 
     public EntityUid? FireStarterActionEntity;
 
-
     /// <summary>
     /// Radius of objects that will be ignited if flammable.
     /// </summary>

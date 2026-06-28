@@ -23,12 +23,24 @@ namespace Content.Shared.Materials;
 /// </summary>
 public abstract class SharedMaterialReclaimerSystem : EntitySystem
 {
-    [Dependency] private readonly ISharedAdminLogManager _adminLog = default!;
-    [Dependency] protected readonly IGameTiming Timing = default!;
-    [Dependency] protected readonly SharedAmbientSoundSystem AmbientSound = default!;
-    [Dependency] protected readonly SharedAudioSystem _audio = default!; // Frontier: private<protected
-    [Dependency] protected readonly SharedContainerSystem Container = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
+    [Dependency]
+    private readonly ISharedAdminLogManager _adminLog = default!;
+
+    [Dependency]
+    protected readonly IGameTiming Timing = default!;
+
+    [Dependency]
+    protected readonly SharedAmbientSoundSystem AmbientSound = default!;
+
+    [Dependency]
+    protected readonly SharedAudioSystem _audio = default!; // Frontier: private<protected
+
+    [Dependency]
+    protected readonly SharedContainerSystem Container = default!;
+
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelistSystem = default!;
+
     //[Dependency] private readonly EmagSystem _emag = default!; // Frontier: no point
 
     public const string ActiveReclaimerContainerId = "active-material-reclaimer-container";
@@ -91,7 +103,13 @@ public abstract class SharedMaterialReclaimerSystem : EntitySystem
     /// <summary>
     /// Tries to start processing an item via a <see cref="MaterialReclaimerComponent"/>.
     /// </summary>
-    public bool TryStartProcessItem(EntityUid uid, EntityUid item, MaterialReclaimerComponent? component = null, EntityUid? user = null, bool predictSound = true) // Frontier: add predictSound
+    public bool TryStartProcessItem(
+        EntityUid uid,
+        EntityUid item,
+        MaterialReclaimerComponent? component = null,
+        EntityUid? user = null,
+        bool predictSound = true
+    ) // Frontier: add predictSound
     {
         if (!Resolve(uid, ref component))
             return false;
@@ -102,8 +120,10 @@ public abstract class SharedMaterialReclaimerSystem : EntitySystem
         if (HasComp<MobStateComponent>(item) && !CanGib(uid, item, component)) // whitelist? We be gibbing, boy!
             return false;
 
-        if (_whitelistSystem.IsWhitelistFail(component.Whitelist, item) ||
-            _whitelistSystem.IsBlacklistPass(component.Blacklist, item))
+        if (
+            _whitelistSystem.IsWhitelistFail(component.Whitelist, item)
+            || _whitelistSystem.IsBlacklistPass(component.Blacklist, item)
+        )
             return false;
 
         if (Container.TryGetContainingContainer((item, null, null), out _) && !Container.TryRemoveFromContainer(item))
@@ -111,9 +131,11 @@ public abstract class SharedMaterialReclaimerSystem : EntitySystem
 
         if (user != null)
         {
-            _adminLog.Add(LogType.Action,
+            _adminLog.Add(
+                LogType.Action,
                 LogImpact.Medium,
-                $"{ToPrettyString(user.Value):player} destroyed {ToPrettyString(item)} in the material reclaimer, {ToPrettyString(uid)}"); // Hardlight | High -> Medium. Not severe enough to require immediate alert, and spams chat if someone reclaims many items at once.
+                $"{ToPrettyString(user.Value):player} destroyed {ToPrettyString(item)} in the material reclaimer, {ToPrettyString(uid)}"
+            ); // Hardlight | High -> Medium. Not severe enough to require immediate alert, and spams chat if someone reclaims many items at once.
         }
 
         if (Timing.CurTime > component.NextSound)
@@ -156,7 +178,11 @@ public abstract class SharedMaterialReclaimerSystem : EntitySystem
     /// process started with <see cref="ActiveMaterialReclaimerComponent"/>.
     /// The actual reclaiming happens in <see cref="Reclaim"/>
     /// </remarks>
-    public virtual bool TryFinishProcessItem(EntityUid uid, MaterialReclaimerComponent? component = null, ActiveMaterialReclaimerComponent? active = null)
+    public virtual bool TryFinishProcessItem(
+        EntityUid uid,
+        MaterialReclaimerComponent? component = null,
+        ActiveMaterialReclaimerComponent? active = null
+    )
     {
         if (!Resolve(uid, ref component, ref active, false))
             return false;
@@ -169,10 +195,12 @@ public abstract class SharedMaterialReclaimerSystem : EntitySystem
     /// Spawns the materials and chemicals associated
     /// with an entity. Also deletes the item.
     /// </summary>
-    public virtual void Reclaim(EntityUid uid,
+    public virtual void Reclaim(
+        EntityUid uid,
         EntityUid item,
         float completion = 1f,
-        MaterialReclaimerComponent? component = null)
+        MaterialReclaimerComponent? component = null
+    )
     {
         if (!Resolve(uid, ref component))
             return;
@@ -236,16 +264,17 @@ public abstract class SharedMaterialReclaimerSystem : EntitySystem
     /// Processing is calculated from the sum of the materials within the entity.
     /// It does not regard the chemicals within it.
     /// </summary>
-    public TimeSpan GetReclaimingDuration(EntityUid reclaimer,
+    public TimeSpan GetReclaimingDuration(
+        EntityUid reclaimer,
         EntityUid item,
         MaterialReclaimerComponent? reclaimerComponent = null,
-        PhysicalCompositionComponent? compositionComponent = null)
+        PhysicalCompositionComponent? compositionComponent = null
+    )
     {
         if (!Resolve(reclaimer, ref reclaimerComponent))
             return TimeSpan.Zero;
 
-        if (!reclaimerComponent.ScaleProcessSpeed ||
-            !Resolve(item, ref compositionComponent, false))
+        if (!reclaimerComponent.ScaleProcessSpeed || !Resolve(item, ref compositionComponent, false))
             return reclaimerComponent.MinimumProcessDuration;
 
         var materialSum = compositionComponent.MaterialComposition.Values.Sum();

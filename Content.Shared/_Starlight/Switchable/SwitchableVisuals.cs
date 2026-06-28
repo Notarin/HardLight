@@ -12,5 +12,5 @@ public sealed partial class SwitchableActionEvent : InstantActionEvent;
 public enum SwitchableVisuals : byte
 {
     Switched,
-    Layer
+    Layer,
 }

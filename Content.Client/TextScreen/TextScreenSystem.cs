@@ -10,39 +10,37 @@ namespace Content.Client.TextScreen;
 /// overview:
 /// Data is passed from server to client through <see cref="SharedAppearanceSystem.SetData"/>,
 /// calling <see cref="OnAppearanceChange"/>, which calls almost everything else.
-
 /// Data for the (at most one) timer is stored in <see cref="TextScreenTimerComponent"/>.
-
 /// All screens have <see cref="TextScreenVisualsComponent"/>, but:
 /// the update method only updates the timers, so the timercomp is added/removed by appearance changes/timing out.
-
 /// Because the sprite component stores layers in a dict with no nesting, individual layers
 /// have to be mapped to unique ids e.g. {"textMapKey01" : <first row, second char layerstate>}
 /// in either the visuals or timer component.
-
-
 /// <summary>
 ///     The TextScreenSystem draws text in the game world using 3x5 sprite states for each character.
 /// </summary>
 public sealed class TextScreenSystem : VisualizerSystem<TextScreenVisualsComponent>
 {
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     /// <summary>
     ///     Contains char/state Key/Value pairs. <br/>
     ///     The states in Textures/Effects/text.rsi that special character should be replaced with.
     /// </summary>
     private static readonly Dictionary<char, string> CharStatePairs = new()
-        {
-            { ':', "colon" },
-            { '!', "exclamation" },
-            { '?', "question" },
-            { '*', "star" },
-            { '+', "plus" },
-            { '-', "dash" },
-            { ' ', "blank" }
-        };
+    {
+        { ':', "colon" },
+        { '!', "exclamation" },
+        { '?', "question" },
+        { '*', "star" },
+        { '+', "plus" },
+        { '-', "dash" },
+        { ' ', "blank" },
+    };
 
     private const string DefaultState = "blank";
 
@@ -50,6 +48,7 @@ public sealed class TextScreenSystem : VisualizerSystem<TextScreenVisualsCompone
     ///     A string prefix for all text layers.
     /// </summary>
     private const string TextMapKey = "textMapKey";
+
     /// <summary>
     ///     A string prefix for all timer layers.
     /// </summary>
@@ -105,7 +104,11 @@ public sealed class TextScreenSystem : VisualizerSystem<TextScreenVisualsCompone
     /// <remarks>
     ///     The appearance updates are batched; order matters for both sender and receiver.
     /// </remarks>
-    protected override void OnAppearanceChange(EntityUid uid, TextScreenVisualsComponent component, ref AppearanceChangeEvent args)
+    protected override void OnAppearanceChange(
+        EntityUid uid,
+        TextScreenVisualsComponent component,
+        ref AppearanceChangeEvent args
+    )
     {
         if (!Resolve(uid, ref args.Sprite))
             return;
@@ -195,15 +198,15 @@ public sealed class TextScreenSystem : VisualizerSystem<TextScreenVisualsCompone
         component.LayerStatesToDraw.Clear();
 
         for (var row = 0; row < component.Rows; row++)
-            for (var i = 0; i < component.RowLength; i++)
-            {
-                var key = TextMapKey + row + i;
-                _sprite.LayerMapReserve((uid, sprite), key);
-                component.LayerStatesToDraw.Add(key, null);
-                _sprite.LayerSetRsi((uid, sprite), key, new ResPath(TextPath));
-                _sprite.LayerSetColor((uid, sprite), key, component.Color);
-                _sprite.LayerSetRsiState((uid, sprite), key, DefaultState);
-            }
+        for (var i = 0; i < component.RowLength; i++)
+        {
+            var key = TextMapKey + row + i;
+            _sprite.LayerMapReserve((uid, sprite), key);
+            component.LayerStatesToDraw.Add(key, null);
+            _sprite.LayerSetRsi((uid, sprite), key, new ResPath(TextPath));
+            _sprite.LayerSetColor((uid, sprite), key, component.Color);
+            _sprite.LayerSetRsiState((uid, sprite), key, DefaultState);
+        }
     }
 
     /// <summary>
@@ -234,7 +237,7 @@ public sealed class TextScreenSystem : VisualizerSystem<TextScreenVisualsCompone
                     Vector2.Multiply(
                         new Vector2((chr - min / 2f + 0.5f) * CharWidth, -rowIdx * component.RowOffset),
                         TextScreenVisualsComponent.PixelSize
-                        ) + component.TextOffset
+                    ) + component.TextOffset
                 );
             }
         }
@@ -251,8 +254,10 @@ public sealed class TextScreenSystem : VisualizerSystem<TextScreenVisualsCompone
         var time = TimeToString(
             (_gameTiming.CurTime - timer.Target).Duration(),
             false,
-            screen.HourFormat, screen.MinuteFormat, screen.SecondFormat
-            );
+            screen.HourFormat,
+            screen.MinuteFormat,
+            screen.SecondFormat
+        );
 
         var min = Math.Min(time.Length, screen.RowLength);
 
@@ -265,7 +270,7 @@ public sealed class TextScreenSystem : VisualizerSystem<TextScreenVisualsCompone
                 Vector2.Multiply(
                     new Vector2((i - min / 2f + 0.5f) * CharWidth, 0f),
                     TextScreenVisualsComponent.PixelSize
-                    ) + screen.TimerOffset
+                ) + screen.TimerOffset
             );
         }
     }
@@ -308,7 +313,14 @@ public sealed class TextScreenSystem : VisualizerSystem<TextScreenVisualsCompone
     /// <remarks>
     ///     hours, minutes, seconds, and centiseconds are each set to 2 decimal places by default.
     /// </remarks>
-    public static string TimeToString(TimeSpan timeSpan, bool getMilliseconds = true, string hours = "D2", string minutes = "D2", string seconds = "D2", string cs = "D2")
+    public static string TimeToString(
+        TimeSpan timeSpan,
+        bool getMilliseconds = true,
+        string hours = "D2",
+        string minutes = "D2",
+        string seconds = "D2",
+        string cs = "D2"
+    )
     {
         string firstString;
         string lastString;

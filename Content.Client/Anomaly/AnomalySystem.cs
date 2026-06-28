@@ -9,9 +9,14 @@ namespace Content.Client.Anomaly;
 
 public sealed class AnomalySystem : SharedAnomalySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly FloatingVisualizerSystem _floating = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly FloatingVisualizerSystem _floating = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -24,6 +29,7 @@ public sealed class AnomalySystem : SharedAnomalySystem
 
         SubscribeLocalEvent<AnomalySupercriticalComponent, ComponentShutdown>(OnShutdown);
     }
+
     private void OnStartup(EntityUid uid, AnomalyComponent component, ComponentStartup args)
     {
         _floating.FloatAnimation(uid, component.FloatingOffset, component.AnimationKey, component.AnimationTime);
@@ -50,8 +56,10 @@ public sealed class AnomalySystem : SharedAnomalySystem
         if (HasComp<AnomalySupercriticalComponent>(uid))
             pulsing = true;
 
-        if (!_sprite.LayerMapTryGet((uid, sprite), AnomalyVisualLayers.Base, out var layer, false) ||
-            !_sprite.LayerMapTryGet((uid, sprite), AnomalyVisualLayers.Animated, out var animatedLayer, false))
+        if (
+            !_sprite.LayerMapTryGet((uid, sprite), AnomalyVisualLayers.Base, out var layer, false)
+            || !_sprite.LayerMapTryGet((uid, sprite), AnomalyVisualLayers.Animated, out var animatedLayer, false)
+        )
             return;
 
         _sprite.LayerSetVisible((uid, sprite), layer, !pulsing);

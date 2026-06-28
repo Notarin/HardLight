@@ -9,7 +9,8 @@ namespace Content.Client._HL.Lizard;
 /// </summary>
 public sealed class LizardCombatSpriteSystem : EntitySystem
 {
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     public override void Initialize()
     {

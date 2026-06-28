@@ -24,9 +24,14 @@ public sealed partial class FancyResearchConsoleMenu : FancyWindow
     public Action<string>? OnTechnologyCardPressed;
     public Action? OnServerButtonPressed;
 
-    [Dependency] private readonly IEntityManager _entity = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
+    [Dependency]
+    private readonly IEntityManager _entity = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototype = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
 
     private readonly ResearchSystem _research;
     private readonly SpriteSystem _sprite;
@@ -139,8 +144,7 @@ public sealed partial class FancyResearchConsoleMenu : FancyWindow
         UpdatePanels(List);
     }
 
-    public void SetEntity(EntityUid entity)
-        => Entity = entity;
+    public void SetEntity(EntityUid entity) => Entity = entity;
 
     public void UpdatePanels(Dictionary<string, ResearchAvailability> dict)
     {
@@ -169,8 +173,7 @@ public sealed partial class FancyResearchConsoleMenu : FancyWindow
         Points = points;
 
         var amountMsg = new FormattedMessage();
-        amountMsg.AddMarkupOrThrow(Loc.GetString("research-console-menu-research-points-text",
-            ("points", points)));
+        amountMsg.AddMarkupOrThrow(Loc.GetString("research-console-menu-research-points-text", ("points", points)));
         ResearchAmountLabel.SetMessage(amountMsg);
 
         if (!_entity.TryGetComponent(Entity, out TechnologyDatabaseComponent? database))
@@ -183,11 +186,7 @@ public sealed partial class FancyResearchConsoleMenu : FancyWindow
             var tier = _research.GetTierCompletionPercentage(database, discipline, _prototype);
 
             // i'm building the small-ass control here to spare me some mild annoyance in making a new file
-            var texture = new TextureRect
-            {
-                TextureScale = new Vector2(2, 2),
-                VerticalAlignment = VAlignment.Center
-            };
+            var texture = new TextureRect { TextureScale = new Vector2(2, 2), VerticalAlignment = VAlignment.Center };
             var label = new RichTextLabel();
             texture.Texture = _sprite.Frame0(discipline.Icon);
             label.SetMessage(Loc.GetString("research-console-tier-percentage", ("perc", tier)));
@@ -198,11 +197,8 @@ public sealed partial class FancyResearchConsoleMenu : FancyWindow
                 {
                     texture,
                     label,
-                    new Control
-                    {
-                        MinWidth = 10
-                    }
-                }
+                    new Control { MinWidth = 10 },
+                },
             };
             TierDisplayContainer.AddChild(control);
         }
@@ -235,7 +231,10 @@ public sealed partial class FancyResearchConsoleMenu : FancyWindow
         base.MouseWheel(args);
 
         var researchTopLeft = new Vector2(ResearchesContainer.PixelPosition.X, ResearchesContainer.PixelPosition.Y);
-        var researchBounds = UIBox2.FromDimensions(researchTopLeft, new Vector2(ResearchesContainer.PixelWidth, ResearchesContainer.PixelHeight));
+        var researchBounds = UIBox2.FromDimensions(
+            researchTopLeft,
+            new Vector2(ResearchesContainer.PixelWidth, ResearchesContainer.PixelHeight)
+        );
         if (!researchBounds.Contains(args.RelativePosition))
             return;
 
@@ -270,8 +269,8 @@ public sealed partial class FancyResearchConsoleMenu : FancyWindow
             _draggin = false;
     }
 
-    protected override DragMode GetDragModeFor(Vector2 relativeMousePos)
-        => _draggin ? DragMode.None : base.GetDragModeFor(relativeMousePos);
+    protected override DragMode GetDragModeFor(Vector2 relativeMousePos) =>
+        _draggin ? DragMode.None : base.GetDragModeFor(relativeMousePos);
     #endregion
 
     /// <summary>
@@ -286,7 +285,12 @@ public sealed partial class FancyResearchConsoleMenu : FancyWindow
             return;
 
         CurrentTech = proto.ID;
-        var control = new FancyTechnologyInfoPanel(proto, _accessReader.IsAllowed(_player.LocalEntity.Value, Entity), availability, _sprite);
+        var control = new FancyTechnologyInfoPanel(
+            proto,
+            _accessReader.IsAllowed(_player.LocalEntity.Value, Entity),
+            availability,
+            _sprite
+        );
         control.BuyAction += args => OnTechnologyCardPressed?.Invoke(args.ID);
         InfoContainer.AddChild(control);
     }

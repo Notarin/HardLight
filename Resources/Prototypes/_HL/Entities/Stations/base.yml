@@ -2,196 +2,195 @@
   id: BaseStation
   abstract: true
   components:
-    - type: StationData
+  - type: StationData
 
 - type: entity
   id: BaseStationCargo
   abstract: true
   components:
-    - type: StationBankAccount
-    - type: StationCargoOrderDatabase
-      orders:
-        Cargo: [ ]
-        Engineering: [ ]
-        Medical: [ ]
-        Science: [ ]
-        Security: [ ]
-        Service: [ ]
-        Frontier: [ ]
-        Nfsd: [ ]
-    - type: StationCargoBountyDatabase
+  - type: StationBankAccount
+  - type: StationCargoOrderDatabase
+    orders:
+      Cargo: []
+      Engineering: []
+      Medical: []
+      Science: []
+      Security: []
+      Service: []
+      Frontier: []
+      Nfsd: []
+  - type: StationCargoBountyDatabase
 
 - type: entity
   id: BaseStationJobsSpawning
   abstract: true
   components:
-    - type: StationJobs
-      availableJobs: {}
-    - type: StationSpawning
+  - type: StationJobs
+    availableJobs: {}
+  - type: StationSpawning
 
 - type: entity
   id: BaseStationRecords
   abstract: true
   components:
-    - type: StationRecords
+  - type: StationRecords
 
 - type: entity
   id: BaseStationArrivals
   abstract: true
   components:
-    - type: StationArrivals
+  - type: StationArrivals
 
 - type: entity
   id: BaseStationGateway
   abstract: true
   components:
-    - type: GatewayGenerator
+  - type: GatewayGenerator
 
 - type: entity
   id: BaseStationShuttles
   abstract: true
   components:
-    - type: StationCargoShuttle
-      path: /Maps/Shuttles/cargo.yml
-    - type: GridSpawn
-      groups:
-        trade: !type:GridSpawnGroup
-          addComponents:
-            - type: ProtectedGrid
-            - type: TradeStation
-          paths:
-            - /Maps/Shuttles/trading_outpost.yml
-        # Spawn last
-        ruins: !type:GridSpawnGroup
-          hide: true
-          nameGrid: true
-          minCount: 2
-          maxCount: 2
-          stationGrid: false
-          paths:
-          - /Maps/Ruins/abandoned_outpost.yml
-          - /Maps/Ruins/chunked_tcomms.yml
-          - /Maps/Ruins/biodome_satellite.yml
-          - /Maps/Ruins/derelict.yml
-          - /Maps/Ruins/djstation.yml
-          - /Maps/Ruins/empty_flagship.yml
-          - /Maps/Ruins/hydro_outpost.yml
-          - /Maps/Ruins/old_ai_sat.yml
-          - /Maps/Ruins/ruined_prison_ship.yml
-          - /Maps/Ruins/syndicate_dropship.yml
-          - /Maps/Ruins/whiteship_ancient.yml
-          - /Maps/Ruins/whiteship_bluespacejumper.yml
-          - /Maps/Ruins/wrecklaimer.yml
+  - type: StationCargoShuttle
+    path: /Maps/Shuttles/cargo.yml
+  - type: GridSpawn
+    groups:
+      trade: !type:GridSpawnGroup
+        addComponents:
+        - type: ProtectedGrid
+        - type: TradeStation
+        paths:
+        - /Maps/Shuttles/trading_outpost.yml
+      # Spawn last
+      ruins: !type:GridSpawnGroup
+        hide: true
+        nameGrid: true
+        minCount: 2
+        maxCount: 2
+        stationGrid: false
+        paths:
+        - /Maps/Ruins/abandoned_outpost.yml
+        - /Maps/Ruins/chunked_tcomms.yml
+        - /Maps/Ruins/biodome_satellite.yml
+        - /Maps/Ruins/derelict.yml
+        - /Maps/Ruins/djstation.yml
+        - /Maps/Ruins/empty_flagship.yml
+        - /Maps/Ruins/hydro_outpost.yml
+        - /Maps/Ruins/old_ai_sat.yml
+        - /Maps/Ruins/ruined_prison_ship.yml
+        - /Maps/Ruins/syndicate_dropship.yml
+        - /Maps/Ruins/whiteship_ancient.yml
+        - /Maps/Ruins/whiteship_bluespacejumper.yml
+        - /Maps/Ruins/wrecklaimer.yml
         # vgroid: !type:DungeonSpawnGroup # Frontier
-          # minimumDistance: 300 # Frontier
-          # maximumDistance: 350 # Frontier
-          # nameDataset: NamesBorer # Frontier
-          # stationGrid: false # Frontier
-          # addComponents: # Frontier
-          # - type: Gravity # Frontier
-            # enabled: true # Frontier
-            # inherent: true # Frontier
-          # protos: # Frontier
-          # - VGRoid # Frontier
+        # minimumDistance: 300 # Frontier
+        # maximumDistance: 350 # Frontier
+        # nameDataset: NamesBorer # Frontier
+        # stationGrid: false # Frontier
+        # addComponents: # Frontier
+        # - type: Gravity # Frontier
+        # enabled: true # Frontier
+        # inherent: true # Frontier
+        # protos: # Frontier
+        # - VGRoid # Frontier
 
 - type: entity
   id: BaseStationColcomm
   abstract: true
   components:
-    - type: StationColcomm
-      jobRegistryConfig:
-        # Command (8)
-        StationCaptain: [ 1, 1 ]
-        HeadOfPersonnel: [ 1, 1 ]
-        HeadOfSecurity: [ 1, 1 ]
-        ChiefMedicalOfficer: [ 1, 1 ]
-        ChiefEngineer: [ 1, 1 ]
-        ResearchDirector: [ 1, 1 ]
-        Quartermaster: [ 1, 1 ]
-        StationTrafficController: [ 1, 1 ]
-        # Silicon (2)
-        StationAi: [ 1, 1 ]
-        Borg: [ 3, 3 ]
-        # Service (11)
-        Chef: [ 2, 2 ]
-        Botanist: [ 2, 3 ]
-        Bartender: [ 2, 2 ]
-        Janitor: [ 3, 4 ]
-        ServiceWorker: [ 4, 4 ]
-        Chaplain: [ 1, 1 ]
-        Reporter: [ 2, 2 ]
-        Librarian: [ 1, 1 ]
-        Valet: [ 1, 2 ]
-        Boxer: [ 2, 2 ]
-        ServiceQuadBorg: [ 3, 3 ]
-        # Security (6)
-        Warden: [ 1, 1 ]
-        Detective: [ 2, 2 ]
-        SecurityOfficer: [ 6, 6 ]
-        SecurityCadet: [ 3, 3 ]
-        Lawyer: [ 1, 1 ]
-        SecurityQuadBorg: [ 3, 3 ]
-        # Medical (7)
-        Paramedic: [ 2, 3 ]
-        Geneticist: [ 1, 2 ]
-        Chemist: [ 2, 3 ]
-        MedicalDoctor: [ 6, 6 ]
-        MedicalIntern: [ 3, 3 ]
-        Psychologist: [ 1, 1 ]
-        MedicalQuadBorg: [ 3, 3 ]
-        # Engineering (4)
-        AtmosphericTechnician: [ 3, 3 ]
-        StationEngineer: [ 6, 6 ]
-        TechnicalAssistant: [ 3, 3 ]
-        EngineeringQuadBorg: [ 3, 3 ]
-        # Science (3)
-        ForensicMantis: [ 1, 1 ]
-        Scientist: [ 4, 4 ]
-        ResearchAssistant: [ 3, 3 ]
-        # Supply (4)
-        SalvageSpecialist: [ 3, 3 ]
-        CargoTechnician: [ 4, 4 ]
-        MailCarrier: [ 2, 2 ]
-        SalvageQuadBorg: [ 3, 3 ]
-        # Civilian (6)
-        Mercenary: [ 0, 40 ]
-        Passenger: [ -1, -1 ]
-        Prisoner: [ 3, 3 ]
-        Clown: [ 2, 2 ]
-        Mime: [ 2, 2 ]
-        Musician: [ 2, 2 ]
-
+  - type: StationColcomm
+    jobRegistryConfig:
+      # Command (8)
+      StationCaptain: [1, 1]
+      HeadOfPersonnel: [1, 1]
+      HeadOfSecurity: [1, 1]
+      ChiefMedicalOfficer: [1, 1]
+      ChiefEngineer: [1, 1]
+      ResearchDirector: [1, 1]
+      Quartermaster: [1, 1]
+      StationTrafficController: [1, 1]
+      # Silicon (2)
+      StationAi: [1, 1]
+      Borg: [3, 3]
+      # Service (11)
+      Chef: [2, 2]
+      Botanist: [2, 3]
+      Bartender: [2, 2]
+      Janitor: [3, 4]
+      ServiceWorker: [4, 4]
+      Chaplain: [1, 1]
+      Reporter: [2, 2]
+      Librarian: [1, 1]
+      Valet: [1, 2]
+      Boxer: [2, 2]
+      ServiceQuadBorg: [3, 3]
+      # Security (6)
+      Warden: [1, 1]
+      Detective: [2, 2]
+      SecurityOfficer: [6, 6]
+      SecurityCadet: [3, 3]
+      Lawyer: [1, 1]
+      SecurityQuadBorg: [3, 3]
+      # Medical (7)
+      Paramedic: [2, 3]
+      Geneticist: [1, 2]
+      Chemist: [2, 3]
+      MedicalDoctor: [6, 6]
+      MedicalIntern: [3, 3]
+      Psychologist: [1, 1]
+      MedicalQuadBorg: [3, 3]
+      # Engineering (4)
+      AtmosphericTechnician: [3, 3]
+      StationEngineer: [6, 6]
+      TechnicalAssistant: [3, 3]
+      EngineeringQuadBorg: [3, 3]
+      # Science (3)
+      ForensicMantis: [1, 1]
+      Scientist: [4, 4]
+      ResearchAssistant: [3, 3]
+      # Supply (4)
+      SalvageSpecialist: [3, 3]
+      CargoTechnician: [4, 4]
+      MailCarrier: [2, 2]
+      SalvageQuadBorg: [3, 3]
+      # Civilian (6)
+      Mercenary: [0, 40]
+      Passenger: [-1, -1]
+      Prisoner: [3, 3]
+      Clown: [2, 2]
+      Mime: [2, 2]
+      Musician: [2, 2]
 
 - type: entity
   id: BaseStationTheDark
   abstract: true
   components:
-    - type: StationTheDark
+  - type: StationTheDark
 
 - type: entity
   id: BaseStationEvacuation
   abstract: true
   components:
-    - type: StationEmergencyShuttle
+  - type: StationEmergencyShuttle
 
 - type: entity
   id: BaseStationAlertLevels
   abstract: true
   components:
-    - type: AlertLevel
-      alertLevelPrototype: stationAlerts
+  - type: AlertLevel
+    alertLevelPrototype: stationAlerts
 
 - type: entity
   id: BaseStationExpeditions
   abstract: true
   components:
-    - type: SalvageExpeditionData
+  - type: SalvageExpeditionData
 
 - type: entity
   id: BaseStationMagnet
   abstract: true
   components:
-    - type: SalvageMagnetData
+  - type: SalvageMagnetData
 
 - type: entity
   id: BaseStationSiliconLawCrewsimov
@@ -204,7 +203,7 @@
   id: BaseStationNews
   abstract: true
   components:
-    - type: StationNews
+  - type: StationNews
 
 - type: entity
   id: BaseStationDeliveries
@@ -216,8 +215,8 @@
   id: BaseStationAllEventsEligible
   abstract: true
   components:
-    - type: StationEventEligible # For when someone makes this more granular in the future.
-    - type: ValidMeteorSwarm
+  - type: StationEventEligible # For when someone makes this more granular in the future.
+  - type: ValidMeteorSwarm
 
 - type: entity
   id: BaseStationSiliconLawFrontierStation
@@ -276,7 +275,7 @@
   id: NFBaseStationCargo
   abstract: true
   components:
-    - type: NFStationCargoOrderDatabase
+  - type: NFStationCargoOrderDatabase
 
 - type: entity
   id: BaseStationCargoMarket
@@ -339,14 +338,14 @@
   id: BaseStationDeadDrops
   abstract: true
   components:
-    - type: StationDeadDrop
-      maxDeadDrops: 2 # A few to be stumbled upon.
+  - type: StationDeadDrop
+    maxDeadDrops: 2 # A few to be stumbled upon.
 
 - type: entity
   id: BaseStationDeadDropHintExempt
   abstract: true
   components:
-    - type: StationDeadDropHintExempt
+  - type: StationDeadDropHintExempt
 
 - type: entity
   id: BaseStationBusDepot

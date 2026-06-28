@@ -9,7 +9,7 @@
     anchored: true
     noRot: false
   - type: Sprite
-    noRot: false  # Allow rotation so connectors face correct direction
+    noRot: false # Allow rotation so connectors face correct direction
   - type: Clickable
   - type: Appearance
   - type: PlumbingConnectorAppearance
@@ -24,8 +24,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: -0.25,-0.25,0.25,0.25
         density: 190
         mask:
@@ -76,26 +75,21 @@
     solution: tank
   - type: NodeContainer
     nodes:
-      inlet:
-        !type:PlumbingNode
+      inlet: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: North
-      outletSouth:
-        !type:PlumbingNode
+      outletSouth: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: South
-      outletEast:
-        !type:PlumbingNode
+      outletEast: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: East
-      outletWest:
-        !type:PlumbingNode
+      outletWest: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: West
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:SpillBehavior
@@ -169,26 +163,21 @@
     solution: input
   - type: NodeContainer
     nodes:
-      outletNorth:
-        !type:PlumbingNode
+      outletNorth: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: North
-      outletEast:
-        !type:PlumbingNode
+      outletEast: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: East
-      outletSouth:
-        !type:PlumbingNode
+      outletSouth: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: South
-      outletWest:
-        !type:PlumbingNode
+      outletWest: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: West
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:SpillBehavior
@@ -242,26 +231,21 @@
     solution: output
   - type: NodeContainer
     nodes:
-      inletNorth:
-        !type:PlumbingNode
+      inletNorth: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: North
-      inletEast:
-        !type:PlumbingNode
+      inletEast: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: East
-      inletWest:
-        !type:PlumbingNode
+      inletWest: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: West
-      outlet:
-        !type:PlumbingNode
+      outlet: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: South
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:SpillBehavior
@@ -307,26 +291,21 @@
     solution: output
   - type: NodeContainer
     nodes:
-      inletNorth:
-        !type:PlumbingNode
+      inletNorth: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: North
-      inletEast:
-        !type:PlumbingNode
+      inletEast: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: East
-      inletSouth:
-        !type:PlumbingNode
+      inletSouth: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: South
-      inletWest:
-        !type:PlumbingNode
+      inletWest: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: West
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:SpillBehavior
@@ -349,13 +328,13 @@
     sprite: _Starlight/Structures/Piping/Plumbing/plumbers.rsi
     layers:
     - state: reaction_chamber
-      map: [ "enum.PlumbingVisualLayers.Base" ]
+      map: ["enum.PlumbingVisualLayers.Base"]
   - type: GenericVisualizer
     visuals:
       enum.PlumbingVisuals.Running:
         enum.PlumbingVisualLayers.Base:
-          True: { state: reaction_chamber_on }
-          False: { state: reaction_chamber }
+          True: {state: reaction_chamber_on}
+          False: {state: reaction_chamber}
   - type: PlumbingDevice
     updateInterval: 2
   - type: PlumbingReactor
@@ -375,7 +354,7 @@
     solutions:
       buffer:
         maxVol: 100
-        canReact: false  # Reactions triggered manually when targets met
+        canReact: false # Reactions triggered manually when targets met
       output:
         maxVol: 100
         canReact: false
@@ -383,12 +362,10 @@
     solution: output
   - type: NodeContainer
     nodes:
-      inlet:
-        !type:PlumbingNode
+      inlet: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: North
-      outlet:
-        !type:PlumbingNode
+      outlet: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: South
   - type: UserInterface
@@ -402,8 +379,7 @@
   - type: ExtensionCableReceiver
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:SpillBehavior
@@ -458,20 +434,16 @@
     solution: fridge
   - type: NodeContainer
     nodes:
-      inletNorth:
-        !type:PlumbingNode
+      inletNorth: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: North
-      inletEast:
-        !type:PlumbingNode
+      inletEast: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: East
-      inletSouth:
-        !type:PlumbingNode
+      inletSouth: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: South
-      inletWest:
-        !type:PlumbingNode
+      inletWest: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: West
   - type: UserInterface
@@ -485,8 +457,7 @@
   - type: ExtensionCableReceiver
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 200
       behaviors:
       - !type:SpillBehavior
@@ -509,13 +480,13 @@
     sprite: _Starlight/Structures/Piping/Plumbing/plumbers.rsi
     layers:
     - state: pill_press_off
-      map: [ "enum.PlumbingVisualLayers.Base" ]
+      map: ["enum.PlumbingVisualLayers.Base"]
   - type: GenericVisualizer
     visuals:
       enum.PlumbingVisuals.Running:
         enum.PlumbingVisualLayers.Base:
-          True: { state: pill_press }
-          False: { state: pill_press_off }
+          True: {state: pill_press}
+          False: {state: pill_press_off}
   - type: PlumbingDevice
     updateInterval: 2
   - type: PlumbingPillPress
@@ -542,16 +513,13 @@
     solution: buffer
   - type: NodeContainer
     nodes:
-      inlet:
-        !type:PlumbingNode
+      inlet: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: North
-      mixingInletEast:
-        !type:PlumbingNode
+      mixingInletEast: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: East
-      mixingInletWest:
-        !type:PlumbingNode
+      mixingInletWest: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: West
   - type: UserInterface
@@ -565,8 +533,7 @@
   - type: ExtensionCableReceiver
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:SpillBehavior
@@ -615,16 +582,13 @@
     solution: buffer
   - type: NodeContainer
     nodes:
-      inlet:
-        !type:PlumbingNode
+      inlet: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: North
-      outletFilter:
-        !type:PlumbingNode
+      outletFilter: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: West
-      outletPassthrough:
-        !type:PlumbingNode
+      outletPassthrough: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: South
   - type: AtmosPipeColor
@@ -639,8 +603,7 @@
     mirrorEntity: PlumbingFilterFlipped
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:SpillBehavior
@@ -664,16 +627,13 @@
     - state: filterF
   - type: NodeContainer
     nodes:
-      inlet:
-        !type:PlumbingNode
+      inlet: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: South
-      outletFilter:
-        !type:PlumbingNode
+      outletFilter: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: West
-      outletPassthrough:
-        !type:PlumbingNode
+      outletPassthrough: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: North
   - type: Flippable
@@ -694,14 +654,14 @@
     layers:
     - state: synthesizer
     - state: synthesizer_overlay
-      map: [ "enum.PlumbingVisualLayers.Overlay" ]
+      map: ["enum.PlumbingVisualLayers.Overlay"]
       visible: false
   - type: GenericVisualizer
     visuals:
       enum.PlumbingVisuals.Running:
         enum.PlumbingVisualLayers.Overlay:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
   - type: PlumbingDevice
     updateInterval: 2
   - type: PlumbingSynthesizer
@@ -732,16 +692,13 @@
     solution: buffer
   - type: NodeContainer
     nodes:
-      outletSouth:
-        !type:PlumbingNode
+      outletSouth: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: South
-      outletEast:
-        !type:PlumbingNode
+      outletEast: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: East
-      outletWest:
-        !type:PlumbingNode
+      outletWest: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: West
   - type: UserInterface
@@ -769,8 +726,7 @@
   - type: ExtensionCableReceiver
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:SpillBehavior
@@ -793,13 +749,13 @@
     sprite: _Starlight/Structures/Piping/Plumbing/plumbers.rsi
     layers:
     - state: disposal
-      map: [ "enum.PlumbingVisualLayers.Base" ]
+      map: ["enum.PlumbingVisualLayers.Base"]
   - type: GenericVisualizer
     visuals:
       enum.PlumbingVisuals.Running:
         enum.PlumbingVisualLayers.Base:
-          True: { state: disposal_working }
-          False: { state: disposal }
+          True: {state: disposal_working}
+          False: {state: disposal}
   - type: Physics
     bodyType: Static
     canCollide: false
@@ -825,14 +781,12 @@
     solution: drainBuffer
   - type: NodeContainer
     nodes:
-      inlet:
-        !type:PlumbingNode
+      inlet: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: South
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:SpillBehavior
@@ -858,7 +812,7 @@
     sprite: Objects/Specific/Janitorial/drain.rsi
     layers:
     - state: icon
-    - map: [ "enum.SolutionContainerLayers.Fill" ]
+    - map: ["enum.SolutionContainerLayers.Fill"]
       state: fill-1
       visible: false
   - type: Physics
@@ -895,28 +849,23 @@
         maxVol: 400
   - type: NodeContainer
     nodes:
-      outletNorth:
-        !type:PlumbingNode
+      outletNorth: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: North
-      outletEast:
-        !type:PlumbingNode
+      outletEast: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: East
-      outletSouth:
-        !type:PlumbingNode
+      outletSouth: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: South
-      outletWest:
-        !type:PlumbingNode
+      outletWest: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: West
   - type: ExaminableSolution
     solution: drainBuffer
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:SpillBehavior

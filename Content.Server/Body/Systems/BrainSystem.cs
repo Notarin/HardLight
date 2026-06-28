@@ -1,28 +1,31 @@
+using Content.Server._Shitmed.DelayedDeath;
 using Content.Server.Body.Components;
 using Content.Server.Ghost.Components;
+// Shitmed Change
+using Content.Shared._Shitmed.Body.Organ;
 using Content.Shared.Body.Components;
 using Content.Shared.Body.Events;
+using Content.Shared.Body.Systems;
 using Content.Shared.Mind;
 using Content.Shared.Mind.Components;
 using Content.Shared.Pointing;
-
-// Shitmed Change
-using Content.Shared._Shitmed.Body.Organ;
-using Content.Server._Shitmed.DelayedDeath;
-using Content.Shared.Body.Systems;
 
 namespace Content.Server.Body.Systems
 {
     public sealed class BrainSystem : EntitySystem
     {
-        [Dependency] private readonly SharedMindSystem _mindSystem = default!;
-        [Dependency] private readonly SharedBodySystem _bodySystem = default!; // Shitmed Change
+        [Dependency]
+        private readonly SharedMindSystem _mindSystem = default!;
+
+        [Dependency]
+        private readonly SharedBodySystem _bodySystem = default!; // Shitmed Change
+
         public override void Initialize()
         {
             base.Initialize();
 
             SubscribeLocalEvent<BrainComponent, OrganAddedToBodyEvent>(HandleAddition);
-        // Shitmed Change Start
+            // Shitmed Change Start
             SubscribeLocalEvent<BrainComponent, OrganRemovedFromBodyEvent>(HandleRemoval);
             SubscribeLocalEvent<BrainComponent, PointAttemptEvent>(OnPointAttempt);
         }
@@ -52,7 +55,6 @@ namespace Content.Server.Body.Systems
                 HandleMind(args.Body, uid, brain);
             }
         }
-
 
         private void HandleMind(EntityUid newEntity, EntityUid oldEntity, BrainComponent? brain = null)
         {

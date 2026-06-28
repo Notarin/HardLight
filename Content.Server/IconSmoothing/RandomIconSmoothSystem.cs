@@ -5,8 +5,11 @@ namespace Content.Server.IconSmoothing;
 
 public sealed partial class RandomIconSmoothSystem : SharedRandomIconSmoothSystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
 
     public override void Initialize()
     {

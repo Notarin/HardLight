@@ -12,9 +12,12 @@ namespace Content.Client._EstacaoPirata.Cards.Hand;
 public sealed class CardHandSystem : EntitySystem
 {
     private readonly Dictionary<Entity<CardHandComponent>, int> _notInit = [];
-    [Dependency] private readonly CardSpriteSystem _cardSpriteSystem = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
 
+    [Dependency]
+    private readonly CardSpriteSystem _cardSpriteSystem = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -49,8 +52,10 @@ public sealed class CardHandSystem : EntitySystem
     private bool TryGetCardLayer(EntityUid card, out SpriteComponent.Layer? layer)
     {
         layer = null;
-        if (!TryComp(card, out SpriteComponent? cardSprite)
-            || !_sprite.TryGetLayer((card, cardSprite), 0, out var l, false))
+        if (
+            !TryComp(card, out SpriteComponent? cardSprite)
+            || !_sprite.TryGetLayer((card, cardSprite), 0, out var l, false)
+        )
             return false;
 
         layer = l;
@@ -59,13 +64,15 @@ public sealed class CardHandSystem : EntitySystem
 
     private void UpdateSprite(EntityUid uid, CardHandComponent comp)
     {
-        if (!TryComp(uid, out SpriteComponent? sprite)
-            || !TryComp(uid, out CardStackComponent? cardStack))
+        if (!TryComp(uid, out SpriteComponent? sprite) || !TryComp(uid, out CardStackComponent? cardStack))
             return;
 
         // Prevents error appearing at spawnMenu
-        if (cardStack.Cards.Count <= 0 || !TryGetCardLayer(cardStack.Cards.Last(), out var cardlayer) ||
-            cardlayer == null)
+        if (
+            cardStack.Cards.Count <= 0
+            || !TryGetCardLayer(cardStack.Cards.Last(), out var cardlayer)
+            || cardlayer == null
+        )
         {
             _notInit[(uid, comp)] = 0;
             return;
@@ -121,7 +128,6 @@ public sealed class CardHandSystem : EntitySystem
         }
     }
 
-
     private void OnStackUpdate(CardStackQuantityChangeEvent args)
     {
         if (!TryComp(GetEntity(args.Stack), out CardHandComponent? comp))
@@ -137,6 +143,7 @@ public sealed class CardHandSystem : EntitySystem
 
         UpdateSprite(entity, comp);
     }
+
     private void OnComponentStartupEvent(EntityUid uid, CardHandComponent comp, ComponentStartup args)
     {
         if (!TryComp(uid, out CardStackComponent? stack))

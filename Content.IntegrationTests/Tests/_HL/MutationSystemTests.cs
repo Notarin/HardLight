@@ -21,11 +21,14 @@ public sealed class MutationSystemTests
     private const string SeedAName = "Mutation Seed A";
     private const string SeedCName = "Mutation Seed C";
 
-    private static readonly FieldInfo RandomMutationsField =
-        typeof(MutationSystem).GetField("_randomMutations", BindingFlags.Instance | BindingFlags.NonPublic)!;
+    private static readonly FieldInfo RandomMutationsField = typeof(MutationSystem).GetField(
+        "_randomMutations",
+        BindingFlags.Instance | BindingFlags.NonPublic
+    )!;
 
     [TestPrototypes]
-    private const string Prototypes = @"
+    private const string Prototypes =
+        @"
 - type: entity
   id: MutationPlantHolderDummy
   name: MutationPlantHolderDummy
@@ -79,15 +82,18 @@ public sealed class MutationSystemTests
         await server.WaitPost(() =>
         {
             var mutationSystem = server.System<MutationSystem>();
-            RandomMutationsField.SetValue(mutationSystem,
-                prototypeManager.Index<RandomPlantMutationListPrototype>(RandomMutationListId));
+            RandomMutationsField.SetValue(
+                mutationSystem,
+                prototypeManager.Index<RandomPlantMutationListPrototype>(RandomMutationListId)
+            );
 
             plant = entityManager.SpawnEntity(PlantHolderId, MapCoordinates.Nullspace);
 
             var plantHolder = entityManager.GetComponent<PlantHolderComponent>(plant);
             SeedData seed = serializationManager.CreateCopy(
-              prototypeManager.Index<SeedPrototype>(SeedAId),
-              notNullableOverride: true);
+                prototypeManager.Index<SeedPrototype>(SeedAId),
+                notNullableOverride: true
+            );
             plantHolder.Seed = seed;
 
             Assert.That(seed.Name, Is.EqualTo(SeedAName));

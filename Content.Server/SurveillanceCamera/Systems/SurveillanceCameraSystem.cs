@@ -3,6 +3,7 @@ using Content.Server.DeviceNetwork.Systems;
 using Content.Server.Power.Components; // Frontier
 using Content.Shared.ActionBlocker;
 using Content.Shared.DeviceNetwork;
+using Content.Shared.DeviceNetwork.Components;
 using Content.Shared.DeviceNetwork.Events;
 using Content.Shared.Power;
 using Content.Shared.SurveillanceCamera;
@@ -10,19 +11,31 @@ using Content.Shared.Verbs;
 using Robust.Server.GameObjects;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
-using Content.Shared.DeviceNetwork.Components;
 
 namespace Content.Server.SurveillanceCamera;
 
 public sealed class SurveillanceCameraSystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!;
-    [Dependency] private readonly ViewSubscriberSystem _viewSubscriberSystem = default!;
-    [Dependency] private readonly DeviceNetworkSystem _deviceNetworkSystem = default!;
-    [Dependency] private readonly UserInterfaceSystem _userInterface = default!;
-    [Dependency] private readonly SurveillanceCameraMapSystem _cameraMapSystem = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly ActionBlockerSystem _actionBlocker = default!;
+
+    [Dependency]
+    private readonly ViewSubscriberSystem _viewSubscriberSystem = default!;
+
+    [Dependency]
+    private readonly DeviceNetworkSystem _deviceNetworkSystem = default!;
+
+    [Dependency]
+    private readonly UserInterfaceSystem _userInterface = default!;
+
+    [Dependency]
+    private readonly SurveillanceCameraMapSystem _cameraMapSystem = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
 
     // Pings a surveillance camera subnet. All cameras will always respond
     // with a data message if they are on the same subnet.
@@ -85,7 +98,7 @@ public sealed class SurveillanceCameraSystem : EntitySystem
                 { DeviceNetworkConstants.Command, string.Empty },
                 { CameraAddressData, deviceNet.Address },
                 { CameraNameData, component.CameraId },
-                { CameraSubnetData, string.Empty }
+                { CameraSubnetData, string.Empty },
             };
 
             var dest = string.Empty;
@@ -93,8 +106,7 @@ public sealed class SurveillanceCameraSystem : EntitySystem
             switch (command)
             {
                 case CameraConnectMessage:
-                    if (!args.Data.TryGetValue(CameraAddressData, out dest)
-                        || string.IsNullOrEmpty(args.Address))
+                    if (!args.Data.TryGetValue(CameraAddressData, out dest) || string.IsNullOrEmpty(args.Address))
                     {
                         return;
                     }
@@ -102,8 +114,7 @@ public sealed class SurveillanceCameraSystem : EntitySystem
                     payload[DeviceNetworkConstants.Command] = CameraConnectMessage;
                     break;
                 case CameraHeartbeatMessage:
-                    if (!args.Data.TryGetValue(CameraAddressData, out dest)
-                        || string.IsNullOrEmpty(args.Address))
+                    if (!args.Data.TryGetValue(CameraAddressData, out dest) || string.IsNullOrEmpty(args.Address))
                     {
                         return;
                     }
@@ -122,10 +133,7 @@ public sealed class SurveillanceCameraSystem : EntitySystem
                     break;
             }
 
-            _deviceNetworkSystem.QueuePacket(
-                uid,
-                dest,
-                payload);
+            _deviceNetworkSystem.QueuePacket(uid, dest, payload);
         }
     }
 
@@ -150,8 +158,6 @@ public sealed class SurveillanceCameraSystem : EntitySystem
         verbs.Verbs.Add(verb);
     }
 
-
-
     private void OnPowerChanged(EntityUid camera, SurveillanceCameraComponent component, ref PowerChangedEvent args)
     {
         SetActive(camera, args.Powered, component);
@@ -164,10 +170,12 @@ public sealed class SurveillanceCameraSystem : EntitySystem
 
     private void OnSetName(EntityUid uid, SurveillanceCameraComponent component, SurveillanceCameraSetupSetName args)
     {
-        if (args.UiKey is not SurveillanceCameraSetupUiKey key
+        if (
+            args.UiKey is not SurveillanceCameraSetupUiKey key
             || key != SurveillanceCameraSetupUiKey.Camera
             || string.IsNullOrEmpty(args.Name)
-            || args.Name.Length > CameraNameLimit)
+            || args.Name.Length > CameraNameLimit
+        )
         {
             return;
         }
@@ -177,11 +185,13 @@ public sealed class SurveillanceCameraSystem : EntitySystem
         UpdateSetupInterface(uid, component);
     }
 
-    private void OnSetNetwork(EntityUid uid, SurveillanceCameraComponent component,
-        SurveillanceCameraSetupSetNetwork args)
+    private void OnSetNetwork(
+        EntityUid uid,
+        SurveillanceCameraComponent component,
+        SurveillanceCameraSetupSetNetwork args
+    )
     {
-        if (args.UiKey is not SurveillanceCameraSetupUiKey key
-            || key != SurveillanceCameraSetupUiKey.Camera)
+        if (args.UiKey is not SurveillanceCameraSetupUiKey key || key != SurveillanceCameraSetupUiKey.Camera)
         {
             return;
         }
@@ -190,8 +200,12 @@ public sealed class SurveillanceCameraSystem : EntitySystem
             return;
         }
 
-        if (!_prototypeManager.TryIndex<DeviceFrequencyPrototype>(component.AvailableNetworks[args.Network],
-                out var frequency))
+        if (
+            !_prototypeManager.TryIndex<DeviceFrequencyPrototype>(
+                component.AvailableNetworks[args.Network],
+                out var frequency
+            )
+        )
         {
             return;
         }
@@ -212,7 +226,11 @@ public sealed class SurveillanceCameraSystem : EntitySystem
         UpdateSetupInterface(uid, camera);
     }
 
-    private void UpdateSetupInterface(EntityUid uid, SurveillanceCameraComponent? camera = null, DeviceNetworkComponent? deviceNet = null)
+    private void UpdateSetupInterface(
+        EntityUid uid,
+        SurveillanceCameraComponent? camera = null,
+        DeviceNetworkComponent? deviceNet = null
+    )
     {
         if (!Resolve(uid, ref camera, ref deviceNet))
         {
@@ -238,8 +256,13 @@ public sealed class SurveillanceCameraSystem : EntitySystem
             }
         }
 
-        var state = new SurveillanceCameraSetupBoundUiState(camera.CameraId, deviceNet.ReceiveFrequency ?? 0,
-            camera.AvailableNetworks, camera.NameSet, camera.NetworkSet);
+        var state = new SurveillanceCameraSetupBoundUiState(
+            camera.CameraId,
+            deviceNet.ReceiveFrequency ?? 0,
+            camera.AvailableNetworks,
+            camera.NameSet,
+            camera.NetworkSet
+        );
         _userInterface.SetUiState(uid, SurveillanceCameraSetupUiKey.Camera, state);
     }
 
@@ -296,11 +319,15 @@ public sealed class SurveillanceCameraSystem : EntitySystem
         _cameraMapSystem.UpdateCameraMarker((camera, component));
     }
 
-    public void AddActiveViewer(EntityUid camera, EntityUid player, EntityUid? monitor = null, SurveillanceCameraComponent? component = null, ActorComponent? actor = null)
+    public void AddActiveViewer(
+        EntityUid camera,
+        EntityUid player,
+        EntityUid? monitor = null,
+        SurveillanceCameraComponent? component = null,
+        ActorComponent? actor = null
+    )
     {
-        if (!Resolve(camera, ref component)
-            || !component.Active
-            || !Resolve(player, ref actor))
+        if (!Resolve(camera, ref component) || !component.Active || !Resolve(player, ref actor))
         {
             return;
         }
@@ -316,7 +343,12 @@ public sealed class SurveillanceCameraSystem : EntitySystem
         UpdateVisuals(camera, component);
     }
 
-    public void AddActiveViewers(EntityUid camera, HashSet<EntityUid> players, EntityUid? monitor = null, SurveillanceCameraComponent? component = null)
+    public void AddActiveViewers(
+        EntityUid camera,
+        HashSet<EntityUid> players,
+        EntityUid? monitor = null,
+        SurveillanceCameraComponent? component = null
+    )
     {
         if (!Resolve(camera, ref component) || !component.Active)
         {
@@ -337,12 +369,21 @@ public sealed class SurveillanceCameraSystem : EntitySystem
     }
 
     // Switch the set of active viewers from one camera to another.
-    public void SwitchActiveViewers(EntityUid oldCamera, EntityUid newCamera, HashSet<EntityUid> players, EntityUid? monitor = null, SurveillanceCameraComponent? oldCameraComponent = null, SurveillanceCameraComponent? newCameraComponent = null)
+    public void SwitchActiveViewers(
+        EntityUid oldCamera,
+        EntityUid newCamera,
+        HashSet<EntityUid> players,
+        EntityUid? monitor = null,
+        SurveillanceCameraComponent? oldCameraComponent = null,
+        SurveillanceCameraComponent? newCameraComponent = null
+    )
     {
-        if (!Resolve(oldCamera, ref oldCameraComponent)
+        if (
+            !Resolve(oldCamera, ref oldCameraComponent)
             || !Resolve(newCamera, ref newCameraComponent)
             || !oldCameraComponent.Active
-            || !newCameraComponent.Active)
+            || !newCameraComponent.Active
+        )
         {
             return;
         }
@@ -360,7 +401,13 @@ public sealed class SurveillanceCameraSystem : EntitySystem
         }
     }
 
-    public void RemoveActiveViewer(EntityUid camera, EntityUid player, EntityUid? monitor = null, SurveillanceCameraComponent? component = null, ActorComponent? actor = null)
+    public void RemoveActiveViewer(
+        EntityUid camera,
+        EntityUid player,
+        EntityUid? monitor = null,
+        SurveillanceCameraComponent? component = null,
+        ActorComponent? actor = null
+    )
     {
         if (!Resolve(camera, ref component))
             return;
@@ -378,7 +425,12 @@ public sealed class SurveillanceCameraSystem : EntitySystem
         UpdateVisuals(camera, component);
     }
 
-    public void RemoveActiveViewers(EntityUid camera, HashSet<EntityUid> players, EntityUid? monitor = null, SurveillanceCameraComponent? component = null)
+    public void RemoveActiveViewers(
+        EntityUid camera,
+        HashSet<EntityUid> players,
+        EntityUid? monitor = null,
+        SurveillanceCameraComponent? component = null
+    )
     {
         if (!Resolve(camera, ref component))
         {
@@ -398,7 +450,11 @@ public sealed class SurveillanceCameraSystem : EntitySystem
         }
     }
 
-    private void UpdateVisuals(EntityUid uid, SurveillanceCameraComponent? component = null, AppearanceComponent? appearance = null)
+    private void UpdateVisuals(
+        EntityUid uid,
+        SurveillanceCameraComponent? component = null,
+        AppearanceComponent? appearance = null
+    )
     {
         // Don't log missing, because otherwise tests fail.
         if (!Resolve(uid, ref component, ref appearance, false))
@@ -442,15 +498,9 @@ public sealed class SurveillanceCameraAlternativeVerbsEvent(GetVerbsEvent<Altern
     public GetVerbsEvent<AlternativeVerb> Args { get; } = args;
 }
 
-public sealed class OnSurveillanceCameraViewerAddEvent : EntityEventArgs
-{
+public sealed class OnSurveillanceCameraViewerAddEvent : EntityEventArgs { }
 
-}
-
-public sealed class OnSurveillanceCameraViewerRemoveEvent : EntityEventArgs
-{
-
-}
+public sealed class OnSurveillanceCameraViewerRemoveEvent : EntityEventArgs { }
 
 // What happens when a camera deactivates.
 public sealed class SurveillanceCameraDeactivateEvent : EntityEventArgs

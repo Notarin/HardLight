@@ -23,17 +23,38 @@ namespace Content.Server.Nutrition.EntitySystems;
 /// </summary>
 public sealed class AnimalHusbandrySystem : EntitySystem
 {
-    [Dependency] private readonly EntityLookupSystem _entityLookup = default!;
-    [Dependency] private readonly HungerSystem _hunger = default!;
-    [Dependency] private readonly IAdminLogManager _adminLog = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
-    [Dependency] private readonly NameModifierSystem _nameMod = default!;
+    [Dependency]
+    private readonly EntityLookupSystem _entityLookup = default!;
+
+    [Dependency]
+    private readonly HungerSystem _hunger = default!;
+
+    [Dependency]
+    private readonly IAdminLogManager _adminLog = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly MobStateSystem _mobState = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelistSystem = default!;
+
+    [Dependency]
+    private readonly NameModifierSystem _nameMod = default!;
 
     private readonly HashSet<EntityUid> _failedAttempts = new();
     private readonly HashSet<EntityUid> _birthQueue = new();
@@ -126,7 +147,10 @@ public sealed class AnimalHusbandrySystem : EntitySystem
 
         component.GestationEndTime = _timing.CurTime + component.GestationDuration;
         component.Gestating = true;
-        _adminLog.Add(LogType.Action, $"{ToPrettyString(uid)} (carrier) and {ToPrettyString(partner)} (partner) successfully bred.");
+        _adminLog.Add(
+            LogType.Action,
+            $"{ToPrettyString(uid)} (carrier) and {ToPrettyString(partner)} (partner) successfully bred."
+        );
         return true;
     }
 
@@ -224,7 +248,10 @@ public sealed class AnimalHusbandrySystem : EntitySystem
 
             if (_timing.CurTime < reproductive.NextBreedAttempt)
                 continue;
-            reproductive.NextBreedAttempt += _random.Next(reproductive.MinBreedAttemptInterval, reproductive.MaxBreedAttemptInterval);
+            reproductive.NextBreedAttempt += _random.Next(
+                reproductive.MinBreedAttemptInterval,
+                reproductive.MaxBreedAttemptInterval
+            );
 
             // no.
             if (HasComp<ActorComponent>(uid) || TryComp<MindContainerComponent>(uid, out var mind) && mind.HasMind)

@@ -1,7 +1,4 @@
 ﻿namespace Content.Server.Administration.Components;
 
 [RegisterComponent]
-public sealed partial class AdminMinigunComponent : Component
-{
-
-}
+public sealed partial class AdminMinigunComponent : Component { }

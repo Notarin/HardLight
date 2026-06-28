@@ -1,7 +1,7 @@
-using Robust.Shared.Random;
-using Content.Shared.Stacks;
 using Content.Shared.Prototypes;
+using Content.Shared.Stacks;
 using Content.Shared.VendingMachines;
+using Robust.Shared.Random;
 
 namespace Content.Server.Destructible.Thresholds.Behaviors
 {
@@ -11,7 +11,7 @@ namespace Content.Server.Destructible.Thresholds.Behaviors
     /// </summary>
     [Serializable]
     [DataDefinition]
-    public sealed partial class DumpRestockInventory: IThresholdBehavior
+    public sealed partial class DumpRestockInventory : IThresholdBehavior
     {
         /// <summary>
         ///     The percent of each inventory entry that will be salvaged
@@ -25,8 +25,10 @@ namespace Content.Server.Destructible.Thresholds.Behaviors
 
         public void Execute(EntityUid owner, DestructibleSystem system, EntityUid? cause = null)
         {
-            if (!system.EntityManager.TryGetComponent<VendingMachineRestockComponent>(owner, out var packagecomp) ||
-                !system.EntityManager.TryGetComponent<TransformComponent>(owner, out var xform))
+            if (
+                !system.EntityManager.TryGetComponent<VendingMachineRestockComponent>(owner, out var packagecomp)
+                || !system.EntityManager.TryGetComponent<TransformComponent>(owner, out var xform)
+            )
                 return;
 
             var randomInventory = system.Random.Pick(packagecomp.CanRestock);
@@ -34,26 +36,44 @@ namespace Content.Server.Destructible.Thresholds.Behaviors
             if (!system.PrototypeManager.TryIndex(randomInventory, out VendingMachineInventoryPrototype? packPrototype))
                 return;
 
-            var startingInventory = VendingMachineInventoryResolver.ResolveRegular(system.PrototypeManager, packPrototype);
+            var startingInventory = VendingMachineInventoryResolver.ResolveRegular(
+                system.PrototypeManager,
+                packPrototype
+            );
 
             foreach (var (entityId, count) in startingInventory)
             {
-                var toSpawn = (int) Math.Round(count * Percent);
+                var toSpawn = (int)Math.Round(count * Percent);
 
-                if (toSpawn == 0) continue;
+                if (toSpawn == 0)
+                    continue;
 
-                if (EntityPrototypeHelpers.HasComponent<StackComponent>(entityId, system.PrototypeManager, system.ComponentFactory))
+                if (
+                    EntityPrototypeHelpers.HasComponent<StackComponent>(
+                        entityId,
+                        system.PrototypeManager,
+                        system.ComponentFactory
+                    )
+                )
                 {
-                    var spawned = system.EntityManager.SpawnEntity(entityId, xform.Coordinates.Offset(system.Random.NextVector2(-Offset, Offset)));
+                    var spawned = system.EntityManager.SpawnEntity(
+                        entityId,
+                        xform.Coordinates.Offset(system.Random.NextVector2(-Offset, Offset))
+                    );
                     system.StackSystem.SetCount(spawned, toSpawn);
-                    system.EntityManager.GetComponent<TransformComponent>(spawned).LocalRotation = system.Random.NextAngle();
+                    system.EntityManager.GetComponent<TransformComponent>(spawned).LocalRotation =
+                        system.Random.NextAngle();
                 }
                 else
                 {
                     for (var i = 0; i < toSpawn; i++)
                     {
-                        var spawned = system.EntityManager.SpawnEntity(entityId, xform.Coordinates.Offset(system.Random.NextVector2(-Offset, Offset)));
-                        system.EntityManager.GetComponent<TransformComponent>(spawned).LocalRotation = system.Random.NextAngle();
+                        var spawned = system.EntityManager.SpawnEntity(
+                            entityId,
+                            xform.Coordinates.Offset(system.Random.NextVector2(-Offset, Offset))
+                        );
+                        system.EntityManager.GetComponent<TransformComponent>(spawned).LocalRotation =
+                            system.Random.NextAngle();
                     }
                 }
             }

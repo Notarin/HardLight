@@ -13,8 +13,8 @@ public sealed partial class VendingMachineEjectItemWireAction : ComponentWireAct
 
     public override object? StatusKey { get; } = EjectWireKey.StatusKey;
 
-    public override StatusLightState? GetLightState(Wire wire, VendingMachineComponent comp)
-        => comp.CanShoot ? StatusLightState.BlinkingFast : StatusLightState.On;
+    public override StatusLightState? GetLightState(Wire wire, VendingMachineComponent comp) =>
+        comp.CanShoot ? StatusLightState.BlinkingFast : StatusLightState.On;
 
     public override void Initialize()
     {

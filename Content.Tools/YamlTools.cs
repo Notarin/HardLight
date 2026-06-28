@@ -23,7 +23,10 @@ namespace Content.Tools
                     CopyYamlScalar(tmp3, subScalar);
                     return tmp3;
                 default:
-                    throw new ArgumentException($"Unrecognized YAML node type for copy: {other.GetType()}", nameof(other));
+                    throw new ArgumentException(
+                        $"Unrecognized YAML node type for copy: {other.GetType()}",
+                        nameof(other)
+                    );
             }
         }
 
@@ -44,15 +47,21 @@ namespace Content.Tools
             switch (other)
             {
                 case YamlSequenceNode subSequence:
-                    MergeYamlSequences((YamlSequenceNode) ours, (YamlSequenceNode) based, subSequence, path);
+                    MergeYamlSequences((YamlSequenceNode)ours, (YamlSequenceNode)based, subSequence, path);
                     break;
                 case YamlMappingNode subMapping:
-                    MergeYamlMappings((YamlMappingNode) ours, (YamlMappingNode) based, subMapping, path, Array.Empty<string>());
+                    MergeYamlMappings(
+                        (YamlMappingNode)ours,
+                        (YamlMappingNode)based,
+                        subMapping,
+                        path,
+                        Array.Empty<string>()
+                    );
                     break;
                 case YamlScalarNode subScalar:
                     // Console.WriteLine(path + " - " + ours + " || " + based + " || " + other);
-                    var scalarA = (YamlScalarNode) ours;
-                    var scalarB = (YamlScalarNode) based;
+                    var scalarA = (YamlScalarNode)ours;
+                    var scalarB = (YamlScalarNode)based;
                     var scalarC = subScalar;
                     var aeb = (scalarA.Value == scalarB.Value);
                     var cneb = (scalarC.Value != scalarB.Value);
@@ -61,11 +70,19 @@ namespace Content.Tools
                     // Console.WriteLine(path + " . " + ours + " || " + based + " || " + other);
                     break;
                 default:
-                    throw new ArgumentException($"Unrecognized YAML node type at {path}: {other.GetType()}", nameof(other));
+                    throw new ArgumentException(
+                        $"Unrecognized YAML node type at {path}: {other.GetType()}",
+                        nameof(other)
+                    );
             }
         }
 
-        public static void MergeYamlSequences(YamlSequenceNode ours, YamlSequenceNode based, YamlSequenceNode other, string path)
+        public static void MergeYamlSequences(
+            YamlSequenceNode ours,
+            YamlSequenceNode based,
+            YamlSequenceNode other,
+            string path
+        )
         {
             if (ours.Children.Count == based.Children.Count && other.Children.Count == ours.Children.Count)
             {
@@ -84,7 +101,13 @@ namespace Content.Tools
                 ours.Add(CopyYamlNodes(c));
         }
 
-        public static void MergeYamlMappings(YamlMappingNode ours, YamlMappingNode based, YamlMappingNode other, string path, string[] ignoreThese)
+        public static void MergeYamlMappings(
+            YamlMappingNode ours,
+            YamlMappingNode based,
+            YamlMappingNode other,
+            string path,
+            string[] ignoreThese
+        )
         {
             // Deletions/modifications
             foreach (var kvp in based)
@@ -160,10 +183,10 @@ namespace Content.Tools
 
             return a switch
             {
-                YamlSequenceNode x => YamlSequencesHeuristic(x, (YamlSequenceNode) b),
-                YamlMappingNode y => YamlMappingsHeuristic(y, (YamlMappingNode) b),
-                YamlScalarNode z => (z.Value == ((YamlScalarNode) b).Value) ? 1.0f : 0.0f,
-                _ => throw new ArgumentException($"Unrecognized YAML node type: {a.GetType()}", nameof(a))
+                YamlSequenceNode x => YamlSequencesHeuristic(x, (YamlSequenceNode)b),
+                YamlMappingNode y => YamlMappingsHeuristic(y, (YamlMappingNode)b),
+                YamlScalarNode z => (z.Value == ((YamlScalarNode)b).Value) ? 1.0f : 0.0f,
+                _ => throw new ArgumentException($"Unrecognized YAML node type: {a.GetType()}", nameof(a)),
             };
         }
 

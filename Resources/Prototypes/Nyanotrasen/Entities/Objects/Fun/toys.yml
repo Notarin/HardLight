@@ -43,39 +43,39 @@
   - type: Sprite
     sprite: Nyanotrasen/Objects/Fun/Toys/moff.rsi
     layers:
-      - state: moff1
-        map: [ "enum.DamageStateVisualLayers.Base" ]
+    - state: moff1
+      map: ["enum.DamageStateVisualLayers.Base"]
     netsync: false
   - type: RandomSprite
     available:
-      - enum.DamageStateVisualLayers.Base:
-          moff1: ""
-      - enum.DamageStateVisualLayers.Base:
-          moff2: ""
-      - enum.DamageStateVisualLayers.Base:
-          moff3: ""
-      - enum.DamageStateVisualLayers.Base:
-          moff4: ""
-      - enum.DamageStateVisualLayers.Base:
-          moff5: ""
-      - enum.DamageStateVisualLayers.Base:
-          moff6: ""
-      - enum.DamageStateVisualLayers.Base:
-          moff7: ""
-      - enum.DamageStateVisualLayers.Base:
-          moff8: ""
-      - enum.DamageStateVisualLayers.Base:
-          moff9: ""
-      - enum.DamageStateVisualLayers.Base:
-          moff10: ""
-      - enum.DamageStateVisualLayers.Base:
-          moff11: ""
-      - enum.DamageStateVisualLayers.Base:
-          moff12: ""
-      - enum.DamageStateVisualLayers.Base:
-          moff13: ""
-      - enum.DamageStateVisualLayers.Base:
-          moff14: ""
+    - enum.DamageStateVisualLayers.Base:
+        moff1: ""
+    - enum.DamageStateVisualLayers.Base:
+        moff2: ""
+    - enum.DamageStateVisualLayers.Base:
+        moff3: ""
+    - enum.DamageStateVisualLayers.Base:
+        moff4: ""
+    - enum.DamageStateVisualLayers.Base:
+        moff5: ""
+    - enum.DamageStateVisualLayers.Base:
+        moff6: ""
+    - enum.DamageStateVisualLayers.Base:
+        moff7: ""
+    - enum.DamageStateVisualLayers.Base:
+        moff8: ""
+    - enum.DamageStateVisualLayers.Base:
+        moff9: ""
+    - enum.DamageStateVisualLayers.Base:
+        moff10: ""
+    - enum.DamageStateVisualLayers.Base:
+        moff11: ""
+    - enum.DamageStateVisualLayers.Base:
+        moff12: ""
+    - enum.DamageStateVisualLayers.Base:
+        moff13: ""
+    - enum.DamageStateVisualLayers.Base:
+        moff14: ""
 
 - type: entity
   parent: BasePlushieMoff

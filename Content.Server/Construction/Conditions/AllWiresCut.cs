@@ -13,7 +13,8 @@ namespace Content.Server.Construction.Conditions
     [DataDefinition]
     public sealed partial class AllWiresCut : IGraphCondition
     {
-        [DataField("value")] public bool Value { get; private set; } = true;
+        [DataField("value")]
+        public bool Value { get; private set; } = true;
 
         public bool Condition(EntityUid uid, IEntityManager entityManager)
         {
@@ -38,9 +39,13 @@ namespace Content.Server.Construction.Conditions
             if (Condition(args.Examined, IoCManager.Resolve<IEntityManager>()))
                 return false;
 
-            args.PushMarkup(Loc.GetString(Value
-                ? "construction-examine-condition-all-wires-cut"
-                : "construction-examine-condition-all-wires-intact"));
+            args.PushMarkup(
+                Loc.GetString(
+                    Value
+                        ? "construction-examine-condition-all-wires-cut"
+                        : "construction-examine-condition-all-wires-intact"
+                )
+            );
             return true;
         }
 
@@ -48,8 +53,9 @@ namespace Content.Server.Construction.Conditions
         {
             yield return new ConstructionGuideEntry()
             {
-                Localization = Value ? "construction-guide-condition-all-wires-cut"
-                    : "construction-guide-condition-all-wires-intact"
+                Localization = Value
+                    ? "construction-guide-condition-all-wires-cut"
+                    : "construction-guide-condition-all-wires-intact",
             };
         }
     }

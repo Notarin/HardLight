@@ -16,7 +16,8 @@ public sealed partial class SectorBankComponent : Component
     public float SecondsSinceLastIncrease = 0.0f;
 
     [ViewVariables(VVAccess.ReadWrite)]
-    public Dictionary<(SectorBankAccount Account, LedgerEntryType Type), int> AccountLedgerEntries { get; set; } = new();
+    public Dictionary<(SectorBankAccount Account, LedgerEntryType Type), int> AccountLedgerEntries { get; set; } =
+        new();
 }
 
 [DataDefinition]
@@ -27,6 +28,7 @@ public sealed partial class SectorBankAccountInfo
     /// </summary>
     [DataField]
     public int Balance;
+
     /// <summary>
     /// How much the account increases per second.
     /// </summary>

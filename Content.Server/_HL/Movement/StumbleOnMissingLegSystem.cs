@@ -27,12 +27,23 @@ namespace Content.Server._HL.Movement;
 /// </remarks>
 public sealed class StumbleOnMissingLegSystem : EntitySystem
 {
-    [Dependency] private readonly SharedTransformSystem _xform = default!;
-    [Dependency] private readonly SharedStunSystem _stun = default!;
-    [Dependency] private readonly StandingStateSystem _standing = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
+    [Dependency]
+    private readonly SharedTransformSystem _xform = default!;
+
+    [Dependency]
+    private readonly SharedStunSystem _stun = default!;
+
+    [Dependency]
+    private readonly StandingStateSystem _standing = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
 
     // Cached CVar values; refreshed via OnValueChanged so the hot loop never
     // hits the config manager. <=0 means "fall back to component default".
@@ -56,20 +67,18 @@ public sealed class StumbleOnMissingLegSystem : EntitySystem
         SubscribeLocalEvent<StumbleOnMissingLegComponent, PlayerDetachedEvent>(OnPlayerDetached);
     }
 
-    private void OnStartup(Entity<StumbleOnMissingLegComponent> ent, ref ComponentStartup args)
-        => Refresh(ent);
+    private void OnStartup(Entity<StumbleOnMissingLegComponent> ent, ref ComponentStartup args) => Refresh(ent);
 
-    private void OnShutdown(Entity<StumbleOnMissingLegComponent> ent, ref ComponentShutdown args)
-        => RemComp<ActiveStumbleOnMissingLegComponent>(ent);
+    private void OnShutdown(Entity<StumbleOnMissingLegComponent> ent, ref ComponentShutdown args) =>
+        RemComp<ActiveStumbleOnMissingLegComponent>(ent);
 
-    private void OnBodyPartChanged<T>(Entity<StumbleOnMissingLegComponent> ent, ref T args)
-        => Refresh(ent);
+    private void OnBodyPartChanged<T>(Entity<StumbleOnMissingLegComponent> ent, ref T args) => Refresh(ent);
 
-    private void OnPlayerAttached(Entity<StumbleOnMissingLegComponent> ent, ref PlayerAttachedEvent args)
-        => Refresh(ent);
+    private void OnPlayerAttached(Entity<StumbleOnMissingLegComponent> ent, ref PlayerAttachedEvent args) =>
+        Refresh(ent);
 
-    private void OnPlayerDetached(Entity<StumbleOnMissingLegComponent> ent, ref PlayerDetachedEvent args)
-        => RemComp<ActiveStumbleOnMissingLegComponent>(ent);
+    private void OnPlayerDetached(Entity<StumbleOnMissingLegComponent> ent, ref PlayerDetachedEvent args) =>
+        RemComp<ActiveStumbleOnMissingLegComponent>(ent);
 
     private void Refresh(Entity<StumbleOnMissingLegComponent> ent)
     {
@@ -115,7 +124,11 @@ public sealed class StumbleOnMissingLegSystem : EntitySystem
         var tilesOverride = _cvarTiles;
         var knockOverride = _cvarKnockdownSeconds;
 
-        var query = EntityQueryEnumerator<ActiveStumbleOnMissingLegComponent, StumbleOnMissingLegComponent, TransformComponent>();
+        var query = EntityQueryEnumerator<
+            ActiveStumbleOnMissingLegComponent,
+            StumbleOnMissingLegComponent,
+            TransformComponent
+        >();
         while (query.MoveNext(out var uid, out _, out var comp, out var xform))
         {
             // Only accrue distance while standing on a real map.
@@ -155,9 +168,7 @@ public sealed class StumbleOnMissingLegSystem : EntitySystem
             if (chance <= 0f || !_random.Prob(chance))
                 continue;
 
-            var duration = knockOverride > 0f
-                ? TimeSpan.FromSeconds(knockOverride)
-                : comp.KnockdownDuration;
+            var duration = knockOverride > 0f ? TimeSpan.FromSeconds(knockOverride) : comp.KnockdownDuration;
 
             if (_stun.TryKnockdown(uid, duration, refresh: true))
                 _popup.PopupEntity(Loc.GetString("stumble-missing-leg-popup"), uid, uid, PopupType.MediumCaution);

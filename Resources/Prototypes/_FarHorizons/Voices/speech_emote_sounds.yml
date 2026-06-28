@@ -86,7 +86,7 @@
       path: /Audio/_Starlight/Voice/Shadekin/wurble.ogg
     Snarl:
       collection: VulpkaninSnarls
-  
+
 - type: emoteSounds
   id: FemaleProtogen
   params:
@@ -262,7 +262,7 @@
       path: /Audio/_Starlight/Voice/Shadekin/wurble.ogg
     Snarl:
       collection: VulpkaninSnarls
-  
+
 - type: emoteSounds
   id: FemaleProtoAvali
   params:
@@ -350,7 +350,7 @@
       path: /Audio/Items/bikehorn.ogg
     Ping:
       path: /Audio/Effects/Cargo/ping.ogg
-  
+
 - type: emoteSounds # Resomi sounds to protoresomi
   id: UnisexProtoResomi
   params:

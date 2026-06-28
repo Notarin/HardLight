@@ -10,10 +10,17 @@ namespace Content.Server.Administration.Systems;
 
 public sealed class SuperBonkSystem : EntitySystem
 {
-    [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
-    [Dependency] private readonly ClumsySystem _clumsySystem = default!;
-    [Dependency] private readonly SharedAudioSystem _audioSystem = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly SharedTransformSystem _transformSystem = default!;
+
+    [Dependency]
+    private readonly ClumsySystem _clumsySystem = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audioSystem = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     public override void Initialize()
     {
@@ -70,9 +77,12 @@ public sealed class SuperBonkSystem : EntitySystem
     public void StartSuperBonk(EntityUid target, bool stopWhenDead = false)
     {
         //The other check in the code to stop when the target dies does not work if the target is already dead.
-        if (stopWhenDead && TryComp<MobStateComponent>(target, out var mobState) && mobState.CurrentState == MobState.Dead)
+        if (
+            stopWhenDead
+            && TryComp<MobStateComponent>(target, out var mobState)
+            && mobState.CurrentState == MobState.Dead
+        )
             return;
-
 
         if (EnsureComp<SuperBonkComponent>(target, out var component))
             return;

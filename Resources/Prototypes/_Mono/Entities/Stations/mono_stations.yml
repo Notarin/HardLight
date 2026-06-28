@@ -8,4 +8,4 @@
   - BaseStationCargo
   - NFBaseStationCargo
   # BaseStationCargoMarket is bugged — omitted intentionally (matches VRS HL pattern)
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]

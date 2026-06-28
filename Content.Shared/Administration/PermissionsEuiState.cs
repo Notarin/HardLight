@@ -62,7 +62,6 @@ namespace Content.Shared.Administration
             public bool Suspended;
         }
 
-
         [Serializable, NetSerializable]
         public sealed class AddAdminRank : EuiMessageBase
         {

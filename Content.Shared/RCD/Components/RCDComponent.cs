@@ -1,5 +1,5 @@
-using Content.Shared.RCD.Systems;
 using Content.Shared.Atmos.Components; // Starlight-edit: RPLD/RPD layered placement support
+using Content.Shared.RCD.Systems;
 using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Physics;
@@ -72,6 +72,7 @@ public sealed partial class RCDComponent : Component
     /// The uid to which this RCD is limited to be used on.
     /// </summary>
     public EntityUid? LinkedShuttleUid = null;
+
     // End Frontier: ship-based RCDs
 
     // Starlight: RPLD

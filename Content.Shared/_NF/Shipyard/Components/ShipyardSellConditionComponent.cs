@@ -29,6 +29,4 @@ public sealed partial class ShipyardSellConditionComponent : Component
     /// </summary>
     [DataField]
     public List<ShipyardConsoleUiKey> AllowedShipyardTypes = new();
-
-
 }

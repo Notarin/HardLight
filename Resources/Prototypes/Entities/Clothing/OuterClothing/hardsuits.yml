@@ -244,8 +244,8 @@
         startingItem: PowerCellSmall
         whitelist:
           tags:
-            - PowerCell
-            - PowerCellSmall
+          - PowerCell
+          - PowerCellSmall
   - type: EnergyDomeGenerator
     damageEnergyDraw: 6
     domePrototype: EnergyDomeSmallPink
@@ -522,7 +522,7 @@
   id: ClothingOuterHardsuitLuxury #DO NOT MAP - https://github.com/space-wizards/space-station-14/pull/19738#issuecomment-1703486738
   name: luxury mining hardsuit
   description: A refurbished mining hardsuit, fashioned after the Quartermaster's colors. Graphene lining provides less protection, but is much easier to move.
-  categories: [ DoNotMap ]
+  categories: [DoNotMap]
   components:
   - type: Sprite
     sprite: Clothing/OuterClothing/Hardsuits/luxury.rsi
@@ -621,8 +621,8 @@
         startingItem: PowerCellHigh
         whitelist:
           tags:
-            - PowerCell
-            # - PowerCellHigh
+          - PowerCell
+          # - PowerCellHigh
   - type: EnergyDomeGenerator
     damageEnergyDraw: 6
     domePrototype: EnergyDomeSmallBlue
@@ -811,7 +811,7 @@
 #Despite visually appearing like a softsuit, it functions exactly like a hardsuit would (parents off of base hardsuit, has resistances and toggleable clothing, etc.) so it goes here.
 - type: entity
   parent: [ClothingOuterHardsuitBase, BaseC3PirateContraband, ContrabandClothing] # Frontier: BaseMajorContraband<BaseC3PirateContraband, added ContrabandClothing as parent
-  id:  ClothingOuterHardsuitPirateEVA
+  id: ClothingOuterHardsuitPirateEVA
   name: deep space EVA suit
   suffix: Pirate
   description: A heavy space suit that provides some basic protection from the cold harsh realities of deep space.
@@ -879,7 +879,7 @@
 #Colcomm / ERT HARDSUITS
 #ERT Leader Hardsuit
 - type: entity
-  parent: [ BaseColcommContraband, ClothingOuterHardsuitSyndieCommander ]
+  parent: [BaseColcommContraband, ClothingOuterHardsuitSyndieCommander]
   id: ClothingOuterHardsuitERTLeader
   name: ERT leader's hardsuit
   description: A protective hardsuit worn by the leader of an emergency response team.
@@ -893,7 +893,7 @@
 
 #ERT Chaplain Hardsuit
 - type: entity
-  parent: [ BaseColcommContraband, ClothingOuterHardsuitJuggernaut ]
+  parent: [BaseColcommContraband, ClothingOuterHardsuitJuggernaut]
   id: ClothingOuterHardsuitERTChaplain
   name: ERT chaplain's hardsuit
   description: A protective hardsuit worn by the chaplains of an Emergency Response Team.
@@ -923,7 +923,7 @@
 
 #ERT Medic Hardsuit
 - type: entity
-  parent: [ BaseColcommContraband, ClothingOuterHardsuitSyndieMedic ]
+  parent: [BaseColcommContraband, ClothingOuterHardsuitSyndieMedic]
   id: ClothingOuterHardsuitERTMedical
   name: ERT medic's hardsuit
   description: A protective hardsuit worn by the medics of an emergency response team.
@@ -947,8 +947,8 @@
         startingItem: PowerCellHigh
         whitelist:
           tags:
-            - PowerCell
-            # - PowerCellHigh
+          - PowerCell
+          # - PowerCellHigh
   - type: EnergyDomeGenerator
     damageEnergyDraw: 6
     domePrototype: EnergyDomeSmallBlue
@@ -960,7 +960,7 @@
 
 #ERT Security Hardsuit
 - type: entity
-  parent: [ BaseColcommContraband, ClothingOuterHardsuitSyndie ]
+  parent: [BaseColcommContraband, ClothingOuterHardsuitSyndie]
   id: ClothingOuterHardsuitERTSecurity
   name: ERT security's hardsuit
   description: A protective hardsuit worn by the security officers of an emergency response team.
@@ -988,8 +988,8 @@
         startingItem: PowerCellHigh
         whitelist:
           tags:
-            - PowerCell
-            # - PowerCellHigh
+          - PowerCell
+          # - PowerCellHigh
   - type: EnergyDomeGenerator
     damageEnergyDraw: 6
     domePrototype: EnergyDomeSmallBlue
@@ -1025,8 +1025,8 @@
         startingItem: PowerCellHigh
         whitelist:
           tags:
-            - PowerCell
-            # - PowerCellHigh
+          - PowerCell
+          # - PowerCellHigh
   - type: EnergyDomeGenerator
     damageEnergyDraw: 6
     domePrototype: EnergyDomeSmallBlue
@@ -1038,7 +1038,7 @@
 
 #Deathsquad
 - type: entity
-  parent: [ BaseColcommContraband, ClothingOuterHardsuitBase ]
+  parent: [BaseColcommContraband, ClothingOuterHardsuitBase]
   id: ClothingOuterHardsuitDeathsquad
   name: death squad hardsuit
   description: An advanced hardsuit favored by commandos for use in special operations.
@@ -1077,7 +1077,7 @@
 
 #CBURN Hardsuit
 - type: entity
-  parent: [ BaseColcommContraband, ClothingOuterHardsuitBase ]
+  parent: [BaseColcommContraband, ClothingOuterHardsuitBase]
   id: ClothingOuterHardsuitCBURN
   name: CBURN exosuit
   description: A lightweight yet strong exosuit used for special cleanup operations.

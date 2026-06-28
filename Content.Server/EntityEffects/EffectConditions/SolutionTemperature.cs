@@ -14,6 +14,7 @@ public sealed partial class SolutionTemperature : EntityEffectCondition
 
     [DataField]
     public float Max = float.PositiveInfinity;
+
     public override bool Condition(EntityEffectBaseArgs args)
     {
         if (args is EntityEffectReagentArgs reagentArgs)
@@ -33,8 +34,10 @@ public sealed partial class SolutionTemperature : EntityEffectCondition
 
     public override string GuidebookExplanation(IPrototypeManager prototype)
     {
-        return Loc.GetString("reagent-effect-condition-guidebook-solution-temperature",
-            ("max", float.IsPositiveInfinity(Max) ? (float) int.MaxValue : Max),
-            ("min", Min));
+        return Loc.GetString(
+            "reagent-effect-condition-guidebook-solution-temperature",
+            ("max", float.IsPositiveInfinity(Max) ? (float)int.MaxValue : Max),
+            ("min", Min)
+        );
     }
 }

@@ -7,8 +7,11 @@ namespace Content.Server._Mono.Cargo;
 // VRS: Ported from Triad_Sector — items with DriftingPriceComponent have sell value that randomly drifts over time.
 public sealed class DriftingPriceSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
 
     private float _updateSpacing = 1f;
     private float _updateAccum = 0f;

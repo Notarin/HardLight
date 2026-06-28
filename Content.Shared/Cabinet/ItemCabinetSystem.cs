@@ -1,9 +1,9 @@
-﻿using Content.Shared.Containers.ItemSlots;
+﻿using System.Diagnostics.CodeAnalysis;
+using Content.Shared.Containers.ItemSlots;
 using Content.Shared.Interaction;
 using Content.Shared.Nutrition.Components;
 using Content.Shared.Nutrition.EntitySystems;
 using Robust.Shared.Containers;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Content.Shared.Cabinet;
 
@@ -12,9 +12,14 @@ namespace Content.Shared.Cabinet;
 /// </summary>
 public sealed class ItemCabinetSystem : EntitySystem
 {
-    [Dependency] private readonly ItemSlotsSystem _slots = default!;
-    [Dependency] private readonly OpenableSystem _openable = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+    [Dependency]
+    private readonly ItemSlotsSystem _slots = default!;
+
+    [Dependency]
+    private readonly OpenableSystem _openable = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
 
     /// <inheritdoc/>
     public override void Initialize()

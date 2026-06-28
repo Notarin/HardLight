@@ -16,6 +16,7 @@ public sealed partial class MachineBoardComponent : Component
     /// </summary>
     [DataField]
     public Dictionary<ProtoId<MachinePartPrototype>, int> Requirements = new();
+
     // End Frontier
 
     /// <summary>

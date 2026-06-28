@@ -5,31 +5,30 @@
   description: Displays a readout of the current station.
   abstract: true
   components:
-    - type: StationMap
-    - type: Sprite
-      sprite: Objects/Devices/tablets.rsi
-      layers:
-        - state: tablet
-        - state: generic
-          shader: unshaded
-    - type: ActivatableUI
-      inHandsOnly: true
-      singleUser: true
-      key: enum.StationMapUiKey.Key
-    - type: Damageable
-      damageContainer: Inorganic
-    - type: Destructible
-      thresholds:
-        - trigger:
-            !type:DamageTrigger
-            damage: 100
-          behaviors:
-            - !type:DoActsBehavior
-              acts: [ "Destruction" ]
-    - type: UserInterface
-      interfaces:
-        enum.StationMapUiKey.Key:
-          type: StationMapBoundUserInterface
+  - type: StationMap
+  - type: Sprite
+    sprite: Objects/Devices/tablets.rsi
+    layers:
+    - state: tablet
+    - state: generic
+      shader: unshaded
+  - type: ActivatableUI
+    inHandsOnly: true
+    singleUser: true
+    key: enum.StationMapUiKey.Key
+  - type: Damageable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 100
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+  - type: UserInterface
+    interfaces:
+      enum.StationMapUiKey.Key:
+        type: StationMapBoundUserInterface
 
 - type: entity
   id: HandheldStationMap

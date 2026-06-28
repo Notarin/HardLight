@@ -6,5 +6,5 @@ namespace Content.Shared.Weapons.Hitscan;
 public enum BeamPrismVisuals : byte
 {
     FiringState,
-    FiringToken
+    FiringToken,
 }

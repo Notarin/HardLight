@@ -81,7 +81,7 @@
   - type: Reflect
     reflectProb: 0.8
     reflects:
-      - Energy
+    - Energy
 
 - type: entity
   abstract: true
@@ -94,7 +94,7 @@
     - type: UserInterface
       interfaces:
         enum.StrippingUiKey.Key:
-         type: StrippableBoundUserInterface
+          type: StrippableBoundUserInterface
     removeComponentsOnDeath:
     - type: Timer
     - type: TimedSpawner
@@ -116,21 +116,21 @@
     - type: UserInterface
       interfaces:
         enum.StrippingUiKey.Key:
-         type: StrippableBoundUserInterface
+          type: StrippableBoundUserInterface
     removeComponentsOnDeath:
-#    - type: Pullable # TODO: This makes the mob stuck to your hand if it dies when you pull it
+    #    - type: Pullable # TODO: This makes the mob stuck to your hand if it dies when you pull it
     - type: Carriable # Carrying system from nyanotrasen.
     - type: Tool
     - type: Prying
     - type: MovementIgnoreGravity
     - type: Access
     addComponentsOnRevival:
-#    - type: Pullable # TODO: This makes the mob stuck to your hand if it dies when you pull it
+    #    - type: Pullable # TODO: This makes the mob stuck to your hand if it dies when you pull it
     - type: Carriable # Carrying system from nyanotrasen.
     - type: Tool
       speedModifier: 1.5
       qualities:
-        - Prying
+      - Prying
     - type: Prying # Open door from xeno.yml.
       pryPowered: true
       force: true
@@ -211,7 +211,7 @@
   - type: Tool
     speedModifier: 1.5
     qualities:
-      - Prying
+    - Prying
     hideQualities: true
   - type: Prying
     pryPowered: true
@@ -270,7 +270,7 @@
   components:
   - type: HTN
     rootTask:
-       task: SimpleHostileCompound
+      task: SimpleHostileCompound
     blackboard:
       NavClimb: true
       NavInteract: true
@@ -283,7 +283,7 @@
   components:
   - type: HTN
     rootTask:
-       task: SimpleRangedHostileCompound
+      task: SimpleRangedHostileCompound
     blackboard:
       NavClimb: true
       NavInteract: true
@@ -296,7 +296,7 @@
   components:
   - type: HTN
     rootTask:
-       task: SimpleHumanoidHostileCompound
+      task: SimpleHumanoidHostileCompound
     blackboard:
       NavClimb: true
       NavInteract: true

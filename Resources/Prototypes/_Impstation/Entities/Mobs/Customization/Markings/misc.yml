@@ -162,8 +162,7 @@
   speciesRestriction: [Skrell, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Avali, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
+      type: !type:SimpleColoring
         color: "#FFFFFF"
   followSkinColor: false
   sprites:
@@ -178,8 +177,7 @@
   speciesRestriction: [Skrell, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Avali, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
+      type: !type:SimpleColoring
         color: "#FFFFFF"
   followSkinColor: false
   sprites:
@@ -194,8 +192,7 @@
   speciesRestriction: [Skrell, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Avali, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
+      type: !type:SimpleColoring
         color: "#FFFFFF"
   followSkinColor: false
   sprites:
@@ -210,8 +207,7 @@
   speciesRestriction: [Skrell, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Avali, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
+      type: !type:SimpleColoring
         color: "#FFFFFF"
   followSkinColor: false
   sprites:
@@ -226,8 +222,7 @@
   speciesRestriction: [Skrell, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Avali, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
+      type: !type:SimpleColoring
         color: "#FFFFFF"
   followSkinColor: false
   sprites:
@@ -242,8 +237,7 @@
   speciesRestriction: [Skrell, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Avali, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
+      type: !type:SimpleColoring
         color: "#FFFFFF"
   followSkinColor: false
   sprites:
@@ -258,8 +252,7 @@
   speciesRestriction: [Skrell, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Avali, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
+      type: !type:SimpleColoring
         color: "#FFFFFF"
   followSkinColor: false
   sprites:
@@ -274,8 +267,7 @@
   speciesRestriction: [Skrell, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Avali, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
+      type: !type:SimpleColoring
         color: "#FFFFFF"
   followSkinColor: false
   sprites:
@@ -290,8 +282,7 @@
   speciesRestriction: [Skrell, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Avali, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
+      type: !type:SimpleColoring
         color: "#FFFFFF"
   followSkinColor: false
   sprites:
@@ -306,8 +297,7 @@
   speciesRestriction: [Skrell, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Avali, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
+      type: !type:SimpleColoring
         color: "#FFFFFF"
   followSkinColor: false
   sprites:
@@ -349,8 +339,7 @@
   speciesRestriction: [Skrell, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Avali, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
+      type: !type:SimpleColoring
         color: "#FFFFFF"
   sprites:
   - sprite: _Impstation/Mobs/Customization/markingsbundle1.rsi
@@ -364,8 +353,7 @@
   speciesRestriction: [Skrell, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Avali, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
+      type: !type:SimpleColoring
         color: "#FFFFFF"
   sprites:
   - sprite: _Impstation/Mobs/Customization/animatedmarkings.rsi
@@ -379,8 +367,7 @@
   speciesRestriction: [Skrell, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Avali, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
+      type: !type:SimpleColoring
         color: "#FFFFFF"
   sprites:
   - sprite: _Impstation/Mobs/Customization/animatedmarkings.rsi
@@ -394,8 +381,7 @@
   speciesRestriction: [Skrell, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Avali, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
+      type: !type:SimpleColoring
         color: "#FFFFFF"
   sprites:
   - sprite: _Impstation/Mobs/Customization/animatedmarkings.rsi
@@ -409,8 +395,7 @@
   speciesRestriction: [Skrell, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Avali, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
+      type: !type:SimpleColoring
         color: "#FFFFFF"
   sprites:
   - sprite: _Impstation/Mobs/Customization/animatedmarkings.rsi
@@ -424,8 +409,7 @@
   speciesRestriction: [Skrell, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Avali, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
+      type: !type:SimpleColoring
         color: "#FFFFFF"
   sprites:
   - sprite: _Impstation/Mobs/Customization/animatedmarkings.rsi
@@ -612,8 +596,7 @@
   speciesRestriction: [Skrell, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Avali, Shadekin]
   coloring:
     default:
-      type:
-        !type:EyeColoring
+      type: !type:EyeColoring
   sprites:
   - sprite: _Impstation/Mobs/Customization/markingsbundle1.rsi
     state: mothbiggereyes
@@ -635,7 +618,7 @@
   id: VoxCocktail
   bodyPart: Tail
   markingCategory: Tail
-  speciesRestriction: [ Vox ]
+  speciesRestriction: [Vox]
   forcedColoring: false
   followSkinColor: false
   sprites:
@@ -664,7 +647,7 @@
   id: VoxTailStripes
   bodyPart: Chest
   markingCategory: Overlay
-  speciesRestriction: [ Vox ]
+  speciesRestriction: [Vox]
   forcedColoring: false
   followSkinColor: false
   sprites:
@@ -675,14 +658,13 @@
   id: VoxLArmProsthetic
   bodyPart: LHand
   markingCategory: Arms
-  speciesRestriction: [ Vox ]
+  speciesRestriction: [Vox]
   forcedColoring: false
   followSkinColor: false
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#E4E4E4"
+      type: !type:SimpleColoring
+        color: "#E4E4E4"
   sprites:
   - sprite: _Impstation/Mobs/Customization/markingsbundle1.rsi
     state: voxarmprostheticl
@@ -691,14 +673,13 @@
   id: VoxRArmProsthetic
   bodyPart: RHand
   markingCategory: Arms
-  speciesRestriction: [ Vox ]
+  speciesRestriction: [Vox]
   forcedColoring: false
   followSkinColor: false
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#E4E4E4"
+      type: !type:SimpleColoring
+        color: "#E4E4E4"
   sprites:
   - sprite: _Impstation/Mobs/Customization/markingsbundle1.rsi
     state: voxarmprostheticr
@@ -707,7 +688,7 @@
   id: VoxBeakColor
   bodyPart: Snout
   markingCategory: Snout
-  speciesRestriction: [ Vox ]
+  speciesRestriction: [Vox]
   forcedColoring: false
   followSkinColor: false
   sprites:
@@ -718,7 +699,7 @@
   id: VoxBeakSplit
   bodyPart: Snout
   markingCategory: Snout
-  speciesRestriction: [ Vox ]
+  speciesRestriction: [Vox]
   forcedColoring: false
   followSkinColor: false
   sprites:
@@ -731,7 +712,7 @@
   id: VoxBeakTipped
   bodyPart: Snout
   markingCategory: Snout
-  speciesRestriction: [ Vox ]
+  speciesRestriction: [Vox]
   forcedColoring: false
   followSkinColor: false
   sprites:
@@ -742,7 +723,7 @@
   id: VoxChestPlumage
   bodyPart: Chest
   markingCategory: Chest
-  speciesRestriction: [ Vox ]
+  speciesRestriction: [Vox]
   forcedColoring: false
   followSkinColor: false
   sprites:
@@ -753,7 +734,7 @@
   id: VoxFootSpines
   bodyPart: Tail
   markingCategory: Overlay
-  speciesRestriction: [ Vox ]
+  speciesRestriction: [Vox]
   forcedColoring: false
   followSkinColor: false
   sprites:
@@ -764,7 +745,7 @@
   id: VoxFootGradientLFoot
   bodyPart: LFoot
   markingCategory: Legs
-  speciesRestriction: [ Vox ]
+  speciesRestriction: [Vox]
   forcedColoring: false
   followSkinColor: false
   sprites:
@@ -775,7 +756,7 @@
   id: VoxFootGradientRFoot
   bodyPart: RFoot
   markingCategory: Legs
-  speciesRestriction: [ Vox ]
+  speciesRestriction: [Vox]
   forcedColoring: false
   followSkinColor: false
   sprites:
@@ -786,7 +767,7 @@
   id: VoxLegGradientLLeg
   bodyPart: LLeg
   markingCategory: Legs
-  speciesRestriction: [ Vox ]
+  speciesRestriction: [Vox]
   forcedColoring: false
   followSkinColor: false
   sprites:
@@ -797,7 +778,7 @@
   id: VoxLegGradientRLeg
   bodyPart: RLeg
   markingCategory: Legs
-  speciesRestriction: [ Vox ]
+  speciesRestriction: [Vox]
   forcedColoring: false
   followSkinColor: false
   sprites:
@@ -808,7 +789,7 @@
   id: VoxHandGradientRHand
   bodyPart: RHand
   markingCategory: Arms
-  speciesRestriction: [ Vox ]
+  speciesRestriction: [Vox]
   forcedColoring: false
   followSkinColor: false
   sprites:
@@ -823,7 +804,7 @@
   id: VoxHandGradientLHand
   bodyPart: LHand
   markingCategory: Arms
-  speciesRestriction: [ Vox ]
+  speciesRestriction: [Vox]
   forcedColoring: false
   followSkinColor: false
   sprites:
@@ -838,7 +819,7 @@
   id: VoxHeadGradient
   bodyPart: Head
   markingCategory: Head
-  speciesRestriction: [ Vox ]
+  speciesRestriction: [Vox]
   forcedColoring: false
   followSkinColor: false
   sprites:
@@ -853,7 +834,7 @@
   id: VoxTailBell
   bodyPart: Tail
   markingCategory: Overlay
-  speciesRestriction: [ Vox ]
+  speciesRestriction: [Vox]
   forcedColoring: false
   followSkinColor: false
   sprites:
@@ -866,7 +847,7 @@
   id: VoxTailBack
   bodyPart: Tail
   markingCategory: Tail
-  speciesRestriction: [ Vox ]
+  speciesRestriction: [Vox]
   forcedColoring: true
   followSkinColor: true
   sprites:
@@ -877,7 +858,7 @@
   id: VoxTailLantern
   bodyPart: Tail
   markingCategory: Overlay
-  speciesRestriction: [ Vox ]
+  speciesRestriction: [Vox]
   forcedColoring: false
   followSkinColor: false
   sprites:
@@ -889,7 +870,7 @@
   id: VoxTailSingleStripe
   bodyPart: Chest
   markingCategory: Overlay
-  speciesRestriction: [ Vox ]
+  speciesRestriction: [Vox]
   forcedColoring: false
   followSkinColor: false
   sprites:
@@ -900,7 +881,7 @@
   id: VoxTailSmallPlume
   bodyPart: Tail
   markingCategory: Overlay
-  speciesRestriction: [ Vox ]
+  speciesRestriction: [Vox]
   forcedColoring: false
   followSkinColor: false
   sprites:
@@ -911,7 +892,7 @@
   id: VoxTailSpines
   bodyPart: Tail
   markingCategory: Overlay
-  speciesRestriction: [ Vox ]
+  speciesRestriction: [Vox]
   forcedColoring: false
   followSkinColor: false
   sprites:
@@ -922,7 +903,7 @@
   id: VoxArmsStripesLHand
   bodyPart: LArm
   markingCategory: Arms
-  speciesRestriction: [ Vox ]
+  speciesRestriction: [Vox]
   forcedColoring: false
   followSkinColor: false
   sprites:
@@ -933,7 +914,7 @@
   id: VoxArmsStripesRHand
   bodyPart: RArm
   markingCategory: Arms
-  speciesRestriction: [ Vox ]
+  speciesRestriction: [Vox]
   forcedColoring: false
   followSkinColor: false
   sprites:
@@ -944,7 +925,7 @@
   id: VoxLegsStripesLLeg
   bodyPart: LLeg
   markingCategory: Legs
-  speciesRestriction: [ Vox ]
+  speciesRestriction: [Vox]
   forcedColoring: false
   followSkinColor: false
   sprites:
@@ -955,7 +936,7 @@
   id: VoxLegsStripesRLeg
   bodyPart: RLeg
   markingCategory: Legs
-  speciesRestriction: [ Vox ]
+  speciesRestriction: [Vox]
   forcedColoring: false
   followSkinColor: false
   sprites:
@@ -966,7 +947,7 @@
   id: VoxChains
   bodyPart: Tail
   markingCategory: Overlay
-  speciesRestriction: [ Vox ]
+  speciesRestriction: [Vox]
   forcedColoring: false
   followSkinColor: false
   sprites:
@@ -977,7 +958,7 @@
   id: VoxSunAndMoon
   bodyPart: Tail
   markingCategory: Overlay
-  speciesRestriction: [ Vox ]
+  speciesRestriction: [Vox]
   forcedColoring: false
   followSkinColor: false
   sprites:
@@ -988,7 +969,7 @@
   id: VoxCheeks
   bodyPart: Head
   markingCategory: Head
-  speciesRestriction: [ Vox ]
+  speciesRestriction: [Vox]
   forcedColoring: false
   followSkinColor: false
   sprites:
@@ -999,7 +980,7 @@
   id: VoxBelly
   bodyPart: Chest
   markingCategory: Chest
-  speciesRestriction: [ Vox ]
+  speciesRestriction: [Vox]
   forcedColoring: false
   followSkinColor: false
   sprites:
@@ -1014,8 +995,7 @@
   forcedColoring: true
   coloring:
     default:
-      type:
-        !type:SimpleColoring
+      type: !type:SimpleColoring
         color: "#FFE5D6"
   sprites:
   - sprite: _Impstation/Mobs/Customization/markingsbundle1.rsi
@@ -1029,8 +1009,7 @@
   forcedColoring: true
   coloring:
     default:
-      type:
-        !type:SimpleColoring
+      type: !type:SimpleColoring
         color: "#FFE5D6"
   sprites:
   - sprite: _Impstation/Mobs/Customization/markingsbundle1.rsi
@@ -1044,8 +1023,7 @@
   forcedColoring: true
   coloring:
     default:
-      type:
-        !type:SimpleColoring
+      type: !type:SimpleColoring
         color: "#FFE5D6"
   sprites:
   - sprite: _Impstation/Mobs/Customization/markingsbundle1.rsi
@@ -1059,8 +1037,7 @@
   forcedColoring: true
   coloring:
     default:
-      type:
-        !type:SimpleColoring
+      type: !type:SimpleColoring
         color: "#FFE5D6"
   sprites:
   - sprite: _Impstation/Mobs/Customization/markingsbundle1.rsi
@@ -1074,8 +1051,7 @@
   forcedColoring: true
   coloring:
     default:
-      type:
-        !type:SimpleColoring
+      type: !type:SimpleColoring
         color: "#FFE5D6"
   sprites:
   - sprite: _Impstation/Mobs/Customization/markingsbundle1.rsi
@@ -1089,8 +1065,7 @@
   forcedColoring: true
   coloring:
     default:
-      type:
-        !type:SimpleColoring
+      type: !type:SimpleColoring
         color: "#FFE5D6"
   sprites:
   - sprite: _Impstation/Mobs/Customization/markingsbundle1.rsi
@@ -1104,8 +1079,7 @@
   forcedColoring: true
   coloring:
     default:
-      type:
-        !type:SimpleColoring
+      type: !type:SimpleColoring
         color: "#FFE5D6"
   sprites:
   - sprite: _Impstation/Mobs/Customization/markingsbundle1.rsi
@@ -1119,8 +1093,7 @@
   forcedColoring: true
   coloring:
     default:
-      type:
-        !type:SimpleColoring
+      type: !type:SimpleColoring
         color: "#FFE5D6"
   sprites:
   - sprite: _Impstation/Mobs/Customization/markingsbundle1.rsi
@@ -1134,8 +1107,7 @@
   forcedColoring: true
   coloring:
     default:
-      type:
-        !type:SimpleColoring
+      type: !type:SimpleColoring
         color: "#FFE5D6"
   sprites:
   - sprite: _Impstation/Mobs/Customization/markingsbundle1.rsi
@@ -1149,8 +1121,7 @@
   forcedColoring: true
   coloring:
     default:
-      type:
-        !type:SimpleColoring
+      type: !type:SimpleColoring
         color: "#FFE5D6"
   sprites:
   - sprite: _Impstation/Mobs/Customization/markingsbundle1.rsi
@@ -1164,8 +1135,7 @@
   forcedColoring: true
   coloring:
     default:
-      type:
-        !type:SimpleColoring
+      type: !type:SimpleColoring
         color: "#FFE5D6"
   sprites:
   - sprite: _Impstation/Mobs/Customization/markingsbundle1.rsi

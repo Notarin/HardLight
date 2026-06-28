@@ -8,7 +8,9 @@ namespace Content.Shared.Mindshield.FakeMindShield;
 
 public sealed class SharedFakeMindShieldImplantSystem : EntitySystem
 {
-    [Dependency] private readonly SharedActionsSystem _actionsSystem = default!;
+    [Dependency]
+    private readonly SharedActionsSystem _actionsSystem = default!;
+
     public override void Initialize()
     {
         base.Initialize();
@@ -31,7 +33,8 @@ public sealed class SharedFakeMindShieldImplantSystem : EntitySystem
         _actionsSystem.SetToggled(ev.Action, !comp.IsEnabled); // Set it to what the Mindshield component WILL be after this
         RaiseLocalEvent(ent, ev); //this reraises the action event to support an eventual future Changeling Antag which will also be using this component for it's "mindshield" ability
     }
-    private void ImplantCheck(EntityUid uid, FakeMindShieldImplantComponent component ,ref ImplantImplantedEvent ev)
+
+    private void ImplantCheck(EntityUid uid, FakeMindShieldImplantComponent component, ref ImplantImplantedEvent ev)
     {
         if (ev.Implanted != null)
             EnsureComp<FakeMindShieldComponent>(ev.Implanted.Value);

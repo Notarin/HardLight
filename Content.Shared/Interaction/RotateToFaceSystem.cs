@@ -15,18 +15,23 @@ namespace Content.Shared.Interaction
     [UsedImplicitly]
     public sealed class RotateToFaceSystem : EntitySystem
     {
-        [Dependency] private readonly ActionBlockerSystem _actionBlockerSystem = default!;
-        [Dependency] private readonly SharedTransformSystem _transform = default!;
+        [Dependency]
+        private readonly ActionBlockerSystem _actionBlockerSystem = default!;
+
+        [Dependency]
+        private readonly SharedTransformSystem _transform = default!;
 
         /// <summary>
         /// Tries to rotate the entity towards the target rotation. Returns false if it needs to keep rotating.
         /// </summary>
-        public bool TryRotateTo(EntityUid uid,
+        public bool TryRotateTo(
+            EntityUid uid,
             Angle goalRotation,
             float frameTime,
             Angle tolerance,
             double rotationSpeed = float.MaxValue,
-            TransformComponent? xform = null)
+            TransformComponent? xform = null
+        )
         {
             if (!Resolve(uid, ref xform))
                 return true;
@@ -82,7 +87,7 @@ namespace Content.Shared.Interaction
             if (!_actionBlockerSystem.CanChangeDirection(user))
                 return false;
 
-            if (TryComp(user, out BuckleComponent? buckle) && buckle.BuckledTo is {} strap)
+            if (TryComp(user, out BuckleComponent? buckle) && buckle.BuckledTo is { } strap)
             {
                 // What if a person is strapped to a borg?
                 // I'm pretty sure this would allow them to be partially ratatouille'd

@@ -23,7 +23,8 @@ public readonly record struct NPCSteeringDebugData(
     Vector2 Direction,
     float[] Interest,
     float[] Danger,
-    List<Vector2> DangerPoints)
+    List<Vector2> DangerPoints
+)
 {
     public readonly NetEntity EntityUid = EntityUid;
     public readonly Vector2 Direction = Direction;

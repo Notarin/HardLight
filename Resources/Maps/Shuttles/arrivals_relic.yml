@@ -1853,4 +1853,3 @@ entities:
       parent: 2
     - type: Physics
       bodyType: Static
-...

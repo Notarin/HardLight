@@ -13,8 +13,11 @@ namespace Content.Client.Administration.UI.SpawnExplosion;
 [UsedImplicitly]
 public sealed class ExplosionDebugOverlay : Overlay
 {
-    [Dependency] private readonly IEntityManager _entityManager = default!;
-    [Dependency] private readonly IEyeManager _eyeManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entityManager = default!;
+
+    [Dependency]
+    private readonly IEyeManager _eyeManager = default!;
 
     public Dictionary<int, List<Vector2i>>? SpaceTiles;
     public Dictionary<EntityUid, Dictionary<int, List<Vector2i>>> Tiles = new();
@@ -89,7 +92,8 @@ public sealed class ExplosionDebugOverlay : Overlay
         Box2 gridBounds,
         Matrix3x2 transform,
         Dictionary<int, List<Vector2i>> tileSets,
-        ushort tileSize)
+        ushort tileSize
+    )
     {
         for (var i = 1; i < Intensity.Count; i++)
         {
@@ -140,7 +144,10 @@ public sealed class ExplosionDebugOverlay : Overlay
                 continue;
 
             var gridXform = xformQuery.GetComponent(gridId);
-            var (_, _, worldMatrix, invWorldMatrix) = xformSystem.GetWorldPositionRotationMatrixWithInv(gridXform, xformQuery);
+            var (_, _, worldMatrix, invWorldMatrix) = xformSystem.GetWorldPositionRotationMatrixWithInv(
+                gridXform,
+                xformQuery
+            );
             gridBounds = invWorldMatrix.TransformBox(args.WorldBounds).Enlarged(grid.TileSize * 2);
             handle.SetTransform(worldMatrix);
             DrawTiles(handle, gridBounds, tileSets, SpaceTileSize);
@@ -161,7 +168,8 @@ public sealed class ExplosionDebugOverlay : Overlay
         DrawingHandleWorld handle,
         Box2 gridBounds,
         Dictionary<int, List<Vector2i>> tileSets,
-        ushort tileSize)
+        ushort tileSize
+    )
     {
         for (var i = 0; i < Intensity.Count; i++)
         {

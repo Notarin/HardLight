@@ -29,5 +29,5 @@
     CaseysCasino:
       stationProto: DeadDropFrontierOutpost
       components:
-        - type: StationNameSetup
-          mapNameTemplate: "Crazy Casey's Casino"
+      - type: StationNameSetup
+        mapNameTemplate: "Crazy Casey's Casino"

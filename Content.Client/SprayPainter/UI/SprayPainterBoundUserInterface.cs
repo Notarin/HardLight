@@ -33,7 +33,11 @@ public sealed class SprayPainterBoundUserInterface(EntityUid owner, Enum uiKey) 
         }
 
         var sprayPainter = EntMan.System<SprayPainterSystem>();
-        _window.PopulateCategories(sprayPainter.PaintableStylesByGroup, sprayPainter.PaintableGroupsByCategory, sprayPainter.Decals);
+        _window.PopulateCategories(
+            sprayPainter.PaintableStylesByGroup,
+            sprayPainter.PaintableGroupsByCategory,
+            sprayPainter.Decals
+        );
         Update();
 
         if (EntMan.TryGetComponent(Owner, out SprayPainterComponent? sprayPainterComp))

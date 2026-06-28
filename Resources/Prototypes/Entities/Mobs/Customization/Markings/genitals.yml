@@ -2856,8 +2856,8 @@
   markingCategory: Chest
   speciesRestriction: [Tajaran, Skrell, Vox, Avali, Felionoid, Resomi, Protogen, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Synth, Shadekin, ProtoVulp, ProtoVox, ProtoThaven, ProtoSlimePerson, ProtoKin, ProtoResomi, ProtoReptile, ProtoMoth, ProtoHumie, ProtoFeline, ProtoDawi, ProtoDionae, ProtoAvali, ProtoArachnid]
   sprites:
-    - sprite: Mobs/Customization/Markings/Genital/pregnant_bellies.rsi
-      state: belly_pregnant-1
+  - sprite: Mobs/Customization/Markings/Genital/pregnant_bellies.rsi
+    state: belly_pregnant-1
 
 - type: marking
   id: Pregnant-2
@@ -2865,8 +2865,8 @@
   markingCategory: Chest
   speciesRestriction: [Tajaran, Skrell, Vox, Avali, Felionoid, Resomi, Protogen, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Synth, Shadekin, ProtoVulp, ProtoVox, ProtoThaven, ProtoSlimePerson, ProtoKin, ProtoResomi, ProtoReptile, ProtoMoth, ProtoHumie, ProtoFeline, ProtoDawi, ProtoDionae, ProtoAvali, ProtoArachnid]
   sprites:
-    - sprite: Mobs/Customization/Markings/Genital/pregnant_bellies.rsi
-      state: belly_pregnant-2
+  - sprite: Mobs/Customization/Markings/Genital/pregnant_bellies.rsi
+    state: belly_pregnant-2
 
 - type: marking
   id: Pregnant-3
@@ -2874,8 +2874,8 @@
   markingCategory: Chest
   speciesRestriction: [Tajaran, Skrell, Vox, Avali, Felionoid, Resomi, Protogen, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Synth, Shadekin, ProtoVulp, ProtoVox, ProtoThaven, ProtoSlimePerson, ProtoKin, ProtoResomi, ProtoReptile, ProtoMoth, ProtoHumie, ProtoFeline, ProtoDawi, ProtoDionae, ProtoAvali, ProtoArachnid]
   sprites:
-    - sprite: Mobs/Customization/Markings/Genital/pregnant_bellies.rsi
-      state: belly_pregnant-3
+  - sprite: Mobs/Customization/Markings/Genital/pregnant_bellies.rsi
+    state: belly_pregnant-3
 
 - type: marking
   id: Pregnant-4
@@ -2883,9 +2883,6 @@
   markingCategory: Chest
   speciesRestriction: [Tajaran, Skrell, Vox, Avali, Felionoid, Resomi, Protogen, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Synth, Shadekin, ProtoVulp, ProtoVox, ProtoThaven, ProtoSlimePerson, ProtoKin, ProtoResomi, ProtoReptile, ProtoMoth, ProtoHumie, ProtoFeline, ProtoDawi, ProtoDionae, ProtoAvali, ProtoArachnid]
   sprites:
-    - sprite: Mobs/Customization/Markings/Genital/pregnant_bellies.rsi
-      state: belly_pregnant-4
-
-
-
+  - sprite: Mobs/Customization/Markings/Genital/pregnant_bellies.rsi
+    state: belly_pregnant-4
 

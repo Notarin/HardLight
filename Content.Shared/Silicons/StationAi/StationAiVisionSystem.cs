@@ -14,10 +14,17 @@ public sealed class StationAiVisionSystem : EntitySystem
      * 2. It does single-tile lookups to tell if they're visible or not with support for a faster range-only path.
      */
 
-    [Dependency] private readonly IParallelManager _parallel = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly SharedMapSystem _maps = default!;
-    [Dependency] private readonly SharedTransformSystem _xforms = default!;
+    [Dependency]
+    private readonly IParallelManager _parallel = default!;
+
+    [Dependency]
+    private readonly EntityLookupSystem _lookup = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _maps = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _xforms = default!;
 
     private SeedJob _seedJob;
     private ViewJob _job;
@@ -55,10 +62,7 @@ public sealed class StationAiVisionSystem : EntitySystem
 
         _occluderQuery = GetEntityQuery<OccluderComponent>();
 
-        _seedJob = new()
-        {
-            System = this,
-        };
+        _seedJob = new() { System = this };
 
         _job = new ViewJob()
         {
@@ -72,7 +76,12 @@ public sealed class StationAiVisionSystem : EntitySystem
     /// <summary>
     /// Returns whether a tile is accessible based on vision.
     /// </summary>
-    public bool IsAccessible(Entity<BroadphaseComponent, MapGridComponent> grid, Vector2i tile, float expansionSize = 8.5f, bool fastPath = false)
+    public bool IsAccessible(
+        Entity<BroadphaseComponent, MapGridComponent> grid,
+        Vector2i tile,
+        float expansionSize = 8.5f,
+        bool fastPath = false
+    )
     {
         lock (_stateLock)
         {
@@ -80,7 +89,12 @@ public sealed class StationAiVisionSystem : EntitySystem
         }
     }
 
-    private bool IsAccessibleCore(Entity<BroadphaseComponent, MapGridComponent> grid, Vector2i tile, float expansionSize, bool fastPath)
+    private bool IsAccessibleCore(
+        Entity<BroadphaseComponent, MapGridComponent> grid,
+        Vector2i tile,
+        float expansionSize,
+        bool fastPath
+    )
     {
         _viewportTiles.Clear();
         _opaque.Clear();
@@ -141,7 +155,13 @@ public sealed class StationAiVisionSystem : EntitySystem
     {
         var tileBounds = _lookup.GetLocalBounds(tile, grid.Comp2.TileSize).Enlarged(-0.05f);
         _occluders.Clear();
-        _lookup.GetLocalEntitiesIntersecting((grid.Owner, grid.Comp1), tileBounds, _occluders, query: _occluderQuery, flags: LookupFlags.Static | LookupFlags.Approximate);
+        _lookup.GetLocalEntitiesIntersecting(
+            (grid.Owner, grid.Comp1),
+            tileBounds,
+            _occluders,
+            query: _occluderQuery,
+            flags: LookupFlags.Static | LookupFlags.Approximate
+        );
         var anyOccluders = false;
 
         foreach (var occluder in _occluders)
@@ -160,7 +180,12 @@ public sealed class StationAiVisionSystem : EntitySystem
     /// Gets a byond-equivalent for tiles in the specified worldAABB.
     /// </summary>
     /// <param name="expansionSize">How much to expand the bounds before to find vision intersecting it. Makes this the largest vision size + 1 tile.</param>
-    public void GetView(Entity<BroadphaseComponent, MapGridComponent> grid, Box2Rotated worldBounds, HashSet<Vector2i> visibleTiles, float expansionSize = 8.5f)
+    public void GetView(
+        Entity<BroadphaseComponent, MapGridComponent> grid,
+        Box2Rotated worldBounds,
+        HashSet<Vector2i> visibleTiles,
+        float expansionSize = 8.5f
+    )
     {
         lock (_stateLock)
         {
@@ -168,7 +193,12 @@ public sealed class StationAiVisionSystem : EntitySystem
         }
     }
 
-    private void GetViewCore(Entity<BroadphaseComponent, MapGridComponent> grid, Box2Rotated worldBounds, HashSet<Vector2i> visibleTiles, float expansionSize)
+    private void GetViewCore(
+        Entity<BroadphaseComponent, MapGridComponent> grid,
+        Box2Rotated worldBounds,
+        HashSet<Vector2i> visibleTiles,
+        float expansionSize
+    )
     {
         _viewportTiles.Clear();
         _opaque.Clear();
@@ -251,10 +281,7 @@ public sealed class StationAiVisionSystem : EntitySystem
     /// <summary>
     /// Checks if any of a tile's neighbors are visible.
     /// </summary>
-    private bool CheckNeighborsVis(
-        Dictionary<Vector2i, int> vis,
-        Vector2i index,
-        int d)
+    private bool CheckNeighborsVis(Dictionary<Vector2i, int> vis, Vector2i index, int d)
     {
         for (var x = -1; x <= 1; x++)
         {
@@ -281,7 +308,8 @@ public sealed class StationAiVisionSystem : EntitySystem
         HashSet<Vector2i> blocked,
         Dictionary<Vector2i, int> vis1,
         Vector2i index,
-        Vector2i delta)
+        Vector2i delta
+    )
     {
         var diagonalIndex = index + delta;
 
@@ -291,12 +319,12 @@ public sealed class StationAiVisionSystem : EntitySystem
         var cardinal1 = new Vector2i(index.X, diagonal.Y);
         var cardinal2 = new Vector2i(diagonal.X, index.Y);
 
-        return vis1.GetValueOrDefault(diagonal) != 0 &&
-               vis1.GetValueOrDefault(cardinal1) != 0 &&
-               vis1.GetValueOrDefault(cardinal2) != 0 &&
-               blocked.Contains(cardinal1) &&
-               blocked.Contains(cardinal2) &&
-               !blocked.Contains(diagonal);
+        return vis1.GetValueOrDefault(diagonal) != 0
+            && vis1.GetValueOrDefault(cardinal1) != 0
+            && vis1.GetValueOrDefault(cardinal2) != 0
+            && blocked.Contains(cardinal1)
+            && blocked.Contains(cardinal2)
+            && !blocked.Contains(diagonal);
     }
 
     /// <summary>
@@ -311,7 +339,12 @@ public sealed class StationAiVisionSystem : EntitySystem
 
         public void Execute()
         {
-            System._lookup.GetLocalEntitiesIntersecting(Grid.Owner, ExpandedBounds, System._seeds, flags: LookupFlags.All | LookupFlags.Approximate);
+            System._lookup.GetLocalEntitiesIntersecting(
+                Grid.Owner,
+                ExpandedBounds,
+                System._seeds,
+                flags: LookupFlags.All | LookupFlags.Approximate
+            );
         }
     }
 
@@ -343,9 +376,12 @@ public sealed class StationAiVisionSystem : EntitySystem
             // Either xray-vision or system is doing a quick-and-dirty check.
             if (!seed.Comp.Occluded || System.FastPath)
             {
-                var squircles = Maps.GetLocalTilesIntersecting(Grid.Owner,
+                var squircles = Maps.GetLocalTilesIntersecting(
+                    Grid.Owner,
                     Grid.Comp,
-                    new Circle(System._xforms.GetWorldPosition(seedXform), seed.Comp.Range), ignoreEmpty: false);
+                    new Circle(System._xforms.GetWorldPosition(seedXform), seed.Comp.Range),
+                    ignoreEmpty: false
+                );
 
                 lock (VisibleTiles)
                 {
@@ -455,10 +491,12 @@ public sealed class StationAiVisionSystem : EntitySystem
                 if (tileVis1 != 0)
                     continue;
 
-                if (System.IsCorner(seedTiles, System._opaque, vis1, tile, Vector2i.UpRight) ||
-                    System.IsCorner(seedTiles, System._opaque, vis1, tile, Vector2i.UpLeft) ||
-                    System.IsCorner(seedTiles, System._opaque, vis1, tile, Vector2i.DownLeft) ||
-                    System.IsCorner(seedTiles, System._opaque, vis1, tile, Vector2i.DownRight))
+                if (
+                    System.IsCorner(seedTiles, System._opaque, vis1, tile, Vector2i.UpRight)
+                    || System.IsCorner(seedTiles, System._opaque, vis1, tile, Vector2i.UpLeft)
+                    || System.IsCorner(seedTiles, System._opaque, vis1, tile, Vector2i.DownLeft)
+                    || System.IsCorner(seedTiles, System._opaque, vis1, tile, Vector2i.DownRight)
+                )
                 {
                     boundary.Add(tile);
                 }

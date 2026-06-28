@@ -2,22 +2,22 @@
   id: ManawaRitePosterGraph
   start: start
   graph:
-    - node: start
-      edges:
-        - to: PosterManawaRite
-          steps:
-            - material: Paper
-              amount: 1
-              doAfter: 1
+  - node: start
+    edges:
+    - to: PosterManawaRite
+      steps:
+      - material: Paper
+        amount: 1
+        doAfter: 1
 
-    - node: PosterManawaRite
-      entity: PosterManawaRite
-      edges:
-        - to: start
-          completed:
-            - !type:SpawnPrototype
-              prototype: SheetPaper
-              amount: 1
-          steps:
-            - tool: Prying
-              doAfter: 1
+  - node: PosterManawaRite
+    entity: PosterManawaRite
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetPaper
+        amount: 1
+      steps:
+      - tool: Prying
+        doAfter: 1

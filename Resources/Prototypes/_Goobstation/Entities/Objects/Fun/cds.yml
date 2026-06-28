@@ -14,15 +14,14 @@
     damageModifierSet: Wood
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 12
       behaviors:
       - !type:PlaySoundBehavior
         sound:
           collection: GlassBreak
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
 
 - type: entity
   parent: BaseCdDisk
@@ -212,7 +211,6 @@
   - type: Vinyl
     song:
       path: /Audio/_Goobstation/RadioStation/misc/xg_onboarding3.ogg
-
 
 - type: entity
   parent: CdDiskWeird

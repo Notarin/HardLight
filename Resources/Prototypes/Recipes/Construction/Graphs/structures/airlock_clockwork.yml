@@ -114,8 +114,8 @@
       - tool: Prying
         doAfter: 5
 
-## Glass airlock
   - node: glassAirlock
+    ## Glass airlock
     entity: PinionAirlockGlass
     doNotReplaceInheritingEntities: true
     actions:
@@ -138,8 +138,8 @@
       - tool: Prying
         doAfter: 2
 
-## Standard airlock
   - node: airlock
+    ## Standard airlock
     entity: PinionAirlock
     doNotReplaceInheritingEntities: true
     actions:

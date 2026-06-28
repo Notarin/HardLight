@@ -1,3 +1,5 @@
+using System.Linq;
+using System.Numerics;
 using Content.Client.Stylesheets;
 using Content.Client.UserInterface.Controls;
 using Content.Shared.Access;
@@ -7,15 +9,14 @@ using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.XAML;
 using Robust.Shared.Prototypes;
-using System.Linq;
-using System.Numerics;
 
 namespace Content.Client.Access.UI;
 
 [GenerateTypedNameReferences]
 public sealed partial class GroupedAccessLevelChecklist : BoxContainer
 {
-    [Dependency] private readonly IPrototypeManager _protoManager = default!;
+    [Dependency]
+    private readonly IPrototypeManager _protoManager = default!;
     private static readonly ProtoId<AccessGroupPrototype> GeneralAccessGroupId = "General";
 
     private bool _isMonotone;
@@ -119,7 +120,10 @@ public sealed partial class GroupedAccessLevelChecklist : BoxContainer
             {
                 if (AccessGroupList.ChildCount == 0)
                     accessGroupButton.AddStyleClass(StyleBase.ButtonOpenLeft);
-                else if (_groupedAccessLevels.Count > 1 && AccessGroupList.ChildCount == (_groupedAccessLevels.Count - 1))
+                else if (
+                    _groupedAccessLevels.Count > 1
+                    && AccessGroupList.ChildCount == (_groupedAccessLevels.Count - 1)
+                )
                     accessGroupButton.AddStyleClass(StyleBase.ButtonOpenRight);
                 else
                     accessGroupButton.AddStyleClass(StyleBase.ButtonOpenBoth);
@@ -132,11 +136,10 @@ public sealed partial class GroupedAccessLevelChecklist : BoxContainer
                 accessGroupButton.Label.SetOnlyStyleClass(_labelStyleClass);
 
             var accessLevelPrototypes = _groupedAccessLevels[accessGroup];
-            var prefix = accessLevelPrototypes.All(x => _activeAccessLevels.Contains(x))
-                ? "»"
-                : accessLevelPrototypes.Any(x => _activeAccessLevels.Contains(x))
-                    ? "›"
-                    : " ";
+            var prefix =
+                accessLevelPrototypes.All(x => _activeAccessLevels.Contains(x)) ? "»"
+                : accessLevelPrototypes.Any(x => _activeAccessLevels.Contains(x)) ? "›"
+                : " ";
 
             var text = Loc.GetString(
                 "turret-controls-window-access-group-label",
@@ -273,7 +276,6 @@ public sealed partial class GroupedAccessLevelChecklist : BoxContainer
             accessLevelEntry.CheckBox.Pressed = pressed;
         }
     }
-
 
     /// <summary>
     /// Provides the UI with a list of access groups using which list of tabs should be populated.
@@ -437,11 +439,9 @@ public sealed partial class GroupedAccessLevelChecklist : BoxContainer
         {
             foreach (var line in Lines)
             {
-                var start = PixelPosition +
-                            new Vector2(PixelWidth * line.Item1.X, PixelHeight * line.Item1.Y);
+                var start = PixelPosition + new Vector2(PixelWidth * line.Item1.X, PixelHeight * line.Item1.Y);
 
-                var end = PixelPosition +
-                          new Vector2(PixelWidth * line.Item2.X, PixelHeight * line.Item2.Y);
+                var end = PixelPosition + new Vector2(PixelWidth * line.Item2.X, PixelHeight * line.Item2.Y);
 
                 handle.DrawLine(start, end, ActualModulateSelf);
             }

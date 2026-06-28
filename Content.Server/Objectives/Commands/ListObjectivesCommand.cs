@@ -12,8 +12,11 @@ namespace Content.Server.Objectives.Commands
     [AdminCommand(AdminFlags.Logs)]
     public sealed class ListObjectivesCommand : LocalizedCommands
     {
-        [Dependency] private readonly IEntityManager _entities = default!;
-        [Dependency] private readonly IPlayerManager _players = default!;
+        [Dependency]
+        private readonly IEntityManager _entities = default!;
+
+        [Dependency]
+        private readonly IPlayerManager _players = default!;
 
         public override string Command => "lsobjectives";
 
@@ -34,7 +37,9 @@ namespace Content.Server.Objectives.Commands
             var minds = _entities.System<SharedMindSystem>();
             if (!minds.TryGetMind(player, out var mindId, out var mind))
             {
-                shell.WriteError(LocalizationManager.GetString("shell-target-entity-does-not-have-message", ("missing", "mind")));
+                shell.WriteError(
+                    LocalizationManager.GetString("shell-target-entity-does-not-have-message", ("missing", "mind"))
+                );
                 return;
             }
 
@@ -55,8 +60,7 @@ namespace Content.Server.Objectives.Commands
                 }
                 else
                 {
-
-                    var progress = (int) (info.Value.Progress * 100f);
+                    var progress = (int)(info.Value.Progress * 100f);
                     shell.WriteLine($"- [{i}] {objectives[i]} ({info.Value.Title}) ({progress}%)");
                 }
             }
@@ -66,7 +70,10 @@ namespace Content.Server.Objectives.Commands
         {
             if (args.Length == 1)
             {
-                return CompletionResult.FromHintOptions(CompletionHelper.SessionNames(), LocalizationManager.GetString("shell-argument-username-hint"));
+                return CompletionResult.FromHintOptions(
+                    CompletionHelper.SessionNames(),
+                    LocalizationManager.GetString("shell-argument-username-hint")
+                );
             }
 
             return CompletionResult.Empty;

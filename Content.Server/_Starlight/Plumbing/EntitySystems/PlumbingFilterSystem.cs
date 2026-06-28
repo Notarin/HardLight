@@ -1,12 +1,12 @@
 using Content.Server._Starlight.Plumbing.Components;
 using Content.Server._Starlight.Plumbing.Nodes;
-using Content.Shared.NodeContainer;
 using Content.Server.Popups;
 using Content.Server.UserInterface;
 using Content.Shared._Starlight.Plumbing;
 using Content.Shared._Starlight.Plumbing.Components;
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Chemistry.Reagent;
+using Content.Shared.NodeContainer;
 using JetBrains.Annotations;
 using Robust.Server.GameObjects;
 using Robust.Shared.Audio;
@@ -25,13 +25,23 @@ namespace Content.Server._Starlight.Plumbing.EntitySystems;
 [UsedImplicitly]
 public sealed class PlumbingFilterSystem : EntitySystem
 {
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionSystem = default!;
-    [Dependency] private readonly PlumbingPullSystem _pullSystem = default!;
+    [Dependency]
+    private readonly UserInterfaceSystem _ui = default!;
 
+    [Dependency]
+    private readonly PopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly SharedSolutionContainerSystem _solutionSystem = default!;
+
+    [Dependency]
+    private readonly PlumbingPullSystem _pullSystem = default!;
 
     public override void Initialize()
     {
@@ -52,13 +62,30 @@ public sealed class PlumbingFilterSystem : EntitySystem
         if (!TryComp<PlumbingInletComponent>(ent.Owner, out var inletComp))
             return;
 
-        if (!_solutionSystem.TryGetSolution(ent.Owner, ent.Comp.FilteredSolutionName, out var filteredEnt, out var filteredSol))
+        if (
+            !_solutionSystem.TryGetSolution(
+                ent.Owner,
+                ent.Comp.FilteredSolutionName,
+                out var filteredEnt,
+                out var filteredSol
+            )
+        )
             return;
 
-        if (!_solutionSystem.TryGetSolution(ent.Owner, ent.Comp.PassthroughSolutionName, out var passthroughEnt, out var passthroughSol))
+        if (
+            !_solutionSystem.TryGetSolution(
+                ent.Owner,
+                ent.Comp.PassthroughSolutionName,
+                out var passthroughEnt,
+                out var passthroughSol
+            )
+        )
             return;
 
-        if (filteredEnt.Value.Comp.Solution.AvailableVolume <= 0 && passthroughEnt.Value.Comp.Solution.AvailableVolume <= 0)
+        if (
+            filteredEnt.Value.Comp.Solution.AvailableVolume <= 0
+            && passthroughEnt.Value.Comp.Solution.AvailableVolume <= 0
+        )
             return;
 
         if (!TryComp<NodeContainerComponent>(ent.Owner, out var nodeContainer))
@@ -68,7 +95,11 @@ public sealed class PlumbingFilterSystem : EntitySystem
 
         foreach (var inletName in inletComp.InletNames)
         {
-            if (remaining <= 0 || filteredEnt.Value.Comp.Solution.AvailableVolume <= 0 && passthroughEnt.Value.Comp.Solution.AvailableVolume <= 0)
+            if (
+                remaining <= 0
+                || filteredEnt.Value.Comp.Solution.AvailableVolume <= 0
+                    && passthroughEnt.Value.Comp.Solution.AvailableVolume <= 0
+            )
                 break;
 
             if (!nodeContainer.Nodes.TryGetValue(inletName, out var node))
@@ -86,7 +117,8 @@ public sealed class PlumbingFilterSystem : EntitySystem
                 remaining,
                 roundRobinIndex,
                 ent.Comp.Enabled,
-                ent.Comp.FilteredReagents);
+                ent.Comp.FilteredReagents
+            );
 
             inletComp.RoundRobinIndices[inletName] = nextIndex;
             remaining -= pulled;
@@ -132,7 +164,11 @@ public sealed class PlumbingFilterSystem : EntitySystem
     {
         if (!_prototypeManager.HasIndex<ReagentPrototype>(args.ReagentId))
         {
-            _popup.PopupEntity(Loc.GetString("plumbing-filter-invalid-reagent", ("reagent", args.ReagentId)), ent.Owner, args.Actor);
+            _popup.PopupEntity(
+                Loc.GetString("plumbing-filter-invalid-reagent", ("reagent", args.ReagentId)),
+                ent.Owner,
+                args.Actor
+            );
             return;
         }
 
@@ -142,7 +178,10 @@ public sealed class PlumbingFilterSystem : EntitySystem
         UpdateUI(ent);
     }
 
-    private void OnRemoveReagent(Entity<StarlightPlumbingFilterComponent> ent, ref PlumbingFilterRemoveReagentMessage args)
+    private void OnRemoveReagent(
+        Entity<StarlightPlumbingFilterComponent> ent,
+        ref PlumbingFilterRemoveReagentMessage args
+    )
     {
         ent.Comp.FilteredReagents.Remove(new ProtoId<ReagentPrototype>(args.ReagentId));
         DirtyField(ent, ent.Comp, nameof(StarlightPlumbingFilterComponent.FilteredReagents));
@@ -172,9 +211,7 @@ public sealed class PlumbingFilterSystem : EntitySystem
             filteredReagents.Add(protoId.Id);
         }
 
-        var state = new PlumbingFilterBoundUserInterfaceState(
-            filteredReagents,
-            ent.Comp.Enabled);
+        var state = new PlumbingFilterBoundUserInterfaceState(filteredReagents, ent.Comp.Enabled);
 
         _ui.SetUiState(ent.Owner, PlumbingFilterUiKey.Key, state);
     }

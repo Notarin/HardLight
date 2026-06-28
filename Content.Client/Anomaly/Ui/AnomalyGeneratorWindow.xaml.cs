@@ -11,7 +11,8 @@ namespace Content.Client.Anomaly.Ui;
 [GenerateTypedNameReferences]
 public sealed partial class AnomalyGeneratorWindow : FancyWindow
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     private TimeSpan _cooldownEnd = TimeSpan.Zero;
     private bool _hasEnoughFuel;
@@ -38,7 +39,7 @@ public sealed partial class AnomalyGeneratorWindow : FancyWindow
         _cooldownEnd = state.CooldownEndTime;
         _hasEnoughFuel = state.FuelCost <= state.FuelAmount;
 
-        var fuelCompletion = Math.Clamp((float) state.FuelAmount / state.FuelCost, 0f, 1f);
+        var fuelCompletion = Math.Clamp((float)state.FuelAmount / state.FuelCost, 0f, 1f);
 
         FuelBar.Value = fuelCompletion;
 
@@ -68,9 +69,7 @@ public sealed partial class AnomalyGeneratorWindow : FancyWindow
     {
         var ready = _hasEnoughFuel && _timing.CurTime > _cooldownEnd;
 
-        var msg = ready
-            ? Loc.GetString("anomaly-generator-yes-fire")
-            : Loc.GetString("anomaly-generator-no-fire");
+        var msg = ready ? Loc.GetString("anomaly-generator-yes-fire") : Loc.GetString("anomaly-generator-no-fire");
         ReadyLabel.SetMarkup(msg);
 
         GenerateButton.Disabled = !ready;
@@ -83,4 +82,3 @@ public sealed partial class AnomalyGeneratorWindow : FancyWindow
         UpdateTimer();
     }
 }
-

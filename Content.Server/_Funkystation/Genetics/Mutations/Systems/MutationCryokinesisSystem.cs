@@ -13,13 +13,26 @@ namespace Content.Server._Funkystation.Genetics.Mutations.Systems;
 
 public sealed class MutationCryokinesisSystem : EntitySystem
 {
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
-    [Dependency] private readonly SharedGunSystem _gun = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency]
+    private readonly SharedActionsSystem _actions = default!;
+
+    [Dependency]
+    private readonly SharedGunSystem _gun = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly IMapManager _mapManager = default!;
+
+    [Dependency]
+    private readonly SharedPhysicsSystem _physics = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
 
     public override void Initialize()
     {
@@ -42,12 +55,15 @@ public sealed class MutationCryokinesisSystem : EntitySystem
 
     private void OnFireball(EntityUid uid, MutationCryokinesisComponent comp, ProjectileSpellEvent args)
     {
-        if (args.Handled) return;
+        if (args.Handled)
+            return;
 
         var curTime = _timing.CurTime;
-        if (curTime < comp.NextUse) return;
+        if (curTime < comp.NextUse)
+            return;
 
-        if (!TryComp<TransformComponent>(uid, out var xform)) return;
+        if (!TryComp<TransformComponent>(uid, out var xform))
+            return;
 
         var fromCoords = xform.Coordinates;
         var toCoords = args.Target;
@@ -59,8 +75,7 @@ public sealed class MutationCryokinesisSystem : EntitySystem
 
         var fireball = Spawn(args.Prototype, spawnCoords);
 
-        var direction = toCoords.ToMapPos(EntityManager, _transform) -
-                        spawnCoords.ToMapPos(EntityManager, _transform);
+        var direction = toCoords.ToMapPos(EntityManager, _transform) - spawnCoords.ToMapPos(EntityManager, _transform);
 
         var userVelocity = _physics.GetMapLinearVelocity(uid);
 

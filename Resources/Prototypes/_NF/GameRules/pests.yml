@@ -3,15 +3,15 @@
 
 - type: entityTable
   id: NFCalmPestEventsTable
-  table: !type:AllSelector # we need to pass a list of rules, since rules have further restrictions to consider via StationEventComp
-    children:
+  table: !type:AllSelector
+    children: # we need to pass a list of rules, since rules have further restrictions to consider via StationEventComp
     - id: NFSnailMigrationLowPop
     - id: NFCockroachMigration
     - id: NFMouseMigration
 
-# events
-
 - type: entity
+  # events
+
   id: NFMouseMigration
   parent: BaseStationEventShortDelay
   components:

@@ -15,7 +15,7 @@
       color: "#FFFFFF"
       visible: false
       shader: unshaded
-      map: [ "blade" ]
+      map: ["blade"]
   - type: ItemToggleActiveSound
     activeSound:
       path: /Audio/_Starlight/Weapons/marriage_hum.ogg
@@ -45,7 +45,7 @@
   - type: MultiHandedItem
   - type: Tool
     qualities:
-      - Prying
+    - Prying
     useSound:
       path: /Audio/Items/crowbar.ogg
   - type: ToolTileCompatible

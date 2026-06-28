@@ -11,9 +11,14 @@ namespace Content.Client.Mining;
 
 public sealed class MiningOverlay : Overlay
 {
-    [Dependency] private readonly IEntityManager _entityManager = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
+    [Dependency]
+    private readonly IEntityManager _entityManager = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
     private readonly EntityLookupSystem _lookup;
     private readonly SpriteSystem _sprite;
     private readonly TransformSystem _xform;
@@ -42,8 +47,10 @@ public sealed class MiningOverlay : Overlay
     {
         var handle = args.WorldHandle;
 
-        if (_player.LocalEntity is not { } localEntity ||
-            !_entityManager.TryGetComponent<MiningScannerViewerComponent>(localEntity, out var viewerComp))
+        if (
+            _player.LocalEntity is not { } localEntity
+            || !_entityManager.TryGetComponent<MiningScannerViewerComponent>(localEntity, out var viewerComp)
+        )
             return;
 
         if (viewerComp.LastPingLocation == null)
@@ -55,8 +62,7 @@ public sealed class MiningOverlay : Overlay
         _lookup.GetEntitiesInRange(viewerComp.LastPingLocation.Value, viewerComp.ViewRange, _viewableEnts);
         foreach (var ore in _viewableEnts)
         {
-            if (!_xformQuery.TryComp(ore, out var xform) ||
-                !_spriteQuery.TryComp(ore, out var sprite))
+            if (!_xformQuery.TryComp(ore, out var xform) || !_spriteQuery.TryComp(ore, out var sprite))
                 continue;
 
             if (xform.MapID != args.MapId || !sprite.Visible)
@@ -82,14 +88,19 @@ public sealed class MiningOverlay : Overlay
 
             var animTime = (viewerComp.NextPingTime - _timing.CurTime).TotalSeconds;
 
-
-            var alpha = animTime < viewerComp.AnimationDuration
-                ? 0
-                : (float)Math.Clamp((animTime - viewerComp.AnimationDuration) / viewerComp.AnimationDuration, 0f, 1f);
+            var alpha =
+                animTime < viewerComp.AnimationDuration
+                    ? 0
+                    : (float)
+                        Math.Clamp((animTime - viewerComp.AnimationDuration) / viewerComp.AnimationDuration, 0f, 1f);
             var color = Color.White.WithAlpha(alpha);
 
-            handle.DrawTexture(texture, -(Vector2)texture.Size / 2f / EyeManager.PixelsPerMeter, layer.Rotation, modulate: color);
-
+            handle.DrawTexture(
+                texture,
+                -(Vector2)texture.Size / 2f / EyeManager.PixelsPerMeter,
+                layer.Rotation,
+                modulate: color
+            );
         }
         handle.SetTransform(Matrix3x2.Identity);
     }

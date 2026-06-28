@@ -29,8 +29,8 @@
         priority: 2
         whitelist:
           tags:
-            - Magazine9x19mmPistolFMJ
-            - Magazine9x19mmPistolHighCapacityFMJ
+          - Magazine9x19mmPistolFMJ
+          - Magazine9x19mmPistolHighCapacityFMJ
         whitelistFailPopup: gun-magazine-whitelist-fail
       gun_chamber:
         name: Chamber
@@ -38,7 +38,7 @@
         priority: 1
         whitelist:
           tags:
-            - Cartridge9x19mmFMJ
+          - Cartridge9x19mmFMJ
   - type: ContainerContainer
     containers:
       gun_magazine: !type:ContainerSlot
@@ -68,8 +68,8 @@
         priority: 2
         whitelist:
           tags:
-            - Magazine9x19mmPistolFMJ
-            - Magazine9x19mmPistolHighCapacityFMJ
+          - Magazine9x19mmPistolFMJ
+          - Magazine9x19mmPistolHighCapacityFMJ
         whitelistFailPopup: gun-magazine-whitelist-fail
       gun_chamber:
         name: Chamber
@@ -77,7 +77,7 @@
         priority: 1
         whitelist:
           tags:
-            - Cartridge9x19mmFMJ
+          - Cartridge9x19mmFMJ
   - type: ContainerContainer
     containers:
       gun_magazine: !type:ContainerSlot

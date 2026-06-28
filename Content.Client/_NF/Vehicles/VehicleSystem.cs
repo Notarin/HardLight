@@ -9,10 +9,17 @@ namespace Content.Client._NF.Vehicles;
 // Rewritten from Goobstation's VehicleSystem.
 public sealed class VehicleSystem : SharedVehicleSystem
 {
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly IEyeManager _eye = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly IEyeManager _eye = default!;
+
+    [Dependency]
+    private readonly TransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     public override void Initialize()
     {
@@ -22,9 +29,11 @@ public sealed class VehicleSystem : SharedVehicleSystem
 
     private void OnAppearanceChange(EntityUid uid, VehicleComponent comp, ref AppearanceChangeEvent args)
     {
-        if (args.Sprite == null
+        if (
+            args.Sprite == null
             || !_appearance.TryGetData(uid, VehicleState.Animated, out bool animated)
-            || !TryComp<SpriteComponent>(uid, out var spriteComp))
+            || !TryComp<SpriteComponent>(uid, out var spriteComp)
+        )
         {
             return;
         }

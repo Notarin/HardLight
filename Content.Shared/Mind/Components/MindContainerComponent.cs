@@ -55,9 +55,7 @@ public abstract class MindEvent : EntityEventArgs
 public sealed class MindRemovedMessage : MindEvent
 {
     public MindRemovedMessage(Entity<MindComponent> mind, Entity<MindContainerComponent> container)
-        : base(mind, container)
-    {
-    }
+        : base(mind, container) { }
 }
 
 /// <summary>
@@ -66,9 +64,7 @@ public sealed class MindRemovedMessage : MindEvent
 public sealed class MindGotRemovedEvent : MindEvent
 {
     public MindGotRemovedEvent(Entity<MindComponent> mind, Entity<MindContainerComponent> container)
-        : base(mind, container)
-    {
-    }
+        : base(mind, container) { }
 }
 
 /// <summary>
@@ -77,9 +73,7 @@ public sealed class MindGotRemovedEvent : MindEvent
 public sealed class MindAddedMessage : MindEvent
 {
     public MindAddedMessage(Entity<MindComponent> mind, Entity<MindContainerComponent> container)
-        : base(mind, container)
-    {
-    }
+        : base(mind, container) { }
 }
 
 /// <summary>
@@ -88,7 +82,5 @@ public sealed class MindAddedMessage : MindEvent
 public sealed class MindGotAddedEvent : MindEvent
 {
     public MindGotAddedEvent(Entity<MindComponent> mind, Entity<MindContainerComponent> container)
-        : base(mind, container)
-    {
-    }
+        : base(mind, container) { }
 }

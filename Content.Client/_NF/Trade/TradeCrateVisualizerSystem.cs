@@ -9,15 +9,24 @@ namespace Content.Client._NF.Trade;
 /// </summary>
 public sealed class TradeCrateVisualizerSystem : VisualizerSystem<TradeCrateComponent>
 {
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     private const string FallbackIconID = "CargoOther";
     private const string CargoPriorityActiveState = "cargo_priority_active";
     private const string CargoPriorityInactiveState = "cargo_priority_inactive";
 
-    protected override void OnAppearanceChange(EntityUid uid, TradeCrateComponent component, ref AppearanceChangeEvent args)
+    protected override void OnAppearanceChange(
+        EntityUid uid,
+        TradeCrateComponent component,
+        ref AppearanceChangeEvent args
+    )
     {
         if (args.Sprite == null)
             return;
@@ -36,7 +45,11 @@ public sealed class TradeCrateVisualizerSystem : VisualizerSystem<TradeCrateComp
         {
             _sprite.LayerSetVisible((uid, args.Sprite), TradeCrateVisualLayers.Priority, true);
             if (_appearance.TryGetData(uid, TradeCrateVisuals.IsPriorityInactive, out bool inactive) && inactive)
-                _sprite.LayerSetRsiState((uid, args.Sprite), TradeCrateVisualLayers.Priority, CargoPriorityInactiveState);
+                _sprite.LayerSetRsiState(
+                    (uid, args.Sprite),
+                    TradeCrateVisualLayers.Priority,
+                    CargoPriorityInactiveState
+                );
             else
                 _sprite.LayerSetRsiState((uid, args.Sprite), TradeCrateVisualLayers.Priority, CargoPriorityActiveState);
         }
@@ -48,5 +61,5 @@ public sealed class TradeCrateVisualizerSystem : VisualizerSystem<TradeCrateComp
 public enum TradeCrateVisualLayers : byte
 {
     Icon,
-    Priority
+    Priority,
 }

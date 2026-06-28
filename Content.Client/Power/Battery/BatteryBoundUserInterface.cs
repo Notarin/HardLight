@@ -14,7 +14,8 @@ namespace Content.Client.Power.Battery;
 [UsedImplicitly]
 public sealed class BatteryBoundUserInterface : BoundUserInterface, IBuiPreTickUpdate
 {
-    [Dependency] private readonly IClientGameTiming _gameTiming = null!;
+    [Dependency]
+    private readonly IClientGameTiming _gameTiming = null!;
 
     [ViewVariables]
     private BatteryMenu? _menu;
@@ -23,7 +24,8 @@ public sealed class BatteryBoundUserInterface : BoundUserInterface, IBuiPreTickU
     private InputCoalescer<float> _chargeRateCoalescer;
     private InputCoalescer<float> _dischargeRateCoalescer;
 
-    public BatteryBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
+    public BatteryBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey)
     {
         IoCManager.InjectDependencies(this);
     }

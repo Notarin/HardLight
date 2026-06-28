@@ -7,10 +7,14 @@ namespace Content.Client.Storage.Visualizers;
 
 public sealed class EntityStorageVisualizerSystem : VisualizerSystem<EntityStorageVisualsComponent>
 {
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IComponentFactory _componentFactory = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly IComponentFactory _componentFactory = default!;
 
     public override void Initialize()
     {
@@ -33,12 +37,16 @@ public sealed class EntityStorageVisualizerSystem : VisualizerSystem<EntityStora
         _sprite.LayerSetRsiState((uid, sprite), StorageVisualLayers.Base, comp.StateBaseClosed);
     }
 
-    protected override void OnAppearanceChange(EntityUid uid,
+    protected override void OnAppearanceChange(
+        EntityUid uid,
         EntityStorageVisualsComponent comp,
-        ref AppearanceChangeEvent args)
+        ref AppearanceChangeEvent args
+    )
     {
-        if (args.Sprite == null
-            || !AppearanceSystem.TryGetData<bool>(uid, StorageVisuals.Open, out var open, args.Component))
+        if (
+            args.Sprite == null
+            || !AppearanceSystem.TryGetData<bool>(uid, StorageVisuals.Open, out var open, args.Component)
+        )
             return;
 
         var forceRedrawBase = false;
@@ -109,5 +117,5 @@ public sealed class EntityStorageVisualizerSystem : VisualizerSystem<EntityStora
 public enum StorageVisualLayers : byte
 {
     Base,
-    Door
+    Door,
 }

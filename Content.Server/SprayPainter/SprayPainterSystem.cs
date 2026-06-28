@@ -25,12 +25,23 @@ namespace Content.Server.SprayPainter;
 /// </summary>
 public sealed class SprayPainterSystem : SharedSprayPainterSystem
 {
-    [Dependency] private readonly AtmosPipeColorSystem _pipeColor = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly DecalSystem _decals = default!;
-    [Dependency] private readonly AudioSystem _audio = default!;
-    [Dependency] private readonly ChargesSystem _charges = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
+    [Dependency]
+    private readonly AtmosPipeColorSystem _pipeColor = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly DecalSystem _decals = default!;
+
+    [Dependency]
+    private readonly AudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly ChargesSystem _charges = default!;
+
+    [Dependency]
+    private readonly TransformSystem _transform = default!;
 
     public override void Initialize()
     {
@@ -71,7 +82,17 @@ public sealed class SprayPainterSystem : SharedSprayPainterSystem
             // Offset painting for adding decals
             position = position.Offset(new(-0.5f));
 
-            if (!_decals.TryAddDecal(ent.Comp.SelectedDecal, position, out _, ent.Comp.SelectedDecalColor, Angle.FromDegrees(ent.Comp.SelectedDecalAngle), 0, false))
+            if (
+                !_decals.TryAddDecal(
+                    ent.Comp.SelectedDecal,
+                    position,
+                    out _,
+                    ent.Comp.SelectedDecalColor,
+                    Angle.FromDegrees(ent.Comp.SelectedDecalAngle),
+                    0,
+                    false
+                )
+            )
                 return;
         }
         else
@@ -100,7 +121,11 @@ public sealed class SprayPainterSystem : SharedSprayPainterSystem
 
         _charges.TryUseCharges((ent, charges), ent.Comp.DecalChargeCost);
 
-        AdminLogger.Add(LogType.CrayonDraw, LogImpact.Low, $"{EntityManager.ToPrettyString(args.User):user} painted a {ent.Comp.SelectedDecal}");
+        AdminLogger.Add(
+            LogType.CrayonDraw,
+            LogImpact.Low,
+            $"{EntityManager.ToPrettyString(args.User):user} painted a {ent.Comp.SelectedDecal}"
+        );
     }
 
     /// <summary>
@@ -112,8 +137,7 @@ public sealed class SprayPainterSystem : SharedSprayPainterSystem
         if (!Proto.TryIndex<DecalPrototype>(decal.Id, out var decalProto))
             return false;
 
-        return (decalProto.Tags.Contains("station")
-            || decalProto.Tags.Contains("markings"))
+        return (decalProto.Tags.Contains("station") || decalProto.Tags.Contains("markings"))
             && !decalProto.Tags.Contains("dirty");
     }
 
@@ -142,8 +166,10 @@ public sealed class SprayPainterSystem : SharedSprayPainterSystem
         if (!TryComp<AtmosPipeColorComponent>(target, out var color))
             return;
 
-        if (TryComp<LimitedChargesComponent>(ent, out var charges) &&
-            !_charges.TryUseCharges((ent, charges), ent.Comp.PipeChargeCost))
+        if (
+            TryComp<LimitedChargesComponent>(ent, out var charges)
+            && !_charges.TryUseCharges((ent, charges), ent.Comp.PipeChargeCost)
+        )
             return;
 
         Audio.PlayPvs(ent.Comp.SpraySound, ent);
@@ -157,28 +183,31 @@ public sealed class SprayPainterSystem : SharedSprayPainterSystem
         if (args.Handled)
             return;
 
-        if (!TryComp<SprayPainterComponent>(args.Used, out var painter) ||
-            painter.PickedColor is not { } colorName)
+        if (!TryComp<SprayPainterComponent>(args.Used, out var painter) || painter.PickedColor is not { } colorName)
             return;
 
         if (!painter.ColorPalette.TryGetValue(colorName, out var color))
             return;
 
-        if (TryComp<LimitedChargesComponent>(args.Used, out var charges)
-            && charges.LastCharges < painter.PipeChargeCost)
+        if (
+            TryComp<LimitedChargesComponent>(args.Used, out var charges)
+            && charges.LastCharges < painter.PipeChargeCost
+        )
         {
             var msg = Loc.GetString("spray-painter-interact-no-charges");
             _popup.PopupEntity(msg, args.User, args.User);
             return;
         }
 
-        var doAfterEventArgs = new DoAfterArgs(EntityManager,
+        var doAfterEventArgs = new DoAfterArgs(
+            EntityManager,
             args.User,
             painter.PipeSprayTime,
             new SprayPainterPipeDoAfterEvent(color),
             args.Used,
             target: ent,
-            used: args.Used)
+            used: args.Used
+        )
         {
             BreakOnMove = true,
             BreakOnDamage = true,

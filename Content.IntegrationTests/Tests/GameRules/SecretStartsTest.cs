@@ -34,7 +34,11 @@ public sealed class SecretStartsTest
 
         await server.WaitAssertion(() =>
         {
-            Assert.That(gameTicker.GetAddedGameRules().Count(), Is.GreaterThan(1), $"No additional rules started by secret rule.");
+            Assert.That(
+                gameTicker.GetAddedGameRules().Count(),
+                Is.GreaterThan(1),
+                $"No additional rules started by secret rule."
+            );
 
             // End all rules
             gameTicker.ClearGameRules();

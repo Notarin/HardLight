@@ -5,7 +5,7 @@
   targetNode: BoneArrow
   category: construction-category-weapons
   objectType: Item
- 
+
 - type: construction
   id: BoneBow
   graph: BoneBow
@@ -13,7 +13,7 @@
   targetNode: BoneBow
   category: construction-category-weapons
   objectType: Item
- 
+
 - type: construction
   id: BoneKnife
   graph: BoneKnife
@@ -21,7 +21,7 @@
   targetNode: BoneKnife
   category: construction-category-weapons
   objectType: Item
- 
+
 - type: construction
   id: BoneHatchet
   graph: BoneHatchet
@@ -29,7 +29,7 @@
   targetNode: BoneHatchet
   category: construction-category-weapons
   objectType: Item
- 
+
 - type: construction
   id: BoneHalberd
   graph: BoneHalberd
@@ -37,7 +37,7 @@
   targetNode: BoneHalberd
   category: construction-category-weapons
   objectType: Item
- 
+
 - type: construction
   id: BoneKnifeFang
   graph: BoneKnifeFang
@@ -45,7 +45,7 @@
   targetNode: BoneKnifeFang
   category: construction-category-weapons
   objectType: Item
- 
+
 - type: construction
   id: BoneClub
   graph: BoneClub
@@ -53,7 +53,7 @@
   targetNode: BoneClub
   category: construction-category-weapons
   objectType: Item
- 
+
 - type: construction
   id: BoneDart
   graph: BoneDart
@@ -61,7 +61,7 @@
   targetNode: BoneDart
   category: construction-category-weapons
   objectType: Item
- 
+
 - type: construction
   id: BoneSkewer
   graph: BoneSkewer

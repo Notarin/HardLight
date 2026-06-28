@@ -9,8 +9,11 @@ namespace Content.Server.Xenoarchaeology.Equipment.Systems;
 
 public sealed class NodeScannerSystem : EntitySystem
 {
-    [Dependency] private readonly UseDelaySystem _useDelay = default!;
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
+    [Dependency]
+    private readonly UseDelaySystem _useDelay = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popupSystem = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -21,7 +24,7 @@ public sealed class NodeScannerSystem : EntitySystem
 
     private void OnBeforeRangedInteract(EntityUid uid, NodeScannerComponent component, BeforeRangedInteractEvent args)
     {
-        if (args.Handled || !args.CanReach || args.Target is not {} target)
+        if (args.Handled || !args.CanReach || args.Target is not { } target)
             return;
 
         if (!TryComp<ArtifactComponent>(target, out var artifact) || artifact.CurrentNodeId == null)
@@ -45,7 +48,7 @@ public sealed class NodeScannerSystem : EntitySystem
             {
                 CreatePopup(uid, args.Target, artifact);
             },
-            Text = Loc.GetString("node-scan-tooltip")
+            Text = Loc.GetString("node-scan-tooltip"),
         };
 
         args.Verbs.Add(verb);
@@ -53,11 +56,9 @@ public sealed class NodeScannerSystem : EntitySystem
 
     private void CreatePopup(EntityUid uid, EntityUid target, ArtifactComponent artifact)
     {
-        if (TryComp(uid, out UseDelayComponent? useDelay)
-            && !_useDelay.TryResetDelay((uid, useDelay), true))
+        if (TryComp(uid, out UseDelayComponent? useDelay) && !_useDelay.TryResetDelay((uid, useDelay), true))
             return;
 
-        _popupSystem.PopupEntity(Loc.GetString("node-scan-popup",
-            ("id", $"{artifact.CurrentNodeId}")), target);
+        _popupSystem.PopupEntity(Loc.GetString("node-scan-popup", ("id", $"{artifact.CurrentNodeId}")), target);
     }
 }

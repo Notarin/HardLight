@@ -14,14 +14,14 @@
   - type: RevolverAmmoProvider
     whitelist:
       tags:
-        - Cartridge45Magnum
-        - Cartridge45MagnumImprovised
-        - SpeedLoader45Magnum
-        - SpeedLoader45MagnumImprovised
+      - Cartridge45Magnum
+      - Cartridge45MagnumImprovised
+      - SpeedLoader45Magnum
+      - SpeedLoader45MagnumImprovised
     proto: null
     capacity: 1
-    chambers: [ true]
-    ammoSlots: [ null]
+    chambers: [true]
+    ammoSlots: [null]
   - type: Construction
     graph: MakeshiftRevolverGraph
     node: shotgun
@@ -32,15 +32,15 @@
         Blunt: 8
         Heat: 8
     items:
-      - id: ModularBarrel
-        launchAngle: 0
-        prob: 1
-      - id: ModularReceiver
-        launchAngle: 90
-        prob: 0.10
-      - id: RifleStock
-        launchAngle: 180
-        prob: 0.80
+    - id: ModularBarrel
+      launchAngle: 0
+      prob: 1
+    - id: ModularReceiver
+      launchAngle: 90
+      prob: 0.10
+    - id: RifleStock
+      launchAngle: 180
+      prob: 0.80
 
 - type: entity
   name: Improvised Revolver
@@ -54,26 +54,26 @@
     sprite: _Starlight/Objects/Weapons/Guns/Revolvers/improvised_revolver.rsi
   - type: RevolverAmmoProvider
     capacity: 2
-    chambers: [ true, true]
-    ammoSlots: [ null, null]
+    chambers: [true, true]
+    ammoSlots: [null, null]
   - type: Construction
     graph: ImprovisedRevolverGraph
     node: shotgun
   - type: WeaponDismantleOnShoot
     dismantleChance: 0.10
     items:
-      - id: ModularBarrel
-        launchAngle: 0
-        prob: 1
-      - id: ModularReceiver
-        launchAngle: 90
-        prob: 0.10
-      - id: SheetSteel1
-        launchAngle: 67
-        prob: 0.70
-      - id: RifleStock
-        launchAngle: 180
-        prob: 0.80
+    - id: ModularBarrel
+      launchAngle: 0
+      prob: 1
+    - id: ModularReceiver
+      launchAngle: 90
+      prob: 0.10
+    - id: SheetSteel1
+      launchAngle: 67
+      prob: 0.70
+    - id: RifleStock
+      launchAngle: 180
+      prob: 0.80
   - type: StaticPrice
     price: 1000
 
@@ -89,8 +89,8 @@
     sprite: _Starlight/Objects/Weapons/Guns/Revolvers/forged_revolver.rsi
   - type: RevolverAmmoProvider
     capacity: 4
-    chambers: [ null, null, null, null]
-    ammoSlots: [ null, null, null, null]
+    chambers: [null, null, null, null]
+    ammoSlots: [null, null, null, null]
   - type: WeaponDismantleOnShoot
     dismantleChance: 0
   - type: StaticPrice

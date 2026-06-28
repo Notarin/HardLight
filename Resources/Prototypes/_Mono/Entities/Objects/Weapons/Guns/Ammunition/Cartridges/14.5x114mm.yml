@@ -1,6 +1,6 @@
 - type: entity
-  categories: [ HideSpawnMenu ] # Frontier
-  parent: [ BaseCartridge, BaseC2Contraband ] # Frontier: BaseMajorContraband<BaseC2Contraband
+  categories: [HideSpawnMenu] # Frontier
+  parent: [BaseCartridge, BaseC2Contraband] # Frontier: BaseMajorContraband<BaseC2Contraband
   id: Cartridge145x114mm
   name: cartridge (145x114mm)
   components:

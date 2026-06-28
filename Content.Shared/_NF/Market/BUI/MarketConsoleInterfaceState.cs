@@ -46,7 +46,16 @@ public sealed class MarketConsoleInterfaceState : BoundUserInterfaceState
     /// </summary>
     public int CartEntities;
 
-    public MarketConsoleInterfaceState(int balance, float marketModifier, List<MarketData> marketDataList, List<MarketData> cartDataList, int cartBalance, bool enabled, int transactionCost, int cartEntities)
+    public MarketConsoleInterfaceState(
+        int balance,
+        float marketModifier,
+        List<MarketData> marketDataList,
+        List<MarketData> cartDataList,
+        int cartBalance,
+        bool enabled,
+        int transactionCost,
+        int cartEntities
+    )
     {
         Balance = balance;
         MarketModifier = marketModifier;

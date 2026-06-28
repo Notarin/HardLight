@@ -1,46 +1,67 @@
 using System.Numerics;
 using System.Threading;
 using Content.Server.DoAfter;
-using Content.Server.Resist;
-using Content.Server.Popups;
 using Content.Server.Inventory;
-using Content.Shared.Mobs;
-using Content.Shared.DoAfter;
-using Content.Shared.Buckle.Components;
-using Content.Shared.Hands;
-using Content.Shared.Stunnable;
-using Content.Shared.Interaction.Events;
-using Content.Shared.Climbing.Events;
-using Content.Shared.Carrying;
-using Content.Shared.Contests;
-using Content.Shared.Movement.Events;
-using Content.Shared.Movement.Systems;
-using Content.Shared.Standing;
+using Content.Server.Popups;
+using Content.Server.Resist;
 using Content.Shared.ActionBlocker;
+using Content.Shared.Buckle.Components;
+using Content.Shared.Carrying;
+using Content.Shared.Climbing.Events;
+using Content.Shared.Contests;
+using Content.Shared.DoAfter;
+using Content.Shared.Hands;
+using Content.Shared.Interaction.Events;
 using Content.Shared.Inventory.VirtualItem;
 using Content.Shared.Item;
-using Content.Shared.Throwing;
+using Content.Shared.Mobs;
+using Content.Shared.Movement.Events;
 using Content.Shared.Movement.Pulling.Components;
 using Content.Shared.Movement.Pulling.Events;
 using Content.Shared.Movement.Pulling.Systems;
-using Robust.Shared.Physics.Components;
+using Content.Shared.Movement.Systems;
+using Content.Shared.Standing;
+using Content.Shared.Stunnable;
+using Content.Shared.Throwing;
 using Robust.Server.GameObjects;
+using Robust.Shared.Physics.Components;
 
 namespace Content.Server.Carrying
 {
     public sealed class CarryingSystem : SharedCarryingSystem // HL: Moved the base to SharedCarryingSystem so we can handle the Verb drawing on both to remove UI lag
     {
-        [Dependency] private readonly VirtualItemSystem _virtualItemSystem = default!;
-        [Dependency] private readonly CarryingSlowdownSystem _slowdown = default!;
-        [Dependency] private readonly DoAfterSystem _doAfterSystem = default!;
-        [Dependency] private readonly StandingStateSystem _standingState = default!;
-        [Dependency] private readonly ActionBlockerSystem _actionBlockerSystem = default!;
-        [Dependency] private readonly PullingSystem _pullingSystem = default!;
-        [Dependency] private readonly EscapeInventorySystem _escapeInventorySystem = default!;
-        [Dependency] private readonly PopupSystem _popupSystem = default!;
-        [Dependency] private readonly MovementSpeedModifierSystem _movementSpeed = default!;
-        [Dependency] private readonly ContestsSystem _contests = default!;
-        [Dependency] private readonly TransformSystem _transform = default!;
+        [Dependency]
+        private readonly VirtualItemSystem _virtualItemSystem = default!;
+
+        [Dependency]
+        private readonly CarryingSlowdownSystem _slowdown = default!;
+
+        [Dependency]
+        private readonly DoAfterSystem _doAfterSystem = default!;
+
+        [Dependency]
+        private readonly StandingStateSystem _standingState = default!;
+
+        [Dependency]
+        private readonly ActionBlockerSystem _actionBlockerSystem = default!;
+
+        [Dependency]
+        private readonly PullingSystem _pullingSystem = default!;
+
+        [Dependency]
+        private readonly EscapeInventorySystem _escapeInventorySystem = default!;
+
+        [Dependency]
+        private readonly PopupSystem _popupSystem = default!;
+
+        [Dependency]
+        private readonly MovementSpeedModifierSystem _movementSpeed = default!;
+
+        [Dependency]
+        private readonly ContestsSystem _contests = default!;
+
+        [Dependency]
+        private readonly TransformSystem _transform = default!;
 
         public const float BaseDistanceCoeff = 0.5f; // Frontier: default throwing speed reduction
         public const float MaxDistanceCoeff = 1.0f; // Frontier: default throwing speed reduction
@@ -92,14 +113,17 @@ namespace Content.Server.Carrying
         /// </summary>
         private void OnThrow(EntityUid uid, CarryingComponent component, ref BeforeThrowEvent args)
         {
-            if (!TryComp<VirtualItemComponent>(args.ItemUid, out var virtItem)
-                || !HasComp<CarriableComponent>(virtItem.BlockingEntity))
+            if (
+                !TryComp<VirtualItemComponent>(args.ItemUid, out var virtItem)
+                || !HasComp<CarriableComponent>(virtItem.BlockingEntity)
+            )
                 return;
 
             args.ItemUid = virtItem.BlockingEntity;
 
-            var contestCoeff = _contests.MassContest(uid, virtItem.BlockingEntity, false, 2f) // Frontier: "args.throwSpeed *="<"var contestCoeff ="
-                                * _contests.StaminaContest(uid, virtItem.BlockingEntity);
+            var contestCoeff =
+                _contests.MassContest(uid, virtItem.BlockingEntity, false, 2f) // Frontier: "args.throwSpeed *="<"var contestCoeff ="
+                * _contests.StaminaContest(uid, virtItem.BlockingEntity);
 
             // Frontier: sanitize our range regardless of CVar values - TODO: variable throw distance ranges (via traits, etc.)
             contestCoeff = float.Min(BaseDistanceCoeff * contestCoeff, MaxDistanceCoeff);
@@ -127,7 +151,11 @@ namespace Content.Server.Carrying
             CleanupCarryState(uid, component.Carried, !TerminatingOrDeleted(component.Carried));
         }
 
-        private void OnCarriedTerminating(EntityUid uid, BeingCarriedComponent component, ref EntityTerminatingEvent args)
+        private void OnCarriedTerminating(
+            EntityUid uid,
+            BeingCarriedComponent component,
+            ref EntityTerminatingEvent args
+        )
         {
             CleanupCarryState(component.Carrier, uid, false);
         }
@@ -151,8 +179,7 @@ namespace Content.Server.Carrying
         /// </summary>
         private void OnMoveInput(EntityUid uid, BeingCarriedComponent component, ref MoveInputEvent args)
         {
-            if (!TryComp<CanEscapeInventoryComponent>(uid, out var escape)
-                || !args.HasDirectionalMovement)
+            if (!TryComp<CanEscapeInventoryComponent>(uid, out var escape) || !args.HasDirectionalMovement)
                 return;
 
             // Check if the victim is in any way incapacitated, and if not make an escape attempt.
@@ -174,7 +201,11 @@ namespace Content.Server.Carrying
             args.Cancel();
         }
 
-        private void OnInteractedWith(EntityUid uid, BeingCarriedComponent component, GettingInteractedWithAttemptEvent args)
+        private void OnInteractedWith(
+            EntityUid uid,
+            BeingCarriedComponent component,
+            GettingInteractedWithAttemptEvent args
+        )
         {
             if (args.Uid != component.Carrier)
                 args.Cancelled = true;
@@ -200,8 +231,7 @@ namespace Content.Server.Carrying
             component.CancelToken = null;
             component.HasCancelToken = false; // HL: We can't sync the CancelToken to the client, so have a marker to see if we've set one or not. This is used to check if we want to show the Verb action.
             DirtyField(uid, component, nameof(CarriableComponent.HasCancelToken)); // HL: Make sure it's synced to the client too
-            if (args.Handled || args.Cancelled
-                || !CanCarry(args.Args.User, uid, component))
+            if (args.Handled || args.Cancelled || !CanCarry(args.Args.User, uid, component))
                 return;
 
             Carry(args.Args.User, uid);
@@ -214,24 +244,31 @@ namespace Content.Server.Carrying
             if (HasComp<CarryingComponent>(carrier) || HasComp<BeingCarriedComponent>(carried))
                 return;
 
-            if (!TryComp<PhysicsComponent>(carrier, out var carrierPhysics)
+            if (
+                !TryComp<PhysicsComponent>(carrier, out var carrierPhysics)
                 || !TryComp<PhysicsComponent>(carried, out var carriedPhysics)
-                || carriedPhysics.Mass > carrierPhysics.Mass * 2f)
+                || carriedPhysics.Mass > carrierPhysics.Mass * 2f
+            )
             {
-                _popupSystem.PopupEntity(Loc.GetString("carry-too-heavy"), carried, carrier, Shared.Popups.PopupType.SmallCaution);
+                _popupSystem.PopupEntity(
+                    Loc.GetString("carry-too-heavy"),
+                    carried,
+                    carrier,
+                    Shared.Popups.PopupType.SmallCaution
+                );
                 return;
             }
 
-            var length = component.PickupDuration // Frontier: removed outer TimeSpan.FromSeconds()
-                        * _contests.MassContest(carriedPhysics, carrierPhysics, false, 4f)
-                        * _contests.StaminaContest(carrier, carried)
-                        * (_standingState.IsDown(carried) ? 0.5f : 1);
+            var length =
+                component.PickupDuration // Frontier: removed outer TimeSpan.FromSeconds()
+                * _contests.MassContest(carriedPhysics, carrierPhysics, false, 4f)
+                * _contests.StaminaContest(carrier, carried)
+                * (_standingState.IsDown(carried) ? 0.5f : 1);
 
             // Frontier: sanitize pickup time duration regardless of CVars - no near-instant pickups.
             var duration = TimeSpan.FromSeconds(
-                float.Clamp(length,
-                component.MinPickupDuration,
-                component.MaxPickupDuration));
+                float.Clamp(length, component.MinPickupDuration, component.MaxPickupDuration)
+            );
             // End Frontier
 
             component.CancelToken = new CancellationTokenSource();
@@ -242,7 +279,7 @@ namespace Content.Server.Carrying
             var args = new DoAfterArgs(EntityManager, carrier, duration, ev, carried, target: carried) // Frontier: length<duration
             {
                 BreakOnMove = true,
-                NeedHand = true
+                NeedHand = true,
             };
 
             _doAfterSystem.TryStartDoAfter(args);
@@ -276,13 +313,15 @@ namespace Content.Server.Carrying
 
         public bool TryCarry(EntityUid carrier, EntityUid toCarry, CarriableComponent? carriedComp = null)
         {
-            if (!Resolve(toCarry, ref carriedComp, false)
+            if (
+                !Resolve(toCarry, ref carriedComp, false)
                 || !CanCarry(carrier, toCarry, carriedComp)
                 || HasComp<BeingCarriedComponent>(carrier)
                 || HasComp<ItemComponent>(carrier)
                 || TryComp<PhysicsComponent>(carrier, out var carrierPhysics)
-                && TryComp<PhysicsComponent>(toCarry, out var toCarryPhysics)
-                && carrierPhysics.Mass < toCarryPhysics.Mass * 2f)
+                    && TryComp<PhysicsComponent>(toCarry, out var toCarryPhysics)
+                    && carrierPhysics.Mass < toCarryPhysics.Mass * 2f
+            )
                 return false;
 
             Carry(carrier, toCarry);

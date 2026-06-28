@@ -1,6 +1,6 @@
 using Content.Server.Xenoarchaeology.XenoArtifacts.Effects.Systems;
-using Robust.Shared.Audio;
 using Content.Shared.Polymorph;
+using Robust.Shared.Audio;
 using Robust.Shared.Prototypes;
 
 namespace Content.Server.Xenoarchaeology.XenoArtifacts.Effects.Components;

@@ -38,12 +38,11 @@
     damageModifierSet: Metallic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 300
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: EmitSoundOnSpawn
     sound:
       path: /Audio/Weapons/Guns/Gunshots/rocket_launcher.ogg
@@ -57,7 +56,7 @@
   - type: DragonRift
     spawnPrototype: MobHoloFry
     spawnCooldown: 30
-    
+
 - type: entity
   id: RainbowCarpRift
   parent: CarpRift

@@ -24,11 +24,13 @@ public sealed partial class DepartmentTimeRequirement : JobRequirement
     [DataField(required: true)]
     public TimeSpan Time;
 
-    public override bool Check(IEntityManager entManager,
+    public override bool Check(
+        IEntityManager entManager,
         IPrototypeManager protoManager,
         HumanoidCharacterProfile? profile,
         IReadOnlyDictionary<string, TimeSpan> playTimes,
-        [NotNullWhen(false)] out FormattedMessage? reason)
+        [NotNullWhen(false)] out FormattedMessage? reason
+    )
     {
         reason = new FormattedMessage();
         var playtime = TimeSpan.Zero;
@@ -63,21 +65,27 @@ public sealed partial class DepartmentTimeRequirement : JobRequirement
             if (deptDiff <= 0)
                 return true;
 
-            reason = FormattedMessage.FromMarkupPermissive(Loc.GetString(
-                "role-timer-department-insufficient",
-                ("time", formattedDeptDiff),
-                ("department", Loc.GetString(nameDepartment)),
-                ("departmentColor", department.Color.ToHex())));
+            reason = FormattedMessage.FromMarkupPermissive(
+                Loc.GetString(
+                    "role-timer-department-insufficient",
+                    ("time", formattedDeptDiff),
+                    ("department", Loc.GetString(nameDepartment)),
+                    ("departmentColor", department.Color.ToHex())
+                )
+            );
             return false;
         }
 
         if (deptDiff <= 0)
         {
-            reason = FormattedMessage.FromMarkupPermissive(Loc.GetString(
-                "role-timer-department-too-high",
-                ("time", formattedDeptDiff),
-                ("department", Loc.GetString(nameDepartment)),
-                ("departmentColor", department.Color.ToHex())));
+            reason = FormattedMessage.FromMarkupPermissive(
+                Loc.GetString(
+                    "role-timer-department-too-high",
+                    ("time", formattedDeptDiff),
+                    ("department", Loc.GetString(nameDepartment)),
+                    ("departmentColor", department.Color.ToHex())
+                )
+            );
             return false;
         }
 

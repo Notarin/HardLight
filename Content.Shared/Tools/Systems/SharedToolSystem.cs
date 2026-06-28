@@ -19,21 +19,50 @@ namespace Content.Shared.Tools.Systems;
 
 public abstract partial class SharedToolSystem : EntitySystem
 {
-    [Dependency] private   readonly IGameTiming _timing = default!;
-    [Dependency] private   readonly IMapManager _mapManager = default!;
-    [Dependency] private   readonly IPrototypeManager _protoMan = default!;
-    [Dependency] protected readonly ISharedAdminLogManager AdminLogger = default!;
-    [Dependency] private   readonly ITileDefinitionManager _tileDefManager = default!;
-    [Dependency] private   readonly SharedAudioSystem _audioSystem = default!;
-    [Dependency] private   readonly SharedDoAfterSystem _doAfterSystem = default!;
-    [Dependency] protected readonly SharedInteractionSystem InteractionSystem = default!;
-    [Dependency] protected readonly ItemToggleSystem ItemToggle = default!;
-    [Dependency] private   readonly SharedMapSystem _maps = default!;
-    [Dependency] private   readonly SharedPopupSystem _popup = default!;
-    [Dependency] protected readonly SharedSolutionContainerSystem SolutionContainerSystem = default!;
-    [Dependency] private   readonly SharedTransformSystem _transformSystem = default!;
-    [Dependency] private   readonly TileSystem _tiles = default!;
-    [Dependency] private   readonly TurfSystem _turfs = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IMapManager _mapManager = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _protoMan = default!;
+
+    [Dependency]
+    protected readonly ISharedAdminLogManager AdminLogger = default!;
+
+    [Dependency]
+    private readonly ITileDefinitionManager _tileDefManager = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audioSystem = default!;
+
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfterSystem = default!;
+
+    [Dependency]
+    protected readonly SharedInteractionSystem InteractionSystem = default!;
+
+    [Dependency]
+    protected readonly ItemToggleSystem ItemToggle = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _maps = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    protected readonly SharedSolutionContainerSystem SolutionContainerSystem = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transformSystem = default!;
+
+    [Dependency]
+    private readonly TileSystem _tiles = default!;
+
+    [Dependency]
+    private readonly TurfSystem _turfs = default!;
 
     public const string CutQuality = "Cutting";
     public const string PulseQuality = "Pulsing";
@@ -56,9 +85,9 @@ public abstract partial class SharedToolSystem : EntitySystem
         ev.DoAfter = args.DoAfter;
 
         if (args.OriginalTarget != null)
-            RaiseLocalEvent(GetEntity(args.OriginalTarget.Value), (object) ev);
+            RaiseLocalEvent(GetEntity(args.OriginalTarget.Value), (object)ev);
         else
-            RaiseLocalEvent((object) ev);
+            RaiseLocalEvent((object)ev);
     }
 
     private void OnExamine(Entity<ToolComponent> ent, ref ExaminedEvent args)
@@ -125,9 +154,11 @@ public abstract partial class SharedToolSystem : EntitySystem
         IEnumerable<string> toolQualitiesNeeded,
         DoAfterEvent doAfterEv,
         float fuel = 0,
-        ToolComponent? toolComponent = null)
+        ToolComponent? toolComponent = null
+    )
     {
-        return UseTool(tool,
+        return UseTool(
+            tool,
             user,
             target,
             TimeSpan.FromSeconds(doAfterDelay),
@@ -135,7 +166,8 @@ public abstract partial class SharedToolSystem : EntitySystem
             doAfterEv,
             out _,
             fuel,
-            toolComponent);
+            toolComponent
+        );
     }
 
     /// <summary>
@@ -164,7 +196,8 @@ public abstract partial class SharedToolSystem : EntitySystem
         DoAfterEvent doAfterEv,
         out DoAfterId? id,
         float fuel = 0,
-        ToolComponent? toolComponent = null)
+        ToolComponent? toolComponent = null
+    )
     {
         id = null;
         if (!Resolve(tool, ref toolComponent, false))
@@ -174,13 +207,21 @@ public abstract partial class SharedToolSystem : EntitySystem
             return false;
 
         var toolEvent = new ToolDoAfterEvent(fuel, doAfterEv, GetNetEntity(target));
-        var doAfterArgs = new DoAfterArgs(EntityManager, user, delay / toolComponent.SpeedModifier, toolEvent, tool, target: target, used: tool)
+        var doAfterArgs = new DoAfterArgs(
+            EntityManager,
+            user,
+            delay / toolComponent.SpeedModifier,
+            toolEvent,
+            tool,
+            target: target,
+            used: tool
+        )
         {
             BreakOnDamage = true,
             BreakOnMove = true,
             BreakOnWeightlessMove = false,
             NeedHand = tool != user,
-            AttemptFrequency = fuel > 0 ? AttemptFrequency.EveryTick : AttemptFrequency.Never
+            AttemptFrequency = fuel > 0 ? AttemptFrequency.EveryTick : AttemptFrequency.Never,
         };
 
         _doAfterSystem.TryStartDoAfter(doAfterArgs, out id);
@@ -210,9 +251,11 @@ public abstract partial class SharedToolSystem : EntitySystem
         string toolQualityNeeded,
         DoAfterEvent doAfterEv,
         float fuel = 0,
-        ToolComponent? toolComponent = null)
+        ToolComponent? toolComponent = null
+    )
     {
-        return UseTool(tool,
+        return UseTool(
+            tool,
             user,
             target,
             TimeSpan.FromSeconds(doAfterDelay),
@@ -220,7 +263,8 @@ public abstract partial class SharedToolSystem : EntitySystem
             doAfterEv,
             out _,
             fuel,
-            toolComponent);
+            toolComponent
+        );
     }
 
     /// <summary>
@@ -240,7 +284,14 @@ public abstract partial class SharedToolSystem : EntitySystem
         return Resolve(uid, ref tool, false) && tool.Qualities.ContainsAll(qualities);
     }
 
-    private bool CanStartToolUse(EntityUid tool, EntityUid user, EntityUid? target, float fuel, IEnumerable<string> toolQualitiesNeeded, ToolComponent? toolComponent = null)
+    private bool CanStartToolUse(
+        EntityUid tool,
+        EntityUid user,
+        EntityUid? target,
+        float fuel,
+        IEnumerable<string> toolQualitiesNeeded,
+        ToolComponent? toolComponent = null
+    )
     {
         if (!Resolve(tool, ref toolComponent))
             return false;
@@ -294,13 +345,14 @@ public abstract partial class SharedToolSystem : EntitySystem
         [DataField("wrappedEvent")]
         public DoAfterEvent WrappedEvent = default!;
 
-        private ToolDoAfterEvent()
-        {
-        }
+        private ToolDoAfterEvent() { }
 
         public ToolDoAfterEvent(float fuel, DoAfterEvent wrappedEvent, NetEntity? originalTarget)
         {
-            DebugTools.Assert(wrappedEvent.GetType().HasCustomAttribute<NetSerializableAttribute>(), "Tool event is not serializable");
+            DebugTools.Assert(
+                wrappedEvent.GetType().HasCustomAttribute<NetSerializableAttribute>(),
+                "Tool event is not serializable"
+            );
 
             Fuel = fuel;
             WrappedEvent = wrappedEvent;
@@ -327,12 +379,10 @@ public abstract partial class SharedToolSystem : EntitySystem
     [Serializable, NetSerializable]
     protected sealed partial class LatticeCuttingCompleteEvent : DoAfterEvent
     {
-        [DataField(required:true)]
+        [DataField(required: true)]
         public NetCoordinates Coordinates;
 
-        private LatticeCuttingCompleteEvent()
-        {
-        }
+        private LatticeCuttingCompleteEvent() { }
 
         public LatticeCuttingCompleteEvent(NetCoordinates coordinates)
         {
@@ -346,4 +396,4 @@ public abstract partial class SharedToolSystem : EntitySystem
 [Serializable, NetSerializable]
 public sealed partial class CableCuttingFinishedEvent : SimpleDoAfterEvent;
 
-#endregion
+    #endregion

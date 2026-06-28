@@ -18,8 +18,11 @@ namespace Content.Client.Store.Ui;
 [GenerateTypedNameReferences]
 public sealed partial class StoreMenu : DefaultWindow
 {
-    [Dependency] private readonly IEntityManager _entityManager = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entityManager = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
 
     private StoreWithdrawWindow? _withdrawWindow;
 
@@ -48,14 +51,16 @@ public sealed partial class StoreMenu : DefaultWindow
     {
         Balance = balance;
 
-        var currency = balance.ToDictionary(type =>
-            (type.Key, type.Value), type => _prototypeManager.Index(type.Key));
+        var currency = balance.ToDictionary(type => (type.Key, type.Value), type => _prototypeManager.Index(type.Key));
 
         var balanceStr = string.Empty;
         foreach (var ((_, amount), proto) in currency)
         {
-            balanceStr += Loc.GetString("store-ui-balance-display", ("amount", BankSystemExtensions.ToIndependentString((int) amount)), // Frontier: amount<BankSystemExtensions.GetIndependentString((int)amount)
-                ("currency", Loc.GetString(proto.DisplayName, ("amount", 1))));
+            balanceStr += Loc.GetString(
+                "store-ui-balance-display",
+                ("amount", BankSystemExtensions.ToIndependentString((int)amount)), // Frontier: amount<BankSystemExtensions.GetIndependentString((int)amount)
+                ("currency", Loc.GetString(proto.DisplayName, ("amount", 1)))
+            );
         }
 
         BalanceInfo.SetMarkup(balanceStr.TrimEnd());
@@ -82,8 +87,7 @@ public sealed partial class StoreMenu : DefaultWindow
 
     public void UpdateListing()
     {
-        var sorted = _cachedListings.OrderBy(l => l.Priority)
-                                    .ThenBy(l => l.Cost.Values.Sum());
+        var sorted = _cachedListings.OrderBy(l => l.Priority).ThenBy(l => l.Cost.Values.Sum());
 
         // should probably chunk these out instead. to-do if this clogs the internet tubes.
         // maybe read clients prototypes instead?
@@ -142,8 +146,10 @@ public sealed partial class StoreMenu : DefaultWindow
         else if (listing.ProductAction != null)
         {
             var actionId = _entityManager.Spawn(listing.ProductAction);
-            if (_entityManager.System<ActionsSystem>().TryGetActionData(actionId, out var action) &&
-                action.Icon != null)
+            if (
+                _entityManager.System<ActionsSystem>().TryGetActionData(actionId, out var action)
+                && action.Icon != null
+            )
             {
                 texture = spriteSys.Frame0(action.Icon);
             }
@@ -153,8 +159,7 @@ public sealed partial class StoreMenu : DefaultWindow
         var discount = GetDiscountString(listing);
 
         var newListing = new StoreListingControl(listing, listingInStock, discount, hasBalance, texture);
-        newListing.StoreItemBuyButton.OnButtonDown += args
-            => OnListingButtonPressed?.Invoke(args, listing);
+        newListing.StoreItemBuyButton.OnButtonDown += args => OnListingButtonPressed?.Invoke(args, listing);
 
         StoreListingsContainer.AddChild(newListing);
     }
@@ -221,10 +226,7 @@ public sealed partial class StoreMenu : DefaultWindow
             var enumerator = relativeModifiersSummary.GetEnumerator();
             enumerator.MoveNext();
             var amount = enumerator.Current.Value;
-            discountMessage = Loc.GetString(
-                "store-ui-discount-display",
-                ("amount", (amount.ToString("P0")))
-            );
+            discountMessage = Loc.GetString("store-ui-discount-display", ("amount", (amount.ToString("P0"))));
         }
 
         return discountMessage;
@@ -271,7 +273,7 @@ public sealed partial class StoreMenu : DefaultWindow
                 Pressed = proto.ID == CurrentCategory,
                 Group = group,
                 ToggleMode = true,
-                StyleClasses = { "OpenBoth" }
+                StyleClasses = { "OpenBoth" },
             };
 
             catButton.OnPressed += args => OnCategoryButtonPressed?.Invoke(args, catButton.Id);

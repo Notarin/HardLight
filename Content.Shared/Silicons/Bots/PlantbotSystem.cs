@@ -8,7 +8,8 @@ namespace Content.Shared.Silicons.Bots;
 /// </summary>
 public sealed class PlantbotSystem : EntitySystem
 {
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
 
     public override void Initialize()
     {

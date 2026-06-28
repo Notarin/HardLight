@@ -8,5 +8,6 @@ namespace Content.Shared.Storage.Components;
 [RegisterComponent, NetworkedComponent, Access(typeof(SharedStorageSystem))]
 public sealed partial class StorageFillComponent : Component
 {
-    [DataField("contents")] public List<EntitySpawnEntry> Contents = new();
+    [DataField("contents")]
+    public List<EntitySpawnEntry> Contents = new();
 }

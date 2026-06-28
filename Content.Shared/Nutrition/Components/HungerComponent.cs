@@ -72,7 +72,7 @@ public sealed partial class HungerComponent : Component
         { HungerThreshold.Okay, 150.0f },
         { HungerThreshold.Peckish, 100.0f },
         { HungerThreshold.Starving, 50.0f },
-        { HungerThreshold.Dead, 0.0f }
+        { HungerThreshold.Dead, 0.0f },
     };
 
     /// <summary>
@@ -84,7 +84,7 @@ public sealed partial class HungerComponent : Component
     {
         { HungerThreshold.Peckish, "Peckish" },
         { HungerThreshold.Starving, "Starving" },
-        { HungerThreshold.Dead, "Starving" }
+        { HungerThreshold.Dead, "Starving" },
     };
 
     [DataField]
@@ -93,7 +93,10 @@ public sealed partial class HungerComponent : Component
     /// <summary>
     /// A dictionary relating HungerThreshold to how much they modify <see cref="BaseDecayRate"/>.
     /// </summary>
-    [DataField("hungerThresholdDecayModifiers", customTypeSerializer: typeof(DictionarySerializer<HungerThreshold, float>))]
+    [DataField(
+        "hungerThresholdDecayModifiers",
+        customTypeSerializer: typeof(DictionarySerializer<HungerThreshold, float>)
+    )]
     [AutoNetworkedField]
     public Dictionary<HungerThreshold, float> HungerThresholdDecayModifiers = new()
     {
@@ -101,7 +104,7 @@ public sealed partial class HungerComponent : Component
         { HungerThreshold.Okay, 1f },
         { HungerThreshold.Peckish, 0.8f },
         { HungerThreshold.Starving, 0.6f },
-        { HungerThreshold.Dead, 0.6f }
+        { HungerThreshold.Dead, 0.6f },
     };
 
     /// <summary>
@@ -120,7 +123,10 @@ public sealed partial class HungerComponent : Component
     /// <summary>
     /// The time when the hunger threshold will update next.
     /// </summary>
-    [DataField("nextUpdateTime", customTypeSerializer: typeof(TimeOffsetSerializer)), ViewVariables(VVAccess.ReadWrite)]
+    [
+        DataField("nextUpdateTime", customTypeSerializer: typeof(TimeOffsetSerializer)),
+        ViewVariables(VVAccess.ReadWrite)
+    ]
     [AutoNetworkedField]
     [AutoPausedField]
     public TimeSpan NextThresholdUpdateTime;

@@ -24,9 +24,7 @@ public sealed class PlayerConsentSettings
         Toggles = new Dictionary<ProtoId<ConsentTogglePrototype>, string>();
     }
 
-    public PlayerConsentSettings(
-        string freetext,
-        Dictionary<ProtoId<ConsentTogglePrototype>, string> toggles)
+    public PlayerConsentSettings(string freetext, Dictionary<ProtoId<ConsentTogglePrototype>, string> toggles)
     {
         Freetext = freetext;
         Toggles = toggles;
@@ -39,9 +37,8 @@ public sealed class PlayerConsentSettings
         if (Freetext.Length > maxLength)
             Freetext = Freetext.Substring(0, maxLength);
 
-        Toggles = Toggles.Where(t =>
-            prototypeManager.HasIndex<ConsentTogglePrototype>(t.Key)
-            && t.Value == "on"
-        ).ToDictionary();
+        Toggles = Toggles
+            .Where(t => prototypeManager.HasIndex<ConsentTogglePrototype>(t.Key) && t.Value == "on")
+            .ToDictionary();
     }
 }

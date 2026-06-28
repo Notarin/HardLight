@@ -4,40 +4,39 @@
 //
 // SPDX-License-Identifier: CC-BY-NC-SA-3.0
 
-
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using Content.Server.Atmos.EntitySystems;
 using Content.Server.Atmos.Piping.Components;
+using Content.Server.Audio;
+using Content.Server.DeviceLinking.Systems;
 using Content.Server.Explosion.EntitySystems;
 using Content.Server.NodeContainer.EntitySystems;
+using Content.Server.NodeContainer.Nodes;
 using Content.Server.Popups;
 using Content.Server.Power.Components;
 using Content.Server.Weapons.Ranged.Systems;
 using Content.Shared._FarHorizons.Power.Generation.FissionGenerator;
 using Content.Shared.Administration.Logs;
 using Content.Shared.Atmos;
+using Content.Shared.Audio;
+using Content.Shared.Construction.Components;
+using Content.Shared.Containers.ItemSlots;
+using Content.Shared.Damage;
+using Content.Shared.Damage.Systems;
 using Content.Shared.Database;
+using Content.Shared.DeviceLinking;
+using Content.Shared.DeviceLinking.Events;
+using Content.Shared.DeviceNetwork;
 using Content.Shared.Popups;
 using Content.Shared.Rejuvenate;
 using Content.Shared.Repairable;
 using Robust.Server.Audio;
 using Robust.Server.GameObjects;
 using Robust.Shared.Audio;
-using Robust.Shared.Random;
-using Content.Server.NodeContainer.Nodes;
-using Content.Shared.DeviceLinking.Events;
-using Content.Server.DeviceLinking.Systems;
-using Content.Shared.Construction.Components;
-using Content.Shared.DeviceLinking;
-using Content.Shared.DeviceNetwork;
-using Content.Shared.Damage;
-using Content.Shared.Containers.ItemSlots;
 using Robust.Shared.Containers;
-using System.Diagnostics.CodeAnalysis;
-using Content.Shared.Damage.Systems;
-using Content.Server.Audio;
-using Content.Shared.Audio;
+using Robust.Shared.Random;
 using Robust.Shared.Timing;
-using System.Linq;
 
 namespace Content.Server._FarHorizons.Power.Generation.FissionGenerator;
 
@@ -47,28 +46,58 @@ namespace Content.Server._FarHorizons.Power.Generation.FissionGenerator;
 
 public sealed class TurbineSystem : SharedTurbineSystem
 {
-    [Dependency] private readonly AtmosphereSystem _atmosphereSystem = default!;
-    [Dependency] private readonly ExplosionSystem _explosion = default!;
-    [Dependency] private readonly GunSystem _gun = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly NodeContainerSystem _nodeContainer = default!;
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
-    [Dependency] private readonly TransformSystem _transformSystem = default!;
-    [Dependency] private readonly UserInterfaceSystem _uiSystem = null!;
-    [Dependency] private readonly DeviceLinkSystem _signal = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly EntityManager _entityManager = default!;
-    [Dependency] private readonly SharedContainerSystem _containerSystem = default!;
-    [Dependency] private readonly AmbientSoundSystem _ambientSoundSystem = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
+    [Dependency]
+    private readonly AtmosphereSystem _atmosphereSystem = default!;
 
-    private readonly List<string> _damageSoundList = [
+    [Dependency]
+    private readonly ExplosionSystem _explosion = default!;
+
+    [Dependency]
+    private readonly GunSystem _gun = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly ISharedAdminLogManager _adminLogger = default!;
+
+    [Dependency]
+    private readonly NodeContainerSystem _nodeContainer = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly TransformSystem _transformSystem = default!;
+
+    [Dependency]
+    private readonly UserInterfaceSystem _uiSystem = null!;
+
+    [Dependency]
+    private readonly DeviceLinkSystem _signal = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly EntityManager _entityManager = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _containerSystem = default!;
+
+    [Dependency]
+    private readonly AmbientSoundSystem _ambientSoundSystem = default!;
+
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
+
+    private readonly List<string> _damageSoundList =
+    [
         "/Audio/_FarHorizons/Effects/engine_grump1.ogg",
         "/Audio/_FarHorizons/Effects/engine_grump2.ogg",
         "/Audio/_FarHorizons/Effects/engine_grump3.ogg",
         "/Audio/Effects/metal_slam5.ogg",
-        "/Audio/Effects/metal_scrape2.ogg"
+        "/Audio/Effects/metal_scrape2.ogg",
     ];
 
     private sealed class LogData
@@ -122,7 +151,10 @@ public sealed class TurbineSystem : SharedTurbineSystem
 
         comp.AlarmAudioOvertemp = SpawnAttachedTo("GasTurbineAlarmEntity", new(uid, 0, 0));
         comp.AlarmAudioUnderspeed = SpawnAttachedTo("GasTurbineAlarmEntity", new(uid, 0, 0));
-        _ambientSoundSystem.SetSound(comp.AlarmAudioUnderspeed.Value, new SoundPathSpecifier("/Audio/_FarHorizons/Machines/alarm_beep.ogg"));
+        _ambientSoundSystem.SetSound(
+            comp.AlarmAudioUnderspeed.Value,
+            new SoundPathSpecifier("/Audio/_FarHorizons/Machines/alarm_beep.ogg")
+        );
         _ambientSoundSystem.SetVolume(comp.AlarmAudioUnderspeed.Value, -4);
     }
 
@@ -145,7 +177,10 @@ public sealed class TurbineSystem : SharedTurbineSystem
 
         args.GasMixtures ??= [];
 
-        if (_nodeContainer.TryGetNode(comp.InletEnt.Value, comp.PipeName, out PipeNode? inlet) && inlet.Air.Volume != 0f)
+        if (
+            _nodeContainer.TryGetNode(comp.InletEnt.Value, comp.PipeName, out PipeNode? inlet)
+            && inlet.Air.Volume != 0f
+        )
         {
             var inletAirLocal = inlet.Air.Clone();
             inletAirLocal.Multiply(inlet.Volume / inlet.Air.Volume);
@@ -153,7 +188,10 @@ public sealed class TurbineSystem : SharedTurbineSystem
             args.GasMixtures.Add((Loc.GetString("gas-analyzer-window-text-inlet"), inletAirLocal));
         }
 
-        if (_nodeContainer.TryGetNode(comp.OutletEnt.Value, comp.PipeName, out PipeNode? outlet) && outlet.Air.Volume != 0f)
+        if (
+            _nodeContainer.TryGetNode(comp.OutletEnt.Value, comp.PipeName, out PipeNode? outlet)
+            && outlet.Air.Volume != 0f
+        )
         {
             var outletAirLocal = outlet.Air.Clone();
             outletAirLocal.Multiply(outlet.Volume / outlet.Air.Volume);
@@ -177,7 +215,7 @@ public sealed class TurbineSystem : SharedTurbineSystem
 
         supplier.MaxSupply = comp.LastGen;
 
-        if(!GetPipes(uid, comp, out var inlet, out var outlet))
+        if (!GetPipes(uid, comp, out var inlet, out var outlet))
             return;
 
         if (comp.CurrentBlade == null || comp.CurrentStator == null)
@@ -205,15 +243,26 @@ public sealed class TurbineSystem : SharedTurbineSystem
             }
 
             // This does rely on the alarm existing, but if it doesn't then there are bigger problems
-            if (!comp.Ruined && _entityManager.TryGetComponent<AmbientSoundComponent>(comp.AlarmAudioOvertemp, out var ambience) && !ambience.Enabled)
-                _popupSystem.PopupEntity(Loc.GetString("turbine-overheat", ("owner", uid)), uid, PopupType.LargeCaution);
+            if (
+                !comp.Ruined
+                && _entityManager.TryGetComponent<AmbientSoundComponent>(comp.AlarmAudioOvertemp, out var ambience)
+                && !ambience.Enabled
+            )
+                _popupSystem.PopupEntity(
+                    Loc.GetString("turbine-overheat", ("owner", uid)),
+                    uid,
+                    PopupType.LargeCaution
+                );
 
             // Prevent power from being generated by residual gasses
             AirContents.Clear();
         }
 
-        if(Exists(comp.AlarmAudioOvertemp))
-            _ambientSoundSystem.SetAmbience(comp.AlarmAudioOvertemp.Value, !comp.Ruined && AirContents.Temperature >= comp.MaxTemp);
+        if (Exists(comp.AlarmAudioOvertemp))
+            _ambientSoundSystem.SetAmbience(
+                comp.AlarmAudioOvertemp.Value,
+                !comp.Ruined && AirContents.Temperature >= comp.MaxTemp
+            );
 
         // Update stator load based on device network
         if (comp.IncreasePortState != SignalState.Low)
@@ -243,7 +292,12 @@ public sealed class TurbineSystem : SharedTurbineSystem
 
             if (AirContents.Temperature > comp.MinTemp)
             {
-                AirContents.Temperature = (float)Math.Max((InputStartingEnergy - ((InputStartingEnergy - (InputHeatCap * Atmospherics.T20C)) * 0.8)) / InputHeatCap, Atmospherics.T20C);
+                AirContents.Temperature = (float)
+                    Math.Max(
+                        (InputStartingEnergy - ((InputStartingEnergy - (InputHeatCap * Atmospherics.T20C)) * 0.8))
+                            / InputHeatCap,
+                        Atmospherics.T20C
+                    );
             }
 
             var OutputStartingEnergy = _atmosphereSystem.GetThermalEnergy(AirContents);
@@ -285,18 +339,29 @@ public sealed class TurbineSystem : SharedTurbineSystem
                 comp.RPM = NextRPM;
             }
 
-            if(Exists(comp.AlarmAudioUnderspeed))
-                _ambientSoundSystem.SetAmbience(comp.AlarmAudioUnderspeed.Value, !comp.Ruined && comp.Stalling && !comp.Undertemp && comp.FlowRate > 0);
+            if (Exists(comp.AlarmAudioUnderspeed))
+                _ambientSoundSystem.SetAmbience(
+                    comp.AlarmAudioUnderspeed.Value,
+                    !comp.Ruined && comp.Stalling && !comp.Undertemp && comp.FlowRate > 0
+                );
 
             if (comp.RPM > 10)
             {
                 // Sacrifices must be made to have a smooth ramp up:
                 // This will generate 2 audio streams every second with up to 4 of them playing at once... surely this can't go wrong :clueless:
-                _audio.PlayPvs(new SoundPathSpecifier("/Audio/_FarHorizons/Ambience/Objects/turbine_room.ogg"), uid, AudioParams.Default.WithPitchScale(comp.RPM / comp.BestRPM).WithVolume(-2));
+                _audio.PlayPvs(
+                    new SoundPathSpecifier("/Audio/_FarHorizons/Ambience/Objects/turbine_room.ogg"),
+                    uid,
+                    AudioParams.Default.WithPitchScale(comp.RPM / comp.BestRPM).WithVolume(-2)
+                );
             }
 
             // Calculate power generation
-            comp.LastGen = comp.PowerMultiplier * comp.StatorLoad * (comp.RPM / 30) * (float)(1 / Math.Cosh(0.01 * (comp.RPM - comp.BestRPM)));
+            comp.LastGen =
+                comp.PowerMultiplier
+                * comp.StatorLoad
+                * (comp.RPM / 30)
+                * (float)(1 / Math.Cosh(0.01 * (comp.RPM - comp.BestRPM)));
 
             if (float.IsNaN(comp.LastGen))
                 throw new NotFiniteNumberException("Turbine made NaN power");
@@ -307,7 +372,11 @@ public sealed class TurbineSystem : SharedTurbineSystem
             if (comp.Overspeed && _random.NextFloat() < 0.15 * Math.Min(comp.RPM / comp.BestRPM, 3))
             {
                 // TODO: damage flash
-                _audio.PlayPvs(new SoundPathSpecifier(_damageSoundList[_random.Next(0, _damageSoundList.Count - 1)]), uid, AudioParams.Default.WithVariation(0.25f).WithVolume(-1));
+                _audio.PlayPvs(
+                    new SoundPathSpecifier(_damageSoundList[_random.Next(0, _damageSoundList.Count - 1)]),
+                    uid,
+                    AudioParams.Default.WithVariation(0.25f).WithVolume(-1)
+                );
                 comp.BladeHealth--;
                 UpdateHealthIndicators(uid, comp);
             }
@@ -316,7 +385,7 @@ public sealed class TurbineSystem : SharedTurbineSystem
         }
 
         // Explode
-        if (!comp.Ruined && (comp.BladeHealth <= 0|| comp.RPM>comp.BestRPM*4))
+        if (!comp.Ruined && (comp.BladeHealth <= 0 || comp.RPM > comp.BestRPM * 4))
         {
             TearApart(uid, comp);
         }
@@ -334,7 +403,8 @@ public sealed class TurbineSystem : SharedTurbineSystem
         var wantToTransfer = comp.FlowRate * _atmosphereSystem.PumpSpeedup() * dt;
         var transferVolume = Math.Min(inlet.Air.Volume, wantToTransfer);
         var transferMoles = inlet.Air.Pressure * transferVolume / (inlet.Air.Temperature * Atmospherics.R);
-        var molesSpaceLeft = (comp.OutputPressure - outlet.Air.Pressure) * outlet.Air.Volume / (outlet.Air.Temperature * Atmospherics.R);
+        var molesSpaceLeft =
+            (comp.OutputPressure - outlet.Air.Pressure) * outlet.Air.Volume / (outlet.Air.Temperature * Atmospherics.R);
         var actualMolesTransfered = Math.Clamp(transferMoles, 0, Math.Max(0, molesSpaceLeft));
         return Math.Max(0, actualMolesTransfered * inlet.Air.Temperature * Atmospherics.R / inlet.Air.Pressure);
     }
@@ -349,7 +419,11 @@ public sealed class TurbineSystem : SharedTurbineSystem
         if (comp.RPM > comp.BestRPM / 6) // If it's barely moving then there's not really reason it would throw shrapnel
             ShootShrapnel(uid);
 
-        _adminLogger.Add(LogType.Explosion, LogImpact.High, $"{ToPrettyString(uid)} destroyed by overspeeding for too long");
+        _adminLogger.Add(
+            LogType.Explosion,
+            LogImpact.High,
+            $"{ToPrettyString(uid)} destroyed by overspeeding for too long"
+        );
 
         comp.Ruined = true;
         comp.RPM = 0;
@@ -362,9 +436,15 @@ public sealed class TurbineSystem : SharedTurbineSystem
     private void ShootShrapnel(EntityUid uid)
     {
         var ShrapnelCount = _random.Next(5, 20);
-        for (var i=0;i< ShrapnelCount; i++)
+        for (var i = 0; i < ShrapnelCount; i++)
         {
-            _gun.ShootProjectile(Spawn("TurbineBladeShrapnel", _transformSystem.GetMapCoordinates(uid)), _random.NextAngle().ToVec().Normalized(), _random.NextVector2(2, 6), uid, uid);
+            _gun.ShootProjectile(
+                Spawn("TurbineBladeShrapnel", _transformSystem.GetMapCoordinates(uid)),
+                _random.NextAngle().ToVec().Normalized(),
+                _random.NextVector2(2, 6),
+                uid,
+                uid
+            );
         }
     }
     #endregion
@@ -375,47 +455,46 @@ public sealed class TurbineSystem : SharedTurbineSystem
         if (!_uiSystem.IsUiOpen(uid, TurbineUiKey.Key))
             return;
 
-        _uiSystem.SetUiState(uid, TurbineUiKey.Key,
-           new TurbineBuiState
-           {
-               Overspeed = turbine.Overspeed,
-               Stalling = turbine.Stalling,
-               Overtemp = turbine.Overtemp,
-               Undertemp = turbine.Undertemp,
+        _uiSystem.SetUiState(
+            uid,
+            TurbineUiKey.Key,
+            new TurbineBuiState
+            {
+                Overspeed = turbine.Overspeed,
+                Stalling = turbine.Stalling,
+                Overtemp = turbine.Overtemp,
+                Undertemp = turbine.Undertemp,
 
-               RPM = turbine.RPM,
-               BestRPM = turbine.BestRPM,
+                RPM = turbine.RPM,
+                BestRPM = turbine.BestRPM,
 
-               FlowRateMin = 0,
-               FlowRateMax = turbine.FlowRateMax,
-               FlowRate = turbine.FlowRate,
+                FlowRateMin = 0,
+                FlowRateMax = turbine.FlowRateMax,
+                FlowRate = turbine.FlowRate,
 
-               StatorLoadMin = 1000,
-               StatorLoad = turbine.StatorLoad,
+                StatorLoadMin = 1000,
+                StatorLoad = turbine.StatorLoad,
 
-               PowerGeneration = turbine.SupplierMaxSupply,
-               PowerSupply = turbine.SupplierLastSupply,
+                PowerGeneration = turbine.SupplierMaxSupply,
+                PowerSupply = turbine.SupplierLastSupply,
 
-               Health = turbine.BladeHealth,
-               HealthMax = turbine.BladeHealthMax,
+                Health = turbine.BladeHealth,
+                HealthMax = turbine.BladeHealthMax,
 
-               Blade = _entityManager.GetNetEntity(turbine.CurrentBlade),
-               Stator = _entityManager.GetNetEntity(turbine.CurrentStator),
-           });
+                Blade = _entityManager.GetNetEntity(turbine.CurrentBlade),
+                Stator = _entityManager.GetNetEntity(turbine.CurrentStator),
+            }
+        );
     }
 
     private void OnTurbineFlowRateChanged(EntityUid uid, TurbineComponent turbine, TurbineChangeFlowRateMessage args)
     {
-        if(TrySetFlowRate())
+        if (TrySetFlowRate())
         {
             // Data is sent to a log queue to avoid spamming the admin log when adjusting values rapidly
             var key = new KeyValuePair<EntityUid, EntityUid>(args.Actor, uid);
-            if(!_logQueue.TryGetValue(key, out var value))
-                _logQueue.Add(key, new LogData
-                {
-                    CreationTime = _gameTiming.RealTime,
-                    SetFlowRate = turbine.FlowRate
-                });
+            if (!_logQueue.TryGetValue(key, out var value))
+                _logQueue.Add(key, new LogData { CreationTime = _gameTiming.RealTime, SetFlowRate = turbine.FlowRate });
             else
                 value.SetFlowRate = turbine.FlowRate;
         }
@@ -436,18 +515,21 @@ public sealed class TurbineSystem : SharedTurbineSystem
         }
     }
 
-    private void OnTurbineStatorLoadChanged(EntityUid uid, TurbineComponent turbine, TurbineChangeStatorLoadMessage args)
+    private void OnTurbineStatorLoadChanged(
+        EntityUid uid,
+        TurbineComponent turbine,
+        TurbineChangeStatorLoadMessage args
+    )
     {
         if (TrySetStatorLoad())
         {
             // Data is sent to a log queue to avoid spamming the admin log when adjusting values rapidly
             var key = new KeyValuePair<EntityUid, EntityUid>(args.Actor, uid);
             if (!_logQueue.TryGetValue(key, out var value))
-                _logQueue.Add(key, new LogData
-                {
-                    CreationTime = _gameTiming.RealTime,
-                    SetStatorLoad = turbine.StatorLoad
-                });
+                _logQueue.Add(
+                    key,
+                    new LogData { CreationTime = _gameTiming.RealTime, SetStatorLoad = turbine.StatorLoad }
+                );
             else
                 value.SetStatorLoad = turbine.StatorLoad;
         }
@@ -485,17 +567,25 @@ public sealed class TurbineSystem : SharedTurbineSystem
         void UpdateLogs()
         {
             var toRemove = new List<KeyValuePair<EntityUid, EntityUid>>();
-            foreach (var log in _logQueue.Where(log => !((_gameTiming.RealTime - log.Value.CreationTime).TotalSeconds < 2)))
+            foreach (
+                var log in _logQueue.Where(log => !((_gameTiming.RealTime - log.Value.CreationTime).TotalSeconds < 2))
+            )
             {
                 toRemove.Add(log.Key);
 
                 if (log.Value.SetFlowRate != null)
-                    _adminLogger.Add(LogType.AtmosVolumeChanged, LogImpact.Medium,
-                        $"{ToPrettyString(log.Key.Key):player} set the flow rate on {ToPrettyString(log.Key.Value):device} to {log.Value.SetFlowRate}");
+                    _adminLogger.Add(
+                        LogType.AtmosVolumeChanged,
+                        LogImpact.Medium,
+                        $"{ToPrettyString(log.Key.Key):player} set the flow rate on {ToPrettyString(log.Key.Value):device} to {log.Value.SetFlowRate}"
+                    );
 
                 if (log.Value.SetStatorLoad != null)
-                    _adminLogger.Add(LogType.AtmosDeviceSetting, LogImpact.Medium,
-                        $"{ToPrettyString(log.Key.Key):player} set the stator load on {ToPrettyString(log.Key.Value):device} to {log.Value.SetStatorLoad}");
+                    _adminLogger.Add(
+                        LogType.AtmosDeviceSetting,
+                        LogImpact.Medium,
+                        $"{ToPrettyString(log.Key.Key):player} set the stator load on {ToPrettyString(log.Key.Value):device} to {log.Value.SetStatorLoad}"
+                    );
             }
 
             foreach (var kvp in toRemove)
@@ -520,7 +610,10 @@ public sealed class TurbineSystem : SharedTurbineSystem
         else if (comp.DecreasePortState != SignalState.Low && comp.IncreasePortState == SignalState.Low)
             logtext = "decrease";
 
-        _adminLogger.Add(LogType.Action, $"{ToPrettyString(args.Trigger):trigger} set the stator load on {ToPrettyString(uid):target} to {logtext}");
+        _adminLogger.Add(
+            LogType.Action,
+            $"{ToPrettyString(args.Trigger):trigger} set the stator load on {ToPrettyString(uid):target} to {logtext}"
+        );
     }
 
     private void OnPortDisconnected(EntityUid uid, TurbineComponent comp, ref PortDisconnectedEvent args)
@@ -543,22 +636,40 @@ public sealed class TurbineSystem : SharedTurbineSystem
 
     private void OnUnanchorAttempt(EntityUid uid, TurbineComponent comp, ref UnanchorAttemptEvent args)
     {
-        if (comp.RPM>1)
+        if (comp.RPM > 1)
         {
-            _popupSystem.PopupEntity(Loc.GetString("turbine-unanchor-warning"), args.User, args.User, PopupType.LargeCaution);
+            _popupSystem.PopupEntity(
+                Loc.GetString("turbine-unanchor-warning"),
+                args.User,
+                args.User,
+                PopupType.LargeCaution
+            );
             args.Cancel();
         }
     }
 
-    private bool GetPipes(EntityUid uid, TurbineComponent comp, [NotNullWhen(true)] out PipeNode? inlet, [NotNullWhen(true)] out PipeNode? outlet)
+    private bool GetPipes(
+        EntityUid uid,
+        TurbineComponent comp,
+        [NotNullWhen(true)] out PipeNode? inlet,
+        [NotNullWhen(true)] out PipeNode? outlet
+    )
     {
         inlet = null;
         outlet = null;
 
         if (!comp.InletEnt.HasValue || EntityManager.Deleted(comp.InletEnt.Value))
-            comp.InletEnt = SpawnAttachedTo(comp.PipePrototype, new(uid, comp.InletPos), rotation: Angle.FromDegrees(comp.InletRot));
+            comp.InletEnt = SpawnAttachedTo(
+                comp.PipePrototype,
+                new(uid, comp.InletPos),
+                rotation: Angle.FromDegrees(comp.InletRot)
+            );
         if (!comp.OutletEnt.HasValue || EntityManager.Deleted(comp.OutletEnt.Value))
-            comp.OutletEnt = SpawnAttachedTo(comp.PipePrototype, new(uid, comp.OutletPos), rotation: Angle.FromDegrees(comp.OutletRot));
+            comp.OutletEnt = SpawnAttachedTo(
+                comp.PipePrototype,
+                new(uid, comp.OutletPos),
+                rotation: Angle.FromDegrees(comp.OutletRot)
+            );
 
         if (comp.InletEnt == null || comp.OutletEnt == null)
             return false;
@@ -598,7 +709,7 @@ public sealed class TurbineSystem : SharedTurbineSystem
         var threshold = 50;
         var ratio = damage / threshold;
 
-        if(ratio < 1)
+        if (ratio < 1)
         {
             comp.BladeHealth -= _random.Next(1, (int)(3f * ratio) + 1);
             UpdateHealthIndicators(uid, comp);

@@ -65,6 +65,7 @@ namespace Content.Shared.Movement.Components
 
         [ViewVariables]
         public float CurrentWalkSpeed => WalkSpeedModifier * BaseWalkSpeed;
+
         [ViewVariables]
         public float CurrentSprintSpeed => SprintSpeedModifier * BaseSprintSpeed;
 
@@ -118,6 +119,7 @@ namespace Content.Shared.Movement.Components
 
         [ViewVariables]
         public float WeightlessWalkSpeed => WeightlessModifier * BaseWalkSpeed;
+
         [ViewVariables]
         public float WeightlessSprintSpeed => WeightlessModifier * BaseSprintSpeed;
 

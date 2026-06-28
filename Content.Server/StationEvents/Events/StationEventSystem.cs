@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Content.Server.Administration.Logs;
 using Content.Server.Chat.Systems;
 using Content.Server.GameTicking;
@@ -7,7 +8,6 @@ using Content.Server.Station.Systems;
 using Content.Server.StationEvents.Components;
 using Content.Shared.Database;
 using Content.Shared.GameTicking.Components;
-using System.Collections.Generic;
 using Robust.Server.GameObjects;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Player;
@@ -18,15 +18,29 @@ namespace Content.Server.StationEvents.Events;
 /// <summary>
 ///     An abstract entity system inherited by all station events for their behavior.
 /// </summary>
-public abstract class StationEventSystem<T> : GameRuleSystem<T> where T : IComponent
+public abstract class StationEventSystem<T> : GameRuleSystem<T>
+    where T : IComponent
 {
-    [Dependency] protected readonly IAdminLogManager AdminLogManager = default!;
-    [Dependency] protected readonly IPrototypeManager PrototypeManager = default!;
-    [Dependency] protected readonly ChatSystem ChatSystem = default!;
-    [Dependency] protected readonly SharedAudioSystem Audio = default!;
-    [Dependency] protected readonly StationSystem StationSystem = default!;
-    [Dependency] protected readonly RadioSystem RadioSystem = default!; // Frontier
-    [Dependency] protected readonly MapSystem MapSystem = default!; // Frontier
+    [Dependency]
+    protected readonly IAdminLogManager AdminLogManager = default!;
+
+    [Dependency]
+    protected readonly IPrototypeManager PrototypeManager = default!;
+
+    [Dependency]
+    protected readonly ChatSystem ChatSystem = default!;
+
+    [Dependency]
+    protected readonly SharedAudioSystem Audio = default!;
+
+    [Dependency]
+    protected readonly StationSystem StationSystem = default!;
+
+    [Dependency]
+    protected readonly RadioSystem RadioSystem = default!; // Frontier
+
+    [Dependency]
+    protected readonly MapSystem MapSystem = default!; // Frontier
 
     protected ISawmill Sawmill = default!;
 
@@ -51,14 +65,25 @@ public abstract class StationEventSystem<T> : GameRuleSystem<T> where T : ICompo
         Filter allPlayersInGame = Filter.Empty().AddWhere(GameTicker.UserHasJoinedGame);
 
         if (stationEvent.StartAnnouncement != null)
-            ChatSystem.DispatchFilteredAnnouncement(allPlayersInGame, Loc.GetString(stationEvent.StartAnnouncement), playSound: false, colorOverride: stationEvent.StartAnnouncementColor);
+            ChatSystem.DispatchFilteredAnnouncement(
+                allPlayersInGame,
+                Loc.GetString(stationEvent.StartAnnouncement),
+                playSound: false,
+                colorOverride: stationEvent.StartAnnouncementColor
+            );
 
         // Frontier
         if (stationEvent.StartRadioAnnouncement != null)
         {
             var message = Loc.GetString(stationEvent.StartRadioAnnouncement);
             if (MapSystem.TryGetMap(GameTicker.DefaultMap, out var mapUid) && mapUid is { } map)
-                RadioSystem.SendRadioMessage(uid, message, stationEvent.StartRadioAnnouncementChannel, map, escapeMarkup: false);
+                RadioSystem.SendRadioMessage(
+                    uid,
+                    message,
+                    stationEvent.StartRadioAnnouncementChannel,
+                    map,
+                    escapeMarkup: false
+                );
         }
 
         Audio.PlayGlobal(stationEvent.StartAudio, allPlayersInGame, true);
@@ -76,10 +101,15 @@ public abstract class StationEventSystem<T> : GameRuleSystem<T> where T : ICompo
 
         if (stationEvent.Duration != null)
         {
-            var duration = stationEvent.MaxDuration == null
-                ? stationEvent.Duration
-                : TimeSpan.FromSeconds(RobustRandom.NextDouble(stationEvent.Duration.Value.TotalSeconds,
-                    stationEvent.MaxDuration.Value.TotalSeconds));
+            var duration =
+                stationEvent.MaxDuration == null
+                    ? stationEvent.Duration
+                    : TimeSpan.FromSeconds(
+                        RobustRandom.NextDouble(
+                            stationEvent.Duration.Value.TotalSeconds,
+                            stationEvent.MaxDuration.Value.TotalSeconds
+                        )
+                    );
             stationEvent.EndTime = Timing.CurTime + duration;
         }
     }
@@ -106,14 +136,25 @@ public abstract class StationEventSystem<T> : GameRuleSystem<T> where T : ICompo
         Filter allPlayersInGame = Filter.Empty().AddWhere(GameTicker.UserHasJoinedGame);
 
         if (stationEvent.EndAnnouncement != null)
-            ChatSystem.DispatchFilteredAnnouncement(allPlayersInGame, Loc.GetString(stationEvent.EndAnnouncement), playSound: false, colorOverride: stationEvent.EndAnnouncementColor);
+            ChatSystem.DispatchFilteredAnnouncement(
+                allPlayersInGame,
+                Loc.GetString(stationEvent.EndAnnouncement),
+                playSound: false,
+                colorOverride: stationEvent.EndAnnouncementColor
+            );
 
         // Frontier: radio announcements
         if (stationEvent.EndRadioAnnouncement != null)
         {
             var message = Loc.GetString(stationEvent.EndRadioAnnouncement);
             if (MapSystem.TryGetMap(GameTicker.DefaultMap, out var mapUid) && mapUid is { } map)
-                RadioSystem.SendRadioMessage(uid, message, stationEvent.EndRadioAnnouncementChannel, map, escapeMarkup: false);
+                RadioSystem.SendRadioMessage(
+                    uid,
+                    message,
+                    stationEvent.EndRadioAnnouncementChannel,
+                    map,
+                    escapeMarkup: false
+                );
         }
         // End Frontier
 
@@ -139,21 +180,41 @@ public abstract class StationEventSystem<T> : GameRuleSystem<T> where T : ICompo
             {
                 GameTicker.StartGameRule(uid, ruleData);
             }
-            else if (stationEvent.EndTime != null && Timing.CurTime >= stationEvent.EndTime && GameTicker.IsGameRuleActive(uid, ruleData))
+            else if (
+                stationEvent.EndTime != null
+                && Timing.CurTime >= stationEvent.EndTime
+                && GameTicker.IsGameRuleActive(uid, ruleData)
+            )
             {
                 GameTicker.EndGameRule(uid, ruleData);
             }
             // Frontier: Added Warning for events ending soon
-            else if (!stationEvent.WarningAnnounced && stationEvent.EndTime != null && (stationEvent.EndTime.Value - Timing.CurTime).TotalSeconds <= stationEvent.WarningDurationLeft && GameTicker.IsGameRuleActive(uid, ruleData))
+            else if (
+                !stationEvent.WarningAnnounced
+                && stationEvent.EndTime != null
+                && (stationEvent.EndTime.Value - Timing.CurTime).TotalSeconds <= stationEvent.WarningDurationLeft
+                && GameTicker.IsGameRuleActive(uid, ruleData)
+            )
             {
                 Filter allPlayersInGame = Filter.Empty().AddWhere(GameTicker.UserHasJoinedGame); // we don't want to send to players who aren't in game (i.e. in the lobby)
                 if (stationEvent.WarningAnnouncement != null)
-                    ChatSystem.DispatchFilteredAnnouncement(allPlayersInGame, Loc.GetString(stationEvent.WarningAnnouncement), playSound: false, colorOverride: stationEvent.WarningAnnouncementColor);
+                    ChatSystem.DispatchFilteredAnnouncement(
+                        allPlayersInGame,
+                        Loc.GetString(stationEvent.WarningAnnouncement),
+                        playSound: false,
+                        colorOverride: stationEvent.WarningAnnouncementColor
+                    );
                 if (stationEvent.WarningRadioAnnouncement != null)
                 {
                     var message = Loc.GetString(stationEvent.WarningRadioAnnouncement);
                     if (MapSystem.TryGetMap(GameTicker.DefaultMap, out var mapUid) && mapUid is { } map)
-                        RadioSystem.SendRadioMessage(uid, message, stationEvent.WarningRadioAnnouncementChannel, map, escapeMarkup: false);
+                        RadioSystem.SendRadioMessage(
+                            uid,
+                            message,
+                            stationEvent.WarningRadioAnnouncementChannel,
+                            map,
+                            escapeMarkup: false
+                        );
                 }
                 Audio.PlayGlobal(stationEvent.WarningAudio, allPlayersInGame, true);
                 stationEvent.WarningAnnounced = true;

@@ -1,5 +1,5 @@
-using Content.Shared.Lizards.Components;
 using System.Linq;
+using Content.Shared.Lizards.Components;
 using Robust.Client.GameObjects;
 using Robust.Shared.Map;
 using Robust.Shared.Physics.Components;
@@ -9,8 +9,11 @@ namespace Content.Client.Lizards.Systems;
 
 public sealed class SpriteTrailSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly TransformSystem _xformSys = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly TransformSystem _xformSys = default!;
 
     private readonly Dictionary<EntityUid, Queue<(EntityCoordinates, Angle)>> _buffers = new();
 

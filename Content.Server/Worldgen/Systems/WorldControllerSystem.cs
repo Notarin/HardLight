@@ -4,10 +4,10 @@ using Content.Shared.Ghost;
 using Content.Shared.Mind.Components;
 using JetBrains.Annotations;
 using Robust.Server.GameObjects;
+using Robust.Shared.Configuration; // HL: for IConfigurationManager
 using Robust.Shared.Map;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Timing;
-using Robust.Shared.Configuration; // HL: for IConfigurationManager
 
 namespace Content.Server.Worldgen.Systems;
 
@@ -16,18 +16,30 @@ namespace Content.Server.Worldgen.Systems;
 /// </summary>
 public sealed class WorldControllerSystem : EntitySystem
 {
-    [Dependency] private readonly TransformSystem _xformSys = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly ILogManager _logManager = default!;
-    [Dependency] private readonly MetaDataSystem _metaData = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!; // VRS: world loader velocity compensation
+    [Dependency]
+    private readonly TransformSystem _xformSys = default!;
+
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
+
+    [Dependency]
+    private readonly ILogManager _logManager = default!;
+
+    [Dependency]
+    private readonly MetaDataSystem _metaData = default!;
+
+    [Dependency]
+    private readonly SharedPhysicsSystem _physics = default!; // VRS: world loader velocity compensation
 
     private const int PlayerLoadRadius = 2;
+
     // VRS: class-level field to avoid per-frame allocation (Mono #3882)
     private readonly Dictionary<EntityUid, Dictionary<Vector2i, List<EntityUid>>> _chunksToLoad = new();
 
     private ISawmill _sawmill = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!; // HL: to gate debug logs
+
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!; // HL: to gate debug logs
 
     /// <inheritdoc />
     public override void Initialize()
@@ -249,8 +261,12 @@ public sealed class WorldControllerSystem : EntitySystem
         return chunk;
     }
 
-    private void StartupChunkEntity(EntityUid chunk, Vector2i coords, EntityUid map,
-        WorldControllerComponent controller)
+    private void StartupChunkEntity(
+        EntityUid chunk,
+        Vector2i coords,
+        EntityUid map,
+        WorldControllerComponent controller
+    )
     {
         if (TryComp<WorldControllerComponent>(chunk, out var existingController))
         {

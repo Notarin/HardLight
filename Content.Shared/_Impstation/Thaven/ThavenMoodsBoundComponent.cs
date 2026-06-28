@@ -31,14 +31,12 @@ public sealed partial class ThavenMoodsBoundComponent : Component
     public EntityUid? Action;
 }
 
-public sealed partial class ToggleMoodsScreenEvent : InstantActionEvent
-{
-}
+public sealed partial class ToggleMoodsScreenEvent : InstantActionEvent { }
 
 [NetSerializable, Serializable]
 public enum ThavenMoodsUiKey : byte
 {
-    Key
+    Key,
 }
 
 [Serializable, NetSerializable]

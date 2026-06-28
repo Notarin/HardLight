@@ -21,8 +21,7 @@
     damageContainer: Inorganic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 10
       behaviors:
       - !type:TriggerBehavior
@@ -34,8 +33,8 @@
     visuals:
       enum.Trigger.TriggerVisuals.VisualState:
         enum.ConstructionVisuals.Layer:
-          Primed: { state: primed }
-          Unprimed: { state: icon }
+          Primed: {state: primed}
+          Unprimed: {state: icon}
   - type: Tag
     tags:
     - HandGrenade
@@ -64,7 +63,7 @@
 - type: entity
   name: flashbang
   description: Eeeeeeeeeeeeeeeeeeeeee.
-  parent: [ GrenadeBase, BaseC2ContrabandUnredeemable ] # Frontier: BaseSecurityContraband<BaseC2ContrabandUnredeemable
+  parent: [GrenadeBase, BaseC2ContrabandUnredeemable] # Frontier: BaseSecurityContraband<BaseC2ContrabandUnredeemable
   id: GrenadeFlashBang
   components:
   - type: Sprite
@@ -92,17 +91,17 @@
 
 - type: entity
   id: GrenadeFlashEffect
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
-    - type: PointLight
-      enabled: true
-      radius: 5
-      energy: 8
-      netsync: false
-    - type: LightFade
-      duration: 0.5
-    - type: TimedDespawn
-      lifetime: 0.5
+  - type: PointLight
+    enabled: true
+    radius: 5
+    energy: 8
+    netsync: false
+  - type: LightFade
+    duration: 0.5
+  - type: TimedDespawn
+    lifetime: 0.5
 
 #The explosive values for these are pretty god damn mediocre, but SS14's explosion system is hard to understand - this is a good enough approximation of how it was in SS13.
 #Ideally, there should be a weak radius around the bomb outside of its gibbing / spacing range capable of dealing fair damage to players / structures.
@@ -118,13 +117,11 @@
     damageCoefficient: 0.1
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 10
       behaviors:
       - !type:TimerStartBehavior
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 45
       behaviors:
       - !type:TriggerBehavior
@@ -150,7 +147,7 @@
   description: Go out on your own terms!
   parent: GrenadeBase
   id: SelfDestructSeq
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: ExplodeOnTrigger
   - type: Explosive
@@ -168,9 +165,8 @@
     initialBeepDelay: 0
     beepInterval: 16
 
-
 - type: entity
-  parent: [ GrenadeBase, BaseC3SyndicateContraband ] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  parent: [GrenadeBase, BaseC3SyndicateContraband] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
   id: SingularityGrenade
   name: singularity grenade
   description: Grenade that simulates the power of a singularity, pulling things in a heap.
@@ -199,33 +195,33 @@
   - type: TwoStageTrigger
     triggerDelay: 10.45
     components:
-      - type: AmbientSound
-        enabled: true
-        volume: -5
-        range: 14
-        sound:
-          path: /Audio/Effects/Grenades/Supermatter/supermatter_loop.ogg
-      - type: GravityWell
-        maxRange: 7
-        baseRadialAcceleration: 5
-        baseTangentialAcceleration: .5
-        gravPulsePeriod: 0.03
-      - type: SingularityDistortion
-        intensity: 150
-        falloffPower: 1.5
-      - type: PointLight
-        enabled: true
-        color: "#ffaa44"
-        energy: 8
-        radius: 6
-        softness: 1
-        offset: "0, 0"
-      - type: SoundOnTrigger
-        sound:
-          path: /Audio/Effects/Grenades/Supermatter/supermatter_end.ogg
-          params:
-            volume: 5
-      - type: DeleteOnTrigger
+    - type: AmbientSound
+      enabled: true
+      volume: -5
+      range: 14
+      sound:
+        path: /Audio/Effects/Grenades/Supermatter/supermatter_loop.ogg
+    - type: GravityWell
+      maxRange: 7
+      baseRadialAcceleration: 5
+      baseTangentialAcceleration: .5
+      gravPulsePeriod: 0.03
+    - type: SingularityDistortion
+      intensity: 150
+      falloffPower: 1.5
+    - type: PointLight
+      enabled: true
+      color: "#ffaa44"
+      energy: 8
+      radius: 6
+      softness: 1
+      offset: "0, 0"
+    - type: SoundOnTrigger
+      sound:
+        path: /Audio/Effects/Grenades/Supermatter/supermatter_end.ogg
+        params:
+          volume: 5
+    - type: DeleteOnTrigger
 
 - type: entity
   name: whitehole grenade
@@ -246,33 +242,33 @@
   - type: TwoStageTrigger
     triggerDelay: 11.14
     components:
-      - type: AmbientSound
-        enabled: true
-        volume: -5
-        range: 14
-        sound:
-          path: /Audio/Effects/Grenades/Supermatter/whitehole_loop.ogg
-      - type: GravityWell
-        maxRange: 7
-        baseRadialAcceleration: -10
-        baseTangentialAcceleration: -1
-        gravPulsePeriod: 0.03
-      - type: SingularityDistortion
-        intensity: -200
-        falloffPower: 1.5
-      - type: PointLight
-        enabled: true
-        color: "#ffffff"
-        energy: 8
-        radius: 6
-        softness: 1
-        offset: "0, 0"
-      - type: SoundOnTrigger
-        sound:
-          path: /Audio/Effects/Grenades/Supermatter/supermatter_end.ogg
-          params:
-            volume: 15
-      - type: DeleteOnTrigger
+    - type: AmbientSound
+      enabled: true
+      volume: -5
+      range: 14
+      sound:
+        path: /Audio/Effects/Grenades/Supermatter/whitehole_loop.ogg
+    - type: GravityWell
+      maxRange: 7
+      baseRadialAcceleration: -10
+      baseTangentialAcceleration: -1
+      gravPulsePeriod: 0.03
+    - type: SingularityDistortion
+      intensity: -200
+      falloffPower: 1.5
+    - type: PointLight
+      enabled: true
+      color: "#ffffff"
+      energy: 8
+      radius: 6
+      softness: 1
+      offset: "0, 0"
+    - type: SoundOnTrigger
+      sound:
+        path: /Audio/Effects/Grenades/Supermatter/supermatter_end.ogg
+        params:
+          volume: 15
+    - type: DeleteOnTrigger
 
 - type: entity
   name: the nuclear option
@@ -292,8 +288,7 @@
     maxIntensity: 50
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 50
       behaviors:
       - !type:TriggerBehavior
@@ -315,7 +310,7 @@
     sprite: Objects/Weapons/Grenades/modular.rsi
     layers:
     - state: empty
-      map: [ "enum.ConstructionVisuals.Layer" ]
+      map: ["enum.ConstructionVisuals.Layer"]
   - type: Item
     size: Small
   - type: Tag
@@ -329,26 +324,25 @@
     damageContainer: Inorganic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 50
       behaviors:
       - !type:TriggerBehavior
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: Appearance
   - type: GenericVisualizer
     visuals:
       enum.ConstructionVisuals.Key:
         enum.ConstructionVisuals.Layer:
-          emptyCase: { state: empty }
-          wiredCase: { state: wired }
-          caseWithTrigger: { state: no-payload }
-          caseWithPayload: { state: no-trigger }
-          grenade: { state: complete }
+          emptyCase: {state: empty}
+          wiredCase: {state: wired}
+          caseWithTrigger: {state: no-payload}
+          caseWithPayload: {state: no-trigger}
+          grenade: {state: complete}
       enum.Trigger.TriggerVisuals.VisualState:
         enum.ConstructionVisuals.Layer:
-          Primed: { state: primed }
+          Primed: {state: primed}
           # Unprimed: <Use state determined by enum.ConstructionVisuals.Layer>
   - type: StaticPrice
     price: 30 # Frontier: 75<30
@@ -396,7 +390,7 @@
       path: /Audio/Effects/hallelujah.ogg
 
 - type: entity
-  parent: [ GrenadeBase, BaseC2ContrabandUnredeemable ] # Frontier: BaseSecurityContraband<BaseC2ContrabandUnredeemable
+  parent: [GrenadeBase, BaseC2ContrabandUnredeemable] # Frontier: BaseSecurityContraband<BaseC2ContrabandUnredeemable
   id: SmokeGrenade
   name: smoke grenade
   description: A tactical grenade that releases a large, long-lasting cloud of smoke when used.
@@ -464,7 +458,7 @@
     price: 350
 
 - type: entity
-  parent: [ GrenadeBase ] # Prevent inheriting DeleteOnTrigger from SmokeGrenade
+  parent: [GrenadeBase] # Prevent inheriting DeleteOnTrigger from SmokeGrenade
   id: AirGrenade
   name: air grenade
   description: A special solid state chemical grenade used for quickly releasing standard air into a spaced area. Fills up to 30 tiles!
@@ -492,8 +486,8 @@
     visuals:
       enum.ReleaseGasOnTriggerVisuals.Key:
         enabled:
-          True: { state: active }
-          False: { state: spent }
+          True: {state: active}
+          False: {state: spent}
 
 # Non-explosive "dummy" grenades to use as a distraction.
 

@@ -5,8 +5,8 @@
   components:
   - type: Sprite
     layers:
-      - state: practice
-        map: [ "enum.AmmoVisualLayers.Base" ]
+    - state: practice
+      map: ["enum.AmmoVisualLayers.Base"]
   - type: CartridgeAmmo
     proto: PelletShotgunSoulbreaker
   - type: ChemicalAmmo
@@ -21,4 +21,4 @@
   - type: SpentAmmoVisuals
     state: "practice"
   - type: GuideHelp
-    guides: [ Mindbreaking ]
+    guides: [Mindbreaking]

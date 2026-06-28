@@ -1,8 +1,8 @@
 using Content.Shared.ActionBlocker;
+using Content.Shared.Emoting;
 using Content.Shared.Hands;
 using Content.Shared.Interaction.Events;
 using Content.Shared.Item;
-using Content.Shared.Emoting;
 using Content.Shared.Movement.Events;
 
 namespace Content.Shared.Puppet;
@@ -10,7 +10,8 @@ namespace Content.Shared.Puppet;
 // TODO deduplicate with BlockMovementComponent
 public abstract class SharedVentriloquistPuppetSystem : EntitySystem
 {
-    [Dependency] private readonly ActionBlockerSystem _blocker = default!;
+    [Dependency]
+    private readonly ActionBlockerSystem _blocker = default!;
 
     public override void Initialize()
     {
@@ -35,7 +36,8 @@ public abstract class SharedVentriloquistPuppetSystem : EntitySystem
         _blocker.UpdateCanMove(uid);
     }
 
-    private void Cancel<T>(EntityUid uid, VentriloquistPuppetComponent component, T args) where T : CancellableEntityEventArgs
+    private void Cancel<T>(EntityUid uid, VentriloquistPuppetComponent component, T args)
+        where T : CancellableEntityEventArgs
     {
         args.Cancel();
     }

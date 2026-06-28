@@ -50,7 +50,11 @@ public struct AtmosAlertsDeviceNavMapData
     /// <summary>
     /// Populate the atmos monitoring console nav map with a single entity
     /// </summary>
-    public AtmosAlertsDeviceNavMapData(NetEntity netEntity, NetCoordinates netCoordinates, AtmosAlertsComputerGroup group)
+    public AtmosAlertsDeviceNavMapData(
+        NetEntity netEntity,
+        NetCoordinates netCoordinates,
+        AtmosAlertsComputerGroup group
+    )
     {
         NetEntity = netEntity;
         NetCoordinates = netCoordinates;
@@ -84,11 +88,12 @@ public struct AtmosAlertsFocusDeviceData
     /// <summary>
     /// Populates the atmos monitoring console focus entry with atmospheric data
     /// </summary>
-    public AtmosAlertsFocusDeviceData
-        (NetEntity netEntity,
+    public AtmosAlertsFocusDeviceData(
+        NetEntity netEntity,
         (float, AtmosAlarmType) temperatureData,
         (float, AtmosAlarmType) pressureData,
-        Dictionary<Gas, (float, float, AtmosAlarmType)> gasData)
+        Dictionary<Gas, (float, float, AtmosAlarmType)> gasData
+    )
     {
         NetEntity = netEntity;
         TemperatureData = temperatureData;
@@ -134,13 +139,14 @@ public struct AtmosAlertsFocusGaslockData
     /// <summary>
     /// Populates the atmos monitoring console focus entry with atmospheric data
     /// </summary>
-    public AtmosAlertsFocusGaslockData
-        (NetEntity netEntity,
+    public AtmosAlertsFocusGaslockData(
+        NetEntity netEntity,
         float pressure,
         bool pumpingInwards,
         bool enabled,
         NetEntity dockedEntity,
-        Dictionary<Gas, (float, float)> gasData)
+        Dictionary<Gas, (float, float)> gasData
+    )
     {
         NetEntity = netEntity;
         Pressure = pressure;
@@ -150,6 +156,7 @@ public struct AtmosAlertsFocusGaslockData
         GasData = gasData;
     }
 }
+
 // End Frontier: gaslock-related state, TODO: move me elsewhere
 
 [Serializable, NetSerializable]
@@ -183,7 +190,13 @@ public sealed class AtmosAlertsComputerBoundInterfaceState : BoundUserInterfaceS
     /// <summary>
     /// Sends data from the server to the client to populate the atmos monitoring console UI
     /// </summary>
-    public AtmosAlertsComputerBoundInterfaceState(AtmosAlertsComputerEntry[] airAlarms, AtmosAlertsComputerEntry[] fireAlarms, AtmosAlertsFocusDeviceData? focusData, AtmosAlertsComputerEntry[] gaslocks, AtmosAlertsFocusGaslockData? focusGaslockData) // Frontier: add gaslocks, focusGaslockData
+    public AtmosAlertsComputerBoundInterfaceState(
+        AtmosAlertsComputerEntry[] airAlarms,
+        AtmosAlertsComputerEntry[] fireAlarms,
+        AtmosAlertsFocusDeviceData? focusData,
+        AtmosAlertsComputerEntry[] gaslocks,
+        AtmosAlertsFocusGaslockData? focusGaslockData
+    ) // Frontier: add gaslocks, focusGaslockData
     {
         AirAlarms = airAlarms;
         FireAlarms = fireAlarms;
@@ -229,13 +242,14 @@ public struct AtmosAlertsComputerEntry
     /// <summary>
     /// Used to populate the atmos monitoring console UI with data from a single air alarm
     /// </summary>
-    public AtmosAlertsComputerEntry
-        (NetEntity entity,
+    public AtmosAlertsComputerEntry(
+        NetEntity entity,
         NetCoordinates coordinates,
         AtmosAlertsComputerGroup group,
         AtmosAlarmType alarmState,
         string entityName,
-        string address)
+        string address
+    )
     {
         NetEntity = entity;
         Coordinates = coordinates;
@@ -299,5 +313,5 @@ public enum AtmosAlertsComputerVisuals
 [Serializable, NetSerializable]
 public enum AtmosAlertsComputerUiKey
 {
-    Key
+    Key,
 }

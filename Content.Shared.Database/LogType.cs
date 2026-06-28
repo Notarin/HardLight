@@ -7,6 +7,7 @@ public enum LogType
     /// Test logs. DO NOT USE!!!
     /// </summary>
     Unknown = 0,
+
     // DamageChange = 1
 
     /// <summary>
@@ -486,6 +487,7 @@ public enum LogType
     /// </summary>
     Instrument = 103,
     AdminRefund = 203,
+
     /// <summary>
     /// An atmos device's direction was changed.
     /// </summary>
@@ -497,18 +499,22 @@ public enum LogType
     SiliconLaw = 105,
 
     Consent = 12489, // Floofstation - random high number to avoid conflict when upstream adds new log types
+
     /// <summary>
     /// A player has posted a bounty contract.
     /// </summary>
     BountyContractCreated = 205,
+
     /// <summary>
     /// A player has deleted a bounty contract.
     /// </summary>
     BountyContractRemoved = 206,
+
     /// <summary>
     /// A medical bounty was redeemed.
     /// </summary>
     MedicalBountyRedeemed = 207,
+
     /// <summary>
     /// Shuttle info was changed.
     /// </summary>
@@ -517,6 +523,7 @@ public enum LogType
     // End Frontier
     BagOfHolding = 420, //Nyano - Summary: adds bag of holding.
     Psionics = 421, //Nyano - Summary: ads psionic as a log type.
+
     /// <summary>
     /// Player unfultons an entity.
     /// </summary>

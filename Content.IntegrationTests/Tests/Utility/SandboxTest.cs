@@ -27,23 +27,32 @@ public sealed class SandboxTest
             ContentAssemblies = new[]
             {
                 typeof(Shared.Entry.EntryPoint).Assembly,
-                typeof(Client.Entry.EntryPoint).Assembly
+                typeof(Client.Entry.EntryPoint).Assembly,
             },
-            Options = new GameControllerOptions { LoadConfigAndUserData = false }
+            Options = new GameControllerOptions { LoadConfigAndUserData = false },
         };
 
         options.BeforeStart += () =>
         {
-            IoCManager.Resolve<IModLoader>().SetModuleBaseCallbacks(new ClientModuleTestingCallbacks
-            {
-                ClientBeforeIoC = () =>
-                {
-                    IoCManager.Register<IParallaxManager, DummyParallaxManager>(true);
-                    IoCManager.Resolve<ILogManager>().GetSawmill("loc").Level = LogLevel.Error;
-                    IoCManager.Resolve<IConfigurationManager>()
-                        .OnValueChanged(RTCVars.FailureLogLevel, value => logHandler.FailureLevel = value, true);
-                }
-            });
+            IoCManager
+                .Resolve<IModLoader>()
+                .SetModuleBaseCallbacks(
+                    new ClientModuleTestingCallbacks
+                    {
+                        ClientBeforeIoC = () =>
+                        {
+                            IoCManager.Register<IParallaxManager, DummyParallaxManager>(true);
+                            IoCManager.Resolve<ILogManager>().GetSawmill("loc").Level = LogLevel.Error;
+                            IoCManager
+                                .Resolve<IConfigurationManager>()
+                                .OnValueChanged(
+                                    RTCVars.FailureLogLevel,
+                                    value => logHandler.FailureLevel = value,
+                                    true
+                                );
+                        },
+                    }
+                );
         };
 
         using var client = new RobustIntegrationTest.ClientIntegrationInstance(options);

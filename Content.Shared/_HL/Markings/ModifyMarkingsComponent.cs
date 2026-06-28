@@ -20,7 +20,7 @@ public sealed partial class ModifyMarkingsComponent : Component
         HumanoidVisualLayers.UndergarmentBottom,
         HumanoidVisualLayers.Genital,
         HumanoidVisualLayers.Penis,
-        HumanoidVisualLayers.Breasts
+        HumanoidVisualLayers.Breasts,
     };
 
     /// <summary>

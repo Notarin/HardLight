@@ -8,8 +8,11 @@ namespace Content.Client.Projectiles;
 
 public sealed class ProjectileSystem : SharedProjectileSystem
 {
-    [Dependency] private readonly AnimationPlayerSystem _player = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly AnimationPlayerSystem _player = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     public override void Initialize()
     {
@@ -44,12 +47,9 @@ public sealed class ProjectileSystem : SharedProjectileSystem
                     new AnimationTrackSpriteFlick()
                     {
                         LayerKey = EffectLayers.Unshaded,
-                        KeyFrames =
-                        {
-                            new AnimationTrackSpriteFlick.KeyFrame(state.Name, 0f),
-                        }
-                    }
-                }
+                        KeyFrames = { new AnimationTrackSpriteFlick.KeyFrame(state.Name, 0f) },
+                    },
+                },
             };
 
             _player.Play(ent, anim, "impact-effect");

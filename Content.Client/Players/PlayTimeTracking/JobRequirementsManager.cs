@@ -18,12 +18,23 @@ namespace Content.Client.Players.PlayTimeTracking;
 
 public sealed partial class JobRequirementsManager : ISharedPlaytimeManager
 {
-    [Dependency] private readonly IBaseClient _client = default!;
-    [Dependency] private readonly IClientNetManager _net = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IEntityManager _entManager = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IPrototypeManager _prototypes = default!;
+    [Dependency]
+    private readonly IBaseClient _client = default!;
+
+    [Dependency]
+    private readonly IClientNetManager _net = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
+
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypes = default!;
 
     private readonly Dictionary<string, TimeSpan> _roles = new();
     private readonly List<ProtoId<JobPrototype>> _jobBans = new();
@@ -99,7 +110,11 @@ public sealed partial class JobRequirementsManager : ISharedPlaytimeManager
         Updated?.Invoke();
     }
 
-    public bool IsAllowed(JobPrototype job, HumanoidCharacterProfile? profile, [NotNullWhen(false)] out FormattedMessage? reason)
+    public bool IsAllowed(
+        JobPrototype job,
+        HumanoidCharacterProfile? profile,
+        [NotNullWhen(false)] out FormattedMessage? reason
+    )
     {
         reason = null;
 
@@ -119,7 +134,11 @@ public sealed partial class JobRequirementsManager : ISharedPlaytimeManager
         return CheckRoleRequirements(job, profile, out reason);
     }
 
-    public bool CheckRoleRequirements(JobPrototype job, HumanoidCharacterProfile? profile, [NotNullWhen(false)] out FormattedMessage? reason)
+    public bool CheckRoleRequirements(
+        JobPrototype job,
+        HumanoidCharacterProfile? profile,
+        [NotNullWhen(false)] out FormattedMessage? reason
+    )
     {
         var reqs = _entManager.System<SharedRoleSystem>().GetJobRequirement(job);
 
@@ -149,7 +168,11 @@ public sealed partial class JobRequirementsManager : ISharedPlaytimeManager
         // End Frontier: alternate role time checks
     }
 
-    public bool CheckRoleRequirements(HashSet<JobRequirement>? requirements, HumanoidCharacterProfile? profile, [NotNullWhen(false)] out FormattedMessage? reason)
+    public bool CheckRoleRequirements(
+        HashSet<JobRequirement>? requirements,
+        HumanoidCharacterProfile? profile,
+        [NotNullWhen(false)] out FormattedMessage? reason
+    )
     {
         reason = null;
 
@@ -202,7 +225,10 @@ public sealed partial class JobRequirementsManager : ISharedPlaytimeManager
         }
     }
 
-    public bool TryGetPlayTimes(ICommonSession session, [NotNullWhen(true)] out IReadOnlyDictionary<string, TimeSpan>? playTimes)
+    public bool TryGetPlayTimes(
+        ICommonSession session,
+        [NotNullWhen(true)] out IReadOnlyDictionary<string, TimeSpan>? playTimes
+    )
     {
         playTimes = null;
 

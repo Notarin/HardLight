@@ -21,12 +21,23 @@ namespace Content.Server.CardboardBox;
 
 public sealed class CardboardBoxSystem : SharedCardboardBoxSystem
 {
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedMoverController _mover = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedStealthSystem _stealth = default!;
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly EntityStorageSystem _storage = default!;
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedMoverController _mover = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly SharedStealthSystem _stealth = default!;
+
+    [Dependency]
+    private readonly DamageableSystem _damageable = default!;
+
+    [Dependency]
+    private readonly EntityStorageSystem _storage = default!;
 
     public override void Initialize()
     {
@@ -66,7 +77,11 @@ public sealed class CardboardBoxSystem : SharedCardboardBoxSystem
         }
     }
 
-    private void OnGetAdditionalAccess(EntityUid uid, CardboardBoxComponent component, ref GetAdditionalAccessEvent args)
+    private void OnGetAdditionalAccess(
+        EntityUid uid,
+        CardboardBoxComponent component,
+        ref GetAdditionalAccessEvent args
+    )
     {
         if (component.Mover == null)
             return;

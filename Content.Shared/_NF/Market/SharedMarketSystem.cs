@@ -2,12 +2,10 @@
 
 namespace Content.Shared._NF.Market;
 
-public abstract class SharedMarketSystem : EntitySystem
-{
-};
+public abstract class SharedMarketSystem : EntitySystem { };
 
 [NetSerializable, Serializable]
 public enum MarketConsoleUiKey : byte
 {
-    Default
+    Default,
 }

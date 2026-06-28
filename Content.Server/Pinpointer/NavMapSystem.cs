@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Content.Server.Administration.Logs;
 using Content.Server.Atmos.Components;
 using Content.Server.Atmos.EntitySystems;
@@ -8,12 +9,11 @@ using Content.Shared.Examine;
 using Content.Shared.Localizations;
 using Content.Shared.Maps;
 using Content.Shared.Pinpointer;
+using Content.Shared.Warps;
 using JetBrains.Annotations;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Timing;
-using System.Diagnostics.CodeAnalysis;
-using Content.Shared.Warps;
 
 namespace Content.Server.Pinpointer;
 
@@ -22,13 +22,26 @@ namespace Content.Server.Pinpointer;
 /// </summary>
 public sealed partial class NavMapSystem : SharedNavMapSystem
 {
-    [Dependency] private readonly IAdminLogManager _adminLog = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
-    [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly ITileDefinitionManager _tileDefManager = default!;
+    [Dependency]
+    private readonly IAdminLogManager _adminLog = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _mapSystem = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transformSystem = default!;
+
+    [Dependency]
+    private readonly IMapManager _mapManager = default!;
+
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
+
+    [Dependency]
+    private readonly ITileDefinitionManager _tileDefManager = default!;
 
     public const float CloseDistance = 15f;
     public const float FarDistance = 30f;
@@ -111,8 +124,14 @@ public sealed partial class NavMapSystem : SharedNavMapSystem
             var chunkOrigin = SharedMapSystem.GetChunkIndices(tile, ChunkSize);
 
             // Set the floor bit based on whether the new tile is space or not
-            var (newValue, chunk) = RefreshTileEntityContents(args.Entity, navMap, mapGrid, chunkOrigin, tile,
-                setFloor: !change.NewTile.IsSpace(_tileDefManager));
+            var (newValue, chunk) = RefreshTileEntityContents(
+                args.Entity,
+                navMap,
+                mapGrid,
+                chunkOrigin,
+                tile,
+                setFloor: !change.NewTile.IsSpace(_tileDefManager)
+            );
 
             if (newValue == 0 && PruneEmpty((args.Entity, navMap), chunk))
                 continue;
@@ -130,14 +149,20 @@ public sealed partial class NavMapSystem : SharedNavMapSystem
 
         var gridUid = args.Position.Grid;
 
-        if (!_navQuery.TryComp(gridUid, out var navMap) ||
-            !_gridQuery.TryComp(gridUid, out var mapGrid))
+        if (!_navQuery.TryComp(gridUid, out var navMap) || !_gridQuery.TryComp(gridUid, out var mapGrid))
         {
             return;
         }
 
         var chunkOrigin = SharedMapSystem.GetChunkIndices(args.Position.Tile, ChunkSize);
-        var (newValue, chunk) = RefreshTileEntityContents(gridUid, navMap, mapGrid, chunkOrigin, args.Position.Tile, setFloor: false);
+        var (newValue, chunk) = RefreshTileEntityContents(
+            gridUid,
+            navMap,
+            mapGrid,
+            chunkOrigin,
+            args.Position.Tile,
+            setFloor: false
+        );
 
         if (newValue == 0 && PruneEmpty((gridUid, navMap), chunk))
             return;
@@ -167,18 +192,22 @@ public sealed partial class NavMapSystem : SharedNavMapSystem
         UpdateNavMapBeaconData(uid, component);
     }
 
-    private void OnConfigureMessage(Entity<ConfigurableNavMapBeaconComponent> ent, ref NavMapBeaconConfigureBuiMessage args)
+    private void OnConfigureMessage(
+        Entity<ConfigurableNavMapBeaconComponent> ent,
+        ref NavMapBeaconConfigureBuiMessage args
+    )
     {
         if (!TryComp<NavMapBeaconComponent>(ent, out var beacon))
             return;
 
-        if (beacon.Text == args.Text &&
-            beacon.Color == args.Color &&
-            beacon.Enabled == args.Enabled)
+        if (beacon.Text == args.Text && beacon.Color == args.Color && beacon.Enabled == args.Enabled)
             return;
 
-        _adminLog.Add(LogType.Action, LogImpact.Medium,
-            $"{ToPrettyString(args.Actor):player} configured NavMapBeacon \'{ToPrettyString(ent):entity}\' with text \'{args.Text}\', color {args.Color.ToHexNoAlpha()}, and {(args.Enabled ? "enabled" : "disabled")} it.");
+        _adminLog.Add(
+            LogType.Action,
+            LogImpact.Medium,
+            $"{ToPrettyString(args.Actor):player} configured NavMapBeacon \'{ToPrettyString(ent):entity}\' with text \'{args.Text}\', color {args.Color.ToHexNoAlpha()}, and {(args.Enabled ? "enabled" : "disabled")} it."
+        );
 
         if (TryComp<WarpPointComponent>(ent, out var warpPoint))
         {
@@ -210,10 +239,14 @@ public sealed partial class NavMapSystem : SharedNavMapSystem
         if (!args.IsInDetailsRange || !TryComp<NavMapBeaconComponent>(ent, out var navMap))
             return;
 
-        args.PushMarkup(Loc.GetString("nav-beacon-examine-text",
-            ("enabled", navMap.Enabled),
-            ("color", navMap.Color.ToHexNoAlpha()),
-            ("label", navMap.Text ?? string.Empty)));
+        args.PushMarkup(
+            Loc.GetString(
+                "nav-beacon-examine-text",
+                ("enabled", navMap.Enabled),
+                ("color", navMap.Color.ToHexNoAlpha()),
+                ("label", navMap.Text ?? string.Empty)
+            )
+        );
     }
 
     #endregion
@@ -252,12 +285,14 @@ public sealed partial class NavMapSystem : SharedNavMapSystem
         Dirty(uid, component);
     }
 
-    private (int NewVal, NavMapChunk Chunk) RefreshTileEntityContents(EntityUid uid,
+    private (int NewVal, NavMapChunk Chunk) RefreshTileEntityContents(
+        EntityUid uid,
         NavMapComponent component,
         MapGridComponent mapGrid,
         Vector2i chunkOrigin,
         Vector2i tile,
-        bool setFloor)
+        bool setFloor
+    )
     {
         var relative = SharedMapSystem.GetChunkRelative(tile, ChunkSize);
         var chunk = EnsureChunk(component, chunkOrigin);
@@ -310,7 +345,11 @@ public sealed partial class NavMapSystem : SharedNavMapSystem
 
     #region: Beacon functions
 
-    private void UpdateNavMapBeaconData(EntityUid uid, NavMapBeaconComponent component, TransformComponent? xform = null)
+    private void UpdateNavMapBeaconData(
+        EntityUid uid,
+        NavMapBeaconComponent component,
+        TransformComponent? xform = null
+    )
     {
         if (!Resolve(uid, ref xform))
             return;
@@ -367,9 +406,11 @@ public sealed partial class NavMapSystem : SharedNavMapSystem
     /// This is used for things like announcements where you want to find the closest "landmark" to something.
     /// </summary>
     [PublicAPI]
-    public bool TryGetNearestBeacon(Entity<TransformComponent?> ent,
+    public bool TryGetNearestBeacon(
+        Entity<TransformComponent?> ent,
         [NotNullWhen(true)] out Entity<NavMapBeaconComponent>? beacon,
-        [NotNullWhen(true)] out MapCoordinates? beaconCoords)
+        [NotNullWhen(true)] out MapCoordinates? beaconCoords
+    )
     {
         beacon = null;
         beaconCoords = null;
@@ -383,15 +424,21 @@ public sealed partial class NavMapSystem : SharedNavMapSystem
     /// For a given position, tries to find the nearest configurable beacon that is marked as visible.
     /// This is used for things like announcements where you want to find the closest "landmark" to something.
     /// </summary>
-    public bool TryGetNearestBeacon(MapCoordinates coordinates,
+    public bool TryGetNearestBeacon(
+        MapCoordinates coordinates,
         [NotNullWhen(true)] out Entity<NavMapBeaconComponent>? beacon,
-        [NotNullWhen(true)] out MapCoordinates? beaconCoords)
+        [NotNullWhen(true)] out MapCoordinates? beaconCoords
+    )
     {
         beacon = null;
         beaconCoords = null;
         var minDistance = float.PositiveInfinity;
 
-        var query = EntityQueryEnumerator<ConfigurableNavMapBeaconComponent, NavMapBeaconComponent, TransformComponent>();
+        var query = EntityQueryEnumerator<
+            ConfigurableNavMapBeaconComponent,
+            NavMapBeaconComponent,
+            TransformComponent
+        >();
         while (query.MoveNext(out var uid, out _, out var navBeacon, out var xform))
         {
             if (!navBeacon.Enabled)
@@ -433,7 +480,6 @@ public sealed partial class NavMapSystem : SharedNavMapSystem
     /// Returns a string describing the rough distance and direction
     /// to <paramref name="coordinates"/> from the nearest beacon.
     /// </summary>
-
     public string GetNearestBeaconString(MapCoordinates coordinates, bool onlyName = false)
     {
         if (!TryGetNearestBeacon(coordinates, out var beacon, out var pos))
@@ -455,21 +501,23 @@ public sealed partial class NavMapSystem : SharedNavMapSystem
         var length = offset.Length();
         if (length < CloseDistance)
         {
-            return Loc.GetString("nav-beacon-pos-format",
+            return Loc.GetString(
+                "nav-beacon-pos-format",
                 ("color", beacon.Value.Comp.Color),
-                ("marker", beacon.Value.Comp.Text!));
+                ("marker", beacon.Value.Comp.Text!)
+            );
         }
 
-        var modifier = length > FarDistance
-            ? Loc.GetString("nav-beacon-pos-format-direction-mod-far")
-            : string.Empty;
+        var modifier = length > FarDistance ? Loc.GetString("nav-beacon-pos-format-direction-mod-far") : string.Empty;
 
         // we can null suppress the text being null because TryGetNearestVisibleStationBeacon always gives us a beacon with not-null text.
-        return Loc.GetString("nav-beacon-pos-format-direction",
+        return Loc.GetString(
+            "nav-beacon-pos-format-direction",
             ("modifier", modifier),
             ("direction", ContentLocalizationManager.FormatDirection(adjustedDir).ToLowerInvariant()),
             ("color", beacon.Value.Comp.Color),
-            ("marker", beacon.Value.Comp.Text!));
+            ("marker", beacon.Value.Comp.Text!)
+        );
     }
 
     #endregion

@@ -8,9 +8,8 @@ public sealed class StationMapBoundUserInterface : BoundUserInterface
     [ViewVariables]
     private StationMapWindow? _window;
 
-    public StationMapBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-    }
+    public StationMapBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {
@@ -26,11 +25,11 @@ public sealed class StationMapBoundUserInterface : BoundUserInterface
         _window.Title = EntMan.GetComponent<MetaDataComponent>(Owner).EntityName;
 
         string stationName = string.Empty;
-        if(EntMan.TryGetComponent<MetaDataComponent>(gridUid, out var gridMetaData))
+        if (EntMan.TryGetComponent<MetaDataComponent>(gridUid, out var gridMetaData))
         {
             stationName = gridMetaData.EntityName;
         }
-        
+
         if (EntMan.TryGetComponent<StationMapComponent>(Owner, out var comp) && comp.ShowLocation)
             _window.Set(stationName, gridUid, Owner);
         else

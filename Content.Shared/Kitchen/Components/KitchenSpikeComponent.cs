@@ -28,13 +28,13 @@ public sealed partial class KitchenSpikeComponent : Component
     [Serializable, NetSerializable]
     public enum KitchenSpikeVisuals : byte
     {
-        Status
+        Status,
     }
 
     [Serializable, NetSerializable]
     public enum KitchenSpikeStatus : byte
     {
         Empty,
-        Bloody
+        Bloody,
     }
 }

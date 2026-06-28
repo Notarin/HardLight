@@ -13,9 +13,12 @@ public sealed partial class ModifyBleedAmount : EntityEffect
     [DataField]
     public float Amount = -1.0f;
 
-    protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys)
-        => Loc.GetString("reagent-effect-guidebook-modify-bleed-amount", ("chance", Probability),
-            ("deltasign", MathF.Sign(Amount)));
+    protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys) =>
+        Loc.GetString(
+            "reagent-effect-guidebook-modify-bleed-amount",
+            ("chance", Probability),
+            ("deltasign", MathF.Sign(Amount))
+        );
 
     public override void Effect(EntityEffectBaseArgs args)
     {
@@ -23,7 +26,8 @@ public sealed partial class ModifyBleedAmount : EntityEffect
         {
             var sys = args.EntityManager.System<BloodstreamSystem>();
             var amt = Amount;
-            if (args is EntityEffectReagentArgs reagentArgs) {
+            if (args is EntityEffectReagentArgs reagentArgs)
+            {
                 if (Scaled)
                     amt *= reagentArgs.Quantity.Float();
                 amt *= reagentArgs.Scale.Float();

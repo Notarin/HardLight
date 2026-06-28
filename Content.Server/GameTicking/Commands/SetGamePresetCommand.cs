@@ -11,8 +11,11 @@ namespace Content.Server.GameTicking.Commands
     [AdminCommand(AdminFlags.Round)]
     public sealed class SetGamePresetCommand : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _entity = default!;
-        [Dependency] private readonly IPrototypeManager _prototype = default!;
+        [Dependency]
+        private readonly IEntityManager _entity = default!;
+
+        [Dependency]
+        private readonly IPrototypeManager _prototype = default!;
 
         public string Command => "setgamepreset";
         public string Description => Loc.GetString("set-game-preset-command-description", ("command", Command));
@@ -22,7 +25,14 @@ namespace Content.Server.GameTicking.Commands
         {
             if (!args.Length.InRange(1, 2))
             {
-                shell.WriteError(Loc.GetString("shell-need-between-arguments", ("lower", 1), ("upper", 2), ("currentAmount", args.Length)));
+                shell.WriteError(
+                    Loc.GetString(
+                        "shell-need-between-arguments",
+                        ("lower", 1),
+                        ("upper", 2),
+                        ("currentAmount", args.Length)
+                    )
+                );
                 return;
             }
 
@@ -43,15 +53,16 @@ namespace Content.Server.GameTicking.Commands
             }
 
             ticker.SetGamePreset(preset, false, rounds);
-            shell.WriteLine(Loc.GetString("set-game-preset-preset-set-finite", ("preset", preset.ID), ("rounds", rounds.ToString())));
+            shell.WriteLine(
+                Loc.GetString("set-game-preset-preset-set-finite", ("preset", preset.ID), ("rounds", rounds.ToString()))
+            );
         }
 
         public CompletionResult GetCompletion(IConsoleShell shell, string[] args)
         {
             if (args.Length == 1)
             {
-                var gamePresets = _prototype.EnumeratePrototypes<GamePresetPrototype>()
-                    .OrderBy(p => p.ID);
+                var gamePresets = _prototype.EnumeratePrototypes<GamePresetPrototype>().OrderBy(p => p.ID);
                 var options = new List<string>();
                 foreach (var preset in gamePresets)
                 {

@@ -11,20 +11,23 @@ namespace Content.Client.Administration.UI
     [GenerateTypedNameReferences]
     public sealed partial class AdminAnnounceWindow : DefaultWindow
     {
-        [Dependency] private readonly ILocalizationManager _localization = default!;
+        [Dependency]
+        private readonly ILocalizationManager _localization = default!;
 
         public AdminAnnounceWindow()
         {
             RobustXamlLoader.Load(this);
             IoCManager.InjectDependencies(this);
 
-            Announcement.Placeholder = new Rope.Leaf(_localization.GetString("admin-announce-announcement-placeholder"));
+            Announcement.Placeholder = new Rope.Leaf(
+                _localization.GetString("admin-announce-announcement-placeholder")
+            );
             AnnounceMethod.AddItem(_localization.GetString("admin-announce-type-station"));
             AnnounceMethod.SetItemMetadata(0, AdminAnnounceType.Station);
             AnnounceMethod.AddItem(_localization.GetString("admin-announce-type-server"));
             AnnounceMethod.SetItemMetadata(1, AdminAnnounceType.Server);
-            AnnounceMethod.AddItem(_localization.GetString("admin-announce-type-antag"));  // Frontier
-            AnnounceMethod.SetItemMetadata(2, AdminAnnounceType.Antag);  // Frontier
+            AnnounceMethod.AddItem(_localization.GetString("admin-announce-type-antag")); // Frontier
+            AnnounceMethod.SetItemMetadata(2, AdminAnnounceType.Antag); // Frontier
             AnnounceMethod.OnItemSelected += AnnounceMethodOnOnItemSelected;
             Announcement.OnKeyBindUp += AnnouncementOnOnTextChanged;
         }
@@ -37,8 +40,11 @@ namespace Content.Client.Administration.UI
         private void AnnounceMethodOnOnItemSelected(OptionButton.ItemSelectedEventArgs args)
         {
             AnnounceMethod.SelectId(args.Id);
-            Announcer.Editable = ((AdminAnnounceType?)args.Button.SelectedMetadata ?? AdminAnnounceType.Station) == AdminAnnounceType.Station
-            || ((AdminAnnounceType?)args.Button.SelectedMetadata ?? AdminAnnounceType.Antag) == AdminAnnounceType.Antag; // Frontier
+            Announcer.Editable =
+                ((AdminAnnounceType?)args.Button.SelectedMetadata ?? AdminAnnounceType.Station)
+                    == AdminAnnounceType.Station
+                || ((AdminAnnounceType?)args.Button.SelectedMetadata ?? AdminAnnounceType.Antag)
+                    == AdminAnnounceType.Antag; // Frontier
         }
     }
 }

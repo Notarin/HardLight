@@ -8,8 +8,11 @@ namespace Content.Shared.Nutrition.EntitySystems;
 
 public abstract partial class SharedDrinkSystem : EntitySystem
 {
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainer = default!;
-    [Dependency] private readonly OpenableSystem _openable = default!;
+    [Dependency]
+    private readonly SharedSolutionContainerSystem _solutionContainer = default!;
+
+    [Dependency]
+    private readonly OpenableSystem _openable = default!;
 
     public override void Initialize()
     {
@@ -41,12 +44,14 @@ public abstract partial class SharedDrinkSystem : EntitySystem
         if (HasComp<ExaminableSolutionComponent>(entity))
         {
             //provide exact measurement for beakers
-            args.PushText(Loc.GetString("drink-component-on-examine-exact-volume", ("amount", DrinkVolume(entity, entity.Comp))));
+            args.PushText(
+                Loc.GetString("drink-component-on-examine-exact-volume", ("amount", DrinkVolume(entity, entity.Comp)))
+            );
         }
         else
         {
             //general approximation
-            var remainingString = (int) _solutionContainer.PercentFull(entity) switch
+            var remainingString = (int)_solutionContainer.PercentFull(entity) switch
             {
                 100 => "drink-component-on-examine-is-full",
                 > 66 => "drink-component-on-examine-is-mostly-full",
@@ -81,8 +86,11 @@ public abstract partial class SharedDrinkSystem : EntitySystem
     {
         string remainingString = "drink-component-on-examine-is-half-full";
 
-        if (TryComp(args.Examiner, out MetaDataComponent? examiner) && examiner.EntityName.Length > 0
-            && string.Compare(examiner.EntityName.Substring(0, 1), "m", StringComparison.InvariantCultureIgnoreCase) > 0)
+        if (
+            TryComp(args.Examiner, out MetaDataComponent? examiner)
+            && examiner.EntityName.Length > 0
+            && string.Compare(examiner.EntityName.Substring(0, 1), "m", StringComparison.InvariantCultureIgnoreCase) > 0
+        )
             remainingString = "drink-component-on-examine-is-half-empty";
 
         return remainingString;

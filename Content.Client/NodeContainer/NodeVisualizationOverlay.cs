@@ -41,7 +41,8 @@ namespace Content.Client.NodeContainer
             IMapManager mapManager,
             IInputManager inputManager,
             IResourceCache cache,
-            IEntityManager entityManager)
+            IEntityManager entityManager
+        )
         {
             _system = system;
             _lookup = lookup;
@@ -69,10 +70,7 @@ namespace Content.Client.NodeContainer
         private void DrawScreen(in OverlayDrawArgs args)
         {
             var mousePos = _inputManager.MouseScreenPosition.Position;
-            _mouseWorldPos = args
-                .ViewportControl!
-                .PixelToMap(mousePos)
-                .Position;
+            _mouseWorldPos = args.ViewportControl!.PixelToMap(mousePos).Position;
 
             if (_hovered == null)
                 return;
@@ -81,7 +79,6 @@ namespace Content.Client.NodeContainer
 
             var group = _system.Groups[groupId];
             var node = _system.NodeLookup[(groupId, nodeId)];
-
 
             var xform = _entityManager.GetComponent<TransformComponent>(_entityManager.GetEntity(node.Entity));
             if (!_entityManager.TryGetComponent<MapGridComponent>(xform.GridUid, out var grid))
@@ -201,7 +198,6 @@ namespace Content.Client.NodeContainer
 
                 _nodeIndex.Clear();
             }
-
 
             handle.SetTransform(Matrix3x2.Identity);
             _gridIndex.Clear();

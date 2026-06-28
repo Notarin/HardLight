@@ -1,13 +1,14 @@
 //using Content.Shared._RMC14.Dropship;
 //using Content.Shared._RMC14.Hands;
 //using Content.Shared._RMC14.Marines;
-using Content.Shared.CM14.Xenos.Construction;
 //using Content.Shared._RMC14.Xenonids.Construction.Tunnel;
 //using Content.Shared.CM14.Xenos.Hive;
 //using Content.Shared.CM14.Xenos.Parasite;
 //using Content.Shared.CM14.Xenos.Weeds;
 using Content.Shared.Actions;
 using Content.Shared.Buckle.Components;
+using Content.Shared.CM14.Xenos;
+using Content.Shared.CM14.Xenos.Construction;
 using Content.Shared.Damage;
 using Content.Shared.Database;
 using Content.Shared.DoAfter;
@@ -29,7 +30,6 @@ using Content.Shared.StepTrigger.Systems;
 using Content.Shared.Stunnable;
 using Content.Shared.Tag;
 using Content.Shared.Verbs;
-using Content.Shared.CM14.Xenos;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
 using Robust.Shared.Map;
@@ -48,21 +48,44 @@ namespace Content.Shared.CM14.Xenonids.Egg;
 
 public sealed class XenoEggSystem : EntitySystem
 {
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfter = default!;
+
     //[Dependency] private readonly SharedXenoHiveSystem _hive = default!;
     //[Dependency] private readonly SharedXenoParasiteSystem _parasite = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly EntityManager _entities = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency]
+    private readonly SharedMapSystem _map = default!;
+
+    [Dependency]
+    private readonly MobStateSystem _mobState = default!;
+
+    [Dependency]
+    private readonly INetManager _net = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly EntityManager _entities = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
     //[Dependency] private readonly CMHandsSystem _rmcHands = default!;
-    [Dependency] private readonly TagSystem _tags = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly TurfSystem _turf = default!;
-    [Dependency] private readonly SharedUserInterfaceSystem _ui = default!;
+    [Dependency]
+    private readonly TagSystem _tags = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly TurfSystem _turf = default!;
+
+    [Dependency]
+    private readonly SharedUserInterfaceSystem _ui = default!;
 
     private static readonly ProtoId<TagPrototype> AirlockTag = "Airlock";
     private static readonly ProtoId<TagPrototype> StructureTag = "Structure";
@@ -239,7 +262,12 @@ public sealed class XenoEggSystem : EntitySystem
         if (!args.CanReach)
         {
             if (_timing.IsFirstTimePredicted)
-                _popup.PopupCoordinates(Loc.GetString("cm-xeno-cant-reach-there"), args.ClickLocation, Filter.Local(), true);
+                _popup.PopupCoordinates(
+                    Loc.GetString("cm-xeno-cant-reach-there"),
+                    args.ClickLocation,
+                    Filter.Local(),
+                    true
+                );
 
             return;
         }
@@ -259,10 +287,15 @@ public sealed class XenoEggSystem : EntitySystem
         {
             BreakOnMove = true,
             BlockDuplicate = true,
-            DuplicateCondition = DuplicateConditions.SameEvent
+            DuplicateCondition = DuplicateConditions.SameEvent,
         };
 
-        _popup.PopupPredicted(Loc.GetString("rmc-xeno-egg-plant-self"), Loc.GetString("rmc-xeno-egg-plant", ("user", args.User)), egg, args.User);
+        _popup.PopupPredicted(
+            Loc.GetString("rmc-xeno-egg-plant-self"),
+            Loc.GetString("rmc-xeno-egg-plant", ("user", args.User)),
+            egg,
+            args.User
+        );
 
         _doAfter.TryStartDoAfter(doAfter);
     }
@@ -291,8 +324,7 @@ public sealed class XenoEggSystem : EntitySystem
     private void OnXenoEggActivateInWorld(Entity<XenoEggComponent> egg, ref ActivateInWorldEvent args)
     {
         // Prevent attempt to open the egg during a UseInHand Event
-        if (!TryComp(egg.Owner, out TransformComponent? transformComp) ||
-            !transformComp.Anchored)
+        if (!TryComp(egg.Owner, out TransformComponent? transformComp) || !transformComp.Anchored)
         {
             return;
         }
@@ -443,11 +475,14 @@ public sealed class XenoEggSystem : EntitySystem
         return true;
     }*/
 
-    private bool CanPlaceEggPopup(EntityUid user, Entity<XenoEggComponent> egg, EntityCoordinates coordinates, bool handled)
+    private bool CanPlaceEggPopup(
+        EntityUid user,
+        Entity<XenoEggComponent> egg,
+        EntityCoordinates coordinates,
+        bool handled
+    )
     {
-
-        if (_transform.GetGrid(coordinates) is not { } gridId ||
-            !TryComp(gridId, out MapGridComponent? grid))
+        if (_transform.GetGrid(coordinates) is not { } gridId || !TryComp(gridId, out MapGridComponent? grid))
         {
             return false;
         }
@@ -464,8 +499,7 @@ public sealed class XenoEggSystem : EntitySystem
                 return false;
             }
 
-            if (_tags.HasAnyTag(uid.Value, StructureTag, AirlockTag) ||
-                HasComp<StrapComponent>(uid))
+            if (_tags.HasAnyTag(uid.Value, StructureTag, AirlockTag) || HasComp<StrapComponent>(uid))
             {
                 var msg = Loc.GetString("cm-xeno-egg-blocked");
                 _popup.PopupClient(msg, uid.Value, user, PopupType.SmallCaution);
@@ -661,11 +695,8 @@ public sealed class XenoEggSystem : EntitySystem
 [Serializable, NetSerializable]
 public enum XenoParasiteGhostUI
 {
-    Key
+    Key,
 }
 
 [Serializable, NetSerializable]
-public sealed class XenoParasiteGhostBuiMsg() : BoundUserInterfaceMessage
-{
-
-}
+public sealed class XenoParasiteGhostBuiMsg() : BoundUserInterfaceMessage { }

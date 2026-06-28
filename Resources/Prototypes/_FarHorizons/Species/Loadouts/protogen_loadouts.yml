@@ -39,5 +39,5 @@
 - type: loadout
   id: ProtogenTrinaryImplant
   storage:
-    autoImplant: 
+    autoImplant:
     - TrinaryImplanter

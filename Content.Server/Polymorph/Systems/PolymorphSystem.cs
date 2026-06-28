@@ -22,33 +22,70 @@ using Robust.Server.Containers;
 using Robust.Server.GameObjects;
 using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Serialization.Manager; // Starlight
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
-using Robust.Shared.Serialization.Manager; // Starlight
 
 namespace Content.Server.Polymorph.Systems;
 
 public sealed partial class PolymorphSystem : EntitySystem
 {
-    [Dependency] private readonly IComponentFactory _compFact = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly ActionsSystem _actions = default!;
-    [Dependency] private readonly AudioSystem _audio = default!;
-    [Dependency] private readonly SharedBuckleSystem _buckle = default!;
-    [Dependency] private readonly ContainerSystem _container = default!;
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly HumanoidAppearanceSystem _humanoid = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly MobThresholdSystem _mobThreshold = default!;
-    [Dependency] private readonly ServerInventorySystem _inventory = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
-    [Dependency] private readonly SharedMindSystem _mindSystem = default!;
-    [Dependency] private readonly MetaDataSystem _metaData = default!;
-    [Dependency] private readonly ISerializationManager _serialization = default!; // Starlight
+    [Dependency]
+    private readonly IComponentFactory _compFact = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _map = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
+
+    [Dependency]
+    private readonly ActionsSystem _actions = default!;
+
+    [Dependency]
+    private readonly AudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedBuckleSystem _buckle = default!;
+
+    [Dependency]
+    private readonly ContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly DamageableSystem _damageable = default!;
+
+    [Dependency]
+    private readonly HumanoidAppearanceSystem _humanoid = default!;
+
+    [Dependency]
+    private readonly MobStateSystem _mobState = default!;
+
+    [Dependency]
+    private readonly MobThresholdSystem _mobThreshold = default!;
+
+    [Dependency]
+    private readonly ServerInventorySystem _inventory = default!;
+
+    [Dependency]
+    private readonly SharedHandsSystem _hands = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly TransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly SharedMindSystem _mindSystem = default!;
+
+    [Dependency]
+    private readonly MetaDataSystem _metaData = default!;
+
+    [Dependency]
+    private readonly ISerializationManager _serialization = default!; // Starlight
 
     private const string RevertPolymorphId = "ActionRevertPolymorph";
 
@@ -86,8 +123,10 @@ public sealed partial class PolymorphSystem : EntitySystem
             if (!TryComp<MobStateComponent>(uid, out var mob))
                 continue;
 
-            if (comp.Configuration.RevertOnDeath && _mobState.IsDead(uid, mob) ||
-                comp.Configuration.RevertOnCrit && _mobState.IsIncapacitated(uid, mob))
+            if (
+                comp.Configuration.RevertOnDeath && _mobState.IsDead(uid, mob)
+                || comp.Configuration.RevertOnCrit && _mobState.IsIncapacitated(uid, mob)
+            )
             {
                 Revert((uid, comp));
             }
@@ -130,8 +169,10 @@ public sealed partial class PolymorphSystem : EntitySystem
         args.Handled = true;
     }
 
-    private void OnRevertPolymorphActionEvent(Entity<PolymorphedEntityComponent> ent,
-        ref RevertPolymorphActionEvent args)
+    private void OnRevertPolymorphActionEvent(
+        Entity<PolymorphedEntityComponent> ent,
+        ref RevertPolymorphActionEvent args
+    )
     {
         Revert((ent, ent));
     }
@@ -193,9 +234,11 @@ public sealed partial class PolymorphSystem : EntitySystem
 
         // If this polymorph has a cooldown, check if that amount of time has passed since the
         // last polymorph ended.
-        if (TryComp<PolymorphableComponent>(uid, out var polymorphableComponent) &&
-            polymorphableComponent.LastPolymorphEnd != null &&
-            _gameTiming.CurTime < polymorphableComponent.LastPolymorphEnd + configuration.Cooldown)
+        if (
+            TryComp<PolymorphableComponent>(uid, out var polymorphableComponent)
+            && polymorphableComponent.LastPolymorphEnd != null
+            && _gameTiming.CurTime < polymorphableComponent.LastPolymorphEnd + configuration.Cooldown
+        )
             return null;
 
         // mostly just for vehicles
@@ -207,13 +250,21 @@ public sealed partial class PolymorphSystem : EntitySystem
         if (configuration.PolymorphSound != null)
             _audio.PlayPvs(configuration.PolymorphSound, targetTransformComp.Coordinates);
 
-        var child = Spawn(configuration.Entity, _transform.GetMapCoordinates(uid, targetTransformComp), rotation: _transform.GetWorldRotation(uid));
+        var child = Spawn(
+            configuration.Entity,
+            _transform.GetMapCoordinates(uid, targetTransformComp),
+            rotation: _transform.GetWorldRotation(uid)
+        );
 
         if (configuration.PolymorphPopup != null)
-            _popup.PopupEntity(Loc.GetString(configuration.PolymorphPopup,
-                ("parent", Identity.Entity(uid, EntityManager)),
-                ("child", Identity.Entity(child, EntityManager))),
-                child);
+            _popup.PopupEntity(
+                Loc.GetString(
+                    configuration.PolymorphPopup,
+                    ("parent", Identity.Entity(uid, EntityManager)),
+                    ("child", Identity.Entity(child, EntityManager))
+                ),
+                child
+            );
 
         _mindSystem.MakeSentient(child);
 
@@ -221,8 +272,10 @@ public sealed partial class PolymorphSystem : EntitySystem
         // Copy specified components over
         foreach (var compName in configuration.CopiedComponents)
         {
-            if (!_compFact.TryGetRegistration(compName, out var reg)
-                || !EntityManager.TryGetComponent(uid, reg.Idx, out var comp))
+            if (
+                !_compFact.TryGetRegistration(compName, out var reg)
+                || !EntityManager.TryGetComponent(uid, reg.Idx, out var comp)
+            )
                 continue;
 
             var copy = _serialization.CreateCopy(comp, notNullableOverride: true);
@@ -234,14 +287,14 @@ public sealed partial class PolymorphSystem : EntitySystem
         var polymorphedComp = _compFact.GetComponent<PolymorphedEntityComponent>();
         polymorphedComp.Parent = uid;
         polymorphedComp.Configuration = configuration;
-		// //#region Starlight
+        // //#region Starlight
         // if (HasComp<UncryoableComponent>(uid))
         // {
-            // polymorphedComp.HadUncryoable = true;
+        // polymorphedComp.HadUncryoable = true;
         // }
         // else
         // {
-            // EnsureComp<UncryoableComponent>(uid);
+        // EnsureComp<UncryoableComponent>(uid);
         // }
         // //#endregion Starlight
         AddComp(child, polymorphedComp);
@@ -253,10 +306,12 @@ public sealed partial class PolymorphSystem : EntitySystem
             _container.Insert(child, cont);
 
         //Transfers all damage from the original to the new one
-        if (configuration.TransferDamage &&
-            TryComp<DamageableComponent>(child, out var damageParent) &&
-            _mobThreshold.GetScaledDamage(uid, child, out var damage) &&
-            damage != null)
+        if (
+            configuration.TransferDamage
+            && TryComp<DamageableComponent>(child, out var damageParent)
+            && _mobThreshold.GetScaledDamage(uid, child, out var damage)
+            && damage != null
+        )
         {
             _damageable.SetDamage(child, damageParent, damage);
         }
@@ -340,10 +395,12 @@ public sealed partial class PolymorphSystem : EntitySystem
         _transform.SetParent(parent, parentXform, uidXform.ParentUid);
         _transform.SetCoordinates(parent, parentXform, uidXform.Coordinates, uidXform.LocalRotation);
 
-        if (component.Configuration.TransferDamage &&
-            TryComp<DamageableComponent>(parent, out var damageParent) &&
-            _mobThreshold.GetScaledDamage(uid, parent, out var damage) &&
-            damage != null)
+        if (
+            component.Configuration.TransferDamage
+            && TryComp<DamageableComponent>(parent, out var damageParent)
+            && _mobThreshold.GetScaledDamage(uid, parent, out var damage)
+            && damage != null
+        )
         {
             _damageable.SetDamage(parent, damageParent, damage);
         }
@@ -379,7 +436,7 @@ public sealed partial class PolymorphSystem : EntitySystem
         // //#region Starlight
         // if (!component.HadUncryoable)
         // {
-            // RemComp<UncryoableComponent>(parent);
+        // RemComp<UncryoableComponent>(parent);
         // }
         // //#endregion Starlight
 
@@ -398,10 +455,14 @@ public sealed partial class PolymorphSystem : EntitySystem
             SpawnAttachedTo(component.Configuration.EffectProto, parent.ToCoordinates());
 
         if (component.Configuration.ExitPolymorphPopup != null)
-            _popup.PopupEntity(Loc.GetString(component.Configuration.ExitPolymorphPopup,
-                ("parent", Identity.Entity(uid, EntityManager)),
-                ("child", Identity.Entity(parent, EntityManager))),
-                parent);
+            _popup.PopupEntity(
+                Loc.GetString(
+                    component.Configuration.ExitPolymorphPopup,
+                    ("parent", Identity.Entity(uid, EntityManager)),
+                    ("child", Identity.Entity(parent, EntityManager))
+                ),
+                parent
+            );
         QueueDel(uid);
 
         return parent;
@@ -430,8 +491,16 @@ public sealed partial class PolymorphSystem : EntitySystem
         target.Comp.PolymorphActions.Add(id, actionId.Value);
 
         var metaDataCache = MetaData(actionId.Value);
-        _metaData.SetEntityName(actionId.Value, Loc.GetString("polymorph-self-action-name", ("target", entProto.Name)), metaDataCache);
-        _metaData.SetEntityDescription(actionId.Value, Loc.GetString("polymorph-self-action-description", ("target", entProto.Name)), metaDataCache);
+        _metaData.SetEntityName(
+            actionId.Value,
+            Loc.GetString("polymorph-self-action-name", ("target", entProto.Name)),
+            metaDataCache
+        );
+        _metaData.SetEntityDescription(
+            actionId.Value,
+            Loc.GetString("polymorph-self-action-description", ("target", entProto.Name)),
+            metaDataCache
+        );
 
         if (!_actions.TryGetActionData(actionId, out var baseAction))
             return;

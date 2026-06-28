@@ -3,7 +3,7 @@
 
 - type: entity
   id: MachineOrganHarvester
-  parent: [ ConstructibleMachine, BaseMachinePowered ]
+  parent: [ConstructibleMachine, BaseMachinePowered]
   name: organ harvester
   description: It uses an eerily familiar mechanism to do the dirty work for you. Wouldn't wanna be on the wrong side of that, no way no how. Due to... experimental choices of the design team, or lack there-of, it absolutely decimates the body of the 'patient'.
   components:
@@ -32,8 +32,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.45
         density: 50
         mask:
@@ -51,8 +50,8 @@
           False: {state: piston}
       enum.PowerDeviceVisuals.Powered:
         enum.PowerDeviceVisualLayers.Powered:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
   - type: EntityStorageVisuals
     stateDoorClosed: door-closed
     openDrawDepth: 0

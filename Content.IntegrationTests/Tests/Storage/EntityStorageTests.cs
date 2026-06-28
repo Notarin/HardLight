@@ -9,7 +9,8 @@ namespace Content.IntegrationTests.Tests.Storage;
 public sealed class EntityStorageTests
 {
     [TestPrototypes]
-    private const string Prototypes = @"
+    private const string Prototypes =
+        @"
 - type: entity
   id: EntityStorageTest
   name: box

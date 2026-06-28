@@ -1,20 +1,20 @@
 ﻿using Content.Server.Body.Systems;
 using Content.Server.Kitchen.Components;
 using Content.Server.Nutrition.EntitySystems;
-using Content.Shared.Body.Components;
 using Content.Shared.Administration.Logs;
+using Content.Shared.Body.Components;
 using Content.Shared.Database;
+using Content.Shared.Destructible;
+using Content.Shared.DoAfter;
+using Content.Shared.Hands.Components;
 using Content.Shared.Interaction;
+using Content.Shared.Kitchen;
+using Content.Shared.Mobs.Components;
+using Content.Shared.Mobs.Systems;
 using Content.Shared.Nutrition.Components;
 using Content.Shared.Popups;
 using Content.Shared.Storage;
 using Content.Shared.Verbs;
-using Content.Shared.Destructible;
-using Content.Shared.DoAfter;
-using Content.Shared.Hands.Components;
-using Content.Shared.Kitchen;
-using Content.Shared.Mobs.Components;
-using Content.Shared.Mobs.Systems;
 using Robust.Server.Containers;
 using Robust.Server.GameObjects;
 using Robust.Shared.Random;
@@ -24,15 +24,32 @@ namespace Content.Server.Kitchen.EntitySystems;
 
 public sealed class SharpSystem : EntitySystem
 {
-    [Dependency] private readonly BodySystem _bodySystem = default!;
-    [Dependency] private readonly SharedDestructibleSystem _destructibleSystem = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly ContainerSystem _containerSystem = default!;
-    [Dependency] private readonly MobStateSystem _mobStateSystem = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
-    [Dependency] private readonly IRobustRandom _robustRandom = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
+    [Dependency]
+    private readonly BodySystem _bodySystem = default!;
+
+    [Dependency]
+    private readonly SharedDestructibleSystem _destructibleSystem = default!;
+
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfterSystem = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly ContainerSystem _containerSystem = default!;
+
+    [Dependency]
+    private readonly MobStateSystem _mobStateSystem = default!;
+
+    [Dependency]
+    private readonly TransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _robustRandom = default!;
+
+    [Dependency]
+    private readonly ISharedAdminLogManager _adminLogger = default!;
 
     public override void Initialize()
     {
@@ -78,13 +95,20 @@ public sealed class SharpSystem : EntitySystem
         // so that the doafter can be interrupted if they drop the item in their hands
         var needHand = user != knife;
 
-        var doAfter =
-            new DoAfterArgs(EntityManager, user, sharp.ButcherDelayModifier * butcher.ButcherDelay, new SharpDoAfterEvent(), knife, target: target, used: knife)
-            {
-                BreakOnDamage = true,
-                BreakOnMove = true,
-                NeedHand = needHand,
-            };
+        var doAfter = new DoAfterArgs(
+            EntityManager,
+            user,
+            sharp.ButcherDelayModifier * butcher.ButcherDelay,
+            new SharpDoAfterEvent(),
+            knife,
+            target: target,
+            used: knife
+        )
+        {
+            BreakOnDamage = true,
+            BreakOnMove = true,
+            NeedHand = needHand,
+        };
         _doAfterSystem.TryStartDoAfter(doAfter);
         return true;
     }
@@ -124,8 +148,12 @@ public sealed class SharpSystem : EntitySystem
         if (hasBody)
             popupType = PopupType.LargeCaution;
 
-        _popupSystem.PopupEntity(Loc.GetString("butcherable-knife-butchered-success", ("target", args.Args.Target.Value), ("knife", uid)),
-            popupEnt, args.Args.User, popupType);
+        _popupSystem.PopupEntity(
+            Loc.GetString("butcherable-knife-butchered-success", ("target", args.Args.Target.Value), ("knife", uid)),
+            popupEnt,
+            args.Args.User,
+            popupType
+        );
 
         if (hasBody)
             _bodySystem.GibBody(args.Args.Target.Value, body: body);
@@ -134,13 +162,19 @@ public sealed class SharpSystem : EntitySystem
 
         args.Handled = true;
 
-        _adminLogger.Add(LogType.Gib,
-            $"{EntityManager.ToPrettyString(args.User):user} " +
-            $"has butchered {EntityManager.ToPrettyString(args.Target):target} " +
-            $"with {EntityManager.ToPrettyString(args.Used):knife}");
+        _adminLogger.Add(
+            LogType.Gib,
+            $"{EntityManager.ToPrettyString(args.User):user} "
+                + $"has butchered {EntityManager.ToPrettyString(args.Target):target} "
+                + $"with {EntityManager.ToPrettyString(args.Used):knife}"
+        );
     }
 
-    private void OnGetInteractionVerbs(EntityUid uid, ButcherableComponent component, GetVerbsEvent<InteractionVerb> args)
+    private void OnGetInteractionVerbs(
+        EntityUid uid,
+        ButcherableComponent component,
+        GetVerbsEvent<InteractionVerb> args
+    )
     {
         if (component.Type != ButcheringType.Knife || !args.CanAccess || !args.CanInteract)
             return;
@@ -158,14 +192,12 @@ public sealed class SharpSystem : EntitySystem
         if (!TryComp<SharpComponent>(args.Using, out var usingSharpComp) && args.Hands != null)
         {
             disabled = true;
-            message = Loc.GetString("butcherable-need-knife",
-                ("target", uid));
+            message = Loc.GetString("butcherable-need-knife", ("target", uid));
         }
         else if (_containerSystem.IsEntityInContainer(uid))
         {
             disabled = true;
-            message = Loc.GetString("butcherable-not-in-container",
-                ("target", uid));
+            message = Loc.GetString("butcherable-not-in-container", ("target", uid));
         }
         else if (TryComp<MobStateComponent>(uid, out var state) && !_mobStateSystem.IsDead(uid, state))
         {
@@ -190,7 +222,7 @@ public sealed class SharpSystem : EntitySystem
             },
             Message = message,
             Disabled = disabled,
-            Icon = new SpriteSpecifier.Texture(new ("/Textures/Interface/VerbIcons/cutlery.svg.192dpi.png")),
+            Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/cutlery.svg.192dpi.png")),
             Text = Loc.GetString("butcherable-verb-name"),
         };
 

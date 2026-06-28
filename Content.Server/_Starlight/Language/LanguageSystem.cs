@@ -14,11 +14,15 @@ public sealed partial class LanguageSystem : SharedLanguageSystem
         base.Initialize();
 
         SubscribeLocalEvent<LanguageSpeakerComponent, MapInitEvent>(OnInitLanguageSpeaker);
-        SubscribeLocalEvent<UniversalLanguageSpeakerComponent, DetermineEntityLanguagesEvent>(OnDetermineUniversalLanguages);
+        SubscribeLocalEvent<UniversalLanguageSpeakerComponent, DetermineEntityLanguagesEvent>(
+            OnDetermineUniversalLanguages
+        );
         SubscribeNetworkEvent<LanguagesSetMessage>(OnClientSetLanguage);
 
         SubscribeLocalEvent<UniversalLanguageSpeakerComponent, MapInitEvent>((uid, _, _) => UpdateEntityLanguages(uid));
-        SubscribeLocalEvent<UniversalLanguageSpeakerComponent, ComponentRemove>((uid, _, _) => UpdateEntityLanguages(uid));
+        SubscribeLocalEvent<UniversalLanguageSpeakerComponent, ComponentRemove>(
+            (uid, _, _) => UpdateEntityLanguages(uid)
+        );
     }
 
     #region event handling
@@ -31,7 +35,10 @@ public sealed partial class LanguageSystem : SharedLanguageSystem
         UpdateEntityLanguages(ent!);
     }
 
-    private void OnDetermineUniversalLanguages(Entity<UniversalLanguageSpeakerComponent> entity, ref DetermineEntityLanguagesEvent ev)
+    private void OnDetermineUniversalLanguages(
+        Entity<UniversalLanguageSpeakerComponent> entity,
+        ref DetermineEntityLanguagesEvent ev
+    )
     {
         ev.SpokenLanguages.Add(UniversalPrototype);
     }

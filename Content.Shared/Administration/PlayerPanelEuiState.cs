@@ -16,8 +16,8 @@ public sealed class PlayerPanelEuiState(
     bool? whitelisted,
     bool canFreeze,
     bool frozen,
-    bool canAhelp)
-    : EuiStateBase
+    bool canAhelp
+) : EuiStateBase
 {
     public readonly NetUserId Guid = guid;
     public readonly string Username = username;
@@ -31,7 +31,6 @@ public sealed class PlayerPanelEuiState(
     public readonly bool Frozen = frozen;
     public readonly bool CanAhelp = canAhelp;
 }
-
 
 [Serializable, NetSerializable]
 public sealed class PlayerPanelFreezeMessage : EuiMessageBase
@@ -51,7 +50,7 @@ public sealed class PlayerPanelLogsMessage : EuiMessageBase;
 public sealed class PlayerPanelDeleteMessage : EuiMessageBase;
 
 [Serializable, NetSerializable]
-public sealed class PlayerPanelRejuvenationMessage: EuiMessageBase;
+public sealed class PlayerPanelRejuvenationMessage : EuiMessageBase;
 
 [Serializable, NetSerializable]
-public sealed class PlayerPanelFollowMessage: EuiMessageBase;
+public sealed class PlayerPanelFollowMessage : EuiMessageBase;

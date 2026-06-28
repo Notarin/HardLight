@@ -16,15 +16,21 @@ namespace Content.Server._NF.Commands;
 [AdminCommand(AdminFlags.Admin)]
 public sealed class SpawnRefundCommand : IConsoleCommand
 {
-    [Dependency] private readonly IEntityManager _entityManager = default!;
-    [Dependency] private readonly IEntitySystemManager _entity = default!;
-    [Dependency] private readonly IAdminLogManager _adminLog = default!;
+    [Dependency]
+    private readonly IEntityManager _entityManager = default!;
+
+    [Dependency]
+    private readonly IEntitySystemManager _entity = default!;
+
+    [Dependency]
+    private readonly IAdminLogManager _adminLog = default!;
 
     private static readonly EntProtoId CashPrototypeId = "SpaceCash";
 
     public string Command => "spawnrefund";
 
-    public string Description => "Spawns an exact number of spesos to be given as a refund. You must be a ghost with a free hand.";
+    public string Description =>
+        "Spawns an exact number of spesos to be given as a refund. You must be a ghost with a free hand.";
 
     public string Help => $"${Command} <amount> [reason]";
 
@@ -74,13 +80,18 @@ public sealed class SpawnRefundCommand : IConsoleCommand
         if (!_entity.GetEntitySystem<HandsSystem>().TryPickupAnyHand(uid, refund))
         {
             shell.WriteError("You must have an empty hand");
-            _entity.GetEntitySystem<PopupSystem>().PopupEntity("You must have an empty hand", uid, player, PopupType.MediumCaution);
+            _entity
+                .GetEntitySystem<PopupSystem>()
+                .PopupEntity("You must have an empty hand", uid, player, PopupType.MediumCaution);
             _entityManager.DeleteEntity(refund);
             return;
         }
 
-        _adminLog.Add(LogType.AdminRefund, LogImpact.Medium,
-            $"{_entityManager.ToPrettyString(uid)} spawned a refund of {amount} spesos, {_entityManager.ToPrettyString(refund)}. Reason: {reason}");
+        _adminLog.Add(
+            LogType.AdminRefund,
+            LogImpact.Medium,
+            $"{_entityManager.ToPrettyString(uid)} spawned a refund of {amount} spesos, {_entityManager.ToPrettyString(refund)}. Reason: {reason}"
+        );
         shell.WriteLine($"Spawned a refund of {amount} spesos");
     }
 }

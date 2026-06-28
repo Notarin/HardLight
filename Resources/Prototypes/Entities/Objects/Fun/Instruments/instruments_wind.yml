@@ -27,8 +27,8 @@
     solutions:
       sax:
         reagents:
-          - ReagentId: Saxoite
-            Quantity: 10
+        - ReagentId: Saxoite
+          Quantity: 10
 
 - type: entity
   parent: BaseHandheldInstrument
@@ -70,7 +70,7 @@
     slots:
     - neck
   - type: ActivatableUI
-    inHandsOnly: false  
+    inHandsOnly: false
   - type: Tag
     tags:
     - WoodwindInstrument

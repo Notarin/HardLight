@@ -1,7 +1,7 @@
 - type: entity
   id: VinylPlayer
   name: vinyl player
-  parent: [ BaseMachinePowered, SmallConstructibleMachine ]
+  parent: [BaseMachinePowered, SmallConstructibleMachine]
   description: An old school vinyl record player sat on a set of drawers.
   components:
   - type: Sprite
@@ -12,15 +12,14 @@
     - state: icon
     - state: unlit
       shader: unshaded
-      map: [ "enum.PowerDeviceVisualLayers.Powered" ]
+      map: ["enum.PowerDeviceVisualLayers.Powered"]
     - state: panel
       map: ["enum.WiresVisualLayers.MaintenancePanel"]
     drawdepth: SmallObjects
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.10,-0.10,0.10,0.10"
         density: 500
         mask:
@@ -29,15 +28,14 @@
         - BulletImpassable
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 200
       behaviors:
       - !type:PlaySoundBehavior
         sound:
           collection: MetalGlassBreak
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: Appearance
   - type: WiresPanel
   - type: WiresVisuals
@@ -73,9 +71,9 @@
     visuals:
       enum.WiresVisualLayers.MaintenancePanel:
         enum.WiresVisualLayers.MaintenancePanel:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
       enum.PowerDeviceVisuals.Powered:
         enum.PowerDeviceVisualLayers.Powered:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}

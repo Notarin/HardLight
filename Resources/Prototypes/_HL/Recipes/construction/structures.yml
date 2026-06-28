@@ -9,7 +9,7 @@
   canRotate: false
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: WallPlastitaniumDiagonal
@@ -22,7 +22,7 @@
   canRotate: true
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: PlastitaniumWindow
@@ -35,8 +35,8 @@
   canRotate: false
   canBuildInImpassable: true
   conditions:
-    - !type:EmptyOrWindowValidInTile
-    - !type:NoWindowsInTile
+  - !type:EmptyOrWindowValidInTile
+  - !type:NoWindowsInTile
 
 - type: construction
   id: PlastitaniumWindowDiagonal
@@ -49,8 +49,8 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:EmptyOrWindowValidInTile
-    - !type:NoWindowsInTile
+  - !type:EmptyOrWindowValidInTile
+  - !type:NoWindowsInTile
 
 - type: construction
   id: GaslockHighFlow

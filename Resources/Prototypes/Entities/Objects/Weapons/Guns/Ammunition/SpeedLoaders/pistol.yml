@@ -1,17 +1,17 @@
 - type: entity
   id: BaseSpeedLoaderPistol
   name: "speed loader (.35 auto)"
-  parent: [ BaseItem, BaseC1Contraband ] # Frontier: BaseSecurityContraband<BaseC1Contraband
+  parent: [BaseItem, BaseC1Contraband] # Frontier: BaseSecurityContraband<BaseC1Contraband
   abstract: true
   components:
   - type: Tag
     tags:
-      - SpeedLoaderPistol
+    - SpeedLoaderPistol
   - type: SpeedLoader
   - type: BallisticAmmoProvider
     whitelist:
       tags:
-        - CartridgePistol
+      - CartridgePistol
     capacity: 6
   - type: Sprite
     sprite: Objects/Weapons/Guns/Ammunition/SpeedLoaders/Pistol/pistol_speed_loader.rsi
@@ -21,7 +21,7 @@
         ents: []
 
 - type: entity
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   id: SpeedLoaderPistol
   name: "speed loader (.35 auto)"
   parent: BaseSpeedLoaderPistol
@@ -41,7 +41,7 @@
   - type: Appearance
 
 - type: entity
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   id: SpeedLoaderPistolPractice
   name: "speed loader (.35 auto practice)"
   parent: BaseSpeedLoaderPistol

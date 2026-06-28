@@ -40,8 +40,11 @@ public sealed class CrawlUnderObjectsRegressionTest
 
             var comp = entMan.GetComponent<CrawlUnderObjectsComponent>(mob);
             var shouldInflateBaseline = !MathHelper.CloseTo(comp.UnsqueezedRadiusScale, 1f);
-            Assert.That(comp.BaselineInflationApplied, Is.EqualTo(shouldInflateBaseline),
-                "Baseline inflation flag should match whether unsqueezed scaling is configured.");
+            Assert.That(
+                comp.BaselineInflationApplied,
+                Is.EqualTo(shouldInflateBaseline),
+                "Baseline inflation flag should match whether unsqueezed scaling is configured."
+            );
         });
 
         await server.WaitPost(() =>
@@ -72,7 +75,11 @@ public sealed class CrawlUnderObjectsRegressionTest
             Assert.That(restored.Count, Is.EqualTo(baseline.Count));
             foreach (var (key, expected) in baseline)
             {
-                Assert.That(restored.TryGetValue(key, out var actual), Is.True, $"Missing fixture '{key}' after restore.");
+                Assert.That(
+                    restored.TryGetValue(key, out var actual),
+                    Is.True,
+                    $"Missing fixture '{key}' after restore."
+                );
                 AssertFixtureEqual(expected, actual, key);
             }
         });
@@ -87,8 +94,11 @@ public sealed class CrawlUnderObjectsRegressionTest
         {
             var fixtures = entMan.GetComponent<FixturesComponent>(mob);
             var downed = Snapshot(fixtures);
-            Assert.That(AnyFixtureChanged(baseline, downed), Is.True,
-                "Downed scaling should change at least one fixture compared to baseline.");
+            Assert.That(
+                AnyFixtureChanged(baseline, downed),
+                Is.True,
+                "Downed scaling should change at least one fixture compared to baseline."
+            );
         });
 
         // Enabling squeeze while standing should be cleared when going down.
@@ -96,7 +106,11 @@ public sealed class CrawlUnderObjectsRegressionTest
         {
             Assert.That(standing.Stand(mob, force: true), Is.True, "Failed to stand before downed reset check.");
             var comp = entMan.GetComponent<CrawlUnderObjectsComponent>(mob);
-            Assert.That(crawl.TrySetEnabled((mob, comp), true), Is.True, "Failed to enable squeeze before downed reset check.");
+            Assert.That(
+                crawl.TrySetEnabled((mob, comp), true),
+                Is.True,
+                "Failed to enable squeeze before downed reset check."
+            );
             Assert.That(standing.Down(mob), Is.True, "Failed to enter downed state for squeeze reset check.");
         });
 
@@ -119,7 +133,11 @@ public sealed class CrawlUnderObjectsRegressionTest
             Assert.That(restored.Count, Is.EqualTo(baseline.Count));
             foreach (var (key, expected) in baseline)
             {
-                Assert.That(restored.TryGetValue(key, out var actual), Is.True, $"Missing fixture '{key}' after downed cycle.");
+                Assert.That(
+                    restored.TryGetValue(key, out var actual),
+                    Is.True,
+                    $"Missing fixture '{key}' after downed cycle."
+                );
                 AssertFixtureEqual(expected, actual, key);
             }
         });
@@ -130,8 +148,16 @@ public sealed class CrawlUnderObjectsRegressionTest
             var comp = entMan.GetComponent<CrawlUnderObjectsComponent>(mob);
             for (var i = 0; i < 10; i++)
             {
-                Assert.That(crawl.TrySetEnabled((mob, comp), true), Is.True, $"Failed to enable squeeze at iteration {i}.");
-                Assert.That(crawl.TrySetEnabled((mob, comp), false), Is.True, $"Failed to disable squeeze at iteration {i}.");
+                Assert.That(
+                    crawl.TrySetEnabled((mob, comp), true),
+                    Is.True,
+                    $"Failed to enable squeeze at iteration {i}."
+                );
+                Assert.That(
+                    crawl.TrySetEnabled((mob, comp), false),
+                    Is.True,
+                    $"Failed to disable squeeze at iteration {i}."
+                );
             }
         });
 
@@ -143,7 +169,11 @@ public sealed class CrawlUnderObjectsRegressionTest
             Assert.That(restored.Count, Is.EqualTo(baseline.Count));
             foreach (var (key, expected) in baseline)
             {
-                Assert.That(restored.TryGetValue(key, out var actual), Is.True, $"Missing fixture '{key}' after repeated toggles.");
+                Assert.That(
+                    restored.TryGetValue(key, out var actual),
+                    Is.True,
+                    $"Missing fixture '{key}' after repeated toggles."
+                );
                 AssertFixtureEqual(expected, actual, key);
             }
         });
@@ -169,7 +199,10 @@ public sealed class CrawlUnderObjectsRegressionTest
         return result;
     }
 
-    private static bool AnyFixtureChanged(Dictionary<string, FixtureState> baseline, Dictionary<string, FixtureState> current)
+    private static bool AnyFixtureChanged(
+        Dictionary<string, FixtureState> baseline,
+        Dictionary<string, FixtureState> current
+    )
     {
         foreach (var (key, expected) in baseline)
         {
@@ -207,9 +240,21 @@ public sealed class CrawlUnderObjectsRegressionTest
         if (!expected.IsCircle)
             return;
 
-        Assert.That(actual.Position.X, Is.EqualTo(expected.Position.X).Within(Epsilon), $"Fixture '{fixtureKey}' X position drifted.");
-        Assert.That(actual.Position.Y, Is.EqualTo(expected.Position.Y).Within(Epsilon), $"Fixture '{fixtureKey}' Y position drifted.");
-        Assert.That(actual.Radius, Is.EqualTo(expected.Radius).Within(Epsilon), $"Fixture '{fixtureKey}' radius drifted.");
+        Assert.That(
+            actual.Position.X,
+            Is.EqualTo(expected.Position.X).Within(Epsilon),
+            $"Fixture '{fixtureKey}' X position drifted."
+        );
+        Assert.That(
+            actual.Position.Y,
+            Is.EqualTo(expected.Position.Y).Within(Epsilon),
+            $"Fixture '{fixtureKey}' Y position drifted."
+        );
+        Assert.That(
+            actual.Radius,
+            Is.EqualTo(expected.Radius).Within(Epsilon),
+            $"Fixture '{fixtureKey}' radius drifted."
+        );
     }
 
     private static bool NearlyEqual(float a, float b)

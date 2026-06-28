@@ -13,10 +13,17 @@ namespace Content.Shared.Parallax.Biomes;
 
 public abstract class SharedBiomeSystem : EntitySystem
 {
-    [Dependency] protected readonly IPrototypeManager ProtoManager = default!;
-    [Dependency] private readonly ISerializationManager _serManager = default!;
-    [Dependency] protected readonly ITileDefinitionManager TileDefManager = default!;
-    [Dependency] private readonly TileSystem _tile = default!;
+    [Dependency]
+    protected readonly IPrototypeManager ProtoManager = default!;
+
+    [Dependency]
+    private readonly ISerializationManager _serManager = default!;
+
+    [Dependency]
+    protected readonly ITileDefinitionManager TileDefManager = default!;
+
+    [Dependency]
+    private readonly TileSystem _tile = default!;
 
     protected const byte ChunkSize = 8;
 
@@ -67,7 +74,12 @@ public abstract class SharedBiomeSystem : EntitySystem
         throw new ArgumentOutOfRangeException();
     }
 
-    public bool TryGetBiomeTile(EntityUid uid, MapGridComponent grid, Vector2i indices, [NotNullWhen(true)] out Tile? tile)
+    public bool TryGetBiomeTile(
+        EntityUid uid,
+        MapGridComponent grid,
+        Vector2i indices,
+        [NotNullWhen(true)] out Tile? tile
+    )
     {
         if (grid.TryGetTileRef(indices, out var tileRef) && !tileRef.Tile.IsEmpty)
         {
@@ -87,7 +99,13 @@ public abstract class SharedBiomeSystem : EntitySystem
     /// <summary>
     /// Tries to get the tile, real or otherwise, for the specified indices.
     /// </summary>
-    public bool TryGetBiomeTile(Vector2i indices, List<IBiomeLayer> layers, int seed, MapGridComponent? grid, [NotNullWhen(true)] out Tile? tile)
+    public bool TryGetBiomeTile(
+        Vector2i indices,
+        List<IBiomeLayer> layers,
+        int seed,
+        MapGridComponent? grid,
+        [NotNullWhen(true)] out Tile? tile
+    )
     {
         if (grid?.TryGetTileRef(indices, out var tileRef) == true && !tileRef.Tile.IsEmpty)
         {
@@ -101,7 +119,13 @@ public abstract class SharedBiomeSystem : EntitySystem
     /// <summary>
     /// Gets the underlying biome tile, ignoring any existing tile that may be there.
     /// </summary>
-    public bool TryGetTile(Vector2i indices, List<IBiomeLayer> layers, int seed, MapGridComponent? grid, [NotNullWhen(true)] out Tile? tile)
+    public bool TryGetTile(
+        Vector2i indices,
+        List<IBiomeLayer> layers,
+        int seed,
+        MapGridComponent? grid,
+        [NotNullWhen(true)] out Tile? tile
+    )
     {
         for (var i = layers.Count - 1; i >= 0; i--)
         {
@@ -118,7 +142,15 @@ public abstract class SharedBiomeSystem : EntitySystem
             // Check if the tile is from meta layer, otherwise fall back to default layers.
             if (layer is BiomeMetaLayer meta)
             {
-                if (TryGetBiomeTile(indices, ProtoManager.Index<BiomeTemplatePrototype>(meta.Template).Layers, seed, grid, out tile))
+                if (
+                    TryGetBiomeTile(
+                        indices,
+                        ProtoManager.Index<BiomeTemplatePrototype>(meta.Template).Layers,
+                        seed,
+                        grid,
+                        out tile
+                    )
+                )
                 {
                     return true;
                 }
@@ -129,7 +161,17 @@ public abstract class SharedBiomeSystem : EntitySystem
             if (layer is not BiomeTileLayer tileLayer)
                 continue;
 
-            if (TryGetTile(indices, noiseCopy, tileLayer.Invert, tileLayer.Threshold, ProtoManager.Index(tileLayer.Tile), tileLayer.Variants, out tile))
+            if (
+                TryGetTile(
+                    indices,
+                    noiseCopy,
+                    tileLayer.Invert,
+                    tileLayer.Threshold,
+                    ProtoManager.Index(tileLayer.Tile),
+                    tileLayer.Variants,
+                    out tile
+                )
+            )
             {
                 return true;
             }
@@ -142,7 +184,15 @@ public abstract class SharedBiomeSystem : EntitySystem
     /// <summary>
     /// Gets the underlying biome tile, ignoring any existing tile that may be there.
     /// </summary>
-    private bool TryGetTile(Vector2i indices, FastNoiseLite noise, bool invert, float threshold, ContentTileDefinition tileDef, List<byte>? variants, [NotNullWhen(true)] out Tile? tile)
+    private bool TryGetTile(
+        Vector2i indices,
+        FastNoiseLite noise,
+        bool invert,
+        float threshold,
+        ContentTileDefinition tileDef,
+        List<byte>? variants,
+        [NotNullWhen(true)] out Tile? tile
+    )
     {
         var found = noise.GetNoise(indices.X, indices.Y);
         found = invert ? found * -1 : found;
@@ -160,7 +210,7 @@ public abstract class SharedBiomeSystem : EntitySystem
         if (variantCount > 1)
         {
             var variantValue = (noise.GetNoise(indices.X * 8, indices.Y * 8, variantCount) + 1f) * 100;
-            variant = _tile.PickVariant(tileDef, (int) variantValue);
+            variant = _tile.PickVariant(tileDef, (int)variantValue);
         }
 
         tile = new Tile(tileDef.TileId, variant);
@@ -170,8 +220,12 @@ public abstract class SharedBiomeSystem : EntitySystem
     /// <summary>
     /// Tries to get the relevant entity for this tile.
     /// </summary>
-    public bool TryGetEntity(Vector2i indices, BiomeComponent component, MapGridComponent grid,
-        [NotNullWhen(true)] out string? entity)
+    public bool TryGetEntity(
+        Vector2i indices,
+        BiomeComponent component,
+        MapGridComponent grid,
+        [NotNullWhen(true)] out string? entity
+    )
     {
         if (!TryGetBiomeTile(indices, component.Layers, component.Seed, grid, out var tile))
         {
@@ -182,9 +236,14 @@ public abstract class SharedBiomeSystem : EntitySystem
         return TryGetEntity(indices, component.Layers, tile.Value, component.Seed, grid, out entity);
     }
 
-
-    public bool TryGetEntity(Vector2i indices, List<IBiomeLayer> layers, Tile tileRef, int seed, MapGridComponent grid,
-        [NotNullWhen(true)] out string? entity)
+    public bool TryGetEntity(
+        Vector2i indices,
+        List<IBiomeLayer> layers,
+        Tile tileRef,
+        int seed,
+        MapGridComponent grid,
+        [NotNullWhen(true)] out string? entity
+    )
     {
         var tileId = TileDefManager[tileRef.TypeId].ID;
 
@@ -218,7 +277,16 @@ public abstract class SharedBiomeSystem : EntitySystem
 
             if (layer is BiomeMetaLayer meta)
             {
-                if (TryGetEntity(indices, ProtoManager.Index<BiomeTemplatePrototype>(meta.Template).Layers, tileRef, seed, grid, out entity))
+                if (
+                    TryGetEntity(
+                        indices,
+                        ProtoManager.Index<BiomeTemplatePrototype>(meta.Template).Layers,
+                        tileRef,
+                        seed,
+                        grid,
+                        out entity
+                    )
+                )
                 {
                     return true;
                 }
@@ -245,8 +313,13 @@ public abstract class SharedBiomeSystem : EntitySystem
     /// <summary>
     /// Tries to get the relevant decals for this tile.
     /// </summary>
-    public bool TryGetDecals(Vector2i indices, List<IBiomeLayer> layers, int seed, MapGridComponent grid,
-        [NotNullWhen(true)] out List<(string ID, Vector2 Position)>? decals)
+    public bool TryGetDecals(
+        Vector2i indices,
+        List<IBiomeLayer> layers,
+        int seed,
+        MapGridComponent grid,
+        [NotNullWhen(true)] out List<(string ID, Vector2 Position)>? decals
+    )
     {
         if (!TryGetBiomeTile(indices, layers, seed, grid, out var tileRef))
         {
@@ -286,7 +359,15 @@ public abstract class SharedBiomeSystem : EntitySystem
 
             if (layer is BiomeMetaLayer meta)
             {
-                if (TryGetDecals(indices, ProtoManager.Index<BiomeTemplatePrototype>(meta.Template).Layers, seed, grid, out decals))
+                if (
+                    TryGetDecals(
+                        indices,
+                        ProtoManager.Index<BiomeTemplatePrototype>(meta.Template).Layers,
+                        seed,
+                        grid,
+                        out decals
+                    )
+                )
                 {
                     return true;
                 }
@@ -307,14 +388,25 @@ public abstract class SharedBiomeSystem : EntitySystem
             {
                 for (var y = 0; y < decalLayer.Divisions; y++)
                 {
-                    var index = new Vector2(indices.X + x * 1f / decalLayer.Divisions, indices.Y + y * 1f / decalLayer.Divisions);
+                    var index = new Vector2(
+                        indices.X + x * 1f / decalLayer.Divisions,
+                        indices.Y + y * 1f / decalLayer.Divisions
+                    );
                     var decalValue = noiseCopy.GetNoise(index.X, index.Y);
                     decalValue = invert ? decalValue * -1 : decalValue;
 
                     if (decalValue < decalLayer.Threshold)
                         continue;
 
-                    decals.Add((Pick(decalLayer.Decals, (noiseCopy.GetNoise(indices.X, indices.Y, x + y * decalLayer.Divisions) + 1f) / 2f), index));
+                    decals.Add(
+                        (
+                            Pick(
+                                decalLayer.Decals,
+                                (noiseCopy.GetNoise(indices.X, indices.Y, x + y * decalLayer.Divisions) + 1f) / 2f
+                            ),
+                            index
+                        )
+                    );
                 }
             }
 

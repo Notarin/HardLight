@@ -13,7 +13,8 @@ namespace Content.Server.Xenoarchaeology.XenoArtifacts.Effects.Systems;
 /// </summary>
 public sealed class PhasingArtifactSystem : EntitySystem
 {
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
+    [Dependency]
+    private readonly SharedPhysicsSystem _physics = default!;
 
     /// <inheritdoc/>
     public override void Initialize()

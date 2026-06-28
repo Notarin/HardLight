@@ -8,7 +8,8 @@ namespace Content.Client.AlertLevel;
 
 public sealed class AlertLevelDisplaySystem : EntitySystem
 {
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     public override void Initialize()
     {
@@ -17,7 +18,11 @@ public sealed class AlertLevelDisplaySystem : EntitySystem
         SubscribeLocalEvent<AlertLevelDisplayComponent, AppearanceChangeEvent>(OnAppearanceChange);
     }
 
-    private void OnAppearanceChange(EntityUid uid, AlertLevelDisplayComponent alertLevelDisplay, ref AppearanceChangeEvent args)
+    private void OnAppearanceChange(
+        EntityUid uid,
+        AlertLevelDisplayComponent alertLevelDisplay,
+        ref AppearanceChangeEvent args
+    )
     {
         if (args.Sprite == null)
         {

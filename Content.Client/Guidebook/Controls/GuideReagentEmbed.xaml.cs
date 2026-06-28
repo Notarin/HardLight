@@ -26,12 +26,23 @@ namespace Content.Client.Guidebook.Controls;
 ///     Control for embedding a reagent into a guidebook.
 /// </summary>
 [UsedImplicitly, GenerateTypedNameReferences]
-public sealed partial class GuideReagentEmbed : BoxContainer, IDocumentTag, ISearchableControl, IPrototypeRepresentationControl
+public sealed partial class GuideReagentEmbed
+    : BoxContainer,
+        IDocumentTag,
+        ISearchableControl,
+        IPrototypeRepresentationControl
 {
-    [Dependency] private readonly IEntitySystemManager _systemManager = default!;
-    [Dependency] private readonly ILogManager _logManager = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly IConfigurationManager _config = default!;
+    [Dependency]
+    private readonly IEntitySystemManager _systemManager = default!;
+
+    [Dependency]
+    private readonly ILogManager _logManager = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototype = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _config = default!;
 
     private readonly ChemistryGuideDataSystem _chemistryGuideData;
     private readonly ContrabandSystem _contraband;
@@ -49,12 +60,14 @@ public sealed partial class GuideReagentEmbed : BoxContainer, IDocumentTag, ISea
         MouseFilter = MouseFilterMode.Stop;
     }
 
-    public GuideReagentEmbed(string reagent) : this()
+    public GuideReagentEmbed(string reagent)
+        : this()
     {
         GenerateControl(_prototype.Index<ReagentPrototype>(reagent));
     }
 
-    public GuideReagentEmbed(ReagentPrototype reagent) : this()
+    public GuideReagentEmbed(ReagentPrototype reagent)
+        : this()
     {
         GenerateControl(reagent);
     }
@@ -94,24 +107,21 @@ public sealed partial class GuideReagentEmbed : BoxContainer, IDocumentTag, ISea
     {
         RepresentedPrototype = reagent;
 
-        NameBackground.PanelOverride = new StyleBoxFlat
-        {
-            BackgroundColor = reagent.SubstanceColor
-        };
+        NameBackground.PanelOverride = new StyleBoxFlat { BackgroundColor = reagent.SubstanceColor };
 
         var r = reagent.SubstanceColor.R;
         var g = reagent.SubstanceColor.G;
         var b = reagent.SubstanceColor.B;
 
-        var textColor = 0.2126f * r + 0.7152f * g + 0.0722f * b > 0.5
-            ? Color.Black
-            : Color.White;
+        var textColor = 0.2126f * r + 0.7152f * g + 0.0722f * b > 0.5 ? Color.Black : Color.White;
 
-        ReagentName.SetMarkup(Loc.GetString("guidebook-reagent-name",
-            ("color", textColor), ("name", reagent.LocalizedName)));
+        ReagentName.SetMarkup(
+            Loc.GetString("guidebook-reagent-name", ("color", textColor), ("name", reagent.LocalizedName))
+        );
 
         #region Recipe
-        var reactions = _prototype.EnumeratePrototypes<ReactionPrototype>()
+        var reactions = _prototype
+            .EnumeratePrototypes<ReactionPrototype>()
             .Where(p => !p.Source && p.Products.ContainsKey(reagent.ID))
             .OrderBy(p => p.Priority)
             .ThenBy(p => p.Products.Count)
@@ -121,7 +131,9 @@ public sealed partial class GuideReagentEmbed : BoxContainer, IDocumentTag, ISea
         {
             foreach (var reactionPrototype in reactions)
             {
-                RecipesDescriptionContainer.AddChild(new GuideReagentReaction(reactionPrototype, _prototype, _systemManager));
+                RecipesDescriptionContainer.AddChild(
+                    new GuideReagentReaction(reactionPrototype, _prototype, _systemManager)
+                );
             }
         }
         else
@@ -131,9 +143,11 @@ public sealed partial class GuideReagentEmbed : BoxContainer, IDocumentTag, ISea
         #endregion
 
         #region Effects
-        if (_chemistryGuideData.ReagentGuideRegistry.TryGetValue(reagent.ID, out var guideEntryRegistry) &&
-            guideEntryRegistry.GuideEntries != null &&
-            guideEntryRegistry.GuideEntries.Values.Any(pair => pair.EffectDescriptions.Any()))
+        if (
+            _chemistryGuideData.ReagentGuideRegistry.TryGetValue(reagent.ID, out var guideEntryRegistry)
+            && guideEntryRegistry.GuideEntries != null
+            && guideEntryRegistry.GuideEntries.Values.Any(pair => pair.EffectDescriptions.Any())
+        )
         {
             EffectsDescriptionContainer.Children.Clear();
             foreach (var (group, effect) in guideEntryRegistry.GuideEntries)
@@ -142,12 +156,14 @@ public sealed partial class GuideReagentEmbed : BoxContainer, IDocumentTag, ISea
                     continue;
 
                 var groupLabel = new RichTextLabel();
-                groupLabel.SetMarkup(Loc.GetString("guidebook-reagent-effects-metabolism-group-rate",
-                    ("group", _prototype.Index<MetabolismGroupPrototype>(group).LocalizedName), ("rate", effect.MetabolismRate)));
-                var descriptionLabel = new RichTextLabel
-                {
-                    Margin = new Thickness(25, 0, 10, 0)
-                };
+                groupLabel.SetMarkup(
+                    Loc.GetString(
+                        "guidebook-reagent-effects-metabolism-group-rate",
+                        ("group", _prototype.Index<MetabolismGroupPrototype>(group).LocalizedName),
+                        ("rate", effect.MetabolismRate)
+                    )
+                );
+                var descriptionLabel = new RichTextLabel { Margin = new Thickness(25, 0, 10, 0) };
 
                 var descMsg = new FormattedMessage();
                 var descriptionsCount = effect.EffectDescriptions.Length;
@@ -172,17 +188,16 @@ public sealed partial class GuideReagentEmbed : BoxContainer, IDocumentTag, ISea
         #endregion
 
         #region PlantMetabolisms
-        if (_chemistryGuideData.ReagentGuideRegistry.TryGetValue(reagent.ID, out var guideEntryRegistryPlant) &&
-            guideEntryRegistryPlant.PlantMetabolisms != null &&
-            guideEntryRegistryPlant.PlantMetabolisms.Count > 0)
+        if (
+            _chemistryGuideData.ReagentGuideRegistry.TryGetValue(reagent.ID, out var guideEntryRegistryPlant)
+            && guideEntryRegistryPlant.PlantMetabolisms != null
+            && guideEntryRegistryPlant.PlantMetabolisms.Count > 0
+        )
         {
             PlantMetabolismsDescriptionContainer.Children.Clear();
             var metabolismLabel = new RichTextLabel();
             metabolismLabel.SetMarkup(Loc.GetString("guidebook-reagent-plant-metabolisms-rate"));
-            var descriptionLabel = new RichTextLabel
-            {
-                Margin = new Thickness(25, 0, 10, 0)
-            };
+            var descriptionLabel = new RichTextLabel { Margin = new Thickness(25, 0, 10, 0) };
             var descMsg = new FormattedMessage();
             var descriptionsCount = guideEntryRegistryPlant.PlantMetabolisms.Count;
             var i = 0;
@@ -209,8 +224,12 @@ public sealed partial class GuideReagentEmbed : BoxContainer, IDocumentTag, ISea
         FormattedMessage description = new();
         description.AddText(reagent.LocalizedDescription);
         description.PushNewline();
-        description.AddMarkupOrThrow(Loc.GetString("guidebook-reagent-physical-description",
-            ("description", reagent.LocalizedPhysicalDescription)));
+        description.AddMarkupOrThrow(
+            Loc.GetString(
+                "guidebook-reagent-physical-description",
+                ("description", reagent.LocalizedPhysicalDescription)
+            )
+        );
 
         if (_config.GetCVar(CCVars.ContrabandExamine))
         {
@@ -219,14 +238,24 @@ public sealed partial class GuideReagentEmbed : BoxContainer, IDocumentTag, ISea
             {
                 description.PushNewline();
                 description.AddMarkupPermissive(
-                    _contraband.GenerateDepartmentExamineMessage(reagent.AllowedDepartments, reagent.AllowedJobs, Color.Yellow, ContrabandItemType.Reagent));
+                    _contraband.GenerateDepartmentExamineMessage(
+                        reagent.AllowedDepartments,
+                        reagent.AllowedJobs,
+                        Color.Yellow,
+                        ContrabandItemType.Reagent
+                    )
+                );
             }
             // Other contraband text
-            else if (reagent.ContrabandSeverity != null &&
-                     _prototype.Resolve(reagent.ContrabandSeverity.Value, out var severity))
+            else if (
+                reagent.ContrabandSeverity != null
+                && _prototype.Resolve(reagent.ContrabandSeverity.Value, out var severity)
+            )
             {
                 description.PushNewline();
-                description.AddMarkupPermissive(Loc.GetString(severity.ExamineText, ("type", ContrabandItemType.Reagent), ("color", severity.Color)));
+                description.AddMarkupPermissive(
+                    Loc.GetString(severity.ExamineText, ("type", ContrabandItemType.Reagent), ("color", severity.Color))
+                );
             }
         }
 
@@ -264,8 +293,7 @@ public sealed partial class GuideReagentEmbed : BoxContainer, IDocumentTag, ISea
         var preserved = reagent.SpoilConditions?.PreservedBySpoilageContainers ?? true;
 
         string allowed;
-        if (reagent.SpoilConditions?.AllowedBloodTypes != null &&
-            reagent.SpoilConditions.AllowedBloodTypes.Count > 0)
+        if (reagent.SpoilConditions?.AllowedBloodTypes != null && reagent.SpoilConditions.AllowedBloodTypes.Count > 0)
         {
             allowed = string.Join(", ", reagent.SpoilConditions.AllowedBloodTypes);
         }
@@ -290,13 +318,16 @@ public sealed partial class GuideReagentEmbed : BoxContainer, IDocumentTag, ISea
                 spoilTimeStr = $"{(int)ts.TotalHours}h {ts.Minutes}m";
         }
 
-        return Loc.GetString("reagent-effect-guidebook-spoil-conditions",
+        return Loc.GetString(
+            "reagent-effect-guidebook-spoil-conditions",
             ("bloodstreamPreserve", bloodOnly),
             ("spoilsInto", spoilsInto),
             ("preservedBySpoilageContainers", preserved),
             ("allowedBloodTypes", allowed),
-            ("spoilTime", spoilTimeStr));
+            ("spoilTime", spoilTimeStr)
+        );
     }
+
     // Hardlight end
 
     private void GenerateSources(ReagentPrototype reagent)
@@ -309,34 +340,37 @@ public sealed partial class GuideReagentEmbed : BoxContainer, IDocumentTag, ISea
         }
         SourcesContainer.Visible = true;
 
-        var orderedSources = sources
-            .OrderBy(o => o.OutputCount)
-            .ThenBy(o => o.IdentifierString);
+        var orderedSources = sources.OrderBy(o => o.OutputCount).ThenBy(o => o.IdentifierString);
         foreach (var source in orderedSources)
         {
             if (source is ReagentEntitySourceData entitySourceData)
             {
-                SourcesDescriptionContainer.AddChild(new GuideReagentReaction(
-                    entitySourceData.SourceEntProto,
-                    entitySourceData.Solution,
-                    entitySourceData.MixingType,
-                    _prototype,
-                    _systemManager));
+                SourcesDescriptionContainer.AddChild(
+                    new GuideReagentReaction(
+                        entitySourceData.SourceEntProto,
+                        entitySourceData.Solution,
+                        entitySourceData.MixingType,
+                        _prototype,
+                        _systemManager
+                    )
+                );
             }
             else if (source is ReagentReactionSourceData reactionSourceData)
             {
-                SourcesDescriptionContainer.AddChild(new GuideReagentReaction(
-                    reactionSourceData.ReactionPrototype,
-                    _prototype,
-                    _systemManager));
+                SourcesDescriptionContainer.AddChild(
+                    new GuideReagentReaction(reactionSourceData.ReactionPrototype, _prototype, _systemManager)
+                );
             }
             else if (source is ReagentGasSourceData gasSourceData)
             {
-                SourcesDescriptionContainer.AddChild(new GuideReagentReaction(
-                    gasSourceData.GasPrototype,
-                    gasSourceData.MixingType,
-                    _prototype,
-                    _systemManager));
+                SourcesDescriptionContainer.AddChild(
+                    new GuideReagentReaction(
+                        gasSourceData.GasPrototype,
+                        gasSourceData.MixingType,
+                        _prototype,
+                        _systemManager
+                    )
+                );
             }
         }
     }

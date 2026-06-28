@@ -24,7 +24,8 @@ namespace Content.Server.NPC.HTN.PrimitiveTasks.Operators;
 /// </summary>
 public sealed partial class MoveToOperator : HTNOperator, IHtnConditionalShutdown
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
     private NPCSteeringSystem _steering = default!;
     private PathfindingSystem _pathfind = default!;
     private SharedTransformSystem _transform = default!;
@@ -84,6 +85,7 @@ public sealed partial class MoveToOperator : HTNOperator, IHtnConditionalShutdow
     /// </summary>
     [DataField]
     public string DirectMoveTargetKey = "DirectMoveTarget";
+
     // End Wizden#38846
 
     private const string MovementCancelToken = "MovementCancelToken";
@@ -96,8 +98,10 @@ public sealed partial class MoveToOperator : HTNOperator, IHtnConditionalShutdow
         _transform = sysManager.GetEntitySystem<SharedTransformSystem>();
     }
 
-    public override async Task<(bool Valid, Dictionary<string, object>? Effects)> Plan(NPCBlackboard blackboard,
-        CancellationToken cancelToken)
+    public override async Task<(bool Valid, Dictionary<string, object>? Effects)> Plan(
+        NPCBlackboard blackboard,
+        CancellationToken cancelToken
+    )
     {
         if (!blackboard.TryGetValue<EntityCoordinates>(TargetKey, out var targetCoordinates, _entManager))
         {
@@ -106,33 +110,39 @@ public sealed partial class MoveToOperator : HTNOperator, IHtnConditionalShutdow
 
         var owner = blackboard.GetValue<EntityUid>(NPCBlackboard.Owner);
 
-        if (!_entManager.TryGetComponent<TransformComponent>(owner, out var xform) ||
-            !_entManager.TryGetComponent<PhysicsComponent>(owner, out var body))
+        if (
+            !_entManager.TryGetComponent<TransformComponent>(owner, out var xform)
+            || !_entManager.TryGetComponent<PhysicsComponent>(owner, out var body)
+        )
             return (false, null);
 
         // check if we or target are offgrid or on different grids // Wizden#38846
-        var doDirectMove = !_entManager.TryGetComponent<MapGridComponent>(xform.GridUid, out var ownerGrid) ||
-                      !_entManager.TryGetComponent<MapGridComponent>(_transform.GetGrid(targetCoordinates), out var targetGrid) ||
-                      ownerGrid != targetGrid;
-                  // End Wizden#38846
+        var doDirectMove =
+            !_entManager.TryGetComponent<MapGridComponent>(xform.GridUid, out var ownerGrid)
+            || !_entManager.TryGetComponent<MapGridComponent>(_transform.GetGrid(targetCoordinates), out var targetGrid)
+            || ownerGrid != targetGrid;
+        // End Wizden#38846
 
         var range = blackboard.GetValueOrDefault<float>(RangeKey, _entManager);
 
         if (xform.Coordinates.TryDistance(_entManager, targetCoordinates, out var distance) && distance <= range)
         {
             // In range
-            return (true, new Dictionary<string, object>()
-            {
-                {NPCBlackboard.OwnerCoordinates, blackboard.GetValueOrDefault<EntityCoordinates>(NPCBlackboard.OwnerCoordinates, _entManager)}
-            });
+            return (
+                true,
+                new Dictionary<string, object>()
+                {
+                    {
+                        NPCBlackboard.OwnerCoordinates,
+                        blackboard.GetValueOrDefault<EntityCoordinates>(NPCBlackboard.OwnerCoordinates, _entManager)
+                    },
+                }
+            );
         }
 
         if (!PathfindInPlanning)
         {
-            return (true, new Dictionary<string, object>()
-            {
-                {NPCBlackboard.OwnerCoordinates, targetCoordinates}
-            });
+            return (true, new Dictionary<string, object>() { { NPCBlackboard.OwnerCoordinates, targetCoordinates } });
         }
 
         // Wizden#38846
@@ -141,30 +151,37 @@ public sealed partial class MoveToOperator : HTNOperator, IHtnConditionalShutdow
             var path = await _pathfind.GetPath(
                 blackboard.GetValue<EntityUid>(NPCBlackboard.Owner),
                 xform.Coordinates,
-                    targetCoordinates,
+                targetCoordinates,
                 range,
                 cancelToken,
-                _pathfind.GetFlags(blackboard));
+                _pathfind.GetFlags(blackboard)
+            );
 
             if (path.Result != PathResult.Path)
             {
                 return (false, null);
             }
 
-            return (true, new Dictionary<string, object>()
-            {
-                {NPCBlackboard.OwnerCoordinates, targetCoordinates},
-                {PathfindKey, path}
-            });
+            return (
+                true,
+                new Dictionary<string, object>()
+                {
+                    { NPCBlackboard.OwnerCoordinates, targetCoordinates },
+                    { PathfindKey, path },
+                }
+            );
         }
         // else try move directly to target without pathing
         else
         {
-            return (true, new Dictionary<string, object>()
-            {
-                {NPCBlackboard.OwnerCoordinates, targetCoordinates},
-                {DirectMoveTargetKey, true}
-            });
+            return (
+                true,
+                new Dictionary<string, object>()
+                {
+                    { NPCBlackboard.OwnerCoordinates, targetCoordinates },
+                    { DirectMoveTargetKey, true },
+                }
+            );
         } // End Wizden#38846
     }
 
@@ -199,10 +216,21 @@ public sealed partial class MoveToOperator : HTNOperator, IHtnConditionalShutdow
         {
             comp.DirectMove = false; // i'm not sure whether this being needed is a good sign - if you know a better solution, tell
             // End Wizden#38846
-            if (blackboard.TryGetValue<EntityCoordinates>(NPCBlackboard.OwnerCoordinates, out var coordinates, _entManager))
+            if (
+                blackboard.TryGetValue<EntityCoordinates>(
+                    NPCBlackboard.OwnerCoordinates,
+                    out var coordinates,
+                    _entManager
+                )
+            )
             {
                 var mapCoords = _transform.ToMapCoordinates(coordinates);
-                _steering.PrunePath(uid, mapCoords, _transform.ToMapCoordinates(targetCoordinates).Position - mapCoords.Position, result.Path);
+                _steering.PrunePath(
+                    uid,
+                    mapCoords,
+                    _transform.ToMapCoordinates(targetCoordinates).Position - mapCoords.Position,
+                    result.Path
+                );
             }
 
             comp.CurrentPath = new Queue<PathPoly>(result.Path);
@@ -228,7 +256,7 @@ public sealed partial class MoveToOperator : HTNOperator, IHtnConditionalShutdow
             SteeringStatus.InRange => HTNOperatorStatus.Finished,
             SteeringStatus.NoPath => HTNOperatorStatus.Failed,
             SteeringStatus.Moving => HTNOperatorStatus.Continuing,
-            _ => throw new ArgumentOutOfRangeException()
+            _ => throw new ArgumentOutOfRangeException(),
         };
     }
 

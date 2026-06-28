@@ -15,15 +15,11 @@ public sealed partial class SetBoolOperator : HTNOperator
     [DataField, ViewVariables(VVAccess.ReadWrite)]
     public bool Value;
 
-    public override async Task<(bool Valid, Dictionary<string, object>? Effects)> Plan(NPCBlackboard blackboard,
-        CancellationToken cancelToken)
+    public override async Task<(bool Valid, Dictionary<string, object>? Effects)> Plan(
+        NPCBlackboard blackboard,
+        CancellationToken cancelToken
+    )
     {
-        return (
-            true,
-            new Dictionary<string, object>
-            {
-                { TargetKey, Value }
-            }
-        );
+        return (true, new Dictionary<string, object> { { TargetKey, Value } });
     }
 }

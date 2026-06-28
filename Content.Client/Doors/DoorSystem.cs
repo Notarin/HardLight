@@ -9,10 +9,17 @@ namespace Content.Client.Doors;
 
 public sealed class DoorSystem : SharedDoorSystem
 {
-    [Dependency] private readonly AnimationPlayerSystem _animationSystem = default!;
-    [Dependency] private readonly IComponentFactory _componentFactory = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly AnimationPlayerSystem _animationSystem = default!;
+
+    [Dependency]
+    private readonly IComponentFactory _componentFactory = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     public override void Initialize()
     {
@@ -37,10 +44,7 @@ public sealed class DoorSystem : SharedDoorSystem
                 new AnimationTrackSpriteFlick
                 {
                     LayerKey = DoorVisualLayers.Base,
-                    KeyFrames =
-                    {
-                        new AnimationTrackSpriteFlick.KeyFrame(comp.OpeningSpriteState, 0f),
-                    },
+                    KeyFrames = { new AnimationTrackSpriteFlick.KeyFrame(comp.OpeningSpriteState, 0f) },
                 },
             },
         };
@@ -53,10 +57,7 @@ public sealed class DoorSystem : SharedDoorSystem
                 new AnimationTrackSpriteFlick
                 {
                     LayerKey = DoorVisualLayers.Base,
-                    KeyFrames =
-                    {
-                        new AnimationTrackSpriteFlick.KeyFrame(comp.ClosingSpriteState, 0f),
-                    },
+                    KeyFrames = { new AnimationTrackSpriteFlick.KeyFrame(comp.ClosingSpriteState, 0f) },
                 },
             },
         };
@@ -69,10 +70,7 @@ public sealed class DoorSystem : SharedDoorSystem
                 new AnimationTrackSpriteFlick
                 {
                     LayerKey = DoorVisualLayers.BaseUnlit,
-                    KeyFrames =
-                    {
-                        new AnimationTrackSpriteFlick.KeyFrame(comp.EmaggingSpriteState, 0f),
-                    },
+                    KeyFrames = { new AnimationTrackSpriteFlick.KeyFrame(comp.EmaggingSpriteState, 0f) },
                 },
             },
         };
@@ -97,7 +95,10 @@ public sealed class DoorSystem : SharedDoorSystem
 
     private void UpdateAppearanceForDoorState(Entity<DoorComponent> entity, SpriteComponent sprite, DoorState state)
     {
-        _sprite.SetDrawDepth((entity.Owner, sprite), state is DoorState.Open ? entity.Comp.OpenDrawDepth : entity.Comp.ClosedDrawDepth);
+        _sprite.SetDrawDepth(
+            (entity.Owner, sprite),
+            state is DoorState.Open ? entity.Comp.OpenDrawDepth : entity.Comp.ClosedDrawDepth
+        );
 
         switch (state)
         {

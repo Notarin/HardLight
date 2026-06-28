@@ -37,9 +37,7 @@ public sealed partial class RadioFilterWindow : DefaultWindow
 
         // Build a checkbox per radio channel prototype, sorted by name.
         var protoMan = IoCManager.Resolve<IPrototypeManager>();
-        var channels = protoMan.EnumeratePrototypes<RadioChannelPrototype>()
-            .OrderBy(c => c.LocalizedName)
-            .ToList();
+        var channels = protoMan.EnumeratePrototypes<RadioChannelPrototype>().OrderBy(c => c.LocalizedName).ToList();
 
         foreach (var channel in channels)
         {

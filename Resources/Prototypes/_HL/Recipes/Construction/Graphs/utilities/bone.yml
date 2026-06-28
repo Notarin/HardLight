@@ -12,7 +12,7 @@
 
   - node: BoneMug
     entity: DrinkMugBone
- 
+
 - type: constructionGraph
   id: BoneD20
   start: start
@@ -27,7 +27,7 @@
 
   - node: BoneD20
     entity: d20DiceBone
-   
+
 - type: constructionGraph
   id: BoneD12
   start: start
@@ -42,7 +42,7 @@
 
   - node: BoneD12
     entity: d12DiceBone
-   
+
 - type: constructionGraph
   id: BoneD10
   start: start
@@ -57,7 +57,7 @@
 
   - node: BoneD10
     entity: d10DiceBone
-   
+
 - type: constructionGraph
   id: BoneD8
   start: start
@@ -72,7 +72,7 @@
 
   - node: BoneD8
     entity: d8DiceBone
-   
+
 - type: constructionGraph
   id: BoneD6
   start: start
@@ -87,7 +87,7 @@
 
   - node: BoneD6
     entity: d6DiceBone
-   
+
 - type: constructionGraph
   id: BoneD4
   start: start
@@ -102,4 +102,4 @@
 
   - node: BoneD4
     entity: d4DiceBone
-   
+

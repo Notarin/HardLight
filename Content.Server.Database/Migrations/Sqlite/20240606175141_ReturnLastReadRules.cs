@@ -15,15 +15,14 @@ namespace Content.Server.Database.Migrations.Sqlite
                 name: "last_read_rules",
                 table: "player",
                 type: "TEXT",
-                nullable: true);
+                nullable: true
+            );
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "last_read_rules",
-                table: "player");
+            migrationBuilder.DropColumn(name: "last_read_rules", table: "player");
         }
     }
 }

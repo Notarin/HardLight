@@ -1,4 +1,5 @@
 using System.Linq;
+using Content.Shared._NF.Shipyard.Components; // Frontier
 using Content.Shared.Access;
 using Content.Shared.Access.Components;
 using Content.Shared.Access.Systems;
@@ -9,15 +10,17 @@ using Robust.Client.UserInterface.CustomControls;
 using Robust.Client.UserInterface.XAML;
 using Robust.Shared.Prototypes;
 using static Content.Shared.Access.Components.IdCardConsoleComponent;
-using Content.Shared._NF.Shipyard.Components; // Frontier
 
 namespace Content.Client.Access.UI
 {
     [GenerateTypedNameReferences]
     public sealed partial class IdCardConsoleWindow : DefaultWindow
     {
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        [Dependency] private readonly ILogManager _logManager = default!;
+        [Dependency]
+        private readonly IPrototypeManager _prototypeManager = default!;
+
+        [Dependency]
+        private readonly ILogManager _logManager = default!;
         private readonly ISawmill _logMill = default!;
 
         private readonly IdCardConsoleBoundUserInterface _owner;
@@ -34,8 +37,11 @@ namespace Content.Client.Access.UI
         // The job that will be picked if the ID doesn't have a job on the station.
         private static ProtoId<JobPrototype> _defaultJob = "Mercenary"; // Frontier: Passenger<Contractor
 
-        public IdCardConsoleWindow(IdCardConsoleBoundUserInterface owner, IPrototypeManager prototypeManager,
-            List<ProtoId<AccessLevelPrototype>> accessLevels)
+        public IdCardConsoleWindow(
+            IdCardConsoleBoundUserInterface owner,
+            IPrototypeManager prototypeManager,
+            List<ProtoId<AccessLevelPrototype>> accessLevels
+        )
         {
             RobustXamlLoader.Load(this);
             IoCManager.InjectDependencies(this);
@@ -204,10 +210,10 @@ namespace Content.Client.Access.UI
 
             JobPresetOptionButton.Disabled = !interfaceEnabled;
 
-            _accessButtons.UpdateState(state.TargetIdAccessList?.ToList() ??
-                                       new List<ProtoId<AccessLevelPrototype>>(),
-                                       state.AllowedModifyAccessList?.ToList() ??
-                                       new List<ProtoId<AccessLevelPrototype>>());
+            _accessButtons.UpdateState(
+                state.TargetIdAccessList?.ToList() ?? new List<ProtoId<AccessLevelPrototype>>(),
+                state.AllowedModifyAccessList?.ToList() ?? new List<ProtoId<AccessLevelPrototype>>()
+            );
 
             var jobIndex = _jobPrototypeIds.IndexOf(state.TargetIdJobPrototype);
             // If the job index is < 0 that means they don't have a job registered in the station records
@@ -252,17 +258,18 @@ namespace Content.Client.Access.UI
             var suffix = ShipSuffixLineEdit.Text;
 
             // We skip suffix validation because it's immutable and is ignored by the server
-            var valid = name.Length <= ShuttleDeedComponent.MaxNameLength
-                && name.Trim().Length >= 3; // Arbitrary client-side number, should hopefully be long enough.
+            var valid = name.Length <= ShuttleDeedComponent.MaxNameLength && name.Trim().Length >= 3; // Arbitrary client-side number, should hopefully be long enough.
 
             ShipNameSaveButton.Disabled = !_interfaceEnabled || !valid;
 
             // If still enabled, check for dirtiness and disable it if the name is not dirty
             if (!ShipNameSaveButton.Disabled)
             {
-                var dirty = _lastShuttleName != null &&
-                    ((_lastShuttleName[0] ?? string.Empty) != name
-                    || (_lastShuttleName[1] ?? string.Empty) != suffix);
+                var dirty =
+                    _lastShuttleName != null
+                    && (
+                        (_lastShuttleName[0] ?? string.Empty) != name || (_lastShuttleName[1] ?? string.Empty) != suffix
+                    );
 
                 ShipNameSaveButton.Disabled = !dirty;
             }
@@ -271,24 +278,24 @@ namespace Content.Client.Access.UI
         private void SubmitData()
         {
             // Don't send this if it isn't dirty.
-            var jobProtoDirty = _lastJobProto != null &&
-                                JobPresetOptionButton.SelectedId >= 0 &&
-                                JobPresetOptionButton.SelectedId < _jobPrototypeIds.Count &&
-                                _jobPrototypeIds[JobPresetOptionButton.SelectedId] != _lastJobProto;
+            var jobProtoDirty =
+                _lastJobProto != null
+                && JobPresetOptionButton.SelectedId >= 0
+                && JobPresetOptionButton.SelectedId < _jobPrototypeIds.Count
+                && _jobPrototypeIds[JobPresetOptionButton.SelectedId] != _lastJobProto;
 
             _owner.SubmitData(
                 FullNameLineEdit.Text,
                 JobTitleLineEdit.Text,
                 // Iterate over the buttons dictionary, filter by `Pressed`, only get key from the key/value pair
                 _accessButtons.ButtonsList.Where(x => x.Value.Pressed).Select(x => x.Key).ToList(),
-                jobProtoDirty ? _jobPrototypeIds[JobPresetOptionButton.SelectedId] : string.Empty);
+                jobProtoDirty ? _jobPrototypeIds[JobPresetOptionButton.SelectedId] : string.Empty
+            );
         }
 
         private void SubmitShuttleData()
         {
-            _owner.SubmitShipData(
-                ShipNameLineEdit.Text,
-                ShipSuffixLineEdit.Text);
+            _owner.SubmitShipData(ShipNameLineEdit.Text, ShipSuffixLineEdit.Text);
         }
     }
 }

@@ -28,7 +28,12 @@ public sealed class QuickDialogOpenEvent : EntityEventArgs
     /// </summary>
     public QuickDialogButtonFlag Buttons = QuickDialogButtonFlag.OkButton | QuickDialogButtonFlag.CancelButton;
 
-    public QuickDialogOpenEvent(string title, List<QuickDialogEntry> prompts, int dialogId, QuickDialogButtonFlag buttons)
+    public QuickDialogOpenEvent(
+        string title,
+        List<QuickDialogEntry> prompts,
+        int dialogId,
+        QuickDialogButtonFlag buttons
+    )
     {
         Title = title;
         Prompts = prompts;
@@ -58,7 +63,11 @@ public sealed class QuickDialogResponseEvent : EntityEventArgs
     /// </summary>
     public QuickDialogButtonFlag ButtonPressed;
 
-    public QuickDialogResponseEvent(int dialogId, Dictionary<string, string> responses, QuickDialogButtonFlag buttonPressed)
+    public QuickDialogResponseEvent(
+        int dialogId,
+        Dictionary<string, string> responses,
+        QuickDialogButtonFlag buttonPressed
+    )
     {
         DialogId = dialogId;
         Responses = responses;
@@ -120,14 +129,17 @@ public enum QuickDialogEntryType
     /// Any integer.
     /// </summary>
     Integer,
+
     /// <summary>
     /// Any floating point value.
     /// </summary>
     Float,
+
     /// <summary>
     /// Maximum of 100 characters string.
     /// </summary>
     ShortText,
+
     /// <summary>
     /// Maximum of 2,000 characters string.
     /// </summary>

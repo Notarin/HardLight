@@ -8,7 +8,8 @@ namespace Content.Server.NPC.HTN.PrimitiveTasks.Operators.Interactions;
 
 public sealed partial class AltInteractOperator : HTNOperator
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
 
     [DataField("targetKey")]
     public string Key = "Target";
@@ -19,12 +20,12 @@ public sealed partial class AltInteractOperator : HTNOperator
     [DataField("idleKey")]
     public string IdleKey = "IdleTime";
 
-    public override async Task<(bool Valid, Dictionary<string, object>? Effects)> Plan(NPCBlackboard blackboard, CancellationToken cancelToken)
+    public override async Task<(bool Valid, Dictionary<string, object>? Effects)> Plan(
+        NPCBlackboard blackboard,
+        CancellationToken cancelToken
+    )
     {
-        return new(true, new Dictionary<string, object>()
-        {
-            { IdleKey, 1f }
-        });
+        return new(true, new Dictionary<string, object>() { { IdleKey, 1f } });
     }
 
     public override HTNOperatorStatus Update(NPCBlackboard blackboard, float frameTime)
@@ -45,7 +46,7 @@ public sealed partial class AltInteractOperator : HTNOperator
         if (result && doAfter != null && count != doAfter.DoAfters.Count)
         {
             var wait = doAfter.DoAfters.First().Value.Args.Delay;
-            blackboard.SetValue(IdleKey, (float) wait.TotalSeconds + 0.5f);
+            blackboard.SetValue(IdleKey, (float)wait.TotalSeconds + 0.5f);
         }
         else
         {

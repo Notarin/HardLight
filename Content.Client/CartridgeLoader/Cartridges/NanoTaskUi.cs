@@ -44,16 +44,29 @@ public sealed partial class NanoTaskUi : UIFragment
             if (_fragment.Tasks.Find(task => task.Id == id) is not NanoTaskItemAndId task)
                 return;
 
-            userInterface.SendMessage(new CartridgeUiMessage(new NanoTaskUiMessageEvent(new NanoTaskUpdateTask(new(id, new(
-                description: task.Data.Description,
-                taskIsFor: task.Data.TaskIsFor,
-                isTaskDone: !task.Data.IsTaskDone,
-                priority: task.Data.Priority
-            ))))));
+            userInterface.SendMessage(
+                new CartridgeUiMessage(
+                    new NanoTaskUiMessageEvent(
+                        new NanoTaskUpdateTask(
+                            new(
+                                id,
+                                new(
+                                    description: task.Data.Description,
+                                    taskIsFor: task.Data.TaskIsFor,
+                                    isTaskDone: !task.Data.IsTaskDone,
+                                    priority: task.Data.Priority
+                                )
+                            )
+                        )
+                    )
+                )
+            );
         };
         _popup.TaskSaved += (id, data) =>
         {
-            userInterface.SendMessage(new CartridgeUiMessage(new NanoTaskUiMessageEvent(new NanoTaskUpdateTask(new(id, data)))));
+            userInterface.SendMessage(
+                new CartridgeUiMessage(new NanoTaskUiMessageEvent(new NanoTaskUpdateTask(new(id, data))))
+            );
             _popup.Close();
         };
         _popup.TaskDeleted += id =>

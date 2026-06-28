@@ -1,22 +1,29 @@
 using System.Collections.Immutable;
-using System.Text;
 using System.Linq;
+using System.Text;
 using Content.Shared._Starlight.Language.Components;
 using Content.Shared._Starlight.Language.Events;
-using Content.Shared.GameTicking;
-using Robust.Shared.Prototypes;
 using Content.Shared.Cloning.Events;
+using Content.Shared.GameTicking;
 using Robust.Shared.Player;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 
 namespace Content.Shared._Starlight.Language.Systems;
 
 public abstract partial class SharedLanguageSystem : EntitySystem
 {
-    [Dependency] private readonly ISharedPlayerManager _player = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly SharedGameTicker _ticker = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
+    [Dependency]
+    private readonly ISharedPlayerManager _player = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototype = default!;
+
+    [Dependency]
+    private readonly SharedGameTicker _ticker = default!;
+
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
 
     /// <summary>
     ///     The language used as a fallback in cases where an entity suddenly becomes a Language Speaker (e.g. the usage of make-sentient).
@@ -79,7 +86,7 @@ public abstract partial class SharedLanguageSystem : EntitySystem
             comp.Understands = ent.Comp.Understands.ToList();
         }
         if (TryComp<LanguageSpeakerComponent>(clone, out var speaker))
-            UpdateEntityLanguages((clone,speaker));
+            UpdateEntityLanguages((clone, speaker));
     }
 
     /// <summary>
@@ -182,7 +189,8 @@ public abstract partial class SharedLanguageSystem : EntitySystem
     /// </summary>
     public LanguagePrototype GetLanguage(Entity<LanguageSpeakerComponent?> ent)
     {
-        if (!Resolve(ent, ref ent.Comp, logMissing: false)
+        if (
+            !Resolve(ent, ref ent.Comp, logMissing: false)
             || string.IsNullOrEmpty(ent.Comp.CurrentLanguage)
             || !_prototype.TryIndex<LanguagePrototype>(ent.Comp.CurrentLanguage, out var proto)
         )
@@ -195,19 +203,19 @@ public abstract partial class SharedLanguageSystem : EntitySystem
     ///     Returns the list of languages this entity can speak.
     /// </summary>
     /// <remarks>This simply returns the value of <see cref="LanguageSpeakerComponent.SpokenLanguages"/>.</remarks>
-    public List<ProtoId<LanguagePrototype>> GetSpokenLanguages(EntityUid uid) => TryComp<LanguageSpeakerComponent>(uid, out var component) ? component.SpokenLanguages : [];
+    public List<ProtoId<LanguagePrototype>> GetSpokenLanguages(EntityUid uid) =>
+        TryComp<LanguageSpeakerComponent>(uid, out var component) ? component.SpokenLanguages : [];
 
     /// <summary>
     ///     Returns the list of languages this entity can understand.
     /// </summary>
     /// <remarks>This simply returns the value of <see cref="LanguageSpeakerComponent.UnderstoodLanguages"/>.</remarks>
-    public List<ProtoId<LanguagePrototype>> GetUnderstoodLanguages(EntityUid uid) => TryComp<LanguageSpeakerComponent>(uid, out var component) ? component.UnderstoodLanguages : [];
+    public List<ProtoId<LanguagePrototype>> GetUnderstoodLanguages(EntityUid uid) =>
+        TryComp<LanguageSpeakerComponent>(uid, out var component) ? component.UnderstoodLanguages : [];
 
     public void SetLanguage(Entity<LanguageSpeakerComponent?> ent, ProtoId<LanguagePrototype> language)
     {
-        if (!CanSpeak(ent, language)
-            || !Resolve(ent, ref ent.Comp)
-            || ent.Comp.CurrentLanguage == language)
+        if (!CanSpeak(ent, language) || !Resolve(ent, ref ent.Comp) || ent.Comp.CurrentLanguage == language)
             return;
 
         ent.Comp.CurrentLanguage = language;
@@ -222,7 +230,8 @@ public abstract partial class SharedLanguageSystem : EntitySystem
         EntityUid uid,
         ProtoId<LanguagePrototype> language,
         bool addSpoken = true,
-        bool addUnderstood = true)
+        bool addUnderstood = true
+    )
     {
         EnsureComp<LanguageKnowledgeComponent>(uid, out var knowledge);
         EnsureComp<LanguageSpeakerComponent>(uid, out var speaker);
@@ -243,7 +252,8 @@ public abstract partial class SharedLanguageSystem : EntitySystem
         Entity<LanguageKnowledgeComponent?> ent,
         ProtoId<LanguagePrototype> language,
         bool removeSpoken = true,
-        bool removeUnderstood = true)
+        bool removeUnderstood = true
+    )
     {
         if (!Resolve(ent, ref ent.Comp, false))
             return;

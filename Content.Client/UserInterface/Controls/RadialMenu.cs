@@ -27,11 +27,7 @@ public class RadialMenu : BaseWindow
     /// </summary>
     public string? BackButtonStyleClass
     {
-        get
-        {
-            return _backButtonStyleClass;
-        }
-
+        get { return _backButtonStyleClass; }
         set
         {
             _backButtonStyleClass = value;
@@ -46,11 +42,7 @@ public class RadialMenu : BaseWindow
     /// </summary>
     public string? CloseButtonStyleClass
     {
-        get
-        {
-            return _closeButtonStyleClass;
-        }
-
+        get { return _closeButtonStyleClass; }
         set
         {
             _closeButtonStyleClass = value;
@@ -162,7 +154,6 @@ public class RadialMenu : BaseWindow
             {
                 child.Visible = false;
             }
-
             // Show the layer of interest
             else
             {
@@ -240,8 +231,7 @@ public abstract class RadialMenuButtonBase : BaseButton
     /// <inheritdoc />
     protected override void KeyBindUp(GUIBoundKeyEventArgs args)
     {
-        if (args.Function == EngineKeyFunctions.UIClick
-            || args.Function == ContentKeyFunctions.AltActivateItemInWorld)
+        if (args.Function == EngineKeyFunctions.UIClick || args.Function == ContentKeyFunctions.AltActivateItemInWorld)
         {
             base.KeyBindUp(args);
         }
@@ -286,8 +276,7 @@ public sealed class RadialMenuContextualCentralTextureButton : TextureButton
     /// <inheritdoc />
     protected override void KeyBindUp(GUIBoundKeyEventArgs args)
     {
-        if (args.Function == EngineKeyFunctions.UIClick
-            || args.Function == ContentKeyFunctions.AltActivateItemInWorld)
+        if (args.Function == EngineKeyFunctions.UIClick || args.Function == ContentKeyFunctions.AltActivateItemInWorld)
         {
             base.KeyBindUp(args);
         }
@@ -503,23 +492,33 @@ public class RadialMenuButtonWithSector : RadialMenuButton, IRadialMenuItemWithS
     }
 
     /// <inheritdoc />
-    float IRadialMenuItemWithSector.OuterRadius { set => _outerRadius = value; }
+    float IRadialMenuItemWithSector.OuterRadius
+    {
+        set => _outerRadius = value;
+    }
 
     /// <inheritdoc />
-    float IRadialMenuItemWithSector.InnerRadius { set => _innerRadius = value; }
+    float IRadialMenuItemWithSector.InnerRadius
+    {
+        set => _innerRadius = value;
+    }
 
     /// <inheritdoc />
-    public float AngleOffset { set => _angleOffset = value; }
+    public float AngleOffset
+    {
+        set => _angleOffset = value;
+    }
 
     /// <inheritdoc />
-    Vector2 IRadialMenuItemWithSector.ParentCenter { set => _parentCenter = value; }
+    Vector2 IRadialMenuItemWithSector.ParentCenter
+    {
+        set => _parentCenter = value;
+    }
 
     /// <summary>
     /// A simple texture button that can move the user to a different layer within a radial menu
     /// </summary>
-    public RadialMenuButtonWithSector()
-    {
-    }
+    public RadialMenuButtonWithSector() { }
 
     /// <inheritdoc />
     protected override void Draw(DrawingHandleScreen handle)
@@ -538,24 +537,45 @@ public class RadialMenuButtonWithSector : RadialMenuButton, IRadialMenuItemWithS
         var angleTo = _angleSectorTo + _angleOffset;
         if (DrawBackground)
         {
-            var segmentColor = DrawMode == DrawModeEnum.Hover
-                ? _hoverBackgroundColorSrgb
-                : _backgroundColorSrgb;
+            var segmentColor = DrawMode == DrawModeEnum.Hover ? _hoverBackgroundColorSrgb : _backgroundColorSrgb;
 
-            DrawAnnulusSector(handle, containerCenter, _innerRadius * UIScale, _outerRadius * UIScale, angleFrom, angleTo, segmentColor);
+            DrawAnnulusSector(
+                handle,
+                containerCenter,
+                _innerRadius * UIScale,
+                _outerRadius * UIScale,
+                angleFrom,
+                angleTo,
+                segmentColor
+            );
         }
 
         if (DrawBorder)
         {
-            var borderColor = DrawMode == DrawModeEnum.Hover
-                ? _hoverBorderColorSrgb
-                : _borderColorSrgb;
-            DrawAnnulusSector(handle, containerCenter, _innerRadius * UIScale, _outerRadius * UIScale, angleFrom, angleTo, borderColor, false);
+            var borderColor = DrawMode == DrawModeEnum.Hover ? _hoverBorderColorSrgb : _borderColorSrgb;
+            DrawAnnulusSector(
+                handle,
+                containerCenter,
+                _innerRadius * UIScale,
+                _outerRadius * UIScale,
+                angleFrom,
+                angleTo,
+                borderColor,
+                false
+            );
         }
 
         if (!_isWholeCircle && DrawBorder)
         {
-            DrawSeparatorLines(handle, containerCenter, _innerRadius * UIScale, _outerRadius * UIScale, angleFrom, angleTo, SeparatorColor);
+            DrawSeparatorLines(
+                handle,
+                containerCenter,
+                _innerRadius * UIScale,
+                _outerRadius * UIScale,
+                angleFrom,
+                angleTo,
+                SeparatorColor
+            );
         }
     }
 
@@ -649,9 +669,7 @@ public class RadialMenuButtonWithSector : RadialMenuButton, IRadialMenuItemWithS
             }
         }
 
-        var type = filled
-            ? DrawPrimitiveTopology.TriangleStrip
-            : DrawPrimitiveTopology.LineStrip;
+        var type = filled ? DrawPrimitiveTopology.TriangleStrip : DrawPrimitiveTopology.LineStrip;
         drawingHandleScreen.DrawPrimitives(type, _sectorPointsForDrawing, color);
     }
 
@@ -666,18 +684,10 @@ public class RadialMenuButtonWithSector : RadialMenuButton, IRadialMenuItemWithS
     )
     {
         var fromPoint = new Angle(-angleSectorFrom).RotateVec(Vector2.UnitX);
-        drawingHandleScreen.DrawLine(
-            center + fromPoint * radiusOuter,
-            center + fromPoint * radiusInner,
-            color
-        );
+        drawingHandleScreen.DrawLine(center + fromPoint * radiusOuter, center + fromPoint * radiusInner, color);
 
         var toPoint = new Angle(-angleSectorTo).RotateVec(Vector2.UnitX);
-        drawingHandleScreen.DrawLine(
-            center + toPoint * radiusOuter,
-            center + toPoint * radiusInner,
-            color
-        );
+        drawingHandleScreen.DrawLine(center + toPoint * radiusOuter, center + toPoint * radiusInner, color);
     }
 
     private static bool IsWholeCircle(float angleSectorFrom, float angleSectorTo)

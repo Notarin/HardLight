@@ -1,7 +1,7 @@
 - type: entity
   id: BaseShadowMob
   abstract: true
-  parent: [ BaseMob, BaseShadow ]
+  parent: [BaseMob, BaseShadow]
   components:
   - type: Sprite
     color: "#793a80dd"
@@ -14,8 +14,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.35
         density: 120
         mask:

@@ -14,9 +14,14 @@ namespace Content.Client.Options.UI.Tabs;
 [GenerateTypedNameReferences]
 public sealed partial class AudioTab : Control
 {
-    [Dependency] private readonly IAudioManager _audio = default!;
-    [Dependency] private readonly IClientAdminManager _admin = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
+    [Dependency]
+    private readonly IAudioManager _audio = default!;
+
+    [Dependency]
+    private readonly IClientAdminManager _admin = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
 
     public AudioTab()
     {
@@ -26,46 +31,54 @@ public sealed partial class AudioTab : Control
         var masterVolume = Control.AddOptionPercentSlider(
             CVars.AudioMasterVolume,
             SliderVolumeMaster,
-            scale: ContentAudioSystem.MasterVolumeMultiplier);
+            scale: ContentAudioSystem.MasterVolumeMultiplier
+        );
         masterVolume.ImmediateValueChanged += OnMasterVolumeSliderChanged;
 
         Control.AddOptionPercentSlider(
             CVars.MidiVolume,
             SliderVolumeMidi,
-            scale: ContentAudioSystem.MidiVolumeMultiplier);
+            scale: ContentAudioSystem.MidiVolumeMultiplier
+        );
 
         Control.AddOptionPercentSlider(
             CCVars.AmbientMusicVolume,
             SliderVolumeAmbientMusic,
-            scale: ContentAudioSystem.AmbientMusicMultiplier);
+            scale: ContentAudioSystem.AmbientMusicMultiplier
+        );
 
         Control.AddOptionPercentSlider(
             CCVars.AmbienceVolume,
             SliderVolumeAmbience,
-            scale: ContentAudioSystem.AmbienceMultiplier);
+            scale: ContentAudioSystem.AmbienceMultiplier
+        );
 
         // Frontier: add expedition volume slider
         Control.AddOptionPercentSlider(
             NFCCVars.SalvageExpeditionMusicVolume,
             SliderVolumeExpedMusic,
-            scale: ContentAudioSystem.SalvageMultiplier);
+            scale: ContentAudioSystem.SalvageMultiplier
+        );
         // End Frontier: add expedition volume slider
 
         Control.AddOptionPercentSlider(
             CCVars.LobbyMusicVolume,
             SliderVolumeLobby,
-            scale: ContentAudioSystem.LobbyMultiplier);
+            scale: ContentAudioSystem.LobbyMultiplier
+        );
 
         Control.AddOptionPercentSlider(
             CCVars.InterfaceVolume,
             SliderVolumeInterface,
-            scale: ContentAudioSystem.InterfaceMultiplier);
+            scale: ContentAudioSystem.InterfaceMultiplier
+        );
 
         Control.AddOptionSlider(
             CCVars.MaxAmbientSources,
             SliderMaxAmbienceSounds,
             _cfg.GetCVar(CCVars.MinMaxAmbientSourcesConfigured),
-            _cfg.GetCVar(CCVars.MaxMaxAmbientSourcesConfigured));
+            _cfg.GetCVar(CCVars.MaxMaxAmbientSourcesConfigured)
+        );
 
         Control.AddOptionCheckBox(CCVars.LobbyMusicEnabled, LobbyMusicCheckBox);
         Control.AddOptionCheckBox(CCVars.RestartSoundsEnabled, RestartSoundsCheckBox);
@@ -88,7 +101,6 @@ public sealed partial class AudioTab : Control
         base.ExitedTree();
         _admin.AdminStatusUpdated -= UpdateAdminButtonsVisibility;
     }
-
 
     private void UpdateAdminButtonsVisibility()
     {

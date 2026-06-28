@@ -1,7 +1,7 @@
 - type: entity
   id: ClothingHeadHatBH
   name: "bounty hunter's hat"
-  parent: [ BaseC1Contraband, ClothingHeadHatHoshat ]
+  parent: [BaseC1Contraband, ClothingHeadHatHoshat]
   description: "There's a new bounty hunter in the sector."
   components:
   - type: Sprite
@@ -79,7 +79,7 @@
 - type: entity
   parent: ClothingHeadBaseButcherable
   id: ClothingHeadHatHoodCardinalHood
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   name: cardinal's hood
   description: Hides your eyes, ensteels your faith.
   components:
@@ -188,12 +188,12 @@
   - type: Storage
     maxItemSize: Tiny # No active lighters or welders
     grid:
-      - 0,0,1,1
+    - 0,0,1,1
     whitelist:
       tags:
-        - Cigar
+      - Cigar
       components:
-        - Welder
+      - Welder
   - type: UserInterface
     interfaces:
       enum.StorageUiKey.Key:
@@ -213,9 +213,9 @@
   components:
   - type: StorageFill
     contents:
-      - id: FlippoEngravedLighter
-      - id: CigarGold
-        amount: 3
+    - id: FlippoEngravedLighter
+    - id: CigarGold
+      amount: 3
 
 - type: entity
   parent: ClothingHeadBaseButcherable

@@ -8,7 +8,8 @@ namespace Content.Server.Xenoarchaeology.XenoArtifacts.Effects.Systems;
 
 public sealed class GasArtifactSystem : EntitySystem
 {
-    [Dependency] private readonly AtmosphereSystem _atmosphereSystem = default!;
+    [Dependency]
+    private readonly AtmosphereSystem _atmosphereSystem = default!;
 
     public override void Initialize()
     {
@@ -27,8 +28,10 @@ public sealed class GasArtifactSystem : EntitySystem
 
         if (component.SpawnTemperature == null)
         {
-            var temp = args.RandomSeed % component.MaxRandomTemperature - component.MinRandomTemperature +
-                       component.MinRandomTemperature;
+            var temp =
+                args.RandomSeed % component.MaxRandomTemperature
+                - component.MinRandomTemperature
+                + component.MinRandomTemperature;
             component.SpawnTemperature = temp;
         }
     }

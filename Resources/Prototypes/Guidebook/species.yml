@@ -13,33 +13,33 @@
   name: guide-entry-species
   text: "/ServerInfo/Guidebook/Mobs/Species.xml"
   children:
-    - Arachnid
-    - Diona # Note: Frontier changes inside
-    - Dwarf # Note: Frontier changes inside
-    - Human
-    - Moth
-    - Reptilian
-    - SlimePerson
-    - Vox
-    - Vulpkanin
-    - IPC
-    - Goblin # Frontier
-    - Sheleg # Frontier
-    - Harpy # DeltaV
-    - Felinid # DeltaV
-    - Felionoid # Starlight
-    - Oni # DeltaV
-    - Chitinid # DeltaV
-    - Rodentia # DeltaV
-    - Feroxi # Flooftier
-    - Resomi
-    - Protogen # FarHorizons
-    - Shadekin
-    - Avali
-    - Kitsune # DeltaV
-    - Skrell
-    - Thaven # Impstation
-    - Tajaran  # Floof - Tajaran Update b7660b9
+  - Arachnid
+  - Diona # Note: Frontier changes inside
+  - Dwarf # Note: Frontier changes inside
+  - Human
+  - Moth
+  - Reptilian
+  - SlimePerson
+  - Vox
+  - Vulpkanin
+  - IPC
+  - Goblin # Frontier
+  - Sheleg # Frontier
+  - Harpy # DeltaV
+  - Felinid # DeltaV
+  - Felionoid # Starlight
+  - Oni # DeltaV
+  - Chitinid # DeltaV
+  - Rodentia # DeltaV
+  - Feroxi # Flooftier
+  - Resomi
+  - Protogen # FarHorizons
+  - Shadekin
+  - Avali
+  - Kitsune # DeltaV
+  - Skrell
+  - Thaven # Impstation
+  - Tajaran # Floof - Tajaran Update b7660b9
 
 - type: guideEntry
   id: Arachnid

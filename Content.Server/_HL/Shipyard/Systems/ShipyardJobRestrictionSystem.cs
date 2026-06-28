@@ -1,7 +1,7 @@
-using Content.Shared.GameTicking;
-using Content.Shared._NF.Shipyard.Components;
 using System;
 using System.Collections.Generic;
+using Content.Shared._NF.Shipyard.Components;
+using Content.Shared.GameTicking;
 
 namespace Content.Server._NF.Shipyard.Systems;
 
@@ -11,10 +11,7 @@ namespace Content.Server._NF.Shipyard.Systems;
 public sealed class ShipyardJobRestrictionSystem : EntitySystem
 {
     // Add future restricted jobs here.
-    private static readonly HashSet<string> RestrictedJobIds = new(StringComparer.Ordinal)
-    {
-        "Passenger",
-    };
+    private static readonly HashSet<string> RestrictedJobIds = new(StringComparer.Ordinal) { "Passenger" };
 
     public override void Initialize()
     {

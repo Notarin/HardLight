@@ -50,8 +50,8 @@
       Dead:
         Base: goliath_dead
   - type: MovementSpeedModifier
-    baseWalkSpeed : 2.00
-    baseSprintSpeed : 2.00
+    baseWalkSpeed: 2.00
+    baseSprintSpeed: 2.00
   - type: MobThresholds
     thresholds:
       0: Alive
@@ -74,10 +74,8 @@
     rootTask:
       task: GoliathCompound
     blackboard:
-      VisionRadius: !type:Single
-        6
-      AggroVisionRadius: !type:Single
-        10
+      VisionRadius: !type:Single 6
+      AggroVisionRadius: !type:Single 10
   - type: NPCUseActionOnTarget
     actionId: ActionGoliathTentacle
   - type: Tag
@@ -133,8 +131,7 @@
   - type: Fixtures
     fixtures:
       fix:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.45,-0.45,0.45,0.45"
         mask:
         - Impassable
@@ -148,7 +145,7 @@
 
 - type: entity
   id: BaseEffectGoliathTentacleSpawn
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   name: tentacle
   abstract: true
   components:
@@ -166,18 +163,18 @@
 - type: entity
   id: EffectGoliathTentacleSpawn
   parent: BaseEffectGoliathTentacleSpawn
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   name: tentacle
   components:
-    - type: Sprite
-      state: goliath_tentacle_spawn
-    - type: SpawnOnDespawn
-      prototype: GoliathTentacle
+  - type: Sprite
+    state: goliath_tentacle_spawn
+  - type: SpawnOnDespawn
+    prototype: GoliathTentacle
 
 - type: entity
   id: EffectGoliathTentacleRetract
   parent: BaseEffectGoliathTentacleSpawn
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     state: goliath_tentacle_retract
@@ -186,7 +183,7 @@
 
 - type: entity
   id: MobHivelord
-  parent: [ BaseMobAsteroid, FlyingMobBase ]
+  parent: [BaseMobAsteroid, FlyingMobBase]
   name: hivelord
   description: A truly alien creature, it is a mass of unknown organic material, constantly fluctuating. When attacking, pieces of it split off and attack in tandem with the original.
   components:
@@ -202,8 +199,8 @@
       Dead:
         Base: hivelord_dead
   - type: MovementSpeedModifier
-    baseWalkSpeed : 3.5
-    baseSprintSpeed : 4.0
+    baseWalkSpeed: 3.5
+    baseSprintSpeed: 4.0
   - type: MobThresholds
     thresholds:
       0: Alive
@@ -234,17 +231,15 @@
     rootTask:
       task: SimpleRangedHostileCompound
     blackboard:
-      VisionRadius: !type:Single
-        4
-      AggroVisionRadius: !type:Single
-        9
+      VisionRadius: !type:Single 4
+      AggroVisionRadius: !type:Single 9
   - type: Butcherable
     spawned:
     - id: FoodHivelordRemains
 
 - type: entity
   id: MobHivelordBrood
-  parent: [ BaseMobAsteroid, FlyingMobBase ]
+  parent: [BaseMobAsteroid, FlyingMobBase]
   name: hivelord brood
   description: A fragment of the original hivelord, rallying behind its original. One isn't much of a threat, but...
   components:
@@ -253,8 +248,8 @@
     layers:
     - state: hivelordbrood
   - type: MovementSpeedModifier
-    baseWalkSpeed : 3.5
-    baseSprintSpeed : 4.0
+    baseWalkSpeed: 3.5
+    baseSprintSpeed: 4.0
   - type: MobThresholds
     thresholds:
       0: Alive
@@ -273,12 +268,11 @@
     muzzleFlash: null
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 5
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: NpcFactionMember
     factions:
     - SimpleHostile
@@ -286,10 +280,8 @@
     rootTask:
       task: SimpleHostileCompound
     blackboard: # highly aggressive
-      VisionRadius: !type:Single
-        15
-      AggroVisionRadius: !type:Single
-        15
+      VisionRadius: !type:Single 15
+      AggroVisionRadius: !type:Single 15
   - type: TimedDespawn
     lifetime: 100
 

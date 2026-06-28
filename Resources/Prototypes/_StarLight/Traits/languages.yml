@@ -28,9 +28,9 @@
   components:
   - type: LanguageSpeaker
   languagesSpoken:
-    - Sign
+  - Sign
   languagesUnderstood:
-    - Sign
+  - Sign
 
 - type: trait
   id: Nekomimetic
@@ -41,10 +41,10 @@
   components:
   - type: LanguageSpeaker
   languagesSpoken:
-    - Nekomimetic
+  - Nekomimetic
   languagesUnderstood:
-    - Nekomimetic
-    - Cat
+  - Nekomimetic
+  - Cat
 
 - type: trait
   id: Canilunzt
@@ -53,13 +53,13 @@
   category: LanguageTraits
   cost: 2
   components:
-    - type: LanguageSpeaker
+  - type: LanguageSpeaker
   languagesSpoken:
-    - Canilunzt
+  - Canilunzt
   languagesUnderstood:
-    - Canilunzt
-    - Fox
-    - Dog
+  - Canilunzt
+  - Fox
+  - Dog
 
 - type: trait
   id: Scratch
@@ -68,11 +68,11 @@
   category: LanguageTraits
   cost: 2
   components:
-    - type: LanguageSpeaker
+  - type: LanguageSpeaker
   languagesSpoken:
-    - Scratch
+  - Scratch
   languagesUnderstood:
-    - Scratch
+  - Scratch
 
 - type: trait
   id: SolCommon
@@ -81,11 +81,11 @@
   category: LanguageTraits
   cost: 2
   components:
-    - type: LanguageSpeaker
+  - type: LanguageSpeaker
   languagesSpoken:
-    - SolCommon
+  - SolCommon
   languagesUnderstood:
-    - SolCommon
+  - SolCommon
 
 - type: trait
   id: VoxPidgin
@@ -94,11 +94,11 @@
   category: LanguageTraits
   cost: 2
   components:
-    - type: LanguageSpeaker
+  - type: LanguageSpeaker
   languagesSpoken:
-    - VoxPidgin
+  - VoxPidgin
   languagesUnderstood:
-    - VoxPidgin
+  - VoxPidgin
 
 - type: trait
   id: Draconic
@@ -107,11 +107,11 @@
   category: LanguageTraits
   cost: 2
   components:
-    - type: LanguageSpeaker
+  - type: LanguageSpeaker
   languagesSpoken:
-    - Draconic
+  - Draconic
   languagesUnderstood:
-    - Draconic
+  - Draconic
 
 - type: trait
   id: Marish
@@ -120,11 +120,11 @@
   category: LanguageTraits
   cost: 2
   components:
-    - type: LanguageSpeaker
+  - type: LanguageSpeaker
   languagesSpoken:
-    - Marish
+  - Marish
   languagesUnderstood:
-    - Marish
+  - Marish
 
 - type: trait
   id: Bubblish
@@ -133,11 +133,11 @@
   category: LanguageTraits
   cost: 2
   components:
-    - type: LanguageSpeaker
+  - type: LanguageSpeaker
   languagesSpoken:
-    - Bubblish
+  - Bubblish
   languagesUnderstood:
-    - Bubblish
+  - Bubblish
 
 - type: trait
   id: Terrum
@@ -146,11 +146,11 @@
   category: LanguageTraits
   cost: 2
   components:
-    - type: LanguageSpeaker
+  - type: LanguageSpeaker
   languagesSpoken:
-    - Terrum
+  - Terrum
   languagesUnderstood:
-    - Terrum
+  - Terrum
 
 - type: trait
   id: Sylvan
@@ -159,11 +159,11 @@
   category: LanguageTraits
   cost: 2
   components:
-    - type: LanguageSpeaker
+  - type: LanguageSpeaker
   languagesSpoken:
-    - Sylvan
+  - Sylvan
   languagesUnderstood:
-    - Sylvan
+  - Sylvan
 
 - type: trait
   id: Moffic
@@ -172,12 +172,12 @@
   category: LanguageTraits
   cost: 2
   components:
-    - type: LanguageSpeaker
+  - type: LanguageSpeaker
   languagesSpoken:
-    - Moffic
+  - Moffic
   languagesUnderstood:
-    - Moffic
-    - Mothroach
+  - Moffic
+  - Mothroach
 
 - type: trait
   id: Thaveyan
@@ -186,9 +186,9 @@
   category: LanguageTraits
   cost: 2
   components:
-    - type: LanguageSpeaker
+  - type: LanguageSpeaker
   languagesSpoken:
-    - Thaveyan
+  - Thaveyan
   languagesUnderstood:
-    - Thaveyan
-    - Carptongue
+  - Thaveyan
+  - Carptongue

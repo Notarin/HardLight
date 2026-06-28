@@ -1,6 +1,6 @@
 using Content.Shared.Damage;
-using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 using Content.Shared.Damage.Prototypes;
+using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 
 namespace Content.Server.Destructible.Thresholds.Triggers
 {
@@ -12,7 +12,11 @@ namespace Content.Server.Destructible.Thresholds.Triggers
     [DataDefinition]
     public sealed partial class DamageGroupTrigger : IThresholdTrigger
     {
-        [DataField("damageGroup", required: true, customTypeSerializer: typeof(PrototypeIdSerializer<DamageGroupPrototype>))]
+        [DataField(
+            "damageGroup",
+            required: true,
+            customTypeSerializer: typeof(PrototypeIdSerializer<DamageGroupPrototype>)
+        )]
         public string DamageGroup { get; set; } = default!;
 
         /// <summary>

@@ -31,8 +31,8 @@
   - type: Sprite
     sprite: Objects/Weapons/Guns/Launchers/china_lake.rsi
     layers:
-      - state: icon
-        map: ["enum.GunVisualLayers.Base"]
+    - state: icon
+      map: ["enum.GunVisualLayers.Base"]
   - type: Clothing
     sprite: Objects/Weapons/Guns/Launchers/china_lake.rsi
     slots:
@@ -43,14 +43,14 @@
     fireRate: 1
     selectedMode: SemiAuto
     availableModes:
-      - SemiAuto
+    - SemiAuto
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/grenade_launcher.ogg
   - type: BallisticAmmoProvider
     whitelist:
       tags:
-        - Grenade
-        - NFTrackingDart
+      - Grenade
+      - NFTrackingDart
     capacity: 3
     proto: 40mmGrenadeFragmentation
     soundInsert:
@@ -58,7 +58,7 @@
 
 - type: entity
   # abstract: true # Frontier: create NF variant if we want this
-  parent: [ BaseWeaponLauncher, BaseGunWieldable, BaseC3Contraband ] # Frontier: BaseMajorContraband<BaseC3SyndicateContraband
+  parent: [BaseWeaponLauncher, BaseGunWieldable, BaseC3Contraband] # Frontier: BaseMajorContraband<BaseC3SyndicateContraband
   id: WeaponLauncherHydra
   name: hydra
   description: PLOOP... FSSSSSS
@@ -67,7 +67,7 @@
     sprite: Objects/Weapons/Guns/Launchers/hydra_launcher.rsi
     layers:
     - state: icon
-      map: [ "enum.GunVisualLayers.Base" ]
+      map: ["enum.GunVisualLayers.Base"]
   - type: Clothing
     sprite: Objects/Weapons/Guns/Launchers/hydra_launcher.rsi
     slots:
@@ -90,8 +90,8 @@
       - Grenade
     proto: GrenadeCleanade # Frontier: create NF variant if we want this
     capacity: 6
-    chambers: [ True, True, True, True, True, True ]
-    ammoSlots: [ null, null, null, null, null, null ]
+    chambers: [True, True, True, True, True, True]
+    ammoSlots: [null, null, null, null, null, null]
     soundEject:
       path: /Audio/Weapons/Guns/MagOut/sfrifle_magout.ogg
     soundInsert:
@@ -100,17 +100,17 @@
 - type: entity
   # abstract: true # Frontier: use NF variant
   name: RPG-7
-  parent: [ BaseWeaponLauncher, BaseC3Contraband ] # Frontier: BaseMajorContraband<BaseC3Contraband
+  parent: [BaseWeaponLauncher, BaseC3Contraband] # Frontier: BaseMajorContraband<BaseC3Contraband
   id: WeaponLauncherRocket
   description: A modified ancient rocket-propelled grenade launcher.
   components:
   - type: Sprite
     sprite: Objects/Weapons/Guns/Launchers/rocket.rsi
     layers:
-      - state: base
-        map: ["enum.GunVisualLayers.Base"]
-      - state: mag-0
-        map: ["enum.GunVisualLayers.Mag"]
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
   - type: Clothing
     sprite: Objects/Weapons/Guns/Launchers/rocket.rsi
   - type: Gun
@@ -120,7 +120,7 @@
   - type: BallisticAmmoProvider
     whitelist:
       tags:
-        - CartridgeRocket
+      - CartridgeRocket
     proto: CartridgeRocket # Frontier
     capacity: 1
     soundInsert:
@@ -141,23 +141,23 @@
   - type: Sprite
     sprite: Objects/Weapons/Guns/Launchers/rocket.rsi
     layers:
-      - state: base
-        map: ["enum.GunVisualLayers.Base"]
-      - state: mag-0
-        map: ["enum.GunVisualLayers.Mag"]
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
   - type: Clothing
     sprite: Objects/Weapons/Guns/Launchers/rocket.rsi
   - type: Gun
     fireRate: 6
     selectedMode: FullAuto
     availableModes:
-      - FullAuto
+    - FullAuto
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/rpgfire.ogg
   - type: BallisticAmmoProvider
     whitelist:
       tags:
-        - CartridgeRocket
+      - CartridgeRocket
     proto: CartridgeRocketSlow # Frontier
     soundInsert:
       path: /Audio/Weapons/Guns/MagIn/batrifle_magin.ogg
@@ -174,31 +174,31 @@
   id: WeaponLauncherPirateCannon
   description: Kaboom!
   components:
-    - type: Sprite
-      sprite: Objects/Weapons/Guns/Launchers/pirate_cannon.rsi
-      layers:
-        - state: icon
-          map: ["enum.GunVisualLayers.Base"]
-    - containers:
-        balistic-ammo: !type:Container
-          ents: []
-        ballistic-ammo: !type:Container
-          ents: []
-      type: ContainerContainer
-    - type: Clothing
-      sprite: Objects/Weapons/Guns/Launchers/pirate_cannon.rsi
-    - type: Gun
-      fireRate: 1
-      soundGunshot:
-        path: /Audio/Weapons/Guns/Gunshots/mateba.ogg
-    - type: BallisticAmmoProvider
-      whitelist:
-        tags:
-          - CannonBall
-      capacity: 1
-      proto: CannonBall # Frontier
-      soundInsert:
-        path: /Audio/Weapons/Guns/Gunshots/grenade_launcher.ogg
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Launchers/pirate_cannon.rsi
+    layers:
+    - state: icon
+      map: ["enum.GunVisualLayers.Base"]
+  - containers:
+      balistic-ammo: !type:Container
+        ents: []
+      ballistic-ammo: !type:Container
+        ents: []
+    type: ContainerContainer
+  - type: Clothing
+    sprite: Objects/Weapons/Guns/Launchers/pirate_cannon.rsi
+  - type: Gun
+    fireRate: 1
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/mateba.ogg
+  - type: BallisticAmmoProvider
+    whitelist:
+      tags:
+      - CannonBall
+    capacity: 1
+    proto: CannonBall # Frontier
+    soundInsert:
+      path: /Audio/Weapons/Guns/Gunshots/grenade_launcher.ogg
 
 - type: entity
   name: tether gun
@@ -208,122 +208,122 @@
   id: WeaponTetherGun
   description: Manipulates gravity around objects to fling them at high velocities.
   components:
-    - type: Item
-      storedRotation: -90
-    - type: TetherGun
-      frequency: 5
-      dampingRatio: 4
-    - type: ItemToggle
-      onUse: false
-    - type: PowerCellDraw
-    - type: ToggleCellDraw
-    - type: Sprite
-      sprite: Objects/Weapons/Guns/Launchers/tether_gun.rsi
-      layers:
-        - state: base
-        - state: base-unshaded
-          map: [ "unshaded" ]
-          shader: unshaded
-          visible: false
+  - type: Item
+    storedRotation: -90
+  - type: TetherGun
+    frequency: 5
+    dampingRatio: 4
+  - type: ItemToggle
+    onUse: false
+  - type: PowerCellDraw
+  - type: ToggleCellDraw
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Launchers/tether_gun.rsi
+    layers:
+    - state: base
+    - state: base-unshaded
+      map: ["unshaded"]
+      shader: unshaded
+      visible: false
+  - type: ToggleableLightVisuals
+    spriteLayer: unshaded
+    inhandVisuals:
+      left:
+      - state: inhand-left-unshaded
+        shader: unshaded
+      right:
+      - state: inhand-right-unshaded
+        shader: unshaded
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.TetherVisualsStatus.Key:
+        unshaded:
+          True: {visible: true}
+          False: {visible: false}
+
+- type: entity
+  name: force gun
+  parent:
+  - BaseItem
+  - PowerCellSlotMediumItem
+  id: WeaponForceGun
+  description: Manipulates gravity around objects to fling them at high velocities.
+  components:
+  - type: Item
+    storedRotation: -90
+  - type: ForceGun
+    frequency: 15
+    dampingRatio: 4
+    massLimit: 50
+    lineColor: "#18a2d5"
+    soundLaunch:
+      path: /Audio/Weapons/soup.ogg
+      params:
+        volume: 2
+  - type: ItemToggle
+    onUse: false
+  - type: PowerCellDraw
+  - type: ToggleCellDraw
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Launchers/force_gun.rsi
+    layers:
+    - state: base
+    - state: base-unshaded
+      map: ["unshaded"]
+      shader: unshaded
+      visible: false
     - type: ToggleableLightVisuals
       spriteLayer: unshaded
       inhandVisuals:
         left:
-          - state: inhand-left-unshaded
-            shader: unshaded
+        - state: inhand-left-unshaded
+          shader: unshaded
         right:
-          - state: inhand-right-unshaded
-            shader: unshaded
+        - state: inhand-right-unshaded
+          shader: unshaded
     - type: Appearance
     - type: GenericVisualizer
       visuals:
         enum.TetherVisualsStatus.Key:
           unshaded:
-            True: { visible: true }
-            False: { visible: false }
-
-- type: entity
-  name: force gun
-  parent:
-    - BaseItem
-    - PowerCellSlotMediumItem
-  id: WeaponForceGun
-  description: Manipulates gravity around objects to fling them at high velocities.
-  components:
-    - type: Item
-      storedRotation: -90
-    - type: ForceGun
-      frequency: 15
-      dampingRatio: 4
-      massLimit: 50
-      lineColor: "#18a2d5"
-      soundLaunch:
-        path: /Audio/Weapons/soup.ogg
-        params:
-          volume: 2
-    - type: ItemToggle
-      onUse: false
-    - type: PowerCellDraw
-    - type: ToggleCellDraw
-    - type: Sprite
-      sprite: Objects/Weapons/Guns/Launchers/force_gun.rsi
-      layers:
-        - state: base
-        - state: base-unshaded
-          map: [ "unshaded" ]
-          shader: unshaded
-          visible: false
-        - type: ToggleableLightVisuals
-          spriteLayer: unshaded
-          inhandVisuals:
-            left:
-              - state: inhand-left-unshaded
-                shader: unshaded
-            right:
-              - state: inhand-right-unshaded
-                shader: unshaded
-        - type: Appearance
-        - type: GenericVisualizer
-          visuals:
-            enum.TetherVisualsStatus.Key:
-              unshaded:
-                True: { visible: true }
-                False: { visible: false }
+            True: {visible: true}
+            False: {visible: false}
 
 - type: entity
   name: grappling gun
   parent: BaseItem
   id: WeaponGrapplingGun
   components:
-    - type: AmmoCounter
-    - type: GrapplingGun
-    - type: Gun
-      soundGunshot: /Audio/Weapons/Guns/Gunshots/harpoon.ogg
-      fireRate: 0.5
-      clumsyProof: true
-    - type: BasicEntityAmmoProvider
-      proto: NFGrapplingHook # Frontier: use NF variant
-      capacity: 1
-    - type: Sprite
-      sprite: Objects/Weapons/Guns/Launchers/grappling_gun.rsi
-      layers:
-        - state: base
-        - state: base-unshaded
-          map: [ "unshaded" ]
-          visible: true
-    - type: UseDelay
-      delay: 1.5
-    - type: Appearance
-    - type: GenericVisualizer
-      visuals:
-        enum.TetherVisualsStatus.Key:
-          unshaded:
-            True: { state: base-unshaded }
-            False: { state: base-unshaded-off }
-    - type: PacifismAllowedGun
-    - type: Tag # Frontier
-      tags: # Frontier
-      - Sidearm # Frontier
+  - type: AmmoCounter
+  - type: GrapplingGun
+  - type: Gun
+    soundGunshot: /Audio/Weapons/Guns/Gunshots/harpoon.ogg
+    fireRate: 0.5
+    clumsyProof: true
+  - type: BasicEntityAmmoProvider
+    proto: NFGrapplingHook # Frontier: use NF variant
+    capacity: 1
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Launchers/grappling_gun.rsi
+    layers:
+    - state: base
+    - state: base-unshaded
+      map: ["unshaded"]
+      visible: true
+  - type: UseDelay
+    delay: 1.5
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.TetherVisualsStatus.Key:
+        unshaded:
+          True: {state: base-unshaded}
+          False: {state: base-unshaded-off}
+  - type: PacifismAllowedGun
+  - type: Tag # Frontier
+    tags: # Frontier
+    - Sidearm # Frontier
 
 # Admeme
 - type: entity
@@ -333,37 +333,37 @@
   suffix: Admeme
   description: Manipulates gravity around objects to fling them at high velocities.
   components:
-    - type: TetherGun
-      canTetherAlive: true
-      canUnanchor: true
-      maxForce: 10000
-      massLimit: 10000
-      dampingRatio: 4
-      frequency: 20
-    - type: Sprite
-      sprite: Objects/Weapons/Guns/Launchers/tether_gun.rsi
-      layers:
-        - state: base
-        - state: base-unshaded
-          map: [ "unshaded" ]
-          shader: unshaded
-          visible: false
-    - type: ToggleableLightVisuals
-      spriteLayer: unshaded
-      inhandVisuals:
-        left:
-          - state: inhand-left-unshaded
-            shader: unshaded
-        right:
-          - state: inhand-right-unshaded
-            shader: unshaded
-    - type: Appearance
-    - type: GenericVisualizer
-      visuals:
-        enum.TetherVisualsStatus.Key:
-          unshaded:
-            True: { visible: true }
-            False: { visible: false }
+  - type: TetherGun
+    canTetherAlive: true
+    canUnanchor: true
+    maxForce: 10000
+    massLimit: 10000
+    dampingRatio: 4
+    frequency: 20
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Launchers/tether_gun.rsi
+    layers:
+    - state: base
+    - state: base-unshaded
+      map: ["unshaded"]
+      shader: unshaded
+      visible: false
+  - type: ToggleableLightVisuals
+    spriteLayer: unshaded
+    inhandVisuals:
+      left:
+      - state: inhand-left-unshaded
+        shader: unshaded
+      right:
+      - state: inhand-right-unshaded
+        shader: unshaded
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.TetherVisualsStatus.Key:
+        unshaded:
+          True: {visible: true}
+          False: {visible: false}
 
 - type: entity
   name: force gun
@@ -372,40 +372,40 @@
   suffix: Admeme
   description: Manipulates gravity around objects to fling them at high velocities.
   components:
-    - type: ForceGun
-      canTetherAlive: true
-      canUnanchor: true
-      maxForce: 10000
-      massLimit: 10000
-      frequency: 15
-      dampingRatio: 4
-      throwForce: 50
-      throwDistance: 100
-      lineColor: "#18a2d5"
-    - type: Sprite
-      sprite: Objects/Weapons/Guns/Launchers/force_gun.rsi
-      layers:
-        - state: base
-        - state: base-unshaded
-          map: [ "unshaded" ]
-          shader: unshaded
-          visible: false
-    - type: ToggleableLightVisuals
-      spriteLayer: unshaded
-      inhandVisuals:
-        left:
-          - state: inhand-left-unshaded
-            shader: unshaded
-        right:
-          - state: inhand-right-unshaded
-            shader: unshaded
-    - type: Appearance
-    - type: GenericVisualizer
-      visuals:
-        enum.TetherVisualsStatus.Key:
-          unshaded:
-            True: { visible: true }
-            False: { visible: false }
+  - type: ForceGun
+    canTetherAlive: true
+    canUnanchor: true
+    maxForce: 10000
+    massLimit: 10000
+    frequency: 15
+    dampingRatio: 4
+    throwForce: 50
+    throwDistance: 100
+    lineColor: "#18a2d5"
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Launchers/force_gun.rsi
+    layers:
+    - state: base
+    - state: base-unshaded
+      map: ["unshaded"]
+      shader: unshaded
+      visible: false
+  - type: ToggleableLightVisuals
+    spriteLayer: unshaded
+    inhandVisuals:
+      left:
+      - state: inhand-left-unshaded
+        shader: unshaded
+      right:
+      - state: inhand-right-unshaded
+        shader: unshaded
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.TetherVisualsStatus.Key:
+        unshaded:
+          True: {visible: true}
+          False: {visible: false}
 
 - type: entity
   name: meteor launcher
@@ -417,7 +417,7 @@
   - type: BallisticAmmoProvider
     whitelist:
       tags:
-        - CartridgeRocket
+      - CartridgeRocket
     proto: MeteorMedium
 
 - type: entity
@@ -430,5 +430,5 @@
   - type: BallisticAmmoProvider
     whitelist:
       tags:
-        - CartridgeRocket
+      - CartridgeRocket
     proto: ImmovableRodSlow

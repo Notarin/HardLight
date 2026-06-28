@@ -84,7 +84,7 @@ public sealed partial class HandheldLightComponent : Component
 [Serializable, NetSerializable]
 public enum HandheldLightVisuals
 {
-    Power
+    Power,
 }
 
 [Serializable, NetSerializable]

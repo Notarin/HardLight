@@ -3,8 +3,7 @@
   id: ContractorT1
   effects:
   - !type:JobRequirementLoadoutEffect
-    requirement:
-      !type:OverallPlaytimeRequirement
+    requirement: !type:OverallPlaytimeRequirement
       time: 0 # 12 hrs ## Hardlight: No requirement for drip
 
 # Tier 2 generic playtime. 30 hours, 5 full shifts.
@@ -12,16 +11,14 @@
   id: ContractorT2
   effects:
   - !type:JobRequirementLoadoutEffect
-    requirement:
-      !type:OverallPlaytimeRequirement
+    requirement: !type:OverallPlaytimeRequirement
       time: 0 # 30 hrs ## Hardlight: No requirement for drip
-      
+
 # Tier 3 generic playtime. 50 hours, 8+ full shifts. Premium toy rewards.
 - type: loadoutEffectGroup
   id: ContractorT3
   effects:
   - !type:JobRequirementLoadoutEffect
-    requirement:
-      !type:OverallPlaytimeRequirement
+    requirement: !type:OverallPlaytimeRequirement
       time: 0 # 50 hrs ## Hardlight: No requirement for drip
 

@@ -10,9 +10,14 @@ namespace Content.Server.Traitor.Uplink.SurplusBundle;
 
 public sealed class SurplusBundleSystem : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly EntityStorageSystem _entityStorage = default!;
-    [Dependency] private readonly StoreSystem _store = default!;
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly EntityStorageSystem _entityStorage = default!;
+
+    [Dependency]
+    private readonly StoreSystem _store = default!;
 
     public override void Initialize()
     {
@@ -45,7 +50,8 @@ public sealed class SurplusBundleSystem : EntitySystem
     {
         var ret = new List<ListingData>();
 
-        var listings = _store.GetAvailableListings(ent, null, ent.Comp2.Categories)
+        var listings = _store
+            .GetAvailableListings(ent, null, ent.Comp2.Categories)
             .OrderBy(p => p.Cost.Values.Sum())
             .ToList();
 

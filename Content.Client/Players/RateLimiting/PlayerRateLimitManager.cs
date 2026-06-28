@@ -13,11 +13,7 @@ public sealed class PlayerRateLimitManager : SharedPlayerRateLimitManager
         return RateLimitStatus.Allowed;
     }
 
-    public override void Register(string key, RateLimitRegistration registration)
-    {
-    }
+    public override void Register(string key, RateLimitRegistration registration) { }
 
-    public override void Initialize()
-    {
-    }
+    public override void Initialize() { }
 }

@@ -1,8 +1,8 @@
 using Content.Shared._DV.Abilities;
 using Content.Shared._Funkystation.Genetics.Mutations.Components;
 using Content.Shared._Funkystation.Genetics.Mutations.Systems;
-using Content.Shared.Standing;
 using Content.Shared.Movement.Systems;
+using Content.Shared.Standing;
 using Content.Shared.Standing;
 
 namespace Content.Client._Funkystation.Genetics.Systems;
@@ -17,9 +17,11 @@ public sealed class CrawlSpeedBoostSystem : SharedCrawlSpeedBoostSystem
 
     private void OnRefresh(EntityUid uid, CrawlSpeedBoostComponent comp, RefreshMovementSpeedModifiersEvent args)
     {
-        if (!TryComp<LayingDownComponent>(uid, out var laying) ||
-            !TryComp<StandingStateComponent>(uid, out var standing) ||
-            standing.CurrentState != StandingState.Lying)
+        if (
+            !TryComp<LayingDownComponent>(uid, out var laying)
+            || !TryComp<StandingStateComponent>(uid, out var standing)
+            || standing.CurrentState != StandingState.Lying
+        )
             return;
 
         float original = laying.LyingSpeedModifier;

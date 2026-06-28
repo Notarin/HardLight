@@ -1,7 +1,7 @@
-using Content.Shared.Mind;
-using Robust.Shared.Spawners;
-using Robust.Shared.Prototypes;
 using Content.Server._NF.Transfer.Components;
+using Content.Shared.Mind;
+using Robust.Shared.Prototypes;
+using Robust.Shared.Spawners;
 
 namespace Content.Server._NF.Transfer;
 
@@ -11,8 +11,11 @@ namespace Content.Server._NF.Transfer;
 /// </summary>
 public sealed class TransferMindOnDespawnSystem : EntitySystem
 {
-    [Dependency] private readonly SharedMindSystem _mindSystem = default!;
-    [Dependency] private readonly IPrototypeManager _protoManager= default!;
+    [Dependency]
+    private readonly SharedMindSystem _mindSystem = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _protoManager = default!;
 
     ///Subscribe to the despawn event
     public override void Initialize()

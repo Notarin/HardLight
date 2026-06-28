@@ -12,7 +12,10 @@ public sealed class AntiGravityClothingSystem : EntitySystem
         SubscribeLocalEvent<AntiGravityClothingComponent, InventoryRelayedEvent<IsWeightlessEvent>>(OnIsWeightless);
     }
 
-    private void OnIsWeightless(Entity<AntiGravityClothingComponent> ent, ref InventoryRelayedEvent<IsWeightlessEvent> args)
+    private void OnIsWeightless(
+        Entity<AntiGravityClothingComponent> ent,
+        ref InventoryRelayedEvent<IsWeightlessEvent> args
+    )
     {
         if (args.Args.Handled)
             return;

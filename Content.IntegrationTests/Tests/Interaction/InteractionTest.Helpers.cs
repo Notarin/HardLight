@@ -38,8 +38,15 @@ public abstract partial class InteractionTest
 
         await Client.WaitPost(() =>
         {
-            Assert.That(CConSys.TrySpawnGhost(proto, CEntMan.GetCoordinates(TargetCoords), Direction.South, out var clientTarget),
-                Is.EqualTo(shouldSucceed));
+            Assert.That(
+                CConSys.TrySpawnGhost(
+                    proto,
+                    CEntMan.GetCoordinates(TargetCoords),
+                    Direction.South,
+                    out var clientTarget
+                ),
+                Is.EqualTo(shouldSucceed)
+            );
 
             if (!shouldSucceed)
                 return;
@@ -111,7 +118,9 @@ public abstract partial class InteractionTest
         await SpawnTarget(prototype);
         var serverTarget = SEntMan.GetEntity(Target);
         Assert.That(SEntMan.TryGetComponent(serverTarget, out ConstructionComponent? comp));
-        await Server.WaitPost(() => SConstruction.SetPathfindingTarget(serverTarget!.Value, comp!.DeconstructionNode, comp));
+        await Server.WaitPost(() =>
+            SConstruction.SetPathfindingTarget(serverTarget!.Value, comp!.DeconstructionNode, comp)
+        );
         await RunTicks(5);
     }
 
@@ -212,7 +221,9 @@ public abstract partial class InteractionTest
 
         await Server.WaitPost(() =>
         {
-            Assert.That(HandSys.TryPickup(SEntMan.GetEntity(Player), uid.Value, Hands.ActiveHand, false, false, Hands, item));
+            Assert.That(
+                HandSys.TryPickup(SEntMan.GetEntity(Player), uid.Value, Hands.ActiveHand, false, false, Hands, item)
+            );
         });
 
         await RunTicks(1);
@@ -254,7 +265,11 @@ public abstract partial class InteractionTest
 
         await Server.WaitPost(() =>
         {
-            InteractSys.UserInteraction(SEntMan.GetEntity(Player), SEntMan.GetComponent<TransformComponent>(target).Coordinates, target);
+            InteractSys.UserInteraction(
+                SEntMan.GetEntity(Player),
+                SEntMan.GetComponent<TransformComponent>(target).Coordinates,
+                target
+            );
         });
     }
 
@@ -377,7 +392,9 @@ public abstract partial class InteractionTest
     {
         var actualTarget = SEntMan.GetCoordinates(target ?? TargetCoords);
         var result = false;
-        await Server.WaitPost(() => result = HandSys.ThrowHeldItem(SEntMan.GetEntity(Player), actualTarget, minDistance));
+        await Server.WaitPost(() =>
+            result = HandSys.ThrowHeldItem(SEntMan.GetEntity(Player), actualTarget, minDistance)
+        );
         return result;
     }
 
@@ -551,7 +568,8 @@ public abstract partial class InteractionTest
     /// <summary>
     /// Assert whether or not the target has the given component.
     /// </summary>
-    protected void AssertComp<T>(bool hasComp = true, NetEntity? target = null) where T : IComponent
+    protected void AssertComp<T>(bool hasComp = true, NetEntity? target = null)
+        where T : IComponent
     {
         target ??= Target;
         if (target == null)
@@ -568,9 +586,7 @@ public abstract partial class InteractionTest
     /// </summary>
     protected async Task AssertTile(string? proto, NetCoordinates? coords = null)
     {
-        var targetTile = proto == null
-            ? Tile.Empty
-            : new Tile(TileMan[proto].TileId);
+        var targetTile = proto == null ? Tile.Empty : new Tile(TileMan[proto].TileId);
 
         var tile = Tile.Empty;
         var serverCoords = SEntMan.GetCoordinates(coords ?? TargetCoords);
@@ -581,7 +597,11 @@ public abstract partial class InteractionTest
                 tile = MapSystem.GetTileRef(gridUid, grid, serverCoords).Tile;
         });
 
-        Assert.That(tile.TypeId, Is.EqualTo(targetTile.TypeId), $"Expected tile at NetCoordinates {coords}: {TileMan[targetTile.TypeId].Name}. But was: {TileMan[tile.TypeId].Name}");
+        Assert.That(
+            tile.TypeId,
+            Is.EqualTo(targetTile.TypeId),
+            $"Expected tile at NetCoordinates {coords}: {TileMan[targetTile.TypeId].Name}. But was: {TileMan[tile.TypeId].Name}"
+        );
     }
 
     protected void AssertGridCount(int value)
@@ -607,8 +627,15 @@ public abstract partial class InteractionTest
     {
         target ??= Target;
         Assert.That(target, Is.Not.Null, "No target specified");
-        Assert.That(Position(target!.Value).TryDelta(SEntMan, Transform, ToServer(coords), out var delta), "Could not calculate distance between coordinates.");
-        Assert.That(delta.Length(), Is.LessThanOrEqualTo(radius), $"{SEntMan.ToPrettyString(SEntMan.GetEntity(target.Value))} was not at the intended location. Distance: {delta}, allowed distance: {radius}");
+        Assert.That(
+            Position(target!.Value).TryDelta(SEntMan, Transform, ToServer(coords), out var delta),
+            "Could not calculate distance between coordinates."
+        );
+        Assert.That(
+            delta.Length(),
+            Is.LessThanOrEqualTo(radius),
+            $"{SEntMan.ToPrettyString(SEntMan.GetEntity(target.Value))} was not at the intended location. Distance: {delta}, allowed distance: {radius}"
+        );
     }
 
     #endregion
@@ -636,10 +663,7 @@ public abstract partial class InteractionTest
                 var transform = xformQuery.GetComponent(ent);
                 var netEnt = SEntMan.GetNetEntity(ent);
 
-                if (ent == transform.MapUid
-                    || ent == transform.GridUid
-                    || netEnt == Player
-                    || netEnt == Target)
+                if (ent == transform.MapUid || ent == transform.GridUid || netEnt == Player || netEnt == Target)
                 {
                     toRemove.Add(ent);
                 }
@@ -669,7 +693,8 @@ public abstract partial class InteractionTest
         EntitySpecifierCollection collection,
         bool failOnMissing = true,
         bool failOnExcess = true,
-        LookupFlags flags = LookupFlags.Uncontained)
+        LookupFlags flags = LookupFlags.Uncontained
+    )
     {
         var expected = collection.Clone();
         var entities = await DoEntityLookup(flags);
@@ -709,7 +734,8 @@ public abstract partial class InteractionTest
     protected async Task<EntityUid> FindEntity(
         EntitySpecifier spec,
         LookupFlags flags = LookupFlags.Uncontained | LookupFlags.Contained,
-        bool shouldSucceed = true)
+        bool shouldSucceed = true
+    )
     {
         await spec.ConvertToStack(ProtoMan, Factory, Server);
 
@@ -740,15 +766,16 @@ public abstract partial class InteractionTest
     /// <summary>
     /// List of currently active DoAfters on the player.
     /// </summary>
-    protected IEnumerable<Shared.DoAfter.DoAfter> ActiveDoAfters
-        => DoAfters.DoAfters.Values.Where(x => !x.Cancelled && !x.Completed);
+    protected IEnumerable<Shared.DoAfter.DoAfter> ActiveDoAfters =>
+        DoAfters.DoAfters.Values.Where(x => !x.Cancelled && !x.Completed);
 
     #region Component
 
     /// <summary>
     /// Convenience method to get components on the target. Returns SERVER-SIDE components.
     /// </summary>
-    protected T Comp<T>(NetEntity? target = null) where T : IComponent
+    protected T Comp<T>(NetEntity? target = null)
+        where T : IComponent
     {
         target ??= Target;
         if (target == null)
@@ -758,13 +785,15 @@ public abstract partial class InteractionTest
     }
 
     /// <inheritdoc cref="Comp{T}"/>
-    protected bool TryComp<T>(NetEntity? target, [NotNullWhen(true)] out T? comp) where T : IComponent
+    protected bool TryComp<T>(NetEntity? target, [NotNullWhen(true)] out T? comp)
+        where T : IComponent
     {
         return SEntMan.TryGetComponent(ToServer(target), out comp);
     }
 
     /// <inheritdoc cref="Comp{T}"/>
-    protected bool TryComp<T>([NotNullWhen(true)] out T? comp) where T : IComponent
+    protected bool TryComp<T>([NotNullWhen(true)] out T? comp)
+        where T : IComponent
     {
         return SEntMan.TryGetComponent(STarget, out comp);
     }
@@ -776,9 +805,7 @@ public abstract partial class InteractionTest
     /// </summary>
     protected async Task SetTile(string? proto, NetCoordinates? coords = null, Entity<MapGridComponent>? grid = null)
     {
-        var tile = proto == null
-            ? Tile.Empty
-            : new Tile(TileMan[proto].TileId);
+        var tile = proto == null ? Tile.Empty : new Tile(TileMan[proto].TileId);
 
         var pos = Transform.ToMapCoordinates(SEntMan.GetCoordinates(coords ?? TargetCoords));
 
@@ -868,7 +895,12 @@ public abstract partial class InteractionTest
         await RunTicks(15);
     }
 
-    protected bool TryGetBui(Enum key, [NotNullWhen(true)] out BoundUserInterface? bui, NetEntity? target = null, bool shouldSucceed = true)
+    protected bool TryGetBui(
+        Enum key,
+        [NotNullWhen(true)] out BoundUserInterface? bui,
+        NetEntity? target = null,
+        bool shouldSucceed = true
+    )
     {
         bui = null;
         target ??= Target;
@@ -881,21 +913,29 @@ public abstract partial class InteractionTest
         if (!CEntMan.TryGetComponent<UserInterfaceComponent>(CEntMan.GetEntity(target), out var ui))
         {
             if (shouldSucceed)
-                Assert.Fail($"Entity {SEntMan.ToPrettyString(SEntMan.GetEntity(target.Value))} does not have a bui component");
+                Assert.Fail(
+                    $"Entity {SEntMan.ToPrettyString(SEntMan.GetEntity(target.Value))} does not have a bui component"
+                );
             return false;
         }
 
         if (!ui.ClientOpenInterfaces.TryGetValue(key, out bui))
         {
             if (shouldSucceed)
-                Assert.Fail($"Entity {SEntMan.ToPrettyString(SEntMan.GetEntity(target.Value))} does not have an open bui with key {key.GetType()}.{key}.");
+                Assert.Fail(
+                    $"Entity {SEntMan.ToPrettyString(SEntMan.GetEntity(target.Value))} does not have an open bui with key {key.GetType()}.{key}."
+                );
             return false;
         }
 
         var bui2 = bui;
         Assert.Multiple(() =>
         {
-            Assert.That(bui2.UiKey, Is.EqualTo(key), $"Bound user interface {bui2} is indexed by a key other than the one assigned to it somehow. {bui2.UiKey} != {key}");
+            Assert.That(
+                bui2.UiKey,
+                Is.EqualTo(key),
+                $"Bound user interface {bui2} is indexed by a key other than the one assigned to it somehow. {bui2.UiKey} != {key}"
+            );
             Assert.That(shouldSucceed, Is.True);
         });
         return true;
@@ -967,7 +1007,8 @@ public abstract partial class InteractionTest
         function ??= EngineKeyFunctions.UIClick;
         var screenCoords = new ScreenCoordinates(
             control.GlobalPixelPosition + control.PixelSize / 2,
-            control.Window?.Id ?? default);
+            control.Window?.Id ?? default
+        );
 
         var relativePos = screenCoords.Position / control.UIScale - control.GlobalPosition;
         var relativePixelPos = screenCoords.Position - control.GlobalPixelPosition;
@@ -978,7 +1019,8 @@ public abstract partial class InteractionTest
             screenCoords,
             default,
             relativePos,
-            relativePixelPos);
+            relativePixelPos
+        );
 
         await Client.DoGuiEvent(control, args);
         await RunTicks(1);
@@ -989,7 +1031,8 @@ public abstract partial class InteractionTest
             screenCoords,
             default,
             relativePos,
-            relativePixelPos);
+            relativePixelPos
+        );
 
         await Client.DoGuiEvent(control, args);
         await RunTicks(1);
@@ -1024,7 +1067,7 @@ public abstract partial class InteractionTest
         }
 
         Assert.That(control.GetType().IsAssignableTo(typeof(TControl)));
-        return (TControl) control;
+        return (TControl)control;
     }
 
     /// <summary>
@@ -1033,7 +1076,11 @@ public abstract partial class InteractionTest
     /// <remarks>
     /// Will fail if the control cannot be found.
     /// </remarks>
-    protected TControl GetControlFromChildren<TControl>(Func<TControl, bool> predicate, Control parent, bool recursive = true)
+    protected TControl GetControlFromChildren<TControl>(
+        Func<TControl, bool> predicate,
+        Control parent,
+        bool recursive = true
+    )
         where TControl : Control
     {
         if (TryGetControlFromChildren(predicate, parent, out var control, recursive))
@@ -1059,7 +1106,8 @@ public abstract partial class InteractionTest
         Func<TControl, bool> predicate,
         Control parent,
         [NotNullWhen(true)] out TControl? control,
-        bool recursive = true)
+        bool recursive = true
+    )
         where TControl : Control
     {
         foreach (var ctrl in parent.Children)
@@ -1084,7 +1132,8 @@ public abstract partial class InteractionTest
     /// <remarks>
     /// Note that this just returns the very first open window of this type that is found.
     /// </remarks>
-    protected TWindow GetWindow<TWindow>() where TWindow : BaseWindow
+    protected TWindow GetWindow<TWindow>()
+        where TWindow : BaseWindow
     {
         if (TryFindWindow(out TWindow? window))
             return window;
@@ -1099,7 +1148,8 @@ public abstract partial class InteractionTest
     /// <remarks>
     /// Note that this just returns the very first open window of this type that is found.
     /// </remarks>
-    protected bool TryFindWindow<TWindow>([NotNullWhen(true)] out TWindow? window) where TWindow : BaseWindow
+    protected bool TryFindWindow<TWindow>([NotNullWhen(true)] out TWindow? window)
+        where TWindow : BaseWindow
     {
         TryFindWindow(typeof(TWindow), out var control);
         window = control as TWindow;
@@ -1115,14 +1165,13 @@ public abstract partial class InteractionTest
     protected bool TryFindWindow(Type type, [NotNullWhen(true)] out BaseWindow? window)
     {
         Assert.That(type.IsAssignableTo(typeof(BaseWindow)));
-        window = UiMan.WindowRoot.Children
-            .OfType<BaseWindow>()
+        window = UiMan
+            .WindowRoot.Children.OfType<BaseWindow>()
             .Where(x => x.IsOpen)
             .FirstOrDefault(x => x.GetType().IsAssignableTo(type));
 
         return window != null;
     }
-
 
     /// <summary>
     /// Attempts to find client-side UI widget.
@@ -1188,8 +1237,8 @@ public abstract partial class InteractionTest
         {
             var atmosSystem = SEntMan.System<AtmosphereSystem>();
             var moles = new float[Atmospherics.AdjustedNumberOfGases];
-            moles[(int) Gas.Oxygen] = 21.824779f;
-            moles[(int) Gas.Nitrogen] = 82.10312f;
+            moles[(int)Gas.Oxygen] = 21.824779f;
+            moles[(int)Gas.Nitrogen] = 82.10312f;
             atmosSystem.SetMapAtmosphere(target, false, new GasMixture(moles, Atmospherics.T20C));
         });
     }
@@ -1197,7 +1246,6 @@ public abstract partial class InteractionTest
     #endregion
 
     #region Inputs
-
 
 
     /// <summary>
@@ -1208,7 +1256,8 @@ public abstract partial class InteractionTest
         BoundKeyFunction key,
         int ticks = 1,
         NetCoordinates? coordinates = null,
-        NetEntity? cursorEntity = null)
+        NetEntity? cursorEntity = null
+    )
     {
         await SetKey(key, BoundKeyState.Down, coordinates, cursorEntity);
         await RunTicks(ticks);
@@ -1225,7 +1274,8 @@ public abstract partial class InteractionTest
         BoundKeyState state,
         NetCoordinates? coordinates = null,
         NetEntity? cursorEntity = null,
-        ScreenCoordinates? screenCoordinates = null)
+        ScreenCoordinates? screenCoordinates = null
+    )
     {
         var coords = coordinates ?? TargetCoords;
         var target = cursorEntity ?? Target ?? default;
@@ -1277,27 +1327,43 @@ public abstract partial class InteractionTest
     #region Networking
 
     protected EntityUid ToServer(NetEntity nent) => SEntMan.GetEntity(nent);
+
     protected EntityUid ToClient(NetEntity nent) => CEntMan.GetEntity(nent);
+
     protected EntityUid? ToServer(NetEntity? nent) => SEntMan.GetEntity(nent);
+
     protected EntityUid? ToClient(NetEntity? nent) => CEntMan.GetEntity(nent);
+
     protected EntityUid ToServer(EntityUid cuid) => SEntMan.GetEntity(CEntMan.GetNetEntity(cuid));
+
     protected EntityUid ToClient(EntityUid suid) => CEntMan.GetEntity(SEntMan.GetNetEntity(suid));
+
     protected EntityUid? ToServer(EntityUid? cuid) => SEntMan.GetEntity(CEntMan.GetNetEntity(cuid));
+
     protected EntityUid? ToClient(EntityUid? suid) => CEntMan.GetEntity(SEntMan.GetNetEntity(suid));
 
     protected EntityCoordinates ToServer(NetCoordinates coords) => SEntMan.GetCoordinates(coords);
+
     protected EntityCoordinates ToClient(NetCoordinates coords) => CEntMan.GetCoordinates(coords);
+
     protected EntityCoordinates? ToServer(NetCoordinates? coords) => SEntMan.GetCoordinates(coords);
+
     protected EntityCoordinates? ToClient(NetCoordinates? coords) => CEntMan.GetCoordinates(coords);
 
     protected NetEntity FromServer(EntityUid suid) => SEntMan.GetNetEntity(suid);
+
     protected NetEntity FromClient(EntityUid cuid) => CEntMan.GetNetEntity(cuid);
+
     protected NetEntity? FromServer(EntityUid? suid) => SEntMan.GetNetEntity(suid);
+
     protected NetEntity? FromClient(EntityUid? cuid) => CEntMan.GetNetEntity(cuid);
 
     protected NetCoordinates FromServer(EntityCoordinates scoords) => SEntMan.GetNetCoordinates(scoords);
+
     protected NetCoordinates FromClient(EntityCoordinates ccoords) => CEntMan.GetNetCoordinates(ccoords);
+
     protected NetCoordinates? FromServer(EntityCoordinates? scoords) => SEntMan.GetNetCoordinates(scoords);
+
     protected NetCoordinates? FromClient(EntityCoordinates? ccoords) => CEntMan.GetNetCoordinates(ccoords);
 
     #endregion
@@ -1305,12 +1371,15 @@ public abstract partial class InteractionTest
     #region Metadata & Transforms
 
     protected MetaDataComponent Meta(NetEntity uid) => Meta(ToServer(uid));
+
     protected MetaDataComponent Meta(EntityUid uid) => SEntMan.GetComponent<MetaDataComponent>(uid);
 
     protected TransformComponent Xform(NetEntity uid) => Xform(ToServer(uid));
+
     protected TransformComponent Xform(EntityUid uid) => SEntMan.GetComponent<TransformComponent>(uid);
 
     protected EntityCoordinates Position(NetEntity uid) => Position(ToServer(uid));
+
     protected EntityCoordinates Position(EntityUid uid) => Xform(uid).Coordinates;
 
     #endregion

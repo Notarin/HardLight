@@ -1,13 +1,13 @@
 using System.Linq;
 using System.Text.RegularExpressions;
+using Content.Client.CharacterInfo;
+using Content.Client.Gameplay;
+using Content.Shared.CCVar;
 using Robust.Client.Audio;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controllers;
 using Robust.Shared.Audio;
 using Robust.Shared.Player;
-using Content.Shared.CCVar;
-using Content.Client.CharacterInfo;
-using Content.Client.Gameplay;
 using Robust.Shared.Utility;
 using static Content.Client.CharacterInfo.CharacterInfoSystem;
 
@@ -19,11 +19,16 @@ namespace Content.Client.UserInterface.Systems.Chat;
 /// </summary>
 public sealed partial class ChatUIController : IOnSystemChanged<CharacterInfoSystem>
 {
-    [Dependency] private readonly ILocalizationManager _loc = default!;
-    [UISystemDependency] private readonly CharacterInfoSystem _characterInfo = default!;
+    [Dependency]
+    private readonly ILocalizationManager _loc = default!;
+
+    [UISystemDependency]
+    private readonly CharacterInfoSystem _characterInfo = default!;
 
     // Goobstation - Highlight chat ping sound!
-    private static readonly ResPath HighlightSoundPath = new("/Audio/_Goobstation/Interface/HighlightChatPings/Beep.ogg");
+    private static readonly ResPath HighlightSoundPath = new(
+        "/Audio/_Goobstation/Interface/HighlightChatPings/Beep.ogg"
+    );
 
     private static readonly Regex StartDoubleQuote = new("\"$");
     private static readonly Regex EndDoubleQuote = new("^\"|(?<=^@)\"");
@@ -75,8 +80,22 @@ public sealed partial class ChatUIController : IOnSystemChanged<CharacterInfoSys
 
     private void InitializeHighlights()
     {
-        _config.OnValueChanged(CCVars.ChatAutoFillHighlights, (value) => { _autoFillHighlightsEnabled = value; }, true);
-        _config.OnValueChanged(CCVars.ChatHighlightsColor, (value) => { _highlightsColor = value; }, true);
+        _config.OnValueChanged(
+            CCVars.ChatAutoFillHighlights,
+            (value) =>
+            {
+                _autoFillHighlightsEnabled = value;
+            },
+            true
+        );
+        _config.OnValueChanged(
+            CCVars.ChatHighlightsColor,
+            (value) =>
+            {
+                _highlightsColor = value;
+            },
+            true
+        );
 
         // Load highlights if any were saved.
         var highlights = _config.GetCVar(CCVars.ChatHighlights);
@@ -111,7 +130,10 @@ public sealed partial class ChatUIController : IOnSystemChanged<CharacterInfoSys
     public void UpdateHighlights(string newHighlights, bool firstLoad = false)
     {
         // Do nothing if the provided highlights are the same as the old ones and it is not the first time.
-        if (!firstLoad && _config.GetCVar(CCVars.ChatHighlights).Equals(newHighlights, StringComparison.CurrentCultureIgnoreCase))
+        if (
+            !firstLoad
+            && _config.GetCVar(CCVars.ChatHighlights).Equals(newHighlights, StringComparison.CurrentCultureIgnoreCase)
+        )
             return;
 
         _config.SetCVar(CCVars.ChatHighlights, newHighlights);
@@ -121,7 +143,10 @@ public sealed partial class ChatUIController : IOnSystemChanged<CharacterInfoSys
 
         // We first subdivide the highlights based on newlines to prevent replacing
         // a valid "\n" tag and adding it to the final regex.
-        var splittedHighlights = newHighlights.Split('\n', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+        var splittedHighlights = newHighlights.Split(
+            '\n',
+            StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries
+        );
 
         for (var i = 0; i < splittedHighlights.Length; i++)
         {

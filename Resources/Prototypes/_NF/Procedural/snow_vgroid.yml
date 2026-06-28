@@ -10,164 +10,164 @@
 - type: dungeonConfig
   id: NFVGRoidSnow
   layers:
-    - !type:PrototypeDunGen
-      proto: NFVGRoidBlobSnow
-    - !type:PrototypeDunGen
-      proto: NFVGRoidExteriorSnow
-#    - !type:PrototypeDunGen
-#      proto: NFVGRoidSmallerSnow
-    - !type:PrototypeDunGen
-      proto: NFVGRoidSmallPathsSnow
-    - !type:EntityTableDunGen
-      minCount: 7
-      maxCount: 12
-      table:
-        id: NFVGRoidInteriorRoomMarker
-    - !type:BiomeDunGen
-      biomeTemplate: NFVGRoidSnow
-      tileMask:
-      - FloorSnow
+  - !type:PrototypeDunGen
+    proto: NFVGRoidBlobSnow
+  - !type:PrototypeDunGen
+    proto: NFVGRoidExteriorSnow
+    #    - !type:PrototypeDunGen
+    #      proto: NFVGRoidSmallerSnow
+  - !type:PrototypeDunGen
+    proto: NFVGRoidSmallPathsSnow
+  - !type:EntityTableDunGen
+    minCount: 7
+    maxCount: 12
+    table:
+      id: NFVGRoidInteriorRoomMarker
+  - !type:BiomeDunGen
+    biomeTemplate: NFVGRoidSnow
+    tileMask:
+    - FloorSnow
+  - !type:OreDunGen
     # Fill
     # - !type:PrototypeDunGen
-      # proto: NFVGRoidFillSnow
+    # proto: NFVGRoidFillSnow
     # "WarpPoint"
-    - !type:OreDunGen
-      tileMask:
-      - FloorSnow
-      entity: WarpPointDungeon
-      count: 1
-      minGroupSize: 1
-      maxGroupSize: 1
+    tileMask:
+    - FloorSnow
+    entity: WarpPointDungeon
+    count: 1
+    minGroupSize: 1
+    maxGroupSize: 1
+  - !type:OreDunGen
     # "Ores"
-    - !type:OreDunGen
-      entityMask:
-      - WallRockSnow
-      entity: NFSnowElementalSpawner
-      count: 100
-      minGroupSize: 1
-      maxGroupSize: 1
+    entityMask:
+    - WallRockSnow
+    entity: NFSnowElementalSpawner
+    count: 100
+    minGroupSize: 1
+    maxGroupSize: 1
+  - !type:OreDunGen
     # Ores
-    - !type:OreDunGen
-      entityMask:
-      - WallRockSnow
-      entity: WallRockSnowTin
-      count: 50
-      minGroupSize: 10
-      maxGroupSize: 15
-    - !type:OreDunGen
-      entityMask:
-      - WallRockSnow
-      entity: WallRockSnowCoal
-      count: 50
-      minGroupSize: 8
-      maxGroupSize: 12
-    - !type:OreDunGen
-      entityMask:
-      - WallRockSnow
-      entity: WallRockSnowQuartz
-      count: 50
-      minGroupSize: 10
-      maxGroupSize: 15
-    - !type:OreDunGen
-      entityMask:
-      - WallRockSnow
-      entity: WallRockSnowSalt
-      count: 50
-      minGroupSize: 8
-      maxGroupSize: 12
-    - !type:OreDunGen
-      entityMask:
-      - WallRockSnow
-      entity: WallRockSnowGold
-      count: 40
-      minGroupSize: 8
-      maxGroupSize: 12
-    - !type:OreDunGen
-      entityMask:
-      - WallRockSnow
-      entity: WallRockSnowSilver
-      count: 40
-      minGroupSize: 8
-      maxGroupSize: 12
-    - !type:OreDunGen
-      entityMask:
-      - WallRockSnow
-      entity: WallRockSnowPlasma
-      count: 35
-      minGroupSize: 4
-      maxGroupSize: 8
-    - !type:OreDunGen
-      entityMask:
-      - WallRockSnow
-      entity: WallRockSnowUranium
-      count: 35
-      minGroupSize: 4
-      maxGroupSize: 8
-    - !type:OreDunGen
-      entityMask:
-      - WallRockSnow
-      entity: NFWallSnowCobblebrick
-      count: 100
-      minGroupSize: 6
-      maxGroupSize: 16
-    - !type:OreDunGen
-      entityMask:
-      - WallRockSnow
-      entity: WallRockSnowArtifactFragment
-      count: 25
-      minGroupSize: 1
-      maxGroupSize: 3
-    - !type:OreDunGen
-      entityMask:
-      - WallRockSnow
-      entity: WallRockSnowDiamond
-      count: 15
-      minGroupSize: 1
-      maxGroupSize: 2
-    - !type:OreDunGen
-      entityMask:
-      - WallRockSnow
-      entity: NFWallRockSnowBluespace
-      count: 10
-      minGroupSize: 1
-      maxGroupSize: 1
+    entityMask:
+    - WallRockSnow
+    entity: WallRockSnowTin
+    count: 50
+    minGroupSize: 10
+    maxGroupSize: 15
+  - !type:OreDunGen
+    entityMask:
+    - WallRockSnow
+    entity: WallRockSnowCoal
+    count: 50
+    minGroupSize: 8
+    maxGroupSize: 12
+  - !type:OreDunGen
+    entityMask:
+    - WallRockSnow
+    entity: WallRockSnowQuartz
+    count: 50
+    minGroupSize: 10
+    maxGroupSize: 15
+  - !type:OreDunGen
+    entityMask:
+    - WallRockSnow
+    entity: WallRockSnowSalt
+    count: 50
+    minGroupSize: 8
+    maxGroupSize: 12
+  - !type:OreDunGen
+    entityMask:
+    - WallRockSnow
+    entity: WallRockSnowGold
+    count: 40
+    minGroupSize: 8
+    maxGroupSize: 12
+  - !type:OreDunGen
+    entityMask:
+    - WallRockSnow
+    entity: WallRockSnowSilver
+    count: 40
+    minGroupSize: 8
+    maxGroupSize: 12
+  - !type:OreDunGen
+    entityMask:
+    - WallRockSnow
+    entity: WallRockSnowPlasma
+    count: 35
+    minGroupSize: 4
+    maxGroupSize: 8
+  - !type:OreDunGen
+    entityMask:
+    - WallRockSnow
+    entity: WallRockSnowUranium
+    count: 35
+    minGroupSize: 4
+    maxGroupSize: 8
+  - !type:OreDunGen
+    entityMask:
+    - WallRockSnow
+    entity: NFWallSnowCobblebrick
+    count: 100
+    minGroupSize: 6
+    maxGroupSize: 16
+  - !type:OreDunGen
+    entityMask:
+    - WallRockSnow
+    entity: WallRockSnowArtifactFragment
+    count: 25
+    minGroupSize: 1
+    maxGroupSize: 3
+  - !type:OreDunGen
+    entityMask:
+    - WallRockSnow
+    entity: WallRockSnowDiamond
+    count: 15
+    minGroupSize: 1
+    maxGroupSize: 2
+  - !type:OreDunGen
+    entityMask:
+    - WallRockSnow
+    entity: NFWallRockSnowBluespace
+    count: 10
+    minGroupSize: 1
+    maxGroupSize: 1
+  - !type:OreDunGen
     # Decoration
     # - !type:OreDunGen
-      # tileMask:
-      # - FloorSnow
-      # entity: FloraRockSolid
-      # count: 20
-      # minGroupSize: 1
-      # maxGroupSize: 1
+    # tileMask:
+    # - FloorSnow
+    # entity: FloraRockSolid
+    # count: 20
+    # minGroupSize: 1
+    # maxGroupSize: 1
     # Mobs
-    - !type:OreDunGen
-      tileMask:
-      - FloorSnow
-      entity: SpawnMobArgocyteTiny
-      count: 5
-      minGroupSize: 2
-      maxGroupSize: 3
-    - !type:OreDunGen
-      tileMask:
-      - FloorSnow
-      entity: SpawnMobArgocyteSmall
-      count: 3
-      minGroupSize: 1
-      maxGroupSize: 2
-    - !type:OreDunGen
-      tileMask:
-      - FloorSnow
-      entity: SpawnMobArgocyteMedium
-      count: 2
-      minGroupSize: 1
-      maxGroupSize: 1
-    - !type:OreDunGen
-      tileMask:
-      - FloorSnow
-      entity: SpawnMobArgocyteLeviathingExpeditions
-      count: 1
-      minGroupSize: 0
-      maxGroupSize: 1
+    tileMask:
+    - FloorSnow
+    entity: SpawnMobArgocyteTiny
+    count: 5
+    minGroupSize: 2
+    maxGroupSize: 3
+  - !type:OreDunGen
+    tileMask:
+    - FloorSnow
+    entity: SpawnMobArgocyteSmall
+    count: 3
+    minGroupSize: 1
+    maxGroupSize: 2
+  - !type:OreDunGen
+    tileMask:
+    - FloorSnow
+    entity: SpawnMobArgocyteMedium
+    count: 2
+    minGroupSize: 1
+    maxGroupSize: 1
+  - !type:OreDunGen
+    tileMask:
+    - FloorSnow
+    entity: SpawnMobArgocyteLeviathingExpeditions
+    count: 1
+    minGroupSize: 0
+    maxGroupSize: 1
 
 # Configs
 - type: dungeonConfig
@@ -296,68 +296,68 @@
 - type: biomeTemplate
   id: NFVGRoidSnow # Similar to Grasslands... but snow
   layers:
-    - !type:BiomeEntityLayer
-      threshold: 0.80
-      noise:
-        seed: 0
-        noiseType: OpenSimplex2
-        fractalType: FBm
-        frequency: 2
-      allowedTiles:
-        - FloorSnow
-      entities:
-        - CrystalBlue
-        - CrystalCyan
+  - !type:BiomeEntityLayer
+    threshold: 0.80
+    noise:
+      seed: 0
+      noiseType: OpenSimplex2
+      fractalType: FBm
+      frequency: 2
+    allowedTiles:
+    - FloorSnow
+    entities:
+    - CrystalBlue
+    - CrystalCyan
+  - !type:BiomeEntityLayer
     # Rock formations
-    - !type:BiomeEntityLayer
-      allowedTiles:
-        - FloorSnow
-      threshold: -0.30
-      noise:
-        seed: 0
-        noiseType: Cellular
-        frequency: 0.05
-        lacunarity: 2
-        fractalType: FBm
-        octaves: 5
-        cellularDistanceFunction: Euclidean
-        cellularReturnType: Distance2
-      entities:
-        - WallRockSnow
+    allowedTiles:
+    - FloorSnow
+    threshold: -0.30
+    noise:
+      seed: 0
+      noiseType: Cellular
+      frequency: 0.05
+      lacunarity: 2
+      fractalType: FBm
+      octaves: 5
+      cellularDistanceFunction: Euclidean
+      cellularReturnType: Distance2
+    entities:
+    - WallRockSnow
+  - !type:BiomeTileLayer
     # Ice tiles
-    - !type:BiomeTileLayer
-      tile: FloorIce
-      threshold: -0.9
-      noise:
-        seed: 0
-        noiseType: Cellular
-        frequency: 0.03
-        lacunarity: 2
-        fractalType: FBm
-        octaves: 5
-        cellularDistanceFunction: Euclidean
-        cellularReturnType: Distance2
+    tile: FloorIce
+    threshold: -0.9
+    noise:
+      seed: 0
+      noiseType: Cellular
+      frequency: 0.03
+      lacunarity: 2
+      fractalType: FBm
+      octaves: 5
+      cellularDistanceFunction: Euclidean
+      cellularReturnType: Distance2
+  - !type:BiomeEntityLayer
     # Liquid plasma rivers. Ice moon baby
-    - !type:BiomeEntityLayer
-      allowedTiles:
-      - FloorSnow
-      - FloorIce
-      threshold: 0.95
-      noise:
-        seed: 3
-        noiseType: OpenSimplex2
-        frequency: 0.003
-        lacunarity: 1.50
-        fractalType: Ridged
-        octaves: 1
-      entities:
-      - FloorLiquidPlasmaEntity
-    - !type:BiomeDummyLayer
-      id: Loot
-    - !type:BiomeTileLayer
-      threshold: -0.7
-      tile: FloorSnow
-      noise:
-        seed: 0
-        frequency: 0.02
-        fractalType: None
+    allowedTiles:
+    - FloorSnow
+    - FloorIce
+    threshold: 0.95
+    noise:
+      seed: 3
+      noiseType: OpenSimplex2
+      frequency: 0.003
+      lacunarity: 1.50
+      fractalType: Ridged
+      octaves: 1
+    entities:
+    - FloorLiquidPlasmaEntity
+  - !type:BiomeDummyLayer
+    id: Loot
+  - !type:BiomeTileLayer
+    threshold: -0.7
+    tile: FloorSnow
+    noise:
+      seed: 0
+      frequency: 0.02
+      fractalType: None

@@ -33,21 +33,50 @@ namespace Content.Server.Medical;
 /// </summary>
 public sealed class DefibrillatorSystem : EntitySystem
 {
-    [Dependency] private readonly ChatSystem _chatManager = default!;
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly DoAfterSystem _doAfter = default!;
-    [Dependency] private readonly ElectrocutionSystem _electrocution = default!;
-    [Dependency] private readonly EuiManager _euiManager = default!;
-    [Dependency] private readonly ISharedPlayerManager _player = default!;
-    [Dependency] private readonly ItemToggleSystem _toggle = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly MobThresholdSystem _mobThreshold = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly PowerCellSystem _powerCell = default!;
-    [Dependency] private readonly RottingSystem _rotting = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedMindSystem _mind = default!;
-    [Dependency] private readonly UseDelaySystem _useDelay = default!;
+    [Dependency]
+    private readonly ChatSystem _chatManager = default!;
+
+    [Dependency]
+    private readonly DamageableSystem _damageable = default!;
+
+    [Dependency]
+    private readonly DoAfterSystem _doAfter = default!;
+
+    [Dependency]
+    private readonly ElectrocutionSystem _electrocution = default!;
+
+    [Dependency]
+    private readonly EuiManager _euiManager = default!;
+
+    [Dependency]
+    private readonly ISharedPlayerManager _player = default!;
+
+    [Dependency]
+    private readonly ItemToggleSystem _toggle = default!;
+
+    [Dependency]
+    private readonly MobStateSystem _mobState = default!;
+
+    [Dependency]
+    private readonly MobThresholdSystem _mobThreshold = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly PowerCellSystem _powerCell = default!;
+
+    [Dependency]
+    private readonly RottingSystem _rotting = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedMindSystem _mind = default!;
+
+    [Dependency]
+    private readonly UseDelaySystem _useDelay = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -92,7 +121,13 @@ public sealed class DefibrillatorSystem : EntitySystem
     /// <returns>
     ///     Returns true if the target is valid to be defibed, false otherwise.
     /// </returns>
-    public bool CanZap(EntityUid uid, EntityUid target, EntityUid? user = null, DefibrillatorComponent? component = null, bool targetCanBeAlive = false)
+    public bool CanZap(
+        EntityUid uid,
+        EntityUid target,
+        EntityUid? user = null,
+        DefibrillatorComponent? component = null,
+        bool targetCanBeAlive = false
+    )
     {
         if (!Resolve(uid, ref component))
             return false;
@@ -141,12 +176,21 @@ public sealed class DefibrillatorSystem : EntitySystem
             return false;
 
         _audio.PlayPvs(component.ChargeSound, uid);
-        return _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, user, component.DoAfterDuration, new DefibrillatorZapDoAfterEvent(),
-            uid, target, uid)
-        {
-            NeedHand = true,
-            BreakOnMove = !component.AllowDoAfterMovement
-        });
+        return _doAfter.TryStartDoAfter(
+            new DoAfterArgs(
+                EntityManager,
+                user,
+                component.DoAfterDuration,
+                new DefibrillatorZapDoAfterEvent(),
+                uid,
+                target,
+                uid
+            )
+            {
+                NeedHand = true,
+                BreakOnMove = !component.AllowDoAfterMovement,
+            }
+        );
     }
 
     /// <summary>
@@ -177,12 +221,21 @@ public sealed class DefibrillatorSystem : EntitySystem
         if (targetEvent.Cancelled || !CanZap(uid, target, user, component, true))
             return;
 
-        if (!TryComp<MobStateComponent>(target, out var mob) ||
-            !TryComp<MobThresholdsComponent>(target, out var thresholds))
+        if (
+            !TryComp<MobStateComponent>(target, out var mob)
+            || !TryComp<MobThresholdsComponent>(target, out var thresholds)
+        )
             return;
 
         _audio.PlayPvs(component.ZapSound, uid);
-        _electrocution.TryDoElectrocution(target, null, component.ZapDamage, component.WritheDuration, true, ignoreInsulation: true);
+        _electrocution.TryDoElectrocution(
+            target,
+            null,
+            component.ZapDamage,
+            component.WritheDuration,
+            true,
+            ignoreInsulation: true
+        );
         if (!TryComp<UseDelayComponent>(uid, out var useDelay))
             return;
         _useDelay.SetLength((uid, useDelay), component.ZapDelay, component.DelayId);
@@ -197,29 +250,41 @@ public sealed class DefibrillatorSystem : EntitySystem
 
         if (_rotting.IsRotten(target))
         {
-            _chatManager.TrySendInGameICMessage(uid, Loc.GetString("defibrillator-rotten"),
-                InGameICChatType.Speak, true);
+            _chatManager.TrySendInGameICMessage(
+                uid,
+                Loc.GetString("defibrillator-rotten"),
+                InGameICChatType.Speak,
+                true
+            );
         }
         else if (attemptEv.Cancelled)
         {
-            _chatManager.TrySendInGameICMessage(uid, Loc.GetString("defibrillator-unrevivable"),
-                InGameICChatType.Speak, true);
+            _chatManager.TrySendInGameICMessage(
+                uid,
+                Loc.GetString("defibrillator-unrevivable"),
+                InGameICChatType.Speak,
+                true
+            );
         }
         else
         {
             if (_mobState.IsDead(target, mob))
                 _damageable.TryChangeDamage(target, component.ZapHeal, true, origin: uid);
 
-            if (_mobThreshold.TryGetThresholdForState(target, MobState.Dead, out var threshold) &&
-                TryComp<DamageableComponent>(target, out var damageableComponent) &&
-                damageableComponent.TotalDamage < threshold)
+            if (
+                _mobThreshold.TryGetThresholdForState(target, MobState.Dead, out var threshold)
+                && TryComp<DamageableComponent>(target, out var damageableComponent)
+                && damageableComponent.TotalDamage < threshold
+            )
             {
                 _mobState.ChangeMobState(target, MobState.Critical, mob, uid);
                 dead = false;
             }
 
-            if (_mind.TryGetMind(target, out _, out var mind) &&
-                _player.TryGetSessionById(mind.UserId, out var playerSession))
+            if (
+                _mind.TryGetMind(target, out _, out var mind)
+                && _player.TryGetSessionById(mind.UserId, out var playerSession)
+            )
             {
                 session = playerSession;
                 // notify them they're being revived.
@@ -230,14 +295,16 @@ public sealed class DefibrillatorSystem : EntitySystem
             }
             else
             {
-                _chatManager.TrySendInGameICMessage(uid, Loc.GetString("defibrillator-no-mind"),
-                    InGameICChatType.Speak, true);
+                _chatManager.TrySendInGameICMessage(
+                    uid,
+                    Loc.GetString("defibrillator-no-mind"),
+                    InGameICChatType.Speak,
+                    true
+                );
             }
         }
 
-        var sound = dead || session == null
-            ? component.FailureSound
-            : component.SuccessSound;
+        var sound = dead || session == null ? component.FailureSound : component.SuccessSound;
         _audio.PlayPvs(sound, uid);
 
         // if we don't have enough power left for another shot, turn it off

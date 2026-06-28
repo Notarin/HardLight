@@ -2,8 +2,8 @@ using Content.Server.Anomaly.Components;
 using Content.Server.Power.Components;
 using Content.Server.Power.EntitySystems;
 using Content.Shared.Anomaly.Components;
-using Content.Shared.Psionics.Glimmer;
 using Content.Shared.Power;
+using Content.Shared.Psionics.Glimmer;
 
 namespace Content.Server.Psionics.Glimmer
 {
@@ -12,8 +12,11 @@ namespace Content.Server.Psionics.Glimmer
     /// </summary>
     public sealed class GlimmerStructuresSystem : EntitySystem
     {
-        [Dependency] private readonly PowerReceiverSystem _powerReceiverSystem = default!;
-        [Dependency] private readonly GlimmerSystem _glimmerSystem = default!;
+        [Dependency]
+        private readonly PowerReceiverSystem _powerReceiverSystem = default!;
+
+        [Dependency]
+        private readonly GlimmerSystem _glimmerSystem = default!;
 
         public override void Initialize()
         {
@@ -25,7 +28,11 @@ namespace Content.Server.Psionics.Glimmer
             SubscribeLocalEvent<GlimmerSourceComponent, AnomalySupercriticalEvent>(OnAnomalySupercritical);
         }
 
-        private void OnAnomalyVesselPowerChanged(EntityUid uid, AnomalyVesselComponent component, ref PowerChangedEvent args)
+        private void OnAnomalyVesselPowerChanged(
+            EntityUid uid,
+            AnomalyVesselComponent component,
+            ref PowerChangedEvent args
+        )
         {
             if (TryComp<GlimmerSourceComponent>(component.Anomaly, out var glimmerSource))
                 glimmerSource.Active = args.Powered;
@@ -46,10 +53,14 @@ namespace Content.Server.Psionics.Glimmer
             // component.
 
             if (TryComp<AnomalyComponent>(uid, out var anomaly))
-                _glimmerSystem.Glimmer += (int) (5f * anomaly.Severity);
+                _glimmerSystem.Glimmer += (int)(5f * anomaly.Severity);
         }
 
-        private void OnAnomalySupercritical(EntityUid uid, GlimmerSourceComponent component, ref AnomalySupercriticalEvent args)
+        private void OnAnomalySupercritical(
+            EntityUid uid,
+            GlimmerSourceComponent component,
+            ref AnomalySupercriticalEvent args
+        )
         {
             _glimmerSystem.Glimmer += 100;
         }

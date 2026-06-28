@@ -36,8 +36,10 @@ public sealed class ResearchTest
                             continue;
 
                         Assert.That(tech.Tier, Is.GreaterThan(0), $"Technology {tech} has invalid tier {tech.Tier}.");
-                        Assert.That(discipline.TierPrerequisites.ContainsKey(tech.Tier),
-                            $"Discipline {discipline.ID} does not have a TierPrerequisites definition for tier {tech.Tier}");
+                        Assert.That(
+                            discipline.TierPrerequisites.ContainsKey(tech.Tier),
+                            $"Discipline {discipline.ID} does not have a TierPrerequisites definition for tier {tech.Tier}"
+                        );
                     }
                 }
             });
@@ -94,14 +96,22 @@ public sealed class ResearchTest
                     unlockedTechs.UnionWith(tech.RecipeUnlocks);
                     foreach (var recipe in tech.RecipeUnlocks)
                     {
-                        Assert.That(latheTechsDynamic.Contains(recipe) || latheTechsStatic.Contains(recipe), Is.True, $"Recipe '{recipe}' from tech '{tech.ID}' cannot be unlocked on any lathes.");
+                        Assert.That(
+                            latheTechsDynamic.Contains(recipe) || latheTechsStatic.Contains(recipe),
+                            Is.True,
+                            $"Recipe '{recipe}' from tech '{tech.ID}' cannot be unlocked on any lathes."
+                        );
                     }
                 }
 
                 // now check that every dynamic recipe a lathe lists can be unlocked
                 foreach (var recipe in latheTechsDynamic)
                 {
-                    Assert.That(unlockedTechs, Does.Contain(recipe), $"Recipe '{recipe}' is dynamic on a lathe but cannot be unlocked by research.");
+                    Assert.That(
+                        unlockedTechs,
+                        Does.Contain(recipe),
+                        $"Recipe '{recipe}' is dynamic on a lathe but cannot be unlocked by research."
+                    );
                 }
             });
         });

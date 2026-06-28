@@ -45,9 +45,9 @@
   components:
   - type: Sprite
     layers:
-      - state: red
-      - sprite: Objects/Fun/Instruments/h_synthesizer.rsi
-        state: icon
+    - state: red
+    - sprite: Objects/Fun/Instruments/h_synthesizer.rsi
+      state: icon
   - type: EntityTableSpawner
     table: !type:NestedSelector
       tableId: RandomInstrumentTable

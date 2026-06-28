@@ -1,55 +1,55 @@
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Numerics;
-using System.IO;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Content.Server._NF.Bank;
+using Content.Server.Access.Systems;
 using Content.Server.Administration.Managers;
 using Content.Server.Afk;
 using Content.Server.Database;
 using Content.Server.Discord;
 using Content.Server.GameTicking;
-using Content.Server._NF.Bank;
+using Content.Server.Players.RateLimiting;
+using Content.Server.Shuttles.Components;
+using Content.Server.Shuttles.Save;
 using Content.Server.Spawners.Components;
 using Content.Server.Station.Components;
 using Content.Server.Station.Systems;
-using Content.Server.Players.RateLimiting;
+using Content.Shared._HL.Rescue.Rescue;
+using Content.Shared._NF.Shipyard.Components;
+using Content.Shared.Access.Components;
+using Content.Shared.Access.Systems;
 using Content.Shared.Administration;
 using Content.Shared.CCVar;
 using Content.Shared.GameTicking;
+using Content.Shared.Item;
+using Content.Shared.Maps;
 using Content.Shared.Mind;
+using Content.Shared.Physics;
 using Content.Shared.Players.RateLimiting;
+using Content.Shared.Prototypes;
 using Content.Shared.Roles;
-using Content.Shared._NF.Shipyard.Components;
 using Content.Shared.Shuttles.Components;
-using Content.Server.Shuttles.Components;
 using Content.Shared.Shuttles.Systems;
-using Content.Shared.Access.Systems;
-using Content.Shared.Access.Components;
-using Content.Shared._HL.Rescue.Rescue;
-using Content.Server.Shuttles.Save;
-using Content.Server.Access.Systems;
 using JetBrains.Annotations;
 using Robust.Server.Player;
 using Robust.Shared;
 using Robust.Shared.Configuration;
+using Robust.Shared.ContentPack;
 using Robust.Shared.Enums;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
-using Content.Shared.Maps;
 using Robust.Shared.Network;
 using Robust.Shared.Physics.Collision.Shapes;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
-using Robust.Shared.ContentPack;
-using Content.Shared.Physics;
-using Content.Shared.Item;
-using Content.Shared.Prototypes;
 
 namespace Content.Server.Administration.Systems
 {
@@ -59,28 +59,71 @@ namespace Content.Server.Administration.Systems
         private const string RateLimitKey = "AdminHelp";
         private const int MinimumMessageLength = 2;
 
-        [Dependency] private readonly IPlayerManager _playerManager = default!;
-        [Dependency] private readonly IAdminManager _adminManager = default!;
-        [Dependency] private readonly IConfigurationManager _config = default!;
-        [Dependency] private readonly IGameTiming _timing = default!;
-        [Dependency] private readonly IPlayerLocator _playerLocator = default!;
-        [Dependency] private readonly GameTicker _gameTicker = default!;
-        [Dependency] private readonly SharedMindSystem _minds = default!;
-        [Dependency] private readonly IAfkManager _afkManager = default!;
-        [Dependency] private readonly IServerDbManager _dbManager = default!;
-        [Dependency] private readonly PlayerRateLimitManager _rateLimit = default!;
-        [Dependency] private readonly StationSystem _station = default!;
-        [Dependency] private readonly StationJobsSystem _stationJobs = default!;
-        [Dependency] private readonly IPrototypeManager _prototype = default!;
-        [Dependency] private readonly BankSystem _bank = default!;
-        [Dependency] private readonly Content.Server.Shuttles.Systems.ShuttleSystem _shuttle = default!;
-        [Dependency] private readonly Robust.Shared.Random.IRobustRandom _random = default!;
-        [Dependency] private readonly SharedMapSystem _mapSystem = default!;
-        [Dependency] private readonly TurfSystem _turf = default!;
-        [Dependency] private readonly ShipSaveSystem _shipSave = default!;
-        [Dependency] private readonly IMapManager _mapManager = default!;
-        [Dependency] private readonly IResourceManager _resources = default!;
-        [Dependency] private readonly SharedIdCardSystem _idCard = default!;
+        [Dependency]
+        private readonly IPlayerManager _playerManager = default!;
+
+        [Dependency]
+        private readonly IAdminManager _adminManager = default!;
+
+        [Dependency]
+        private readonly IConfigurationManager _config = default!;
+
+        [Dependency]
+        private readonly IGameTiming _timing = default!;
+
+        [Dependency]
+        private readonly IPlayerLocator _playerLocator = default!;
+
+        [Dependency]
+        private readonly GameTicker _gameTicker = default!;
+
+        [Dependency]
+        private readonly SharedMindSystem _minds = default!;
+
+        [Dependency]
+        private readonly IAfkManager _afkManager = default!;
+
+        [Dependency]
+        private readonly IServerDbManager _dbManager = default!;
+
+        [Dependency]
+        private readonly PlayerRateLimitManager _rateLimit = default!;
+
+        [Dependency]
+        private readonly StationSystem _station = default!;
+
+        [Dependency]
+        private readonly StationJobsSystem _stationJobs = default!;
+
+        [Dependency]
+        private readonly IPrototypeManager _prototype = default!;
+
+        [Dependency]
+        private readonly BankSystem _bank = default!;
+
+        [Dependency]
+        private readonly Content.Server.Shuttles.Systems.ShuttleSystem _shuttle = default!;
+
+        [Dependency]
+        private readonly Robust.Shared.Random.IRobustRandom _random = default!;
+
+        [Dependency]
+        private readonly SharedMapSystem _mapSystem = default!;
+
+        [Dependency]
+        private readonly TurfSystem _turf = default!;
+
+        [Dependency]
+        private readonly ShipSaveSystem _shipSave = default!;
+
+        [Dependency]
+        private readonly IMapManager _mapManager = default!;
+
+        [Dependency]
+        private readonly IResourceManager _resources = default!;
+
+        [Dependency]
+        private readonly SharedIdCardSystem _idCard = default!;
 
         private static readonly ResPath SharedAdminMacrosPath = new("shared_admin_macros.txt");
 
@@ -122,32 +165,161 @@ namespace Content.Server.Administration.Systems
         // Text to be used to cut off messages that are too long. Should be shorter than MessageLengthCap
         private const string TooLongText = "... **(too long)**";
 
-        private static readonly Dictionary<string, string[]> DefaultAhelpTriageRules = new(StringComparer.OrdinalIgnoreCase)
+        private static readonly Dictionary<string, string[]> DefaultAhelpTriageRules = new(
+            StringComparer.OrdinalIgnoreCase
+        )
         {
-            ["Ship Saving / Loading"] = new[] { "failed to save", "save bricked", "cant load", "can't load", "backup", "duplicate ship", "ship save", "ship load" },
-            ["Ship Knotting / Collision / Spawn"] = new[] { "knotted", "collision", "inside mine", "inside another ship", "spawned inside", "ship overlap", "stuck in another ship" },
-            ["Lost Items / Gear"] = new[] { "lost", "deleted", "missing", "my bag", "hardsuit", "gear", "item vanished", "item disappeared" },
-            ["Lag / Server Performance"] = new[] { "lag", "rubberband", "rubber band", "server dying", "massive lag spike", "desync", "high ping" },
-            ["Flatpack / Unpacking"] = new[] { "flatpack", "flat pack", "unpacking", "unpack", "no space", "broken flatpack" },
-            ["Ship FTL / Movement"] = new[] { "currently in ftl", "cannot ftl", "can't ftl", "thruster", "ftl", "ship wont move", "ship won't move" },
-            ["Admin Spawn / Custom Request"] = new[] { "spawn me", "give me", "custom item", "custom suit", "change my blood", "admin spawn" },
-            ["Chemistry / Reagents"] = new[] { "nank temperature", "chem", "reagent", "beaker", "chem master", "not filling" },
-            ["Expedition"] = new[] { "exped", "expedition", "expd", "stuck on exped", "exped wont end", "exped won't end" },
-            ["Spawn Location"] = new[] { "spawned in space", "trapped in engineering", "spawned in", "wrong spawn", "bad spawn" },
+            ["Ship Saving / Loading"] = new[]
+            {
+                "failed to save",
+                "save bricked",
+                "cant load",
+                "can't load",
+                "backup",
+                "duplicate ship",
+                "ship save",
+                "ship load",
+            },
+            ["Ship Knotting / Collision / Spawn"] = new[]
+            {
+                "knotted",
+                "collision",
+                "inside mine",
+                "inside another ship",
+                "spawned inside",
+                "ship overlap",
+                "stuck in another ship",
+            },
+            ["Lost Items / Gear"] = new[]
+            {
+                "lost",
+                "deleted",
+                "missing",
+                "my bag",
+                "hardsuit",
+                "gear",
+                "item vanished",
+                "item disappeared",
+            },
+            ["Lag / Server Performance"] = new[]
+            {
+                "lag",
+                "rubberband",
+                "rubber band",
+                "server dying",
+                "massive lag spike",
+                "desync",
+                "high ping",
+            },
+            ["Flatpack / Unpacking"] = new[]
+            {
+                "flatpack",
+                "flat pack",
+                "unpacking",
+                "unpack",
+                "no space",
+                "broken flatpack",
+            },
+            ["Ship FTL / Movement"] = new[]
+            {
+                "currently in ftl",
+                "cannot ftl",
+                "can't ftl",
+                "thruster",
+                "ftl",
+                "ship wont move",
+                "ship won't move",
+            },
+            ["Admin Spawn / Custom Request"] = new[]
+            {
+                "spawn me",
+                "give me",
+                "custom item",
+                "custom suit",
+                "change my blood",
+                "admin spawn",
+            },
+            ["Chemistry / Reagents"] = new[]
+            {
+                "nank temperature",
+                "chem",
+                "reagent",
+                "beaker",
+                "chem master",
+                "not filling",
+            },
+            ["Expedition"] = new[]
+            {
+                "exped",
+                "expedition",
+                "expd",
+                "stuck on exped",
+                "exped wont end",
+                "exped won't end",
+            },
+            ["Spawn Location"] = new[]
+            {
+                "spawned in space",
+                "trapped in engineering",
+                "spawned in",
+                "wrong spawn",
+                "bad spawn",
+            },
             ["Ship Deed / ID"] = new[] { "ship deed", "deed", "lost my id", "not attached to my id", "ship id" },
-            ["Trait / Loadout"] = new[] { "trait", "loadout", "spawned without", "trait not working", "synthetic trait" },
-            ["Protogen / Borg Surgery"] = new[] { "protogen", "borg", "surgery", "limb", "armour", "airloss", "stuck in a chassis" },
-            ["UI / Hotkey / Action Bar"] = new[] { "toggle helmet", "hotkey", "action bar", "ui", "button not working", "keybind" },
-            ["NPC / Vent Critter / Monster"] = new[] { "npc", "vent critter", "monster", "dreadtalon", "ai behavior", "ai behaviour" },
+            ["Trait / Loadout"] = new[]
+            {
+                "trait",
+                "loadout",
+                "spawned without",
+                "trait not working",
+                "synthetic trait",
+            },
+            ["Protogen / Borg Surgery"] = new[]
+            {
+                "protogen",
+                "borg",
+                "surgery",
+                "limb",
+                "armour",
+                "airloss",
+                "stuck in a chassis",
+            },
+            ["UI / Hotkey / Action Bar"] = new[]
+            {
+                "toggle helmet",
+                "hotkey",
+                "action bar",
+                "ui",
+                "button not working",
+                "keybind",
+            },
+            ["NPC / Vent Critter / Monster"] = new[]
+            {
+                "npc",
+                "vent critter",
+                "monster",
+                "dreadtalon",
+                "ai behavior",
+                "ai behaviour",
+            },
             ["Self-Antag / Rule"] = new[] { "self antag", "self-antag", "rule", "no rp", "cryo cycling", "arrest" },
-            ["Antag Objective"] = new[] { "objective", "kill target cryo", "objective doesnt spawn", "objective doesn't spawn", "new objective" },
+            ["Antag Objective"] = new[]
+            {
+                "objective",
+                "kill target cryo",
+                "objective doesnt spawn",
+                "objective doesn't spawn",
+                "new objective",
+            },
             ["Time Transfer"] = new[] { "transfer my playtime", "time transfer", "playtime transfer" },
         };
 
         // Auto-reply templates are admin-defined. The dictionary stays so legacy
         // helpers compile; admins populate _customAutoReplyTemplates via the AHelp
         // editor (Add Category / Set Template).
-        private static readonly Dictionary<string, string> AhelpAutoReplyLocKeysByCategory = new(StringComparer.OrdinalIgnoreCase);
+        private static readonly Dictionary<string, string> AhelpAutoReplyLocKeysByCategory = new(
+            StringComparer.OrdinalIgnoreCase
+        );
 
         private int _maxAdditionalChars;
         private readonly Dictionary<NetUserId, DateTime> _activeConversations = new();
@@ -160,7 +332,9 @@ namespace Content.Server.Administration.Systems
         private readonly HashSet<string> _removedTriageCategories = new(StringComparer.OrdinalIgnoreCase);
         private readonly HashSet<string> _enabledAutoReplyCategories = new(StringComparer.OrdinalIgnoreCase);
         private readonly HashSet<string> _enabledTriageCategories = new(StringComparer.OrdinalIgnoreCase);
-        private readonly Dictionary<string, SharedAdminMacroRecord> _sharedAdminMacros = new(StringComparer.OrdinalIgnoreCase);
+        private readonly Dictionary<string, SharedAdminMacroRecord> _sharedAdminMacros = new(
+            StringComparer.OrdinalIgnoreCase
+        );
         private bool _autoReplyEnabled = false;
         private bool _panicAutoReplyEnabled = false;
         private bool _triageEnabled = true;
@@ -244,12 +418,14 @@ namespace Content.Server.Administration.Systems
 
             LoadSharedAdminMacros();
 
-        	_rateLimit.Register(
+            _rateLimit.Register(
                 RateLimitKey,
-                new RateLimitRegistration(CCVars.AhelpRateLimitPeriod,
+                new RateLimitRegistration(
+                    CCVars.AhelpRateLimitPeriod,
                     CCVars.AhelpRateLimitCount,
-                    PlayerRateLimitedAction)
-                );
+                    PlayerRateLimitedAction
+                )
+            );
         }
 
         private async void OnCallChanged(string url)
@@ -282,8 +458,14 @@ namespace Content.Server.Administration.Systems
         private void PlayerRateLimitedAction(ICommonSession obj)
         {
             RaiseNetworkEvent(
-                new BwoinkTextMessage(obj.UserId, default, Loc.GetString("bwoink-system-rate-limited"), playSound: false),
-                obj.Channel);
+                new BwoinkTextMessage(
+                    obj.UserId,
+                    default,
+                    Loc.GetString("bwoink-system-rate-limited"),
+                    playSound: false
+                ),
+                obj.Channel
+            );
         }
 
         private void OnOverrideChanged(string obj)
@@ -323,14 +505,13 @@ namespace Content.Server.Administration.Systems
             {
                 SessionStatus.Connected => Loc.GetString("bwoink-system-player-reconnecting"),
                 SessionStatus.Disconnected => Loc.GetString("bwoink-system-player-disconnecting"),
-                _ => null
+                _ => null,
             };
 
             if (message != null)
             {
-                var statusType = e.NewStatus == SessionStatus.Connected
-                    ? PlayerStatusType.Connected
-                    : PlayerStatusType.Disconnected;
+                var statusType =
+                    e.NewStatus == SessionStatus.Connected ? PlayerStatusType.Connected : PlayerStatusType.Disconnected;
                 NotifyAdmins(e.Session, message, statusType);
             }
 
@@ -364,7 +545,7 @@ namespace Content.Server.Administration.Systems
                 PlayerStatusType.Connected => ":green_circle:",
                 PlayerStatusType.Disconnected => ":red_circle:",
                 PlayerStatusType.Banned => ":no_entry:",
-                _ => ":question:"
+                _ => ":question:",
             };
 
             // Create the message parameters for Discord
@@ -427,8 +608,10 @@ namespace Content.Server.Administration.Systems
             // Don't make a new embed if we
             // 1. were in the lobby just now, and
             // 2. are not entering the lobby or directly into a new round.
-            if (args.Old is GameRunLevel.PreRoundLobby ||
-                args.New is not (GameRunLevel.PreRoundLobby or GameRunLevel.InRound))
+            if (
+                args.Old is GameRunLevel.PreRoundLobby
+                || args.New is not (GameRunLevel.PreRoundLobby or GameRunLevel.InRound)
+            )
             {
                 return;
             }
@@ -449,9 +632,11 @@ namespace Content.Server.Administration.Systems
 
         private void OnClientTypingUpdated(BwoinkClientTypingUpdated msg, EntitySessionEventArgs args)
         {
-            if (_typingUpdateTimestamps.TryGetValue(args.SenderSession.UserId, out var tuple) &&
-                tuple.Typing == msg.Typing &&
-                tuple.Timestamp + TimeSpan.FromSeconds(1) > _timing.RealTime)
+            if (
+                _typingUpdateTimestamps.TryGetValue(args.SenderSession.UserId, out var tuple)
+                && tuple.Typing == msg.Typing
+                && tuple.Timestamp + TimeSpan.FromSeconds(1) > _timing.RealTime
+            )
             {
                 return;
             }
@@ -514,8 +699,10 @@ namespace Content.Server.Administration.Systems
             var content = await response.Content.ReadAsStringAsync();
             if (!response.IsSuccessStatusCode)
             {
-                _sawmill.Log(LogLevel.Error,
-                    $"Webhook returned bad status code when trying to get webhook data (perhaps the webhook URL is invalid?): {response.StatusCode}\nResponse: {content}");
+                _sawmill.Log(
+                    LogLevel.Error,
+                    $"Webhook returned bad status code when trying to get webhook data (perhaps the webhook URL is invalid?): {response.StatusCode}\nResponse: {content}"
+                );
                 return null;
             }
 
@@ -538,8 +725,11 @@ namespace Content.Server.Administration.Systems
             var exists = _relayMessages.TryGetValue(userId, out var existingEmbed);
 
             // Whether the message will become too long after adding these new messages
-            var tooLong = exists && messages.Sum(msg => Math.Min(msg.Message.Length, MessageLengthCap) + "\n".Length)
-                    + existingEmbed?.Description.Length > DescriptionMax;
+            var tooLong =
+                exists
+                && messages.Sum(msg => Math.Min(msg.Message.Length, MessageLengthCap) + "\n".Length)
+                    + existingEmbed?.Description.Length
+                    > DescriptionMax;
 
             // If there is no existing embed, or it is getting too long, we create a new embed
             if (!exists || tooLong)
@@ -548,8 +738,7 @@ namespace Content.Server.Administration.Systems
 
                 if (lookup == null)
                 {
-                    _sawmill.Log(LogLevel.Error,
-                        $"Unable to find player for NetUserId {userId} when sending webhook."); // Frontier: remove "discord"
+                    _sawmill.Log(LogLevel.Error, $"Unable to find player for NetUserId {userId} when sending webhook."); // Frontier: remove "discord"
                     _relayMessages.Remove(userId);
                     return;
                 }
@@ -592,8 +781,10 @@ namespace Content.Server.Administration.Systems
                     GameRunLevel.PreRoundLobby => "\n\n:arrow_forward: _**Pre-round lobby started**_\n",
                     GameRunLevel.InRound => "\n\n:arrow_forward: _**Round started**_\n",
                     GameRunLevel.PostRound => "\n\n:stop_button: _**Post-round started**_\n",
-                    _ => throw new ArgumentOutOfRangeException(nameof(_gameTicker.RunLevel),
-                        $"{_gameTicker.RunLevel} was not matched."),
+                    _ => throw new ArgumentOutOfRangeException(
+                        nameof(_gameTicker.RunLevel),
+                        $"{_gameTicker.RunLevel} was not matched."
+                    ),
                 };
 
                 existingEmbed.LastRunLevel = _gameTicker.RunLevel;
@@ -618,23 +809,29 @@ namespace Content.Server.Administration.Systems
                 existingEmbed.Description += $"\n{text}";
             }
 
-            var payload = GeneratePayload(existingEmbed.Description,
+            var payload = GeneratePayload(
+                existingEmbed.Description,
                 existingEmbed.Username,
                 userId.UserId, // Frontier, this is used to identify the players in the webhook
-                existingEmbed.CharacterName);
+                existingEmbed.CharacterName
+            );
 
             // If there is no existing embed, create a new one
             // Otherwise patch (edit) it
             if (existingEmbed.Id == null)
             {
-                var request = await _httpClient.PostAsync($"{_webhookUrl}?wait=true",
-                    new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json"));
+                var request = await _httpClient.PostAsync(
+                    $"{_webhookUrl}?wait=true",
+                    new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json")
+                );
 
                 var content = await request.Content.ReadAsStringAsync();
                 if (!request.IsSuccessStatusCode)
                 {
-                    _sawmill.Log(LogLevel.Error,
-                        $"Webhook returned bad status code when posting message (perhaps the message is too long?): {request.StatusCode}\nResponse: {content}"); // Frontier: "Discord"<"Webhook"
+                    _sawmill.Log(
+                        LogLevel.Error,
+                        $"Webhook returned bad status code when posting message (perhaps the message is too long?): {request.StatusCode}\nResponse: {content}"
+                    ); // Frontier: "Discord"<"Webhook"
                     _relayMessages.Remove(userId);
                     return;
                 }
@@ -642,8 +839,7 @@ namespace Content.Server.Administration.Systems
                 var id = JsonNode.Parse(content)?["id"];
                 if (id == null)
                 {
-                    _sawmill.Log(LogLevel.Error,
-                        $"Could not find id in json-content returned from webhook: {content}"); // Frontier: remove "discord"
+                    _sawmill.Log(LogLevel.Error, $"Could not find id in json-content returned from webhook: {content}"); // Frontier: remove "discord"
                     _relayMessages.Remove(userId);
                     return;
                 }
@@ -652,14 +848,18 @@ namespace Content.Server.Administration.Systems
             }
             else
             {
-                var request = await _httpClient.PatchAsync($"{_webhookUrl}/messages/{existingEmbed.Id}",
-                    new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json"));
+                var request = await _httpClient.PatchAsync(
+                    $"{_webhookUrl}/messages/{existingEmbed.Id}",
+                    new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json")
+                );
 
                 if (!request.IsSuccessStatusCode)
                 {
                     var content = await request.Content.ReadAsStringAsync();
-                    _sawmill.Log(LogLevel.Error,
-                        $"Webhook returned bad status code when patching message (perhaps the message is too long?): {request.StatusCode}\nResponse: {content}"); // Frontier: "Discord"<"Webhook"
+                    _sawmill.Log(
+                        LogLevel.Error,
+                        $"Webhook returned bad status code when patching message (perhaps the message is too long?): {request.StatusCode}\nResponse: {content}"
+                    ); // Frontier: "Discord"<"Webhook"
                     _relayMessages.Remove(userId);
                     return;
                 }
@@ -668,8 +868,7 @@ namespace Content.Server.Administration.Systems
             _relayMessages[userId] = existingEmbed;
 
             // Actually do the on call relay last, we just need to grab it before we dequeue every message above.
-            if (onCallRelay &&
-                _onCallData != null)
+            if (onCallRelay && _onCallData != null)
             {
                 existingEmbed.OnCall = true;
                 var roleMention = _config.GetCVar(CCVars.DiscordAhelpMention);
@@ -684,18 +883,29 @@ namespace Content.Server.Administration.Systems
                     if (_webhookData is { GuildId: { } guildId, ChannelId: { } channelId })
                     {
                         message.AppendLine(
-                            $"**[Go to ahelp](https://discord.com/channels/{guildId}/{channelId}/{existingEmbed.Id})**");
+                            $"**[Go to ahelp](https://discord.com/channels/{guildId}/{channelId}/{existingEmbed.Id})**"
+                        );
                     }
 
-                    payload = GeneratePayload(message.ToString(), existingEmbed.Username, userId, existingEmbed.CharacterName);
+                    payload = GeneratePayload(
+                        message.ToString(),
+                        existingEmbed.Username,
+                        userId,
+                        existingEmbed.CharacterName
+                    );
 
-                    var request = await _httpClient.PostAsync($"{_onCallUrl}?wait=true",
-                        new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json"));
+                    var request = await _httpClient.PostAsync(
+                        $"{_onCallUrl}?wait=true",
+                        new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json")
+                    );
 
                     var content = await request.Content.ReadAsStringAsync();
                     if (!request.IsSuccessStatusCode)
                     {
-                        _sawmill.Log(LogLevel.Error, $"Webhook returned bad status code when posting relay message (perhaps the message is too long?): {request.StatusCode}\nResponse: {content}"); // Frontier: Discord<Webhook
+                        _sawmill.Log(
+                            LogLevel.Error,
+                            $"Webhook returned bad status code when posting relay message (perhaps the message is too long?): {request.StatusCode}\nResponse: {content}"
+                        ); // Frontier: Discord<Webhook
                     }
                 }
             }
@@ -707,7 +917,12 @@ namespace Content.Server.Administration.Systems
             _processingChannels.Remove(userId);
         }
 
-        private WebhookPayload GeneratePayload(string messages, string username, Guid userId, string? characterName = null) // Frontier: added Guid
+        private WebhookPayload GeneratePayload(
+            string messages,
+            string username,
+            Guid userId,
+            string? characterName = null
+        ) // Frontier: added Guid
         {
             // Add character name
             if (characterName != null)
@@ -726,8 +941,10 @@ namespace Content.Server.Administration.Systems
                     : $"pre-round lobby for round {_gameTicker.RoundId + 1}",
                 GameRunLevel.InRound => $"round {_gameTicker.RoundId}",
                 GameRunLevel.PostRound => $"post-round {_gameTicker.RoundId}",
-                _ => throw new ArgumentOutOfRangeException(nameof(_gameTicker.RunLevel),
-                    $"{_gameTicker.RunLevel} was not matched."),
+                _ => throw new ArgumentOutOfRangeException(
+                    nameof(_gameTicker.RunLevel),
+                    $"{_gameTicker.RunLevel} was not matched."
+                ),
             };
 
             return new WebhookPayload
@@ -744,7 +961,7 @@ namespace Content.Server.Administration.Systems
                         Footer = new WebhookEmbedFooter
                         {
                             Text = $"{serverName} ({round})",
-                            IconUrl = string.IsNullOrWhiteSpace(_footerIconUrl) ? null : _footerIconUrl
+                            IconUrl = string.IsNullOrWhiteSpace(_footerIconUrl) ? null : _footerIconUrl,
                         },
                     },
                 },
@@ -789,7 +1006,16 @@ namespace Content.Server.Administration.Systems
             AdminData webhookAdminData = new();
 
             // TODO: fix args
-            OnBwoinkInternal(message, SystemUserId, webhookAdminData, body.Username, null, body.UserOnly, body.WebhookUpdate, true);
+            OnBwoinkInternal(
+                message,
+                SystemUserId,
+                webhookAdminData,
+                body.Username,
+                null,
+                body.UserOnly,
+                body.WebhookUpdate,
+                true
+            );
         }
 
         protected override void OnBwoinkTextMessage(BwoinkTextMessage message, EntitySessionEventArgs eventArgs)
@@ -817,15 +1043,26 @@ namespace Content.Server.Administration.Systems
                         message.UserId,
                         SystemUserId,
                         Loc.GetString("bwoink-system-message-too-short", ("length", MinimumMessageLength)),
-                        playSound: false),
-                    senderSession.Channel);
+                        playSound: false
+                    ),
+                    senderSession.Channel
+                );
                 return;
             }
 
             if (_rateLimit.CountAction(eventArgs.SenderSession, RateLimitKey) != RateLimitStatus.Allowed)
                 return;
 
-            OnBwoinkInternal(message, eventArgs.SenderSession.UserId, senderAdmin, eventArgs.SenderSession.Name, eventArgs.SenderSession.Channel, false, true, false);
+            OnBwoinkInternal(
+                message,
+                eventArgs.SenderSession.UserId,
+                senderAdmin,
+                eventArgs.SenderSession.Name,
+                eventArgs.SenderSession.Channel,
+                false,
+                true,
+                false
+            );
         }
 
         /// <summary>
@@ -838,15 +1075,24 @@ namespace Content.Server.Administration.Systems
         /// <param name="senderChannel">The channel to send a message to, e.g. in case of failure to send</param>
         /// <param name="sendWebhook">If true, message should be sent off through the webhook if possible</param>
         /// <param name="fromWebhook">Message originated from a webhook (e.g. Discord)</param>
-        private void OnBwoinkInternal(BwoinkTextMessage message, NetUserId senderId, AdminData? senderAdmin, string senderName, INetChannel? senderChannel, bool userOnly, bool sendWebhook, bool fromWebhook)
+        private void OnBwoinkInternal(
+            BwoinkTextMessage message,
+            NetUserId senderId,
+            AdminData? senderAdmin,
+            string senderName,
+            INetChannel? senderChannel,
+            bool userOnly,
+            bool sendWebhook,
+            bool fromWebhook
+        )
         {
             var senderAHelpAdmin = senderAdmin?.HasFlag(AdminFlags.Adminhelp) ?? false;
             var isNewIncomingAhelpConversation =
-                !fromWebhook &&
-                senderId == message.UserId &&
-                !senderAHelpAdmin &&
-                !message.AdminOnly &&
-                !_activeConversations.ContainsKey(message.UserId);
+                !fromWebhook
+                && senderId == message.UserId
+                && !senderAHelpAdmin
+                && !message.AdminOnly
+                && !_activeConversations.ContainsKey(message.UserId);
 
             _activeConversations[message.UserId] = DateTime.Now;
 
@@ -861,9 +1107,7 @@ namespace Content.Server.Administration.Systems
                 adminPrefix = $"[bold]\\[{senderAdmin.Title}\\][/bold] ";
             }
 
-            if (senderAdmin is not null &&
-                senderAdmin.Flags ==
-                AdminFlags.Adminhelp) // Mentor. Not full admin. That's why it's colored differently.
+            if (senderAdmin is not null && senderAdmin.Flags == AdminFlags.Adminhelp) // Mentor. Not full admin. That's why it's colored differently.
             {
                 bwoinkText = $"[color=purple]{adminPrefix}{senderName}[/color]";
             }
@@ -876,13 +1120,25 @@ namespace Content.Server.Administration.Systems
                 bwoinkText = $"{senderName}";
             }
 
-            bwoinkText = $"{(message.AdminOnly ? Loc.GetString("bwoink-message-admin-only") : !message.PlaySound ? Loc.GetString("bwoink-message-silent") : "")}{(fromWebhook ? Loc.GetString("bwoink-message-discord") : "")} {bwoinkText}: {escapedText}";
+            bwoinkText =
+                $"{(message.AdminOnly ? Loc.GetString("bwoink-message-admin-only") : !message.PlaySound ? Loc.GetString("bwoink-message-silent") : "")}{(fromWebhook ? Loc.GetString("bwoink-message-discord") : "")} {bwoinkText}: {escapedText}";
 
             // If it's not an admin / admin chooses to keep the sound and message is not an admin only message, then play it.
             var playSound = (!senderAHelpAdmin || message.PlaySound) && !message.AdminOnly;
-            var msg = new BwoinkTextMessage(message.UserId, senderId, bwoinkText, playSound: playSound, adminOnly: message.AdminOnly);
+            var msg = new BwoinkTextMessage(
+                message.UserId,
+                senderId,
+                bwoinkText,
+                playSound: playSound,
+                adminOnly: message.AdminOnly
+            );
 
-            var shouldProcessAutomatedAhelp = !fromWebhook && senderId == message.UserId && !senderAHelpAdmin && !message.AdminOnly && ShouldProcessAutomatedAhelp(message.UserId);
+            var shouldProcessAutomatedAhelp =
+                !fromWebhook
+                && senderId == message.UserId
+                && !senderAHelpAdmin
+                && !message.AdminOnly
+                && ShouldProcessAutomatedAhelp(message.UserId);
             var shouldTriage = _triageEnabled && shouldProcessAutomatedAhelp;
             var triageCategory = shouldTriage ? ClassifyAHelpCategory(message.Text) : null;
 
@@ -903,11 +1159,13 @@ namespace Content.Server.Administration.Systems
                     if (!string.IsNullOrWhiteSpace(triageCategory))
                     {
                         var triageText = Loc.GetString("bwoink-message-triage", ("category", triageCategory));
-                        var triageMsg = new BwoinkTextMessage(message.UserId,
+                        var triageMsg = new BwoinkTextMessage(
+                            message.UserId,
                             SystemUserId,
                             triageText,
                             playSound: false,
-                            adminOnly: true);
+                            adminOnly: true
+                        );
                         RaiseNetworkEvent(triageMsg, channel);
                     }
                 }
@@ -915,7 +1173,11 @@ namespace Content.Server.Administration.Systems
 
             string adminPrefixWebhook = "";
 
-            if (_config.GetCVar(CCVars.AhelpAdminPrefixWebhook) && senderAdmin is not null && senderAdmin.Title is not null)
+            if (
+                _config.GetCVar(CCVars.AhelpAdminPrefixWebhook)
+                && senderAdmin is not null
+                && senderAdmin.Title is not null
+            )
             {
                 adminPrefixWebhook = $"[bold]\\[{senderAdmin.Title}\\][/bold] ";
             }
@@ -930,9 +1192,7 @@ namespace Content.Server.Administration.Systems
                     {
                         string overrideMsgText;
                         // Doing the same thing as above, but with the override name. Theres probably a better way to do this.
-                        if (senderAdmin is not null &&
-                            senderAdmin.Flags ==
-                            AdminFlags.Adminhelp) // Mentor. Not full admin. That's why it's colored differently.
+                        if (senderAdmin is not null && senderAdmin.Flags == AdminFlags.Adminhelp) // Mentor. Not full admin. That's why it's colored differently.
                         {
                             overrideMsgText = $"[color=purple]{adminPrefixWebhook}{_overrideClientName}[/color]";
                         }
@@ -950,41 +1210,42 @@ namespace Content.Server.Administration.Systems
 
                         overrideMsgText = $"{(message.PlaySound ? "" : "(S) ")}{overrideMsgText}: {escapedText}";
 
-                        RaiseNetworkEvent(new BwoinkTextMessage(message.UserId,
-                                senderId,
-                                overrideMsgText,
-                                playSound: playSound),
-                            session.Channel);
+                        RaiseNetworkEvent(
+                            new BwoinkTextMessage(message.UserId, senderId, overrideMsgText, playSound: playSound),
+                            session.Channel
+                        );
                     }
                     else
                         RaiseNetworkEvent(msg, session.Channel);
                 }
 
-                if (isNewIncomingAhelpConversation &&
-                    _panicAutoReplyEnabled &&
-                    !string.IsNullOrWhiteSpace(_panicAutoReplyTemplate))
+                if (
+                    isNewIncomingAhelpConversation
+                    && _panicAutoReplyEnabled
+                    && !string.IsNullOrWhiteSpace(_panicAutoReplyTemplate)
+                )
                 {
                     var escapedBotName = FormattedMessage.EscapeText(_autoReplyBotName);
                     var panicReply = $"{escapedBotName}: {_panicAutoReplyTemplate}";
-                    RaiseNetworkEvent(new BwoinkTextMessage(message.UserId,
-                            SystemUserId,
-                            panicReply,
-                            playSound: false),
-                        session.Channel);
+                    RaiseNetworkEvent(
+                        new BwoinkTextMessage(message.UserId, SystemUserId, panicReply, playSound: false),
+                        session.Channel
+                    );
                 }
 
-                if (shouldProcessAutomatedAhelp &&
-                    _autoReplyEnabled &&
-                    !string.IsNullOrWhiteSpace(triageCategory) &&
-                    TryGetAhelpAutoReply(triageCategory, out var autoReply))
+                if (
+                    shouldProcessAutomatedAhelp
+                    && _autoReplyEnabled
+                    && !string.IsNullOrWhiteSpace(triageCategory)
+                    && TryGetAhelpAutoReply(triageCategory, out var autoReply)
+                )
                 {
                     var escapedBotName = FormattedMessage.EscapeText(_autoReplyBotName);
                     var autoReplyText = $"{escapedBotName}: {autoReply}";
-                    RaiseNetworkEvent(new BwoinkTextMessage(message.UserId,
-                            SystemUserId,
-                            autoReplyText,
-                            playSound: false),
-                        session.Channel);
+                    RaiseNetworkEvent(
+                        new BwoinkTextMessage(message.UserId, SystemUserId, autoReplyText, playSound: false),
+                        session.Channel
+                    );
                 }
             }
 
@@ -1029,21 +1290,23 @@ namespace Content.Server.Administration.Systems
                 RaiseNetworkEvent(starMuteMsg, senderChannel);
             }
         }
+
         // End Frontier: webhook text messages
 
         private IList<INetChannel> GetNonAfkAdmins()
         {
-            return _adminManager.ActiveAdmins
-                .Where(p => (_adminManager.GetAdminData(p)?.HasFlag(AdminFlags.Adminhelp) ?? false) &&
-                            !_afkManager.IsAfk(p))
+            return _adminManager
+                .ActiveAdmins.Where(p =>
+                    (_adminManager.GetAdminData(p)?.HasFlag(AdminFlags.Adminhelp) ?? false) && !_afkManager.IsAfk(p)
+                )
                 .Select(p => p.Channel)
                 .ToList();
         }
 
         private IList<INetChannel> GetTargetAdmins()
         {
-            return _adminManager.ActiveAdmins
-                .Where(p => _adminManager.GetAdminData(p)?.HasFlag(AdminFlags.Adminhelp) ?? false)
+            return _adminManager
+                .ActiveAdmins.Where(p => _adminManager.GetAdminData(p)?.HasFlag(AdminFlags.Adminhelp) ?? false)
                 .Select(p => p.Channel)
                 .ToList();
         }
@@ -1084,8 +1347,8 @@ namespace Content.Server.Administration.Systems
 
         public IEnumerable<string> GetTriageCategories()
         {
-            return DefaultAhelpTriageRules.Keys
-                .Where(k => !_removedTriageCategories.Contains(k))
+            return DefaultAhelpTriageRules
+                .Keys.Where(k => !_removedTriageCategories.Contains(k))
                 .Concat(_customTriageRules.Keys)
                 .Distinct(StringComparer.OrdinalIgnoreCase)
                 .OrderBy(k => k);
@@ -1200,8 +1463,8 @@ namespace Content.Server.Administration.Systems
 
         public IEnumerable<string> GetAutoReplyCategories()
         {
-            return AhelpAutoReplyLocKeysByCategory.Keys
-                .Where(k => !_removedAutoReplyCategories.Contains(k))
+            return AhelpAutoReplyLocKeysByCategory
+                .Keys.Where(k => !_removedAutoReplyCategories.Contains(k))
                 .Concat(_customAutoReplyTemplates.Keys)
                 .Distinct(StringComparer.OrdinalIgnoreCase)
                 .OrderBy(k => k);
@@ -1229,7 +1492,9 @@ namespace Content.Server.Administration.Systems
             template = template.Trim();
 
             // Default-backed categories use the override slot so reset works.
-            if (AhelpAutoReplyLocKeysByCategory.ContainsKey(category) && !_removedAutoReplyCategories.Contains(category))
+            if (
+                AhelpAutoReplyLocKeysByCategory.ContainsKey(category) && !_removedAutoReplyCategories.Contains(category)
+            )
             {
                 _autoReplyOverrides[category] = template;
                 return true;
@@ -1405,8 +1670,8 @@ namespace Content.Server.Administration.Systems
 
         private void SendSharedAdminMacrosState(ICommonSession session)
         {
-            var macros = _sharedAdminMacros.Values
-                .OrderBy(macro => macro.Name, StringComparer.OrdinalIgnoreCase)
+            var macros = _sharedAdminMacros
+                .Values.OrderBy(macro => macro.Name, StringComparer.OrdinalIgnoreCase)
                 .Select(macro => new SharedAdminMacroState(macro.Name, macro.Command, macro.UpdatedBy))
                 .ToArray();
 
@@ -1451,11 +1716,7 @@ namespace Content.Server.Administration.Systems
 
         private static string EscapeSharedMacroValue(string value)
         {
-            return value
-                .Replace("\\", "\\\\")
-                .Replace("\r", "\\r")
-                .Replace("\n", "\\n")
-                .Replace("\t", "\\t");
+            return value.Replace("\\", "\\\\").Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t");
         }
 
         private static string UnescapeSharedMacroValue(string value)
@@ -1477,14 +1738,16 @@ namespace Content.Server.Administration.Systems
                     continue;
                 }
 
-                chars.Add(ch switch
-                {
-                    'r' => '\r',
-                    'n' => '\n',
-                    't' => '\t',
-                    '\\' => '\\',
-                    _ => ch,
-                });
+                chars.Add(
+                    ch switch
+                    {
+                        'r' => '\r',
+                        'n' => '\n',
+                        't' => '\t',
+                        '\\' => '\\',
+                        _ => ch,
+                    }
+                );
 
                 escaping = false;
             }
@@ -1591,7 +1854,9 @@ namespace Content.Server.Administration.Systems
                 {
                     var hasAutoReply = TryGetAutoReplyTemplate(category, out var template);
                     var hasTriage = TryGetTriageRuleKeywords(category, out var keywords);
-                    var isDefault = AhelpAutoReplyLocKeysByCategory.ContainsKey(category) || DefaultAhelpTriageRules.ContainsKey(category);
+                    var isDefault =
+                        AhelpAutoReplyLocKeysByCategory.ContainsKey(category)
+                        || DefaultAhelpTriageRules.ContainsKey(category);
 
                     return new AhelpAdminCategoryState(
                         category,
@@ -1601,17 +1866,24 @@ namespace Content.Server.Administration.Systems
                         hasAutoReply,
                         hasTriage,
                         hasAutoReply && _enabledAutoReplyCategories.Contains(category),
-                        hasTriage && _enabledTriageCategories.Contains(category));
+                        hasTriage && _enabledTriageCategories.Contains(category)
+                    );
                 })
                 .ToArray();
 
-            RaiseNetworkEvent(new AhelpAdminConfigStateMessage(new AhelpAdminConfigState(
-                _autoReplyEnabled,
-                _panicAutoReplyEnabled,
-                _triageEnabled,
-                _autoReplyBotName,
-                _panicAutoReplyTemplate,
-                categories)), session);
+            RaiseNetworkEvent(
+                new AhelpAdminConfigStateMessage(
+                    new AhelpAdminConfigState(
+                        _autoReplyEnabled,
+                        _panicAutoReplyEnabled,
+                        _triageEnabled,
+                        _autoReplyBotName,
+                        _panicAutoReplyTemplate,
+                        categories
+                    )
+                ),
+                session
+            );
         }
 
         private void BroadcastAhelpAdminStateToAdmins()
@@ -1642,7 +1914,10 @@ namespace Content.Server.Administration.Systems
             BroadcastAhelpAdminStateToAdmins();
         }
 
-        private void OnSetAhelpPanicAutoReplyEnabled(SetAhelpPanicAutoReplyEnabledMessage message, EntitySessionEventArgs args)
+        private void OnSetAhelpPanicAutoReplyEnabled(
+            SetAhelpPanicAutoReplyEnabledMessage message,
+            EntitySessionEventArgs args
+        )
         {
             if (!CanManageAhelpConfig(args.SenderSession))
                 return;
@@ -1651,7 +1926,10 @@ namespace Content.Server.Administration.Systems
             BroadcastAhelpAdminStateToAdmins();
         }
 
-        private void OnSetAhelpPanicAutoReplyTemplate(SetAhelpPanicAutoReplyTemplateMessage message, EntitySessionEventArgs args)
+        private void OnSetAhelpPanicAutoReplyTemplate(
+            SetAhelpPanicAutoReplyTemplateMessage message,
+            EntitySessionEventArgs args
+        )
         {
             if (!CanManageAhelpConfig(args.SenderSession))
                 return;
@@ -1678,7 +1956,10 @@ namespace Content.Server.Administration.Systems
             BroadcastAhelpAdminStateToAdmins();
         }
 
-        private void OnSetAhelpCategoryAutoReplyEnabled(SetAhelpCategoryAutoReplyEnabledMessage message, EntitySessionEventArgs args)
+        private void OnSetAhelpCategoryAutoReplyEnabled(
+            SetAhelpCategoryAutoReplyEnabledMessage message,
+            EntitySessionEventArgs args
+        )
         {
             if (!CanManageAhelpConfig(args.SenderSession))
                 return;
@@ -1689,7 +1970,10 @@ namespace Content.Server.Administration.Systems
             BroadcastAhelpAdminStateToAdmins();
         }
 
-        private void OnSetAhelpCategoryTriageEnabled(SetAhelpCategoryTriageEnabledMessage message, EntitySessionEventArgs args)
+        private void OnSetAhelpCategoryTriageEnabled(
+            SetAhelpCategoryTriageEnabledMessage message,
+            EntitySessionEventArgs args
+        )
         {
             if (!CanManageAhelpConfig(args.SenderSession))
                 return;
@@ -1735,7 +2019,10 @@ namespace Content.Server.Administration.Systems
         // ---------- Ship Incident Inspector (on-demand) ----------
         // Scans owned ships once per admin click. Strict admin-flag gate, response
         // is unicast back to the requesting session only.
-        private void OnRequestPlayerShipInspection(RequestPlayerShipInspectionMessage message, EntitySessionEventArgs args)
+        private void OnRequestPlayerShipInspection(
+            RequestPlayerShipInspectionMessage message,
+            EntitySessionEventArgs args
+        )
         {
             var session = args.SenderSession;
             if (session == null)
@@ -1748,12 +2035,18 @@ namespace Content.Server.Administration.Systems
             if (string.IsNullOrEmpty(ownerKey))
             {
                 RaiseNetworkEvent(
-                    new PlayerShipInspectionResponseMessage(message.OwnerUserId ?? string.Empty, Array.Empty<PlayerShipSummary>(), "empty-owner"),
-                    session.Channel);
+                    new PlayerShipInspectionResponseMessage(
+                        message.OwnerUserId ?? string.Empty,
+                        Array.Empty<PlayerShipSummary>(),
+                        "empty-owner"
+                    ),
+                    session.Channel
+                );
                 return;
             }
 
-            var ownerOnline = TryParseUserId(ownerKey, out var ownerGuid)
+            var ownerOnline =
+                TryParseUserId(ownerKey, out var ownerGuid)
                 && _playerManager.TryGetSessionById(new NetUserId(ownerGuid), out _);
 
             var summaries = new List<PlayerShipSummary>();
@@ -1788,21 +2081,22 @@ namespace Content.Server.Administration.Systems
                         mapName = mapMeta.EntityName;
                 }
 
-                summaries.Add(new PlayerShipSummary(
-                    name: deed.ShuttleName ?? "Unknown",
-                    suffix: deed.ShuttleNameSuffix ?? string.Empty,
-                    gridUid: GetNetEntity(uid),
-                    worldPosition: worldPos,
-                    mapName: mapName,
-                    inFtl: inFtl,
-                    ftlState: ftlState,
-                    ownerOnline: ownerOnline,
-                    purchasedWithVoucher: deed.PurchasedWithVoucher));
+                summaries.Add(
+                    new PlayerShipSummary(
+                        name: deed.ShuttleName ?? "Unknown",
+                        suffix: deed.ShuttleNameSuffix ?? string.Empty,
+                        gridUid: GetNetEntity(uid),
+                        worldPosition: worldPos,
+                        mapName: mapName,
+                        inFtl: inFtl,
+                        ftlState: ftlState,
+                        ownerOnline: ownerOnline,
+                        purchasedWithVoucher: deed.PurchasedWithVoucher
+                    )
+                );
             }
 
-            RaiseNetworkEvent(
-                new PlayerShipInspectionResponseMessage(ownerKey, summaries.ToArray()),
-                session.Channel);
+            RaiseNetworkEvent(new PlayerShipInspectionResponseMessage(ownerKey, summaries.ToArray()), session.Channel);
         }
 
         private static bool TryParseUserId(string raw, out Guid guid)
@@ -1825,7 +2119,8 @@ namespace Content.Server.Administration.Systems
             {
                 RaiseNetworkEvent(
                     new PlayerSnapshotResponseMessage(message.OwnerUserId ?? string.Empty, null, "invalid-owner"),
-                    session.Channel);
+                    session.Channel
+                );
                 return;
             }
 
@@ -1842,7 +2137,8 @@ namespace Content.Server.Administration.Systems
                 hasMind = true;
                 owned = mind.OwnedEntity;
                 var roles = EntityManager.System<SharedRoleSystem>();
-                roleNames = roles.MindGetAllRoleInfo(mindId)
+                roleNames = roles
+                    .MindGetAllRoleInfo(mindId)
                     .Select(r => r.Name ?? string.Empty)
                     .Where(n => !string.IsNullOrEmpty(n))
                     .ToArray();
@@ -1870,7 +2166,8 @@ namespace Content.Server.Administration.Systems
                 detachedFromBody: detached,
                 worldPosition: worldPos,
                 mapName: mapName,
-                roles: roleNames);
+                roles: roleNames
+            );
 
             RaiseNetworkEvent(new PlayerSnapshotResponseMessage(ownerKey, snapshot), session.Channel);
         }
@@ -1892,46 +2189,77 @@ namespace Content.Server.Administration.Systems
 
             if (!_adminManager.HasAdminFlag(session, AdminFlags.Adminhelp))
             {
-                RaiseNetworkEvent(new SpawnAhelpItemResponseMessage(message.OwnerUserId, requestPrototypeId, false, "not-authorized"), session.Channel);
+                RaiseNetworkEvent(
+                    new SpawnAhelpItemResponseMessage(message.OwnerUserId, requestPrototypeId, false, "not-authorized"),
+                    session.Channel
+                );
                 return;
             }
 
             var ownerKey = message.OwnerUserId?.Trim();
             if (string.IsNullOrEmpty(ownerKey) || !TryParseUserId(ownerKey, out var ownerGuid))
             {
-                RaiseNetworkEvent(new SpawnAhelpItemResponseMessage(message.OwnerUserId ?? string.Empty, requestPrototypeId, false, "invalid-owner"), session.Channel);
+                RaiseNetworkEvent(
+                    new SpawnAhelpItemResponseMessage(
+                        message.OwnerUserId ?? string.Empty,
+                        requestPrototypeId,
+                        false,
+                        "invalid-owner"
+                    ),
+                    session.Channel
+                );
                 return;
             }
 
             var prototypeId = message.PrototypeId?.Trim();
             if (string.IsNullOrEmpty(prototypeId) || !_prototype.TryIndex<EntityPrototype>(prototypeId, out var proto))
             {
-                RaiseNetworkEvent(new SpawnAhelpItemResponseMessage(ownerKey, prototypeId ?? requestPrototypeId, false, "invalid-prototype"), session.Channel);
+                RaiseNetworkEvent(
+                    new SpawnAhelpItemResponseMessage(
+                        ownerKey,
+                        prototypeId ?? requestPrototypeId,
+                        false,
+                        "invalid-prototype"
+                    ),
+                    session.Channel
+                );
                 return;
             }
 
             if (!proto.HasComponent<ItemComponent>())
             {
-                RaiseNetworkEvent(new SpawnAhelpItemResponseMessage(ownerKey, prototypeId, false, "not-item", proto.Name), session.Channel);
+                RaiseNetworkEvent(
+                    new SpawnAhelpItemResponseMessage(ownerKey, prototypeId, false, "not-item", proto.Name),
+                    session.Channel
+                );
                 return;
             }
 
             if (!_playerManager.TryGetSessionById(new NetUserId(ownerGuid), out var targetSession))
             {
-                RaiseNetworkEvent(new SpawnAhelpItemResponseMessage(ownerKey, prototypeId, false, "offline", proto.Name), session.Channel);
+                RaiseNetworkEvent(
+                    new SpawnAhelpItemResponseMessage(ownerKey, prototypeId, false, "offline", proto.Name),
+                    session.Channel
+                );
                 return;
             }
 
             if (!targetSession.AttachedEntity.HasValue)
             {
-                RaiseNetworkEvent(new SpawnAhelpItemResponseMessage(ownerKey, prototypeId, false, "no-attached-entity", proto.Name), session.Channel);
+                RaiseNetworkEvent(
+                    new SpawnAhelpItemResponseMessage(ownerKey, prototypeId, false, "no-attached-entity", proto.Name),
+                    session.Channel
+                );
                 return;
             }
 
             var attached = targetSession.AttachedEntity.Value;
             if (!TryComp<TransformComponent>(attached, out var xform))
             {
-                RaiseNetworkEvent(new SpawnAhelpItemResponseMessage(ownerKey, prototypeId, false, "no-transform", proto.Name), session.Channel);
+                RaiseNetworkEvent(
+                    new SpawnAhelpItemResponseMessage(ownerKey, prototypeId, false, "no-transform", proto.Name),
+                    session.Channel
+                );
                 return;
             }
 
@@ -1941,8 +2269,19 @@ namespace Content.Server.Administration.Systems
 
             Spawn(prototypeId, spawnCoords);
 
-            _sawmill.Info($"Admin {session.Name} ({session.UserId}) spawned item '{prototypeId}' near ahelp player {ownerKey} at {spawnCoords.Position}.");
-            RaiseNetworkEvent(new SpawnAhelpItemResponseMessage(ownerKey, prototypeId, true, itemName: proto.Name, spawnPosition: spawnCoords.Position), session.Channel);
+            _sawmill.Info(
+                $"Admin {session.Name} ({session.UserId}) spawned item '{prototypeId}' near ahelp player {ownerKey} at {spawnCoords.Position}."
+            );
+            RaiseNetworkEvent(
+                new SpawnAhelpItemResponseMessage(
+                    ownerKey,
+                    prototypeId,
+                    true,
+                    itemName: proto.Name,
+                    spawnPosition: spawnCoords.Position
+                ),
+                session.Channel
+            );
         }
 
         private bool TryFindAdjacentFloorSpawn(TransformComponent xform, out EntityCoordinates coords)
@@ -1958,13 +2297,7 @@ namespace Content.Server.Administration.Systems
             if (!_mapSystem.TryGetTileRef(gridUid, grid, xform.Coordinates, out var centerTile))
                 return false;
 
-            var offsets = new[]
-            {
-                new Vector2i(1, 0),
-                new Vector2i(-1, 0),
-                new Vector2i(0, 1),
-                new Vector2i(0, -1),
-            };
+            var offsets = new[] { new Vector2i(1, 0), new Vector2i(-1, 0), new Vector2i(0, 1), new Vector2i(0, -1) };
 
             var start = _random.Next(offsets.Length);
             for (var i = 0; i < offsets.Length; i++)
@@ -2001,15 +2334,14 @@ namespace Content.Server.Administration.Systems
 
         private AdminStatisticsSnapshot BuildAdminStatisticsSnapshot()
         {
-            var connectedSessions = _playerManager.Sessions
-                .Where(session => session.Status is SessionStatus.Connected or SessionStatus.InGame)
+            var connectedSessions = _playerManager
+                .Sessions.Where(session => session.Status is SessionStatus.Connected or SessionStatus.InGame)
                 .ToArray();
 
             var onlinePlayers = connectedSessions.Length;
-            var averagePingMs = onlinePlayers == 0
-                ? 0
-                : (int) Math.Round(connectedSessions.Average(session => (double) session.Ping));
-            var maxPingMs = onlinePlayers == 0 ? 0 : connectedSessions.Max(session => (int) session.Ping);
+            var averagePingMs =
+                onlinePlayers == 0 ? 0 : (int)Math.Round(connectedSessions.Average(session => (double)session.Ping));
+            var maxPingMs = onlinePlayers == 0 ? 0 : connectedSessions.Max(session => (int)session.Ping);
             var highPingPlayers = connectedSessions.Count(session => session.Ping >= 200);
 
             var roleSlots = BuildRoleSlotStatistics();
@@ -2025,7 +2357,8 @@ namespace Content.Server.Administration.Systems
                 _gameTicker.RoundDuration(),
                 _timing.CurTime,
                 roleSlots,
-                antags);
+                antags
+            );
         }
 
         private AdminStatisticsRoleInfo[] BuildRoleSlotStatistics()
@@ -2081,15 +2414,13 @@ namespace Content.Server.Administration.Systems
 
                     totals[jobId] = (
                         existing.Taken + taken,
-                        existing.Open == null || open == null ? null : existing.Open.Value + open.Value);
+                        existing.Open == null || open == null ? null : existing.Open.Value + open.Value
+                    );
                 }
             }
 
             return totals
-                .Select(pair => new AdminStatisticsRoleInfo(
-                    GetRoleName(pair.Key),
-                    pair.Value.Taken,
-                    pair.Value.Open))
+                .Select(pair => new AdminStatisticsRoleInfo(GetRoleName(pair.Key), pair.Value.Taken, pair.Value.Open))
                 .OrderBy(role => role.RoleName, StringComparer.OrdinalIgnoreCase)
                 .ToArray();
         }
@@ -2131,10 +2462,11 @@ namespace Content.Server.Administration.Systems
                     continue;
 
                 var characterName = _minds.GetCharacterName(session.UserId);
-                var displayName = string.IsNullOrWhiteSpace(characterName) ||
-                                  string.Equals(characterName, session.Name, StringComparison.OrdinalIgnoreCase)
-                    ? session.Name
-                    : $"{session.Name} ({characterName})";
+                var displayName =
+                    string.IsNullOrWhiteSpace(characterName)
+                    || string.Equals(characterName, session.Name, StringComparison.OrdinalIgnoreCase)
+                        ? session.Name
+                        : $"{session.Name} ({characterName})";
 
                 antags.Add(displayName);
             }
@@ -2151,14 +2483,20 @@ namespace Content.Server.Administration.Systems
 
             if (!_adminManager.HasAdminFlag(session, AdminFlags.Adminhelp))
             {
-                RaiseNetworkEvent(new PlayerBankInfoResponseMessage(message.OwnerUserId, 0, "not-authorized"), session.Channel);
+                RaiseNetworkEvent(
+                    new PlayerBankInfoResponseMessage(message.OwnerUserId, 0, "not-authorized"),
+                    session.Channel
+                );
                 return;
             }
 
             var ownerKey = message.OwnerUserId?.Trim();
             if (string.IsNullOrEmpty(ownerKey) || !TryParseUserId(ownerKey, out var guid))
             {
-                RaiseNetworkEvent(new PlayerBankInfoResponseMessage(message.OwnerUserId ?? string.Empty, 0, "invalid-user"), session.Channel);
+                RaiseNetworkEvent(
+                    new PlayerBankInfoResponseMessage(message.OwnerUserId ?? string.Empty, 0, "invalid-user"),
+                    session.Channel
+                );
                 return;
             }
 
@@ -2175,7 +2513,12 @@ namespace Content.Server.Administration.Systems
                 return;
             }
 
-            if (!TryComp<Content.Shared._NF.Bank.Components.BankAccountComponent>(targetSession.AttachedEntity.Value, out var bankAccount))
+            if (
+                !TryComp<Content.Shared._NF.Bank.Components.BankAccountComponent>(
+                    targetSession.AttachedEntity.Value,
+                    out var bankAccount
+                )
+            )
             {
                 RaiseNetworkEvent(new PlayerBankInfoResponseMessage(ownerKey, 0, "no-bank-account"), session.Channel);
                 return;
@@ -2193,14 +2536,20 @@ namespace Content.Server.Administration.Systems
 
             if (!_adminManager.HasAdminFlag(session, AdminFlags.Adminhelp))
             {
-                RaiseNetworkEvent(new ModifyPlayerBankResponseMessage(message.OwnerUserId, 0, "not-authorized"), session.Channel);
+                RaiseNetworkEvent(
+                    new ModifyPlayerBankResponseMessage(message.OwnerUserId, 0, "not-authorized"),
+                    session.Channel
+                );
                 return;
             }
 
             var ownerKey = message.OwnerUserId?.Trim();
             if (string.IsNullOrEmpty(ownerKey) || !TryParseUserId(ownerKey, out var guid))
             {
-                RaiseNetworkEvent(new ModifyPlayerBankResponseMessage(message.OwnerUserId ?? string.Empty, 0, "invalid-user"), session.Channel);
+                RaiseNetworkEvent(
+                    new ModifyPlayerBankResponseMessage(message.OwnerUserId ?? string.Empty, 0, "invalid-user"),
+                    session.Channel
+                );
                 return;
             }
 
@@ -2226,7 +2575,10 @@ namespace Content.Server.Administration.Systems
 
             if (message.Amount == 0)
             {
-                RaiseNetworkEvent(new ModifyPlayerBankResponseMessage(ownerKey, bankAccount.Balance, "invalid-amount"), session.Channel);
+                RaiseNetworkEvent(
+                    new ModifyPlayerBankResponseMessage(ownerKey, bankAccount.Balance, "invalid-amount"),
+                    session.Channel
+                );
                 return;
             }
 
@@ -2245,19 +2597,29 @@ namespace Content.Server.Administration.Systems
             }
 
             // Re-read balance after operation
-            var newBalance = TryComp<Content.Shared._NF.Bank.Components.BankAccountComponent>(attached, out var updatedBank)
+            var newBalance = TryComp<Content.Shared._NF.Bank.Components.BankAccountComponent>(
+                attached,
+                out var updatedBank
+            )
                 ? updatedBank.Balance
                 : 0;
 
             if (!success)
             {
-                _sawmill.Warning($"Admin {session.Name} ({session.UserId}) failed to modify {targetSession.Name}'s bank balance by {message.Amount} (reason: {message.Reason}). Current balance: {newBalance}");
-                RaiseNetworkEvent(new ModifyPlayerBankResponseMessage(ownerKey, newBalance, "transaction-failed"), session.Channel);
+                _sawmill.Warning(
+                    $"Admin {session.Name} ({session.UserId}) failed to modify {targetSession.Name}'s bank balance by {message.Amount} (reason: {message.Reason}). Current balance: {newBalance}"
+                );
+                RaiseNetworkEvent(
+                    new ModifyPlayerBankResponseMessage(ownerKey, newBalance, "transaction-failed"),
+                    session.Channel
+                );
                 return;
             }
 
             // Log the admin action with full audit trail
-            _sawmill.Info($"Admin {session.Name} ({session.UserId}) modified {targetSession.Name}'s bank balance by {message.Amount} (reason: {message.Reason}). New balance: {newBalance}");
+            _sawmill.Info(
+                $"Admin {session.Name} ({session.UserId}) modified {targetSession.Name}'s bank balance by {message.Amount} (reason: {message.Reason}). New balance: {newBalance}"
+            );
 
             RaiseNetworkEvent(new ModifyPlayerBankResponseMessage(ownerKey, newBalance), session.Channel);
 
@@ -2278,30 +2640,37 @@ namespace Content.Server.Administration.Systems
                 else
                     auditKey = "bwoink-banking-audit-remove";
 
-                var auditBody = Loc.GetString(auditKey,
+                var auditBody = Loc.GetString(
+                    auditKey,
                     ("amount", auditAmount),
                     ("balance", newBalance),
-                    ("reason", auditReason));
+                    ("reason", auditReason)
+                );
 
                 // Pre-styled in-game text: gold "🏦 Banking" tag + red admin name + body.
                 // We build the markup ourselves and dispatch directly to admins so the
                 // color/emoji aren't escaped by OnBwoinkInternal.
                 var senderAdmin = _adminManager.GetAdminData(session);
-                var senderColor = senderAdmin is not null && senderAdmin.Flags == AdminFlags.Adminhelp
-                    ? "purple"
-                    : "red";
+                var senderColor =
+                    senderAdmin is not null && senderAdmin.Flags == AdminFlags.Adminhelp ? "purple" : "red";
                 var adminPrefix = "";
                 if (_config.GetCVar(CCVars.AhelpAdminPrefix) && senderAdmin?.Title is not null)
                     adminPrefix = $"[bold]\\[{senderAdmin.Title}\\][/bold] ";
 
                 var styledText =
-                    $"{Loc.GetString("bwoink-message-admin-only")} " +
-                    $"[color=gold][bold]\\[\U0001F3E6 Banking\\][/bold][/color] " +
-                    $"[color={senderColor}]{adminPrefix}{session.Name}[/color]: {auditBody}";
+                    $"{Loc.GetString("bwoink-message-admin-only")} "
+                    + $"[color=gold][bold]\\[\U0001F3E6 Banking\\][/bold][/color] "
+                    + $"[color={senderColor}]{adminPrefix}{session.Name}[/color]: {auditBody}";
 
                 _activeConversations[netId] = DateTime.Now;
 
-                var auditMsg = new BwoinkTextMessage(netId, session.UserId, styledText, playSound: false, adminOnly: true);
+                var auditMsg = new BwoinkTextMessage(
+                    netId,
+                    session.UserId,
+                    styledText,
+                    playSound: false,
+                    adminOnly: true
+                );
                 LogBwoink(auditMsg);
 
                 foreach (var adminChannel in GetTargetAdmins())
@@ -2324,7 +2693,8 @@ namespace Content.Server.Administration.Systems
                         isDiscord: false,
                         adminOnly: true,
                         noReceivers: nonAfkAdmins.Count == 0,
-                        icon: ":bank:");
+                        icon: ":bank:"
+                    );
                     _messageQueues[netId].Enqueue(GenerateAHelpMessage(discordParams));
                 }
             }
@@ -2342,14 +2712,20 @@ namespace Content.Server.Administration.Systems
 
             if (!_adminManager.HasAdminFlag(session, AdminFlags.Adminhelp))
             {
-                RaiseNetworkEvent(new UnstickPlayerShipResponseMessage(message.OwnerUserId, false, "not-authorized"), session.Channel);
+                RaiseNetworkEvent(
+                    new UnstickPlayerShipResponseMessage(message.OwnerUserId, false, "not-authorized"),
+                    session.Channel
+                );
                 return;
             }
 
             var ownerKey = message.OwnerUserId?.Trim();
             if (string.IsNullOrEmpty(ownerKey))
             {
-                RaiseNetworkEvent(new UnstickPlayerShipResponseMessage(message.OwnerUserId ?? string.Empty, false, "empty-owner"), session.Channel);
+                RaiseNetworkEvent(
+                    new UnstickPlayerShipResponseMessage(message.OwnerUserId ?? string.Empty, false, "empty-owner"),
+                    session.Channel
+                );
                 return;
             }
 
@@ -2383,7 +2759,10 @@ namespace Content.Server.Administration.Systems
 
             if (!TryComp<TransformComponent>(shipUid, out var xform) || xform.MapUid is not { } mapUid)
             {
-                RaiseNetworkEvent(new UnstickPlayerShipResponseMessage(ownerKey, false, "no-position"), session.Channel);
+                RaiseNetworkEvent(
+                    new UnstickPlayerShipResponseMessage(ownerKey, false, "no-position"),
+                    session.Channel
+                );
                 return;
             }
 
@@ -2395,9 +2774,9 @@ namespace Content.Server.Administration.Systems
             // restrictions so this works even on unpowered ships. We do our own
             // grid-clearance check (same logic as FTLFree) without the range gate.
             const int Attempts = 80;
-            const float AdminMaxDist = 1000f;  // search up to 1 km
+            const float AdminMaxDist = 1000f; // search up to 1 km
             var ftlBuffer = _shuttle.GetFTLBufferRange(shipUid);
-            var minDist = ftlBuffer + 20f;     // just past the ship's own footprint
+            var minDist = ftlBuffer + 20f; // just past the ship's own footprint
             Vector2? chosen = null;
             for (var i = 0; i < Attempts; i++)
             {
@@ -2413,13 +2792,14 @@ namespace Content.Server.Administration.Systems
 
             if (chosen is not { } target)
             {
-                RaiseNetworkEvent(new UnstickPlayerShipResponseMessage(ownerKey, false, "no-clear-spot"), session.Channel);
+                RaiseNetworkEvent(
+                    new UnstickPlayerShipResponseMessage(ownerKey, false, "no-clear-spot"),
+                    session.Channel
+                );
                 return;
             }
 
-            var shipName = string.IsNullOrWhiteSpace(targetDeed.ShuttleName)
-                ? "Unknown"
-                : targetDeed.ShuttleName!;
+            var shipName = string.IsNullOrWhiteSpace(targetDeed.ShuttleName) ? "Unknown" : targetDeed.ShuttleName!;
 
             try
             {
@@ -2428,12 +2808,20 @@ namespace Content.Server.Administration.Systems
             catch (Exception ex)
             {
                 _sawmill.Warning($"Unstick FTL failed for {shipName} (admin {session.Name}): {ex}");
-                RaiseNetworkEvent(new UnstickPlayerShipResponseMessage(ownerKey, false, "ftl-failed", shipName), session.Channel);
+                RaiseNetworkEvent(
+                    new UnstickPlayerShipResponseMessage(ownerKey, false, "ftl-failed", shipName),
+                    session.Channel
+                );
                 return;
             }
 
-            _sawmill.Info($"Admin {session.Name} ({session.UserId}) unstuck {shipName} ({GetNetEntity(shipUid)}) to {target} for owner {ownerKey}");
-            RaiseNetworkEvent(new UnstickPlayerShipResponseMessage(ownerKey, true, null, shipName, target), session.Channel);
+            _sawmill.Info(
+                $"Admin {session.Name} ({session.UserId}) unstuck {shipName} ({GetNetEntity(shipUid)}) to {target} for owner {ownerKey}"
+            );
+            RaiseNetworkEvent(
+                new UnstickPlayerShipResponseMessage(ownerKey, true, null, shipName, target),
+                session.Channel
+            );
 
             // Emit an admin-only audit ahelp into the affected player's channel,
             // mirroring the banking-audit pattern (pre-styled markup, plain Discord).
@@ -2442,26 +2830,33 @@ namespace Content.Server.Administration.Systems
                 try
                 {
                     var ownerNetId = new NetUserId(ownerGuid);
-                    var auditBody = Loc.GetString("bwoink-unstick-audit",
+                    var auditBody = Loc.GetString(
+                        "bwoink-unstick-audit",
                         ("ship", shipName),
                         ("x", (int)target.X),
-                        ("y", (int)target.Y));
+                        ("y", (int)target.Y)
+                    );
 
                     var senderAdmin = _adminManager.GetAdminData(session);
-                    var senderColor = senderAdmin is not null && senderAdmin.Flags == AdminFlags.Adminhelp
-                        ? "purple"
-                        : "red";
+                    var senderColor =
+                        senderAdmin is not null && senderAdmin.Flags == AdminFlags.Adminhelp ? "purple" : "red";
                     var adminPrefix = "";
                     if (_config.GetCVar(CCVars.AhelpAdminPrefix) && senderAdmin?.Title is not null)
                         adminPrefix = $"[bold]\\[{senderAdmin.Title}\\][/bold] ";
 
                     var styledText =
-                        $"{Loc.GetString("bwoink-message-admin-only")} " +
-                        $"[color=#5cc8ff][bold]\\[\U0001F6F8 Unstick\\][/bold][/color] " +
-                        $"[color={senderColor}]{adminPrefix}{session.Name}[/color]: {auditBody}";
+                        $"{Loc.GetString("bwoink-message-admin-only")} "
+                        + $"[color=#5cc8ff][bold]\\[\U0001F6F8 Unstick\\][/bold][/color] "
+                        + $"[color={senderColor}]{adminPrefix}{session.Name}[/color]: {auditBody}";
 
                     _activeConversations[ownerNetId] = DateTime.Now;
-                    var auditMsg = new BwoinkTextMessage(ownerNetId, session.UserId, styledText, playSound: false, adminOnly: true);
+                    var auditMsg = new BwoinkTextMessage(
+                        ownerNetId,
+                        session.UserId,
+                        styledText,
+                        playSound: false,
+                        adminOnly: true
+                    );
                     LogBwoink(auditMsg);
 
                     foreach (var adminChannel in GetTargetAdmins())
@@ -2482,7 +2877,8 @@ namespace Content.Server.Administration.Systems
                             isDiscord: false,
                             adminOnly: true,
                             noReceivers: nonAfkAdmins.Count == 0,
-                            icon: ":rocket:");
+                            icon: ":rocket:"
+                        );
                         _messageQueues[ownerNetId].Enqueue(GenerateAHelpMessage(discordParams));
                     }
                 }
@@ -2493,7 +2889,10 @@ namespace Content.Server.Administration.Systems
             }
         }
 
-        private void OnRequestUnstickPlayerShipPreview(RequestUnstickPlayerShipPreviewMessage message, EntitySessionEventArgs args)
+        private void OnRequestUnstickPlayerShipPreview(
+            RequestUnstickPlayerShipPreviewMessage message,
+            EntitySessionEventArgs args
+        )
         {
             var session = args.SenderSession;
             if (session == null)
@@ -2501,14 +2900,24 @@ namespace Content.Server.Administration.Systems
 
             if (!_adminManager.HasAdminFlag(session, AdminFlags.Adminhelp))
             {
-                RaiseNetworkEvent(new UnstickPlayerShipPreviewResponseMessage(message.OwnerUserId, false, "not-authorized"), session.Channel);
+                RaiseNetworkEvent(
+                    new UnstickPlayerShipPreviewResponseMessage(message.OwnerUserId, false, "not-authorized"),
+                    session.Channel
+                );
                 return;
             }
 
             var ownerKey = message.OwnerUserId?.Trim();
             if (string.IsNullOrEmpty(ownerKey))
             {
-                RaiseNetworkEvent(new UnstickPlayerShipPreviewResponseMessage(message.OwnerUserId ?? string.Empty, false, "empty-owner"), session.Channel);
+                RaiseNetworkEvent(
+                    new UnstickPlayerShipPreviewResponseMessage(
+                        message.OwnerUserId ?? string.Empty,
+                        false,
+                        "empty-owner"
+                    ),
+                    session.Channel
+                );
                 return;
             }
 
@@ -2527,15 +2936,19 @@ namespace Content.Server.Administration.Systems
 
             if (shipUid == null || targetDeed == null)
             {
-                RaiseNetworkEvent(new UnstickPlayerShipPreviewResponseMessage(ownerKey, false, "no-ship"), session.Channel);
+                RaiseNetworkEvent(
+                    new UnstickPlayerShipPreviewResponseMessage(ownerKey, false, "no-ship"),
+                    session.Channel
+                );
                 return;
             }
 
-            var shipName = string.IsNullOrWhiteSpace(targetDeed.ShuttleName)
-                ? "Unknown"
-                : targetDeed.ShuttleName!;
+            var shipName = string.IsNullOrWhiteSpace(targetDeed.ShuttleName) ? "Unknown" : targetDeed.ShuttleName!;
 
-            RaiseNetworkEvent(new UnstickPlayerShipPreviewResponseMessage(ownerKey, true, null, shipName), session.Channel);
+            RaiseNetworkEvent(
+                new UnstickPlayerShipPreviewResponseMessage(ownerKey, true, null, shipName),
+                session.Channel
+            );
         }
 
         private void OnRequestSaveShipPreview(RequestSaveShipPreviewMessage message, EntitySessionEventArgs args)
@@ -2546,14 +2959,20 @@ namespace Content.Server.Administration.Systems
 
             if (!_adminManager.HasAdminFlag(session, AdminFlags.Adminhelp))
             {
-                RaiseNetworkEvent(new SaveShipPreviewResponseMessage(message.OwnerUserId, false, "not-authorized"), session.Channel);
+                RaiseNetworkEvent(
+                    new SaveShipPreviewResponseMessage(message.OwnerUserId, false, "not-authorized"),
+                    session.Channel
+                );
                 return;
             }
 
             var ownerKey = message.OwnerUserId?.Trim();
             if (string.IsNullOrEmpty(ownerKey))
             {
-                RaiseNetworkEvent(new SaveShipPreviewResponseMessage(message.OwnerUserId ?? string.Empty, false, "empty-owner"), session.Channel);
+                RaiseNetworkEvent(
+                    new SaveShipPreviewResponseMessage(message.OwnerUserId ?? string.Empty, false, "empty-owner"),
+                    session.Channel
+                );
                 return;
             }
 
@@ -2574,14 +2993,20 @@ namespace Content.Server.Administration.Systems
 
             if (!_adminManager.HasAdminFlag(session, AdminFlags.Adminhelp))
             {
-                RaiseNetworkEvent(new SaveShipResponseMessage(message.OwnerUserId, false, "not-authorized"), session.Channel);
+                RaiseNetworkEvent(
+                    new SaveShipResponseMessage(message.OwnerUserId, false, "not-authorized"),
+                    session.Channel
+                );
                 return;
             }
 
             var ownerKey = message.OwnerUserId?.Trim();
             if (string.IsNullOrEmpty(ownerKey) || !TryParseUserId(ownerKey, out var ownerGuid))
             {
-                RaiseNetworkEvent(new SaveShipResponseMessage(message.OwnerUserId ?? string.Empty, false, "invalid-owner"), session.Channel);
+                RaiseNetworkEvent(
+                    new SaveShipResponseMessage(message.OwnerUserId ?? string.Empty, false, "invalid-owner"),
+                    session.Channel
+                );
                 return;
             }
 
@@ -2594,7 +3019,10 @@ namespace Content.Server.Administration.Systems
             var ownerNetId = new NetUserId(ownerGuid);
             if (!_playerManager.TryGetSessionById(ownerNetId, out var ownerSession))
             {
-                RaiseNetworkEvent(new SaveShipResponseMessage(ownerKey, false, "owner-offline", shipName), session.Channel);
+                RaiseNetworkEvent(
+                    new SaveShipResponseMessage(ownerKey, false, "owner-offline", shipName),
+                    session.Channel
+                );
                 return;
             }
 
@@ -2604,7 +3032,10 @@ namespace Content.Server.Administration.Systems
 
             // Prefer the rescue beacon on the same station the ship is currently docked to (if any).
             var shipStation = _station.GetOwningStation(shipUid);
-            if (shipStation is { } dockedStation && TryGetStationMedicalFultonBeaconCoordinates(dockedStation, out var dockedBeacon))
+            if (
+                shipStation is { } dockedStation
+                && TryGetStationMedicalFultonBeaconCoordinates(dockedStation, out var dockedBeacon)
+            )
             {
                 evictTarget = dockedBeacon;
                 evictDestName = "Medbay Rescue Beacon";
@@ -2656,12 +3087,16 @@ namespace Content.Server.Administration.Systems
             catch (Exception ex)
             {
                 _sawmill.Warning($"Save Ship: RequestSaveShip threw for {shipName} owner {ownerKey}: {ex}");
-                RaiseNetworkEvent(new SaveShipResponseMessage(ownerKey, false, "save-failed", shipName, evicted), session.Channel);
+                RaiseNetworkEvent(
+                    new SaveShipResponseMessage(ownerKey, false, "save-failed", shipName, evicted),
+                    session.Channel
+                );
                 return;
             }
 
             _sawmill.Info(
-                $"Admin {session.Name} ({session.UserId}) saved ship {shipName} ({GetNetEntity(shipUid)}) for owner {ownerKey}; evicted {evicted} player(s) to {evictDestName ?? "(no beacon)"}.");
+                $"Admin {session.Name} ({session.UserId}) saved ship {shipName} ({GetNetEntity(shipUid)}) for owner {ownerKey}; evicted {evicted} player(s) to {evictDestName ?? "(no beacon)"}."
+            );
 
             RaiseNetworkEvent(new SaveShipResponseMessage(ownerKey, true, null, shipName, evicted), session.Channel);
         }
@@ -2679,8 +3114,13 @@ namespace Content.Server.Administration.Systems
 
             var grids = new List<Entity<MapGridComponent>>();
             var circle = new PhysShapeCircle(ftlBuffer + SharedShuttleSystem.FTLBufferRange, position);
-            _mapManager.FindGridsIntersecting(mapId, circle, Robust.Shared.Physics.Transform.Empty,
-                ref grids, includeMap: false);
+            _mapManager.FindGridsIntersecting(
+                mapId,
+                circle,
+                Robust.Shared.Physics.Transform.Empty,
+                ref grids,
+                includeMap: false
+            );
 
             foreach (var grid in grids)
             {
@@ -2692,7 +3132,12 @@ namespace Content.Server.Administration.Systems
             return true;
         }
 
-        private bool TryFindOwnerShip(string ownerKey, out EntityUid shipUid, out EntityUid deedUid, out string shipName)
+        private bool TryFindOwnerShip(
+            string ownerKey,
+            out EntityUid shipUid,
+            out EntityUid deedUid,
+            out string shipName
+        )
         {
             shipUid = default;
             deedUid = default;
@@ -2732,7 +3177,10 @@ namespace Content.Server.Administration.Systems
             return true;
         }
 
-        private void OnRequestTeleportPlayerToStation(RequestTeleportPlayerToStationMessage message, EntitySessionEventArgs args)
+        private void OnRequestTeleportPlayerToStation(
+            RequestTeleportPlayerToStationMessage message,
+            EntitySessionEventArgs args
+        )
         {
             var session = args.SenderSession;
             if (session == null)
@@ -2740,34 +3188,53 @@ namespace Content.Server.Administration.Systems
 
             if (!_adminManager.HasAdminFlag(session, AdminFlags.Adminhelp))
             {
-                RaiseNetworkEvent(new TeleportPlayerToStationResponseMessage(message.OwnerUserId, false, "not-authorized"), session.Channel);
+                RaiseNetworkEvent(
+                    new TeleportPlayerToStationResponseMessage(message.OwnerUserId, false, "not-authorized"),
+                    session.Channel
+                );
                 return;
             }
 
             var ownerKey = message.OwnerUserId?.Trim();
             if (string.IsNullOrEmpty(ownerKey) || !TryParseUserId(ownerKey, out var ownerGuid))
             {
-                RaiseNetworkEvent(new TeleportPlayerToStationResponseMessage(message.OwnerUserId ?? string.Empty, false, "invalid-owner"), session.Channel);
+                RaiseNetworkEvent(
+                    new TeleportPlayerToStationResponseMessage(
+                        message.OwnerUserId ?? string.Empty,
+                        false,
+                        "invalid-owner"
+                    ),
+                    session.Channel
+                );
                 return;
             }
 
             var netId = new NetUserId(ownerGuid);
             if (!_playerManager.TryGetSessionById(netId, out var targetSession))
             {
-                RaiseNetworkEvent(new TeleportPlayerToStationResponseMessage(ownerKey, false, "offline"), session.Channel);
+                RaiseNetworkEvent(
+                    new TeleportPlayerToStationResponseMessage(ownerKey, false, "offline"),
+                    session.Channel
+                );
                 return;
             }
 
             if (!targetSession.AttachedEntity.HasValue)
             {
-                RaiseNetworkEvent(new TeleportPlayerToStationResponseMessage(ownerKey, false, "no-attached-entity"), session.Channel);
+                RaiseNetworkEvent(
+                    new TeleportPlayerToStationResponseMessage(ownerKey, false, "no-attached-entity"),
+                    session.Channel
+                );
                 return;
             }
 
             var attached = targetSession.AttachedEntity.Value;
             if (!TryGetMainStation(out var station))
             {
-                RaiseNetworkEvent(new TeleportPlayerToStationResponseMessage(ownerKey, false, "no-station"), session.Channel);
+                RaiseNetworkEvent(
+                    new TeleportPlayerToStationResponseMessage(ownerKey, false, "no-station"),
+                    session.Channel
+                );
                 return;
             }
 
@@ -2796,7 +3263,10 @@ namespace Content.Server.Administration.Systems
             }
             else
             {
-                RaiseNetworkEvent(new TeleportPlayerToStationResponseMessage(ownerKey, false, "no-arrivals"), session.Channel);
+                RaiseNetworkEvent(
+                    new TeleportPlayerToStationResponseMessage(ownerKey, false, "no-arrivals"),
+                    session.Channel
+                );
                 return;
             }
 
@@ -2804,10 +3274,16 @@ namespace Content.Server.Administration.Systems
             transformSystem.SetCoordinates(attached, target);
             transformSystem.AttachToGridOrMap(attached);
 
-            RaiseNetworkEvent(new TeleportPlayerToStationResponseMessage(ownerKey, true, null, destinationName, target.Position), session.Channel);
+            RaiseNetworkEvent(
+                new TeleportPlayerToStationResponseMessage(ownerKey, true, null, destinationName, target.Position),
+                session.Channel
+            );
         }
 
-        private void OnRequestTeleportPlayerToShip(RequestTeleportPlayerToShipMessage message, EntitySessionEventArgs args)
+        private void OnRequestTeleportPlayerToShip(
+            RequestTeleportPlayerToShipMessage message,
+            EntitySessionEventArgs args
+        )
         {
             var session = args.SenderSession;
             if (session == null)
@@ -2815,14 +3291,28 @@ namespace Content.Server.Administration.Systems
 
             if (!_adminManager.HasAdminFlag(session, AdminFlags.Adminhelp))
             {
-                RaiseNetworkEvent(new TeleportPlayerToShipResponseMessage(message.OwnerUserId ?? string.Empty, false, "not-authorized"), session.Channel);
+                RaiseNetworkEvent(
+                    new TeleportPlayerToShipResponseMessage(
+                        message.OwnerUserId ?? string.Empty,
+                        false,
+                        "not-authorized"
+                    ),
+                    session.Channel
+                );
                 return;
             }
 
             var ownerKey = message.OwnerUserId?.Trim();
             if (string.IsNullOrEmpty(ownerKey) || !TryParseUserId(ownerKey, out var ownerGuid))
             {
-                RaiseNetworkEvent(new TeleportPlayerToShipResponseMessage(message.OwnerUserId ?? string.Empty, false, "invalid-owner"), session.Channel);
+                RaiseNetworkEvent(
+                    new TeleportPlayerToShipResponseMessage(
+                        message.OwnerUserId ?? string.Empty,
+                        false,
+                        "invalid-owner"
+                    ),
+                    session.Channel
+                );
                 return;
             }
 
@@ -2835,7 +3325,10 @@ namespace Content.Server.Administration.Systems
 
             if (!targetSession.AttachedEntity.HasValue)
             {
-                RaiseNetworkEvent(new TeleportPlayerToShipResponseMessage(ownerKey, false, "no-attached-entity"), session.Channel);
+                RaiseNetworkEvent(
+                    new TeleportPlayerToShipResponseMessage(ownerKey, false, "no-attached-entity"),
+                    session.Channel
+                );
                 return;
             }
 
@@ -2848,13 +3341,19 @@ namespace Content.Server.Administration.Systems
             // Refuse if the ship is actively FTL-ing to avoid placing the player in limbo.
             if (TryComp<FTLComponent>(shipUid, out var ftl) && ftl.State != FTLState.Available)
             {
-                RaiseNetworkEvent(new TeleportPlayerToShipResponseMessage(ownerKey, false, "in-ftl", shipName), session.Channel);
+                RaiseNetworkEvent(
+                    new TeleportPlayerToShipResponseMessage(ownerKey, false, "in-ftl", shipName),
+                    session.Channel
+                );
                 return;
             }
 
             if (!TryFindGridFallbackPosition(shipUid, out var target))
             {
-                RaiseNetworkEvent(new TeleportPlayerToShipResponseMessage(ownerKey, false, "no-safe-tile", shipName), session.Channel);
+                RaiseNetworkEvent(
+                    new TeleportPlayerToShipResponseMessage(ownerKey, false, "no-safe-tile", shipName),
+                    session.Channel
+                );
                 return;
             }
 
@@ -2863,8 +3362,13 @@ namespace Content.Server.Administration.Systems
             transformSystem.SetCoordinates(attached, target);
             transformSystem.AttachToGridOrMap(attached);
 
-            _sawmill.Info($"Admin {session.Name} ({session.UserId}) teleported {ownerKey} to their ship {shipName} ({GetNetEntity(shipUid)}) at {target.Position}.");
-            RaiseNetworkEvent(new TeleportPlayerToShipResponseMessage(ownerKey, true, null, shipName, target.Position), session.Channel);
+            _sawmill.Info(
+                $"Admin {session.Name} ({session.UserId}) teleported {ownerKey} to their ship {shipName} ({GetNetEntity(shipUid)}) at {target.Position}."
+            );
+            RaiseNetworkEvent(
+                new TeleportPlayerToShipResponseMessage(ownerKey, true, null, shipName, target.Position),
+                session.Channel
+            );
         }
 
         private void OnRequestShipDeedList(RequestShipDeedListMessage message, EntitySessionEventArgs args)
@@ -2888,11 +3392,7 @@ namespace Content.Server.Administration.Systems
                 if (!string.IsNullOrWhiteSpace(deed.ShuttleNameSuffix))
                     name = $"{name}-{deed.ShuttleNameSuffix}";
 
-                ships.Add(new ShipDeedEntry(
-                    GetNetEntity(shipUid),
-                    name,
-                    deed.ShuttleOwner,
-                    deed.OwnerUserId));
+                ships.Add(new ShipDeedEntry(GetNetEntity(shipUid), name, deed.ShuttleOwner, deed.OwnerUserId));
             }
 
             ships.Sort((a, b) => string.Compare(a.ShipName, b.ShipName, StringComparison.OrdinalIgnoreCase));
@@ -2907,14 +3407,20 @@ namespace Content.Server.Administration.Systems
 
             if (!_adminManager.HasAdminFlag(session, AdminFlags.Adminhelp))
             {
-                RaiseNetworkEvent(new AssignShipDeedResponseMessage(message.TargetUserId ?? string.Empty, false, "not-authorized"), session.Channel);
+                RaiseNetworkEvent(
+                    new AssignShipDeedResponseMessage(message.TargetUserId ?? string.Empty, false, "not-authorized"),
+                    session.Channel
+                );
                 return;
             }
 
             var targetKey = message.TargetUserId?.Trim();
             if (string.IsNullOrEmpty(targetKey) || !TryParseUserId(targetKey, out var targetGuid))
             {
-                RaiseNetworkEvent(new AssignShipDeedResponseMessage(message.TargetUserId ?? string.Empty, false, "invalid-owner"), session.Channel);
+                RaiseNetworkEvent(
+                    new AssignShipDeedResponseMessage(message.TargetUserId ?? string.Empty, false, "invalid-owner"),
+                    session.Channel
+                );
                 return;
             }
 
@@ -2927,7 +3433,10 @@ namespace Content.Server.Administration.Systems
 
             if (!targetSession.AttachedEntity.HasValue)
             {
-                RaiseNetworkEvent(new AssignShipDeedResponseMessage(targetKey, false, "no-attached-entity"), session.Channel);
+                RaiseNetworkEvent(
+                    new AssignShipDeedResponseMessage(targetKey, false, "no-attached-entity"),
+                    session.Channel
+                );
                 return;
             }
 
@@ -2964,7 +3473,9 @@ namespace Content.Server.Administration.Systems
             shipDeed.OwnerUserId = targetKey;
             Dirty(shipUid, shipDeed);
 
-            _sawmill.Info($"Admin {session.Name} ({session.UserId}) assigned deed for ship {shipName} ({GetNetEntity(shipUid)}) to player {targetKey} ({targetSession.Name}).");
+            _sawmill.Info(
+                $"Admin {session.Name} ({session.UserId}) assigned deed for ship {shipName} ({GetNetEntity(shipUid)}) to player {targetKey} ({targetSession.Name})."
+            );
             RaiseNetworkEvent(new AssignShipDeedResponseMessage(targetKey, true, null, shipName), session.Channel);
         }
 
@@ -3122,7 +3633,10 @@ namespace Content.Server.Administration.Systems
             BroadcastAhelpAdminStateToAdmins();
         }
 
-        private void OnResetAhelpAutoReplyTemplate(ResetAhelpAutoReplyTemplateMessage message, EntitySessionEventArgs args)
+        private void OnResetAhelpAutoReplyTemplate(
+            ResetAhelpAutoReplyTemplateMessage message,
+            EntitySessionEventArgs args
+        )
         {
             if (!CanManageAhelpConfig(args.SenderSession))
                 return;
@@ -3171,7 +3685,9 @@ namespace Content.Server.Administration.Systems
             if (parameters.RoundTime != string.Empty && parameters.RoundState == GameRunLevel.InRound)
                 stringbuilder.Append($" **{parameters.RoundTime}**");
             if (!parameters.PlayedSound)
-                stringbuilder.Append($" **{(parameters.AdminOnly ? Loc.GetString("bwoink-message-admin-only") : Loc.GetString("bwoink-message-silent"))}**");
+                stringbuilder.Append(
+                    $" **{(parameters.AdminOnly ? Loc.GetString("bwoink-message-admin-only") : Loc.GetString("bwoink-message-silent"))}**"
+                );
             if (parameters.IsDiscord) // Frontier - Discord Indicator
                 stringbuilder.Append($" **{Loc.GetString("bwoink-message-discord")}**"); // Frontier - Discord Indicator
             if (parameters.Icon == null)
@@ -3184,11 +3700,7 @@ namespace Content.Server.Administration.Systems
 
             stringbuilder.Append(parameters.Message);
 
-            return new DiscordRelayedData()
-            {
-                Receivers = !parameters.NoReceivers,
-                Message = stringbuilder.ToString(),
-            };
+            return new DiscordRelayedData() { Receivers = !parameters.NoReceivers, Message = stringbuilder.ToString() };
         }
 
         private record struct DiscordRelayedData
@@ -3257,7 +3769,8 @@ namespace Content.Server.Administration.Systems
             bool adminOnly = false,
             bool noReceivers = false,
             string? icon = null,
-            string? triageCategory = null)
+            string? triageCategory = null
+        )
         {
             Username = username;
             Message = message;

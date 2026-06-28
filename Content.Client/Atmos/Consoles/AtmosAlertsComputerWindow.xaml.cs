@@ -1,3 +1,6 @@
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using Content.Client._NF.Atmos.Consoles; // Frontier
 using Content.Client.Message;
 using Content.Client.Pinpointer.UI;
 using Content.Client.Stylesheets;
@@ -13,9 +16,6 @@ using Robust.Client.UserInterface.XAML;
 using Robust.Shared.Map;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using Content.Client._NF.Atmos.Consoles; // Frontier
 
 namespace Content.Client.Atmos.Consoles;
 
@@ -44,6 +44,7 @@ public sealed partial class AtmosAlertsComputerWindow : FancyWindow
     public event Action<NetEntity, float>? SendGaslockPressureChangeMessageAction;
     public event Action<NetEntity, bool>? SendGaslockChangeEnabledAction;
     public event Action<NetEntity>? SendGaslockUndockAction;
+
     // End Frontier: gaslock actions
 
     private bool _autoScrollActive = false;
@@ -94,7 +95,6 @@ public sealed partial class AtmosAlertsComputerWindow : FancyWindow
 
             StationName.SetMessage(msg);
         }
-
         else
         {
             StationName.SetMessage(stationName);
@@ -149,7 +149,6 @@ public sealed partial class AtmosAlertsComputerWindow : FancyWindow
 
             if (toggle.Pressed)
                 AddTrackedEntityToNavMap(device, alarmState);
-
             else
                 NavMap.TrackedEntities.Remove(device.NetEntity);
         }
@@ -162,7 +161,6 @@ public sealed partial class AtmosAlertsComputerWindow : FancyWindow
 
         if (toggleState)
             _deviceSilencingProgress[netEntity] = SilencingDuration;
-
         else
             _deviceSilencingProgress.Remove(netEntity);
 
@@ -177,7 +175,14 @@ public sealed partial class AtmosAlertsComputerWindow : FancyWindow
 
     #endregion
 
-    public void UpdateUI(EntityCoordinates? consoleCoords, AtmosAlertsComputerEntry[] airAlarms, AtmosAlertsComputerEntry[] fireAlarms, AtmosAlertsFocusDeviceData? focusData, AtmosAlertsComputerEntry[] gaslocks, AtmosAlertsFocusGaslockData? focusGaslockData) // Frontier: add gaslocks, gaslock data
+    public void UpdateUI(
+        EntityCoordinates? consoleCoords,
+        AtmosAlertsComputerEntry[] airAlarms,
+        AtmosAlertsComputerEntry[] fireAlarms,
+        AtmosAlertsFocusDeviceData? focusData,
+        AtmosAlertsComputerEntry[] gaslocks,
+        AtmosAlertsFocusGaslockData? focusGaslockData
+    ) // Frontier: add gaslocks, gaslock data
     {
         if (_owner == null)
             return;
@@ -199,8 +204,10 @@ public sealed partial class AtmosAlertsComputerWindow : FancyWindow
 
         var silenced = console.SilencedDevices;
 
-        _activeAlarms = _allAlarms.Where(x => x.AlarmState > AtmosAlarmType.Normal &&
-            (!silenced.Contains(x.NetEntity) || _deviceSilencingProgress.ContainsKey(x.NetEntity)));
+        _activeAlarms = _allAlarms.Where(x =>
+            x.AlarmState > AtmosAlarmType.Normal
+            && (!silenced.Contains(x.NetEntity) || _deviceSilencingProgress.ContainsKey(x.NetEntity))
+        );
 
         // Reset nav map data
         NavMap.TrackedCoordinates.Clear();
@@ -241,7 +248,9 @@ public sealed partial class AtmosAlertsComputerWindow : FancyWindow
 
         if (consoleCoords != null && consoleUid != null)
         {
-            var texture = _spriteSystem.Frame0(new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/NavMap/beveled_circle.png")));
+            var texture = _spriteSystem.Frame0(
+                new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/NavMap/beveled_circle.png"))
+            );
             var blip = new NavMapBlip(consoleCoords.Value, texture, _monitorBlipColor, true, false);
             NavMap.TrackedEntities[consoleUid.Value] = blip;
         }
@@ -304,7 +313,9 @@ public sealed partial class AtmosAlertsComputerWindow : FancyWindow
                 VerticalAlignment = VAlignment.Center,
             };
 
-            label.SetMarkup(Loc.GetString("atmos-alerts-window-no-active-alerts", ("color", _statusTextColor.ToHexNoAlpha())));
+            label.SetMarkup(
+                Loc.GetString("atmos-alerts-window-no-active-alerts", ("color", _statusTextColor.ToHexNoAlpha()))
+            );
 
             AlertsTable.AddChild(label);
         }
@@ -312,19 +323,27 @@ public sealed partial class AtmosAlertsComputerWindow : FancyWindow
         // Update the alerts tab with the number of active alerts
         if (activeAlarmCount == 0)
             MasterTabContainer.SetTabTitle(0, Loc.GetString("atmos-alerts-window-tab-no-alerts"));
-
         else
-            MasterTabContainer.SetTabTitle(0, Loc.GetString("atmos-alerts-window-tab-alerts", ("value", activeAlarmCount)));
+            MasterTabContainer.SetTabTitle(
+                0,
+                Loc.GetString("atmos-alerts-window-tab-alerts", ("value", activeAlarmCount))
+            );
 
         // Update sensor regions
         NavMap.RegionOverlays.Clear();
         var prioritizedRegionOverlays = new Dictionary<NavMapRegionOverlay, int>();
 
-        if (_owner != null &&
-            _entManager.TryGetComponent<TransformComponent>(_owner, out var xform) &&
-            _entManager.TryGetComponent<NavMapComponent>(xform.GridUid, out var navMap))
+        if (
+            _owner != null
+            && _entManager.TryGetComponent<TransformComponent>(_owner, out var xform)
+            && _entManager.TryGetComponent<NavMapComponent>(xform.GridUid, out var navMap)
+        )
         {
-            var regionOverlays = _navMapSystem.GetNavMapRegionOverlays(_owner.Value, navMap, AtmosAlertsComputerUiKey.Key);
+            var regionOverlays = _navMapSystem.GetNavMapRegionOverlays(
+                _owner.Value,
+                navMap,
+                AtmosAlertsComputerUiKey.Key
+            );
 
             foreach (var (regionOwner, regionOverlay) in regionOverlays)
             {
@@ -367,7 +386,13 @@ public sealed partial class AtmosAlertsComputerWindow : FancyWindow
             color *= _untrackedEntColor;
 
         var selectable = true;
-        var blip = new NavMapBlip(coords, _spriteSystem.Frame0(texture), color, _trackedEntity == metaData.NetEntity, selectable);
+        var blip = new NavMapBlip(
+            coords,
+            _spriteSystem.Frame0(texture),
+            color,
+            _trackedEntity == metaData.NetEntity,
+            selectable
+        );
 
         NavMap.TrackedEntities[metaData.NetEntity] = blip;
     }
@@ -390,12 +415,21 @@ public sealed partial class AtmosAlertsComputerWindow : FancyWindow
         return true;
     }
 
-    private void UpdateUIEntry(AtmosAlertsComputerEntry entry, int index, Control table, AtmosAlertsComputerComponent console, AtmosAlertsFocusDeviceData? focusData = null)
+    private void UpdateUIEntry(
+        AtmosAlertsComputerEntry entry,
+        int index,
+        Control table,
+        AtmosAlertsComputerComponent console,
+        AtmosAlertsFocusDeviceData? focusData = null
+    )
     {
         // Make new UI entry if required
         if (index >= table.ChildCount)
         {
-            var newEntryContainer = new AtmosAlarmEntryContainer(entry.NetEntity, _entManager.GetCoordinates(entry.Coordinates));
+            var newEntryContainer = new AtmosAlarmEntryContainer(
+                entry.NetEntity,
+                _entManager.GetCoordinates(entry.Coordinates)
+            );
 
             // On click
             newEntryContainer.FocusButton.OnButtonUp += args =>
@@ -404,7 +438,6 @@ public sealed partial class AtmosAlertsComputerWindow : FancyWindow
                 {
                     _trackedEntity = null;
                 }
-
                 else
                 {
                     _trackedEntity = newEntryContainer.NetEntity;
@@ -424,7 +457,8 @@ public sealed partial class AtmosAlertsComputerWindow : FancyWindow
             };
 
             // On toggling the silence check box
-            newEntryContainer.SilenceCheckBox.OnToggled += _ => OnSilenceAlertsToggled(newEntryContainer.NetEntity, newEntryContainer.SilenceCheckBox.Pressed);
+            newEntryContainer.SilenceCheckBox.OnToggled += _ =>
+                OnSilenceAlertsToggled(newEntryContainer.NetEntity, newEntryContainer.SilenceCheckBox.Pressed);
 
             // Add the entry to the current table
             table.AddChild(newEntryContainer);
@@ -448,19 +482,32 @@ public sealed partial class AtmosAlertsComputerWindow : FancyWindow
         if (_trackedEntity != entry.NetEntity)
         {
             var silenced = console.SilencedDevices;
-            entryContainer.SilenceCheckBox.Pressed = (silenced.Contains(entry.NetEntity) || _deviceSilencingProgress.ContainsKey(entry.NetEntity));
+            entryContainer.SilenceCheckBox.Pressed = (
+                silenced.Contains(entry.NetEntity) || _deviceSilencingProgress.ContainsKey(entry.NetEntity)
+            );
         }
 
-        entryContainer.SilenceAlarmProgressBar.Visible = (table == AlertsTable && _deviceSilencingProgress.ContainsKey(entry.NetEntity));
+        entryContainer.SilenceAlarmProgressBar.Visible = (
+            table == AlertsTable && _deviceSilencingProgress.ContainsKey(entry.NetEntity)
+        );
     }
 
     // Frontier: separate UpdateUI function for gaslocks
-    private void UpdateGaslockUIEntry(AtmosAlertsComputerEntry entry, int index, Control table, AtmosAlertsComputerComponent console, AtmosAlertsFocusGaslockData? focusData = null)
+    private void UpdateGaslockUIEntry(
+        AtmosAlertsComputerEntry entry,
+        int index,
+        Control table,
+        AtmosAlertsComputerComponent console,
+        AtmosAlertsFocusGaslockData? focusData = null
+    )
     {
         // Make new UI entry if required
         if (index >= table.ChildCount)
         {
-            var newEntryContainer = new AtmosAlarmGaslockEntryContainer(entry.NetEntity, _entManager.GetCoordinates(entry.Coordinates));
+            var newEntryContainer = new AtmosAlarmGaslockEntryContainer(
+                entry.NetEntity,
+                _entManager.GetCoordinates(entry.Coordinates)
+            );
 
             newEntryContainer.SendChangeDirectionMessageAction += SendGaslockChangeDirectionMessageAction;
             newEntryContainer.SendPressureChangeAction += SendGaslockPressureChangeMessageAction;
@@ -474,7 +521,6 @@ public sealed partial class AtmosAlertsComputerWindow : FancyWindow
                 {
                     _trackedEntity = null;
                 }
-
                 else
                 {
                     _trackedEntity = newEntryContainer.NetEntity;
@@ -510,6 +556,7 @@ public sealed partial class AtmosAlertsComputerWindow : FancyWindow
 
         entryContainer.UpdateEntry(entry, entry.NetEntity == _trackedEntity, focusData);
     }
+
     // End Frontier: separate UpdateUI function for gaslocks
 
     private void UpdateConsoleTable(AtmosAlertsComputerComponent console, Control table, NetEntity? currTrackedEntity)
@@ -523,7 +570,6 @@ public sealed partial class AtmosAlertsComputerWindow : FancyWindow
                 {
                     if (entry.NetEntity != currTrackedEntity)
                         entry.RemoveAsFocus();
-
                     else if (entry.NetEntity == currTrackedEntity)
                         entry.SetAsFocus();
                     break;
@@ -532,7 +578,6 @@ public sealed partial class AtmosAlertsComputerWindow : FancyWindow
                 {
                     if (gaslockEntry.NetEntity != currTrackedEntity)
                         gaslockEntry.RemoveAsFocus();
-
                     else if (gaslockEntry.NetEntity == currTrackedEntity)
                         gaslockEntry.SetAsFocus();
                     break;
@@ -562,11 +607,14 @@ public sealed partial class AtmosAlertsComputerWindow : FancyWindow
                 switch (device?.Group)
                 {
                     case AtmosAlertsComputerGroup.AirAlarm:
-                        MasterTabContainer.CurrentTab = 1; break;
+                        MasterTabContainer.CurrentTab = 1;
+                        break;
                     case AtmosAlertsComputerGroup.FireAlarm:
-                        MasterTabContainer.CurrentTab = 2; break;
+                        MasterTabContainer.CurrentTab = 2;
+                        break;
                     case AtmosAlertsComputerGroup.Gaslock: // Frontier
-                        MasterTabContainer.CurrentTab = 3; break; // Frontier
+                        MasterTabContainer.CurrentTab = 3;
+                        break; // Frontier
                 }
             }
 
@@ -594,7 +642,6 @@ public sealed partial class AtmosAlertsComputerWindow : FancyWindow
                 if (device == _trackedEntity)
                     _trackedEntity = null;
             }
-
             else
                 _deviceSilencingProgress[device] = t;
         }
@@ -678,13 +725,29 @@ public sealed partial class AtmosAlertsComputerWindow : FancyWindow
         switch (alarmState)
         {
             case AtmosAlarmType.Invalid:
-                output = (new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/NavMap/beveled_circle.png")), _inactiveColor); break;
+                output = (
+                    new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/NavMap/beveled_circle.png")),
+                    _inactiveColor
+                );
+                break;
             case AtmosAlarmType.Normal:
-                output = (new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/NavMap/beveled_circle.png")), _goodColor); break;
+                output = (
+                    new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/NavMap/beveled_circle.png")),
+                    _goodColor
+                );
+                break;
             case AtmosAlarmType.Warning:
-                output = (new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/NavMap/beveled_triangle.png")), _warningColor); break;
+                output = (
+                    new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/NavMap/beveled_triangle.png")),
+                    _warningColor
+                );
+                break;
             case AtmosAlarmType.Danger:
-                output = (new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/NavMap/beveled_square.png")), _dangerColor); break;
+                output = (
+                    new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/NavMap/beveled_square.png")),
+                    _dangerColor
+                );
+                break;
         }
 
         return output;

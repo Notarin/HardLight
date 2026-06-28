@@ -2,8 +2,8 @@ using Content.Server.Chat.Managers;
 using Content.Server.GameTicking;
 using Content.Shared.CCVar;
 using Content.Shared.Chat;
-using Robust.Shared.Console;
 using Robust.Shared.Configuration;
+using Robust.Shared.Console;
 using Robust.Shared.Player;
 
 namespace Content.Server.Motd;
@@ -13,8 +13,11 @@ namespace Content.Server.Motd;
 /// </summary>
 public sealed class MOTDSystem : EntitySystem
 {
-    [Dependency] private readonly IChatManager _chatManager = default!;
-    [Dependency] private readonly IConfigurationManager _configurationManager = default!;
+    [Dependency]
+    private readonly IChatManager _chatManager = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _configurationManager = default!;
 
     /// <summary>
     /// The cached value of the Message of the Day. Used for fast access.
@@ -37,7 +40,14 @@ public sealed class MOTDSystem : EntitySystem
             return;
 
         var wrappedMessage = Loc.GetString("motd-wrap-message", ("motd", _messageOfTheDay));
-        _chatManager.ChatMessageToAll(ChatChannel.Server, _messageOfTheDay, wrappedMessage, source: EntityUid.Invalid, hideChat: false, recordReplay: true);
+        _chatManager.ChatMessageToAll(
+            ChatChannel.Server,
+            _messageOfTheDay,
+            wrappedMessage,
+            source: EntityUid.Invalid,
+            hideChat: false,
+            recordReplay: true
+        );
     }
 
     /// <summary>
@@ -49,7 +59,14 @@ public sealed class MOTDSystem : EntitySystem
             return;
 
         var wrappedMessage = Loc.GetString("motd-wrap-message", ("motd", _messageOfTheDay));
-        _chatManager.ChatMessageToOne(ChatChannel.Server, _messageOfTheDay, wrappedMessage, source: EntityUid.Invalid, hideChat: false, client: player.Channel);
+        _chatManager.ChatMessageToOne(
+            ChatChannel.Server,
+            _messageOfTheDay,
+            wrappedMessage,
+            source: EntityUid.Invalid,
+            hideChat: false,
+            client: player.Channel
+        );
     }
 
     /// <summary>
@@ -66,7 +83,14 @@ public sealed class MOTDSystem : EntitySystem
         var wrappedMessage = Loc.GetString("motd-wrap-message", ("motd", _messageOfTheDay));
         shell.WriteLine(wrappedMessage);
         if (shell.Player is { } player)
-            _chatManager.ChatMessageToOne(ChatChannel.Server, _messageOfTheDay, wrappedMessage, source: EntityUid.Invalid, hideChat: false, client: player.Channel);
+            _chatManager.ChatMessageToOne(
+                ChatChannel.Server,
+                _messageOfTheDay,
+                wrappedMessage,
+                source: EntityUid.Invalid,
+                hideChat: false,
+                client: player.Channel
+            );
     }
 
     #region Event Handlers

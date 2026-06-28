@@ -1,9 +1,9 @@
+using Content.Shared._NF.Bank.Components;
 using Content.Shared.Cargo.Prototypes;
+using Content.Shared.Stacks;
 using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
-using Content.Shared._NF.Bank.Components;
-using Content.Shared.Stacks;
 
 namespace Content.Shared._NF.Cargo.Components;
 
@@ -15,8 +15,7 @@ namespace Content.Shared._NF.Cargo.Components;
 public sealed partial class NFCargoOrderConsoleComponent : Component
 {
     [DataField]
-    public SoundSpecifier ErrorSound =
-        new SoundPathSpecifier("/Audio/Effects/Cargo/buzz_sigh.ogg");
+    public SoundSpecifier ErrorSound = new SoundPathSpecifier("/Audio/Effects/Cargo/buzz_sigh.ogg");
 
     [DataField]
     public SoundSpecifier ConfirmSound = new SoundPathSpecifier("/Audio/Effects/Cargo/ping.ogg");

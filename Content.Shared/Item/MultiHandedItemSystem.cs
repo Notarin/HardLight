@@ -9,10 +9,17 @@ namespace Content.Shared.Item;
 
 public sealed class MultiHandedItemSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedVirtualItemSystem _virtualItem = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly SharedHandsSystem _hands = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly SharedVirtualItemSystem _virtualItem = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -42,8 +49,10 @@ public sealed class MultiHandedItemSystem : EntitySystem
             return;
 
         args.Cancel();
-        _popup.PopupPredictedCursor(Loc.GetString("multi-handed-item-pick-up-fail",
-            ("number", ent.Comp.HandsNeeded - 1), ("item", ent.Owner)), args.User);
+        _popup.PopupPredictedCursor(
+            Loc.GetString("multi-handed-item-pick-up-fail", ("number", ent.Comp.HandsNeeded - 1), ("item", ent.Owner)),
+            args.User
+        );
     }
 
     private void OnVirtualItemDeleted(Entity<MultiHandedItemComponent> ent, ref VirtualItemDeletedEvent args)

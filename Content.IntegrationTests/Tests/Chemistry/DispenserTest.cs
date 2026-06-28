@@ -1,7 +1,7 @@
 using Content.Client.Chemistry.UI;
 using Content.IntegrationTests.Tests.Interaction;
-using Content.Shared.Chemistry;
 using Content.Server.Chemistry.Components;
+using Content.Shared.Chemistry;
 using Content.Shared.Containers.ItemSlots;
 
 namespace Content.IntegrationTests.Tests.Chemistry;

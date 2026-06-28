@@ -63,16 +63,38 @@ public sealed partial class SpaceVillainArcadeComponent : SharedSpaceVillainArca
     [ViewVariables(VVAccess.ReadWrite)]
     [DataField("possibleFightVerbs")]
     public List<string> PossibleFightVerbs = new()
-        {"Defeat", "Annihilate", "Save", "Strike", "Stop", "Destroy", "Robust", "Romance", "Pwn", "Own"};
+    {
+        "Defeat",
+        "Annihilate",
+        "Save",
+        "Strike",
+        "Stop",
+        "Destroy",
+        "Robust",
+        "Romance",
+        "Pwn",
+        "Own",
+    };
 
     /// <summary>
     /// The first names/titles that can be used to construct the name of the villain.
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite)]
     [DataField("possibleFirstEnemyNames")]
-    public List<string> PossibleFirstEnemyNames = new(){
-        "the Automatic", "Farmer", "Lord", "Professor", "the Cuban", "the Evil", "the Dread King",
-        "the Space", "Lord", "the Great", "Duke", "General"
+    public List<string> PossibleFirstEnemyNames = new()
+    {
+        "the Automatic",
+        "Farmer",
+        "Lord",
+        "Professor",
+        "the Cuban",
+        "the Evil",
+        "the Dread King",
+        "the Space",
+        "Lord",
+        "the Great",
+        "Duke",
+        "General",
     };
 
     /// <summary>
@@ -82,8 +104,21 @@ public sealed partial class SpaceVillainArcadeComponent : SharedSpaceVillainArca
     [DataField("possibleLastEnemyNames")]
     public List<string> PossibleLastEnemyNames = new()
     {
-        "Melonoid", "Murdertron", "Sorcerer", "Ruin", "Jeff", "Ectoplasm", "Crushulon", "Uhangoid",
-        "Vhakoid", "Peteoid", "slime", "Griefer", "ERPer", "Lizard Man", "Unicorn"
+        "Melonoid",
+        "Murdertron",
+        "Sorcerer",
+        "Ruin",
+        "Jeff",
+        "Ectoplasm",
+        "Crushulon",
+        "Uhangoid",
+        "Vhakoid",
+        "Peteoid",
+        "slime",
+        "Griefer",
+        "ERPer",
+        "Lizard Man",
+        "Unicorn",
     };
 
     /// <summary>

@@ -8,8 +8,7 @@
   - type: MeleeSound
     soundGroups:
       Brute:
-        path:
-          "/Audio/Weapons/boxingpunch1.ogg"
+        path: "/Audio/Weapons/boxingpunch1.ogg"
   - type: Tag
     tags:
     - Wooden
@@ -29,8 +28,7 @@
     fx: EffectRCDDeconstruct2
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 125
       behaviors:
       - !type:PlaySoundBehavior
@@ -42,7 +40,7 @@
             min: 1
             max: 2
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: Climbable
     delay: 5.0
   - type: Appearance
@@ -56,8 +54,7 @@
   components:
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 75
       behaviors:
       - !type:PlaySoundBehavior
@@ -69,7 +66,7 @@
             min: 0
             max: 1
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: Climbable
     delay: 2.5
   - type: RequireProjectileTarget
@@ -89,8 +86,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.10,-0.5,0.10,0.5"
         density: 1000
         mask:
@@ -118,8 +114,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.1,-0.5,0.1,0.0"
         density: 1000
         mask:
@@ -147,8 +142,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.1,-0.1,0.1,0.5"
         density: 1000
         mask:
@@ -156,8 +150,7 @@
         layer:
         - TableLayer
       fix2:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.5,-0.1,-0.1,0.1"
         density: 1000
         mask:
@@ -185,8 +178,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.10,-0.5,0.10,0.5"
         density: 1000
         mask:
@@ -194,8 +186,7 @@
         layer:
         - TableLayer
       fix2:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.5,-0.1,-0.1,0.1"
         density: 1000
         mask:
@@ -222,8 +213,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.5,-0.1,0.5,0.1"
         density: 1000
         mask:
@@ -272,8 +262,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.10,-0.5,0.10,0.5"
         density: 1000
         mask:
@@ -300,8 +289,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.1,-0.5,0.1,0.0"
         density: 1000
         mask:
@@ -328,8 +316,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.1,-0.1,0.1,0.5"
         density: 1000
         mask:
@@ -337,8 +324,7 @@
         layer:
         - TableLayer
       fix2:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.5,-0.1,-0.1,0.1"
         density: 1000
         mask:
@@ -365,8 +351,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.10,-0.5,0.10,0.5"
         density: 1000
         mask:
@@ -374,8 +359,7 @@
         layer:
         - TableLayer
       fix2:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.5,-0.1,-0.1,0.1"
         density: 1000
         mask:
@@ -401,8 +385,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.5,-0.1,0.5,0.1"
         density: 1000
         mask:

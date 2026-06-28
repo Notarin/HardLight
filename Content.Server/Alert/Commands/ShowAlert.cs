@@ -9,11 +9,13 @@ namespace Content.Server.Alert.Commands
     [AdminCommand(AdminFlags.Debug)]
     public sealed class ShowAlert : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _e = default!;
+        [Dependency]
+        private readonly IEntityManager _e = default!;
 
         public string Command => "showalert";
         public string Description => "Shows an alert for a player, defaulting to current player";
-        public string Help => "showalert <alertType> <severity, -1 if no severity> <name or userID, omit for current player>";
+        public string Help =>
+            "showalert <alertType> <severity, -1 if no severity> <name or userID, omit for current player>";
 
         public void Execute(IConsoleShell shell, string argStr, string[] args)
         {
@@ -29,7 +31,8 @@ namespace Content.Server.Alert.Commands
             if (args.Length > 2)
             {
                 var target = args[2];
-                if (!CommandUtils.TryGetAttachedEntityByUsernameOrId(shell, target, player, out attachedEntity)) return;
+                if (!CommandUtils.TryGetAttachedEntityByUsernameOrId(shell, target, player, out attachedEntity))
+                    return;
             }
 
             if (!_e.TryGetComponent(attachedEntity, out AlertsComponent? alertsComponent))

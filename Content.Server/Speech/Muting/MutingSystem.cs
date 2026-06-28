@@ -1,3 +1,4 @@
+using Content.Server._Starlight.Language; // Starlight
 using Content.Server.Abilities.Mime;
 using Content.Server.Chat.Systems;
 using Content.Server.Popups;
@@ -7,21 +8,26 @@ using Content.Shared.Chat.Prototypes;
 using Content.Shared.Puppet;
 using Content.Shared.Speech;
 using Content.Shared.Speech.Muting;
-using Content.Server._Starlight.Language; // Starlight
 
 namespace Content.Server.Speech.Muting
 {
     public sealed class MutingSystem : EntitySystem
     {
-        [Dependency] private readonly PopupSystem _popupSystem = default!;
-        [Dependency] private readonly LanguageSystem _languages = default!; // Starlight
+        [Dependency]
+        private readonly PopupSystem _popupSystem = default!;
+
+        [Dependency]
+        private readonly LanguageSystem _languages = default!; // Starlight
 
         public override void Initialize()
         {
             base.Initialize();
             SubscribeLocalEvent<MutedComponent, SpeakAttemptEvent>(OnSpeakAttempt);
             SubscribeLocalEvent<MutedComponent, EmoteEvent>(OnEmote, before: new[] { typeof(VocalSystem) });
-            SubscribeLocalEvent<MutedComponent, ScreamActionEvent>(OnScreamAction, before: new[] { typeof(VocalSystem) });
+            SubscribeLocalEvent<MutedComponent, ScreamActionEvent>(
+                OnScreamAction,
+                before: new[] { typeof(VocalSystem) }
+            );
         }
 
         private void OnEmote(EntityUid uid, MutedComponent component, ref EmoteEvent args)
@@ -41,12 +47,10 @@ namespace Content.Server.Speech.Muting
 
             if (HasComp<MimePowersComponent>(uid))
                 _popupSystem.PopupEntity(Loc.GetString("mime-cant-speak"), uid, uid);
-
             else
                 _popupSystem.PopupEntity(Loc.GetString("speech-muted"), uid, uid);
             args.Handled = true;
         }
-
 
         private void OnSpeakAttempt(EntityUid uid, MutedComponent component, SpeakAttemptEvent args)
         {

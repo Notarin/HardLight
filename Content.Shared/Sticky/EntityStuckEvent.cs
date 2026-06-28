@@ -12,7 +12,6 @@ public record struct AttemptEntityStickEvent(EntityUid Target, EntityUid User, b
 [ByRefEvent]
 public record struct AttemptEntityUnstickEvent(EntityUid Target, EntityUid User, bool Cancelled = false);
 
-
 /// <summary>
 ///     Risen on sticky entity when it was stuck to other entity.
 /// </summary>

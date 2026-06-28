@@ -8,6 +8,6 @@ namespace Content.Server.Destructible.Thresholds
     {
         None = 0,
         Breakage,
-        Destruction
+        Destruction,
     }
 }

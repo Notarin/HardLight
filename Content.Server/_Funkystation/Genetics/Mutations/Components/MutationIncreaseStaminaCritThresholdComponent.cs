@@ -7,5 +7,5 @@ namespace Content.Server._Funkystation.Genetics.Mutations.Components;
 public sealed partial class MutationIncreaseStaminaCritThresholdComponent : Component
 {
     [DataField]
-    public float ThresholdBonus = 30f;  // +30 = 130 threshold
+    public float ThresholdBonus = 30f; // +30 = 130 threshold
 }

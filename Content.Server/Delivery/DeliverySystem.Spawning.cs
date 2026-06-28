@@ -1,7 +1,7 @@
-using Content.Shared.Delivery;
-using Content.Shared.Power.EntitySystems;
 using Content.Server.StationRecords;
+using Content.Shared.Delivery;
 using Content.Shared.EntityTable;
+using Content.Shared.Power.EntitySystems;
 using Content.Shared.StationRecords;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
@@ -14,10 +14,17 @@ namespace Content.Server.Delivery;
 /// </summary>
 public sealed partial class DeliverySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly EntityTableSystem _entityTable = default!;
-    [Dependency] private readonly SharedPowerReceiverSystem _power = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly EntityTableSystem _entityTable = default!;
+
+    [Dependency]
+    private readonly SharedPowerReceiverSystem _power = default!;
 
     private void InitializeSpawning()
     {
@@ -70,7 +77,7 @@ public sealed partial class DeliverySystem
         }
 
         if (recordCount == 0) // records.Records.Keys.Count<recordCount
-        // HardLight end
+            // HardLight end
             return;
 
         // We take the amount of mail calculated based on player amount or the minimum, whichever is higher.
@@ -100,7 +107,6 @@ public sealed partial class DeliverySystem
                 AddDeliveriesToSpawner(spawners[j], amounts[j]);
             }
         }
-
     }
 
     private List<Entity<DeliverySpawnerComponent>> GetValidSpawners(Entity<CargoDeliveryDataComponent> ent)
@@ -129,7 +135,11 @@ public sealed partial class DeliverySystem
 
     private void AddDeliveriesToSpawner(Entity<DeliverySpawnerComponent> ent, int amount)
     {
-        ent.Comp.ContainedDeliveryAmount += Math.Clamp(amount, 0, ent.Comp.MaxContainedDeliveryAmount - ent.Comp.ContainedDeliveryAmount);
+        ent.Comp.ContainedDeliveryAmount += Math.Clamp(
+            amount,
+            0,
+            ent.Comp.MaxContainedDeliveryAmount - ent.Comp.ContainedDeliveryAmount
+        );
         _audio.PlayPvs(ent.Comp.SpawnSound, ent.Owner);
         UpdateDeliverySpawnerVisuals(ent, ent.Comp.ContainedDeliveryAmount);
         Dirty(ent);
@@ -145,7 +155,10 @@ public sealed partial class DeliverySystem
             if (deliveryData.NextDelivery > curTime)
                 continue;
 
-            deliveryData.NextDelivery += _random.Next(deliveryData.MinDeliveryCooldown, deliveryData.MaxDeliveryCooldown); // Random cooldown between min and max
+            deliveryData.NextDelivery += _random.Next(
+                deliveryData.MinDeliveryCooldown,
+                deliveryData.MaxDeliveryCooldown
+            ); // Random cooldown between min and max
             AdjustStationDeliveries((uid, deliveryData));
         }
     }

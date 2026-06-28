@@ -8,14 +8,14 @@
     mayTransfer: true
     whitelist:
       tags:
-        - CartridgePistol
-        - Cartridge9x19mmImprovised
-        - CartridgeMagnum
-        - Cartridge45MagnumImprovised
-        - CartridgeLightRifle
-        - Cartridge556x45mmImprovised
-        - ShellShotgun
-        - ShellShotgunImprovised
+      - CartridgePistol
+      - Cartridge9x19mmImprovised
+      - CartridgeMagnum
+      - Cartridge45MagnumImprovised
+      - CartridgeLightRifle
+      - Cartridge556x45mmImprovised
+      - ShellShotgun
+      - ShellShotgunImprovised
     proto: null
     capacity: 40
   - type: Item

@@ -43,5 +43,4 @@ public sealed partial class AdvertiseComponent : Component
     /// </summary>
     [DataField]
     public TimeSpan NextAdvertisementTime { get; set; } = TimeSpan.Zero;
-
 }

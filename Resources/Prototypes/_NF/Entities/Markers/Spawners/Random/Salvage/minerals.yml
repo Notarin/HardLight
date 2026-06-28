@@ -38,7 +38,7 @@
   parent: MarkerBase
   name: rock mineral spawner
   suffix: Soft
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     layers:
@@ -87,7 +87,7 @@
   id: NFRockMineralHard
   parent: NFRockMineralSoft
   suffix: Hard
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     layers:
@@ -118,7 +118,7 @@
   id: NFRockMineralHardRich
   parent: NFRockMineralSoft
   suffix: Hard, Rich
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     layers:
@@ -174,7 +174,7 @@
   parent: MarkerBase
   name: ice mineral spawner
   suffix: Soft
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     layers:
@@ -225,7 +225,7 @@
   id: NFIceMineralHard
   parent: NFIceMineralSoft
   suffix: Hard
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     layers:
@@ -256,7 +256,7 @@
   id: NFIceMineralHardRich
   parent: NFIceMineralSoft
   suffix: Hard, Rich
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     layers:
@@ -312,7 +312,7 @@
   parent: MarkerBase
   name: andesite mineral spawner
   suffix: Soft
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     layers:
@@ -363,7 +363,7 @@
   id: NFAndesiteMineralHard
   parent: NFAndesiteMineralSoft
   suffix: Hard
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     layers:
@@ -394,7 +394,7 @@
   id: NFAndesiteMineralHardRich
   parent: NFAndesiteMineralSoft
   suffix: Hard, Rich
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     layers:
@@ -450,7 +450,7 @@
   parent: MarkerBase
   name: basalt mineral spawner
   suffix: Soft
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     layers:
@@ -501,7 +501,7 @@
   id: NFBasaltMineralHard
   parent: NFBasaltMineralSoft
   suffix: Hard
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     layers:
@@ -532,7 +532,7 @@
   id: NFBasaltMineralHardRich
   parent: NFBasaltMineralSoft
   suffix: Hard, Rich
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     layers:
@@ -588,7 +588,7 @@
   parent: MarkerBase
   name: sand mineral spawner
   suffix: Soft
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     layers:
@@ -639,7 +639,7 @@
   id: NFSandMineralHard
   parent: NFSandMineralSoft
   suffix: Hard
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     layers:
@@ -670,7 +670,7 @@
   id: NFSandMineralHardRich
   parent: NFSandMineralSoft
   suffix: Hard, Rich
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     layers:
@@ -726,7 +726,7 @@
   parent: MarkerBase
   name: chromite mineral spawner
   suffix: Soft
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     layers:
@@ -777,7 +777,7 @@
   id: NFChromiteMineralHard
   parent: NFChromiteMineralSoft
   suffix: Hard
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     layers:
@@ -808,7 +808,7 @@
   id: NFChromiteMineralHardRich
   parent: NFChromiteMineralSoft
   suffix: Hard, Rich
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     layers:
@@ -864,7 +864,7 @@
   parent: MarkerBase
   name: asteroid mineral spawner
   suffix: Soft
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     layers:
@@ -915,7 +915,7 @@
   id: NFAsteroidMineralHard
   parent: NFAsteroidMineralSoft
   suffix: Hard
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     layers:
@@ -946,7 +946,7 @@
   id: NFAsteroidMineralHardRich
   parent: NFAsteroidMineralSoft
   suffix: Hard, Rich
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     layers:
@@ -1002,7 +1002,7 @@
   parent: MarkerBase
   name: scrap mineral spawner
   suffix: Soft
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     layers:

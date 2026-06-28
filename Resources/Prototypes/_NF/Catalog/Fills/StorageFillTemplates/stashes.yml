@@ -22,7 +22,7 @@
   table: !type:GroupSelector
     children:
     # Diamonds: 500 spesos for one
-    - id: TreasureCoinDiamond 
+    - id: TreasureCoinDiamond
     - id: TreasureCoinDiamond3
     - id: TreasureCoinDiamond5
     - id: TreasureCoinDiamond10
@@ -128,8 +128,8 @@
   id: TableStorageFillStashWeaponCasesGuns
   table: !type:GroupSelector
     children:
-    # T1
     - !type:GroupSelector
+      # T1
       weight: 95
       children:
       - !type:AllSelector
@@ -156,8 +156,8 @@
         children:
         - id: WeaponCaseShortLuckyExpedition
         - id: WeaponCaseShortAmmoBoxLethal45
-    # T2
     - !type:GroupSelector
+      # T2
       weight: 5
       children:
       - !type:AllSelector
@@ -175,12 +175,12 @@
   id: MaintFluffTableTrimmed
   table: !type:GroupSelector
     children:
-    # Common Group
     - !type:GroupSelector
+      # Common Group
       weight: 75
       children:
-      # Gar glasses
       - !type:GroupSelector
+        # Gar glasses
         children:
         - id: ClothingEyesGlassesGar
         - id: ClothingEyesGlassesGarOrange
@@ -198,20 +198,20 @@
         children:
         - id: ClothingOuterCoatJensen
         - id: ClothingEyesGlassesJensen
-    # Uncommon Group
     - !type:GroupSelector
+      # Uncommon Group
       weight: 23
       children:
-      # Cult
       - !type:AllSelector
+        # Cult
         children:
         - id: ClothingOuterCoatBloodCultRobes
         - id: ClothingShoesCult
       - id: ClothingNeckCloakHerald
       - id: ClothingHandsGlovesNitrile
       - id: ClothingHandsGlovesPowerglove
-    # Rare Group
     - !type:GroupSelector
+      # Rare Group
       weight: 2
       children:
       - id: Skub
@@ -222,8 +222,8 @@
   id: TableStorageFillStashPunk
   table: !type:AllSelector
     children:
-    # Jumpsuits (max footprint: 4)
     - !type:GroupSelector
+      # Jumpsuits (max footprint: 4)
       children:
       - id: ClothingUniformRandomPunkCroptop
       - id: ClothingUniformRandomPunkTanktop
@@ -232,8 +232,8 @@
       - id: ClothingUniformRandomPunkTanktopShorts
       - id: ClothingUniformRandomPunkPantsOnly
       - id: ClothingUniformRandomPunkShortsOnly
-    # Outerclothing (max footprint: 4)
     - !type:GroupSelector
+      # Outerclothing (max footprint: 4)
       children:
       - !type:GroupSelector
         weight: 70
@@ -264,8 +264,8 @@
         - id: ClothingOuterCoatJacketLettermanBlue
         - id: ClothingOuterCoatJacketLettermanBrown
         - id: ClothingOuterCoatJacketLettermanRed
-    # Fluff
     - !type:GroupSelector
+      # Fluff
       children:
       - id: ClothingShoesBootsPunkRandomized
       - id: HoloGraffitiProjectorEmpty
@@ -285,28 +285,28 @@
     children:
     - id: BoxID # (footprint: 9)
       prob: 0.2
-    - !type:GroupSelector # Weapons (footprint: 4)
-       children:
-       - id: WeaponCaseShortCobra
-       - id: WeaponCaseShortViper
-    - !type:GroupSelector # Tools (footprint: 2)
-      children:
+    - !type:GroupSelector
+      children: # Weapons (footprint: 4)
+      - id: WeaponCaseShortCobra
+      - id: WeaponCaseShortViper
+    - !type:GroupSelector
+      children: # Tools (footprint: 2)
       - id: CameraBug
       - id: ClothingMaskGasVoiceChameleon
       - id: Emag
       - id: StorageImplanter
       - id: RadioJammer
     - id: SyndicateBusinessCard # (footprint: 1)
-    - !type:GroupSelector # Cash (footprint: 1)
-      children:
+    - !type:GroupSelector
+      children: # Cash (footprint: 1)
       - id: Telecrystal1
         weight: 80
       - id: Telecrystal5
         weight: 18
       - id: Telecrystal10
         weight: 2
-    - !type:GroupSelector # Posters (footprint: 2)
-      children:
+    - !type:GroupSelector
+      children: # Posters (footprint: 2)
       - !type:NestedSelector
         tableId: TablePosterRolledContrabandFrontier
       - !type:NestedSelector
@@ -317,77 +317,77 @@
   id: TableStorageFillStashValuables
   table: !type:AllSelector
     children:
-    # Cash and Coins
-    - !type:NestedSelector # Max Inv. footprint: 4
+    - !type:NestedSelector
+      # Cash and Coins
       tableId: TableStorageFillStashJewelry # From 10 to 5000 spesos
-    - !type:NestedSelector # Max Inv. footprint: 2
+    - !type:NestedSelector
       tableId: TableStorageFillStashCash # From 5000 to 30000 spesos
-    - !type:NestedSelector # Max Inv. footprint: 1
+    - !type:NestedSelector
       tableId: TableStorageFillStashCoins # From 75 to ~5000 spesos
-    - !type:NestedSelector # Max Inv. footprint: 2
+    - !type:NestedSelector
       tableId: TableArtLoot # From 500 to 1000 spesos
 
 - type: entityTable # Max Inv. footprint: 33
-  id: TableStorageFillStashLoot
+  id: TableStorageFillStashLoot # Max Inv. footprint: 2
   table: !type:AllSelector
     children:
-    # Maint Fluff
-    - !type:NestedSelector # Max Inv. footprint: 8x3
-      tableId: MaintFluffTableTrimmed
+    - !type:NestedSelector
+      # Maint Fluff
+      tableId: MaintFluffTableTrimmed # Max Inv. footprint: 8x3
       rolls: !type:RangeNumberSelector
         range: 1, 3
-    # Cash and Coins
-    - !type:NestedSelector # Max Inv. footprint: 9
-      tableId: TableStorageFillStashValuables
+    - !type:NestedSelector
+      # Cash and Coins
+      tableId: TableStorageFillStashValuables # Max Inv. footprint: 9
 
 - type: entityTable # Max Inv. footprint: 25
   id: TableStorageFillStashMercenary
   table: !type:AllSelector
     children:
-    # Weapons
-    - !type:NestedSelector # Max Inv. footprint: 16
-      tableId: TableStorageFillStashWeaponCasesGuns
-    # Cash and Coins
-    - !type:NestedSelector # Max Inv. footprint: 9
-      tableId: TableStorageFillStashValuables
+    - !type:NestedSelector
+      # Weapons
+      tableId: TableStorageFillStashWeaponCasesGuns # Max Inv. footprint: 16
+    - !type:NestedSelector
+      # Cash and Coins
+      tableId: TableStorageFillStashValuables # Max Inv. footprint: 9
 
 - type: entityTable # Max Inv. footprint: 19
   id: TableStorageFillStashSmokes
   table: !type:AllSelector
     children:
-    # Smokes
-    - !type:NestedSelector # Max Inv. footprint: 10
-      tableId: TableStorageFillStashTobacco
-    # Cash and Coins
-    - !type:NestedSelector # Max Inv. footprint: 9
-      tableId: TableStorageFillStashValuables
+    - !type:NestedSelector
+      # Smokes
+      tableId: TableStorageFillStashTobacco # Max Inv. footprint: 10
+    - !type:NestedSelector
+      # Cash and Coins
+      tableId: TableStorageFillStashValuables # Max Inv. footprint: 9
 
 - type: entityTable # Max Inv. footprint: 21
   id: TableStorageFillStashDrinks
   table: !type:AllSelector
     children:
-    # Booze
-    - !type:NestedSelector # Max Inv. footprint: 12
-      tableId: TableStorageFillStashBooze
-    # Cash and Coins
-    - !type:NestedSelector # Max Inv. footprint: 9
-      tableId: TableStorageFillStashValuables
+    - !type:NestedSelector
+      # Booze
+      tableId: TableStorageFillStashBooze # Max Inv. footprint: 12
+    - !type:NestedSelector
+      # Cash and Coins
+      tableId: TableStorageFillStashValuables # Max Inv. footprint: 9
 
 - type: entityTable # Max Inv. footprint: 19
   id: TableStorageFillStashEmbezzled
   table: !type:AllSelector
     children:
-    # Cash and Coins
-    - !type:NestedSelector # Max Inv. footprint: 12
-      tableId: TableStorageFillStashJewelry
+    - !type:NestedSelector
+      # Cash and Coins
+      tableId: TableStorageFillStashJewelry # Max Inv. footprint: 12
       rolls: !type:RangeNumberSelector
         range: 1, 3 # From 10 to 15000 spesos
-    - !type:NestedSelector # Max Inv. footprint: 4
-      tableId: TableStorageFillStashCash
+    - !type:NestedSelector
+      tableId: TableStorageFillStashCash # Max Inv. footprint: 4
       rolls: !type:RangeNumberSelector
         range: 1, 2 # From 5 to 60000 spesos
-    - !type:NestedSelector # Max Inv. footprint: 3
-      tableId: TableStorageFillStashCoins
+    - !type:NestedSelector
+      tableId: TableStorageFillStashCoins # Max Inv. footprint: 3
       rolls: !type:RangeNumberSelector
         range: 1, 3 # From 75 to 15000 spesos
 
@@ -395,15 +395,15 @@
   id: TableStorageFillStashPunkThreads
   table: !type:AllSelector
     children:
-    # Punk threads
-    - !type:NestedSelector # Max Inv. footprint: 16
-      tableId: TableStorageFillStashPunk
-    # Booze
-    - !type:NestedSelector # Max Inv. footprint: 12
-      tableId: TableStorageFillStashBooze
-    # Cash and Coins
-    - !type:NestedSelector # Max Inv. footprint: 9
-      tableId: TableStorageFillStashValuables
+    - !type:NestedSelector
+      # Punk threads
+      tableId: TableStorageFillStashPunk # Max Inv. footprint: 16
+    - !type:NestedSelector
+      # Booze
+      tableId: TableStorageFillStashBooze # Max Inv. footprint: 12
+    - !type:NestedSelector
+      # Cash and Coins
+      tableId: TableStorageFillStashValuables # Max Inv. footprint: 9
       rolls: !type:RangeNumberSelector
         range: 0, 1
 

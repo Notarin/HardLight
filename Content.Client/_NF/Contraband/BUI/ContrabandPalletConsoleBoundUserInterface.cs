@@ -15,7 +15,8 @@ public sealed class ContrabandPalletConsoleBoundUserInterface : BoundUserInterfa
     [ViewVariables]
     private string _locPrefix = string.Empty;
 
-    public ContrabandPalletConsoleBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
+    public ContrabandPalletConsoleBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey)
     {
         if (EntMan.TryGetComponent<ContrabandPalletConsoleComponent>(owner, out var console))
             _locPrefix = console.LocStringPrefix ?? string.Empty;

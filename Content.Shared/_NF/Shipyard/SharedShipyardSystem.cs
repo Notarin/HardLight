@@ -1,9 +1,9 @@
-using Content.Shared.Containers.ItemSlots;
 using Content.Shared._NF.Shipyard;
+using Content.Shared._NF.Shipyard.Components;
+using Content.Shared.Containers.ItemSlots;
 using JetBrains.Annotations;
 using Robust.Shared.GameStates;
 using Robust.Shared.Serialization;
-using Content.Shared._NF.Shipyard.Components;
 
 namespace Content.Shared._NF.Shipyard;
 
@@ -20,13 +20,15 @@ public enum ShipyardConsoleUiKey : byte
     Sr,
     Medical,
     USSP, // mono, HardLight: Captialized for consistency.
+
     // Add ships to this key if they are only available from mothership consoles. Shipyards using it are inherently empty and are populated using the ShipyardListingComponent.
-    Custom
+    Custom,
 }
 
 public abstract class SharedShipyardSystem : EntitySystem
 {
-    [Dependency] private readonly ItemSlotsSystem _itemSlotsSystem = default!;
+    [Dependency]
+    private readonly ItemSlotsSystem _itemSlotsSystem = default!;
 
     public override void Initialize()
     {
@@ -39,14 +41,11 @@ public abstract class SharedShipyardSystem : EntitySystem
 
     private void OnHandleState(EntityUid uid, ShipyardConsoleComponent component, ref ComponentHandleState args)
     {
-        if (args.Current is not ShipyardConsoleComponentState state) return;
-
+        if (args.Current is not ShipyardConsoleComponentState state)
+            return;
     }
 
-    private void OnGetState(EntityUid uid, ShipyardConsoleComponent component, ref ComponentGetState args)
-    {
-
-    }
+    private void OnGetState(EntityUid uid, ShipyardConsoleComponent component, ref ComponentGetState args) { }
 
     private void OnComponentInit(EntityUid uid, ShipyardConsoleComponent component, ComponentInit args)
     {
@@ -68,5 +67,4 @@ public abstract class SharedShipyardSystem : EntitySystem
             AccessLevels = accessLevels;
         }
     }
-
 }

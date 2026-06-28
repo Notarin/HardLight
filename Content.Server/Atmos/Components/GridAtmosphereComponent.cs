@@ -8,8 +8,11 @@ namespace Content.Server.Atmos.Components
     /// <summary>
     ///     Internal Atmos class. Use <see cref="AtmosphereSystem"/> to interact with atmos instead.
     /// </summary>
-    [RegisterComponent, Serializable,
-     Access(typeof(AtmosphereSystem), typeof(GasTileOverlaySystem), typeof(AtmosDebugOverlaySystem))]
+    [
+        RegisterComponent,
+        Serializable,
+        Access(typeof(AtmosphereSystem), typeof(GasTileOverlaySystem), typeof(AtmosDebugOverlaySystem))
+    ]
     public sealed partial class GridAtmosphereComponent : Component
     {
         [ViewVariables(VVAccess.ReadWrite)]
@@ -25,7 +28,7 @@ namespace Content.Server.Atmos.Components
         public int UpdateCounter { get; set; } = 1; // DO NOT SET TO ZERO BY DEFAULT! It will break roundstart atmos...
 
         [ViewVariables]
-        [IncludeDataField(customTypeSerializer:typeof(TileAtmosCollectionSerializer))]
+        [IncludeDataField(customTypeSerializer: typeof(TileAtmosCollectionSerializer))]
         public Dictionary<Vector2i, TileAtmosphere> Tiles = new(1000);
 
         [ViewVariables]

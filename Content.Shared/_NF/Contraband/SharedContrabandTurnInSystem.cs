@@ -7,7 +7,7 @@ namespace Content.Shared._NF.Contraband;
 [NetSerializable, Serializable]
 public enum ContrabandPalletConsoleUiKey : byte
 {
-    Contraband
+    Contraband,
 }
 
 public abstract class SharedContrabandTurnInSystem : EntitySystem

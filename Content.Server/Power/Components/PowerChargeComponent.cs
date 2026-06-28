@@ -32,6 +32,7 @@ public sealed partial class PowerChargeComponent : SharedPowerChargeComponent
     /// </summary>
     [DataField("activeChargingPower", required: true)]
     public float ActiveChargingPowerUse { get; set; }
+
     // End Frontier
 
     /// <summary>

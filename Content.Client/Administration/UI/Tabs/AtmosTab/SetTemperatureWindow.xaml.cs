@@ -32,7 +32,9 @@ namespace Content.Client.Administration.UI.Tabs.AtmosTab
             {
                 var player = playerManager.LocalEntity;
                 var playerGrid = entManager.GetComponentOrNull<TransformComponent>(player)?.GridUid;
-                GridOptions.AddItem($"{uid} {(playerGrid == uid ? Loc.GetString($"admin-ui-atmos-grid-current") : "")}");
+                GridOptions.AddItem(
+                    $"{uid} {(playerGrid == uid ? Loc.GetString($"admin-ui-atmos-grid-current") : "")}"
+                );
                 _data.Add(entManager.GetNetEntity(uid));
             }
 
@@ -46,7 +48,8 @@ namespace Content.Client.Administration.UI.Tabs.AtmosTab
                 return;
 
             var selectedGrid = _data[GridOptions.SelectedId];
-            IoCManager.Resolve<IClientConsoleHost>()
+            IoCManager
+                .Resolve<IClientConsoleHost>()
                 .ExecuteCommand($"settemp {TileXSpin.Value} {TileYSpin.Value} {selectedGrid} {TemperatureSpin.Value}");
         }
     }

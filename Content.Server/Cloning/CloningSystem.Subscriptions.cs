@@ -33,10 +33,17 @@ namespace Content.Server.Cloning;
 /// </remarks>
 public sealed partial class CloningSystem : EntitySystem
 {
-    [Dependency] private readonly SharedStackSystem _stack = default!;
-    [Dependency] private readonly LabelSystem _label = default!;
-    [Dependency] private readonly ForensicsSystem _forensics = default!;
-    [Dependency] private readonly PaperSystem _paper = default!;
+    [Dependency]
+    private readonly SharedStackSystem _stack = default!;
+
+    [Dependency]
+    private readonly LabelSystem _label = default!;
+
+    [Dependency]
+    private readonly ForensicsSystem _forensics = default!;
+
+    [Dependency]
+    private readonly PaperSystem _paper = default!;
 
     public override void Initialize()
     {
@@ -88,5 +95,4 @@ public sealed partial class CloningSystem : EntitySystem
             cloneStoreComp.Balance = new Dictionary<ProtoId<CurrencyPrototype>, FixedPoint2>(ent.Comp.Balance);
         }
     } */
-
 }

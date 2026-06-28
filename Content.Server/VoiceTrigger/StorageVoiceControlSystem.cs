@@ -15,12 +15,23 @@ namespace Content.Server.VoiceTrigger;
 /// </summary>
 public sealed class StorageVoiceControlSystem : EntitySystem
 {
-    [Dependency] private readonly ContainerSystem _container = default!;
-    [Dependency] private readonly HandsSystem _hands = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly InventorySystem _inventory = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly StorageSystem _storage = default!;
+    [Dependency]
+    private readonly ContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly HandsSystem _hands = default!;
+
+    [Dependency]
+    private readonly ISharedAdminLogManager _adminLogger = default!;
+
+    [Dependency]
+    private readonly InventorySystem _inventory = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly StorageSystem _storage = default!;
 
     public override void Initialize()
     {
@@ -32,8 +43,11 @@ public sealed class StorageVoiceControlSystem : EntitySystem
     {
         // Check if the component has any slot restrictions via AllowedSlots
         // If it has slot restrictions, check if the item is in a slot that is allowed
-        if (ent.Comp.AllowedSlots != null && _inventory.TryGetContainingSlot(ent.Owner, out var itemSlot) &&
-            (itemSlot.SlotFlags & ent.Comp.AllowedSlots) == 0)
+        if (
+            ent.Comp.AllowedSlots != null
+            && _inventory.TryGetContainingSlot(ent.Owner, out var itemSlot)
+            && (itemSlot.SlotFlags & ent.Comp.AllowedSlots) == 0
+        )
             return;
 
         // Get the storage component
@@ -50,13 +64,24 @@ public sealed class StorageVoiceControlSystem : EntitySystem
             // Disallow insertion and provide a reason why if the person decides to insert the item into itself
             if (ent.Owner.Equals(hands.ActiveHand.HeldEntity.Value))
             {
-                _popup.PopupEntity(Loc.GetString("comp-storagevoicecontrol-self-insert", ("entity", hands.ActiveHand.HeldEntity.Value)), ent, args.Source);
+                _popup.PopupEntity(
+                    Loc.GetString(
+                        "comp-storagevoicecontrol-self-insert",
+                        ("entity", hands.ActiveHand.HeldEntity.Value)
+                    ),
+                    ent,
+                    args.Source
+                );
                 return;
             }
             if (_storage.CanInsert(ent, hands.ActiveHand.HeldEntity.Value, out var failedReason))
             {
                 // We adminlog before insertion, otherwise the logger will attempt to pull info on an entity that no longer is present and throw an exception
-                _adminLogger.Add(LogType.Action, LogImpact.Low, $"{ToPrettyString(args.Source)} inserted {ToPrettyString(hands.ActiveHand.HeldEntity.Value)} into {ToPrettyString(ent)} via voice control");
+                _adminLogger.Add(
+                    LogType.Action,
+                    LogImpact.Low,
+                    $"{ToPrettyString(args.Source)} inserted {ToPrettyString(hands.ActiveHand.HeldEntity.Value)} into {ToPrettyString(ent)} via voice control"
+                );
                 _storage.Insert(ent, hands.ActiveHand.HeldEntity.Value, out _);
                 return;
             }
@@ -65,9 +90,11 @@ public sealed class StorageVoiceControlSystem : EntitySystem
                 if (failedReason == null)
                     return;
                 _popup.PopupEntity(Loc.GetString(failedReason), ent, args.Source);
-                _adminLogger.Add(LogType.Action,
+                _adminLogger.Add(
+                    LogType.Action,
                     LogImpact.Low,
-                    $"{ToPrettyString(args.Source)} failed to insert {ToPrettyString(hands.ActiveHand.HeldEntity.Value)} into {ToPrettyString(ent)} via voice control");
+                    $"{ToPrettyString(args.Source)} failed to insert {ToPrettyString(hands.ActiveHand.HeldEntity.Value)} into {ToPrettyString(ent)} via voice control"
+                );
             }
             return;
         }
@@ -93,15 +120,19 @@ public sealed class StorageVoiceControlSystem : EntitySystem
     /// <param name="item">The entity to be extracted from the attached storage</param>
     /// <param name="source">The entity wearing the item</param>
     /// <param name="hands">The <see cref="HandsComponent"/> of the person wearing the item</param>
-    private void ExtractItemFromStorage(Entity<StorageVoiceControlComponent> ent,
+    private void ExtractItemFromStorage(
+        Entity<StorageVoiceControlComponent> ent,
         EntityUid item,
         EntityUid source,
-        HandsComponent hands)
+        HandsComponent hands
+    )
     {
         _container.RemoveEntity(ent, item);
-        _adminLogger.Add(LogType.Action,
+        _adminLogger.Add(
+            LogType.Action,
             LogImpact.Low,
-            $"{ToPrettyString(source)} retrieved {ToPrettyString(item)} from {ToPrettyString(ent)} via voice control");
+            $"{ToPrettyString(source)} retrieved {ToPrettyString(item)} from {ToPrettyString(ent)} via voice control"
+        );
         _hands.TryPickup(source, item, handsComp: hands);
     }
 }

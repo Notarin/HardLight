@@ -21,11 +21,20 @@ namespace Content.Server._FarHorizons.Power.Generation.FissionGenerator;
 
 public sealed class NuclearCentrifugeSystem : EntitySystem
 {
-    [Dependency] private readonly EntityManager _entityManager = default!;
-    [Dependency] private readonly StackSystem _stackSystem = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
+    [Dependency]
+    private readonly EntityManager _entityManager = default!;
+
+    [Dependency]
+    private readonly StackSystem _stackSystem = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popupSystem = default!;
 
     private readonly float _threshold = 1f;
     private float _accumulator = 0f;
@@ -54,10 +63,10 @@ public sealed class NuclearCentrifugeSystem : EntitySystem
         var query = EntityQueryEnumerator<NuclearCentrifugeComponent>();
         while (query.MoveNext(out var uid, out var comp))
         {
-            if(!comp.Processing)
+            if (!comp.Processing)
                 continue;
-            
-            if(comp.FuelToExtract>0)
+
+            if (comp.FuelToExtract > 0)
             {
                 var delta = Math.Min(comp.FuelToExtract, 0.5f);
                 comp.ExtractedFuel += delta;
@@ -65,13 +74,16 @@ public sealed class NuclearCentrifugeSystem : EntitySystem
             }
             else
             {
-                if(comp.ExtractedFuel > 1)
+                if (comp.ExtractedFuel > 1)
                 {
                     // If this while loop causes problems, blame whoever put 1.78e308 plutonium in the centrifuge
-                    while (comp.ExtractedFuel > 1) 
+                    while (comp.ExtractedFuel > 1)
                     {
                         var plutoniumStack = Spawn("IngotPlutonium1", Transform(uid).Coordinates);
-                        _stackSystem.SetCount(plutoniumStack, Math.Clamp((int)Math.Floor(comp.ExtractedFuel), 1, _stackSize));
+                        _stackSystem.SetCount(
+                            plutoniumStack,
+                            Math.Clamp((int)Math.Floor(comp.ExtractedFuel), 1, _stackSize)
+                        );
                         comp.ExtractedFuel -= _stackSystem.GetCount(plutoniumStack);
                         _stackSystem.TryMergeToContacts(plutoniumStack);
                     }
@@ -95,7 +107,10 @@ public sealed class NuclearCentrifugeSystem : EntitySystem
         if (!this.IsPowered(uid, _entityManager))
             return;
 
-        if (!_entityManager.TryGetComponent<ReactorPartComponent>(args.Used, out var ReactorPart) || !ReactorPart.HasRodType(ReactorPartComponent.RodTypes.FuelRod))
+        if (
+            !_entityManager.TryGetComponent<ReactorPartComponent>(args.Used, out var ReactorPart)
+            || !ReactorPart.HasRodType(ReactorPartComponent.RodTypes.FuelRod)
+        )
         {
             _popupSystem.PopupEntity(Loc.GetString("nuclear-centrifuge-wrong-item", ("item", args.Used)), uid);
             return;
@@ -107,11 +122,16 @@ public sealed class NuclearCentrifugeSystem : EntitySystem
             return;
         }
 
-        _popupSystem.PopupEntity(Loc.GetString("nuclear-centrifuge-insert-item", ("user", args.User), ("machine", uid), ("item", args.Used)), uid);
+        _popupSystem.PopupEntity(
+            Loc.GetString("nuclear-centrifuge-insert-item", ("user", args.User), ("machine", uid), ("item", args.Used)),
+            uid
+        );
         _audio.PlayPvs(comp.SoundLoad, uid);
 
-        if(!_audio.IsPlaying(comp.AudioProcess))
-            comp.AudioProcess = _audio.PlayPvs(comp.SoundProcess, uid, AudioParams.Default.WithLoop(true).WithVolume(-2))?.Entity;
+        if (!_audio.IsPlaying(comp.AudioProcess))
+            comp.AudioProcess = _audio
+                .PlayPvs(comp.SoundProcess, uid, AudioParams.Default.WithLoop(true).WithVolume(-2))
+                ?.Entity;
 
         comp.FuelToExtract += ReactorPart.Properties.FissileIsotopes;
         comp.Processing = true;
@@ -124,16 +144,18 @@ public sealed class NuclearCentrifugeSystem : EntitySystem
 
     private void OnPowerChange(EntityUid uid, NuclearCentrifugeComponent comp, ref PowerChangedEvent args)
     {
-        if(!args.Powered && comp.Processing)
+        if (!args.Powered && comp.Processing)
         {
-            if(_audio.IsPlaying(comp.AudioProcess))
+            if (_audio.IsPlaying(comp.AudioProcess))
                 _audio.Stop(comp.AudioProcess);
             comp.Processing = false;
         }
 
-        if(args.Powered && comp.FuelToExtract > 0)
+        if (args.Powered && comp.FuelToExtract > 0)
         {
-            comp.AudioProcess = _audio.PlayPvs(comp.SoundProcess, uid, AudioParams.Default.WithLoop(true).WithVolume(-2))?.Entity;
+            comp.AudioProcess = _audio
+                .PlayPvs(comp.SoundProcess, uid, AudioParams.Default.WithLoop(true).WithVolume(-2))
+                ?.Entity;
             comp.Processing = true;
         }
 

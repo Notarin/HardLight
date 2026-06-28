@@ -1,6 +1,6 @@
 - type: quickPhrase
   id: BaseEpistemicsSubjectPhrase
-  parent: [ BaseSubjectPhrase, BaseEpistemicsPhrase ]
+  parent: [BaseSubjectPhrase, BaseEpistemicsPhrase]
   abstract: true
 
 - type: quickPhrase

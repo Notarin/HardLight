@@ -38,7 +38,8 @@ public partial class SharedGunSystem
     // Mono
     private void OnContainerCheckProto(Entity<ContainerAmmoProviderComponent> ent, ref CheckShootPrototypeEvent args)
     {
-        if (!Containers.TryGetContainer(ent.Comp.ProviderUid ?? ent, ent.Comp.Container, out var container)
+        if (
+            !Containers.TryGetContainer(ent.Comp.ProviderUid ?? ent, ent.Comp.Container, out var container)
             || !container.ContainedEntities.Any()
         )
             return;
@@ -46,7 +47,11 @@ public partial class SharedGunSystem
         args.ShootPrototype = MetaData(container.ContainedEntities[0]).EntityPrototype;
     }
 
-    private void OnContainerAmmoCount(EntityUid uid, ContainerAmmoProviderComponent component, ref GetAmmoCountEvent args)
+    private void OnContainerAmmoCount(
+        EntityUid uid,
+        ContainerAmmoProviderComponent component,
+        ref GetAmmoCountEvent args
+    )
     {
         component.ProviderUid ??= uid;
         if (!Containers.TryGetContainer(component.ProviderUid.Value, component.Container, out var container))

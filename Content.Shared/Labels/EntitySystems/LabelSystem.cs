@@ -3,19 +3,26 @@ using Content.Shared.Examine;
 using Content.Shared.Labels.Components;
 using Content.Shared.NameModifier.EntitySystems;
 using Content.Shared.Paper;
-using Robust.Shared.Containers;
-using Robust.Shared.Utility;
 using Content.Shared.Tag; // Frontier
+using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Utility;
 
 namespace Content.Shared.Labels.EntitySystems;
 
 public sealed partial class LabelSystem : EntitySystem
 {
-    [Dependency] private readonly NameModifierSystem _nameModifier = default!;
-    [Dependency] private readonly ItemSlotsSystem _itemSlots = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly TagSystem _tagSystem = default!; // Frontier
+    [Dependency]
+    private readonly NameModifierSystem _nameModifier = default!;
+
+    [Dependency]
+    private readonly ItemSlotsSystem _itemSlots = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly TagSystem _tagSystem = default!; // Frontier
 
     public const string ContainerName = "paper_label";
 
@@ -100,7 +107,7 @@ public sealed partial class LabelSystem : EntitySystem
 
     private void OnExamined(Entity<PaperLabelComponent> ent, ref ExaminedEvent args)
     {
-        if (ent.Comp.LabelSlot.Item is not {Valid: true} item)
+        if (ent.Comp.LabelSlot.Item is not { Valid: true } item)
             return;
 
         using (args.PushGroup(nameof(PaperLabelComponent)))

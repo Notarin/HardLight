@@ -6,10 +6,17 @@ namespace Content.Shared.Weapons.Ranged.Systems;
 
 public sealed class ActionGunSystem : EntitySystem
 {
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
-    [Dependency] private readonly SharedGunSystem _gun = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly INetManager _net = default!;
+    [Dependency]
+    private readonly SharedActionsSystem _actions = default!;
+
+    [Dependency]
+    private readonly SharedGunSystem _gun = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly INetManager _net = default!;
 
     public override void Initialize()
     {
@@ -43,7 +50,7 @@ public sealed class ActionGunSystem : EntitySystem
 
     private void OnShoot(Entity<ActionGunComponent> ent, ref ActionGunShootEvent args)
     {
-       //Log.Info($"ActionGun OnShoot: entity={ent.Owner} gun={ent.Comp.Gun} target={args.Target}");
+        //Log.Info($"ActionGun OnShoot: entity={ent.Owner} gun={ent.Comp.Gun} target={args.Target}");
         // Ensure we have a spawned gun. MapInit may not have run for entities spawned at runtime,
         // so spawn lazily here if needed.
         if (ent.Comp.Gun == null || !Exists(ent.Comp.Gun.Value))
@@ -69,4 +76,3 @@ public sealed class ActionGunSystem : EntitySystem
         _gun.AttemptShoot(ent, ent.Comp.Gun.Value, gun, args.Target);
     }
 }
-

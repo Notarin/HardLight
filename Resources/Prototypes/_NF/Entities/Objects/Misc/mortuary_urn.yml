@@ -37,14 +37,14 @@
     visuals:
       enum.PaperLabelVisuals.HasLabel:
         enum.PaperLabelVisuals.Layer:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
       enum.PaperLabelVisuals.LabelType:
         enum.PaperLabelVisuals.Layer:
-          Paper: { state: paper }
-          Bounty: { state: paper }
-          CaptainsPaper: { state: paper }
-          Invoice: { state: paper }
+          Paper: {state: paper}
+          Bounty: {state: paper}
+          CaptainsPaper: {state: paper}
+          Invoice: {state: paper}
   - type: PaperLabel
     labelSlot:
       insertVerbText: comp-paper-label-insert

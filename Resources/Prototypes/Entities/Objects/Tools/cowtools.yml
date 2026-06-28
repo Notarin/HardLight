@@ -112,7 +112,7 @@
     - Pulsing
   - type: Tag
     tags:
-      - Multitool
+    - Multitool
 
 - type: entity
   name: cowelding tool
@@ -165,9 +165,9 @@
     visuals:
       enum.StorageVisuals.Open:
         base:
-          True: { state: icon }
-          False: { state: icon }
-  # End Frontier
+          True: {state: icon}
+          False: {state: icon}
+          # End Frontier
 
 - type: entity
   id: CowToolboxFilled

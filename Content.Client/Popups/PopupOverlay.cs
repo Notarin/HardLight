@@ -40,7 +40,8 @@ public sealed class PopupOverlay : Overlay
         PopupUIController controller,
         ExamineSystemShared examine,
         SharedTransformSystem transform,
-        PopupSystem popup)
+        PopupSystem popup
+    )
     {
         _configManager = configManager;
         _entManager = entManager;
@@ -100,16 +101,24 @@ public sealed class PopupOverlay : Overlay
             var distance = (mapPos.Position - ourPos).Length();
 
             // Should handle fade here too wyci.
-            if (!args.WorldBounds.Contains(mapPos.Position) || !_examine.InRangeUnOccluded(viewPos, mapPos, distance,
-                    e => e == popup.InitialPos.EntityId || e == ourEntity, entMan: _entManager))
+            if (
+                !args.WorldBounds.Contains(mapPos.Position)
+                || !_examine.InRangeUnOccluded(
+                    viewPos,
+                    mapPos,
+                    distance,
+                    e => e == popup.InitialPos.EntityId || e == ourEntity,
+                    entMan: _entManager
+                )
+            )
                 continue;
 
             var pos = Vector2.Transform(mapPos.Position, matrix);
 
             // HardLight start: Calculate stacked position for world popups; prevents overlap when multiple popups spawn at the same position.
             var stackEntity = popup.InitialPos.EntityId;
-            var stackX = (int) MathF.Round(mapPos.X * 10f);
-            var stackY = (int) MathF.Round(mapPos.Y * 10f);
+            var stackX = (int)MathF.Round(mapPos.X * 10f);
+            var stackY = (int)MathF.Round(mapPos.Y * 10f);
             var stackKey = (mapPos.MapId, stackEntity, stackX, stackY);
 
             var stackLevel = 0;

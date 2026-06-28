@@ -1678,4 +1678,3 @@ entities:
     - type: Transform
       pos: 17.5,1.5
       parent: 1
-...

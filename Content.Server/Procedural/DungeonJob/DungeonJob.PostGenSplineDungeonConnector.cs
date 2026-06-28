@@ -18,7 +18,8 @@ public sealed partial class DungeonJob
         DungeonData data,
         List<Dungeon> dungeons,
         HashSet<Vector2i> reservedTiles,
-        Random random)
+        Random random
+    )
     {
         // TODO: The path itself use the tile
         // Widen it randomly (probably for each tile offset it by some changing amount).
@@ -27,8 +28,10 @@ public sealed partial class DungeonJob
         if (dungeons.Count <= 1)
             return Dungeon.Empty;
 
-        if (!data.Tiles.TryGetValue(DungeonDataKey.FallbackTile, out var fallback) ||
-            !data.Tiles.TryGetValue(DungeonDataKey.WidenTile, out var widen))
+        if (
+            !data.Tiles.TryGetValue(DungeonDataKey.FallbackTile, out var fallback)
+            || !data.Tiles.TryGetValue(DungeonDataKey.WidenTile, out var widen)
+        )
         {
             LogDataError(typeof(SplineDungeonConnectorDunGen));
             return Dungeon.Empty;
@@ -61,30 +64,34 @@ public sealed partial class DungeonJob
 
         foreach (var pair in tree)
         {
-            var path = pathfinding.GetSplinePath(new PathfindingSystem.SplinePathArgs()
-            {
-                Distance = gen.DivisionDistance,
-                MaxRatio = gen.VarianceMax,
-                Args = new PathfindingSystem.SimplePathArgs()
+            var path = pathfinding.GetSplinePath(
+                new PathfindingSystem.SplinePathArgs()
                 {
-                    Start = pair.Start,
-                    End = pair.End,
-                    TileCost = node =>
+                    Distance = gen.DivisionDistance,
+                    MaxRatio = gen.VarianceMax,
+                    Args = new PathfindingSystem.SimplePathArgs()
                     {
-                        // We want these to get prioritised internally and into space if it's a space dungeon.
-                        if (_maps.TryGetTile(_grid, node, out var tile) && !tile.IsEmpty)
-                            return 1f;
+                        Start = pair.Start,
+                        End = pair.End,
+                        TileCost = node =>
+                        {
+                            // We want these to get prioritised internally and into space if it's a space dungeon.
+                            if (_maps.TryGetTile(_grid, node, out var tile) && !tile.IsEmpty)
+                                return 1f;
 
-                        return 5f;
-                    }
+                            return 5f;
+                        },
+                    },
                 },
-            },
-            random);
+                random
+            );
 
             // Welp
             if (path.Path.Count == 0)
             {
-                _sawmill.Error($"Unable to connect spline dungeon path for {_entManager.ToPrettyString(_gridUid)} between {pair.Start} and {pair.End}");
+                _sawmill.Error(
+                    $"Unable to connect spline dungeon path for {_entManager.ToPrettyString(_gridUid)} between {pair.Start} and {pair.End}"
+                );
                 continue;
             }
 
@@ -93,11 +100,7 @@ public sealed partial class DungeonJob
             if (!ValidateResume())
                 return Dungeon.Empty;
 
-            var wide = pathfinding.GetWiden(new PathfindingSystem.WidenArgs()
-            {
-                Path = path.Path,
-            },
-            random);
+            var wide = pathfinding.GetWiden(new PathfindingSystem.WidenArgs() { Path = path.Path }, random);
 
             tiles.Clear();
             allTiles.EnsureCapacity(allTiles.Count + wide.Count);

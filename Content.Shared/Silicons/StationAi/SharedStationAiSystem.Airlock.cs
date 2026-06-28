@@ -1,6 +1,6 @@
 using Content.Shared.Doors.Components;
-using Robust.Shared.Serialization;
 using Content.Shared.Electrocution;
+using Robust.Shared.Serialization;
 
 namespace Content.Shared.Silicons.StationAi;
 
@@ -63,7 +63,7 @@ public abstract partial class SharedStationAiSystem
     /// </summary>
     private void OnElectrified(EntityUid ent, ElectrifiedComponent component, StationAiElectrifiedEvent args)
     {
-         if (component.IsWireCut || !PowerReceiver.IsPowered(ent))
+        if (component.IsWireCut || !PowerReceiver.IsPowered(ent))
         {
             ShowDeviceNotRespondingPopup(args.User);
             return;
@@ -76,9 +76,7 @@ public abstract partial class SharedStationAiSystem
         }
 
         _electrify.SetElectrified((ent, component), args.Electrified);
-        var soundToPlay = component.Enabled
-            ? component.AirlockElectrifyEnabled
-            : component.AirlockElectrifyDisabled;
+        var soundToPlay = component.Enabled ? component.AirlockElectrifyEnabled : component.AirlockElectrifyDisabled;
         _audio.PlayLocal(soundToPlay, ent, args.User);
     }
 }

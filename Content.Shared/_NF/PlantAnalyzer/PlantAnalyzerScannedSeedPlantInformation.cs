@@ -1,5 +1,5 @@
-using Robust.Shared.Serialization;
 using Content.Shared.Atmos;
+using Robust.Shared.Serialization;
 
 namespace Content.Shared._NF.PlantAnalyzer;
 
@@ -82,7 +82,7 @@ public enum AnalyzerHarvestType : byte
     Unknown, // Just in case the backing enum type changes and we haven't caught it.
     Repeat,
     NoRepeat,
-    SelfHarvest
+    SelfHarvest,
 }
 
 public static class GasExtensions
@@ -105,11 +105,11 @@ public static class GasExtensions
     }
 }
 
-
 [Serializable, NetSerializable]
 public sealed class PlantAnalyzerSetMode : BoundUserInterfaceMessage
 {
     public bool AdvancedScan { get; }
+
     public PlantAnalyzerSetMode(bool advancedScan)
     {
         AdvancedScan = advancedScan;
@@ -121,9 +121,8 @@ public sealed class PlantAnalyzerSetMode : BoundUserInterfaceMessage
 /// The server will resend the last-scanned target's state for the analyzer.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class PlantAnalyzerRequestRefresh : BoundUserInterfaceMessage
-{
-}
+public sealed class PlantAnalyzerRequestRefresh : BoundUserInterfaceMessage { }
+
 /// <summary>
 /// Persistent UI state for the Plant Analyzer. This mirrors the scanned message
 /// but is a BoundUserInterfaceState so it can be set via SetUiState.
@@ -152,9 +151,7 @@ public sealed class PlantAnalyzerUserInterfaceState : BoundUserInterfaceState
     public GasRate[]? ExudeGasRates;
     public GasRate[]? ConsumeGasRates;
 
-    public PlantAnalyzerUserInterfaceState()
-    {
-    }
+    public PlantAnalyzerUserInterfaceState() { }
 }
 
 [Serializable, NetSerializable]

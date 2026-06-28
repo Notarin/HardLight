@@ -10,11 +10,20 @@ namespace Content.Client.Drunk;
 
 public sealed class DrunkOverlay : Overlay
 {
-    [Dependency] private readonly IEntityManager _entityManager = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IEntitySystemManager _sysMan = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly IEntityManager _entityManager = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly IEntitySystemManager _sysMan = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     public override OverlaySpace Space => OverlaySpace.WorldSpace;
     public override bool RequestScreenTexture => true;
@@ -37,14 +46,15 @@ public sealed class DrunkOverlay : Overlay
 
     protected override void FrameUpdate(FrameEventArgs args)
     {
-
         var playerEntity = _playerManager.LocalEntity;
 
         if (playerEntity == null)
             return;
 
-        if (!_entityManager.HasComponent<DrunkComponent>(playerEntity)
-            || !_entityManager.TryGetComponent<StatusEffectsComponent>(playerEntity, out var status))
+        if (
+            !_entityManager.HasComponent<DrunkComponent>(playerEntity)
+            || !_entityManager.TryGetComponent<StatusEffectsComponent>(playerEntity, out var status)
+        )
             return;
 
         var statusSys = _sysMan.GetEntitySystem<StatusEffectsSystem>();
@@ -52,10 +62,9 @@ public sealed class DrunkOverlay : Overlay
             return;
 
         var curTime = _timing.CurTime;
-        var timeLeft = (float) (time.Value.Item2 - curTime).TotalSeconds;
+        var timeLeft = (float)(time.Value.Item2 - curTime).TotalSeconds;
 
-
-        CurrentBoozePower += 8f * (0.5f*timeLeft - CurrentBoozePower) * args.DeltaSeconds / (timeLeft+1);
+        CurrentBoozePower += 8f * (0.5f * timeLeft - CurrentBoozePower) * args.DeltaSeconds / (timeLeft + 1);
     }
 
     protected override bool BeforeDraw(in OverlayDrawArgs args)
@@ -67,7 +76,12 @@ public sealed class DrunkOverlay : Overlay
             return false;
 
         var visualPower = CurrentBoozePower;
-        if (_entityManager.TryGetComponent(_playerManager.LocalEntity, out Content.Shared.Traits.Assorted.AlcoholToleranceComponent? tolerance))
+        if (
+            _entityManager.TryGetComponent(
+                _playerManager.LocalEntity,
+                out Content.Shared.Traits.Assorted.AlcoholToleranceComponent? tolerance
+            )
+        )
             visualPower *= tolerance.VisualScaleMultiplier;
 
         _visualScale = BoozePowerToVisual(visualPower);

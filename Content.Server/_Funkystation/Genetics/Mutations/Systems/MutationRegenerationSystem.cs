@@ -8,19 +8,13 @@ namespace Content.Server._Funkystation.Genetics.Mutations.Systems;
 
 public sealed class MutationRegenerationSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly DamageableSystem _damageable = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
-    private static readonly string[] RegenTypes =
-    {
-        "Blunt",
-        "Slash",
-        "Piercing",
-        "Heat",
-        "Shock",
-        "Cold",
-        "Caustic"
-    };
+    [Dependency]
+    private readonly DamageableSystem _damageable = default!;
+
+    private static readonly string[] RegenTypes = { "Blunt", "Slash", "Piercing", "Heat", "Shock", "Cold", "Caustic" };
 
     public override void Initialize()
     {

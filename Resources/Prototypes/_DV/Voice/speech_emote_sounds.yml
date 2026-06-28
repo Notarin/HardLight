@@ -64,8 +64,8 @@
       collection: VulpkaninWhines
     Howl:
       collection: VulpkaninHowls
-#    Honk:
-#      collection: BikeHorn
+      #    Honk:
+      #      collection: BikeHorn
     Weh:
       collection: Weh
     Hew:
@@ -322,8 +322,6 @@
       path: /Audio/_Starlight/Effects/yip.ogg #HL
     Pout: #HL
       collection: Whine #HL
-
-
 
 - type: emoteSounds
   id: FemaleKitsune

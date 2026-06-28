@@ -55,10 +55,14 @@ public sealed class ShipSaveNullSpaceTest
 
         foreach (var node in protoSeq)
         {
-            if (node is not MappingDataNode protoMap) continue;
-            if (!protoMap.TryGet("proto", out ValueDataNode? idNode) || idNode == null) continue;
-            if (!string.Equals(idNode.Value, protoId, StringComparison.OrdinalIgnoreCase)) continue;
-            if (!protoMap.TryGet("entities", out SequenceDataNode? entities) || entities == null) return 0;
+            if (node is not MappingDataNode protoMap)
+                continue;
+            if (!protoMap.TryGet("proto", out ValueDataNode? idNode) || idNode == null)
+                continue;
+            if (!string.Equals(idNode.Value, protoId, StringComparison.OrdinalIgnoreCase))
+                continue;
+            if (!protoMap.TryGet("entities", out SequenceDataNode? entities) || entities == null)
+                return 0;
             return entities.Count;
         }
 
@@ -67,11 +71,11 @@ public sealed class ShipSaveNullSpaceTest
 
     [Test]
     [TestCase("ClothingEyesGlassesNullSpace", TestName = "NullSpaceGogglesStripped")]
-    [TestCase("BluespaceFlasher",             TestName = "BluespaceFlasherStripped")]
-    [TestCase("ClothingNullHarness",          TestName = "NullHarnessStripped")]
-    [TestCase("ClothingNullSpaceTeleporter",  TestName = "NullSpaceTeleporterStripped")]
-    [TestCase("GrenadeDePhase",               TestName = "GrenadeDePhaseStripped")]
-    [TestCase("BluespaceFlasherFlatpack",     TestName = "BluespaceFlasherFlatpackStripped")]
+    [TestCase("BluespaceFlasher", TestName = "BluespaceFlasherStripped")]
+    [TestCase("ClothingNullHarness", TestName = "NullHarnessStripped")]
+    [TestCase("ClothingNullSpaceTeleporter", TestName = "NullSpaceTeleporterStripped")]
+    [TestCase("GrenadeDePhase", TestName = "GrenadeDePhaseStripped")]
+    [TestCase("BluespaceFlasherFlatpack", TestName = "BluespaceFlasherFlatpackStripped")]
     public void NullSpaceItemRemovedFromShipSave(string protoId)
     {
         var root = BuildSaveWithProto(protoId);
@@ -80,8 +84,11 @@ public sealed class ShipSaveNullSpaceTest
         // so null is safe here for these specific IDs.
         ShipSaveYamlSanitizer.SanitizeShipSaveNode(root, null!);
 
-        Assert.That(CountEntitiesInProtoGroup(root, protoId), Is.Zero,
-            $"Entity with prototype '{protoId}' should have been stripped from the ship save.");
+        Assert.That(
+            CountEntitiesInProtoGroup(root, protoId),
+            Is.Zero,
+            $"Entity with prototype '{protoId}' should have been stripped from the ship save."
+        );
     }
 
     [Test]
@@ -112,7 +119,9 @@ public sealed class ShipSaveNullSpaceTest
         ShipSaveYamlSanitizer.SanitizeShipSaveNode(root, null!);
 
         // The entity list inside the group should still contain our entity.
-        Assert.That(protoGroup.TryGet("entities", out SequenceDataNode? remaining) && remaining!.Count == 1,
-            "An entity without a filtered prototype should survive ship-save sanitization.");
+        Assert.That(
+            protoGroup.TryGet("entities", out SequenceDataNode? remaining) && remaining!.Count == 1,
+            "An entity without a filtered prototype should survive ship-save sanitization."
+        );
     }
 }

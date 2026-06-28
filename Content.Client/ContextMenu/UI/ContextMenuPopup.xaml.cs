@@ -32,7 +32,8 @@ namespace Content.Client.ContextMenu.UI
 
         private ContextMenuUIController _uiController;
 
-        public ContextMenuPopup (ContextMenuUIController uiController, ContextMenuElement? parentElement) : base()
+        public ContextMenuPopup(ContextMenuUIController uiController, ContextMenuElement? parentElement)
+            : base()
         {
             RobustXamlLoader.Load(this);
             MenuPanel.SetOnlyStyleClass(StyleClassContextMenuPopup);
@@ -48,7 +49,9 @@ namespace Content.Client.ContextMenu.UI
             MenuPanel.ForceRunStyleUpdate();
             MenuPanel.TryGetStyleProperty<StyleBox>(PanelContainer.StylePropertyPanel, out var box);
             var styleSize = (box?.MinimumSize ?? Vector2.Zero) / UIScale;
-            MenuPanel.MaxHeight = MaxItemsBeforeScroll * (ContextMenuElement.ElementHeight + 2 * ContextMenuElement.ElementMargin) + styleSize.Y;
+            MenuPanel.MaxHeight =
+                MaxItemsBeforeScroll * (ContextMenuElement.ElementHeight + 2 * ContextMenuElement.ElementMargin)
+                + styleSize.Y;
 
             UserInterfaceManager.ModalRoot.AddChild(this);
             MenuBody.OnChildRemoved += ctrl => _uiController.OnRemoveElement(this, ctrl);

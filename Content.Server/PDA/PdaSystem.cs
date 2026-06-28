@@ -1,3 +1,5 @@
+using Content.Server._NF.SectorServices; // Frontier
+using Content.Server._NF.Shipyard.Systems; // Frontier
 using Content.Server.Access.Systems;
 using Content.Server.AlertLevel;
 using Content.Server.CartridgeLoader;
@@ -7,6 +9,8 @@ using Content.Server.PDA.Ringer;
 using Content.Server.Station.Systems;
 using Content.Server.Store.Systems;
 using Content.Server.Traitor.Uplink;
+using Content.Shared._NF.Bank.Components; // Frontier
+using Content.Shared._NF.Shipyard.Components; // Frontier
 using Content.Shared.Access.Components;
 using Content.Shared.CartridgeLoader;
 using Content.Shared.Chat;
@@ -20,26 +24,43 @@ using Robust.Server.GameObjects;
 using Robust.Shared.Containers;
 using Robust.Shared.Player;
 using Robust.Shared.Utility;
-using Content.Shared._NF.Bank.Components; // Frontier
-using Content.Shared._NF.Shipyard.Components; // Frontier
-using Content.Server._NF.Shipyard.Systems; // Frontier
-using Content.Server._NF.SectorServices; // Frontier
 
 namespace Content.Server.PDA
 {
     public sealed class PdaSystem : SharedPdaSystem
     {
-        [Dependency] private readonly CartridgeLoaderSystem _cartridgeLoader = default!;
-        [Dependency] private readonly InstrumentSystem _instrument = default!;
-        [Dependency] private readonly RingerSystem _ringer = default!;
-        [Dependency] private readonly StationSystem _station = default!;
-        [Dependency] private readonly StoreSystem _store = default!;
-        [Dependency] private readonly IChatManager _chatManager = default!;
-        [Dependency] private readonly UserInterfaceSystem _ui = default!;
-        [Dependency] private readonly UnpoweredFlashlightSystem _unpoweredFlashlight = default!;
-        [Dependency] private readonly ContainerSystem _containerSystem = default!;
-        [Dependency] private readonly IdCardSystem _idCard = default!;
-        [Dependency] private readonly SectorServiceSystem _sectorService = default!;
+        [Dependency]
+        private readonly CartridgeLoaderSystem _cartridgeLoader = default!;
+
+        [Dependency]
+        private readonly InstrumentSystem _instrument = default!;
+
+        [Dependency]
+        private readonly RingerSystem _ringer = default!;
+
+        [Dependency]
+        private readonly StationSystem _station = default!;
+
+        [Dependency]
+        private readonly StoreSystem _store = default!;
+
+        [Dependency]
+        private readonly IChatManager _chatManager = default!;
+
+        [Dependency]
+        private readonly UserInterfaceSystem _ui = default!;
+
+        [Dependency]
+        private readonly UnpoweredFlashlightSystem _unpoweredFlashlight = default!;
+
+        [Dependency]
+        private readonly ContainerSystem _containerSystem = default!;
+
+        [Dependency]
+        private readonly IdCardSystem _idCard = default!;
+
+        [Dependency]
+        private readonly SectorServiceSystem _sectorService = default!;
 
         public override void Initialize()
         {
@@ -104,7 +125,12 @@ namespace Content.Server.PDA
 
         protected override void OnItemRemoved(EntityUid uid, PdaComponent pda, EntRemovedFromContainerMessage args)
         {
-            if (args.Container.ID != pda.IdSlot.ID && args.Container.ID != pda.PenSlot.ID && args.Container.ID != pda.PaiSlot.ID && args.Container.ID != pda.BookSlot.ID)
+            if (
+                args.Container.ID != pda.IdSlot.ID
+                && args.Container.ID != pda.PenSlot.ID
+                && args.Container.ID != pda.PaiSlot.ID
+                && args.Container.ID != pda.BookSlot.ID
+            )
                 return;
 
             // TODO: This is super cursed just use compstates please.
@@ -151,14 +177,18 @@ namespace Content.Server.PDA
         {
             _ringer.RingerPlayRingtone(ent.Owner);
 
-            if (!_containerSystem.TryGetContainingContainer((ent, null, null), out var container)
-                || !TryComp<ActorComponent>(container.Owner, out var actor))
+            if (
+                !_containerSystem.TryGetContainingContainer((ent, null, null), out var container)
+                || !TryComp<ActorComponent>(container.Owner, out var actor)
+            )
                 return;
 
             var message = FormattedMessage.EscapeText(args.Message);
-            var wrappedMessage = Loc.GetString("pda-notification-message",
+            var wrappedMessage = Loc.GetString(
+                "pda-notification-message",
                 ("header", args.Header),
-                ("message", message));
+                ("message", message)
+            );
 
             _chatManager.ChatMessageToOne(
                 ChatChannel.Notifications,
@@ -166,7 +196,8 @@ namespace Content.Server.PDA
                 wrappedMessage,
                 EntityUid.Invalid,
                 false,
-                actor.PlayerSession.Channel);
+                actor.PlayerSession.Channel
+            );
         }
 
         /// <summary>
@@ -218,14 +249,15 @@ namespace Content.Server.PDA
                     IdOwner = id?.FullName,
                     JobTitle = id?.LocalizedJobTitle,
                     StationAlertLevel = pda.StationAlertLevel,
-                    StationAlertColor = pda.StationAlertColor
+                    StationAlertColor = pda.StationAlertColor,
                 },
                 balance, // Frontier
                 ownedShipName, // Frontier
                 pda.StationName,
                 showUplink,
                 hasInstrument,
-                address);
+                address
+            );
 
             _ui.SetUiState(uid, PdaUiKey.Key, state);
         }
@@ -317,8 +349,11 @@ namespace Content.Server.PDA
         {
             //var station = _station.GetOwningStation(uid); // Frontier
             var station = _sectorService.GetServiceEntity(); // Frontier
-            if (!station.IsValid() || !TryComp(station, out AlertLevelComponent? alertComp) ||
-                alertComp.AlertLevels == null)
+            if (
+                !station.IsValid()
+                || !TryComp(station, out AlertLevelComponent? alertComp)
+                || alertComp.AlertLevels == null
+            )
                 return;
             pda.StationAlertLevel = alertComp.CurrentLevel;
             if (alertComp.AlertLevels.Levels.TryGetValue(alertComp.CurrentLevel, out var details))

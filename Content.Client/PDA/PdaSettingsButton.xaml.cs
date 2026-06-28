@@ -16,10 +16,7 @@ public sealed partial class PdaSettingsButton : ContainerButton
     public const string DisabledFgColor = "#5a5a5a";
     public const string EnabledFgColor = "#FFFFFF";
 
-    private readonly StyleBoxFlat _styleBox = new()
-    {
-        BackgroundColor = Color.FromHex("#252725")
-    };
+    private readonly StyleBoxFlat _styleBox = new() { BackgroundColor = Color.FromHex("#252725") };
 
     public string? Text
     {
@@ -41,7 +38,6 @@ public sealed partial class PdaSettingsButton : ContainerButton
     public Color? ForegroundColor
     {
         get => OptionName.FontColorOverride;
-
         set
         {
             OptionName.FontColorOverride = value;
@@ -64,6 +60,5 @@ public sealed partial class PdaSettingsButton : ContainerButton
 
         if (TryGetStyleProperty<Color>(StylePropertyFgColor, out var fgColor))
             ForegroundColor = fgColor;
-
     }
 }

@@ -9,7 +9,8 @@ public sealed class RemoteDevicesBoundUserInterface : BoundUserInterface
     private RemoteDevicesMenu? _menu;
     private EntityUid _owner;
 
-    public RemoteDevicesBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
+    public RemoteDevicesBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey)
     {
         _owner = owner;
     }

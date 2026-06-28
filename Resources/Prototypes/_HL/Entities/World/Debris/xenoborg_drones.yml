@@ -5,7 +5,7 @@
   id: XenoborgDroneBase
   abstract: true
   name: xenoborg drone
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: GridSpawner
     nameGrid: true
@@ -80,7 +80,7 @@
   components:
   - type: GridSpawner
     path: /Maps/_HL/drones/sgbyte.yml
-    
+
 - type: entity
   id: XenoborgTransistorHub
   parent: XenoborgDroneBase

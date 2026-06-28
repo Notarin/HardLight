@@ -9,7 +9,12 @@ namespace Content.Server.StationEvents.Events;
 
 public sealed class RadCrittersRule : StationEventSystem<RadCrittersRuleComponent>
 {
-    protected override void Started(EntityUid uid, RadCrittersRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
+    protected override void Started(
+        EntityUid uid,
+        RadCrittersRuleComponent component,
+        GameRuleComponent gameRule,
+        GameRuleStartedEvent args
+    )
     {
         base.Started(uid, component, gameRule, args);
 

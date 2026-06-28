@@ -9,7 +9,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: ShelfWallFreezerDark
@@ -20,4 +20,4 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition

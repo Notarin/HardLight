@@ -22,7 +22,9 @@ public sealed partial class ActionOnInteractComponent : Component
     [DataField(required: true)]
     public List<EntProtoId>? Actions;
 
-    [DataField] public List<EntityUid>? ActionEntities;
+    [DataField]
+    public List<EntityUid>? ActionEntities;
 
-    [DataField] public bool RequiresCharge;
+    [DataField]
+    public bool RequiresCharge;
 }

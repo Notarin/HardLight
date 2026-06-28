@@ -19,9 +19,9 @@ namespace Content.IntegrationTests.Tests
     [TestOf(typeof(EntityUid))]
     public sealed class EntityTest
     {
-
         [TestPrototypes]
-        private const string Prototypes = @"
+        private const string Prototypes =
+            @"
 - type: gamePreset
   id: TestPresetEnt
   name: Test Preset
@@ -110,7 +110,12 @@ namespace Content.IntegrationTests.Tests
         {
             // This test dirties the pair as it simply deletes ALL entities when done. Overhead of restarting the round
             // is minimal relative to the rest of the test.
-            var settings = new PoolSettings { Dirty = true, DummyTicker = true, Fresh = true };
+            var settings = new PoolSettings
+            {
+                Dirty = true,
+                DummyTicker = true,
+                Fresh = true,
+            };
             await using var pair = await PoolManager.GetServerClient(settings);
             var server = pair.Server;
             server.CfgMan.SetCVar(CCVars.GameLobbyFallbackEnabled, false);
@@ -123,7 +128,6 @@ namespace Content.IntegrationTests.Tests
 
             await server.WaitPost(() =>
             {
-
                 var protoIds = prototypeMan
                     .EnumeratePrototypes<EntityPrototype>()
                     .Where(p => !p.Abstract)
@@ -277,15 +281,14 @@ namespace Content.IntegrationTests.Tests
                 "TimedDespawn",
                 "TransferMindOnDespawn", // Frontier
                 "BluespaceErrorRule", // Frontier
-
                 // makes an announcement on mapInit.
                 "AnnounceOnSpawn",
             };
 
             Assert.That(server.CfgMan.GetCVar(CVars.NetPVS), Is.False);
 
-            var protoIds = server.ProtoMan
-                .EnumeratePrototypes<EntityPrototype>()
+            var protoIds = server
+                .ProtoMan.EnumeratePrototypes<EntityPrototype>()
                 .Where(p => !p.Abstract)
                 .Where(p => !pair.IsTestPrototype(p))
                 .Where(p => !excluded.Any(p.Components.ContainsKey))
@@ -307,7 +310,8 @@ namespace Content.IntegrationTests.Tests
 
             // We consider only non-audio entities, as some entities will just play sounds when they spawn.
             int Count(IEntityManager ent) => ent.EntityCount - ent.Count<AudioComponent>();
-            IEnumerable<EntityUid> Entities(IEntityManager entMan) => entMan.GetEntities().Where(entMan.HasComponent<AudioComponent>);
+            IEnumerable<EntityUid> Entities(IEntityManager entMan) =>
+                entMan.GetEntities().Where(entMan.HasComponent<AudioComponent>);
 
             await Assert.MultipleAsync(async () =>
             {
@@ -324,40 +328,68 @@ namespace Content.IntegrationTests.Tests
                     // If the entity deleted itself, check that it didn't spawn other entities
                     if (!server.EntMan.EntityExists(uid))
                     {
-                        Assert.That(Count(server.EntMan), Is.EqualTo(count), $"Server prototype {protoId} failed on deleting itself\n" +
-                            BuildDiffString(serverEntities, Entities(server.EntMan), server.EntMan));
-                        Assert.That(Count(client.EntMan), Is.EqualTo(clientCount), $"Client prototype {protoId} failed on deleting itself\n" +
-                            $"Expected {clientCount} and found {client.EntMan.EntityCount}.\n" +
-                            $"Server count was {count}.\n" +
-                            BuildDiffString(clientEntities, Entities(client.EntMan), client.EntMan));
+                        Assert.That(
+                            Count(server.EntMan),
+                            Is.EqualTo(count),
+                            $"Server prototype {protoId} failed on deleting itself\n"
+                                + BuildDiffString(serverEntities, Entities(server.EntMan), server.EntMan)
+                        );
+                        Assert.That(
+                            Count(client.EntMan),
+                            Is.EqualTo(clientCount),
+                            $"Client prototype {protoId} failed on deleting itself\n"
+                                + $"Expected {clientCount} and found {client.EntMan.EntityCount}.\n"
+                                + $"Server count was {count}.\n"
+                                + BuildDiffString(clientEntities, Entities(client.EntMan), client.EntMan)
+                        );
                         continue;
                     }
 
                     // Check that the number of entities has increased.
-                    Assert.That(Count(server.EntMan), Is.GreaterThan(count), $"Server prototype {protoId} failed on spawning as entity count didn't increase\n" +
-                        BuildDiffString(serverEntities, Entities(server.EntMan), server.EntMan));
-                    Assert.That(Count(client.EntMan), Is.GreaterThan(clientCount), $"Client prototype {protoId} failed on spawning as entity count didn't increase\n" +
-                        $"Expected at least {clientCount} and found {client.EntMan.EntityCount}. " +
-                        $"Server count was {count}.\n" +
-                        BuildDiffString(clientEntities, Entities(client.EntMan), client.EntMan));
+                    Assert.That(
+                        Count(server.EntMan),
+                        Is.GreaterThan(count),
+                        $"Server prototype {protoId} failed on spawning as entity count didn't increase\n"
+                            + BuildDiffString(serverEntities, Entities(server.EntMan), server.EntMan)
+                    );
+                    Assert.That(
+                        Count(client.EntMan),
+                        Is.GreaterThan(clientCount),
+                        $"Client prototype {protoId} failed on spawning as entity count didn't increase\n"
+                            + $"Expected at least {clientCount} and found {client.EntMan.EntityCount}. "
+                            + $"Server count was {count}.\n"
+                            + BuildDiffString(clientEntities, Entities(client.EntMan), client.EntMan)
+                    );
 
                     await server.WaitPost(() => server.EntMan.DeleteEntity(uid));
                     await pair.RunTicksSync(3);
 
                     // Check that the number of entities has gone back to the original value.
-                    Assert.That(Count(server.EntMan), Is.EqualTo(count), $"Server prototype {protoId} failed on deletion: count didn't reset properly\n" +
-                        BuildDiffString(serverEntities, Entities(server.EntMan), server.EntMan));
-                    Assert.That(client.EntMan.EntityCount, Is.EqualTo(clientCount), $"Client prototype {protoId} failed on deletion: count didn't reset properly:\n" +
-                        $"Expected {clientCount} and found {client.EntMan.EntityCount}.\n" +
-                        $"Server count was {count}.\n" +
-                        BuildDiffString(clientEntities, Entities(client.EntMan), client.EntMan));
+                    Assert.That(
+                        Count(server.EntMan),
+                        Is.EqualTo(count),
+                        $"Server prototype {protoId} failed on deletion: count didn't reset properly\n"
+                            + BuildDiffString(serverEntities, Entities(server.EntMan), server.EntMan)
+                    );
+                    Assert.That(
+                        client.EntMan.EntityCount,
+                        Is.EqualTo(clientCount),
+                        $"Client prototype {protoId} failed on deletion: count didn't reset properly:\n"
+                            + $"Expected {clientCount} and found {client.EntMan.EntityCount}.\n"
+                            + $"Server count was {count}.\n"
+                            + BuildDiffString(clientEntities, Entities(client.EntMan), client.EntMan)
+                    );
                 }
             });
 
             await pair.CleanReturnAsync();
         }
 
-        private static string BuildDiffString(IEnumerable<EntityUid> oldEnts, IEnumerable<EntityUid> newEnts, IEntityManager entMan)
+        private static string BuildDiffString(
+            IEnumerable<EntityUid> oldEnts,
+            IEnumerable<EntityUid> newEnts,
+            IEntityManager entMan
+        )
         {
             var sb = new StringBuilder();
             var addedEnts = newEnts.Except(oldEnts);
@@ -444,7 +476,6 @@ namespace Content.IntegrationTests.Tests
             {
                 Assert.Multiple(() =>
                 {
-
                     foreach (var type in componentFactory.AllRegisteredTypes)
                     {
                         var component = (Component)componentFactory.GetComponent(type);
@@ -473,11 +504,14 @@ namespace Content.IntegrationTests.Tests
 
                         logmill.Debug($"Adding component: {name}");
 
-                        Assert.DoesNotThrow(() =>
+                        Assert.DoesNotThrow(
+                            () =>
                             {
                                 entityManager.AddComponent(entity, component);
-                            }, "Component '{0}' threw an exception.",
-                            name);
+                            },
+                            "Component '{0}' threw an exception.",
+                            name
+                        );
 
                         entityManager.DeleteEntity(entity);
                     }

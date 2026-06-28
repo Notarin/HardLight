@@ -23,11 +23,6 @@ namespace Content.Shared.Mobs.Components
 
         [DataField]
         [AutoNetworkedField]
-        public HashSet<MobState> AllowedStates = new()
-            {
-                MobState.Alive,
-                MobState.Critical,
-                MobState.Dead
-            };
+        public HashSet<MobState> AllowedStates = new() { MobState.Alive, MobState.Critical, MobState.Dead };
     }
 }

@@ -1,13 +1,11 @@
-using Robust.Shared.Serialization;
-using Robust.Shared.Map;
 using Content.Shared.Shuttles.BUIStates;
+using Robust.Shared.Map;
+using Robust.Shared.Serialization;
 
 namespace Content.Shared._Mono.FireControl;
 
 [Serializable, NetSerializable]
-public sealed class FireControlConsoleUpdateEvent : EntityEventArgs
-{
-}
+public sealed class FireControlConsoleUpdateEvent : EntityEventArgs { }
 
 [Serializable, NetSerializable]
 public sealed class FireControlConsoleBoundInterfaceState : BoundUserInterfaceState
@@ -15,12 +13,18 @@ public sealed class FireControlConsoleBoundInterfaceState : BoundUserInterfaceSt
     public bool Connected;
     public FireControllableEntry[] FireControllables;
     public NavInterfaceState NavState;
+
     /// <summary>
     /// Shield health as 0–100 %. Null when no shield emitter is present on the grid.
     /// </summary>
     public float? ShieldHealthPercent;
 
-    public FireControlConsoleBoundInterfaceState(bool connected, FireControllableEntry[] fireControllables, NavInterfaceState navState, float? shieldHealthPercent = null)
+    public FireControlConsoleBoundInterfaceState(
+        bool connected,
+        FireControllableEntry[] fireControllables,
+        NavInterfaceState navState,
+        float? shieldHealthPercent = null
+    )
     {
         Connected = connected;
         FireControllables = fireControllables;
@@ -36,16 +40,14 @@ public enum FireControlConsoleUiKey : byte
 }
 
 [Serializable, NetSerializable]
-public sealed class FireControlConsoleRefreshServerMessage : BoundUserInterfaceMessage
-{
-
-}
+public sealed class FireControlConsoleRefreshServerMessage : BoundUserInterfaceMessage { }
 
 [Serializable, NetSerializable]
 public sealed class FireControlConsoleFireMessage : BoundUserInterfaceMessage
 {
     public List<NetEntity> Selected;
     public NetCoordinates Coordinates;
+
     public FireControlConsoleFireMessage(List<NetEntity> selected, NetCoordinates coordinates)
     {
         Selected = selected;

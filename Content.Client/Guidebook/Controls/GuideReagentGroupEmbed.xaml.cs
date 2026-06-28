@@ -17,7 +17,8 @@ namespace Content.Client.Guidebook.Controls;
 [UsedImplicitly, GenerateTypedNameReferences]
 public sealed partial class GuideReagentGroupEmbed : BoxContainer, IDocumentTag
 {
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototype = default!;
 
     public GuideReagentGroupEmbed()
     {
@@ -26,10 +27,13 @@ public sealed partial class GuideReagentGroupEmbed : BoxContainer, IDocumentTag
         MouseFilter = MouseFilterMode.Stop;
     }
 
-    public GuideReagentGroupEmbed(string group) : this()
+    public GuideReagentGroupEmbed(string group)
+        : this()
     {
-        var prototypes = _prototype.EnumeratePrototypes<ReagentPrototype>()
-            .Where(p => p.Group.Equals(group)).OrderBy(p => p.LocalizedName);
+        var prototypes = _prototype
+            .EnumeratePrototypes<ReagentPrototype>()
+            .Where(p => p.Group.Equals(group))
+            .OrderBy(p => p.LocalizedName);
         foreach (var reagent in prototypes)
         {
             var embed = new GuideReagentEmbed(reagent);
@@ -46,8 +50,10 @@ public sealed partial class GuideReagentGroupEmbed : BoxContainer, IDocumentTag
             return false;
         }
 
-        var prototypes = _prototype.EnumeratePrototypes<ReagentPrototype>()
-            .Where(p => p.Group.Equals(group)).OrderBy(p => p.LocalizedName);
+        var prototypes = _prototype
+            .EnumeratePrototypes<ReagentPrototype>()
+            .Where(p => p.Group.Equals(group))
+            .OrderBy(p => p.LocalizedName);
         foreach (var reagent in prototypes)
         {
             var embed = new GuideReagentEmbed(reagent);

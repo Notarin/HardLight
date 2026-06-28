@@ -16,7 +16,8 @@ namespace Content.Client.UserInterface.Controls;
 /// </remarks>
 public sealed class ConfirmButton : Button
 {
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
 
     public const string ConfirmPrefix = "confirm-";
 
@@ -126,7 +127,7 @@ public sealed class ConfirmButton : Button
         switch (IsConfirming)
         {
             case false:
-                _nextCooldown  = _gameTiming.CurTime + CooldownTime;
+                _nextCooldown = _gameTiming.CurTime + CooldownTime;
                 _nextReset = _gameTiming.CurTime + ResetTime;
                 Disabled = true;
                 break;

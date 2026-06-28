@@ -13,6 +13,7 @@ namespace Content.Shared.Construction.Conditions;
 public sealed partial class NoUnstackableInTile : IConstructionCondition
 {
     public const string GuidebookString = "construction-step-condition-no-unstackable-in-tile";
+
     public bool Condition(EntityUid user, EntityCoordinates location, Direction direction)
     {
         var sysMan = IoCManager.Resolve<IEntitySystemManager>();
@@ -23,9 +24,6 @@ public sealed partial class NoUnstackableInTile : IConstructionCondition
 
     public ConstructionGuideEntry GenerateGuideEntry()
     {
-        return new ConstructionGuideEntry
-        {
-            Localization = GuidebookString
-        };
+        return new ConstructionGuideEntry { Localization = GuidebookString };
     }
 }

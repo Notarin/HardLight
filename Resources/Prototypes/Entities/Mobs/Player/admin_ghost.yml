@@ -2,7 +2,7 @@
   parent: [MobObserverBase, InventoryBase]
   id: AdminObserver
   name: admin observer
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: ContentEye
     maxZoom: 8.916104, 8.916104
@@ -53,7 +53,7 @@
       enum.CrewMonitoringUIKey.Key:
         type: CrewMonitoringBoundUserInterface
       enum.GeneralStationRecordConsoleKey.Key:
-      # who the fuck named this bruh
+        # who the fuck named this bruh
         type: GeneralStationRecordConsoleBoundUserInterface
   - type: IntrinsicUI
     uis:
@@ -105,7 +105,7 @@
   - type: Inventory
     templateId: aghost
   - type: Loadout
-    prototypes: [ NFMobAghostGear ] # Frontier MobAghostGear<NFMobAghostGear
+    prototypes: [NFMobAghostGear] # Frontier MobAghostGear<NFMobAghostGear
   - type: BypassInteractionChecks
   - type: BankAccount # Frontier
   - type: SupermatterImmune
@@ -116,11 +116,11 @@
   description: View a Solar Control Interface.
   components:
   - type: InstantAction
-    icon: { sprite: Structures/Machines/parts.rsi, state: box_0 }
-    iconOn: { sprite: Structures/Machines/parts.rsi, state: box_2 }
-    keywords: [ "AI", "console", "interface" ]
+    icon: {sprite: Structures/Machines/parts.rsi, state: box_0}
+    iconOn: {sprite: Structures/Machines/parts.rsi, state: box_2}
+    keywords: ["AI", "console", "interface"]
     priority: -10
-    event: !type:ToggleIntrinsicUIEvent { key: enum.SolarControlConsoleUiKey.Key }
+    event: !type:ToggleIntrinsicUIEvent {key: enum.SolarControlConsoleUiKey.Key}
 
 - type: entity
   id: ActionAGhostShowCommunications
@@ -128,11 +128,11 @@
   description: View a Communications Interface.
   components:
   - type: InstantAction
-    icon: { sprite: Interface/Actions/actions_ai.rsi, state: comms_console }
-    iconOn: { sprite: Interface/Actions/actions_ai.rsi, state: comms_console }
-    keywords: [ "AI", "console", "interface" ]
+    icon: {sprite: Interface/Actions/actions_ai.rsi, state: comms_console}
+    iconOn: {sprite: Interface/Actions/actions_ai.rsi, state: comms_console}
+    keywords: ["AI", "console", "interface"]
     priority: -4
-    event: !type:ToggleIntrinsicUIEvent { key: enum.CommunicationsConsoleUiKey.Key }
+    event: !type:ToggleIntrinsicUIEvent {key: enum.CommunicationsConsoleUiKey.Key}
 
 - type: entity
   id: ActionAGhostShowRadar
@@ -140,11 +140,11 @@
   description: View a Mass Scanner Interface.
   components:
   - type: InstantAction
-    icon: { sprite: Interface/Actions/actions_ai.rsi, state: mass_scanner }
-    iconOn: { sprite: Interface/Actions/actions_ai.rsi, state: mass_scanner }
-    keywords: [ "AI", "console", "interface" ]
+    icon: {sprite: Interface/Actions/actions_ai.rsi, state: mass_scanner}
+    iconOn: {sprite: Interface/Actions/actions_ai.rsi, state: mass_scanner}
+    keywords: ["AI", "console", "interface"]
     priority: -6
-    event: !type:ToggleIntrinsicUIEvent { key: enum.RadarConsoleUiKey.Key }
+    event: !type:ToggleIntrinsicUIEvent {key: enum.RadarConsoleUiKey.Key}
 
 - type: entity
   id: ActionAGhostShowCargo
@@ -152,11 +152,11 @@
   description: View a Cargo Ordering Interface.
   components:
   - type: InstantAction
-    icon: { sprite: Structures/Machines/parts.rsi, state: box_0 }
-    iconOn: { sprite: Structures/Machines/parts.rsi, state: box_2 }
-    keywords: [ "AI", "console", "interface" ]
+    icon: {sprite: Structures/Machines/parts.rsi, state: box_0}
+    iconOn: {sprite: Structures/Machines/parts.rsi, state: box_2}
+    keywords: ["AI", "console", "interface"]
     priority: -10
-    event: !type:ToggleIntrinsicUIEvent { key: enum.CargoConsoleUiKey.Orders }
+    event: !type:ToggleIntrinsicUIEvent {key: enum.CargoConsoleUiKey.Orders}
 
 - type: entity
   id: ActionAGhostShowCrewMonitoring
@@ -164,11 +164,11 @@
   description: View a Crew Monitoring Interface.
   components:
   - type: InstantAction
-    icon: { sprite: Interface/Actions/actions_ai.rsi, state: crew_monitor }
-    iconOn: { sprite: Interface/Actions/actions_ai.rsi, state: crew_monitor }
-    keywords: [ "AI", "console", "interface" ]
+    icon: {sprite: Interface/Actions/actions_ai.rsi, state: crew_monitor}
+    iconOn: {sprite: Interface/Actions/actions_ai.rsi, state: crew_monitor}
+    keywords: ["AI", "console", "interface"]
     priority: -8
-    event: !type:ToggleIntrinsicUIEvent { key: enum.CrewMonitoringUIKey.Key }
+    event: !type:ToggleIntrinsicUIEvent {key: enum.CrewMonitoringUIKey.Key}
 
 - type: entity
   id: ActionAGhostShowStationRecords
@@ -176,8 +176,8 @@
   description: View a Station Records Interface.
   components:
   - type: InstantAction
-    icon: { sprite: Interface/Actions/actions_ai.rsi, state: station_records }
-    iconOn: { sprite: Interface/Actions/actions_ai.rsi, state: station_records }
-    keywords: [ "AI", "console", "interface" ]
+    icon: {sprite: Interface/Actions/actions_ai.rsi, state: station_records}
+    iconOn: {sprite: Interface/Actions/actions_ai.rsi, state: station_records}
+    keywords: ["AI", "console", "interface"]
     priority: -7
-    event: !type:ToggleIntrinsicUIEvent { key: enum.GeneralStationRecordConsoleKey.Key }
+    event: !type:ToggleIntrinsicUIEvent {key: enum.GeneralStationRecordConsoleKey.Key}

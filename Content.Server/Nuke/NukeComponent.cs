@@ -59,8 +59,11 @@ namespace Content.Server.Nuke
         [DataField("disarmDoafterLength")]
         public float DisarmDoafterLength = 30.0f;
 
-        [DataField("alertLevelOnActivate")] public string AlertLevelOnActivate = default!;
-        [DataField("alertLevelOnDeactivate")] public string AlertLevelOnDeactivate = default!;
+        [DataField("alertLevelOnActivate")]
+        public string AlertLevelOnActivate = default!;
+
+        [DataField("alertLevelOnDeactivate")]
+        public string AlertLevelOnDeactivate = default!;
 
         /// <summary>
         ///     This is stored so we can do a funny by making 0 shift the last played note up by 12 semitones (octave)
@@ -98,7 +101,11 @@ namespace Content.Server.Nuke
         ///     information (e.g., the light that the explosion gives off).
         /// </summary>
         [ViewVariables(VVAccess.ReadWrite)]
-        [DataField("explosionType", required: true, customTypeSerializer: typeof(PrototypeIdSerializer<ExplosionPrototype>))]
+        [DataField(
+            "explosionType",
+            required: true,
+            customTypeSerializer: typeof(PrototypeIdSerializer<ExplosionPrototype>)
+        )]
         public string ExplosionType = default!;
 
         /// <summary>
@@ -143,8 +150,11 @@ namespace Content.Server.Nuke
         /// </summary>
         public (MapId, EntityUid?)? OriginMapGrid;
 
-        [DataField("codeLength")] public int CodeLength = 6;
-        [ViewVariables] public string Code = string.Empty;
+        [DataField("codeLength")]
+        public int CodeLength = 6;
+
+        [ViewVariables]
+        public string Code = string.Empty;
 
         /// <summary>
         ///     Time until explosion in seconds.

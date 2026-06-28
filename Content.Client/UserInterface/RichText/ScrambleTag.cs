@@ -12,7 +12,8 @@ namespace Content.Client.UserInterface.RichText;
 [UsedImplicitly]
 public sealed class ScrambleTag : IMarkupTag
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     private const int MaxScrambleLength = 32;
 
@@ -20,15 +21,17 @@ public sealed class ScrambleTag : IMarkupTag
 
     public string TextBefore(MarkupNode node)
     {
-        if (!node.Attributes.TryGetValue("rate", out var rateParam) ||
-            !rateParam.TryGetLong(out var rate) ||
-            !node.Attributes.TryGetValue("length", out var lengthParam) ||
-            !lengthParam.TryGetLong(out var length) ||
-            !node.Attributes.TryGetValue("chars", out var charsParam) ||
-            !charsParam.TryGetString(out var chars))
+        if (
+            !node.Attributes.TryGetValue("rate", out var rateParam)
+            || !rateParam.TryGetLong(out var rate)
+            || !node.Attributes.TryGetValue("length", out var lengthParam)
+            || !lengthParam.TryGetLong(out var length)
+            || !node.Attributes.TryGetValue("chars", out var charsParam)
+            || !charsParam.TryGetString(out var chars)
+        )
             return string.Empty;
 
-        var seed = (int) (_timing.CurTime.TotalMilliseconds / rate);
+        var seed = (int)(_timing.CurTime.TotalMilliseconds / rate);
         var rand = new Random(seed + node.GetHashCode());
         var charOptions = chars.ToCharArray();
         var realLength = MathF.Min(length.Value, MaxScrambleLength);

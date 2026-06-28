@@ -11,12 +11,11 @@ public sealed partial class ModifyLungGas : EntityEffect
     private Dictionary<Gas, float> _ratios = default!;
 
     // JUSTIFICATION: This is internal magic that players never directly interact with.
-    protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys)
-        => null;
+    protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys) =>
+        null;
 
     public override void Effect(EntityEffectBaseArgs args)
     {
-
         LungComponent? lung;
         float amount = 1f;
 
@@ -40,7 +39,7 @@ public sealed partial class ModifyLungGas : EntityEffect
             {
                 var quantity = ratio * amount / Atmospherics.BreathMolesToReagentMultiplier;
                 if (quantity < 0)
-                    quantity = Math.Max(quantity, -lung.Air[(int) gas]);
+                    quantity = Math.Max(quantity, -lung.Air[(int)gas]);
                 lung.Air.AdjustMoles(gas, quantity);
             }
         }

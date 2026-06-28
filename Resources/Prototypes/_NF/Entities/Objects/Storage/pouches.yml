@@ -2,7 +2,7 @@
 - type: entity
   id: NFPouchBase
   name: pouch
-  parent: [ BaseStorageItem, RecyclableItemClothSmall ]
+  parent: [BaseStorageItem, RecyclableItemClothSmall]
   description: A pouch for organizing miscellaneous items.
   suffix: Empty
   abstract: true
@@ -19,18 +19,18 @@
   - type: Clothing
     quickEquip: false
     sprite: _NF/Objects/Storage/Pouches/pouch.rsi
-    slots: [ belt, pocket ]
+    slots: [belt, pocket]
   - type: Storage
     maxItemSize: Small
     grid:
     - 0,0,3,1 # Hardlight: 2x3 -> 4x2
     blacklist:
-      components: [ Storage ] # No bagception
+      components: [Storage] # No bagception
   - type: StaticPrice
     price: 50
   - type: ItemCounter
     count:
-      components: [ Item ]
+      components: [Item]
     composite: true
     layerStates:
     - pouchFill1
@@ -42,20 +42,20 @@
     visuals:
       enum.SharedBagOpenVisuals.BagState:
         closeLayer:
-          Open: { visible: false }
-          Closed: { visible: true }
+          Open: {visible: false}
+          Closed: {visible: true}
         openLayer:
-          Open: { visible: true }
-          Closed: { visible: false }
+          Open: {visible: true}
+          Closed: {visible: false}
         insideLayer:
-          Open: { visible: true }
-          Closed: { visible: false }
+          Open: {visible: true}
+          Closed: {visible: false}
         decal1:
-          Open: { visible: false }
-          Closed: { visible: true }
+          Open: {visible: false}
+          Closed: {visible: true}
         decal2:
-          Open: { visible: false }
-          Closed: { visible: true }
+          Open: {visible: false}
+          Closed: {visible: true}
 
 # VARIANTS
 #region utility
@@ -79,39 +79,39 @@
       map: ["insideLayer"]
       visible: false
     - state: fill-util4-1
-      map: [ "pouchFill4" ]
+      map: ["pouchFill4"]
       visible: false
     - state: fill-util3-1
-      map: [ "pouchFill3" ]
+      map: ["pouchFill3"]
       visible: false
     - state: fill-util2-1
-      map: [ "pouchFill2" ]
+      map: ["pouchFill2"]
       visible: false
     - state: fill-util1-1
-      map: [ "pouchFill1" ]
+      map: ["pouchFill1"]
       visible: false
   - type: RandomSprite
     available:
-      - pouchFill1:
-          fill-util1-1: ""
-          fill-util1-2: ""
-          fill-util1-3: ""
-          fill-util1-4: ""
-        pouchFill2:
-          fill-util2-1: ""
-          fill-util2-2: ""
-          fill-util2-3: ""
-          fill-util2-4: ""
-        pouchFill3:
-          fill-util3-1: ""
-          fill-util3-2: ""
-          fill-util3-3: ""
-          fill-util3-4: ""
-        pouchFill4:
-          fill-util4-1: ""
-          fill-util4-2: ""
-          fill-util4-3: ""
-          fill-util4-4: ""
+    - pouchFill1:
+        fill-util1-1: ""
+        fill-util1-2: ""
+        fill-util1-3: ""
+        fill-util1-4: ""
+      pouchFill2:
+        fill-util2-1: ""
+        fill-util2-2: ""
+        fill-util2-3: ""
+        fill-util2-4: ""
+      pouchFill3:
+        fill-util3-1: ""
+        fill-util3-2: ""
+        fill-util3-3: ""
+        fill-util3-4: ""
+      pouchFill4:
+        fill-util4-1: ""
+        fill-util4-2: ""
+        fill-util4-3: ""
+        fill-util4-4: ""
   - type: Item
     inhandVisuals:
       left:
@@ -151,16 +151,16 @@
       map: ["insideLayer"]
       visible: false
     - state: fill-util4-1
-      map: [ "pouchFill4" ]
+      map: ["pouchFill4"]
       visible: false
     - state: fill-util3-1
-      map: [ "pouchFill3" ]
+      map: ["pouchFill3"]
       visible: false
     - state: fill-util2-1
-      map: [ "pouchFill2" ]
+      map: ["pouchFill2"]
       visible: false
     - state: fill-util1-1
-      map: [ "pouchFill1" ]
+      map: ["pouchFill1"]
       visible: false
   - type: Item
     inhandVisuals:
@@ -202,19 +202,19 @@
       map: ["insideLayer"]
       visible: false
     - state: fill-util4-1
-      map: [ "pouchFill4" ]
+      map: ["pouchFill4"]
       visible: false
     - state: fill-util3-1
-      map: [ "pouchFill3" ]
+      map: ["pouchFill3"]
       visible: false
     - state: fill-util2-1
-      map: [ "pouchFill2" ]
+      map: ["pouchFill2"]
       visible: false
     - state: fill-util1-1
-      map: [ "pouchFill1" ]
+      map: ["pouchFill1"]
       visible: false
     - state: decal-line-01
-      map: [ "decal1" ]
+      map: ["decal1"]
       color: "#f2b833"
   - type: Item
     inhandVisuals:
@@ -254,22 +254,22 @@
       map: ["insideLayer"]
       visible: false
     - state: fill-util4-1
-      map: [ "pouchFill4" ]
+      map: ["pouchFill4"]
       visible: false
     - state: fill-util3-1
-      map: [ "pouchFill3" ]
+      map: ["pouchFill3"]
       visible: false
     - state: fill-util2-1
-      map: [ "pouchFill2" ]
+      map: ["pouchFill2"]
       visible: false
     - state: fill-util1-1
-      map: [ "pouchFill1" ]
+      map: ["pouchFill1"]
       visible: false
     - state: decal-line-04
-      map: [ "decal1" ]
+      map: ["decal1"]
       color: "#194214"
     - state: decal-bird
-      map: [ "decal2" ]
+      map: ["decal2"]
       color: "#f2b833"
   - type: Item
     inhandVisuals:
@@ -302,42 +302,42 @@
     - 0,0,5,1
     whitelist:
       components:
-        - Tool
-        - GasAnalyzer
-        - SprayPainter
-        - TrayScanner
-        - HolosignProjector
+      - Tool
+      - GasAnalyzer
+      - SprayPainter
+      - TrayScanner
+      - HolosignProjector
       tags:
-        - CableCoil
-        - Flashlight # Hardlight end
+      - CableCoil
+      - Flashlight # Hardlight end
   - type: Sprite
     layers:
     - state: base
       color: "#ffde15"
     - state: closed
-      map: [ "closeLayer" ]
+      map: ["closeLayer"]
       color: "#ffde15"
     - state: open
       color: "#ffde15"
-      map: [ "openLayer" ]
+      map: ["openLayer"]
       visible: false
     - state: inside
       map: ["insideLayer"]
       visible: false
     - state: fill-util4-1
-      map: [ "pouchFill4" ]
+      map: ["pouchFill4"]
       visible: false
     - state: fill-util3-1
-      map: [ "pouchFill3" ]
+      map: ["pouchFill3"]
       visible: false
     - state: fill-util2-1
-      map: [ "pouchFill2" ]
+      map: ["pouchFill2"]
       visible: false
     - state: fill-util1-1
-      map: [ "pouchFill1" ]
+      map: ["pouchFill1"]
       visible: false
     - state: decal-line-01
-      map: [ "decal1" ]
+      map: ["decal1"]
       color: "#9e630b"
   - type: Item
     inhandVisuals:
@@ -367,29 +367,29 @@
     - state: base
       color: "#ffde15"
     - state: closed
-      map: [ "closeLayer" ]
+      map: ["closeLayer"]
       color: "#ffde15"
     - state: open
       color: "#ffde15"
-      map: [ "openLayer" ]
+      map: ["openLayer"]
       visible: false
     - state: inside
       map: ["insideLayer"]
       visible: false
     - state: fill-util4-1
-      map: [ "pouchFill4" ]
+      map: ["pouchFill4"]
       visible: false
     - state: fill-util3-1
-      map: [ "pouchFill3" ]
+      map: ["pouchFill3"]
       visible: false
     - state: fill-util2-1
-      map: [ "pouchFill2" ]
+      map: ["pouchFill2"]
       visible: false
     - state: fill-util1-1
-      map: [ "pouchFill1" ]
+      map: ["pouchFill1"]
       visible: false
     - state: decal-line-01
-      map: [ "decal1" ]
+      map: ["decal1"]
       color: "#00a9ff"
 
 ## SUPPLY
@@ -414,16 +414,16 @@
       map: ["insideLayer"]
       visible: false
     - state: fill-util4-1
-      map: [ "pouchFill4" ]
+      map: ["pouchFill4"]
       visible: false
     - state: fill-util3-1
-      map: [ "pouchFill3" ]
+      map: ["pouchFill3"]
       visible: false
     - state: fill-util2-1
-      map: [ "pouchFill2" ]
+      map: ["pouchFill2"]
       visible: false
     - state: fill-util1-1
-      map: [ "pouchFill1" ]
+      map: ["pouchFill1"]
       visible: false
 
 #region salvage
@@ -447,19 +447,19 @@
       map: ["insideLayer"]
       visible: false
     - state: fill-util4-1
-      map: [ "pouchFill4" ]
+      map: ["pouchFill4"]
       visible: false
     - state: fill-util3-1
-      map: [ "pouchFill3" ]
+      map: ["pouchFill3"]
       visible: false
     - state: fill-util2-1
-      map: [ "pouchFill2" ]
+      map: ["pouchFill2"]
       visible: false
     - state: fill-util1-1
-      map: [ "pouchFill1" ]
+      map: ["pouchFill1"]
       visible: false
     - state: decal-line-01
-      map: [ "decal1" ]
+      map: ["decal1"]
       color: "#66489c"
   - type: Item
     inhandVisuals:
@@ -492,38 +492,38 @@
     - 0,0,3,2
     whitelist:
       tags:
-        - Ointment
-        - Brutepack
-        - Bloodpack
-        - Gauze # Hardlight end
+      - Ointment
+      - Brutepack
+      - Bloodpack
+      - Gauze # Hardlight end
   - type: Sprite
     layers:
     - state: base
       color: "#4d4d5d"
     - state: closed
-      map: [ "closeLayer" ]
+      map: ["closeLayer"]
       color: "#ca4545"
     - state: open
       color: "#ca4545"
-      map: [ "openLayer" ]
+      map: ["openLayer"]
       visible: false
     - state: inside
       map: ["insideLayer"]
       visible: false
     - state: fill-med-1
-      map: [ "pouchFill1" ]
+      map: ["pouchFill1"]
       visible: false
     - state: fill-med-2
-      map: [ "pouchFill2" ]
+      map: ["pouchFill2"]
       visible: false
     - state: fill-med-3
-      map: [ "pouchFill3" ]
+      map: ["pouchFill3"]
       visible: false
     - state: fill-med-4
-      map: [ "pouchFill4" ]
+      map: ["pouchFill4"]
       visible: false
     - state: decal-med-cross
-      map: [ "decal1" ]
+      map: ["decal1"]
       color: "#ede984"
   - type: Item
     inhandVisuals:
@@ -552,29 +552,29 @@
     - state: base
       color: "#5a96bb"
     - state: closed
-      map: [ "closeLayer" ]
+      map: ["closeLayer"]
       color: "#5a96bb"
     - state: open
-      map: [ "openLayer" ]
+      map: ["openLayer"]
       color: "#5a96bb"
       visible: false
     - state: inside
       map: ["insideLayer"]
       visible: false
     - state: fill-med-1
-      map: [ "pouchFill1" ]
+      map: ["pouchFill1"]
       visible: false
     - state: fill-med-2
-      map: [ "pouchFill2" ]
+      map: ["pouchFill2"]
       visible: false
     - state: fill-med-3
-      map: [ "pouchFill3" ]
+      map: ["pouchFill3"]
       visible: false
     - state: fill-med-4
-      map: [ "pouchFill4" ]
+      map: ["pouchFill4"]
       visible: false
     - state: decal-med-cross
-      map: [ "decal1" ]
+      map: ["decal1"]
       color: "#ffffff"
   - type: Item
     inhandVisuals:
@@ -615,19 +615,19 @@
       map: ["insideLayer"]
       visible: false
     - state: fill-util4-1
-      map: [ "pouchFill4" ]
+      map: ["pouchFill4"]
       visible: false
     - state: fill-util3-1
-      map: [ "pouchFill3" ]
+      map: ["pouchFill3"]
       visible: false
     - state: fill-util2-1
-      map: [ "pouchFill2" ]
+      map: ["pouchFill2"]
       visible: false
     - state: fill-util1-1
-      map: [ "pouchFill1" ]
+      map: ["pouchFill1"]
       visible: false
     - state: decal-line-01
-      map: [ "decal1" ]
+      map: ["decal1"]
       color: "#990099"
   - type: Item
     inhandVisuals:
@@ -660,14 +660,14 @@
     - 0,0,3,3
     whitelist:
       components:
-        - LightReplacer
-        - Bucket
+      - LightReplacer
+      - Bucket
       tags:
-        - Mop # rags
-        - WetFloorSign
-        - Plunger
-        - Soap
-        - Spray # Hardlight end
+      - Mop # rags
+      - WetFloorSign
+      - Plunger
+      - Soap
+      - Spray # Hardlight end
   - type: Sprite
     layers:
     - state: base
@@ -684,16 +684,16 @@
       map: ["insideLayer"]
       visible: false
     - state: fill-util4-1
-      map: [ "pouchFill4" ]
+      map: ["pouchFill4"]
       visible: false
     - state: fill-util3-1
-      map: [ "pouchFill3" ]
+      map: ["pouchFill3"]
       visible: false
     - state: fill-util2-1
-      map: [ "pouchFill2" ]
+      map: ["pouchFill2"]
       visible: false
     - state: fill-util1-1
-      map: [ "pouchFill1" ]
+      map: ["pouchFill1"]
       visible: false
   - type: Item
     inhandVisuals:
@@ -725,10 +725,10 @@
     - 0,0,3,3
     whitelist:
       tags: # intended for robust, dieth, etc
-        - CentrifugeCompatible
-        - Bottle
+      - CentrifugeCompatible
+      - Bottle
       components:
-        - Seed
+      - Seed
   - type: Sprite
     layers:
     - state: base
@@ -744,19 +744,19 @@
       map: ["insideLayer"]
       visible: false
     - state: fill-util4-1
-      map: [ "pouchFill4" ]
+      map: ["pouchFill4"]
       visible: false
     - state: fill-util3-1
-      map: [ "pouchFill3" ]
+      map: ["pouchFill3"]
       visible: false
     - state: fill-util2-1
-      map: [ "pouchFill2" ]
+      map: ["pouchFill2"]
       visible: false
     - state: fill-util1-1
-      map: [ "pouchFill1" ]
+      map: ["pouchFill1"]
       visible: false
     - state: decal-line-01
-      map: [ "decal1" ]
+      map: ["decal1"]
       color: "#204bd5"
   - type: Item
     inhandVisuals:
@@ -796,22 +796,22 @@
       map: ["insideLayer"]
       visible: false
     - state: fill-util4-1
-      map: [ "pouchFill4" ]
+      map: ["pouchFill4"]
       visible: false
     - state: fill-util3-1
-      map: [ "pouchFill3" ]
+      map: ["pouchFill3"]
       visible: false
     - state: fill-util2-1
-      map: [ "pouchFill2" ]
+      map: ["pouchFill2"]
       visible: false
     - state: fill-util1-1
-      map: [ "pouchFill1" ]
+      map: ["pouchFill1"]
       visible: false
     - state: decal-line-04
-      map: [ "decal2" ]
+      map: ["decal2"]
       color: "#b33831"
     - state: decal-religious-cross
-      map: [ "decal1" ]
+      map: ["decal1"]
       color: "#f6d56a"
   - type: Item
     inhandVisuals:
@@ -852,19 +852,19 @@
       map: ["insideLayer"]
       visible: false
     - state: fill-util4-1
-      map: [ "pouchFill4" ]
+      map: ["pouchFill4"]
       visible: false
     - state: fill-util3-1
-      map: [ "pouchFill3" ]
+      map: ["pouchFill3"]
       visible: false
     - state: fill-util2-1
-      map: [ "pouchFill2" ]
+      map: ["pouchFill2"]
       visible: false
     - state: fill-util1-1
-      map: [ "pouchFill1" ]
+      map: ["pouchFill1"]
       visible: false
     - state: decal-mime
-      map: [ "decal1" ]
+      map: ["decal1"]
   - type: Item
     inhandVisuals:
       left:
@@ -904,19 +904,19 @@
       map: ["insideLayer"]
       visible: false
     - state: fill-util4-1
-      map: [ "pouchFill4" ]
+      map: ["pouchFill4"]
       visible: false
     - state: fill-util3-1
-      map: [ "pouchFill3" ]
+      map: ["pouchFill3"]
       visible: false
     - state: fill-util2-1
-      map: [ "pouchFill2" ]
+      map: ["pouchFill2"]
       visible: false
     - state: fill-util1-1
-      map: [ "pouchFill1" ]
+      map: ["pouchFill1"]
       visible: false
     - state: decal-clown
-      map: [ "decal1" ]
+      map: ["decal1"]
   - type: Item
     inhandVisuals:
       left:
@@ -955,19 +955,19 @@
       map: ["insideLayer"]
       visible: false
     - state: fill-util4-1
-      map: [ "pouchFill4" ]
+      map: ["pouchFill4"]
       visible: false
     - state: fill-util3-1
-      map: [ "pouchFill3" ]
+      map: ["pouchFill3"]
       visible: false
     - state: fill-util2-1
-      map: [ "pouchFill2" ]
+      map: ["pouchFill2"]
       visible: false
     - state: fill-util1-1
-      map: [ "pouchFill1" ]
+      map: ["pouchFill1"]
       visible: false
     - state: decal-line-01
-      map: [ "decal1" ]
+      map: ["decal1"]
       color: "#b33831"
   - type: Item
     inhandVisuals:
@@ -1008,16 +1008,16 @@
       map: ["insideLayer"]
       visible: false
     - state: fill-util4-1
-      map: [ "pouchFill4" ]
+      map: ["pouchFill4"]
       visible: false
     - state: fill-util3-1
-      map: [ "pouchFill3" ]
+      map: ["pouchFill3"]
       visible: false
     - state: fill-util2-1
-      map: [ "pouchFill2" ]
+      map: ["pouchFill2"]
       visible: false
     - state: fill-util1-1
-      map: [ "pouchFill1" ]
+      map: ["pouchFill1"]
       visible: false
   - type: Item
     inhandVisuals:
@@ -1049,116 +1049,116 @@
     - 0,0,5,3
     whitelist:
       tags: # `cat */tags.yml | grep "id: .*Magazine" | sed 's/.*id:/-/'` my beloved
-        - Magazine9x19mmSpecial
-        - Magazine762x39mmSubsonic
-        - Magazine127x99mm
-        - HLMagazineCaselessRifle
-        - HLMagazineCaselessRifleShort
-        - HLMagazinePistolCaselessRifle
-        - NFMagazineRifle20
-        - MagazinePistolSubMachineGun
-        - NFMagazinePistol45
-        - NFMagazineSubMachineGunTopMountedPistol35
-        - NFMagazineSubMachineGunPistol45
-        - NFMagazinePistol35
-        - NFMagazineHighCapacityPistol35
-        - NFMagazineSubMachineGunPistol35
-        - NFMagazineClipRifle20
-        - NFMagazineRifle30
-        - NFMagazineLowCapacityRifle30
-        - NFMagazineDrumRifle20
-        - NFMagazineSubMachineGunnTopMountedPistol35
-        - MagazineShotgun
-        - NFMagazineBoxRifle30
-        - MagazineMagnum
-        - MagazineMagnumSubMachineGun
-        - MagazineGrenade
-        - MagazinePistolSubMachineGunTopMounted
-        - MagazinePistol
-        - MagazinePistolHighCapacity
-        - MagazinePistolSubMachineGunn
-        - MagazineLightRifleBox
-        - MagazineLightRifle
-        - MagazineLightRiflePan
-        - MagazineCaselessRifle
-        - MagazinePistolCaselessRifle
-        - MagazineRifle
-        - MagazineNovaliteC1
-        - NFMagazineRi20
-        - NFMagazineBoRifle30
-        - NFMagazineCrifle20
-        - NFMagazineDrRifle20
-        - NFMagazinePi35
-        - NFMagazineHiCaPistol35
-        - NFMagazineSuMaGunPistol35
-        - MagazineAMR
-        - MagazineRailgunTag
-        - Magazine75Bolt
-        - MagazineRiotGun
-        - MagazineEsar550Tag
-        - ForgedRifleMagazine
-        - Magazine762x51mmFMJ
-        - Magazine762x51mmLowCapacityFMJ
-        - Magazine762x51mmBox
-        - Magazine762x54mmRFMJ
-        - Magazine762x54mmRBox
-        - Magazine556x45mmFMJ
-        - Magazine556x45mmBox
-        - Magazine762x39mmFMJ
-        - Magazine762x39mmLowCapacityFMJ
-        - Magazine762x39mmBox
-        - Magazine46x30mmPistolFMJ
-        - Magazine46x30mmPistolHighCapacityFMJ
-        - Magazine46x30mmSubMachineGunFMJ
-        - Magazine46x30mmSubMachineGunTopMountedFMJ
-        - Magazine46x30mmFMJBox
-        - Magazine45_ACPPistolFMJ
-        - Magazine45_ACPPistolHighCapacityFMJ
-        - Magazine45_ACPSubMachineGunFMJ
-        - Magazine45_ACPSubMachineGunTopMountedFMJ
-        - Magazine45_ACPFMJBox
-        - Magazine45_magnumPistolFMJ
-        - Magazine9x19mm
-        - Magazine9x19mmImprovised
-        - Magazine9x19mmSMGImprovised
-        - Magazine9x19mmPistolFMJ
-        - Magazine9x19mmPistolHighCapacityFMJ
-        - Magazine9x19mmSubMachineGunFMJ
-        - Magazine9x19mmSubMachineGunTopMountedFMJ
-        - Magazine9x19mmFMJBox
-        - Magazine57x28mmPistolFMJ
-        - Magazine57x28mmPistolHighCapacityFMJ
-        - Magazine57x28mmSubMachineGunFMJ
-        - Magazine57x28mmSubMachineGunTopMountedFMJ
-        - Magazine57x28mmFMJBox
-        - MagazineDP29
-        - Magazine8x65mmSKR
-        - MagazineBox8x65mmSKR
-        - Magazine12_gaugeBuckshot
-        - MagazineDMR
-        - MagazineAsmgt
-        - MagazineBattery
-        - MagazinePistolDP
-        - MagazineRifleM52
-        - MagazineSMGPPSH
-        - MagazineSMGUzi
-        - MagazineCalico
-        - Magazine635x40mmCaseless
-        - Magazine762x39mmPan
-        - Magazine635x40mmCaselessPistol
-        - Magazine12_gaugeBuckshot
-        - Magazine45_magnumSubMachineGunFMJ
-        - Magazine8x65mmSKR # mono
-        - Magazine40mm
-        # RMC14
-        - CMMagazinePistol
-        - CMMagazineRifle
-        - CMMagazineSmg
-        - CMMagazineSniper
-        - RMCMagazineLMG
-        - RMCMagazineSmartGun
-        - RMCMagazineRevolver
-        - RMCShellShotgun
+      - Magazine9x19mmSpecial
+      - Magazine762x39mmSubsonic
+      - Magazine127x99mm
+      - HLMagazineCaselessRifle
+      - HLMagazineCaselessRifleShort
+      - HLMagazinePistolCaselessRifle
+      - NFMagazineRifle20
+      - MagazinePistolSubMachineGun
+      - NFMagazinePistol45
+      - NFMagazineSubMachineGunTopMountedPistol35
+      - NFMagazineSubMachineGunPistol45
+      - NFMagazinePistol35
+      - NFMagazineHighCapacityPistol35
+      - NFMagazineSubMachineGunPistol35
+      - NFMagazineClipRifle20
+      - NFMagazineRifle30
+      - NFMagazineLowCapacityRifle30
+      - NFMagazineDrumRifle20
+      - NFMagazineSubMachineGunnTopMountedPistol35
+      - MagazineShotgun
+      - NFMagazineBoxRifle30
+      - MagazineMagnum
+      - MagazineMagnumSubMachineGun
+      - MagazineGrenade
+      - MagazinePistolSubMachineGunTopMounted
+      - MagazinePistol
+      - MagazinePistolHighCapacity
+      - MagazinePistolSubMachineGunn
+      - MagazineLightRifleBox
+      - MagazineLightRifle
+      - MagazineLightRiflePan
+      - MagazineCaselessRifle
+      - MagazinePistolCaselessRifle
+      - MagazineRifle
+      - MagazineNovaliteC1
+      - NFMagazineRi20
+      - NFMagazineBoRifle30
+      - NFMagazineCrifle20
+      - NFMagazineDrRifle20
+      - NFMagazinePi35
+      - NFMagazineHiCaPistol35
+      - NFMagazineSuMaGunPistol35
+      - MagazineAMR
+      - MagazineRailgunTag
+      - Magazine75Bolt
+      - MagazineRiotGun
+      - MagazineEsar550Tag
+      - ForgedRifleMagazine
+      - Magazine762x51mmFMJ
+      - Magazine762x51mmLowCapacityFMJ
+      - Magazine762x51mmBox
+      - Magazine762x54mmRFMJ
+      - Magazine762x54mmRBox
+      - Magazine556x45mmFMJ
+      - Magazine556x45mmBox
+      - Magazine762x39mmFMJ
+      - Magazine762x39mmLowCapacityFMJ
+      - Magazine762x39mmBox
+      - Magazine46x30mmPistolFMJ
+      - Magazine46x30mmPistolHighCapacityFMJ
+      - Magazine46x30mmSubMachineGunFMJ
+      - Magazine46x30mmSubMachineGunTopMountedFMJ
+      - Magazine46x30mmFMJBox
+      - Magazine45_ACPPistolFMJ
+      - Magazine45_ACPPistolHighCapacityFMJ
+      - Magazine45_ACPSubMachineGunFMJ
+      - Magazine45_ACPSubMachineGunTopMountedFMJ
+      - Magazine45_ACPFMJBox
+      - Magazine45_magnumPistolFMJ
+      - Magazine9x19mm
+      - Magazine9x19mmImprovised
+      - Magazine9x19mmSMGImprovised
+      - Magazine9x19mmPistolFMJ
+      - Magazine9x19mmPistolHighCapacityFMJ
+      - Magazine9x19mmSubMachineGunFMJ
+      - Magazine9x19mmSubMachineGunTopMountedFMJ
+      - Magazine9x19mmFMJBox
+      - Magazine57x28mmPistolFMJ
+      - Magazine57x28mmPistolHighCapacityFMJ
+      - Magazine57x28mmSubMachineGunFMJ
+      - Magazine57x28mmSubMachineGunTopMountedFMJ
+      - Magazine57x28mmFMJBox
+      - MagazineDP29
+      - Magazine8x65mmSKR
+      - MagazineBox8x65mmSKR
+      - Magazine12_gaugeBuckshot
+      - MagazineDMR
+      - MagazineAsmgt
+      - MagazineBattery
+      - MagazinePistolDP
+      - MagazineRifleM52
+      - MagazineSMGPPSH
+      - MagazineSMGUzi
+      - MagazineCalico
+      - Magazine635x40mmCaseless
+      - Magazine762x39mmPan
+      - Magazine635x40mmCaselessPistol
+      - Magazine12_gaugeBuckshot
+      - Magazine45_magnumSubMachineGunFMJ
+      - Magazine8x65mmSKR # mono
+      - Magazine40mm
+      # RMC14
+      - CMMagazinePistol
+      - CMMagazineRifle
+      - CMMagazineSmg
+      - CMMagazineSniper
+      - RMCMagazineLMG
+      - RMCMagazineSmartGun
+      - RMCMagazineRevolver
+      - RMCShellShotgun
   - type: Sprite
     layers:
     - state: base
@@ -1174,19 +1174,19 @@
       map: ["insideLayer"]
       visible: false
     - state: fill-util4-1
-      map: [ "pouchFill4" ]
+      map: ["pouchFill4"]
       visible: false
     - state: fill-util3-1
-      map: [ "pouchFill3" ]
+      map: ["pouchFill3"]
       visible: false
     - state: fill-util2-1
-      map: [ "pouchFill2" ]
+      map: ["pouchFill2"]
       visible: false
     - state: fill-util1-1
-      map: [ "pouchFill1" ]
+      map: ["pouchFill1"]
       visible: false
     - state: decal-line-01
-      map: [ "decal1" ]
+      map: ["decal1"]
       color: "#9d1c1c"
   - type: Item
     inhandVisuals:
@@ -1227,19 +1227,19 @@
       map: ["insideLayer"]
       visible: false
     - state: fill-util4-1
-      map: [ "pouchFill4" ]
+      map: ["pouchFill4"]
       visible: false
     - state: fill-util3-1
-      map: [ "pouchFill3" ]
+      map: ["pouchFill3"]
       visible: false
     - state: fill-util2-1
-      map: [ "pouchFill2" ]
+      map: ["pouchFill2"]
       visible: false
     - state: fill-util1-1
-      map: [ "pouchFill1" ]
+      map: ["pouchFill1"]
       visible: false
     - state: decal-shield
-      map: [ "decal1" ]
+      map: ["decal1"]
       color: "#f2b833"
   - type: Item
     inhandVisuals:
@@ -1280,19 +1280,19 @@
       map: ["insideLayer"]
       visible: false
     - state: fill-util4-1
-      map: [ "pouchFill4" ]
+      map: ["pouchFill4"]
       visible: false
     - state: fill-util3-1
-      map: [ "pouchFill3" ]
+      map: ["pouchFill3"]
       visible: false
     - state: fill-util2-1
-      map: [ "pouchFill2" ]
+      map: ["pouchFill2"]
       visible: false
     - state: fill-util1-1
-      map: [ "pouchFill1" ]
+      map: ["pouchFill1"]
       visible: false
     - state: decal-skull
-      map: [ "decal1" ]
+      map: ["decal1"]
       color: "#bfd5eb"
   - type: Item
     inhandVisuals:
@@ -1332,22 +1332,22 @@
       map: ["insideLayer"]
       visible: false
     - state: fill-util4-1
-      map: [ "pouchFill4" ]
+      map: ["pouchFill4"]
       visible: false
     - state: fill-util3-1
-      map: [ "pouchFill3" ]
+      map: ["pouchFill3"]
       visible: false
     - state: fill-util2-1
-      map: [ "pouchFill2" ]
+      map: ["pouchFill2"]
       visible: false
     - state: fill-util1-1
-      map: [ "pouchFill1" ]
+      map: ["pouchFill1"]
       visible: false
     - state: decal-skull
-      map: [ "decal1" ]
+      map: ["decal1"]
       color: "#f2b833"
     - state: decal-line-03
-      map: [ "decal2" ]
+      map: ["decal2"]
       color: "#990000"
   - type: Item
     inhandVisuals:
@@ -1379,7 +1379,7 @@
     grid:
     - 0,0,1,1
     blacklist:
-      components: [ Storage ]
+      components: [Storage]
   - type: SpaceGarbage
   - type: Sprite
     sprite: _NF/Objects/Storage/Pouches/tobacco_pouch.rsi
@@ -1392,19 +1392,19 @@
       color: "#8a4f23"
       visible: false
     - state: fill-tobacco-1
-      map: [ "pouchFill1" ]
+      map: ["pouchFill1"]
       color: "#b07265"
       visible: false
     - state: fill-tobacco-2
-      map: [ "pouchFill2" ]
+      map: ["pouchFill2"]
       color: "#b07265"
       visible: false
     - state: fill-tobacco-3
-      map: [ "pouchFill3" ]
+      map: ["pouchFill3"]
       color: "#b07265"
       visible: false
     - state: fill-tobacco-4
-      map: [ "pouchFill4" ]
+      map: ["pouchFill4"]
       color: "#b07265"
       visible: false
     - state: label
@@ -1450,54 +1450,54 @@
       map: ["insideLayer"]
       visible: false
     - state: fill-util4-1
-      map: [ "pouchFill4" ]
+      map: ["pouchFill4"]
       visible: false
     - state: fill-util3-1
-      map: [ "pouchFill3" ]
+      map: ["pouchFill3"]
       visible: false
     - state: fill-util2-1
-      map: [ "pouchFill2" ]
+      map: ["pouchFill2"]
       visible: false
     - state: fill-util1-1
-      map: [ "pouchFill1" ]
+      map: ["pouchFill1"]
       visible: false
     - state: decal-line-01
-      map: [ "decal1" ]
+      map: ["decal1"]
   - type: RandomSprite
     available:
-      - pouchFill1:
-          fill-util1-1: ""
-          fill-util1-2: ""
-          fill-util1-3: ""
-          fill-util1-4: ""
-        pouchFill2:
-          fill-util2-1: ""
-          fill-util2-2: ""
-          fill-util2-3: ""
-          fill-util2-4: ""
-        pouchFill3:
-          fill-util3-1: ""
-          fill-util3-2: ""
-          fill-util3-3: ""
-          fill-util3-4: ""
-        pouchFill4:
-          fill-util4-1: ""
-          fill-util4-2: ""
-          fill-util4-3: ""
-          fill-util4-4: ""
-        baseLayer:
-          base: Cyberpunk
-        closeLayer:
-          closed: Cyberpunk
-        openLayer:
-          open: Cyberpunk
-        insideLayer:
-          inside: CyberpunkNeon
-        decal1:
-          decal-line-01: Cyberpunk
-          decal-line-02: Cyberpunk
-          decal-line-03: Cyberpunk
-          decal-line-04: CyberpunkNeon
+    - pouchFill1:
+        fill-util1-1: ""
+        fill-util1-2: ""
+        fill-util1-3: ""
+        fill-util1-4: ""
+      pouchFill2:
+        fill-util2-1: ""
+        fill-util2-2: ""
+        fill-util2-3: ""
+        fill-util2-4: ""
+      pouchFill3:
+        fill-util3-1: ""
+        fill-util3-2: ""
+        fill-util3-3: ""
+        fill-util3-4: ""
+      pouchFill4:
+        fill-util4-1: ""
+        fill-util4-2: ""
+        fill-util4-3: ""
+        fill-util4-4: ""
+      baseLayer:
+        base: Cyberpunk
+      closeLayer:
+        closed: Cyberpunk
+      openLayer:
+        open: Cyberpunk
+      insideLayer:
+        inside: CyberpunkNeon
+      decal1:
+        decal-line-01: Cyberpunk
+        decal-line-02: Cyberpunk
+        decal-line-03: Cyberpunk
+        decal-line-04: CyberpunkNeon
   - type: Item
     inhandVisuals:
       left:
@@ -1518,7 +1518,7 @@
 #region trash
 - type: entity
   id: NFGoblinMadeTrashPouch
-  parent: [ RecyclableItemPlasticSmall, NFPouchBase ]
+  parent: [RecyclableItemPlasticSmall, NFPouchBase]
   name: trashuch
   components:
   - type: Sprite
@@ -1530,16 +1530,16 @@
       map: ["openLayer"]
       visible: false
     - state: fill-trash-1
-      map: [ "pouchFill1" ]
+      map: ["pouchFill1"]
       visible: false
     - state: fill-trash-2
-      map: [ "pouchFill2" ]
+      map: ["pouchFill2"]
       visible: false
     - state: fill-trash-3
-      map: [ "pouchFill3" ]
+      map: ["pouchFill3"]
       visible: false
     - state: fill-trash-4
-      map: [ "pouchFill4" ]
+      map: ["pouchFill4"]
       visible: false
   - type: Item
     sprite: _NF/Objects/Storage/Pouches/trash_pouch.rsi
@@ -1556,10 +1556,10 @@
       collection: trashBagRustle
     whitelist:
       tags:
-        - Cartridge
-        - Trash
+      - Cartridge
+      - Trash
       components:
-        - GoblinMade
+      - GoblinMade
     blacklist:
       components: []
   - type: Construction

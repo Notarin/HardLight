@@ -54,11 +54,11 @@
     Tail:
       points: 1
       required: true
-      defaultMarkings: [ KitsuneTailDefault ]
+      defaultMarkings: [KitsuneTailDefault]
     HeadTop:
       points: 1
       required: true
-      defaultMarkings: [ KitsuneEarsDefault ]
+      defaultMarkings: [KitsuneEarsDefault]
     UndergarmentTop:
       points: 3
       required: false

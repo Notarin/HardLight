@@ -2,21 +2,21 @@
   id: ImprovisedShotgunShellGraph
   start: start
   graph:
-    - node: start
-      edges:
-        - to: shell
-          steps:
-            - material: Steel
-              amount: 1
-              doAfter: 0.5
-            - material: Plastic
-              amount: 1
-              doAfter: 0.5
-            - material: Glass
-              amount: 3
-              doAfter: 1.5
-            - material: CrushedPhosphorus
-              amount: 4
-              doAfter: 0.5
-    - node: shell
-      entity: ShellShotgun12_gaugeImprovised
+  - node: start
+    edges:
+    - to: shell
+      steps:
+      - material: Steel
+        amount: 1
+        doAfter: 0.5
+      - material: Plastic
+        amount: 1
+        doAfter: 0.5
+      - material: Glass
+        amount: 3
+        doAfter: 1.5
+      - material: CrushedPhosphorus
+        amount: 4
+        doAfter: 0.5
+  - node: shell
+    entity: ShellShotgun12_gaugeImprovised

@@ -23,7 +23,7 @@
       name: Bowl
       whitelist:
         tags:
-          - Smokable
+        - Smokable
       insertSound:
         path: /Audio/Weapons/Guns/Empty/empty.ogg
       ejectSound:
@@ -37,7 +37,7 @@
     state: unlit-icon
   - type: Clothing
     sprite: Objects/Consumable/Smokeables/Pipes/pipe.rsi
-    slots: [ belt ]
+    slots: [belt]
     equippedPrefix: unlit
   - type: Item
     size: Small

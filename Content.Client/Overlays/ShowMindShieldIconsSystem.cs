@@ -8,7 +8,8 @@ namespace Content.Client.Overlays;
 
 public sealed class ShowMindShieldIconsSystem : EquipmentHudSystem<ShowMindShieldIconsComponent>
 {
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototype = default!;
 
     public override void Initialize()
     {
@@ -17,11 +18,12 @@ public sealed class ShowMindShieldIconsSystem : EquipmentHudSystem<ShowMindShiel
         SubscribeLocalEvent<MindShieldComponent, GetStatusIconsEvent>(OnGetStatusIconsEvent);
         SubscribeLocalEvent<FakeMindShieldComponent, GetStatusIconsEvent>(OnGetStatusIconsEventFake);
     }
+
     // TODO: Probably need to get this OFF of client since this can be read by bad actors rather easily
     //  ...imagine cheating in a game about silly paper dolls
     private void OnGetStatusIconsEventFake(EntityUid uid, FakeMindShieldComponent component, ref GetStatusIconsEvent ev)
     {
-        if(!IsActive)
+        if (!IsActive)
             return;
         if (component.IsEnabled && _prototype.TryIndex(component.MindShieldStatusIcon, out var fakeStatusIconPrototype))
             ev.StatusIcons.Add(fakeStatusIconPrototype);

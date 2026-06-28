@@ -73,11 +73,12 @@ public sealed partial class VehicleComponent : Component
     public string KeySlotId = "key_slot";
     // End Frontier: old buckle offset logic
 }
+
 [Serializable, NetSerializable]
 public enum VehicleState : byte
 {
     Animated,
-    DrawOver
+    DrawOver,
 }
 
 // Frontier: use RsiDirection-compatible flags

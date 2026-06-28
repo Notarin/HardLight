@@ -30,8 +30,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.35,-0.45,0.35,0.45" # Thruster is slightly narrower than the big one but still long
         density: 60 # Same density as big thruster, will be slightly lighter
         mask:
@@ -66,7 +65,7 @@
       shader: unshaded
       visible: false
     - state: thrust_burn_small
-      map: [ "enum.ThrusterVisualLayers.Thrusting" ]
+      map: ["enum.ThrusterVisualLayers.Thrusting"]
       visible: false
     - state: thrust_burn_unshaded
       map: ["enum.ThrusterVisualLayers.ThrustingUnshaded"]
@@ -75,8 +74,7 @@
   - type: Fixtures # Small gyro, small fixture
     fixtures: &smallGyroFixtures
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.25,-0.25,0.25,0.25"
         density: 190
         mask:
@@ -111,12 +109,11 @@
       offset: 0, 1
   - type: Destructible
     thresholds: &secDestructibleThresholds
-    - trigger:
-        !type:DamageTrigger
-        damage: 600  # Considering we need a lot of thrusters didn't want to make an individual one too tanky
+    - trigger: !type:DamageTrigger
+        damage: 600 # Considering we need a lot of thrusters didn't want to make an individual one too tanky
       behaviors:
-        - !type:DoActsBehavior
-          acts: ["Destruction"]
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
   - type: Machine
     board: ThrusterSecurityMachineCircuitboard
 
@@ -135,10 +132,11 @@
     board: ThrusterSecurityMachineCircuitboard
   - type: ContainerContainer
     containers:
-      machine_board: !type:Container # FIXME: Why do these need to be defined here?  What's missing?
+      machine_board: !type:Container
       machine_parts: !type:Container
 
-- type: entity
+- # FIXME: Why do these need to be defined here?  What's missing?
+  type: entity
   id: GyroscopeSecurity
   parent: Gyroscope
   suffix: Security
@@ -153,7 +151,7 @@
       shader: unshaded
       visible: false
     - state: thrust_burn_sec
-      map: [ "enum.ThrusterVisualLayers.Thrusting" ]
+      map: ["enum.ThrusterVisualLayers.Thrusting"]
       visible: false
     - state: thrust_burn_unshaded
       map: ["enum.ThrusterVisualLayers.ThrustingUnshaded"]
@@ -175,10 +173,11 @@
     board: GyroscopeSecurityMachineCircuitboard
   - type: ContainerContainer
     containers:
-      machine_board: !type:Container # FIXME: Why do these need to be defined here?  What's missing?
+      machine_board: !type:Container
       machine_parts: !type:Container
 
-- type: entity
+- # FIXME: Why do these need to be defined here?  What's missing?
+  type: entity
   id: SmallGyroscopeSecurity
   parent: GyroscopeSecurity
   name: small gyroscope
@@ -200,7 +199,7 @@
       shader: unshaded
       visible: false
     - state: thrust_burn_small_sec
-      map: [ "enum.ThrusterVisualLayers.Thrusting" ]
+      map: ["enum.ThrusterVisualLayers.Thrusting"]
       visible: false
     - state: thrust_burn_unshaded
       map: ["enum.ThrusterVisualLayers.ThrustingUnshaded"]

@@ -16,10 +16,9 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
+        shape: !type:PhysShapeCircle
           # Using a circle here makes it a lot easier to pull it all the way from Cargo
-          !type:PhysShapeCircle
-            radius: 0.45
+          radius: 0.45
         density: 190
         # Keep an eye on ParticlesProjectile when adjusting these
         mask:

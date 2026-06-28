@@ -2,7 +2,6 @@ using Content.Shared.Chemistry.Reagent;
 using Robust.Shared.Audio;
 using Robust.Shared.Prototypes;
 
-
 namespace Content.Server.Vampiric
 {
     [RegisterComponent]
@@ -19,7 +18,8 @@ namespace Content.Server.Vampiric
         /// </summary>
         [DataField, ViewVariables(VVAccess.ReadWrite)]
         public TimeSpan Delay = TimeSpan.FromSeconds(4);
-// Hardlight unused - start
+
+        // Hardlight unused - start
         // ***INJECT WHEN SUCC***
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace Content.Server.Vampiric
         ///     DEN: Used to track BloodExaminer, but only if it is added by this component.
         /// </summary>
         // public BloodExaminerComponent? AddedBloodExaminer;
-// Hardlight unused - end
+        // Hardlight unused - end
         /// <summary>
         /// The sound made when drinking blood.
         /// </summary>

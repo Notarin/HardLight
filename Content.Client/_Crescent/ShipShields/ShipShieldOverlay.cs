@@ -1,15 +1,15 @@
+using System.Numerics;
+using System.Runtime.InteropServices;
+using Content.Client.Resources;
 using Content.Shared._Crescent.ShipShields;
-using Robust.Client.ResourceManagement;
 using Robust.Client.Graphics;
+using Robust.Client.Physics;
+using Robust.Client.ResourceManagement;
 using Robust.Shared.Enums;
-using Robust.Shared.Physics.Systems;
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Collision.Shapes;
-using System.Numerics;
-using Content.Client.Resources;
-using Robust.Client.Physics;
+using Robust.Shared.Physics.Systems;
 using Robust.Shared.Prototypes;
-using System.Runtime.InteropServices;
 
 namespace Content.Client._Crescent.ShipShields;
 
@@ -25,12 +25,16 @@ public sealed class ShipShieldOverlay : Overlay
 
     public override OverlaySpace Space => OverlaySpace.WorldSpaceBelowEntities;
 
-    public ShipShieldOverlay(IEntityManager entityManager, IPrototypeManager prototypeManager, IResourceCache resourceCache)
+    public ShipShieldOverlay(
+        IEntityManager entityManager,
+        IPrototypeManager prototypeManager,
+        IResourceCache resourceCache
+    )
     {
         _resourceCache = resourceCache;
         _entManager = entityManager;
         _fixture = _entManager.EntitySysManager.GetEntitySystem<FixtureSystem>();
-    _physics = _entManager.EntitySysManager.GetEntitySystem<SharedPhysicsSystem>();
+        _physics = _entManager.EntitySysManager.GetEntitySystem<SharedPhysicsSystem>();
 
         _unshadedShader = prototypeManager.Index(UnshadedShaderId).Instance();
 
@@ -43,16 +47,20 @@ public sealed class ShipShieldOverlay : Overlay
 
         handle.UseShader(_unshadedShader);
 
-        var enumerator = _entManager.AllEntityQueryEnumerator<ShipShieldVisualsComponent, FixturesComponent, TransformComponent>();
+        var enumerator = _entManager.AllEntityQueryEnumerator<
+            ShipShieldVisualsComponent,
+            FixturesComponent,
+            TransformComponent
+        >();
         while (enumerator.MoveNext(out var uid, out var visuals, out var fixtures, out var xform))
         {
-
             if (xform.MapID != args.MapId)
                 continue;
 
             // TODO: We can probably at least test its parent grid is in PVS range...?
 
-            var fixture = _fixture.GetFixtureOrNull(uid, "shield", fixtures)
+            var fixture =
+                _fixture.GetFixtureOrNull(uid, "shield", fixtures)
                 ?? _fixture.GetFixtureOrNull(uid, "internalShield", fixtures);
 
             if (fixture == null)
@@ -74,11 +82,7 @@ public sealed class ShipShieldOverlay : Overlay
         }
     }
 
-    private void DrawShieldFallback(
-        DrawingHandleWorld handle,
-        EntityUid uid,
-        PolygonShape polygon,
-        Color color)
+    private void DrawShieldFallback(DrawingHandleWorld handle, EntityUid uid, PolygonShape polygon, Color color)
     {
         if (polygon.VertexCount < 2)
             return;
@@ -101,7 +105,8 @@ public sealed class ShipShieldOverlay : Overlay
         TransformComponent xform,
         Texture tex,
         Color color,
-        List<DrawVertexUV2D> verts)
+        List<DrawVertexUV2D> verts
+    )
     {
         // The vertices of this fixture are defined relative to local position,
         // so we'll have to add them to this and then use the matrix to put them back in world position.
@@ -137,7 +142,12 @@ public sealed class ShipShieldOverlay : Overlay
             verts.Add(new DrawVertexUV2D(rightCorner, new Vector2(1, 0)));
         }
 
-        handle.DrawPrimitives(DrawPrimitiveTopology.TriangleList, texture: tex, CollectionsMarshal.AsSpan(verts), color);
+        handle.DrawPrimitives(
+            DrawPrimitiveTopology.TriangleList,
+            texture: tex,
+            CollectionsMarshal.AsSpan(verts),
+            color
+        );
     }
 
     private static Vector2 VertexToWorldPos(Vector2 vertexPos, Transform transform)

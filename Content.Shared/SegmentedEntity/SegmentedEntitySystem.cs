@@ -1,31 +1,42 @@
-using Robust.Shared.Physics;
+using System.Numerics;
+using Content.Shared.Clothing.Components;
 using Content.Shared.Damage;
 using Content.Shared.Explosion;
 using Content.Shared.Humanoid;
-using Content.Shared.Clothing.Components;
 using Content.Shared.Inventory.Events;
-using Content.Shared.Tag;
 using Content.Shared.Storage.Components;
-using Content.Shared.Weapons.Ranged.Events;
+using Content.Shared.Tag;
 using Content.Shared.Teleportation.Components;
-using Robust.Shared.Map;
-using Robust.Shared.Physics.Systems;
-using Robust.Shared.Physics.Components;
-using Robust.Shared.Prototypes;
-using System.Numerics;
-using Robust.Shared.Network;
+using Content.Shared.Weapons.Ranged.Events;
 using Robust.Shared.Containers;
+using Robust.Shared.Map;
+using Robust.Shared.Network;
+using Robust.Shared.Physics;
+using Robust.Shared.Physics.Components;
+using Robust.Shared.Physics.Systems;
+using Robust.Shared.Prototypes;
 
 namespace Content.Shared.SegmentedEntity;
 
 public sealed partial class LamiaSystem : EntitySystem
 {
-    [Dependency] private readonly TagSystem _tagSystem = default!;
-    [Dependency] private readonly DamageableSystem _damageableSystem = default!;
-    [Dependency] private readonly SharedJointSystem _jointSystem = default!;
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedContainerSystem _containerSystem = default!;
+    [Dependency]
+    private readonly TagSystem _tagSystem = default!;
+
+    [Dependency]
+    private readonly DamageableSystem _damageableSystem = default!;
+
+    [Dependency]
+    private readonly SharedJointSystem _jointSystem = default!;
+
+    [Dependency]
+    private readonly INetManager _net = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _containerSystem = default!;
 
     private Queue<(SegmentedEntitySegmentComponent segment, EntityUid lamia)> _segments = new();
 
@@ -49,11 +60,14 @@ public sealed partial class LamiaSystem : EntitySystem
         // Storage passover is disabled in this codebase.
 
         //Child subscriptions
-        SubscribeLocalEvent<SegmentedEntitySegmentComponent, InsertIntoEntityStorageAttemptEvent>(OnSegmentStorageInsertAttempt);
+        SubscribeLocalEvent<SegmentedEntitySegmentComponent, InsertIntoEntityStorageAttemptEvent>(
+            OnSegmentStorageInsertAttempt
+        );
         SubscribeLocalEvent<SegmentedEntitySegmentComponent, GetExplosionResistanceEvent>(OnSnekBoom);
         SubscribeLocalEvent<SegmentedEntitySegmentComponent, DamageChangedEvent>(HandleDamageTransfer);
         SubscribeLocalEvent<SegmentedEntitySegmentComponent, DamageModifyEvent>(HandleSegmentDamage);
     }
+
     public override void Update(float frameTime)
     {
         //I HATE THIS, SO MUCH. I AM FORCED TO DEAL WITH THIS MONSTROSITY. PLEASE. SEND HELP.
@@ -62,11 +76,14 @@ public sealed partial class LamiaSystem : EntitySystem
         {
             var segmentUid = segment.segment.Owner;
             var attachedUid = segment.segment.AttachedToUid;
-            if (!Exists(segmentUid) || !Exists(attachedUid)
-            || MetaData(segmentUid).EntityLifeStage > EntityLifeStage.MapInitialized
-            || MetaData(attachedUid).EntityLifeStage > EntityLifeStage.MapInitialized
-            || Transform(segmentUid).MapID == MapId.Nullspace
-            || Transform(attachedUid).MapID == MapId.Nullspace)
+            if (
+                !Exists(segmentUid)
+                || !Exists(attachedUid)
+                || MetaData(segmentUid).EntityLifeStage > EntityLifeStage.MapInitialized
+                || MetaData(attachedUid).EntityLifeStage > EntityLifeStage.MapInitialized
+                || Transform(segmentUid).MapID == MapId.Nullspace
+                || Transform(attachedUid).MapID == MapId.Nullspace
+            )
                 continue;
 
             EnsureComp<PhysicsComponent>(segmentUid);
@@ -74,7 +91,9 @@ public sealed partial class LamiaSystem : EntitySystem
 
             // This is currently HERE and not somewhere more sane like OnInit because HumanoidAppearanceComponent is for whatever
             // ungodly reason not initialized when ComponentStartup is called. Kill me.
-            var humanoidFactor = TryComp<HumanoidAppearanceComponent>(segment.segment.Lamia, out var humanoid) ? (humanoid.Height + humanoid.Width) / 2 : 1;
+            var humanoidFactor = TryComp<HumanoidAppearanceComponent>(segment.segment.Lamia, out var humanoid)
+                ? (humanoid.Height + humanoid.Width) / 2
+                : 1;
 
             var ev = new SegmentSpawnedEvent(segment.segment.Lamia);
             RaiseLocalEvent(segmentUid, ev, false);
@@ -82,20 +101,37 @@ public sealed partial class LamiaSystem : EntitySystem
             if (segment.segment.SegmentNumber == 1)
             {
                 _transform.SetCoordinates(segmentUid, Transform(attachedUid).Coordinates);
-                var revoluteJoint = _jointSystem.CreateWeldJoint(attachedUid, segmentUid, id: "Segment" + segment.segment.SegmentNumber + segment.segment.Lamia);
+                var revoluteJoint = _jointSystem.CreateWeldJoint(
+                    attachedUid,
+                    segmentUid,
+                    id: "Segment" + segment.segment.SegmentNumber + segment.segment.Lamia
+                );
                 revoluteJoint.CollideConnected = false;
             }
             if (segment.segment.SegmentNumber <= segment.segment.MaxSegments)
-                _transform.SetCoordinates(segmentUid, Transform(attachedUid).Coordinates.Offset(new Vector2(0, segment.segment.OffsetSwitching * humanoidFactor)));
+                _transform.SetCoordinates(
+                    segmentUid,
+                    Transform(attachedUid)
+                        .Coordinates.Offset(new Vector2(0, segment.segment.OffsetSwitching * humanoidFactor))
+                );
             else
-                _transform.SetCoordinates(segmentUid, Transform(attachedUid).Coordinates.Offset(new Vector2(0, segment.segment.OffsetSwitching * humanoidFactor)));
+                _transform.SetCoordinates(
+                    segmentUid,
+                    Transform(attachedUid)
+                        .Coordinates.Offset(new Vector2(0, segment.segment.OffsetSwitching * humanoidFactor))
+                );
 
-            var joint = _jointSystem.CreateDistanceJoint(attachedUid, segmentUid, id: ("Segment" + segment.segment.SegmentNumber + segment.segment.Lamia));
+            var joint = _jointSystem.CreateDistanceJoint(
+                attachedUid,
+                segmentUid,
+                id: ("Segment" + segment.segment.SegmentNumber + segment.segment.Lamia)
+            );
             joint.CollideConnected = false;
             joint.Stiffness = 0.2f;
         }
         _segments.Clear();
     }
+
     private void OnInit(EntityUid uid, SegmentedEntityComponent component, ComponentInit args)
     {
         EnsureComp<PortalExemptComponent>(uid); //Temporary, remove when Portal handling is added
@@ -116,18 +152,12 @@ public sealed partial class LamiaSystem : EntitySystem
     ///     TODO: Full Self-Test function that intelligently checks the status of where everything is, and calls whatever
     ///     functions are appropriate
     /// </summary>
-    public void SegmentSelfTest(EntityUid uid, SegmentedEntityComponent component)
-    {
-
-    }
+    public void SegmentSelfTest(EntityUid uid, SegmentedEntityComponent component) { }
 
     /// <summary>
     ///     TODO: Function that ensures clothing visuals, to be called anytime the tail is reset
     /// </summary>
-    private void EnsureSnekSock(EntityUid uid, SegmentedEntityComponent segment)
-    {
-
-    }
+    private void EnsureSnekSock(EntityUid uid, SegmentedEntityComponent segment) { }
 
     // Store attempts are not handled until the event exists in this codebase.
     // public void OnStoreSnekAttempt(EntityUid uid, SegmentedEntityComponent comp, ref StoreMobInItemContainerAttemptEvent args)
@@ -180,12 +210,18 @@ public sealed partial class LamiaSystem : EntitySystem
         Dirty(uid, component);
     }
 
-    private EntityUid AddSegment(EntityUid segmentuid, EntityUid parentuid, SegmentedEntityComponent segmentedComponent, int segmentNumber)
+    private EntityUid AddSegment(
+        EntityUid segmentuid,
+        EntityUid parentuid,
+        SegmentedEntityComponent segmentedComponent,
+        int segmentNumber
+    )
     {
         float taperConstant = segmentedComponent.NumberOfSegments - segmentedComponent.TaperOffset;
-        EntityUid segment = EntityManager.SpawnEntity(segmentNumber == 1
-            ? segmentedComponent.InitialSegmentId
-            : segmentedComponent.SegmentId, Transform(segmentuid).Coordinates);
+        EntityUid segment = EntityManager.SpawnEntity(
+            segmentNumber == 1 ? segmentedComponent.InitialSegmentId : segmentedComponent.SegmentId,
+            Transform(segmentuid).Coordinates
+        );
 
         // Segments are positioned explicitly and constrained to the body by joints, so
         // grid traversal only adds recursive reparent work when the head crosses grids.
@@ -196,21 +232,27 @@ public sealed partial class LamiaSystem : EntitySystem
         segmentComponent.Lamia = parentuid;
         segmentComponent.AttachedToUid = segmentuid;
         segmentComponent.MaxSegments = segmentedComponent.NumberOfSegments;
-        segmentComponent.DamageModifierConstant = segmentedComponent.NumberOfSegments * segmentedComponent.DamageModifierOffset;
+        segmentComponent.DamageModifierConstant =
+            segmentedComponent.NumberOfSegments * segmentedComponent.DamageModifierOffset;
         float damageModifyCoefficient = segmentComponent.DamageModifierConstant / segmentedComponent.NumberOfSegments;
         segmentComponent.DamageModifyFactor = segmentComponent.DamageModifierConstant * damageModifyCoefficient;
-        segmentComponent.ExplosiveModifyFactor = 1 / segmentComponent.DamageModifyFactor / (segmentedComponent.NumberOfSegments * segmentedComponent.ExplosiveModifierOffset);
+        segmentComponent.ExplosiveModifyFactor =
+            1
+            / segmentComponent.DamageModifyFactor
+            / (segmentedComponent.NumberOfSegments * segmentedComponent.ExplosiveModifierOffset);
         segmentComponent.SegmentNumber = segmentNumber;
 
         if (segmentedComponent.UseTaperSystem)
         {
             if (segmentNumber >= taperConstant)
             {
-                segmentComponent.OffsetSwitching = segmentedComponent.StaticOffset
-                * MathF.Pow(segmentedComponent.OffsetConstant, segmentNumber - taperConstant);
+                segmentComponent.OffsetSwitching =
+                    segmentedComponent.StaticOffset
+                    * MathF.Pow(segmentedComponent.OffsetConstant, segmentNumber - taperConstant);
 
-                segmentComponent.ScaleFactor = segmentedComponent.StaticScale
-                * MathF.Pow(1f / segmentedComponent.OffsetConstant, segmentNumber - taperConstant);
+                segmentComponent.ScaleFactor =
+                    segmentedComponent.StaticScale
+                    * MathF.Pow(1f / segmentedComponent.OffsetConstant, segmentNumber - taperConstant);
             }
             if (segmentNumber < taperConstant)
             {
@@ -252,16 +294,23 @@ public sealed partial class LamiaSystem : EntitySystem
         _damageableSystem.TryChangeDamage(component.Lamia, args.DamageDelta);
     }
 
-    private void OnLamiaStorageInsertAttempt(EntityUid uid, SegmentedEntityComponent comp, ref InsertIntoEntityStorageAttemptEvent args)
+    private void OnLamiaStorageInsertAttempt(
+        EntityUid uid,
+        SegmentedEntityComponent comp,
+        ref InsertIntoEntityStorageAttemptEvent args
+    )
     {
         args.Cancelled = true;
     }
 
-    private void OnSegmentStorageInsertAttempt(EntityUid uid, SegmentedEntitySegmentComponent comp, ref InsertIntoEntityStorageAttemptEvent args)
+    private void OnSegmentStorageInsertAttempt(
+        EntityUid uid,
+        SegmentedEntitySegmentComponent comp,
+        ref InsertIntoEntityStorageAttemptEvent args
+    )
     {
         args.Cancelled = true;
     }
-
 
     //Commented out all storage entry/removal events. These changes are handled in the parenting event instead.
     /// <summary>
@@ -334,15 +383,21 @@ public sealed partial class LamiaSystem : EntitySystem
 
     private void OnDidEquipEvent(EntityUid equipee, SegmentedEntityComponent component, DidEquipEvent args)
     {
-        if (!TryComp<ClothingComponent>(args.Equipment, out var clothing)
+        if (
+            !TryComp<ClothingComponent>(args.Equipment, out var clothing)
             || args.Slot != "outerClothing"
-            || !_tagSystem.HasTag(args.Equipment, _lamiaHardsuitTag))
+            || !_tagSystem.HasTag(args.Equipment, _lamiaHardsuitTag)
+        )
             return;
 
         // TODO: Switch segment sprite
     }
 
-    private void OnSnekBoom(EntityUid uid, SegmentedEntitySegmentComponent component, ref GetExplosionResistanceEvent args)
+    private void OnSnekBoom(
+        EntityUid uid,
+        SegmentedEntitySegmentComponent component,
+        ref GetExplosionResistanceEvent args
+    )
     {
         args.DamageCoefficient = component.ExplosiveModifyFactor;
     }

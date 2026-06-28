@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Content.Shared.Atmos.Components;
 using Content.Shared.Atmos.EntitySystems;
 using Robust.Client.GameObjects;
@@ -5,7 +6,6 @@ using Robust.Client.ResourceManagement;
 using Robust.Shared.Reflection;
 using Robust.Shared.Serialization.TypeSerializers.Implementations;
 using Robust.Shared.Utility;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Content.Client.Atmos.EntitySystems;
 
@@ -14,10 +14,17 @@ namespace Content.Client.Atmos.EntitySystems;
 /// </summary>
 public sealed partial class AtmosPipeLayersSystem : SharedAtmosPipeLayersSystem
 {
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly IReflectionManager _reflection = default!;
-    [Dependency] private readonly IResourceCache _resourceCache = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly IReflectionManager _reflection = default!;
+
+    [Dependency]
+    private readonly IResourceCache _resourceCache = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     public override void Initialize()
     {
@@ -31,13 +38,24 @@ public sealed partial class AtmosPipeLayersSystem : SharedAtmosPipeLayersSystem
         if (!TryComp<SpriteComponent>(ent, out var sprite))
             return;
 
-        if (_appearance.TryGetData<string>(ent, AtmosPipeLayerVisuals.Sprite, out var spriteRsi) &&
-            _resourceCache.TryGetResource(SpriteSpecifierSerializer.TextureRoot / spriteRsi, out RSIResource? resource))
+        if (
+            _appearance.TryGetData<string>(ent, AtmosPipeLayerVisuals.Sprite, out var spriteRsi)
+            && _resourceCache.TryGetResource(
+                SpriteSpecifierSerializer.TextureRoot / spriteRsi,
+                out RSIResource? resource
+            )
+        )
         {
             _sprite.SetBaseRsi((ent, sprite), resource.RSI);
         }
 
-        if (_appearance.TryGetData<AtmosPipeLayerSpriteLayerData>(ent, AtmosPipeLayerVisuals.SpriteLayers, out var pipeState))
+        if (
+            _appearance.TryGetData<AtmosPipeLayerSpriteLayerData>(
+                ent,
+                AtmosPipeLayerVisuals.SpriteLayers,
+                out var pipeState
+            )
+        )
         {
             foreach (var layer in pipeState.Layers)
             {

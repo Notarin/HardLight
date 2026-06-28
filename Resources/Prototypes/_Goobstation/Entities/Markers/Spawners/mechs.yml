@@ -5,12 +5,12 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - sprite: Objects/Specific/Mech/mecha.rsi
-        state: ripleymkii
+    - state: green
+    - sprite: Objects/Specific/Mech/mecha.rsi
+      state: ripleymkii
   - type: ConditionalSpawner
     prototypes:
-      - MechRipley2Battery
+    - MechRipley2Battery
 
 - type: entity
   name: H.O.N.K. Spawner
@@ -20,12 +20,12 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - sprite: Objects/Specific/Mech/mecha.rsi
-        state: honker
+    - state: green
+    - sprite: Objects/Specific/Mech/mecha.rsi
+      state: honker
   - type: ConditionalSpawner
     prototypes:
-      - MechHonkerFilled
+    - MechHonkerFilled
 
 - type: entity
   name: Clarke Spawner
@@ -34,12 +34,12 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - sprite: Objects/Specific/Mech/mecha.rsi
-        state: clarke
+    - state: green
+    - sprite: Objects/Specific/Mech/mecha.rsi
+      state: clarke
   - type: ConditionalSpawner
     prototypes:
-      - MechClarkeBattery
+    - MechClarkeBattery
 
 - type: entity
   name: Gygax Spawner
@@ -48,12 +48,12 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - sprite: Objects/Specific/Mech/mecha.rsi
-        state: gygax
+    - state: green
+    - sprite: Objects/Specific/Mech/mecha.rsi
+      state: gygax
   - type: ConditionalSpawner
     prototypes:
-      - MechGygaxBattery
+    - MechGygaxBattery
 
 - type: entity
   name: Durand Spawner
@@ -62,12 +62,12 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - sprite: Objects/Specific/Mech/mecha.rsi
-        state: durand
+    - state: green
+    - sprite: Objects/Specific/Mech/mecha.rsi
+      state: durand
   - type: ConditionalSpawner
     prototypes:
-      - MechDurandBattery
+    - MechDurandBattery
 
 - type: entity
   name: Marauder Spawner
@@ -76,12 +76,12 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - sprite: Objects/Specific/Mech/mecha.rsi
-        state: marauder
+    - state: green
+    - sprite: Objects/Specific/Mech/mecha.rsi
+      state: marauder
   - type: ConditionalSpawner
     prototypes:
-      - MechMarauderBattery
+    - MechMarauderBattery
 
 - type: entity
   name: Marauder Spawner
@@ -91,12 +91,12 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - sprite: Objects/Specific/Mech/mecha.rsi
-        state: marauder
+    - state: green
+    - sprite: Objects/Specific/Mech/mecha.rsi
+      state: marauder
   - type: ConditionalSpawner
     prototypes:
-      - MechMarauderFilled
+    - MechMarauderFilled
 
 - type: entity
   name: Seraph Spawner
@@ -105,12 +105,12 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - sprite: Objects/Specific/Mech/mecha.rsi
-        state: seraph
+    - state: green
+    - sprite: Objects/Specific/Mech/mecha.rsi
+      state: seraph
   - type: ConditionalSpawner
     prototypes:
-      - MechSeraphBattery
+    - MechSeraphBattery
 
 - type: entity
   name: Seraph Spawner
@@ -120,12 +120,12 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - sprite: Objects/Specific/Mech/mecha.rsi
-        state: seraph
+    - state: green
+    - sprite: Objects/Specific/Mech/mecha.rsi
+      state: seraph
   - type: ConditionalSpawner
     prototypes:
-      - MechSeraphFilled
+    - MechSeraphFilled
 
 - type: entity
   name: Dark Gygax Spawner
@@ -134,12 +134,12 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - sprite: Objects/Specific/Mech/mecha.rsi
-        state: darkgygax
+    - state: green
+    - sprite: Objects/Specific/Mech/mecha.rsi
+      state: darkgygax
   - type: ConditionalSpawner
     prototypes:
-      - MechGygaxSyndieBattery
+    - MechGygaxSyndieBattery
 
 - type: entity
   name: Dark Gygax Spawner
@@ -149,12 +149,12 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - sprite: Objects/Specific/Mech/mecha.rsi
-        state: darkgygax
+    - state: green
+    - sprite: Objects/Specific/Mech/mecha.rsi
+      state: darkgygax
   - type: ConditionalSpawner
     prototypes:
-      - MechGygaxSyndieFilled
+    - MechGygaxSyndieFilled
 
 - type: entity
   name: Mauler Spawner
@@ -163,12 +163,12 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - sprite: Objects/Specific/Mech/mecha.rsi
-        state: mauler
+    - state: green
+    - sprite: Objects/Specific/Mech/mecha.rsi
+      state: mauler
   - type: ConditionalSpawner
     prototypes:
-      - MechMaulerSyndieBattery
+    - MechMaulerSyndieBattery
 
 - type: entity
   name: Mauler Spawner
@@ -178,9 +178,9 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - sprite: Objects/Specific/Mech/mecha.rsi
-        state: mauler
+    - state: green
+    - sprite: Objects/Specific/Mech/mecha.rsi
+      state: mauler
   - type: ConditionalSpawner
     prototypes:
-      - MechMaulerSyndieFilled
+    - MechMaulerSyndieFilled

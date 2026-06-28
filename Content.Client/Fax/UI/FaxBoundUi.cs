@@ -10,16 +10,16 @@ namespace Content.Client.Fax.UI;
 [UsedImplicitly]
 public sealed class FaxBoundUi : BoundUserInterface
 {
-    [Dependency] private readonly IFileDialogManager _fileDialogManager = default!;
+    [Dependency]
+    private readonly IFileDialogManager _fileDialogManager = default!;
 
     [ViewVariables]
     private FaxWindow? _window;
 
     private bool _dialogIsOpen = false;
 
-    public FaxBoundUi(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-    }
+    public FaxBoundUi(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {
@@ -66,10 +66,13 @@ public sealed class FaxBoundUi : BoundUserInterface
             }
         }
 
-        SendMessage(new FaxFileMessage(
-            label?[..Math.Min(label.Length, FaxFileMessageValidation.MaxLabelSize)],
-            content[..Math.Min(content.Length, FaxFileMessageValidation.MaxContentSize)],
-            _window.OfficePaper));
+        SendMessage(
+            new FaxFileMessage(
+                label?[..Math.Min(label.Length, FaxFileMessageValidation.MaxLabelSize)],
+                content[..Math.Min(content.Length, FaxFileMessageValidation.MaxContentSize)],
+                _window.OfficePaper
+            )
+        );
     }
 
     private void OnSendButtonPressed()

@@ -41,7 +41,7 @@ public sealed partial class RandomFaxRuleComponent : Component
     [DataField]
     public string? FromAddress;
 
-    // TODO: run arbitrary functions 
+    // TODO: run arbitrary functions
 
     /// <summary>
     ///     All the valid IWireActions currently in this layout.
@@ -92,7 +92,13 @@ public interface IRecipientFaxAction
     /// <summary>
     ///     Formats a fax printout with recipient-specific information (target station, fax machine entity)
     /// </summary>
-    public void Format(EntityUid station, EntityUid fax, FaxMachineComponent faxComponent, ref EditableFaxPrintout printout, ref string? fromAddress);
+    public void Format(
+        EntityUid station,
+        EntityUid fax,
+        FaxMachineComponent faxComponent,
+        ref EditableFaxPrintout printout,
+        ref string? fromAddress
+    );
 }
 
 public sealed partial class EditableFaxPrintout

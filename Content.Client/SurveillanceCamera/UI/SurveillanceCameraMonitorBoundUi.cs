@@ -16,7 +16,8 @@ public sealed class SurveillanceCameraMonitorBoundUserInterface : BoundUserInter
     [ViewVariables]
     private EntityUid? _currentCamera;
 
-    public SurveillanceCameraMonitorBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
+    public SurveillanceCameraMonitorBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey)
     {
         _eyeLerpingSystem = EntMan.System<EyeLerpingSystem>();
         _surveillanceCameraMonitorSystem = EntMan.System<SurveillanceCameraMonitorSystem>();

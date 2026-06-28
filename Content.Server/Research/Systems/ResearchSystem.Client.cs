@@ -23,7 +23,11 @@ public sealed partial class ResearchSystem
 
     #region UI
 
-    private void OnClientSelected(EntityUid uid, ResearchClientComponent component, ResearchClientServerSelectedMessage args)
+    private void OnClientSelected(
+        EntityUid uid,
+        ResearchClientComponent component,
+        ResearchClientServerSelectedMessage args
+    )
     {
         if (!TryGetServerById(args.ServerId, out var serveruid, out var serverComponent))
             return;
@@ -32,7 +36,11 @@ public sealed partial class ResearchSystem
         RegisterClient(uid, serveruid.Value, component, serverComponent);
     }
 
-    private void OnClientDeselected(EntityUid uid, ResearchClientComponent component, ResearchClientServerDeselectedMessage args)
+    private void OnClientDeselected(
+        EntityUid uid,
+        ResearchClientComponent component,
+        ResearchClientServerDeselectedMessage args
+    )
     {
         UnregisterClient(uid, clientComponent: component);
     }
@@ -51,7 +59,11 @@ public sealed partial class ResearchSystem
     }
     #endregion
 
-    private void OnClientRegistrationChanged(EntityUid uid, ResearchClientComponent component, ref ResearchRegistrationChangedEvent args)
+    private void OnClientRegistrationChanged(
+        EntityUid uid,
+        ResearchClientComponent component,
+        ref ResearchRegistrationChangedEvent args
+    )
     {
         UpdateClientInterface(uid, component);
     }
@@ -89,8 +101,12 @@ public sealed partial class ResearchSystem
         TryGetClientServer(uid, out _, out var serverComponent, component);
 
         var names = GetNFServerNames(uid);
-        var state = new ResearchClientBoundInterfaceState(names.Length, names,
-            GetNFServerIds(uid), serverComponent?.Id ?? -1);
+        var state = new ResearchClientBoundInterfaceState(
+            names.Length,
+            names,
+            GetNFServerIds(uid),
+            serverComponent?.Id ?? -1
+        );
 
         _uiSystem.SetUiState(uid, ResearchClientUiKey.Key, state);
     }
@@ -103,10 +119,12 @@ public sealed partial class ResearchSystem
     /// <param name="serverComponent">The server's ResearchServerComponent. Null if false</param>
     /// <param name="component">The client's Researchclient component</param>
     /// <returns>If the server was successfully retrieved.</returns>
-    public bool TryGetClientServer(EntityUid uid,
+    public bool TryGetClientServer(
+        EntityUid uid,
         [NotNullWhen(returnValue: true)] out EntityUid? server,
         [NotNullWhen(returnValue: true)] out ResearchServerComponent? serverComponent,
-        ResearchClientComponent? component = null)
+        ResearchClientComponent? component = null
+    )
     {
         server = null;
         serverComponent = null;

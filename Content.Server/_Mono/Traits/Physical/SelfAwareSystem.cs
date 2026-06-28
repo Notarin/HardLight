@@ -14,9 +14,14 @@ namespace Content.Server._Mono.Traits.Physical;
 /// </summary>
 public sealed class SelfAwareSystem : EntitySystem
 {
-    [Dependency] private readonly ExamineSystemShared _examine = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly IPrototypeManager _prototypes = default!;
+    [Dependency]
+    private readonly ExamineSystemShared _examine = default!;
+
+    [Dependency]
+    private readonly MobStateSystem _mobState = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypes = default!;
 
     public override void Initialize()
     {
@@ -44,7 +49,7 @@ public sealed class SelfAwareSystem : EntitySystem
             {
                 var msg = BuildDamageMessage(uid, damage);
                 _examine.SendExamineTooltip(uid, uid, msg, false, false);
-            }
+            },
         };
 
         args.Verbs.Add(verb);
@@ -74,7 +79,9 @@ public sealed class SelfAwareSystem : EntitySystem
                 if (!damage.Damage.DamageDict.TryGetValue(typeId, out var typeAmt) || typeAmt == FixedPoint2.Zero)
                     continue;
 
-                var typeName = _prototypes.Index<Content.Shared.Damage.Prototypes.DamageTypePrototype>(typeId).LocalizedName;
+                var typeName = _prototypes
+                    .Index<Content.Shared.Damage.Prototypes.DamageTypePrototype>(typeId)
+                    .LocalizedName;
                 msg.PushNewline();
                 msg.AddMarkupOrThrow(Loc.GetString("self-aware-type-subline", ("type", typeName), ("amount", typeAmt)));
             }
@@ -89,5 +96,3 @@ public sealed class SelfAwareSystem : EntitySystem
         return msg;
     }
 }
-
-

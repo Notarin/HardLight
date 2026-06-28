@@ -8,7 +8,6 @@ namespace Content.Server.Dragon
     [RegisterComponent]
     public sealed partial class DragonComponent : Component
     {
-
         /// <summary>
         /// If we have active rifts.
         /// </summary>
@@ -35,7 +34,8 @@ namespace Content.Server.Dragon
         /// <summary>
         /// Maximum time the dragon can go without spawning a rift before they die.
         /// </summary>
-        [ViewVariables(VVAccess.ReadWrite), DataField("maxAccumulator")] public float RiftMaxAccumulator = 300f;
+        [ViewVariables(VVAccess.ReadWrite), DataField("maxAccumulator")]
+        public float RiftMaxAccumulator = 300f;
 
         [DataField("spawnRiftAction", customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
         public string SpawnRiftAction = "ActionSpawnRift";
@@ -46,18 +46,20 @@ namespace Content.Server.Dragon
         [DataField("spawnRiftActionEntity")]
         public EntityUid? SpawnRiftActionEntity;
 
-        [ViewVariables(VVAccess.ReadWrite), DataField("riftPrototype", customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
+        [
+            ViewVariables(VVAccess.ReadWrite),
+            DataField("riftPrototype", customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))
+        ]
         public string RiftPrototype = "CarpRift";
 
         [ViewVariables(VVAccess.ReadWrite), DataField("soundDeath")]
         public SoundSpecifier? SoundDeath = new SoundPathSpecifier("/Audio/Animals/space_dragon_roar.ogg");
 
         [ViewVariables(VVAccess.ReadWrite), DataField("soundRoar")]
-        public SoundSpecifier? SoundRoar =
-            new SoundPathSpecifier("/Audio/Animals/space_dragon_roar.ogg")
-            {
-                Params = AudioParams.Default.WithVolume(3f),
-            };
+        public SoundSpecifier? SoundRoar = new SoundPathSpecifier("/Audio/Animals/space_dragon_roar.ogg")
+        {
+            Params = AudioParams.Default.WithVolume(3f),
+        };
 
         /// <summary>
         /// NPC faction to re-add after being zombified.

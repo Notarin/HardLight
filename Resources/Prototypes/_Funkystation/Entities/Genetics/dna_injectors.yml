@@ -8,7 +8,7 @@
   - type: Sprite
     sprite: _Funkystation/Objects/Specific/Medical/dnainjector.rsi
     layers:
-      - state: dnainjector-full
+    - state: dnainjector-full
   - type: Icon
     sprite: _Funkystation/Objects/Specific/Medical/dnainjector.rsi
     state: dnainjector-full
@@ -29,7 +29,7 @@
   - type: Sprite
     sprite: _Funkystation/Objects/Specific/Medical/dnainjector.rsi
     layers:
-      - state: dnainjector-empty
+    - state: dnainjector-empty
   - type: Icon
     sprite: _Funkystation/Objects/Specific/Medical/dnainjector.rsi
     state: dnainjector-empty
@@ -213,8 +213,6 @@
     mutationId: Firebreath
     isMutator: true
   - type: Item
-
-
 
 - type: entity
   id: MutadoneChemistryBottle

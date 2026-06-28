@@ -16,12 +16,23 @@ namespace Content.Server._HL.Traits;
 /// </summary>
 public sealed class NaturalLubricantProducerSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly PuddleSystem _puddle = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly MobStateSystem _mobState = default!;
+
+    [Dependency]
+    private readonly PuddleSystem _puddle = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly SharedActionsSystem _actions = default!;
 
     public override void Initialize()
     {
@@ -56,7 +67,8 @@ public sealed class NaturalLubricantProducerSystem : EntitySystem
         _popup.PopupEntity(
             Loc.GetString(ent.Comp.Leaking ? "lubricant-leak-toggle-on" : "lubricant-leak-toggle-off"),
             ent.Owner,
-            ent.Owner);
+            ent.Owner
+        );
     }
 
     private TimeSpan NextLeakDelay(NaturalLubricantProducerComponent comp)

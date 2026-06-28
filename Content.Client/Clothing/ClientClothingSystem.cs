@@ -32,30 +32,36 @@ public sealed class ClientClothingSystem : ClothingSystem
     /// </summary>
     private static readonly Dictionary<string, string> TemporarySlotMap = new()
     {
-        {"head", "HELMET"},
-        {"eyes", "EYES"},
-        {"ears", "EARS"},
-        {"mask", "MASK"},
-        { "outerClothing", "OUTERCLOTHING"},
-        { Jumpsuit, "INNERCLOTHING"},
-        {"neck", "NECK"},
-        {"back", "BACKPACK"},
-        { "belt", "BELT"},
-        {"accessory1", "ACCESSORY"},
-        {"accessory2", "ACCESSORYALT"},
-        { "gloves", "HAND"},
-        {"shoes", "FEET"},
-        {"id", "IDCARD"},
-        {"pocket1", "POCKET1"},
-        {"pocket2", "POCKET2"},
-        {"suitstorage", "SUITSTORAGE"},
-
+        { "head", "HELMET" },
+        { "eyes", "EYES" },
+        { "ears", "EARS" },
+        { "mask", "MASK" },
+        { "outerClothing", "OUTERCLOTHING" },
+        { Jumpsuit, "INNERCLOTHING" },
+        { "neck", "NECK" },
+        { "back", "BACKPACK" },
+        { "belt", "BELT" },
+        { "accessory1", "ACCESSORY" },
+        { "accessory2", "ACCESSORYALT" },
+        { "gloves", "HAND" },
+        { "shoes", "FEET" },
+        { "id", "IDCARD" },
+        { "pocket1", "POCKET1" },
+        { "pocket2", "POCKET2" },
+        { "suitstorage", "SUITSTORAGE" },
     };
 
-    [Dependency] private readonly IResourceCache _cache = default!;
-    [Dependency] private readonly InventorySystem _inventorySystem = default!;
-    [Dependency] private readonly DisplacementMapSystem _displacement = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly IResourceCache _cache = default!;
+
+    [Dependency]
+    private readonly InventorySystem _inventorySystem = default!;
+
+    [Dependency]
+    private readonly DisplacementMapSystem _displacement = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     public override void Initialize()
     {
@@ -93,7 +99,8 @@ public sealed class ClientClothingSystem : ClothingSystem
     private void UpdateAllSlots(
         EntityUid uid,
         InventoryComponent? inventoryComponent = null,
-        ClothingComponent? clothing = null)
+        ClothingComponent? clothing = null
+    )
     {
         var enumerator = _inventorySystem.GetSlotEnumerator((uid, inventoryComponent));
         while (enumerator.NextItem(out var item, out var slot))
@@ -144,8 +151,13 @@ public sealed class ClientClothingSystem : ClothingSystem
     /// <remarks>
     ///     Useful for lazily adding clothing sprites without modifying yaml. And for backwards compatibility.
     /// </remarks>
-    private bool TryGetDefaultVisuals(EntityUid uid, ClothingComponent clothing, string slot, string? speciesId,
-        [NotNullWhen(true)] out List<PrototypeLayerData>? layers)
+    private bool TryGetDefaultVisuals(
+        EntityUid uid,
+        ClothingComponent clothing,
+        string slot,
+        string? speciesId,
+        [NotNullWhen(true)] out List<PrototypeLayerData>? layers
+    )
     {
         layers = null;
 
@@ -161,8 +173,6 @@ public sealed class ClientClothingSystem : ClothingSystem
 
         var correctedSlot = slot;
         TemporarySlotMap.TryGetValue(correctedSlot, out correctedSlot);
-
-
 
         var state = $"equipped-{correctedSlot}";
 
@@ -232,12 +242,20 @@ public sealed class ClientClothingSystem : ClothingSystem
         RenderEquipment(args.Equipee, uid, args.Slot, clothingComponent: component);
     }
 
-    private void RenderEquipment(EntityUid equipee, EntityUid equipment, string slot,
-        InventoryComponent? inventory = null, SpriteComponent? sprite = null, ClothingComponent? clothingComponent = null,
-        InventorySlotsComponent? inventorySlots = null)
+    private void RenderEquipment(
+        EntityUid equipee,
+        EntityUid equipment,
+        string slot,
+        InventoryComponent? inventory = null,
+        SpriteComponent? sprite = null,
+        ClothingComponent? clothingComponent = null,
+        InventorySlotsComponent? inventorySlots = null
+    )
     {
-        if (!Resolve(equipee, ref inventory, ref sprite, ref inventorySlots) ||
-           !Resolve(equipment, ref clothingComponent, false))
+        if (
+            !Resolve(equipee, ref inventory, ref sprite, ref inventorySlots)
+            || !Resolve(equipment, ref clothingComponent, false)
+        )
         {
             return;
         }
@@ -298,7 +316,9 @@ public sealed class ClientClothingSystem : ClothingSystem
         {
             if (!revealedLayers.Add(key))
             {
-                Log.Warning($"Duplicate key for clothing visuals: {key}. Are multiple components attempting to modify the same layer? Equipment: {ToPrettyString(equipment)}");
+                Log.Warning(
+                    $"Duplicate key for clothing visuals: {key}. Are multiple components attempting to modify the same layer? Equipment: {ToPrettyString(equipment)}"
+                );
                 continue;
             }
 
@@ -321,10 +341,12 @@ public sealed class ClientClothingSystem : ClothingSystem
                 continue;
 
             // In case no RSI is given, use the item's base RSI as a default. This cuts down on a lot of unnecessary yaml entries.
-            if (layerData.RsiPath == null
+            if (
+                layerData.RsiPath == null
                 && layerData.TexturePath == null
                 && layer.RSI == null
-                && TryComp(equipment, out SpriteComponent? clothingSprite))
+                && TryComp(equipment, out SpriteComponent? clothingSprite)
+            )
             {
                 _sprite.LayerSetRsi(layer, clothingSprite.BaseRSI);
             }
@@ -333,10 +355,12 @@ public sealed class ClientClothingSystem : ClothingSystem
             _sprite.LayerSetOffset(layer, layer.Offset + slotDef.Offset);
 
             // Frontier: species-specific layering
-            if (layer.RSI != null
+            if (
+                layer.RSI != null
                 && inventory.SpeciesId != null
                 && layerData.State != null
-                && !layerData.State.EndsWith(inventory.SpeciesId))
+                && !layerData.State.EndsWith(inventory.SpeciesId)
+            )
             {
                 var speciesLayer = $"{layerData.State}-{inventory.SpeciesId}";
                 if (layer.RSI.TryGetState(speciesLayer, out _))
@@ -350,7 +374,11 @@ public sealed class ClientClothingSystem : ClothingSystem
                 //Checking that the state is not tied to the current race. In this case we don't need to use the displacement maps.
                 //if (layerData.State is not null && inventory.SpeciesId is not null && layerData.State.EndsWith(inventory.SpeciesId))
                 //    continue;
-                if (layer.State.Name is not null && inventory.SpeciesId is not null && layer.State.Name.EndsWith(inventory.SpeciesId))
+                if (
+                    layer.State.Name is not null
+                    && inventory.SpeciesId is not null
+                    && layer.State.Name.EndsWith(inventory.SpeciesId)
+                )
                     continue;
                 // End Frontier: revise race check
 

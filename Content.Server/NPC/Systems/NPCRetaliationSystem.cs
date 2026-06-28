@@ -14,8 +14,11 @@ namespace Content.Server.NPC.Systems;
 /// </summary>
 public sealed class NPCRetaliationSystem : EntitySystem
 {
-    [Dependency] private readonly NpcFactionSystem _npcFaction = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly NpcFactionSystem _npcFaction = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     // Reusable scratch buffer for expired-attack-memory cleanup.
     // Avoids allocating a fresh ValueList per NPC per tick.
@@ -33,7 +36,7 @@ public sealed class NPCRetaliationSystem : EntitySystem
         if (!args.DamageIncreased)
             return;
 
-        if (args.Origin is not {} origin)
+        if (args.Origin is not { } origin)
             return;
 
         TryRetaliate(ent, origin);
@@ -55,7 +58,7 @@ public sealed class NPCRetaliationSystem : EntitySystem
             return false;
 
         _npcFaction.AggroEntity(ent.Owner, target);
-        if (ent.Comp.AttackMemoryLength is {} memoryLength)
+        if (ent.Comp.AttackMemoryLength is { } memoryLength)
             ent.Comp.AttackMemories[target] = _timing.CurTime + memoryLength;
 
         return true;

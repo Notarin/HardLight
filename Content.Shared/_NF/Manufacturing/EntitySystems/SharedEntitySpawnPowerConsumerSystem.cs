@@ -16,7 +16,10 @@ public abstract partial class SharedEntitySpawnPowerConsumerSystem : EntitySyste
         SubscribeLocalEvent<EntitySpawnPowerConsumerComponent, ItemSlotInsertAttemptEvent>(OnItemSlotInsertAttempt);
     }
 
-    private void OnItemSlotInsertAttempt(Entity<EntitySpawnPowerConsumerComponent> ent, ref ItemSlotInsertAttemptEvent args)
+    private void OnItemSlotInsertAttempt(
+        Entity<EntitySpawnPowerConsumerComponent> ent,
+        ref ItemSlotInsertAttemptEvent args
+    )
     {
         if (args.User != null)
             args.Cancelled = true;

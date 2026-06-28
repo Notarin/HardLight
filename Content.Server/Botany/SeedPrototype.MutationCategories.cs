@@ -1,37 +1,84 @@
+using System.Linq;
 using Content.Shared.Atmos;
 using Content.Shared.Random;
 using Robust.Shared.Utility;
-using System.Linq;
 
 namespace Content.Server.Botany;
 
 [DataDefinition]
 public sealed partial class PlantMutationCategoryState
 {
-    [DataField] public PlantMutationCategory Category;
-    [DataField] public int IntValue;
-    [DataField] public float FloatValue;
-    [DataField] public float SecondaryFloatValue;
-    [DataField] public bool BoolValue;
-    [DataField] public bool SecondaryBoolValue;
-    [DataField] public bool TertiaryBoolValue;
-    [DataField] public bool QuaternaryBoolValue;
-    [DataField] public bool QuinaryBoolValue;
-    [DataField] public HarvestType HarvestValue;
-    [DataField] public string Name = string.Empty;
-    [DataField] public string Noun = string.Empty;
-    [DataField] public string PacketName = string.Empty;
-    [DataField] public string DisplayName = string.Empty;
-    [DataField] public string PacketPrototype = string.Empty;
-    [DataField] public bool Mysterious;
-    [DataField] public ResPath PlantRsi = default!;
-    [DataField] public string PlantIconState = string.Empty;
-    [DataField] public string? SplatPrototype;
-    [DataField] public List<string> ProductPrototypes = new();
-    [DataField] public List<string> MutationPrototypes = new();
-    [DataField] public Dictionary<string, SeedChemQuantity> Chemicals = new();
-    [DataField] public Dictionary<Gas, float> Gasses = new();
-    [DataField] public List<RandomPlantMutation> MutationEntries = new();
+    [DataField]
+    public PlantMutationCategory Category;
+
+    [DataField]
+    public int IntValue;
+
+    [DataField]
+    public float FloatValue;
+
+    [DataField]
+    public float SecondaryFloatValue;
+
+    [DataField]
+    public bool BoolValue;
+
+    [DataField]
+    public bool SecondaryBoolValue;
+
+    [DataField]
+    public bool TertiaryBoolValue;
+
+    [DataField]
+    public bool QuaternaryBoolValue;
+
+    [DataField]
+    public bool QuinaryBoolValue;
+
+    [DataField]
+    public HarvestType HarvestValue;
+
+    [DataField]
+    public string Name = string.Empty;
+
+    [DataField]
+    public string Noun = string.Empty;
+
+    [DataField]
+    public string PacketName = string.Empty;
+
+    [DataField]
+    public string DisplayName = string.Empty;
+
+    [DataField]
+    public string PacketPrototype = string.Empty;
+
+    [DataField]
+    public bool Mysterious;
+
+    [DataField]
+    public ResPath PlantRsi = default!;
+
+    [DataField]
+    public string PlantIconState = string.Empty;
+
+    [DataField]
+    public string? SplatPrototype;
+
+    [DataField]
+    public List<string> ProductPrototypes = new();
+
+    [DataField]
+    public List<string> MutationPrototypes = new();
+
+    [DataField]
+    public Dictionary<string, SeedChemQuantity> Chemicals = new();
+
+    [DataField]
+    public Dictionary<Gas, float> Gasses = new();
+
+    [DataField]
+    public List<RandomPlantMutation> MutationEntries = new();
 
     public PlantMutationCategoryState Clone()
     {
@@ -146,7 +193,8 @@ public static class PlantMutationCategories
 
 public partial class SeedData
 {
-    [DataField] public List<PlantMutationCategoryState> MutationCategoryStates = new();
+    [DataField]
+    public List<PlantMutationCategoryState> MutationCategoryStates = new();
 
     public void EnsureMutationCategoryState(PlantMutationCategory category)
     {
@@ -173,7 +221,8 @@ public partial class SeedData
                 break;
             case PlantMutationCategory.ContainedSubstances:
             {
-                var inherent = Chemicals.Where(pair => pair.Value.Inherent)
+                var inherent = Chemicals
+                    .Where(pair => pair.Value.Inherent)
                     .ToDictionary(pair => pair.Key, pair => pair.Value);
                 Chemicals = new Dictionary<string, SeedChemQuantity>(inherent);
                 foreach (var (chemical, quantity) in state.Chemicals)
@@ -223,7 +272,8 @@ public partial class SeedData
                 PlantIconState = state.PlantIconState;
                 SplatPrototype = state.SplatPrototype;
 
-                var nonInherent = Chemicals.Where(pair => !pair.Value.Inherent)
+                var nonInherent = Chemicals
+                    .Where(pair => !pair.Value.Inherent)
                     .ToDictionary(pair => pair.Key, pair => pair.Value);
                 Chemicals = new Dictionary<string, SeedChemQuantity>(state.Chemicals);
                 foreach (var (chemical, quantity) in nonInherent)
@@ -267,7 +317,8 @@ public partial class SeedData
                 state.HarvestValue = HarvestRepeat;
                 break;
             case PlantMutationCategory.ContainedSubstances:
-                state.Chemicals = Chemicals.Where(pair => !pair.Value.Inherent)
+                state.Chemicals = Chemicals
+                    .Where(pair => !pair.Value.Inherent)
                     .ToDictionary(pair => pair.Key, pair => pair.Value);
                 break;
             case PlantMutationCategory.ConsumedGas:
@@ -335,7 +386,8 @@ public partial class SeedData
                 state.PlantRsi = PlantRsi;
                 state.PlantIconState = PlantIconState;
                 state.SplatPrototype = SplatPrototype;
-                state.Chemicals = Chemicals.Where(pair => pair.Value.Inherent)
+                state.Chemicals = Chemicals
+                    .Where(pair => pair.Value.Inherent)
                     .ToDictionary(pair => pair.Key, pair => pair.Value);
                 break;
             case PlantMutationCategory.Mutations:

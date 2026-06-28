@@ -7,9 +7,9 @@
   - type: Sprite
     sprite: DeltaV/Objects/Devices/tablets.rsi
     layers:
-      - state: aac_tablet
-      - state: aac_screen
-        shader: unshaded
+    - state: aac_tablet
+    - state: aac_screen
+      shader: unshaded
     state: icon
   - type: Item
     inhandVisuals:
@@ -28,12 +28,11 @@
     damageContainer: Inorganic
   - type: Destructible
     thresholds:
-      - trigger:
-          !type:DamageTrigger
-          damage: 100
-        behaviors:
-          - !type:DoActsBehavior
-            acts: [ "Destruction" ]
+    - trigger: !type:DamageTrigger
+        damage: 100
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
   - type: UserInterface
     interfaces:
       enum.AACTabletKey.Key:

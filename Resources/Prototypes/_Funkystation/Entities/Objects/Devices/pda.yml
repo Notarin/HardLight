@@ -8,9 +8,7 @@
     id: GeneticistIDCard
   - type: Appearance
     appearanceDataInit:
-     enum.PdaVisuals.PdaType:
-       !type:String
-       pda-medical
+      enum.PdaVisuals.PdaType: !type:String pda-medical
   - type: PdaBorderColor
     borderColor: "#d7d7d0"
     accentVColor: "#447987"

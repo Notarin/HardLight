@@ -30,8 +30,8 @@
     AnomalousGeode:
       stationProto: StandardFrontierOutpost
       components:
-        - type: StationNameSetup
-          mapNameTemplate: 'Anomalous Geode'
-        - type: StationJobs
-          availableJobs: {}
-        - type: StationDeadDropHintExempt
+      - type: StationNameSetup
+        mapNameTemplate: 'Anomalous Geode'
+      - type: StationJobs
+        availableJobs: {}
+      - type: StationDeadDropHintExempt

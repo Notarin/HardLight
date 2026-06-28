@@ -25,19 +25,44 @@ namespace Content.Shared.Tiles;
 
 public sealed class FloorTileSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly INetManager _netManager = default!;
-    [Dependency] private readonly ITileDefinitionManager _tileDefinitionManager = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedStackSystem _stackSystem = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly TileSystem _tile = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IMapManager _mapManager = default!;
+
+    [Dependency]
+    private readonly INetManager _netManager = default!;
+
+    [Dependency]
+    private readonly ITileDefinitionManager _tileDefinitionManager = default!;
+
+    [Dependency]
+    private readonly ISharedAdminLogManager _adminLogger = default!;
+
+    [Dependency]
+    private readonly EntityLookupSystem _lookup = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly SharedStackSystem _stackSystem = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly TileSystem _tile = default!;
+
+    [Dependency]
+    private readonly SharedPhysicsSystem _physics = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _map = default!;
 
     private static readonly Vector2 CheckRange = new(1f, 1f);
 
@@ -80,7 +105,10 @@ public sealed class FloorTileSystem : EntitySystem
         {
             const bool inRange = true;
             var state = (inRange, location.EntityId);
-            _mapManager.FindGridsIntersecting(map.MapId, new Box2(map.Position - CheckRange, map.Position + CheckRange), ref state,
+            _mapManager.FindGridsIntersecting(
+                map.MapId,
+                new Box2(map.Position - CheckRange, map.Position + CheckRange),
+                ref state,
                 static (EntityUid entityUid, MapGridComponent grid, ref (bool weh, EntityUid EntityId) tuple) =>
                 {
                     if (tuple.EntityId == entityUid)
@@ -88,7 +116,8 @@ public sealed class FloorTileSystem : EntitySystem
 
                     tuple.weh = false;
                     return false;
-                });
+                }
+            );
 
             if (!state.inRange)
             {
@@ -104,7 +133,7 @@ public sealed class FloorTileSystem : EntitySystem
         var canAccessCenter = false;
         if (dir.LengthSquared() > 0.01)
         {
-            var ray = new CollisionRay(map.Position, dir.Normalized(), (int) CollisionGroup.Impassable);
+            var ray = new CollisionRay(map.Position, dir.Normalized(), (int)CollisionGroup.Impassable);
             var results = _physics.IntersectRay(locationMap.MapId, ray, dir.Length(), returnOnFirstHit: true);
             canAccessCenter = !results.Any();
         }
@@ -115,10 +144,12 @@ public sealed class FloorTileSystem : EntitySystem
         {
             foreach (var ent in location.GetEntitiesInTile(lookupSystem: _lookup))
             {
-                if (physicQuery.TryGetComponent(ent, out var phys) &&
-                    phys.BodyType == BodyType.Static &&
-                    phys.Hard &&
-                    (phys.CollisionLayer & (int) CollisionGroup.Impassable) != 0)
+                if (
+                    physicQuery.TryGetComponent(ent, out var phys)
+                    && phys.BodyType == BodyType.Static
+                    && phys.Hard
+                    && (phys.CollisionLayer & (int)CollisionGroup.Impassable) != 0
+                )
                 {
                     return;
                 }
@@ -128,7 +159,7 @@ public sealed class FloorTileSystem : EntitySystem
 
         foreach (var currentTile in component.OutputTiles)
         {
-            var currentTileDefinition = (ContentTileDefinition) _tileDefinitionManager[currentTile];
+            var currentTileDefinition = (ContentTileDefinition)_tileDefinitionManager[currentTile];
 
             if (mapGrid != null)
             {
@@ -142,19 +173,28 @@ public sealed class FloorTileSystem : EntitySystem
                     return;
                 }
 
-                var baseTurf = (ContentTileDefinition) _tileDefinitionManager[tile.Tile.TypeId];
+                var baseTurf = (ContentTileDefinition)_tileDefinitionManager[tile.Tile.TypeId];
 
                 if (CanPlaceOn(currentTileDefinition, baseTurf.ID))
                 {
                     if (!_stackSystem.Use(uid, 1, stack))
                         continue;
 
-                    PlaceAt(args.User, gridUid, mapGrid, location, currentTileDefinition.TileId, component.PlaceTileSound);
+                    PlaceAt(
+                        args.User,
+                        gridUid,
+                        mapGrid,
+                        location,
+                        currentTileDefinition.TileId,
+                        component.PlaceTileSound
+                    );
                     args.Handled = true;
                     return;
                 }
             }
-            else if (HasBaseTurf(currentTileDefinition, new ProtoId<ContentTileDefinition>(ContentTileDefinition.SpaceID)))
+            else if (
+                HasBaseTurf(currentTileDefinition, new ProtoId<ContentTileDefinition>(ContentTileDefinition.SpaceID))
+            )
             {
                 if (!_stackSystem.Use(uid, 1, stack))
                     continue;
@@ -167,7 +207,15 @@ public sealed class FloorTileSystem : EntitySystem
                 var gridXform = Transform(grid);
                 _transform.SetWorldPosition((grid, gridXform), locationMap.Position);
                 location = new EntityCoordinates(grid, Vector2.Zero);
-                PlaceAt(args.User, grid, grid.Comp, location, _tileDefinitionManager[component.OutputTiles[0]].TileId, component.PlaceTileSound, grid.Comp.TileSize / 2f);
+                PlaceAt(
+                    args.User,
+                    grid,
+                    grid.Comp,
+                    location,
+                    _tileDefinitionManager[component.OutputTiles[0]].TileId,
+                    component.PlaceTileSound,
+                    grid.Comp.TileSize / 2f
+                );
                 return;
             }
         }
@@ -191,12 +239,23 @@ public sealed class FloorTileSystem : EntitySystem
         return false;
     }
 
-    private void PlaceAt(EntityUid user, EntityUid gridUid, MapGridComponent mapGrid, EntityCoordinates location,
-        ushort tileId, SoundSpecifier placeSound, float offset = 0)
+    private void PlaceAt(
+        EntityUid user,
+        EntityUid gridUid,
+        MapGridComponent mapGrid,
+        EntityCoordinates location,
+        ushort tileId,
+        SoundSpecifier placeSound,
+        float offset = 0
+    )
     {
-        _adminLogger.Add(LogType.Tile, LogImpact.Low, $"{ToPrettyString(user):actor} placed tile {_tileDefinitionManager[tileId].Name} at {ToPrettyString(gridUid)} {location}");
+        _adminLogger.Add(
+            LogType.Tile,
+            LogImpact.Low,
+            $"{ToPrettyString(user):actor} placed tile {_tileDefinitionManager[tileId].Name} at {ToPrettyString(gridUid)} {location}"
+        );
 
-        var tileDef = (ContentTileDefinition) _tileDefinitionManager[tileId];
+        var tileDef = (ContentTileDefinition)_tileDefinitionManager[tileId];
         var random = new System.Random((int)_timing.CurTick.Value);
         var variant = _tile.PickVariant(tileDef, random);
 
@@ -206,7 +265,12 @@ public sealed class FloorTileSystem : EntitySystem
         _audio.PlayPredicted(placeSound, location, user);
     }
 
-    public bool CanPlaceTile(EntityUid gridUid, MapGridComponent component, Vector2i gridIndices, [NotNullWhen(false)] out string? reason)
+    public bool CanPlaceTile(
+        EntityUid gridUid,
+        MapGridComponent component,
+        Vector2i gridIndices,
+        [NotNullWhen(false)] out string? reason
+    )
     {
         var ev = new FloorTileAttemptEvent(gridIndices);
         RaiseLocalEvent(gridUid, ref ev);

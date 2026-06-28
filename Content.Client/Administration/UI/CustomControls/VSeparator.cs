@@ -13,14 +13,9 @@ public sealed class VSeparator : PanelContainer
     {
         MinSize = new Vector2(2, 5);
 
-        AddChild(new PanelContainer
-        {
-            PanelOverride = new StyleBoxFlat
-            {
-                BackgroundColor = color
-            }
-        });
+        AddChild(new PanelContainer { PanelOverride = new StyleBoxFlat { BackgroundColor = color } });
     }
 
-    public VSeparator() : this(SeparatorColor) { }
+    public VSeparator()
+        : this(SeparatorColor) { }
 }

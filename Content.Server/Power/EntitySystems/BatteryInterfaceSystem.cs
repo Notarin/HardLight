@@ -19,7 +19,8 @@ namespace Content.Server.Power.EntitySystems;
 /// </remarks>
 public sealed class BatteryInterfaceSystem : EntitySystem
 {
-    [Dependency] private readonly UserInterfaceSystem _uiSystem = null!;
+    [Dependency]
+    private readonly UserInterfaceSystem _uiSystem = null!;
 
     public override void Initialize()
     {
@@ -36,7 +37,8 @@ public sealed class BatteryInterfaceSystem : EntitySystem
 
                 subs.Event<BatterySetChargeRateMessage>(HandleSetChargeRate);
                 subs.Event<BatterySetDischargeRateMessage>(HandleSetDischargeRate);
-            });
+            }
+        );
     }
 
     private void HandleSetInputBreaker(Entity<BatteryInterfaceComponent> ent, ref BatterySetInputBreakerMessage args)
@@ -77,7 +79,8 @@ public sealed class BatteryInterfaceSystem : EntitySystem
         EntityUid uid,
         BatteryInterfaceComponent batteryInterface,
         BatteryComponent battery,
-        PowerNetworkBatteryComponent netBattery)
+        PowerNetworkBatteryComponent netBattery
+    )
     {
         if (!_uiSystem.IsUiOpen(uid, BatteryUiKey.Key))
             return;
@@ -102,11 +105,13 @@ public sealed class BatteryInterfaceSystem : EntitySystem
                 MinMaxChargeRate = batteryInterface.MinChargeRate,
                 SupplyingNetworkHasPower = CheckHasPower<BatteryChargerComponent>(uid),
                 LoadingNetworkHasPower = CheckHasPower<BatteryDischargerComponent>(uid),
-            });
+            }
+        );
 
         return;
 
-        bool CheckHasPower<TComp>(EntityUid entity) where TComp : BasePowerNetComponent
+        bool CheckHasPower<TComp>(EntityUid entity)
+            where TComp : BasePowerNetComponent
         {
             if (!TryComp(entity, out TComp? comp))
                 return false;

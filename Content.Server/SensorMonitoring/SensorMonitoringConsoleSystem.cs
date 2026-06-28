@@ -32,9 +32,14 @@ public sealed partial class SensorMonitoringConsoleSystem : EntitySystem
 
     private EntityQuery<DeviceNetworkComponent> _deviceNetworkQuery;
 
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly DeviceNetworkSystem _deviceNetwork = default!;
-    [Dependency] private readonly UserInterfaceSystem _userInterface = default!;
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
+
+    [Dependency]
+    private readonly DeviceNetworkSystem _deviceNetwork = default!;
+
+    [Dependency]
+    private readonly UserInterfaceSystem _userInterface = default!;
 
     public override void Initialize()
     {
@@ -99,7 +104,8 @@ public sealed partial class SensorMonitoringConsoleSystem : EntitySystem
     private void DeviceListUpdated(
         EntityUid uid,
         SensorMonitoringConsoleComponent component,
-        DeviceListUpdateEvent args)
+        DeviceListUpdateEvent args
+    )
     {
         UpdateDevices(uid, component, args.Devices, args.OldDevices);
     }
@@ -108,7 +114,8 @@ public sealed partial class SensorMonitoringConsoleSystem : EntitySystem
         EntityUid uid,
         SensorMonitoringConsoleComponent component,
         IEnumerable<EntityUid> newDevices,
-        IEnumerable<EntityUid> oldDevices)
+        IEnumerable<EntityUid> oldDevices
+    )
     {
         var kept = new HashSet<EntityUid>();
 
@@ -158,8 +165,11 @@ public sealed partial class SensorMonitoringConsoleSystem : EntitySystem
         return SensorDeviceType.Unknown;
     }
 
-    private void DevicePacketReceived(EntityUid uid, SensorMonitoringConsoleComponent component,
-        DeviceNetworkPacketEvent args)
+    private void DevicePacketReceived(
+        EntityUid uid,
+        SensorMonitoringConsoleComponent component,
+        DeviceNetworkPacketEvent args
+    )
     {
         if (!component.Sensors.TryGetValue(args.Sender, out var sensorData))
             return;
@@ -178,19 +188,67 @@ public sealed partial class SensorMonitoringConsoleSystem : EntitySystem
 
                 // @formatter:off
                 WriteSample(component, sensorData, "teg_last_generated", SensorUnit.EnergyJ, tegData.LastGeneration);
-                WriteSample(component, sensorData, "teg_power",          SensorUnit.PowerW,  tegData.PowerOutput);
+                WriteSample(component, sensorData, "teg_power", SensorUnit.PowerW, tegData.PowerOutput);
                 if (component.DebugStreams)
                     WriteSample(component, sensorData, "teg_ramp_pos", SensorUnit.PowerW, tegData.RampPosition);
 
-                WriteSample(component, sensorData, "teg_circ_a_in_pressure",     SensorUnit.PressureKpa,  tegData.CirculatorA.InletPressure);
-                WriteSample(component, sensorData, "teg_circ_a_in_temperature",  SensorUnit.TemperatureK, tegData.CirculatorA.InletTemperature);
-                WriteSample(component, sensorData, "teg_circ_a_out_pressure",    SensorUnit.PressureKpa,  tegData.CirculatorA.OutletPressure);
-                WriteSample(component, sensorData, "teg_circ_a_out_temperature", SensorUnit.TemperatureK, tegData.CirculatorA.OutletTemperature);
+                WriteSample(
+                    component,
+                    sensorData,
+                    "teg_circ_a_in_pressure",
+                    SensorUnit.PressureKpa,
+                    tegData.CirculatorA.InletPressure
+                );
+                WriteSample(
+                    component,
+                    sensorData,
+                    "teg_circ_a_in_temperature",
+                    SensorUnit.TemperatureK,
+                    tegData.CirculatorA.InletTemperature
+                );
+                WriteSample(
+                    component,
+                    sensorData,
+                    "teg_circ_a_out_pressure",
+                    SensorUnit.PressureKpa,
+                    tegData.CirculatorA.OutletPressure
+                );
+                WriteSample(
+                    component,
+                    sensorData,
+                    "teg_circ_a_out_temperature",
+                    SensorUnit.TemperatureK,
+                    tegData.CirculatorA.OutletTemperature
+                );
 
-                WriteSample(component, sensorData, "teg_circ_b_in_pressure",     SensorUnit.PressureKpa,  tegData.CirculatorB.InletPressure);
-                WriteSample(component, sensorData, "teg_circ_b_in_temperature",  SensorUnit.TemperatureK, tegData.CirculatorB.InletTemperature);
-                WriteSample(component, sensorData, "teg_circ_b_out_pressure",    SensorUnit.PressureKpa,  tegData.CirculatorB.OutletPressure);
-                WriteSample(component, sensorData, "teg_circ_b_out_temperature", SensorUnit.TemperatureK, tegData.CirculatorB.OutletTemperature);
+                WriteSample(
+                    component,
+                    sensorData,
+                    "teg_circ_b_in_pressure",
+                    SensorUnit.PressureKpa,
+                    tegData.CirculatorB.InletPressure
+                );
+                WriteSample(
+                    component,
+                    sensorData,
+                    "teg_circ_b_in_temperature",
+                    SensorUnit.TemperatureK,
+                    tegData.CirculatorB.InletTemperature
+                );
+                WriteSample(
+                    component,
+                    sensorData,
+                    "teg_circ_b_out_pressure",
+                    SensorUnit.PressureKpa,
+                    tegData.CirculatorB.OutletPressure
+                );
+                WriteSample(
+                    component,
+                    sensorData,
+                    "teg_circ_b_out_temperature",
+                    SensorUnit.TemperatureK,
+                    tegData.CirculatorB.OutletTemperature
+                );
                 // @formatter:on
                 break;
 
@@ -202,7 +260,7 @@ public sealed partial class SensorMonitoringConsoleSystem : EntitySystem
                     return;
 
                 // @formatter:off
-                WriteSample(component, sensorData, "atmo_pressure",    SensorUnit.PressureKpa,    atmosData.Pressure);
+                WriteSample(component, sensorData, "atmo_pressure", SensorUnit.PressureKpa, atmosData.Pressure);
                 WriteSample(component, sensorData, "atmo_temperature", SensorUnit.TemperatureK, atmosData.Temperature);
                 // @formatter:on
                 break;
@@ -215,7 +273,13 @@ public sealed partial class SensorMonitoringConsoleSystem : EntitySystem
                     return;
 
                 // @formatter:off
-                WriteSample(component, sensorData, "abs_energy_delta", SensorUnit.EnergyJ, MathF.Abs(thermoData.EnergyDelta));
+                WriteSample(
+                    component,
+                    sensorData,
+                    "abs_energy_delta",
+                    SensorUnit.EnergyJ,
+                    MathF.Abs(thermoData.EnergyDelta)
+                );
                 // @formatter:on
                 break;
 
@@ -227,7 +291,13 @@ public sealed partial class SensorMonitoringConsoleSystem : EntitySystem
                     return;
 
                 // @formatter:off
-                WriteSample(component, sensorData, "moles_transferred", SensorUnit.Moles, volumePumpData.LastMolesTransferred);
+                WriteSample(
+                    component,
+                    sensorData,
+                    "moles_transferred",
+                    SensorUnit.Moles,
+                    volumePumpData.LastMolesTransferred
+                );
                 // @formatter:on
                 break;
 
@@ -235,18 +305,23 @@ public sealed partial class SensorMonitoringConsoleSystem : EntitySystem
                 if (command != BatterySensorSystem.DeviceNetworkCommandSyncData)
                     return;
 
-                if (!args.Data.TryGetValue(BatterySensorSystem.DeviceNetworkCommandSyncData, out BatterySensorData? batteryData))
+                if (
+                    !args.Data.TryGetValue(
+                        BatterySensorSystem.DeviceNetworkCommandSyncData,
+                        out BatterySensorData? batteryData
+                    )
+                )
                     return;
 
                 // @formatter:off
-                WriteSample(component, sensorData, "charge",        SensorUnit.EnergyJ, batteryData.Charge);
-                WriteSample(component, sensorData, "charge_max",    SensorUnit.EnergyJ, batteryData.MaxCharge);
+                WriteSample(component, sensorData, "charge", SensorUnit.EnergyJ, batteryData.Charge);
+                WriteSample(component, sensorData, "charge_max", SensorUnit.EnergyJ, batteryData.MaxCharge);
 
-                WriteSample(component, sensorData, "receiving",     SensorUnit.PowerW,  batteryData.Receiving);
-                WriteSample(component, sensorData, "receiving_max", SensorUnit.PowerW,  batteryData.MaxReceiving);
+                WriteSample(component, sensorData, "receiving", SensorUnit.PowerW, batteryData.Receiving);
+                WriteSample(component, sensorData, "receiving_max", SensorUnit.PowerW, batteryData.MaxReceiving);
 
-                WriteSample(component, sensorData, "supplying",     SensorUnit.PowerW,  batteryData.Supplying);
-                WriteSample(component, sensorData, "supplying_max", SensorUnit.PowerW,  batteryData.MaxSupplying);
+                WriteSample(component, sensorData, "supplying", SensorUnit.PowerW, batteryData.Supplying);
+                WriteSample(component, sensorData, "supplying_max", SensorUnit.PowerW, batteryData.MaxSupplying);
                 // @formatter:on
 
                 break;
@@ -258,7 +333,8 @@ public sealed partial class SensorMonitoringConsoleSystem : EntitySystem
         SensorMonitoringConsoleComponent.SensorData sensorData,
         string streamName,
         SensorUnit unit,
-        float value)
+        float value
+    )
     {
         var stream = sensorData.Streams.GetOrNew(streamName);
         stream.Unit = unit;
@@ -274,10 +350,7 @@ public sealed partial class SensorMonitoringConsoleSystem : EntitySystem
         return ++component.IdCounter;
     }
 
-    private void AtmosUpdate(
-        EntityUid uid,
-        SensorMonitoringConsoleComponent comp,
-        AtmosDeviceUpdateEvent args)
+    private void AtmosUpdate(EntityUid uid, SensorMonitoringConsoleComponent comp, AtmosDeviceUpdateEvent args)
     {
         if (!_userInterface.IsUiOpen(uid, SensorMonitoringConsoleUiKey.Key))
             return;
@@ -302,7 +375,7 @@ public sealed partial class SensorMonitoringConsoleSystem : EntitySystem
                 case SensorDeviceType.Teg:
                     payload = new NetworkPayload
                     {
-                        [DeviceNetworkConstants.Command] = TegSystem.DeviceNetworkCommandSyncData
+                        [DeviceNetworkConstants.Command] = TegSystem.DeviceNetworkCommandSyncData,
                     };
                     break;
 
@@ -311,7 +384,7 @@ public sealed partial class SensorMonitoringConsoleSystem : EntitySystem
                 case SensorDeviceType.VolumePump:
                     payload = new NetworkPayload
                     {
-                        [DeviceNetworkConstants.Command] = AtmosDeviceNetworkSystem.SyncData
+                        [DeviceNetworkConstants.Command] = AtmosDeviceNetworkSystem.SyncData,
                     };
                     break;
 
@@ -341,7 +414,7 @@ public sealed partial class SensorMonitoringConsoleSystem : EntitySystem
                 case SensorDeviceType.Battery:
                     payload = new NetworkPayload
                     {
-                        [DeviceNetworkConstants.Command] = BatterySensorSystem.DeviceNetworkCommandSyncData
+                        [DeviceNetworkConstants.Command] = BatterySensorSystem.DeviceNetworkCommandSyncData,
                     };
                     break;
 

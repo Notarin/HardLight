@@ -1,14 +1,15 @@
 using Content.Server.DeviceNetwork.Components.Devices;
 using Content.Shared.DeviceNetwork;
+using Content.Shared.DeviceNetwork.Components;
 using Content.Shared.DeviceNetwork.Events;
 using Content.Shared.Interaction;
-using Content.Shared.DeviceNetwork.Components;
 
 namespace Content.Server.DeviceNetwork.Systems.Devices
 {
     public sealed class ApcNetSwitchSystem : EntitySystem
     {
-        [Dependency] private readonly DeviceNetworkSystem _deviceNetworkSystem = default!;
+        [Dependency]
+        private readonly DeviceNetworkSystem _deviceNetworkSystem = default!;
 
         public override void Initialize()
         {
@@ -24,7 +25,8 @@ namespace Content.Server.DeviceNetwork.Systems.Devices
         /// </summary>
         private void OnInteracted(EntityUid uid, ApcNetSwitchComponent component, InteractHandEvent args)
         {
-            if (!EntityManager.TryGetComponent(uid, out DeviceNetworkComponent? networkComponent)) return;
+            if (!EntityManager.TryGetComponent(uid, out DeviceNetworkComponent? networkComponent))
+                return;
 
             component.State = !component.State;
 
@@ -47,9 +49,18 @@ namespace Content.Server.DeviceNetwork.Systems.Devices
         /// </summary>
         private void OnPackedReceived(EntityUid uid, ApcNetSwitchComponent component, DeviceNetworkPacketEvent args)
         {
-            if (!EntityManager.TryGetComponent(uid, out DeviceNetworkComponent? networkComponent) || args.SenderAddress == networkComponent.Address) return;
-            if (!args.Data.TryGetValue(DeviceNetworkConstants.Command, out string? command) || command != DeviceNetworkConstants.CmdSetState) return;
-            if (!args.Data.TryGetValue(DeviceNetworkConstants.StateEnabled, out bool enabled)) return;
+            if (
+                !EntityManager.TryGetComponent(uid, out DeviceNetworkComponent? networkComponent)
+                || args.SenderAddress == networkComponent.Address
+            )
+                return;
+            if (
+                !args.Data.TryGetValue(DeviceNetworkConstants.Command, out string? command)
+                || command != DeviceNetworkConstants.CmdSetState
+            )
+                return;
+            if (!args.Data.TryGetValue(DeviceNetworkConstants.StateEnabled, out bool enabled))
+                return;
 
             component.State = enabled;
         }

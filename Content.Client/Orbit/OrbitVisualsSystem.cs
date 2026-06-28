@@ -10,10 +10,17 @@ namespace Content.Client.Orbit;
 
 public sealed class OrbitVisualsSystem : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _robustRandom = default!;
-    [Dependency] private readonly AnimationPlayerSystem _animations = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly IRobustRandom _robustRandom = default!;
+
+    [Dependency]
+    private readonly AnimationPlayerSystem _animations = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     private readonly string _orbitStopKey = "orbiting_stop";
 
@@ -28,8 +35,10 @@ public sealed class OrbitVisualsSystem : EntitySystem
     private void OnComponentInit(EntityUid uid, OrbitVisualsComponent component, ComponentInit args)
     {
         _robustRandom.SetSeed((int)_timing.CurTime.TotalMilliseconds);
-        component.OrbitDistance =
-            _robustRandom.NextFloat(0.75f * component.OrbitDistance, 1.25f * component.OrbitDistance);
+        component.OrbitDistance = _robustRandom.NextFloat(
+            0.75f * component.OrbitDistance,
+            1.25f * component.OrbitDistance
+        );
 
         component.OrbitLength = _robustRandom.NextFloat(0.5f * component.OrbitLength, 1.5f * component.OrbitLength);
 
@@ -94,7 +103,7 @@ public sealed class OrbitVisualsSystem : EntitySystem
                         new AnimationTrackProperty.KeyFrame(sprite.Offset, 0f),
                         new AnimationTrackProperty.KeyFrame(Vector2.Zero, length),
                     },
-                    InterpolationMode = AnimationInterpolationMode.Linear
+                    InterpolationMode = AnimationInterpolationMode.Linear,
                 },
                 new AnimationTrackComponentProperty()
                 {
@@ -105,9 +114,9 @@ public sealed class OrbitVisualsSystem : EntitySystem
                         new AnimationTrackProperty.KeyFrame(sprite.Rotation.Reduced(), 0f),
                         new AnimationTrackProperty.KeyFrame(Angle.Zero, length),
                     },
-                    InterpolationMode = AnimationInterpolationMode.Linear
-                }
-            }
+                    InterpolationMode = AnimationInterpolationMode.Linear,
+                },
+            },
         };
     }
 }

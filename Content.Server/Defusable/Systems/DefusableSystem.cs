@@ -22,14 +22,29 @@ namespace Content.Server.Defusable.Systems;
 /// <inheritdoc/>
 public sealed class DefusableSystem : SharedDefusableSystem
 {
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly ExplosionSystem _explosion = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly TriggerSystem _trigger = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly WiresSystem _wiresSystem = default!;
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly ExplosionSystem _explosion = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly TriggerSystem _trigger = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly TransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly ISharedAdminLogManager _adminLogger = default!;
+
+    [Dependency]
+    private readonly WiresSystem _wiresSystem = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -51,16 +66,18 @@ public sealed class DefusableSystem : SharedDefusableSystem
         if (!args.CanInteract || !args.CanAccess || args.Hands == null)
             return;
 
-        args.Verbs.Add(new AlternativeVerb
-        {
-            Text = Loc.GetString("defusable-verb-begin"),
-            Disabled = comp is { Activated: true, Usable: true },
-            Priority = 10,
-            Act = () =>
+        args.Verbs.Add(
+            new AlternativeVerb
             {
-                TryStartCountdown(uid, args.User, comp);
+                Text = Loc.GetString("defusable-verb-begin"),
+                Disabled = comp is { Activated: true, Usable: true },
+                Priority = 10,
+                Act = () =>
+                {
+                    TryStartCountdown(uid, args.User, comp);
+                },
             }
-        });
+        );
     }
 
     private void OnExamine(EntityUid uid, DefusableComponent comp, ExaminedEvent args)
@@ -78,8 +95,13 @@ public sealed class DefusableSystem : SharedDefusableSystem
             {
                 if (comp.DisplayTime)
                 {
-                    args.PushMarkup(Loc.GetString("defusable-examine-live", ("name", uid),
-                        ("time", MathF.Floor(activeComp.TimeRemaining))));
+                    args.PushMarkup(
+                        Loc.GetString(
+                            "defusable-examine-live",
+                            ("name", uid),
+                            ("time", MathF.Floor(activeComp.TimeRemaining))
+                        )
+                    );
                 }
                 else
                 {
@@ -168,7 +190,7 @@ public sealed class DefusableSystem : SharedDefusableSystem
 
         RaiseLocalEvent(uid, new BombDetonatedEvent(uid));
 
-        _explosion.TriggerExplosive(uid, user:detonator);
+        _explosion.TriggerExplosive(uid, user: detonator);
         QueueDel(uid);
 
         _appearance.SetData(uid, DefusableVisuals.Active, comp.Activated);
@@ -282,8 +304,11 @@ public sealed class DefusableSystem : SharedDefusableSystem
         {
             TryDefuseBomb(wire.Owner, comp);
 
-            _adminLogger.Add(LogType.Explosion, LogImpact.High,
-                $"{ToPrettyString(user):user} has defused {ToPrettyString(wire.Owner):entity}!");
+            _adminLogger.Add(
+                LogType.Explosion,
+                LogImpact.High,
+                $"{ToPrettyString(user):user} has defused {ToPrettyString(wire.Owner):entity}!"
+            );
         }
 
         return true;
@@ -381,6 +406,7 @@ public sealed class BombDefusedEvent : EntityEventArgs
         Entity = entity;
     }
 }
+
 public sealed class BombArmedEvent : EntityEventArgs
 {
     public EntityUid Entity;
@@ -390,6 +416,7 @@ public sealed class BombArmedEvent : EntityEventArgs
         Entity = entity;
     }
 }
+
 public sealed class BombDetonatedEvent : EntityEventArgs
 {
     public EntityUid Entity;

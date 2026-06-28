@@ -2,6 +2,7 @@ using Content.Server.Explosion.EntitySystems;
 using Content.Server.Fluids.EntitySystems;
 using Content.Server.Nutrition.Components;
 using Content.Server.Popups;
+using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Containers.ItemSlots;
 using Content.Shared.Explosion.Components;
 using Content.Shared.IdentityManagement;
@@ -10,7 +11,6 @@ using Content.Shared.Nutrition.Components;
 using Content.Shared.Nutrition.EntitySystems;
 using Content.Shared.Rejuvenate;
 using Content.Shared.Throwing;
-using Content.Shared.Chemistry.EntitySystems;
 using JetBrains.Annotations;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
@@ -21,12 +21,23 @@ namespace Content.Server.Nutrition.EntitySystems
     [UsedImplicitly]
     public sealed class CreamPieSystem : SharedCreamPieSystem
     {
-        [Dependency] private readonly SharedSolutionContainerSystem _solutions = default!;
-        [Dependency] private readonly PuddleSystem _puddle = default!;
-        [Dependency] private readonly ItemSlotsSystem _itemSlots = default!;
-        [Dependency] private readonly TriggerSystem _trigger = default!;
-        [Dependency] private readonly SharedAudioSystem _audio = default!;
-        [Dependency] private readonly PopupSystem _popup = default!;
+        [Dependency]
+        private readonly SharedSolutionContainerSystem _solutions = default!;
+
+        [Dependency]
+        private readonly PuddleSystem _puddle = default!;
+
+        [Dependency]
+        private readonly ItemSlotsSystem _itemSlots = default!;
+
+        [Dependency]
+        private readonly TriggerSystem _trigger = default!;
+
+        [Dependency]
+        private readonly SharedAudioSystem _audio = default!;
+
+        [Dependency]
+        private readonly PopupSystem _popup = default!;
 
         public override void Initialize()
         {
@@ -85,7 +96,8 @@ namespace Content.Server.Nutrition.EntitySystems
                             timerTrigger.Delay,
                             timerTrigger.BeepInterval,
                             timerTrigger.InitialBeepDelay,
-                            timerTrigger.BeepSound);
+                            timerTrigger.BeepSound
+                        );
                     }
                 }
             }
@@ -93,16 +105,27 @@ namespace Content.Server.Nutrition.EntitySystems
 
         protected override void CreamedEntity(EntityUid uid, CreamPiedComponent creamPied, ThrowHitByEvent args)
         {
-            _popup.PopupEntity(Loc.GetString("cream-pied-component-on-hit-by-message",
-                                            ("thrown", Identity.Entity(args.Thrown, EntityManager))),
-                                            uid, args.Target);
+            _popup.PopupEntity(
+                Loc.GetString(
+                    "cream-pied-component-on-hit-by-message",
+                    ("thrown", Identity.Entity(args.Thrown, EntityManager))
+                ),
+                uid,
+                args.Target
+            );
 
             var otherPlayers = Filter.PvsExcept(uid);
 
-            _popup.PopupEntity(Loc.GetString("cream-pied-component-on-hit-by-message-others",
-                                            ("owner", Identity.Entity(uid, EntityManager)),
-                                            ("thrown", Identity.Entity(args.Thrown, EntityManager))),
-                                            uid, otherPlayers, false);
+            _popup.PopupEntity(
+                Loc.GetString(
+                    "cream-pied-component-on-hit-by-message-others",
+                    ("owner", Identity.Entity(uid, EntityManager)),
+                    ("thrown", Identity.Entity(args.Thrown, EntityManager))
+                ),
+                uid,
+                otherPlayers,
+                false
+            );
         }
 
         private void OnRejuvenate(Entity<CreamPiedComponent> entity, ref RejuvenateEvent args)

@@ -17,9 +17,11 @@ namespace Content.Shared.Cargo.Prototypes
         [AbstractDataField]
         public bool Abstract { get; private set; }
 
-        [DataField("name")] private string _name = string.Empty;
+        [DataField("name")]
+        private string _name = string.Empty;
 
-        [DataField("description")] private string _description = string.Empty;
+        [DataField("description")]
+        private string _description = string.Empty;
 
         [ViewVariables]
         [IdDataField]

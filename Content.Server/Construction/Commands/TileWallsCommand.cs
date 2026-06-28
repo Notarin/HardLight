@@ -2,9 +2,9 @@ using Content.Server.Administration;
 using Content.Shared.Administration;
 using Content.Shared.Maps;
 using Content.Shared.Tag;
+using Robust.Server.GameObjects;
 using Robust.Shared.Console;
 using Robust.Shared.Map;
-using Robust.Server.GameObjects;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Prototypes;
 
@@ -13,8 +13,11 @@ namespace Content.Server.Construction.Commands;
 [AdminCommand(AdminFlags.Mapping)]
 public sealed class TileWallsCommand : IConsoleCommand
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
-    [Dependency] private readonly ITileDefinitionManager _tileDefManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
+
+    [Dependency]
+    private readonly ITileDefinitionManager _tileDefManager = default!;
 
     // ReSharper disable once StringLiteralTypo
     public string Command => "tilewalls";

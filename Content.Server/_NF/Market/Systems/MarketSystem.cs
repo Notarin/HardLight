@@ -11,18 +11,37 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Server._NF.Market.Systems;
 
-public sealed partial class MarketSystem: SharedMarketSystem
+public sealed partial class MarketSystem : SharedMarketSystem
 {
-    [Dependency] private readonly BankSystem _bankSystem = default!;
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
-    [Dependency] private readonly IEntityManager _entityManager = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
-    [Dependency] private readonly PricingSystem _pricingSystem = default!;
-    [Dependency] private readonly StackSystem _stackSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly StationSystem _station = default!;
+    [Dependency]
+    private readonly BankSystem _bankSystem = default!;
+
+    [Dependency]
+    private readonly UserInterfaceSystem _ui = default!;
+
+    [Dependency]
+    private readonly IEntityManager _entityManager = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelistSystem = default!;
+
+    [Dependency]
+    private readonly PricingSystem _pricingSystem = default!;
+
+    [Dependency]
+    private readonly StackSystem _stackSystem = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly StationSystem _station = default!;
 
     public override void Initialize()
     {

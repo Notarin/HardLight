@@ -20,7 +20,7 @@
   - type: TriggerOnSignal
   - type: DeviceLinkSink
     ports:
-      - Trigger
+    - Trigger
   - type: EmitSoundOnUse
     handle: false # don't want the sound to stop the explosion from triggering
 

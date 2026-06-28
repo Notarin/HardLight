@@ -15,37 +15,34 @@ namespace Content.Server.Database.Migrations.Sqlite
                 table: "profile",
                 type: "INTEGER",
                 nullable: false,
-                defaultValue: false);
+                defaultValue: false
+            );
 
             migrationBuilder.AddColumn<bool>(
                 name: "facial_hair_glowing",
                 table: "profile",
                 type: "INTEGER",
                 nullable: false,
-                defaultValue: false);
+                defaultValue: false
+            );
 
             migrationBuilder.AddColumn<bool>(
                 name: "hair_glowing",
                 table: "profile",
                 type: "INTEGER",
                 nullable: false,
-                defaultValue: false);
+                defaultValue: false
+            );
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "eye_glowing",
-                table: "profile");
+            migrationBuilder.DropColumn(name: "eye_glowing", table: "profile");
 
-            migrationBuilder.DropColumn(
-                name: "facial_hair_glowing",
-                table: "profile");
+            migrationBuilder.DropColumn(name: "facial_hair_glowing", table: "profile");
 
-            migrationBuilder.DropColumn(
-                name: "hair_glowing",
-                table: "profile");
+            migrationBuilder.DropColumn(name: "hair_glowing", table: "profile");
         }
     }
 }

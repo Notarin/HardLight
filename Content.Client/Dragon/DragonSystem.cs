@@ -6,8 +6,11 @@ namespace Content.Client.Dragon;
 
 public sealed class DragonSystem : EntitySystem
 {
-    [Dependency] private readonly SharedPointLightSystem _lights = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly SharedPointLightSystem _lights = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     public override void Initialize()
     {
@@ -20,7 +23,8 @@ public sealed class DragonSystem : EntitySystem
         if (args.Current is not DragonRiftComponentState state)
             return;
 
-        if (component.State == state.State) return;
+        if (component.State == state.State)
+            return;
 
         component.State = state.State;
         TryComp<SpriteComponent>(uid, out var sprite);

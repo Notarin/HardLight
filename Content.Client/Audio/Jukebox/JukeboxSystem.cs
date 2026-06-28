@@ -5,14 +5,22 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Client.Audio.Jukebox;
 
-
 public sealed class JukeboxSystem : SharedJukeboxSystem
 {
-    [Dependency] private readonly IPrototypeManager _protoManager = default!;
-    [Dependency] private readonly AnimationPlayerSystem _animationPlayer = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearanceSystem = default!;
-    [Dependency] private readonly SharedUserInterfaceSystem _uiSystem = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly IPrototypeManager _protoManager = default!;
+
+    [Dependency]
+    private readonly AnimationPlayerSystem _animationPlayer = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearanceSystem = default!;
+
+    [Dependency]
+    private readonly SharedUserInterfaceSystem _uiSystem = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     public override void Initialize()
     {
@@ -59,8 +67,15 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
         if (!TryComp<SpriteComponent>(uid, out var sprite))
             return;
 
-        if (!TryComp<AppearanceComponent>(uid, out var appearance) ||
-            !_appearanceSystem.TryGetData<JukeboxVisualState>(uid, JukeboxVisuals.VisualState, out var visualState, appearance))
+        if (
+            !TryComp<AppearanceComponent>(uid, out var appearance)
+            || !_appearanceSystem.TryGetData<JukeboxVisualState>(
+                uid,
+                JukeboxVisuals.VisualState,
+                out var visualState,
+                appearance
+            )
+        )
         {
             visualState = JukeboxVisualState.On;
         }
@@ -73,8 +88,10 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
         if (args.Sprite == null)
             return;
 
-        if (!args.AppearanceData.TryGetValue(JukeboxVisuals.VisualState, out var visualStateObject) ||
-            visualStateObject is not JukeboxVisualState visualState)
+        if (
+            !args.AppearanceData.TryGetValue(JukeboxVisuals.VisualState, out var visualStateObject)
+            || visualStateObject is not JukeboxVisualState visualState
+        )
         {
             visualState = JukeboxVisualState.On;
         }
@@ -82,7 +99,11 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
         UpdateAppearance((uid, args.Sprite), visualState, component);
     }
 
-    private void UpdateAppearance(Entity<SpriteComponent> entity, JukeboxVisualState visualState, JukeboxComponent component)
+    private void UpdateAppearance(
+        Entity<SpriteComponent> entity,
+        JukeboxVisualState visualState,
+        JukeboxComponent component
+    )
     {
         SetLayerState(JukeboxVisualLayers.Base, component.OffState, entity);
 
@@ -102,7 +123,13 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
         }
     }
 
-    private void PlayAnimation(EntityUid uid, JukeboxVisualLayers layer, string? state, float animationTime, SpriteComponent sprite)
+    private void PlayAnimation(
+        EntityUid uid,
+        JukeboxVisualLayers layer,
+        string? state,
+        float animationTime,
+        SpriteComponent sprite
+    )
     {
         if (string.IsNullOrEmpty(state))
             return;
@@ -121,16 +148,13 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
         {
             Length = TimeSpan.FromSeconds(animationTime),
             AnimationTracks =
+            {
+                new AnimationTrackSpriteFlick
                 {
-                    new AnimationTrackSpriteFlick
-                    {
-                        LayerKey = layer,
-                        KeyFrames =
-                        {
-                            new AnimationTrackSpriteFlick.KeyFrame(state, 0f)
-                        }
-                    }
-                }
+                    LayerKey = layer,
+                    KeyFrames = { new AnimationTrackSpriteFlick.KeyFrame(state, 0f) },
+                },
+            },
         };
     }
 

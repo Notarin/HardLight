@@ -8,6 +8,7 @@ namespace Content.Client._NF.Cargo.UI;
 sealed partial class NFCargoConsoleOrderMenu : DefaultWindow
 {
     public int OrderCapacity;
+
     public NFCargoConsoleOrderMenu(int orderCapacity)
     {
         RobustXamlLoader.Load(this);

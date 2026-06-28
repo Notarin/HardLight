@@ -1,12 +1,12 @@
 ﻿using Content.Server.Anomaly.Components;
 using Content.Server.Construction;
 using Content.Server.Power.EntitySystems;
+using Content.Server.Psionics.Glimmer;
 using Content.Shared.Anomaly;
 using Content.Shared.Anomaly.Components;
 using Content.Shared.Examine;
 using Content.Shared.Interaction;
 using Content.Shared.Research.Components;
-using Content.Server.Psionics.Glimmer;
 
 namespace Content.Server.Anomaly;
 
@@ -46,9 +46,11 @@ public sealed partial class AnomalySystem
         if (!args.IsInDetailsRange)
             return;
 
-        args.PushText(component.Anomaly == null
-            ? Loc.GetString("anomaly-vessel-component-not-assigned")
-            : Loc.GetString("anomaly-vessel-component-assigned"));
+        args.PushText(
+            component.Anomaly == null
+                ? Loc.GetString("anomaly-vessel-component-not-assigned")
+                : Loc.GetString("anomaly-vessel-component-assigned")
+        );
     }
 
     private void OnVesselShutdown(EntityUid uid, AnomalyVesselComponent component, ComponentShutdown args)
@@ -64,7 +66,7 @@ public sealed partial class AnomalySystem
 
     private void OnVesselMapInit(EntityUid uid, AnomalyVesselComponent component, MapInitEvent args)
     {
-        UpdateVesselAppearance(uid,  component);
+        UpdateVesselAppearance(uid, component);
     }
 
     private void OnUpgradeExamine(EntityUid uid, AnomalyVesselComponent component, UpgradeExamineEvent args)
@@ -74,9 +76,11 @@ public sealed partial class AnomalySystem
 
     private void OnVesselInteractUsing(EntityUid uid, AnomalyVesselComponent component, InteractUsingEvent args)
     {
-        if (component.Anomaly != null ||
-            !TryComp<AnomalyScannerComponent>(args.Used, out var scanner) ||
-            scanner.ScannedAnomaly is not { } anomaly)
+        if (
+            component.Anomaly != null
+            || !TryComp<AnomalyScannerComponent>(args.Used, out var scanner)
+            || scanner.ScannedAnomaly is not { } anomaly
+        )
         {
             return;
         }
@@ -85,8 +89,7 @@ public sealed partial class AnomalySystem
             return;
 
         // Nyano - Summary - Begin modified code block: tie anomaly harvesting to glimmer rate.
-        if (this.IsPowered(uid, EntityManager) &&
-            TryComp<GlimmerSourceComponent>(anomaly, out var glimmerSource))
+        if (this.IsPowered(uid, EntityManager) && TryComp<GlimmerSourceComponent>(anomaly, out var glimmerSource))
         {
             glimmerSource.Active = true;
         }
@@ -95,20 +98,26 @@ public sealed partial class AnomalySystem
         component.Anomaly = scanner.ScannedAnomaly;
         anomalyComponent.ConnectedVessel = uid;
         _radiation.SetSourceEnabled(uid, true);
-        UpdateVesselAppearance(uid,  component);
+        UpdateVesselAppearance(uid, component);
         Popup.PopupEntity(Loc.GetString("anomaly-vessel-component-anomaly-assigned"), uid);
     }
 
-    private void OnVesselGetPointsPerSecond(EntityUid uid, AnomalyVesselComponent component, ref ResearchServerGetPointsPerSecondEvent args)
+    private void OnVesselGetPointsPerSecond(
+        EntityUid uid,
+        AnomalyVesselComponent component,
+        ref ResearchServerGetPointsPerSecondEvent args
+    )
     {
-        if (!this.IsPowered(uid, EntityManager) || component.Anomaly is not {} anomaly)
+        if (!this.IsPowered(uid, EntityManager) || component.Anomaly is not { } anomaly)
             return;
 
         var rawPointValue = GetAnomalyPointValue(anomaly); // Frontier: cache value
         args.Points += (int)(rawPointValue * component.PointMultiplier); // Frontier: GetAnomalyPointValue() < rawPointValue
         // Frontier: increase anomaly points
-        if (TryComp<AnomalyComponent>(anomaly, out var anomalyComp)
-            && anomalyComp.LastTickPointsEarned != Timing.CurTick)
+        if (
+            TryComp<AnomalyComponent>(anomaly, out var anomalyComp)
+            && anomalyComp.LastTickPointsEarned != Timing.CurTick
+        )
         {
             anomalyComp.LastTickPointsEarned = Timing.CurTick;
             anomalyComp.PointsEarned += rawPointValue;
@@ -125,7 +134,7 @@ public sealed partial class AnomalySystem
                 continue;
 
             component.Anomaly = null;
-            UpdateVesselAppearance(ent,  component);
+            UpdateVesselAppearance(ent, component);
             _radiation.SetSourceEnabled(ent, false);
 
             if (!args.Supercritical)
@@ -142,7 +151,7 @@ public sealed partial class AnomalySystem
             if (args.Anomaly != component.Anomaly)
                 continue;
 
-            UpdateVesselAppearance(ent,  component);
+            UpdateVesselAppearance(ent, component);
         }
     }
 
@@ -210,7 +219,8 @@ public sealed partial class AnomalySystem
                 continue;
 
             Audio.PlayPvs(vessel.BeepSound, vesselEnt);
-            var beepInterval = (vessel.MaxBeepInterval - vessel.MinBeepInterval) * (1 - timerPercentage) + vessel.MinBeepInterval;
+            var beepInterval =
+                (vessel.MaxBeepInterval - vessel.MinBeepInterval) * (1 - timerPercentage) + vessel.MinBeepInterval;
             vessel.NextBeep = beepInterval + Timing.CurTime;
         }
     }

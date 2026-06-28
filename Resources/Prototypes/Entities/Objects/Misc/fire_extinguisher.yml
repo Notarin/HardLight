@@ -8,7 +8,7 @@
     sprite: _NF/Objects/Misc/fire_extinguisher.rsi # Frontier
     layers:
     - state: fire_extinguisher_closed
-      map: [ "enum.ToggleVisuals.Layer" ]
+      map: ["enum.ToggleVisuals.Layer"]
   - type: Item
     sprite: _NF/Objects/Misc/fire_extinguisher.rsi # Frontier
     size: Normal
@@ -64,13 +64,13 @@
   - type: Appearance
   - type: Tag
     tags:
-      - FireExtinguisher
+    - FireExtinguisher
   - type: GenericVisualizer
     visuals:
       enum.ToggleVisuals.Toggled:
         enum.ToggleVisuals.Layer:
-          True: { state: fire_extinguisher_open }
-          False: { state: fire_extinguisher_closed }
+          True: {state: fire_extinguisher_open}
+          False: {state: fire_extinguisher_closed}
   - type: PhysicalComposition
     materialComposition:
       Steel: 100
@@ -95,13 +95,13 @@
   name: extinguisher spray
   id: ExtinguisherSpray
   parent: Vapor
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: Effects/extinguisherSpray.rsi
     layers:
-      - state: extinguish
-        map: [ "enum.VaporVisualLayers.Base" ]
+    - state: extinguish
+      map: ["enum.VaporVisualLayers.Base"]
   - type: Physics
     bodyType: Dynamic
   - type: Appearance
@@ -118,8 +118,8 @@
   - type: Sprite
     sprite: Objects/Misc/fire_extinguisher_mini.rsi
     layers:
-        - state: fire_extinguisher_closed
-          map: [ "enabled" ]
+    - state: fire_extinguisher_closed
+      map: ["enabled"]
   - type: Item
     sprite: Objects/Misc/fire_extinguisher_mini.rsi
     size: Small
@@ -144,7 +144,7 @@
 
 # used for a engi xenoborg module
 - type: entity
-  parent: [ FireExtinguisher, BaseXenoborgContraband ]
+  parent: [FireExtinguisher, BaseXenoborgContraband]
   id: SelfRechargingFireExtinguisher
   name: self-recharging fire extinguisher
   description: It extinguishes fires. it slowly refills with water.

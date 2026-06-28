@@ -76,9 +76,9 @@
         startingItem: PowerCellMedium
   - type: StaticPrice
     price: 500
-#  - type: ContainerContainer
-#    containers:
-#      gun_magazine: !type:ContainerSlot
+    #  - type: ContainerContainer
+    #    containers:
+    #      gun_magazine: !type:ContainerSlot
   - type: Cautery # Shitmed
     speed: 0.9
   - type: SurgeryTool # Shitmed
@@ -127,7 +127,7 @@
 
 - type: entity
   name: svalinn laser pistol
-  parent: [ BaseWeaponPowerCellSmall, BaseC1Contraband ] # Frontier: BaseSecurityContraband<BaseC1Contraband
+  parent: [BaseWeaponPowerCellSmall, BaseC1Contraband] # Frontier: BaseSecurityContraband<BaseC1Contraband
   id: WeaponLaserSvalinn
   description: A cheap and widely used laser pistol.
   components:
@@ -164,7 +164,7 @@
 
 - type: entity
   name: retro laser blaster
-  parent: [ BaseWeaponBatterySmall, BaseC1Contraband ] # Frontier: BaseMajorContraband<BaseC1Contraband
+  parent: [BaseWeaponBatterySmall, BaseC1Contraband] # Frontier: BaseMajorContraband<BaseC1Contraband
   id: WeaponLaserGun
   description: A civilian grade weapon using light amplified by the stimulated emission of radiation.
   components:
@@ -290,7 +290,7 @@
     fireCost: 62.5
 
 - type: entity
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   name: pulse pistol
   parent: [BaseWeaponBatterySmall, BaseC2ContrabandUnredeemable] # Frontier: added BaseC2ContrabandUnredeemable
   id: WeaponPulsePistol
@@ -325,7 +325,7 @@
     startingCharge: 2000
 
 - type: entity
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   name: pulse carbine
   parent: [BaseWeaponBattery, BaseGunWieldable, BaseC2ContrabandUnredeemable] # Frontier: added BaseC2ContrabandUnredeemable
   id: WeaponPulseCarbine
@@ -362,7 +362,7 @@
     startingCharge: 5000
 
 - type: entity
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   name: pulse rifle
   parent: [BaseWeaponBattery, BaseGunWieldable, BaseC2ContrabandUnredeemable] # Frontier: added BaseC2ContrabandUnredeemable
   id: WeaponPulseRifle
@@ -395,7 +395,7 @@
     startingCharge: 40000
 
 - type: entity
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   name: laser cannon
   parent: [BaseWeaponPowerCell, BaseGunWieldable, BaseC2ContrabandUnredeemable] # Frontier: BaseRestrictedContraband<BaseC2ContrabandUnredeemable
   id: WeaponLaserCannon
@@ -460,9 +460,8 @@
   - type: Tag # HL: Override tags so you can't sell this for Laser Weapon bounty
     tags: []
 
-
 - type: entity
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   name: x-ray cannon
   parent: [BaseWeaponPowerCell, BaseGunWieldable, BaseC3Contraband] # Frontier: added BaseSecurityContraband<BaseC3Contraband
   id: WeaponXrayCannon
@@ -534,7 +533,7 @@
 
 - type: entity
   name: disabler
-  parent: [ WeaponDisablerPractice, BaseC1Contraband ] # Frontier: BaseSecurityCommandContraband<BaseC1Contraband
+  parent: [WeaponDisablerPractice, BaseC1Contraband] # Frontier: BaseSecurityCommandContraband<BaseC1Contraband
   id: WeaponDisabler
   description: A civilian grade self-defense weapon that exhausts organic targets, weakening them until they collapse.
   components:
@@ -562,7 +561,7 @@
 
 - type: entity
   name: disabler SMG
-  parent: [ BaseWeaponBattery, BaseC2ContrabandUnredeemable ] # Frontier: BaseSecurityContraband<BaseC2ContrabandUnredeemable
+  parent: [BaseWeaponBattery, BaseC2ContrabandUnredeemable] # Frontier: BaseSecurityContraband<BaseC2ContrabandUnredeemable
   id: WeaponDisablerSMG
   description: Advanced weapon that exhausts organic targets, weakening them until they collapse. On the handle is a label that says 'for authorized use only.'
   components:
@@ -600,7 +599,7 @@
 
 - type: entity
   name: taser
-  parent: [ BaseWeaponBatterySmall, BaseC2ContrabandUnredeemable ] # Frontier: BaseSecurityContraband<BaseC2ContrabandUnredeemable
+  parent: [BaseWeaponBatterySmall, BaseC2ContrabandUnredeemable] # Frontier: BaseSecurityContraband<BaseC2ContrabandUnredeemable
   id: WeaponTaser
   description: A low-capacity, energy-based stun gun used by security teams to subdue targets at range. On the handle is a label that says 'for authorized use only.'
   components:
@@ -635,7 +634,7 @@
   - type: Appearance
 
 - type: entity
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   name: antique laser pistol
   parent: [BaseWeaponBatterySmall, BaseC1Contraband] # Frontier: BaseGrandTheftContraband<BaseC1Contraband
   id: WeaponAntiqueLaser
@@ -680,14 +679,14 @@
     # not putting a BlockMovement component here cause that's funny.
 
 - type: entity
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   name: advanced laser pistol
-  parent: [ BaseWeaponBatterySmall, BaseC1Contraband ] # Frontier: BaseSecurityContraband<BaseC1Contraband
+  parent: [BaseWeaponBatterySmall, BaseC1Contraband] # Frontier: BaseSecurityContraband<BaseC1Contraband
   id: WeaponAdvancedLaser
   description: An experimental civilian grade high-energy laser pistol with a self-charging nuclear battery.
   components:
   - type: Item
-    size: Normal  # Intentionally larger than other pistols
+    size: Normal # Intentionally larger than other pistols
   - type: Sprite
     sprite: Objects/Weapons/Guns/Battery/advancedlasergun.rsi
     layers:
@@ -742,7 +741,7 @@
     fireRate: 1.5
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/taser2.ogg
-    # Frontier: moved to NF variants
+      # Frontier: moved to NF variants
   - type: ProjectileBatteryAmmoProvider
     proto: AnomalousParticleDeltaStrong
     fireCost: 100
@@ -756,7 +755,7 @@
       fireCost: 100
     - proto: AnomalousParticleSigmaStrong
       fireCost: 100
-    # End Frontier: moved to NF variants
+      # End Frontier: moved to NF variants
   - type: Construction
     graph: UpgradeWeaponPistolCHIMP
     node: start
@@ -782,7 +781,7 @@
       fireCost: 100
     - proto: AnomalousParticleSigmaStrong
       fireCost: 100
-    # Frontier: moved to NF variants
+      # Frontier: moved to NF variants
 
 - type: entity
   name: eye of a behonker
@@ -808,64 +807,64 @@
   - type: StaticPrice
     price: 750
 
-# - type: entity
+  # - type: entity
   # name: energy shotgun
   # parent: [BaseWeaponBattery, BaseGunWieldable, BaseC2ContrabandUnredeemable] # Frontier: BaseGrandTheftContraband<BaseC2ContrabandUnredeemable
   # id: WeaponEnergyShotgun
   # description: A one-of-a-kind prototype energy weapon that uses various shotgun configurations. It offers the possibility of both lethal and non-lethal shots, making it a versatile weapon.
   # components:
   # - type: Sprite
-    # sprite: Objects/Weapons/Guns/Battery/energy_shotgun.rsi
-    # layers:
-      # - state: base
-        # map: ["enum.GunVisualLayers.Base"]
-      # - state: mag-unshaded-4
-        # map: ["enum.GunVisualLayers.MagUnshaded"]
-        # shader: unshaded
+  # sprite: Objects/Weapons/Guns/Battery/energy_shotgun.rsi
+  # layers:
+  # - state: base
+  # map: ["enum.GunVisualLayers.Base"]
+  # - state: mag-unshaded-4
+  # map: ["enum.GunVisualLayers.MagUnshaded"]
+  # shader: unshaded
   # - type: MagazineVisuals
-    # magState: mag
-    # steps: 5
-    # zeroVisible: false
+  # magState: mag
+  # steps: 5
+  # zeroVisible: false
   # - type: Appearance
   # - type: Clothing
-    # sprite: Objects/Weapons/Guns/Battery/energy_shotgun.rsi
+  # sprite: Objects/Weapons/Guns/Battery/energy_shotgun.rsi
   # - type: Gun
-    # fireRate: 2
-    # soundGunshot:
-      # path: /Audio/Weapons/Guns/Gunshots/laser_cannon.ogg
+  # fireRate: 2
+  # soundGunshot:
+  # path: /Audio/Weapons/Guns/Gunshots/laser_cannon.ogg
   # - type: ProjectileBatteryAmmoProvider
-    # # proto: BulletLaserSpread # Frontier
-    # fireCost: 150
+  # # proto: BulletLaserSpread # Frontier
+  # fireCost: 150
   # - type: BatteryWeaponFireModes
-    # # Frontier: move to NF variants
-    # # fireModes:
-    # # - proto: BulletLaserSpread
-    # #   fireCost: 150
-    # # - proto: BulletLaserSpreadNarrow
-    # #   fireCost: 200
-    # # - proto: BulletDisablerSmgSpread
-    # #   fireCost: 120
-    # # End Frontier: move to NF variants
+  # # Frontier: move to NF variants
+  # # fireModes:
+  # # - proto: BulletLaserSpread
+  # #   fireCost: 150
+  # # - proto: BulletLaserSpreadNarrow
+  # #   fireCost: 200
+  # # - proto: BulletDisablerSmgSpread
+  # #   fireCost: 120
+  # # End Frontier: move to NF variants
   # - type: Item
-    # size: Large
-    # shape:
-    # - 0,0,3,1
-    # sprite: Objects/Weapons/Guns/Battery/inhands_64x.rsi
-    # heldPrefix: energy
+  # size: Large
+  # shape:
+  # - 0,0,3,1
+  # sprite: Objects/Weapons/Guns/Battery/inhands_64x.rsi
+  # heldPrefix: energy
   # - type: Tag
-    # tags:
-    # - HighRiskItem
+  # tags:
+  # - HighRiskItem
   # - type: StealTarget
-    # stealGroup: WeaponEnergyShotgun
+  # stealGroup: WeaponEnergyShotgun
   # - type: GunRequiresWield #remove when inaccuracy on spreads is fixed
   # - type: Battery
-    # maxCharge: 1200
-    # startingCharge: 1200
+  # maxCharge: 1200
+  # startingCharge: 1200
   # - type: BatterySelfRecharger
-    # autoRecharge: true
-    # autoRechargeRate: 24
-    # autoRechargePause: true
-    # autoRechargePauseTime: 30
+  # autoRecharge: true
+  # autoRechargeRate: 24
+  # autoRechargePause: true
+  # autoRechargePauseTime: 30
 
 - type: entity
   name: temperature gun
@@ -901,10 +900,10 @@
     fireCost: 100
   - type: BatteryWeaponFireModes
     fireModes:
-      - proto: BoltTempgunCold # Frontier
-        fireCost: 100 # Frontier
-      - proto: BoltTempgunHot # Frontier
-        fireCost: 100 # Frontier
+    - proto: BoltTempgunCold # Frontier
+      fireCost: 100 # Frontier
+    - proto: BoltTempgunHot # Frontier
+      fireCost: 100 # Frontier
   - type: Battery
     maxCharge: 1000
     startingCharge: 1000
@@ -913,12 +912,12 @@
 
 - type: entity
   name: xenoborg laser gun
-  parent: [ WeaponAdvancedLaser, BaseXenoborgContraband ]
+  parent: [WeaponAdvancedLaser, BaseXenoborgContraband]
   id: XenoborgLaserGun
 
 - type: entity
   name: xenoborg Shredder
-  parent: [ WeaponAdvancedLaser, BaseXenoborgContraband ]
+  parent: [WeaponAdvancedLaser, BaseXenoborgContraband]
   id: XenoborgHeavyLaserGun
   components:
   - type: HitscanBatteryAmmoProvider

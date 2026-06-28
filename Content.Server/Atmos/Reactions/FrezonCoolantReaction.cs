@@ -11,14 +11,20 @@ namespace Content.Server.Atmos.Reactions;
 [UsedImplicitly]
 public sealed partial class FrezonCoolantReaction : IGasReactionEffect
 {
-    public ReactionResult React(GasMixture mixture, IGasMixtureHolder? holder, AtmosphereSystem atmosphereSystem, float heatScale)
+    public ReactionResult React(
+        GasMixture mixture,
+        IGasMixtureHolder? holder,
+        AtmosphereSystem atmosphereSystem,
+        float heatScale
+    )
     {
         var oldHeatCapacity = atmosphereSystem.GetHeatCapacity(mixture, true);
         var temperature = mixture.Temperature;
 
         var energyModifier = 1f;
-        var scale = (temperature - Atmospherics.FrezonCoolLowerTemperature) /
-                    (Atmospherics.FrezonCoolMidTemperature - Atmospherics.FrezonCoolLowerTemperature);
+        var scale =
+            (temperature - Atmospherics.FrezonCoolLowerTemperature)
+            / (Atmospherics.FrezonCoolMidTemperature - Atmospherics.FrezonCoolLowerTemperature);
 
         if (scale > 1f)
         {

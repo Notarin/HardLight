@@ -29,7 +29,7 @@
     sprite: Objects/Misc/module.rsi
     layers:
     - state: harddisk
-      map: [ "base" ]
+      map: ["base"]
   - type: Item
     storedRotation: -90
   - type: RandomSprite
@@ -101,7 +101,7 @@
     sprite: Objects/Misc/sample_tubes.rsi
     layers:
     - state: blank
-      map: [ "base" ]
+      map: ["base"]
   - type: RandomSprite
     available:
     - base:

@@ -10,23 +10,30 @@ namespace Content.Shared.Construction.Steps
     {
         [DataField("minTemperature")]
         public float? MinTemperature;
+
         [DataField("maxTemperature")]
         public float? MaxTemperature;
 
         public override void DoExamine(ExaminedEvent examinedEvent)
         {
-            float guideTemperature = MinTemperature.HasValue ? MinTemperature.Value : (MaxTemperature.HasValue ? MaxTemperature.Value : 0);
-            examinedEvent.PushMarkup(Loc.GetString("construction-temperature-default", ("temperature", guideTemperature)));
+            float guideTemperature = MinTemperature.HasValue
+                ? MinTemperature.Value
+                : (MaxTemperature.HasValue ? MaxTemperature.Value : 0);
+            examinedEvent.PushMarkup(
+                Loc.GetString("construction-temperature-default", ("temperature", guideTemperature))
+            );
         }
 
         public override ConstructionGuideEntry GenerateGuideEntry()
         {
-            float guideTemperature = MinTemperature.HasValue ? MinTemperature.Value : (MaxTemperature.HasValue ? MaxTemperature.Value : 0);
+            float guideTemperature = MinTemperature.HasValue
+                ? MinTemperature.Value
+                : (MaxTemperature.HasValue ? MaxTemperature.Value : 0);
 
             return new ConstructionGuideEntry()
             {
                 Localization = "construction-presenter-temperature-step",
-                Arguments = new (string, object)[] { ("temperature", guideTemperature) }
+                Arguments = new (string, object)[] { ("temperature", guideTemperature) },
             };
         }
     }

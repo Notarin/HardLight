@@ -1,18 +1,18 @@
-using Content.Shared.Popups;
-using Content.Shared.Paint;
-using Content.Shared.Sprite;
-using Content.Shared.DoAfter;
-using Content.Shared.Interaction;
 using Content.Server.Chemistry.Containers.EntitySystems;
-using Robust.Shared.Audio.Systems;
+using Content.Shared.DoAfter;
 using Content.Shared.Humanoid;
-using Robust.Shared.Utility;
-using Content.Shared.Verbs;
-using Content.Shared.SubFloor;
-using Content.Shared.Nutrition.Components;
+using Content.Shared.Interaction;
 using Content.Shared.Inventory;
+using Content.Shared.Nutrition.Components;
 using Content.Shared.Nutrition.EntitySystems;
+using Content.Shared.Paint;
+using Content.Shared.Popups;
+using Content.Shared.Sprite;
+using Content.Shared.SubFloor;
+using Content.Shared.Verbs;
 using Content.Shared.Whitelist;
+using Robust.Shared.Audio.Systems;
+using Robust.Shared.Utility;
 
 namespace Content.Server.Paint;
 
@@ -21,14 +21,29 @@ namespace Content.Server.Paint;
 /// </summary>
 public sealed class PaintSystem : SharedPaintSystem
 {
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SolutionContainerSystem _solutionContainer = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearanceSystem = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
-    [Dependency] private readonly InventorySystem _inventory = default!;
-    [Dependency] private readonly OpenableSystem _openable = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!;
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly SolutionContainerSystem _solutionContainer = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearanceSystem = default!;
+
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfterSystem = default!;
+
+    [Dependency]
+    private readonly InventorySystem _inventory = default!;
+
+    [Dependency]
+    private readonly OpenableSystem _openable = default!;
+
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelist = default!;
 
     public override void Initialize()
     {
@@ -77,19 +92,27 @@ public sealed class PaintSystem : SharedPaintSystem
             },
 
             Text = paintText,
-            Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/paint.svg.192dpi.png"))
+            Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/paint.svg.192dpi.png")),
         };
         args.Verbs.Add(verb);
     }
+
     private void PrepPaint(EntityUid uid, PaintComponent component, EntityUid target, EntityUid user)
     {
-
-        var doAfterEventArgs = new DoAfterArgs(EntityManager, user, component.Delay, new PaintDoAfterEvent(), uid, target: target, used: uid)
+        var doAfterEventArgs = new DoAfterArgs(
+            EntityManager,
+            user,
+            component.Delay,
+            new PaintDoAfterEvent(),
+            uid,
+            target: target,
+            used: uid
+        )
         {
             BreakOnMove = true,
             BreakOnDamage = true,
             NeedHand = true,
-            BreakOnHandChange = true
+            BreakOnHandChange = true,
         };
 
         if (!_doAfterSystem.TryStartDoAfter(doAfterEventArgs))
@@ -109,22 +132,40 @@ public sealed class PaintSystem : SharedPaintSystem
 
         if (!_openable.IsOpen(entity))
         {
-            _popup.PopupEntity(Loc.GetString("paint-closed", ("used", args.Used)), args.User, args.User, PopupType.Medium);
+            _popup.PopupEntity(
+                Loc.GetString("paint-closed", ("used", args.Used)),
+                args.User,
+                args.User,
+                PopupType.Medium
+            );
             return;
         }
 
         if (HasComp<PaintedComponent>(target) || HasComp<RandomSpriteComponent>(target))
         {
-            _popup.PopupEntity(Loc.GetString("paint-failure-painted", ("target", args.Target)), args.User, args.User, PopupType.Medium);
+            _popup.PopupEntity(
+                Loc.GetString("paint-failure-painted", ("target", args.Target)),
+                args.User,
+                args.User,
+                PopupType.Medium
+            );
             return;
         }
 
-        if (!_whitelist.IsBlacklistFailOrNull(entity.Comp.Blacklist, target) || HasComp<HumanoidAppearanceComponent>(target) || HasComp<SubFloorHideComponent>(target))
+        if (
+            !_whitelist.IsBlacklistFailOrNull(entity.Comp.Blacklist, target)
+            || HasComp<HumanoidAppearanceComponent>(target)
+            || HasComp<SubFloorHideComponent>(target)
+        )
         {
-            _popup.PopupEntity(Loc.GetString("paint-failure", ("target", args.Target)), args.User, args.User, PopupType.Medium);
+            _popup.PopupEntity(
+                Loc.GetString("paint-failure", ("target", args.Target)),
+                args.User,
+                args.User,
+                PopupType.Medium
+            );
             return;
         }
-
 
         if (TryPaint(entity, target))
         {
@@ -147,8 +188,12 @@ public sealed class PaintSystem : SharedPaintSystem
                         if (slotEnt == null)
                             return;
 
-                        if (HasComp<PaintedComponent>(slotEnt.Value) || _whitelist.IsBlacklistPass(entity.Comp.Blacklist, slotEnt.Value)
-                            || HasComp<RandomSpriteComponent>(slotEnt.Value) || HasComp<HumanoidAppearanceComponent>(slotEnt.Value))
+                        if (
+                            HasComp<PaintedComponent>(slotEnt.Value)
+                            || _whitelist.IsBlacklistPass(entity.Comp.Blacklist, slotEnt.Value)
+                            || HasComp<RandomSpriteComponent>(slotEnt.Value)
+                            || HasComp<HumanoidAppearanceComponent>(slotEnt.Value)
+                        )
                             return;
 
                         EnsureComp<PaintedComponent>(slotEnt.Value, out PaintedComponent? slotpaint);
@@ -160,7 +205,12 @@ public sealed class PaintSystem : SharedPaintSystem
                 }
             }
 
-            _popup.PopupEntity(Loc.GetString("paint-success", ("target", args.Target)), args.User, args.User, PopupType.Medium);
+            _popup.PopupEntity(
+                Loc.GetString("paint-success", ("target", args.Target)),
+                args.User,
+                args.User,
+                PopupType.Medium
+            );
             _appearanceSystem.SetData(target, PaintVisuals.Painted, true);
             Dirty(target, paint);
             args.Handled = true;
@@ -169,7 +219,12 @@ public sealed class PaintSystem : SharedPaintSystem
 
         if (!TryPaint(entity, target))
         {
-            _popup.PopupEntity(Loc.GetString("paint-empty", ("used", args.Used)), args.User, args.User, PopupType.Medium);
+            _popup.PopupEntity(
+                Loc.GetString("paint-empty", ("used", args.Used)),
+                args.User,
+                args.User,
+                PopupType.Medium
+            );
             return;
         }
     }
@@ -182,7 +237,7 @@ public sealed class PaintSystem : SharedPaintSystem
         if (_solutionContainer.TryGetSolution(reagent.Owner, reagent.Comp.Solution, out _, out var solution))
         {
             var quantity = solution.RemoveReagent(reagent.Comp.Reagent, reagent.Comp.ConsumptionUnit);
-            if (quantity > 0)// checks quantity of solution is more than 0.
+            if (quantity > 0) // checks quantity of solution is more than 0.
                 return true;
 
             if (quantity < 1)

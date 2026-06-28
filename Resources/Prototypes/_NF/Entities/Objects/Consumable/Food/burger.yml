@@ -11,8 +11,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - bun
-      - validhunting
+    - bun
+    - validhunting
   - type: Sprite
     scale: 0.8, 0.8
     sprite: _NF/Objects/Consumable/Food/burger.rsi
@@ -38,9 +38,9 @@
   components:
   - type: FlavorProfile
     flavors:
-      - bun
-      - meaty
-      - pink
+    - bun
+    - meaty
+    - pink
   - type: Sprite
     sprite: _NF/Objects/Consumable/Food/burger.rsi
     state: rosy-mothroach

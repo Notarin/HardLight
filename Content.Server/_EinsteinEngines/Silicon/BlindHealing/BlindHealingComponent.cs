@@ -21,4 +21,3 @@ public sealed partial class BlindHealingComponent : Component
     [DataField(required: true)]
     public List<string> DamageContainers;
 }
-

@@ -312,7 +312,7 @@
       collection: VoxHiss
       params:
         volume: -5
-    # End Impstation Additions
+        # End Impstation Additions
   params:
     variation: 0.125
     # We need vox sounds for the other emotes
@@ -387,7 +387,7 @@
       path: /Audio/_Starlight/Voice/Arachnid/arachnid_sigh.ogg
     Gasp:
       path: /Audio/_Starlight/Voice/Arachnid/arachnid_gasp.ogg
-    #endregion Starlight
+      #endregion Starlight
 
 - type: emoteSounds
   id: UnisexDwarf
@@ -525,7 +525,7 @@
       path: /Audio/_Starlight/Voice/Moth/moth_sigh.ogg
     Gasp:
       path: /Audio/_Starlight/Voice/Moth/moth_gasp.ogg
-    #endregion Starlight
+      #endregion Starlight
 
 - type: emoteSounds
   id: UnisexSilicon
@@ -757,7 +757,7 @@
     Salute:
       path: /Audio/Voice/Diona/diona_salute.ogg
       params:
-       volume: -5
+        volume: -5
     Crack: # Imp
       collection: Cracks # Imp
 

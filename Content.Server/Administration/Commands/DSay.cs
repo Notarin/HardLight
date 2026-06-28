@@ -8,7 +8,8 @@ namespace Content.Server.Administration.Commands
     [AdminCommand(AdminFlags.Moderator)]
     sealed class DSay : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _e = default!;
+        [Dependency]
+        private readonly IEntityManager _e = default!;
 
         public string Command => "dsay";
 

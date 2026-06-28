@@ -12,7 +12,8 @@ namespace Content.Shared.Turrets;
 /// </summary>
 public sealed partial class TurretTargetSettingsSystem : EntitySystem
 {
-    [Dependency] private readonly AccessReaderSystem _accessReader = default!;
+    [Dependency]
+    private readonly AccessReaderSystem _accessReader = default!;
 
     private ProtoId<AccessLevelPrototype> _accessLevelBorg = "Borg";
     private ProtoId<AccessLevelPrototype> _accessLevelBasicSilicon = "BasicSilicon";
@@ -25,7 +26,12 @@ public sealed partial class TurretTargetSettingsSystem : EntitySystem
     /// <param name="enabled">Set 'true' to add the exemption, or 'false' to remove it</param>
     /// <param name="dirty">Set 'true' to dirty the component</param>
     [PublicAPI]
-    public void SetAccessLevelExemption(Entity<TurretTargetSettingsComponent> ent, ProtoId<AccessLevelPrototype> exemption, bool enabled, bool dirty = true)
+    public void SetAccessLevelExemption(
+        Entity<TurretTargetSettingsComponent> ent,
+        ProtoId<AccessLevelPrototype> exemption,
+        bool enabled,
+        bool dirty = true
+    )
     {
         if (enabled)
             ent.Comp.ExemptAccessLevels.Add(exemption);
@@ -43,7 +49,11 @@ public sealed partial class TurretTargetSettingsSystem : EntitySystem
     /// <param name="exemption">The collection of access level proto IDs to add or remove</param>
     /// <param name="enabled">Set 'true' to add the collection as exemptions, or 'false' to remove them</param>
     [PublicAPI]
-    public void SetAccessLevelExemptions(Entity<TurretTargetSettingsComponent> ent, ICollection<ProtoId<AccessLevelPrototype>> exemptions, bool enabled)
+    public void SetAccessLevelExemptions(
+        Entity<TurretTargetSettingsComponent> ent,
+        ICollection<ProtoId<AccessLevelPrototype>> exemptions,
+        bool enabled
+    )
     {
         foreach (var exemption in exemptions)
             SetAccessLevelExemption(ent, exemption, enabled, false);
@@ -57,7 +67,10 @@ public sealed partial class TurretTargetSettingsSystem : EntitySystem
     /// <param name="ent">The entity and its <see cref="TurretTargetSettingsComponent"/></param>
     /// <param name="exemptions">The supplied collection of access level proto IDs</param>
     [PublicAPI]
-    public void SyncAccessLevelExemptions(Entity<TurretTargetSettingsComponent> ent, ICollection<ProtoId<AccessLevelPrototype>> exemptions)
+    public void SyncAccessLevelExemptions(
+        Entity<TurretTargetSettingsComponent> ent,
+        ICollection<ProtoId<AccessLevelPrototype>> exemptions
+    )
     {
         ent.Comp.ExemptAccessLevels.Clear();
         SetAccessLevelExemptions(ent, exemptions, true);
@@ -69,7 +82,10 @@ public sealed partial class TurretTargetSettingsSystem : EntitySystem
     /// <param name="target">The entity this is having its exemption list updated <see cref="TurretTargetSettingsComponent"/></param>
     /// <param name="source">The entity that is being used as a template for the target</param>
     [PublicAPI]
-    public void SyncAccessLevelExemptions(Entity<TurretTargetSettingsComponent> target, Entity<TurretTargetSettingsComponent> source)
+    public void SyncAccessLevelExemptions(
+        Entity<TurretTargetSettingsComponent> target,
+        Entity<TurretTargetSettingsComponent> source
+    )
     {
         SyncAccessLevelExemptions(target, source.Comp.ExemptAccessLevels);
     }
@@ -80,7 +96,10 @@ public sealed partial class TurretTargetSettingsSystem : EntitySystem
     /// <param name="ent">The entity and its <see cref="TurretTargetSettingsComponent"/></param>
     /// <param name="exemption">The access level proto ID being checked</param>
     [PublicAPI]
-    public bool HasAccessLevelExemption(Entity<TurretTargetSettingsComponent> ent, ProtoId<AccessLevelPrototype> exemption)
+    public bool HasAccessLevelExemption(
+        Entity<TurretTargetSettingsComponent> ent,
+        ProtoId<AccessLevelPrototype> exemption
+    )
     {
         if (ent.Comp.ExemptAccessLevels.Count == 0)
             return false;
@@ -94,7 +113,10 @@ public sealed partial class TurretTargetSettingsSystem : EntitySystem
     /// <param name="ent">The entity and its <see cref="TurretTargetSettingsComponent"/></param>
     /// <param name="exemptions"></param>
     [PublicAPI]
-    public bool HasAnyAccessLevelExemption(Entity<TurretTargetSettingsComponent> ent, ICollection<ProtoId<AccessLevelPrototype>> exemptions)
+    public bool HasAnyAccessLevelExemption(
+        Entity<TurretTargetSettingsComponent> ent,
+        ICollection<ProtoId<AccessLevelPrototype>> exemptions
+    )
     {
         if (ent.Comp.ExemptAccessLevels.Count == 0)
             return false;

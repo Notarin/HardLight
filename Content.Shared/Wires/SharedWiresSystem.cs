@@ -10,11 +10,20 @@ namespace Content.Shared.Wires;
 
 public abstract class SharedWiresSystem : EntitySystem
 {
-    [Dependency] protected readonly ISharedAdminLogManager AdminLogger = default!;
-    [Dependency] private readonly ActivatableUISystem _activatableUI = default!;
-    [Dependency] protected readonly SharedAppearanceSystem Appearance = default!;
-    [Dependency] protected readonly SharedAudioSystem Audio = default!;
-    [Dependency] protected readonly SharedToolSystem Tool = default!;
+    [Dependency]
+    protected readonly ISharedAdminLogManager AdminLogger = default!;
+
+    [Dependency]
+    private readonly ActivatableUISystem _activatableUI = default!;
+
+    [Dependency]
+    protected readonly SharedAppearanceSystem Appearance = default!;
+
+    [Dependency]
+    protected readonly SharedAudioSystem Audio = default!;
+
+    [Dependency]
+    protected readonly SharedToolSystem Tool = default!;
 
     public override void Initialize()
     {
@@ -25,7 +34,9 @@ public abstract class SharedWiresSystem : EntitySystem
         SubscribeLocalEvent<WiresPanelComponent, InteractUsingEvent>(OnInteractUsing);
         SubscribeLocalEvent<WiresPanelComponent, ExaminedEvent>(OnExamine);
 
-        SubscribeLocalEvent<ActivatableUIRequiresPanelComponent, ActivatableUIOpenAttemptEvent>(OnAttemptOpenActivatableUI);
+        SubscribeLocalEvent<ActivatableUIRequiresPanelComponent, ActivatableUIOpenAttemptEvent>(
+            OnAttemptOpenActivatableUI
+        );
         SubscribeLocalEvent<ActivatableUIRequiresPanelComponent, PanelChangedEvent>(OnActivatableUIPanelChanged);
     }
 
@@ -42,7 +53,11 @@ public abstract class SharedWiresSystem : EntitySystem
         if (!TogglePanel(uid, panel, !panel.Open, args.User))
             return;
 
-        AdminLogger.Add(LogType.Action, LogImpact.Low, $"{ToPrettyString(args.User):user} screwed {ToPrettyString(uid):target}'s maintenance panel {(panel.Open ? "open" : "closed")}");
+        AdminLogger.Add(
+            LogType.Action,
+            LogImpact.Low,
+            $"{ToPrettyString(args.User):user} screwed {ToPrettyString(uid):target}'s maintenance panel {(panel.Open ? "open" : "closed")}"
+        );
 
         var sound = panel.Open ? panel.ScrewdriverOpenSound : panel.ScrewdriverCloseSound;
         Audio.PlayPredicted(sound, uid, args.User);
@@ -57,19 +72,25 @@ public abstract class SharedWiresSystem : EntitySystem
         if (!CanTogglePanel(ent, args.User))
             return;
 
-        if (!Tool.UseTool(
+        if (
+            !Tool.UseTool(
                 args.Used,
                 args.User,
                 ent,
-                (float) ent.Comp.OpenDelay.TotalSeconds,
+                (float)ent.Comp.OpenDelay.TotalSeconds,
                 ent.Comp.OpeningTool,
-                new WirePanelDoAfterEvent()))
+                new WirePanelDoAfterEvent()
+            )
+        )
         {
             return;
         }
 
-        AdminLogger.Add(LogType.Action, LogImpact.Low,
-            $"{ToPrettyString(args.User):user} is screwing {ToPrettyString(ent):target}'s {(ent.Comp.Open ? "open" : "closed")} maintenance panel at {Transform(ent).Coordinates:targetlocation}");
+        AdminLogger.Add(
+            LogType.Action,
+            LogImpact.Low,
+            $"{ToPrettyString(args.User):user} is screwing {ToPrettyString(ent):target}'s {(ent.Comp.Open ? "open" : "closed")} maintenance panel at {Transform(ent).Coordinates:targetlocation}"
+        );
         args.Handled = true;
     }
 
@@ -87,8 +108,10 @@ public abstract class SharedWiresSystem : EntitySystem
                 if (!string.IsNullOrEmpty(component.ExamineTextOpen))
                     args.PushMarkup(Loc.GetString(component.ExamineTextOpen));
 
-                if (TryComp<WiresPanelSecurityComponent>(uid, out var wiresPanelSecurity) &&
-                    wiresPanelSecurity.Examine != null)
+                if (
+                    TryComp<WiresPanelSecurityComponent>(uid, out var wiresPanelSecurity)
+                    && wiresPanelSecurity.Examine != null
+                )
                 {
                     args.PushMarkup(Loc.GetString(wiresPanelSecurity.Examine));
                 }
@@ -146,14 +169,20 @@ public abstract class SharedWiresSystem : EntitySystem
 
         // Listen, i don't know what the fuck this component does. it's stapled on shit for airlocks
         // but it looks like an almost direct duplication of WiresPanelComponent except with a shittier API.
-        if (TryComp<WiresPanelSecurityComponent>(entity, out var wiresPanelSecurity) &&
-            !wiresPanelSecurity.WiresAccessible)
+        if (
+            TryComp<WiresPanelSecurityComponent>(entity, out var wiresPanelSecurity)
+            && !wiresPanelSecurity.WiresAccessible
+        )
             return false;
 
         return entity.Comp.Open;
     }
 
-    private void OnAttemptOpenActivatableUI(EntityUid uid, ActivatableUIRequiresPanelComponent component, ActivatableUIOpenAttemptEvent args)
+    private void OnAttemptOpenActivatableUI(
+        EntityUid uid,
+        ActivatableUIRequiresPanelComponent component,
+        ActivatableUIOpenAttemptEvent args
+    )
     {
         if (args.Cancelled || !TryComp<WiresPanelComponent>(uid, out var wires))
             return;
@@ -162,7 +191,11 @@ public abstract class SharedWiresSystem : EntitySystem
             args.Cancel();
     }
 
-    private void OnActivatableUIPanelChanged(EntityUid uid, ActivatableUIRequiresPanelComponent component, ref PanelChangedEvent args)
+    private void OnActivatableUIPanelChanged(
+        EntityUid uid,
+        ActivatableUIRequiresPanelComponent component,
+        ref PanelChangedEvent args
+    )
     {
         if (args.Open == component.RequireOpen)
             return;

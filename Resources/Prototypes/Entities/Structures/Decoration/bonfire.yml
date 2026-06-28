@@ -8,8 +8,8 @@
     noRot: true
     sprite: Structures/Decoration/bonfire.rsi
     layers:
-      - state: bonfire
-      - state: burning
+    - state: bonfire
+    - state: burning
   - type: PointLight
     radius: 5
     energy: 3
@@ -19,12 +19,11 @@
     damageModifierSet: Wood
   - type: Destructible
     thresholds:
-      - trigger:
-          !type:DamageTrigger
-          damage: 50
-        behaviors:
-        - !type:DoActsBehavior
-          acts: [ "Destruction" ]
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
   - type: AmbientSound
     volume: -5
     range: 5
@@ -36,7 +35,7 @@
     node: BonfireNode # Frontier
   - type: Tag
     tags:
-      - NoPaint
+    - NoPaint
 
 - type: entity
   id: LegionnaireBonfire
@@ -46,6 +45,6 @@
   components:
   - type: Sprite
     layers:
-      - state: legionnaire_bonfire
+    - state: legionnaire_bonfire
   - type: PointLight
     color: "#FF5601"

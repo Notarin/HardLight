@@ -1,14 +1,15 @@
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using Content.Server._HL.ColComm; // HardLight
 using Content.Server._NF.SectorServices; // Frontier
 using Content.Server.Access.Systems;
 using Content.Server.Forensics;
+using Content.Shared._NF.Roles.Components; // HardLight
 using Content.Shared.Access.Components;
 using Content.Shared.Forensics.Components;
 using Content.Shared.GameTicking;
 using Content.Shared.Humanoid; // HardLight
 using Content.Shared.Inventory;
-using Content.Shared._NF.Roles.Components; // HardLight
 using Content.Shared.PDA;
 using Content.Shared.Preferences;
 using Content.Shared.Roles;
@@ -16,7 +17,6 @@ using Content.Shared.StationRecords;
 using Robust.Shared.Enums;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
-using System.Linq;
 
 namespace Content.Server.StationRecords.Systems;
 
@@ -41,13 +41,26 @@ namespace Content.Server.StationRecords.Systems;
 /// </summary>
 public sealed class StationRecordsSystem : SharedStationRecordsSystem
 {
-    [Dependency] private readonly InventorySystem _inventory = default!;
-    [Dependency] private readonly StationRecordKeyStorageSystem _keyStorage = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IdCardSystem _idCard = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SectorServiceSystem _sectorService = default!; // Frontier
-    [Dependency] private readonly ForensicsSystem _forensics = default!; // Frontier
+    [Dependency]
+    private readonly InventorySystem _inventory = default!;
+
+    [Dependency]
+    private readonly StationRecordKeyStorageSystem _keyStorage = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly IdCardSystem _idCard = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly SectorServiceSystem _sectorService = default!; // Frontier
+
+    [Dependency]
+    private readonly ForensicsSystem _forensics = default!; // Frontier
 
     static readonly ProtoId<JobPrototype>[] FakeJobIds = ["Contractor", "Pilot", "Mercenary"]; // Frontier
 
@@ -72,13 +85,12 @@ public sealed class StationRecordsSystem : SharedStationRecordsSystem
         // given entity is a card and the card itself is the key the record will be mistakenly renamed to the card's name
         // if we don't return early.
         // We also do not include the PDA itself being renamed, as that triggers the same event (e.g. for chameleon PDAs).
-        if (HasComp<IdCardComponent>(ev.Uid) ||  HasComp<PdaComponent>(ev.Uid))
+        if (HasComp<IdCardComponent>(ev.Uid) || HasComp<PdaComponent>(ev.Uid))
             return;
 
         if (_idCard.TryFindIdCard(ev.Uid, out var idCard))
         {
-            if (TryComp(idCard, out StationRecordKeyStorageComponent? keyStorage)
-                && keyStorage.Key is {} key)
+            if (TryComp(idCard, out StationRecordKeyStorageComponent? keyStorage) && keyStorage.Key is { } key)
             {
                 if (TryGetRecord<GeneralStationRecord>(key, out var generalRecord))
                 {
@@ -95,7 +107,8 @@ public sealed class StationRecordsSystem : SharedStationRecordsSystem
     /// </summary>
     public bool TryGetAuthoritativeRecords(
         out EntityUid stationUid,
-        [NotNullWhen(true)] out StationRecordsComponent? stationRecords)
+        [NotNullWhen(true)] out StationRecordsComponent? stationRecords
+    )
     {
         stationUid = _sectorService.GetServiceEntity();
         if (stationUid == EntityUid.Invalid || !TryComp<StationRecordsComponent>(stationUid, out stationRecords))
@@ -108,12 +121,15 @@ public sealed class StationRecordsSystem : SharedStationRecordsSystem
         return true;
     }
 
-    public void CreateGeneralRecord(EntityUid station, EntityUid player, HumanoidCharacterProfile profile,
-        string? jobId) // HardLight: Removed StationRecordsComponent records
+    public void CreateGeneralRecord(
+        EntityUid station,
+        EntityUid player,
+        HumanoidCharacterProfile profile,
+        string? jobId
+    ) // HardLight: Removed StationRecordsComponent records
     {
         // TODO make PlayerSpawnCompleteEvent.JobId a ProtoId
-        if (string.IsNullOrEmpty(jobId)
-            || !_prototypeManager.HasIndex<JobPrototype>(jobId))
+        if (string.IsNullOrEmpty(jobId) || !_prototypeManager.HasIndex<JobPrototype>(jobId))
             return;
 
         if (!_inventory.TryGetSlotEntity(player, "id", out var idUid))
@@ -123,7 +139,10 @@ public sealed class StationRecordsSystem : SharedStationRecordsSystem
         TryComp<DnaComponent>(player, out var dnaComponent);
 
         /// Frontier start: Generate sector-wide station record
-        if (TryComp<SpecialSectorStationRecordComponent>(player, out var specialRecord) && specialRecord.RecordGeneration == RecordGenerationType.NoRecord)
+        if (
+            TryComp<SpecialSectorStationRecordComponent>(player, out var specialRecord)
+            && specialRecord.RecordGeneration == RecordGenerationType.NoRecord
+        )
             return;
 
         if (!TryGetAuthoritativeRecords(out var serviceEnt, out var stationRecords))
@@ -133,26 +152,35 @@ public sealed class StationRecordsSystem : SharedStationRecordsSystem
         string playerJob = jobId;
         string? fingerprint = fingerprintComponent?.Fingerprint;
         string? dna = dnaComponent?.DNA;
-        if (specialRecord != null
-            && specialRecord.RecordGeneration == RecordGenerationType.FalseRecord)
+        if (specialRecord != null && specialRecord.RecordGeneration == RecordGenerationType.FalseRecord)
         {
             playerJob = _random.Pick(FakeJobIds);
             fingerprint = _forensics.GenerateFingerprint();
             dna = _forensics.GenerateDNA();
         }
 
-        CreateGeneralRecord(serviceEnt, idUid.Value, profile.Name, profile.Age, profile.Species, profile.Gender, playerJob, fingerprint, dna, profile, stationRecords);
+        CreateGeneralRecord(
+            serviceEnt,
+            idUid.Value,
+            profile.Name,
+            profile.Age,
+            profile.Species,
+            profile.Gender,
+            playerJob,
+            fingerprint,
+            dna,
+            profile,
+            stationRecords
+        );
 
         // HardLight: Mirror the record key onto the character so lifecycle cleanup can remove stale records
         // even when the ID card moves away or is deleted separately.
-        if (TryComp<StationRecordKeyStorageComponent>(idUid.Value, out var keyStorage)
-            && keyStorage.Key is { } key)
+        if (TryComp<StationRecordKeyStorageComponent>(idUid.Value, out var keyStorage) && keyStorage.Key is { } key)
         {
             SetEntityKey(player, key);
         }
         /// Frontier end
     }
-
 
     /// <summary>
     ///     Create a general record to store in a station's record set.
@@ -192,14 +220,15 @@ public sealed class StationRecordsSystem : SharedStationRecordsSystem
         string? mobFingerprint,
         string? dna,
         HumanoidCharacterProfile profile,
-        StationRecordsComponent records)
+        StationRecordsComponent records
+    )
     {
         if (!_prototypeManager.TryIndex<JobPrototype>(jobId, out var jobPrototype))
             throw new ArgumentException($"Invalid job prototype ID: {jobId}");
 
         // when adding a record that already exists use the old one
         // this happens when respawning as the same character
-        if (GetRecordByName(station, name, records) is {} id)
+        if (GetRecordByName(station, name, records) is { } id)
         {
             // HardLight start
             // Reuse and refresh existing record fields when respawning as the same character.
@@ -237,7 +266,7 @@ public sealed class StationRecordsSystem : SharedStationRecordsSystem
             Gender = gender,
             DisplayPriority = jobPrototype.RealDisplayWeight,
             Fingerprint = mobFingerprint,
-            DNA = dna
+            DNA = dna,
         };
 
         var key = AddRecordEntry(station, record);
@@ -257,11 +286,11 @@ public sealed class StationRecordsSystem : SharedStationRecordsSystem
     /// </summary>
     public void SetIdKey(EntityUid? uid, StationRecordKey key)
     {
-        if (uid is not {} idUid)
+        if (uid is not { } idUid)
             return;
 
         var keyStorageEntity = idUid;
-        if (TryComp<PdaComponent>(idUid, out var pda) && pda.ContainedId is {} id)
+        if (TryComp<PdaComponent>(idUid, out var pda) && pda.ContainedId is { } id)
         {
             keyStorageEntity = id;
         }
@@ -416,7 +445,7 @@ public sealed class StationRecordsSystem : SharedStationRecordsSystem
     public string RecordName(StationRecordKey key)
     {
         if (!TryGetRecord<GeneralStationRecord>(key, out var record))
-           return string.Empty;
+            return string.Empty;
 
         return record.Name;
     }
@@ -457,8 +486,7 @@ public sealed class StationRecordsSystem : SharedStationRecordsSystem
     /// <param name="record">The record to add.</param>
     /// <param name="records">Station records component.</param>
     /// <typeparam name="T">The type of record to add.</typeparam>
-    public void AddRecordEntry<T>(StationRecordKey key, T record,
-        StationRecordsComponent? records = null)
+    public void AddRecordEntry<T>(StationRecordKey key, T record, StationRecordsComponent? records = null)
     {
         // HardLight: Authoritative writes first.
         if (TryGetAuthoritativeRecords(out var authority, out var authorityRecords))
@@ -548,8 +576,7 @@ public sealed class StationRecordsSystem : SharedStationRecordsSystem
 
         return filter.Type switch
         {
-            StationRecordFilterType.Name =>
-                !someRecord.Name.ToLower().Contains(filterLowerCaseValue),
+            StationRecordFilterType.Name => !someRecord.Name.ToLower().Contains(filterLowerCaseValue),
             StationRecordFilterType.Prints => someRecord.Fingerprint != null
                 && IsFilterWithSomeCodeValue(someRecord.Fingerprint, filterLowerCaseValue),
             StationRecordFilterType.DNA => someRecord.DNA != null
@@ -588,13 +615,16 @@ public sealed class StationRecordsSystem : SharedStationRecordsSystem
     }
 
     // HardLight: Resolve lookups against authoritative records while keeping legacy station-local keys readable.
-    public bool TryGetRecord<T>(StationRecordKey key, [NotNullWhen(true)] out T? entry, StationRecordsComponent? records = null)
+    public bool TryGetRecord<T>(
+        StationRecordKey key,
+        [NotNullWhen(true)] out T? entry,
+        StationRecordsComponent? records = null
+    )
     {
         entry = default;
 
         // First try the provided/original key so legacy station-local keys keep working during migration.
-        if (Resolve(key.OriginStation, ref records, false)
-            && records.Records.TryGetRecordEntry(key.Id, out entry))
+        if (Resolve(key.OriginStation, ref records, false) && records.Records.TryGetRecordEntry(key.Id, out entry))
             return true;
 
         if (!TryGetAuthoritativeRecords(out var authority, out var authorityRecords))
@@ -645,6 +675,7 @@ public abstract class StationRecordEvent : EntityEventArgs
 public sealed class AfterGeneralRecordCreatedEvent : StationRecordEvent
 {
     public readonly GeneralStationRecord Record;
+
     /// <summary>
     /// Profile for the related player. This is so that other systems can get further information
     ///     about the player character.
@@ -652,8 +683,12 @@ public sealed class AfterGeneralRecordCreatedEvent : StationRecordEvent
     /// </summary>
     public readonly HumanoidCharacterProfile Profile;
 
-    public AfterGeneralRecordCreatedEvent(StationRecordKey key, GeneralStationRecord record,
-        HumanoidCharacterProfile profile) : base(key)
+    public AfterGeneralRecordCreatedEvent(
+        StationRecordKey key,
+        GeneralStationRecord record,
+        HumanoidCharacterProfile profile
+    )
+        : base(key)
     {
         Record = record;
         Profile = profile;
@@ -668,9 +703,8 @@ public sealed class AfterGeneralRecordCreatedEvent : StationRecordEvent
 /// </summary>
 public sealed class RecordRemovedEvent : StationRecordEvent
 {
-    public RecordRemovedEvent(StationRecordKey key) : base(key)
-    {
-    }
+    public RecordRemovedEvent(StationRecordKey key)
+        : base(key) { }
 }
 
 /// <summary>
@@ -680,7 +714,6 @@ public sealed class RecordRemovedEvent : StationRecordEvent
 /// </summary>
 public sealed class RecordModifiedEvent : StationRecordEvent
 {
-    public RecordModifiedEvent(StationRecordKey key) : base(key)
-    {
-    }
+    public RecordModifiedEvent(StationRecordKey key)
+        : base(key) { }
 }

@@ -26,14 +26,16 @@
                         // Position below target, go up.
                         newPos = Math.Min(
                             supply.SupplyRampTarget,
-                            supply.SupplyRampPosition + supply.SupplyRampRate * frameTime);
+                            supply.SupplyRampPosition + supply.SupplyRampRate * frameTime
+                        );
                     }
                     else
                     {
                         // Other way around, go down
                         newPos = Math.Max(
                             supply.SupplyRampTarget,
-                            supply.SupplyRampPosition - supply.SupplyRampRate * frameTime);
+                            supply.SupplyRampPosition - supply.SupplyRampRate * frameTime
+                        );
                     }
 
                     supply.SupplyRampPosition = Math.Clamp(newPos, 0, supply.MaxSupply);
@@ -66,14 +68,16 @@
                         // Position below target, go up.
                         newPos = Math.Min(
                             battery.SupplyRampTarget,
-                            battery.SupplyRampPosition + battery.SupplyRampRate * frameTime);
+                            battery.SupplyRampPosition + battery.SupplyRampRate * frameTime
+                        );
                     }
                     else
                     {
                         // Other way around, go down
                         newPos = Math.Max(
                             battery.SupplyRampTarget,
-                            battery.SupplyRampPosition - battery.SupplyRampRate * frameTime);
+                            battery.SupplyRampPosition - battery.SupplyRampRate * frameTime
+                        );
                     }
 
                     battery.SupplyRampPosition = Math.Clamp(newPos, 0, battery.MaxSupply);

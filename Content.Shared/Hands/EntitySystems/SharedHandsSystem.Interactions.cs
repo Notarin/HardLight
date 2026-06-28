@@ -27,11 +27,23 @@ public abstract partial class SharedHandsSystem : EntitySystem
         SubscribeLocalEvent<HandsComponent, GetUsedEntityEvent>(OnGetUsedEntity);
         SubscribeLocalEvent<HandsComponent, ExaminedEvent>(HandleExamined);
 
-        CommandBinds.Builder
-            .Bind(ContentKeyFunctions.UseItemInHand, InputCmdHandler.FromDelegate(HandleUseItem, handle: false, outsidePrediction: false))
-            .Bind(ContentKeyFunctions.AltUseItemInHand, InputCmdHandler.FromDelegate(HandleAltUseInHand, handle: false, outsidePrediction: false))
-            .Bind(ContentKeyFunctions.SwapHandsPrevious, InputCmdHandler.FromDelegate(SwapHandsPreviousPressed, handle: false, outsidePrediction: false)) // Frontier
-            .Bind(ContentKeyFunctions.SwapHands, InputCmdHandler.FromDelegate(SwapHandsPressed, handle: false, outsidePrediction: false))
+        CommandBinds
+            .Builder.Bind(
+                ContentKeyFunctions.UseItemInHand,
+                InputCmdHandler.FromDelegate(HandleUseItem, handle: false, outsidePrediction: false)
+            )
+            .Bind(
+                ContentKeyFunctions.AltUseItemInHand,
+                InputCmdHandler.FromDelegate(HandleAltUseInHand, handle: false, outsidePrediction: false)
+            )
+            .Bind(
+                ContentKeyFunctions.SwapHandsPrevious,
+                InputCmdHandler.FromDelegate(SwapHandsPreviousPressed, handle: false, outsidePrediction: false)
+            ) // Frontier
+            .Bind(
+                ContentKeyFunctions.SwapHands,
+                InputCmdHandler.FromDelegate(SwapHandsPressed, handle: false, outsidePrediction: false)
+            )
             .Bind(ContentKeyFunctions.Drop, new PointerInputCmdHandler(DropPressed))
             .Register<SharedHandsSystem>();
     }
@@ -113,6 +125,7 @@ public abstract partial class SharedHandsSystem : EntitySystem
 
         TrySetActiveHand(session.AttachedEntity.Value, nextHand, component);
     }
+
     // End Frontier: swap hands
 
     private bool DropPressed(ICommonSession? session, EntityCoordinates coords, EntityUid netEntity)
@@ -174,11 +187,21 @@ public abstract partial class SharedHandsSystem : EntitySystem
         if (hand.HeldEntity == null)
             return false;
 
-        _interactionSystem.InteractUsing(uid, handsComp.ActiveHandEntity.Value, hand.HeldEntity.Value, Transform(hand.HeldEntity.Value).Coordinates);
+        _interactionSystem.InteractUsing(
+            uid,
+            handsComp.ActiveHandEntity.Value,
+            hand.HeldEntity.Value,
+            Transform(hand.HeldEntity.Value).Coordinates
+        );
         return true;
     }
 
-    public bool TryUseItemInHand(EntityUid uid, bool altInteract = false, HandsComponent? handsComp = null, string? handName = null)
+    public bool TryUseItemInHand(
+        EntityUid uid,
+        bool altInteract = false,
+        HandsComponent? handsComp = null,
+        string? handName = null
+    )
     {
         if (!Resolve(uid, ref handsComp, false))
             return false;
@@ -199,7 +222,12 @@ public abstract partial class SharedHandsSystem : EntitySystem
     /// <summary>
     ///     Moves an entity from one hand to the active hand.
     /// </summary>
-    public bool TryMoveHeldEntityToActiveHand(EntityUid uid, string handName, bool checkActionBlocker = true, HandsComponent? handsComp = null)
+    public bool TryMoveHeldEntityToActiveHand(
+        EntityUid uid,
+        string handName,
+        bool checkActionBlocker = true,
+        HandsComponent? handsComp = null
+    )
     {
         if (!Resolve(uid, ref handsComp))
             return false;
@@ -218,7 +246,7 @@ public abstract partial class SharedHandsSystem : EntitySystem
         if (!CanPickupToHand(uid, entity, handsComp.ActiveHand, checkActionBlocker, handsComp))
             return false;
 
-        DoDrop(uid, hand, false, handsComp, log:false);
+        DoDrop(uid, hand, false, handsComp, log: false);
         DoPickup(uid, handsComp.ActiveHand, entity, handsComp, log: false);
         return true;
     }

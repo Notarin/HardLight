@@ -101,7 +101,6 @@ public sealed partial class RCDPrototype : IPrototype
     public Box2? CollisionBounds
     {
         get => _collisionBounds;
-
         private set
         {
             _collisionBounds = value;
@@ -142,16 +141,16 @@ public enum RcdMode : byte
 // These are to be replaced with more flexible 'RulesRule' at a later time
 public enum RcdConstructionRule : byte
 {
-    MustBuildOnEmptyTile,       // Can only be built on empty space (e.g. lattice)
-    CanBuildOnEmptyTile,        // Can be built on empty space or replace an existing tile (e.g. hull plating)
-    MustBuildOnSubfloor,        // Can only be built on exposed subfloor (e.g. catwalks on lattice or hull plating)
-    IsWindow,                   // The entity is a window and can be built on grilles
-    IsCatwalk,                  // The entity is a catwalk
+    MustBuildOnEmptyTile, // Can only be built on empty space (e.g. lattice)
+    CanBuildOnEmptyTile, // Can be built on empty space or replace an existing tile (e.g. hull plating)
+    MustBuildOnSubfloor, // Can only be built on exposed subfloor (e.g. catwalks on lattice or hull plating)
+    IsWindow, // The entity is a window and can be built on grilles
+    IsCatwalk, // The entity is a catwalk
 }
 
 public enum RcdRotation : byte
 {
-    Fixed,      // The entity has a local rotation of zero
-    Camera,     // The rotation of the entity matches the local player camera
-    User,       // The entity can be rotated by the local player prior to placement
+    Fixed, // The entity has a local rotation of zero
+    Camera, // The rotation of the entity matches the local player camera
+    User, // The entity can be rotated by the local player prior to placement
 }

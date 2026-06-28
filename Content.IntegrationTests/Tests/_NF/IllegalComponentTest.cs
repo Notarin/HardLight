@@ -31,7 +31,11 @@ public sealed class IllegalComponentTest
                 {
                     foreach (var component in IllegalComponents)
                     {
-                        Assert.That(entity.HasComponent(component), Is.False, $"Entity {entity} contains illegal component {component}.");
+                        Assert.That(
+                            entity.HasComponent(component),
+                            Is.False,
+                            $"Entity {entity} contains illegal component {component}."
+                        );
                     }
                 }
             });

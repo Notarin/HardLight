@@ -24,7 +24,8 @@ public sealed class ExpeditionDiskInterfaceState
         TimeSpan cooldownRemaining,
         bool canActivate,
         bool inExpedition,
-        bool canEndExpedition)
+        bool canEndExpedition
+    )
     {
         HasDisk = hasDisk;
         PlanetType = planetType;

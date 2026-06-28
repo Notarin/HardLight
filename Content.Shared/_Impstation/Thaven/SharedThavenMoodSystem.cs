@@ -4,8 +4,8 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
 
-using Content.Shared.Emag.Systems;
 using Content.Shared._Impstation.Thaven.Components;
+using Content.Shared.Emag.Systems;
 
 namespace Content.Shared._Impstation.Thaven;
 
@@ -17,6 +17,7 @@ public abstract class SharedThavenMoodSystem : EntitySystem
 
         SubscribeLocalEvent<ThavenMoodsBoundComponent, GotEmaggedEvent>(OnEmagged);
     }
+
     protected virtual void OnEmagged(EntityUid uid, ThavenMoodsBoundComponent comp, ref GotEmaggedEvent args)
     {
         args.Handled = true;

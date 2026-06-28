@@ -20,9 +20,8 @@ namespace Content.Shared.Chemistry
 
     // Starlight-start: Plumbing valve toggle
     [Serializable, NetSerializable]
-    public sealed class ChemMasterToggleValveMessage : BoundUserInterfaceMessage
-    {
-    }
+    public sealed class ChemMasterToggleValveMessage : BoundUserInterfaceMessage { }
+
     // Starlight-end
 
     [Serializable, NetSerializable]
@@ -50,7 +49,7 @@ namespace Content.Shared.Chemistry
     [Serializable, NetSerializable]
     public enum ChemMasterVisualState : byte // Frontier
     {
-        BeakerInserted
+        BeakerInserted,
     }
 
     [Serializable, NetSerializable]
@@ -60,7 +59,11 @@ namespace Content.Shared.Chemistry
         public readonly ChemMasterReagentAmount Amount;
         public readonly bool FromBuffer;
 
-        public ChemMasterReagentAmountButtonMessage(ReagentId reagentId, ChemMasterReagentAmount amount, bool fromBuffer)
+        public ChemMasterReagentAmountButtonMessage(
+            ReagentId reagentId,
+            ChemMasterReagentAmount amount,
+            bool fromBuffer
+        )
         {
             ReagentId = reagentId;
             Amount = amount;
@@ -112,7 +115,6 @@ namespace Content.Shared.Chemistry
 
     [Serializable, NetSerializable]
     public sealed class ChemMasterSortingTypeCycleMessage : BoundUserInterfaceMessage;
-
 
     public enum ChemMasterReagentAmount
     {
@@ -197,9 +199,17 @@ namespace Content.Shared.Chemistry
         public readonly bool UpdateLabel;
 
         public ChemMasterBoundUserInterfaceState(
-            ChemMasterMode mode, ChemMasterSortingType sortingType, ContainerInfo? inputContainerInfo, ContainerInfo? outputContainerInfo,
-            IReadOnlyList<ReagentQuantity> bufferReagents, FixedPoint2 bufferCurrentVolume,
-            uint selectedPillType, uint pillDosageLimit, bool updateLabel, bool valveOpen)
+            ChemMasterMode mode,
+            ChemMasterSortingType sortingType,
+            ContainerInfo? inputContainerInfo,
+            ContainerInfo? outputContainerInfo,
+            IReadOnlyList<ReagentQuantity> bufferReagents,
+            FixedPoint2 bufferCurrentVolume,
+            uint selectedPillType,
+            uint pillDosageLimit,
+            bool updateLabel,
+            bool valveOpen
+        )
         {
             InputContainerInfo = inputContainerInfo;
             OutputContainerInfo = outputContainerInfo;
@@ -217,6 +227,6 @@ namespace Content.Shared.Chemistry
     [Serializable, NetSerializable]
     public enum ChemMasterUiKey
     {
-        Key
+        Key,
     }
 }

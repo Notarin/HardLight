@@ -8,7 +8,8 @@ namespace Content.Client.Overlays;
 
 public sealed class ShowCriminalRecordIconsSystem : EquipmentHudSystem<ShowCriminalRecordIconsComponent>
 {
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototype = default!;
 
     public override void Initialize()
     {

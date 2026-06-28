@@ -9,7 +9,7 @@
     layers:
     - state: icon
     - state: tank
-      map: [ "tank" ]
+      map: ["tank"]
       visible: false
   - type: Item
     size: Huge
@@ -103,7 +103,7 @@
     containers:
       storagebase: !type:Container
         ents: []
-        
+
 - type: entity
   name: syringe gun
   parent: BaseStorageItem

@@ -1,6 +1,6 @@
 - type: entity
   id: SuitStorageWallmount
-  parent: 
+  parent:
   - BaseStructureWallmount
   - BaseWallCloset
   - SuitStorageBase

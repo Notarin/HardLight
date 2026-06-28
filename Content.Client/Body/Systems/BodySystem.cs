@@ -1,11 +1,12 @@
-﻿using Content.Shared.Body.Systems;
-// Shitmed Change Start
+﻿// Shitmed Change Start
 using Content.Shared._Shitmed.Body.Part;
+using Content.Shared.Body.Components;
+using Content.Shared.Body.Systems;
 using Content.Shared.Humanoid;
 using Content.Shared.Humanoid.Markings;
 using Robust.Client.GameObjects;
 using Robust.Shared.Utility;
-using Content.Shared.Body.Components;
+
 // Shitmed Change End
 
 namespace Content.Client.Body.Systems;
@@ -13,13 +14,19 @@ namespace Content.Client.Body.Systems;
 public sealed class BodySystem : SharedBodySystem
 {
     // Shitmed Change Start
-    [Dependency] private readonly MarkingManager _markingManager = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly MarkingManager _markingManager = default!;
 
-    private void ApplyMarkingToPart(EntityUid uid, MarkingPrototype markingPrototype,
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
+
+    private void ApplyMarkingToPart(
+        EntityUid uid,
+        MarkingPrototype markingPrototype,
         IReadOnlyList<Color>? colors,
         bool visible,
-        SpriteComponent sprite)
+        SpriteComponent sprite
+    )
     {
         for (var j = 0; j < markingPrototype.Sprites.Count; j++)
         {
@@ -30,7 +37,7 @@ public sealed class BodySystem : SharedBodySystem
 
             var layerId = $"{markingPrototype.ID}-{rsi.RsiState}";
 
-            if (!_sprite.LayerMapTryGet((uid, sprite), layerId, out _ , false))
+            if (!_sprite.LayerMapTryGet((uid, sprite), layerId, out _, false))
             {
                 var layer = _sprite.AddLayer((uid, sprite), markingSprite, j + 1);
                 _sprite.LayerMapSet((uid, sprite), layerId, layer);
@@ -60,16 +67,20 @@ public sealed class BodySystem : SharedBodySystem
             _sprite.SetColor((target, sprite), component.Color.Value);
 
         foreach (var (visualLayer, markingList) in component.Markings)
-            foreach (var marking in markingList)
-            {
-                if (!_markingManager.TryGetMarking(marking, out var markingPrototype))
-                    continue;
+        foreach (var marking in markingList)
+        {
+            if (!_markingManager.TryGetMarking(marking, out var markingPrototype))
+                continue;
 
-                ApplyMarkingToPart(target, markingPrototype, marking.MarkingColors, marking.Visible, sprite);
-            }
+            ApplyMarkingToPart(target, markingPrototype, marking.MarkingColors, marking.Visible, sprite);
+        }
     }
 
-    protected override void RemoveBodyMarkings(EntityUid target, BodyPartAppearanceComponent partAppearance, HumanoidAppearanceComponent bodyAppearance)
+    protected override void RemoveBodyMarkings(
+        EntityUid target,
+        BodyPartAppearanceComponent partAppearance,
+        HumanoidAppearanceComponent bodyAppearance
+    )
     {
         return;
     }

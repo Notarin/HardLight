@@ -1,5 +1,5 @@
 - type: entity
-  parent: [ MobDragonDungeon ]
+  parent: [MobDragonDungeon]
   id: MobDragonSotek
   suffix: ""
   name: Sotek
@@ -16,9 +16,9 @@
     sprite: _HL/Mobs/Characters/Sotek.rsi
     noRot: true
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: alive
-    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+    - map: ["enum.DamageStateVisualLayers.BaseUnshaded"]
       state: alive-unshaded
       shader: unshaded
   - type: Prying
@@ -37,7 +37,7 @@
   - type: Vore
 
 - type: entity
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   id: SoteksBreathGun
   name: Soteks breath
   description: For dragon's breathing.
@@ -56,7 +56,7 @@
     projectileSpeed: 5
 
 - type: entity
-  parent: [ MobDragonDungeon ]
+  parent: [MobDragonDungeon]
   id: MobDragonThalmyr
   suffix: ""
   name: Thalmyr
@@ -66,9 +66,9 @@
     sprite: _HL/Mobs/Characters/thalmyr.rsi
     noRot: true
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: alive
-    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+    - map: ["enum.DamageStateVisualLayers.BaseUnshaded"]
       state: alive-unshaded
       shader: unshaded
   - type: ActionGun

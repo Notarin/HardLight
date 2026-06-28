@@ -14,10 +14,15 @@ public sealed class ParadoxCloneRoleSystem : EntitySystem
     {
         base.Initialize();
 
-        SubscribeLocalEvent<ParadoxCloneRoleComponent, MindRelayedEvent<RefreshNameModifiersEvent>>(OnRefreshNameModifiers);
+        SubscribeLocalEvent<ParadoxCloneRoleComponent, MindRelayedEvent<RefreshNameModifiersEvent>>(
+            OnRefreshNameModifiers
+        );
     }
 
-    private void OnRefreshNameModifiers(Entity<ParadoxCloneRoleComponent> ent, ref MindRelayedEvent<RefreshNameModifiersEvent> args)
+    private void OnRefreshNameModifiers(
+        Entity<ParadoxCloneRoleComponent> ent,
+        ref MindRelayedEvent<RefreshNameModifiersEvent> args
+    )
     {
         if (!TryComp<MindRoleComponent>(ent.Owner, out var roleComp))
             return;

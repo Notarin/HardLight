@@ -49,9 +49,14 @@ public sealed partial class ReagentThreshold : EntityEffectCondition
         if (Reagent is not null)
             prototype.TryIndex(Reagent, out reagentProto);
 
-        return Loc.GetString("reagent-effect-condition-guidebook-reagent-threshold",
-            ("reagent", reagentProto?.LocalizedName ?? Loc.GetString("reagent-effect-condition-guidebook-this-reagent")),
-            ("max", Max == FixedPoint2.MaxValue ? (float) int.MaxValue : Max.Float()),
-            ("min", Min.Float()));
+        return Loc.GetString(
+            "reagent-effect-condition-guidebook-reagent-threshold",
+            (
+                "reagent",
+                reagentProto?.LocalizedName ?? Loc.GetString("reagent-effect-condition-guidebook-this-reagent")
+            ),
+            ("max", Max == FixedPoint2.MaxValue ? (float)int.MaxValue : Max.Float()),
+            ("min", Min.Float())
+        );
     }
 }

@@ -15,7 +15,8 @@ namespace Content.Shared.Nyanotrasen.Kitchen.UI
             FixedPoint2 oilLevel,
             FixedPoint2 oilPurity,
             FixedPoint2 fryingOilThreshold,
-            NetEntity[] containedEntities)
+            NetEntity[] containedEntities
+        )
         {
             OilLevel = oilLevel;
             OilPurity = oilPurity;
@@ -62,6 +63,6 @@ namespace Content.Shared.Nyanotrasen.Kitchen.UI
     [NetSerializable, Serializable]
     public enum DeepFryerUiKey
     {
-        Key
+        Key,
     }
 }

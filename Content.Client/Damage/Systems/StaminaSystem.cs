@@ -1,4 +1,4 @@
-﻿﻿using Content.Client.Stunnable;
+﻿using Content.Client.Stunnable;
 using Content.Shared.Damage.Components;
 using Content.Shared.Damage.Systems;
 using Content.Shared.Mobs;
@@ -9,10 +9,17 @@ namespace Content.Client.Damage.Systems;
 
 public sealed partial class StaminaSystem : SharedStaminaSystem
 {
-    [Dependency] private readonly AnimationPlayerSystem _animation = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
-    [Dependency] private readonly StunSystem _stun = default!; // Clientside Stun System
+    [Dependency]
+    private readonly AnimationPlayerSystem _animation = default!;
+
+    [Dependency]
+    private readonly MobStateSystem _mobState = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
+
+    [Dependency]
+    private readonly StunSystem _stun = default!; // Clientside Stun System
 
     private const string StaminaAnimationKey = "stamina";
 
@@ -62,7 +69,10 @@ public sealed partial class StaminaSystem : SharedStaminaSystem
         // If the animation is running, the system should update it accordingly
         // If we're below the threshold to animate, don't try to animate
         // If we're in stamcrit don't override it
-        if (entity.Comp.AnimationThreshold > entity.Comp.StaminaDamage || _animation.HasRunningAnimation(entity, StaminaAnimationKey))
+        if (
+            entity.Comp.AnimationThreshold > entity.Comp.StaminaDamage
+            || _animation.HasRunningAnimation(entity, StaminaAnimationKey)
+        )
             return;
 
         // Don't animate if we're dead
@@ -76,7 +86,7 @@ public sealed partial class StaminaSystem : SharedStaminaSystem
 
     private void StopAnimation(Entity<StaminaComponent, SpriteComponent?> entity)
     {
-        if(!Resolve(entity, ref entity.Comp2))
+        if (!Resolve(entity, ref entity.Comp2))
             return;
 
         _animation.Stop(entity.Owner, StaminaAnimationKey);
@@ -104,23 +114,29 @@ public sealed partial class StaminaSystem : SharedStaminaSystem
 
     private void PlayAnimation(Entity<StaminaComponent, SpriteComponent> entity)
     {
-        var step = Math.Clamp((entity.Comp1.StaminaDamage - entity.Comp1.AnimationThreshold) /
-                              (entity.Comp1.CritThreshold - entity.Comp1.AnimationThreshold),
+        var step = Math.Clamp(
+            (entity.Comp1.StaminaDamage - entity.Comp1.AnimationThreshold)
+                / (entity.Comp1.CritThreshold - entity.Comp1.AnimationThreshold),
             0f,
-            1f); // The things I do for project 0 warnings
+            1f
+        ); // The things I do for project 0 warnings
         var frequency = entity.Comp1.FrequencyMin + step * entity.Comp1.FrequencyMod;
         var jitter = entity.Comp1.JitterAmplitudeMin + step * entity.Comp1.JitterAmplitudeMod;
         var breathing = entity.Comp1.BreathingAmplitudeMin + step * entity.Comp1.BreathingAmplitudeMod;
 
-        _animation.Play(entity.Owner,
-            _stun.GetFatigueAnimation(entity.Comp2,
+        _animation.Play(
+            entity.Owner,
+            _stun.GetFatigueAnimation(
+                entity.Comp2,
                 frequency,
                 entity.Comp1.Jitters,
                 jitter * entity.Comp1.JitterMin,
                 jitter * entity.Comp1.JitterMax,
                 breathing,
                 entity.Comp1.StartOffset,
-                ref entity.Comp1.LastJitter),
-            StaminaAnimationKey);
+                ref entity.Comp1.LastJitter
+            ),
+            StaminaAnimationKey
+        );
     }
 }

@@ -1,12 +1,12 @@
-using Content.Shared._NF.Shipyard.Events;
-using Content.Shared._NF.Shipyard.Components;
-using Content.Shared._NF.Shipyard;
 using Content.Server._NF.Shipyard.Components;
+using Content.Shared._NF.Shipyard;
 using Content.Shared._NF.Shipyard.BUI;
+using Content.Shared._NF.Shipyard.Components;
+using Content.Shared._NF.Shipyard.Events;
+using Robust.Server.GameObjects;
 using Robust.Shared.GameObjects;
 using Robust.Shared.IoC;
 using Robust.Shared.Log;
-using Robust.Server.GameObjects;
 
 namespace Content.Server._NF.Shipyard.Systems;
 
@@ -16,7 +16,8 @@ namespace Content.Server._NF.Shipyard.Systems;
 /// </summary>
 public sealed class ShipEventHandlerSystem : EntitySystem
 {
-    [Dependency] private readonly UserInterfaceSystem _userInterface = default!;
+    [Dependency]
+    private readonly UserInterfaceSystem _userInterface = default!;
 
     private ISawmill _sawmill = default!;
 
@@ -70,7 +71,9 @@ public sealed class ShipEventHandlerSystem : EntitySystem
             UpdateSpecificConsole(args.ConsoleUid, args.ShipyardChannel);
 
             // Log the ship load operation
-            _sawmill.Info($"Ship '{args.ShipName}' was successfully loaded by player {args.PlayerUserId} on grid {args.ShipGridUid}");
+            _sawmill.Info(
+                $"Ship '{args.ShipName}' was successfully loaded by player {args.PlayerUserId} on grid {args.ShipGridUid}"
+            );
 
             // Additional post-load operations could be added here
             // For example: announcing the ship arrival, updating station records, etc.
@@ -94,16 +97,16 @@ public sealed class ShipEventHandlerSystem : EntitySystem
             var shipyardPrototypes = (availableShips, unavailableShips);
 
             var state = new ShipyardConsoleInterfaceState(
-                0,                    // int balance
-                true,                 // bool accessGranted
-                null,                 // string? shipDeedTitle
-                0,                    // int shipSellValue
-                false,                // bool isTargetIdPresent
-                0,                    // byte uiKey
-                shipyardPrototypes,   // tuple shipyardPrototypes
-                shipyardChannel,      // string shipyardName
-                false,                // bool freeListings
-                0.6f                  // float sellRate
+                0, // int balance
+                true, // bool accessGranted
+                null, // string? shipDeedTitle
+                0, // int shipSellValue
+                false, // bool isTargetIdPresent
+                0, // byte uiKey
+                shipyardPrototypes, // tuple shipyardPrototypes
+                shipyardChannel, // string shipyardName
+                false, // bool freeListings
+                0.6f // float sellRate
             );
 
             _userInterface.SetUiState(consoleUid, ShipyardConsoleUiKey.Shipyard, state);

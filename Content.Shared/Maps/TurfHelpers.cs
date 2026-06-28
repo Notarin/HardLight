@@ -15,7 +15,11 @@ namespace Content.Shared.Maps
         /// <summary>
         ///     Attempts to get the turf at a certain coordinates or null if no such turf is found.
         /// </summary>
-        public static TileRef? GetTileRef(this EntityCoordinates coordinates, IEntityManager? entityManager = null, IMapManager? mapManager = null)
+        public static TileRef? GetTileRef(
+            this EntityCoordinates coordinates,
+            IEntityManager? entityManager = null,
+            IMapManager? mapManager = null
+        )
         {
             entityManager ??= IoCManager.Resolve<IEntityManager>();
 
@@ -33,7 +37,12 @@ namespace Content.Shared.Maps
             return tile;
         }
 
-        public static bool TryGetTileRef(this EntityCoordinates coordinates, [NotNullWhen(true)] out TileRef? turf, IEntityManager? entityManager = null, IMapManager? mapManager = null)
+        public static bool TryGetTileRef(
+            this EntityCoordinates coordinates,
+            [NotNullWhen(true)] out TileRef? turf,
+            IEntityManager? entityManager = null,
+            IMapManager? mapManager = null
+        )
         {
             return (turf = coordinates.GetTileRef(entityManager, mapManager)) != null;
         }
@@ -41,7 +50,10 @@ namespace Content.Shared.Maps
         /// <summary>
         ///     Returns the content tile definition for a tile.
         /// </summary>
-        public static ContentTileDefinition GetContentTileDefinition(this Tile tile, ITileDefinitionManager? tileDefinitionManager = null)
+        public static ContentTileDefinition GetContentTileDefinition(
+            this Tile tile,
+            ITileDefinitionManager? tileDefinitionManager = null
+        )
         {
             tileDefinitionManager ??= IoCManager.Resolve<ITileDefinitionManager>();
             return (ContentTileDefinition)tileDefinitionManager[tile.TypeId];
@@ -58,7 +70,10 @@ namespace Content.Shared.Maps
         /// <summary>
         ///     Returns the content tile definition for a tile ref.
         /// </summary>
-        public static ContentTileDefinition GetContentTileDefinition(this TileRef tile, ITileDefinitionManager? tileDefinitionManager = null)
+        public static ContentTileDefinition GetContentTileDefinition(
+            this TileRef tile,
+            ITileDefinitionManager? tileDefinitionManager = null
+        )
         {
             return tile.Tile.GetContentTileDefinition(tileDefinitionManager);
         }
@@ -76,7 +91,11 @@ namespace Content.Shared.Maps
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Obsolete("Use the lookup system")]
-        public static IEnumerable<EntityUid> GetEntitiesInTile(this TileRef turf, LookupFlags flags = LookupFlags.Static, EntityLookupSystem? lookupSystem = null)
+        public static IEnumerable<EntityUid> GetEntitiesInTile(
+            this TileRef turf,
+            LookupFlags flags = LookupFlags.Static,
+            EntityLookupSystem? lookupSystem = null
+        )
         {
             lookupSystem ??= EntitySystem.Get<EntityLookupSystem>();
 
@@ -90,7 +109,11 @@ namespace Content.Shared.Maps
         ///     Helper that returns all entities in a turf.
         /// </summary>
         [Obsolete("Use the lookup system")]
-        public static IEnumerable<EntityUid> GetEntitiesInTile(this EntityCoordinates coordinates, LookupFlags flags = LookupFlags.Static, EntityLookupSystem? lookupSystem = null)
+        public static IEnumerable<EntityUid> GetEntitiesInTile(
+            this EntityCoordinates coordinates,
+            LookupFlags flags = LookupFlags.Static,
+            EntityLookupSystem? lookupSystem = null
+        )
         {
             var turf = coordinates.GetTileRef();
 
@@ -106,9 +129,7 @@ namespace Content.Shared.Maps
         [Obsolete("Use turf system")]
         public static bool IsBlockedTurf(this TileRef turf, bool filterMobs, EntityLookupSystem? physics = null)
         {
-            CollisionGroup mask = filterMobs
-                ? CollisionGroup.MobMask
-                : CollisionGroup.Impassable;
+            CollisionGroup mask = filterMobs ? CollisionGroup.MobMask : CollisionGroup.Impassable;
 
             return IoCManager.Resolve<IEntitySystemManager>().GetEntitySystem<TurfSystem>().IsTileBlocked(turf, mask);
         }

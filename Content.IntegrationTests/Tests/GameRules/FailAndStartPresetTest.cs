@@ -12,7 +12,8 @@ namespace Content.IntegrationTests.Tests.GameRules;
 public sealed class FailAndStartPresetTest
 {
     [TestPrototypes]
-    private const string Prototypes = @"
+    private const string Prototypes =
+        @"
 - type: gamePreset
   id: TestPreset
   alias:
@@ -59,13 +60,15 @@ public sealed class FailAndStartPresetTest
     [Ignore("Doesn't work with persistant rounds")] // HL
     public async Task FailAndStartTest()
     {
-        await using var pair = await PoolManager.GetServerClient(new PoolSettings
-        {
-            Dirty = true,
-            DummyTicker = false,
-            Connected = true,
-            InLobby = true
-        });
+        await using var pair = await PoolManager.GetServerClient(
+            new PoolSettings
+            {
+                Dirty = true,
+                DummyTicker = false,
+                Connected = true,
+                InLobby = true,
+            }
+        );
 
         var server = pair.Server;
         var client = pair.Client;
@@ -111,7 +114,7 @@ public sealed class FailAndStartPresetTest
         player = pair.Player!.AttachedEntity!.Value;
         Assert.That(entMan.EntityExists(player));
 
-        ticker.SetGamePreset((GamePresetPrototype?) null);
+        ticker.SetGamePreset((GamePresetPrototype?)null);
         server.CfgMan.SetCVar(CCVars.GridFill, false);
         server.CfgMan.SetCVar(CCVars.GameLobbyFallbackEnabled, true);
         server.CfgMan.SetCVar(CCVars.GameLobbyDefaultPreset, "secret");

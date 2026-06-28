@@ -1,14 +1,14 @@
 using System.Linq;
+using Content.Server._DV.Cargo.Components;
+using Content.Server._DV.Mail.Components;
+using Content.Server._DV.Mail.EntitySystems;
+using Content.Server._NF.Mail.Components;
+using Content.Server._NF.SectorServices;
+using Content.Server.Administration;
+using Content.Shared.Administration;
 using Robust.Shared.Console;
 using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
-using Content.Shared.Administration;
-using Content.Server.Administration;
-using Content.Server._DV.Mail.Components;
-using Content.Server._DV.Mail.EntitySystems;
-using Content.Server._NF.SectorServices;
-using Content.Server._DV.Cargo.Components;
-using Content.Server._NF.Mail.Components;
 
 namespace Content.Server._DV.Mail;
 
@@ -16,18 +16,23 @@ namespace Content.Server._DV.Mail;
 public sealed class MailToCommand : LocalizedCommands // Frontier: IConsoleCommand < LocalizedCommands
 {
     public override string Command => "mailto"; // Frontier: add override
-    public override string Description => Loc.GetString("command-mailto-description", ("requiredComponent", nameof(MailReceiverComponent))); // Frontier: add override
+    public override string Description =>
+        Loc.GetString("command-mailto-description", ("requiredComponent", nameof(MailReceiverComponent))); // Frontier: add override
     public override string Help => Loc.GetString("command-mailto-help", ("command", Command)); // Frontier: add override
 
-    [Dependency] private readonly IEntityManager _entityManager = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IEntitySystemManager _entitySystemManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entityManager = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly IEntitySystemManager _entitySystemManager = default!;
 
     private const string BlankMailPrototype = "MailAdminFun";
     private const string BlankLargeMailPrototype = "MailLargeAdminFun"; // Frontier: large mail
     private const string Container = "storagebase";
     private const string MailContainer = "contents";
-
 
     public override void Execute(IConsoleShell shell, string argStr, string[] args) // Frontier: async < override
     {
@@ -87,7 +92,9 @@ public sealed class MailToCommand : LocalizedCommands // Frontier: IConsoleComma
 
         if (!_entityManager.HasComponent<MailReceiverComponent>(recipientUid))
         {
-            shell.WriteLine(Loc.GetString("command-mailto-no-mailreceiver", ("requiredComponent", nameof(MailReceiverComponent))));
+            shell.WriteLine(
+                Loc.GetString("command-mailto-no-mailreceiver", ("requiredComponent", nameof(MailReceiverComponent)))
+            );
             return;
         }
 
@@ -111,18 +118,33 @@ public sealed class MailToCommand : LocalizedCommands // Frontier: IConsoleComma
             return;
         }
 
-        if (!mailSystem.TryGetMailTeleporterForReceiver(recipientUid, out var teleporterComponent, out var teleporterUid))
+        if (
+            !mailSystem.TryGetMailTeleporterForReceiver(
+                recipientUid,
+                out var teleporterComponent,
+                out var teleporterUid
+            )
+        )
         {
             shell.WriteLine(Loc.GetString("command-mailto-no-teleporter-found"));
             return;
         }
 
-        var mailUid = _entityManager.SpawnEntity(mailPrototype, _entityManager.GetComponent<TransformComponent>(containerUid).Coordinates); // Frontier: _blankMailPrototype<mailPrototype
+        var mailUid = _entityManager.SpawnEntity(
+            mailPrototype,
+            _entityManager.GetComponent<TransformComponent>(containerUid).Coordinates
+        ); // Frontier: _blankMailPrototype<mailPrototype
         var mailContents = containerSystem.EnsureContainer<Container>(mailUid, MailContainer);
 
         if (!_entityManager.TryGetComponent<MailComponent>(mailUid, out var mailComponent))
         {
-            shell.WriteLine(Loc.GetString("command-mailto-bogus-mail", ("blankMail", mailPrototype), ("requiredMailComponent", nameof(MailComponent)))); // Frontier: _blankMailPrototype<mailPrototype
+            shell.WriteLine(
+                Loc.GetString(
+                    "command-mailto-bogus-mail",
+                    ("blankMail", mailPrototype),
+                    ("requiredMailComponent", nameof(MailComponent))
+                )
+            ); // Frontier: _blankMailPrototype<mailPrototype
             return;
         }
 
@@ -148,7 +170,12 @@ public sealed class MailToCommand : LocalizedCommands // Frontier: IConsoleComma
 
         var teleporterQueue = containerSystem.EnsureContainer<Container>((EntityUid)teleporterUid, "queued");
         containerSystem.Insert(mailUid, teleporterQueue);
-        shell.WriteLine(Loc.GetString("command-mailto-success", ("timeToTeleport", sectorMail.TeleportInterval.TotalSeconds - sectorMail.Accumulator))); // Frontier: use SectorMailComponent
+        shell.WriteLine(
+            Loc.GetString(
+                "command-mailto-success",
+                ("timeToTeleport", sectorMail.TeleportInterval.TotalSeconds - sectorMail.Accumulator)
+            )
+        ); // Frontier: use SectorMailComponent
     }
 
     // Frontier: completion
@@ -180,8 +207,11 @@ public sealed class MailNowCommand : IConsoleCommand
     public string Description => Loc.GetString("command-mailnow");
     public string Help => Loc.GetString("command-mailnow-help", ("command", Command));
 
-    [Dependency] private readonly IEntityManager _entityManager = default!;
-    [Dependency] private readonly IEntitySystemManager _entitySystemManager = default!; // Frontier
+    [Dependency]
+    private readonly IEntityManager _entityManager = default!;
+
+    [Dependency]
+    private readonly IEntitySystemManager _entitySystemManager = default!; // Frontier
 
     public async void Execute(IConsoleShell shell, string argStr, string[] args)
     {

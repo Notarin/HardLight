@@ -47,7 +47,11 @@ public sealed partial class ConnectionManager
         return playerCount >= whitelist.MinimumPlayers && playerCount <= whitelist.MaximumPlayers;
     }
 
-    public async Task<(bool isWhitelisted, string? denyMessage)> IsWhitelisted(PlayerConnectionWhitelistPrototype whitelist, NetUserData data, ISawmill sawmill)
+    public async Task<(bool isWhitelisted, string? denyMessage)> IsWhitelisted(
+        PlayerConnectionWhitelistPrototype whitelist,
+        NetUserData data,
+        ISawmill sawmill
+    )
     {
         var cacheRemarks = await _db.GetAllAdminRemarks(data.UserId);
         var cachePlaytime = await _db.GetPlayTimes(data.UserId);
@@ -83,11 +87,17 @@ public sealed partial class ConnectionManager
                     denyMessage = Loc.GetString("whitelist-playtime", ("minutes", conditionPlaytime.MinimumPlaytime));
                     break;
                 case ConditionNotesPlaytimeRange conditionNotesPlaytimeRange:
-                    matched = CheckConditionNotesPlaytimeRange(conditionNotesPlaytimeRange, cacheRemarks, cachePlaytime);
+                    matched = CheckConditionNotesPlaytimeRange(
+                        conditionNotesPlaytimeRange,
+                        cacheRemarks,
+                        cachePlaytime
+                    );
                     denyMessage = Loc.GetString("whitelist-notes");
                     break;
                 default:
-                    throw new NotImplementedException($"Whitelist condition {condition.GetType().Name} not implemented");
+                    throw new NotImplementedException(
+                        $"Whitelist condition {condition.GetType().Name} not implemented"
+                    );
             }
 
             sawmill.Verbose($"User {data.UserName} whitelist condition {condition.GetType().Name} result: {matched}");
@@ -97,7 +107,9 @@ public sealed partial class ConnectionManager
                 case ConditionAction.Allow:
                     if (matched)
                     {
-                        sawmill.Verbose($"User {data.UserName} passed whitelist condition {condition.GetType().Name} and it's a breaking condition");
+                        sawmill.Verbose(
+                            $"User {data.UserName} passed whitelist condition {condition.GetType().Name} and it's a breaking condition"
+                        );
                         return (true, denyMessage);
                     }
                     break;
@@ -109,7 +121,9 @@ public sealed partial class ConnectionManager
                     }
                     break;
                 default:
-                    sawmill.Verbose($"User {data.UserName} failed whitelist condition {condition.GetType().Name} but it's not a breaking condition");
+                    sawmill.Verbose(
+                        $"User {data.UserName} failed whitelist condition {condition.GetType().Name} but it's not a breaking condition"
+                    );
                     break;
             }
         }
@@ -133,12 +147,14 @@ public sealed partial class ConnectionManager
     {
         var range = DateTime.UtcNow.AddDays(-conditionNotes.Range);
 
-        return CheckRemarks(remarks,
+        return CheckRemarks(
+            remarks,
             conditionNotes.IncludeExpired,
             conditionNotes.IncludeSecret,
             conditionNotes.MinimumSeverity,
             conditionNotes.MinimumNotes,
-            adminRemarksRecord => adminRemarksRecord.CreatedAt > range);
+            adminRemarksRecord => adminRemarksRecord.CreatedAt > range
+        );
     }
 
     private bool CheckConditionPlayerCount(ConditionPlayerCount conditionPlayerCount)
@@ -161,7 +177,8 @@ public sealed partial class ConnectionManager
     private bool CheckConditionNotesPlaytimeRange(
         ConditionNotesPlaytimeRange conditionNotesPlaytimeRange,
         List<IAdminRemarksRecord> remarks,
-        List<PlayTime> playtime)
+        List<PlayTime> playtime
+    )
     {
         var overallTracker = playtime.Find(p => p.Tracker == PlayTimeTrackingShared.TrackerOverall);
         if (overallTracker is null)
@@ -169,19 +186,35 @@ public sealed partial class ConnectionManager
             return false;
         }
 
-        return CheckRemarks(remarks,
+        return CheckRemarks(
+            remarks,
             conditionNotesPlaytimeRange.IncludeExpired,
             conditionNotesPlaytimeRange.IncludeSecret,
             conditionNotesPlaytimeRange.MinimumSeverity,
             conditionNotesPlaytimeRange.MinimumNotes,
-            adminRemarksRecord => adminRemarksRecord.PlaytimeAtNote >= overallTracker.TimeSpent - TimeSpan.FromMinutes(conditionNotesPlaytimeRange.Range));
+            adminRemarksRecord =>
+                adminRemarksRecord.PlaytimeAtNote
+                >= overallTracker.TimeSpent - TimeSpan.FromMinutes(conditionNotesPlaytimeRange.Range)
+        );
     }
 
-    private bool CheckRemarks(List<IAdminRemarksRecord> remarks, bool includeExpired, bool includeSecret, NoteSeverity minimumSeverity, int MinimumNotes, Func<IAdminRemarksRecord, bool> additionalCheck)
+    private bool CheckRemarks(
+        List<IAdminRemarksRecord> remarks,
+        bool includeExpired,
+        bool includeSecret,
+        NoteSeverity minimumSeverity,
+        int MinimumNotes,
+        Func<IAdminRemarksRecord, bool> additionalCheck
+    )
     {
         var utcNow = DateTime.UtcNow;
 
-        var notes = remarks.Count(r => r is AdminNoteRecord note && note.Severity >= minimumSeverity && (includeSecret || !note.Secret) && (includeExpired || note.ExpirationTime == null || note.ExpirationTime > utcNow));
+        var notes = remarks.Count(r =>
+            r is AdminNoteRecord note
+            && note.Severity >= minimumSeverity
+            && (includeSecret || !note.Secret)
+            && (includeExpired || note.ExpirationTime == null || note.ExpirationTime > utcNow)
+        );
         if (notes < MinimumNotes)
         {
             return false;
@@ -190,7 +223,10 @@ public sealed partial class ConnectionManager
         foreach (var adminRemarksRecord in remarks)
         {
             // If we're not including expired notes, skip them
-            if (!includeExpired && (adminRemarksRecord.ExpirationTime == null || adminRemarksRecord.ExpirationTime <= utcNow))
+            if (
+                !includeExpired
+                && (adminRemarksRecord.ExpirationTime == null || adminRemarksRecord.ExpirationTime <= utcNow)
+            )
                 continue;
 
             // In order to get the severity of the remark, we need to see if it's an AdminNoteRecord.

@@ -16,6 +16,7 @@ namespace Content.Server.EntityEffects.Effects
         /// </summary>
         [DataField(customTypeSerializer: typeof(PrototypeIdSerializer<ReagentPrototype>))]
         public string? Reagent = null;
+
         // TODO use ReagentId
 
         /// <summary>
@@ -71,19 +72,23 @@ namespace Content.Server.EntityEffects.Effects
         {
             if (Reagent is not null && prototype.TryIndex(Reagent, out ReagentPrototype? reagentProto))
             {
-                return Loc.GetString("reagent-effect-guidebook-adjust-reagent-reagent",
+                return Loc.GetString(
+                    "reagent-effect-guidebook-adjust-reagent-reagent",
                     ("chance", Probability),
                     ("deltasign", MathF.Sign(Amount.Float())),
                     ("reagent", reagentProto.LocalizedName),
-                    ("amount", MathF.Abs(Amount.Float())));
+                    ("amount", MathF.Abs(Amount.Float()))
+                );
             }
             else if (Group is not null && prototype.TryIndex(Group, out MetabolismGroupPrototype? groupProto))
             {
-                return Loc.GetString("reagent-effect-guidebook-adjust-reagent-group",
+                return Loc.GetString(
+                    "reagent-effect-guidebook-adjust-reagent-group",
                     ("chance", Probability),
                     ("deltasign", MathF.Sign(Amount.Float())),
                     ("group", groupProto.LocalizedName),
-                    ("amount", MathF.Abs(Amount.Float())));
+                    ("amount", MathF.Abs(Amount.Float()))
+                );
             }
 
             throw new NotImplementedException();

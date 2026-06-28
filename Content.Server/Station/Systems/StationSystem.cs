@@ -29,13 +29,26 @@ namespace Content.Server.Station.Systems;
 [PublicAPI]
 public sealed class StationSystem : EntitySystem
 {
-    [Dependency] private readonly ILogManager _logManager = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly ChatSystem _chatSystem = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly MetaDataSystem _metaData = default!;
-    [Dependency] private readonly MapSystem _map = default!;
-    [Dependency] private readonly PvsOverrideSystem _pvsOverride = default!;
+    [Dependency]
+    private readonly ILogManager _logManager = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
+
+    [Dependency]
+    private readonly ChatSystem _chatSystem = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly MetaDataSystem _metaData = default!;
+
+    [Dependency]
+    private readonly MapSystem _map = default!;
+
+    [Dependency]
+    private readonly PvsOverrideSystem _pvsOverride = default!;
 
     private ISawmill _sawmill = default!;
 
@@ -134,13 +147,13 @@ public sealed class StationSystem : EntitySystem
         // HARDLIGHT: Check for duplicate stations and grids before spawning
         var existingStations = new HashSet<string>();
         var existingGridNames = new HashSet<string>();
-        
+
         // Collect existing station names
         var stationQuery = EntityQueryEnumerator<StationDataComponent, MetaDataComponent>();
         while (stationQuery.MoveNext(out var existingUid, out var existingData, out var existingMeta))
         {
             existingStations.Add(existingMeta.EntityName);
-            
+
             // Also collect grid names from existing stations
             foreach (var gridUid in existingData.Grids)
             {
@@ -155,8 +168,7 @@ public sealed class StationSystem : EntitySystem
         var duplicateGridDetected = false;
         foreach (var grid in ev.Grids)
         {
-            if (TryComp<MetaDataComponent>(grid, out var gridMeta) && 
-                existingGridNames.Contains(gridMeta.EntityName))
+            if (TryComp<MetaDataComponent>(grid, out var gridMeta) && existingGridNames.Contains(gridMeta.EntityName))
             {
                 _sawmill.Error($"CRITICAL: Detected duplicate grid '{gridMeta.EntityName}' during round start!");
                 duplicateGridDetected = true;
@@ -179,8 +191,10 @@ public sealed class StationSystem : EntitySystem
             var plannedStationName = ev.StationName ?? id;
             if (existingStations.Contains(plannedStationName) || duplicateGridDetected)
             {
-                _sawmill.Error($"CRITICAL: Detected duplicate station '{plannedStationName}' during round start! Aborting round to prevent corruption.");
-                
+                _sawmill.Error(
+                    $"CRITICAL: Detected duplicate station '{plannedStationName}' during round start! Aborting round to prevent corruption."
+                );
+
                 // Delete all stations to clean up
                 var cleanupQuery = EntityQueryEnumerator<StationDataComponent>();
                 while (cleanupQuery.MoveNext(out var stationUid, out var stationData))
@@ -222,8 +236,10 @@ public sealed class StationSystem : EntitySystem
 
         foreach (var gridUid in component.Grids)
         {
-            if (!TryComp<MapGridComponent>(gridUid, out var grid) ||
-                grid.LocalAABB.Size.LengthSquared() < largestBounds.Size.LengthSquared())
+            if (
+                !TryComp<MapGridComponent>(gridUid, out var grid)
+                || grid.LocalAABB.Size.LengthSquared() < largestBounds.Size.LengthSquared()
+            )
                 continue;
 
             largestBounds = grid.LocalAABB;
@@ -292,8 +308,7 @@ public sealed class StationSystem : EntitySystem
 
         foreach (var gridUid in dataComponent.Grids)
         {
-            if (!_gridQuery.TryComp(gridUid, out var grid) ||
-                !_xformQuery.TryGetComponent(gridUid, out var gridXform))
+            if (!_gridQuery.TryComp(gridUid, out var grid) || !_xformQuery.TryGetComponent(gridUid, out var gridXform))
             {
                 continue;
             }
@@ -302,10 +317,7 @@ public sealed class StationSystem : EntitySystem
             var localBounds = grid.LocalAABB.Enlarged(range);
 
             // Create a rotated box using the grid's transform
-            var rotatedBounds = new Box2Rotated(
-                localBounds,
-                worldRot,
-                worldPos);
+            var rotatedBounds = new Box2Rotated(localBounds, worldRot, worldPos);
 
             _gridBounds.Add((rotatedBounds, gridXform.MapID));
         }
@@ -357,15 +369,26 @@ public sealed class StationSystem : EntitySystem
     /// <param name="name">Optional override for the station name.</param>
     /// <remarks>This is for ease of use, manually spawning the entity works just fine.</remarks>
     /// <returns>The initialized station.</returns>
-    public EntityUid InitializeNewStation(StationConfig stationConfig, IEnumerable<EntityUid>? gridIds, string? name = null)
+    public EntityUid InitializeNewStation(
+        StationConfig stationConfig,
+        IEnumerable<EntityUid>? gridIds,
+        string? name = null
+    )
     {
         // Use overrides for setup.
-        var station = EntityManager.SpawnEntity(stationConfig.StationPrototype, MapCoordinates.Nullspace, stationConfig.StationComponentOverrides);
+        var station = EntityManager.SpawnEntity(
+            stationConfig.StationPrototype,
+            MapCoordinates.Nullspace,
+            stationConfig.StationComponentOverrides
+        );
 
         if (name is not null)
             RenameStation(station, name, false);
 
-        DebugTools.Assert(HasComp<StationDataComponent>(station), "Stations should have StationData in their prototype.");
+        DebugTools.Assert(
+            HasComp<StationDataComponent>(station),
+            "Stations should have StationData in their prototype."
+        );
 
         var data = Comp<StationDataComponent>(station);
         name ??= MetaData(station).EntityName;
@@ -390,7 +413,13 @@ public sealed class StationSystem : EntitySystem
     /// <param name="stationData">Resolve pattern, station data component of station.</param>
     /// <param name="name">The name to assign to the grid if any.</param>
     /// <exception cref="ArgumentException">Thrown when mapGrid or station are not a grid or station, respectively.</exception>
-    public void AddGridToStation(EntityUid station, EntityUid mapGrid, MapGridComponent? gridComponent = null, StationDataComponent? stationData = null, string? name = null)
+    public void AddGridToStation(
+        EntityUid station,
+        EntityUid mapGrid,
+        MapGridComponent? gridComponent = null,
+        StationDataComponent? stationData = null,
+        string? name = null
+    )
     {
         if (!Resolve(mapGrid, ref gridComponent))
             throw new ArgumentException("Tried to initialize a station on a non-grid entity!", nameof(mapGrid));
@@ -417,7 +446,12 @@ public sealed class StationSystem : EntitySystem
     /// <param name="gridComponent">Resolve pattern, grid component of mapGrid.</param>
     /// <param name="stationData">Resolve pattern, station data component of station.</param>
     /// <exception cref="ArgumentException">Thrown when mapGrid or station are not a grid or station, respectively.</exception>
-    public void RemoveGridFromStation(EntityUid station, EntityUid mapGrid, MapGridComponent? gridComponent = null, StationDataComponent? stationData = null)
+    public void RemoveGridFromStation(
+        EntityUid station,
+        EntityUid mapGrid,
+        MapGridComponent? gridComponent = null,
+        StationDataComponent? stationData = null
+    )
     {
         if (!Resolve(mapGrid, ref gridComponent))
             throw new ArgumentException("Tried to initialize a station on a non-grid entity!", nameof(mapGrid));
@@ -440,7 +474,13 @@ public sealed class StationSystem : EntitySystem
     /// <param name="stationData">Resolve pattern, station data component of station.</param>
     /// <param name="metaData">Resolve pattern, metadata component of station.</param>
     /// <exception cref="ArgumentException">Thrown when the given station is not a station.</exception>
-    public void RenameStation(EntityUid station, string name, bool loud = true, StationDataComponent? stationData = null, MetaDataComponent? metaData = null)
+    public void RenameStation(
+        EntityUid station,
+        string name,
+        bool loud = true,
+        StationDataComponent? stationData = null,
+        MetaDataComponent? metaData = null
+    )
     {
         if (!Resolve(station, ref stationData, ref metaData))
             throw new ArgumentException("Tried to use a non-station entity as a station!", nameof(station));
@@ -656,4 +696,3 @@ public sealed class StationRenamedEvent : EntityEventArgs
         NewName = newName;
     }
 }
-

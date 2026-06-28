@@ -43,10 +43,12 @@ public sealed class NanoChatUiMessageEvent : CartridgeMessageEvent
     /// <param name="recipientNumber">Optional recipient number for the message</param>
     /// <param name="content">Optional content of the message</param>
     /// <param name="recipientJob">Optional job title for new chat creation</param>
-    public NanoChatUiMessageEvent(NanoChatUiMessageType type,
+    public NanoChatUiMessageEvent(
+        NanoChatUiMessageType type,
         uint? recipientNumber = null,
         string? content = null,
-        string? recipientJob = null)
+        string? recipientJob = null
+    )
     {
         Type = type;
         RecipientNumber = recipientNumber;
@@ -130,14 +132,16 @@ public partial struct NanoChatRecipient
     /// <param name="members">For group chats: list of member NanoChat numbers</param>
     /// <param name="creatorId">For group chats: the creator's NanoChat number</param>
     /// <param name="admins">For group chats: set of admin NanoChat numbers</param>
-    public NanoChatRecipient(uint number,
+    public NanoChatRecipient(
+        uint number,
         string name,
         string? jobTitle = null,
         bool hasUnread = false,
         bool isGroup = false, // Funky Station - Group Chats
         HashSet<uint>? members = null, // Funky Station - Group Chats
         uint? creatorId = null, // Funky Station - Group Chats
-        HashSet<uint>? admins = null) // Funky Station - Group Chats
+        HashSet<uint>? admins = null
+    ) // Funky Station - Group Chats
     {
         Number = number;
         Name = name;
@@ -201,7 +205,8 @@ public readonly partial struct NanoChatData(
     Dictionary<uint, NanoChatRecipient> recipients,
     Dictionary<uint, List<NanoChatMessage>> messages,
     uint? cardNumber,
-    NetEntity card)
+    NetEntity card
+)
 {
     public Dictionary<uint, NanoChatRecipient> Recipients { get; } = recipients;
     public Dictionary<uint, List<NanoChatMessage>> Messages { get; } = messages;

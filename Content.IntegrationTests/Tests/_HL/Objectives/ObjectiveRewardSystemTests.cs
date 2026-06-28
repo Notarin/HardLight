@@ -15,11 +15,7 @@ public sealed class ObjectiveRewardSystemTests
     [Test]
     public async Task RewardsOnlyObjectiveOwnerOnce()
     {
-        await using var pair = await PoolManager.GetServerClient(new PoolSettings
-        {
-            Connected = true,
-            Dirty = false,
-        });
+        await using var pair = await PoolManager.GetServerClient(new PoolSettings { Connected = true, Dirty = false });
 
         await pair.Server.AddDummySessions(1);
         await pair.RunTicksSync(10);
@@ -38,7 +34,11 @@ public sealed class ObjectiveRewardSystemTests
         await pair.Server.WaitPost(() =>
         {
             var sessions = playerMan.Sessions.ToArray();
-            Assert.That(sessions.Length, Is.GreaterThanOrEqualTo(2), "Expected at least two sessions for objective ownership isolation test.");
+            Assert.That(
+                sessions.Length,
+                Is.GreaterThanOrEqualTo(2),
+                "Expected at least two sessions for objective ownership isolation test."
+            );
 
             var ownerSession = sessions[0];
             var otherSession = sessions[1];
@@ -91,8 +91,16 @@ public sealed class ObjectiveRewardSystemTests
             var reward = entMan.GetComponent<ObjectiveRewardComponent>(objective);
 
             Assert.That(reward.Rewarded, Is.True, "Objective reward should be marked rewarded after first payout.");
-            Assert.That(ownerBank.Balance - ownerInitialBalance, Is.EqualTo(rewardAmount), "Objective owner should receive exactly one payout.");
-            Assert.That(otherBank.Balance - otherInitialBalance, Is.EqualTo(0), "Non-owner should not receive payout for someone else's objective.");
+            Assert.That(
+                ownerBank.Balance - ownerInitialBalance,
+                Is.EqualTo(rewardAmount),
+                "Objective owner should receive exactly one payout."
+            );
+            Assert.That(
+                otherBank.Balance - otherInitialBalance,
+                Is.EqualTo(0),
+                "Non-owner should not receive payout for someone else's objective."
+            );
 
             ownerBalanceAfterFirstPass = ownerBank.Balance;
             otherBalanceAfterFirstPass = otherBank.Balance;
@@ -105,8 +113,16 @@ public sealed class ObjectiveRewardSystemTests
             var ownerBank = entMan.GetComponent<BankAccountComponent>(ownerEntity);
             var otherBank = entMan.GetComponent<BankAccountComponent>(otherEntity);
 
-            Assert.That(ownerBank.Balance, Is.EqualTo(ownerBalanceAfterFirstPass), "Objective payout should not repeat on subsequent scans.");
-            Assert.That(otherBank.Balance, Is.EqualTo(otherBalanceAfterFirstPass), "Non-owner balance should remain unchanged on subsequent scans.");
+            Assert.That(
+                ownerBank.Balance,
+                Is.EqualTo(ownerBalanceAfterFirstPass),
+                "Objective payout should not repeat on subsequent scans."
+            );
+            Assert.That(
+                otherBank.Balance,
+                Is.EqualTo(otherBalanceAfterFirstPass),
+                "Non-owner balance should remain unchanged on subsequent scans."
+            );
         });
 
         await pair.CleanReturnAsync();

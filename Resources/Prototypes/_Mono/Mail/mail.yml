@@ -1,5 +1,5 @@
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMailLarge
   id: MailMonoC20r
   suffix: C20r
@@ -11,7 +11,7 @@
       amount: 3
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMailLarge
   id: MailMonoAK
   suffix: AK
@@ -23,7 +23,7 @@
       amount: 3
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMailLarge
   id: MailMonoC4
   suffix: C4
@@ -34,7 +34,7 @@
       amount: 3
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailMonoRCD
   suffix: RCD
@@ -46,7 +46,7 @@
       amount: 2
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMailLarge
   id: MailMonoERTMailKit
   suffix: ErtMailKit
@@ -61,7 +61,7 @@
     - id: SpaceCash20000
 
 - type: entity #
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMailLarge
   id: MailMonoDesword
   suffix: Desword # Who the hell puts this in the mail?

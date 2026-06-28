@@ -9,22 +9,22 @@
     - Vocal
   chatMessages: ["chat-emote-msg-scream"]
   chatTriggers:
-    - scream
-    - screams
-    - screaming
-    - screamed
-    - shriek
-    - shrieks
-    - shrieking
-    - shrieked
-    - screech
-    - screeches
-    - screeching
-    - screeched
-    - yell
-    - yells
-    - yelled
-    - yelling
+  - scream
+  - screams
+  - screaming
+  - screamed
+  - shriek
+  - shrieks
+  - shrieking
+  - shrieked
+  - screech
+  - screeches
+  - screeching
+  - screeched
+  - yell
+  - yells
+  - yelled
+  - yelling
 
 - type: emote
   id: Laugh
@@ -36,22 +36,22 @@
     - Vocal
   chatMessages: ["chat-emote-msg-laugh"]
   chatTriggers:
-    - laugh
-    - laughs
-    - laughing
-    - laughed
-    - chuckle
-    - chuckles
-    - chuckled
-    - chuckling
-    - giggle
-    - giggles
-    - giggling
-    - giggled
-    - chortle
-    - chortles
-    - chortling
-    - chortled # Frontier
+  - laugh
+  - laughs
+  - laughing
+  - laughed
+  - chuckle
+  - chuckles
+  - chuckled
+  - chuckling
+  - giggle
+  - giggles
+  - giggling
+  - giggled
+  - chortle
+  - chortles
+  - chortling
+  - chortled # Frontier
 
 - type: emote
   id: Honk
@@ -66,10 +66,10 @@
     - SiliconEmotes
   chatMessages: ["chat-emote-msg-honk"]
   chatTriggers:
-    - honk
-    - honks
-    - honked
-    - honking
+  - honk
+  - honks
+  - honked
+  - honking
 
 - type: emote
   id: Sigh
@@ -84,10 +84,10 @@
     - SiliconEmotes
   chatMessages: ["chat-emote-msg-sigh"]
   chatTriggers:
-    - sigh
-    - sighs
-    - sighed
-    - sighing # Frontier
+  - sigh
+  - sighs
+  - sighed
+  - sighing # Frontier
 
 - type: emote
   id: Whistle
@@ -102,10 +102,10 @@
     - SiliconEmotes
   chatMessages: ["chat-emote-msg-whistle"]
   chatTriggers:
-    - whistle
-    - whistles
-    - whistleblowing
-    - whistled # Frontier
+  - whistle
+  - whistles
+  - whistleblowing
+  - whistled # Frontier
 
 - type: emote
   id: Crying
@@ -120,14 +120,14 @@
     - SiliconEmotes
   chatMessages: ["chat-emote-msg-crying"]
   chatTriggers:
-    - cry
-    - crying
-    - cries
-    - sob
-    - sobs
-    - sobbing
-    - sobbed # Frontier
-    - cried # Frontier
+  - cry
+  - crying
+  - cries
+  - sob
+  - sobs
+  - sobbing
+  - sobbed # Frontier
+  - cried # Frontier
 
 - type: emote
   id: Squish
@@ -143,10 +143,10 @@
     - SiliconEmotes
   chatMessages: ["chat-emote-msg-squish"]
   chatTriggers:
-    - squish
-    - squishing
-    - squishes
-    - squished # Frontier
+  - squish
+  - squishing
+  - squishes
+  - squished # Frontier
 
 - type: emote
   id: Chitter
@@ -162,10 +162,10 @@
     - SiliconEmotes
   chatMessages: ["chat-emote-msg-chitter"]
   chatTriggers:
-   - chitter
-   - chitters
-   - chittered
-   - chittering # Frontier
+  - chitter
+  - chitters
+  - chittered
+  - chittering # Frontier
 
 - type: emote
   id: Squeak
@@ -175,16 +175,16 @@
   icon: Interface/Emotes/squeak.png
   whitelist:
     components:
-      - Vocal
+    - Vocal
   blacklist:
     tags:
     - SiliconEmotes
   chatMessages: ["chat-emote-msg-squeak"]
   chatTriggers:
-   - squeak
-   - squeaks
-   - squeaked
-   - squeaking # Frontier
+  - squeak
+  - squeaks
+  - squeaked
+  - squeaking # Frontier
 
 - type: emote
   id: Click
@@ -200,10 +200,10 @@
     - SiliconEmotes
   chatMessages: ["chat-emote-msg-click"]
   chatTriggers:
-   - click
-   - clicks
-   - clicked # Frontier
-   - clicking # Frontier
+  - click
+  - clicks
+  - clicked # Frontier
+  - clicking # Frontier
 
 # Vulpkanin
 - type: emote
@@ -310,9 +310,9 @@
     - SiliconEmotes
   chatMessages: ["chat-emote-msg-clap"]
   chatTriggers:
-    - claps
-    - clapping
-    - clapped
+  - claps
+  - clapping
+  - clapped
 
 - type: emote
   id: ClapSingle
@@ -325,13 +325,13 @@
   blacklist:
     tags:
     - SiliconEmotes
-  chatMessages: [ "chat-emote-msg-clap-single" ]
+  chatMessages: ["chat-emote-msg-clap-single"]
   chatTriggers:
-    - clap
-    - claps their hands together
-    - claps her hands together
-    - claps his hands together
-    - claps its hands together
+  - clap
+  - claps their hands together
+  - claps her hands together
+  - claps his hands together
+  - claps its hands together
 
 - type: emote
   id: Snap
@@ -346,18 +346,18 @@
     - SiliconEmotes
   chatMessages: ["chat-emote-msg-snap"]
   chatTriggers:
-    - snap
-    - snaps
-    - snapping
-    - snapped
-    - snap fingers
-    - snaps fingers
-    - snaps their fingers
-    - snaps her fingers
-    - snaps his fingers
-    - snaps its fingers
-    - snapping fingers
-    - snapped fingers
+  - snap
+  - snaps
+  - snapping
+  - snapped
+  - snap fingers
+  - snaps fingers
+  - snaps their fingers
+  - snaps her fingers
+  - snaps his fingers
+  - snaps its fingers
+  - snapping fingers
+  - snapped fingers
 
 - type: emote
   id: Thump
@@ -373,16 +373,16 @@
     - SiliconEmotes
   chatMessages: ["chat-emote-msg-thump"]
   chatTriggers:
-    - thump
-    - thumps
-    - thumping
-    - thumped
-    - thump tail
-    - thumps tail
-    - thumps their tail
-    - thumps her tail
-    - thumps his tail
-    - thumps its tail
+  - thump
+  - thumps
+  - thumping
+  - thumped
+  - thump tail
+  - thumps tail
+  - thumps their tail
+  - thumps her tail
+  - thumps his tail
+  - thumps its tail
 
 - type: emote
   id: Chirp
@@ -398,10 +398,10 @@
     - BorgChassis
   chatMessages: ["chat-emote-msg-chirp"]
   chatTriggers:
-    - chirp
-    - chirps
-    - chirping
-    - chirped
+  - chirp
+  - chirps
+  - chirping
+  - chirped
 
 - type: emote
   id: Flap
@@ -417,26 +417,26 @@
     - SiliconEmotes
   chatMessages: ["chat-emote-msg-flap"]
   chatTriggers:
-   - flap
-   - flaps
-   - flapped
-   - flapping
-   - flutter
-   - flutters
-   - fluttering
-   - fluttered
-   - flap wings
-   - flaps wings
-   - flutter wings
-   - flutters wings
-   - flaps his wings
-   - flaps her wings
-   - flaps their wings
-   - flaps its wings
-   - flutters his wings
-   - flutters her wings
-   - flutters their wings
-   - flutters its wings
+  - flap
+  - flaps
+  - flapped
+  - flapping
+  - flutter
+  - flutters
+  - fluttering
+  - fluttered
+  - flap wings
+  - flaps wings
+  - flutter wings
+  - flutters wings
+  - flaps his wings
+  - flaps her wings
+  - flaps their wings
+  - flaps its wings
+  - flutters his wings
+  - flutters her wings
+  - flutters their wings
+  - flutters its wings
 
 - type: emote
   id: Salute
@@ -451,10 +451,10 @@
     - SiliconEmotes
   chatMessages: ["chat-emote-msg-salute"]
   chatTriggers:
-    - salute
-    - salutes
-    - saluted # Frontier
-    - saluting # Frontier
+  - salute
+  - salutes
+  - saluted # Frontier
+  - saluting # Frontier
 
 - type: emote
   id: Gasp
@@ -464,10 +464,10 @@
     - Respirator
   chatMessages: ["chat-emote-msg-gasp"]
   chatTriggers:
-   - gasp
-   - gasps
-   - gasped
-   - gasping # Frontier
+  - gasp
+  - gasps
+  - gasped
+  - gasping # Frontier
 
 - type: emote
   id: DefaultDeathgasp
@@ -505,10 +505,10 @@
     - SiliconEmotes
   chatMessages: ["chat-emote-msg-buzz"]
   chatTriggers:
-    - buzzing
-    - buzz
-    - buzzed
-    - buzzes
+  - buzzing
+  - buzz
+  - buzzed
+  - buzzes
 
 - type: emote
   id: Weh
@@ -517,10 +517,10 @@
   icon: Interface/Emotes/weh.png
   chatMessages: ["chat-emote-msg-weh"]
   chatTriggers: # Floof - you can weh now
-    - weh
-    - wehs
-    - wehed
-    - wehing
+  - weh
+  - wehs
+  - wehed
+  - wehing
 
 - type: emote
   id: Hew
@@ -529,10 +529,10 @@
   icon: Interface/Emotes/hew.png
   chatMessages: ["chat-emote-msg-hew"]
   chatTriggers: # Floof - you can weh now
-    - hew
-    - hews
-    - hewed
-    - hewing
+  - hew
+  - hews
+  - hewed
+  - hewing
 
 - type: emote
   id: NymphChirp
@@ -564,10 +564,10 @@
     - SiliconEmotes
   chatMessages: ["chat-emote-msg-beep"]
   chatTriggers:
-    - beep
-    - beeps
-    - beeped
-    - beeping
+  - beep
+  - beeps
+  - beeped
+  - beeping
 
 - type: emote
   id: Chime
@@ -582,10 +582,10 @@
     - SiliconEmotes
   chatMessages: ["chat-emote-msg-chime"]
   chatTriggers:
-    - chime
-    - chimes
-    - chimed
-    - chiming
+  - chime
+  - chimes
+  - chimed
+  - chiming
 
 - type: emote
   id: Buzz-Two
@@ -600,17 +600,17 @@
     - SiliconEmotes
   chatMessages: ["chat-emote-msg-buzzestwo"]
   chatTriggers:
-    - buzztwice
-    - buzzstwice
-    - buzzestwice
-    - buzzingtwice
-    - buzzedtwice
-    - buzz twice
-    - buzzs twice
-    - buzzes twice
-    - buzzing twice
-    - buzzed twice
-    - buzzedtwice # Frontier
+  - buzztwice
+  - buzzstwice
+  - buzzestwice
+  - buzzingtwice
+  - buzzedtwice
+  - buzz twice
+  - buzzs twice
+  - buzzes twice
+  - buzzing twice
+  - buzzed twice
+  - buzzedtwice # Frontier
 
 - type: emote
   id: Ping
@@ -625,10 +625,10 @@
     - SiliconEmotes
   chatMessages: ["chat-emote-msg-ping"]
   chatTriggers:
-    - ping
-    - pings
-    - pinged
-    - pinging
+  - ping
+  - pings
+  - pinged
+  - pinging
 
 # lewd emotes
 - type: emote
@@ -643,7 +643,7 @@
     tags:
     - SiliconEmotes
   chatTriggers:
-    - stroke
+  - stroke
 
 - type: emote
   id: WetPlorp
@@ -657,7 +657,7 @@
     tags:
     - SiliconEmotes
   chatTriggers:
-    - wetplorp
+  - wetplorp
 
 - type: emote
   id: Plap
@@ -671,7 +671,7 @@
     tags:
     - SiliconEmotes
   chatTriggers:
-    - plap
+  - plap
 
 - type: emote
   id: WetPlap
@@ -685,7 +685,7 @@
     tags:
     - SiliconEmotes
   chatTriggers:
-    - wetplap
+  - wetplap
 
 - type: emote
   id: PullOut
@@ -699,7 +699,7 @@
     tags:
     - SiliconEmotes
   chatTriggers:
-    - pullout
+  - pullout
 
 - type: emote
   id: CumOut
@@ -713,7 +713,7 @@
     tags:
     - SiliconEmotes
   chatTriggers:
-    - cumout
+  - cumout
 
 - type: emote
   id: CumIn
@@ -727,8 +727,5 @@
     tags:
     - SiliconEmotes
   chatTriggers:
-    - cumin
-
-
-
+  - cumin
 

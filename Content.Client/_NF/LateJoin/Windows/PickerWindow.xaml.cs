@@ -14,9 +14,14 @@ namespace Content.Client._NF.LateJoin.Windows;
 [GenerateTypedNameReferences]
 public sealed partial class PickerWindow : FancyWindow
 {
-    [Dependency] private readonly IEntitySystemManager _entitySystem = default!;
-    [Dependency] private readonly ILocalizationManager _loc = default!;
-    [Dependency] private readonly IConsoleHost _consoleHost = default!;
+    [Dependency]
+    private readonly IEntitySystemManager _entitySystem = default!;
+
+    [Dependency]
+    private readonly ILocalizationManager _loc = default!;
+
+    [Dependency]
+    private readonly IConsoleHost _consoleHost = default!;
     private readonly ClientGameTicker _gameTicker;
     private readonly ISawmill _sawmill;
 
@@ -83,18 +88,22 @@ public sealed partial class PickerWindow : FancyWindow
         var availableJobs = obj.Where(kvp => kvp.Value.JobsAvailable.Values.Count != 0)
             .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
 
-        var stationJobs = availableJobs.Where(kvp => kvp.Value.IsLateJoinStation)
+        var stationJobs = availableJobs
+            .Where(kvp => kvp.Value.IsLateJoinStation)
             .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
-        var crewJobs = availableJobs.Where(kvp => !kvp.Value.IsLateJoinStation)
+        var crewJobs = availableJobs
+            .Where(kvp => !kvp.Value.IsLateJoinStation)
             .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
 
         StationTabLabel.Text = _loc.GetString("frontier-lobby-station-title") + stationJobs.GetJobSumCountString();
-        StationTabButton.Disabled = !StationJobInformationExtensions.IsAnyStationAvailable(availableJobs) ||
-                                    _currentTab?.Type == PickerType.Station;
+        StationTabButton.Disabled =
+            !StationJobInformationExtensions.IsAnyStationAvailable(availableJobs)
+            || _currentTab?.Type == PickerType.Station;
 
         CrewTabLabel.Text = _loc.GetString("frontier-lobby-crew-title") + crewJobs.GetJobSumCountString();
-        CrewTabButton.Disabled = !StationJobInformationExtensions.IsAnyCrewJobAvailable(availableJobs) ||
-                                 _currentTab?.Type == PickerType.Crew;
+        CrewTabButton.Disabled =
+            !StationJobInformationExtensions.IsAnyCrewJobAvailable(availableJobs)
+            || _currentTab?.Type == PickerType.Crew;
 
         _currentTab?.Control.UpdateUi(availableJobs);
     }
@@ -138,9 +147,7 @@ public sealed partial class PickerWindow : FancyWindow
     private void JoinGame(NetEntity stationEntity, string jobId)
     {
         _sawmill.Info($"Late joining as ID: {jobId}");
-        _consoleHost.ExecuteCommand(
-            $"joingame {CommandParsing.Escape(jobId)} {stationEntity}"
-        );
+        _consoleHost.ExecuteCommand($"joingame {CommandParsing.Escape(jobId)} {stationEntity}");
 
         Close();
     }

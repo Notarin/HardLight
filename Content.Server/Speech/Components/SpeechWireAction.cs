@@ -15,8 +15,8 @@ public sealed partial class SpeechWireAction : ComponentWireAction<SpeechCompone
 
     public override object? StatusKey { get; } = SpeechWireActionKey.StatusKey;
 
-    public override StatusLightState? GetLightState(Wire wire, SpeechComponent component)
-        => component.Enabled ? StatusLightState.On : StatusLightState.Off;
+    public override StatusLightState? GetLightState(Wire wire, SpeechComponent component) =>
+        component.Enabled ? StatusLightState.On : StatusLightState.Off;
 
     public override void Initialize()
     {

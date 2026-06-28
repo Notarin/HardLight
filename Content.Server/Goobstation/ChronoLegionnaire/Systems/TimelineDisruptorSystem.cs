@@ -14,11 +14,21 @@ namespace Content.Server.Goobstation.ChronoLegionnaire;
 
 public sealed class TimelineDisruptorSystem : SharedTimelineDisruptorSystem
 {
-    [Dependency] private readonly AppearanceSystem _appearanceSystem = default!;
-    [Dependency] private readonly SharedAudioSystem _audioSystem = default!;
-    [Dependency] private readonly ContainerSystem _containerSystem = default!;
-    [Dependency] private readonly ItemSlotsSystem _itemSlotsSystem = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly AppearanceSystem _appearanceSystem = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audioSystem = default!;
+
+    [Dependency]
+    private readonly ContainerSystem _containerSystem = default!;
+
+    [Dependency]
+    private readonly ItemSlotsSystem _itemSlotsSystem = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
     public override void Initialize()
     {
         base.Initialize();
@@ -68,7 +78,11 @@ public sealed class TimelineDisruptorSystem : SharedTimelineDisruptorSystem
         UpdateContainerAppearance(ent, isContain);
     }
 
-    private void UpdateContainerAppearance(Entity<TimelineDisruptorComponent> ent, bool isContain, AppearanceComponent? appearance = null)
+    private void UpdateContainerAppearance(
+        Entity<TimelineDisruptorComponent> ent,
+        bool isContain,
+        AppearanceComponent? appearance = null
+    )
     {
         if (!Resolve(ent, ref appearance, false))
             return;
@@ -111,6 +125,7 @@ public sealed class TimelineDisruptorSystem : SharedTimelineDisruptorSystem
 
         Dirty(ent, ent.Comp);
     }
+
     private void FinishDisrupting(Entity<TimelineDisruptorComponent> ent)
     {
         var (_, disruptor) = ent;
@@ -127,7 +142,10 @@ public sealed class TimelineDisruptorSystem : SharedTimelineDisruptorSystem
             return;
 
         // Checking the storage of stasis container for any items in it
-        if (!TryComp<EntityStorageComponent>(cage, out var entityStorage) || entityStorage.Contents.ContainedEntities.Count == 0)
+        if (
+            !TryComp<EntityStorageComponent>(cage, out var entityStorage)
+            || entityStorage.Contents.ContainedEntities.Count == 0
+        )
             return;
 
         var contents = new List<EntityUid>(entityStorage.Contents.ContainedEntities);
@@ -156,7 +174,10 @@ public sealed class TimelineDisruptorSystem : SharedTimelineDisruptorSystem
                 continue;
 
             // Check if we removed stasis container from disruptor
-            if ((disruptionSlot.ContainerSlot == null || disruptionSlot.ContainerSlot.ContainedEntity == null) && disruptor.Disruption)
+            if (
+                (disruptionSlot.ContainerSlot == null || disruptionSlot.ContainerSlot.ContainedEntity == null)
+                && disruptor.Disruption
+            )
             {
                 StopDisrupting((uid, disruptor));
                 disruptor.DisruptionSoundStream = _audioSystem.Stop(disruptor.DisruptionSoundStream);

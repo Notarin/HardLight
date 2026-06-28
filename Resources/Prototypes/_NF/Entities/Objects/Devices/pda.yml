@@ -18,19 +18,19 @@
   - type: CartridgeLoader
     diskSpace: 20
     preinstalled:
-      - CrewManifestCartridge
-      - NotekeeperCartridge
-      - NanoTaskCartridge
-      - NewsReaderCartridge
-      - BountyContractsCartridge
-      - AstroNavCartridge
-      - WantedListCartridge
-      - LedgerCartridge
-      - LogProbeCartridge
-      - MailMetricsCartridge
-      - AppraisalCartridge
-      - NetProbeCartridge
-      - NanoChatCartridge
+    - CrewManifestCartridge
+    - NotekeeperCartridge
+    - NanoTaskCartridge
+    - NewsReaderCartridge
+    - BountyContractsCartridge
+    - AstroNavCartridge
+    - WantedListCartridge
+    - LedgerCartridge
+    - LogProbeCartridge
+    - MailMetricsCartridge
+    - AppraisalCartridge
+    - NetProbeCartridge
+    - NanoChatCartridge
 
 - type: entity
   parent: BasePDA
@@ -42,9 +42,7 @@
     id: MercenaryIDCard
   - type: Appearance
     appearanceDataInit:
-      enum.PdaVisuals.PdaType:
-        !type:String
-        pda-mercenary
+      enum.PdaVisuals.PdaType: !type:String pda-mercenary
   - type: PdaBorderColor
     borderColor: "#717059"
     accentVColor: "#A32D26"
@@ -61,9 +59,7 @@
     id: PilotIDCard
   - type: Appearance
     appearanceDataInit:
-      enum.PdaVisuals.PdaType:
-        !type:String
-        pda-pilot
+      enum.PdaVisuals.PdaType: !type:String pda-pilot
   - type: PdaBorderColor
     borderColor: "#717059"
     accentVColor: "#A32D26"
@@ -80,9 +76,7 @@
     id: StcIDCard
   - type: Appearance
     appearanceDataInit:
-      enum.PdaVisuals.PdaType:
-        !type:String
-        pda-stc
+      enum.PdaVisuals.PdaType: !type:String pda-stc
   - type: PdaBorderColor
     borderColor: "#F2F2F2"
     accentVColor: "#FE4900"
@@ -99,9 +93,7 @@
     id: SecurityGuardIDCard
   - type: Appearance
     appearanceDataInit:
-      enum.PdaVisuals.PdaType:
-        !type:String
-        pda-security
+      enum.PdaVisuals.PdaType: !type:String pda-security
   - type: PdaBorderColor
     borderColor: "#A32D26"
   - type: Icon
@@ -147,9 +139,7 @@
         - Write
   - type: Appearance
     appearanceDataInit:
-      enum.PdaVisuals.PdaType:
-        !type:String
-        pda-sheriff
+      enum.PdaVisuals.PdaType: !type:String pda-sheriff
   - type: PdaBorderColor
     borderColor: "#FFFDD0"
     accentHColor: "#896b49"
@@ -183,9 +173,7 @@
         - BookNfsdSop
   - type: Appearance
     appearanceDataInit:
-      enum.PdaVisuals.PdaType:
-        !type:String
-        pda-cadet
+      enum.PdaVisuals.PdaType: !type:String pda-cadet
   - type: PdaBorderColor
     borderColor: "#FFFDD0"
     accentHColor: "#896b49"
@@ -209,9 +197,7 @@
         - BookNfsdSop
   - type: Appearance
     appearanceDataInit:
-      enum.PdaVisuals.PdaType:
-        !type:String
-        pda-deputy
+      enum.PdaVisuals.PdaType: !type:String pda-deputy
   - type: PdaBorderColor
     borderColor: "#FFFDD0"
     accentHColor: "#896b49"
@@ -235,9 +221,7 @@
         - BookNfsdSop
   - type: Appearance
     appearanceDataInit:
-      enum.PdaVisuals.PdaType:
-        !type:String
-        pda-brigmed
+      enum.PdaVisuals.PdaType: !type:String pda-brigmed
   - type: PdaBorderColor
     borderColor: "#FFFDD0"
     accentHColor: "#896b49"
@@ -261,9 +245,7 @@
         - BookNfsdSop
   - type: Appearance
     appearanceDataInit:
-      enum.PdaVisuals.PdaType:
-        !type:String
-        pda-sergeant
+      enum.PdaVisuals.PdaType: !type:String pda-sergeant
   - type: PdaBorderColor
     borderColor: "#FFFDD0"
     accentHColor: "#896b49"
@@ -287,9 +269,7 @@
         - BookNfsdSop
   - type: Appearance
     appearanceDataInit:
-      enum.PdaVisuals.PdaType:
-        !type:String
-        pda-bailiff
+      enum.PdaVisuals.PdaType: !type:String pda-bailiff
   - type: PdaBorderColor
     borderColor: "#FFFDD0"
     accentHColor: "#896b49"
@@ -313,9 +293,7 @@
         - BookNfsdSop
   - type: Appearance
     appearanceDataInit:
-      enum.PdaVisuals.PdaType:
-        !type:String
-        pda-nfdetective
+      enum.PdaVisuals.PdaType: !type:String pda-nfdetective
   - type: PdaBorderColor
     borderColor: "#774705"
   - type: Icon
@@ -344,9 +322,7 @@
         - BookNfsdSop
   - type: Appearance
     appearanceDataInit:
-      enum.PdaVisuals.PdaType:
-        !type:String
-        pda-pal
+      enum.PdaVisuals.PdaType: !type:String pda-pal
   - type: PdaBorderColor
     borderColor: "#FFFDD0"
     accentHColor: "#896b49"
@@ -369,9 +345,7 @@
         - Write
   - type: Appearance
     appearanceDataInit:
-      enum.PdaVisuals.PdaType:
-        !type:String
-        pda-sr
+      enum.PdaVisuals.PdaType: !type:String pda-sr
   - type: PdaBorderColor
     borderColor: "#789876"
     accentHColor: "#447987"
@@ -398,9 +372,7 @@
     id: NFPirateIDCard
   - type: Appearance
     appearanceDataInit:
-      enum.PdaVisuals.PdaType:
-        !type:String
-        pda-pirate
+      enum.PdaVisuals.PdaType: !type:String pda-pirate
 
 - type: entity
   parent: PiratePDA
@@ -412,9 +384,7 @@
     id: NFPirateCaptainIDCard
   - type: Appearance
     appearanceDataInit:
-      enum.PdaVisuals.PdaType:
-        !type:String
-        pda-pirate
+      enum.PdaVisuals.PdaType: !type:String pda-pirate
 
 - type: entity
   parent: PiratePDA
@@ -426,9 +396,7 @@
     id: NFPirateFirstMateIDCard
   - type: Appearance
     appearanceDataInit:
-      enum.PdaVisuals.PdaType:
-        !type:String
-        pda-pirate
+      enum.PdaVisuals.PdaType: !type:String pda-pirate
 
 - type: entity
   parent: ClearPDA
@@ -438,9 +406,7 @@
     id: ContractorIDCard
   - type: Appearance
     appearanceDataInit:
-      enum.PdaVisuals.PdaType:
-        !type:String
-        pda-clear
+      enum.PdaVisuals.PdaType: !type:String pda-clear
 
 - type: entity
   parent: JanitorPDA
@@ -450,9 +416,7 @@
     id: NFJanitorIDCard
   - type: Appearance
     appearanceDataInit:
-      enum.PdaVisuals.PdaType:
-        !type:String
-        pda-janitor
+      enum.PdaVisuals.PdaType: !type:String pda-janitor
 
 - type: entity
   parent: [CMOPDA, BaseCommandContraband]
@@ -473,9 +437,7 @@
     accentHColor: "#447987"
   - type: Appearance
     appearanceDataInit:
-      enum.PdaVisuals.PdaType:
-        !type:String
-        pda-doc
+      enum.PdaVisuals.PdaType: !type:String pda-doc
   - type: Icon
     sprite: _NF/Objects/Devices/pda.rsi
     state: pda-doc

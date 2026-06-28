@@ -8,7 +8,6 @@ namespace Content.Client._DV.CartridgeLoader.Cartridges;
 [GenerateTypedNameReferences]
 public sealed partial class MailMetricUiFragment : BoxContainer
 {
-
     private OpenedMailPercentGrade? _successGrade;
 
     public MailMetricUiFragment()
@@ -49,11 +48,12 @@ public sealed partial class MailMetricUiFragment : BoxContainer
         UnopenedMailCount.Text = state.UnopenedMailCount.ToString();
         TotalMailCount.Text = state.TotalMail.ToString();
         TotalMailSpesos.Text = stats.TotalIncome.ToString();
-        SuccessRateCounts.Text = Loc.GetString("mail-metrics-progress",
+        SuccessRateCounts.Text = Loc.GetString(
+            "mail-metrics-progress",
             ("opened", stats.OpenedCount),
-            ("total", state.TotalMail));
-        SuccessRatePercent.Text = Loc.GetString("mail-metrics-progress-percent",
-            ("successRate", state.SuccessRate));
+            ("total", state.TotalMail)
+        );
+        SuccessRatePercent.Text = Loc.GetString("mail-metrics-progress-percent", ("successRate", state.SuccessRate));
     }
 
     public void UpdateSuccessGrade(MailMetricUiState state)
@@ -100,5 +100,5 @@ enum OpenedMailPercentGrade
 {
     Good,
     Average,
-    Bad
+    Bad,
 }

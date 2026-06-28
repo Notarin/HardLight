@@ -16,7 +16,14 @@ namespace Content.Tools
         {
             if (@event is MappingStart mapping)
             {
-                @event = new MappingStart(mapping.Anchor, mapping.Tag, false, mapping.Style, mapping.Start, mapping.End);
+                @event = new MappingStart(
+                    mapping.Anchor,
+                    mapping.Tag,
+                    false,
+                    mapping.Style,
+                    mapping.Start,
+                    mapping.End
+                );
             }
 
             Emitter.Emit(@event);

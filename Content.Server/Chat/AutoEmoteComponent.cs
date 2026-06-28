@@ -14,7 +14,10 @@ public sealed partial class AutoEmoteComponent : Component
     /// A set of emotes that the entity will preform.
     /// <see cref="AutoEmotePrototype"/>
     /// </summary>
-    [DataField("emotes", customTypeSerializer: typeof(PrototypeIdHashSetSerializer<AutoEmotePrototype>)), ViewVariables(VVAccess.ReadOnly)]
+    [
+        DataField("emotes", customTypeSerializer: typeof(PrototypeIdHashSetSerializer<AutoEmotePrototype>)),
+        ViewVariables(VVAccess.ReadOnly)
+    ]
     public HashSet<string> Emotes = new HashSet<string>();
 
     /// <summary>

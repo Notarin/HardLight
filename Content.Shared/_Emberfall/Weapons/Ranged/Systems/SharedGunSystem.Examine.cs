@@ -17,12 +17,14 @@ public abstract partial class SharedGunSystem
         var ev = new GunExamineEvent(examineMarkup);
         RaiseLocalEvent(ent, ref ev);
 
-        Examine.AddDetailedExamineVerb(args, // Frontier: use SharedGunSystem's examine member
+        Examine.AddDetailedExamineVerb(
+            args, // Frontier: use SharedGunSystem's examine member
             ent.Comp,
             examineMarkup,
             Loc.GetString("gun-examinable-verb-text"),
             "/Textures/Interface/VerbIcons/dot.svg.192dpi.png",
-            Loc.GetString("gun-examinable-verb-message"));
+            Loc.GetString("gun-examinable-verb-message")
+        );
     }
 
     private FormattedMessage GetGunExamine(Entity<GunComponent> ent)
@@ -33,31 +35,43 @@ public abstract partial class SharedGunSystem
         // Frontier: use nf-prefixed loc strings, no rounding on values
         // Recoil (AngleIncrease)
         msg.PushNewline();
-        msg.AddMarkupOrThrow(Loc.GetString("gun-examine-nf-recoil",
-            ("color", FireRateExamineColor),
-            ("value", ent.Comp.AngleIncreaseModified.Degrees)
-        ));
+        msg.AddMarkupOrThrow(
+            Loc.GetString(
+                "gun-examine-nf-recoil",
+                ("color", FireRateExamineColor),
+                ("value", ent.Comp.AngleIncreaseModified.Degrees)
+            )
+        );
 
         // Stability (AngleDecay)
         msg.PushNewline();
-        msg.AddMarkupOrThrow(Loc.GetString("gun-examine-nf-stability",
-            ("color", FireRateExamineColor),
-            ("value", ent.Comp.AngleDecayModified.Degrees)
-        ));
+        msg.AddMarkupOrThrow(
+            Loc.GetString(
+                "gun-examine-nf-stability",
+                ("color", FireRateExamineColor),
+                ("value", ent.Comp.AngleDecayModified.Degrees)
+            )
+        );
 
         // Max Angle
         msg.PushNewline();
-        msg.AddMarkupOrThrow(Loc.GetString("gun-examine-nf-max-angle",
-            ("color", FireRateExamineColor),
-            ("value", ent.Comp.MaxAngleModified.Degrees)
-        ));
+        msg.AddMarkupOrThrow(
+            Loc.GetString(
+                "gun-examine-nf-max-angle",
+                ("color", FireRateExamineColor),
+                ("value", ent.Comp.MaxAngleModified.Degrees)
+            )
+        );
 
         // Min Angle
         msg.PushNewline();
-        msg.AddMarkupOrThrow(Loc.GetString("gun-examine-nf-min-angle",
-            ("color", FireRateExamineColor),
-            ("value", ent.Comp.MinAngleModified.Degrees)
-        ));
+        msg.AddMarkupOrThrow(
+            Loc.GetString(
+                "gun-examine-nf-min-angle",
+                ("color", FireRateExamineColor),
+                ("value", ent.Comp.MinAngleModified.Degrees)
+            )
+        );
 
         // Frontier: separate burst fire calculation
         // Fire Rate (converted from RPS to RPM)
@@ -65,30 +79,37 @@ public abstract partial class SharedGunSystem
         {
             var fireRate = ent.Comp.FireRateModified;
             msg.PushNewline();
-            msg.AddMarkupOrThrow(Loc.GetString("gun-examine-nf-fire-rate",
-                ("color", FireRateExamineColor),
-                ("value", fireRate)
-            ));
+            msg.AddMarkupOrThrow(
+                Loc.GetString("gun-examine-nf-fire-rate", ("color", FireRateExamineColor), ("value", fireRate))
+            );
         }
         else
         {
-            var fireRate = ent.Comp.ShotsPerBurstModified / (ent.Comp.BurstCooldown + (ent.Comp.ShotsPerBurstModified - 1) / ent.Comp.BurstFireRate);
+            var fireRate =
+                ent.Comp.ShotsPerBurstModified
+                / (ent.Comp.BurstCooldown + (ent.Comp.ShotsPerBurstModified - 1) / ent.Comp.BurstFireRate);
             msg.PushNewline();
-            msg.AddMarkupOrThrow(Loc.GetString("gun-examine-nf-fire-rate-burst",
-                ("color", FireRateExamineColor),
-                ("value", fireRate),
-                ("burstsize", ent.Comp.ShotsPerBurstModified),
-                ("burstrate", ent.Comp.BurstFireRate)
-            ));
+            msg.AddMarkupOrThrow(
+                Loc.GetString(
+                    "gun-examine-nf-fire-rate-burst",
+                    ("color", FireRateExamineColor),
+                    ("value", fireRate),
+                    ("burstsize", ent.Comp.ShotsPerBurstModified),
+                    ("burstrate", ent.Comp.BurstFireRate)
+                )
+            );
         }
         // End Frontier: separate burst fire calculation
 
         // Muzzle Velocity (ProjectileSpeed)
         msg.PushNewline();
-        msg.AddMarkupOrThrow(Loc.GetString("gun-examine-nf-muzzle-velocity",
-            ("color", FireRateExamineColor),
-            ("value", ent.Comp.ProjectileSpeedModified)
-        ));
+        msg.AddMarkupOrThrow(
+            Loc.GetString(
+                "gun-examine-nf-muzzle-velocity",
+                ("color", FireRateExamineColor),
+                ("value", ent.Comp.ProjectileSpeedModified)
+            )
+        );
         // End Frontier: use nf-prefixed loc strings, no rounding on values
 
         return msg;

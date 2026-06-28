@@ -1,6 +1,6 @@
-using Robust.Shared.Serialization;
-using Robust.Shared.Prototypes;
 using Content.Shared._NF.Pirate.Prototypes;
+using Robust.Shared.Prototypes;
+using Robust.Shared.Serialization;
 
 namespace Content.Shared._NF.Pirate;
 

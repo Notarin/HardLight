@@ -14,7 +14,8 @@ namespace Content.Shared.Ghost
     /// </summary>
     public abstract class SharedGhostSystem : EntitySystem
     {
-        [Dependency] protected readonly SharedPopupSystem Popup = default!;
+        [Dependency]
+        protected readonly SharedPopupSystem Popup = default!;
 
         public override void Initialize()
         {
@@ -87,7 +88,6 @@ namespace Content.Shared.Ghost
             SetCanReturnToBody((component.Owner, component), value);
         }
 
-
         /// <summary>
         /// Sets whether the ghost is allowed to interact with other entities.
         /// </summary>
@@ -130,9 +130,7 @@ namespace Content.Shared.Ghost
     /// Response is sent via <see cref="GhostWarpsResponseEvent"/>
     /// </summary>
     [Serializable, NetSerializable]
-    public sealed class GhostWarpsRequestEvent : EntityEventArgs
-    {
-    }
+    public sealed class GhostWarpsRequestEvent : EntityEventArgs { }
 
     /// <summary>
     /// An individual place a ghost can warp to.
@@ -162,7 +160,7 @@ namespace Content.Shared.Ghost
         /// <summary>
         /// Whether this warp represents a warp point or a player
         /// </summary>
-        public bool IsWarpPoint { get;  }
+        public bool IsWarpPoint { get; }
 
         // Frontier: warp point hiding
         /// <summary>
@@ -214,9 +212,7 @@ namespace Content.Shared.Ghost
     /// A client to server request for their ghost to return to body
     /// </summary>
     [Serializable, NetSerializable]
-    public sealed class GhostReturnToBodyRequest : EntityEventArgs
-    {
-    }
+    public sealed class GhostReturnToBodyRequest : EntityEventArgs { }
 
     /// <summary>
     /// A server to client update with the available ghost role count

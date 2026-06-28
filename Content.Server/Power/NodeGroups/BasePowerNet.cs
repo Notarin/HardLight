@@ -10,8 +10,11 @@ namespace Content.Server.Power.NodeGroups;
 public abstract class BasePowerNet<TNetType> : BaseNetConnectorNodeGroup<TNetType>, IBasePowerNet
     where TNetType : IBasePowerNet
 {
-    [ViewVariables] public readonly List<PowerConsumerComponent> Consumers = new();
-    [ViewVariables] public readonly List<PowerSupplierComponent> Suppliers = new();
+    [ViewVariables]
+    public readonly List<PowerConsumerComponent> Consumers = new();
+
+    [ViewVariables]
+    public readonly List<PowerSupplierComponent> Suppliers = new();
     public PowerNetSystem PowerNetSystem = default!;
 
     [ViewVariables]
@@ -36,7 +39,9 @@ public abstract class BasePowerNet<TNetType> : BaseNetConnectorNodeGroup<TNetTyp
     public void RemoveConsumer(PowerConsumerComponent consumer)
     {
         // Linked network can be default if it was re-connected twice in one tick.
-        DebugTools.Assert(consumer.NetworkLoad.LinkedNetwork == default || consumer.NetworkLoad.LinkedNetwork == NetworkNode.Id);
+        DebugTools.Assert(
+            consumer.NetworkLoad.LinkedNetwork == default || consumer.NetworkLoad.LinkedNetwork == NetworkNode.Id
+        );
         consumer.NetworkLoad.LinkedNetwork = default;
         Consumers.Remove(consumer);
         QueueNetworkReconnect();
@@ -53,7 +58,9 @@ public abstract class BasePowerNet<TNetType> : BaseNetConnectorNodeGroup<TNetTyp
     public void RemoveSupplier(PowerSupplierComponent supplier)
     {
         // Linked network can be default if it was re-connected twice in one tick.
-        DebugTools.Assert(supplier.NetworkSupply.LinkedNetwork == default || supplier.NetworkSupply.LinkedNetwork == NetworkNode.Id);
+        DebugTools.Assert(
+            supplier.NetworkSupply.LinkedNetwork == default || supplier.NetworkSupply.LinkedNetwork == NetworkNode.Id
+        );
         supplier.NetworkSupply.LinkedNetwork = default;
         Suppliers.Remove(supplier);
         QueueNetworkReconnect();

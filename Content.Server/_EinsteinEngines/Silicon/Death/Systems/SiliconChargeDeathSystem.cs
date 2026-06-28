@@ -1,18 +1,23 @@
+using Content.Server._EinsteinEngines.Power.Components;
+using Content.Server._EinsteinEngines.Silicon.Charge;
+using Content.Server.Humanoid;
 using Content.Server.Power.Components;
 using Content.Shared._EinsteinEngines.Silicon.Systems;
 using Content.Shared.Bed.Sleep;
-using Content.Server._EinsteinEngines.Silicon.Charge;
-using Content.Server._EinsteinEngines.Power.Components;
-using Content.Server.Humanoid;
 using Content.Shared.Humanoid;
 
 namespace Content.Server._EinsteinEngines.Silicon.Death;
 
 public sealed class SiliconDeathSystem : EntitySystem
 {
-    [Dependency] private readonly SleepingSystem _sleep = default!;
-    [Dependency] private readonly SiliconChargeSystem _silicon = default!;
-    [Dependency] private readonly HumanoidAppearanceSystem _humanoidAppearanceSystem = default!;
+    [Dependency]
+    private readonly SleepingSystem _sleep = default!;
+
+    [Dependency]
+    private readonly SiliconChargeSystem _silicon = default!;
+
+    [Dependency]
+    private readonly HumanoidAppearanceSystem _humanoidAppearanceSystem = default!;
 
     public override void Initialize()
     {
@@ -21,7 +26,11 @@ public sealed class SiliconDeathSystem : EntitySystem
         SubscribeLocalEvent<SiliconDownOnDeadComponent, SiliconChargeStateUpdateEvent>(OnSiliconChargeStateUpdate);
     }
 
-    private void OnSiliconChargeStateUpdate(EntityUid uid, SiliconDownOnDeadComponent siliconDeadComp, SiliconChargeStateUpdateEvent args)
+    private void OnSiliconChargeStateUpdate(
+        EntityUid uid,
+        SiliconDownOnDeadComponent siliconDeadComp,
+        SiliconChargeStateUpdateEvent args
+    )
     {
         if (!_silicon.TryGetSiliconBattery(uid, out var batteryComp))
         {
@@ -35,10 +44,15 @@ public sealed class SiliconDeathSystem : EntitySystem
         if (args.ChargePercent == 0 && !siliconDeadComp.Dead)
             SiliconDead(uid, siliconDeadComp, batteryComp, uid);
         else if (args.ChargePercent != 0 && siliconDeadComp.Dead)
-                SiliconUnDead(uid, siliconDeadComp, batteryComp, uid);
+            SiliconUnDead(uid, siliconDeadComp, batteryComp, uid);
     }
 
-    private void SiliconDead(EntityUid uid, SiliconDownOnDeadComponent siliconDeadComp, BatteryComponent? batteryComp, EntityUid batteryUid)
+    private void SiliconDead(
+        EntityUid uid,
+        SiliconDownOnDeadComponent siliconDeadComp,
+        BatteryComponent? batteryComp,
+        EntityUid batteryUid
+    )
     {
         var deadEvent = new SiliconChargeDyingEvent(uid, batteryComp, batteryUid);
         RaiseLocalEvent(uid, deadEvent);
@@ -60,7 +74,12 @@ public sealed class SiliconDeathSystem : EntitySystem
         RaiseLocalEvent(uid, new SiliconChargeDeathEvent(uid, batteryComp, batteryUid));
     }
 
-    private void SiliconUnDead(EntityUid uid, SiliconDownOnDeadComponent siliconDeadComp, BatteryComponent? batteryComp, EntityUid batteryUid)
+    private void SiliconUnDead(
+        EntityUid uid,
+        SiliconDownOnDeadComponent siliconDeadComp,
+        BatteryComponent? batteryComp,
+        EntityUid batteryUid
+    )
     {
         RemComp<ForcedSleepingComponent>(uid);
         _sleep.TryWaking(uid, true, null);

@@ -8,7 +8,7 @@
     sprite: Objects/Weapons/Melee/stunbaton.rsi
     layers:
     - state: stunbaton_off
-      map: [ "enum.ToggleVisuals.Layer" ]
+      map: ["enum.ToggleVisuals.Layer"]
   - type: Stunbaton
     energyPerUse: 50
   - type: ItemToggle
@@ -64,7 +64,7 @@
   - type: Appearance
   - type: GenericVisualizer
     visuals:
-     enum.ToggleVisuals.Toggled:
+      enum.ToggleVisuals.Toggled:
         enum.ToggleVisuals.Layer:
           True: {state: stunbaton_on}
           False: {state: stunbaton_off}
@@ -135,43 +135,43 @@
   id: Flash
   description: An ultrabright flashbulb with a trigger, which causes the victim to be dazed and lose their eyesight for a moment. Useless when burnt out.
   components:
-    - type: Sprite
-      sprite: Objects/Weapons/Melee/flash.rsi
-      layers:
-      - state: flash
-        map: [ "enum.FlashVisuals.BaseLayer" ]
-      - state: flashing
-        map: [ "enum.FlashVisuals.LightLayer" ]
-        visible: false
-        shader: unshaded
-    - type: Flash
-    - type: LimitedCharges
-      maxCharges: 5
-    - type: MeleeWeapon
-      wideAnimationRotation: 180
-      damage:
-        types:
-          Blunt: 0 # melee weapon to allow flashing individual targets
-      angle: 10
-    - type: Item
-      size: Small
-      sprite: Objects/Weapons/Melee/flash.rsi
-    - type: UseDelay
-    - type: StaticPrice
-      price: 40
-    - type: Appearance
-    - type: GenericVisualizer
-      visuals:
-        enum.FlashVisuals.Burnt:
-          enum.FlashVisuals.BaseLayer:
-            True: {state: burnt}
-        enum.FlashVisuals.Flashing:
-          enum.FlashVisuals.LightLayer:
-            True: {visible: true}
-            False: {visible: false}
-    - type: GuideHelp
-      guides:
-      - Security
+  - type: Sprite
+    sprite: Objects/Weapons/Melee/flash.rsi
+    layers:
+    - state: flash
+      map: ["enum.FlashVisuals.BaseLayer"]
+    - state: flashing
+      map: ["enum.FlashVisuals.LightLayer"]
+      visible: false
+      shader: unshaded
+  - type: Flash
+  - type: LimitedCharges
+    maxCharges: 5
+  - type: MeleeWeapon
+    wideAnimationRotation: 180
+    damage:
+      types:
+        Blunt: 0 # melee weapon to allow flashing individual targets
+    angle: 10
+  - type: Item
+    size: Small
+    sprite: Objects/Weapons/Melee/flash.rsi
+  - type: UseDelay
+  - type: StaticPrice
+    price: 40
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.FlashVisuals.Burnt:
+        enum.FlashVisuals.BaseLayer:
+          True: {state: burnt}
+      enum.FlashVisuals.Flashing:
+        enum.FlashVisuals.LightLayer:
+          True: {visible: true}
+          False: {visible: false}
+  - type: GuideHelp
+    guides:
+    - Security
     # - Antagonists # Frontier: guidebook entry removed
 
 - type: entity
@@ -180,8 +180,8 @@
   suffix: 2 charges
   id: SciFlash
   components:
-    - type: LimitedCharges
-      maxCharges: 2
+  - type: LimitedCharges
+    maxCharges: 2
 
 - type: entity
   name: portable flasher
@@ -189,93 +189,90 @@
   id: PortableFlasher
   description: An ultrabright flashbulb with a proximity trigger, useful for making an area security-only.
   components:
-    - type: EmitSoundOnTrigger
-      sound:
-        path: /Audio/Weapons/flash.ogg
-    - type: FlashOnTrigger
-      range: 3
-    - type: TriggerOnProximity
-      enabled: true
-      cooldown: 5
-      shape:
-        !type:PhysShapeCircle
-          radius: 2
-      repeating: true
-    - type: Sprite
-      sprite: Objects/Weapons/pflash.rsi
-      layers:
-        - state: "off"
-          map: ["enum.ProximityTriggerVisualLayers.Base"]
-    - type: Fixtures
-      fixtures:
-        fix1:
-          shape:
-            !type:PhysShapeAabb
-            bounds: "-0.15,-0.3,0.15,0.3"
-          mask:
-          - MachineMask
-          layer:
-          - MachineLayer
-          density: 380
-    - type: Appearance
-    - type: AnimationPlayer
-    - type: PointLight
-      energy: 2.0
-      radius: 0
-      softness: 0
-      enabled: true
-    - type: GuideHelp
-      guides:
-      - Security
+  - type: EmitSoundOnTrigger
+    sound:
+      path: /Audio/Weapons/flash.ogg
+  - type: FlashOnTrigger
+    range: 3
+  - type: TriggerOnProximity
+    enabled: true
+    cooldown: 5
+    shape: !type:PhysShapeCircle
+      radius: 2
+    repeating: true
+  - type: Sprite
+    sprite: Objects/Weapons/pflash.rsi
+    layers:
+    - state: "off"
+      map: ["enum.ProximityTriggerVisualLayers.Base"]
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.15,-0.3,0.15,0.3"
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+        density: 380
+  - type: Appearance
+  - type: AnimationPlayer
+  - type: PointLight
+    energy: 2.0
+    radius: 0
+    softness: 0
+    enabled: true
+  - type: GuideHelp
+    guides:
+    - Security
     # - Antagonists # Frontier: guidebook entry removed
 
 - type: entity
   name: bluespace flasher
-  parent: [ BaseMachine, BaseC2ContrabandUnredeemable ] # Frontier: BaseSecurityContraband<BaseC2ContrabandUnredeemable
+  parent: [BaseMachine, BaseC2ContrabandUnredeemable] # Frontier: BaseSecurityContraband<BaseC2ContrabandUnredeemable
   id: BluespaceFlasher
-  description: A bluespace crystal set to a proximity trigger, useful for making
-    an area as off limits to Shadekin.
+  description: A bluespace crystal set to a proximity trigger, useful for making an area as off limits to Shadekin.
   components:
-    - type: EmitSoundOnTrigger
-      sound:
-        path: /Audio/Effects/Lightning/lightningbolt.ogg
-    - type: SpawnOnTrigger
-      proto: EffectFlashBluespace
-    - type: BluespacePulseOnTrigger
+  - type: EmitSoundOnTrigger
+    sound:
+      path: /Audio/Effects/Lightning/lightningbolt.ogg
+  - type: SpawnOnTrigger
+    proto: EffectFlashBluespace
+  - type: BluespacePulseOnTrigger
+    radius: 6.2
+    dome: EnergyDomeNullspace
+  - type: TriggerOnProximity
+    enabled: true
+    cooldown: 5
+    triggerSpeed: 0
+    shape: !type:PhysShapeCircle
       radius: 6.2
-      dome: EnergyDomeNullspace
-    - type: TriggerOnProximity
-      enabled: true
-      cooldown: 5
-      triggerSpeed: 0
-      shape: !type:PhysShapeCircle
-        radius: 6.2
-      whitelist:
-        components:
-          - NullSpace
-    - type: Sprite
-      sprite: _HL/Objects/Weapons/bflash.rsi
-      layers:
-        - state: "off"
-          map: [ "enum.ProximityTriggerVisualLayers.Base" ]
-    - type: Fixtures
-      fixtures:
-        fix1:
-          shape: !type:PhysShapeAabb
-            bounds: "-0.15,-0.3,0.15,0.3"
-          mask:
-            - MachineMask
-          layer:
-            - MachineLayer
-          density: 380
-    - type: Appearance
-    - type: AnimationPlayer
-    - type: PointLight
-      energy: 2.0
-      radius: 0
-      softness: 0
-      enabled: true
-    - type: NullSpaceBlocker
-      unphaseOnCollide: false
-    - type: Climbable
-      disabled: true
+    whitelist:
+      components:
+      - NullSpace
+  - type: Sprite
+    sprite: _HL/Objects/Weapons/bflash.rsi
+    layers:
+    - state: "off"
+      map: ["enum.ProximityTriggerVisualLayers.Base"]
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.15,-0.3,0.15,0.3"
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+        density: 380
+  - type: Appearance
+  - type: AnimationPlayer
+  - type: PointLight
+    energy: 2.0
+    radius: 0
+    softness: 0
+    enabled: true
+  - type: NullSpaceBlocker
+    unphaseOnCollide: false
+  - type: Climbable
+    disabled: true

@@ -1,5 +1,5 @@
-using Content.Shared.Chemistry.EntitySystems;
 using Content.Server.Fluids.EntitySystems;
+using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Fluids.Components;
 using JetBrains.Annotations;
 
@@ -27,13 +27,22 @@ namespace Content.Server.Destructible.Thresholds.Behaviors
 
             var coordinates = system.EntityManager.GetComponent<TransformComponent>(owner).Coordinates;
 
-            if (system.EntityManager.TryGetComponent(owner, out SpillableComponent? spillableComponent) &&
-                solutionContainerSystem.TryGetSolution(owner, spillableComponent.SolutionName, out _, out var compSolution))
+            if (
+                system.EntityManager.TryGetComponent(owner, out SpillableComponent? spillableComponent)
+                && solutionContainerSystem.TryGetSolution(
+                    owner,
+                    spillableComponent.SolutionName,
+                    out _,
+                    out var compSolution
+                )
+            )
             {
                 spillableSystem.TrySplashSpillAt(owner, coordinates, compSolution, out _, false, user: cause);
             }
-            else if (Solution != null &&
-                     solutionContainerSystem.TryGetSolution(owner, Solution, out _, out var behaviorSolution))
+            else if (
+                Solution != null
+                && solutionContainerSystem.TryGetSolution(owner, Solution, out _, out var behaviorSolution)
+            )
             {
                 spillableSystem.TrySplashSpillAt(owner, coordinates, behaviorSolution, out _, user: cause);
             }

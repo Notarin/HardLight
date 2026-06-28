@@ -1,23 +1,24 @@
-using static Content.Shared.Arcade.SharedSpaceVillainArcadeComponent;
 using Robust.Server.GameObjects;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Random;
+using static Content.Shared.Arcade.SharedSpaceVillainArcadeComponent;
 
 namespace Content.Server.Arcade.SpaceVillain;
-
 
 /// <summary>
 /// A Class to handle all the game-logic of the SpaceVillain-game.
 /// </summary>
 public sealed partial class SpaceVillainGame
 {
-    [Dependency] private readonly IEntityManager _entityManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency]
+    private readonly IEntityManager _entityManager = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
     private readonly SharedAudioSystem _audioSystem = default!;
     private readonly UserInterfaceSystem _uiSystem = default!;
     private readonly SpaceVillainArcadeSystem _svArcade = default!;
-
 
     [ViewVariables]
     private readonly EntityUid _owner = default!;
@@ -50,11 +51,21 @@ public sealed partial class SpaceVillainGame
     private string _latestEnemyActionMessage = "";
 
     public SpaceVillainGame(EntityUid owner, SpaceVillainArcadeComponent arcade, SpaceVillainArcadeSystem arcadeSystem)
-        : this(owner, arcade, arcadeSystem, arcadeSystem.GenerateFightVerb(arcade), arcadeSystem.GenerateEnemyName(arcade))
-    {
-    }
+        : this(
+            owner,
+            arcade,
+            arcadeSystem,
+            arcadeSystem.GenerateFightVerb(arcade),
+            arcadeSystem.GenerateEnemyName(arcade)
+        ) { }
 
-    public SpaceVillainGame(EntityUid owner, SpaceVillainArcadeComponent arcade, SpaceVillainArcadeSystem arcadeSystem, string fightVerb, string enemyName)
+    public SpaceVillainGame(
+        EntityUid owner,
+        SpaceVillainArcadeComponent arcade,
+        SpaceVillainArcadeSystem arcadeSystem,
+        string fightVerb,
+        string enemyName
+    )
     {
         IoCManager.InjectDependencies(this);
         _audioSystem = _entityManager.System<SharedAudioSystem>();
@@ -71,7 +82,7 @@ public sealed partial class SpaceVillainGame
             HpMax = 30,
             Hp = 30,
             MpMax = 10,
-            Mp = 10
+            Mp = 10,
         };
 
         VillainChar = new()
@@ -79,7 +90,7 @@ public sealed partial class SpaceVillainGame
             HpMax = 45,
             Hp = 45,
             MpMax = 20,
-            Mp = 20
+            Mp = 20,
         };
     }
 
@@ -193,12 +204,11 @@ public sealed partial class SpaceVillainGame
         }
 
         var attackAmount = _random.Next(3, 6);
-        _latestEnemyActionMessage =
-            Loc.GetString(
-                "space-villain-game-enemy-attacks-message",
-                ("enemyName", _villainName),
-                ("damageDealt", attackAmount)
-            );
+        _latestEnemyActionMessage = Loc.GetString(
+            "space-villain-game-enemy-attacks-message",
+            ("enemyName", _villainName),
+            ("damageDealt", attackAmount)
+        );
         if (PlayerChar.Invincible)
             return;
         PlayerChar.Hp -= attackAmount;
@@ -210,10 +220,7 @@ public sealed partial class SpaceVillainGame
     /// <returns>A bool indicating if the game should continue.</returns>
     private bool CheckGameConditions(EntityUid uid, SpaceVillainArcadeComponent arcade)
     {
-        switch (
-            PlayerChar.Hp > 0 && PlayerChar.Mp > 0,
-            VillainChar.Hp > 0 && VillainChar.Mp > 0
-        )
+        switch (PlayerChar.Hp > 0 && PlayerChar.Mp > 0, VillainChar.Hp > 0 && VillainChar.Mp > 0)
         {
             case (true, true):
                 return true;

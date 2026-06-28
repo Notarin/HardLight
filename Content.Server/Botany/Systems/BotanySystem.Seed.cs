@@ -1,9 +1,14 @@
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using Content.Server._NF.Contraband.Systems; // Frontier
 using Content.Server.Botany.Components;
 using Content.Server.Kitchen.Components;
 using Content.Server.Popups;
+using Content.Shared.Administration.Logs;
+using Content.Shared.Botany;
 using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.EntitySystems;
-using Content.Shared.Botany;
+using Content.Shared.Database;
 using Content.Shared.Examine;
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Popups;
@@ -14,26 +19,40 @@ using Robust.Server.GameObjects;
 using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using Content.Shared.Administration.Logs;
-using Content.Shared.Database;
-using Content.Server._NF.Contraband.Systems; // Frontier
 
 namespace Content.Server.Botany.Systems;
 
 public sealed partial class BotanySystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IRobustRandom _robustRandom = default!;
-    [Dependency] private readonly AppearanceSystem _appearance = default!;
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
-    [Dependency] private readonly MetaDataSystem _metaData = default!;
-    [Dependency] private readonly RandomHelperSystem _randomHelper = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly ContrabandTurnInSystem _contraband = default!; // Frontier
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _robustRandom = default!;
+
+    [Dependency]
+    private readonly AppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly SharedHandsSystem _hands = default!;
+
+    [Dependency]
+    private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
+
+    [Dependency]
+    private readonly MetaDataSystem _metaData = default!;
+
+    [Dependency]
+    private readonly RandomHelperSystem _randomHelper = default!;
+
+    [Dependency]
+    private readonly ISharedAdminLogManager _adminLogger = default!;
+
+    [Dependency]
+    private readonly ContrabandTurnInSystem _contraband = default!; // Frontier
 
     public override void Initialize()
     {
@@ -56,8 +75,7 @@ public sealed partial class BotanySystem : EntitySystem
             return true;
         }
 
-        if (comp.SeedId != null
-            && _prototypeManager.TryIndex(comp.SeedId, out SeedPrototype? protoSeed))
+        if (comp.SeedId != null && _prototypeManager.TryIndex(comp.SeedId, out SeedPrototype? protoSeed))
         {
             seed = protoSeed;
             return true;
@@ -75,8 +93,7 @@ public sealed partial class BotanySystem : EntitySystem
             return true;
         }
 
-        if (comp.SeedId != null
-            && _prototypeManager.TryIndex(comp.SeedId, out SeedPrototype? protoSeed))
+        if (comp.SeedId != null && _prototypeManager.TryIndex(comp.SeedId, out SeedPrototype? protoSeed))
         {
             seed = protoSeed;
             return true;
@@ -140,8 +157,10 @@ public sealed partial class BotanySystem : EntitySystem
             Dirty(args.NewId, newProduce);
         }
 
-        if (sourceSolution != null
-            && _solutionContainerSystem.TryGetSolution(args.NewId, component.SolutionName, out var targetSoln, out _))
+        if (
+            sourceSolution != null
+            && _solutionContainerSystem.TryGetSolution(args.NewId, component.SolutionName, out var targetSoln, out _)
+        )
         {
             _solutionContainerSystem.RemoveAllSolution(targetSoln.Value);
             _solutionContainerSystem.TryAddSolution(targetSoln.Value, new Solution(sourceSolution));
@@ -156,7 +175,12 @@ public sealed partial class BotanySystem : EntitySystem
     /// <summary>
     /// Spawns a new seed packet on the floor at a position, then tries to put it in the user's hands if possible.
     /// </summary>
-    public EntityUid SpawnSeedPacket(SeedData proto, EntityCoordinates coords, EntityUid user, float? healthOverride = null)
+    public EntityUid SpawnSeedPacket(
+        SeedData proto,
+        EntityCoordinates coords,
+        EntityUid user,
+        float? healthOverride = null
+    )
     {
         var seed = SpawnAtPosition(proto.PacketPrototype, coords); // Frontier: Spawn<SpawnAtPosition
         _contraband.ClearContrabandValue(seed); // Frontier
@@ -177,11 +201,14 @@ public sealed partial class BotanySystem : EntitySystem
 
     public IEnumerable<EntityUid> AutoHarvest(SeedData proto, EntityCoordinates position, int yieldMod = 1)
     {
-        if (position.IsValid(EntityManager) &&
-            proto.ProductPrototypes.Count > 0)
+        if (position.IsValid(EntityManager) && proto.ProductPrototypes.Count > 0)
         {
             if (proto.HarvestLogImpact != null)
-                _adminLogger.Add(LogType.Botany, proto.HarvestLogImpact.Value, $"Auto-harvested {Loc.GetString(proto.Name):seed} at Pos:{position}.");
+                _adminLogger.Add(
+                    LogType.Botany,
+                    proto.HarvestLogImpact.Value,
+                    $"Auto-harvested {Loc.GetString(proto.Name):seed} at Pos:{position}."
+                );
 
             return GenerateProduct(proto, position, yieldMod);
         }
@@ -198,10 +225,18 @@ public sealed partial class BotanySystem : EntitySystem
         }
 
         var name = Loc.GetString(proto.DisplayName);
-        _popupSystem.PopupCursor(Loc.GetString("botany-harvest-success-message", ("name", name)), user, PopupType.Medium);
+        _popupSystem.PopupCursor(
+            Loc.GetString("botany-harvest-success-message", ("name", name)),
+            user,
+            PopupType.Medium
+        );
 
         if (proto.HarvestLogImpact != null)
-            _adminLogger.Add(LogType.Botany, proto.HarvestLogImpact.Value, $"{ToPrettyString(user):player} harvested {Loc.GetString(proto.Name):seed} at Pos:{Transform(user).Coordinates}.");
+            _adminLogger.Add(
+                LogType.Botany,
+                proto.HarvestLogImpact.Value,
+                $"{ToPrettyString(user):player} harvested {Loc.GetString(proto.Name):seed} at Pos:{Transform(user).Coordinates}."
+            );
 
         return GenerateProduct(proto, Transform(user).Coordinates, yieldMod);
     }
@@ -244,8 +279,11 @@ public sealed partial class BotanySystem : EntitySystem
             {
                 var metaData = MetaData(entity);
                 _metaData.SetEntityName(entity, metaData.EntityName + "?", metaData);
-                _metaData.SetEntityDescription(entity,
-                    metaData.EntityDescription + " " + Loc.GetString("botany-mysterious-description-addon"), metaData);
+                _metaData.SetEntityDescription(
+                    entity,
+                    metaData.EntityDescription + " " + Loc.GetString("botany-mysterious-description-addon"),
+                    metaData
+                );
             }
         }
 

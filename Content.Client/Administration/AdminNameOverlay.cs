@@ -3,6 +3,8 @@ using System.Linq;
 using System.Numerics;
 using Content.Client.Administration.Systems;
 using Content.Client.Stylesheets;
+using Content.Shared._NF.Bank; // Frontier
+using Content.Shared._NF.CCVar; // Frontier
 using Content.Shared.Administration;
 using Content.Shared.CCVar;
 using Content.Shared.Ghost;
@@ -14,8 +16,6 @@ using Robust.Client.UserInterface;
 using Robust.Shared.Configuration;
 using Robust.Shared.Enums;
 using Robust.Shared.Prototypes;
-using Content.Shared._NF.Bank; // Frontier
-using Content.Shared._NF.CCVar; // Frontier
 
 namespace Content.Client.Administration;
 
@@ -41,9 +41,15 @@ internal sealed class AdminNameOverlay : Overlay
     private float _overlayMergeDistance;
 
     //TODO make this adjustable via GUI?
-    private static readonly FrozenSet<ProtoId<RoleTypePrototype>> Filter =
-        new ProtoId<RoleTypePrototype>[] {"SoloAntagonist", "TeamAntagonist", "SiliconAntagonist", "FreeAgent", "NFPirate"} // NF: Add NFPirate
-        .ToFrozenSet();
+    private static readonly FrozenSet<ProtoId<RoleTypePrototype>> Filter = new ProtoId<RoleTypePrototype>[]
+    {
+        "SoloAntagonist",
+        "TeamAntagonist",
+        "SiliconAntagonist",
+        "FreeAgent",
+        "NFPirate",
+    } // NF: Add NFPirate
+    .ToFrozenSet();
 
     private readonly string _antagLabelClassic = Loc.GetString("admin-overlay-antag-classic");
 
@@ -56,7 +62,8 @@ internal sealed class AdminNameOverlay : Overlay
         IUserInterfaceManager userInterfaceManager,
         IConfigurationManager config,
         SharedRoleSystem roles,
-        IPrototypeManager prototypeManager)
+        IPrototypeManager prototypeManager
+    )
     {
         _system = system;
         _entityManager = entityManager;
@@ -70,15 +77,78 @@ internal sealed class AdminNameOverlay : Overlay
         _font = resourceCache.NotoStack();
         _fontBold = resourceCache.NotoStack(variation: "Bold");
 
-        config.OnValueChanged(CCVars.AdminOverlayAntagFormat, (show) => { _overlayFormat = UpdateOverlayFormat(show); }, true);
-        config.OnValueChanged(CCVars.AdminOverlaySymbolStyle, (show) => { _overlaySymbolStyle = UpdateOverlaySymbolStyle(show); }, true);
-        config.OnValueChanged(CCVars.AdminOverlayPlaytime, (show) => { _overlayPlaytime = show; }, true);
-        config.OnValueChanged(CCVars.AdminOverlayStartingJob, (show) => { _overlayStartingJob = show; }, true);
-        config.OnValueChanged(CCVars.AdminOverlayGhostHideDistance, (f) => { _ghostHideDistance = f; }, true);
-        config.OnValueChanged(CCVars.AdminOverlayGhostFadeDistance, (f) => { _ghostFadeDistance = f; }, true);
-        config.OnValueChanged(CCVars.AdminOverlayStackMax, (i) => { _overlayStackMax = i; }, true);
-        config.OnValueChanged(CCVars.AdminOverlayMergeDistance, (f) => { _overlayMergeDistance = f; }, true);
-        config.OnValueChanged(NFCCVars.AdminOverlayBalance, (show) => { _overlayBalance = show; }, true); // Frontier
+        config.OnValueChanged(
+            CCVars.AdminOverlayAntagFormat,
+            (show) =>
+            {
+                _overlayFormat = UpdateOverlayFormat(show);
+            },
+            true
+        );
+        config.OnValueChanged(
+            CCVars.AdminOverlaySymbolStyle,
+            (show) =>
+            {
+                _overlaySymbolStyle = UpdateOverlaySymbolStyle(show);
+            },
+            true
+        );
+        config.OnValueChanged(
+            CCVars.AdminOverlayPlaytime,
+            (show) =>
+            {
+                _overlayPlaytime = show;
+            },
+            true
+        );
+        config.OnValueChanged(
+            CCVars.AdminOverlayStartingJob,
+            (show) =>
+            {
+                _overlayStartingJob = show;
+            },
+            true
+        );
+        config.OnValueChanged(
+            CCVars.AdminOverlayGhostHideDistance,
+            (f) =>
+            {
+                _ghostHideDistance = f;
+            },
+            true
+        );
+        config.OnValueChanged(
+            CCVars.AdminOverlayGhostFadeDistance,
+            (f) =>
+            {
+                _ghostFadeDistance = f;
+            },
+            true
+        );
+        config.OnValueChanged(
+            CCVars.AdminOverlayStackMax,
+            (i) =>
+            {
+                _overlayStackMax = i;
+            },
+            true
+        );
+        config.OnValueChanged(
+            CCVars.AdminOverlayMergeDistance,
+            (f) =>
+            {
+                _overlayMergeDistance = f;
+            },
+            true
+        );
+        config.OnValueChanged(
+            NFCCVars.AdminOverlayBalance,
+            (show) =>
+            {
+                _overlayBalance = show;
+            },
+            true
+        ); // Frontier
     }
 
     private AdminOverlayAntagFormat UpdateOverlayFormat(string formatString)
@@ -105,7 +175,7 @@ internal sealed class AdminNameOverlay : Overlay
         var colorDisconnected = Color.White;
         var uiScale = _userInterfaceManager.RootControl.UIScale;
         var lineoffset = new Vector2(0f, 14f) * uiScale;
-        var drawnOverlays = new List<(Vector2,Vector2)>() ; // A saved list of the overlays already drawn
+        var drawnOverlays = new List<(Vector2, Vector2)>(); // A saved list of the overlays already drawn
 
         // Get all player positions before drawing overlays, so they can be sorted before iteration
         var sortable = new List<(PlayerInfo, Box2, EntityUid, Vector2)>();
@@ -114,9 +184,11 @@ internal sealed class AdminNameOverlay : Overlay
             var entity = _entityManager.GetEntity(info.NetEntity);
 
             // If entity does not exist or is on a different map, skip
-            if (entity == null
+            if (
+                entity == null
                 || !_entityManager.EntityExists(entity)
-                || _entityManager.GetComponent<TransformComponent>(entity.Value).MapID != args.MapId)
+                || _entityManager.GetComponent<TransformComponent>(entity.Value).MapID != args.MapId
+            )
                 continue;
 
             var aabb = _entityLookup.GetWorldAABB(entity.Value);
@@ -134,9 +206,8 @@ internal sealed class AdminNameOverlay : Overlay
         foreach (var info in sortable.OrderBy(s => s.Item4.Y).ToList())
         {
             var playerInfo = info.Item1;
-            var rolePrototype = playerInfo.RoleProto == null
-                ? null
-                : _prototypeManager.Index(playerInfo.RoleProto.Value);
+            var rolePrototype =
+                playerInfo.RoleProto == null ? null : _prototypeManager.Index(playerInfo.RoleProto.Value);
 
             var roleName = Loc.GetString(rolePrototype?.Name ?? RoleTypePrototype.FallbackName);
             var roleColor = rolePrototype?.Color ?? RoleTypePrototype.FallbackColor;
@@ -173,7 +244,8 @@ internal sealed class AdminNameOverlay : Overlay
             // If the new overlay text block is within merge distance of any previous ones
             // merge them into a stack so they don't hide each other
             var stack = drawnOverlays.FindAll(x =>
-                Vector2.Distance(_eyeManager.ScreenToMap(x.Item1).Position, aabb.Center) <= _overlayMergeDistance);
+                Vector2.Distance(_eyeManager.ScreenToMap(x.Item1).Position, aabb.Center) <= _overlayMergeDistance
+            );
             if (stack.Count > 0)
             {
                 screenCoordinates = stack.First().Item1 + centerOffset;
@@ -186,7 +258,7 @@ internal sealed class AdminNameOverlay : Overlay
                 {
                     // additional entries after maximum stack size is reached will be drawn over the last entry
                     if (i <= _overlayStackMax - 1)
-                        currentOffset = lineoffset + s.Item2 ;
+                        currentOffset = lineoffset + s.Item2;
                     i++;
                 }
             }
@@ -194,13 +266,25 @@ internal sealed class AdminNameOverlay : Overlay
             // Character name
             var color = Color.Aquamarine;
             color.A = alpha;
-            args.ScreenHandle.DrawString(_font, screenCoordinates + currentOffset, playerInfo.CharacterName, uiScale, playerInfo.Connected ? color : colorDisconnected);
+            args.ScreenHandle.DrawString(
+                _font,
+                screenCoordinates + currentOffset,
+                playerInfo.CharacterName,
+                uiScale,
+                playerInfo.Connected ? color : colorDisconnected
+            );
             currentOffset += lineoffset;
 
             // Username
             color = Color.Yellow;
             color.A = alpha;
-            args.ScreenHandle.DrawString(_font, screenCoordinates + currentOffset, playerInfo.Username, uiScale, playerInfo.Connected ? color : colorDisconnected);
+            args.ScreenHandle.DrawString(
+                _font,
+                screenCoordinates + currentOffset,
+                playerInfo.Username,
+                uiScale,
+                playerInfo.Connected ? color : colorDisconnected
+            );
             currentOffset += lineoffset;
 
             // Playtime
@@ -208,7 +292,13 @@ internal sealed class AdminNameOverlay : Overlay
             {
                 color = Color.Orange;
                 color.A = alpha;
-                args.ScreenHandle.DrawString(_font, screenCoordinates + currentOffset, playerInfo.PlaytimeString, uiScale, playerInfo.Connected ? color : colorDisconnected);
+                args.ScreenHandle.DrawString(
+                    _font,
+                    screenCoordinates + currentOffset,
+                    playerInfo.PlaytimeString,
+                    uiScale,
+                    playerInfo.Connected ? color : colorDisconnected
+                );
                 currentOffset += lineoffset;
             }
 
@@ -217,15 +307,30 @@ internal sealed class AdminNameOverlay : Overlay
             {
                 color = Color.GreenYellow;
                 color.A = alpha;
-                args.ScreenHandle.DrawString(_font, screenCoordinates + currentOffset, Loc.GetString(playerInfo.StartingJob), uiScale, playerInfo.Connected ? color : colorDisconnected);
+                args.ScreenHandle.DrawString(
+                    _font,
+                    screenCoordinates + currentOffset,
+                    Loc.GetString(playerInfo.StartingJob),
+                    uiScale,
+                    playerInfo.Connected ? color : colorDisconnected
+                );
                 currentOffset += lineoffset;
             }
 
             // Frontier: print balance
             if (_overlayBalance)
             {
-                var balance = playerInfo.Balance == int.MinValue ? "NO BALANCE" : BankSystemExtensions.ToCurrencyString(playerInfo.Balance);
-                args.ScreenHandle.DrawString(_font, screenCoordinates + currentOffset, $"Balance: {balance}", uiScale, playerInfo.Connected ? Color.GreenYellow : Color.White);
+                var balance =
+                    playerInfo.Balance == int.MinValue
+                        ? "NO BALANCE"
+                        : BankSystemExtensions.ToCurrencyString(playerInfo.Balance);
+                args.ScreenHandle.DrawString(
+                    _font,
+                    screenCoordinates + currentOffset,
+                    $"Balance: {balance}",
+                    uiScale,
+                    playerInfo.Connected ? Color.GreenYellow : Color.White
+                );
                 currentOffset += lineoffset;
             }
             // End Frontier
@@ -253,9 +358,7 @@ internal sealed class AdminNameOverlay : Overlay
                 case AdminOverlayAntagFormat.Roletype:
                     color = roleColor;
                     symbol = IsFiltered(playerInfo.RoleProto) ? symbol : string.Empty;
-                    text = IsFiltered(playerInfo.RoleProto)
-                        ? roleName.ToUpper()
-                        : string.Empty;
+                    text = IsFiltered(playerInfo.RoleProto) ? roleName.ToUpper() : string.Empty;
                     break;
                 case AdminOverlayAntagFormat.Subtype:
                     color = roleColor;

@@ -56,19 +56,19 @@
           min: 20
       - !type:PopupMessage
         conditions:
-        - !type:OrganType # HardLight: Prevents Synths becoming nauseous
-          type: Synth
+        - !type:OrganType
+          type: Synth # HardLight: Prevents Synths becoming nauseous
           shouldHave: false
         - !type:ReagentThreshold
           min: 20
         type: Local
         visualType: Medium
-        messages: [ "generic-reagent-effect-nauseous" ]
+        messages: ["generic-reagent-effect-nauseous"]
         probability: 0.2
       - !type:ChemVomit
         conditions:
-        - !type:OrganType # HardLight: Prevents Synths vomiting
-          type: Synth
+        - !type:OrganType
+          type: Synth # HardLight: Prevents Synths vomiting
           shouldHave: false
         - !type:ReagentThreshold
           min: 20
@@ -178,8 +178,8 @@
             Poison: 1.5
       - !type:ChemVomit
         conditions:
-        - !type:OrganType # HardLight: Prevents Synths vomiting
-          type: Synth
+        - !type:OrganType
+          type: Synth # HardLight: Prevents Synths vomiting
           shouldHave: false
         - !type:ReagentThreshold
           min: 30
@@ -208,18 +208,18 @@
   metabolisms:
     Cryogenic: # Frontier: Medicine<Cryogenic
       effects:
-        - !type:HealthChange
-          conditions:
-          - !type:Temperature
-            # this is a little arbitrary but they gotta be pretty cold
-            max: 213.0
-          damage:
+      - !type:HealthChange
+        conditions:
+        - !type:Temperature
+          # this is a little arbitrary but they gotta be pretty cold
+          max: 213.0
+        damage:
           # todo scale with temp like SS13
-            groups:
-              Airloss: -10 # Frontier: -6<-10
-              # Brute: -4 # Frontier
-              # Burn: -6 # Frontier
-              # Toxin: -4 # Frontier
+          groups:
+            Airloss: -10 # Frontier: -6<-10
+            # Brute: -4 # Frontier
+            # Burn: -6 # Frontier
+            # Toxin: -4 # Frontier
 
 - type: reagent
   id: Doxarubixadone
@@ -233,15 +233,15 @@
   metabolisms:
     Cryogenic: # Frontier: Medicine<Cryogenic
       effects:
-        - !type:HealthChange
-          conditions:
-          - !type:Temperature
-            max: 213.0
-          damage:
-            types:
-             Cellular: -4 # Frontier: -2<-4
-            groups: # Frontier
-                Brute: 1 # Frontier
+      - !type:HealthChange
+        conditions:
+        - !type:Temperature
+          max: 213.0
+        damage:
+          types:
+            Cellular: -4 # Frontier: -2<-4
+          groups: # Frontier
+            Brute: 1 # Frontier
 
 - type: reagent
   id: Dermaline
@@ -288,8 +288,8 @@
       effects:
       - !type:HealthChange
         conditions:
-        - !type:OrganType #starliight
-          type: Avali
+        - !type:OrganType
+          type: Avali #starliight
           shouldHave: false
         damage:
           types:
@@ -297,8 +297,8 @@
             Bloodloss: -0.5
       - !type:HealthChange
         conditions:
-        - !type:OrganType #starliight
-          type: Resomi
+        - !type:OrganType
+          type: Resomi #starliight
           shouldHave: false
         damage:
           types:
@@ -319,8 +319,8 @@
         damage:
           types:
             Cold: 1
-      - !type:HealthChange #Starlight
-        conditions:
+      - !type:HealthChange
+        conditions: #Starlight
         - !type:OrganType
           type: Avali
           shouldHave: true
@@ -329,8 +329,8 @@
             Poison: 1.5 #Avali blood is ammonia based, so chems made to treat normal bloodloss poison them instead (Lethal Dose: 20u)
             Asphyxiation: 1
             Bloodloss: 1
-      - !type:HealthChange #Starlight
-        conditions:
+      - !type:HealthChange
+        conditions: #Starlight
         - !type:OrganType
           type: Resomi
           shouldHave: true
@@ -353,8 +353,8 @@
       effects:
       - !type:HealthChange
         conditions:
-        - !type:OrganType #starliight
-          type: Avali
+        - !type:OrganType
+          type: Avali #starliight
           shouldHave: false
         damage:
           types:
@@ -362,8 +362,8 @@
             Bloodloss: -3
       - !type:HealthChange
         conditions:
-        - !type:OrganType #starliight
-          type: Resomi
+        - !type:OrganType
+          type: Resomi #starliight
           shouldHave: false
         damage:
           types:
@@ -384,8 +384,8 @@
           types:
             Asphyxiation: 5
             Cold: 3
-      - !type:HealthChange #Starlight
-        conditions:
+      - !type:HealthChange
+        conditions: #Starlight
         - !type:OrganType
           type: Avali
           shouldHave: true
@@ -394,8 +394,8 @@
             Poison: 2.5 #Avali blood is ammonia based, so chems made to treat normal bloodloss poison them instead. Dex+ is worse. (Lethal Dose: 15u)
             Asphyxiation: 1.5
             Bloodloss: 1
-      - !type:HealthChange #Starlight
-        conditions:
+      - !type:HealthChange
+        conditions: #Starlight
         - !type:OrganType
           type: Resomi
           shouldHave: true
@@ -419,8 +419,8 @@
       effects:
       - !type:HealthChange
         conditions:
-          # they gotta be in crit first
         - !type:MobStateCondition
+          # they gotta be in crit first
           mobstate: Critical
         - !type:ReagentThreshold
           min: 0
@@ -488,8 +488,8 @@
             Radiation: -1
       - !type:ChemVomit
         conditions:
-        - !type:OrganType # HardLight: Prevents Synths vomiting
-          type: Synth
+        - !type:OrganType
+          type: Synth # HardLight: Prevents Synths vomiting
           shouldHave: false
         probability: 0.02
       - !type:HealthChange
@@ -498,7 +498,7 @@
           min: 30
         damage:
           types:
-           Heat: 2
+            Heat: 2
       - !type:Jitter
         conditions:
         - !type:ReagentThreshold
@@ -517,8 +517,8 @@
       effects:
       - !type:ChemVomit
         conditions:
-        - !type:OrganType # HardLight: Prevents Synths vomiting
-          type: Synth
+        - !type:OrganType
+          type: Synth # HardLight: Prevents Synths vomiting
           shouldHave: false
         - !type:ReagentThreshold
           min: 4
@@ -537,8 +537,8 @@
       effects:
       - !type:HealthChange
         conditions:
-          # they gotta be in crit first
         - !type:MobStateCondition
+          # they gotta be in crit first
           mobstate: Critical
         damage:
           types:
@@ -607,7 +607,7 @@
       - !type:PopupMessage
         type: Local
         visualType: Medium
-        messages: [ "leporazine-effect-temperature-adjusting" ]
+        messages: ["leporazine-effect-temperature-adjusting"]
         probability: 0.2
       - !type:AdjustReagent
         reagent: Fresium
@@ -631,16 +631,16 @@
             Heat: 0.5
       - !type:HealthChange
         conditions:
-          - !type:ReagentThreshold
-            min: 30
+        - !type:ReagentThreshold
+          min: 30
         damage:
           types:
             Poison: 3
       - !type:ChemVomit
         probability: 0.15
         conditions:
-        - !type:OrganType # HardLight: Prevents Synths vomiting
-          type: Synth
+        - !type:OrganType
+          type: Synth # HardLight: Prevents Synths vomiting
           shouldHave: false
         - !type:ReagentThreshold
           min: 30
@@ -657,7 +657,7 @@
       - !type:PopupMessage
         type: Local
         visualType: Large
-        messages: [ "barozine-effect-skin-burning", "barozine-effect-muscle-contract" ]
+        messages: ["barozine-effect-skin-burning", "barozine-effect-muscle-contract"]
         probability: 0.1
 
 - type: reagent
@@ -669,12 +669,12 @@
   flavor: medicine
   color: "#c8ff75"
   plantMetabolism:
-    - !type:PlantAdjustToxins
-      amount: 6
-    - !type:PlantPhalanximine
-      conditions:
-      - !type:ReagentThreshold
-        min: 4
+  - !type:PlantAdjustToxins
+    amount: 6
+  - !type:PlantPhalanximine
+    conditions:
+    - !type:ReagentThreshold
+      min: 4
   metabolisms:
     Medicine:
       metabolismRate: 0.1
@@ -762,10 +762,10 @@
   metabolisms:
     Medicine:
       effects:
-        - !type:CureZombieInfection
-          conditions:
-            - !type:ReagentThreshold
-              min: 10
+      - !type:CureZombieInfection
+        conditions:
+        - !type:ReagentThreshold
+          min: 10
 
 - type: reagent
   id: AmbuzolPlus
@@ -778,11 +778,11 @@
   metabolisms:
     Medicine:
       effects:
-        - !type:CureZombieInfection
-          innoculate: true
-          conditions:
-            - !type:ReagentThreshold
-              min: 5
+      - !type:CureZombieInfection
+        innoculate: true
+        conditions:
+        - !type:ReagentThreshold
+          min: 5
 
 - type: reagent
   id: PulpedBananaPeel
@@ -809,71 +809,70 @@
   metabolisms:
     Drink:
       effects:
-        - !type:SatiateThirst
-          conditions: # DeltaV nerf of saline for Feroxi
-          - !type:OrganType
-            type: Feroxi
-            shouldHave: false
-          factor: 6
-        - !type:SatiateThirst # DeltaV nerf of saline for Feroxi
-          conditions:
-          - !type:OrganType
-            type: Feroxi
-          factor: 2
-        - !type:ModifyBloodLevel
-          conditions:
-          - !type:OrganType # HardLight
-           type: Synth
-           shouldHave: false
-          amount: 6
+      - !type:SatiateThirst
+        conditions: # DeltaV nerf of saline for Feroxi
+        - !type:OrganType
+          type: Feroxi
+          shouldHave: false
+        factor: 6
+      - !type:SatiateThirst
+        conditions: # DeltaV nerf of saline for Feroxi
+        - !type:OrganType
+          type: Feroxi
+        factor: 2
+      - !type:ModifyBloodLevel
+        conditions:
+        - !type:OrganType
+          type: Synth # HardLight
+          shouldHave: false
+        amount: 6
     Medicine: #Starlight
       metabolismRate: 0.5
       effects:
-        - !type:ModifyBloodLevel
-          conditions:
-          - !type:OrganType
-           type: Avali
-           shouldHave: false
-          - !type:OrganType
-           type: Resomi
-           shouldHave: false
-          - !type:OrganType # HardLight
-           type: Synth
-           shouldHave: false
-          amount: 6
-        - !type:ModifyBleedAmount
-          conditions:
-          - !type:OrganType
-           type: Avali
-           shouldHave: true
-          amount: 2
-        - !type:ModifyBleedAmount
-          conditions:
-          - !type:OrganType
-           type: Resomi
-           shouldHave: true
-          amount: 2
-        - !type:HealthChange
-          conditions:
-          - !type:OrganType
-           type: Avali
-           shouldHave: true
-          damage:
-            types:
-              Poison: 12 #This is on par with giving someone the wrong blood-type (very lethal) / (Lethal Dose: 10u, VERY FAST ACTING)
-              Caustic: 2 #Split to prevent 15u RRing someone, as caustic can be healed with topicals.
-              Slash: 1 #Allows it to heal bleeding.
-        - !type:HealthChange
-          conditions:
-          - !type:OrganType
-           type: Resomi
-           shouldHave: true
-          damage:
-            types:
-              Poison: 12 #This is on par with giving someone the wrong blood-type (very lethal) / (Lethal Dose: 10u, VERY FAST ACTING)
-              Caustic: 2 #Split to prevent 15u RRing someone, as caustic can be healed with topicals.
-              Slash: 1 #Allows it to heal bleeding.
-
+      - !type:ModifyBloodLevel
+        conditions:
+        - !type:OrganType
+          type: Avali
+          shouldHave: false
+        - !type:OrganType
+          type: Resomi
+          shouldHave: false
+        - !type:OrganType
+          type: Synth # HardLight
+          shouldHave: false
+        amount: 6
+      - !type:ModifyBleedAmount
+        conditions:
+        - !type:OrganType
+          type: Avali
+          shouldHave: true
+        amount: 2
+      - !type:ModifyBleedAmount
+        conditions:
+        - !type:OrganType
+          type: Resomi
+          shouldHave: true
+        amount: 2
+      - !type:HealthChange
+        conditions:
+        - !type:OrganType
+          type: Avali
+          shouldHave: true
+        damage:
+          types:
+            Poison: 12 #This is on par with giving someone the wrong blood-type (very lethal) / (Lethal Dose: 10u, VERY FAST ACTING)
+            Caustic: 2 #Split to prevent 15u RRing someone, as caustic can be healed with topicals.
+            Slash: 1 #Allows it to heal bleeding.
+      - !type:HealthChange
+        conditions:
+        - !type:OrganType
+          type: Resomi
+          shouldHave: true
+        damage:
+          types:
+            Poison: 12 #This is on par with giving someone the wrong blood-type (very lethal) / (Lethal Dose: 10u, VERY FAST ACTING)
+            Caustic: 2 #Split to prevent 15u RRing someone, as caustic can be healed with topicals.
+            Slash: 1 #Allows it to heal bleeding.
 
 - type: reagent
   id: Siderlac
@@ -958,9 +957,9 @@
   metabolisms:
     Medicine:
       effects:
-      # Medium-large quantities can hurt you instead,
-      # but still technically stop your bleeding.
       - !type:ModifyBleedAmount
+        # Medium-large quantities can hurt you instead,
+        # but still technically stop your bleeding.
         amount: -1.5
       - !type:HealthChange
         conditions:
@@ -1005,8 +1004,8 @@
   metabolisms:
     Medicine:
       effects:
-      # what the hell, this isn't satiating at all!!
       - !type:SatiateHunger
+        # what the hell, this isn't satiating at all!!
         factor: -1
 
   # Should heal quite literally everything, use in very small amounts
@@ -1086,9 +1085,10 @@
       - !type:ChemHealEyeDamage
     Sheleg: # Frontier
       effects: # Frontier
-      - !type:ChemHealEyeDamage # Frontier
+      - !type:ChemHealEyeDamage
 
-- type: reagent
+- # Frontier
+  type: reagent
   id: Cognizine
   name: reagent-name-cognizine
   desc: reagent-desc-cognizine
@@ -1190,20 +1190,20 @@
           min: 20
         type: Local
         visualType: Medium
-        messages: [ "generic-reagent-effect-nauseous" ]
+        messages: ["generic-reagent-effect-nauseous"]
         probability: 0.2
       - !type:ChemVomit
         conditions:
-        - !type:OrganType # HardLight: Prevents Synths vomiting
-          type: Synth
+        - !type:OrganType
+          type: Synth # HardLight: Prevents Synths vomiting
           shouldHave: false
         - !type:ReagentThreshold
           min: 30
         probability: 0.02
       - !type:ChemVomit
         conditions:
-        - !type:OrganType # HardLight: Prevents Synths vomiting
-          type: Synth
+        - !type:OrganType
+          type: Synth # HardLight: Prevents Synths vomiting
           shouldHave: false
         - !type:ReagentThreshold
           reagent: Arithrazine
@@ -1216,7 +1216,7 @@
           min: 1
         type: Local
         visualType: Medium
-        messages: [ "generic-reagent-effect-nauseous" ]
+        messages: ["generic-reagent-effect-nauseous"]
         probability: 0.2
 
 - type: reagent
@@ -1317,11 +1317,11 @@
             Cold: -0.2
   reactiveEffects:
     Extinguish:
-      methods: [ Touch ]
+      methods: [Touch]
       effects:
       - !type:ExtinguishReaction
     Acidic:
-      methods: [ Touch ]
+      methods: [Touch]
       effects:
       - !type:HealthChange
         scaleByQuantity: true
@@ -1333,7 +1333,7 @@
   - !type:PlantAdjustWater
     amount: 1
   tileReactions:
-  - !type:ExtinguishTileReaction { }
+  - !type:ExtinguishTileReaction {}
 
 - type: reagent
   id: Pyrazine
@@ -1351,8 +1351,8 @@
         damage:
           types:
             Heat: -1
-      # od causes massive bleeding
       - !type:HealthChange
+        # od causes massive bleeding
         conditions:
         - !type:ReagentThreshold
           min: 20
@@ -1362,8 +1362,8 @@
             Piercing: 0.5
       - !type:ChemVomit
         conditions:
-        - !type:OrganType # HardLight: Prevents Synths vomiting
-          type: Synth
+        - !type:OrganType
+          type: Synth # HardLight: Prevents Synths vomiting
           shouldHave: false
         - !type:ReagentThreshold
           min: 15
@@ -1386,8 +1386,8 @@
   metabolisms:
     Medicine:
       effects:
-      # heals shocks and removes shock chems
       - !type:HealthChange
+        # heals shocks and removes shock chems
         damage:
           types:
             Shock: -4
@@ -1395,13 +1395,13 @@
         reagent: Licoxide
         amount: -4
       - !type:AdjustReagent
-        reagent:  Tazinide
+        reagent: Tazinide
         amount: -4
-      # makes you a little chilly when not oding
       - !type:AdjustTemperature
+        # makes you a little chilly when not oding
         amount: -5000
-      # od makes you freeze to death
       - !type:HealthChange
+        # od makes you freeze to death
         conditions:
         - !type:ReagentThreshold
           min: 12
@@ -1430,14 +1430,14 @@
   metabolisms:
     Cryogenic: # Frontier: Medicine<Cryogenic
       effects:
-        - !type:ReduceRotting
-          seconds: 20
-          conditions:
+      - !type:ReduceRotting
+        seconds: 20
+        conditions:
+        - !type:Temperature
           #Patient must be dead and in a cryo tube (or something cold)
-          - !type:Temperature
-            max: 150.0
-          - !type:MobStateCondition
-            mobstate: Dead
+          max: 150.0
+        - !type:MobStateCondition
+          mobstate: Dead
 
 - type: reagent
   id: Necrosol
@@ -1457,19 +1457,19 @@
   metabolisms:
     Cryogenic: # Frontier: Medicine<Cryogenic
       effects:
-        - !type:HealthChange
-          conditions:
-          - !type:Temperature
-            max: 213.0
-          damage:
-            groups:
-              Brute: -4
-              Burn: -5
-            types:
-              Poison: -2
+      - !type:HealthChange
+        conditions:
+        - !type:Temperature
+          max: 213.0
+        damage:
+          groups:
+            Brute: -4
+            Burn: -5
+          types:
+            Poison: -2
 
 - type: reagent
-  id : Aloxadone
+  id: Aloxadone
   name: reagent-name-aloxadone
   group: Medicine
   desc: reagent-desc-aloxadone
@@ -1492,7 +1492,7 @@
             Caustic: -3.0 # Frontier
 
 - type: reagent
-  id : Mannitol # currently this is just a way to create psicodine
+  id: Mannitol # currently this is just a way to create psicodine
   name: reagent-name-mannitol
   group: Medicine
   desc: reagent-desc-mannitol
@@ -1508,7 +1508,7 @@
           min: 15
         type: Local
         visualType: Medium
-        messages: [ "mannitol-effect-enlightened" ]
+        messages: ["mannitol-effect-enlightened"]
         probability: 0.2
 
 - type: reagent
@@ -1546,8 +1546,8 @@
         key: Drunk
         time: 6.0
         type: Remove
-      - !type:PopupMessage # we dont have sanity/mood so this will have to do
-        type: Local
+      - !type:PopupMessage
+        type: Local # we dont have sanity/mood so this will have to do
         visualType: Medium
         messages:
         # - "psicodine-effect-fearless" # Frontier
@@ -1577,8 +1577,8 @@
         refresh: false
       - !type:HealthChange
         conditions:
-          - !type:ReagentThreshold
-            min: 20
+        - !type:ReagentThreshold
+          min: 20
         damage:
           types:
             Poison: 1

@@ -9,8 +9,8 @@ namespace Content.Server.Speech.EntitySystems;
 
 public sealed class RatvarianLanguageSystem : SharedRatvarianLanguageSystem
 {
-    [Dependency] private readonly StatusEffectsSystem _statusEffects = default!;
-
+    [Dependency]
+    private readonly StatusEffectsSystem _statusEffects = default!;
 
     private static readonly ProtoId<StatusEffectPrototype> RatvarianKey = new("RatvarianLanguage");
 
@@ -30,18 +30,24 @@ public sealed class RatvarianLanguageSystem : SharedRatvarianLanguageSystem
 
     private static Regex THPattern = new Regex(@"th\w\B", RegexOptions.Compiled | RegexOptions.IgnoreCase);
     private static Regex ETPattern = new Regex(@"\Bet", RegexOptions.Compiled);
-    private static Regex TEPattern = new Regex(@"te\B",RegexOptions.Compiled);
+    private static Regex TEPattern = new Regex(@"te\B", RegexOptions.Compiled);
     private static Regex OFPattern = new Regex(@"(\s)(of)");
     private static Regex TIPattern = new Regex(@"ti\B", RegexOptions.Compiled | RegexOptions.IgnoreCase);
     private static Regex GUAPattern = new Regex(@"(gu)(a)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
     private static Regex ANDPattern = new Regex(@"\b(\s)(and)(\s)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
     private static Regex TOMYPattern = new Regex(@"(to|my)\s", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-    private static Regex ProperNouns = new Regex(@"(ratvar)|(nezbere)|(sevtuq)|(nzcrentr)|(inath-neq)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+    private static Regex ProperNouns = new Regex(
+        @"(ratvar)|(nezbere)|(sevtuq)|(nzcrentr)|(inath-neq)",
+        RegexOptions.Compiled | RegexOptions.IgnoreCase
+    );
 
     public override void Initialize()
     {
         // Activate before other modifications so translation works properly
-        SubscribeLocalEvent<RatvarianLanguageComponent, AccentGetEvent>(OnAccent, before: new[] {typeof(SharedSlurredSystem), typeof(SharedStutteringSystem)});
+        SubscribeLocalEvent<RatvarianLanguageComponent, AccentGetEvent>(
+            OnAccent,
+            before: new[] { typeof(SharedSlurredSystem), typeof(SharedStutteringSystem) }
+        );
     }
 
     public override void DoRatvarian(EntityUid uid, TimeSpan time, bool refresh, StatusEffectsComponent? status = null)
@@ -80,7 +86,6 @@ public sealed class RatvarianLanguageSystem : SharedRatvarianLanguageSystem
 
             if (ProperNouns.IsMatch(word))
                 newWord.Append(word);
-
             else
             {
                 for (int i = 0; i < word.Length; i++)
@@ -94,7 +99,7 @@ public sealed class RatvarianLanguageSystem : SharedRatvarianLanguageSystem
                         if (letterRot > 122)
                             letterRot -= 26;
 
-                        newWord.Append((char) letterRot);
+                        newWord.Append((char)letterRot);
                     }
                     else if (letter >= 65 && letter <= 90)
                     {
@@ -103,7 +108,7 @@ public sealed class RatvarianLanguageSystem : SharedRatvarianLanguageSystem
                         if (letterRot > 90)
                             letterRot -= 26;
 
-                        newWord.Append((char) letterRot);
+                        newWord.Append((char)letterRot);
                     }
                     else
                     {

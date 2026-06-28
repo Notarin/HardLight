@@ -4,14 +4,18 @@ namespace Content.Shared.Holopad;
 
 public abstract class SharedHolopadSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     public bool IsHolopadControlLocked(Entity<HolopadComponent> entity, EntityUid? user = null)
     {
         if (entity.Comp.ControlLockoutStartTime == TimeSpan.Zero)
             return false;
 
-        if (entity.Comp.ControlLockoutStartTime + TimeSpan.FromSeconds(entity.Comp.ControlLockoutDuration) < _timing.CurTime)
+        if (
+            entity.Comp.ControlLockoutStartTime + TimeSpan.FromSeconds(entity.Comp.ControlLockoutDuration)
+            < _timing.CurTime
+        )
             return false;
 
         if (entity.Comp.ControlLockoutOwner == null || entity.Comp.ControlLockoutOwner == user)
@@ -22,7 +26,9 @@ public abstract class SharedHolopadSystem : EntitySystem
 
     public TimeSpan GetHolopadControlLockedPeriod(Entity<HolopadComponent> entity)
     {
-        return entity.Comp.ControlLockoutStartTime + TimeSpan.FromSeconds(entity.Comp.ControlLockoutDuration) - _timing.CurTime;
+        return entity.Comp.ControlLockoutStartTime
+            + TimeSpan.FromSeconds(entity.Comp.ControlLockoutDuration)
+            - _timing.CurTime;
     }
 
     public bool IsHolopadBroadcastOnCoolDown(Entity<HolopadComponent> entity)
@@ -30,7 +36,10 @@ public abstract class SharedHolopadSystem : EntitySystem
         if (entity.Comp.ControlLockoutStartTime == TimeSpan.Zero)
             return false;
 
-        if (entity.Comp.ControlLockoutStartTime + TimeSpan.FromSeconds(entity.Comp.ControlLockoutCoolDown) < _timing.CurTime)
+        if (
+            entity.Comp.ControlLockoutStartTime + TimeSpan.FromSeconds(entity.Comp.ControlLockoutCoolDown)
+            < _timing.CurTime
+        )
             return false;
 
         return true;
@@ -38,6 +47,8 @@ public abstract class SharedHolopadSystem : EntitySystem
 
     public TimeSpan GetHolopadBroadcastCoolDown(Entity<HolopadComponent> entity)
     {
-        return entity.Comp.ControlLockoutStartTime + TimeSpan.FromSeconds(entity.Comp.ControlLockoutCoolDown) - _timing.CurTime;
+        return entity.Comp.ControlLockoutStartTime
+            + TimeSpan.FromSeconds(entity.Comp.ControlLockoutCoolDown)
+            - _timing.CurTime;
     }
 }

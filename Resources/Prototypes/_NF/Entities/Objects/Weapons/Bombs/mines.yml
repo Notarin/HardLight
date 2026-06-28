@@ -11,8 +11,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.2,-0.16,0.2,0.16"
         mask:
         - TabletopMachineMask
@@ -26,13 +25,12 @@
     damageContainer: Inorganic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 50
       behaviors:
       - !type:TriggerBehavior
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: RequireProjectileTarget
   - type: AmbientSound
     volume: -15
@@ -52,14 +50,13 @@
     examinable: false
   - type: TriggerOnProximity
     triggerSpeed: 0
-    shape:
-      !type:PhysShapeCircle
-        radius: 0.5
+    shape: !type:PhysShapeCircle
+      radius: 0.5
     repeating: false
     requiresAnchored: false
     whitelist:
       components:
-        - Actor
+      - Actor
 
 - type: entity
   parent: NFBaseProximityMine
@@ -109,13 +106,13 @@
     drawdepth: SmallObjects
     layers:
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring1" ]
+      map: ["ied_wiring1"]
       state: ied_wiring1
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring2" ]
+      map: ["ied_wiring2"]
       state: ied_wiring2
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring3" ]
+      map: ["ied_wiring3"]
       state: ied_wiring3
     - sprite: Objects/Tools/Toolboxes/toolbox_blue.rsi
       state: icon
@@ -127,28 +124,28 @@
       state: ied_light
   - type: RandomSprite
     available:
-      - ied_wiring1:
-          ied_wiring1: Rainbow
-          ied_wiring2: Rainbow
-          ied_wiring3: Rainbow
-          ied_wiring4: Rainbow
-          ied_wiring5: Rainbow
-          ied_wiring6: Rainbow
-        ied_wiring2:
-          ied_wiring1: Rainbow
-          ied_wiring2: Rainbow
-          ied_wiring3: Rainbow
-          ied_wiring4: Rainbow
-          ied_wiring5: Rainbow
-          ied_wiring6: Rainbow
-        ied_wiring3:
-          ied_wiring1: Rainbow
-          ied_wiring2: Rainbow
-          ied_wiring3: Rainbow
-          ied_wiring4: Rainbow
-          ied_wiring5: Rainbow
-          ied_wiring6: Rainbow
-          mask_null: ""
+    - ied_wiring1:
+        ied_wiring1: Rainbow
+        ied_wiring2: Rainbow
+        ied_wiring3: Rainbow
+        ied_wiring4: Rainbow
+        ied_wiring5: Rainbow
+        ied_wiring6: Rainbow
+      ied_wiring2:
+        ied_wiring1: Rainbow
+        ied_wiring2: Rainbow
+        ied_wiring3: Rainbow
+        ied_wiring4: Rainbow
+        ied_wiring5: Rainbow
+        ied_wiring6: Rainbow
+      ied_wiring3:
+        ied_wiring1: Rainbow
+        ied_wiring2: Rainbow
+        ied_wiring3: Rainbow
+        ied_wiring4: Rainbow
+        ied_wiring5: Rainbow
+        ied_wiring6: Rainbow
+        mask_null: ""
 
 - type: entity
   parent: NFConcealedMineExplosive
@@ -160,13 +157,13 @@
     drawdepth: SmallObjects
     layers:
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring1" ]
+      map: ["ied_wiring1"]
       state: ied_wiring1
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring2" ]
+      map: ["ied_wiring2"]
       state: ied_wiring2
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring3" ]
+      map: ["ied_wiring3"]
       state: ied_wiring3
     - sprite: Objects/Specific/Janitorial/wet_floor_sign.rsi
       state: icon
@@ -178,28 +175,28 @@
       state: ied_light
   - type: RandomSprite
     available:
-      - ied_wiring1:
-          ied_wiring1: Rainbow
-          ied_wiring2: Rainbow
-          ied_wiring3: Rainbow
-          ied_wiring4: Rainbow
-          ied_wiring5: Rainbow
-          ied_wiring6: Rainbow
-        ied_wiring2:
-          ied_wiring1: Rainbow
-          ied_wiring2: Rainbow
-          ied_wiring3: Rainbow
-          ied_wiring4: Rainbow
-          ied_wiring5: Rainbow
-          ied_wiring6: Rainbow
-        ied_wiring3:
-          ied_wiring1: Rainbow
-          ied_wiring2: Rainbow
-          ied_wiring3: Rainbow
-          ied_wiring4: Rainbow
-          ied_wiring5: Rainbow
-          ied_wiring6: Rainbow
-          mask_null: ""
+    - ied_wiring1:
+        ied_wiring1: Rainbow
+        ied_wiring2: Rainbow
+        ied_wiring3: Rainbow
+        ied_wiring4: Rainbow
+        ied_wiring5: Rainbow
+        ied_wiring6: Rainbow
+      ied_wiring2:
+        ied_wiring1: Rainbow
+        ied_wiring2: Rainbow
+        ied_wiring3: Rainbow
+        ied_wiring4: Rainbow
+        ied_wiring5: Rainbow
+        ied_wiring6: Rainbow
+      ied_wiring3:
+        ied_wiring1: Rainbow
+        ied_wiring2: Rainbow
+        ied_wiring3: Rainbow
+        ied_wiring4: Rainbow
+        ied_wiring5: Rainbow
+        ied_wiring6: Rainbow
+        mask_null: ""
 
 - type: entity
   parent: NFConcealedMineExplosive
@@ -211,17 +208,17 @@
     drawdepth: SmallObjects
     layers:
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring1" ]
+      map: ["ied_wiring1"]
       state: ied_wiring1
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring2" ]
+      map: ["ied_wiring2"]
       state: ied_wiring2
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring3" ]
+      map: ["ied_wiring3"]
       state: ied_wiring3
     - sprite: Objects/Fun/toys.rsi
       state: plushie_atmosian
-      map: [ "ied_sprite_toy" ]
+      map: ["ied_sprite_toy"]
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
       state: ied_display
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
@@ -230,50 +227,50 @@
       state: ied_light
   - type: RandomSprite
     available:
-      - ied_sprite_toy:
-          carpplush: ""
-          magicplush: ""
-          narplush: ""
-          nuketoy: ""
-          plushie_atmosian: ""
-          plushie_arachnid: ""
-          plushie_diona: ""
-          plushie_h: ""
-          plushie_hampter: ""
-          plushie_lizard: ""
-          plushie_vox: ""
-          plushie_nuke: ""
-          plushie_moth: ""
-          plushie_xeno: ""
-          plushie_slime: ""
-          plushie_rouny: ""
-          plushie_human: ""
-          plushie_lizard_inversed: ""
-          plushie_ratvar: ""
-          plushie_spacelizard: ""
-          plushie_lamp: ""
-        ied_wiring1:
-          ied_wiring1: Rainbow
-          ied_wiring2: Rainbow
-          ied_wiring3: Rainbow
-          ied_wiring4: Rainbow
-          ied_wiring5: Rainbow
-          ied_wiring6: Rainbow
-        ied_wiring2:
-          ied_wiring1: Rainbow
-          ied_wiring2: Rainbow
-          ied_wiring3: Rainbow
-          ied_wiring4: Rainbow
-          ied_wiring5: Rainbow
-          ied_wiring6: Rainbow
-        ied_wiring3:
-          ied_wiring1: Rainbow
-          ied_wiring2: Rainbow
-          ied_wiring3: Rainbow
-          ied_wiring4: Rainbow
-          ied_wiring5: Rainbow
-          ied_wiring6: Rainbow
-          mask_null: ""
+    - ied_sprite_toy:
+        carpplush: ""
+        magicplush: ""
+        narplush: ""
+        nuketoy: ""
+        plushie_atmosian: ""
+        plushie_arachnid: ""
+        plushie_diona: ""
+        plushie_h: ""
+        plushie_hampter: ""
+        plushie_lizard: ""
+        plushie_vox: ""
+        plushie_nuke: ""
+        plushie_moth: ""
+        plushie_xeno: ""
+        plushie_slime: ""
+        plushie_rouny: ""
+        plushie_human: ""
+        plushie_lizard_inversed: ""
+        plushie_ratvar: ""
+        plushie_spacelizard: ""
+        plushie_lamp: ""
+      ied_wiring1:
+        ied_wiring1: Rainbow
+        ied_wiring2: Rainbow
+        ied_wiring3: Rainbow
+        ied_wiring4: Rainbow
+        ied_wiring5: Rainbow
+        ied_wiring6: Rainbow
+      ied_wiring2:
+        ied_wiring1: Rainbow
+        ied_wiring2: Rainbow
+        ied_wiring3: Rainbow
+        ied_wiring4: Rainbow
+        ied_wiring5: Rainbow
+        ied_wiring6: Rainbow
+      ied_wiring3:
+        ied_wiring1: Rainbow
+        ied_wiring2: Rainbow
+        ied_wiring3: Rainbow
+        ied_wiring4: Rainbow
+        ied_wiring5: Rainbow
+        ied_wiring6: Rainbow
+        mask_null: ""
 
 - type: entity
   parent: NFConcealedMineExplosive
@@ -285,17 +282,17 @@
     drawdepth: SmallObjects
     layers:
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring1" ]
+      map: ["ied_wiring1"]
       state: ied_wiring1
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring2" ]
+      map: ["ied_wiring2"]
       state: ied_wiring2
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring3" ]
+      map: ["ied_wiring3"]
       state: ied_wiring3
     - sprite: Objects/Storage/boxicons.rsi
       state: bodybags
-      map: [ "ied_sprite_box" ]
+      map: ["ied_sprite_box"]
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
       state: ied_display
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
@@ -304,40 +301,40 @@
       state: ied_light
   - type: RandomSprite
     available:
-      - ied_sprite_box:
-          beaker: ""
-          bodybags: ""
-          box: ""
-          box_of_doom: ""
-          circuit: ""
-          disk_kit: ""
-          donk_kit: ""
-          flashbang: ""
-          glasses: ""
-          mousetraps: ""
-          throwing_knives: ""
-        ied_wiring1:
-          ied_wiring1: Rainbow
-          ied_wiring2: Rainbow
-          ied_wiring3: Rainbow
-          ied_wiring4: Rainbow
-          ied_wiring5: Rainbow
-          ied_wiring6: Rainbow
-        ied_wiring2:
-          ied_wiring1: Rainbow
-          ied_wiring2: Rainbow
-          ied_wiring3: Rainbow
-          ied_wiring4: Rainbow
-          ied_wiring5: Rainbow
-          ied_wiring6: Rainbow
-        ied_wiring3:
-          ied_wiring1: Rainbow
-          ied_wiring2: Rainbow
-          ied_wiring3: Rainbow
-          ied_wiring4: Rainbow
-          ied_wiring5: Rainbow
-          ied_wiring6: Rainbow
-          mask_null: ""
+    - ied_sprite_box:
+        beaker: ""
+        bodybags: ""
+        box: ""
+        box_of_doom: ""
+        circuit: ""
+        disk_kit: ""
+        donk_kit: ""
+        flashbang: ""
+        glasses: ""
+        mousetraps: ""
+        throwing_knives: ""
+      ied_wiring1:
+        ied_wiring1: Rainbow
+        ied_wiring2: Rainbow
+        ied_wiring3: Rainbow
+        ied_wiring4: Rainbow
+        ied_wiring5: Rainbow
+        ied_wiring6: Rainbow
+      ied_wiring2:
+        ied_wiring1: Rainbow
+        ied_wiring2: Rainbow
+        ied_wiring3: Rainbow
+        ied_wiring4: Rainbow
+        ied_wiring5: Rainbow
+        ied_wiring6: Rainbow
+      ied_wiring3:
+        ied_wiring1: Rainbow
+        ied_wiring2: Rainbow
+        ied_wiring3: Rainbow
+        ied_wiring4: Rainbow
+        ied_wiring5: Rainbow
+        ied_wiring6: Rainbow
+        mask_null: ""
 
 - type: entity
   parent: NFConcealedMineExplosive
@@ -349,17 +346,17 @@
     drawdepth: SmallObjects
     layers:
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring1" ]
+      map: ["ied_wiring1"]
       state: ied_wiring1
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring2" ]
+      map: ["ied_wiring2"]
       state: ied_wiring2
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring3" ]
+      map: ["ied_wiring3"]
       state: ied_wiring3
     - sprite: Objects/Consumable/Food/snacks.rsi
       state: cheesiehonkers-trash
-      map: [ "ied_sprite_trash" ]
+      map: ["ied_sprite_trash"]
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
       state: ied_display
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
@@ -368,40 +365,40 @@
       state: ied_light
   - type: RandomSprite
     available:
-      - ied_sprite_trash:
-          cheesiehonkers-trash: ""
-          chocolatebar-trash: ""
-          cnds-trash: ""
-          energybar-trash: ""
-          mre-wrapper: ""
-          pistachio-trash: ""
-          popcorn-trash: ""
-          raisins-trash: ""
-          semki-trash: ""
-          susjerky-trash: ""
-          syndicakes-trash: ""
-        ied_wiring1:
-          ied_wiring1: Rainbow
-          ied_wiring2: Rainbow
-          ied_wiring3: Rainbow
-          ied_wiring4: Rainbow
-          ied_wiring5: Rainbow
-          ied_wiring6: Rainbow
-        ied_wiring2:
-          ied_wiring1: Rainbow
-          ied_wiring2: Rainbow
-          ied_wiring3: Rainbow
-          ied_wiring4: Rainbow
-          ied_wiring5: Rainbow
-          ied_wiring6: Rainbow
-        ied_wiring3:
-          ied_wiring1: Rainbow
-          ied_wiring2: Rainbow
-          ied_wiring3: Rainbow
-          ied_wiring4: Rainbow
-          ied_wiring5: Rainbow
-          ied_wiring6: Rainbow
-          mask_null: ""
+    - ied_sprite_trash:
+        cheesiehonkers-trash: ""
+        chocolatebar-trash: ""
+        cnds-trash: ""
+        energybar-trash: ""
+        mre-wrapper: ""
+        pistachio-trash: ""
+        popcorn-trash: ""
+        raisins-trash: ""
+        semki-trash: ""
+        susjerky-trash: ""
+        syndicakes-trash: ""
+      ied_wiring1:
+        ied_wiring1: Rainbow
+        ied_wiring2: Rainbow
+        ied_wiring3: Rainbow
+        ied_wiring4: Rainbow
+        ied_wiring5: Rainbow
+        ied_wiring6: Rainbow
+      ied_wiring2:
+        ied_wiring1: Rainbow
+        ied_wiring2: Rainbow
+        ied_wiring3: Rainbow
+        ied_wiring4: Rainbow
+        ied_wiring5: Rainbow
+        ied_wiring6: Rainbow
+      ied_wiring3:
+        ied_wiring1: Rainbow
+        ied_wiring2: Rainbow
+        ied_wiring3: Rainbow
+        ied_wiring4: Rainbow
+        ied_wiring5: Rainbow
+        ied_wiring6: Rainbow
+        mask_null: ""
 
 - type: entity
   parent: NFConcealedMineExplosive
@@ -413,17 +410,17 @@
     drawdepth: SmallObjects
     layers:
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring1" ]
+      map: ["ied_wiring1"]
       state: ied_wiring1
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring2" ]
+      map: ["ied_wiring2"]
       state: ied_wiring2
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring3" ]
+      map: ["ied_wiring3"]
       state: ied_wiring3
     - sprite: Objects/Materials/Scrap/generic.rsi
       state: glass-1
-      map: [ "ied_sprite_scrap" ]
+      map: ["ied_sprite_scrap"]
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
       state: ied_display
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
@@ -432,48 +429,48 @@
       state: ied_light
   - type: RandomSprite
     available:
-      - ied_sprite_scrap:
-          glass-1: ""
-          glass-2: ""
-          glass-3: ""
-          glass-4: ""
-          glass-5: ""
-          glass-6: ""
-          junk-airlock-1: ""
-          junk-fax: ""
-          junk-fireextinguisher: ""
-          junk-pai: ""
-          junk-pai-gold: ""
-          metal-1: ""
-          metal-2: ""
-          metal-3: ""
-          junk-mop-bucket: ""
-        ied_wiring1:
-          ied_wiring1: Rainbow
-          ied_wiring2: Rainbow
-          ied_wiring3: Rainbow
-          ied_wiring4: Rainbow
-          ied_wiring5: Rainbow
-          ied_wiring6: Rainbow
-        ied_wiring2:
-          ied_wiring1: Rainbow
-          ied_wiring2: Rainbow
-          ied_wiring3: Rainbow
-          ied_wiring4: Rainbow
-          ied_wiring5: Rainbow
-          ied_wiring6: Rainbow
-        ied_wiring3:
-          ied_wiring1: Rainbow
-          ied_wiring2: Rainbow
-          ied_wiring3: Rainbow
-          ied_wiring4: Rainbow
-          ied_wiring5: Rainbow
-          ied_wiring6: Rainbow
-          mask_null: ""
+    - ied_sprite_scrap:
+        glass-1: ""
+        glass-2: ""
+        glass-3: ""
+        glass-4: ""
+        glass-5: ""
+        glass-6: ""
+        junk-airlock-1: ""
+        junk-fax: ""
+        junk-fireextinguisher: ""
+        junk-pai: ""
+        junk-pai-gold: ""
+        metal-1: ""
+        metal-2: ""
+        metal-3: ""
+        junk-mop-bucket: ""
+      ied_wiring1:
+        ied_wiring1: Rainbow
+        ied_wiring2: Rainbow
+        ied_wiring3: Rainbow
+        ied_wiring4: Rainbow
+        ied_wiring5: Rainbow
+        ied_wiring6: Rainbow
+      ied_wiring2:
+        ied_wiring1: Rainbow
+        ied_wiring2: Rainbow
+        ied_wiring3: Rainbow
+        ied_wiring4: Rainbow
+        ied_wiring5: Rainbow
+        ied_wiring6: Rainbow
+      ied_wiring3:
+        ied_wiring1: Rainbow
+        ied_wiring2: Rainbow
+        ied_wiring3: Rainbow
+        ied_wiring4: Rainbow
+        ied_wiring5: Rainbow
+        ied_wiring6: Rainbow
+        mask_null: ""
 
 # Cryo
 - type: entity
-  parent: [ NFConcealedMineCryo, NFToolboxMineExplosive ]
+  parent: [NFConcealedMineCryo, NFToolboxMineExplosive]
   id: NFToolboxMineCryo
   name: mechanical toolbox
   description: A blue box, stocked with mechanical tools.
@@ -482,13 +479,13 @@
     drawdepth: SmallObjects
     layers:
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring1" ]
+      map: ["ied_wiring1"]
       state: ied_wiring1
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring2" ]
+      map: ["ied_wiring2"]
       state: ied_wiring2
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring3" ]
+      map: ["ied_wiring3"]
       state: ied_wiring3
     - sprite: Objects/Tools/Toolboxes/toolbox_blue.rsi
       state: icon
@@ -500,7 +497,7 @@
       state: ied_light
 
 - type: entity
-  parent: [ NFConcealedMineCryo, NFWetFloorSignMineExplosive ]
+  parent: [NFConcealedMineCryo, NFWetFloorSignMineExplosive]
   id: NFWetFloorSignMineCryo
   name: wet floor sign
   description: Caution! Wet Floor!
@@ -509,13 +506,13 @@
     drawdepth: SmallObjects
     layers:
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring1" ]
+      map: ["ied_wiring1"]
       state: ied_wiring1
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring2" ]
+      map: ["ied_wiring2"]
       state: ied_wiring2
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring3" ]
+      map: ["ied_wiring3"]
       state: ied_wiring3
     - sprite: Objects/Specific/Janitorial/wet_floor_sign.rsi
       state: icon
@@ -527,7 +524,7 @@
       state: ied_light
 
 - type: entity
-  parent: [ NFConcealedMineCryo, NFPlushieMineExplosive ]
+  parent: [NFConcealedMineCryo, NFPlushieMineExplosive]
   id: NFPlushieMineCryo
   name: plushie
   description: A stuffed toy to remind adults of what they can no longer have - youth.
@@ -536,17 +533,17 @@
     drawdepth: SmallObjects
     layers:
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring1" ]
+      map: ["ied_wiring1"]
       state: ied_wiring1
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring2" ]
+      map: ["ied_wiring2"]
       state: ied_wiring2
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring3" ]
+      map: ["ied_wiring3"]
       state: ied_wiring3
     - sprite: Objects/Fun/toys.rsi
       state: plushie_atmosian
-      map: [ "ied_sprite_toy" ]
+      map: ["ied_sprite_toy"]
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
       state: ied_display
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
@@ -555,7 +552,7 @@
       state: ied_light
 
 - type: entity
-  parent: [ NFConcealedMineCryo, NFBoxMineExplosive ]
+  parent: [NFConcealedMineCryo, NFBoxMineExplosive]
   id: NFBoxMineCryo
   name: box
   description: What's inside the box?
@@ -564,17 +561,17 @@
     drawdepth: SmallObjects
     layers:
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring1" ]
+      map: ["ied_wiring1"]
       state: ied_wiring1
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring2" ]
+      map: ["ied_wiring2"]
       state: ied_wiring2
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring3" ]
+      map: ["ied_wiring3"]
       state: ied_wiring3
     - sprite: Objects/Storage/boxicons.rsi
       state: bodybags
-      map: [ "ied_sprite_box" ]
+      map: ["ied_sprite_box"]
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
       state: ied_display
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
@@ -583,7 +580,7 @@
       state: ied_light
 
 - type: entity
-  parent: [ NFConcealedMineCryo, NFTrashMineExplosive ]
+  parent: [NFConcealedMineCryo, NFTrashMineExplosive]
   id: NFTrashMineCryo
   name: discarded wrapper
   description: A discarded packaging from an item athat a generous person could describe as a food item.
@@ -592,17 +589,17 @@
     drawdepth: SmallObjects
     layers:
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring1" ]
+      map: ["ied_wiring1"]
       state: ied_wiring1
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring2" ]
+      map: ["ied_wiring2"]
       state: ied_wiring2
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring3" ]
+      map: ["ied_wiring3"]
       state: ied_wiring3
     - sprite: Objects/Consumable/Food/snacks.rsi
       state: cheesiehonkers-trash
-      map: [ "ied_sprite_trash" ]
+      map: ["ied_sprite_trash"]
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
       state: ied_display
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
@@ -611,7 +608,7 @@
       state: ied_light
 
 - type: entity
-  parent: [ NFConcealedMineCryo, NFScrapMineExplosive ]
+  parent: [NFConcealedMineCryo, NFScrapMineExplosive]
   id: NFScrapMineCryo
   name: scrap
   description: Worthless junk. You could probably get some materials out of it though.
@@ -620,17 +617,17 @@
     drawdepth: SmallObjects
     layers:
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring1" ]
+      map: ["ied_wiring1"]
       state: ied_wiring1
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring2" ]
+      map: ["ied_wiring2"]
       state: ied_wiring2
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring3" ]
+      map: ["ied_wiring3"]
       state: ied_wiring3
     - sprite: Objects/Materials/Scrap/generic.rsi
       state: glass-1
-      map: [ "ied_sprite_scrap" ]
+      map: ["ied_sprite_scrap"]
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
       state: ied_display
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
@@ -640,7 +637,7 @@
 
 # Fire
 - type: entity
-  parent: [ NFConcealedMineFire, NFToolboxMineExplosive ]
+  parent: [NFConcealedMineFire, NFToolboxMineExplosive]
   id: NFToolboxMineFire
   name: mechanical toolbox
   description: A blue box, stocked with mechanical tools.
@@ -649,13 +646,13 @@
     drawdepth: SmallObjects
     layers:
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring1" ]
+      map: ["ied_wiring1"]
       state: ied_wiring1
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring2" ]
+      map: ["ied_wiring2"]
       state: ied_wiring2
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring3" ]
+      map: ["ied_wiring3"]
       state: ied_wiring3
     - sprite: Objects/Tools/Toolboxes/toolbox_blue.rsi
       state: icon
@@ -667,7 +664,7 @@
       state: ied_light
 
 - type: entity
-  parent: [ NFConcealedMineFire, NFWetFloorSignMineExplosive ]
+  parent: [NFConcealedMineFire, NFWetFloorSignMineExplosive]
   id: NFWetFloorSignMineFire
   name: wet floor sign
   description: Caution! Wet Floor!
@@ -676,13 +673,13 @@
     drawdepth: SmallObjects
     layers:
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring1" ]
+      map: ["ied_wiring1"]
       state: ied_wiring1
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring2" ]
+      map: ["ied_wiring2"]
       state: ied_wiring2
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring3" ]
+      map: ["ied_wiring3"]
       state: ied_wiring3
     - sprite: Objects/Specific/Janitorial/wet_floor_sign.rsi
       state: icon
@@ -694,7 +691,7 @@
       state: ied_light
 
 - type: entity
-  parent: [ NFConcealedMineFire, NFPlushieMineExplosive ]
+  parent: [NFConcealedMineFire, NFPlushieMineExplosive]
   id: NFPlushieMineFire
   name: plushie
   description: A stuffed toy to remind adults of what they can no longer have - youth.
@@ -703,17 +700,17 @@
     drawdepth: SmallObjects
     layers:
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring1" ]
+      map: ["ied_wiring1"]
       state: ied_wiring1
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring2" ]
+      map: ["ied_wiring2"]
       state: ied_wiring2
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring3" ]
+      map: ["ied_wiring3"]
       state: ied_wiring3
     - sprite: Objects/Fun/toys.rsi
       state: plushie_atmosian
-      map: [ "ied_sprite_toy" ]
+      map: ["ied_sprite_toy"]
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
       state: ied_display
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
@@ -722,7 +719,7 @@
       state: ied_light
 
 - type: entity
-  parent: [ NFConcealedMineFire, NFBoxMineExplosive ]
+  parent: [NFConcealedMineFire, NFBoxMineExplosive]
   id: NFBoxMineFire
   name: box
   description: What's inside the box?
@@ -731,17 +728,17 @@
     drawdepth: SmallObjects
     layers:
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring1" ]
+      map: ["ied_wiring1"]
       state: ied_wiring1
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring2" ]
+      map: ["ied_wiring2"]
       state: ied_wiring2
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring3" ]
+      map: ["ied_wiring3"]
       state: ied_wiring3
     - sprite: Objects/Storage/boxicons.rsi
       state: bodybags
-      map: [ "ied_sprite_box" ]
+      map: ["ied_sprite_box"]
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
       state: ied_display
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
@@ -750,7 +747,7 @@
       state: ied_light
 
 - type: entity
-  parent: [ NFConcealedMineFire, NFTrashMineExplosive ]
+  parent: [NFConcealedMineFire, NFTrashMineExplosive]
   id: NFTrashMineFire
   name: discarded wrapper
   description: A discarded packaging from an item athat a generous person could describe as a food item.
@@ -759,17 +756,17 @@
     drawdepth: SmallObjects
     layers:
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring1" ]
+      map: ["ied_wiring1"]
       state: ied_wiring1
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring2" ]
+      map: ["ied_wiring2"]
       state: ied_wiring2
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring3" ]
+      map: ["ied_wiring3"]
       state: ied_wiring3
     - sprite: Objects/Consumable/Food/snacks.rsi
       state: cheesiehonkers-trash
-      map: [ "ied_sprite_trash" ]
+      map: ["ied_sprite_trash"]
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
       state: ied_display
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
@@ -778,7 +775,7 @@
       state: ied_light
 
 - type: entity
-  parent: [ NFConcealedMineFire, NFScrapMineExplosive ]
+  parent: [NFConcealedMineFire, NFScrapMineExplosive]
   id: NFScrapMineFire
   name: scrap
   description: Worthless junk. You could probably get some materials out of it though.
@@ -787,17 +784,17 @@
     drawdepth: SmallObjects
     layers:
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring1" ]
+      map: ["ied_wiring1"]
       state: ied_wiring1
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring2" ]
+      map: ["ied_wiring2"]
       state: ied_wiring2
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
-      map: [ "ied_wiring3" ]
+      map: ["ied_wiring3"]
       state: ied_wiring3
     - sprite: Objects/Materials/Scrap/generic.rsi
       state: glass-1
-      map: [ "ied_sprite_scrap" ]
+      map: ["ied_sprite_scrap"]
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi
       state: ied_display
     - sprite: _NF/Objects/Weapons/Bombs/ied_overlay.rsi

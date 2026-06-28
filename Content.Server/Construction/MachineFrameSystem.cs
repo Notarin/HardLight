@@ -1,25 +1,36 @@
 using Content.Server.Construction.Components;
 using Content.Server.Stack;
 using Content.Shared.Construction.Components;
+using Content.Shared.Construction.Prototypes;
 using Content.Shared.Examine;
 using Content.Shared.Interaction;
+using Content.Shared.Popups;
 using Content.Shared.Stacks;
 using Content.Shared.Tag;
-using Content.Shared.Popups;
 using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
-using Content.Shared.Construction.Prototypes;
 
 namespace Content.Server.Construction;
 
 public sealed class MachineFrameSystem : EntitySystem
 {
-    [Dependency] private readonly IComponentFactory _factory = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly TagSystem _tag = default!;
-    [Dependency] private readonly StackSystem _stack = default!;
-    [Dependency] private readonly ConstructionSystem _construction = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
+    [Dependency]
+    private readonly IComponentFactory _factory = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly TagSystem _tag = default!;
+
+    [Dependency]
+    private readonly StackSystem _stack = default!;
+
+    [Dependency]
+    private readonly ConstructionSystem _construction = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popupSystem = default!;
 
     public override void Initialize()
     {
@@ -183,7 +194,12 @@ public sealed class MachineFrameSystem : EntitySystem
 
     // Frontier: restore upgradeable parts
     /// <returns>Whether or not the function had any effect. Does not indicate success.</returns>
-    private bool TryInsertPart(EntityUid uid, EntityUid used, MachineFrameComponent component, MachinePartComponent machinePart)
+    private bool TryInsertPart(
+        EntityUid uid,
+        EntityUid used,
+        MachineFrameComponent component,
+        MachinePartComponent machinePart
+    )
     {
         if (!component.Requirements.ContainsKey(machinePart.PartType))
             return false;
@@ -235,6 +251,7 @@ public sealed class MachineFrameSystem : EntitySystem
 
         return true;
     }
+
     // Frontier
 
     /// <returns>Whether or not the function had any effect. Does not indicate success.</returns>
@@ -319,7 +336,9 @@ public sealed class MachineFrameSystem : EntitySystem
         component.Requirements = new Dictionary<ProtoId<MachinePartPrototype>, int>(machineBoard.Requirements); // Frontier: upgradeable machine parts
         component.MaterialRequirements = new Dictionary<ProtoId<StackPrototype>, int>(machineBoard.StackRequirements);
         component.ComponentRequirements = new Dictionary<string, GenericPartInfo>(machineBoard.ComponentRequirements);
-        component.TagRequirements = new Dictionary<ProtoId<TagPrototype>, GenericPartInfo>(machineBoard.TagRequirements);
+        component.TagRequirements = new Dictionary<ProtoId<TagPrototype>, GenericPartInfo>(
+            machineBoard.TagRequirements
+        );
 
         component.Progress.Clear(); // Frontier: upgradeable machine parts
         component.MaterialProgress.Clear();
@@ -438,6 +457,7 @@ public sealed class MachineFrameSystem : EntitySystem
             }
         }
     }
+
     private void OnMachineFrameExamined(EntityUid uid, MachineFrameComponent component, ExaminedEvent args)
     {
         if (!args.IsInDetailsRange || !component.HasBoard)

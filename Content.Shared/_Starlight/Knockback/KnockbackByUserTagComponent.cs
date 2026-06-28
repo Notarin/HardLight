@@ -4,6 +4,7 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
 namespace Content.Shared.Starlight.Knockback;
+
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class KnockbackByUserTagComponent : Component
 {
@@ -19,6 +20,7 @@ public sealed partial class KnockbackData
 
     [DataField]
     public float Knockback = 0;
+
     [DataField]
     public float StaminaMultiplier = 10;
 }

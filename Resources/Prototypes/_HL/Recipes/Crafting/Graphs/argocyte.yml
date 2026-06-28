@@ -19,7 +19,7 @@
         doAfter: 15
   - node: finish
     entity: ClothingOuterArmorArgocyteHeavy
-    
+
 - type: constructionGraph
   id: ArgoArmorLightGraph
   start: start
@@ -41,7 +41,7 @@
         doAfter: 15
   - node: finish
     entity: ClothingOuterArmorArgocyteLight
-   
+
 - type: constructionGraph
   id: ArgoGauntletsHeavyGraph
   start: start
@@ -58,7 +58,7 @@
         doAfter: 5
   - node: finish
     entity: ClothingHandsGlovesArgocyteHeavy
-   
+
 - type: constructionGraph
   id: ArgoGauntletsLightGraph
   start: start
@@ -75,7 +75,7 @@
         doAfter: 5
   - node: finish
     entity: ClothingHandsGlovesArgocyteLight
-   
+
 - type: constructionGraph
   id: ArgoHelmetHeavyGraph
   start: start
@@ -92,7 +92,7 @@
         doAfter: 5
   - node: finish
     entity: HLClothingHeadHelmetArgoHeavy
-   
+
 - type: constructionGraph
   id: ArgoHelmetLightGraph
   start: start
@@ -109,7 +109,7 @@
         doAfter: 5
   - node: finish
     entity: HLClothingHeadHelmetArgoLight
-   
+
 - type: constructionGraph
   id: ArgoBootsHeavyGraph
   start: start
@@ -126,7 +126,7 @@
         doAfter: 10
   - node: finish
     entity: HLClothingShoesArgocyteHeavy
-   
+
 - type: constructionGraph
   id: ArgoBootsLightGraph
   start: start
@@ -143,7 +143,7 @@
         doAfter: 10
   - node: finish
     entity: HLClothingShoesArgocyteLight
-   
+
 - type: constructionGraph
   id: ArgoShieldHeavyGraph
   start: start
@@ -160,7 +160,7 @@
         doAfter: 10
   - node: finish
     entity: ArgoShieldHeavy
-   
+
 - type: constructionGraph
   id: ArgoShieldLightGraph
   start: start
@@ -177,7 +177,7 @@
         doAfter: 10
   - node: finish
     entity: ArgoShieldLight
-   
+
 - type: constructionGraph
   id: ArgoHammerGraph
   start: start
@@ -194,7 +194,7 @@
         doAfter: 15
   - node: finish
     entity: ArgocyteHammer
-   
+
 - type: constructionGraph
   id: ArgoTwinswordGraph
   start: start

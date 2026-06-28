@@ -12,8 +12,11 @@ namespace Content.Client._NF.Roles.Systems;
 
 public sealed class InterviewHologramSystem : SharedInterviewHologramSystem
 {
-    [Dependency] private IPrototypeManager _prototype = default!;
-    [Dependency] private IGameTiming _timing = default!;
+    [Dependency]
+    private IPrototypeManager _prototype = default!;
+
+    [Dependency]
+    private IGameTiming _timing = default!;
 
     private readonly Dictionary<EntityUid, HologramVisualState> _visualStates = new();
 
@@ -44,15 +47,21 @@ public sealed class InterviewHologramSystem : SharedInterviewHologramSystem
     private void UpdateHologramSprite(EntityUid hologram, SpriteComponent? sprite = null)
     {
         // Get required components
-        if (!Resolve(hologram, ref sprite, false) ||
-            !TryComp<InterviewHologramComponent>(hologram, out var hologramComp))
+        if (
+            !Resolve(hologram, ref sprite, false)
+            || !TryComp<InterviewHologramComponent>(hologram, out var hologramComp)
+        )
             return;
 
         var visualState = EnsureVisualState(hologram, sprite, hologramComp);
         UpdateHologramShader(sprite, hologramComp, visualState);
     }
 
-    private HologramVisualState EnsureVisualState(EntityUid uid, SpriteComponent sprite, InterviewHologramComponent hologramComp)
+    private HologramVisualState EnsureVisualState(
+        EntityUid uid,
+        SpriteComponent sprite,
+        InterviewHologramComponent hologramComp
+    )
     {
         if (!_visualStates.TryGetValue(uid, out var visualState))
         {
@@ -80,9 +89,11 @@ public sealed class InterviewHologramSystem : SharedInterviewHologramSystem
     {
         for (var i = 0; i < sprite.AllLayers.Count(); i++)
         {
-            if (!sprite.TryGetLayer(i, out var layer)
+            if (
+                !sprite.TryGetLayer(i, out var layer)
                 || layer.ShaderPrototype == "DisplacedStencilDraw"
-                || layer.ShaderPrototype == "unshaded")
+                || layer.ShaderPrototype == "unshaded"
+            )
             {
                 continue;
             }
@@ -119,11 +130,21 @@ public sealed class InterviewHologramSystem : SharedInterviewHologramSystem
         return texHeight;
     }
 
-    private void UpdateHologramShader(SpriteComponent sprite, InterviewHologramComponent hologramComp, HologramVisualState visualState)
+    private void UpdateHologramShader(
+        SpriteComponent sprite,
+        InterviewHologramComponent hologramComp,
+        HologramVisualState visualState
+    )
     {
         var instance = visualState.Shader;
-        instance.SetParameter("color1", new Vector3(hologramComp.Color1.R, hologramComp.Color1.G, hologramComp.Color1.B));
-        instance.SetParameter("color2", new Vector3(hologramComp.Color2.R, hologramComp.Color2.G, hologramComp.Color2.B));
+        instance.SetParameter(
+            "color1",
+            new Vector3(hologramComp.Color1.R, hologramComp.Color1.G, hologramComp.Color1.B)
+        );
+        instance.SetParameter(
+            "color2",
+            new Vector3(hologramComp.Color2.R, hologramComp.Color2.G, hologramComp.Color2.B)
+        );
         instance.SetParameter("alpha", hologramComp.Alpha);
         instance.SetParameter("intensity", hologramComp.Intensity);
         instance.SetParameter("texHeight", visualState.TexHeight);
@@ -141,7 +162,5 @@ public sealed class InterviewHologramSystem : SharedInterviewHologramSystem
     }
 
     // NOOP, spawn logic handled on server.
-    protected override void HandleApprovalChanged(Entity<InterviewHologramComponent> ent)
-    {
-    }
+    protected override void HandleApprovalChanged(Entity<InterviewHologramComponent> ent) { }
 }

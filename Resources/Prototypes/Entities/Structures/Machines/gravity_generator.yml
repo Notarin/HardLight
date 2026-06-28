@@ -16,12 +16,12 @@
   - type: Sprite
     sprite: Structures/Machines/gravity_generator.rsi
     layers:
-      - state: on
-        map: ["enum.GravityGeneratorVisualLayers.Base"]
-      - sprite: Structures/Machines/gravity_generator_core.rsi
-        state: activated
-        shader: unshaded
-        map: ["enum.GravityGeneratorVisualLayers.Core"]
+    - state: on
+      map: ["enum.GravityGeneratorVisualLayers.Base"]
+    - sprite: Structures/Machines/gravity_generator_core.rsi
+      state: activated
+      shader: unshaded
+      map: ["enum.GravityGeneratorVisualLayers.Core"]
   - type: Transform
     anchored: true
   - type: ApcPowerReceiver
@@ -32,8 +32,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-1.5,-1.5,1.5,1.5"
         density: 50
         mask:
@@ -45,8 +44,7 @@
     doAfterDelay: 5
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 150
       behaviors:
       - !type:DoActsBehavior
@@ -89,7 +87,7 @@
 
 - type: entity
   id: GravityGeneratorMini
-  parent: [ GravityGenerator, ConstructibleMachine ]
+  parent: [GravityGenerator, ConstructibleMachine]
   name: mini gravity generator
   description: It's what keeps you to the floor, now in fun size.
   components:
@@ -98,19 +96,18 @@
     sprite: Structures/Machines/gravity_generator_mini.rsi
     snapCardinals: true
     layers:
-      - state: on
-        map: ["enum.GravityGeneratorVisualLayers.Base"]
-      - sprite: Structures/Machines/gravity_generator_core.rsi
-        state: activated
-        shader: unshaded
-        map: ["enum.GravityGeneratorVisualLayers.Core"]
-        scale: "0.4,0.4"
-        offset: "0,0.2"
+    - state: on
+      map: ["enum.GravityGeneratorVisualLayers.Base"]
+    - sprite: Structures/Machines/gravity_generator_core.rsi
+      state: activated
+      shader: unshaded
+      map: ["enum.GravityGeneratorVisualLayers.Core"]
+      scale: "0.4,0.4"
+      offset: "0,0.2"
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.4,-0.4,0.4,0.4"
         density: 3125
         mask:
@@ -119,8 +116,7 @@
         - WallLayer
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 500
       behaviors:
       - !type:DoActsBehavior

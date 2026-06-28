@@ -1,39 +1,39 @@
 - type: entity
   id: OrganDreadtalonLungs
   parent: OrganAnimalLungs
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Metabolizer
-    metabolizerTypes: [ Dreadtalon ]
+    metabolizerTypes: [Dreadtalon]
 
 - type: entity
   id: OrganDreadtalonStomach
   parent: OrganFriendStomach
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Metabolizer
-    metabolizerTypes: [ Dreadtalon ]
+    metabolizerTypes: [Dreadtalon]
 
 - type: entity
   id: OrganDreadtalonLiver
   parent: OrganAnimalLiver
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Metabolizer
-    metabolizerTypes: [ Dreadtalon ]
+    metabolizerTypes: [Dreadtalon]
 
 - type: entity
   id: OrganDreadtalonHeart
   parent: OrganAnimalHeart
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Metabolizer
-    metabolizerTypes: [ Dreadtalon ]
+    metabolizerTypes: [Dreadtalon]
 
 - type: entity
   id: OrganDreadtalonKidneys
   parent: OrganAnimalKidneys
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Metabolizer
-    metabolizerTypes: [ Dreadtalon ]
+    metabolizerTypes: [Dreadtalon]

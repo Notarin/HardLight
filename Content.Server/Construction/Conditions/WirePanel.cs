@@ -9,7 +9,8 @@ namespace Content.Server.Construction.Conditions
     [DataDefinition]
     public sealed partial class WirePanel : IGraphCondition
     {
-        [DataField("open")] public bool Open { get; private set; } = true;
+        [DataField("open")]
+        public bool Open { get; private set; } = true;
 
         public bool Condition(EntityUid uid, IEntityManager entityManager)
         {
@@ -23,7 +24,8 @@ namespace Content.Server.Construction.Conditions
         public bool DoExamine(ExaminedEvent args)
         {
             var entity = args.Examined;
-            if (!IoCManager.Resolve<IEntityManager>().TryGetComponent<WiresPanelComponent>(entity, out var panel)) return false;
+            if (!IoCManager.Resolve<IEntityManager>().TryGetComponent<WiresPanelComponent>(entity, out var panel))
+                return false;
 
             switch (Open)
             {
@@ -44,7 +46,7 @@ namespace Content.Server.Construction.Conditions
             {
                 Localization = Open
                     ? "construction-step-condition-wire-panel-open"
-                    : "construction-step-condition-wire-panel-close"
+                    : "construction-step-condition-wire-panel-close",
             };
         }
     }

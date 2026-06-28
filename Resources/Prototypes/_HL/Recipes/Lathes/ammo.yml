@@ -124,7 +124,6 @@
   materials:
     Steel: 100
 
-
 - type: latheRecipe
   id: AmmoBoxBig
   abstract: true

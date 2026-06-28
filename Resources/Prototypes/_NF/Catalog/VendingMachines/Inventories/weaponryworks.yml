@@ -1,7 +1,7 @@
 - type: vendingMachineInventory
   id: WeaponryWorksVendInventory
   startingInventory:
-  # Weapons
+    # Weapons
     NFWeaponEnergyPistolLaser: 6
     NFWeaponRevolverArgenti: 6
     #NFWeaponRevolverFitz: 6
@@ -20,7 +20,7 @@
     BowModern: 6
     #GestioBoxDeployable: 2
     SearchlightBoxDeployable: 2
-# Magazines
+    # Magazines
     Magazine9x19mmPistolFMJ: 28 # 9x19mm Pistol
     Magazine45_ACPPistolFMJ: 28 # .45 ACP Pistol
     Magazine9x19mmSubMachineGunFMJ: 28 # 9x19mm C20r
@@ -39,7 +39,7 @@
     Magazine762x39mmLowCapacityFMJ: 28
     ClothingBeltQuiverFullBodkin: 6
     ClothingBeltQuiverFullBroadhead: 6
-# Ammo
+    # Ammo
     #AmmoBox5.528x45mmFMJ: 28 # 5.528x45mm
     #AmmoBox5.528x45mmBigFMJ: 28 # 5.528x45mm
     #AmmoBox7.282x39mmFMJ: 28 # 7.282x39mm
@@ -70,7 +70,7 @@
 - type: vendingMachineInventory
   id: WeaponryWorksVendPOIInventory
   startingInventory:
-  # Weapons
+    # Weapons
     NFWeaponEnergyPistolLaser: 4294967295
     NFWeaponRevolverArgenti: 4294967295
     NFWeaponRevolverFitz: 4294967295
@@ -85,7 +85,7 @@
     WeaponRevolverFaith: 4294967295
     WeaponShotgunBigJohnny: 4294967295
     WeaponRifleVulcanCFCM: 4294967295
-# Magazines
+    # Magazines
     Magazine9x19mmPistolFMJ: 4294967295 # 9x19mm Pistol
     Magazine45_ACPPistolFMJ: 4294967295 # .45 ACP Pistol
     Magazine9x19mmSubMachineGunFMJ: 4294967295 # 9x19mm C20r
@@ -100,7 +100,7 @@
     SpeedLoader762x39mmFMJ: 4294967295 # 762x39mm Gestio/AKM
     SpeedLoader762x54mmRFMJ: 4294967295 # 762x54mmR SVS
     SpeedLoader45_magnumFMJ: 4294967295 # .45 magnum revolvers
-# Ammo
+    # Ammo
     AmmoBox556x45mmFMJ: 4294967295 # 556x45mm
     AmmoBox556x45mmBigFMJ: 4294967295 # 556x45mm
     AmmoBox762x39mmFMJ: 4294967295 # 762x39mm
@@ -126,20 +126,20 @@
 - type: vendingMachineInventory # Mono - this entire thing is mono
   id: WeaponryWorksVendPOIMercInventory
   startingInventory:
-# SMGs
+    # SMGs
     #WeaponSubMachineGunC20rPMC: 4294967295
     WeaponSubMachineGunWt550PMC: 4294967295
     WeaponRifleLecterPMC: 4294967295
     WeaponSubMachineGunDrozdPMC: 4294967295
-# Shotguns
+    # Shotguns
     WeaponShotgunEnforcerPMC: 4294967295
     WeaponShotgunKammererPMC: 4294967295
-# Energy
+    # Energy
     WeaponLaserCannonPMC: 4294967295
     WeaponEnergyGunPMC: 4294967295
     WeaponLaserCarbinePMC: 4294967295
     WeaponDisablerSMGPMC: 4294967295
-# Sidearms
+    # Sidearms
     WeaponShotgunSawn: 4294967295
     WeaponPistolViperPMC: 4294967295
     WeaponPistolMk32: 4294967295
@@ -147,7 +147,7 @@
     KukriKnife: 4294967295
     CombatKnife: 4294967295
     SurvivalKnifePMC: 4294967295
-# Magazines
+    # Magazines
     Magazine9x19mmPistolFMJ: 4294967295 # 9x19mm Pistol
     Magazine45_ACPPistolFMJ: 4294967295 # .45 ACP Pistol
     Magazine9x19mmSubMachineGunFMJ: 4294967295 # 9x19mm C20r
@@ -160,7 +160,7 @@
     SpeedLoader762x39mmFMJ: 4294967295 # 762x39mm Gestio/AKM
     SpeedLoader762x54mmRFMJ: 4294967295 # 762x54mmR SVS
     SpeedLoader45_magnumFMJ: 4294967295 # .45 magnum revolvers
-# Ammo
+    # Ammo
     AmmoBox556x45mmBigFMJ: 4294967295 # 556x45mm
     AmmoBox762x39mmBigFMJ: 4294967295 # 762x39mm
     AmmoBox9x19mmBigFMJ: 4294967295 # 9x19mm

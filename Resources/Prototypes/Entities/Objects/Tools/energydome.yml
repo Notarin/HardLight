@@ -13,7 +13,7 @@
   - type: Sprite
     sprite: Objects/Tools/EnergyDome/syndie.rsi
     layers:
-      - state: icon
+    - state: icon
   - type: ContainerContainer
     containers:
       cell_slot: !type:ContainerSlot
@@ -26,8 +26,8 @@
         startingItem: PowerCellHigh
         whitelist:
           tags:
-            - PowerCell
-            # - PowerCellHigh
+          - PowerCell
+          # - PowerCellHigh
   - type: EnergyDomeGenerator
     damageEnergyDraw: 7
     domePrototype: EnergyDomeSmallRed
@@ -61,8 +61,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.25,-0.25,0.25,0.25"
         density: 20
         mask:
@@ -86,8 +85,8 @@
         startingItem: PowerCellSmall
         whitelist:
           tags:
-            - PowerCell
-            # - PowerCellSmall
+          - PowerCell
+          # - PowerCellSmall
   - type: EnergyDomeGenerator
     damageEnergyDraw: 7
     domePrototype: EnergyDomeMediumBlue

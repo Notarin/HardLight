@@ -9,7 +9,8 @@ namespace Content.Client.Administration.Systems
     [UsedImplicitly]
     public sealed class BwoinkSystem : SharedBwoinkSystem
     {
-        [Dependency] private readonly IGameTiming _timing = default!;
+        [Dependency]
+        private readonly IGameTiming _timing = default!;
 
         public event EventHandler<BwoinkTextMessage>? OnBwoinkTextMessageRecieved;
         public event Action<AhelpAdminConfigState>? AhelpAdminConfigUpdated;
@@ -30,7 +31,8 @@ namespace Content.Client.Administration.Systems
         public event Action<SpawnAhelpItemResponseMessage>? PlayerAhelpItemSpawned;
 
         public AhelpAdminConfigState? CurrentAhelpAdminConfig { get; private set; }
-        public SharedAdminMacroState[] CurrentSharedAdminMacros { get; private set; } = Array.Empty<SharedAdminMacroState>();
+        public SharedAdminMacroState[] CurrentSharedAdminMacros { get; private set; } =
+            Array.Empty<SharedAdminMacroState>();
         private (TimeSpan Timestamp, bool Typing) _lastTypingUpdateSent;
 
         public override void Initialize()
@@ -65,7 +67,10 @@ namespace Content.Client.Administration.Systems
             AhelpAdminConfigUpdated?.Invoke(message.State);
         }
 
-        private void OnPlayerShipInspection(PlayerShipInspectionResponseMessage message, EntitySessionEventArgs eventArgs)
+        private void OnPlayerShipInspection(
+            PlayerShipInspectionResponseMessage message,
+            EntitySessionEventArgs eventArgs
+        )
         {
             PlayerShipInspectionReceived?.Invoke(message);
         }
@@ -95,7 +100,10 @@ namespace Content.Client.Administration.Systems
             PlayerShipUnstuck?.Invoke(message);
         }
 
-        private void OnPlayerShipUnstickPreview(UnstickPlayerShipPreviewResponseMessage message, EntitySessionEventArgs eventArgs)
+        private void OnPlayerShipUnstickPreview(
+            UnstickPlayerShipPreviewResponseMessage message,
+            EntitySessionEventArgs eventArgs
+        )
         {
             PlayerShipUnstickPreviewReceived?.Invoke(message);
         }
@@ -110,12 +118,18 @@ namespace Content.Client.Administration.Systems
             PlayerShipSavePreviewReceived?.Invoke(message);
         }
 
-        private void OnPlayerTeleportedToStation(TeleportPlayerToStationResponseMessage message, EntitySessionEventArgs eventArgs)
+        private void OnPlayerTeleportedToStation(
+            TeleportPlayerToStationResponseMessage message,
+            EntitySessionEventArgs eventArgs
+        )
         {
             PlayerTeleportedToStation?.Invoke(message);
         }
 
-        private void OnPlayerTeleportedToShip(TeleportPlayerToShipResponseMessage message, EntitySessionEventArgs eventArgs)
+        private void OnPlayerTeleportedToShip(
+            TeleportPlayerToShipResponseMessage message,
+            EntitySessionEventArgs eventArgs
+        )
         {
             PlayerTeleportedToShip?.Invoke(message);
         }
@@ -300,14 +314,18 @@ namespace Content.Client.Administration.Systems
         {
             // Reuse the channel ID as the 'true sender'.
             // Server will ignore this and if someone makes it not ignore this (which is bad, allows impersonation!!!), that will help.
-            RaiseNetworkEvent(new BwoinkTextMessage(channelId, channelId, text, playSound: playSound, adminOnly: adminOnly));
+            RaiseNetworkEvent(
+                new BwoinkTextMessage(channelId, channelId, text, playSound: playSound, adminOnly: adminOnly)
+            );
             SendInputTextUpdated(channelId, false);
         }
 
         public void SendInputTextUpdated(NetUserId channel, bool typing)
         {
-            if (_lastTypingUpdateSent.Typing == typing &&
-                _lastTypingUpdateSent.Timestamp + TimeSpan.FromSeconds(1) > _timing.RealTime)
+            if (
+                _lastTypingUpdateSent.Typing == typing
+                && _lastTypingUpdateSent.Timestamp + TimeSpan.FromSeconds(1) > _timing.RealTime
+            )
             {
                 return;
             }

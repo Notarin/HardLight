@@ -1,8 +1,8 @@
-﻿using Content.Shared.Database;
+﻿using Content.Shared._Shitmed.Body.Organ;
+using Content.Shared.Database;
 using Content.Shared.Humanoid;
 using Content.Shared.Mobs.Components;
 using Robust.Shared.Player;
-using Content.Shared._Shitmed.Body.Organ;
 
 namespace Content.Shared.Mobs.Systems;
 
@@ -19,8 +19,7 @@ public partial class MobStateSystem
     /// <returns>If the entity can be set to that MobState</returns>
     public bool HasState(EntityUid entity, MobState mobState, MobStateComponent? component = null)
     {
-        return _mobStateQuery.Resolve(entity, ref component, false) &&
-               component.AllowedStates.Contains(mobState);
+        return _mobStateQuery.Resolve(entity, ref component, false) && component.AllowedStates.Contains(mobState);
     }
 
     /// <summary>
@@ -34,7 +33,12 @@ public partial class MobStateSystem
         if (!_mobStateQuery.Resolve(entity, ref component))
             return;
 
-        var ev = new UpdateMobStateEvent {Target = entity, Component = component, Origin = origin};
+        var ev = new UpdateMobStateEvent
+        {
+            Target = entity,
+            Component = component,
+            Origin = origin,
+        };
         RaiseLocalEvent(entity, ref ev);
         ChangeState(entity, component, ev.State, origin: origin);
     }
@@ -47,8 +51,12 @@ public partial class MobStateSystem
     /// <param name="mobState">The new MobState we want to set</param>
     /// <param name="component">MobState Component attached to the entity</param>
     /// <param name="origin">Entity that caused the state update (if applicable)</param>
-    public void ChangeMobState(EntityUid entity, MobState mobState, MobStateComponent? component = null,
-        EntityUid? origin = null)
+    public void ChangeMobState(
+        EntityUid entity,
+        MobState mobState,
+        MobStateComponent? component = null,
+        EntityUid? origin = null
+    )
     {
         if (!_mobStateQuery.Resolve(entity, ref component))
             return;
@@ -78,10 +86,12 @@ public partial class MobStateSystem
     /// <param name="component">MobState Component owned by the target</param>
     /// <param name="oldState">The previous MobState</param>
     /// <param name="newState">The new MobState</param>
-    protected virtual void OnStateChanged(EntityUid entity, MobStateComponent component, MobState oldState,
-        MobState newState)
-    {
-    }
+    protected virtual void OnStateChanged(
+        EntityUid entity,
+        MobStateComponent component,
+        MobState oldState,
+        MobState newState
+    ) { }
 
     /// <summary>
     /// Called when a new MobState is exited.
@@ -117,9 +127,17 @@ public partial class MobStateSystem
         OnStateChanged(target, component, oldState, newState);
         RaiseLocalEvent(target, ev, true);
         if (origin != null && HasComp<ActorComponent>(origin) && HasComp<ActorComponent>(target) && oldState < newState)
-            _adminLogger.Add(LogType.Damaged, LogImpact.High, $"{ToPrettyString(origin):player} caused {ToPrettyString(target):player} state to change from {oldState} to {newState}");
+            _adminLogger.Add(
+                LogType.Damaged,
+                LogImpact.High,
+                $"{ToPrettyString(origin):player} caused {ToPrettyString(target):player} state to change from {oldState} to {newState}"
+            );
         else
-            _adminLogger.Add(LogType.Damaged, oldState == MobState.Alive ? LogImpact.Low : LogImpact.Medium, $"{ToPrettyString(target):user} state changed from {oldState} to {newState}");
+            _adminLogger.Add(
+                LogType.Damaged,
+                oldState == MobState.Alive ? LogImpact.Low : LogImpact.Medium,
+                $"{ToPrettyString(target):user} state changed from {oldState} to {newState}"
+            );
         Dirty(target, component);
     }
 
@@ -134,5 +152,9 @@ public partial class MobStateSystem
 /// <param name="State">The new MobState we want to set</param>
 /// <param name="Origin">Entity that caused the state update (if applicable)</param>
 [ByRefEvent]
-public record struct UpdateMobStateEvent(EntityUid Target, MobStateComponent Component, MobState State,
-    EntityUid? Origin = null);
+public record struct UpdateMobStateEvent(
+    EntityUid Target,
+    MobStateComponent Component,
+    MobState State,
+    EntityUid? Origin = null
+);

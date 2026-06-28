@@ -7,7 +7,6 @@ namespace Content.Server.Anomaly.Components;
 /// This component allows the anomaly to inject liquid from the SolutionContainer
 /// into the surrounding entities with the InjectionSolution component
 /// </summary>
-
 [RegisterComponent, Access(typeof(InjectionAnomalySystem))]
 public sealed partial class InjectionAnomalyComponent : Component
 {
@@ -17,6 +16,7 @@ public sealed partial class InjectionAnomalyComponent : Component
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite)]
     public float MaxSolutionInjection = 15;
+
     /// <summary>
     /// the maximum amount of injection of a substance into an entity in the supercritical phase
     /// </summary>
@@ -28,6 +28,7 @@ public sealed partial class InjectionAnomalyComponent : Component
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite)]
     public float InjectRadius = 3;
+
     /// <summary>
     /// The maximum radius in which the anomaly injects reagents into the surrounding containers.
     /// </summary>
@@ -39,6 +40,7 @@ public sealed partial class InjectionAnomalyComponent : Component
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadOnly)]
     public EntProtoId VisualEffectPrototype = "PuddleSparkle";
+
     /// <summary>
     /// Solution name that can be drained.
     /// </summary>

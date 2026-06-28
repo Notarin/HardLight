@@ -24,11 +24,13 @@ namespace Content.Shared.Input
         public static readonly BoundKeyFunction CycleChatChannelForward = "CycleChatChannelForward";
         public static readonly BoundKeyFunction CycleChatChannelBackward = "CycleChatChannelBackward";
         public static readonly BoundKeyFunction EscapeContext = "EscapeContext";
+
         // DeltaV - Begin NanoChat keybinds
         public static readonly BoundKeyFunction NanoChatNavigateUp = "NanoChatNavigateUp";
         public static readonly BoundKeyFunction NanoChatNavigateDown = "NanoChatNavigateDown";
         public static readonly BoundKeyFunction NanoChatNavigateUpUnread = "NanoChatNavigateUpUnread";
         public static readonly BoundKeyFunction NanoChatNavigateDownUnread = "NanoChatNavigateDownUnread";
+
         // DeltaV - End NanoChat keybinds
         public static readonly BoundKeyFunction OpenCharacterMenu = "OpenCharacterMenu";
         public static readonly BoundKeyFunction OpenEmotesMenu = "OpenEmotesMenu";
@@ -87,6 +89,7 @@ namespace Content.Shared.Input
         public static readonly BoundKeyFunction TargetLeftFoot = "TargetLeftFoot";
         public static readonly BoundKeyFunction TargetRightLeg = "TargetRightLeg";
         public static readonly BoundKeyFunction TargetRightFoot = "TargetRightFoot";
+
         // Shitmed Change End
 
         public static readonly BoundKeyFunction ArcadeUp = "ArcadeUp";
@@ -131,8 +134,26 @@ namespace Content.Shared.Input
         public static BoundKeyFunction[] GetHotbarBoundKeys() =>
             new[]
             {
-                Hotbar1, Hotbar2, Hotbar3, Hotbar4, Hotbar5, Hotbar6, Hotbar7, Hotbar8, Hotbar9, Hotbar0,
-                HotbarShift1, HotbarShift2, HotbarShift3, HotbarShift4, HotbarShift5, HotbarShift6, HotbarShift7, HotbarShift8, HotbarShift9, HotbarShift0
+                Hotbar1,
+                Hotbar2,
+                Hotbar3,
+                Hotbar4,
+                Hotbar5,
+                Hotbar6,
+                Hotbar7,
+                Hotbar8,
+                Hotbar9,
+                Hotbar0,
+                HotbarShift1,
+                HotbarShift2,
+                HotbarShift3,
+                HotbarShift4,
+                HotbarShift5,
+                HotbarShift6,
+                HotbarShift7,
+                HotbarShift8,
+                HotbarShift9,
+                HotbarShift0,
             };
 
         public static readonly BoundKeyFunction Vote0 = "Vote0";

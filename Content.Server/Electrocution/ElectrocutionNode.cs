@@ -11,14 +11,17 @@ namespace Content.Server.Electrocution
     {
         [DataField("cable")]
         public EntityUid? CableEntity;
+
         [DataField("node")]
         public string? NodeName;
 
-        public override IEnumerable<Node> GetReachableNodes(TransformComponent xform,
+        public override IEnumerable<Node> GetReachableNodes(
+            TransformComponent xform,
             EntityQuery<NodeContainerComponent> nodeQuery,
             EntityQuery<TransformComponent> xformQuery,
             MapGridComponent? grid,
-            IEntityManager entMan)
+            IEntityManager entMan
+        )
         {
             if (CableEntity == null || NodeName == null)
                 yield break;

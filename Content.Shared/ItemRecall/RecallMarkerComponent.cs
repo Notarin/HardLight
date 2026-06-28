@@ -3,7 +3,6 @@ using Robust.Shared.Utility;
 
 namespace Content.Shared.ItemRecall;
 
-
 /// <summary>
 /// Component used as a marker for an item marked by the ItemRecall ability.
 /// </summary>

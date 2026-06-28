@@ -67,7 +67,7 @@ public sealed partial class EnergyDomeGeneratorComponent : Component
     [DataField]
     public SoundSpecifier ParrySound = new SoundPathSpecifier("/Audio/Machines/energyshield_parry.ogg")
     {
-        Params = AudioParams.Default.WithVariation(0.05f)
+        Params = AudioParams.Default.WithVariation(0.05f),
     };
 
     //Ports

@@ -9,7 +9,8 @@ namespace Content.Server.Objectives.Systems;
 /// </summary>
 public sealed class MultipleTraitorsRequirementSystem : EntitySystem
 {
-    [Dependency] private readonly TraitorRuleSystem _traitorRule = default!;
+    [Dependency]
+    private readonly TraitorRuleSystem _traitorRule = default!;
 
     public override void Initialize()
     {

@@ -20,7 +20,8 @@ namespace Content.Client.SprayPainter;
 /// </summary>
 public sealed class SprayPainterSystem : SharedSprayPainterSystem
 {
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
+    [Dependency]
+    private readonly UserInterfaceSystem _ui = default!;
 
     public List<SprayPainterDecalEntry> Decals = [];
     public Dictionary<string, List<string>> PaintableGroupsByCategory = new();
@@ -50,7 +51,11 @@ public sealed class SprayPainterSystem : SharedSprayPainterSystem
 
     private void OnPrototypesReloaded(PrototypesReloadedEventArgs args)
     {
-        if (!args.WasModified<PaintableGroupCategoryPrototype>() || !args.WasModified<PaintableGroupPrototype>() || !args.WasModified<DecalPrototype>())
+        if (
+            !args.WasModified<PaintableGroupCategoryPrototype>()
+            || !args.WasModified<PaintableGroupPrototype>()
+            || !args.WasModified<DecalPrototype>()
+        )
             return;
 
         CachePrototypes();
@@ -79,9 +84,10 @@ public sealed class SprayPainterSystem : SharedSprayPainterSystem
         Decals.Clear();
         foreach (var decalPrototype in Proto.EnumeratePrototypes<DecalPrototype>().OrderBy(x => x.ID))
         {
-            if (!decalPrototype.Tags.Contains("station")
-                && !decalPrototype.Tags.Contains("markings")
-                || decalPrototype.Tags.Contains("dirty"))
+            if (
+                !decalPrototype.Tags.Contains("station") && !decalPrototype.Tags.Contains("markings")
+                || decalPrototype.Tags.Contains("dirty")
+            )
                 continue;
 
             Decals.Add(new SprayPainterDecalEntry(decalPrototype.ID, decalPrototype.Sprite));
@@ -114,11 +120,15 @@ public sealed class SprayPainterSystem : SharedSprayPainterSystem
             {
                 DecalPaintMode.Add => "spray-painter-item-status-add",
                 DecalPaintMode.Remove => "spray-painter-item-status-remove",
-                _ => "spray-painter-item-status-off"
+                _ => "spray-painter-item-status-off",
             };
 
-            _label.SetMarkupPermissive(Robust.Shared.Localization.Loc.GetString("spray-painter-item-status-label",
-                ("mode", Robust.Shared.Localization.Loc.GetString(modeLocString))));
+            _label.SetMarkupPermissive(
+                Robust.Shared.Localization.Loc.GetString(
+                    "spray-painter-item-status-label",
+                    ("mode", Robust.Shared.Localization.Loc.GetString(modeLocString))
+                )
+            );
         }
     }
 }

@@ -6,7 +6,4 @@ namespace Content.Shared.Light.Components;
 /// Toggles point light on an entity whenever ItemToggle hits.
 /// </summary>
 [RegisterComponent, NetworkedComponent]
-public sealed partial class ItemTogglePointLightComponent : Component
-{
-
-}
+public sealed partial class ItemTogglePointLightComponent : Component { }

@@ -6,6 +6,4 @@ namespace Content.Shared.Explosion.Components.OnTrigger;
 /// Explode using the entity's <see cref="ExplosiveComponent"/> if Triggered.
 /// </summary>
 [RegisterComponent, NetworkedComponent]
-public sealed partial class ExplodeOnTriggerComponent : Component
-{
-}
+public sealed partial class ExplodeOnTriggerComponent : Component { }

@@ -9,8 +9,8 @@ using Content.Shared.Stunnable;
 using Content.Shared.Timing;
 using Content.Shared.Whitelist;
 using Robust.Shared.Audio.Systems;
-using Robust.Shared.Timing;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Timing;
 
 namespace Content.Server.Ninja.Systems;
 
@@ -19,14 +19,29 @@ namespace Content.Server.Ninja.Systems;
 /// </summary>
 public sealed class StunProviderSystem : SharedStunProviderSystem
 {
-    [Dependency] private readonly BatterySystem _battery = default!;
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedNinjaGlovesSystem _gloves = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedStunSystem _stun = default!;
-    [Dependency] private readonly UseDelaySystem _useDelay = default!;
+    [Dependency]
+    private readonly BatterySystem _battery = default!;
+
+    [Dependency]
+    private readonly DamageableSystem _damageable = default!;
+
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelist = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedNinjaGlovesSystem _gloves = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly SharedStunSystem _stun = default!;
+
+    [Dependency]
+    private readonly UseDelaySystem _useDelay = default!;
 
     public override void Initialize()
     {

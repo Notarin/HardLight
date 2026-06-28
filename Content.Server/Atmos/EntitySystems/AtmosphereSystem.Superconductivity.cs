@@ -10,9 +10,9 @@ namespace Content.Server.Atmos.EntitySystems
         {
             var directions = ConductivityDirections(gridAtmosphere, tile);
 
-            for(var i = 0; i < Atmospherics.Directions; i++)
+            for (var i = 0; i < Atmospherics.Directions; i++)
             {
-                var direction = (AtmosDirection) (1 << i);
+                var direction = (AtmosDirection)(1 << i);
                 if (!directions.IsFlagSet(direction))
                     continue;
 
@@ -22,7 +22,7 @@ namespace Content.Server.Atmos.EntitySystems
                 if (adjacent == null || adjacent.ThermalConductivity == 0f)
                     continue;
 
-                if(adjacent.ArchivedCycle < gridAtmosphere.UpdateCounter)
+                if (adjacent.ArchivedCycle < gridAtmosphere.UpdateCounter)
                     Archive(adjacent, gridAtmosphere.UpdateCounter);
 
                 NeighborConductWithSource(gridAtmosphere, adjacent, tile);
@@ -36,9 +36,9 @@ namespace Content.Server.Atmos.EntitySystems
 
         private AtmosDirection ConductivityDirections(GridAtmosphereComponent gridAtmosphere, TileAtmosphere tile)
         {
-            if(tile.Air == null)
+            if (tile.Air == null)
             {
-                if(tile.ArchivedCycle < gridAtmosphere.UpdateCounter)
+                if (tile.ArchivedCycle < gridAtmosphere.UpdateCounter)
                     Archive(tile, gridAtmosphere.UpdateCounter);
                 return AtmosDirection.All;
             }
@@ -56,18 +56,28 @@ namespace Content.Server.Atmos.EntitySystems
             return true;
         }
 
-        public bool ConsiderSuperconductivity(GridAtmosphereComponent gridAtmosphere, TileAtmosphere tile, bool starting)
+        public bool ConsiderSuperconductivity(
+            GridAtmosphereComponent gridAtmosphere,
+            TileAtmosphere tile,
+            bool starting
+        )
         {
             if (!Superconduction)
                 return false;
 
-            if (tile.Air == null || tile.Air.Temperature < (starting
-                    ? Atmospherics.MinimumTemperatureStartSuperConduction
-                    : Atmospherics.MinimumTemperatureForSuperconduction))
+            if (
+                tile.Air == null
+                || tile.Air.Temperature
+                    < (
+                        starting
+                            ? Atmospherics.MinimumTemperatureStartSuperConduction
+                            : Atmospherics.MinimumTemperatureForSuperconduction
+                    )
+            )
                 return false;
 
             return !(GetHeatCapacity(tile.Air) < Atmospherics.MCellWithRatio)
-                   && ConsiderSuperconductivity(gridAtmosphere, tile);
+                && ConsiderSuperconductivity(gridAtmosphere, tile);
         }
 
         public void FinishSuperconduction(GridAtmosphereComponent gridAtmosphere, TileAtmosphere tile)
@@ -75,13 +85,22 @@ namespace Content.Server.Atmos.EntitySystems
             // Conduct with air on my tile if I have it
             if (tile.Air != null)
             {
-                tile.Temperature = TemperatureShare(tile, tile.ThermalConductivity, tile.Temperature, tile.HeatCapacity);
+                tile.Temperature = TemperatureShare(
+                    tile,
+                    tile.ThermalConductivity,
+                    tile.Temperature,
+                    tile.HeatCapacity
+                );
             }
 
             FinishSuperconduction(gridAtmosphere, tile, tile.Air?.Temperature ?? tile.Temperature);
         }
 
-        public void FinishSuperconduction(GridAtmosphereComponent gridAtmosphere, TileAtmosphere tile, float temperature)
+        public void FinishSuperconduction(
+            GridAtmosphereComponent gridAtmosphere,
+            TileAtmosphere tile,
+            float temperature
+        )
         {
             // Make sure it's still hot enough to continue conducting.
             if (temperature < Atmospherics.MinimumTemperatureForSuperconduction)
@@ -90,13 +109,19 @@ namespace Content.Server.Atmos.EntitySystems
             }
         }
 
-        public void NeighborConductWithSource(GridAtmosphereComponent gridAtmosphere, TileAtmosphere tile, TileAtmosphere other)
+        public void NeighborConductWithSource(
+            GridAtmosphereComponent gridAtmosphere,
+            TileAtmosphere tile,
+            TileAtmosphere other
+        )
         {
             if (tile.Air == null)
             {
                 // TODO ATMOS: why does this need to check if a tile exists if it doesn't use the tile?
-                if (TryComp<MapGridComponent>(other.GridIndex, out var grid)
-                    && _mapSystem.TryGetTileRef(other.GridIndex, grid, other.GridIndices, out var _))
+                if (
+                    TryComp<MapGridComponent>(other.GridIndex, out var grid)
+                    && _mapSystem.TryGetTileRef(other.GridIndex, grid, other.GridIndices, out var _)
+                )
                 {
                     TemperatureShareOpenToSolid(other, tile);
                 }
@@ -126,7 +151,12 @@ namespace Content.Server.Atmos.EntitySystems
             if (tile.Air == null)
                 return;
 
-            other.Temperature = TemperatureShare(tile, other.ThermalConductivity, other.Temperature, other.HeatCapacity);
+            other.Temperature = TemperatureShare(
+                tile,
+                other.ThermalConductivity,
+                other.Temperature,
+                other.HeatCapacity
+            );
         }
 
         private void TemperatureShareMutualSolid(TileAtmosphere tile, TileAtmosphere other, float conductionCoefficient)
@@ -135,11 +165,16 @@ namespace Content.Server.Atmos.EntitySystems
                 return;
 
             var deltaTemperature = (tile.AirArchived.Temperature - other.AirArchived.Temperature);
-            if (MathF.Abs(deltaTemperature) > Atmospherics.MinimumTemperatureDeltaToConsider
-                && tile.HeatCapacity != 0f && other.HeatCapacity != 0f)
+            if (
+                MathF.Abs(deltaTemperature) > Atmospherics.MinimumTemperatureDeltaToConsider
+                && tile.HeatCapacity != 0f
+                && other.HeatCapacity != 0f
+            )
             {
-                var heat = conductionCoefficient * deltaTemperature *
-                           (tile.HeatCapacity * other.HeatCapacity / (tile.HeatCapacity + other.HeatCapacity));
+                var heat =
+                    conductionCoefficient
+                    * deltaTemperature
+                    * (tile.HeatCapacity * other.HeatCapacity / (tile.HeatCapacity + other.HeatCapacity));
 
                 tile.Temperature -= heat / tile.HeatCapacity;
                 other.Temperature += heat / other.HeatCapacity;
@@ -156,10 +191,19 @@ namespace Content.Server.Atmos.EntitySystems
             {
                 // Hardcoded space temperature.
                 var deltaTemperature = (tile.AirArchived.Temperature - Atmospherics.TCMB);
-                if ((tile.HeatCapacity > 0) && (MathF.Abs(deltaTemperature) > Atmospherics.MinimumTemperatureDeltaToConsider))
+                if (
+                    (tile.HeatCapacity > 0)
+                    && (MathF.Abs(deltaTemperature) > Atmospherics.MinimumTemperatureDeltaToConsider)
+                )
                 {
-                    var heat = tile.ThermalConductivity * deltaTemperature * (tile.HeatCapacity *
-                        Atmospherics.HeatCapacityVacuum / (tile.HeatCapacity + Atmospherics.HeatCapacityVacuum));
+                    var heat =
+                        tile.ThermalConductivity
+                        * deltaTemperature
+                        * (
+                            tile.HeatCapacity
+                            * Atmospherics.HeatCapacityVacuum
+                            / (tile.HeatCapacity + Atmospherics.HeatCapacityVacuum)
+                        );
 
                     tile.Temperature -= heat;
                 }

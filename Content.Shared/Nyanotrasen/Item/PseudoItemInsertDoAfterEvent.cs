@@ -1,11 +1,7 @@
-using Robust.Shared.Serialization;
 using Content.Shared.DoAfter;
+using Robust.Shared.Serialization;
 
 namespace Content.Shared.Item.PseudoItem;
 
-
 [Serializable, NetSerializable]
-public sealed partial class PseudoItemInsertDoAfterEvent : SimpleDoAfterEvent
-{
-}
-
+public sealed partial class PseudoItemInsertDoAfterEvent : SimpleDoAfterEvent { }

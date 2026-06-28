@@ -4,7 +4,5 @@ namespace Content.Client.Nyanotrasen.Kitchen.Components
 {
     [RegisterComponent]
     //Unnecessary item: [ComponentReference(typeof(SharedDeepFriedComponent))]
-    public sealed partial class DeepFriedComponent : SharedDeepFriedComponent
-    {
-    }
+    public sealed partial class DeepFriedComponent : SharedDeepFriedComponent { }
 }

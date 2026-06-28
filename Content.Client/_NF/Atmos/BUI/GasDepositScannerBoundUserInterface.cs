@@ -8,9 +8,8 @@ public sealed class GasDepositScannerBoundUserInterface : BoundUserInterface
     [ViewVariables]
     private GasDepositScannerWindow? _window;
 
-    public GasDepositScannerBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-    }
+    public GasDepositScannerBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {

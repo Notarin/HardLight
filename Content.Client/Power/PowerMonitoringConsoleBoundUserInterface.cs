@@ -8,7 +8,8 @@ public sealed class PowerMonitoringConsoleBoundUserInterface : BoundUserInterfac
     [ViewVariables]
     private PowerMonitoringWindow? _menu;
 
-    public PowerMonitoringConsoleBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey) { }
+    public PowerMonitoringConsoleBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {
@@ -23,17 +24,18 @@ public sealed class PowerMonitoringConsoleBoundUserInterface : BoundUserInterfac
     {
         base.UpdateState(state);
 
-        var castState = (PowerMonitoringConsoleBoundInterfaceState) state;
+        var castState = (PowerMonitoringConsoleBoundInterfaceState)state;
 
         EntMan.TryGetComponent<TransformComponent>(Owner, out var xform);
-        _menu?.ShowEntites
-            (castState.TotalSources,
+        _menu?.ShowEntites(
+            castState.TotalSources,
             castState.TotalBatteryUsage,
             castState.TotalLoads,
             castState.AllEntries,
             castState.FocusSources,
             castState.FocusLoads,
-            xform?.Coordinates);
+            xform?.Coordinates
+        );
     }
 
     public void SendPowerMonitoringConsoleMessage(NetEntity? netEntity, PowerMonitoringConsoleGroup group)

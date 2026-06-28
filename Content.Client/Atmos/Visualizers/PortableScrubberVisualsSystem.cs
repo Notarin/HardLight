@@ -1,6 +1,6 @@
-using Robust.Client.GameObjects;
-using Content.Shared.Atmos.Visuals;
 using Content.Client.Power;
+using Content.Shared.Atmos.Visuals;
+using Robust.Client.GameObjects;
 
 namespace Content.Client.Atmos.Visualizers;
 
@@ -9,15 +9,27 @@ namespace Content.Client.Atmos.Visualizers;
 /// </summary>
 public sealed class PortableScrubberSystem : VisualizerSystem<PortableScrubberVisualsComponent>
 {
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
-    protected override void OnAppearanceChange(EntityUid uid, PortableScrubberVisualsComponent component, ref AppearanceChangeEvent args)
+    protected override void OnAppearanceChange(
+        EntityUid uid,
+        PortableScrubberVisualsComponent component,
+        ref AppearanceChangeEvent args
+    )
     {
         if (args.Sprite == null)
             return;
 
-        if (AppearanceSystem.TryGetData<bool>(uid, PortableScrubberVisuals.IsFull, out var isFull, args.Component)
-            && AppearanceSystem.TryGetData<bool>(uid, PortableScrubberVisuals.IsRunning, out var isRunning, args.Component))
+        if (
+            AppearanceSystem.TryGetData<bool>(uid, PortableScrubberVisuals.IsFull, out var isFull, args.Component)
+            && AppearanceSystem.TryGetData<bool>(
+                uid,
+                PortableScrubberVisuals.IsRunning,
+                out var isRunning,
+                args.Component
+            )
+        )
         {
             var runningState = isRunning ? component.RunningState : component.IdleState;
             _sprite.LayerSetRsiState((uid, args.Sprite), PortableScrubberVisualLayers.IsRunning, runningState);
@@ -26,7 +38,14 @@ public sealed class PortableScrubberSystem : VisualizerSystem<PortableScrubberVi
             _sprite.LayerSetRsiState((uid, args.Sprite), PowerDeviceVisualLayers.Powered, fullState);
         }
 
-        if (AppearanceSystem.TryGetData<bool>(uid, PortableScrubberVisuals.IsDraining, out var isDraining, args.Component))
+        if (
+            AppearanceSystem.TryGetData<bool>(
+                uid,
+                PortableScrubberVisuals.IsDraining,
+                out var isDraining,
+                args.Component
+            )
+        )
         {
             _sprite.LayerSetVisible((uid, args.Sprite), PortableScrubberVisualLayers.IsDraining, isDraining);
         }
@@ -37,5 +56,5 @@ public enum PortableScrubberVisualLayers : byte
 {
     IsRunning,
 
-    IsDraining
+    IsDraining,
 }

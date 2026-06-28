@@ -3,7 +3,7 @@
   - SimpleSpaceMobBase
   - FlyingMobBase
   id: MobDragonPet
-  name: Space Drake 
+  name: Space Drake
   description: Smaller species of Space dragon.
   components:
   - type: Body
@@ -37,17 +37,17 @@
     baseDecayRate: 0.04
   - type: StatusEffects
     allowed:
-      - Stun
-      - KnockedDown
-      - SlowedDown
-      - Stutter
-      - Electrocution
-      - ForcedSleep
-      - TemporaryBlindness
-      - Pacified
-      - StaminaModifier
-      - Drowsiness
-      - Adrenaline
+    - Stun
+    - KnockedDown
+    - SlowedDown
+    - Stutter
+    - Electrocution
+    - ForcedSleep
+    - TemporaryBlindness
+    - Pacified
+    - StaminaModifier
+    - Drowsiness
+    - Adrenaline
   - type: Bloodstream
     bloodMaxVolume: 650
   - type: FloatingVisuals
@@ -75,9 +75,9 @@
     sprite: _NF/Mobs/Pets/baby_dragon.rsi
     noRot: true
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: alive
-    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+    - map: ["enum.DamageStateVisualLayers.BaseUnshaded"]
       state: alive-unshaded
       shader: unshaded
   - type: Appearance
@@ -96,8 +96,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.40
         density: 100
         mask:
@@ -117,7 +116,7 @@
       300: Dead
   - type: Metabolizer
     solutionOnBody: false
-    metabolizerTypes: [ Dragon ]
+    metabolizerTypes: [Dragon]
     groups:
     - id: Medicine
     - id: Cryogenic
@@ -156,7 +155,7 @@
     gunProto: BabyDragonsSparkGun
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: BabyDragonsSparkGun
   name: baby dragon's spark
   description: For dragon's breathing

@@ -34,6 +34,7 @@ public sealed partial class ChameleonProjectorComponent : Component
     /// </summary>
     [DataField]
     public EntProtoId NoRotAction = "ActionDisguiseNoRot";
+
     [DataField]
     public EntityUid? NoRotActionEntity;
 
@@ -42,6 +43,7 @@ public sealed partial class ChameleonProjectorComponent : Component
     /// </summary>
     [DataField]
     public EntProtoId AnchorAction = "ActionDisguiseAnchor";
+
     [DataField]
     public EntityUid? AnchorActionEntity;
 

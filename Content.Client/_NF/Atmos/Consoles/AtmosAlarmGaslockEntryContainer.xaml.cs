@@ -103,16 +103,20 @@ public sealed partial class AtmosAlarmGaslockEntryContainer : BoxContainer
         Coordinates = _entManager.GetCoordinates(entry.Coordinates);
 
         // Load fonts
-        var normalFont =
-            new VectorFont(_cache.GetResource<FontResource>("/Fonts/NotoSansDisplay/NotoSansDisplay-Regular.ttf"), 11);
+        var normalFont = new VectorFont(
+            _cache.GetResource<FontResource>("/Fonts/NotoSansDisplay/NotoSansDisplay-Regular.ttf"),
+            11
+        );
 
         AlarmStateLabel.Text = Loc.GetString("atmos-alerts-window-normal-state");
         AlarmStateLabel.FontColorOverride = StyleNano.GoodGreenFore;
 
         // Update alarm name
-        AlarmNameLabel.Text = Loc.GetString("atmos-alerts-window-alarm-label",
+        AlarmNameLabel.Text = Loc.GetString(
+            "atmos-alerts-window-alarm-label",
             ("name", entry.EntityName),
-            ("address", entry.Address));
+            ("address", entry.Address)
+        );
 
         // Focus updates
         FocusContainer.Visible = isFocus;
@@ -140,19 +144,23 @@ public sealed partial class AtmosAlarmGaslockEntryContainer : BoxContainer
         if (focusData == null)
             return;
 
-        DirectionLabel.Text = Loc.GetString(focusData.Value.PumpingInwards
-            ? "atmos-alerts-window-direction-inwards"
-            : "atmos-alerts-window-direction-outwards");
+        DirectionLabel.Text = Loc.GetString(
+            focusData.Value.PumpingInwards
+                ? "atmos-alerts-window-direction-inwards"
+                : "atmos-alerts-window-direction-outwards"
+        );
 
         // Update pressure (if user is not editing text)
         if (!PressureInput.HasKeyboardFocus())
             PressureInput.Text = focusData.Value.Pressure.ToString(CultureInfo.InvariantCulture);
-        EnabledLabel.Text = Loc.GetString(focusData.Value.Enabled
-            ? "atmos-alerts-window-enabled-on"
-            : "atmos-alerts-window-enabled-off");
-        DockedLabel.Text = Loc.GetString(focusData.Value.DockedEntity == NetEntity.Invalid
-            ? "atmos-alerts-window-docked-off"
-            : "atmos-alerts-window-docked-on");
+        EnabledLabel.Text = Loc.GetString(
+            focusData.Value.Enabled ? "atmos-alerts-window-enabled-on" : "atmos-alerts-window-enabled-off"
+        );
+        DockedLabel.Text = Loc.GetString(
+            focusData.Value.DockedEntity == NetEntity.Invalid
+                ? "atmos-alerts-window-docked-off"
+                : "atmos-alerts-window-docked-on"
+        );
         DockedLabel.Disabled = focusData.Value.DockedEntity == NetEntity.Invalid;
 
         // Update other present gases
@@ -177,7 +185,6 @@ public sealed partial class AtmosAlarmGaslockEntryContainer : BoxContainer
 
             GasGridContainer.AddChild(gasLabel);
         }
-
         else
         {
             // Add an entry for each gas
@@ -189,9 +196,11 @@ public sealed partial class AtmosAlarmGaslockEntryContainer : BoxContainer
 
                 var gasLabel = new Label
                 {
-                    Text = Loc.GetString("atmos-alerts-window-other-gases-value",
+                    Text = Loc.GetString(
+                        "atmos-alerts-window-other-gases-value",
                         ("shorthand", gasShorthand),
-                        ("value", gasPercent)),
+                        ("value", gasPercent)
+                    ),
                     FontOverride = normalFont,
                     FontColorOverride = StyleNano.GoodGreenFore,
                     HorizontalAlignment = HAlignment.Center,

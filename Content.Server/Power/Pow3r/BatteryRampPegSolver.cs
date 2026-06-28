@@ -1,9 +1,9 @@
 using System.Diagnostics.CodeAnalysis;
-using Robust.Shared.Utility;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 using Robust.Shared.Threading;
+using Robust.Shared.Utility;
 using static Content.Server.Power.Pow3r.PowerState;
 
 namespace Content.Server.Power.Pow3r
@@ -16,10 +16,7 @@ namespace Content.Server.Power.Pow3r
         public BatteryRampPegSolver(bool disableParallel = false)
         {
             _disableParallel = disableParallel;
-            _networkJob = new()
-            {
-                Solver = this,
-            };
+            _networkJob = new() { Solver = this };
         }
 
         private sealed class HeightComparer : Comparer<Network>
@@ -28,8 +25,10 @@ namespace Content.Server.Power.Pow3r
 
             public override int Compare(Network? x, Network? y)
             {
-                if (x!.Height == y!.Height) return 0;
-                if (x!.Height > y!.Height) return 1;
+                if (x!.Height == y!.Height)
+                    return 0;
+                if (x!.Height > y!.Height)
+                    return 1;
                 return -1;
             }
         }
@@ -178,14 +177,19 @@ namespace Content.Server.Power.Pow3r
                         continue;
 
                     var scaledSpace = battery.CurrentStorage / frameTime;
-                    var supplyCap = Math.Min(battery.MaxSupply,
-                        battery.SupplyRampPosition + battery.SupplyRampTolerance);
+                    var supplyCap = Math.Min(
+                        battery.MaxSupply,
+                        battery.SupplyRampPosition + battery.SupplyRampTolerance
+                    );
                     var supplyAndPassthrough = supplyCap + battery.CurrentReceiving * battery.Efficiency;
 
                     battery.AvailableSupply = Math.Min(scaledSpace, supplyAndPassthrough);
                     battery.LoadingNetworkDemand = unmet;
 
-                    battery.MaxEffectiveSupply = Math.Min(battery.CurrentStorage / frameTime, battery.MaxSupply + battery.CurrentReceiving * battery.Efficiency);
+                    battery.MaxEffectiveSupply = Math.Min(
+                        battery.CurrentStorage / frameTime,
+                        battery.MaxSupply + battery.CurrentReceiving * battery.Efficiency
+                    );
                     totalBatterySupply += battery.AvailableSupply;
                     totalMaxBatterySupply += battery.MaxEffectiveSupply;
                 }
@@ -223,7 +227,10 @@ namespace Content.Server.Power.Pow3r
                 battery.CurrentReceiving = battery.DesiredPower * supplyRatio;
                 battery.CurrentStorage += frameTime * battery.CurrentReceiving * battery.Efficiency;
 
-                DebugTools.Assert(battery.CurrentStorage <= battery.Capacity || MathHelper.CloseTo(battery.CurrentStorage, battery.Capacity, 1e-5));
+                DebugTools.Assert(
+                    battery.CurrentStorage <= battery.Capacity
+                        || MathHelper.CloseTo(battery.CurrentStorage, battery.Capacity, 1e-5)
+                );
                 battery.CurrentStorage = MathF.Min(battery.CurrentStorage, battery.Capacity);
             }
 
@@ -285,7 +292,9 @@ namespace Content.Server.Power.Pow3r
 #endif
                 battery.CurrentStorage = MathF.Max(0, battery.CurrentStorage);
 
-                battery.SupplyRampTarget = battery.MaxEffectiveSupply * relativeTargetBatteryOutput - battery.CurrentReceiving * battery.Efficiency;
+                battery.SupplyRampTarget =
+                    battery.MaxEffectiveSupply * relativeTargetBatteryOutput
+                    - battery.CurrentReceiving * battery.Efficiency;
 
                 // #Frontier - This is causing server crashes on debug builds, disabling it for now. Happens when big new group of demanding machines turn on causing a surge.
                 //DebugTools.Assert(battery.MaxEffectiveSupply * relativeTargetBatteryOutput <= battery.LoadingNetworkDemand
@@ -406,20 +415,21 @@ namespace Content.Server.Power.Pow3r
             // Most readable C# function def.
             [AssertionMethod]
             static void Check(
-                [AssertionCondition(AssertionConditionType.IS_TRUE)]
-                [DoesNotReturnIf(false)]
-                bool condition,
-                [InterpolatedStringHandlerArgument("condition")]
-                ref DebugTools.AssertInterpolatedStringHandler handler,
-                [CallerArgumentExpression(nameof(condition))]
-                string check = "")
+                [AssertionCondition(AssertionConditionType.IS_TRUE)] [DoesNotReturnIf(false)] bool condition,
+                [InterpolatedStringHandlerArgument("condition")] ref DebugTools.AssertInterpolatedStringHandler handler,
+                [CallerArgumentExpression(nameof(condition))] string check = ""
+            )
             {
                 if (!condition)
                     throw new DebugAssertException($"{handler.ToStringAndClear()}: failed check: {check}");
             }
         }
 
-        private static void RecursivelyEstimateNetworkDepth(PowerState state, Network network, List<List<Network>> groupedNetworks)
+        private static void RecursivelyEstimateNetworkDepth(
+            PowerState state,
+            Network network,
+            List<List<Network>> groupedNetworks
+        )
         {
             network.Height = -2;
             var height = -1;

@@ -6,8 +6,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: VendingMachineRestockAstroVend
-        amount: 2
+    - id: VendingMachineRestockAstroVend
+      amount: 2
 
 - type: entity
   id: CrateVendingMachineRestockAmmoFilled
@@ -17,8 +17,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: VendingMachineRestockAmmo
-        amount: 2
+    - id: VendingMachineRestockAmmo
+      amount: 2
 
 - type: entity
   id: CrateVendingMachineRestockCuddlyCritterVendFilled
@@ -28,8 +28,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: VendingMachineRestockCuddlyCritterVend
-        amount: 2
+    - id: VendingMachineRestockCuddlyCritterVend
+      amount: 2
 
 - type: entity
   id: CrateVendingMachineRestockLessLethalVendFilled
@@ -39,8 +39,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: VendingMachineRestockLessLethalVend
-        amount: 2
+    - id: VendingMachineRestockLessLethalVend
+      amount: 2
 
 - type: entity
   id: CrateVendingMachineRestockNonLethalVendFilled
@@ -50,8 +50,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: VendingMachineRestockNonLethalVend
-        amount: 2
+    - id: VendingMachineRestockNonLethalVend
+      amount: 2
 
 - type: entity
   id: CrateVendingMachineRestockAutoTuneVendFilled
@@ -61,8 +61,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: VendingMachineRestockAutoTuneVend
-        amount: 2
+    - id: VendingMachineRestockAutoTuneVend
+      amount: 2
 
 - type: entity
   id: CrateVendingMachineRestockPottedPlantVendFilled
@@ -72,5 +72,5 @@
   components:
   - type: StorageFill
     contents:
-      - id: VendingMachineRestockPottedPlantVend
-        amount: 2
+    - id: VendingMachineRestockPottedPlantVend
+      amount: 2

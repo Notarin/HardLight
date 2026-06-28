@@ -13,9 +13,27 @@ public sealed partial class BiomeSystem
 {
     private void InitializeCommands()
     {
-        _console.RegisterCommand("biome_clear", Loc.GetString("cmd-biome_clear-desc"), Loc.GetString("cmd-biome_clear-help"), BiomeClearCallback, BiomeClearCallbackHelper);
-        _console.RegisterCommand("biome_addlayer", Loc.GetString("cmd-biome_addlayer-desc"), Loc.GetString("cmd-biome_addlayer-help"), AddLayerCallback, AddLayerCallbackHelp);
-        _console.RegisterCommand("biome_addmarkerlayer", Loc.GetString("cmd-biome_addmarkerlayer-desc"), Loc.GetString("cmd-biome_addmarkerlayer-desc"), AddMarkerLayerCallback, AddMarkerLayerCallbackHelper);
+        _console.RegisterCommand(
+            "biome_clear",
+            Loc.GetString("cmd-biome_clear-desc"),
+            Loc.GetString("cmd-biome_clear-help"),
+            BiomeClearCallback,
+            BiomeClearCallbackHelper
+        );
+        _console.RegisterCommand(
+            "biome_addlayer",
+            Loc.GetString("cmd-biome_addlayer-desc"),
+            Loc.GetString("cmd-biome_addlayer-help"),
+            AddLayerCallback,
+            AddLayerCallbackHelp
+        );
+        _console.RegisterCommand(
+            "biome_addmarkerlayer",
+            Loc.GetString("cmd-biome_addmarkerlayer-desc"),
+            Loc.GetString("cmd-biome_addmarkerlayer-desc"),
+            AddMarkerLayerCallback,
+            AddMarkerLayerCallbackHelper
+        );
     }
 
     [AdminCommand(AdminFlags.Fun)]
@@ -30,8 +48,7 @@ public sealed partial class BiomeSystem
         var mapId = new MapId(mapInt);
         var mapUid = _mapSystem.GetMapOrInvalid(mapId);
 
-        if (_mapSystem.MapExists(mapId) ||
-            !TryComp<BiomeComponent>(mapUid, out var biome))
+        if (_mapSystem.MapExists(mapId) || !TryComp<BiomeComponent>(mapUid, out var biome))
         {
             return;
         }
@@ -43,7 +60,10 @@ public sealed partial class BiomeSystem
     {
         if (args.Length == 1)
         {
-            return CompletionResult.FromHintOptions(CompletionHelper.Components<BiomeComponent>(args[0], EntityManager), "Biome");
+            return CompletionResult.FromHintOptions(
+                CompletionHelper.Components<BiomeComponent>(args[0], EntityManager),
+                "Biome"
+            );
         }
 
         return CompletionResult.Empty;
@@ -95,7 +115,9 @@ public sealed partial class BiomeSystem
         if (args.Length == 2)
         {
             return CompletionResult.FromHintOptions(
-                CompletionHelper.PrototypeIDs<BiomeTemplatePrototype>(proto: ProtoManager), "Biome template");
+                CompletionHelper.PrototypeIDs<BiomeTemplatePrototype>(proto: ProtoManager),
+                "Biome template"
+            );
         }
 
         if (args.Length == 3)
@@ -180,7 +202,9 @@ public sealed partial class BiomeSystem
         if (args.Length == 2)
         {
             return CompletionResult.FromHintOptions(
-                CompletionHelper.PrototypeIDs<BiomeMarkerLayerPrototype>(proto: ProtoManager), "Marker");
+                CompletionHelper.PrototypeIDs<BiomeMarkerLayerPrototype>(proto: ProtoManager),
+                "Marker"
+            );
         }
 
         return CompletionResult.Empty;

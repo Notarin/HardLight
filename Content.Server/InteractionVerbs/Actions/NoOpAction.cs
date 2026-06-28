@@ -12,7 +12,12 @@ public sealed partial class NoOpAction : InteractionAction
     [DataField]
     public float SuccessChance = 1f;
 
-    public override bool CanPerform(InteractionArgs args, InteractionVerbPrototype proto, bool isBefore, VerbDependencies deps)
+    public override bool CanPerform(
+        InteractionArgs args,
+        InteractionVerbPrototype proto,
+        bool isBefore,
+        VerbDependencies deps
+    )
     {
         if (isBefore)
             return true; // so the do-after can happen if there's one

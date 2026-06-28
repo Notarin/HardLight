@@ -7,8 +7,11 @@ namespace Content.Shared.Eye.Blinding.Systems;
 
 public sealed class BlindableSystem : EntitySystem
 {
-    [Dependency] private readonly BlurryVisionSystem _blurriness = default!;
-    [Dependency] private readonly EyeClosingSystem _eyelids = default!;
+    [Dependency]
+    private readonly BlurryVisionSystem _blurriness = default!;
+
+    [Dependency]
+    private readonly EyeClosingSystem _eyelids = default!;
 
     public override void Initialize()
     {
@@ -64,13 +67,18 @@ public sealed class BlindableSystem : EntitySystem
         blindable.Comp.EyeDamage += amount;
         UpdateEyeDamage(blindable, true);
     }
+
     private void UpdateEyeDamage(Entity<BlindableComponent?> blindable, bool isDamageChanged)
     {
         if (!Resolve(blindable, ref blindable.Comp, false))
             return;
 
         var previousDamage = blindable.Comp.EyeDamage;
-        blindable.Comp.EyeDamage = Math.Clamp(blindable.Comp.EyeDamage, blindable.Comp.MinDamage, blindable.Comp.MaxDamage);
+        blindable.Comp.EyeDamage = Math.Clamp(
+            blindable.Comp.EyeDamage,
+            blindable.Comp.MinDamage,
+            blindable.Comp.MaxDamage
+        );
         Dirty(blindable);
         if (!isDamageChanged && previousDamage == blindable.Comp.EyeDamage)
             return;
@@ -79,6 +87,7 @@ public sealed class BlindableSystem : EntitySystem
         var ev = new EyeDamageChangedEvent(blindable.Comp.EyeDamage);
         RaiseLocalEvent(blindable.Owner, ref ev);
     }
+
     public void SetMinDamage(Entity<BlindableComponent?> blindable, int amount)
     {
         if (!Resolve(blindable, ref blindable.Comp, false))

@@ -10,7 +10,7 @@ namespace Content.Shared.Chemistry.Reagent;
 [DataDefinition]
 public partial struct ReagentQuantity : IEquatable<ReagentQuantity>
 {
-    [DataField("Quantity", required:true)]
+    [DataField("Quantity", required: true)]
     public FixedPoint2 Quantity { get; private set; }
 
     [IncludeDataField]
@@ -18,9 +18,7 @@ public partial struct ReagentQuantity : IEquatable<ReagentQuantity>
     public ReagentId Reagent { get; private set; }
 
     public ReagentQuantity(string reagentId, FixedPoint2 quantity, List<ReagentData>? data = null)
-        : this(new ReagentId(reagentId, data), quantity)
-    {
-    }
+        : this(new ReagentId(reagentId, data), quantity) { }
 
     public ReagentQuantity(ReagentId reagent, FixedPoint2 quantity)
     {
@@ -28,9 +26,8 @@ public partial struct ReagentQuantity : IEquatable<ReagentQuantity>
         Quantity = quantity;
     }
 
-    public ReagentQuantity() : this(default, default)
-    {
-    }
+    public ReagentQuantity()
+        : this(default, default) { }
 
     public override string ToString()
     {

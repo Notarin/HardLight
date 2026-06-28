@@ -15,9 +15,9 @@
     drawdepth: Mobs
     sprite: _Floof/Mobs/Animals/elemental.rsi
     layers:
-      - map: [ "enum.DamageStateVisualLayers.Base" ]
-        state: alive
-        color: "#FFFDFB"
+    - map: ["enum.DamageStateVisualLayers.Base"]
+      state: alive
+      color: "#FFFDFB"
 
 - type: entity
   id: ReagentSlimePomelustine
@@ -32,14 +32,14 @@
     maxVol: 250
     reVol: 50
     reHunger: 1
-   # ReagentId: Pomelustine
+    # ReagentId: Pomelustine
   - type: Sprite
     drawdepth: Mobs
     sprite: _Floof/Mobs/Animals/elemental.rsi
     layers:
-      - map: [ "enum.DamageStateVisualLayers.Base" ]
-        state: alive
-        color: "#45072f"
+    - map: ["enum.DamageStateVisualLayers.Base"]
+      state: alive
+      color: "#45072f"
 
 - type: entity
   id: ReagentSlimePhilterex
@@ -54,14 +54,14 @@
     maxVol: 250
     reVol: 50
     reHunger: 1
-   # ReagentId: Philterex
+    # ReagentId: Philterex
   - type: Sprite
     drawdepth: Mobs
     sprite: _Floof/Mobs/Animals/elemental.rsi
     layers:
-      - map: [ "enum.DamageStateVisualLayers.Base" ]
-        state: alive
-        color: "#ae0072"
+    - map: ["enum.DamageStateVisualLayers.Base"]
+      state: alive
+      color: "#ae0072"
 
 - type: entity
   id: ReagentSlimeLibidozenithizine
@@ -76,14 +76,14 @@
     maxVol: 250
     reVol: 50
     reHunger: 1
-   # ReagentId: Libidozenithizine
+    # ReagentId: Libidozenithizine
   - type: Sprite
     drawdepth: Mobs
     sprite: _Floof/Mobs/Animals/elemental.rsi
     layers:
-      - map: [ "enum.DamageStateVisualLayers.Base" ]
-        state: alive
-        color: "#c90084"
+    - map: ["enum.DamageStateVisualLayers.Base"]
+      state: alive
+      color: "#c90084"
 
 - type: entity
   id: ReagentSlimeOpporozidone
@@ -102,6 +102,6 @@
     drawdepth: Mobs
     sprite: Mobs/Aliens/elemental.rsi
     layers:
-      - map: [ "enum.DamageStateVisualLayers.Base" ]
-        state: alive
-        color: "#b5e36d"
+    - map: ["enum.DamageStateVisualLayers.Base"]
+      state: alive
+      color: "#b5e36d"

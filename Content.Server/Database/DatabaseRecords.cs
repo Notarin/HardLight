@@ -48,7 +48,8 @@ public sealed record BanNoteRecord(
     bool Deleted,
     PlayerRecord? UnbanningAdmin,
     DateTime? UnbanTime,
-    ImmutableArray<BanRoleDef> Roles) : IAdminRemarksRecord;
+    ImmutableArray<BanRoleDef> Roles
+) : IAdminRemarksRecord;
 
 public sealed record AdminNoteRecord(
     int Id,
@@ -65,7 +66,8 @@ public sealed record AdminNoteRecord(
     bool Deleted,
     PlayerRecord? DeletedBy,
     DateTimeOffset? DeletedAt,
-    bool Secret) : IAdminRemarksRecord
+    bool Secret
+) : IAdminRemarksRecord
 {
     ImmutableArray<RoundRecord> IAdminRemarksRecord.Rounds => Round != null ? [Round] : [];
     ImmutableArray<PlayerRecord> IAdminRemarksRecord.Players => Player != null ? [Player] : [];
@@ -84,7 +86,8 @@ public sealed record AdminWatchlistRecord(
     DateTimeOffset? ExpirationTime,
     bool Deleted,
     PlayerRecord? DeletedBy,
-    DateTimeOffset? DeletedAt) : IAdminRemarksRecord
+    DateTimeOffset? DeletedAt
+) : IAdminRemarksRecord
 {
     ImmutableArray<RoundRecord> IAdminRemarksRecord.Rounds => Round != null ? [Round] : [];
     ImmutableArray<PlayerRecord> IAdminRemarksRecord.Players => Player != null ? [Player] : [];
@@ -105,7 +108,8 @@ public sealed record AdminMessageRecord(
     PlayerRecord? DeletedBy,
     DateTimeOffset? DeletedAt,
     bool Seen,
-    bool Dismissed) : IAdminRemarksRecord
+    bool Dismissed
+) : IAdminRemarksRecord
 {
     ImmutableArray<RoundRecord> IAdminRemarksRecord.Rounds => Round != null ? [Round] : [];
     ImmutableArray<PlayerRecord> IAdminRemarksRecord.Players => Player != null ? [Player] : [];
@@ -117,7 +121,8 @@ public sealed record PlayerRecord(
     string LastSeenUserName,
     DateTimeOffset LastSeenTime,
     IPAddress? LastSeenAddress,
-    ImmutableTypedHwid? HWId);
+    ImmutableTypedHwid? HWId
+);
 
 public sealed record RoundRecord(int Id, DateTimeOffset? StartDate, ServerRecord Server);
 

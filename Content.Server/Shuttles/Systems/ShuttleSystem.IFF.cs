@@ -27,8 +27,7 @@ public sealed partial class ShuttleSystem
 
         foreach (var grid in ev.NewGrids)
         {
-            if (!_physicsQuery.TryGetComponent(grid, out var physics) ||
-                physics.Mass > splitMass)
+            if (!_physicsQuery.TryGetComponent(grid, out var physics) || physics.Mass > splitMass)
             {
                 continue;
             }
@@ -42,35 +41,38 @@ public sealed partial class ShuttleSystem
         // Make sure UI state is up-to-date when opening the UI
         if (!TryComp(uid, out TransformComponent? xform) || xform.GridUid == null)
         {
-            _uiSystem.SetUiState(uid, IFFConsoleUiKey.Key, new IFFConsoleBoundUserInterfaceState()
-            {
-                AllowedFlags = component.AllowedFlags,
-                Flags = IFFFlags.None,
-            });
+            _uiSystem.SetUiState(
+                uid,
+                IFFConsoleUiKey.Key,
+                new IFFConsoleBoundUserInterfaceState() { AllowedFlags = component.AllowedFlags, Flags = IFFFlags.None }
+            );
             return;
         }
 
         if (!TryComp<IFFComponent>(xform.GridUid, out var iff))
         {
-            _uiSystem.SetUiState(uid, IFFConsoleUiKey.Key, new IFFConsoleBoundUserInterfaceState()
-            {
-                AllowedFlags = component.AllowedFlags,
-                Flags = IFFFlags.None,
-            });
+            _uiSystem.SetUiState(
+                uid,
+                IFFConsoleUiKey.Key,
+                new IFFConsoleBoundUserInterfaceState() { AllowedFlags = component.AllowedFlags, Flags = IFFFlags.None }
+            );
             return;
         }
 
-        _uiSystem.SetUiState(uid, IFFConsoleUiKey.Key, new IFFConsoleBoundUserInterfaceState()
-        {
-            AllowedFlags = component.AllowedFlags,
-            Flags = iff.Flags,
-        });
+        _uiSystem.SetUiState(
+            uid,
+            IFFConsoleUiKey.Key,
+            new IFFConsoleBoundUserInterfaceState() { AllowedFlags = component.AllowedFlags, Flags = iff.Flags }
+        );
     }
 
     private void OnIFFShow(EntityUid uid, IFFConsoleComponent component, IFFShowIFFMessage args)
     {
-        if (!TryComp(uid, out TransformComponent? xform) || xform.GridUid == null ||
-            (component.AllowedFlags & IFFFlags.HideLabel) == 0x0)
+        if (
+            !TryComp(uid, out TransformComponent? xform)
+            || xform.GridUid == null
+            || (component.AllowedFlags & IFFFlags.HideLabel) == 0x0
+        )
         {
             return;
         }
@@ -87,8 +89,11 @@ public sealed partial class ShuttleSystem
 
     private void OnIFFShowVessel(EntityUid uid, IFFConsoleComponent component, IFFShowVesselMessage args)
     {
-        if (!TryComp(uid, out TransformComponent? xform) || xform.GridUid == null ||
-            (component.AllowedFlags & IFFFlags.Hide) == 0x0)
+        if (
+            !TryComp(uid, out TransformComponent? xform)
+            || xform.GridUid == null
+            || (component.AllowedFlags & IFFFlags.Hide) == 0x0
+        )
         {
             return;
         }
@@ -106,23 +111,25 @@ public sealed partial class ShuttleSystem
     private void OnIFFConsoleAnchor(EntityUid uid, IFFConsoleComponent component, ref AnchorStateChangedEvent args)
     {
         // If we anchor / re-anchor then make sure flags up to date.
-        if (!args.Anchored ||
-            !TryComp(uid, out TransformComponent? xform) ||
-            !TryComp<IFFComponent>(xform.GridUid, out var iff))
+        if (
+            !args.Anchored
+            || !TryComp(uid, out TransformComponent? xform)
+            || !TryComp<IFFComponent>(xform.GridUid, out var iff)
+        )
         {
-            _uiSystem.SetUiState(uid, IFFConsoleUiKey.Key, new IFFConsoleBoundUserInterfaceState()
-            {
-                AllowedFlags = component.AllowedFlags,
-                Flags = IFFFlags.None,
-            });
+            _uiSystem.SetUiState(
+                uid,
+                IFFConsoleUiKey.Key,
+                new IFFConsoleBoundUserInterfaceState() { AllowedFlags = component.AllowedFlags, Flags = IFFFlags.None }
+            );
         }
         else
         {
-            _uiSystem.SetUiState(uid, IFFConsoleUiKey.Key, new IFFConsoleBoundUserInterfaceState()
-            {
-                AllowedFlags = component.AllowedFlags,
-                Flags = iff.Flags,
-            });
+            _uiSystem.SetUiState(
+                uid,
+                IFFConsoleUiKey.Key,
+                new IFFConsoleBoundUserInterfaceState() { AllowedFlags = component.AllowedFlags, Flags = iff.Flags }
+            );
         }
     }
 
@@ -136,11 +143,11 @@ public sealed partial class ShuttleSystem
             if (xform.GridUid != gridUid)
                 continue;
 
-            _uiSystem.SetUiState(uid, IFFConsoleUiKey.Key, new IFFConsoleBoundUserInterfaceState()
-            {
-                AllowedFlags = comp.AllowedFlags,
-                Flags = component.Flags,
-            });
+            _uiSystem.SetUiState(
+                uid,
+                IFFConsoleUiKey.Key,
+                new IFFConsoleBoundUserInterfaceState() { AllowedFlags = comp.AllowedFlags, Flags = component.Flags }
+            );
         }
     }
 }

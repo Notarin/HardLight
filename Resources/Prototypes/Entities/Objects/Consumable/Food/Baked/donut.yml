@@ -42,7 +42,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - sweet
+    - sweet
   - type: Sprite
     state: plain
 
@@ -53,7 +53,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - jelly
+    - jelly
   - type: Sprite
     state: jelly-plain
   - type: SolutionContainerManager
@@ -75,7 +75,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - pink
+    - pink
   - type: Sprite
     state: homer
   - type: Item
@@ -89,10 +89,10 @@
   components:
   - type: FlavorProfile
     flavors:
-      - sweet
-      - funny
-      - magical
-      - tingly
+    - sweet
+    - funny
+    - magical
+    - tingly
   - type: Sprite
     state: chaos
 # Tastes like donut, chaos.
@@ -105,7 +105,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - meaty
+    - meaty
   - type: Sprite
     state: meat
   - type: Tag
@@ -122,7 +122,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - pink
+    - pink
   - type: Sprite
     state: pink
   - type: Item
@@ -146,8 +146,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - sweet
-      - apple
+    - sweet
+    - apple
   - type: Sprite
     state: green
 # Tastes like donut, green apples.
@@ -170,7 +170,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - chocolate
+    - chocolate
   - type: Sprite
     state: choc
   - type: SolutionContainerManager
@@ -192,8 +192,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - sweet
-      - bluepumpkin
+    - sweet
+    - bluepumpkin
   - type: Sprite
     state: blue
 # Tastes like donut, blue pumpkin.
@@ -206,8 +206,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - sweet
-      - bungo
+    - sweet
+    - bungo
   - type: Sprite
     state: yellow
 # Tastes like donut, tropical sweetness.
@@ -220,7 +220,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - tea
+    - tea
   - type: Sprite
     state: olive
 # Tastes like donut, matcha.
@@ -367,8 +367,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - sweet
-      - bluepumpkin
+    - sweet
+    - bluepumpkin
   - type: Sprite
     state: jelly-blue
   - type: SolutionContainerManager

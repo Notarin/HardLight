@@ -41,8 +41,7 @@
     rootTask:
       task: TurretCompound
     blackboard:
-      RotateSpeed: !type:Single
-        0
+      RotateSpeed: !type:Single 0
       SoundTargetInLOS: !type:SoundPathSpecifier
         path: /Audio/_NF/Effects/silence.ogg
   - type: StaticPrice # HL: Price balancing

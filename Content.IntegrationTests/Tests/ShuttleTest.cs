@@ -39,7 +39,10 @@ namespace Content.IntegrationTests.Tests
                 Assert.Multiple(() =>
                 {
                     Assert.That(gridPhys.BodyType, Is.EqualTo(BodyType.Dynamic));
-                    Assert.That(entManager.GetComponent<TransformComponent>(grid).LocalPosition, Is.EqualTo(Vector2.Zero));
+                    Assert.That(
+                        entManager.GetComponent<TransformComponent>(grid).LocalPosition,
+                        Is.EqualTo(Vector2.Zero)
+                    );
                 });
                 physicsSystem.ApplyLinearImpulse(grid, Vector2.One, body: gridPhys);
             });
@@ -48,7 +51,10 @@ namespace Content.IntegrationTests.Tests
 
             await server.WaitAssertion(() =>
             {
-                Assert.That(entManager.GetComponent<TransformComponent>(map.Grid).LocalPosition, Is.Not.EqualTo(Vector2.Zero));
+                Assert.That(
+                    entManager.GetComponent<TransformComponent>(map.Grid).LocalPosition,
+                    Is.Not.EqualTo(Vector2.Zero)
+                );
             });
             await pair.CleanReturnAsync();
         }

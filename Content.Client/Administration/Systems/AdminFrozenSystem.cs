@@ -2,6 +2,4 @@
 
 namespace Content.Client.Administration.Systems;
 
-public sealed class AdminFrozenSystem : SharedAdminFrozenSystem
-{
-}
+public sealed class AdminFrozenSystem : SharedAdminFrozenSystem { }

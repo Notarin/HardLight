@@ -2,7 +2,6 @@ using Content.Shared.Storage;
 
 namespace Content.Shared.Procedural.DungeonLayers;
 
-
 /// <summary>
 /// Spawns mobs inside of the dungeon randomly.
 /// </summary>

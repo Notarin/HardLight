@@ -1,6 +1,6 @@
 - type: entity
   id: BaseTabletopChemicalMachine
-  parent: [ BaseMachinePowered, SmallConstructibleMachine ]
+  parent: [BaseMachinePowered, SmallConstructibleMachine]
   abstract: true
   components:
   - type: Transform
@@ -15,8 +15,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.17,0,0.20,0.4"
         mask:
         - TabletopMachineMask
@@ -72,8 +71,8 @@
           False: {state: "unshaded"}
       enum.PowerDeviceVisuals.Powered:
         enum.PowerDeviceVisualLayers.Powered:
-          True: { visible: True }
-          False: { visible: False }
+          True: {visible: True}
+          False: {visible: False}
   - type: AutomationSlots # Goobstation
     slots:
     - !type:AutomatedBeakerSlot
@@ -123,8 +122,8 @@
           False: {state: "base"}
       enum.PowerDeviceVisuals.Powered:
         enum.PowerDeviceVisualLayers.Powered:
-          True: { visible: True }
-          False: { visible: False }
+          True: {visible: True}
+          False: {visible: False}
   - type: AutomationSlots # Goobstation
     slots:
     - !type:AutomatedBeakerSlot
@@ -140,6 +139,6 @@
       mixer:
         whitelist:
           tags:
-            - CentrifugeCompatible
+          - CentrifugeCompatible
   - type: Machine
     board: CentrifugeMachineCircuitboard

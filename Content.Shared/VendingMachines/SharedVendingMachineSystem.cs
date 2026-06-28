@@ -1,43 +1,70 @@
-using Content.Shared.Emag.Components;
-using Robust.Shared.Prototypes;
 using System.Linq;
 using Content.Shared.Access.Components;
 using Content.Shared.Access.Systems;
 using Content.Shared.Advertise.Components;
 using Content.Shared.Advertise.Systems;
+using Content.Shared.Containers.ItemSlots;
 using Content.Shared.DoAfter;
+using Content.Shared.Emag.Components;
 using Content.Shared.Emag.Systems;
 using Content.Shared.Interaction;
 using Content.Shared.Popups;
 using Content.Shared.Power.EntitySystems;
+using Content.Shared.Stacks; // Frontier
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
+using Robust.Shared.Containers;
 using Robust.Shared.GameStates;
 using Robust.Shared.Network;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
-using Content.Shared.Containers.ItemSlots;
-using Robust.Shared.Containers;
-using Content.Shared.Stacks; // Frontier
 
 namespace Content.Shared.VendingMachines;
 
 public abstract partial class SharedVendingMachineSystem : EntitySystem
 {
-    [Dependency] protected readonly IGameTiming Timing = default!;
-    [Dependency] protected readonly IPrototypeManager PrototypeManager = default!;
-    [Dependency] private   readonly AccessReaderSystem _accessReader = default!;
-    [Dependency] private   readonly SharedAppearanceSystem _appearanceSystem = default!;
-    [Dependency] protected readonly SharedAudioSystem Audio = default!;
-    [Dependency] private   readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] protected readonly SharedPointLightSystem Light = default!;
-    [Dependency] private   readonly SharedPowerReceiverSystem _receiver = default!;
-    [Dependency] protected readonly SharedPopupSystem Popup = default!;
-    [Dependency] private   readonly SharedSpeakOnUIClosedSystem _speakOn = default!;
-    [Dependency] protected readonly SharedUserInterfaceSystem UISystem = default!;
-    [Dependency] protected readonly IRobustRandom Randomizer = default!;
-    [Dependency] private readonly EmagSystem _emag = default!;
-    [Dependency] protected readonly ItemSlotsSystem ItemSlots = default!; // Frontier
+    [Dependency]
+    protected readonly IGameTiming Timing = default!;
+
+    [Dependency]
+    protected readonly IPrototypeManager PrototypeManager = default!;
+
+    [Dependency]
+    private readonly AccessReaderSystem _accessReader = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearanceSystem = default!;
+
+    [Dependency]
+    protected readonly SharedAudioSystem Audio = default!;
+
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfter = default!;
+
+    [Dependency]
+    protected readonly SharedPointLightSystem Light = default!;
+
+    [Dependency]
+    private readonly SharedPowerReceiverSystem _receiver = default!;
+
+    [Dependency]
+    protected readonly SharedPopupSystem Popup = default!;
+
+    [Dependency]
+    private readonly SharedSpeakOnUIClosedSystem _speakOn = default!;
+
+    [Dependency]
+    protected readonly SharedUserInterfaceSystem UISystem = default!;
+
+    [Dependency]
+    protected readonly IRobustRandom Randomizer = default!;
+
+    [Dependency]
+    private readonly EmagSystem _emag = default!;
+
+    [Dependency]
+    protected readonly ItemSlotsSystem ItemSlots = default!; // Frontier
 
     public override void Initialize()
     {
@@ -51,10 +78,13 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
 
         SubscribeLocalEvent<VendingMachineRestockComponent, AfterInteractEvent>(OnAfterInteract);
 
-        Subs.BuiEvents<VendingMachineComponent>(VendingMachineUiKey.Key, subs =>
-        {
-            subs.Event<VendingMachineEjectMessage>(OnInventoryEjectMessage);
-        });
+        Subs.BuiEvents<VendingMachineComponent>(
+            VendingMachineUiKey.Key,
+            subs =>
+            {
+                subs.Event<VendingMachineEjectMessage>(OnInventoryEjectMessage);
+            }
+        );
     }
 
     private void OnVendingGetState(Entity<VendingMachineComponent> entity, ref ComponentGetState args)
@@ -157,7 +187,11 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
         // End Frontier
     }
 
-    protected virtual void EjectItem(EntityUid uid, VendingMachineComponent? vendComponent = null, bool forceEject = false) { }
+    protected virtual void EjectItem(
+        EntityUid uid,
+        VendingMachineComponent? vendComponent = null,
+        bool forceEject = false
+    ) { }
 
     /// <summary>
     /// Checks if the user is authorized to use this vending machine
@@ -181,7 +215,12 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
         return false;
     }
 
-    protected VendingMachineInventoryEntry? GetEntry(EntityUid uid, string entryId, InventoryType type, VendingMachineComponent? component = null)
+    protected VendingMachineInventoryEntry? GetEntry(
+        EntityUid uid,
+        string entryId,
+        InventoryType type,
+        VendingMachineComponent? component = null
+    )
     {
         if (!Resolve(uid, ref component))
             return null;
@@ -204,7 +243,14 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
     /// <param name="itemId">The prototype ID of the item</param>
     /// <param name="throwItem">Whether the item should be thrown in a random direction after ejection</param>
     /// <param name="vendComponent"></param>
-    public bool TryEjectVendorItem(EntityUid uid, InventoryType type, string itemId, bool throwItem, EntityUid? user = null, VendingMachineComponent? vendComponent = null) // Frontier: void<bool
+    public bool TryEjectVendorItem(
+        EntityUid uid,
+        InventoryType type,
+        string itemId,
+        bool throwItem,
+        EntityUid? user = null,
+        VendingMachineComponent? vendComponent = null
+    ) // Frontier: void<bool
     {
         if (!Resolve(uid, ref vendComponent))
             return false; // Frontier: false
@@ -295,7 +341,8 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
         // TODO: You know this should really live on the client with netsync off because client knows the state.
         if (Light.TryGetLight(entity.Owner, out var pointlight))
         {
-            var lightEnabled = finalState != VendingMachineVisualState.Broken && finalState != VendingMachineVisualState.Off;
+            var lightEnabled =
+                finalState != VendingMachineVisualState.Broken && finalState != VendingMachineVisualState.Off;
             Light.SetEnabled(entity.Owner, lightEnabled, pointlight);
         }
 
@@ -303,11 +350,21 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
     }
 
     // Frontier: custom vending check
-    public abstract void AuthorizedVend(EntityUid uid, EntityUid sender, InventoryType type, string itemId, VendingMachineComponent component);
+    public abstract void AuthorizedVend(
+        EntityUid uid,
+        EntityUid sender,
+        InventoryType type,
+        string itemId,
+        VendingMachineComponent component
+    );
+
     // End Frontier: custom vending check
 
-    public void RestockInventoryFromPrototype(EntityUid uid,
-        VendingMachineComponent? component = null, float restockQuality = 1f)
+    public void RestockInventoryFromPrototype(
+        EntityUid uid,
+        VendingMachineComponent? component = null,
+        float restockQuality = 1f
+    )
     {
         if (!Resolve(uid, ref component))
         {
@@ -351,6 +408,7 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
         // Always demag if emagged.
         args.Handled = true;
     }
+
     // End Frontier
 
     /// <summary>
@@ -377,7 +435,10 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
         return inventory;
     }
 
-    public List<VendingMachineInventoryEntry> GetAvailableInventory(EntityUid uid, VendingMachineComponent? component = null)
+    public List<VendingMachineInventoryEntry> GetAvailableInventory(
+        EntityUid uid,
+        VendingMachineComponent? component = null
+    )
     {
         if (!Resolve(uid, ref component))
             return new();
@@ -385,9 +446,13 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
         return GetAllInventory(uid, component).Where(_ => _.Amount > 0).ToList();
     }
 
-    private void AddInventoryFromPrototype(EntityUid uid, Dictionary<string, uint>? entries,
+    private void AddInventoryFromPrototype(
+        EntityUid uid,
+        Dictionary<string, uint>? entries,
         InventoryType type,
-        VendingMachineComponent? component = null, float restockQuality = 1.0f)
+        VendingMachineComponent? component = null,
+        float restockQuality = 1.0f
+    )
     {
         if (!Resolve(uid, ref component) || entries == null)
         {
@@ -420,7 +485,7 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
                 var result = Randomizer.NextFloat(0, 1);
                 if (result < chanceOfMissingStock)
                 {
-                    restock = (uint) Math.Floor(amount * result / chanceOfMissingStock);
+                    restock = (uint)Math.Floor(amount * result / chanceOfMissingStock);
                 }
 
                 // New Frontiers - Unlimited vending - support items with unlimited vending stock.
@@ -449,11 +514,13 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
     // Frontier: cash slot handlers
     private void OnEntityInserted(Entity<VendingMachineComponent> ent, ref EntInsertedIntoContainerMessage args)
     {
-        if (ent.Comp.CashSlotName != null
-        && ent.Comp.CurrencyStackType != null
-        && ItemSlots.TryGetSlot(ent, ent.Comp.CashSlotName, out var slot)
-        && TryComp<StackComponent>(slot?.ContainerSlot?.ContainedEntity, out var stack)
-        && stack.StackTypeId == ent.Comp.CurrencyStackType)
+        if (
+            ent.Comp.CashSlotName != null
+            && ent.Comp.CurrencyStackType != null
+            && ItemSlots.TryGetSlot(ent, ent.Comp.CashSlotName, out var slot)
+            && TryComp<StackComponent>(slot?.ContainerSlot?.ContainedEntity, out var stack)
+            && stack.StackTypeId == ent.Comp.CurrencyStackType
+        )
         {
             ent.Comp.CashSlotBalance = stack.Count;
         }

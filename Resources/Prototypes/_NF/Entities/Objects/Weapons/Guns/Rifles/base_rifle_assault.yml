@@ -1,7 +1,7 @@
 #region frame
 - type: entity
   id: NFBaseWeaponFrameRifleAssault
-  parent: [ NFBaseWeaponEncumbranceRifleAssault, NFBaseItemWeaponGunMagazineFed ]
+  parent: [NFBaseWeaponEncumbranceRifleAssault, NFBaseItemWeaponGunMagazineFed]
   name: assault rifle
   abstract: true
   components:
@@ -24,15 +24,15 @@
     - FullAuto
   # - type: CursorOffsetRequiresWield
   # - type: EyeCursorOffset
-    # maxOffset: 2.5
-    # pvsIncrease: 0.25
+  # maxOffset: 2.5
+  # pvsIncrease: 0.25
   - type: NFWeaponDetails
     class: weapon-details-class-assault-rifle
 
 #region manufacturer
 - type: entity
   id: NFBaseWeaponFrameRifleAssaultNanotrasen
-  parent: [ NFBaseWeaponFrameRifleAssault ]
+  parent: [NFBaseWeaponFrameRifleAssault]
   abstract: true
   components:
   - type: Gun
@@ -46,7 +46,7 @@
 
 - type: entity
   id: NFBaseWeaponFrameRifleAssaultCybersun
-  parent: [ BaseC3SyndicateContraband, NFBaseWeaponFrameRifleAssault ]
+  parent: [BaseC3SyndicateContraband, NFBaseWeaponFrameRifleAssault]
   abstract: true
   components:
   - type: Gun
@@ -58,7 +58,7 @@
 
 - type: entity
   id: NFBaseWeaponFrameRifleAssaultFrontierGunsmith
-  parent: [ NFBaseWeaponFrameRifleAssault ]
+  parent: [NFBaseWeaponFrameRifleAssault]
   abstract: true
   components:
   - type: Gun
@@ -103,8 +103,8 @@
         priority: 2
         whitelist: &mag20Whitelist
           tags:
-            - NFMagazineRifle20
-            - NFMagazineDrumRifle20
+          - NFMagazineRifle20
+          - NFMagazineDrumRifle20
         whitelistFailPopup: gun-magazine-whitelist-fail
       gun_chamber: &chamber20Standard
         name: Chamber
@@ -112,7 +112,7 @@
         priority: 1
         whitelist:
           tags:
-            - NFCartridgeRifle20
+          - NFCartridgeRifle20
 
 - type: entity
   id: NFBaseWeaponRifleAssaultChamber20Rubber
@@ -135,7 +135,7 @@
         priority: 1
         whitelist:
           tags:
-            - NFCartridgeRifle20
+          - NFCartridgeRifle20
 
 - type: entity
   id: NFBaseWeaponRifleAssaultChamber20Clip
@@ -154,7 +154,7 @@
         priority: 2
         whitelist:
           tags:
-            - NFMagazineClipRifle20
+          - NFMagazineClipRifle20
         whitelistFailPopup: gun-magazine-whitelist-fail
       gun_chamber: *chamber20Standard
 
@@ -177,8 +177,8 @@
         priority: 2
         whitelist: &mag30Whitelist
           tags:
-            - NFMagazineRifle30
-            - NFMagazineLowCapacityRifle30
+          - NFMagazineRifle30
+          - NFMagazineLowCapacityRifle30
         whitelistFailPopup: gun-magazine-whitelist-fail
       gun_chamber: &chamber30Standard
         name: Chamber
@@ -186,7 +186,7 @@
         priority: 1
         whitelist: &chamber30Whitelist
           tags:
-            - NFCartridgeRifle30
+          - NFCartridgeRifle30
 
 - type: entity
   id: NFBaseWeaponRifleAssaultChamber30Rubber
@@ -262,7 +262,7 @@
         priority: 2
         whitelist:
           tags:
-            - HLMagazineCaselessRifle
+          - HLMagazineCaselessRifle
         whitelistFailPopup: gun-magazine-whitelist-fail
       gun_chamber:
         name: Chamber
@@ -270,4 +270,4 @@
         priority: 1
         whitelist:
           tags:
-            - NFCartridgeRifle25
+          - NFCartridgeRifle25

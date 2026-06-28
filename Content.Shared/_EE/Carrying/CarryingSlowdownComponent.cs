@@ -4,7 +4,6 @@ using Robust.Shared.Serialization;
 namespace Content.Shared.Carrying
 {
     [RegisterComponent, NetworkedComponent, Access(typeof(CarryingSlowdownSystem))]
-
     public sealed partial class CarryingSlowdownComponent : Component
     {
         [DataField(required: true)]
@@ -19,6 +18,7 @@ namespace Content.Shared.Carrying
     {
         public float WalkModifier;
         public float SprintModifier;
+
         public CarryingSlowdownComponentState(float walkModifier, float sprintModifier)
         {
             WalkModifier = walkModifier;

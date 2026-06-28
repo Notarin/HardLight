@@ -6,7 +6,6 @@ using Robust.Client.UserInterface.XAML;
 /// <summary>
 /// ADAPTED FROM SECWATCH - DELTAV
 /// </summary>
-
 namespace Content.Client.CartridgeLoader.Cartridges;
 
 [GenerateTypedNameReferences]

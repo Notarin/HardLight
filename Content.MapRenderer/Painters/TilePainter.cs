@@ -44,29 +44,35 @@ namespace Content.MapRenderer.Painters
             var images = GetTileImages(_sTileDefinitionManager, _resManager, tileSize);
             var i = 0;
 
-            _sMapSystem.GetAllTiles(gridUid, grid).AsParallel().ForAll(tile =>
-            {
-                var path = _sTileDefinitionManager[tile.Tile.TypeId].Sprite.ToString();
+            _sMapSystem
+                .GetAllTiles(gridUid, grid)
+                .AsParallel()
+                .ForAll(tile =>
+                {
+                    var path = _sTileDefinitionManager[tile.Tile.TypeId].Sprite.ToString();
 
-                if (string.IsNullOrWhiteSpace(path))
-                    return;
+                    if (string.IsNullOrWhiteSpace(path))
+                        return;
 
-                var x = (int) (tile.X + xOffset);
-                var y = (int) (tile.Y + yOffset);
-                var image = images[path][tile.Tile.Variant];
+                    var x = (int)(tile.X + xOffset);
+                    var y = (int)(tile.Y + yOffset);
+                    var image = images[path][tile.Tile.Variant];
 
-                gridCanvas.Mutate(o => o.DrawImage(image, new Point(x * tileSize, y * tileSize), 1));
+                    gridCanvas.Mutate(o => o.DrawImage(image, new Point(x * tileSize, y * tileSize), 1));
 
-                i++;
-            });
+                    i++;
+                });
 
-            Console.WriteLine($"{nameof(TilePainter)} painted {i} tiles on grid {gridUid} in {(int) stopwatch.Elapsed.TotalMilliseconds} ms");
+            Console.WriteLine(
+                $"{nameof(TilePainter)} painted {i} tiles on grid {gridUid} in {(int)stopwatch.Elapsed.TotalMilliseconds} ms"
+            );
         }
 
         private Dictionary<string, List<Image>> GetTileImages(
             ITileDefinitionManager tileDefinitionManager,
             IResourceManager resManager,
-            int tileSize)
+            int tileSize
+        )
         {
             var stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -87,7 +93,9 @@ namespace Content.MapRenderer.Painters
 
                 if (tileSheet.Width != tileSize * definition.Variants || tileSheet.Height != tileSize)
                 {
-                    throw new NotSupportedException($"Unable to use tiles with a dimension other than {tileSize}x{tileSize}.");
+                    throw new NotSupportedException(
+                        $"Unable to use tiles with a dimension other than {tileSize}x{tileSize}."
+                    );
                 }
 
                 for (var i = 0; i < definition.Variants; i++)
@@ -98,7 +106,7 @@ namespace Content.MapRenderer.Painters
                 }
             }
 
-            Console.WriteLine($"Indexed all tile images in {(int) stopwatch.Elapsed.TotalMilliseconds} ms");
+            Console.WriteLine($"Indexed all tile images in {(int)stopwatch.Elapsed.TotalMilliseconds} ms");
 
             return images;
         }

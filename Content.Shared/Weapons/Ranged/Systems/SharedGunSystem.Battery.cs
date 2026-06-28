@@ -29,7 +29,11 @@ public abstract partial class SharedGunSystem
         SubscribeLocalEvent<ProjectileBatteryAmmoProviderComponent, ExaminedEvent>(OnBatteryExamine);
     }
 
-    private void OnBatteryHandleState(EntityUid uid, BatteryAmmoProviderComponent component, ref ComponentHandleState args)
+    private void OnBatteryHandleState(
+        EntityUid uid,
+        BatteryAmmoProviderComponent component,
+        ref ComponentHandleState args
+    )
     {
         if (args.Current is not BatteryAmmoProviderComponentState state)
             return;
@@ -75,7 +79,11 @@ public abstract partial class SharedGunSystem
     }
 
     // Mono
-    private void OnBatteryCheckProto(EntityUid uid, BatteryAmmoProviderComponent comp, ref CheckShootPrototypeEvent args)
+    private void OnBatteryCheckProto(
+        EntityUid uid,
+        BatteryAmmoProviderComponent comp,
+        ref CheckShootPrototypeEvent args
+    )
     {
         switch (comp)
         {
@@ -115,7 +123,10 @@ public abstract partial class SharedGunSystem
         Appearance.SetData(uid, AmmoVisuals.AmmoMax, component.Capacity, appearance);
     }
 
-    private (EntityUid? Entity, IShootable) GetShootable(BatteryAmmoProviderComponent component, EntityCoordinates coordinates)
+    private (EntityUid? Entity, IShootable) GetShootable(
+        BatteryAmmoProviderComponent component,
+        EntityCoordinates coordinates
+    )
     {
         switch (component)
         {

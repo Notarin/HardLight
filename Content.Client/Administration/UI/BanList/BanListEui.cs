@@ -13,7 +13,8 @@ namespace Content.Client.Administration.UI.BanList;
 [UsedImplicitly]
 public sealed class BanListEui : BaseEui
 {
-    [Dependency] private readonly IUserInterfaceManager _ui = default!;
+    [Dependency]
+    private readonly IUserInterfaceManager _ui = default!;
 
     private BanListIdsPopup? _popup;
 
@@ -74,20 +75,21 @@ public sealed class BanListEui : BaseEui
         return date.ToString("MM/dd/yyyy h:mm tt");
     }
 
-    public static void SetData<T>(IBanListLine<T> line, SharedBan ban) where T : SharedBan
+    public static void SetData<T>(IBanListLine<T> line, SharedBan ban)
+        where T : SharedBan
     {
         line.Reason.Text = ban.Reason;
         line.BanTime.Text = FormatDate(ban.BanTime);
-        line.Expires.Text = ban.ExpirationTime == null
-            ? Loc.GetString("ban-list-permanent")
-            : FormatDate(ban.ExpirationTime.Value);
+        line.Expires.Text =
+            ban.ExpirationTime == null ? Loc.GetString("ban-list-permanent") : FormatDate(ban.ExpirationTime.Value);
 
         if (ban.Unban is { } unban)
         {
             var unbanned = Loc.GetString("ban-list-unbanned", ("date", FormatDate(unban.UnbanTime)));
-            var unbannedBy = unban.UnbanningAdmin == null
-                ? string.Empty
-                : $"\n{Loc.GetString("ban-list-unbanned-by", ("unbanner", unban.UnbanningAdmin))}";
+            var unbannedBy =
+                unban.UnbanningAdmin == null
+                    ? string.Empty
+                    : $"\n{Loc.GetString("ban-list-unbanned-by", ("unbanner", unban.UnbanningAdmin))}";
 
             line.Expires.Text += $"\n{unbanned}{unbannedBy}";
         }
@@ -95,20 +97,26 @@ public sealed class BanListEui : BaseEui
         line.BanningAdmin.Text = ban.BanningAdminName;
     }
 
-    private void OnLineIdsClicked<T>(IBanListLine<T> line) where T : SharedBan
+    private void OnLineIdsClicked<T>(IBanListLine<T> line)
+        where T : SharedBan
     {
         _popup?.Close();
         _popup = null;
 
         var ban = line.Ban;
         var id = ban.Id == null ? string.Empty : Loc.GetString("ban-list-id", ("id", ban.Id.Value));
-        var ip = ban.Addresses.Length == 0
-            ? string.Empty
-            : Loc.GetString("ban-list-ip", ("ip", string.Join(',', ban.Addresses.Select(a => a.address))));
-        var hwid = ban.HWIds.Length == 0 ? string.Empty : Loc.GetString("ban-list-hwid", ("hwid", string.Join(',', ban.HWIds)));
-        var guid = ban.UserIds.Length == 0
-            ? string.Empty
-            : Loc.GetString("ban-list-guid", ("guid", string.Join(',', ban.UserIds)));
+        var ip =
+            ban.Addresses.Length == 0
+                ? string.Empty
+                : Loc.GetString("ban-list-ip", ("ip", string.Join(',', ban.Addresses.Select(a => a.address))));
+        var hwid =
+            ban.HWIds.Length == 0
+                ? string.Empty
+                : Loc.GetString("ban-list-hwid", ("hwid", string.Join(',', ban.HWIds)));
+        var guid =
+            ban.UserIds.Length == 0
+                ? string.Empty
+                : Loc.GetString("ban-list-guid", ("guid", string.Join(',', ban.UserIds)));
 
         _popup = new BanListIdsPopup(id, ip, hwid, guid);
 

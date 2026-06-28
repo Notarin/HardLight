@@ -86,20 +86,19 @@ public sealed partial class PathfindingSystem
                 var perpLine = pointBPerp - pointAPerp;
                 var perpHalfway = perpLine.Length() / 2f;
 
-                var splinePoint = (pointAPerp + perpLine.Normalized() * random.NextFloat(-args.MaxRatio, args.MaxRatio) * perpHalfway).Floored();
+                var splinePoint = (
+                    pointAPerp + perpLine.Normalized() * random.NextFloat(-args.MaxRatio, args.MaxRatio) * perpHalfway
+                ).Floored();
 
                 // We essentially take (A, B) and turn it into (A, C) & (C, B)
                 pairs[i] = (pointA, splinePoint);
                 pairs.Insert(i + 1, (splinePoint, pointB));
 
-                i+= 2;
+                i += 2;
             }
         }
 
-        var spline = new ValueList<Vector2i>(pairs.Count - 1)
-        {
-            start
-        };
+        var spline = new ValueList<Vector2i>(pairs.Count - 1) { start };
 
         foreach (var pair in pairs)
         {
@@ -137,12 +136,14 @@ public sealed partial class PathfindingSystem
 
         points.Add(spline[^1]);
 
-        var simple = SimplifyPath(new SimplifyPathArgs()
-        {
-            Start = args.Args.Start,
-            End = args.Args.End,
-            Path = path,
-        });
+        var simple = SimplifyPath(
+            new SimplifyPathArgs()
+            {
+                Start = args.Args.Start,
+                End = args.Args.End,
+                Path = path,
+            }
+        );
 
         return new SplinePathResult()
         {
@@ -159,21 +160,20 @@ public sealed partial class PathfindingSystem
     {
         var nodes = new HashSet<Vector2i>(args.Path);
 
-        var result = GetBreadthPath(new BreadthPathArgs()
-        {
-            Start = args.Start,
-            Ends = new List<Vector2i>()
+        var result = GetBreadthPath(
+            new BreadthPathArgs()
             {
-                args.End,
-            },
-            TileCost = node =>
-            {
-                if (!nodes.Contains(node))
-                    return 0f;
+                Start = args.Start,
+                Ends = new List<Vector2i>() { args.End },
+                TileCost = node =>
+                {
+                    if (!nodes.Contains(node))
+                        return 0f;
 
-                return 1f;
+                    return 1f;
+                },
             }
-        });
+        );
 
         return result.Path;
     }

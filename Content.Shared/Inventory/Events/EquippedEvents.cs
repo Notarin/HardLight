@@ -42,9 +42,8 @@ public abstract class EquippedEventBase : EntityEventArgs
 /// </summary>
 public sealed class DidEquipEvent : EquippedEventBase
 {
-    public DidEquipEvent(EntityUid equipee, EntityUid equipment, SlotDefinition slotDefinition) : base(equipee, equipment, slotDefinition)
-    {
-    }
+    public DidEquipEvent(EntityUid equipee, EntityUid equipment, SlotDefinition slotDefinition)
+        : base(equipee, equipment, slotDefinition) { }
 }
 
 /// <summary>
@@ -52,7 +51,6 @@ public sealed class DidEquipEvent : EquippedEventBase
 /// </summary>
 public sealed class GotEquippedEvent : EquippedEventBase
 {
-    public GotEquippedEvent(EntityUid equipee, EntityUid equipment, SlotDefinition slotDefinition) : base(equipee, equipment, slotDefinition)
-    {
-    }
+    public GotEquippedEvent(EntityUid equipee, EntityUid equipment, SlotDefinition slotDefinition)
+        : base(equipee, equipment, slotDefinition) { }
 }

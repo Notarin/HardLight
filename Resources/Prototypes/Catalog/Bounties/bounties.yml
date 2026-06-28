@@ -209,7 +209,7 @@
     amount: 5
     whitelist:
       components:
-        - Sharp
+      - Sharp
 
 - type: cargoBounty
   id: BountyLemon

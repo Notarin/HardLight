@@ -50,11 +50,7 @@ public sealed partial class PathfindingSystem
                 // Found target
                 var path = ReconstructPath(args.End, cameFrom);
 
-                return new SimplePathResult()
-                {
-                    CameFrom = cameFrom,
-                    Path = path,
-                };
+                return new SimplePathResult() { CameFrom = cameFrom, Path = path };
             }
 
             var gCost = costSoFar[node];
@@ -135,10 +131,7 @@ public sealed partial class PathfindingSystem
 
     private List<Vector2i> ReconstructPath(Vector2i end, Dictionary<Vector2i, Vector2i> cameFrom)
     {
-        var path = new List<Vector2i>()
-        {
-            end,
-        };
+        var path = new List<Vector2i>() { end };
         var node = end;
 
         while (cameFrom.TryGetValue(node, out var source))

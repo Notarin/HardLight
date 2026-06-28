@@ -1,8 +1,8 @@
 using Content.Shared._Mono.Traits.Physical;
-using Content.Shared.Body.Systems;
 using Content.Shared._Shitmed.Body.Organ;
 using Content.Shared.Body.Components;
 using Content.Shared.Body.Organ;
+using Content.Shared.Body.Systems;
 using Robust.Shared.Containers;
 
 namespace Content.Server._Mono.Traits.Physical;
@@ -12,8 +12,11 @@ namespace Content.Server._Mono.Traits.Physical;
 /// </summary>
 public sealed class LiquorLifelineSystem : EntitySystem
 {
-    [Dependency] private readonly SharedBodySystem _body = null!;
-    [Dependency] private readonly SharedContainerSystem _containers = null!;
+    [Dependency]
+    private readonly SharedBodySystem _body = null!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _containers = null!;
 
     public override void Initialize()
     {
@@ -49,5 +52,3 @@ public sealed class LiquorLifelineSystem : EntitySystem
         }
     }
 }
-
-

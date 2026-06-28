@@ -6,7 +6,4 @@ namespace Content.Shared.Cargo.Events;
 /// Raised on a client request pallet sale
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class CargoPalletSellMessage : BoundUserInterfaceMessage
-{
-
-}
+public sealed class CargoPalletSellMessage : BoundUserInterfaceMessage { }

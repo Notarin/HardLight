@@ -27,5 +27,5 @@ public sealed partial class StorageBinComponent : Component
 [Serializable, NetSerializable]
 public enum StorageBinLayers : byte
 {
-    Powered
+    Powered,
 }

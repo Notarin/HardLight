@@ -1,9 +1,9 @@
+using System.Linq;
 using Content.Server.Botany.Components;
 using Content.Shared.Atmos;
 using Content.Shared.EntityEffects;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
-using System.Linq;
 
 namespace Content.Server.EntityEffects.Effects;
 
@@ -28,15 +28,15 @@ public sealed partial class PlantMutateExudeGasses : EntityEffect
         // Frontier: List of gasses
         Gas[] gasList =
         {
-          Gas.Oxygen,
-          Gas.Nitrogen,
-          Gas.CarbonDioxide,
-          Gas.NitrousOxide,
-          Gas.Ammonia,
-          Gas.Plasma,
-          Gas.WaterVapor,
-          Gas.Tritium,
-          Gas.Frezon,
+            Gas.Oxygen,
+            Gas.Nitrogen,
+            Gas.CarbonDioxide,
+            Gas.NitrousOxide,
+            Gas.Ammonia,
+            Gas.Plasma,
+            Gas.WaterVapor,
+            Gas.Tritium,
+            Gas.Frezon,
         };
         // End Frontier: List of gasses
 
@@ -50,10 +50,12 @@ public sealed partial class PlantMutateExudeGasses : EntityEffect
         if (gasses.ContainsKey(gas))
         {
             gasses[gas] += amount;
-            if ((gas==Gas.Tritium) || (gas==Gas.Frezon))
+            if ((gas == Gas.Tritium) || (gas == Gas.Frezon))
             {
-                 if (gasses[gas]>MaxValue)
-                    {gasses[gas]=MaxValue;}
+                if (gasses[gas] > MaxValue)
+                {
+                    gasses[gas] = MaxValue;
+                }
             }
         }
         else
@@ -78,6 +80,7 @@ public sealed partial class PlantMutateConsumeGasses : EntityEffect
 
     [DataField]
     public float MaxValue = 0.5f;
+
     public override void Effect(EntityEffectBaseArgs args)
     {
         var plantholder = args.EntityManager.GetComponent<PlantHolderComponent>(args.TargetEntity);
@@ -88,15 +91,15 @@ public sealed partial class PlantMutateConsumeGasses : EntityEffect
         // Frontier: List of gasses
         Gas[] gasList =
         {
-          Gas.Oxygen,
-          Gas.Nitrogen,
-          Gas.CarbonDioxide,
-          Gas.NitrousOxide,
-          Gas.Ammonia,
-          Gas.Plasma,
-          Gas.WaterVapor,
-          Gas.Tritium,
-          Gas.Frezon,
+            Gas.Oxygen,
+            Gas.Nitrogen,
+            Gas.CarbonDioxide,
+            Gas.NitrousOxide,
+            Gas.Ammonia,
+            Gas.Plasma,
+            Gas.WaterVapor,
+            Gas.Tritium,
+            Gas.Frezon,
         };
         // End Frontier: List of gasses
 
@@ -110,10 +113,12 @@ public sealed partial class PlantMutateConsumeGasses : EntityEffect
         if (gasses.ContainsKey(gas))
         {
             gasses[gas] += amount;
-            if ((gas==Gas.Tritium) || (gas==Gas.Frezon))
+            if ((gas == Gas.Tritium) || (gas == Gas.Frezon))
             {
-                 if (gasses[gas]>MaxValue)
-                    {gasses[gas]=MaxValue;}
+                if (gasses[gas] > MaxValue)
+                {
+                    gasses[gas] = MaxValue;
+                }
             }
         }
         else

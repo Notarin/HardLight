@@ -9,7 +9,8 @@ namespace Content.Server.Administration.Commands
     public sealed class PromoteHostCommand : IConsoleCommand
     {
         public string Command => "promotehost";
-        public string Description => "Grants client temporary full host admin privileges. Use this to bootstrap admins.";
+        public string Description =>
+            "Grants client temporary full host admin privileges. Use this to bootstrap admins.";
         public string Help => "Usage promotehost <player>";
 
         public void Execute(IConsoleShell shell, string argStr, string[] args)

@@ -17,7 +17,8 @@ public abstract partial class SharedHandsSystem
         SubscribeLocalEvent<HandsComponent, ExtinguishEvent>(RefRelayEvent);
     }
 
-    private void RelayEvent<T>(Entity<HandsComponent> entity, ref T args) where T : EntityEventArgs
+    private void RelayEvent<T>(Entity<HandsComponent> entity, ref T args)
+        where T : EntityEventArgs
     {
         CoreRelayEvent(entity, ref args);
     }

@@ -4,8 +4,8 @@ using Content.Server.Ghost.Roles.Components;
 using Content.Server.Psionics;
 using Content.Server.Speech.Components;
 using Content.Server.StationEvents.Components;
-using Content.Shared.Mobs.Systems;
 using Content.Shared.GameTicking.Components;
+using Content.Shared.Mobs.Systems;
 using Robust.Shared.GameObjects;
 
 namespace Content.Server.StationEvents.Events;
@@ -15,10 +15,18 @@ namespace Content.Server.StationEvents.Events;
 /// </summary>
 internal sealed class GlimmerRandomSentienceRule : StationEventSystem<GlimmerRandomSentienceRuleComponent>
 {
-    [Dependency] private readonly MobStateSystem _mobStateSystem = default!;
-    [Dependency] private readonly MetaDataSystem _metaData = default!;
+    [Dependency]
+    private readonly MobStateSystem _mobStateSystem = default!;
 
-    protected override void Started(EntityUid uid, GlimmerRandomSentienceRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
+    [Dependency]
+    private readonly MetaDataSystem _metaData = default!;
+
+    protected override void Started(
+        EntityUid uid,
+        GlimmerRandomSentienceRuleComponent component,
+        GameRuleComponent gameRule,
+        GameRuleStartedEvent args
+    )
     {
         base.Started(uid, component, gameRule, args);
 
@@ -49,7 +57,10 @@ internal sealed class GlimmerRandomSentienceRule : StationEventSystem<GlimmerRan
             _metaData.SetEntityName(target, Loc.GetString("glimmer-event-awakened-prefix", ("entity", target)));
             var comp = EntityManager.EnsureComponent<GhostRoleComponent>(target);
             comp.RoleName = EntityManager.GetComponent<MetaDataComponent>(target).EntityName;
-            comp.RoleDescription = Loc.GetString("station-event-random-sentience-role-description", ("name", comp.RoleName));
+            comp.RoleDescription = Loc.GetString(
+                "station-event-random-sentience-role-description",
+                ("name", comp.RoleName)
+            );
             RemComp<ReplacementAccentComponent>(target);
             RemComp<MonkeyAccentComponent>(target);
             EnsureComp<PotentialPsionicComponent>(target);

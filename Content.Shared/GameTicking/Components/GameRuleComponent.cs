@@ -1,7 +1,7 @@
 using Content.Shared.Destructible.Thresholds;
+using Content.Shared.Roles; // Hardlight
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
-using Content.Shared.Roles; // Hardlight
 
 namespace Content.Shared.GameTicking.Components;
 

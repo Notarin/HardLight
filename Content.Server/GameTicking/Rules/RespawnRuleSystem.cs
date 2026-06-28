@@ -21,10 +21,17 @@ namespace Content.Server.GameTicking.Rules;
 /// </summary>
 public sealed class RespawnRuleSystem : GameRuleSystem<RespawnDeadRuleComponent>
 {
-    [Dependency] private readonly IChatManager _chatManager = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly StationSystem _station = default!;
+    [Dependency]
+    private readonly IChatManager _chatManager = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly StationSystem _station = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -52,7 +59,11 @@ public sealed class RespawnRuleSystem : GameRuleSystem<RespawnDeadRuleComponent>
                 if (!_playerManager.TryGetSessionById(player, out var session))
                     continue;
 
-                if (session.GetMind() is { } mind && TryComp<MindComponent>(mind, out var mindComp) && mindComp.OwnedEntity.HasValue)
+                if (
+                    session.GetMind() is { } mind
+                    && TryComp<MindComponent>(mind, out var mindComp)
+                    && mindComp.OwnedEntity.HasValue
+                )
                     QueueDel(mindComp.OwnedEntity.Value);
                 GameTicker.MakeJoinGame(session, station, silent: true);
                 tracker.RespawnQueue.Remove(player);
@@ -63,7 +74,7 @@ public sealed class RespawnRuleSystem : GameRuleSystem<RespawnDeadRuleComponent>
     private void OnSuicide(SuicideEvent ev)
     {
         if (!TryComp<ActorComponent>(ev.Victim, out var actor))
-           return;
+            return;
 
         var query = EntityQueryEnumerator<RespawnTrackerComponent>();
         while (query.MoveNext(out _, out var respawn))
@@ -82,7 +93,7 @@ public sealed class RespawnRuleSystem : GameRuleSystem<RespawnDeadRuleComponent>
             return;
 
         var query = EntityQueryEnumerator<RespawnDeadRuleComponent, RespawnTrackerComponent, GameRuleComponent>();
-        while (query.MoveNext(out var uid, out var respawnRule, out  var tracker, out var rule))
+        while (query.MoveNext(out var uid, out var respawnRule, out var tracker, out var rule))
         {
             if (!GameTicker.IsGameRuleActive(uid, rule))
                 continue;
@@ -99,7 +110,10 @@ public sealed class RespawnRuleSystem : GameRuleSystem<RespawnDeadRuleComponent>
     /// </summary>
     public bool RespawnPlayer(Entity<ActorComponent> player, Entity<RespawnTrackerComponent> respawnTracker)
     {
-        if (!respawnTracker.Comp.Players.Contains(player.Comp.PlayerSession.UserId) || respawnTracker.Comp.RespawnQueue.ContainsKey(player.Comp.PlayerSession.UserId))
+        if (
+            !respawnTracker.Comp.Players.Contains(player.Comp.PlayerSession.UserId)
+            || respawnTracker.Comp.RespawnQueue.ContainsKey(player.Comp.PlayerSession.UserId)
+        )
             return false;
 
         if (respawnTracker.Comp.RespawnDelay == TimeSpan.Zero)
@@ -115,9 +129,18 @@ public sealed class RespawnRuleSystem : GameRuleSystem<RespawnDeadRuleComponent>
 
         var msg = Loc.GetString("rule-respawn-in-seconds", ("second", respawnTracker.Comp.RespawnDelay.TotalSeconds));
         var wrappedMsg = Loc.GetString("chat-manager-server-wrap-message", ("message", msg));
-        _chatManager.ChatMessageToOne(ChatChannel.Server, msg, wrappedMsg, respawnTracker, false, player.Comp.PlayerSession.Channel, Color.LimeGreen);
+        _chatManager.ChatMessageToOne(
+            ChatChannel.Server,
+            msg,
+            wrappedMsg,
+            respawnTracker,
+            false,
+            player.Comp.PlayerSession.Channel,
+            Color.LimeGreen
+        );
 
-        respawnTracker.Comp.RespawnQueue[player.Comp.PlayerSession.UserId] = _timing.CurTime + respawnTracker.Comp.RespawnDelay;
+        respawnTracker.Comp.RespawnQueue[player.Comp.PlayerSession.UserId] =
+            _timing.CurTime + respawnTracker.Comp.RespawnDelay;
 
         return true;
     }

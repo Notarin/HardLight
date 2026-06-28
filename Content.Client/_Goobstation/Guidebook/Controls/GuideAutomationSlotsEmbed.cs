@@ -3,12 +3,12 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+using System.Diagnostics.CodeAnalysis;
 using Content.Client.Guidebook.Controls;
 using Content.Client.Guidebook.Richtext;
 using Content.Shared._Goobstation.Factory;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Content.Client._Goobstation.Guidebook.Controls;
 
@@ -17,7 +17,8 @@ namespace Content.Client._Goobstation.Guidebook.Controls;
 /// </summary>
 public sealed partial class GuideAutomationSlotsEmbed : IDocumentTag
 {
-    [Dependency] private readonly IEntityManager _entMan = default!;
+    [Dependency]
+    private readonly IEntityManager _entMan = default!;
     private readonly AutomationSystem _automation;
 
     public GuideAutomationSlotsEmbed()
@@ -29,16 +30,12 @@ public sealed partial class GuideAutomationSlotsEmbed : IDocumentTag
 
     bool IDocumentTag.TryParseTag(Dictionary<string, string> args, [NotNullWhen(true)] out Control? control)
     {
-        var scroll = new ScrollContainer()
-        {
-            MinHeight = 200f,
-            MaxHeight = 400f
-        };
+        var scroll = new ScrollContainer() { MinHeight = 200f, MaxHeight = 400f };
         var box = new BoxContainer()
         {
             Orientation = BoxContainer.LayoutOrientation.Vertical,
             HorizontalExpand = true,
-            VerticalExpand = true
+            VerticalExpand = true,
         };
         foreach (var id in _automation.Automatable)
         {

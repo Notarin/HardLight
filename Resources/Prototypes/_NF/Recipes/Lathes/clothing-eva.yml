@@ -58,11 +58,11 @@
     Silver: 1000
     Gold: 500
 
-# Recipes
+  # Recipes
 
-# Softsuits
+  # Softsuits
 
-# - type: latheRecipe
+  # - type: latheRecipe
   # id: ClothingOuterSuitEmergency
   # parent: NFBaseEVASuitRecipe
   # result: ClothingOuterSuitEmergency
@@ -78,9 +78,9 @@
   result: ClothingOuterEVASuitMailman
 
 # - type: latheRecipe
-  # id: ClothingOuterHardsuitEVA
-  # parent: NFBaseEVASuitRecipe
-  # result: ClothingOuterHardsuitEVA
+# id: ClothingOuterHardsuitEVA
+# parent: NFBaseEVASuitRecipe
+# result: ClothingOuterHardsuitEVA
 
 - type: latheRecipe
   id: ClothingOuterHardsuitVoidParamed
@@ -223,13 +223,13 @@
   result: ClothingHeadHelmetEVALarge
 
 # - type: latheRecipe # Probably should be available via T2-T3
-  # id: ClothingHeadHelmetAncient
-  # parent: NFBaseEVAHelmetRecipe
-  # result: ClothingHeadHelmetAncient
-  # materials:
-    # Glass: 500
-    # Plasteel: 500
-    # Durathread: 100
+# id: ClothingHeadHelmetAncient
+# parent: NFBaseEVAHelmetRecipe
+# result: ClothingHeadHelmetAncient
+# materials:
+# Glass: 500
+# Plasteel: 500
+# Durathread: 100
 
 - type: latheRecipe # idk EMAG
   id: ClothingHeadHelmetCosmonaut

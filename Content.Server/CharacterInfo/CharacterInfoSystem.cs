@@ -10,10 +10,17 @@ namespace Content.Server.CharacterInfo;
 
 public sealed class CharacterInfoSystem : EntitySystem
 {
-    [Dependency] private readonly JobSystem _jobs = default!;
-    [Dependency] private readonly MindSystem _minds = default!;
-    [Dependency] private readonly RoleSystem _roles = default!;
-    [Dependency] private readonly SharedObjectivesSystem _objectives = default!;
+    [Dependency]
+    private readonly JobSystem _jobs = default!;
+
+    [Dependency]
+    private readonly MindSystem _minds = default!;
+
+    [Dependency]
+    private readonly RoleSystem _roles = default!;
+
+    [Dependency]
+    private readonly SharedObjectivesSystem _objectives = default!;
 
     public override void Initialize()
     {
@@ -24,8 +31,10 @@ public sealed class CharacterInfoSystem : EntitySystem
 
     private void OnRequestCharacterInfoEvent(RequestCharacterInfoEvent msg, EntitySessionEventArgs args)
     {
-        if (!args.SenderSession.AttachedEntity.HasValue
-            || args.SenderSession.AttachedEntity != GetEntity(msg.NetEntity))
+        if (
+            !args.SenderSession.AttachedEntity.HasValue
+            || args.SenderSession.AttachedEntity != GetEntity(msg.NetEntity)
+        )
             return;
 
         var entity = args.SenderSession.AttachedEntity.Value;
@@ -56,6 +65,9 @@ public sealed class CharacterInfoSystem : EntitySystem
             briefing = _roles.MindGetBriefing(mindId);
         }
 
-        RaiseNetworkEvent(new CharacterInfoEvent(GetNetEntity(entity), jobTitle, objectives, briefing), args.SenderSession);
+        RaiseNetworkEvent(
+            new CharacterInfoEvent(GetNetEntity(entity), jobTitle, objectives, briefing),
+            args.SenderSession
+        );
     }
 }

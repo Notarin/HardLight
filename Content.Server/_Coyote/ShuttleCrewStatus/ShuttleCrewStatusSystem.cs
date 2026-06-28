@@ -17,10 +17,17 @@ namespace Content.Server._Coyote.ShuttleCrewStatus;
 /// </summary>
 public sealed class ShuttleCrewStatusSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly ISharedPlayerManager _playerManager = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedShuttleSystem _shuttle = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly ISharedPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly SharedShuttleSystem _shuttle = default!;
 
     /// <summary>
     /// How often to check crew status on shuttles. Default: 3 minutes.
@@ -74,7 +81,12 @@ public sealed class ShuttleCrewStatusSystem : EntitySystem
         base.Update(frameTime);
 
         var currentTime = _timing.CurTime;
-        var query = EntityQueryEnumerator<ShuttleCrewStatusComponent, ShuttleComponent, IFFComponent, TransformComponent>();
+        var query = EntityQueryEnumerator<
+            ShuttleCrewStatusComponent,
+            ShuttleComponent,
+            IFFComponent,
+            TransformComponent
+        >();
 
         while (query.MoveNext(out var uid, out var crewStatus, out var shuttle, out var iff, out var xform))
         {

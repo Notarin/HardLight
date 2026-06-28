@@ -1,5 +1,5 @@
-using Robust.Shared.Map;
 using System.Numerics;
+using Robust.Shared.Map;
 
 namespace Content.Server._Mono.NPC.HTN;
 
@@ -242,12 +242,12 @@ public enum ShipSteeringStatus : byte
     /// <summary>
     /// Meeting set end conditions
     /// </summary>
-    InRange
+    InRange,
 }
 
 public enum ShipSteeringMode
 {
     GoToRange,
     Orbit,
-    OrbitCW
+    OrbitCW,
 }

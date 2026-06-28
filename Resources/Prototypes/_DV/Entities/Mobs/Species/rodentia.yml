@@ -36,8 +36,7 @@
   - type: Fixtures
     fixtures: # TODO: This needs a second fixture just for mob collisions.
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.28
         density: 140
         restitution: 0.0
@@ -48,55 +47,55 @@
   - type: Sprite
     scale: 0.8, 0.8
     layers:
-      - map: [ "enum.HumanoidVisualLayers.TailBehind" ]
-      - map: [ "enum.HumanoidVisualLayers.Chest" ]
-      - map: [ "enum.HumanoidVisualLayers.Head" ]
-      - map: [ "enum.HumanoidVisualLayers.Snout" ]
-      - map: [ "enum.HumanoidVisualLayers.Eyes" ]
-      - map: [ "enum.HumanoidVisualLayers.RArm" ]
-      - map: [ "enum.HumanoidVisualLayers.LArm" ]
-      - map: [ "enum.HumanoidVisualLayers.RLeg" ]
-      - map: [ "enum.HumanoidVisualLayers.LLeg" ]
-      - map: [ "enum.HumanoidVisualLayers.Genital" ]
-      - map: [ "enum.HumanoidVisualLayers.Breasts" ] # HL: Add breasts layer
-      - map: [ "enum.HumanoidVisualLayers.UndergarmentTop" ]
-      - map: [ "enum.HumanoidVisualLayers.Penis" ]
-      - map: [ "enum.HumanoidVisualLayers.UndergarmentBottom" ]
-      - map: [ "accessory1" ]
-      - map: [ "accessory2" ]
-      - map: [ "jumpsuit" ]
-      - map: [ "enum.HumanoidVisualLayers.LHand" ]
-      - map: [ "enum.HumanoidVisualLayers.RHand" ]
-      - map: [ "enum.HumanoidVisualLayers.LFoot" ]
-      - map: [ "enum.HumanoidVisualLayers.RFoot" ]
-      - map: [ "enum.HumanoidVisualLayers.Handcuffs" ]
-        color: "#ffffff"
-        sprite: Objects/Misc/handcuffs.rsi
-        state: body-overlay-2
-        visible: false
-      - map: [ "id" ]
-      - map: [ "gloves" ]
-      - map: [ "shoes" ]
-      - map: [ "ears" ]
-      - map: [ "outerClothing" ]
-      - map: [ "eyes" ]
-      - map: [ "belt" ]
-      - map: [ "neck" ]
-      - map: [ "enum.HumanoidVisualLayers.TailOversuit" ]
-      - map: [ "back" ]
-      - map: [ "enum.HumanoidVisualLayers.FacialHair" ]
-      - map: [ "enum.HumanoidVisualLayers.Hair" ]
-      - map: [ "enum.HumanoidVisualLayers.HeadSide" ]
-      - map: [ "enum.HumanoidVisualLayers.HeadTop" ]
-      - map: [ "enum.HumanoidVisualLayers.Tail" ]
-      - map: [ "mask" ]
-      - map: [ "head" ]
-      - map: [ "pocket1" ]
-      - map: [ "pocket2" ]
-      - map: [ "clownedon" ] # Dynamically generated
-        sprite: "_DV/Effects/creampie.rsi"
-        state: "creampie_rodentia"
-        visible: false
+    - map: ["enum.HumanoidVisualLayers.TailBehind"]
+    - map: ["enum.HumanoidVisualLayers.Chest"]
+    - map: ["enum.HumanoidVisualLayers.Head"]
+    - map: ["enum.HumanoidVisualLayers.Snout"]
+    - map: ["enum.HumanoidVisualLayers.Eyes"]
+    - map: ["enum.HumanoidVisualLayers.RArm"]
+    - map: ["enum.HumanoidVisualLayers.LArm"]
+    - map: ["enum.HumanoidVisualLayers.RLeg"]
+    - map: ["enum.HumanoidVisualLayers.LLeg"]
+    - map: ["enum.HumanoidVisualLayers.Genital"]
+    - map: ["enum.HumanoidVisualLayers.Breasts"] # HL: Add breasts layer
+    - map: ["enum.HumanoidVisualLayers.UndergarmentTop"]
+    - map: ["enum.HumanoidVisualLayers.Penis"]
+    - map: ["enum.HumanoidVisualLayers.UndergarmentBottom"]
+    - map: ["accessory1"]
+    - map: ["accessory2"]
+    - map: ["jumpsuit"]
+    - map: ["enum.HumanoidVisualLayers.LHand"]
+    - map: ["enum.HumanoidVisualLayers.RHand"]
+    - map: ["enum.HumanoidVisualLayers.LFoot"]
+    - map: ["enum.HumanoidVisualLayers.RFoot"]
+    - map: ["enum.HumanoidVisualLayers.Handcuffs"]
+      color: "#ffffff"
+      sprite: Objects/Misc/handcuffs.rsi
+      state: body-overlay-2
+      visible: false
+    - map: ["id"]
+    - map: ["gloves"]
+    - map: ["shoes"]
+    - map: ["ears"]
+    - map: ["outerClothing"]
+    - map: ["eyes"]
+    - map: ["belt"]
+    - map: ["neck"]
+    - map: ["enum.HumanoidVisualLayers.TailOversuit"]
+    - map: ["back"]
+    - map: ["enum.HumanoidVisualLayers.FacialHair"]
+    - map: ["enum.HumanoidVisualLayers.Hair"]
+    - map: ["enum.HumanoidVisualLayers.HeadSide"]
+    - map: ["enum.HumanoidVisualLayers.HeadTop"]
+    - map: ["enum.HumanoidVisualLayers.Tail"]
+    - map: ["mask"]
+    - map: ["head"]
+    - map: ["pocket1"]
+    - map: ["pocket2"]
+    - map: ["clownedon"] # Dynamically generated
+      sprite: "_DV/Effects/creampie.rsi"
+      state: "creampie_rodentia"
+      visible: false
   - type: MeleeWeapon
     soundHit:
       path: /Audio/Weapons/pierce.ogg
@@ -124,8 +123,8 @@
   - type: PseudoItem
     storedOffset: -10,0
     shape:
-      - 0, 0, 3, 2
-      - 0, 2, 5, 4
+    - 0, 0, 3, 2
+    - 0, 2, 5, 4
   - type: MouthStorage
     mouthProto: CheekStorage
     openStorageAction: ActionOpenMouthStorage
@@ -141,7 +140,7 @@
   name: Rodentia Dummy
   parent: MobHumanDummy
   id: MobRodentiaDummy
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   description: A dummy rodentia meant to be used in character setup.
   components:
   - type: HumanoidAppearance

@@ -8,7 +8,8 @@ namespace Content.Shared.Weapons.Ranged.Systems;
 /// </summary>
 public sealed class RechargeCycleAmmoSystem : EntitySystem
 {
-    [Dependency] private readonly SharedGunSystem _gun = default!;
+    [Dependency]
+    private readonly SharedGunSystem _gun = default!;
 
     public override void Initialize()
     {

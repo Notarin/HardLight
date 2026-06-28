@@ -5,19 +5,18 @@
 # These dots' texture detection should not interfere with the actual bounding box being tested.
 
 - type: entity
-  categories: [ Debug, HideSpawnMenu ]
+  categories: [Debug, HideSpawnMenu]
   id: ClickTestBase
   suffix: DEBUG
   components:
   - type: Tag
     tags:
-      - Debug
+    - Debug
   - type: Clickable
   - type: InteractionOutline
   - type: Sprite
     noRot: false
     sprite: Effects/clicktest.rsi
-
 
 - type: entity
   id: ClickTestRotatingCornerVisible
@@ -58,9 +57,8 @@
   name: ClickTestRotatingCornerInvisibleNoRot
   parent: ClickTestRotatingCornerInvisible
   components:
-    - type: Sprite
-      noRot: true
-
+  - type: Sprite
+    noRot: true
 
 - type: entity
   id: ClickTestFixedCornerVisible

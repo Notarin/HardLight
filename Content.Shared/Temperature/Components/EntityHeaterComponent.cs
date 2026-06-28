@@ -30,6 +30,7 @@ public sealed partial class EntityHeaterComponent : Component
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite)]
     public float PassivePower = 0f;
+
     // End Frontier
 
     /// <summary>

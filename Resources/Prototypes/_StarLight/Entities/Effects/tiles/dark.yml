@@ -6,47 +6,46 @@
   placement:
     mode: SnapgridCenter
   components:
-    - type: Physics
-      bodyType: Static
-    - type: Fixtures
-      fixtures:
-        fix1:
-          shape: !type:PhysShapeAabb
-            bounds: "-0.5,-0.5,0.5,0.5"
-          layer:
-            - SlipLayer
-          mask:
-            - ItemMask
-          density: 1000
-          hard: false
-    - type: FloorOccluder
-    - type: Clickable
-    - type: Appearance
-    - type: Transform
-      anchored: true
-    - type: Sprite
-      noRot: true
-      drawdepth: FloorTiles
-      sprite: _Starlight/Tiles/dark.rsi
-      layers:
-        - state: dark
-          shader: unshaded
-        - state: overlay-1
-          shader: unshaded
-          map: ["overlay"]
-    - type: SpeedModifierContacts
-      walkSpeedModifier: 0.3
-      sprintSpeedModifier: 0.3
-      ignoreWhitelist:
-        components:
-          - Shadekin
-    - type: StepTrigger
-      requiredTriggeredSpeed: 0
-      intersectRatio: 0.1
-      blacklist:
-        tags:
-          - Catwalk
-
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        layer:
+        - SlipLayer
+        mask:
+        - ItemMask
+        density: 1000
+        hard: false
+  - type: FloorOccluder
+  - type: Clickable
+  - type: Appearance
+  - type: Transform
+    anchored: true
+  - type: Sprite
+    noRot: true
+    drawdepth: FloorTiles
+    sprite: _Starlight/Tiles/dark.rsi
+    layers:
+    - state: dark
+      shader: unshaded
+    - state: overlay-1
+      shader: unshaded
+      map: ["overlay"]
+  - type: SpeedModifierContacts
+    walkSpeedModifier: 0.3
+    sprintSpeedModifier: 0.3
+    ignoreWhitelist:
+      components:
+      - Shadekin
+  - type: StepTrigger
+    requiredTriggeredSpeed: 0
+    intersectRatio: 0.1
+    blacklist:
+      tags:
+      - Catwalk
 
 - type: entity
   id: DarkTile2
@@ -54,13 +53,13 @@
   placement:
     mode: SnapgridCenter
   components:
-    - type: Sprite
-      layers:
-        - state: dark
-          shader: unshaded
-        - state: overlay-2
-          shader: unshaded
-          map: ["overlay"]
+  - type: Sprite
+    layers:
+    - state: dark
+      shader: unshaded
+    - state: overlay-2
+      shader: unshaded
+      map: ["overlay"]
 
 - type: entity
   id: DarkTile3
@@ -68,13 +67,13 @@
   placement:
     mode: SnapgridCenter
   components:
-    - type: Sprite
-      layers:
-        - state: dark
-          shader: unshaded
-        - state: overlay-3
-          shader: unshaded
-          map: ["overlay"]
+  - type: Sprite
+    layers:
+    - state: dark
+      shader: unshaded
+    - state: overlay-3
+      shader: unshaded
+      map: ["overlay"]
 
 - type: entity
   id: DarkTile4
@@ -82,13 +81,13 @@
   placement:
     mode: SnapgridCenter
   components:
-    - type: Sprite
-      layers:
-        - state: dark
-          shader: unshaded
-        - state: overlay-4
-          shader: unshaded
-          map: ["overlay"]
+  - type: Sprite
+    layers:
+    - state: dark
+      shader: unshaded
+    - state: overlay-4
+      shader: unshaded
+      map: ["overlay"]
 
 - type: entity
   id: DarkTile5
@@ -96,13 +95,13 @@
   placement:
     mode: SnapgridCenter
   components:
-    - type: Sprite
-      layers:
-        - state: dark
-          shader: unshaded
-        - state: overlay-5
-          shader: unshaded
-          map: ["overlay"]
+  - type: Sprite
+    layers:
+    - state: dark
+      shader: unshaded
+    - state: overlay-5
+      shader: unshaded
+      map: ["overlay"]
 
 - type: entity
   id: DarkTile6
@@ -110,13 +109,13 @@
   placement:
     mode: SnapgridCenter
   components:
-    - type: Sprite
-      layers:
-        - state: dark
-          shader: unshaded
-        - state: overlay-6
-          shader: unshaded
-          map: ["overlay"]
+  - type: Sprite
+    layers:
+    - state: dark
+      shader: unshaded
+    - state: overlay-6
+      shader: unshaded
+      map: ["overlay"]
 
 - type: entity
   id: DarkTile7
@@ -124,13 +123,13 @@
   placement:
     mode: SnapgridCenter
   components:
-    - type: Sprite
-      layers:
-        - state: dark
-          shader: unshaded
-        - state: overlay-7
-          shader: unshaded
-          map: ["overlay"]
+  - type: Sprite
+    layers:
+    - state: dark
+      shader: unshaded
+    - state: overlay-7
+      shader: unshaded
+      map: ["overlay"]
 
 - type: entity
   id: DarkTile8
@@ -138,13 +137,13 @@
   placement:
     mode: SnapgridCenter
   components:
-    - type: Sprite
-      layers:
-        - state: dark
-          shader: unshaded
-        - state: overlay-8
-          shader: unshaded
-          map: ["overlay"]
+  - type: Sprite
+    layers:
+    - state: dark
+      shader: unshaded
+    - state: overlay-8
+      shader: unshaded
+      map: ["overlay"]
 
 - type: entity
   id: DarkTile9
@@ -152,13 +151,13 @@
   placement:
     mode: SnapgridCenter
   components:
-    - type: Sprite
-      layers:
-        - state: dark
-          shader: unshaded
-        - state: overlay-9
-          shader: unshaded
-          map: ["overlay"]
+  - type: Sprite
+    layers:
+    - state: dark
+      shader: unshaded
+    - state: overlay-9
+      shader: unshaded
+      map: ["overlay"]
 
 - type: entity
   id: DarkTile10
@@ -166,13 +165,13 @@
   placement:
     mode: SnapgridCenter
   components:
-    - type: Sprite
-      layers:
-        - state: dark
-          shader: unshaded
-        - state: overlay-10
-          shader: unshaded
-          map: ["overlay"]
+  - type: Sprite
+    layers:
+    - state: dark
+      shader: unshaded
+    - state: overlay-10
+      shader: unshaded
+      map: ["overlay"]
 
 - type: entity
   id: DarkTile11
@@ -180,13 +179,13 @@
   placement:
     mode: SnapgridCenter
   components:
-    - type: Sprite
-      layers:
-        - state: dark
-          shader: unshaded
-        - state: overlay-11
-          shader: unshaded
-          map: ["overlay"]
+  - type: Sprite
+    layers:
+    - state: dark
+      shader: unshaded
+    - state: overlay-11
+      shader: unshaded
+      map: ["overlay"]
 
 - type: entity
   id: DarkTile12
@@ -194,31 +193,31 @@
   placement:
     mode: SnapgridCenter
   components:
-    - type: Sprite
-      layers:
-        - state: dark
-          shader: unshaded
-        - state: overlay-12
-          shader: unshaded
-          map: ["overlay"]
+  - type: Sprite
+    layers:
+    - state: dark
+      shader: unshaded
+    - state: overlay-12
+      shader: unshaded
+      map: ["overlay"]
 
 - type: entity
   id: DarkRandom
   parent: DarkTile
   suffix: Random
   components:
-    - type: RandomSprite
-      available:
-        - overlay:
-            overlay-1: ""
-            overlay-2: ""
-            overlay-3: ""
-            overlay-4: ""
-            overlay-5: ""
-            overlay-6: ""
-            overlay-7: ""
-            overlay-8: ""
-            overlay-9: ""
-            overlay-10: ""
-            overlay-11: ""
-            overlay-12: ""
+  - type: RandomSprite
+    available:
+    - overlay:
+        overlay-1: ""
+        overlay-2: ""
+        overlay-3: ""
+        overlay-4: ""
+        overlay-5: ""
+        overlay-6: ""
+        overlay-7: ""
+        overlay-8: ""
+        overlay-9: ""
+        overlay-10: ""
+        overlay-11: ""
+        overlay-12: ""

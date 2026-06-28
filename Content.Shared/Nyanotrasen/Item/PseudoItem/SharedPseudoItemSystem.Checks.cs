@@ -27,7 +27,7 @@ public partial class SharedPseudoItemSystem
             Owner = itemEnt,
             Shape = itemEnt.Comp.Shape,
             Size = itemEnt.Comp.Size,
-            StoredOffset = itemEnt.Comp.StoredOffset
+            StoredOffset = itemEnt.Comp.StoredOffset,
         };
 
         return _storage.CanInsert(storageEnt, itemEnt, out _, storageEnt.Comp, item, ignoreStacks: true);

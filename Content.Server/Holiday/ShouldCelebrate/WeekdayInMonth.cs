@@ -9,14 +9,16 @@ namespace Content.Server.Holiday.ShouldCelebrate
     [UsedImplicitly]
     public sealed partial class WeekdayInMonth : DefaultHolidayShouldCelebrate
     {
-        [DataField("weekday")] private DayOfWeek _weekday = DayOfWeek.Monday;
+        [DataField("weekday")]
+        private DayOfWeek _weekday = DayOfWeek.Monday;
 
-        [DataField("occurrence")] private uint _occurrence = 1;
+        [DataField("occurrence")]
+        private uint _occurrence = 1;
 
         public override bool ShouldCelebrate(DateTime date, HolidayPrototype holiday)
         {
             // Not the needed month.
-            if (date.Month != (int) holiday.BeginMonth)
+            if (date.Month != (int)holiday.BeginMonth)
                 return false;
 
             // Occurrence NEEDS to be between 1 and 4.
@@ -33,7 +35,7 @@ namespace Content.Server.Holiday.ShouldCelebrate
                     continue;
                 }
 
-                d = d.AddDays(7 * (_occurrence-1));
+                d = d.AddDays(7 * (_occurrence - 1));
 
                 return date.Day == d.Day;
             }

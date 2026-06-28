@@ -1,17 +1,22 @@
-using Robust.Shared.Prototypes;
 using Content.Server.Chemistry.Components;
+using Content.Server.Chemistry.Containers.EntitySystems;
 using Content.Server.Popups;
 using Content.Shared.Chemistry.Reagent;
 using Content.Shared.Verbs;
-using Content.Server.Chemistry.Containers.EntitySystems;
+using Robust.Shared.Prototypes;
 
 namespace Content.Server.Chemistry.EntitySystems
 {
     public sealed class SolutionRegenerationSwitcherSystem : EntitySystem
     {
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        [Dependency] private readonly SolutionContainerSystem _solutionSystem = default!;
-        [Dependency] private readonly PopupSystem _popups = default!;
+        [Dependency]
+        private readonly IPrototypeManager _prototypeManager = default!;
+
+        [Dependency]
+        private readonly SolutionContainerSystem _solutionSystem = default!;
+
+        [Dependency]
+        private readonly PopupSystem _popups = default!;
 
         private ISawmill _sawmill = default!;
 
@@ -24,7 +29,11 @@ namespace Content.Server.Chemistry.EntitySystems
             SubscribeLocalEvent<SolutionRegenerationSwitcherComponent, GetVerbsEvent<AlternativeVerb>>(AddSwitchVerb);
         }
 
-        private void AddSwitchVerb(EntityUid uid, SolutionRegenerationSwitcherComponent component, GetVerbsEvent<AlternativeVerb> args)
+        private void AddSwitchVerb(
+            EntityUid uid,
+            SolutionRegenerationSwitcherComponent component,
+            GetVerbsEvent<AlternativeVerb> args
+        )
         {
             if (!args.CanInteract || !args.CanAccess)
                 return;
@@ -39,7 +48,7 @@ namespace Content.Server.Chemistry.EntitySystems
                     SwitchReagent(uid, component, args.User);
                 },
                 Text = Loc.GetString("autoreagent-switch"),
-                Priority = 2
+                Priority = 2,
             };
             args.Verbs.Add(verb);
         }
@@ -67,7 +76,9 @@ namespace Content.Server.Chemistry.EntitySystems
             var primaryId = newSolution.GetPrimaryReagentId();
             if (primaryId == null)
             {
-                _sawmill.Error($"Can't get PrimaryReagentId for {ToPrettyString(uid)} on index {component.CurrentIndex}.");
+                _sawmill.Error(
+                    $"Can't get PrimaryReagentId for {ToPrettyString(uid)} on index {component.CurrentIndex}."
+                );
                 return;
             }
             ReagentPrototype? proto;
@@ -81,7 +92,8 @@ namespace Content.Server.Chemistry.EntitySystems
                     return;
                 }
             }
-            else return;
+            else
+                return;
 
             // Empty out the current solution.
             if (!component.KeepSolution && solution != null)
@@ -90,7 +102,7 @@ namespace Content.Server.Chemistry.EntitySystems
             // Replace the generating solution with the newly selected solution.
             var generated = solutionRegenerationComponent.Generated;
             generated.RemoveAllSolution();
-            
+
             // Get the solution entity and add the new solution
             if (_solutionSystem.TryGetSolution(uid, solutionRegenerationComponent.SolutionName, out var solutionEnt))
                 _solutionSystem.TryAddSolution(solutionEnt.Value, newSolution);

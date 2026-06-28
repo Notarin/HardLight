@@ -14,7 +14,13 @@ public sealed class InventoryEquipActEvent : EntityEventArgs
     public readonly bool Silent;
     public readonly bool Force;
 
-    public InventoryEquipActEvent(NetEntity uid, NetEntity itemUid, string slot, bool silent = false, bool force = false)
+    public InventoryEquipActEvent(
+        NetEntity uid,
+        NetEntity itemUid,
+        string slot,
+        bool silent = false,
+        bool force = false
+    )
     {
         Uid = uid;
         ItemUid = itemUid;

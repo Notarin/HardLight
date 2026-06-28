@@ -2,14 +2,21 @@ using Content.Shared.Damage;
 using Content.Shared.Damage.Prototypes;
 using Content.Shared.Mobs.Systems;
 using Robust.Shared.Prototypes;
+
 namespace Content.Server._Shitmed.DelayedDeath;
 
 public partial class DelayedDeathSystem : EntitySystem
 {
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly IPrototypeManager _prototypes = default!;
+    [Dependency]
+    private readonly DamageableSystem _damageable = default!;
+
+    [Dependency]
+    private readonly MobStateSystem _mobState = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypes = default!;
     private static readonly ProtoId<DamageTypePrototype> BloodlossDamageId = "Bloodloss";
+
     public override void Update(float frameTime)
     {
         base.Update(frameTime);

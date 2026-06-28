@@ -6,12 +6,12 @@
   components:
   - type: Tag
     tags:
-      - SpeedLoader556x45mmFMJ
+    - SpeedLoader556x45mmFMJ
   - type: SpeedLoader
   - type: BallisticAmmoProvider
     whitelist:
       tags:
-        - Cartridge556x45mmFMJ
+      - Cartridge556x45mmFMJ
     capacity: 8
   - type: Sprite
   - type: ContainerContainer
@@ -32,10 +32,10 @@
   - type: Sprite
     sprite: _Mono/Objects/Weapons/Guns/Ammunition/SpeedLoaders/556x45mm/556x45mm.rsi
     layers:
-      - state: base
-        map: [ "enum.GunVisualLayers.Base" ]
-      - state: base-8
-        map: [ "enum.GunVisualLayers.Mag" ]
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: base-8
+      map: ["enum.GunVisualLayers.Mag"]
   - type: MagazineVisuals
     magState: base
     steps: 9
@@ -55,10 +55,10 @@
   - type: Sprite
     sprite: _Mono/Objects/Weapons/Guns/Ammunition/SpeedLoaders/556x45mm/556x45mm.rsi
     layers:
-      - state: base
-        map: [ "enum.GunVisualLayers.Base" ]
-      - state: base-8
-        map: [ "enum.GunVisualLayers.Mag" ]
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: base-8
+      map: ["enum.GunVisualLayers.Mag"]
 
 - type: entity
   id: SpeedLoader556x45mmIncendiary
@@ -70,10 +70,10 @@
   - type: Sprite
     sprite: _Mono/Objects/Weapons/Guns/Ammunition/SpeedLoaders/556x45mm/556x45mm.rsi
     layers:
-      - state: base
-        map: [ "enum.GunVisualLayers.Base" ]
-      - state: base-8
-        map: [ "enum.GunVisualLayers.Mag" ]
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: base-8
+      map: ["enum.GunVisualLayers.Mag"]
   - type: MagazineVisuals
     magState: base
     steps: 9
@@ -93,10 +93,10 @@
   - type: Sprite
     sprite: _Mono/Objects/Weapons/Guns/Ammunition/SpeedLoaders/556x45mm/556x45mm.rsi
     layers:
-      - state: base
-        map: [ "enum.GunVisualLayers.Base" ]
-      - state: practice-8
-        map: [ "enum.GunVisualLayers.Mag" ]
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: practice-8
+      map: ["enum.GunVisualLayers.Mag"]
   - type: MagazineVisuals
     magState: practice
     steps: 9
@@ -116,10 +116,10 @@
   - type: Sprite
     sprite: _Mono/Objects/Weapons/Guns/Ammunition/SpeedLoaders/556x45mm/556x45mm.rsi
     layers:
-      - state: base
-        map: [ "enum.GunVisualLayers.Base" ]
-      - state: uranium-8
-        map: [ "enum.GunVisualLayers.Mag" ]
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: uranium-8
+      map: ["enum.GunVisualLayers.Mag"]
   - type: MagazineVisuals
     magState: uranium
     steps: 9
@@ -139,10 +139,10 @@
   - type: Sprite
     sprite: _Mono/Objects/Weapons/Guns/Ammunition/SpeedLoaders/556x45mm/556x45mm.rsi
     layers:
-      - state: base
-        map: [ "enum.GunVisualLayers.Base" ]
-      - state: rubber-8
-        map: [ "enum.GunVisualLayers.Mag" ]
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: rubber-8
+      map: ["enum.GunVisualLayers.Mag"]
   - type: MagazineVisuals
     magState: rubber
     steps: 9

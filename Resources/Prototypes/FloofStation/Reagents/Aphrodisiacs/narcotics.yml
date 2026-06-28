@@ -40,14 +40,14 @@
           consent: Aphrodisiacs
         - !type:ReagentThreshold
           max: 10.0
-      # - !type:HealthChange # Hardligh: Remove poison
-      #   conditions:
-      #   - !type:ReagentThreshold
-      #     min: 10.0
-      #   damage:
-      #     types:
-      #       Poison: 0.05
       - !type:PopupMessage
+        # - !type:HealthChange # Hardligh: Remove poison
+        #   conditions:
+        #   - !type:ReagentThreshold
+        #     min: 10.0
+        #   damage:
+        #     types:
+        #       Poison: 0.05
         type: Local
         visualType: LargeCaution
         probability: 0.2
@@ -72,11 +72,11 @@
         visualType: Small
         probability: 0.2
         messages:
-          - "reagent-effect-aphrodisiac-fade1" # A decent chance to notify the player when their meds run out, but could happen silently.
-          - "reagent-effect-aphrodisiac-fade2"
-          - "reagent-effect-aphrodisiac-fade3"
+        - "reagent-effect-aphrodisiac-fade1" # A decent chance to notify the player when their meds run out, but could happen silently.
+        - "reagent-effect-aphrodisiac-fade2"
+        - "reagent-effect-aphrodisiac-fade3"
         conditions:
-          - !type:ConsentCondition
-            consent: Aphrodisiacs
-          - !type:ReagentThreshold
-            max: 0.1
+        - !type:ConsentCondition
+          consent: Aphrodisiacs
+        - !type:ReagentThreshold
+          max: 0.1

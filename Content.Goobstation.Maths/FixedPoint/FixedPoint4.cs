@@ -63,7 +63,7 @@ namespace Content.Goobstation.Maths.FixedPoint
 
         private readonly double ShiftDown()
         {
-            return Value / (double) ShiftConstant;
+            return Value / (double)ShiftConstant;
         }
 
         private FixedPoint4(long value)
@@ -75,11 +75,12 @@ namespace Content.Goobstation.Maths.FixedPoint
         {
             return new(value * ShiftConstant);
         }
+
         public static FixedPoint4 FromTenThousandths(long value) => new(value);
 
         public static FixedPoint4 New(float value)
         {
-            return new((long) ApplyFloatEpsilon(value * ShiftConstant));
+            return new((long)ApplyFloatEpsilon(value * ShiftConstant));
         }
 
         private static float ApplyFloatEpsilon(float value)
@@ -97,12 +98,12 @@ namespace Content.Goobstation.Maths.FixedPoint
         /// </summary>
         public static FixedPoint4 NewCeiling(float value)
         {
-            return new((long) MathF.Ceiling(value * ShiftConstant));
+            return new((long)MathF.Ceiling(value * ShiftConstant));
         }
 
         public static FixedPoint4 New(double value)
         {
-            return new((long) ApplyFloatEpsilon(value * ShiftConstant));
+            return new((long)ApplyFloatEpsilon(value * ShiftConstant));
         }
 
         public static FixedPoint4 New(string value)
@@ -114,11 +115,9 @@ namespace Content.Goobstation.Maths.FixedPoint
 
         public static FixedPoint4 operator -(FixedPoint4 a) => new(-a.Value);
 
-        public static FixedPoint4 operator +(FixedPoint4 a, FixedPoint4 b)
-            => new(a.Value + b.Value);
+        public static FixedPoint4 operator +(FixedPoint4 a, FixedPoint4 b) => new(a.Value + b.Value);
 
-        public static FixedPoint4 operator -(FixedPoint4 a, FixedPoint4 b)
-            => new(a.Value - b.Value);
+        public static FixedPoint4 operator -(FixedPoint4 a, FixedPoint4 b) => new(a.Value - b.Value);
 
         public static FixedPoint4 operator *(FixedPoint4 a, FixedPoint4 b)
         {
@@ -127,12 +126,12 @@ namespace Content.Goobstation.Maths.FixedPoint
 
         public static FixedPoint4 operator *(FixedPoint4 a, float b)
         {
-            return new((long) ApplyFloatEpsilon(a.Value * b));
+            return new((long)ApplyFloatEpsilon(a.Value * b));
         }
 
         public static FixedPoint4 operator *(FixedPoint4 a, double b)
         {
-            return new((long) ApplyFloatEpsilon(a.Value * b));
+            return new((long)ApplyFloatEpsilon(a.Value * b));
         }
 
         public static FixedPoint4 operator *(FixedPoint4 a, long b)
@@ -142,12 +141,12 @@ namespace Content.Goobstation.Maths.FixedPoint
 
         public static FixedPoint4 operator /(FixedPoint4 a, FixedPoint4 b)
         {
-            return new((long) (ShiftConstant * (long) a.Value / b.Value));
+            return new((long)(ShiftConstant * (long)a.Value / b.Value));
         }
 
         public static FixedPoint4 operator /(FixedPoint4 a, float b)
         {
-            return new((long) ApplyFloatEpsilon(a.Value / b));
+            return new((long)ApplyFloatEpsilon(a.Value / b));
         }
 
         public static bool operator <=(FixedPoint4 a, long b)
@@ -212,7 +211,7 @@ namespace Content.Goobstation.Maths.FixedPoint
 
         public readonly float Float()
         {
-            return (float) ShiftDown();
+            return (float)ShiftDown();
         }
 
         public readonly double Double()
@@ -232,15 +231,23 @@ namespace Content.Goobstation.Maths.FixedPoint
 
         // Implicit operators ftw
         public static implicit operator FixedPoint4(FixedPoint2 n) => New(n.Int());
+
         public static implicit operator FixedPoint4(float n) => New(n);
+
         public static implicit operator FixedPoint4(double n) => New(n);
+
         public static implicit operator FixedPoint4(int n) => New(n);
+
         public static implicit operator FixedPoint4(long n) => New(n);
 
         public static explicit operator FixedPoint2(FixedPoint4 n) => n.Int();
+
         public static explicit operator float(FixedPoint4 n) => n.Float();
+
         public static explicit operator double(FixedPoint4 n) => n.Double();
+
         public static explicit operator int(FixedPoint4 n) => n.Int();
+
         public static explicit operator long(FixedPoint4 n) => n.Long();
 
         public static FixedPoint4 Min(params FixedPoint4[] fixedPoints)
@@ -290,13 +297,14 @@ namespace Content.Goobstation.Maths.FixedPoint
                 throw new ArgumentException($"{nameof(min)} {min} cannot be larger than {nameof(max)} {max}");
             }
 
-            return number < min ? min : number > max ? max : number;
+            return number < min ? min
+                : number > max ? max
+                : number;
         }
 
         public override readonly bool Equals(object? obj)
         {
-            return obj is FixedPoint4 unit &&
-                   Value == unit.Value;
+            return obj is FixedPoint4 unit && Value == unit.Value;
         }
 
         public override readonly int GetHashCode()
@@ -349,7 +357,6 @@ namespace Content.Goobstation.Maths.FixedPoint
             }
             return 0;
         }
-
     }
 
     public static class FixedPoint4EnumerableExt

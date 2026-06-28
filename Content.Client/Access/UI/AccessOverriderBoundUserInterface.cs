@@ -10,12 +10,14 @@ namespace Content.Client.Access.UI
 {
     public sealed class AccessOverriderBoundUserInterface : BoundUserInterface
     {
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+        [Dependency]
+        private readonly IPrototypeManager _prototypeManager = default!;
         private readonly SharedAccessOverriderSystem _accessOverriderSystem = default!;
 
         private AccessOverriderWindow? _window;
 
-        public AccessOverriderBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
+        public AccessOverriderBoundUserInterface(EntityUid owner, Enum uiKey)
+            : base(owner, uiKey)
         {
             _accessOverriderSystem = EntMan.System<SharedAccessOverriderSystem>();
         }
@@ -29,7 +31,8 @@ namespace Content.Client.Access.UI
             _window.Title = EntMan.GetComponent<MetaDataComponent>(Owner).EntityName;
             _window.OnSubmit += SubmitData;
 
-            _window.PrivilegedIdButton.OnPressed += _ => SendMessage(new ItemSlotButtonPressedEvent(PrivilegedIdCardSlotId));
+            _window.PrivilegedIdButton.OnPressed += _ =>
+                SendMessage(new ItemSlotButtonPressedEvent(PrivilegedIdCardSlotId));
         }
 
         public override void OnProtoReload(PrototypesReloadedEventArgs args)
@@ -41,7 +44,7 @@ namespace Content.Client.Access.UI
             RefreshAccess();
 
             if (State != null)
-                _window?.UpdateState(_prototypeManager, (AccessOverriderBoundUserInterfaceState) State);
+                _window?.UpdateState(_prototypeManager, (AccessOverriderBoundUserInterfaceState)State);
         }
 
         private void RefreshAccess()
@@ -56,7 +59,9 @@ namespace Content.Client.Access.UI
             else
             {
                 accessLevels = new List<ProtoId<AccessLevelPrototype>>();
-                _accessOverriderSystem.Log.Error($"No AccessOverrider component found for {EntMan.ToPrettyString(Owner)}!");
+                _accessOverriderSystem.Log.Error(
+                    $"No AccessOverrider component found for {EntMan.ToPrettyString(Owner)}!"
+                );
             }
 
             _window?.SetAccessLevels(_prototypeManager, accessLevels);
@@ -65,7 +70,7 @@ namespace Content.Client.Access.UI
         protected override void UpdateState(BoundUserInterfaceState state)
         {
             base.UpdateState(state);
-            var castState = (AccessOverriderBoundUserInterfaceState) state;
+            var castState = (AccessOverriderBoundUserInterfaceState)state;
             _window?.UpdateState(_prototypeManager, castState);
         }
 

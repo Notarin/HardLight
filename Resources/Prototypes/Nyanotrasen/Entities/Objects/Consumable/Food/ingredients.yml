@@ -9,8 +9,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - cheesy
-      - creamy
+    - cheesy
+    - creamy
   - type: Sprite
     sprite: Nyanotrasen/Objects/Consumable/Food/cheese.rsi
     state: curdcheese
@@ -32,7 +32,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - cheesy
+    - cheesy
   - type: Sprite
     sprite: Nyanotrasen/Objects/Consumable/Food/cheese.rsi
     state: cheesecurds
@@ -53,7 +53,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - cheesy
+    - cheesy
   - type: Sprite
     sprite: Nyanotrasen/Objects/Consumable/Food/cheese.rsi
     state: mozzarella

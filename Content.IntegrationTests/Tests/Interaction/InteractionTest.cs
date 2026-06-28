@@ -13,9 +13,11 @@ using Content.Shared.Body.Part;
 using Content.Shared.DoAfter;
 using Content.Shared.Hands.Components;
 using Content.Shared.Interaction;
+using Content.Shared.Item.ItemToggle;
 using Content.Shared.Mind;
 using Content.Shared.Players;
 using Robust.Client.Input;
+using Robust.Client.State;
 using Robust.Client.UserInterface;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Log;
@@ -25,8 +27,6 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 using Robust.UnitTesting;
-using Content.Shared.Item.ItemToggle;
-using Robust.Client.State;
 
 namespace Content.IntegrationTests.Tests.Interaction;
 
@@ -136,7 +136,8 @@ public abstract partial class InteractionTest
 
     // Simple mob that has one hand and can perform misc interactions.
     [TestPrototypes]
-    private const string TestPrototypes = @"
+    private const string TestPrototypes =
+        @"
 - type: entity
   id: InteractionTestMob
   components:
@@ -195,8 +196,12 @@ public abstract partial class InteractionTest
         // Setup map.
         MapData = await Pair.CreateTestMap();
 
-        PlayerCoords = SEntMan.GetNetCoordinates(Transform.WithEntityId(MapData.GridCoords.Offset(new Vector2(0.5f, 0.5f)), MapData.MapUid));
-        TargetCoords = SEntMan.GetNetCoordinates(Transform.WithEntityId(MapData.GridCoords.Offset(new Vector2(1.5f, 0.5f)), MapData.MapUid));
+        PlayerCoords = SEntMan.GetNetCoordinates(
+            Transform.WithEntityId(MapData.GridCoords.Offset(new Vector2(0.5f, 0.5f)), MapData.MapUid)
+        );
+        TargetCoords = SEntMan.GetNetCoordinates(
+            Transform.WithEntityId(MapData.GridCoords.Offset(new Vector2(1.5f, 0.5f)), MapData.MapUid)
+        );
         await SetTile(Plating, grid: MapData.Grid);
 
         // Get player data
@@ -258,7 +263,10 @@ public abstract partial class InteractionTest
         Assert.Multiple(() =>
         {
             Assert.That(CEntMan.GetNetEntity(cPlayerMan.LocalEntity), Is.EqualTo(Player));
-            Assert.That(sPlayerMan.GetSessionById(ClientSession.UserId).AttachedEntity, Is.EqualTo(SEntMan.GetEntity(Player)));
+            Assert.That(
+                sPlayerMan.GetSessionById(ClientSession.UserId).AttachedEntity,
+                Is.EqualTo(SEntMan.GetEntity(Player))
+            );
         });
     }
 

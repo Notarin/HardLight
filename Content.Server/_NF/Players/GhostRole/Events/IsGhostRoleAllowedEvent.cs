@@ -5,7 +5,11 @@ using Robust.Shared.Prototypes;
 namespace Content.Server._NF.Players.GhostRole.Events;
 
 [ByRefEvent]
-public struct IsGhostRoleAllowedEvent(ICommonSession player, ProtoId<GhostRolePrototype> ghostRoleId, bool cancelled = false)
+public struct IsGhostRoleAllowedEvent(
+    ICommonSession player,
+    ProtoId<GhostRolePrototype> ghostRoleId,
+    bool cancelled = false
+)
 {
     public readonly ICommonSession Player = player;
     public readonly ProtoId<GhostRolePrototype> GhostRoleId = ghostRoleId;

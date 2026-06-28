@@ -18,5 +18,5 @@ public sealed partial class ToggleActionEvent : InstantActionEvent;
 public enum ToggleVisuals : byte
 {
     Toggled,
-    Layer
+    Layer,
 }

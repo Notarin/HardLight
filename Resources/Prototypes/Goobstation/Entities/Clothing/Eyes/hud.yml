@@ -8,7 +8,7 @@
     sprite: Goobstation/Clothing/Eyes/Hud/chrono.rsi
   - type: Clothing
     sprite: Goobstation/Clothing/Eyes/Hud/chrono.rsi
-  
+
 - type: entity
   parent: ClothingEyesHudChrono
   id: ClothingEyesHudChronoUnremoveable

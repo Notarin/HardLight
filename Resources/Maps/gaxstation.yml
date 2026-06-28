@@ -49747,9 +49747,7 @@ entities:
         - ClothingSpeedModifier
         entries:
         - message: >-
-            Isso concede as seguintes proteções:
-
-            - Dano de [color=orange]explosão[/color] [color=white]aos conteúdos[/color] reduzido em [color=lightblue]10%[/color].
+            Isso concede as seguintes proteções: #magic___^_^___line - Dano de [color=orange]explosão[/color] [color=white]aos conteúdos[/color] reduzido em [color=lightblue]10%[/color].
           priority: 0
           component: Armor
         - message: Diminui sua velocidade de corrida em [color=yellow]10%[/color].
@@ -131954,4 +131952,3 @@ entities:
     - type: Transform
       pos: 51.508472,54.48591
       parent: 2
-...

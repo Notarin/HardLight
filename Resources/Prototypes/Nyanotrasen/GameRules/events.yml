@@ -12,20 +12,19 @@
     - id: FreeProber
     - id: GlimmerRandomSentience
 
-
 ## Regular station events
 - type: entity
   id: NoosphericStorm
   parent: BaseGameRule
   # abstract: true
   components:
-    - type: StationEvent
-      startAnnouncement: station-event-noospheric-storm-announcement
-      startAudio:
-        path: /Audio/Announcements/noosphericstorm.ogg
-      weight: 5
-      earliestStart: 15
-    - type: NoosphericStormRule
+  - type: StationEvent
+    startAnnouncement: station-event-noospheric-storm-announcement
+    startAudio:
+      path: /Audio/Announcements/noosphericstorm.ogg
+    weight: 5
+    earliestStart: 15
+  - type: NoosphericStormRule
 
 # Rat king, paradox anomaly, fugitive, oneiro, etc.
 #- type: entity
@@ -46,10 +45,10 @@
   parent: BaseGameRule
   # abstract: true
   components:
-    - type: StationEvent
-      # Favor glimmer events just a little more than regular events.
-      weight: 12
-    - type: GlimmerEvent
+  - type: StationEvent
+    # Favor glimmer events just a little more than regular events.
+    weight: 12
+  - type: GlimmerEvent
 
 ## Glimmer events
 - type: entity
@@ -57,75 +56,75 @@
   parent: BaseGlimmerEvent
   # abstract: true
   components:
-    - type: GlimmerEvent
-      maximumGlimmer: 300
-      glimmerBurnLower: 18
-      glimmerBurnUpper: 40
-    - type: MundaneDischargeRule
+  - type: GlimmerEvent
+    maximumGlimmer: 300
+    glimmerBurnLower: 18
+    glimmerBurnUpper: 40
+  - type: MundaneDischargeRule
 
 - type: entity
   id: NoosphericZap
   parent: BaseGlimmerEvent
   # abstract: true
   components:
-    - type: GlimmerEvent
-      maximumGlimmer: 100
-    - type: NoosphericZapRule
+  - type: GlimmerEvent
+    maximumGlimmer: 100
+  - type: NoosphericZapRule
 
 - type: entity
   id: NoosphericFry
   parent: BaseGlimmerEvent
   # abstract: true
   components:
-    - type: GlimmerEvent
-      minimumGlimmer: 300
-      maximumGlimmer: 900
-    - type: NoosphericFryRule
+  - type: GlimmerEvent
+    minimumGlimmer: 300
+    maximumGlimmer: 900
+  - type: NoosphericFryRule
 
 - type: entity
   id: PsionicCatGotYourTongue
   parent: BaseGlimmerEvent
   # abstract: true
   components:
-    - type: GlimmerEvent
-      minimumGlimmer: 200
-      maximumGlimmer: 500
-      glimmerBurnLower: 18
-      glimmerBurnUpper: 40
-    - type: PsionicCatGotYourTongueRule
+  - type: GlimmerEvent
+    minimumGlimmer: 200
+    maximumGlimmer: 500
+    glimmerBurnLower: 18
+    glimmerBurnUpper: 40
+  - type: PsionicCatGotYourTongueRule
 
 - type: entity
   id: MassMindSwap
   parent: BaseGlimmerEvent
   # abstract: true
   components:
-    - type: GlimmerEvent
-      minimumGlimmer: 900
-      glimmerBurnLower: 50
-      glimmerBurnUpper: 110
-    - type: MassMindSwapRule
+  - type: GlimmerEvent
+    minimumGlimmer: 900
+    glimmerBurnLower: 50
+    glimmerBurnUpper: 110
+  - type: MassMindSwapRule
 
 - type: entity
   id: GlimmerWispSpawn
   parent: BaseGlimmerEvent
   # abstract: true
   components:
-   - type: GlimmerEvent
-     minimumGlimmer: 300
-     maximumGlimmer: 1000
-     report: glimmer-event-report-signatures
-   - type: GlimmerWispRule
+  - type: GlimmerEvent
+    minimumGlimmer: 300
+    maximumGlimmer: 1000
+    report: glimmer-event-report-signatures
+  - type: GlimmerWispRule
 
 - type: entity
   id: FreeProber
   parent: BaseGlimmerEvent
   # abstract: true
   components:
-    - type: GlimmerEvent
-      minimumGlimmer: 300
-      maximumGlimmer: 1000
-      report: glimmer-event-report-signatures
-    - type: FreeProberRule
+  - type: GlimmerEvent
+    minimumGlimmer: 300
+    maximumGlimmer: 1000
+    report: glimmer-event-report-signatures
+  - type: FreeProberRule
 
 ## converted upstream events
 - type: entity
@@ -133,19 +132,19 @@
   parent: BaseGlimmerEvent
   # abstract: true
   components:
-    - type: GlimmerEvent
-      minimumGlimmer: 300
-      maximumGlimmer: 600
-      report: glimmer-event-report-signatures
-    - type: GlimmerRandomSentienceRule
+  - type: GlimmerEvent
+    minimumGlimmer: 300
+    maximumGlimmer: 600
+    report: glimmer-event-report-signatures
+  - type: GlimmerRandomSentienceRule
 
 - type: entity
   id: GlimmerRevenantSpawn
   parent: BaseGlimmerEvent
   # abstract: true
   components:
-    - type: GlimmerEvent
-      minimumGlimmer: 500
-      maximumGlimmer: 900
-      report: glimmer-event-report-signatures
-    - type: GlimmerRevenantRule
+  - type: GlimmerEvent
+    minimumGlimmer: 500
+    maximumGlimmer: 900
+    report: glimmer-event-report-signatures
+  - type: GlimmerRevenantRule

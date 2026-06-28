@@ -20,8 +20,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.49,-0.49,0.49,-0.36"
         density: 1500
         mask:
@@ -68,11 +67,11 @@
     range: 200
   - type: DeviceLinkSink
     ports:
-      - Open
-      - Close
-      - Toggle
-      - AutoClose
-      - DoorBolt
+    - Open
+    - Close
+    - Toggle
+    - AutoClose
+    - DoorBolt
   - type: DeviceLinkSource
     ports:
     - DoorStatus
@@ -89,14 +88,12 @@
     fx: EffectRCDDeconstruct8
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 400
       behaviors: #excess damage (nuke?). avoid computational cost of spawning entities.
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 200
       behaviors:
       - !type:SpawnEntitiesBehavior
@@ -108,10 +105,10 @@
             min: 2
             max: 4
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: ContainerFill
     containers:
-      board: [ DoorElectronics ]
+      board: [DoorElectronics]
   - type: AccessReader
     containerAccessProvider: board
   - type: ContainerContainer
@@ -155,14 +152,14 @@
     visuals:
       enum.ElectrifiedVisuals.ShowSparks:
         enum.ElectrifiedLayers.Sparks:
-          True: { visible: True }
-          False: { visible: False }
+          True: {visible: True}
+          False: {visible: False}
   - type: WiresVisuals
   - type: ElectrocutionHUDVisuals
   - type: Airtight
     noAirWhenFullyAirBlocked: false
     airBlockedDirection:
-      - South
+    - South
   - type: Construction
     graph: Windoor
     node: windoor
@@ -173,9 +170,9 @@
   - type: PryUnpowered
   - type: Tag
     tags:
-      - DoorRemoteWhitelist
-      # This tag is used by door remotes to allow or not a door remote to normally be able to interact with a door
-      - WeldbotFixableStructure
+    - DoorRemoteWhitelist
+    # This tag is used by door remotes to allow or not a door remote to normally be able to interact with a door
+    - WeldbotFixableStructure
   - type: InteractionVerbs # EE interaction system
     allowedVerbs:
     - KnockOn
@@ -190,44 +187,42 @@
     layers:
     - state: secure_underlay
     - state: closed
-      map: [ "enum.DoorVisualLayers.Base" ]
+      map: ["enum.DoorVisualLayers.Base"]
     - state: closed_unlit
       shader: unshaded
-      map: [ "enum.DoorVisualLayers.BaseUnlit" ]
+      map: ["enum.DoorVisualLayers.BaseUnlit"]
       visible: false
     - state: welded
-      map: [ "enum.WeldableLayers.BaseWelded" ]
+      map: ["enum.WeldableLayers.BaseWelded"]
     - state: bolted_unlit
       shader: unshaded
-      map: [ "enum.DoorVisualLayers.BaseBolted" ]
+      map: ["enum.DoorVisualLayers.BaseBolted"]
     - state: emergency_unlit
       shader: unshaded
-      map: [ "enum.DoorVisualLayers.BaseEmergencyAccess" ]
+      map: ["enum.DoorVisualLayers.BaseEmergencyAccess"]
     - state: panel_open
-      map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
       visible: false
     - state: electrified_ai
       sprite: Interface/Misc/ai_hud.rsi
       shader: unshaded
       visible: false
-      map: [ "enum.ElectrifiedLayers.HUD" ]
+      map: ["enum.ElectrifiedLayers.HUD"]
     - state: electrified
       sprite: Effects/electricity.rsi
       shader: unshaded
       visible: false
-      map: [ "enum.ElectrifiedLayers.Sparks" ]
+      map: ["enum.ElectrifiedLayers.Sparks"]
   - type: Damageable
     damageModifierSet: RGlass
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 600
       behaviors: #excess damage (nuke?). avoid computational cost of spawning entities.
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 400
       behaviors:
       - !type:SpawnEntitiesBehavior
@@ -239,7 +234,7 @@
             min: 1
             max: 2
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: Construction
     graph: Windoor
     node: windoorSecure
@@ -247,11 +242,11 @@
     price: 350 # HL: Price balancing
   - type: Tag
     tags:
-      - SecureWindoor
-      # This tag is used to nagivate the Airlock construction graph. It's needed because the construction graph is shared between Airlock, AirlockGlass, and HighSecDoor
-      - DoorRemoteWhitelist
-      # This tag is used by door remotes to allow or not a door remote to normally be able to interact with a door
-      - WeldbotFixableStructure
+    - SecureWindoor
+    # This tag is used to nagivate the Airlock construction graph. It's needed because the construction graph is shared between Airlock, AirlockGlass, and HighSecDoor
+    - DoorRemoteWhitelist
+    # This tag is used by door remotes to allow or not a door remote to normally be able to interact with a door
+    - WeldbotFixableStructure
 
 #Plasma Windoors
 - type: entity
@@ -263,42 +258,40 @@
     sprite: Structures/Doors/Windoors/plasma.rsi
     layers:
     - state: closed
-      map: [ "enum.DoorVisualLayers.Base" ]
+      map: ["enum.DoorVisualLayers.Base"]
     - state: closed_unlit
       shader: unshaded
-      map: [ "enum.DoorVisualLayers.BaseUnlit" ]
+      map: ["enum.DoorVisualLayers.BaseUnlit"]
       visible: false
     - state: welded
-      map: [ "enum.WeldableLayers.BaseWelded" ]
+      map: ["enum.WeldableLayers.BaseWelded"]
     - state: bolted_unlit
       shader: unshaded
-      map: [ "enum.DoorVisualLayers.BaseBolted" ]
+      map: ["enum.DoorVisualLayers.BaseBolted"]
     - state: emergency_unlit
       shader: unshaded
-      map: [ "enum.DoorVisualLayers.BaseEmergencyAccess" ]
+      map: ["enum.DoorVisualLayers.BaseEmergencyAccess"]
     - state: panel_open
-      map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
       visible: false
     - state: electrified_ai
       sprite: Interface/Misc/ai_hud.rsi
       shader: unshaded
       visible: false
-      map: [ "enum.ElectrifiedLayers.HUD" ]
+      map: ["enum.ElectrifiedLayers.HUD"]
     - state: electrified
       sprite: Effects/electricity.rsi
       shader: unshaded
       visible: false
-      map: [ "enum.ElectrifiedLayers.Sparks" ]
+      map: ["enum.ElectrifiedLayers.Sparks"]
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 480
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 240
       behaviors:
       - !type:SpawnEntitiesBehavior
@@ -310,7 +303,7 @@
             min: 1
             max: 2
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: Construction
     graph: Windoor
     node: pwindoor
@@ -329,42 +322,40 @@
     layers:
     - state: secure_underlay
     - state: closed
-      map: [ "enum.DoorVisualLayers.Base" ]
+      map: ["enum.DoorVisualLayers.Base"]
     - state: closed_unlit
       shader: unshaded
-      map: [ "enum.DoorVisualLayers.BaseUnlit" ]
+      map: ["enum.DoorVisualLayers.BaseUnlit"]
       visible: false
     - state: welded
-      map: [ "enum.WeldableLayers.BaseWelded" ]
+      map: ["enum.WeldableLayers.BaseWelded"]
     - state: bolted_unlit
       shader: unshaded
-      map: [ "enum.DoorVisualLayers.BaseBolted" ]
+      map: ["enum.DoorVisualLayers.BaseBolted"]
     - state: emergency_unlit
       shader: unshaded
-      map: [ "enum.DoorVisualLayers.BaseEmergencyAccess" ]
+      map: ["enum.DoorVisualLayers.BaseEmergencyAccess"]
     - state: panel_open
-      map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
       visible: false
     - state: electrified_ai
       sprite: Interface/Misc/ai_hud.rsi
       shader: unshaded
       visible: false
-      map: [ "enum.ElectrifiedLayers.HUD" ]
+      map: ["enum.ElectrifiedLayers.HUD"]
     - state: electrified
       sprite: Effects/electricity.rsi
       shader: unshaded
       visible: false
-      map: [ "enum.ElectrifiedLayers.Sparks" ]
+      map: ["enum.ElectrifiedLayers.Sparks"]
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 800
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 530
       behaviors:
       - !type:SpawnEntitiesBehavior
@@ -376,7 +367,7 @@
             min: 1
             max: 2
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: Construction
     graph: Windoor
     node: pwindoorSecure
@@ -386,11 +377,11 @@
     resistance: 4
   - type: Tag
     tags:
-      - SecurePlasmaWindoor
-      # This tag is used to nagivate the Airlock construction graph. It's needed because the construction graph is shared between Airlock, AirlockGlass, and HighSecDoor
-      - DoorRemoteWhitelist
-      # This tag is used by door remotes to allow or not a door remote to normally be able to interact with a door
-      - WeldbotFixableStructure
+    - SecurePlasmaWindoor
+    # This tag is used to nagivate the Airlock construction graph. It's needed because the construction graph is shared between Airlock, AirlockGlass, and HighSecDoor
+    - DoorRemoteWhitelist
+    # This tag is used by door remotes to allow or not a door remote to normally be able to interact with a door
+    - WeldbotFixableStructure
 
 #Uranium Windoors
 - type: entity
@@ -402,42 +393,40 @@
     sprite: Structures/Doors/Windoors/uranium.rsi
     layers:
     - state: closed
-      map: [ "enum.DoorVisualLayers.Base" ]
+      map: ["enum.DoorVisualLayers.Base"]
     - state: closed_unlit
       shader: unshaded
-      map: [ "enum.DoorVisualLayers.BaseUnlit" ]
+      map: ["enum.DoorVisualLayers.BaseUnlit"]
       visible: false
     - state: welded
-      map: [ "enum.WeldableLayers.BaseWelded" ]
+      map: ["enum.WeldableLayers.BaseWelded"]
     - state: bolted_unlit
       shader: unshaded
-      map: [ "enum.DoorVisualLayers.BaseBolted" ]
+      map: ["enum.DoorVisualLayers.BaseBolted"]
     - state: emergency_unlit
       shader: unshaded
-      map: [ "enum.DoorVisualLayers.BaseEmergencyAccess" ]
+      map: ["enum.DoorVisualLayers.BaseEmergencyAccess"]
     - state: panel_open
-      map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
       visible: false
     - state: electrified_ai
       sprite: Interface/Misc/ai_hud.rsi
       shader: unshaded
       visible: false
-      map: [ "enum.ElectrifiedLayers.HUD" ]
+      map: ["enum.ElectrifiedLayers.HUD"]
     - state: electrified
       sprite: Effects/electricity.rsi
       shader: unshaded
       visible: false
-      map: [ "enum.ElectrifiedLayers.Sparks" ]
+      map: ["enum.ElectrifiedLayers.Sparks"]
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 400
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 240
       behaviors:
       - !type:SpawnEntitiesBehavior
@@ -449,7 +438,7 @@
             min: 1
             max: 2
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: Construction
     graph: Windoor
     node: uwindoor
@@ -468,42 +457,40 @@
     layers:
     - state: secure_underlay
     - state: closed
-      map: [ "enum.DoorVisualLayers.Base" ]
+      map: ["enum.DoorVisualLayers.Base"]
     - state: closed_unlit
       shader: unshaded
-      map: [ "enum.DoorVisualLayers.BaseUnlit" ]
+      map: ["enum.DoorVisualLayers.BaseUnlit"]
       visible: false
     - state: welded
-      map: [ "enum.WeldableLayers.BaseWelded" ]
+      map: ["enum.WeldableLayers.BaseWelded"]
     - state: bolted_unlit
       shader: unshaded
-      map: [ "enum.DoorVisualLayers.BaseBolted" ]
+      map: ["enum.DoorVisualLayers.BaseBolted"]
     - state: emergency_unlit
       shader: unshaded
-      map: [ "enum.DoorVisualLayers.BaseEmergencyAccess" ]
+      map: ["enum.DoorVisualLayers.BaseEmergencyAccess"]
     - state: panel_open
-      map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
       visible: false
     - state: electrified_ai
       sprite: Interface/Misc/ai_hud.rsi
       shader: unshaded
       visible: false
-      map: [ "enum.ElectrifiedLayers.HUD" ]
+      map: ["enum.ElectrifiedLayers.HUD"]
     - state: electrified
       sprite: Effects/electricity.rsi
       shader: unshaded
       visible: false
-      map: [ "enum.ElectrifiedLayers.Sparks" ]
+      map: ["enum.ElectrifiedLayers.Sparks"]
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 1200
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 400
       behaviors:
       - !type:SpawnEntitiesBehavior
@@ -515,7 +502,7 @@
             min: 1
             max: 2
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: Construction
     graph: Windoor
     node: uwindoorSecure
@@ -525,8 +512,8 @@
     resistance: 5
   - type: Tag
     tags:
-      - SecureUraniumWindoor
-      # This tag is used to nagivate the Airlock construction graph. It's needed because the construction graph is shared between Airlock, AirlockGlass, and HighSecDoor
-      - DoorRemoteWhitelist
-      # This tag is used by door remotes to allow or not a door remote to normally be able to interact with a door
-      - WeldbotFixableStructure
+    - SecureUraniumWindoor
+    # This tag is used to nagivate the Airlock construction graph. It's needed because the construction graph is shared between Airlock, AirlockGlass, and HighSecDoor
+    - DoorRemoteWhitelist
+    # This tag is used by door remotes to allow or not a door remote to normally be able to interact with a door
+    - WeldbotFixableStructure

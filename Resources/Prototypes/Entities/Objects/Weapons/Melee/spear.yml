@@ -18,10 +18,10 @@
       fix1:
         shape: !type:PolygonShape
           vertices:
-            - -0.40,-0.30
-            - -0.30,-0.40
-            - 0.40,0.30
-            - 0.30,0.40
+          - -0.40,-0.30
+          - -0.30,-0.40
+          - 0.40,0.30
+          - 0.30,0.40
         density: 20
         mask:
         - ItemMask
@@ -82,14 +82,12 @@
     damageContainer: Inorganic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 30 #excess damage avoids cost of spawning entities.
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 20
       behaviors:
       - !type:PlaySoundBehavior
@@ -103,7 +101,7 @@
             min: 1
             max: 1
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: DamageOnLand
     damage:
       types:
@@ -117,7 +115,6 @@
     inHandsMaxFillLevels: 1
     equippedFillBaseName: -fill-
     equippedMaxFillLevels: 1
-
 
 - type: entity
   name: reinforced spear
@@ -193,14 +190,12 @@
     graph: SpearBone
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 30 #excess damage avoids cost of spawning entities.
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 20
       behaviors:
       - !type:PlaySoundBehavior
@@ -214,4 +209,4 @@
             min: 1
             max: 2
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]

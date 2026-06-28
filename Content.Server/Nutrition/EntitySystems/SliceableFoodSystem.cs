@@ -1,38 +1,54 @@
+using System;
+using System.Linq;
+using System.Text;
 using Content.Server.DoAfter;
 using Content.Server.Nutrition.Components;
 using Content.Server.Stack;
-using Content.Shared.Chemistry.EntitySystems;
-using Content.Shared.Nutrition;
-using Content.Shared.Nutrition.Components;
 using Content.Shared.Chemistry.Components;
+using Content.Shared.Chemistry.EntitySystems;
+using Content.Shared.Destructible;
 using Content.Shared.DoAfter;
 using Content.Shared.FixedPoint;
 using Content.Shared.Interaction;
+using Content.Shared.Nutrition;
+using Content.Shared.Nutrition.Components;
 using Content.Shared.Stacks;
 using Robust.Server.GameObjects;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
-using Robust.Shared.Random;
 using Robust.Shared.Containers;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Systems;
-using Content.Shared.Destructible;
-using System;
-using System.Linq;
-using System.Text;
+using Robust.Shared.Random;
 
 namespace Content.Server.Nutrition.EntitySystems;
 
 public sealed class SliceableFoodSystem : EntitySystem
 {
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainer = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
-    [Dependency] private readonly DoAfterSystem _doAfter = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly StackSystem _stackSystem = default!;
+    [Dependency]
+    private readonly SharedSolutionContainerSystem _solutionContainer = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly TransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly DoAfterSystem _doAfter = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly SharedPhysicsSystem _physics = default!;
+
+    [Dependency]
+    private readonly StackSystem _stackSystem = default!;
+
     public override void Initialize()
     {
         base.Initialize();
@@ -47,13 +63,15 @@ public sealed class SliceableFoodSystem : EntitySystem
         if (args.Handled)
             return;
 
-        var doAfterArgs = new DoAfterArgs(EntityManager,
+        var doAfterArgs = new DoAfterArgs(
+            EntityManager,
             args.User,
             entity.Comp.SliceTime,
             new SliceFoodDoAfterEvent(),
             entity,
             entity,
-            args.Used)
+            args.Used
+        )
         {
             BreakOnDamage = true,
             BreakOnMove = true,
@@ -71,15 +89,16 @@ public sealed class SliceableFoodSystem : EntitySystem
             args.Handled = true;
     }
 
-    private bool TrySliceFood(EntityUid uid,
+    private bool TrySliceFood(
+        EntityUid uid,
         EntityUid user,
         EntityUid? usedItem,
         SliceableFoodComponent? component = null,
         FoodComponent? food = null,
-        TransformComponent? transform = null)
+        TransformComponent? transform = null
+    )
     {
-        if (!Resolve(uid, ref component, ref food, ref transform) ||
-            string.IsNullOrEmpty(component.Slice))
+        if (!Resolve(uid, ref component, ref food, ref transform) || string.IsNullOrEmpty(component.Slice))
             return false;
 
         if (!_solutionContainer.TryGetSolution(uid, food.Solution, out var soln, out var solution))
@@ -98,9 +117,10 @@ public sealed class SliceableFoodSystem : EntitySystem
         {
             var sliceUid = Slice(uid, user, component, transform);
 
-            var lostSolution = stackCount > 1
-                ? sourceSolution.SplitSolution(sliceVolume)
-                : _solutionContainer.SplitSolution(soln.Value, sliceVolume);
+            var lostSolution =
+                stackCount > 1
+                    ? sourceSolution.SplitSolution(sliceVolume)
+                    : _solutionContainer.SplitSolution(soln.Value, sliceVolume);
 
             // Fill new slice
             FillSlice(sliceUid, lostSolution);
@@ -125,10 +145,12 @@ public sealed class SliceableFoodSystem : EntitySystem
     /// Create a new slice in the world and returns its entity.
     /// The solutions must be set afterwards.
     /// </summary>
-    public EntityUid Slice(EntityUid uid,
+    public EntityUid Slice(
+        EntityUid uid,
         EntityUid user,
         SliceableFoodComponent? comp = null,
-        TransformComponent? transform = null)
+        TransformComponent? transform = null
+    )
     {
         if (!Resolve(uid, ref comp, ref transform))
             return EntityUid.Invalid;
@@ -157,10 +179,7 @@ public sealed class SliceableFoodSystem : EntitySystem
 
     private void DeleteFood(EntityUid uid, EntityUid user, FoodComponent foodComp)
     {
-        var ev = new BeforeFullySlicedEvent
-        {
-            User = user
-        };
+        var ev = new BeforeFullySlicedEvent { User = user };
         RaiseLocalEvent(uid, ev);
         if (ev.Cancelled)
             return;
@@ -184,8 +203,10 @@ public sealed class SliceableFoodSystem : EntitySystem
     private void FillSlice(EntityUid sliceUid, Solution solution)
     {
         // Replace all reagents on prototype not just copying poisons (example: slices of eaten pizza should have less nutrition)
-        if (TryComp<FoodComponent>(sliceUid, out var sliceFoodComp) &&
-            _solutionContainer.TryGetSolution(sliceUid, sliceFoodComp.Solution, out var itsSoln, out var itsSolution))
+        if (
+            TryComp<FoodComponent>(sliceUid, out var sliceFoodComp)
+            && _solutionContainer.TryGetSolution(sliceUid, sliceFoodComp.Solution, out var itsSoln, out var itsSolution)
+        )
         {
             _solutionContainer.RemoveAllSolution(itsSoln.Value);
 
@@ -224,10 +245,7 @@ public sealed class SliceableFoodSystem : EntitySystem
     {
         foreach (var reagent in solution.Contents.OrderBy(r => r.Reagent.Prototype, StringComparer.Ordinal))
         {
-            builder.Append(reagent.Reagent.Prototype)
-                .Append('=')
-                .Append(reagent.Quantity.Value)
-                .Append(';');
+            builder.Append(reagent.Reagent.Prototype).Append('=').Append(reagent.Quantity.Value).Append(';');
         }
     }
 
@@ -237,4 +255,3 @@ public sealed class SliceableFoodSystem : EntitySystem
         _solutionContainer.EnsureSolution(entity.Owner, foodComp.Solution, out _);
     }
 }
-

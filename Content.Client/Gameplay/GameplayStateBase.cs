@@ -30,16 +30,35 @@ namespace Content.Client.Gameplay
     [Virtual]
     public class GameplayStateBase : State, IEntityEventSubscriber
     {
-        [Dependency] private readonly IEyeManager _eyeManager = default!;
-        [Dependency] private readonly IInputManager _inputManager = default!;
-        [Dependency] private readonly IPlayerManager _playerManager = default!;
-        [Dependency] private readonly IEntitySystemManager _entitySystemManager = default!;
-        [Dependency] private readonly IGameTiming _timing = default!;
-        [Dependency] private readonly IMapManager _mapManager = default!;
-        [Dependency] protected readonly IUserInterfaceManager UserInterfaceManager = default!;
-        [Dependency] private readonly IEntityManager _entityManager = default!;
-        [Dependency] private readonly IViewVariablesManager _vvm = default!;
-        [Dependency] private readonly IConsoleHost _conHost = default!;
+        [Dependency]
+        private readonly IEyeManager _eyeManager = default!;
+
+        [Dependency]
+        private readonly IInputManager _inputManager = default!;
+
+        [Dependency]
+        private readonly IPlayerManager _playerManager = default!;
+
+        [Dependency]
+        private readonly IEntitySystemManager _entitySystemManager = default!;
+
+        [Dependency]
+        private readonly IGameTiming _timing = default!;
+
+        [Dependency]
+        private readonly IMapManager _mapManager = default!;
+
+        [Dependency]
+        protected readonly IUserInterfaceManager UserInterfaceManager = default!;
+
+        [Dependency]
+        private readonly IEntityManager _entityManager = default!;
+
+        [Dependency]
+        private readonly IViewVariablesManager _vvm = default!;
+
+        [Dependency]
+        private readonly IConsoleHost _conHost = default!;
 
         private ClickableEntityComparer _comparer = default!;
 
@@ -81,8 +100,11 @@ namespace Content.Client.Gameplay
             _vvm.RegisterDomain("enthover", ResolveVvHoverObject, ListVVHoverPaths);
             _inputManager.KeyBindStateChanged += OnKeyBindStateChanged;
             _comparer = new ClickableEntityComparer();
-            CommandBinds.Builder
-                .Bind(ContentKeyFunctions.InspectEntity, new PointerInputCmdHandler(HandleInspect, outsidePrediction: true))
+            CommandBinds
+                .Builder.Bind(
+                    ContentKeyFunctions.InspectEntity,
+                    new PointerInputCmdHandler(HandleInspect, outsidePrediction: true)
+                )
                 .Register<GameplayStateBase>();
         }
 
@@ -124,7 +146,11 @@ namespace Content.Client.Gameplay
             return GetClickableEntities(coordinates, _eyeManager.CurrentEye, excludeFaded);
         }
 
-        public IEnumerable<EntityUid> GetClickableEntities(MapCoordinates coordinates, IEye? eye, bool excludeFaded = true)
+        public IEnumerable<EntityUid> GetClickableEntities(
+            MapCoordinates coordinates,
+            IEye? eye,
+            bool excludeFaded = true
+        )
         {
             /*
              * TODO:
@@ -137,7 +163,10 @@ namespace Content.Client.Gameplay
 
             // Find all the entities intersecting our click
             var spriteTree = _entityManager.EntitySysManager.GetEntitySystem<SpriteTreeSystem>();
-            var entities = spriteTree.QueryAabb(coordinates.MapId, Box2.CenteredAround(coordinates.Position, new Vector2(1, 1)));
+            var entities = spriteTree.QueryAabb(
+                coordinates.MapId,
+                Box2.CenteredAround(coordinates.Position, new Vector2(1, 1))
+            );
 
             // Check the entities against whether or not we can click them
             var foundEntities = new List<(EntityUid, int, uint, float)>(entities.Count);
@@ -146,8 +175,18 @@ namespace Content.Client.Gameplay
 
             foreach (var entity in entities)
             {
-                if (clickQuery.TryGetComponent(entity.Uid, out var component) &&
-                    clickables.CheckClick((entity.Uid, component, entity.Component, entity.Transform), coordinates.Position, eye, excludeFaded, out var drawDepthClicked, out var renderOrder, out var bottom))
+                if (
+                    clickQuery.TryGetComponent(entity.Uid, out var component)
+                    && clickables.CheckClick(
+                        (entity.Uid, component, entity.Component, entity.Transform),
+                        coordinates.Position,
+                        eye,
+                        excludeFaded,
+                        out var drawDepthClicked,
+                        out var renderOrder,
+                        out var bottom
+                    )
+                )
                 {
                     foundEntities.Add((entity.Uid, drawDepthClicked, renderOrder, bottom));
                 }
@@ -162,10 +201,13 @@ namespace Content.Client.Gameplay
             return foundEntities.Select(a => a.Item1);
         }
 
-        private sealed class ClickableEntityComparer : IComparer<(EntityUid clicked, int depth, uint renderOrder, float bottom)>
+        private sealed class ClickableEntityComparer
+            : IComparer<(EntityUid clicked, int depth, uint renderOrder, float bottom)>
         {
-            public int Compare((EntityUid clicked, int depth, uint renderOrder, float bottom) x,
-                (EntityUid clicked, int depth, uint renderOrder, float bottom) y)
+            public int Compare(
+                (EntityUid clicked, int depth, uint renderOrder, float bottom) x,
+                (EntityUid clicked, int depth, uint renderOrder, float bottom) y
+            )
             {
                 var cmp = y.depth.CompareTo(x.depth);
                 if (cmp != 0)
@@ -198,7 +240,7 @@ namespace Content.Client.Gameplay
         protected virtual void OnKeyBindStateChanged(ViewportBoundKeyEventArgs args)
         {
             // If there is no InputSystem, then there is nothing to forward to, and nothing to do here.
-            if(!_entitySystemManager.TryGetEntitySystem(out InputSystem? inputSys))
+            if (!_entitySystemManager.TryGetEntitySystem(out InputSystem? inputSys))
                 return;
 
             var kArgs = args.KeyEventArgs;
@@ -222,9 +264,9 @@ namespace Content.Client.Gameplay
                 var transformSystem = _entitySystemManager.GetEntitySystem<SharedTransformSystem>();
                 var mapSystem = _entitySystemManager.GetEntitySystem<MapSystem>();
 
-                coordinates = _mapManager.TryFindGridAt(mousePosWorld, out var uid, out _) ?
-                    mapSystem.MapToGrid(uid, mousePosWorld) :
-                    transformSystem.ToCoordinates(mousePosWorld);
+                coordinates = _mapManager.TryFindGridAt(mousePosWorld, out var uid, out _)
+                    ? mapSystem.MapToGrid(uid, mousePosWorld)
+                    : transformSystem.ToCoordinates(mousePosWorld);
             }
             else
             {

@@ -39,28 +39,64 @@ namespace Content.Server.Silicons.StationAi;
 
 public sealed class StationAiSystem : SharedStationAiSystem
 {
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly SharedTransformSystem _xforms = default!;
-    [Dependency] private readonly ContainerSystem _container = default!;
-    [Dependency] private readonly MindSystem _mind = default!;
-    [Dependency] private readonly RoleSystem _roles = default!;
-    [Dependency] private readonly ItemSlotsSystem _slots = default!;
-    [Dependency] private readonly GhostSystem _ghost = default!;
-    [Dependency] private readonly AlertsSystem _alerts = default!;
-    [Dependency] private readonly DestructibleSystem _destructible = default!;
-    [Dependency] private readonly BatterySystem _battery = default!;
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly SharedPopupSystem _popups = default!;
-    [Dependency] private readonly StationSystem _station = default!;
-    [Dependency] private readonly StationJobsSystem _stationJobs = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly MetaDataSystem _metaDataSystem = default!; //Hardlight
+    [Dependency]
+    private readonly EntityLookupSystem _lookup = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _xforms = default!;
+
+    [Dependency]
+    private readonly ContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly MindSystem _mind = default!;
+
+    [Dependency]
+    private readonly RoleSystem _roles = default!;
+
+    [Dependency]
+    private readonly ItemSlotsSystem _slots = default!;
+
+    [Dependency]
+    private readonly GhostSystem _ghost = default!;
+
+    [Dependency]
+    private readonly AlertsSystem _alerts = default!;
+
+    [Dependency]
+    private readonly DestructibleSystem _destructible = default!;
+
+    [Dependency]
+    private readonly BatterySystem _battery = default!;
+
+    [Dependency]
+    private readonly DamageableSystem _damageable = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popups = default!;
+
+    [Dependency]
+    private readonly StationSystem _station = default!;
+
+    [Dependency]
+    private readonly StationJobsSystem _stationJobs = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private readonly MobStateSystem _mobState = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly MetaDataSystem _metaDataSystem = default!; //Hardlight
 
     private readonly HashSet<Entity<StationAiCoreComponent>> _stationAiCores = new();
 
-    private readonly ProtoId<ChatNotificationPrototype> _turretIsAttackingChatNotificationPrototype = "TurretIsAttacking";
+    private readonly ProtoId<ChatNotificationPrototype> _turretIsAttackingChatNotificationPrototype =
+        "TurretIsAttacking";
     private readonly ProtoId<ChatNotificationPrototype> _aiWireSnippedChatNotificationPrototype = "AiWireSnipped";
     private readonly ProtoId<ChatNotificationPrototype> _aiLosingPowerChatNotificationPrototype = "AiLosingPower";
     private readonly ProtoId<ChatNotificationPrototype> _aiCriticalPowerChatNotificationPrototype = "AiCriticalPower";
@@ -84,7 +120,7 @@ public sealed class StationAiSystem : SharedStationAiSystem
         SubscribeLocalEvent<StationAiCoreComponent, DoAfterAttemptEvent<IntellicardDoAfterEvent>>(OnDoAfterAttempt);
         SubscribeLocalEvent<StationAiCoreComponent, RejuvenateEvent>(OnRejuvenate);
 
-        SubscribeLocalEvent<StationAiHeldComponent, ComponentInit>(OnAiHeldInitialized);//Hardlight
+        SubscribeLocalEvent<StationAiHeldComponent, ComponentInit>(OnAiHeldInitialized); //Hardlight
 
         SubscribeLocalEvent<ExpandICChatRecipientsEvent>(OnExpandICChatRecipients);
         SubscribeLocalEvent<StationAiTurretComponent, AmmoShotEvent>(OnAmmoShot);
@@ -96,12 +132,18 @@ public sealed class StationAiSystem : SharedStationAiSystem
         if (!AiOnStationGrid(ent))
             RemoveHighSecurityChannels(ent);
     }
+
     //Hardlight end
 
-    private void AfterConstructionChangeEntity(Entity<StationAiCoreComponent> ent, ref AfterConstructionChangeEntityEvent args)
+    private void AfterConstructionChangeEntity(
+        Entity<StationAiCoreComponent> ent,
+        ref AfterConstructionChangeEntityEvent args
+    )
     {
-        if (!_container.TryGetContainer(ent, StationAiCoreComponent.BrainContainer, out var container) ||
-            container.Count == 0)
+        if (
+            !_container.TryGetContainer(ent, StationAiCoreComponent.BrainContainer, out var container)
+            || container.Count == 0
+        )
         {
             return;
         }
@@ -121,8 +163,10 @@ public sealed class StationAiSystem : SharedStationAiSystem
                 _metaDataSystem.SetEntityName(aiBrain, mind.CharacterName);
             //Hardlight end
 
-            if (!TryComp<StationAiHolderComponent>(ent, out var targetHolder) ||
-                !_slots.TryInsert(ent, targetHolder.Slot, aiBrain, null))
+            if (
+                !TryComp<StationAiHolderComponent>(ent, out var targetHolder)
+                || !_slots.TryInsert(ent, targetHolder.Slot, aiBrain, null)
+            )
             {
                 QueueDel(aiBrain);
             }
@@ -167,7 +211,6 @@ public sealed class StationAiSystem : SharedStationAiSystem
     /// <returns></returns>
     private bool AiOnStationGrid(Entity<StationAiHeldComponent> ent)
     {
-        
         if (!TryComp<TransformComponent>(ent, out var transComp))
             return false;
 
@@ -203,6 +246,7 @@ public sealed class StationAiSystem : SharedStationAiSystem
         transComp.Channels.Remove("Command");
         transComp.Channels.Remove("Security");
     }
+
     //Hardlight end
     protected override void OnAiRemove(Entity<StationAiCoreComponent> ent, ref EntRemovedFromContainerMessage args)
     {
@@ -219,7 +263,10 @@ public sealed class StationAiSystem : SharedStationAiSystem
         }
     }
 
-    protected override void OnMobStateChanged(Entity<StationAiCustomizationComponent> ent, ref MobStateChangedEvent args)
+    protected override void OnMobStateChanged(
+        Entity<StationAiCustomizationComponent> ent,
+        ref MobStateChangedEvent args
+    )
     {
         if (args.NewMobState != MobState.Alive)
         {
@@ -320,9 +367,11 @@ public sealed class StationAiSystem : SharedStationAiSystem
 
         _alerts.ShowAlert(held.Value, _batteryAlert, (short)Math.Clamp(chargeLevel, 0, proto.MaxSeverity));
 
-        if (TryComp<ApcPowerReceiverBatteryComponent>(ent, out var apcBattery) &&
-            apcBattery.Enabled &&
-            chargePercent < 0.2)
+        if (
+            TryComp<ApcPowerReceiverBatteryComponent>(ent, out var apcBattery)
+            && apcBattery.Enabled
+            && chargePercent < 0.2
+        )
         {
             var ev = new ChatNotificationEvent(_aiCriticalPowerChatNotificationPrototype, ent);
             RaiseLocalEvent(held.Value, ref ev);
@@ -349,7 +398,10 @@ public sealed class StationAiSystem : SharedStationAiSystem
         _alerts.ShowAlert(held.Value, _damageAlert, (short)Math.Clamp(damageLevel, 0, proto.MaxSeverity));
     }
 
-    private void OnDoAfterAttempt(Entity<StationAiCoreComponent> ent, ref DoAfterAttemptEvent<IntellicardDoAfterEvent> args)
+    private void OnDoAfterAttempt(
+        Entity<StationAiCoreComponent> ent,
+        ref DoAfterAttemptEvent<IntellicardDoAfterEvent> args
+    )
     {
         if (TryGetHeld((ent.Owner, ent.Comp), out _))
             return;
@@ -372,8 +424,10 @@ public sealed class StationAiSystem : SharedStationAiSystem
     {
         base.KillHeldAi(ent);
 
-        if (TryGetHeld((ent.Owner, ent.Comp), out var held) &&
-            _mind.TryGetMind(held.Value, out var mindId, out var mind))
+        if (
+            TryGetHeld((ent.Owner, ent.Comp), out var held)
+            && _mind.TryGetMind(held.Value, out var mindId, out var mind)
+        )
         {
             _ghost.OnGhostAttempt(mindId, canReturnGlobal: true, mind: mind);
             RemComp<StationAiOverlayComponent>(held.Value);
@@ -417,9 +471,10 @@ public sealed class StationAiSystem : SharedStationAiSystem
 
             var xform = Transform(stationAiCore.Comp.RemoteEntity.Value);
 
-            var range = (xform.MapID != sourceXform.MapID)
-                ? -1
-                : (sourcePos - _xforms.GetWorldPosition(xform, xformQuery)).Length();
+            var range =
+                (xform.MapID != sourceXform.MapID)
+                    ? -1
+                    : (sourcePos - _xforms.GetWorldPosition(xform, xformQuery)).Length();
 
             if (range < 0 || range > ev.VoiceRange)
                 continue;
@@ -442,7 +497,11 @@ public sealed class StationAiSystem : SharedStationAiSystem
             var ev = new ChatNotificationEvent(_turretIsAttackingChatNotificationPrototype, ent);
 
             if (TryComp<DeviceNetworkComponent>(ent, out var deviceNetwork))
-                ev.SourceNameOverride = Loc.GetString("station-ai-turret-component-name", ("name", Name(ent)), ("address", deviceNetwork.Address));
+                ev.SourceNameOverride = Loc.GetString(
+                    "station-ai-turret-component-name",
+                    ("name", Name(ent)),
+                    ("address", deviceNetwork.Address)
+                );
 
             RaiseLocalEvent(ai, ref ev);
         }
@@ -459,7 +518,11 @@ public sealed class StationAiSystem : SharedStationAiSystem
         return true;
     }
 
-    public override bool SetWhitelistEnabled(Entity<StationAiWhitelistComponent> entity, bool enabled, bool announce = false)
+    public override bool SetWhitelistEnabled(
+        Entity<StationAiWhitelistComponent> entity,
+        bool enabled,
+        bool announce = false
+    )
     {
         if (!base.SetWhitelistEnabled(entity, enabled, announce))
             return false;

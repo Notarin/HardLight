@@ -5,6 +5,4 @@ using Content.Shared._Common.Consent;
 
 namespace Content.Client._Common.Consent;
 
-public sealed class ConsentSystem : SharedConsentSystem
-{
-}
+public sealed class ConsentSystem : SharedConsentSystem { }

@@ -4,12 +4,12 @@ using Content.Client.Paper.UI;
 using Content.Shared.CCVar;
 using Content.Shared.Movement.Components;
 using Content.Shared.Tips;
+using Robust.Client.Audio;
 using Robust.Client.GameObjects;
 using Robust.Client.ResourceManagement;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controllers;
 using Robust.Client.UserInterface.Controls;
-using Robust.Client.Audio;
 using Robust.Shared.Configuration;
 using Robust.Shared.Map;
 using Robust.Shared.Timing;
@@ -19,10 +19,17 @@ namespace Content.Client.Tips;
 
 public sealed class TippyUIController : UIController
 {
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IResourceCache _resCache = default!;
-    [UISystemDependency] private readonly AudioSystem _audio = default!;
-    [UISystemDependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
+
+    [Dependency]
+    private readonly IResourceCache _resCache = default!;
+
+    [UISystemDependency]
+    private readonly AudioSystem _audio = default!;
+
+    [UISystemDependency]
+    private readonly SpriteSystem _sprite = default!;
 
     public const float Padding = 50;
     public static Angle WaddleRotation = Angle.FromDegrees(10);
@@ -63,7 +70,8 @@ public sealed class TippyUIController : UIController
             NextState(tippy);
         else
         {
-            var pos = UpdatePosition(tippy, screen.Size, args); ;
+            var pos = UpdatePosition(tippy, screen.Size, args);
+            ;
             LayoutContainer.SetPosition(tippy, pos);
         }
     }
@@ -85,13 +93,18 @@ public sealed class TippyUIController : UIController
 
         var waddle = _currentMessage.WaddleInterval;
 
-        if (_currentMessage == null
+        if (
+            _currentMessage == null
             || waddle <= 0
             || tippy.State == TippyState.Hidden
             || tippy.State == TippyState.Speaking
-            || !EntityManager.TryGetComponent(_entity, out SpriteComponent? sprite))
+            || !EntityManager.TryGetComponent(_entity, out SpriteComponent? sprite)
+        )
         {
-            return new Vector2(screenSize.X - offset * (tippy.DesiredSize.X + Padding), (screenSize.Y - tippy.DesiredSize.Y) / 2);
+            return new Vector2(
+                screenSize.X - offset * (tippy.DesiredSize.X + Padding),
+                (screenSize.Y - tippy.DesiredSize.Y) / 2
+            );
         }
 
         var numSteps = (int)Math.Ceiling(slideTime / waddle);
@@ -101,16 +114,14 @@ public sealed class TippyUIController : UIController
         if (curStep != _previousStep)
         {
             _previousStep = curStep;
-            _sprite.SetRotation((_entity, sprite),
-                sprite.Rotation > 0
-                    ? -WaddleRotation
-                    : WaddleRotation);
+            _sprite.SetRotation((_entity, sprite), sprite.Rotation > 0 ? -WaddleRotation : WaddleRotation);
 
-            if (EntityManager.TryGetComponent(_entity, out FootstepModifierComponent? step) && step.FootstepSoundCollection != null)
+            if (
+                EntityManager.TryGetComponent(_entity, out FootstepModifierComponent? step)
+                && step.FootstepSoundCollection != null
+            )
             {
-                var audioParams = step.FootstepSoundCollection.Params
-                    .AddVolume(-7f)
-                    .WithVariation(0.1f);
+                var audioParams = step.FootstepSoundCollection.Params.AddVolume(-7f).WithVariation(0.1f);
                 _audio.PlayGlobal(step.FootstepSoundCollection, EntityUid.Invalid, audioParams);
             }
         }

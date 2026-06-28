@@ -4,36 +4,53 @@ namespace Content.Shared.CCVar;
 
 public sealed partial class CCVars
 {
-    public static readonly CVarDef<bool>
-        OocEnabled = CVarDef.Create("ooc.enabled", true, CVar.NOTIFY | CVar.REPLICATED);
+    public static readonly CVarDef<bool> OocEnabled = CVarDef.Create(
+        "ooc.enabled",
+        true,
+        CVar.NOTIFY | CVar.REPLICATED
+    );
 
-    public static readonly CVarDef<bool> AdminOocEnabled =
-        CVarDef.Create("ooc.enabled_admin", true, CVar.NOTIFY);
+    public static readonly CVarDef<bool> AdminOocEnabled = CVarDef.Create("ooc.enabled_admin", true, CVar.NOTIFY);
 
     /// <summary>
     ///     If true, whenever OOC is disabled the Discord OOC relay will also be disabled.
     /// </summary>
-    public static readonly CVarDef<bool> DisablingOOCDisablesRelay =
-        CVarDef.Create("ooc.disabling_ooc_disables_relay", true, CVar.SERVERONLY);
+    public static readonly CVarDef<bool> DisablingOOCDisablesRelay = CVarDef.Create(
+        "ooc.disabling_ooc_disables_relay",
+        true,
+        CVar.SERVERONLY
+    );
 
     /// <summary>
     ///     Whether or not OOC chat should be enabled during a round.
     /// </summary>
-    public static readonly CVarDef<bool> OocEnableDuringRound =
-        CVarDef.Create("ooc.enable_during_round", true, CVar.NOTIFY | CVar.REPLICATED | CVar.SERVER);
+    public static readonly CVarDef<bool> OocEnableDuringRound = CVarDef.Create(
+        "ooc.enable_during_round",
+        true,
+        CVar.NOTIFY | CVar.REPLICATED | CVar.SERVER
+    );
 
-    public static readonly CVarDef<bool> ShowOocPatronColor =
-        CVarDef.Create("ooc.show_ooc_patron_color", true, CVar.ARCHIVE | CVar.REPLICATED | CVar.CLIENT);
+    public static readonly CVarDef<bool> ShowOocPatronColor = CVarDef.Create(
+        "ooc.show_ooc_patron_color",
+        true,
+        CVar.ARCHIVE | CVar.REPLICATED | CVar.CLIENT
+    );
 
     /// <summary>
     ///     Whether OOC slow mode is enabled, restricting how often players can send OOC messages.
     /// </summary>
-    public static readonly CVarDef<bool> OocSlowModeEnabled =
-        CVarDef.Create("ooc.slow_mode_enabled", false, CVar.NOTIFY | CVar.SERVER);
+    public static readonly CVarDef<bool> OocSlowModeEnabled = CVarDef.Create(
+        "ooc.slow_mode_enabled",
+        false,
+        CVar.NOTIFY | CVar.SERVER
+    );
 
     /// <summary>
     ///     The minimum number of seconds a player must wait between OOC messages when slow mode is active.
     /// </summary>
-    public static readonly CVarDef<float> OocSlowModeInterval =
-        CVarDef.Create("ooc.slow_mode_interval", 60f, CVar.SERVER);
+    public static readonly CVarDef<float> OocSlowModeInterval = CVarDef.Create(
+        "ooc.slow_mode_interval",
+        60f,
+        CVar.SERVER
+    );
 }

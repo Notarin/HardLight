@@ -14,7 +14,8 @@ namespace Content.Server.Destructible.Thresholds
         ///     Whether or not this threshold was triggered in the previous call to
         ///     <see cref="Reached"/>.
         /// </summary>
-        [ViewVariables] public bool OldTriggered { get; private set; }
+        [ViewVariables]
+        public bool OldTriggered { get; private set; }
 
         /// <summary>
         ///     Whether or not this threshold has already been triggered.
@@ -40,7 +41,8 @@ namespace Content.Server.Destructible.Thresholds
         /// <summary>
         ///     Behaviors to activate once this threshold is triggered.
         /// </summary>
-        [ViewVariables] public IReadOnlyList<IThresholdBehavior> Behaviors => _behaviors;
+        [ViewVariables]
+        public IReadOnlyList<IThresholdBehavior> Behaviors => _behaviors;
 
         public bool Reached(DamageableComponent damageable, DestructibleSystem system)
         {

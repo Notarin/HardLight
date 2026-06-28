@@ -6,8 +6,8 @@
   category: LanguageTraits # HL
   cost: 2 # HL increased 1 to 2
   components:
-    - type: LanguageSpeaker # HL
+  - type: LanguageSpeaker # HL
   languagesSpoken:
-    - Tradeband
+  - Tradeband
   languagesUnderstood:
-    - Tradeband
+  - Tradeband

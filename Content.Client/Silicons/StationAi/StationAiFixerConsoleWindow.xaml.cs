@@ -1,3 +1,4 @@
+using System.Numerics;
 using Content.Client.UserInterface.Controls;
 using Content.Shared.Lock;
 using Content.Shared.Silicons.StationAi;
@@ -6,15 +7,17 @@ using Robust.Client.Graphics;
 using Robust.Client.UserInterface.XAML;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
-using System.Numerics;
 
 namespace Content.Client.Silicons.StationAi;
 
 [GenerateTypedNameReferences]
 public sealed partial class StationAiFixerConsoleWindow : FancyWindow
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     private readonly StationAiFixerConsoleSystem _stationAiFixerConsole;
     private readonly SharedStationAiSystem _stationAi;
@@ -94,7 +97,9 @@ public sealed partial class StationAiFixerConsoleWindow : FancyWindow
         var ent = (_owner.Value, stationAiFixerConsole);
         var isLocked = _entManager.TryGetComponent<LockComponent>(_owner, out var lockable) && lockable.Locked;
 
-        var stationAiHolderInserted = _stationAiFixerConsole.IsStationAiHolderInserted((_owner.Value, stationAiFixerConsole));
+        var stationAiHolderInserted = _stationAiFixerConsole.IsStationAiHolderInserted(
+            (_owner.Value, stationAiFixerConsole)
+        );
         var stationAi = stationAiFixerConsole.ActionTarget;
         var stationAiState = StationAiState.Empty;
 
@@ -122,15 +127,21 @@ public sealed partial class StationAiFixerConsoleWindow : FancyWindow
             StationAiStatusLabel.Text = Loc.GetString("station-ai-fixer-console-window-station-ai-rebooting");
             _statusColors.TryGetValue(StationAiState.Rebooting, out statusColor);
         }
-        else if (stationAi != null &&
-            stationAiCustomization != null &&
-            _stationAi.TryGetCustomizedAppearanceData((stationAi.Value, stationAiCustomization), out var layerData))
+        else if (
+            stationAi != null
+            && stationAiCustomization != null
+            && _stationAi.TryGetCustomizedAppearanceData((stationAi.Value, stationAiCustomization), out var layerData)
+        )
         {
-            StationAiStatusLabel.Text = stationAiState == StationAiState.Occupied ?
-                Loc.GetString("station-ai-fixer-console-window-station-ai-online") :
-                Loc.GetString("station-ai-fixer-console-window-station-ai-offline");
+            StationAiStatusLabel.Text =
+                stationAiState == StationAiState.Occupied
+                    ? Loc.GetString("station-ai-fixer-console-window-station-ai-online")
+                    : Loc.GetString("station-ai-fixer-console-window-station-ai-offline");
 
-            if (layerData.TryGetValue(stationAiState.ToString(), out var stateData) && stateData is { RsiPath: not null, State: not null })
+            if (
+                layerData.TryGetValue(stationAiState.ToString(), out var stateData)
+                && stateData is { RsiPath: not null, State: not null }
+            )
             {
                 portrait = new SpriteSpecifier.Rsi(new ResPath(stateData.RsiPath), stateData.State);
             }
@@ -144,10 +155,7 @@ public sealed partial class StationAiFixerConsoleWindow : FancyWindow
             _currentPortrait = portrait;
         }
 
-        StationAiStatus.PanelOverride = new StyleBoxFlat
-        {
-            BackgroundColor = statusColor,
-        };
+        StationAiStatus.PanelOverride = new StyleBoxFlat { BackgroundColor = statusColor };
 
         // Update buttons
         EjectButton.Disabled = !stationAiHolderInserted;
@@ -161,16 +169,23 @@ public sealed partial class StationAiFixerConsoleWindow : FancyWindow
 
     public void UpdateProgressBar(Entity<StationAiFixerConsoleComponent> ent)
     {
-        ActionInProgressLabel.Text = ent.Comp.ActionType == StationAiFixerConsoleAction.Repair ?
-            Loc.GetString("station-ai-fixer-console-window-action-progress-repair") :
-            Loc.GetString("station-ai-fixer-console-window-action-progress-purge");
+        ActionInProgressLabel.Text =
+            ent.Comp.ActionType == StationAiFixerConsoleAction.Repair
+                ? Loc.GetString("station-ai-fixer-console-window-action-progress-repair")
+                : Loc.GetString("station-ai-fixer-console-window-action-progress-purge");
 
         var fullTimeSpan = ent.Comp.ActionEndTime - ent.Comp.ActionStartTime;
         var remainingTimeSpan = ent.Comp.ActionEndTime - _timing.CurTime;
 
-        var time = remainingTimeSpan.TotalSeconds > 60 ? remainingTimeSpan.TotalMinutes : remainingTimeSpan.TotalSeconds;
-        var units = remainingTimeSpan.TotalSeconds > 60 ? Loc.GetString("generic-minutes") : Loc.GetString("generic-seconds");
-        ActionProgressEtaLabel.Text = Loc.GetString("station-ai-fixer-console-window-action-progress-eta", ("time", (int)time), ("units", units));
+        var time =
+            remainingTimeSpan.TotalSeconds > 60 ? remainingTimeSpan.TotalMinutes : remainingTimeSpan.TotalSeconds;
+        var units =
+            remainingTimeSpan.TotalSeconds > 60 ? Loc.GetString("generic-minutes") : Loc.GetString("generic-seconds");
+        ActionProgressEtaLabel.Text = Loc.GetString(
+            "station-ai-fixer-console-window-action-progress-eta",
+            ("time", (int)time),
+            ("units", units)
+        );
 
         ActionProgressBar.Value = 1f - (float)remainingTimeSpan.Divide(fullTimeSpan);
     }

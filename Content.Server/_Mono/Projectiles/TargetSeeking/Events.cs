@@ -1,4 +1,3 @@
-
 namespace Content.Server._Mono.Projectiles.TargetSeeking;
 
 /// <summary>
@@ -11,7 +10,10 @@ namespace Content.Server._Mono.Projectiles.TargetSeeking;
 /// <param name="Exposed">Shares the value of <see cref="TargetSeekingComponent.ExposesTracking"/>, of the seeker.</param>
 /// <seealso cref="TargetSeekingComponent.ExposesTracking"/>
 [ByRefEvent]
-public readonly record struct EntityStartedBeingSeekedTargetEvent(Entity<TargetSeekingComponent, TransformComponent> Seeker, bool Exposed = true);
+public readonly record struct EntityStartedBeingSeekedTargetEvent(
+    Entity<TargetSeekingComponent, TransformComponent> Seeker,
+    bool Exposed = true
+);
 
 /// <summary>
 /// Raised on an entity that is no longer the target of an entity with a <see cref="TargetSeekingComponent"/>.
@@ -24,4 +26,7 @@ public readonly record struct EntityStartedBeingSeekedTargetEvent(Entity<TargetS
 /// <param name="Exposed">Shares the value of <see cref="TargetSeekingComponent.ExposesTracking"/>, of the seeker.</param>
 /// <seealso cref="TargetSeekingComponent.ExposesTracking"/>
 [ByRefEvent]
-public readonly record struct EntityStoppedBeingSeekedTargetEvent(Entity<TargetSeekingComponent, TransformComponent> Seeker, bool Exposed = true);
+public readonly record struct EntityStoppedBeingSeekedTargetEvent(
+    Entity<TargetSeekingComponent, TransformComponent> Seeker,
+    bool Exposed = true
+);

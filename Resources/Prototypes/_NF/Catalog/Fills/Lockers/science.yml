@@ -5,6 +5,6 @@
   components:
   - type: StorageFill
     contents:
-      - id: AnomalyScanner
-      - id: NodeScanner
-      - id: AnomalyLocator
+    - id: AnomalyScanner
+    - id: NodeScanner
+    - id: AnomalyLocator

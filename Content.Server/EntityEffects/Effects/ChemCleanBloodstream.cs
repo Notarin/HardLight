@@ -14,12 +14,11 @@ public sealed partial class ChemCleanBloodstream : EntityEffect
     [DataField]
     public float CleanseRate = 3.0f;
 
-    protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys)
-        => Loc.GetString("reagent-effect-guidebook-chem-clean-bloodstream", ("chance", Probability));
+    protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys) =>
+        Loc.GetString("reagent-effect-guidebook-chem-clean-bloodstream", ("chance", Probability));
 
     public override void Effect(EntityEffectBaseArgs args)
     {
-        
         var cleanseRate = CleanseRate;
 
         var bloodstreamSys = args.EntityManager.System<BloodstreamSystem>();

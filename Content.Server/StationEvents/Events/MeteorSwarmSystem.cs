@@ -24,13 +24,27 @@ public sealed class MeteorSwarmSystem : GameRuleSystem<MeteorSwarmComponent>
     private const int SpawnClearanceAttempts = 6; // HardLight
     private const float SpawnClearanceMargin = 25f; // HardLight
 
-    [Dependency] private readonly IMapManager _mapManager = default!; // HardLight
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly AudioSystem _audio = default!;
-    [Dependency] private readonly ChatSystem _chat = default!;
-    [Dependency] private readonly StationSystem _station = default!;
+    [Dependency]
+    private readonly IMapManager _mapManager = default!; // HardLight
 
-    protected override void Added(EntityUid uid, MeteorSwarmComponent component, GameRuleComponent gameRule, GameRuleAddedEvent args)
+    [Dependency]
+    private readonly SharedPhysicsSystem _physics = default!;
+
+    [Dependency]
+    private readonly AudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly ChatSystem _chat = default!;
+
+    [Dependency]
+    private readonly StationSystem _station = default!;
+
+    protected override void Added(
+        EntityUid uid,
+        MeteorSwarmComponent component,
+        GameRuleComponent gameRule,
+        GameRuleAddedEvent args
+    )
     {
         base.Added(uid, component, gameRule, args);
 
@@ -41,12 +55,22 @@ public sealed class MeteorSwarmSystem : GameRuleSystem<MeteorSwarmComponent>
         Filter allPlayersInGame = Filter.Empty().AddWhere(GameTicker.UserHasJoinedGame);
 
         if (component.Announcement is { } locId)
-            _chat.DispatchFilteredAnnouncement(allPlayersInGame, Loc.GetString(locId), playSound: false, colorOverride: Color.Gold);
+            _chat.DispatchFilteredAnnouncement(
+                allPlayersInGame,
+                Loc.GetString(locId),
+                playSound: false,
+                colorOverride: Color.Gold
+            );
 
         _audio.PlayGlobal(component.AnnouncementSound, allPlayersInGame, true);
     }
 
-    protected override void ActiveTick(EntityUid uid, MeteorSwarmComponent component, GameRuleComponent gameRule, float frameTime)
+    protected override void ActiveTick(
+        EntityUid uid,
+        MeteorSwarmComponent component,
+        GameRuleComponent gameRule,
+        float frameTime
+    )
     {
         if (Timing.CurTime < component.NextWaveTime)
             return;
@@ -57,9 +81,11 @@ public sealed class MeteorSwarmSystem : GameRuleSystem<MeteorSwarmComponent>
         var candidates = new List<(EntityUid Station, EntityUid Grid)>();
         foreach (var station in _station.GetStations())
         {
-            if (!station.Valid ||
-                !HasComp<ValidMeteorSwarmComponent>(station) ||
-                HasComp<ExtraShuttleInformationComponent>(station))
+            if (
+                !station.Valid
+                || !HasComp<ValidMeteorSwarmComponent>(station)
+                || HasComp<ExtraShuttleInformationComponent>(station)
+            )
                 continue;
 
             if (!TryComp<StationDataComponent>(station, out var stationData))
@@ -89,23 +115,27 @@ public sealed class MeteorSwarmSystem : GameRuleSystem<MeteorSwarmComponent>
         {
             var spawnProto = RobustRandom.Pick(component.Meteors);
 
-            var angle = component.NonDirectional
-                ? RobustRandom.NextAngle()
-                : new Random(uid.Id).NextAngle();
+            var angle = component.NonDirectional ? RobustRandom.NextAngle() : new Random(uid.Id).NextAngle();
 
-            var offset = angle.RotateVec(new Vector2((maximumDistance - minimumDistance) * RobustRandom.NextFloat() + minimumDistance, 0));
+            var offset = angle.RotateVec(
+                new Vector2((maximumDistance - minimumDistance) * RobustRandom.NextFloat() + minimumDistance, 0)
+            );
 
             // the line at which spawns occur is perpendicular to the offset.
             // This means the meteors are less likely to bunch up and hit the same thing.
-            var subOffsetAngle = RobustRandom.Prob(0.5f)
-                ? angle + Math.PI / 2
-                : angle - Math.PI / 2;
-            var subOffset = subOffsetAngle.RotateVec(new Vector2( (playableArea.TopRight - playableArea.Center).Length() / 3 * RobustRandom.NextFloat(), 0));
+            var subOffsetAngle = RobustRandom.Prob(0.5f) ? angle + Math.PI / 2 : angle - Math.PI / 2;
+            var subOffset = subOffsetAngle.RotateVec(
+                new Vector2((playableArea.TopRight - playableArea.Center).Length() / 3 * RobustRandom.NextFloat(), 0)
+            );
 
             var spawnPosition = FindSpawnPosition(center, mapId, offset, subOffset); // HardLight
             var meteor = Spawn(spawnProto, spawnPosition);
             var physics = Comp<PhysicsComponent>(meteor);
-            _physics.ApplyLinearImpulse(meteor, -offset.Normalized() * component.MeteorVelocity * physics.Mass, body: physics);
+            _physics.ApplyLinearImpulse(
+                meteor,
+                -offset.Normalized() * component.MeteorVelocity * physics.Mass,
+                body: physics
+            );
         }
 
         component.WaveCounter--;

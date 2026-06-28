@@ -10,11 +10,16 @@ namespace Content.Client.Weapons.Hitscan;
 
 public sealed class BeamPrismVisualizerSystem : EntitySystem
 {
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
 
-    private static readonly SpriteSpecifier BeamPrismOverlaySprite =
-        new SpriteSpecifier.Rsi(new ResPath("_HL/Objects/ShuttleWeapons/beamprism.rsi"), "artillerygem");
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
+
+    private static readonly SpriteSpecifier BeamPrismOverlaySprite = new SpriteSpecifier.Rsi(
+        new ResPath("_HL/Objects/ShuttleWeapons/beamprism.rsi"),
+        "artillerygem"
+    );
 
     private const string BeamPrismOverlayLayerKey = "BeamPrismFiringOverlay";
 

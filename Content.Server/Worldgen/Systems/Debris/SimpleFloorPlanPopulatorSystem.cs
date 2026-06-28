@@ -11,9 +11,14 @@ namespace Content.Server.Worldgen.Systems.Debris;
 /// </summary>
 public sealed class SimpleFloorPlanPopulatorSystem : BaseWorldSystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly ITileDefinitionManager _tileDefinition = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly ITileDefinitionManager _tileDefinition = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _map = default!;
 
     /// <inheritdoc />
     public override void Initialize()
@@ -21,8 +26,11 @@ public sealed class SimpleFloorPlanPopulatorSystem : BaseWorldSystem
         SubscribeLocalEvent<SimpleFloorPlanPopulatorComponent, LocalStructureLoadedEvent>(OnFloorPlanBuilt);
     }
 
-    private void OnFloorPlanBuilt(EntityUid uid, SimpleFloorPlanPopulatorComponent component,
-        LocalStructureLoadedEvent args)
+    private void OnFloorPlanBuilt(
+        EntityUid uid,
+        SimpleFloorPlanPopulatorComponent component,
+        LocalStructureLoadedEvent args
+    )
     {
         var placeables = new List<string?>(4);
         var grid = Comp<MapGridComponent>(uid);
@@ -30,7 +38,7 @@ public sealed class SimpleFloorPlanPopulatorSystem : BaseWorldSystem
         var enumerator = _map.GetAllTilesEnumerator(uid, grid);
         while (enumerator.MoveNext(out var tile))
         {
-            if (tile is {} tileRef)
+            if (tile is { } tileRef)
                 tiles.Add(tileRef);
         }
 
@@ -54,4 +62,3 @@ public sealed class SimpleFloorPlanPopulatorSystem : BaseWorldSystem
         }
     }
 }
-

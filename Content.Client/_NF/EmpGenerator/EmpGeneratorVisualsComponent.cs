@@ -24,8 +24,10 @@ public partial record struct EmpCoreSpriteThreshold
 {
     [DataField]
     public float MaxCharge;
+
     [DataField]
     public string? State;
+
     [DataField]
     public bool Visible;
 }

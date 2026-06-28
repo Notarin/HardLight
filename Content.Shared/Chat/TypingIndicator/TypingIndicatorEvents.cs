@@ -1,6 +1,6 @@
-using Robust.Shared.Serialization;
 using Content.Shared.Inventory;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Serialization;
 using Robust.Shared.Serialization.Manager.Exceptions;
 
 namespace Content.Shared.Chat.TypingIndicator;
@@ -33,11 +33,13 @@ public sealed class BeforeShowTypingIndicatorEvent : IInventoryRelayEvent
 
     private ProtoId<TypingIndicatorPrototype>? _overrideIndicator = null;
     private TimeSpan? _latestEquipTime = null;
+
     public BeforeShowTypingIndicatorEvent()
     {
         _overrideIndicator = null;
         _latestEquipTime = null;
     }
+
     /// <summary>
     ///     Will only update the time and indicator if the given time is more recent than
     ///     the stored time or if the stored time is null.
@@ -55,6 +57,7 @@ public sealed class BeforeShowTypingIndicatorEvent : IInventoryRelayEvent
         }
         return false;
     }
+
     public ProtoId<TypingIndicatorPrototype>? GetMostRecentIndicator()
     {
         return _overrideIndicator;

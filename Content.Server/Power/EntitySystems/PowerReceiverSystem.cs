@@ -1,8 +1,9 @@
 using System.Diagnostics.CodeAnalysis;
 using Content.Server.Administration.Managers;
-using Content.Server.Power.Components;
 using Content.Server.Emp; // Frontier: Upstream - #28984
+using Content.Server.Power.Components;
 using Content.Shared.Administration;
+using Content.Shared.Emp; // Frontier: Upstream - #28984
 using Content.Shared.Examine;
 using Content.Shared.Hands.Components;
 using Content.Shared.Power.Components;
@@ -10,13 +11,13 @@ using Content.Shared.Power.EntitySystems;
 using Content.Shared.Verbs;
 using Robust.Shared.GameStates;
 using Robust.Shared.Utility;
-using Content.Shared.Emp; // Frontier: Upstream - #28984
 
 namespace Content.Server.Power.EntitySystems
 {
     public sealed class PowerReceiverSystem : SharedPowerReceiverSystem
     {
-        [Dependency] private readonly IAdminManager _adminManager = default!;
+        [Dependency]
+        private readonly IAdminManager _adminManager = default!;
 
         private EntityQuery<ApcPowerReceiverComponent> _recQuery;
         private EntityQuery<ApcPowerProviderComponent> _provQuery;
@@ -26,12 +27,20 @@ namespace Content.Server.Power.EntitySystems
             base.Initialize();
             SubscribeLocalEvent<ApcPowerReceiverComponent, ExaminedEvent>(OnExamined);
 
-            SubscribeLocalEvent<ApcPowerReceiverComponent, ExtensionCableSystem.ProviderConnectedEvent>(OnProviderConnected);
-            SubscribeLocalEvent<ApcPowerReceiverComponent, ExtensionCableSystem.ProviderDisconnectedEvent>(OnProviderDisconnected);
+            SubscribeLocalEvent<ApcPowerReceiverComponent, ExtensionCableSystem.ProviderConnectedEvent>(
+                OnProviderConnected
+            );
+            SubscribeLocalEvent<ApcPowerReceiverComponent, ExtensionCableSystem.ProviderDisconnectedEvent>(
+                OnProviderDisconnected
+            );
 
             SubscribeLocalEvent<ApcPowerProviderComponent, ComponentShutdown>(OnProviderShutdown);
-            SubscribeLocalEvent<ApcPowerProviderComponent, ExtensionCableSystem.ReceiverConnectedEvent>(OnReceiverConnected);
-            SubscribeLocalEvent<ApcPowerProviderComponent, ExtensionCableSystem.ReceiverDisconnectedEvent>(OnReceiverDisconnected);
+            SubscribeLocalEvent<ApcPowerProviderComponent, ExtensionCableSystem.ReceiverConnectedEvent>(
+                OnReceiverConnected
+            );
+            SubscribeLocalEvent<ApcPowerProviderComponent, ExtensionCableSystem.ReceiverDisconnectedEvent>(
+                OnReceiverDisconnected
+            );
 
             SubscribeLocalEvent<ApcPowerReceiverComponent, GetVerbsEvent<Verb>>(OnGetVerbs);
             SubscribeLocalEvent<PowerSwitchComponent, GetVerbsEvent<AlternativeVerb>>(AddSwitchPowerVerb);
@@ -56,16 +65,18 @@ namespace Content.Server.Power.EntitySystems
                 return;
 
             // add debug verb to toggle power requirements
-            args.Verbs.Add(new()
-            {
-                Text = Loc.GetString("verb-debug-toggle-need-power"),
-                Category = VerbCategory.Debug,
-                Icon = new SpriteSpecifier.Texture(new ("/Textures/Interface/VerbIcons/smite.svg.192dpi.png")), // "smite" is a lightning bolt
-                Act = () =>
+            args.Verbs.Add(
+                new()
                 {
-                    SetNeedsPower(uid, !component.NeedsPower, component);
+                    Text = Loc.GetString("verb-debug-toggle-need-power"),
+                    Category = VerbCategory.Debug,
+                    Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/smite.svg.192dpi.png")), // "smite" is a lightning bolt
+                    Act = () =>
+                    {
+                        SetNeedsPower(uid, !component.NeedsPower, component);
+                    },
                 }
-            });
+            );
         }
 
         private void OnProviderShutdown(EntityUid uid, ApcPowerProviderComponent component, ComponentShutdown args)
@@ -79,7 +90,10 @@ namespace Content.Server.Power.EntitySystems
             component.LinkedReceivers.Clear();
         }
 
-        private void OnProviderConnected(Entity<ApcPowerReceiverComponent> receiver, ref ExtensionCableSystem.ProviderConnectedEvent args)
+        private void OnProviderConnected(
+            Entity<ApcPowerReceiverComponent> receiver,
+            ref ExtensionCableSystem.ProviderConnectedEvent args
+        )
         {
             var providerUid = args.Provider.Owner;
             if (!_provQuery.TryGetComponent(providerUid, out var provider))
@@ -90,14 +104,20 @@ namespace Content.Server.Power.EntitySystems
             ProviderChanged(receiver);
         }
 
-        private void OnProviderDisconnected(Entity<ApcPowerReceiverComponent> receiver, ref ExtensionCableSystem.ProviderDisconnectedEvent args)
+        private void OnProviderDisconnected(
+            Entity<ApcPowerReceiverComponent> receiver,
+            ref ExtensionCableSystem.ProviderDisconnectedEvent args
+        )
         {
             receiver.Comp.Provider = null;
 
             ProviderChanged(receiver);
         }
 
-        private void OnReceiverConnected(Entity<ApcPowerProviderComponent> provider, ref ExtensionCableSystem.ReceiverConnectedEvent args)
+        private void OnReceiverConnected(
+            Entity<ApcPowerProviderComponent> provider,
+            ref ExtensionCableSystem.ReceiverConnectedEvent args
+        )
         {
             if (_recQuery.TryGetComponent(args.Receiver, out var receiver))
             {
@@ -105,7 +125,11 @@ namespace Content.Server.Power.EntitySystems
             }
         }
 
-        private void OnReceiverDisconnected(EntityUid uid, ApcPowerProviderComponent provider, ExtensionCableSystem.ReceiverDisconnectedEvent args)
+        private void OnReceiverDisconnected(
+            EntityUid uid,
+            ApcPowerProviderComponent provider,
+            ExtensionCableSystem.ReceiverDisconnectedEvent args
+        )
         {
             if (_recQuery.TryGetComponent(args.Receiver, out var receiver))
             {
@@ -113,9 +137,13 @@ namespace Content.Server.Power.EntitySystems
             }
         }
 
-        private void AddSwitchPowerVerb(EntityUid uid, PowerSwitchComponent component, GetVerbsEvent<AlternativeVerb> args)
+        private void AddSwitchPowerVerb(
+            EntityUid uid,
+            PowerSwitchComponent component,
+            GetVerbsEvent<AlternativeVerb> args
+        )
         {
-            if(!args.CanAccess || !args.CanInteract)
+            if (!args.CanAccess || !args.CanInteract)
                 return;
 
             if (!HasComp<HandsComponent>(args.User))
@@ -133,9 +161,11 @@ namespace Content.Server.Power.EntitySystems
                 {
                     TogglePower(uid, user: args.User); // Frontier: Upstream - #28984 (TogglePower<TryTogglePower)
                 },
-                Icon = new SpriteSpecifier.Texture(new ("/Textures/Interface/VerbIcons/Spare/poweronoff.svg.192dpi.png")),
+                Icon = new SpriteSpecifier.Texture(
+                    new("/Textures/Interface/VerbIcons/Spare/poweronoff.svg.192dpi.png")
+                ),
                 Text = Loc.GetString("power-switch-component-toggle-verb"),
-                Priority = -3
+                Priority = -3,
             };
             args.Verbs.Add(verb);
         }
@@ -169,10 +199,13 @@ namespace Content.Server.Power.EntitySystems
 
         public override void SetLoad(SharedApcPowerReceiverComponent comp, float load) // Goobstation - override shared method
         {
-            ((ApcPowerReceiverComponent) comp).Load = load; // Goobstation
+            ((ApcPowerReceiverComponent)comp).Load = load; // Goobstation
         }
 
-        public override bool ResolveApc(EntityUid entity, [NotNullWhen(true)] ref SharedApcPowerReceiverComponent? component)
+        public override bool ResolveApc(
+            EntityUid entity,
+            [NotNullWhen(true)] ref SharedApcPowerReceiverComponent? component
+        )
         {
             if (component != null)
                 return true;

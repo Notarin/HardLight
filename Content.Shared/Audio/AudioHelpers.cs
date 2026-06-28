@@ -22,7 +22,7 @@ namespace Content.Shared.Audio
         public static AudioParams WithVariation(float amplitude, IRobustRandom? rand)
         {
             IoCManager.Resolve(ref rand);
-            var scale = (float) rand.NextGaussian(1, amplitude);
+            var scale = (float)rand.NextGaussian(1, amplitude);
             return AudioParams.Default.WithPitchScale(scale);
         }
 
@@ -30,13 +30,31 @@ namespace Content.Shared.Audio
         // by 12 semitones anyway (ie. 0.5 to 2.0 multiplier).
         private static readonly float[] SemitoneMultipliers =
         {
-            0.5f, 233.08f/440f, 246.94f/440f, 261.63f/440f,
-            277.18f/440f, 293.66f/440f, 311.13f/440f, 329.63f/440f,
-            349.23f/440f, 369.99f/440f, 392.00f/440f, 415.30f/440f,
+            0.5f,
+            233.08f / 440f,
+            246.94f / 440f,
+            261.63f / 440f,
+            277.18f / 440f,
+            293.66f / 440f,
+            311.13f / 440f,
+            329.63f / 440f,
+            349.23f / 440f,
+            369.99f / 440f,
+            392.00f / 440f,
+            415.30f / 440f,
             1.0f,
-            466.16f/440f, 493.88f/440f, 523.25f/440f, 554.37f/440f,
-            587.33f/440f, 622.25f/440f, 659.26f/440f, 698.46f/440f,
-            739.99f/440f, 783.99f/440f, 830.61f/440f, 2.0f
+            466.16f / 440f,
+            493.88f / 440f,
+            523.25f / 440f,
+            554.37f / 440f,
+            587.33f / 440f,
+            622.25f / 440f,
+            659.26f / 440f,
+            698.46f / 440f,
+            739.99f / 440f,
+            783.99f / 440f,
+            830.61f / 440f,
+            2.0f,
         };
 
         /// <summary>

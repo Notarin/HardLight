@@ -10,7 +10,8 @@ public sealed partial class CrewManifestViewerComponent : Component
     ///     <see cref="CCVars.CrewManifestUnsecure"/> being false will
     ///     not allow this entity to be processed by CrewManifestSystem.
     /// </summary>
-    [DataField("unsecure")] public bool Unsecure;
+    [DataField("unsecure")]
+    public bool Unsecure;
 
     /// <summary>
     /// The owner interface of this crew manifest viewer. When it closes, so too will an opened crew manifest.

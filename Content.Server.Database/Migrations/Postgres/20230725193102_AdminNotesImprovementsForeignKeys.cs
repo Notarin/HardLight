@@ -10,17 +10,14 @@ namespace Content.Server.Database.Migrations.Postgres
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_admin_messages_player_player_user_id",
-                table: "admin_messages");
+            migrationBuilder.DropForeignKey(name: "FK_admin_messages_player_player_user_id", table: "admin_messages");
 
-            migrationBuilder.DropForeignKey(
-                name: "FK_admin_notes_player_player_user_id",
-                table: "admin_notes");
+            migrationBuilder.DropForeignKey(name: "FK_admin_notes_player_player_user_id", table: "admin_notes");
 
             migrationBuilder.DropForeignKey(
                 name: "FK_admin_watchlists_player_player_user_id",
-                table: "admin_watchlists");
+                table: "admin_watchlists"
+            );
 
             migrationBuilder.AddForeignKey(
                 name: "FK_admin_messages_player_player_user_id",
@@ -28,7 +25,8 @@ namespace Content.Server.Database.Migrations.Postgres
                 column: "player_user_id",
                 principalTable: "player",
                 principalColumn: "user_id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Cascade
+            );
 
             migrationBuilder.AddForeignKey(
                 name: "FK_admin_notes_player_player_user_id",
@@ -36,7 +34,8 @@ namespace Content.Server.Database.Migrations.Postgres
                 column: "player_user_id",
                 principalTable: "player",
                 principalColumn: "user_id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Cascade
+            );
 
             migrationBuilder.AddForeignKey(
                 name: "FK_admin_watchlists_player_player_user_id",
@@ -44,23 +43,21 @@ namespace Content.Server.Database.Migrations.Postgres
                 column: "player_user_id",
                 principalTable: "player",
                 principalColumn: "user_id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Cascade
+            );
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_admin_messages_player_player_user_id",
-                table: "admin_messages");
+            migrationBuilder.DropForeignKey(name: "FK_admin_messages_player_player_user_id", table: "admin_messages");
 
-            migrationBuilder.DropForeignKey(
-                name: "FK_admin_notes_player_player_user_id",
-                table: "admin_notes");
+            migrationBuilder.DropForeignKey(name: "FK_admin_notes_player_player_user_id", table: "admin_notes");
 
             migrationBuilder.DropForeignKey(
                 name: "FK_admin_watchlists_player_player_user_id",
-                table: "admin_watchlists");
+                table: "admin_watchlists"
+            );
 
             migrationBuilder.AddForeignKey(
                 name: "FK_admin_messages_player_player_user_id",
@@ -68,7 +65,8 @@ namespace Content.Server.Database.Migrations.Postgres
                 column: "player_user_id",
                 principalTable: "player",
                 principalColumn: "user_id",
-                onDelete: ReferentialAction.SetNull);
+                onDelete: ReferentialAction.SetNull
+            );
 
             migrationBuilder.AddForeignKey(
                 name: "FK_admin_notes_player_player_user_id",
@@ -76,7 +74,8 @@ namespace Content.Server.Database.Migrations.Postgres
                 column: "player_user_id",
                 principalTable: "player",
                 principalColumn: "user_id",
-                onDelete: ReferentialAction.SetNull);
+                onDelete: ReferentialAction.SetNull
+            );
 
             migrationBuilder.AddForeignKey(
                 name: "FK_admin_watchlists_player_player_user_id",
@@ -84,7 +83,8 @@ namespace Content.Server.Database.Migrations.Postgres
                 column: "player_user_id",
                 principalTable: "player",
                 principalColumn: "user_id",
-                onDelete: ReferentialAction.SetNull);
+                onDelete: ReferentialAction.SetNull
+            );
         }
     }
 }

@@ -15,8 +15,7 @@ public sealed partial class ArcadePlayerInvincibleWireAction : BaseToggleWireAct
 
     public override void ToggleValue(EntityUid owner, bool setting)
     {
-        if (EntityManager.TryGetComponent<SpaceVillainArcadeComponent>(owner, out var arcade)
-        && arcade.Game != null)
+        if (EntityManager.TryGetComponent<SpaceVillainArcadeComponent>(owner, out var arcade) && arcade.Game != null)
         {
             arcade.Game.PlayerChar.Invincible = !setting;
         }
@@ -31,8 +30,10 @@ public sealed partial class ArcadePlayerInvincibleWireAction : BaseToggleWireAct
 
     public override StatusLightState? GetLightState(Wire wire)
     {
-        if (EntityManager.TryGetComponent<SpaceVillainArcadeComponent>(wire.Owner, out var arcade)
-        && arcade.Game != null)
+        if (
+            EntityManager.TryGetComponent<SpaceVillainArcadeComponent>(wire.Owner, out var arcade)
+            && arcade.Game != null
+        )
         {
             return arcade.Game.PlayerChar.Invincible || arcade.Game.VillainChar.Invincible
                 ? StatusLightState.BlinkingSlow
@@ -52,8 +53,7 @@ public sealed partial class ArcadeEnemyInvincibleWireAction : BaseToggleWireActi
 
     public override void ToggleValue(EntityUid owner, bool setting)
     {
-        if (EntityManager.TryGetComponent<SpaceVillainArcadeComponent>(owner, out var arcade)
-        && arcade.Game != null)
+        if (EntityManager.TryGetComponent<SpaceVillainArcadeComponent>(owner, out var arcade) && arcade.Game != null)
         {
             arcade.Game.VillainChar.Invincible = !setting;
         }
@@ -75,5 +75,5 @@ public sealed partial class ArcadeEnemyInvincibleWireAction : BaseToggleWireActi
 public enum ArcadeInvincibilityWireActionKeys : short
 {
     Player,
-    Enemy
+    Enemy,
 }

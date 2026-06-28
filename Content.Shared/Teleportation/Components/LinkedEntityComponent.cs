@@ -39,5 +39,5 @@ public sealed class LinkedEntityComponentState : ComponentState
 [Serializable, NetSerializable]
 public enum LinkedEntityVisuals : byte
 {
-    HasAnyLinks
+    HasAnyLinks,
 }

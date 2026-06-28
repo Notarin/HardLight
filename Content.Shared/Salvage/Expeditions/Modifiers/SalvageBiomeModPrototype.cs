@@ -8,11 +8,13 @@ namespace Content.Shared.Salvage.Expeditions.Modifiers;
 /// Affects the biome to be used for salvage.
 /// </summary>
 [Prototype]
-public sealed partial class SalvageBiomeModPrototype  : IPrototype, ISalvageMod
+public sealed partial class SalvageBiomeModPrototype : IPrototype, ISalvageMod
 {
-    [IdDataField] public string ID { get; private set; } = default!;
+    [IdDataField]
+    public string ID { get; private set; } = default!;
 
-    [DataField("desc")] public LocId Description { get; private set; } = string.Empty;
+    [DataField("desc")]
+    public LocId Description { get; private set; } = string.Empty;
 
     /// <summary>
     /// Cost for difficulty modifiers.
@@ -26,6 +28,6 @@ public sealed partial class SalvageBiomeModPrototype  : IPrototype, ISalvageMod
     [DataField("weather")]
     public bool Weather = true;
 
-    [DataField("biome", required: true, customTypeSerializer:typeof(PrototypeIdSerializer<BiomeTemplatePrototype>))]
+    [DataField("biome", required: true, customTypeSerializer: typeof(PrototypeIdSerializer<BiomeTemplatePrototype>))]
     public string? BiomePrototype;
 }

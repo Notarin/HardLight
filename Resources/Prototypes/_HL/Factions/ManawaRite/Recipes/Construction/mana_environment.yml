@@ -11,7 +11,6 @@
   objectType: Item
   placementMode: PlaceFree
 
-
 # --- On-grid floor overlays (passable) ---
 
 - type: construction
@@ -101,7 +100,6 @@
   objectType: Structure
   placementMode: SnapgridCenter
   canBuildInImpassable: false
-
 
 - type: construction
   id: ManaLargeTreeDeco
@@ -236,7 +234,4 @@
   objectType: Structure
   placementMode: PlaceFree
   canBuildInImpassable: true
-
-
-
 

@@ -7,9 +7,14 @@ namespace Content.Client.Explosion;
 
 public sealed partial class TriggerSystem
 {
-    [Dependency] private readonly AnimationPlayerSystem _player = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly AnimationPlayerSystem _player = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     /*
      * Currently all of the appearance stuff is hardcoded for portable flashers
@@ -21,11 +26,12 @@ public sealed partial class TriggerSystem
     private static readonly Animation _flasherAnimation = new Animation
     {
         Length = TimeSpan.FromSeconds(0.6f),
-        AnimationTracks = {
+        AnimationTracks =
+        {
             new AnimationTrackSpriteFlick
             {
                 LayerKey = ProximityTriggerVisualLayers.Base,
-                KeyFrames = { new AnimationTrackSpriteFlick.KeyFrame("flashing", 0f)}
+                KeyFrames = { new AnimationTrackSpriteFlick.KeyFrame("flashing", 0f) },
             },
             new AnimationTrackComponentProperty()
             {
@@ -36,10 +42,10 @@ public sealed partial class TriggerSystem
                 {
                     new AnimationTrackProperty.KeyFrame(0.1f, 0),
                     new AnimationTrackProperty.KeyFrame(3f, 0.1f),
-                    new AnimationTrackProperty.KeyFrame(0.1f, 0.5f)
-                }
-            }
-        }
+                    new AnimationTrackProperty.KeyFrame(0.1f, 0.5f),
+                },
+            },
+        },
     };
 
     private void InitializeProximity()
@@ -69,7 +75,12 @@ public sealed partial class TriggerSystem
         OnChangeData(uid, component, args.Component, args.Sprite);
     }
 
-    private void OnChangeData(EntityUid uid, TriggerOnProximityComponent component, AppearanceComponent appearance, SpriteComponent? spriteComponent = null)
+    private void OnChangeData(
+        EntityUid uid,
+        TriggerOnProximityComponent component,
+        AppearanceComponent appearance,
+        SpriteComponent? spriteComponent = null
+    )
     {
         if (!Resolve(uid, ref spriteComponent))
             return;
@@ -77,7 +88,14 @@ public sealed partial class TriggerSystem
         if (!TryComp<AnimationPlayerComponent>(uid, out var player))
             return;
 
-        if (!_appearance.TryGetData<ProximityTriggerVisuals>(uid, ProximityTriggerVisualState.State, out var state, appearance))
+        if (
+            !_appearance.TryGetData<ProximityTriggerVisuals>(
+                uid,
+                ProximityTriggerVisualState.State,
+                out var state,
+                appearance
+            )
+        )
             return;
 
         if (!_sprite.LayerMapTryGet((uid, spriteComponent), ProximityTriggerVisualLayers.Base, out var layer, false))
@@ -88,12 +106,14 @@ public sealed partial class TriggerSystem
         {
             case ProximityTriggerVisuals.Inactive:
                 // Don't interrupt the flash animation
-                if (_player.HasRunningAnimation(uid, player, AnimKey)) return;
+                if (_player.HasRunningAnimation(uid, player, AnimKey))
+                    return;
                 _player.Stop(uid, player, AnimKey);
                 _sprite.LayerSetRsiState((uid, spriteComponent), layer, "on");
                 break;
             case ProximityTriggerVisuals.Active:
-                if (_player.HasRunningAnimation(uid, player, AnimKey)) return;
+                if (_player.HasRunningAnimation(uid, player, AnimKey))
+                    return;
                 _player.Play(uid, player, _flasherAnimation, AnimKey);
                 break;
             case ProximityTriggerVisuals.Off:

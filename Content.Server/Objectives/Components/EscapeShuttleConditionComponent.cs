@@ -6,6 +6,4 @@ namespace Content.Server.Objectives.Components;
 /// Requires that the player is on the emergency shuttle's grid when docking to ColCom.
 /// </summary>
 [RegisterComponent, Access(typeof(EscapeShuttleConditionSystem))]
-public sealed partial class EscapeShuttleConditionComponent : Component
-{
-}
+public sealed partial class EscapeShuttleConditionComponent : Component { }

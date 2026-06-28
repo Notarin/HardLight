@@ -1,14 +1,14 @@
 using System.Diagnostics.CodeAnalysis;
+using Content.Shared._Shitmed.Body.Events;
+using Content.Shared._Shitmed.Body.Organ;
+using Content.Shared._Shitmed.BodyEffects;
+using Content.Shared.Atmos.Rotting;
 using Content.Shared.Body.Components;
 using Content.Shared.Body.Events;
 using Content.Shared.Body.Organ;
-using Content.Shared.Atmos.Rotting;
 using Content.Shared.Body.Part;
-using Robust.Shared.Containers;
 using Content.Shared.Damage; //Shitmed
-using Content.Shared._Shitmed.BodyEffects;
-using Content.Shared._Shitmed.Body.Events;
-using Content.Shared._Shitmed.Body.Organ;
+using Robust.Shared.Containers;
 
 namespace Content.Shared.Body.Systems;
 
@@ -31,7 +31,6 @@ public partial class SharedBodySystem
 
     // Shitmed Change End
 
-
     // Floofstation
     private void OnCheckRotting(Entity<OrganComponent> ent, ref IsRottingEvent args)
     {
@@ -39,10 +38,8 @@ public partial class SharedBodySystem
         // This won't reset rotting, so med has to be careful when transplanting organs.
         args.Handled |= Exists(ent.Comp.Body);
     }
-    private void AddOrgan(
-        Entity<OrganComponent> organEnt,
-        EntityUid bodyUid,
-        EntityUid parentPartUid)
+
+    private void AddOrgan(Entity<OrganComponent> organEnt, EntityUid bodyUid, EntityUid parentPartUid)
     {
         organEnt.Comp.Body = bodyUid;
         var addedEv = new OrganAddedEvent(parentPartUid);
@@ -78,9 +75,11 @@ public partial class SharedBodySystem
             RaiseLocalEvent(organEnt, ref removedInBodyEv);
         }
 
-        if (parentPartUid is { Valid: true }
+        if (
+            parentPartUid is { Valid: true }
             && TryComp(parentPartUid, out DamageableComponent? damageable)
-            && damageable.TotalDamage > 200)
+            && damageable.TotalDamage > 200
+        )
             TrySetOrganUsed(organEnt, true, organEnt.Comp);
 
         organEnt.Comp.Body = null;
@@ -108,7 +107,8 @@ public partial class SharedBodySystem
         EntityUid? parent,
         string slotId,
         [NotNullWhen(true)] out OrganSlot? slot,
-        BodyPartComponent? part = null)
+        BodyPartComponent? part = null
+    )
     {
         slot = null;
 
@@ -126,10 +126,7 @@ public partial class SharedBodySystem
     /// <summary>
     /// Returns whether the slotId exists on the partId.
     /// </summary>
-    public bool CanInsertOrgan(
-        EntityUid partId,
-        string slotId,
-        BodyPartComponent? part = null)
+    public bool CanInsertOrgan(EntityUid partId, string slotId, BodyPartComponent? part = null)
     {
         return Resolve(partId, ref part) && part.Organs.ContainsKey(slotId);
     }
@@ -137,10 +134,7 @@ public partial class SharedBodySystem
     /// <summary>
     /// Returns whether the specified organ slot exists on the partId.
     /// </summary>
-    public bool CanInsertOrgan(
-        EntityUid partId,
-        OrganSlot slot,
-        BodyPartComponent? part = null)
+    public bool CanInsertOrgan(EntityUid partId, OrganSlot slot, BodyPartComponent? part = null)
     {
         return CanInsertOrgan(partId, slot.Id, part);
     }
@@ -150,12 +144,15 @@ public partial class SharedBodySystem
         EntityUid organId,
         string slotId,
         BodyPartComponent? part = null,
-        OrganComponent? organ = null)
+        OrganComponent? organ = null
+    )
     {
-        if (!Resolve(organId, ref organ, logMissing: false)
+        if (
+            !Resolve(organId, ref organ, logMissing: false)
             || !Resolve(partId, ref part, logMissing: false)
             || !CanInsertOrgan(partId, slotId, part)
-            || HasComp<RottingComponent>(organId)) // Floofstation - do not allow rotting organs to be used in surgeries
+            || HasComp<RottingComponent>(organId)
+        ) // Floofstation - do not allow rotting organs to be used in surgeries
         {
             return false;
         }
@@ -176,8 +173,7 @@ public partial class SharedBodySystem
 
         var parent = container.Owner;
 
-        return HasComp<BodyPartComponent>(parent)
-            && Containers.Remove(organId, container);
+        return HasComp<BodyPartComponent>(parent) && Containers.Remove(organId, container);
     }
 
     /// <summary>
@@ -187,10 +183,10 @@ public partial class SharedBodySystem
         EntityUid partId,
         EntityUid organId,
         BodyPartComponent? part = null,
-        OrganComponent? organ = null)
+        OrganComponent? organ = null
+    )
     {
-        if (!Resolve(partId, ref part, logMissing: false)
-            || !Resolve(organId, ref organ, logMissing: false))
+        if (!Resolve(partId, ref part, logMissing: false) || !Resolve(organId, ref organ, logMissing: false))
         {
             return false;
         }
@@ -210,8 +206,7 @@ public partial class SharedBodySystem
     /// </summary>
     /// <typeparam name="T">The component that we want to return</typeparam>
     /// <param name="entity">The body to check the organs of</param>
-    public List<Entity<T, OrganComponent>> GetBodyOrganEntityComps<T>(
-        Entity<BodyComponent?> entity)
+    public List<Entity<T, OrganComponent>> GetBodyOrganEntityComps<T>(Entity<BodyComponent?> entity)
         where T : IComponent
     {
         if (!Resolve(entity, ref entity.Comp))
@@ -239,7 +234,8 @@ public partial class SharedBodySystem
     /// <returns>Whether any were found.</returns>
     public bool TryGetBodyOrganEntityComps<T>(
         Entity<BodyComponent?> entity,
-        [NotNullWhen(true)] out List<Entity<T, OrganComponent>>? comps)
+        [NotNullWhen(true)] out List<Entity<T, OrganComponent>>? comps
+    )
         where T : IComponent
     {
         if (!Resolve(entity.Owner, ref entity.Comp))
@@ -261,8 +257,7 @@ public partial class SharedBodySystem
 
     public bool TrySetOrganUsed(EntityUid organId, bool used, OrganComponent? organ = null)
     {
-        if (!Resolve(organId, ref organ)
-            || organ.Used == used)
+        if (!Resolve(organId, ref organ) || organ.Used == used)
             return false;
 
         organ.Used = used;

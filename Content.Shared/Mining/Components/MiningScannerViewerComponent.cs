@@ -4,7 +4,13 @@ using Robust.Shared.Map;
 
 namespace Content.Shared.Mining.Components;
 
-[RegisterComponent, NetworkedComponent, AutoGenerateComponentState, AutoGenerateComponentPause, Access(typeof(MiningScannerSystem))]
+[
+    RegisterComponent,
+    NetworkedComponent,
+    AutoGenerateComponentState,
+    AutoGenerateComponentPause,
+    Access(typeof(MiningScannerSystem))
+]
 public sealed partial class MiningScannerViewerComponent : Component
 {
     [DataField, ViewVariables(VVAccess.ReadOnly), AutoNetworkedField]
@@ -25,10 +31,7 @@ public sealed partial class MiningScannerViewerComponent : Component
     [DataField, AutoNetworkedField]
     public SoundSpecifier? PingSound = new SoundPathSpecifier("/Audio/Machines/sonar-ping.ogg")
     {
-        Params = new AudioParams
-        {
-            Volume = -3,
-        }
+        Params = new AudioParams { Volume = -3 },
     };
 
     [DataField]

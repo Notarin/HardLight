@@ -1,18 +1,18 @@
+using System.Reflection;
 using Content.Server.Cargo.Systems;
 using Content.Server.NPC.HTN;
 using Content.Server.Shuttles.Components;
-using Content.Shared.Shuttles.Components;
 using Content.Shared._Mono.CCVar;
 using Content.Shared.Mind.Components;
 using Content.Shared.Physics;
+using Content.Shared.Shuttles.Components;
 using Robust.Shared.Configuration;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Physics;
-using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Collision.Shapes;
+using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Systems;
-using System.Reflection;
 
 namespace Content.Server._Mono.Cleanup;
 
@@ -21,13 +21,22 @@ namespace Content.Server._Mono.Cleanup;
 /// </summary>
 public sealed class SpaceCleanupSystem : BaseCleanupSystem<PhysicsComponent>
 {
-    [Dependency] private readonly CleanupHelperSystem _cleanup = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
+    [Dependency]
+    private readonly CleanupHelperSystem _cleanup = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
     private object _manifold = default!;
     private MethodInfo _testOverlap = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly PricingSystem _pricing = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _map = default!;
+
+    [Dependency]
+    private readonly SharedPhysicsSystem _physics = default!;
+
+    [Dependency]
+    private readonly PricingSystem _pricing = default!;
 
     private float _maxDistance;
     private float _maxGridDistance;
@@ -75,20 +84,25 @@ public sealed class SpaceCleanupSystem : BaseCleanupSystem<PhysicsComponent>
         var isStuck = false;
 
         return !_gridQuery.HasComp(uid)
-            && (xform.ParentUid == xform.MapUid // don't delete if on grid
-                || (isStuck |= GetWallStuck((uid, xform)))) // or wall-stuck
+            && (
+                xform.ParentUid == xform.MapUid // don't delete if on grid
+                || (isStuck |= GetWallStuck((uid, xform)))
+            ) // or wall-stuck
             && !_htnQuery.HasComp(uid) // handled by MobCleanupSystem
             && !_immuneQuery.HasComp(uid) // handled by GridCleanupSystem
             && !_mindQuery.HasComp(uid) // no deleting anything that can have a mind - should be handled by MobCleanupSystem anyway
             && _pricing.GetPrice(uid, allowSideEffects: false) <= _maxPrice
-            && (isStuck
+            && (
+                isStuck
                 || !_cleanup.HasNearbyGrids(xform.Coordinates, _maxGridDistance)
-                    && !_cleanup.HasNearbyPlayers(xform.Coordinates, _maxDistance));
+                    && !_cleanup.HasNearbyPlayers(xform.Coordinates, _maxDistance)
+            );
     }
 
     private bool GetWallStuck(Entity<TransformComponent> ent)
     {
-        if (ent.Comp.GridUid is not { } gridUid
+        if (
+            ent.Comp.GridUid is not { } gridUid
             || ent.Comp.Anchored
             || ent.Comp.ParentUid != gridUid // ignore if not directly parented to grid
         )
@@ -104,7 +118,8 @@ public sealed class SpaceCleanupSystem : BaseCleanupSystem<PhysicsComponent>
 
         while (contacts.MoveNext(out var contact))
         {
-            if (contact.FixtureA == null
+            if (
+                contact.FixtureA == null
                 || contact.FixtureB == null
                 || contact.BodyA == null
                 || contact.BodyB == null

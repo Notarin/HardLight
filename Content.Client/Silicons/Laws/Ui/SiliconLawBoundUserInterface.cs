@@ -14,7 +14,8 @@ public sealed class SiliconLawBoundUserInterface : BoundUserInterface
     private EntityUid _owner;
     private List<SiliconLaw>? _laws;
 
-    public SiliconLawBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
+    public SiliconLawBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey)
     {
         _owner = owner;
     }

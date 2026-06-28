@@ -7,12 +7,10 @@
   delay: 0.7
   range: {max: 1}
   hideByRequirement: true
-  requirement:
-    !type:MobStateRequirement
+  requirement: !type:MobStateRequirement
     inverted: true
-# Flooftier doesn't have mood
-  action:
-    !type:NoOpAction
+    # Flooftier doesn't have mood
+  action: !type:NoOpAction
 #  action:
 #    # TODO: this should pull the target closer or sumth, but I need to code that action first
 #    !type:MoodAction
@@ -27,17 +25,15 @@
   delay: 0.4
   range: {max: 1}
   hideByRequirement: true
-  requirement:
-    !type:ComplexRequirement
+  requirement: !type:ComplexRequirement
     requirements:
     - !type:MobStateRequirement
       inverted: true
     - !type:EntityWhitelistRequirement
       whitelist:
-        components: [HumanoidAppearance, BorgChassis ]  # Hardlight change by popular demand you can now PET BORGS BABY woooo
-# Flooftier doesn't have mood
-  action:
-    !type:NoOpAction
+        components: [HumanoidAppearance, BorgChassis] # Hardlight change by popular demand you can now PET BORGS BABY woooo
+        # Flooftier doesn't have mood
+  action: !type:NoOpAction
 #  action:
 #    !type:MoodAction
 #    effect: BeingPet
@@ -46,17 +42,15 @@
 - type: Interaction
   id: PetAnimal
   parent: Pet
-  requirement:
-    !type:ComplexRequirement
+  requirement: !type:ComplexRequirement
     requirements:
     - !type:MobStateRequirement
       allowedStates: [Alive]
     - !type:EntityWhitelistRequirement
       blacklist:
         components: [HumanoidAppearance]
-# Flooftier doesn't have mood
-  action:
-    !type:NoOpAction
+        # Flooftier doesn't have mood
+  action: !type:NoOpAction
 #  action:
 #    !type:ComplexAction # TODO might wanna make a multiplexer action for situations like this
 #    actions:

@@ -91,7 +91,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - fishy
+    - fishy
   - type: Tag
     tags:
     - Raw
@@ -107,7 +107,7 @@
           Quantity: 9
         - ReagentId: Fat
           Quantity: 9
-  
+
 - type: entity
   name: battered raw fish fillet
   parent: FoodCuredCarp
@@ -133,8 +133,8 @@
     - Meat
   - type: FlavorProfile
     flavors:
-      - oily
-      - fishy
+    - oily
+    - fishy
   - type: Sprite
     sprite: _NF/Objects/Consumable/Food/meat.rsi
     state: cured-carp-fried
@@ -157,9 +157,9 @@
   components:
   - type: FlavorProfile
     flavors:
-      - meat
-      - honey
-      - salty
+    - meat
+    - honey
+    - salty
   - type: Sprite
     sprite: _NF/Objects/Consumable/Food/meat.rsi
     state: honeyglazedham
@@ -189,9 +189,9 @@
   components:
   - type: FlavorProfile
     flavors:
-      - meat
-      - honey
-      - salty
+    - meat
+    - honey
+    - salty
   - type: SolutionContainerManager
     solutions:
       food:
@@ -206,14 +206,14 @@
   - type: Sprite
     sprite: _NF/Objects/Consumable/Food/meat.rsi
     layers:
-      - state: honeyglazedhamslice
-        map: [ "Slice" ]
+    - state: honeyglazedhamslice
+      map: ["Slice"]
   - type: RandomSprite
     available:
-      - Slice:
-          honeyglazedhamslice: ""
-          normalhamslice: ""
+    - Slice:
+        honeyglazedhamslice: ""
+        normalhamslice: ""
   - type: Tag
     tags:
-      - Slice
-      - Meat
+    - Slice
+    - Meat

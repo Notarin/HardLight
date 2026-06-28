@@ -9,8 +9,11 @@ namespace Content.Shared.Access.Systems
     [UsedImplicitly]
     public abstract partial class SharedAccessOverriderSystem : EntitySystem
     {
-        [Dependency] private readonly ItemSlotsSystem _itemSlotsSystem = default!;
-        [Dependency] private readonly ILogManager _log = default!;
+        [Dependency]
+        private readonly ItemSlotsSystem _itemSlotsSystem = default!;
+
+        [Dependency]
+        private readonly ILogManager _log = default!;
 
         public const string Sawmill = "accessoverrider";
         protected ISawmill _sawmill = default!;
@@ -26,7 +29,11 @@ namespace Content.Shared.Access.Systems
 
         private void OnComponentInit(EntityUid uid, AccessOverriderComponent component, ComponentInit args)
         {
-            _itemSlotsSystem.AddItemSlot(uid, AccessOverriderComponent.PrivilegedIdCardSlotId, component.PrivilegedIdSlot);
+            _itemSlotsSystem.AddItemSlot(
+                uid,
+                AccessOverriderComponent.PrivilegedIdCardSlotId,
+                component.PrivilegedIdSlot
+            );
         }
 
         private void OnComponentRemove(EntityUid uid, AccessOverriderComponent component, ComponentRemove args)
@@ -37,9 +44,7 @@ namespace Content.Shared.Access.Systems
         [Serializable, NetSerializable]
         public sealed partial class AccessOverriderDoAfterEvent : DoAfterEvent
         {
-            public AccessOverriderDoAfterEvent()
-            {
-            }
+            public AccessOverriderDoAfterEvent() { }
 
             public override DoAfterEvent Clone() => this;
         }

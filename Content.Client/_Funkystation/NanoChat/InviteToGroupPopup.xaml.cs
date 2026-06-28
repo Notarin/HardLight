@@ -53,11 +53,15 @@ public sealed partial class InviteToGroupPopup : DefaultWindow
 
         var searchText = SearchInput.Text.ToLower();
         var filteredContacts = _allContacts
-            .Where(c => c.Number != _ownNumber &&
-                !_existingMembers.Contains(c.Number) &&
-                (string.IsNullOrWhiteSpace(searchText) ||
-                    c.Name.ToLower().Contains(searchText) ||
-                    c.Number.ToString().Contains(searchText)))
+            .Where(c =>
+                c.Number != _ownNumber
+                && !_existingMembers.Contains(c.Number)
+                && (
+                    string.IsNullOrWhiteSpace(searchText)
+                    || c.Name.ToLower().Contains(searchText)
+                    || c.Number.ToString().Contains(searchText)
+                )
+            )
             .ToList();
 
         if (filteredContacts.Count == 0)
@@ -91,7 +95,7 @@ public sealed partial class InviteToGroupPopup : DefaultWindow
             {
                 Text = contact.Name,
                 HorizontalAlignment = HAlignment.Left,
-                HorizontalExpand = true
+                HorizontalExpand = true,
             };
 
             var numberLabel = new Label

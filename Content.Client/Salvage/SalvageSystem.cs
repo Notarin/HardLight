@@ -1,22 +1,29 @@
 using Content.Client.Audio;
+using Content.Shared._NF.CCVar; // Frontier
 using Content.Shared.Salvage;
 using Content.Shared.Salvage.Expeditions;
-using Robust.Client.Player;
-using Robust.Shared.GameStates;
-using Content.Shared._NF.CCVar; // Frontier
 using Robust.Client.Audio; // Frontier
+using Robust.Client.Player;
 using Robust.Shared.Audio; // Frontier
 using Robust.Shared.Configuration; // Frontier
+using Robust.Shared.GameStates;
 using Robust.Shared.Player; // Frontier
 
 namespace Content.Client.Salvage;
 
 public sealed class SalvageSystem : SharedSalvageSystem
 {
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly ContentAudioSystem _audio = default!;
-    [Dependency] private readonly AudioSystem _audioSystem = default!; // Frontier
-    [Dependency] private readonly IConfigurationManager _cfg = default!; // Frontier
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly ContentAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly AudioSystem _audioSystem = default!; // Frontier
+
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!; // Frontier
 
     const float SalvageExpeditionMinMusicVolume = -30f; // Frontier: expedition volume range
     const float SalvageExpeditionMaxMusicVolume = 3.0f; // Frontier: expedition volume range
@@ -30,7 +37,11 @@ public sealed class SalvageSystem : SharedSalvageSystem
         Subs.CVar(_cfg, NFCCVars.SalvageExpeditionMusicVolume, SetMusicVolume); // Frontier
     }
 
-    private void OnExpeditionHandleState(EntityUid uid, SalvageExpeditionComponent component, ref ComponentHandleState args)
+    private void OnExpeditionHandleState(
+        EntityUid uid,
+        SalvageExpeditionComponent component,
+        ref ComponentHandleState args
+    )
     {
         if (args.Current is not SalvageExpeditionComponentState state)
             return;
@@ -45,9 +56,11 @@ public sealed class SalvageSystem : SharedSalvageSystem
         }
 
         // Frontier: add music (only on music countdown, no music on forced exit)
-        if (component.Stage == ExpeditionStage.MusicCountdown
+        if (
+            component.Stage == ExpeditionStage.MusicCountdown
             && component.SelectedSong != null
-            && component.Stream == null)
+            && component.Stream == null
+        )
         {
             var volume = ConvertSliderValueToVolume(_cfg.GetCVar(NFCCVars.SalvageExpeditionMusicVolume));
             var audioParams = AudioParams.Default.WithVolume(volume);
@@ -66,9 +79,11 @@ public sealed class SalvageSystem : SharedSalvageSystem
 
         var player = _playerManager.LocalEntity;
 
-        if (!TryComp(player, out TransformComponent? xform) ||
-            !TryComp<SalvageExpeditionComponent>(xform.MapUid, out var expedition) ||
-            expedition.Stage < ExpeditionStage.MusicCountdown)
+        if (
+            !TryComp(player, out TransformComponent? xform)
+            || !TryComp<SalvageExpeditionComponent>(xform.MapUid, out var expedition)
+            || expedition.Stage < ExpeditionStage.MusicCountdown
+        )
         {
             return;
         }

@@ -10,9 +10,14 @@ namespace Content.Client.Parallax;
 
 public sealed class ParallaxSystem : SharedParallaxSystem
 {
-    [Dependency] private readonly IMapManager _map = default!;
-    [Dependency] private readonly IOverlayManager _overlay = default!;
-    [Dependency] private readonly IParallaxManager _parallax = default!;
+    [Dependency]
+    private readonly IMapManager _map = default!;
+
+    [Dependency]
+    private readonly IOverlayManager _overlay = default!;
+
+    [Dependency]
+    private readonly IParallaxManager _parallax = default!;
 
     [ValidatePrototypeId<ParallaxPrototype>]
     private const string Fallback = "Default";
@@ -92,11 +97,12 @@ public sealed class ParallaxSystem : SharedParallaxSystem
         Vector2 scrolling,
         float scale = 1f,
         float slowness = 0f,
-        Color? modulate = null)
+        Color? modulate = null
+    )
     {
         // Size of the texture in world units.
-        var size = sprite.Size / (float) EyeManager.PixelsPerMeter * scale;
-        var scrolled = scrolling * (float) curTime.TotalSeconds;
+        var size = sprite.Size / (float)EyeManager.PixelsPerMeter * scale;
+        var scrolled = scrolling * (float)curTime.TotalSeconds;
 
         // Origin - start with the parallax shift itself.
         var originBL = position * slowness + scrolled;

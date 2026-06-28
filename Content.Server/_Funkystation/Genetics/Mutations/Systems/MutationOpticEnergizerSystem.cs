@@ -12,10 +12,17 @@ namespace Content.Server._Funkystation.Genetics.Mutations.Systems;
 
 public sealed class MutationOpticEnergizerSystem : EntitySystem
 {
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
-    [Dependency] private readonly SharedGunSystem _gun = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency]
+    private readonly SharedActionsSystem _actions = default!;
+
+    [Dependency]
+    private readonly SharedGunSystem _gun = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
 
     public override void Initialize()
     {
@@ -61,10 +68,7 @@ public sealed class MutationOpticEnergizerSystem : EntitySystem
 
         var hitscanProto = _proto.Index<HitscanPrototype>("RedMediumLaser");
 
-        var ammoList = new List<(EntityUid? Entity, IShootable Shootable)>
-        {
-            (null, hitscanProto)
-        };
+        var ammoList = new List<(EntityUid? Entity, IShootable Shootable)> { (null, hitscanProto) };
 
         var fromCoords = xform.Coordinates;
 

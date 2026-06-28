@@ -4,21 +4,21 @@
   parent: BaseMobDiona
   id: MobDiona
   components:
-    - type: Respirator
-      damage:
-        types:
-          Asphyxiation: 0.5
-      damageRecovery:
-        types:
-          Asphyxiation: -1.0
-    - type: PotentialPsionic #Nyano - Summary: makes potentially psionic. 
+  - type: Respirator
+    damage:
+      types:
+        Asphyxiation: 0.5
+    damageRecovery:
+      types:
+        Asphyxiation: -1.0
+  - type: PotentialPsionic #Nyano - Summary: makes potentially psionic. 
 
 # Reformed Diona
 - type: entity
   parent: MobDiona
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: MobDionaReformed
   name: Reformed Diona
   components:
-    - type: IsDeadIC
-    - type: RandomHumanoidAppearance 
+  - type: IsDeadIC
+  - type: RandomHumanoidAppearance

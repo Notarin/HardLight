@@ -20,12 +20,23 @@ namespace Content.Client._CD.Silicons.Borgs;
 /// </summary>
 public sealed class BorgSwitchableSubtypeSystem : SharedBorgSwitchableSubtypeSystem
 {
-    [Dependency] private readonly SpriteSystem _sprite = default!;
-    [Dependency] private readonly BorgSystem _borg = default!;
-    [Dependency] private readonly AppearanceSystem _appearance = default!;
-    [Dependency] private readonly IResourceCache _resourceCache = default!;
-    [Dependency] private readonly FixtureSystem _fixture = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!; // HardLight
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
+
+    [Dependency]
+    private readonly BorgSystem _borg = default!;
+
+    [Dependency]
+    private readonly AppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly IResourceCache _resourceCache = default!;
+
+    [Dependency]
+    private readonly FixtureSystem _fixture = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!; // HardLight
 
     public override void Initialize()
     {
@@ -45,7 +56,10 @@ public sealed class BorgSwitchableSubtypeSystem : SharedBorgSwitchableSubtypeSys
         SelectBorgSubtype(ent);
     }
 
-    protected override void UpdateEntityAppearance(Entity<BorgSwitchableSubtypeComponent> entity, BorgSubtypePrototype borgSubtypePrototype)
+    protected override void UpdateEntityAppearance(
+        Entity<BorgSwitchableSubtypeComponent> entity,
+        BorgSubtypePrototype borgSubtypePrototype
+    )
     {
         // HardLight: Check if player has disabled custom borg sprites
         if (!_cfg.GetCVar(CCVars.ShowCyborgSubtypeSprites))
@@ -83,7 +97,8 @@ public sealed class BorgSwitchableSubtypeSystem : SharedBorgSwitchableSubtypeSys
             _borg.SetMindStates(
                 (entity.Owner, chassis),
                 borgSubtypePrototype.SpriteHasMindState,
-                borgSubtypePrototype.SpriteNoMindState);
+                borgSubtypePrototype.SpriteNoMindState
+            );
 
             if (TryComp(entity, out AppearanceComponent? appearance))
             {
@@ -101,10 +116,7 @@ public sealed class BorgSwitchableSubtypeSystem : SharedBorgSwitchableSubtypeSys
                 State = borgSubtypePrototype.SpriteBodyState,
             };
             spriteMovement.MovementLayers.Clear();
-            spriteMovement.MovementLayers["movement"] = new PrototypeLayerData
-            {
-                State = movementState,
-            };
+            spriteMovement.MovementLayers["movement"] = new PrototypeLayerData { State = movementState };
         }
         else
         {

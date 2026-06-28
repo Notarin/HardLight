@@ -35,10 +35,13 @@ namespace Content.Server.Atmos.Components
         /// </summary>
         [ViewVariables]
         public float HighPressureMultiplier = 1f;
+
         [ViewVariables]
         public float HighPressureModifier = 0f;
+
         [ViewVariables]
         public float LowPressureMultiplier = 1f;
+
         [ViewVariables]
         public float LowPressureModifier = 0f;
 

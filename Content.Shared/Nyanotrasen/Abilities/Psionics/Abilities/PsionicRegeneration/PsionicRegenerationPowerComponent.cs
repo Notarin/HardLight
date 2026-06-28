@@ -1,5 +1,5 @@
-using Robust.Shared.Audio;
 using Content.Shared.DoAfter;
+using Robust.Shared.Audio;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 
@@ -16,16 +16,14 @@ namespace Content.Shared.Abilities.Psionics
 
         [DataField("useDelay")]
         public float UseDelay = 8f;
-        [DataField("soundUse")]
 
+        [DataField("soundUse")]
         public SoundSpecifier SoundUse = new SoundPathSpecifier("/Audio/Psionics/heartbeat_fast.ogg");
 
-        [DataField("psionicRegenerationActionId",
-        customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
+        [DataField("psionicRegenerationActionId", customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
         public string? PsionicRegenerationActionId = "ActionPsionicRegeneration";
 
         [DataField("psionicRegenerationActionEntity")]
         public EntityUid? PsionicRegenerationActionEntity;
     }
 }
-

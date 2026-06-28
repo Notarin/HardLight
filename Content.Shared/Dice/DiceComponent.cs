@@ -32,5 +32,4 @@ public sealed partial class DiceComponent : Component
     [DataField]
     [AutoNetworkedField]
     public int CurrentValue { get; set; } = 20;
-
 }

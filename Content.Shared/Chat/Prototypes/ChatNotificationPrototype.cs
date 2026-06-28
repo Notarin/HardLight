@@ -58,7 +58,11 @@ public sealed partial class ChatNotificationPrototype : IPrototype
 /// <param name="Source">The entity that the triggered the notification.</param>
 /// <param name="User">The entity that ultimately responsible for triggering the notification.</param>
 [ByRefEvent]
-public record ChatNotificationEvent(ProtoId<ChatNotificationPrototype> ChatNotification, EntityUid Source, EntityUid? User = null)
+public record ChatNotificationEvent(
+    ProtoId<ChatNotificationPrototype> ChatNotification,
+    EntityUid Source,
+    EntityUid? User = null
+)
 {
     /// <summary>
     /// Set this variable if you want to change the name of the notification source

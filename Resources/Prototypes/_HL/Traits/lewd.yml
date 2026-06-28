@@ -7,15 +7,15 @@
   - EggLayer
   - EggLayerInfertile
   components:
-    - type: LewdEggLaying
-      eggSpawn:
-      - id: FoodEggLaid
-      productionMult: 0.2
-      flavorFreq: 6
-      maxEggs: 24
-      eggSlowThreshold: 10
-      eggSlowMult: 0.5
-      eggLayDelay: 5
+  - type: LewdEggLaying
+    eggSpawn:
+    - id: FoodEggLaid
+    productionMult: 0.2
+    flavorFreq: 6
+    maxEggs: 24
+    eggSlowThreshold: 10
+    eggSlowMult: 0.5
+    eggLayDelay: 5
 
 - type: trait
   id: EggLayer
@@ -26,15 +26,15 @@
   - EggLayerFertile
   - EggLayerInfertile
   components:
-    - type: LewdEggLaying
-      eggSpawn:
-      - id: FoodEggLaid
-      productionMult: 0.1
-      flavorFreq: 6
-      maxEggs: 24
-      eggSlowThreshold: 10
-      eggSlowMult: 0.5
-      eggLayDelay: 5
+  - type: LewdEggLaying
+    eggSpawn:
+    - id: FoodEggLaid
+    productionMult: 0.1
+    flavorFreq: 6
+    maxEggs: 24
+    eggSlowThreshold: 10
+    eggSlowMult: 0.5
+    eggLayDelay: 5
 
 - type: trait
   id: EggLayerInfertile
@@ -45,15 +45,15 @@
   - EggLayerFertile
   - EggLayer
   components:
-    - type: LewdEggLaying
-      eggSpawn:
-      - id: FoodEggLaid
-      productionMult: 0.02
-      flavorFreq: 6
-      maxEggs: 24
-      eggSlowThreshold: 10
-      eggSlowMult: 0.5
-      eggLayDelay: 5
+  - type: LewdEggLaying
+    eggSpawn:
+    - id: FoodEggLaid
+    productionMult: 0.02
+    flavorFreq: 6
+    maxEggs: 24
+    eggSlowThreshold: 10
+    eggSlowMult: 0.5
+    eggLayDelay: 5
 
 - type: trait
   id: PrizeballLayer
@@ -61,15 +61,15 @@
   description: hl-trait-Prizeballlayer-desc
   category: Lewd
   components:
-    - type: PrizeballLaying
-      eggSpawn:
-      - id: PrizeBall
-      productionMult: 0.2
-      flavorFreq: 6
-      maxPballs: 24
-      pballSlowThreshold: 10
-      pballSlowMult: 0.5
-      pballLayDelay: 5
+  - type: PrizeballLaying
+    eggSpawn:
+    - id: PrizeBall
+    productionMult: 0.2
+    flavorFreq: 6
+    maxPballs: 24
+    pballSlowThreshold: 10
+    pballSlowMult: 0.5
+    pballLayDelay: 5
 
 - type: trait
   id: Brainwasher
@@ -78,9 +78,9 @@
   category: Physical
   cost: 1
   components:
-    - type: Brainwasher
-      chardingDuration: 10
-      configureText: Configure Brainwashing Compulsions
+  - type: Brainwasher
+    chardingDuration: 10
+    configureText: Configure Brainwashing Compulsions
 
 # HardLight - "sexual lubricant" (precum / pussy juice).
 - type: trait
@@ -93,8 +93,8 @@
   - NaturalLubricantExcessive
   - NaturalLubricantOverflowing
   components:
-    - type: NaturalLubricantProducer
-      volume: 1
+  - type: NaturalLubricantProducer
+    volume: 1
 
 - type: trait
   id: NaturalLubricantHeavy
@@ -106,8 +106,8 @@
   - NaturalLubricantExcessive
   - NaturalLubricantOverflowing
   components:
-    - type: NaturalLubricantProducer
-      volume: 3
+  - type: NaturalLubricantProducer
+    volume: 3
 
 - type: trait
   id: NaturalLubricantExcessive
@@ -119,8 +119,8 @@
   - NaturalLubricantHeavy
   - NaturalLubricantOverflowing
   components:
-    - type: NaturalLubricantProducer
-      volume: 5
+  - type: NaturalLubricantProducer
+    volume: 5
 
 - type: trait
   id: NaturalLubricantOverflowing
@@ -132,5 +132,5 @@
   - NaturalLubricantHeavy
   - NaturalLubricantExcessive
   components:
-    - type: NaturalLubricantProducer
-      volume: 10
+  - type: NaturalLubricantProducer
+    volume: 10

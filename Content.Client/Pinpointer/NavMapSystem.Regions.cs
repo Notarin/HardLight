@@ -1,6 +1,6 @@
+using System.Linq;
 using Content.Shared.Atmos;
 using Content.Shared.Pinpointer;
-using System.Linq;
 
 namespace Content.Client.Pinpointer;
 
@@ -16,7 +16,7 @@ public sealed partial class NavMapSystem
 
     public override void Update(float frameTime)
     {
-        // To prevent compute spikes, only one region is flood filled per frame 
+        // To prevent compute spikes, only one region is flood filled per frame
         var query = AllEntityQuery<NavMapComponent>();
 
         while (query.MoveNext(out var ent, out var entNavMapRegions))
@@ -31,8 +31,10 @@ public sealed partial class NavMapSystem
         var regionOwner = component.QueuedRegionsToFlood.Dequeue();
 
         // If the region is no longer valid, flood the next one in the queue
-        if (!component.RegionProperties.TryGetValue(regionOwner, out var regionProperties) ||
-            !regionProperties.Seeds.Any())
+        if (
+            !component.RegionProperties.TryGetValue(regionOwner, out var regionProperties)
+            || !regionProperties.Seeds.Any()
+        )
         {
             FloodFillNextEnqueuedRegion(uid, component);
             return;
@@ -47,7 +49,7 @@ public sealed partial class NavMapSystem
         // Create and assign the new region overlay
         var regionOverlay = new NavMapRegionOverlay(regionProperties.UiKey, gridCoords)
         {
-            Color = regionProperties.Color
+            Color = regionProperties.Color,
         };
 
         component.RegionOverlays[regionOwner] = regionOverlay;
@@ -80,7 +82,11 @@ public sealed partial class NavMapSystem
         }
     }
 
-    private (HashSet<Vector2i>, HashSet<Vector2i>) FloodFillRegion(EntityUid uid, NavMapComponent component, NavMapRegionProperties regionProperties)
+    private (HashSet<Vector2i>, HashSet<Vector2i>) FloodFillRegion(
+        EntityUid uid,
+        NavMapComponent component,
+        NavMapRegionProperties regionProperties
+    )
     {
         if (!regionProperties.Seeds.Any())
             return (new(), new());
@@ -99,7 +105,7 @@ public sealed partial class NavMapSystem
                 if (visitedTiles.Count > regionProperties.MaxArea)
                     return (new(), new());
 
-                // Pop the top tile from the stack 
+                // Pop the top tile from the stack
                 var current = tilesToVisit.Pop();
 
                 // If the current tile position has already been visited,
@@ -136,7 +142,7 @@ public sealed partial class NavMapSystem
                 visitedChunks.Add(chunkOrigin);
 
                 // Determine if we can propagate the region into its cardinally adjacent neighbors
-                // To propagate to a neighbor, movement into the neighbors closest edge must not be 
+                // To propagate to a neighbor, movement into the neighbors closest edge must not be
                 // blocked, and vice versa
 
                 foreach (var (direction, tileOffset, reverseDirection) in _regionPropagationTable)

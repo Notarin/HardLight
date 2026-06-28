@@ -23,7 +23,7 @@ namespace Content.Shared.Humanoid
         Head,
         Snout,
         HeadSide, // side parts (i.e., frills)
-        HeadTop,  // top parts (i.e., ears)
+        HeadTop, // top parts (i.e., ears)
         TailBehind, // FLOOF - add tails that dont have to go through a brutal cookiecutter to work
         TailOversuit, // FLOOF - add tails that dont have to go through a brutal cookiecutter to work
         Eyes,
@@ -41,7 +41,6 @@ namespace Content.Shared.Humanoid
         Fire,
         LArmExtension, // Frontier: a species-specific extension layer, e.g. for harpy wings
         RArmExtension, // Frontier: a species-specific extension layer, e.g. for harpy wings
-
     }
 }
 

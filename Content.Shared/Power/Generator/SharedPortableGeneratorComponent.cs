@@ -68,33 +68,25 @@ public sealed class PortableGeneratorSetTargetPowerMessage : BoundUserInterfaceM
 /// Sent to the server to try to start a portable generator.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class PortableGeneratorStartMessage : BoundUserInterfaceMessage
-{
-}
+public sealed class PortableGeneratorStartMessage : BoundUserInterfaceMessage { }
 
 /// <summary>
 /// Sent to the server to try to stop a portable generator.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class PortableGeneratorStopMessage : BoundUserInterfaceMessage
-{
-}
+public sealed class PortableGeneratorStopMessage : BoundUserInterfaceMessage { }
 
 /// <summary>
 /// Sent to the server to try to change the power output of a power-switchable portable generator.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class PortableGeneratorSwitchOutputMessage : BoundUserInterfaceMessage
-{
-}
+public sealed class PortableGeneratorSwitchOutputMessage : BoundUserInterfaceMessage { }
 
 /// <summary>
 /// Sent to the server to try to eject all fuel stored in a portable generator.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class PortableGeneratorEjectFuelMessage : BoundUserInterfaceMessage
-{
-}
+public sealed class PortableGeneratorEjectFuelMessage : BoundUserInterfaceMessage { }
 
 /// <summary>
 /// Contains network state for the portable generator.
@@ -114,7 +106,8 @@ public sealed class PortableGeneratorComponentBuiState : BoundUserInterfaceState
         FuelGeneratorComponent component,
         float remainingFuel,
         bool clogged,
-        (float Demand, float Supply)? networkStats)
+        (float Demand, float Supply)? networkStats
+    )
     {
         RemainingFuel = remainingFuel;
         Clogged = clogged;
@@ -129,7 +122,7 @@ public sealed class PortableGeneratorComponentBuiState : BoundUserInterfaceState
 [Serializable, NetSerializable]
 public enum GeneratorComponentUiKey
 {
-    Key
+    Key,
 }
 
 /// <summary>
@@ -139,7 +132,7 @@ public enum GeneratorComponentUiKey
 public enum GeneratorVisualLayers : byte
 {
     Body,
-    Unlit
+    Unlit,
 }
 
 /// <summary>

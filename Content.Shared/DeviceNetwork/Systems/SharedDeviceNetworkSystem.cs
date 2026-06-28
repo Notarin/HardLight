@@ -13,12 +13,14 @@ public abstract class SharedDeviceNetworkSystem : EntitySystem
     /// <param name="frequency">The frequency to send on</param>
     /// <param name="data">The data to be sent</param>
     /// <returns>Returns true when the packet was successfully enqueued.</returns>
-    public virtual bool QueuePacket(EntityUid uid,
+    public virtual bool QueuePacket(
+        EntityUid uid,
         string? address,
         NetworkPayload data,
         uint? frequency = null,
         int? network = null,
-        DeviceNetworkComponent? device = null)
+        DeviceNetworkComponent? device = null
+    )
     {
         return false;
     }

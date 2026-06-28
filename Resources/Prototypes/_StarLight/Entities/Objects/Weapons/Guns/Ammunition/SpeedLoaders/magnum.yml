@@ -8,14 +8,14 @@
   components:
   - type: Tag
     tags:
-      - SpeedLoader45Magnum
-      - SpeedLoader45MagnumImprovised
+    - SpeedLoader45Magnum
+    - SpeedLoader45MagnumImprovised
   - type: SpeedLoader
   - type: BallisticAmmoProvider
     proto: null
     whitelist:
       tags:
-        - Cartridge45Magnum # HardLight: generic tag accepts all .45 Magnum variants (FMJ, incendiary, uranium, rubber, improvised, etc.)
+      - Cartridge45Magnum # HardLight: generic tag accepts all .45 Magnum variants (FMJ, incendiary, uranium, rubber, improvised, etc.)
     capacity: 4
   - type: ContainerContainer
     containers:
@@ -24,12 +24,12 @@
   - type: Sprite
     sprite: _Starlight/Objects/Weapons/Guns/Ammunition/SpeedLoaders/Magnum/improvised_magnum_speed_loader.rsi
     layers:
-      - state: base
-        map: [ "enum.GunVisualLayers.Base" ]
-      - state: base-4
-        map: [ "enum.GunVisualLayers.Mag" ]
-      - state: base-tip-4
-        color: "#717171"
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: base-4
+      map: ["enum.GunVisualLayers.Mag"]
+    - state: base-tip-4
+      color: "#717171"
   - type: MagazineVisuals
     magState: base
     steps: 5
@@ -48,8 +48,8 @@
     proto: null
     whitelist:
       tags:
-        - Cartridge45Magnum # HardLight: generic tag accepts all .45 Magnum variants
-        - Cartridge556x45mm # HardLight: generic tag accepts all 5.56x45mm variants
+      - Cartridge45Magnum # HardLight: generic tag accepts all .45 Magnum variants
+      - Cartridge556x45mm # HardLight: generic tag accepts all 5.56x45mm variants
     capacity: 8
   - type: MagazineVisuals
     magState: base
@@ -62,13 +62,13 @@
   - type: Sprite
     sprite: _Starlight/Objects/Weapons/Guns/Ammunition/SpeedLoaders/Magnum/improvised_lever_action_speed_loader.rsi
     layers:
-      - state: base
-        map: [ "enum.GunVisualLayers.Base" ]
-      - state: base-8
-        map: [ "enum.GunVisualLayers.Mag" ]
-      - state: base-tip-8
-        map: [ "enum.GunVisualLayers.Tip" ]
-        color: "#717171"
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: base-8
+      map: ["enum.GunVisualLayers.Mag"]
+    - state: base-tip-8
+      map: ["enum.GunVisualLayers.Tip"]
+      color: "#717171"
   - type: Construction
     graph: SpeedLoaderMagnumLeverImprovisedGraph
     node: shell

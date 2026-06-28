@@ -1,3 +1,4 @@
+using Content.Client._Corvax.Respawn; // Frontier
 using Content.Client.Movement.Systems;
 using Content.Client.UserInterface.Systems.Ghost.Widgets;
 using Content.Shared.Actions;
@@ -9,24 +10,39 @@ using Robust.Client.GameObjects;
 using Robust.Client.Player;
 using Robust.Client.UserInterface;
 using Robust.Shared.GameStates;
-using Robust.Shared.Timing;
 using Robust.Shared.Player;
-using Content.Client._Corvax.Respawn; // Frontier
+using Robust.Shared.Timing;
 
 namespace Content.Client.Ghost
 {
     public sealed class GhostSystem : SharedGhostSystem
     {
-        [Dependency] private readonly IClientConsoleHost _console = default!;
-        [Dependency] private readonly IPlayerManager _playerManager = default!;
-        [Dependency] private readonly SharedActionsSystem _actions = default!;
-        [Dependency] private readonly PointLightSystem _pointLightSystem = default!;
-        [Dependency] private readonly ContentEyeSystem _contentEye = default!;
-        [Dependency] private readonly SpriteSystem _sprite = default!;
+        [Dependency]
+        private readonly IClientConsoleHost _console = default!;
 
-        [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
-        [Dependency] private readonly IGameTiming _gameTiming = default!;
-        [Dependency] private readonly RespawnSystem _respawn = default!;
+        [Dependency]
+        private readonly IPlayerManager _playerManager = default!;
+
+        [Dependency]
+        private readonly SharedActionsSystem _actions = default!;
+
+        [Dependency]
+        private readonly PointLightSystem _pointLightSystem = default!;
+
+        [Dependency]
+        private readonly ContentEyeSystem _contentEye = default!;
+
+        [Dependency]
+        private readonly SpriteSystem _sprite = default!;
+
+        [Dependency]
+        private readonly IUserInterfaceManager _uiManager = default!;
+
+        [Dependency]
+        private readonly IGameTiming _gameTiming = default!;
+
+        [Dependency]
+        private readonly RespawnSystem _respawn = default!;
 
         public override void Update(float frameTime)
         {
@@ -113,7 +129,10 @@ namespace Content.Client.Ghost
             else if (!light?.Enabled ?? false) // skip this option if we have no PointLightComponent
             {
                 // enable personal light
-                Popup.PopupEntity(Loc.GetString("ghost-gui-toggle-lighting-manager-popup-personal-light"), args.Performer);
+                Popup.PopupEntity(
+                    Loc.GetString("ghost-gui-toggle-lighting-manager-popup-personal-light"),
+                    args.Performer
+                );
                 _pointLightSystem.SetEnabled(uid, true, light);
             }
             else
@@ -141,7 +160,9 @@ namespace Content.Client.Ghost
             if (args.Handled)
                 return;
 
-            var locId = GhostVisibility ? "ghost-gui-toggle-ghost-visibility-popup-off" : "ghost-gui-toggle-ghost-visibility-popup-on";
+            var locId = GhostVisibility
+                ? "ghost-gui-toggle-ghost-visibility-popup-off"
+                : "ghost-gui-toggle-ghost-visibility-popup-on";
             Popup.PopupEntity(Loc.GetString(locId), args.Performer);
             if (uid == _playerManager.LocalEntity)
                 ToggleGhostVisibility();
@@ -163,7 +184,11 @@ namespace Content.Client.Ghost
             PlayerRemoved?.Invoke(component);
         }
 
-        private void OnGhostPlayerAttach(EntityUid uid, GhostComponent component, LocalPlayerAttachedEvent localPlayerAttachedEvent)
+        private void OnGhostPlayerAttach(
+            EntityUid uid,
+            GhostComponent component,
+            LocalPlayerAttachedEvent localPlayerAttachedEvent
+        )
         {
             if (uid != _playerManager.LocalPlayer?.ControlledEntity)
                 return;

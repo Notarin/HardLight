@@ -7,7 +7,7 @@
     mayTransfer: true
     whitelist:
       tags:
-        - CartridgeSpecial
+      - CartridgeSpecial
     proto: CartridgeSpecial
     capacity: 60
   - type: Item

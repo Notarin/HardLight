@@ -17,7 +17,11 @@ public abstract partial class SharedCryoPodSystem
         args.Cancel();
     }
 
-    private void OnEntGotRemovedFromContainer(EntityUid uid, InsideCryoPodComponent component, EntGotRemovedFromContainerMessage args)
+    private void OnEntGotRemovedFromContainer(
+        EntityUid uid,
+        InsideCryoPodComponent component,
+        EntGotRemovedFromContainerMessage args
+    )
     {
         if (Terminating(uid))
         {

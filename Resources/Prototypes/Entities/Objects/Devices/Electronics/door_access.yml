@@ -334,7 +334,7 @@
   components:
   - type: AccessReader
     access: [["Xenoborg"]]
-    
+
 # Hardlight
 
 - type: entity
@@ -344,7 +344,7 @@
   components:
   - type: AccessReader
     access: [["Directorate"]]
-    
+
 - type: entity
   parent: DoorElectronics
   id: DoorElectronicsCCNaval

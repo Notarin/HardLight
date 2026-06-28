@@ -21,9 +21,9 @@
     minTransferAmount: 1
     canChangeTransferAmount: true
   # - type: UserInterface # Flooftier - not needed and causes errors
-    # interfaces:
-    # - key: enum.TransferAmountUiKey.Key
-      # type: TransferAmountBoundUserInterface
+  # interfaces:
+  # - key: enum.TransferAmountUiKey.Key
+  # type: TransferAmountBoundUserInterface
   - type: Spillable
     solution: fleshlight
   - type: DrawableSolution

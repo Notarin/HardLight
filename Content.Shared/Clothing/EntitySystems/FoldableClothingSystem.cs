@@ -7,17 +7,21 @@ namespace Content.Shared.Clothing.EntitySystems;
 
 public sealed class FoldableClothingSystem : EntitySystem
 {
-    [Dependency] private readonly ClothingSystem _clothingSystem = default!;
-    [Dependency] private readonly InventorySystem _inventorySystem = default!;
-    [Dependency] private readonly SharedItemSystem _itemSystem = default!;
+    [Dependency]
+    private readonly ClothingSystem _clothingSystem = default!;
+
+    [Dependency]
+    private readonly InventorySystem _inventorySystem = default!;
+
+    [Dependency]
+    private readonly SharedItemSystem _itemSystem = default!;
 
     public override void Initialize()
     {
         base.Initialize();
 
         SubscribeLocalEvent<FoldableClothingComponent, FoldAttemptEvent>(OnFoldAttempt);
-        SubscribeLocalEvent<FoldableClothingComponent, FoldedEvent>(OnFolded,
-            after: [typeof(MaskSystem)]); // Mask system also modifies clothing / equipment RSI state prefixes.
+        SubscribeLocalEvent<FoldableClothingComponent, FoldedEvent>(OnFolded, after: [typeof(MaskSystem)]); // Mask system also modifies clothing / equipment RSI state prefixes.
     }
 
     private void OnFoldAttempt(Entity<FoldableClothingComponent> ent, ref FoldAttemptEvent args)
@@ -37,14 +41,16 @@ public sealed class FoldableClothingSystem : EntitySystem
         }
 
         // Setting hidden layers while equipped is not currently supported.
-        if (ent.Comp.FoldedHideLayers.Count != 0|| ent.Comp.UnfoldedHideLayers.Count != 0)
+        if (ent.Comp.FoldedHideLayers.Count != 0 || ent.Comp.UnfoldedHideLayers.Count != 0)
             args.Cancelled = true;
     }
 
     private void OnFolded(Entity<FoldableClothingComponent> ent, ref FoldedEvent args)
     {
-        if (!TryComp<ClothingComponent>(ent.Owner, out var clothingComp) ||
-            !TryComp<ItemComponent>(ent.Owner, out var itemComp))
+        if (
+            !TryComp<ClothingComponent>(ent.Owner, out var clothingComp)
+            || !TryComp<ItemComponent>(ent.Owner, out var itemComp)
+        )
             return;
 
         if (args.IsFolded)
@@ -65,8 +71,10 @@ public sealed class FoldableClothingSystem : EntitySystem
             // This should instead work via an event or something that gets raised to optionally modify the currently hidden layers.
             // Or at the very least it should stash the old layers and restore them when unfolded.
             // TODO CLOTHING fix this.
-            if ((ent.Comp.FoldedHideLayers.Count != 0 || ent.Comp.UnfoldedHideLayers.Count != 0) &&
-                TryComp<HideLayerClothingComponent>(ent.Owner, out var hideLayerComp))
+            if (
+                (ent.Comp.FoldedHideLayers.Count != 0 || ent.Comp.UnfoldedHideLayers.Count != 0)
+                && TryComp<HideLayerClothingComponent>(ent.Owner, out var hideLayerComp)
+            )
                 hideLayerComp.Slots = ent.Comp.FoldedHideLayers;
         }
         else
@@ -81,8 +89,10 @@ public sealed class FoldableClothingSystem : EntitySystem
                 _itemSystem.SetHeldPrefix(ent.Owner, null, false, itemComp);
 
             // TODO CLOTHING fix this.
-            if ((ent.Comp.FoldedHideLayers.Count != 0 || ent.Comp.UnfoldedHideLayers.Count != 0) &&
-                TryComp<HideLayerClothingComponent>(ent.Owner, out var hideLayerComp))
+            if (
+                (ent.Comp.FoldedHideLayers.Count != 0 || ent.Comp.UnfoldedHideLayers.Count != 0)
+                && TryComp<HideLayerClothingComponent>(ent.Owner, out var hideLayerComp)
+            )
                 hideLayerComp.Slots = ent.Comp.UnfoldedHideLayers;
         }
     }

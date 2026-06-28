@@ -6,5 +6,5 @@
 - type: latheRecipePack
   id: NFScience
   recipes:
-      - JetpackVoid # Frontier
-      - ClothingShoesBootsMagAdv # Frontier
+  - JetpackVoid # Frontier
+  - ClothingShoesBootsMagAdv # Frontier

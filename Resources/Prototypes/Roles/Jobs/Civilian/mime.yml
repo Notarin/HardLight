@@ -5,8 +5,8 @@
   playTimeTracker: JobMime
   setPreference: true
   requirements:
-    - !type:OverallPlaytimeRequirement
-      time: 10800
+  - !type:OverallPlaytimeRequirement
+    time: 10800
   weight: -50 # HardLight
   startingGear: MimeGear
   icon: "JobIconMime"

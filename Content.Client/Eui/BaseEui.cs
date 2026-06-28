@@ -6,7 +6,8 @@ namespace Content.Client.Eui
 {
     public abstract class BaseEui
     {
-        [Dependency] private readonly IClientNetManager _netManager = default!;
+        [Dependency]
+        private readonly IClientNetManager _netManager = default!;
 
         public EuiManager Manager { get; private set; } = default!;
         public uint Id { get; private set; }
@@ -25,30 +26,22 @@ namespace Content.Client.Eui
         /// <summary>
         ///     Called when the EUI is opened by the server.
         /// </summary>
-        public virtual void Opened()
-        {
-        }
+        public virtual void Opened() { }
 
         /// <summary>
         ///     Called when the EUI is closed by the server.
         /// </summary>
-        public virtual void Closed()
-        {
-        }
+        public virtual void Closed() { }
 
         /// <summary>
         ///     Called when a new state comes in from the server.
         /// </summary>
-        public virtual void HandleState(EuiStateBase state)
-        {
-        }
+        public virtual void HandleState(EuiStateBase state) { }
 
         /// <summary>
         ///     Called when a message comes in from the server.
         /// </summary>
-        public virtual void HandleMessage(EuiMessageBase msg)
-        {
-        }
+        public virtual void HandleMessage(EuiMessageBase msg) { }
 
         /// <summary>
         ///     Send a message to the server-side implementation.

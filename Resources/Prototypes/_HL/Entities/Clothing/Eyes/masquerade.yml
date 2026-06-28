@@ -21,8 +21,8 @@
   id: MasqueradeMaskCursed
   suffix: cursed
   components:
-    - type: UnremovableClothing
-      reasonMessage: "masquerade-mask-unremovable"
-    - type: Unrevivable
-      cloneable: true
-      reasonMessage: "masquerade-mask-unrevivable"
+  - type: UnremovableClothing
+    reasonMessage: "masquerade-mask-unremovable"
+  - type: Unrevivable
+    cloneable: true
+    reasonMessage: "masquerade-mask-unrevivable"

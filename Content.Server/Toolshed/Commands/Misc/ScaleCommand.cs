@@ -1,12 +1,12 @@
 using System.Numerics;
 using Content.Server.Administration;
 using Content.Shared.Administration;
+using Content.Shared.Humanoid; // added
 using Content.Shared.Sprite;
+using Robust.Shared.GameObjects; // added
+using Robust.Shared.IoC; // added
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Toolshed;
-using Content.Shared.Humanoid;                // added
-using Robust.Shared.IoC;                     // added
-using Robust.Shared.GameObjects;          // added
 
 namespace Content.Server.Toolshed.Commands.Misc;
 
@@ -70,6 +70,7 @@ public sealed class ScaleCommand : ToolshedCommand
             yield return _scaleVisuals.GetSpriteScale(ent);
         }
     }
+
     [CommandImplementation("hset")]
     public IEnumerable<EntityUid> HumanoidSet([PipedArgument] IEnumerable<EntityUid> input, float height, float width)
     {
@@ -119,8 +120,12 @@ public sealed class ScaleCommand : ToolshedCommand
             yield return ent;
         }
     }
+
     [CommandImplementation("hmultiplywithfixture")]
-    public IEnumerable<EntityUid> HumanoidMultiplyWithFixture([PipedArgument] IEnumerable<EntityUid> input, float factor)
+    public IEnumerable<EntityUid> HumanoidMultiplyWithFixture(
+        [PipedArgument] IEnumerable<EntityUid> input,
+        float factor
+    )
     {
         var entManager = IoCManager.Resolve<IEntityManager>();
         _physics ??= GetSys<SharedPhysicsSystem>();
@@ -145,6 +150,7 @@ public sealed class ScaleCommand : ToolshedCommand
             yield return ent;
         }
     }
+
     [CommandImplementation("hget")]
     public IEnumerable<(float Height, float Width)> HumanoidGet([PipedArgument] IEnumerable<EntityUid> input)
     {

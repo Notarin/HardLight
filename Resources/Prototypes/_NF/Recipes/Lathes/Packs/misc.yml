@@ -55,7 +55,6 @@
   - EnergyCautery
   - AdvancedRetractor
 
-
 - type: latheRecipePack
   id: NFUniformColored
   recipes:
@@ -178,7 +177,6 @@
   - ClothingOuterFlannelRed
   - ClothingOuterFlannelBlue
   - ClothingOuterFlannelGreen
-
 
 - type: latheRecipePack
   id: NFUniformCloaks

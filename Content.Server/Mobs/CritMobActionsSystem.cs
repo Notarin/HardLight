@@ -4,13 +4,13 @@ using Content.Server.Ghost;
 using Content.Server.Mind;
 using Content.Server.Popups;
 using Content.Server.Speech.Muting;
+using Content.Shared.Chat; // For InGameICChatType
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
-using Content.Shared.Chat; // For InGameICChatType
+using Content.Shared.Speech.Muting;
 using Robust.Server.Console;
 using Robust.Shared.Player;
-using Content.Shared.Speech.Muting;
 
 namespace Content.Server.Mobs;
 
@@ -19,13 +19,26 @@ namespace Content.Server.Mobs;
 /// </summary>
 public sealed class CritMobActionsSystem : EntitySystem
 {
-    [Dependency] private readonly ChatSystem _chat = default!;
-    [Dependency] private readonly DeathgaspSystem _deathgasp = default!;
-    [Dependency] private readonly GhostSystem _ghostSystem = default!;
-    [Dependency] private readonly MindSystem _mindSystem = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
-    [Dependency] private readonly QuickDialogSystem _quickDialog = default!;
+    [Dependency]
+    private readonly ChatSystem _chat = default!;
+
+    [Dependency]
+    private readonly DeathgaspSystem _deathgasp = default!;
+
+    [Dependency]
+    private readonly GhostSystem _ghostSystem = default!;
+
+    [Dependency]
+    private readonly MindSystem _mindSystem = default!;
+
+    [Dependency]
+    private readonly MobStateSystem _mobState = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly QuickDialogSystem _quickDialog = default!;
 
     private const int MaxLastWordsLength = 30;
 
@@ -70,12 +83,14 @@ public sealed class CritMobActionsSystem : EntitySystem
         if (!TryComp<ActorComponent>(uid, out var actor))
             return;
 
-        _quickDialog.OpenDialog(actor.PlayerSession, Loc.GetString("action-name-crit-last-words"), "",
+        _quickDialog.OpenDialog(
+            actor.PlayerSession,
+            Loc.GetString("action-name-crit-last-words"),
+            "",
             (string lastWords) =>
             {
                 // Intentionally does not check for muteness
-                if (actor.PlayerSession.AttachedEntity != uid
-                    || !_mobState.IsCritical(uid))
+                if (actor.PlayerSession.AttachedEntity != uid || !_mobState.IsCritical(uid))
                     return;
 
                 if (lastWords.Length > MaxLastWordsLength)
@@ -84,13 +99,21 @@ public sealed class CritMobActionsSystem : EntitySystem
                 }
                 lastWords += "...";
 
-                _chat.TrySendInGameICMessage(uid, lastWords, InGameICChatType.Whisper, ChatTransmitRange.Normal, checkRadioPrefix: false, ignoreActionBlocker: true);
+                _chat.TrySendInGameICMessage(
+                    uid,
+                    lastWords,
+                    InGameICChatType.Whisper,
+                    ChatTransmitRange.Normal,
+                    checkRadioPrefix: false,
+                    ignoreActionBlocker: true
+                );
 
                 if (_mindSystem.TryGetMind(actor.PlayerSession, out var mindId, out var mind))
                 {
                     _ghostSystem.OnGhostAttempt(mindId, true, viaCommand: true, mind: mind);
                 }
-            });
+            }
+        );
 
         args.Handled = true;
     }

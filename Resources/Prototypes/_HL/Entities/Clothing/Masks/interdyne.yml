@@ -1,4 +1,4 @@
-﻿- type: entity
+- type: entity
   parent: ClothingMaskBaseButcherable
   id: ClothingMaskInterdyneClothing
   name: interdyne cloth mask

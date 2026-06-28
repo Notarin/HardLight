@@ -32,7 +32,7 @@
       task: FillbotCompound
   - type: DeviceLinkSource
     ports:
-      - FillItems
+    - FillItems
   - type: InteractionPopup
     interactSuccessString: petting-success-fillbot
     interactFailureString: petting-failure-fillbot

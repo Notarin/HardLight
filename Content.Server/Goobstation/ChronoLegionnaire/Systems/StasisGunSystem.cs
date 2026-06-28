@@ -8,7 +8,9 @@ namespace Content.Server.Goobstation.ChronoLegionnaire;
 
 public sealed partial class StasisGunSystem : EntitySystem
 {
-    [Dependency] private readonly InventorySystem _inventory = default!;
+    [Dependency]
+    private readonly InventorySystem _inventory = default!;
+
     public override void Initialize()
     {
         base.Initialize();
@@ -41,6 +43,4 @@ public sealed partial class StasisGunSystem : EntitySystem
 
         _inventory.TryEquip(args.User.Value, gun, gun.Comp.ReturningSlot, predicted: true, force: true);
     }
-
-
 }

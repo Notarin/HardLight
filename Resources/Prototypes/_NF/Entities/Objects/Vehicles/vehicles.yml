@@ -7,7 +7,7 @@
     sprite: _NF/Objects/Vehicles/atv.rsi
     layers:
     - state: hull
-      map: [ "enum.DamageStateVisualLayers.Base" ]
+      map: ["enum.DamageStateVisualLayers.Base"]
     - state: engine
       map: ["enum.VehicleVisualLayers.AutoAnimate"]
     - state: lights
@@ -21,8 +21,8 @@
     westOffset: -0.05, -0.1
   - type: RandomSprite
     available:
-      - enum.DamageStateVisualLayers.Base:
-          hull: Sixteen # Rainbow, Emagged, Departmental, Advanced
+    - enum.DamageStateVisualLayers.Base:
+        hull: Sixteen # Rainbow, Emagged, Departmental, Advanced
   - type: ItemSlots
     slots:
       key_slot:
@@ -41,7 +41,7 @@
         name: stored bag
         whitelist:
           components:
-            - Storage
+          - Storage
         priority: 2
         insertSound:
           path: /Audio/Items/belt_equip.ogg
@@ -52,7 +52,7 @@
       bag:
         whitelist:
           components:
-            - Storage
+          - Storage
     sprite: _NF/Objects/Vehicles/atv.rsi
   - type: UnpoweredFlashlight
   - type: PointLight
@@ -71,61 +71,61 @@
   name: skeleton motorcycle
   description: Bad to the Bone.
   components:
-    - type: Vehicle
-      renderOver: North, East, South, West
-      southOffset: 0, -0.1
-      northOffset: 0, -0.1
-      eastOffset: 0.05, -0.1
-      westOffset: -0.05, -0.1
-      hornSound:
-        collection: NFGuitarRiffs
-    - type: Sprite
-      sprite: Objects/Vehicles/motorbike.rsi
-      layers:
-        - state: vehicle
-          map: ["enum.VehicleVisualLayers.AutoAnimate"]
-      noRot: true
-    - type: MovementSpeedModifier
-      acceleration: 2
-      friction: 1.5
-      baseWalkSpeed: 4.5
-      baseSprintSpeed: 7
-    - type: UnpoweredFlashlight
-    - type: PointLight
-      enabled: false
-      radius: 3.5
-      softness: 2
-      mask: /Textures/Effects/LightMasks/cone.png
-      autoRot: true
-    - type: ItemSlots
-      slots:
-        key_slot:
-          name: vehicle-slot-component-slot-name-keys
-          whitelist:
-            requireAll: true
-            tags:
-              - VehicleKey
-              - SkeletonMotorcycleKeys
-          insertSound:
-            path: /Audio/Effects/Vehicle/vehiclestartup.ogg
-            params:
-              volume: -3
-    - type: Storage
-      grid:
-      - 0,0,1,3
-      - 3,0,6,3
-      - 8,0,9,3
-      maxItemSize: Huge
-      blacklist:
-        components:
-        - HumanoidAppearance
-    - type: ContainerContainer
-      containers:
-        storagebase: !type:Container
-    - type: UserInterface
-      interfaces:
-        enum.StorageUiKey.Key:
-          type: StorageBoundUserInterface
+  - type: Vehicle
+    renderOver: North, East, South, West
+    southOffset: 0, -0.1
+    northOffset: 0, -0.1
+    eastOffset: 0.05, -0.1
+    westOffset: -0.05, -0.1
+    hornSound:
+      collection: NFGuitarRiffs
+  - type: Sprite
+    sprite: Objects/Vehicles/motorbike.rsi
+    layers:
+    - state: vehicle
+      map: ["enum.VehicleVisualLayers.AutoAnimate"]
+    noRot: true
+  - type: MovementSpeedModifier
+    acceleration: 2
+    friction: 1.5
+    baseWalkSpeed: 4.5
+    baseSprintSpeed: 7
+  - type: UnpoweredFlashlight
+  - type: PointLight
+    enabled: false
+    radius: 3.5
+    softness: 2
+    mask: /Textures/Effects/LightMasks/cone.png
+    autoRot: true
+  - type: ItemSlots
+    slots:
+      key_slot:
+        name: vehicle-slot-component-slot-name-keys
+        whitelist:
+          requireAll: true
+          tags:
+          - VehicleKey
+          - SkeletonMotorcycleKeys
+        insertSound:
+          path: /Audio/Effects/Vehicle/vehiclestartup.ogg
+          params:
+            volume: -3
+  - type: Storage
+    grid:
+    - 0,0,1,3
+    - 3,0,6,3
+    - 8,0,9,3
+    maxItemSize: Huge
+    blacklist:
+      components:
+      - HumanoidAppearance
+  - type: ContainerContainer
+    containers:
+      storagebase: !type:Container
+  - type: UserInterface
+    interfaces:
+      enum.StorageUiKey.Key:
+        type: StorageBoundUserInterface
 
 #region unicycle
 - type: entity
@@ -161,14 +161,12 @@
     baseSprintSpeed: 4.3
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 200
       behaviors:
-        - !type:DoActsBehavior
-          acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 240
       behaviors:
       - !type:DoActsBehavior
@@ -220,7 +218,7 @@
     sprite: _NF/Objects/Vehicles/hoverbike.rsi
     layers:
     - state: hull
-      map: [ "enum.DamageStateVisualLayers.Base" ]
+      map: ["enum.DamageStateVisualLayers.Base"]
     - state: engine
       map: ["enum.VehicleVisualLayers.AutoAnimate"]
     - state: lights
@@ -228,8 +226,8 @@
     noRot: true
   - type: RandomSprite
     available:
-      - enum.DamageStateVisualLayers.Base:
-          hull: Sixteen # Rainbow, Emagged, Departmental, Advanced
+    - enum.DamageStateVisualLayers.Base:
+        hull: Sixteen # Rainbow, Emagged, Departmental, Advanced
   - type: ItemSlots
     slots:
       key_slot:
@@ -248,7 +246,7 @@
         name: stored bag
         whitelist:
           components:
-            - Storage
+          - Storage
         priority: 2
         insertSound:
           path: /Audio/Items/belt_equip.ogg
@@ -259,7 +257,7 @@
       bag:
         whitelist:
           components:
-            - Storage
+          - Storage
     sprite: _NF/Objects/Vehicles/hoverbike.rsi
   - type: Appearance
   - type: PointLight
@@ -290,7 +288,7 @@
         name: stored bag
         whitelist:
           components:
-            - Storage
+          - Storage
         priority: 2
         insertSound:
           path: /Audio/Items/belt_equip.ogg
@@ -321,20 +319,20 @@
         name: janitorial-trolley-slot-component-slot-name-mop
         whitelist:
           tags:
-            - Mop
+          - Mop
         insertOnInteract: false # or it conflicts with bucket logic
         priority: 9 # Higher than bucket slot
       plunger_slot: &plungerSlot
         name: janitorial-trolley-slot-component-slot-name-plunger
         whitelist:
           tags:
-            - Plunger
+          - Plunger
         priority: 8
       wetfloorsign_slot4: &wetFloorSignSlot
         name: janitorial-trolley-slot-component-slot-name-sign
         whitelist:
           tags:
-            - WetFloorSign
+          - WetFloorSign
         priority: 7
       wetfloorsign_slot3: *wetFloorSignSlot
       wetfloorsign_slot2: *wetFloorSignSlot
@@ -343,34 +341,34 @@
         name: janitorial-trolley-slot-component-slot-name-lightreplacer
         whitelist:
           components:
-            - LightReplacer
+          - LightReplacer
         priority: 6
       spraybottle_slot: &sprayBottleSlot
         name: janitorial-trolley-slot-component-slot-name-spray
         whitelist:
           tags:
-            - Spray
+          - Spray
         insertOnInteract: false # or it conflicts with bucket logic
         priority: 5 # Higher than bucket slot
       bucket_slot: &bucketSlot
         name: janitorial-trolley-slot-component-slot-name-bucket
         whitelist:
           tags:
-            - Bucket
+          - Bucket
         insertOnInteract: false # or it also conflicts with bucket logic
         priority: 4 # Higher than trash bag slot
       trashbag_slot: &trashBagSlot
         name: janitorial-trolley-slot-component-slot-name-trashbag
         whitelist:
           tags:
-            - TrashBag
+          - TrashBag
         priority: 3 # Higher than drinking priority
   - type: ItemMapper
     mapLayers:
       storage:
         whitelist:
           tags:
-            - TrashBag
+          - TrashBag
     sprite: Objects/Vehicles/janicart.rsi
   - type: Appearance
   - type: Spillable
@@ -389,8 +387,8 @@
     solution: bucket
   - type: Tag
     tags:
-      - Wringer
-      - DoorBumpOpener
+    - Wringer
+    - DoorBumpOpener
   - type: Drink
     solution: bucket
   - type: ContainerContainer
@@ -502,14 +500,14 @@
         name: rpds
         whitelist:
           components:
-            - Gun # Any gun :(, including RPDS
+          - Gun # Any gun :(, including RPDS
         priority: 2
   - type: ItemMapper
     mapLayers:
       mailgun:
         whitelist:
           components:
-            - Gun
+          - Gun
     sprite: _NF/Objects/Vehicles/hoverbike.rsi
   - type: Appearance
   - type: PointLight
@@ -546,7 +544,7 @@
         name: rpds
         whitelist:
           components:
-            - Gun # Any gun :(, including RPDS
+          - Gun # Any gun :(, including RPDS
         priority: 2
 
 # NFSD
@@ -597,14 +595,14 @@
         name: stunbaton
         whitelist:
           components:
-            - Stunbaton
+          - Stunbaton
         priority: 2
   - type: ItemMapper
     mapLayers:
       nfsdbaton:
         whitelist:
           components:
-            - Stunbaton
+          - Stunbaton
     sprite: _NF/Objects/Vehicles/hoverbike.rsi
   - type: Appearance
   - type: RotatingLight
@@ -640,7 +638,7 @@
         name: stunbaton
         whitelist:
           components:
-            - Stunbaton
+          - Stunbaton
         priority: 2
 
 # Pirate
@@ -685,14 +683,14 @@
         name: gun
         whitelist:
           components:
-            - Gun
+          - Gun
         priority: 2
   - type: ItemMapper
     mapLayers:
       piratemusket:
         whitelist:
           components:
-            - Gun
+          - Gun
     sprite: _NF/Objects/Vehicles/hoverbike.rsi
   - type: Appearance
 
@@ -720,7 +718,7 @@
         name: gun
         whitelist:
           components:
-            - Gun
+          - Gun
         priority: 2
 
 # Syndicate
@@ -764,14 +762,14 @@
         name: gun
         whitelist:
           components:
-            - Gun
+          - Gun
         priority: 2
   - type: ItemMapper
     mapLayers:
       syndicategun:
         whitelist:
           components:
-            - Gun
+          - Gun
     sprite: _NF/Objects/Vehicles/hoverbike.rsi
   - type: Appearance
   - type: PointLight
@@ -804,7 +802,7 @@
         name: gun
         whitelist:
           components:
-            - Gun
+          - Gun
         priority: 2
 
 - type: entity
@@ -868,15 +866,15 @@
       - ClothingOuterHardsuitEVA
   - type: StorageFill
     contents:
-      - id: SpaceMedipen
-        amount: 2
-      - id: EmergencyMedipen
-        amount: 2
+    - id: SpaceMedipen
+      amount: 2
+    - id: EmergencyMedipen
+      amount: 2
 
 #region dumpster
 - type: entity
   id: NFGoblinMadeVehicleDumpster
-  parent: [ BaseVehicle, NFMagnetBoxRubbish ]
+  parent: [BaseVehicle, NFMagnetBoxRubbish]
   name: dumpster
   description: It only has one wheel!
   components:
@@ -910,7 +908,7 @@
     - sprite: _NF/Structures/Storage/magnetbox.rsi
       state: controller-on
       visible: False
-      map: [ "enum.ToggleVisuals.Layer" ]
+      map: ["enum.ToggleVisuals.Layer"]
       shader: unshaded
     - sprite: _NF/Objects/Tools/goblin_tools/overlay_sparks.rsi
       state: overlay-icon
@@ -922,14 +920,12 @@
     baseSprintSpeed: 4.3
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 200
       behaviors:
-        - !type:DoActsBehavior
-          acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 240
       behaviors:
       - !type:DoActsBehavior

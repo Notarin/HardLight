@@ -28,9 +28,6 @@ public sealed partial class PirateBountyMenu : FancyWindow
 
             PirateBountyEntriesContainer.AddChild(entry);
         }
-        PirateBountyEntriesContainer.AddChild(new Control
-        {
-            MinHeight = 10
-        });
+        PirateBountyEntriesContainer.AddChild(new Control { MinHeight = 10 });
     }
 }

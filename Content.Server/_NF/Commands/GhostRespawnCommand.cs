@@ -1,11 +1,11 @@
 using Content.Server._Corvax.Respawn;
 using Content.Server.GameTicking;
 using Content.Server.Mind;
+using Content.Shared._NF.CCVar;
 using Content.Shared.Administration;
 using Content.Shared.CCVar;
 using Content.Shared.Ghost;
 using Content.Shared.Mind;
-using Content.Shared._NF.CCVar;
 using Content.Shared.Roles;
 using Robust.Server.Player;
 using Robust.Shared.Configuration;
@@ -18,13 +18,21 @@ namespace Content.Server._NF.Commands;
 [AnyCommand()]
 public sealed class GhostRespawnCommand : IConsoleCommand
 {
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly IEntityManager _entityManager = default!;
-    [Dependency] private readonly IConfigurationManager _configurationManager = default!;
-    [Dependency] private readonly IEntitySystemManager _entity = default!;
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
+
+    [Dependency]
+    private readonly IEntityManager _entityManager = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _configurationManager = default!;
+
+    [Dependency]
+    private readonly IEntitySystemManager _entity = default!;
 
     public string Command => "ghostrespawn";
-    public string Description => "Allows the player to return to the lobby if they've been dead long enough, allowing re-entering the round AS ANOTHER CHARACTER.";
+    public string Description =>
+        "Allows the player to return to the lobby if they've been dead long enough, allowing re-entering the round AS ANOTHER CHARACTER.";
     public string Help => $"{Command}";
 
     public void Execute(IConsoleShell shell, string argStr, string[] args)

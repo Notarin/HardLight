@@ -1,6 +1,6 @@
-using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
-using Content.Shared.NPC.Systems;
 using Content.Shared.NPC.Prototypes;
+using Content.Shared.NPC.Systems;
+using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 
 namespace Content.Server.NPC.Components
 {
@@ -15,8 +15,14 @@ namespace Content.Server.NPC.Components
         /// <summary>
         /// Faction added
         /// </summary>
-        [ViewVariables(VVAccess.ReadWrite),
-         DataField("faction", required: true, customTypeSerializer:typeof(PrototypeIdSerializer<NpcFactionPrototype>))]
+        [
+            ViewVariables(VVAccess.ReadWrite),
+            DataField(
+                "faction",
+                required: true,
+                customTypeSerializer: typeof(PrototypeIdSerializer<NpcFactionPrototype>)
+            )
+        ]
         public string Faction = "";
     }
 }

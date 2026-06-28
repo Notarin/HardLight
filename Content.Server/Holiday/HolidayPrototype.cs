@@ -8,7 +8,8 @@ namespace Content.Server.Holiday
     [Prototype]
     public sealed partial class HolidayPrototype : IPrototype
     {
-        [DataField("name")] public string Name { get; private set; } = string.Empty;
+        [DataField("name")]
+        public string Name { get; private set; } = string.Empty;
 
         [ViewVariables]
         [IdDataField]

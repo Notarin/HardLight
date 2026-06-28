@@ -1,16 +1,19 @@
 using Content.Shared.Damage.Components;
-using Content.Shared.Mobs; // Hardlight
-using Content.Shared.Mobs.Systems;
-using Content.Shared.Mobs.Components;
 using Content.Shared.FixedPoint;
+using Content.Shared.Mobs; // Hardlight
+using Content.Shared.Mobs.Components;
+using Content.Shared.Mobs.Systems;
 using Robust.Shared.Timing;
 
 namespace Content.Shared.Damage;
 
 public sealed class PassiveDamageSystem : EntitySystem
 {
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly DamageableSystem _damageable = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     public override void Initialize()
     {
@@ -85,7 +88,8 @@ public sealed class PassiveDamageSystem : EntitySystem
         List<MobState> allowedStates,
         DamageSpecifier passiveDamage,
         DamageableComponent damage,
-        MobStateComponent mobState)
+        MobStateComponent mobState
+    )
     {
         foreach (var allowedState in allowedStates)
         {

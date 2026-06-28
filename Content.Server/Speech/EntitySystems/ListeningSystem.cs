@@ -9,8 +9,11 @@ namespace Content.Server.Speech.EntitySystems;
 /// </summary>
 public sealed class ListeningSystem : EntitySystem
 {
-    [Dependency] private readonly SharedTransformSystem _xforms = default!;
-    [Dependency] private readonly ChatSystem _chat = default!; // Starlight
+    [Dependency]
+    private readonly SharedTransformSystem _xforms = default!;
+
+    [Dependency]
+    private readonly ChatSystem _chat = default!; // Starlight
 
     public override void Initialize()
     {
@@ -20,10 +23,24 @@ public sealed class ListeningSystem : EntitySystem
 
     private void OnSpeak(EntitySpokeEvent ev)
     {
-        PingListeners(ev.Source, ev.Message, ev.IsWhisper, ev.Language, ev.OriginalMessage, ev.OriginalObfuscatedMessage); // Starlight
+        PingListeners(
+            ev.Source,
+            ev.Message,
+            ev.IsWhisper,
+            ev.Language,
+            ev.OriginalMessage,
+            ev.OriginalObfuscatedMessage
+        ); // Starlight
     }
 
-    public void PingListeners(EntityUid source, string message, bool isWhisper, LanguagePrototype? language = null, string? originalMessage = null, string? originalObfuscatedMessage = null) // Starlight
+    public void PingListeners(
+        EntityUid source,
+        string message,
+        bool isWhisper,
+        LanguagePrototype? language = null,
+        string? originalMessage = null,
+        string? originalObfuscatedMessage = null
+    ) // Starlight
     {
         // TODO whispering / audio volume? Microphone sensitivity?
         // for now, whispering just arbitrarily reduces the listener's max range.

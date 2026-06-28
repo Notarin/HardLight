@@ -26,7 +26,7 @@
   name: chat-emote-name-hiss
   category: Vocal
   available: false
-  icon: { sprite: _RMC14/Actions/xeno_emotes.rsi, state: hiss }
+  icon: {sprite: _RMC14/Actions/xeno_emotes.rsi, state: hiss}
   whitelist:
     components:
     - Vocal
@@ -35,22 +35,22 @@
     - BorgChassis
   chatMessages: ["chat-emote-msg-cathisses"]
   chatTriggers:
-    - hiss
-    - hisses
-    - hiss.
-    - hisses.
-    - hisses!
-    - hissing
-    - hissed
-    - hissing.
-    - hissed.
+  - hiss
+  - hisses
+  - hiss.
+  - hisses.
+  - hisses!
+  - hissing
+  - hissed
+  - hissing.
+  - hissed.
 
 - type: emote
   id: Meow
   name: chat-emote-name-meow
   category: Vocal
   available: false
-  icon: { sprite: _RMC14/Actions/species_emotes.rsi, state: meow }
+  icon: {sprite: _RMC14/Actions/species_emotes.rsi, state: meow}
   whitelist:
     components:
     - Vocal
@@ -92,7 +92,7 @@
   name: chat-emote-name-mew
   category: Vocal
   available: false
-  icon: { sprite: _RMC14/Actions/species_emotes.rsi, state: mew }
+  icon: {sprite: _RMC14/Actions/species_emotes.rsi, state: mew}
   whitelist:
     components:
     - Vocal
@@ -111,7 +111,7 @@
   name: chat-emote-name-purr
   category: Vocal
   available: false
-  icon: { sprite: _RMC14/Actions/species_emotes.rsi, state: purr }
+  icon: {sprite: _RMC14/Actions/species_emotes.rsi, state: purr}
   whitelist:
     components:
     - Vocal
@@ -130,7 +130,7 @@
   name: chat-emote-name-trill
   category: Vocal
   available: false
-  icon: { sprite: _Starlight/Actions/felionoid.rsi, state: cat_print }
+  icon: {sprite: _Starlight/Actions/felionoid.rsi, state: cat_print}
   whitelist:
     components:
     - Vocal
@@ -139,18 +139,18 @@
     - BorgChassis
   chatMessages: ["chat-emote-msg-trill"]
   chatTriggers:
-    - trill
-    - trill.
-    - trill!
-    - trill?
-    - trills
-    - trills.
-    - trills!
-    - trills?
-    - trilling
-    - trilling.
-    - trilling!
-    - trilling?
+  - trill
+  - trill.
+  - trill!
+  - trill?
+  - trills
+  - trills.
+  - trills!
+  - trills?
+  - trilling
+  - trilling.
+  - trilling!
+  - trilling?
 
 - type: emote
   id: Marr
@@ -165,14 +165,14 @@
     - BorgChassis
   chatMessages: ["chat-emote-msg-marr"]
   chatTriggers:
-    - marr
-    - marr.
-    - marr!
-    - marr?
-    - marrs
-    - marrs.
-    - marrs!
-    - marrs?
+  - marr
+  - marr.
+  - marr!
+  - marr?
+  - marrs
+  - marrs.
+  - marrs!
+  - marrs?
 
 - type: emote
   id: Wurble
@@ -187,21 +187,21 @@
     - BorgChassis
   chatMessages: ["chat-emote-msg-wurble"]
   chatTriggers:
-    - wurble
-    - wurble.
-    - wurble!
-    - wurble?
-    - wurbles
-    - wurbles.
-    - wurbles!
-    - wurbles?
+  - wurble
+  - wurble.
+  - wurble!
+  - wurble?
+  - wurbles
+  - wurbles.
+  - wurbles!
+  - wurbles?
 
 - type: emote
   id: Scree
   name: chat-emote-name-scree
   category: Vocal
   available: false
-  icon: { sprite: _Starlight/Actions/resomi.rsi, state: bird_call }
+  icon: {sprite: _Starlight/Actions/resomi.rsi, state: bird_call}
   whitelist:
     components:
     - Vocal
@@ -228,7 +228,7 @@
   name: chat-emote-name-call
   category: Vocal
   available: false
-  icon: { sprite: _Starlight/Actions/resomi.rsi, state: bird_call }
+  icon: {sprite: _Starlight/Actions/resomi.rsi, state: bird_call}
   whitelist:
     components:
     - Vocal
@@ -255,7 +255,7 @@
   name: chat-emote-name-squawk
   category: Vocal
   available: false
-  icon: { sprite: _Starlight/Actions/resomi.rsi, state: bird_call }
+  icon: {sprite: _Starlight/Actions/resomi.rsi, state: bird_call}
   whitelist:
     components:
     - Vocal

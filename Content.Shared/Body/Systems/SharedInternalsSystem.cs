@@ -19,11 +19,20 @@ namespace Content.Shared.Body.Systems;
 /// </summary>
 public abstract class SharedInternalsSystem : EntitySystem
 {
-    [Dependency] private readonly AlertsSystem _alerts = default!;
-    [Dependency] private readonly InventorySystem _inventory = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly SharedGasTankSystem _gasTank = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
+    [Dependency]
+    private readonly AlertsSystem _alerts = default!;
+
+    [Dependency]
+    private readonly InventorySystem _inventory = default!;
+
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfter = default!;
+
+    [Dependency]
+    private readonly SharedGasTankSystem _gasTank = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popupSystem = default!;
 
     public override void Initialize()
     {
@@ -37,9 +46,7 @@ public abstract class SharedInternalsSystem : EntitySystem
         SubscribeLocalEvent<InternalsComponent, ToggleInternalsAlertEvent>(OnToggleInternalsAlert);
     }
 
-    private void OnGetInteractionVerbs(
-        Entity<InternalsComponent> ent,
-        ref GetVerbsEvent<InteractionVerb> args)
+    private void OnGetInteractionVerbs(Entity<InternalsComponent> ent, ref GetVerbsEvent<InteractionVerb> args)
     {
         if (!args.CanAccess || !args.CanInteract || args.Hands is null)
             return;
@@ -63,11 +70,7 @@ public abstract class SharedInternalsSystem : EntitySystem
         args.Verbs.Add(verb);
     }
 
-    public bool ToggleInternals(
-        EntityUid uid,
-        EntityUid user,
-        bool force,
-        InternalsComponent? internals = null)
+    public bool ToggleInternals(EntityUid uid, EntityUid user, bool force, InternalsComponent? internals = null)
     {
         if (!Resolve(uid, ref internals, logMissing: false))
             return false;
@@ -112,12 +115,14 @@ public abstract class SharedInternalsSystem : EntitySystem
         var isUser = user == targetEnt.Owner;
         var delay = !isUser ? targetEnt.Comp.Delay : TimeSpan.Zero;
 
-        return _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, user, delay, new InternalsDoAfterEvent(), targetEnt, target: targetEnt)
-        {
-            BreakOnDamage = true,
-            BreakOnMove =  true,
-            MovementThreshold = 0.1f,
-        });
+        return _doAfter.TryStartDoAfter(
+            new DoAfterArgs(EntityManager, user, delay, new InternalsDoAfterEvent(), targetEnt, target: targetEnt)
+            {
+                BreakOnDamage = true,
+                BreakOnMove = true,
+                MovementThreshold = 0.1f,
+            }
+        );
     }
 
     private void OnDoAfter(Entity<InternalsComponent> ent, ref InternalsDoAfterEvent args)
@@ -214,15 +219,14 @@ public abstract class SharedInternalsSystem : EntitySystem
 
     public bool AreInternalsWorking(EntityUid uid, InternalsComponent? component = null)
     {
-        return Resolve(uid, ref component, logMissing: false)
-               && AreInternalsWorking(component);
+        return Resolve(uid, ref component, logMissing: false) && AreInternalsWorking(component);
     }
 
     public bool AreInternalsWorking(InternalsComponent component)
     {
         return TryComp(component.BreathTools.FirstOrNull(), out BreathToolComponent? breathTool)
-               && breathTool.IsFunctional
-               && HasComp<GasTankComponent>(component.GasTankEntity);
+            && breathTool.IsFunctional
+            && HasComp<GasTankComponent>(component.GasTankEntity);
     }
 
     protected short GetSeverity(InternalsComponent component)
@@ -231,8 +235,7 @@ public abstract class SharedInternalsSystem : EntitySystem
             return 2;
 
         // If pressure in the tank is below low pressure threshold, flash warning on internals UI
-        if (TryComp<GasTankComponent>(component.GasTankEntity, out var gasTank)
-            && gasTank.IsLowPressure)
+        if (TryComp<GasTankComponent>(component.GasTankEntity, out var gasTank) && gasTank.IsLowPressure)
         {
             return 0;
         }
@@ -241,7 +244,8 @@ public abstract class SharedInternalsSystem : EntitySystem
     }
 
     public Entity<GasTankComponent>? FindBestGasTank(
-        Entity<HandsComponent?, InventoryComponent?, ContainerManagerComponent?> user)
+        Entity<HandsComponent?, InventoryComponent?, ContainerManagerComponent?> user
+    )
     {
         // TODO use _respirator.CanMetabolizeGas() to prioritize metabolizable gasses
         // Prioritise
@@ -253,16 +257,20 @@ public abstract class SharedInternalsSystem : EntitySystem
         if (!Resolve(user, ref user.Comp2, ref user.Comp3))
             return null;
 
-        if (_inventory.TryGetSlotEntity(user, "back", out var backEntity, user.Comp2, user.Comp3) &&
-            TryComp<GasTankComponent>(backEntity, out var backGasTank) &&
-            _gasTank.CanConnectToInternals((backEntity.Value, backGasTank)))
+        if (
+            _inventory.TryGetSlotEntity(user, "back", out var backEntity, user.Comp2, user.Comp3)
+            && TryComp<GasTankComponent>(backEntity, out var backGasTank)
+            && _gasTank.CanConnectToInternals((backEntity.Value, backGasTank))
+        )
         {
             return (backEntity.Value, backGasTank);
         }
 
-        if (_inventory.TryGetSlotEntity(user, "suitstorage", out var entity, user.Comp2, user.Comp3) &&
-            TryComp<GasTankComponent>(entity, out var gasTank) &&
-            _gasTank.CanConnectToInternals((entity.Value, gasTank)))
+        if (
+            _inventory.TryGetSlotEntity(user, "suitstorage", out var entity, user.Comp2, user.Comp3)
+            && TryComp<GasTankComponent>(entity, out var gasTank)
+            && _gasTank.CanConnectToInternals((entity.Value, gasTank))
+        )
         {
             return (entity.Value, gasTank);
         }

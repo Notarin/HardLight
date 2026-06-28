@@ -2887,9 +2887,8 @@ entities:
       pos: -0.25811195,4.835703
       parent: 2
     - type: Paper
-      content: >+
+      content: >
         security are to preform regular searches of John Grey's cell. we have strong evidence that he is hiding something.
-
 
         defence turrets are to be set to fire-at-will. we have received several reports from long range sensor stations of increased syndicate activity in the sector.
 
@@ -2905,7 +2904,6 @@ entities:
       content: >-
         Hacks-the-doors says he can get us into the bridge if i can rush the warden's offce. the crew seems to have gotten wise, they keep searching my cell, but ive hidden everything in a secret slot in the wall between my and the diona's cells.
 
-
         everyone is on board with the plan except that weirdo in cell four, never even speaking to anyone. fine, he can rot while we take back our freedom.
   - uid: 268
     components:
@@ -2918,7 +2916,6 @@ entities:
     - type: Paper
       content: >
         NT correctional transit ship st-187 high-value prisoner transit manifest
-
 
         John Grey - cell 1
 
@@ -4974,4 +4971,3 @@ entities:
     - type: Transform
       pos: -4.360674,-13.823505
       parent: 2
-...

@@ -20,8 +20,8 @@
     visuals:
       enum.AmmoVisuals.HasAmmo:
         effect:
-          True: { visible: True }
-          False: { visible: False }
+          True: {visible: True}
+          False: {visible: False}
   - type: Tag
     tags:
     - WizardWand

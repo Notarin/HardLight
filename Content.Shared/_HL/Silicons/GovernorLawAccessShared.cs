@@ -17,6 +17,6 @@ public static class GovernorLawAccessShared
             return true;
 
         return entMan.TryGetComponent<MovementRelayTargetComponent>(user, out var relay)
-               && entMan.HasComponent<SiliconLawBoundComponent>(relay.Source);
+            && entMan.HasComponent<SiliconLawBoundComponent>(relay.Source);
     }
 }

@@ -12,10 +12,17 @@ namespace Content.Shared._HL.Mobs.Systems;
 */
 public sealed class VoxTalonsSystem : EntitySystem
 {
-    [Dependency] private readonly InventorySystem _inventory = default!;
-    [Dependency] private readonly ItemToggleSystem _toggle = default!;
-    [Dependency] private readonly SharedGravitySystem _gravity = default!;
-    [Dependency] private readonly TagSystem _tag = default!;
+    [Dependency]
+    private readonly InventorySystem _inventory = default!;
+
+    [Dependency]
+    private readonly ItemToggleSystem _toggle = default!;
+
+    [Dependency]
+    private readonly SharedGravitySystem _gravity = default!;
+
+    [Dependency]
+    private readonly TagSystem _tag = default!;
 
     private static readonly ProtoId<TagPrototype> WhitelistVoxTalonsTag = "WhitelistVoxTalons";
 
@@ -26,6 +33,7 @@ public sealed class VoxTalonsSystem : EntitySystem
         SubscribeLocalEvent<VoxTalonsComponent, IsWeightlessEvent>(OnIsWeightless);
         SubscribeLocalEvent<VoxTalonsComponent, InventoryRelayedEvent<IsWeightlessEvent>>(OnIsWeightless);
     }
+
     private void OnIsWeightless(Entity<VoxTalonsComponent> ent, ref IsWeightlessEvent args)
     {
         if (args.Handled || !_toggle.IsActivated(ent.Owner))
@@ -35,7 +43,11 @@ public sealed class VoxTalonsSystem : EntitySystem
         if (!_gravity.EntityOnGravitySupportingGridOrMap(ent.Owner))
             return;
         // do not cancel weightlessness if the person is wearing shoes that don't have the correct tag
-        if (_inventory.TryGetSlotEntity(ent, "shoes", out var worn) && worn != null && !_tag.HasTag((EntityUid)worn, WhitelistVoxTalonsTag))
+        if (
+            _inventory.TryGetSlotEntity(ent, "shoes", out var worn)
+            && worn != null
+            && !_tag.HasTag((EntityUid)worn, WhitelistVoxTalonsTag)
+        )
             return;
 
         args.IsWeightless = false;

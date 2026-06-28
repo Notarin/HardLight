@@ -25,8 +25,7 @@
   - TSFMC # Mono
   - TSFMCTurret # Mono
   - USSP # Mono
-  
-  
+
 - type: npcFaction
   id: Wawa
   hostile:
@@ -36,7 +35,7 @@
   - Zombie
   - Xeno
   - AllHostile
-  
+
 - type: npcFaction
   id: Lizard
   friendly: # Frontier
@@ -48,7 +47,7 @@
   - Zombie # Frontier
   - Xeno # Frontier
   - AllHostile # Frontier
-  
+
 - type: npcFaction
   id: AgressiveLizard
   friendly: # Frontier
@@ -321,7 +320,7 @@
   - Xeno # rivalry
 
   # cause they are hostile to them
-  - SimpleHostile 
+  - SimpleHostile
   - AllHostile
   # - WizFedFaction # Frontier
   - BloodCultNF # Frontier

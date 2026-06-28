@@ -40,7 +40,6 @@
     Water: 4
     Nitrogen: 1
 
-
 - type: reaction
   id: SapBloodBreakdown
   source: true

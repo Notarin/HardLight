@@ -364,7 +364,7 @@
     - id: ClothingNeckMantleHOS # Frontier: consistency with old fill
     - id: ClothingOuterWinterHoS # Frontier: consistency with old fill
     - id: ClothingShoesBootsWinterHoS # Frontier: consistency with old fill
-    #- id: Demag # Frontier
+      #- id: Demag # Frontier
 
 # Hardsuit table, used for suit storage as well
 - type: entityTable
@@ -406,10 +406,10 @@
   id: LockerFreezerVaultFilled
   suffix: Vault, Locked
   parent: LockerFreezerBase
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   components:
   - type: AccessReader
-    access: [ [ "Command" ] ]
+    access: [["Command"]]
   - type: StorageFill
     contents:
     - id: WeaponRevolverDeckard

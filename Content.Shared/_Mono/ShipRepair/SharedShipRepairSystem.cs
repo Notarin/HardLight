@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Content.Shared._Mono.ForceParent;
 using Content.Shared._Mono.ShipRepair.Components;
 using Content.Shared.Charges.Systems;
@@ -10,25 +11,49 @@ using Robust.Shared.Map.Components;
 using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Content.Shared._Mono.ShipRepair;
 
 public abstract partial class SharedShipRepairSystem : EntitySystem
 {
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!;
-    [Dependency] private readonly ForceParentSystem _parent = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IMapManager _mapMan = default!;
-    [Dependency] private readonly INetManager _net = default!; // .IsServer is kind of a crime but needed to not dupe code
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedChargesSystem _charges = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency]
+    private readonly EntityLookupSystem _lookup = default!;
+
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelist = default!;
+
+    [Dependency]
+    private readonly ForceParentSystem _parent = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IMapManager _mapMan = default!;
+
+    [Dependency]
+    private readonly INetManager _net = default!; // .IsServer is kind of a crime but needed to not dupe code
+
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedChargesSystem _charges = default!;
+
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfter = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _map = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
 
     public override void Initialize()
     {
@@ -110,7 +135,7 @@ public abstract partial class SharedShipRepairSystem : EntitySystem
                 ProtoIndex = paletteIndex,
                 OriginalEntity = GetNetEntity(childEnt),
                 Rotation = childXform.LocalRotation,
-                LocalPosition = localPos
+                LocalPosition = localPos,
             };
         }
 
@@ -154,10 +179,7 @@ public abstract partial class SharedShipRepairSystem : EntitySystem
 
         if (!data.Chunks.TryGetValue(chunkIndices, out var chunk))
         {
-            chunk = new ShipRepairChunk
-            {
-                Tiles = new int[chunkSize * chunkSize]
-            };
+            chunk = new ShipRepairChunk { Tiles = new int[chunkSize * chunkSize] };
             Array.Fill<int>(chunk.Tiles, Tile.Empty.TypeId);
             data.Chunks[chunkIndices] = chunk;
         }
@@ -165,7 +187,11 @@ public abstract partial class SharedShipRepairSystem : EntitySystem
         return chunk;
     }
 
-    protected bool TryGetChunk(ShipRepairDataComponent data, Vector2i gridIndices, [NotNullWhen(true)] out ShipRepairChunk? chunk)
+    protected bool TryGetChunk(
+        ShipRepairDataComponent data,
+        Vector2i gridIndices,
+        [NotNullWhen(true)] out ShipRepairChunk? chunk
+    )
     {
         var chunkSize = data.ChunkSize;
         var chunkIndices = GetRepairChunkIndices(gridIndices, chunkSize);

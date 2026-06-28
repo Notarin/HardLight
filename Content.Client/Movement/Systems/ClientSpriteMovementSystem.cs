@@ -1,7 +1,7 @@
 using Content.Client.Options;
 using Content.Shared.Movement.Components;
-using Content.Shared.Sprite;
 using Content.Shared.Movement.Systems;
+using Content.Shared.Sprite;
 using Robust.Client.GameObjects;
 using Robust.Shared.GameObjects;
 
@@ -12,10 +12,13 @@ namespace Content.Client.Movement.Systems;
 /// </summary>
 public sealed class ClientSpriteMovementSystem : SharedSpriteMovementSystem
 {
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     private EntityQuery<SpriteComponent> _spriteQuery;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
 
     public override void Initialize()
     {
@@ -35,7 +38,10 @@ public sealed class ClientSpriteMovementSystem : SharedSpriteMovementSystem
         {
             foreach (var (layer, state) in ent.Comp.MovementLayers)
             {
-                if (!TryComp(ent.Owner, out OptionsVisualizerComponent? _) || _sprite.LayerExists((ent.Owner, sprite), layer))
+                if (
+                    !TryComp(ent.Owner, out OptionsVisualizerComponent? _)
+                    || _sprite.LayerExists((ent.Owner, sprite), layer)
+                )
                     _sprite.LayerSetData((ent.Owner, sprite), layer, state);
             }
         }
@@ -43,7 +49,10 @@ public sealed class ClientSpriteMovementSystem : SharedSpriteMovementSystem
         {
             foreach (var (layer, state) in ent.Comp.NoMovementLayers)
             {
-                if (!TryComp(ent.Owner, out OptionsVisualizerComponent? _) || _sprite.LayerExists((ent.Owner, sprite), layer))
+                if (
+                    !TryComp(ent.Owner, out OptionsVisualizerComponent? _)
+                    || _sprite.LayerExists((ent.Owner, sprite), layer)
+                )
                     _sprite.LayerSetData((ent.Owner, sprite), layer, state);
             }
         }
@@ -62,7 +71,9 @@ public sealed class ClientSpriteMovementSystem : SharedSpriteMovementSystem
         var moving = ent.Comp.IsMoving;
         string? desiredState = null;
         if (moving)
-            desiredState = enabled ? toggle.MovementStateOn ?? toggle.StateOn : toggle.MovementStateOff ?? toggle.StateOff;
+            desiredState = enabled
+                ? toggle.MovementStateOn ?? toggle.StateOn
+                : toggle.MovementStateOff ?? toggle.StateOff;
         else
             desiredState = enabled ? toggle.StateOn : toggle.StateOff;
 

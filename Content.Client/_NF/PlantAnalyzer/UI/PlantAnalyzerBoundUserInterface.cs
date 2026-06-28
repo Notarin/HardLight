@@ -1,7 +1,7 @@
-using Content.Shared._NF.PlantAnalyzer;
-using JetBrains.Annotations;
 using System.Threading;
 using System.Threading.Tasks;
+using Content.Shared._NF.PlantAnalyzer;
+using JetBrains.Annotations;
 
 namespace Content.Client._NF.PlantAnalyzer.UI;
 
@@ -13,17 +13,13 @@ public sealed class PlantAnalyzerBoundUserInterface : BoundUserInterface
     private CancellationTokenSource? _refreshCts;
     private NetEntity? _currentTarget;
 
-    public PlantAnalyzerBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-    }
+    public PlantAnalyzerBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {
         base.Open();
-        _window = new PlantAnalyzerWindow(this)
-        {
-            Title = Loc.GetString("plant-analyzer-interface-title"),
-        };
+        _window = new PlantAnalyzerWindow(this) { Title = Loc.GetString("plant-analyzer-interface-title") };
         _window.OnClose += Close;
         _window.OpenCenteredLeft();
     }
@@ -76,7 +72,7 @@ public sealed class PlantAnalyzerBoundUserInterface : BoundUserInterface
             GrowthStages = s.GrowthStages,
             SeedPotency = s.SeedPotency,
             Speciation = s.Speciation,
-            AdvancedInfo = s.AdvancedInfo
+            AdvancedInfo = s.AdvancedInfo,
         };
 
         _window.Populate(msg);
@@ -98,20 +94,21 @@ public sealed class PlantAnalyzerBoundUserInterface : BoundUserInterface
         StopRefreshLoop();
         _refreshCts = new CancellationTokenSource();
         var ct = _refreshCts.Token;
-        Task.Run(async () =>
-        {
-            try
+        Task.Run(
+            async () =>
             {
-                while (!ct.IsCancellationRequested)
+                try
                 {
-                    SendMessage(new PlantAnalyzerRequestRefresh());
-                    await Task.Delay(2000, ct);
+                    while (!ct.IsCancellationRequested)
+                    {
+                        SendMessage(new PlantAnalyzerRequestRefresh());
+                        await Task.Delay(2000, ct);
+                    }
                 }
-            }
-            catch (TaskCanceledException)
-            {
-            }
-        }, ct);
+                catch (TaskCanceledException) { }
+            },
+            ct
+        );
     }
 
     private void StopRefreshLoop()
@@ -121,9 +118,7 @@ public sealed class PlantAnalyzerBoundUserInterface : BoundUserInterface
             _refreshCts?.Cancel();
             _refreshCts?.Dispose();
         }
-        catch
-        {
-        }
+        catch { }
         finally
         {
             _refreshCts = null;

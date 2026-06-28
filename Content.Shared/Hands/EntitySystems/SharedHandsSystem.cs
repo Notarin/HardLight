@@ -15,15 +15,32 @@ namespace Content.Shared.Hands.EntitySystems;
 
 public abstract partial class SharedHandsSystem
 {
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!;
-    [Dependency] protected readonly SharedContainerSystem ContainerSystem = default!;
-    [Dependency] private readonly SharedInteractionSystem _interactionSystem = default!;
-    [Dependency] private readonly InventorySystem _inventory = default!;
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly SharedStorageSystem _storage = default!;
-    [Dependency] protected readonly SharedTransformSystem TransformSystem = default!;
-    [Dependency] private readonly SharedVirtualItemSystem _virtualSystem = default!;
+    [Dependency]
+    private readonly ISharedAdminLogManager _adminLogger = default!;
+
+    [Dependency]
+    private readonly ActionBlockerSystem _actionBlocker = default!;
+
+    [Dependency]
+    protected readonly SharedContainerSystem ContainerSystem = default!;
+
+    [Dependency]
+    private readonly SharedInteractionSystem _interactionSystem = default!;
+
+    [Dependency]
+    private readonly InventorySystem _inventory = default!;
+
+    [Dependency]
+    private readonly INetManager _net = default!;
+
+    [Dependency]
+    private readonly SharedStorageSystem _storage = default!;
+
+    [Dependency]
+    protected readonly SharedTransformSystem TransformSystem = default!;
+
+    [Dependency]
+    private readonly SharedVirtualItemSystem _virtualSystem = default!;
 
     protected event Action<Entity<HandsComponent>?>? OnHandSetActive;
 
@@ -43,7 +60,12 @@ public abstract partial class SharedHandsSystem
         CommandBinds.Unregister<SharedHandsSystem>();
     }
 
-    public virtual void AddHand(EntityUid uid, string handName, HandLocation handLocation, HandsComponent? handsComp = null)
+    public virtual void AddHand(
+        EntityUid uid,
+        string handName,
+        HandLocation handLocation,
+        HandsComponent? handsComp = null
+    )
     {
         if (!Resolve(uid, ref handsComp, false))
             return;
@@ -284,7 +306,12 @@ public abstract partial class SharedHandsSystem
         return IsHolding(entity, item, out _, entity);
     }
 
-    public bool IsHolding(EntityUid uid, [NotNullWhen(true)] EntityUid? entity, [NotNullWhen(true)] out Hand? inHand, HandsComponent? handsComp = null)
+    public bool IsHolding(
+        EntityUid uid,
+        [NotNullWhen(true)] EntityUid? entity,
+        [NotNullWhen(true)] out Hand? inHand,
+        HandsComponent? handsComp = null
+    )
     {
         inHand = null;
         if (entity == null)
@@ -305,8 +332,12 @@ public abstract partial class SharedHandsSystem
         return false;
     }
 
-    public bool TryGetHand(EntityUid handsUid, string handId, [NotNullWhen(true)] out Hand? hand,
-        HandsComponent? hands = null)
+    public bool TryGetHand(
+        EntityUid handsUid,
+        string handId,
+        [NotNullWhen(true)] out Hand? hand,
+        HandsComponent? hands = null
+    )
     {
         hand = null;
 
@@ -336,11 +367,10 @@ public abstract partial class SharedHandsSystem
     /// <param name="handLocation">The location/symmetry of the hand we're adding.</param>
     public virtual void AddToSortedHands(HandsComponent handsComp, string handName, HandLocation handLocation)
     {
-        var index = handLocation == HandLocation.Right
-            ? 0
-            : handLocation == HandLocation.Left
-                ? handsComp.SortedHands.Count
-                : handsComp.SortedHands.FindIndex(name => handsComp.Hands[name].Location == HandLocation.Right);
+        var index =
+            handLocation == HandLocation.Right ? 0
+            : handLocation == HandLocation.Left ? handsComp.SortedHands.Count
+            : handsComp.SortedHands.FindIndex(name => handsComp.Hands[name].Location == HandLocation.Right);
 
         if (index == -1)
             index = handsComp.SortedHands.Count;

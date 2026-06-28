@@ -4,22 +4,22 @@
   id: ManaGrassPalette
   name: Mana Grass
   colors:
-    cool:  "#4ae08d"
-    base:  "#4ae0b3"
-    warm:  "#4ae0d8"
+    cool: "#4ae08d"
+    base: "#4ae0b3"
+    warm: "#4ae0d8"
 
 - type: palette
   id: ManaBasaltPalette
   name: Mana Basalt
   colors:
-    cool:  "#7b55cc"
-    base:  "#9955cc"
-    warm:  "#b655cc"
+    cool: "#7b55cc"
+    base: "#9955cc"
+    warm: "#b655cc"
 
 - type: palette
   id: ManaFloralPalette
   name: Mana Floral
   colors:
-    cool:  "#00cc55"
-    base:  "#00cc88"
-    warm:  "#00ccbb"
+    cool: "#00cc55"
+    base: "#00cc88"
+    warm: "#00ccbb"

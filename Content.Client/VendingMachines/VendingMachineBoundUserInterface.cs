@@ -1,13 +1,13 @@
+using System.Linq;
 using Content.Client.UserInterface.Controls;
 using Content.Client.VendingMachines.UI;
-using Content.Shared.VendingMachines;
-using Robust.Client.UserInterface;
-using Robust.Shared.Input;
-using System.Linq;
-using Robust.Client.GameObjects;
 using Content.Shared._NF.Bank.Components; // Frontier
 using Content.Shared.Containers.ItemSlots; // Frontier
 using Content.Shared.Stacks; // Frontier
+using Content.Shared.VendingMachines;
+using Robust.Client.GameObjects;
+using Robust.Client.UserInterface;
+using Robust.Shared.Input;
 
 namespace Content.Client.VendingMachines
 {
@@ -25,15 +25,17 @@ namespace Content.Client.VendingMachines
 
         [ViewVariables]
         private float _mod = 1f;
+
         [ViewVariables]
         private int _balance = 0;
+
         [ViewVariables]
         private int _cashSlotBalance = 0;
+
         // End Frontier
 
-        public VendingMachineBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-        {
-        }
+        public VendingMachineBoundUserInterface(EntityUid owner, Enum uiKey)
+            : base(owner, uiKey) { }
 
         protected override void Open()
         {

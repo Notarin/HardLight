@@ -11,10 +11,17 @@ namespace Content.Server.Construction.Conditions
     [DataDefinition]
     public sealed partial class ContainerNotEmpty : IGraphCondition
     {
-        [DataField("container")] public string Container { get; private set; } = string.Empty;
-        [DataField("examineText")] public string? ExamineText { get; private set; }
-        [DataField("guideText")] public string? GuideText { get; private set; }
-        [DataField("guideIcon")] public SpriteSpecifier? GuideIcon { get; private set; }
+        [DataField("container")]
+        public string Container { get; private set; } = string.Empty;
+
+        [DataField("examineText")]
+        public string? ExamineText { get; private set; }
+
+        [DataField("guideText")]
+        public string? GuideText { get; private set; }
+
+        [DataField("guideIcon")]
+        public SpriteSpecifier? GuideIcon { get; private set; }
 
         public bool Condition(EntityUid uid, IEntityManager entityManager)
         {
@@ -33,8 +40,13 @@ namespace Content.Server.Construction.Conditions
             var entity = args.Examined;
 
             var entityManager = IoCManager.Resolve<IEntityManager>();
-            if (!entityManager.TryGetComponent(entity, out ContainerManagerComponent? containerManager) ||
-                !entityManager.System<SharedContainerSystem>().TryGetContainer(entity, Container, out var container, containerManager)) return false;
+            if (
+                !entityManager.TryGetComponent(entity, out ContainerManagerComponent? containerManager)
+                || !entityManager
+                    .System<SharedContainerSystem>()
+                    .TryGetContainer(entity, Container, out var container, containerManager)
+            )
+                return false;
 
             if (container.ContainedEntities.Count != 0)
                 return false;
@@ -48,11 +60,7 @@ namespace Content.Server.Construction.Conditions
             if (GuideText == null)
                 yield break;
 
-            yield return new ConstructionGuideEntry()
-            {
-                Localization = GuideText,
-                Icon = GuideIcon,
-            };
+            yield return new ConstructionGuideEntry() { Localization = GuideText, Icon = GuideIcon };
         }
     }
 }

@@ -18,11 +18,20 @@ namespace Content.Server._NF.Atmos.EntitySystems;
 [UsedImplicitly]
 public sealed class GasDepositScannerSystem : EntitySystem
 {
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly AtmosphereSystem _atmos = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly UserInterfaceSystem _userInterface = default!;
-    [Dependency] private readonly SharedInteractionSystem _interactionSystem = default!;
+    [Dependency]
+    private readonly PopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly AtmosphereSystem _atmos = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly UserInterfaceSystem _userInterface = default!;
+
+    [Dependency]
+    private readonly SharedInteractionSystem _interactionSystem = default!;
 
     /// <summary>
     /// Minimum moles of a gas to be included in the list.
@@ -118,7 +127,10 @@ public sealed class GasDepositScannerSystem : EntitySystem
     /// <summary>
     /// Disables the analyzer when the user closes the UI
     /// </summary>
-    private void OnDisabledMessage(Entity<GasDepositScannerComponent> entity, ref GasDepositScannerDisableMessage message)
+    private void OnDisabledMessage(
+        Entity<GasDepositScannerComponent> entity,
+        ref GasDepositScannerDisableMessage message
+    )
     {
         DisableScanner(entity);
     }
@@ -170,9 +182,11 @@ public sealed class GasDepositScannerSystem : EntitySystem
         if (gasMixList == null || gasMixList.Length <= 0)
             return false;
 
-        _userInterface.ServerSendUiMessage(uid, GasDepositScannerUiKey.Key,
-            new GasDepositScannerUserMessage(gasMixList,
-                GetNetEntity(component.Target) ?? NetEntity.Invalid));
+        _userInterface.ServerSendUiMessage(
+            uid,
+            GasDepositScannerUiKey.Key,
+            new GasDepositScannerUserMessage(gasMixList, GetNetEntity(component.Target) ?? NetEntity.Invalid)
+        );
         return true;
     }
 

@@ -7,7 +7,8 @@ namespace Content.Client.Anomaly.Effects;
 
 public sealed class ClientInnerBodyAnomalySystem : SharedInnerBodyAnomalySystem
 {
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     public override void Initialize()
     {
@@ -25,9 +26,11 @@ public sealed class ClientInnerBodyAnomalySystem : SharedInnerBodyAnomalySystem
 
         var index = _sprite.LayerMapReserve((ent.Owner, sprite), ent.Comp.LayerMap);
 
-        if (TryComp<BodyComponent>(ent, out var body) &&
-            body.Prototype is not null &&
-            ent.Comp.SpeciesSprites.TryGetValue(body.Prototype.Value, out var speciesSprite))
+        if (
+            TryComp<BodyComponent>(ent, out var body)
+            && body.Prototype is not null
+            && ent.Comp.SpeciesSprites.TryGetValue(body.Prototype.Value, out var speciesSprite)
+        )
         {
             _sprite.LayerSetSprite((ent.Owner, sprite), index, speciesSprite);
         }

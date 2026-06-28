@@ -12,15 +12,21 @@ namespace Content.Client.UserInterface.Systems.EscapeMenu;
 [UsedImplicitly]
 public sealed class EscapeContextUIController : UIController
 {
-    [Dependency] private readonly IInputManager _inputManager = default!;
+    [Dependency]
+    private readonly IInputManager _inputManager = default!;
 
-    [Dependency] private readonly CloseRecentWindowUIController _closeRecentWindowUIController = default!;
-    [Dependency] private readonly EscapeUIController _escapeUIController = default!;
+    [Dependency]
+    private readonly CloseRecentWindowUIController _closeRecentWindowUIController = default!;
+
+    [Dependency]
+    private readonly EscapeUIController _escapeUIController = default!;
 
     public override void Initialize()
     {
-        _inputManager.SetInputCommand(ContentKeyFunctions.EscapeContext,
-            InputCmdHandler.FromDelegate(_ => CloseWindowOrOpenGameMenu()));
+        _inputManager.SetInputCommand(
+            ContentKeyFunctions.EscapeContext,
+            InputCmdHandler.FromDelegate(_ => CloseWindowOrOpenGameMenu())
+        );
     }
 
     private void CloseWindowOrOpenGameMenu()

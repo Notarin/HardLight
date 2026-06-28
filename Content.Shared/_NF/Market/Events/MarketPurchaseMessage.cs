@@ -6,7 +6,4 @@ namespace Content.Shared._NF.Market.Events;
 ///     When the player purchases an item from the market, this message is sent.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class MarketPurchaseMessage : BoundUserInterfaceMessage
-{
-};
-
+public sealed class MarketPurchaseMessage : BoundUserInterfaceMessage { };

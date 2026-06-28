@@ -5,43 +5,43 @@
   description: A face-covering mask that can be connected to an air supply.
   suffix: Chameleon
   components:
-    - type: Tag
-      tags: [] # ignore "WhitelistChameleon" tag
-    - type: Sprite
-      sprite: Clothing/Mask/gas.rsi
-    - type: Clothing
-      sprite: Clothing/Mask/gas.rsi
-    - type: ChameleonClothing
-      slot: [mask]
-      default: ClothingMaskGas
-    - type: BreathMask
-    - type: IdentityBlocker # need that for default ClothingMaskGas
-    - type: UserInterface
-      interfaces:
-        enum.ChameleonUiKey.Key:
-          type: ChameleonBoundUserInterface
-    - type: HideLayerClothing
-      slots:
-      - Snout
+  - type: Tag
+    tags: [] # ignore "WhitelistChameleon" tag
+  - type: Sprite
+    sprite: Clothing/Mask/gas.rsi
+  - type: Clothing
+    sprite: Clothing/Mask/gas.rsi
+  - type: ChameleonClothing
+    slot: [mask]
+    default: ClothingMaskGas
+  - type: BreathMask
+  - type: IdentityBlocker # need that for default ClothingMaskGas
+  - type: UserInterface
+    interfaces:
+      enum.ChameleonUiKey.Key:
+        type: ChameleonBoundUserInterface
+  - type: HideLayerClothing
+    slots:
+    - Snout
 
 - type: entity
   parent: ClothingMaskGasChameleon
   id: ClothingMaskGasVoiceChameleon
   suffix: Voice Mask, Chameleon
   components:
-    - type: VoiceMask
-    - type: HideLayerClothing
-      slots:
-      - Snout
-    - type: UserInterface
-      interfaces:
-        enum.ChameleonUiKey.Key:
-          type: ChameleonBoundUserInterface
-        enum.VoiceMaskUIKey.Key:
-          type: VoiceMaskBoundUserInterface
-    - type: Tag
-      tags:
-      - IPCMaskWearable # EE - IPCs
+  - type: VoiceMask
+  - type: HideLayerClothing
+    slots:
+    - Snout
+  - type: UserInterface
+    interfaces:
+      enum.ChameleonUiKey.Key:
+        type: ChameleonBoundUserInterface
+      enum.VoiceMaskUIKey.Key:
+        type: VoiceMaskBoundUserInterface
+  - type: Tag
+    tags:
+    - IPCMaskWearable # EE - IPCs
 
 - type: entity
   parent: ClothingMaskBase
@@ -53,7 +53,7 @@
     sprite: Clothing/Mask/goldenmask.rsi
     layers:
     - state: icon
-      map: [ "mask" ]
+      map: ["mask"]
   - type: Clothing
     sprite: Clothing/Mask/goldenmask.rsi
   - type: Appearance
@@ -87,9 +87,9 @@
   # Frontier: pick random sprite on spawn
   - type: RandomSprite
     available:
-      - mask:
-          icon: ""
-          icon-despair: ""
-          icon-joy: ""
-          icon-anger: ""
+    - mask:
+        icon: ""
+        icon-despair: ""
+        icon-joy: ""
+        icon-anger: ""
   # End Frontier: random sprite on spawn

@@ -43,7 +43,13 @@ public partial struct MedicalGuideEntry
     [DataField]
     public DamageSpecifier? Healing;
 
-    public MedicalGuideEntry(EntProtoId result, string identifier, MedicalRecipeData[] recipes, ReagentQuantity[] composition, DamageSpecifier? healing)
+    public MedicalGuideEntry(
+        EntProtoId result,
+        string identifier,
+        MedicalRecipeData[] recipes,
+        ReagentQuantity[] composition,
+        DamageSpecifier? healing
+    )
     {
         Result = result;
         Identifier = identifier;

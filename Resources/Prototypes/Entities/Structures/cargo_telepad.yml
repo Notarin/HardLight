@@ -14,20 +14,19 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.45,-0.45,0.45,0.00"
         density: 190
         mask:
-          - MachineMask
+        - MachineMask
   - type: Sprite
     sprite: Structures/cargo_telepad.rsi
     drawdepth: HighFloorObjects
     layers:
     - state: offline
-      map: [ "enum.NFCargoTelepadLayers.Base" ] # Frontier: use NF values
+      map: ["enum.NFCargoTelepadLayers.Base"] # Frontier: use NF values
     - state: idle
-      map: [ "enum.NFCargoTelepadLayers.Beam" ] # Frontier: use NF values
+      map: ["enum.NFCargoTelepadLayers.Beam"] # Frontier: use NF values
       shader: unshaded
   - type: Damageable
     damageContainer: StructuralInorganic
@@ -35,11 +34,11 @@
   - type: DeviceNetwork
     deviceNetId: Wireless
     receiveFrequencyId: BasicDevice
-#  - type: WirelessNetworkConnection # Frontier
-#    range: 200 # Frontier
+    #  - type: WirelessNetworkConnection # Frontier
+    #    range: 200 # Frontier
   - type: DeviceLinkSink
     ports:
-      - OrderReceiver
+    - OrderReceiver
   - type: ApcPowerReceiver
     powerLoad: 1000 # TODO if we keep this make it spike power draw when teleporting
   - type: NFCargoTelepad # Frontier: use NF variant
@@ -47,6 +46,6 @@
     board: CargoTelepadMachineCircuitboard
   - type: Appearance
   - type: CollideOnAnchor
-#  - type: NameIdentifier # Frontier
-#    group: CargoTelepads # Frontier
+    #  - type: NameIdentifier # Frontier
+    #    group: CargoTelepads # Frontier
   - type: AnimationPlayer

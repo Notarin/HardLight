@@ -36,14 +36,19 @@ public sealed class TileStackRecursionTest
             if (ctdef.BaseTurf != null)
                 edges.Add((ctdef.BaseTurf.Value, ctdef.ID));
             Assert.That(ctdef.BaseWhitelist, Does.Not.Contain(ctdef.ID));
-            edges.AddRange(ctdef.BaseWhitelist.Select(possibleTurf =>
-                (possibleTurf, new ProtoId<ContentTileDefinition>(ctdef.ID))));
+            edges.AddRange(
+                ctdef.BaseWhitelist.Select(possibleTurf => (possibleTurf, new ProtoId<ContentTileDefinition>(ctdef.ID)))
+            );
         }
         Bfs(nodes, edges, maxTileHistoryLength);
         await pair.CleanReturnAsync();
     }
 
-    private void Bfs(List<(ProtoId<ContentTileDefinition>, int)> nodes, List<(ProtoId<ContentTileDefinition>, ProtoId<ContentTileDefinition>)> edges, int depthLimit)
+    private void Bfs(
+        List<(ProtoId<ContentTileDefinition>, int)> nodes,
+        List<(ProtoId<ContentTileDefinition>, ProtoId<ContentTileDefinition>)> edges,
+        int depthLimit
+    )
     {
         var root = nodes[0];
         var queue = new Queue<(ProtoId<ContentTileDefinition>, int)>();

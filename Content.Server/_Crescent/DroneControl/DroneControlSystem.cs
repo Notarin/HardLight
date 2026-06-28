@@ -17,13 +17,26 @@ namespace Content.Server._Crescent.DroneControl;
 
 public sealed class DroneControlSystem : EntitySystem
 {
-    [Dependency] private readonly DeviceListSystem _deviceList = default!;
-    [Dependency] private readonly DeviceNetworkSystem _deviceNetwork = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly HTNSystem _htn = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedUserInterfaceSystem _ui = default!;
-    [Dependency] private readonly ShuttleConsoleSystem _shuttleConsole = default!;
+    [Dependency]
+    private readonly DeviceListSystem _deviceList = default!;
+
+    [Dependency]
+    private readonly DeviceNetworkSystem _deviceNetwork = default!;
+
+    [Dependency]
+    private readonly EntityLookupSystem _lookup = default!;
+
+    [Dependency]
+    private readonly HTNSystem _htn = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly SharedUserInterfaceSystem _ui = default!;
+
+    [Dependency]
+    private readonly ShuttleConsoleSystem _shuttleConsole = default!;
 
     private EntityQuery<DroneControlComponent> _controlQuery;
 
@@ -69,12 +82,14 @@ public sealed class DroneControlSystem : EntitySystem
         if (!args.CanInteract || !args.CanAccess)
             return;
 
-        args.Verbs.Add(new AlternativeVerb
-        {
-            Text = Loc.GetString("drone-control-autolink"),
-            Priority = 10,
-            Act = () => TryAutolink(ent)
-        });
+        args.Verbs.Add(
+            new AlternativeVerb
+            {
+                Text = Loc.GetString("drone-control-autolink"),
+                Priority = 10,
+                Act = () => TryAutolink(ent),
+            }
+        );
     }
 
     private void OnListUpdate(Entity<DroneControlConsoleComponent> ent, ref DeviceListUpdateEvent args)
@@ -90,17 +105,30 @@ public sealed class DroneControlSystem : EntitySystem
 
     private void OnMoveMsg(Entity<DroneControlConsoleComponent> ent, ref DroneConsoleMoveMessage args)
     {
-        DoTargetedDroneOrder(ent, args.SelectedDrones, DroneOrderType.Move, GetCoordinates(args.TargetCoordinates), args.Actor);
+        DoTargetedDroneOrder(
+            ent,
+            args.SelectedDrones,
+            DroneOrderType.Move,
+            GetCoordinates(args.TargetCoordinates),
+            args.Actor
+        );
     }
 
     private void OnTargetMsg(Entity<DroneControlConsoleComponent> ent, ref DroneConsoleTargetMessage args)
     {
-        DoTargetedDroneOrder(ent, args.SelectedDrones, DroneOrderType.Target, GetCoordinates(args.TargetCoordinates), args.Actor);
+        DoTargetedDroneOrder(
+            ent,
+            args.SelectedDrones,
+            DroneOrderType.Target,
+            GetCoordinates(args.TargetCoordinates),
+            args.Actor
+        );
     }
 
     private void OnPacketReceived(Entity<DroneControlComponent> ent, ref DeviceNetworkPacketEvent args)
     {
-        if (!args.Data.TryGetValue(DeviceNetworkConstants.Command, out string? cmd)
+        if (
+            !args.Data.TryGetValue(DeviceNetworkConstants.Command, out string? cmd)
             || !TryComp<HTNComponent>(ent, out var htn)
             || !args.Data.TryGetValue(DroneConsoleConstants.TargetCoords, out EntityCoordinates coords)
         )
@@ -115,7 +143,13 @@ public sealed class DroneControlSystem : EntitySystem
         blackboard.SetValue(ent.Comp.TargetKey, coords);
     }
 
-    private void DoTargetedDroneOrder(Entity<DroneControlConsoleComponent> console, HashSet<NetEntity> selected, DroneOrderType order, EntityCoordinates coordinates, EntityUid actor)
+    private void DoTargetedDroneOrder(
+        Entity<DroneControlConsoleComponent> console,
+        HashSet<NetEntity> selected,
+        DroneOrderType order,
+        EntityCoordinates coordinates,
+        EntityUid actor
+    )
     {
         if (!coordinates.TryDistance(EntityManager, Transform(console).Coordinates, out var distance))
             return;
@@ -140,7 +174,7 @@ public sealed class DroneControlSystem : EntitySystem
         var payload = new NetworkPayload
         {
             [DeviceNetworkConstants.Command] = command,
-            [DroneConsoleConstants.TargetCoords] = coordinates
+            [DroneConsoleConstants.TargetCoords] = coordinates,
         };
 
         SendToSelected(console, selected, payload);
@@ -155,7 +189,9 @@ public sealed class DroneControlSystem : EntitySystem
 
         foreach (var (name, droneUid) in linked)
         {
-            if (selected.Contains(GetNetEntity(droneUid)) && TryComp<DeviceNetworkComponent>(droneUid, out var droneNet))
+            if (
+                selected.Contains(GetNetEntity(droneUid)) && TryComp<DeviceNetworkComponent>(droneUid, out var droneNet)
+            )
                 _deviceNetwork.QueuePacket(source, droneNet.Address, payload);
         }
     }
@@ -234,6 +270,10 @@ public sealed class DroneControlSystem : EntitySystem
         if (newDrones.Count != 0)
             _deviceList.UpdateDeviceList(fromEnt, newDrones, true);
 
-        _popup.PopupEntity(Loc.GetString("drone-control-autolinked", ("count", newDrones.Count)), fromEnt, PopupType.Large);
+        _popup.PopupEntity(
+            Loc.GetString("drone-control-autolinked", ("count", newDrones.Count)),
+            fromEnt,
+            PopupType.Large
+        );
     }
 }

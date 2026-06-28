@@ -13,12 +13,16 @@ public sealed partial class SectorPublicTransitComponent : Component
 {
     [DataField]
     public Dictionary<ProtoId<PublicTransitRoutePrototype>, PublicTransitRoute> Routes = new();
+
     [DataField]
     public bool StationsGenerated = false;
+
     [DataField]
     public bool RoutesCreated = false;
+
     [DataField]
     public TimeSpan UpdatePeriod = TimeSpan.FromSeconds(2);
+
     [DataField, AutoPausedField]
     public TimeSpan NextUpdate = TimeSpan.Zero;
 }

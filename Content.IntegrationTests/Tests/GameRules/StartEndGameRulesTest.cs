@@ -1,10 +1,10 @@
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Content.Server.GameTicking;
 using Content.Shared.CCVar;
 using Robust.Shared.Configuration;
 using Robust.Shared.GameObjects;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace Content.IntegrationTests.Tests.GameRules;
 
@@ -17,16 +17,19 @@ public sealed class StartEndGameRulesTest
     [Test]
     public async Task TestAllConcurrent()
     {
-        var eventWhitelist = new List<string> {
-            "LizardVents" // HL: the lizards anger the tests when they're destroyed
-        };
-        await using var pair = await PoolManager.GetServerClient(new PoolSettings
+        var eventWhitelist = new List<string>
         {
-            Dirty = true,
-            DummyTicker = true,
-            Fresh = true,
-            Destructive = true
-        });
+            "LizardVents", // HL: the lizards anger the tests when they're destroyed
+        };
+        await using var pair = await PoolManager.GetServerClient(
+            new PoolSettings
+            {
+                Dirty = true,
+                DummyTicker = true,
+                Fresh = true,
+                Destructive = true,
+            }
+        );
         var server = pair.Server;
         await server.WaitIdleAsync();
         var gameTicker = server.ResolveDependency<IEntitySystemManager>().GetEntitySystem<GameTicker>();

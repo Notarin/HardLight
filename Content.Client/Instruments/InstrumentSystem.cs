@@ -15,10 +15,17 @@ namespace Content.Client.Instruments;
 
 public sealed partial class InstrumentSystem : SharedInstrumentSystem
 {
-    [Dependency] private readonly IClientNetManager _netManager = default!;
-    [Dependency] private readonly IMidiManager _midiManager = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
+    [Dependency]
+    private readonly IClientNetManager _netManager = default!;
+
+    [Dependency]
+    private readonly IMidiManager _midiManager = default!;
+
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
 
     public readonly TimeSpan OneSecAgo = TimeSpan.FromSeconds(-1);
     public int MaxMidiEventsPerBatch { get; private set; }
@@ -46,7 +53,10 @@ public sealed partial class InstrumentSystem : SharedInstrumentSystem
 
     private bool _isUpdateQueued = false;
 
-    private void OnActiveInstrumentAfterHandleState(Entity<ActiveInstrumentComponent> ent, ref AfterAutoHandleStateEvent args)
+    private void OnActiveInstrumentAfterHandleState(
+        Entity<ActiveInstrumentComponent> ent,
+        ref AfterAutoHandleStateEvent args
+    )
     {
         // Called in the update loop so that the components update client side for resolving them in TryComps.
         _isUpdateQueued = true;
@@ -101,7 +111,7 @@ public sealed partial class InstrumentSystem : SharedInstrumentSystem
         if (!TryComp(uid, out InstrumentComponent? instrument))
             return;
 
-        if(value)
+        if (value)
             instrument.Renderer?.SendMidiEvent(RobustMidiEvent.AllNotesOff((byte)channel, 0), false);
 
         RaiseNetworkEvent(new InstrumentSetFilteredChannelEvent(GetNetEntity(uid), channel, value));
@@ -173,7 +183,7 @@ public sealed partial class InstrumentSystem : SharedInstrumentSystem
 
         for (int i = 0; i < RobustMidiEvent.MaxChannels; i++)
         {
-            if(instrument.FilteredChannels[i])
+            if (instrument.FilteredChannels[i])
                 instrument.Renderer.SendMidiEvent(RobustMidiEvent.AllNotesOff((byte)i, 0));
         }
 
@@ -227,7 +237,13 @@ public sealed partial class InstrumentSystem : SharedInstrumentSystem
         // We dispose of the synth two seconds from now to allow the last notes to stop from playing.
         // Don't use timers bound to the entity in case it is getting deleted.
         if (renderer != null)
-            Timer.Spawn(2000, () => { renderer.Dispose(); });
+            Timer.Spawn(
+                2000,
+                () =>
+                {
+                    renderer.Dispose();
+                }
+            );
 
         instrument.Renderer = null;
         instrument.MidiEventBuffer.Clear();
@@ -248,7 +264,7 @@ public sealed partial class InstrumentSystem : SharedInstrumentSystem
 
         instrument.MidiEventBuffer.Clear();
 
-        var tick = instrument.Renderer.SequencerTick-1;
+        var tick = instrument.Renderer.SequencerTick - 1;
 
         instrument.MidiEventBuffer.Add(RobustMidiEvent.SystemReset(tick));
         instrument.Renderer.PlayerTick = playerTick;
@@ -268,7 +284,6 @@ public sealed partial class InstrumentSystem : SharedInstrumentSystem
         instrument.MidiEventBuffer.Clear();
         instrument.Renderer.OnMidiEvent += instrument.MidiEventBuffer.Add;
         return true;
-
     }
 
     [Obsolete("Use overload that takes in byte[] instead.")]
@@ -366,8 +381,8 @@ public sealed partial class InstrumentSystem : SharedInstrumentSystem
             instrument.SequenceStartTick = midiEv.MidiEvent.Min(x => x.Tick) - 1;
         }
 
-        var sqrtLag = MathF.Sqrt((_netManager.ServerChannel?.Ping ?? 0)/ 1000f);
-        var delay = (uint) (renderer.SequencerTimeScale * (.2 + sqrtLag));
+        var sqrtLag = MathF.Sqrt((_netManager.ServerChannel?.Ping ?? 0) / 1000f);
+        var delay = (uint)(renderer.SequencerTimeScale * (.2 + sqrtLag));
         var delta = delay - instrument.SequenceStartTick;
 
         instrument.SequenceDelay = Math.Max(instrument.SequenceDelay, delta);
@@ -401,7 +416,7 @@ public sealed partial class InstrumentSystem : SharedInstrumentSystem
 
             // The order of events with the same timestamp is undefined in Fluidsynth's sequencer...
             // Therefore we add the event index to the scheduled time to ensure every event has an unique timestamp.
-            instrument.Renderer?.ScheduleMidiEvent(ev, scheduled+i, true);
+            instrument.Renderer?.ScheduleMidiEvent(ev, scheduled + i, true);
         }
     }
 
@@ -459,19 +474,17 @@ public sealed partial class InstrumentSystem : SharedInstrumentSystem
             // fix cross-fade events generating retroactive events
             // also handle any significant backlog of events after midi finished
 
-            var bufferTicks = instrument.IsRendererAlive && instrument.Renderer!.Status != MidiRendererStatus.None
-                ? instrument.Renderer.SequencerTimeScale * .2f
-                : 0;
+            var bufferTicks =
+                instrument.IsRendererAlive && instrument.Renderer!.Status != MidiRendererStatus.None
+                    ? instrument.Renderer.SequencerTimeScale * .2f
+                    : 0;
 
             var bufferedTick = instrument.IsRendererAlive
                 ? instrument.Renderer!.SequencerTick - bufferTicks
                 : int.MaxValue;
 
             // TODO: Remove LINQ brain-rot.
-            var events = instrument.MidiEventBuffer
-                .TakeWhile(x => x.Tick < bufferedTick)
-                .Take(max)
-                .ToArray();
+            var events = instrument.MidiEventBuffer.TakeWhile(x => x.Tick < bufferedTick).Take(max).ToArray();
 
             var eventCount = events.Length;
 

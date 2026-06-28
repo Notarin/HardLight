@@ -4,20 +4,16 @@ using Robust.Shared.Serialization;
 namespace Content.Shared.Kitchen.Components
 {
     [Serializable, NetSerializable]
-    public sealed class MicrowaveStartCookMessage : BoundUserInterfaceMessage
-    {
-    }
+    public sealed class MicrowaveStartCookMessage : BoundUserInterfaceMessage { }
 
     [Serializable, NetSerializable]
-    public sealed class MicrowaveEjectMessage : BoundUserInterfaceMessage
-    {
-
-    }
+    public sealed class MicrowaveEjectMessage : BoundUserInterfaceMessage { }
 
     [Serializable, NetSerializable]
     public sealed class MicrowaveEjectSolidIndexedMessage : BoundUserInterfaceMessage
     {
         public NetEntity EntityID;
+
         public MicrowaveEjectSolidIndexedMessage(NetEntity entityId)
         {
             EntityID = entityId;
@@ -28,6 +24,7 @@ namespace Content.Shared.Kitchen.Components
     public sealed class MicrowaveVaporizeReagentIndexedMessage : BoundUserInterfaceMessage
     {
         public ReagentQuantity ReagentQuantity;
+
         public MicrowaveVaporizeReagentIndexedMessage(ReagentQuantity reagentQuantity)
         {
             ReagentQuantity = reagentQuantity;
@@ -39,6 +36,7 @@ namespace Content.Shared.Kitchen.Components
     {
         public int ButtonIndex;
         public uint NewCookTime;
+
         public MicrowaveSelectCookTimeMessage(int buttonIndex, uint inputTime)
         {
             ButtonIndex = buttonIndex;
@@ -56,8 +54,13 @@ namespace Content.Shared.Kitchen.Components
 
         public TimeSpan CurrentCookTimeEnd;
 
-        public MicrowaveUpdateUserInterfaceState(NetEntity[] containedSolids,
-            bool isMicrowaveBusy, int activeButtonIndex, uint currentCookTime, TimeSpan currentCookTimeEnd)
+        public MicrowaveUpdateUserInterfaceState(
+            NetEntity[] containedSolids,
+            bool isMicrowaveBusy,
+            int activeButtonIndex,
+            uint currentCookTime,
+            TimeSpan currentCookTimeEnd
+        )
         {
             ContainedSolids = containedSolids;
             IsMicrowaveBusy = isMicrowaveBusy;
@@ -65,7 +68,6 @@ namespace Content.Shared.Kitchen.Components
             CurrentCookTime = currentCookTime;
             CurrentCookTimeEnd = currentCookTimeEnd;
         }
-
     }
 
     [Serializable, NetSerializable]
@@ -74,7 +76,7 @@ namespace Content.Shared.Kitchen.Components
         Idle,
         Cooking,
         Broken,
-        Bloody
+        Bloody,
     }
 
     [NetSerializable, Serializable]
@@ -85,5 +87,4 @@ namespace Content.Shared.Kitchen.Components
         AssemblerKey, // Frontier
         MedicalAssemblerKey, // Frontier
     }
-
 }

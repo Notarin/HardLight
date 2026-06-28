@@ -13,9 +13,11 @@ namespace Content.Server.NPC.HTN.PrimitiveTasks.Operators;
 /// </summary>
 public sealed partial class UtilityOperator : HTNOperator
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
 
-    [DataField("key")] public string Key = "Target";
+    [DataField("key")]
+    public string Key = "Target";
 
     /// <summary>
     /// The EntityCoordinates of the specified target.
@@ -23,11 +25,13 @@ public sealed partial class UtilityOperator : HTNOperator
     [DataField("keyCoordinates")]
     public string KeyCoordinates = "TargetCoordinates";
 
-    [DataField("proto", required: true, customTypeSerializer:typeof(PrototypeIdSerializer<UtilityQueryPrototype>))]
+    [DataField("proto", required: true, customTypeSerializer: typeof(PrototypeIdSerializer<UtilityQueryPrototype>))]
     public string Prototype = string.Empty;
 
-    public override async Task<(bool Valid, Dictionary<string, object>? Effects)> Plan(NPCBlackboard blackboard,
-        CancellationToken cancelToken)
+    public override async Task<(bool Valid, Dictionary<string, object>? Effects)> Plan(
+        NPCBlackboard blackboard,
+        CancellationToken cancelToken
+    )
     {
         var result = _entManager.System<NPCUtilitySystem>().GetEntities(blackboard, Prototype);
         var target = result.GetHighest();
@@ -39,8 +43,8 @@ public sealed partial class UtilityOperator : HTNOperator
 
         var effects = new Dictionary<string, object>()
         {
-            {Key, target},
-            {KeyCoordinates, new EntityCoordinates(target, Vector2.Zero)}
+            { Key, target },
+            { KeyCoordinates, new EntityCoordinates(target, Vector2.Zero) },
         };
 
         return (true, effects);

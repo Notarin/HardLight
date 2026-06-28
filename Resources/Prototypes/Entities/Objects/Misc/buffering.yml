@@ -1,6 +1,6 @@
 - type: entity
   id: BufferingIcon
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: Objects/Misc/buffering.rsi

@@ -63,8 +63,9 @@ public sealed partial class ParallaxLayerConfig
     /// <summary>
     /// Should the parallax scroll at a specific rate per second.
     /// </summary>
-    [DataField("scrolling")] public Vector2 Scrolling = Vector2.Zero;
+    [DataField("scrolling")]
+    public Vector2 Scrolling = Vector2.Zero;
 
-    [DataField("shader")] public string? Shader = "unshaded";
+    [DataField("shader")]
+    public string? Shader = "unshaded";
 }
-

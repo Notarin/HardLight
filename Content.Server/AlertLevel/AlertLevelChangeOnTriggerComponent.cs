@@ -1,6 +1,7 @@
 using Content.Server.AlertLevel.Systems;
 
 namespace Content.Server.AlertLevel;
+
 /// <summary>
 /// This component is for changing the alert level of the station when triggered.
 /// </summary>

@@ -11,8 +11,8 @@ namespace Content.Shared.Abilities.Psionics
         public float Range = 5f;
 
         public InstantActionComponent? MetapsionicPowerAction = null;
-        [DataField("metapsionicActionId",
-        customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
+
+        [DataField("metapsionicActionId", customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
         public string? MetapsionicActionId = "ActionTelegnosis";
 
         [DataField("metapsionicActionEntity")]

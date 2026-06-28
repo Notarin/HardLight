@@ -1,17 +1,21 @@
-using Robust.Client.Graphics;
-using Robust.Client.Player;
 using Content.Shared.Eye.Blinding.Components;
 using Content.Shared.GameTicking;
+using Robust.Client.Graphics;
+using Robust.Client.Player;
 using Robust.Shared.Player;
 
 namespace Content.Client.Eye.Blinding;
 
 public sealed class BlindingSystem : EntitySystem
 {
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IOverlayManager _overlayMan = default!;
-    [Dependency] ILightManager _lightManager = default!;
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
 
+    [Dependency]
+    private readonly IOverlayManager _overlayMan = default!;
+
+    [Dependency]
+    ILightManager _lightManager = default!;
 
     private BlindOverlay _overlay = default!;
 

@@ -37,17 +37,21 @@ public sealed partial class NanoChatLookupView : DefaultWindow
 
     public sealed class ContactContainer : PanelContainer
     {
-        public ContactContainer(NanoChatRecipient contact, NanoChatUiState state, bool isEvenRow, Action<NanoChatRecipient>? onStartChat)
+        public ContactContainer(
+            NanoChatRecipient contact,
+            NanoChatUiState state,
+            bool isEvenRow,
+            Action<NanoChatRecipient>? onStartChat
+        )
         {
             HorizontalExpand = true;
             StyleClasses.Add(isEvenRow ? "PanelBackgroundBaseDark" : "PanelBackgroundLight");
-
 
             var nameLabel = new Label()
             {
                 Text = contact.Name,
                 HorizontalAlignment = HAlignment.Left,
-                HorizontalExpand = true
+                HorizontalExpand = true,
             };
             var numberLabel = new Label()
             {
@@ -65,7 +69,11 @@ public sealed partial class NanoChatLookupView : DefaultWindow
             };
 
             startChatButton.AddStyleClass("OpenBoth");
-            if (contact.Number == state.OwnNumber || state.Recipients.ContainsKey(contact.Number) || state.MaxRecipients <= state.Recipients.Count)
+            if (
+                contact.Number == state.OwnNumber
+                || state.Recipients.ContainsKey(contact.Number)
+                || state.MaxRecipients <= state.Recipients.Count
+            )
             {
                 startChatButton.Disabled = true;
             }

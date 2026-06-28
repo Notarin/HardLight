@@ -1,3 +1,4 @@
+using System.Linq;
 using Content.Server.DeviceNetwork.Systems;
 using Content.Shared.Access;
 using Content.Shared.DeviceNetwork;
@@ -8,15 +9,17 @@ using Content.Shared.TurretController;
 using Content.Shared.Turrets;
 using Robust.Server.GameObjects;
 using Robust.Shared.Prototypes;
-using System.Linq;
 
 namespace Content.Server.TurretController;
 
 /// <inheritdoc/>
 public sealed partial class DeployableTurretControllerSystem : SharedDeployableTurretControllerSystem
 {
-    [Dependency] private readonly UserInterfaceSystem _userInterfaceSystem = default!;
-    [Dependency] private readonly DeviceNetworkSystem _deviceNetwork = default!;
+    [Dependency]
+    private readonly UserInterfaceSystem _userInterfaceSystem = default!;
+
+    [Dependency]
+    private readonly DeviceNetworkSystem _deviceNetwork = default!;
 
     /// Keys for the device network. See <see cref="DeviceNetworkConstants"/> for further examples.
     public const string CmdSetArmamemtState = "set_armament_state";
@@ -45,10 +48,7 @@ public sealed partial class DeployableTurretControllerSystem : SharedDeployableT
         var turretsToAdd = args.Devices.Except(args.OldDevices);
 
         // Request data from newly linked devices
-        var payload = new NetworkPayload
-        {
-            [DeviceNetworkConstants.Command] = DeviceNetworkConstants.CmdUpdatedState,
-        };
+        var payload = new NetworkPayload { [DeviceNetworkConstants.Command] = DeviceNetworkConstants.CmdUpdatedState };
 
         foreach (var turretUid in turretsToAdd)
         {
@@ -83,19 +83,28 @@ public sealed partial class DeployableTurretControllerSystem : SharedDeployableT
         if (!args.Data.TryGetValue(DeviceNetworkConstants.Command, out string? command))
             return;
 
-        if (!TryComp<DeviceNetworkComponent>(ent, out var deviceNetwork) || deviceNetwork.ReceiveFrequency != args.Frequency)
+        if (
+            !TryComp<DeviceNetworkComponent>(ent, out var deviceNetwork)
+            || deviceNetwork.ReceiveFrequency != args.Frequency
+        )
             return;
 
         // If an update was received from a turret, connect to it and update the UI
-        if (command == DeviceNetworkConstants.CmdUpdatedState &&
-            args.Data.TryGetValue(command, out DeployableTurretState updatedState))
+        if (
+            command == DeviceNetworkConstants.CmdUpdatedState
+            && args.Data.TryGetValue(command, out DeployableTurretState updatedState)
+        )
         {
             ent.Comp.LinkedTurrets[args.SenderAddress] = updatedState;
             UpdateUIState(ent);
         }
     }
 
-    protected override void ChangeArmamentSetting(Entity<DeployableTurretControllerComponent> ent, int armamentState, EntityUid? user = null)
+    protected override void ChangeArmamentSetting(
+        Entity<DeployableTurretControllerComponent> ent,
+        int armamentState,
+        EntityUid? user = null
+    )
     {
         base.ChangeArmamentSetting(ent, armamentState, user);
 
@@ -121,8 +130,10 @@ public sealed partial class DeployableTurretControllerSystem : SharedDeployableT
     {
         base.ChangeExemptAccessLevels(ent, exemptions, enabled, user);
 
-        if (!TryComp<DeviceNetworkComponent>(ent, out var device) ||
-            !TryComp<TurretTargetSettingsComponent>(ent, out var turretTargetingSettings))
+        if (
+            !TryComp<DeviceNetworkComponent>(ent, out var device)
+            || !TryComp<TurretTargetSettingsComponent>(ent, out var turretTargetingSettings)
+        )
             return;
 
         // Update linked turrets' target selection exemptions

@@ -8,9 +8,14 @@ namespace Content.Shared.Construction.Conditions;
 [DataDefinition]
 public sealed partial class TileNotBlocked : IConstructionCondition
 {
-    [DataField("filterMobs")] private bool _filterMobs = false;
-    [DataField("failIfSpace")] private bool _failIfSpace = true;
-    [DataField("failIfNotSturdy")] private bool _failIfNotSturdy = true;
+    [DataField("filterMobs")]
+    private bool _filterMobs = false;
+
+    [DataField("failIfSpace")]
+    private bool _failIfSpace = true;
+
+    [DataField("failIfNotSturdy")]
+    private bool _failIfNotSturdy = true;
 
     public bool Condition(EntityUid user, EntityCoordinates location, Direction direction)
     {
@@ -36,9 +41,6 @@ public sealed partial class TileNotBlocked : IConstructionCondition
 
     public ConstructionGuideEntry GenerateGuideEntry()
     {
-        return new ConstructionGuideEntry
-        {
-            Localization = "construction-step-condition-tile-not-blocked",
-        };
+        return new ConstructionGuideEntry { Localization = "construction-step-condition-tile-not-blocked" };
     }
 }

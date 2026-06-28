@@ -1,8 +1,8 @@
 using Content.Server.Objectives.Components;
 using Content.Server.Roles;
 using Content.Server.Warps;
-using Content.Shared.Objectives.Components;
 using Content.Shared.Ninja.Components;
+using Content.Shared.Objectives.Components;
 using Content.Shared.Roles;
 using Content.Shared.Warps;
 using Robust.Shared.Random;
@@ -15,10 +15,17 @@ namespace Content.Server.Objectives.Systems;
 /// </summary>
 public sealed class NinjaConditionsSystem : EntitySystem
 {
-    [Dependency] private readonly MetaDataSystem _metaData = default!;
-    [Dependency] private readonly NumberObjectiveSystem _number = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedRoleSystem _roles = default!;
+    [Dependency]
+    private readonly MetaDataSystem _metaData = default!;
+
+    [Dependency]
+    private readonly NumberObjectiveSystem _number = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly SharedRoleSystem _roles = default!;
 
     public override void Initialize()
     {
@@ -32,7 +39,11 @@ public sealed class NinjaConditionsSystem : EntitySystem
 
     // doorjack
 
-    private void OnDoorjackGetProgress(EntityUid uid, DoorjackConditionComponent comp, ref ObjectiveGetProgressEvent args)
+    private void OnDoorjackGetProgress(
+        EntityUid uid,
+        DoorjackConditionComponent comp,
+        ref ObjectiveGetProgressEvent args
+    )
     {
         args.Progress = DoorjackProgress(comp, _number.GetTarget(uid));
     }
@@ -43,11 +54,15 @@ public sealed class NinjaConditionsSystem : EntitySystem
         if (target == 0)
             return 1f;
 
-        return MathF.Min(comp.DoorsJacked / (float) target, 1f);
+        return MathF.Min(comp.DoorsJacked / (float)target, 1f);
     }
 
     // spider charge
-    private void OnSpiderChargeRequirementCheck(EntityUid uid, SpiderChargeConditionComponent comp, ref RequirementCheckEvent args)
+    private void OnSpiderChargeRequirementCheck(
+        EntityUid uid,
+        SpiderChargeConditionComponent comp,
+        ref RequirementCheckEvent args
+    )
     {
         if (args.Cancelled || !_roles.MindHasRole<NinjaRoleComponent>(args.MindId))
             return;
@@ -71,7 +86,11 @@ public sealed class NinjaConditionsSystem : EntitySystem
         comp.Target = _random.Pick(warps);
     }
 
-    private void OnSpiderChargeAfterAssign(EntityUid uid, SpiderChargeConditionComponent comp, ref ObjectiveAfterAssignEvent args)
+    private void OnSpiderChargeAfterAssign(
+        EntityUid uid,
+        SpiderChargeConditionComponent comp,
+        ref ObjectiveAfterAssignEvent args
+    )
     {
         string title;
         if (comp.Target == null || !TryComp<WarpPointComponent>(comp.Target, out var warp) || warp.Location == null)
@@ -88,7 +107,11 @@ public sealed class NinjaConditionsSystem : EntitySystem
 
     // steal research
 
-    private void OnStealResearchGetProgress(EntityUid uid, StealResearchConditionComponent comp, ref ObjectiveGetProgressEvent args)
+    private void OnStealResearchGetProgress(
+        EntityUid uid,
+        StealResearchConditionComponent comp,
+        ref ObjectiveGetProgressEvent args
+    )
     {
         args.Progress = StealResearchProgress(comp, _number.GetTarget(uid));
     }
@@ -99,6 +122,6 @@ public sealed class NinjaConditionsSystem : EntitySystem
         if (target == 0)
             return 1f;
 
-        return MathF.Min(comp.DownloadedNodes.Count / (float) target, 1f);
+        return MathF.Min(comp.DownloadedNodes.Count / (float)target, 1f);
     }
 }

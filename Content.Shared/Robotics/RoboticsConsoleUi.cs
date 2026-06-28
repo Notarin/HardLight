@@ -1,4 +1,4 @@
-﻿﻿using Robust.Shared.Prototypes;
+﻿using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 using Robust.Shared.Utility;
@@ -8,7 +8,7 @@ namespace Content.Shared.Robotics;
 [Serializable, NetSerializable]
 public enum RoboticsConsoleUiKey : byte
 {
-    Key
+    Key,
 }
 
 [Serializable, NetSerializable]
@@ -111,7 +111,15 @@ public partial record struct CyborgControlData
     [DataField(customTypeSerializer: typeof(TimeOffsetSerializer))]
     public TimeSpan Timeout = TimeSpan.Zero;
 
-    public CyborgControlData(SpriteSpecifier? chassisSprite, string chassisName, string name, float charge, int moduleCount, bool hasBrain, bool canDisable)
+    public CyborgControlData(
+        SpriteSpecifier? chassisSprite,
+        string chassisName,
+        string name,
+        float charge,
+        int moduleCount,
+        bool hasBrain,
+        bool canDisable
+    )
     {
         ChassisSprite = chassisSprite;
         ChassisName = chassisName;

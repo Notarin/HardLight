@@ -1,25 +1,34 @@
+using System.Diagnostics.CodeAnalysis;
 using Content.Server.Access.Components;
 using Content.Server.Popups;
-using Content.Shared.UserInterface;
+using Content.Shared._DeltaV.NanoChat; // DeltaV
 using Content.Shared.Access.Components;
 using Content.Shared.Access.Systems;
 using Content.Shared.Interaction;
+using Content.Shared.Roles;
 using Content.Shared.StatusIcon;
+using Content.Shared.UserInterface;
 using Robust.Server.GameObjects;
 using Robust.Shared.Prototypes;
-using Content.Shared.Roles;
-using System.Diagnostics.CodeAnalysis;
-using Content.Shared._DeltaV.NanoChat; // DeltaV
 
 namespace Content.Server.Access.Systems
 {
     public sealed class AgentIDCardSystem : SharedAgentIdCardSystem
     {
-        [Dependency] private readonly PopupSystem _popupSystem = default!;
-        [Dependency] private readonly IdCardSystem _cardSystem = default!;
-        [Dependency] private readonly UserInterfaceSystem _uiSystem = default!;
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        [Dependency] private readonly SharedNanoChatSystem _nanoChat = default!; // DeltaV
+        [Dependency]
+        private readonly PopupSystem _popupSystem = default!;
+
+        [Dependency]
+        private readonly IdCardSystem _cardSystem = default!;
+
+        [Dependency]
+        private readonly UserInterfaceSystem _uiSystem = default!;
+
+        [Dependency]
+        private readonly IPrototypeManager _prototypeManager = default!;
+
+        [Dependency]
+        private readonly SharedNanoChatSystem _nanoChat = default!; // DeltaV
 
         public override void Initialize()
         {
@@ -45,7 +54,12 @@ namespace Content.Server.Access.Systems
 
         private void OnAfterInteract(EntityUid uid, AgentIDCardComponent component, AfterInteractEvent args)
         {
-            if (args.Target == null || !args.CanReach || !TryComp<AccessComponent>(args.Target, out var targetAccess) || !HasComp<IdCardComponent>(args.Target))
+            if (
+                args.Target == null
+                || !args.CanReach
+                || !TryComp<AccessComponent>(args.Target, out var targetAccess)
+                || !HasComp<IdCardComponent>(args.Target)
+            )
                 return;
 
             if (!TryComp<AccessComponent>(uid, out var access) || !HasComp<IdCardComponent>(uid))
@@ -56,8 +70,10 @@ namespace Content.Server.Access.Systems
             var addedLength = access.Tags.Count - beforeLength;
 
             // DeltaV - Copy NanoChat data if available
-            if (TryComp<NanoChatCardComponent>(args.Target, out var targetNanoChat) &&
-                TryComp<NanoChatCardComponent>(uid, out var agentNanoChat))
+            if (
+                TryComp<NanoChatCardComponent>(args.Target, out var targetNanoChat)
+                && TryComp<NanoChatCardComponent>(uid, out var agentNanoChat)
+            )
             {
                 // First clear existing data
                 _nanoChat.Clear((uid, agentNanoChat));
@@ -67,12 +83,16 @@ namespace Content.Server.Access.Systems
                     _nanoChat.SetNumber((uid, agentNanoChat), number);
 
                 // Copy all recipients and their messages
-                foreach (var (recipientNumber, recipient) in _nanoChat.GetRecipients((args.Target.Value, targetNanoChat)))
+                foreach (
+                    var (recipientNumber, recipient) in _nanoChat.GetRecipients((args.Target.Value, targetNanoChat))
+                )
                 {
                     _nanoChat.SetRecipient((uid, agentNanoChat), recipientNumber, recipient);
 
-                    if (_nanoChat.GetMessagesForRecipient((args.Target.Value, targetNanoChat), recipientNumber) is not
-                        { } messages)
+                    if (
+                        _nanoChat.GetMessagesForRecipient((args.Target.Value, targetNanoChat), recipientNumber)
+                        is not { } messages
+                    )
                         continue;
 
                     foreach (var message in messages)
@@ -85,7 +105,11 @@ namespace Content.Server.Access.Systems
 
             if (addedLength == 0)
             {
-                _popupSystem.PopupEntity(Loc.GetString("agent-id-no-new", ("card", args.Target)), args.Target.Value, args.User);
+                _popupSystem.PopupEntity(
+                    Loc.GetString("agent-id-no-new", ("card", args.Target)),
+                    args.Target.Value,
+                    args.User
+                );
                 return;
             }
 
@@ -93,11 +117,19 @@ namespace Content.Server.Access.Systems
 
             if (addedLength == 1)
             {
-                _popupSystem.PopupEntity(Loc.GetString("agent-id-new-1", ("card", args.Target)), args.Target.Value, args.User);
+                _popupSystem.PopupEntity(
+                    Loc.GetString("agent-id-new-1", ("card", args.Target)),
+                    args.Target.Value,
+                    args.User
+                );
                 return;
             }
 
-            _popupSystem.PopupEntity(Loc.GetString("agent-id-new", ("number", addedLength), ("card", args.Target)), args.Target.Value, args.User);
+            _popupSystem.PopupEntity(
+                Loc.GetString("agent-id-new", ("number", addedLength), ("card", args.Target)),
+                args.Target.Value,
+                args.User
+            );
             if (addedLength > 0)
                 Dirty(uid, access);
         }
@@ -119,7 +151,8 @@ namespace Content.Server.Access.Systems
                 idCard.FullName ?? "",
                 idCard.LocalizedJobTitle ?? "",
                 idCard.JobIcon,
-                currentNumber); // DeltaV - Pass current number
+                currentNumber
+            ); // DeltaV - Pass current number
 
             _uiSystem.SetUiState(uid, AgentIDCardUiKey.Key, state);
         }

@@ -2,17 +2,17 @@
 - type: entity
   id: BaseMagazine762x39mm
   name: "magazine (762x39mm FMJ)"
-  parent: [ BaseItem, BaseC1Contraband, RecyclableItemSteelTiny ] # Frontier: BaseSecurityContraband<BaseC1Contraband added RecyclableItemSteelTiny
+  parent: [BaseItem, BaseC1Contraband, RecyclableItemSteelTiny] # Frontier: BaseSecurityContraband<BaseC1Contraband added RecyclableItemSteelTiny
   abstract: true
   components:
   - type: Tag
     tags:
-      - Magazine762x39mmFMJ
+    - Magazine762x39mmFMJ
   - type: BallisticAmmoProvider
     mayTransfer: true
     whitelist:
       tags:
-        - Cartridge762x39mmFMJ
+      - Cartridge762x39mmFMJ
     proto: Cartridge762x39mmFMJ
     capacity: 30
   - type: Item
@@ -41,7 +41,7 @@
   components:
   - type: Tag
     tags:
-      - Magazine762x39mmBox
+    - Magazine762x39mmBox
   - type: BallisticAmmoProvider
     proto: Cartridge762x39mmFMJ
     capacity: 100
@@ -132,7 +132,7 @@
   components:
   - type: Tag
     tags:
-      - Magazine762x39mmPan
+    - Magazine762x39mmPan
   - type: BallisticAmmoProvider
     proto: Cartridge762x39mmFMJ
     capacity: 96
@@ -146,7 +146,7 @@
   components:
   - type: Tag
     tags:
-      - Magazine762x39mmBox
+    - Magazine762x39mmBox
   - type: BallisticAmmoProvider
     proto: Cartridge762x39mmFMJ
     capacity: 80
@@ -181,7 +181,7 @@
   components:
   - type: Tag
     tags:
-      - Magazine762x39mmLowCapacityFMJ
+    - Magazine762x39mmLowCapacityFMJ
   - type: BallisticAmmoProvider
     proto: null
   - type: Item
@@ -201,7 +201,7 @@
   components:
   - type: Tag
     tags:
-      - Magazine762x39mmLowCapacityFMJ
+    - Magazine762x39mmLowCapacityFMJ
   - type: BallisticAmmoProvider
     capacity: 15
   - type: Item
@@ -277,14 +277,14 @@
   components:
   - type: Tag
     tags:
-      - Magazine762x39mmSubsonic
-      - Magazine762x39mmFMJ
+    - Magazine762x39mmSubsonic
+    - Magazine762x39mmFMJ
   - type: BallisticAmmoProvider
     proto: Cartridge762x39mmSubsonic
     mayTransfer: true
     whitelist:
       tags:
-        - Cartridge762x39mmSubsonic
+      - Cartridge762x39mmSubsonic
     capacity: 35
   - type: Sprite
     layers:
@@ -292,5 +292,4 @@
       map: ["enum.GunVisualLayers.Base"]
     - state: mag-1
       map: ["enum.GunVisualLayers.Mag"]
-
 

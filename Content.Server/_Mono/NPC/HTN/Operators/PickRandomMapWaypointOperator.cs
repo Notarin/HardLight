@@ -17,8 +17,11 @@ namespace Content.Server._Mono.NPC.HTN.Operators;
 /// </summary>
 public sealed partial class PickRandomMapWaypointOperator : HTNOperator
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
 
     /// <summary>
     /// Blackboard key the picked <see cref="EntityCoordinates"/> are written to.
@@ -38,8 +41,10 @@ public sealed partial class PickRandomMapWaypointOperator : HTNOperator
     [DataField]
     public float MaxDistance = 20000f;
 
-    public override async Task<(bool Valid, Dictionary<string, object>? Effects)> Plan(NPCBlackboard blackboard,
-        CancellationToken cancelToken)
+    public override async Task<(bool Valid, Dictionary<string, object>? Effects)> Plan(
+        NPCBlackboard blackboard,
+        CancellationToken cancelToken
+    )
     {
         if (!blackboard.TryGetValue<EntityUid>(NPCBlackboard.Owner, out var owner, _entManager))
             return (false, null);
@@ -61,9 +66,6 @@ public sealed partial class PickRandomMapWaypointOperator : HTNOperator
 
         var coords = new EntityCoordinates(mapUid.Value, pos);
 
-        return (true, new Dictionary<string, object>
-        {
-            { OutputKey, coords },
-        });
+        return (true, new Dictionary<string, object> { { OutputKey, coords } });
     }
 }

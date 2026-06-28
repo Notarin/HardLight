@@ -7,7 +7,4 @@ namespace Content.Shared.Pinpointer;
 /// </summary>
 [RegisterComponent, NetworkedComponent]
 [Access(typeof(SharedNavMapSystem))]
-public sealed partial class NavMapDoorComponent : Component
-{
-
-}
+public sealed partial class NavMapDoorComponent : Component { }

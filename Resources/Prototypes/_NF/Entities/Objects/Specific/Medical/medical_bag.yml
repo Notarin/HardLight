@@ -10,7 +10,7 @@
     - state: icon
     - state: icon-on
       visible: false
-      map: [ "enum.ToggleVisuals.Layer" ]
+      map: ["enum.ToggleVisuals.Layer"]
   - type: Clothing
     sprite: _NF/Objects/Specific/Medical/medical_bag.rsi
     quickEquip: false
@@ -21,20 +21,20 @@
     areaInsert: true
     whitelist:
       components:
-        - Injector
+      - Injector
       tags:
-        - Pill
-        - Hypospray
-        - PillCanister
-        - CentrifugeCompatible
-        - Syringe
-        - Ointment
-        - Brutepack
-        - Bloodpack
-        - Gauze
-        - Bottle
-        - JetInjector
-        - Medipen
+      - Pill
+      - Hypospray
+      - PillCanister
+      - CentrifugeCompatible
+      - Syringe
+      - Ointment
+      - Brutepack
+      - Bloodpack
+      - Gauze
+      - Bottle
+      - JetInjector
+      - Medipen
   - type: Dumpable
   - type: MagnetPickup
     magnetEnabled: false
@@ -57,6 +57,6 @@
     visuals:
       enum.ToggleVisuals.Toggled:
         enum.ToggleVisuals.Layer:
-          True: { visible: True }
-          False: { visible: False }
+          True: {visible: True}
+          False: {visible: False}
   # End Frontier

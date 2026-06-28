@@ -22,5 +22,5 @@
   components:
   - type: StorageFill
     contents:
-      - id: CombatKnife
-        amount: 4
+    - id: CombatKnife
+      amount: 4

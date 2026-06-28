@@ -8,11 +8,13 @@ namespace Content.Server.Administration.Commands
     [AdminCommand(AdminFlags.Round)]
     public sealed class ReadyAll : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _e = default!;
+        [Dependency]
+        private readonly IEntityManager _e = default!;
 
         public string Command => "readyall";
         public string Description => "Readies up all players in the lobby, except for observers.";
         public string Help => $"{Command} | ̣{Command} <ready>";
+
         public void Execute(IConsoleShell shell, string argStr, string[] args)
         {
             var ready = true;
@@ -23,7 +25,6 @@ namespace Content.Server.Administration.Commands
             }
 
             var gameTicker = _e.System<GameTicker>();
-
 
             if (gameTicker.RunLevel != GameRunLevel.PreRoundLobby)
             {

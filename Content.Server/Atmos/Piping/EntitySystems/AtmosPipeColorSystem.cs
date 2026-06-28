@@ -6,7 +6,8 @@ namespace Content.Server.Atmos.Piping.EntitySystems
 {
     public sealed class AtmosPipeColorSystem : EntitySystem
     {
-        [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+        [Dependency]
+        private readonly SharedAppearanceSystem _appearance = default!;
 
         public override void Initialize()
         {

@@ -19,29 +19,35 @@ public static class ClientPackaging
 
         if (!skipBuild)
         {
-            await ProcessHelpers.RunCheck(new ProcessStartInfo
-            {
-                FileName = "dotnet",
-                ArgumentList =
+            await ProcessHelpers.RunCheck(
+                new ProcessStartInfo
                 {
-                    "build",
-                    Path.Combine("Content.Client", "Content.Client.csproj"),
-                    "-c", configuration,
-                    "--nologo",
-                    "/v:m",
-                    "/t:Rebuild",
-                    "/p:FullRelease=true",
-                    "/m"
+                    FileName = "dotnet",
+                    ArgumentList =
+                    {
+                        "build",
+                        Path.Combine("Content.Client", "Content.Client.csproj"),
+                        "-c",
+                        configuration,
+                        "--nologo",
+                        "/v:m",
+                        "/t:Rebuild",
+                        "/p:FullRelease=true",
+                        "/m",
+                    },
                 }
-            });
+            );
         }
 
         logger.Info("Packaging client...");
 
         var sw = RStopwatch.StartNew();
         {
-            await using var zipFile =
-                File.Open(Path.Combine("release", "SS14.Client.zip"), FileMode.Create, FileAccess.ReadWrite);
+            await using var zipFile = File.Open(
+                Path.Combine("release", "SS14.Client.zip"),
+                FileMode.Create,
+                FileAccess.ReadWrite
+            );
             using var zip = new ZipArchive(zipFile, ZipArchiveMode.Update);
             var writer = new AssetPassZipWriter(zip);
 
@@ -56,18 +62,16 @@ public static class ClientPackaging
         string contentDir,
         AssetPass pass,
         IPackageLogger logger,
-        CancellationToken cancel)
+        CancellationToken cancel
+    )
     {
         var graph = new RobustClientAssetGraph();
         pass.Dependencies.Add(new AssetPassDependency(graph.Output.Name));
 
-        var dropSvgPass = new AssetPassFilterDrop(f => f.Path.EndsWith(".svg"))
-        {
-            Name = "DropSvgPass",
-        };
+        var dropSvgPass = new AssetPassFilterDrop(f => f.Path.EndsWith(".svg")) { Name = "DropSvgPass" };
         dropSvgPass.AddDependency(graph.Input).AddBefore(graph.PresetPasses);
 
-        AssetGraph.CalculateGraph([pass, dropSvgPass, ..graph.AllPasses], logger);
+        AssetGraph.CalculateGraph([pass, dropSvgPass, .. graph.AllPasses], logger);
 
         var inputPass = graph.Input;
 
@@ -76,7 +80,8 @@ public static class ClientPackaging
             contentDir,
             "Content.Client",
             new[] { "Content.Client", "Content.Shared", "Content.Shared.Database" },
-            cancel: cancel);
+            cancel: cancel
+        );
 
         await RobustClientPackaging.WriteClientResources(contentDir, inputPass, cancel);
 

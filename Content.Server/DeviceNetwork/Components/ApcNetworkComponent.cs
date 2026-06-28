@@ -12,6 +12,7 @@ namespace Content.Server.DeviceNetwork.Components
         /// <summary>
         /// The node Group the ApcNetworkConnection is connected to
         /// </summary>
-        [ViewVariables] public Node? ConnectedNode;
+        [ViewVariables]
+        public Node? ConnectedNode;
     }
 }

@@ -9,7 +9,11 @@ namespace Content.Client.Strip
     {
         public LayoutContainer InventoryContainer = new();
         public LayoutContainer HandsContainer = new();
-        public BoxContainer ButtonContainer = new() { Orientation = LayoutOrientation.Vertical, Margin = new Thickness(0, 0, 0, 5) };
+        public BoxContainer ButtonContainer = new()
+        {
+            Orientation = LayoutOrientation.Vertical,
+            Margin = new Thickness(0, 0, 0, 5),
+        };
         public bool Dirty = true;
 
         public event Action? OnDirty;

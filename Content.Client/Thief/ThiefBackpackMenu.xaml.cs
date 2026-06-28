@@ -9,7 +9,8 @@ namespace Content.Client.Thief;
 [GenerateTypedNameReferences]
 public sealed partial class ThiefBackpackMenu : FancyWindow
 {
-    [Dependency] private readonly IEntitySystemManager _sysMan = default!;
+    [Dependency]
+    private readonly IEntitySystemManager _sysMan = default!;
     private readonly SpriteSystem _spriteSystem;
 
     public event Action? OnApprove;
@@ -47,7 +48,11 @@ public sealed partial class ThiefBackpackMenu : FancyWindow
         }
 
         Description.Text = Loc.GetString("thief-backpack-window-description", ("maxCount", state.MaxSelectedSets));
-        SelectedSets.Text = Loc.GetString("thief-backpack-window-selected", ("selectedCount", selectedNumber), ("maxCount", state.MaxSelectedSets));
+        SelectedSets.Text = Loc.GetString(
+            "thief-backpack-window-selected",
+            ("selectedCount", selectedNumber),
+            ("maxCount", state.MaxSelectedSets)
+        );
         ApproveButton.Disabled = selectedNumber != state.MaxSelectedSets;
     }
 }

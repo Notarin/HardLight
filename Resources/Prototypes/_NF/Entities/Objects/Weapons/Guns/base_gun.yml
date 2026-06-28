@@ -1,15 +1,15 @@
 #region base weapon
 - type: entity
   id: NFBaseItemWeaponGun
-  parent: [ BaseC1Contraband, BaseItem ]
+  parent: [BaseC1Contraband, BaseItem]
   suffix: Frontier
   abstract: true
   components:
   - type: Sprite
     sprite: Objects/Weapons/Guns/Pistols/mk58.rsi
     layers:
-      - state: base
-        map: ["enum.GunVisualLayers.Base"]
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
   - type: Gun
   - type: AmmoCounter
   - type: Appearance
@@ -23,10 +23,10 @@
   components:
   - type: Sprite
     layers:
-      - state: base
-        map: ["enum.GunVisualLayers.Base"]
-      - state: mag-0
-        map: ["enum.GunVisualLayers.Mag"]
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
   - type: MagazineVisuals
     magState: mag
     steps: 1

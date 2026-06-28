@@ -16,153 +16,149 @@
     belt: ClothingBeltSheathFilled
     back: ClothingBackpackDuffelHoldingVulrikFilled
     id: CentcomPDA
-  # inhand:
+    # inhand:
     # - PlushieLizard
-
-
-
-# pocket1
-# - type: entity
-  # id:
-  # parent:
-  # name:
-  # description:
-  # suffix:
-  # components:
-
-# pocket2
-# - type: entity
-  # id:
-  # parent:
-  # name:
-  # description:
-  # suffix:
-  # components:
-
-
-
-# head
-# - type: entity
-  # id:
-  # parent:
-  # name:
-  # description:
-  # suffix:
-  # components:
-
-# neck
-# - type: entity
-  # id:
-  # parent:
-  # name:
-  # description:
-  # suffix:
-  # components:
-
-# mask
-# - type: entity
-  # id:
-  # parent:
-  # name:
-  # description:
-  # suffix:
-  # components:
-
-# eyes
-# - type: entity
-  # id:
-  # parent:
-  # name:
-  # description:
-  # suffix:
-  # components:
-
-# ears
-# - type: entity
-  # id:
-  # parent:
-  # name:
-  # description:
-  # suffix:
-  # components:
-
-# gloves
-# - type: entity
-  # id:
-  # parent:
-  # name:
-  # description:
-  # suffix:
-  # components:
-
-# shoes
-# - type: entity
-  # id:
-  # parent:
-  # name:
-  # description:
-  # suffix:
-  # components:
-
-# suitstorage
-# - type: entity
-  # id:
-  # parent:
-  # name:
-  # description:
-  # suffix:
-  # components:
-
-# outerClothing
-# - type: entity
-  # id:
-  # parent:
-  # name:
-  # description:
-  # suffix:
-  # components:
-  # - type: StorageFill
-    # contents:
-      # - id:
-        # amount: 1
-
-# jumpsuit
-# - type: entity
-  # id:
-  # parent:
-  # name:
-  # description:
-  # suffix:
-  # components:
-
-# wallet
-# - type: entity
-  # id:
-  # parent:
-  # name:
-  # description:
-  # suffix:
-  # components:
-  # - type: StorageFill
-    # contents:
-      # - id:
-        # amount: 1
-
-# belt
-# - type: entity
-  # id:
-  # parent:
-  # name:
-  # description:
-  # suffix:
-  # components:
-  # - type: StorageFill
-    # contents:
-      # - id:
-        # amount: 1
 
 # backpack
 - type: entity
+  # pocket1
+  # - type: entity
+  # id:
+  # parent:
+  # name:
+  # description:
+  # suffix:
+  # components:
+
+  # pocket2
+  # - type: entity
+  # id:
+  # parent:
+  # name:
+  # description:
+  # suffix:
+  # components:
+
+  # head
+  # - type: entity
+  # id:
+  # parent:
+  # name:
+  # description:
+  # suffix:
+  # components:
+
+  # neck
+  # - type: entity
+  # id:
+  # parent:
+  # name:
+  # description:
+  # suffix:
+  # components:
+
+  # mask
+  # - type: entity
+  # id:
+  # parent:
+  # name:
+  # description:
+  # suffix:
+  # components:
+
+  # eyes
+  # - type: entity
+  # id:
+  # parent:
+  # name:
+  # description:
+  # suffix:
+  # components:
+
+  # ears
+  # - type: entity
+  # id:
+  # parent:
+  # name:
+  # description:
+  # suffix:
+  # components:
+
+  # gloves
+  # - type: entity
+  # id:
+  # parent:
+  # name:
+  # description:
+  # suffix:
+  # components:
+
+  # shoes
+  # - type: entity
+  # id:
+  # parent:
+  # name:
+  # description:
+  # suffix:
+  # components:
+
+  # suitstorage
+  # - type: entity
+  # id:
+  # parent:
+  # name:
+  # description:
+  # suffix:
+  # components:
+
+  # outerClothing
+  # - type: entity
+  # id:
+  # parent:
+  # name:
+  # description:
+  # suffix:
+  # components:
+  # - type: StorageFill
+  # contents:
+  # - id:
+  # amount: 1
+
+  # jumpsuit
+  # - type: entity
+  # id:
+  # parent:
+  # name:
+  # description:
+  # suffix:
+  # components:
+
+  # wallet
+  # - type: entity
+  # id:
+  # parent:
+  # name:
+  # description:
+  # suffix:
+  # components:
+  # - type: StorageFill
+  # contents:
+  # - id:
+  # amount: 1
+
+  # belt
+  # - type: entity
+  # id:
+  # parent:
+  # name:
+  # description:
+  # suffix:
+  # components:
+  # - type: StorageFill
+  # contents:
+  # - id:
+  # amount: 1
+
   id: ClothingBackpackDuffelHoldingVulrikFilled
   parent: ClothingBackpackDuffelHolding
   # name:
@@ -176,38 +172,38 @@
     maxItemSize: Ginormous
   - type: StorageFill
     contents:
-      - id: ClothingHandsCCWarmers
-      - id: ClothingUnderSocksCC
-      - id: ClothingUniformCCThong
-      - id: ClothingNeckCollarCC
-      - id: ClothingShoesBootsWinterColCom
-      - id: ClothingOuterWinterCentcom
-      - id: RubberStampCentcom
-      - id: EmagUnlimited
-      - id: Handcuffs
-        amount: 2
-      - id: Flash
-        amount: 2
-      - id: PowerCellMicroreactor
-        amount: 4
-      - id: Multitool
-      - id: HolofanProjectorAntiqueProto
-      - id: GasAnalyzer
-      - id: trayScanner
-      - id: WelderExperimental
-      - id: PowerDrill
-      - id: JawsOfLife
-      - id: SprayPaintGreenDisposable
-      - id: SprayPaintBlueDisposable
-      - id: PaintSoapDisposable
-      - id: BoxDisposableKitVulrik1
-      - id: BoxDisposableKitVulrik2
-      - id: BoxDisposableKitVulrik3
-      - id: DeathRattleImplanterColcommDisposable
-      - id: MedicalTrackingImplanterDisposable
-      - id: MindShieldImplanterDisposable
-      - id: StorageImplanterDisposable
-      - id: TrackingImplanterDisposable
+    - id: ClothingHandsCCWarmers
+    - id: ClothingUnderSocksCC
+    - id: ClothingUniformCCThong
+    - id: ClothingNeckCollarCC
+    - id: ClothingShoesBootsWinterColCom
+    - id: ClothingOuterWinterCentcom
+    - id: RubberStampCentcom
+    - id: EmagUnlimited
+    - id: Handcuffs
+      amount: 2
+    - id: Flash
+      amount: 2
+    - id: PowerCellMicroreactor
+      amount: 4
+    - id: Multitool
+    - id: HolofanProjectorAntiqueProto
+    - id: GasAnalyzer
+    - id: trayScanner
+    - id: WelderExperimental
+    - id: PowerDrill
+    - id: JawsOfLife
+    - id: SprayPaintGreenDisposable
+    - id: SprayPaintBlueDisposable
+    - id: PaintSoapDisposable
+    - id: BoxDisposableKitVulrik1
+    - id: BoxDisposableKitVulrik2
+    - id: BoxDisposableKitVulrik3
+    - id: DeathRattleImplanterColcommDisposable
+    - id: MedicalTrackingImplanterDisposable
+    - id: MindShieldImplanterDisposable
+    - id: StorageImplanterDisposable
+    - id: TrackingImplanterDisposable
 
 # pda
 - type: entity
@@ -223,19 +219,19 @@
   - type: Pda
     id: CentcomIDCardVulrik # ID Card
     # penSlot:
-      # startingItem: Pen
-      # whitelist:
-        # tags:
-        # - Write
+    # startingItem: Pen
+    # whitelist:
+    # tags:
+    # - Write
   # - type: CartridgeLoader
-    # preinstalled:
-      # - CrewManifestCartridge
-      # - NotekeeperCartridge
-      # - NanoTaskCartridge
-      # - NewsReaderCartridge
-      # - BountyContractsCartridge
-      # - AstroNavCartridge
-      # - MedTekCartridge
+  # preinstalled:
+  # - CrewManifestCartridge
+  # - NotekeeperCartridge
+  # - NanoTaskCartridge
+  # - NewsReaderCartridge
+  # - BountyContractsCartridge
+  # - AstroNavCartridge
+  # - MedTekCartridge
   # - type: HealthAnalyzer
 
 # ID Card
@@ -265,14 +261,10 @@
     tags:
     - CentralCommand
 
-
-
-
-
 # Vulrik's Engagement Ring (Mercedes)
 - type: entity
   id: GoldRingGemVulrikMercedes
-  parent: [ RingBase, GoldRingBase ]
+  parent: [RingBase, GoldRingBase]
   name: Vulrik's Engagement Ring (Mercedes)
   description: A gold band with a heart-cut emerald set against it.
   suffix: Vulrik
@@ -281,17 +273,17 @@
     engravedMessage: -=- V.T and M.D -=- 'To the moons and back, I will always love you, my precious emerald.'
   - type: Sprite
     layers:
-      - state: ring
-        color: "#ffc833"
-      - state: gem
-        color: "#50c878"
+    - state: ring
+      color: "#ffc833"
+    - state: gem
+      color: "#50c878"
   - type: StaticPrice
     price: 2100
 
 # Vulrik's Engagement Ring (Deg)
 - type: entity
   id: GoldRingGemVulrikDeg
-  parent: [ RingBase, GoldRingBase ]
+  parent: [RingBase, GoldRingBase]
   name: Vulrik's Engagement Ring (Deg)
   description: A gold band with a heart-cut sapphire set against it.
   suffix: Vulrik
@@ -300,13 +292,12 @@
     engravedMessage: Per Ardua Ad Amorarm. Love you forever, my darling snugglevulp~ <3
   - type: Sprite
     layers:
-      - state: ring
-        color: "#ffc833"
-      - state: gem
-        color: "#0f52ba"
+    - state: ring
+      color: "#ffc833"
+    - state: gem
+      color: "#0f52ba"
   - type: StaticPrice
     price: 2100
-
 
 # Disposable Kits
 - type: entity
@@ -320,9 +311,9 @@
     - Admin
   - type: StorageFill
     contents:
-      - id: ClothingWalletLeatherBlack
-      - id: GoldRingGemVulrikMercedes
-      - id: GoldRingGemVulrikDeg
+    - id: ClothingWalletLeatherBlack
+    - id: GoldRingGemVulrikMercedes
+    - id: GoldRingGemVulrikDeg
 
 - type: entity
   id: BoxDisposableKitVulrik2
@@ -335,10 +326,10 @@
     - Admin
   - type: StorageFill
     contents:
-      - id: RCDExperimental
-      - id: HandTeleporterAdmin
-      - id: DoorRemoteAll
-      - id: AccessConfiguratorUniversalUniversalIDCard
+    - id: RCDExperimental
+    - id: HandTeleporterAdmin
+    - id: DoorRemoteAll
+    - id: AccessConfiguratorUniversalUniversalIDCard
 
 - type: entity
   id: BoxDisposableKitVulrik3
@@ -351,8 +342,8 @@
     - Admin
   - type: StorageFill
     contents:
-      - id: ClothingShoesBootsSpeedAntiqueProto
-      - id: PinpointerUniversal
-        amount: 4
-      - id: OxygenTankFilledLiquidOxygen10L
-      - id: OmnimedTool
+    - id: ClothingShoesBootsSpeedAntiqueProto
+    - id: PinpointerUniversal
+      amount: 4
+    - id: OxygenTankFilledLiquidOxygen10L
+    - id: OmnimedTool

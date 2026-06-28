@@ -6,7 +6,8 @@ namespace Content.Client.Atmos.Piping.Unary.Systems;
 
 public sealed class GasThermoMachineSystem : SharedGasThermoMachineSystem
 {
-    [Dependency] private readonly SharedUserInterfaceSystem _ui = default!;
+    [Dependency]
+    private readonly SharedUserInterfaceSystem _ui = default!;
 
     public override void Initialize()
     {
@@ -19,7 +20,11 @@ public sealed class GasThermoMachineSystem : SharedGasThermoMachineSystem
         DirtyUI(ent.Owner, ent.Comp);
     }
 
-    protected override void DirtyUI(EntityUid uid, GasThermoMachineComponent? thermoMachine, UserInterfaceComponent? ui = null)
+    protected override void DirtyUI(
+        EntityUid uid,
+        GasThermoMachineComponent? thermoMachine,
+        UserInterfaceComponent? ui = null
+    )
     {
         if (_ui.TryGetOpenUi<GasThermomachineBoundUserInterface>(uid, ThermomachineUiKey.Key, out var bui))
         {

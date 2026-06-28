@@ -6,7 +6,7 @@ namespace Content.Shared._Shitmed.Medical.Surgery;
 [Serializable, NetSerializable]
 public enum SurgeryUIKey
 {
-    Key
+    Key,
 }
 
 [Serializable, NetSerializable]
@@ -16,12 +16,11 @@ public sealed class SurgeryBuiState(Dictionary<NetEntity, List<EntProtoId>> choi
 }
 
 [Serializable, NetSerializable]
-public sealed class SurgeryBuiRefreshMessage : BoundUserInterfaceMessage
-{
-}
+public sealed class SurgeryBuiRefreshMessage : BoundUserInterfaceMessage { }
 
 [Serializable, NetSerializable]
-public sealed class SurgeryStepChosenBuiMsg(NetEntity part, EntProtoId surgery, EntProtoId step, bool isBody) : BoundUserInterfaceMessage
+public sealed class SurgeryStepChosenBuiMsg(NetEntity part, EntProtoId surgery, EntProtoId step, bool isBody)
+    : BoundUserInterfaceMessage
 {
     public readonly NetEntity Part = part;
     public readonly EntProtoId Surgery = surgery;

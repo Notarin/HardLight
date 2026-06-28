@@ -9,7 +9,7 @@
   id: ShipRailgunProjectile
   name: M381 CHARON 280mm 26.5 kg slug
   parent: BaseBulletTrigger
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -72,7 +72,7 @@
   id: ShipRailgunProjectileSubnuclear
   name: M381 CHARON 280mm 26.5 kg slug
   parent: BaseBulletTrigger
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:

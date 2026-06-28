@@ -69,7 +69,7 @@
 - type: technology
   id: WeaponizedLaserManipulation
   technologyPrerequisites:
-    - BasicParts
+  - BasicParts
   name: research-technology-weaponized-laser-manipulation
   icon:
     sprite: Objects/Weapons/Guns/Battery/laser_gun.rsi
@@ -128,7 +128,7 @@
 - type: technology
   id: AdvancedRiotControl
   technologyPrerequisites:
-    - BasicParts
+  - BasicParts
   name: research-technology-advanced-riot-control
   icon:
     sprite: Objects/Weapons/Melee/truncheon.rsi
@@ -147,7 +147,7 @@
 - type: technology
   id: ExplosiveTechnology
   technologyPrerequisites:
-    - SuperParts
+  - SuperParts
   name: research-technology-explosive-technology
   icon:
     sprite: Objects/Devices/payload.rsi
@@ -184,7 +184,7 @@
 - type: technology
   id: ConcentratedLaserWeaponry
   technologyPrerequisites:
-    - WeaponizedLaserManipulation
+  - WeaponizedLaserManipulation
   name: research-technology-concentrated-laser-weaponry
   icon:
     sprite: Objects/Weapons/Guns/Battery/laser_cannon.rsi
@@ -212,8 +212,6 @@
   - PKAUpgradeRange
   - PKAUpgradeFireRate
   - WeaponMechCombatSolarisLaser # Goobstation
-
-
 
 - type: technology
   id: WaveParticleHarnessing
@@ -263,8 +261,8 @@
 - type: technology
   id: PortableMicrofusionWeaponry
   technologyPrerequisites:
-    - ConcentratedLaserWeaponry
-    - SuperParts
+  - ConcentratedLaserWeaponry
+  - SuperParts
   name: research-technology-portable-microfusion-weaponry
   icon:
     sprite: Objects/Weapons/Guns/Battery/advancedlasergun.rsi

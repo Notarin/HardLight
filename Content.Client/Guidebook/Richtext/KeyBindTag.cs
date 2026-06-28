@@ -8,7 +8,8 @@ namespace Content.Client.Guidebook.Richtext;
 [UsedImplicitly]
 public sealed class KeyBindTag : IMarkupTag
 {
-    [Dependency] private readonly IInputManager _inputManager = default!;
+    [Dependency]
+    private readonly IInputManager _inputManager = default!;
 
     public string Name => "keybind";
 

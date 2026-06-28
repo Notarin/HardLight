@@ -2,7 +2,7 @@
 - type: entity
   id: BaseCartridgeDMR
   name: cartridge (DMR)
-  parent: [ BaseCartridge, BaseC1Contraband ]
+  parent: [BaseCartridge, BaseC1Contraband]
   abstract: true
   components:
   - type: Tag

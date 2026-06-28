@@ -1,17 +1,23 @@
 using Content.Client.Atmos.Components;
-using Robust.Client.GameObjects;
 using Content.Shared.Atmos.Piping;
+using Robust.Client.GameObjects;
 
 namespace Content.Client.Atmos.EntitySystems;
 
 public sealed class PipeColorVisualizerSystem : VisualizerSystem<PipeColorVisualsComponent>
 {
-    protected override void OnAppearanceChange(EntityUid uid, PipeColorVisualsComponent component, ref AppearanceChangeEvent args)
+    protected override void OnAppearanceChange(
+        EntityUid uid,
+        PipeColorVisualsComponent component,
+        ref AppearanceChangeEvent args
+    )
     {
-        if (args.Sprite == null
+        if (
+            args.Sprite == null
             || !AppearanceSystem.TryGetData<Color>(uid, PipeColorVisuals.Color, out var color, args.Component)
             || !args.Sprite.LayerMapTryGet(PipeVisualLayers.Pipe, out var layer)
-            || !args.Sprite.TryGetLayer(layer, out var spriteLayer))
+            || !args.Sprite.TryGetLayer(layer, out var spriteLayer)
+        )
         {
             return;
         }

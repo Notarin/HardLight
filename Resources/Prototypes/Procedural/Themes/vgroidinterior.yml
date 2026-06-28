@@ -41,7 +41,7 @@
   offset: 0,6
   ignoreTile: FloorShuttleOrange
   tags:
-    - VGRoidInterior
+  - VGRoidInterior
 
 - type: dungeonRoom
   id: VGRoidInterior5x5f
@@ -128,7 +128,7 @@
   id: VGRoidInteriorRoomMarker
   parent: BaseRoomMarker
   name: VGRoid interior marker
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   components:
   - type: RoomFill
     roomWhitelist:

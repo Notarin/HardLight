@@ -15,11 +15,15 @@ namespace Content.Server._HL.Engraving;
 
 public sealed partial class ServersideEngravingSystem : EntitySystem
 {
-    [Dependency] private readonly TagSystem _tag = default!;
-    [Dependency] private readonly MetaDataSystem _metadata = default!;
-    [Dependency] private readonly QuickDialogSystem _dialog = default!;
-    private static readonly ProtoId<TagPrototype> PreventTag = "PreventLabel"; // if you can't label it you probably shouldn't be able to engrave it,
+    [Dependency]
+    private readonly TagSystem _tag = default!;
 
+    [Dependency]
+    private readonly MetaDataSystem _metadata = default!;
+
+    [Dependency]
+    private readonly QuickDialogSystem _dialog = default!;
+    private static readonly ProtoId<TagPrototype> PreventTag = "PreventLabel"; // if you can't label it you probably shouldn't be able to engrave it,
 
     public override void Initialize()
     {
@@ -33,14 +37,21 @@ public sealed partial class ServersideEngravingSystem : EntitySystem
         if (tool.RemainingUses == -1)
             tool.RemainingUses = tool.MaxUses;
 
-        if (args.Target == null || _tag.HasTag(args.Target.Value, PreventTag) || TryComp<MindComponent>(args.Target, out _))
+        if (
+            args.Target == null
+            || _tag.HasTag(args.Target.Value, PreventTag)
+            || TryComp<MindComponent>(args.Target, out _)
+        )
             return;
 
-        if (HasComp<EngravedDataComponent>(args.Target.Value) && !tool.CanReengrave ||
-            HasComp<MindComponent>(args.Target.Value) ||
-            HasComp<MindContainerComponent>(args.Target.Value) ||
-            HasComp<SSDIndicatorComponent>(args.Target.Value) || // specifically catches NPCs
-            HasComp<ActorComponent>(args.Target.Value))
+        if (
+            HasComp<EngravedDataComponent>(args.Target.Value) && !tool.CanReengrave
+            || HasComp<MindComponent>(args.Target.Value)
+            || HasComp<MindContainerComponent>(args.Target.Value)
+            || HasComp<SSDIndicatorComponent>(args.Target.Value)
+            || // specifically catches NPCs
+            HasComp<ActorComponent>(args.Target.Value)
+        )
             return;
 
         if (TryComp(args.Target.Value, out MetaDataComponent? meta)) // I'm gonna be honest. If this fails, you probably have bigger problems?
@@ -52,7 +63,8 @@ public sealed partial class ServersideEngravingSystem : EntitySystem
                 return;
 
             // not going to do xaml for this lmao
-            _dialog.OpenDialog(actor.PlayerSession,
+            _dialog.OpenDialog(
+                actor.PlayerSession,
                 "Engrave",
                 "Name",
                 "Description",
@@ -65,7 +77,8 @@ public sealed partial class ServersideEngravingSystem : EntitySystem
                     data.OriginalDesc = meta.EntityDescription;
 
                     tool.RemainingUses--;
-                });
+                }
+            );
         }
     }
 }

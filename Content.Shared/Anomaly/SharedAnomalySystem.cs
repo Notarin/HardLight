@@ -1,3 +1,6 @@
+using System.Linq;
+using System.Numerics;
+using Content.Shared.Actions;
 using Content.Shared.Administration.Logs;
 using Content.Shared.Anomaly.Components;
 using Content.Shared.Anomaly.Prototypes;
@@ -17,26 +20,46 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
-using System.Linq;
-using System.Numerics;
-using Content.Shared.Actions;
 
 namespace Content.Shared.Anomaly;
 
 public abstract class SharedAnomalySystem : EntitySystem
 {
-    [Dependency] protected readonly IGameTiming Timing = default!;
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] protected readonly IRobustRandom Random = default!;
-    [Dependency] protected readonly ISharedAdminLogManager AdminLog = default!;
-    [Dependency] protected readonly SharedAudioSystem Audio = default!;
-    [Dependency] protected readonly SharedAppearanceSystem Appearance = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] protected readonly SharedPopupSystem Popup = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
-    [Dependency] private readonly SharedAnomalyCoreSystem _anomalyCore = default!; // Frontier
+    [Dependency]
+    protected readonly IGameTiming Timing = default!;
+
+    [Dependency]
+    private readonly INetManager _net = default!;
+
+    [Dependency]
+    protected readonly IRobustRandom Random = default!;
+
+    [Dependency]
+    protected readonly ISharedAdminLogManager AdminLog = default!;
+
+    [Dependency]
+    protected readonly SharedAudioSystem Audio = default!;
+
+    [Dependency]
+    protected readonly SharedAppearanceSystem Appearance = default!;
+
+    [Dependency]
+    private readonly SharedPhysicsSystem _physics = default!;
+
+    [Dependency]
+    protected readonly SharedPopupSystem Popup = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototype = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _map = default!;
+
+    [Dependency]
+    private readonly SharedAnomalyCoreSystem _anomalyCore = default!; // Frontier
 
     public override void Initialize()
     {
@@ -48,7 +71,10 @@ public abstract class SharedAnomalySystem : EntitySystem
 
     private void OnAnomalyThrowStart(Entity<AnomalyComponent> ent, ref MeleeThrowOnHitStartEvent args)
     {
-        if (!TryComp<CorePoweredThrowerComponent>(args.Weapon, out var corePowered) || !TryComp<PhysicsComponent>(ent, out var body))
+        if (
+            !TryComp<CorePoweredThrowerComponent>(args.Weapon, out var corePowered)
+            || !TryComp<PhysicsComponent>(ent, out var body)
+        )
             return;
 
         // Frontier: affect physics only for non-infectious anomalies
@@ -58,7 +84,11 @@ public abstract class SharedAnomalySystem : EntitySystem
             _physics.SetBodyType(ent, BodyType.Dynamic, body: body);
         }
         // End Frontier
-        ChangeAnomalyStability(ent, Random.NextFloat(corePowered.StabilityPerThrow.X, corePowered.StabilityPerThrow.Y), ent.Comp);
+        ChangeAnomalyStability(
+            ent,
+            Random.NextFloat(corePowered.StabilityPerThrow.X, corePowered.StabilityPerThrow.Y),
+            ent.Comp
+        );
     }
 
     private void OnLand(Entity<AnomalyComponent> ent, ref LandEvent args)
@@ -97,12 +127,16 @@ public abstract class SharedAnomalySystem : EntitySystem
         var stability = Random.NextFloat(minStability, maxStability);
         ChangeAnomalyStability(uid, stability, component);
 
-        AdminLog.Add(LogType.Anomaly, LogImpact.Medium, $"Anomaly {ToPrettyString(uid)} pulsed with severity {component.Severity}.");
+        AdminLog.Add(
+            LogType.Anomaly,
+            LogImpact.Medium,
+            $"Anomaly {ToPrettyString(uid)} pulsed with severity {component.Severity}."
+        );
         if (_net.IsServer)
             Audio.PlayPvs(component.PulseSound, uid);
 
         var pulse = EnsureComp<AnomalyPulsingComponent>(uid);
-        pulse.EndTime  = Timing.CurTime + pulse.PulseDuration;
+        pulse.EndTime = Timing.CurTime + pulse.PulseDuration;
         Appearance.SetData(uid, AnomalyVisuals.IsPulsing, true);
 
         var powerMod = 1f;
@@ -134,10 +168,14 @@ public abstract class SharedAnomalySystem : EntitySystem
         if (HasComp<AnomalySupercriticalComponent>(ent))
             return;
 
-        if(!Resolve(ent, ref ent.Comp))
+        if (!Resolve(ent, ref ent.Comp))
             return;
 
-        AdminLog.Add(LogType.Anomaly, LogImpact.High, $"Anomaly {ToPrettyString(ent.Owner)} began to go supercritical.");
+        AdminLog.Add(
+            LogType.Anomaly,
+            LogImpact.High,
+            $"Anomaly {ToPrettyString(ent.Owner)} began to go supercritical."
+        );
         if (_net.IsServer)
             Log.Info($"Anomaly is going supercritical. Entity: {ToPrettyString(ent.Owner)}");
 
@@ -191,15 +229,24 @@ public abstract class SharedAnomalySystem : EntitySystem
     /// <param name="supercritical">Whether or not the anomaly ended via supercritical event</param>
     /// <param name="spawnCore">Create anomaly cores based on the result of completing an anomaly?</param>
     /// <param name="logged">Whether or not the anomaly decaying/going supercritical is logged</param>
-    public void EndAnomaly(EntityUid uid, AnomalyComponent? component = null, bool supercritical = false, bool spawnCore = true, bool logged = false)
+    public void EndAnomaly(
+        EntityUid uid,
+        AnomalyComponent? component = null,
+        bool supercritical = false,
+        bool spawnCore = true,
+        bool logged = false
+    )
     {
         if (logged)
         {
             // Logging before resolve, in case the anomaly has deleted itself.
             if (_net.IsServer)
                 Log.Info($"Ending anomaly. Entity: {ToPrettyString(uid)}");
-            AdminLog.Add(LogType.Anomaly, supercritical ? LogImpact.High : LogImpact.Low,
-                $"Anomaly {ToPrettyString(uid)} {(supercritical ? "went supercritical" : "decayed")}.");
+            AdminLog.Add(
+                LogType.Anomaly,
+                supercritical ? LogImpact.High : LogImpact.Low,
+                $"Anomaly {ToPrettyString(uid)} {(supercritical ? "went supercritical" : "decayed")}."
+            );
         }
 
         if (!Resolve(uid, ref component))
@@ -213,7 +260,10 @@ public abstract class SharedAnomalySystem : EntitySystem
 
         if (spawnCore)
         {
-            var core = Spawn(supercritical ? component.CorePrototype : component.CoreInertPrototype, Transform(uid).Coordinates);
+            var core = Spawn(
+                supercritical ? component.CorePrototype : component.CoreInertPrototype,
+                Transform(uid).Coordinates
+            );
             _transform.PlaceNextTo(core, uid);
 
             // Frontier: set value to points retrieved
@@ -381,7 +431,13 @@ public abstract class SharedAnomalySystem : EntitySystem
     /// <summary>
     /// Gets random points around the anomaly based on the given parameters.
     /// </summary>
-    public List<TileRef>? GetSpawningPoints(EntityUid uid, float stability, float severity, AnomalySpawnSettings settings, float powerModifier = 1f)
+    public List<TileRef>? GetSpawningPoints(
+        EntityUid uid,
+        float stability,
+        float severity,
+        AnomalySpawnSettings settings,
+        float powerModifier = 1f
+    )
     {
         var xform = Transform(uid);
 
@@ -389,7 +445,9 @@ public abstract class SharedAnomalySystem : EntitySystem
             return null;
 
         // How many spawn points we will be aiming to return
-        var amount = (int) (MathHelper.Lerp(settings.MinAmount, settings.MaxAmount, severity * stability * powerModifier) + 0.5f);
+        var amount = (int)(
+            MathHelper.Lerp(settings.MinAmount, settings.MaxAmount, severity * stability * powerModifier) + 0.5f
+        );
 
         // When the entity is in a container or buckled (such as a hosted anomaly), local coordinates will not be comparable
         // to tile coordinates.
@@ -400,7 +458,8 @@ public abstract class SharedAnomalySystem : EntitySystem
         var tilerefs = _map.GetTilesIntersecting(
                 xform.GridUid.Value,
                 grid,
-                new Box2(worldPos + new Vector2(-settings.MaxRange), worldPos + new Vector2(settings.MaxRange)))
+                new Box2(worldPos + new Vector2(-settings.MaxRange), worldPos + new Vector2(settings.MaxRange))
+            )
             .ToList();
 
         if (tilerefs.Count == 0)
@@ -434,9 +493,11 @@ public abstract class SharedAnomalySystem : EntitySystem
                     if (!physQuery.TryGetComponent(ent, out var body))
                         continue;
 
-                    if (body.BodyType != BodyType.Static ||
-                        !body.Hard ||
-                        (body.CollisionLayer & (int) CollisionGroup.Impassable) == 0)
+                    if (
+                        body.BodyType != BodyType.Static
+                        || !body.Hard
+                        || (body.CollisionLayer & (int)CollisionGroup.Impassable) == 0
+                    )
                         continue;
 
                     valid = false;

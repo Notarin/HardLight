@@ -1,62 +1,101 @@
-using Robust.Shared.Containers;
-using Robust.Shared.Audio.Systems;
-using Content.Server.Body.Components;
+using System.Linq;
 using Content.Server._Common.Consent;
-using Content.Shared.Examine;
+using Content.Server._Starlight.NullSpace;
 using Content.Server.Atmos.Components;
-using Content.Server.Temperature.Components;
-using Content.Shared.Eye.Blinding.Systems;
-using Content.Shared.Damage;
-using Content.Shared.Administration.Logs;
-using Content.Shared.Database;
+using Content.Server.Body.Components;
 using Content.Server.Chat.Managers;
 using Content.Server.DoAfter;
-using Content.Shared.Popups;
-using Robust.Server.Player;
-using Content.Shared.Mobs.Systems;
+using Content.Server.Nutrition.EntitySystems;
+using Content.Server.Power.Components;
+using Content.Server.Power.EntitySystems;
+using Content.Server.Temperature.Components;
+using Content.Shared._Starlight.NullSpace;
+using Content.Shared.Administration.Logs;
 using Content.Shared.Chat;
+using Content.Shared.Contests;
+using Content.Shared.Damage;
+using Content.Shared.Database;
 using Content.Shared.DoAfter;
+using Content.Shared.Examine;
+using Content.Shared.Eye.Blinding.Systems;
 using Content.Shared.FloofStation;
-using Robust.Shared.Random;
 using Content.Shared.Inventory;
-using Robust.Shared.Physics.Components;
+using Content.Shared.Mind.Components;
+using Content.Shared.Mobs.Systems;
 using Content.Shared.Nutrition.Components;
 using Content.Shared.Nutrition.EntitySystems;
-using Content.Server.Power.EntitySystems;
+using Content.Shared.Popups;
 using Content.Shared.PowerCell.Components;
-using System.Linq;
-using Content.Shared.Contests;
 using Content.Shared.Standing;
-using Content.Server.Power.Components;
-using Content.Server.Nutrition.EntitySystems;
-using Content.Shared.Mind.Components;
-using Content.Server._Starlight.NullSpace;
-using Content.Shared._Starlight.NullSpace;
+using Robust.Server.Player;
+using Robust.Shared.Audio.Systems;
+using Robust.Shared.Containers;
+using Robust.Shared.Physics.Components;
+using Robust.Shared.Random;
 
 namespace Content.Server.FloofStation;
 
 public sealed class VoreSystem : SharedVoreSystem // HL: Changed the base to Shared so the client can handle verb drawing
 {
-    [Dependency] private readonly SharedContainerSystem _containerSystem = default!;
-    [Dependency] private readonly SharedAudioSystem _audioSystem = default!;
-    [Dependency] private readonly ConsentSystem _consent = default!;
-    [Dependency] private readonly BlindableSystem _blindableSystem = default!;
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLog = default!;
-    [Dependency] private readonly IChatManager _chatManager = default!;
-    [Dependency] private readonly DoAfterSystem _doAfterSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popups = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly InventorySystem _inventorySystem = default!;
-    [Dependency] private readonly HungerSystem _hunger = default!;
-    [Dependency] private readonly BatterySystem _battery = default!;
-    [Dependency] private readonly ContestsSystem _contests = default!;
-    [Dependency] private readonly StandingStateSystem _standingState = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly FoodSystem _food = default!;
-    [Dependency] private readonly NullSpacePhaseSystem _phase = default!;
+    [Dependency]
+    private readonly SharedContainerSystem _containerSystem = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audioSystem = default!;
+
+    [Dependency]
+    private readonly ConsentSystem _consent = default!;
+
+    [Dependency]
+    private readonly BlindableSystem _blindableSystem = default!;
+
+    [Dependency]
+    private readonly DamageableSystem _damageable = default!;
+
+    [Dependency]
+    private readonly ISharedAdminLogManager _adminLog = default!;
+
+    [Dependency]
+    private readonly IChatManager _chatManager = default!;
+
+    [Dependency]
+    private readonly DoAfterSystem _doAfterSystem = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popups = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly MobStateSystem _mobState = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly InventorySystem _inventorySystem = default!;
+
+    [Dependency]
+    private readonly HungerSystem _hunger = default!;
+
+    [Dependency]
+    private readonly BatterySystem _battery = default!;
+
+    [Dependency]
+    private readonly ContestsSystem _contests = default!;
+
+    [Dependency]
+    private readonly StandingStateSystem _standingState = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly FoodSystem _food = default!;
+
+    [Dependency]
+    private readonly NullSpacePhaseSystem _phase = default!;
 
     public override void Initialize()
     {
@@ -84,38 +123,58 @@ public sealed class VoreSystem : SharedVoreSystem // HL: Changed the base to Sha
         if (_food.IsMouthBlocked(uid, uid))
             return;
 
-        _popups.PopupEntity(Loc.GetString("vore-attempt-devour", ("entity", uid), ("prey", target)), uid, PopupType.LargeCaution);
+        _popups.PopupEntity(
+            Loc.GetString("vore-attempt-devour", ("entity", uid), ("prey", target)),
+            uid,
+            PopupType.LargeCaution
+        );
 
-        if (!TryComp<PhysicsComponent>(uid, out var predPhysics)
-            || !TryComp<PhysicsComponent>(target, out var preyPhysics))
+        if (
+            !TryComp<PhysicsComponent>(uid, out var predPhysics)
+            || !TryComp<PhysicsComponent>(target, out var preyPhysics)
+        )
             return;
 
-        var length = TimeSpan.FromSeconds(component.Delay
-                        * _contests.MassContest(preyPhysics, predPhysics, false, 4f)
-                        * _contests.StaminaContest(uid, target)
-                        * (_standingState.IsDown(target) ? 0.5f : 1));
+        var length = TimeSpan.FromSeconds(
+            component.Delay
+                * _contests.MassContest(preyPhysics, predPhysics, false, 4f)
+                * _contests.StaminaContest(uid, target)
+                * (_standingState.IsDown(target) ? 0.5f : 1)
+        );
 
         if (HasComp<NullSpaceComponent>(uid))
         {
-            _popups.PopupEntity(Loc.GetString("vore-attempt-phasenom", ("prey", target)), target, PopupType.LargeCaution);
+            _popups.PopupEntity(
+                Loc.GetString("vore-attempt-phasenom", ("prey", target)),
+                target,
+                PopupType.LargeCaution
+            );
 
-            _doAfterSystem.TryStartDoAfter(new DoAfterArgs(EntityManager, uid, length, new VoreDoAfterEvent(), uid, target: target)
-            {
-                BreakOnMove = true,
-                BreakOnWeightlessMove = false,
-                RequireCanInteract = false
-            });
+            _doAfterSystem.TryStartDoAfter(
+                new DoAfterArgs(EntityManager, uid, length, new VoreDoAfterEvent(), uid, target: target)
+                {
+                    BreakOnMove = true,
+                    BreakOnWeightlessMove = false,
+                    RequireCanInteract = false,
+                }
+            );
         }
         else
         {
-            _popups.PopupEntity(Loc.GetString("vore-attempt-devour", ("entity", uid), ("prey", target)), uid, PopupType.LargeCaution);
+            _popups.PopupEntity(
+                Loc.GetString("vore-attempt-devour", ("entity", uid), ("prey", target)),
+                uid,
+                PopupType.LargeCaution
+            );
 
-            _doAfterSystem.TryStartDoAfter(new DoAfterArgs(EntityManager, uid, length, new VoreDoAfterEvent(), uid, target: target)
-            {
-                BreakOnMove = true,
-                BreakOnDamage = true,
-                RequireCanInteract = true
-            });
+            _doAfterSystem.TryStartDoAfter(
+                new DoAfterArgs(EntityManager, uid, length, new VoreDoAfterEvent(), uid, target: target)
+                {
+                    BreakOnMove = true,
+                    BreakOnDamage = true,
+                    RequireCanInteract = true,
+                }
+            );
         }
     }
 
@@ -124,8 +183,7 @@ public sealed class VoreSystem : SharedVoreSystem // HL: Changed the base to Sha
         if (component is null)
             return;
 
-        if (args.Target is null
-            || args.Cancelled)
+        if (args.Target is null || args.Cancelled)
             return;
 
         Devour(uid, args.Target.Value, component);
@@ -138,7 +196,11 @@ public sealed class VoreSystem : SharedVoreSystem // HL: Changed the base to Sha
 
         if (HasComp<NullSpaceComponent>(uid))
         {
-            _transform.SetWorldPositionRotation(uid, _transform.GetWorldPositionRotation(target).WorldPosition, _transform.GetWorldPositionRotation(target).WorldRotation);
+            _transform.SetWorldPositionRotation(
+                uid,
+                _transform.GetWorldPositionRotation(target).WorldPosition,
+                _transform.GetWorldPositionRotation(target).WorldRotation
+            );
             _phase.Phase(uid);
         }
 
@@ -153,12 +215,10 @@ public sealed class VoreSystem : SharedVoreSystem // HL: Changed the base to Sha
         _containerSystem.Insert(target, component.Stomach);
         _audioSystem.PlayPvs(component.SoundDevour, uid);
 
-        if (_playerManager.TryGetSessionByEntity(target, out var sessionprey)
-            || sessionprey is not null)
+        if (_playerManager.TryGetSessionByEntity(target, out var sessionprey) || sessionprey is not null)
             _audioSystem.PlayEntity(component.SoundDevour, sessionprey, uid);
 
-        if (_playerManager.TryGetSessionByEntity(uid, out var sessionpred)
-            || sessionpred is not null)
+        if (_playerManager.TryGetSessionByEntity(uid, out var sessionpred) || sessionpred is not null)
         {
             _audioSystem.PlayEntity(component.SoundDevour, sessionpred, uid);
             // var message = Loc.GetString("", ("entity", uid));
@@ -171,16 +231,25 @@ public sealed class VoreSystem : SharedVoreSystem // HL: Changed the base to Sha
             //     sessionprey.Channel);
         }
 
-        _popups.PopupEntity(Loc.GetString("vore-devoured", ("entity", uid), ("prey", target)), target, target, PopupType.SmallCaution);
-        _popups.PopupEntity(Loc.GetString("vore-devoured", ("entity", uid), ("prey", target)), target, uid, PopupType.SmallCaution);
+        _popups.PopupEntity(
+            Loc.GetString("vore-devoured", ("entity", uid), ("prey", target)),
+            target,
+            target,
+            PopupType.SmallCaution
+        );
+        _popups.PopupEntity(
+            Loc.GetString("vore-devoured", ("entity", uid), ("prey", target)),
+            target,
+            uid,
+            PopupType.SmallCaution
+        );
 
         _adminLog.Add(LogType.Action, LogImpact.High, $"{ToPrettyString(uid)} vored {ToPrettyString(target)}");
     }
 
     private void OnRelease(EntityUid uid, VoredComponent component, EntGotRemovedFromContainerMessage args)
     {
-        if (!TryComp<VoreComponent>(component.Pred, out var predvore)
-            || predvore.Stomach != args.Container)
+        if (!TryComp<VoreComponent>(component.Pred, out var predvore) || predvore.Stomach != args.Container)
             return;
 
         // HardLight: If digestion has already completed, enforce deletion instead of release behavior.
@@ -199,18 +268,30 @@ public sealed class VoreSystem : SharedVoreSystem // HL: Changed the base to Sha
         if (TryComp<TemperatureComponent>(uid, out var temp))
             temp.AtmosTemperatureTransferEfficiency = 0.1f;
 
-        if (_playerManager.TryGetSessionByEntity(args.Container.Owner, out var sessionpred)
-            || sessionpred is not null)
+        if (_playerManager.TryGetSessionByEntity(args.Container.Owner, out var sessionpred) || sessionpred is not null)
             _audioSystem.PlayEntity(component.SoundRelease, sessionpred, uid);
 
-        if (_playerManager.TryGetSessionByEntity(uid, out var sessionprey)
-            || sessionprey is not null)
+        if (_playerManager.TryGetSessionByEntity(uid, out var sessionprey) || sessionprey is not null)
             _audioSystem.PlayEntity(component.SoundRelease, sessionprey, uid);
 
-        _popups.PopupEntity(Loc.GetString("vore-released", ("entity", uid), ("pred", args.Container.Owner)), uid, args.Container.Owner, PopupType.Medium);
-        _popups.PopupEntity(Loc.GetString("vore-released", ("entity", uid), ("pred", args.Container.Owner)), uid, uid, PopupType.Medium);
+        _popups.PopupEntity(
+            Loc.GetString("vore-released", ("entity", uid), ("pred", args.Container.Owner)),
+            uid,
+            args.Container.Owner,
+            PopupType.Medium
+        );
+        _popups.PopupEntity(
+            Loc.GetString("vore-released", ("entity", uid), ("pred", args.Container.Owner)),
+            uid,
+            uid,
+            PopupType.Medium
+        );
 
-        _adminLog.Add(LogType.Action, LogImpact.Medium, $"{ToPrettyString(uid)} got released from {ToPrettyString(args.Container.Owner)} belly");
+        _adminLog.Add(
+            LogType.Action,
+            LogImpact.Medium,
+            $"{ToPrettyString(uid)} got released from {ToPrettyString(args.Container.Owner)} belly"
+        );
     }
 
     public override void ReleasePrey(EntityUid uid, VoredComponent? compnent = null) // HL: Moved this from the verb code to here so the client doesn't need the containerSystem
@@ -223,13 +304,21 @@ public sealed class VoreSystem : SharedVoreSystem // HL: Changed the base to Sha
         if (!Resolve(uid, ref component))
             return;
 
-        _adminLog.Add(LogType.Action, LogImpact.High, $"{ToPrettyString(component.Pred)} started digesting {ToPrettyString(uid)}");
+        _adminLog.Add(
+            LogType.Action,
+            LogImpact.High,
+            $"{ToPrettyString(component.Pred)} started digesting {ToPrettyString(uid)}"
+        );
 
         component.Digesting = true;
 
-        _popups.PopupEntity(Loc.GetString("vore-digest-start", ("entity", component.Pred)), component.Pred, component.Pred, PopupType.LargeCaution);
-        if (_playerManager.TryGetSessionByEntity(component.Pred, out var sessionpred)
-            || sessionpred is not null)
+        _popups.PopupEntity(
+            Loc.GetString("vore-digest-start", ("entity", component.Pred)),
+            component.Pred,
+            component.Pred,
+            PopupType.LargeCaution
+        );
+        if (_playerManager.TryGetSessionByEntity(component.Pred, out var sessionpred) || sessionpred is not null)
         {
             var message = Loc.GetString("vore-digest-start-chat", ("entity", component.Pred));
             _chatManager.ChatMessageToOne(
@@ -238,12 +327,17 @@ public sealed class VoreSystem : SharedVoreSystem // HL: Changed the base to Sha
                 message,
                 EntityUid.Invalid,
                 false,
-                sessionpred.Channel);
+                sessionpred.Channel
+            );
         }
 
-        _popups.PopupEntity(Loc.GetString("vore-digest-start", ("entity", component.Pred)), component.Pred, uid, PopupType.LargeCaution);
-        if (_playerManager.TryGetSessionByEntity(uid, out var sessionprey)
-            || sessionprey is not null)
+        _popups.PopupEntity(
+            Loc.GetString("vore-digest-start", ("entity", component.Pred)),
+            component.Pred,
+            uid,
+            PopupType.LargeCaution
+        );
+        if (_playerManager.TryGetSessionByEntity(uid, out var sessionprey) || sessionprey is not null)
         {
             var message = Loc.GetString("vore-digest-start-chat", ("entity", component.Pred));
             _chatManager.ChatMessageToOne(
@@ -252,7 +346,8 @@ public sealed class VoreSystem : SharedVoreSystem // HL: Changed the base to Sha
                 message,
                 EntityUid.Invalid,
                 false,
-                sessionprey.Channel);
+                sessionprey.Channel
+            );
         }
     }
 
@@ -261,13 +356,21 @@ public sealed class VoreSystem : SharedVoreSystem // HL: Changed the base to Sha
         if (!Resolve(uid, ref component))
             return;
 
-        _adminLog.Add(LogType.Action, LogImpact.High, $"{ToPrettyString(component.Pred)} stopped digesting {ToPrettyString(uid)}");
+        _adminLog.Add(
+            LogType.Action,
+            LogImpact.High,
+            $"{ToPrettyString(component.Pred)} stopped digesting {ToPrettyString(uid)}"
+        );
 
         component.Digesting = false;
 
-        _popups.PopupEntity(Loc.GetString("vore-digest-stop", ("entity", component.Pred)), component.Pred, component.Pred, PopupType.Large);
-        if (_playerManager.TryGetSessionByEntity(component.Pred, out var sessionpred)
-            || sessionpred is not null)
+        _popups.PopupEntity(
+            Loc.GetString("vore-digest-stop", ("entity", component.Pred)),
+            component.Pred,
+            component.Pred,
+            PopupType.Large
+        );
+        if (_playerManager.TryGetSessionByEntity(component.Pred, out var sessionpred) || sessionpred is not null)
         {
             var message = Loc.GetString("vore-digest-stop", ("entity", component.Pred));
             _chatManager.ChatMessageToOne(
@@ -276,12 +379,17 @@ public sealed class VoreSystem : SharedVoreSystem // HL: Changed the base to Sha
                 message,
                 EntityUid.Invalid,
                 false,
-                sessionpred.Channel);
+                sessionpred.Channel
+            );
         }
 
-        _popups.PopupEntity(Loc.GetString("vore-digest-stop", ("entity", component.Pred)), component.Pred, uid, PopupType.Large);
-        if (_playerManager.TryGetSessionByEntity(uid, out var sessionprey)
-            || sessionprey is not null)
+        _popups.PopupEntity(
+            Loc.GetString("vore-digest-stop", ("entity", component.Pred)),
+            component.Pred,
+            uid,
+            PopupType.Large
+        );
+        if (_playerManager.TryGetSessionByEntity(uid, out var sessionprey) || sessionprey is not null)
         {
             var message = Loc.GetString("vore-digest-stop", ("entity", component.Pred));
             _chatManager.ChatMessageToOne(
@@ -290,18 +398,22 @@ public sealed class VoreSystem : SharedVoreSystem // HL: Changed the base to Sha
                 message,
                 EntityUid.Invalid,
                 false,
-                sessionprey.Channel);
+                sessionprey.Channel
+            );
         }
     }
 
     private void FullyDigest(EntityUid uid, EntityUid prey)
     {
-        _adminLog.Add(LogType.Action, LogImpact.Extreme, $"{ToPrettyString(uid)} fully digested {ToPrettyString(prey)}");
+        _adminLog.Add(
+            LogType.Action,
+            LogImpact.Extreme,
+            $"{ToPrettyString(uid)} fully digested {ToPrettyString(prey)}"
+        );
 
         var digestedmessage = _random.Next(1, 8);
 
-        if (_playerManager.TryGetSessionByEntity(uid, out var sessionpred)
-            || sessionpred is not null)
+        if (_playerManager.TryGetSessionByEntity(uid, out var sessionpred) || sessionpred is not null)
         {
             var message = Loc.GetString("vore-digested-owner-" + digestedmessage, ("entity", prey));
             _chatManager.ChatMessageToOne(
@@ -310,11 +422,11 @@ public sealed class VoreSystem : SharedVoreSystem // HL: Changed the base to Sha
                 message,
                 EntityUid.Invalid,
                 false,
-                sessionpred.Channel);
+                sessionpred.Channel
+            );
         }
 
-        if (_playerManager.TryGetSessionByEntity(prey, out var sessionprey)
-            || sessionprey is not null)
+        if (_playerManager.TryGetSessionByEntity(prey, out var sessionprey) || sessionprey is not null)
         {
             var message = Loc.GetString("vore-digested-prey-" + digestedmessage, ("entity", uid));
             _chatManager.ChatMessageToOne(
@@ -323,21 +435,20 @@ public sealed class VoreSystem : SharedVoreSystem // HL: Changed the base to Sha
                 message,
                 EntityUid.Invalid,
                 false,
-                sessionprey.Channel);
+                sessionprey.Channel
+            );
         }
 
-        if (TryComp<InventoryComponent>(prey, out var inventoryComponent)
+        if (
+            TryComp<InventoryComponent>(prey, out var inventoryComponent)
             && _inventorySystem.TryGetSlots(prey, out var slots)
             && TryComp<MindContainerComponent>(prey, out var mindContainer)
-            && mindContainer.HasMind) // no more digesting wizards to get their panties
+            && mindContainer.HasMind
+        ) // no more digesting wizards to get their panties
         {
             foreach (var slot in slots)
             {
-                if (_inventorySystem.TryGetSlotEntity(
-                        prey,
-                        slot.Name,
-                        out var item,
-                        inventoryComponent))
+                if (_inventorySystem.TryGetSlotEntity(prey, slot.Name, out var item, inventoryComponent))
                 {
                     // if (TryComp<DnaComponent>(uid, out var dna))
                     // {
@@ -358,8 +469,7 @@ public sealed class VoreSystem : SharedVoreSystem // HL: Changed the base to Sha
 
     private void OnExamine(EntityUid uid, ExaminedEvent args)
     {
-        if (!_containerSystem.TryGetContainer(uid, "stomach", out var stomach)
-            || stomach.ContainedEntities.Count < 1)
+        if (!_containerSystem.TryGetContainer(uid, "stomach", out var stomach) || stomach.ContainedEntities.Count < 1)
             return;
 
         // Check if the entity being examined has ShowOnExamine enabled
@@ -423,9 +533,11 @@ public sealed class VoreSystem : SharedVoreSystem // HL: Changed the base to Sha
                     _battery.SetCharge(vored.Pred, internalbattery.CurrentCharge + 2, internalbattery);
 
                 // Give 2 Power per 1 Caustic Damage.
-                if (TryComp<PowerCellSlotComponent>(vored.Pred, out var batterySlot)
+                if (
+                    TryComp<PowerCellSlotComponent>(vored.Pred, out var batterySlot)
                     && _containerSystem.TryGetContainer(vored.Pred, batterySlot.CellSlotId, out var container)
-                    && container.ContainedEntities.Count > 0)
+                    && container.ContainedEntities.Count > 0
+                )
                 {
                     var battery = container.ContainedEntities.First();
                     if (TryComp<BatteryComponent>(battery, out var batterycomp))

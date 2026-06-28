@@ -15,14 +15,29 @@ namespace Content.Server.Abilities.Chitinid;
 
 public sealed partial class ChitinidSystem : EntitySystem
 {
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
-    [Dependency] private readonly Content.Shared.Charges.Systems.SharedChargesSystem _charges = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly InventorySystem _inventory = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
+    [Dependency]
+    private readonly SharedActionsSystem _actions = default!;
+
+    [Dependency]
+    private readonly Content.Shared.Charges.Systems.SharedChargesSystem _charges = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly InventorySystem _inventory = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly DamageableSystem _damageable = default!;
+
+    [Dependency]
+    private readonly MobStateSystem _mobState = default!;
 
     public override void Initialize()
     {
@@ -44,10 +59,13 @@ public sealed partial class ChitinidSystem : EntitySystem
             if (chitinid.AmountAbsorbed >= chitinid.MaximumAbsorbed || _mobState.IsDead(uid))
                 continue;
 
-            if (_damageable.TryChangeDamage(uid, chitinid.Healing, damageable: damageable) is {} delta)
+            if (_damageable.TryChangeDamage(uid, chitinid.Healing, damageable: damageable) is { } delta)
             {
                 chitinid.AmountAbsorbed += -delta.GetTotal().Float();
-                if (!string.IsNullOrEmpty(chitinid.ChitziteActionId) && chitinid.AmountAbsorbed >= chitinid.MaximumAbsorbed)
+                if (
+                    !string.IsNullOrEmpty(chitinid.ChitziteActionId)
+                    && chitinid.AmountAbsorbed >= chitinid.MaximumAbsorbed
+                )
                 {
                     if (chitinid.ChitziteAction is { } action)
                     {
@@ -81,9 +99,11 @@ public sealed partial class ChitinidSystem : EntitySystem
 
     private void OnChitzite(Entity<ChitinidComponent> ent, ref ChitziteActionEvent args)
     {
-        if (_inventory.TryGetSlotEntity(ent, "mask", out var maskUid) &&
-            TryComp<IngestionBlockerComponent>(maskUid, out var blocker) &&
-            blocker.Enabled)
+        if (
+            _inventory.TryGetSlotEntity(ent, "mask", out var maskUid)
+            && TryComp<IngestionBlockerComponent>(maskUid, out var blocker)
+            && blocker.Enabled
+        )
         {
             _popup.PopupEntity(Loc.GetString("chitzite-mask", ("mask", maskUid)), ent, ent);
             return;

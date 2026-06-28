@@ -6,7 +6,7 @@
     sprite: _NF/Objects/Consumable/Food/sushi.rsi
   - type: Tag
     tags:
-      - Sushi
+    - Sushi
 
 - type: entity
   name: avocado sushi
@@ -16,8 +16,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - cucumber
-      - avocado
+    - cucumber
+    - avocado
   - type: Sprite
     state: avocadosushi
   - type: SolutionContainerManager
@@ -41,8 +41,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - cucumber
-      - avocado
+    - cucumber
+    - avocado
   - type: Sprite
     state: avocadosushislice
   - type: SolutionContainerManager
@@ -65,8 +65,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - cucumber
-      - fishy
+    - cucumber
+    - fishy
   - type: Sprite
     state: carpsushi
   - type: SolutionContainerManager
@@ -92,8 +92,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - cucumber
-      - fishy
+    - cucumber
+    - fishy
   - type: Sprite
     state: carpsushislice
   - type: SolutionContainerManager
@@ -111,15 +111,15 @@
     size: Tiny
 
 - type: entity
-  name:  fresh fish sushi
+  name: fresh fish sushi
   parent: [FoodBaseSushi, FoodMealBase]
   id: CuredCarpSushi
   description: Less risky, still delicious. You're still not sure where the seaweed came from.
   components:
   - type: FlavorProfile
     flavors:
-      - cucumber
-      - fishy
+    - cucumber
+    - fishy
   - type: Sprite
     state: freshsushi
   - type: SolutionContainerManager
@@ -143,8 +143,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - cucumber
-      - fishy
+    - cucumber
+    - fishy
   - type: Sprite
     state: freshsushislice
   - type: SolutionContainerManager
@@ -168,9 +168,9 @@
   components:
   - type: FlavorProfile
     flavors:
-      - fishy
-      - cheap
-      - bitter
+    - fishy
+    - cheap
+    - bitter
   - type: Sprite
     state: gassushislice
   - type: SolutionContainerManager

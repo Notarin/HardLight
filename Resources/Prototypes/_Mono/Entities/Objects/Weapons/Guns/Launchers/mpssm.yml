@@ -1,6 +1,6 @@
 - type: entity
   name: NT SM-27 MPSSM missile launcher
-  parent: [ BaseWeaponLauncher, BaseGunWieldable, BaseC2ContrabandUnredeemable ]
+  parent: [BaseWeaponLauncher, BaseGunWieldable, BaseC2ContrabandUnredeemable]
   id: WeaponLauncherMPSSM
   suffix: HEAT
   description: A multipurpose man-portable launcher, capable of firing both guided anti-ship and unguided HEAT warheads.
@@ -48,7 +48,7 @@
   - type: StaticPrice
     price: 7500
   - type: Appearance
-  # Removed pickup/drop/land sounds due to missing sound collections
+    # Removed pickup/drop/land sounds due to missing sound collections
 
 - type: entity
   parent: WeaponLauncherMPSSM

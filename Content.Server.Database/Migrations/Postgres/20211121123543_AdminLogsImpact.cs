@@ -13,14 +13,13 @@ namespace Content.Server.Database.Migrations.Postgres
                 table: "admin_log",
                 type: "smallint",
                 nullable: false,
-                defaultValue: (short)0);
+                defaultValue: (short)0
+            );
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "impact",
-                table: "admin_log");
+            migrationBuilder.DropColumn(name: "impact", table: "admin_log");
         }
     }
 }

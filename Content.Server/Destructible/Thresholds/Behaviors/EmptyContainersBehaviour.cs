@@ -19,7 +19,6 @@ namespace Content.Server.Destructible.Thresholds.Behaviors
 
             var containerSys = system.EntityManager.System<ContainerSystem>();
 
-
             foreach (var containerId in Containers)
             {
                 if (!containerSys.TryGetContainer(owner, containerId, out var container, containerManager))

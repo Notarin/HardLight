@@ -13,8 +13,11 @@ namespace Content.Shared.Construction.NodeEntities;
 [DataDefinition]
 public sealed partial class BoardNodeEntity : IGraphNodeEntity
 {
-    [DataField("container")] public string Container { get; private set; } = string.Empty;
-    [DataField] public ComputerType Computer { get; private set; } = ComputerType.Default; // Frontier
+    [DataField("container")]
+    public string Container { get; private set; } = string.Empty;
+
+    [DataField]
+    public ComputerType Computer { get; private set; } = ComputerType.Default; // Frontier
 
     public string? GetId(EntityUid? uid, EntityUid? userUid, GraphNodeEntityArgs args)
     {
@@ -23,8 +26,10 @@ public sealed partial class BoardNodeEntity : IGraphNodeEntity
 
         var containerSystem = args.EntityManager.EntitySysManager.GetEntitySystem<SharedContainerSystem>();
 
-        if (!containerSystem.TryGetContainer(uid.Value, Container, out var container)
-            || container.ContainedEntities.Count == 0)
+        if (
+            !containerSystem.TryGetContainer(uid.Value, Container, out var container)
+            || container.ContainedEntities.Count == 0
+        )
             return null;
 
         var board = container.ContainedEntities[0];
@@ -61,7 +66,7 @@ public sealed partial class BoardNodeEntity : IGraphNodeEntity
     {
         Default, // Default machines
         Tabletop,
-        Wallmount
+        Wallmount,
     }
     // End Frontier
 }

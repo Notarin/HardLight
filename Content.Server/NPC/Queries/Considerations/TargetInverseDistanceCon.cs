@@ -2,7 +2,4 @@
 
 namespace Content.Server.NPC.Queries.Considerations;
 
-public sealed partial class TargetInverseDistanceCon : UtilityConsideration
-{
-
-}
+public sealed partial class TargetInverseDistanceCon : UtilityConsideration { }

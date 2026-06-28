@@ -1,7 +1,7 @@
+using System.Text.RegularExpressions;
 using Content.Server._NF.Speech.Components;
 using Content.Server.Speech;
 using Content.Server.Speech.EntitySystems;
-using System.Text.RegularExpressions;
 
 namespace Content.Server._NF.Speech.EntitySystems;
 
@@ -24,7 +24,8 @@ public sealed class GoblinAccentSystem : EntitySystem
     private static readonly Regex RegexSelf = new(@"self\b");
     private static readonly Regex RegexSelfUpper = new(@"SELF\b");
 
-    [Dependency] private readonly ReplacementAccentSystem _replacement = default!;
+    [Dependency]
+    private readonly ReplacementAccentSystem _replacement = default!;
 
     public override void Initialize()
     {

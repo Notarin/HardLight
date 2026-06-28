@@ -7,7 +7,8 @@ public sealed class AtmosMonitoringConsoleBoundUserInterface : BoundUserInterfac
     [ViewVariables]
     private AtmosMonitoringConsoleWindow? _menu;
 
-    public AtmosMonitoringConsoleBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey) { }
+    public AtmosMonitoringConsoleBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {

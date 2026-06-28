@@ -20,8 +20,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "0.17,0.25,-0.17,-0.30"
         density: 190
         mask:
@@ -42,14 +41,12 @@
     damageModifierSet: Metallic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 200
       behaviors:
-        - !type:DoActsBehavior
-          acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:DoActsBehavior
@@ -97,9 +94,9 @@
     range: 200
   - type: DeviceLinkSink
     ports:
-      - On
-      - Off
-      - Toggle
+    - On
+    - Off
+    - Toggle
   - type: Construction
     graph: LightFixture
     node: groundLight
@@ -132,7 +129,7 @@
     enabled: true
   - type: ContainerFill # HardLight
     containers:
-      light_bulb: [ LightTube ]
+      light_bulb: [LightTube]
   - type: AmbientOnPowered
   - type: AmbientSound
     volume: -15
@@ -162,7 +159,7 @@
     color: "#EEEEFF"
   - type: ContainerFill # HardLight
     containers:
-      light_bulb: [ LedLightTube ]
+      light_bulb: [LedLightTube]
   - type: AmbientOnPowered
   - type: AmbientSound
     volume: -15

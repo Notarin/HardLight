@@ -1,8 +1,8 @@
 using System.Linq;
 using Content.Server.Administration.Logs;
-using Content.Server.Fluids.Components;
 using Content.Server.Chemistry.TileReactions;
 using Content.Server.DoAfter;
+using Content.Server.Fluids.Components;
 using Content.Server.Fluids.Components;
 using Content.Server.Spreader;
 using Content.Shared.ActionBlocker;
@@ -43,24 +43,59 @@ namespace Content.Server.Fluids.EntitySystems;
 /// </summary>
 public sealed partial class PuddleSystem : SharedPuddleSystem
 {
-    [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!;
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly ITileDefinitionManager _tileDefMan = default!;
-    [Dependency] private readonly AudioSystem _audio = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly ReactiveSystem _reactive = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedColorFlashEffectSystem _color = default!;
-    [Dependency] private readonly SharedPopupSystem _popups = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
-    [Dependency] private readonly StepTriggerSystem _stepTrigger = default!;
-    [Dependency] private readonly SpeedModifierContactsSystem _speedModContacts = default!;
-    [Dependency] private readonly TileFrictionController _tile = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency]
+    private readonly ActionBlockerSystem _actionBlocker = default!;
+
+    [Dependency]
+    private readonly IAdminLogManager _adminLogger = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _map = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly ITileDefinitionManager _tileDefMan = default!;
+
+    [Dependency]
+    private readonly AudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly EntityLookupSystem _lookup = default!;
+
+    [Dependency]
+    private readonly ReactiveSystem _reactive = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SharedColorFlashEffectSystem _color = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popups = default!;
+
+    [Dependency]
+    private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
+
+    [Dependency]
+    private readonly StepTriggerSystem _stepTrigger = default!;
+
+    [Dependency]
+    private readonly SpeedModifierContactsSystem _speedModContacts = default!;
+
+    [Dependency]
+    private readonly TileFrictionController _tile = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
 
     private static readonly ProtoId<ReagentPrototype> Blood = "Blood";
 
@@ -135,7 +170,12 @@ public sealed partial class PuddleSystem : SharedPuddleSystem
             foreach (var neighbor in args.NeighborFreeTiles)
             {
                 var split = overflow.SplitSolution(spillAmount);
-                TrySpillAt(_map.GridTileToLocal(neighbor.Tile.GridUid, neighbor.Grid, neighbor.Tile.GridIndices), split, out _, false);
+                TrySpillAt(
+                    _map.GridTileToLocal(neighbor.Tile.GridUid, neighbor.Grid, neighbor.Tile.GridIndices),
+                    split,
+                    out _,
+                    false
+                );
                 args.Updates--;
             }
 
@@ -146,28 +186,31 @@ public sealed partial class PuddleSystem : SharedPuddleSystem
         // Then we overflow to neighbors with overflow capacity
         if (args.Neighbors.Count > 0)
         {
-            var resolvedNeighbourSolutions = new ValueList<(Solution neighborSolution, PuddleComponent puddle, EntityUid neighbor)>();
+            var resolvedNeighbourSolutions =
+                new ValueList<(Solution neighborSolution, PuddleComponent puddle, EntityUid neighbor)>();
 
             // Resolve all our neighbours first, so we can use their properties to decide who to operate on first.
             foreach (var neighbor in args.Neighbors)
             {
-                if (!_puddleQuery.TryGetComponent(neighbor, out var puddle) ||
-                    !_solutionContainerSystem.ResolveSolution(neighbor, puddle.SolutionName, ref puddle.Solution,
-                        out var neighborSolution) ||
-                    CanFullyEvaporate(neighborSolution))
+                if (
+                    !_puddleQuery.TryGetComponent(neighbor, out var puddle)
+                    || !_solutionContainerSystem.ResolveSolution(
+                        neighbor,
+                        puddle.SolutionName,
+                        ref puddle.Solution,
+                        out var neighborSolution
+                    )
+                    || CanFullyEvaporate(neighborSolution)
+                )
                 {
                     continue;
                 }
 
-                resolvedNeighbourSolutions.Add(
-                    (neighborSolution, puddle, neighbor)
-                );
+                resolvedNeighbourSolutions.Add((neighborSolution, puddle, neighbor));
             }
 
             // We want to deal with our neighbours by lowest current volume to highest, as this allows us to fill up our low points quickly.
-            resolvedNeighbourSolutions.Sort(
-                (x, y) =>
-                    x.neighborSolution.Volume.CompareTo(y.neighborSolution.Volume));
+            resolvedNeighbourSolutions.Sort((x, y) => x.neighborSolution.Volume.CompareTo(y.neighborSolution.Volume));
 
             var selfVolume = overflow.Volume + entity.Comp.OverflowVolume; // Mono
             var shouldSleep = true; // Mono
@@ -254,12 +297,22 @@ public sealed partial class PuddleSystem : SharedPuddleSystem
         if (!_random.Prob(0.5f))
             return;
 
-        if (!_solutionContainerSystem.ResolveSolution(entity.Owner, entity.Comp.SolutionName, ref entity.Comp.Solution,
-                out var solution))
+        if (
+            !_solutionContainerSystem.ResolveSolution(
+                entity.Owner,
+                entity.Comp.SolutionName,
+                ref entity.Comp.Solution,
+                out var solution
+            )
+        )
             return;
 
-        _popups.PopupEntity(Loc.GetString("puddle-component-slipped-touch-reaction", ("puddle", entity.Owner)),
-            args.Slipped, args.Slipped, PopupType.SmallCaution);
+        _popups.PopupEntity(
+            Loc.GetString("puddle-component-slipped-touch-reaction", ("puddle", entity.Owner)),
+            args.Slipped,
+            args.Slipped,
+            PopupType.SmallCaution
+        );
 
         // Take 15% of the puddle solution
         var splitSol = _solutionContainerSystem.SplitSolution(entity.Comp.Solution.Value, solution.Volume * 0.15f);
@@ -299,8 +352,11 @@ public sealed partial class PuddleSystem : SharedPuddleSystem
         UpdateAppearance(entity, entity.Comp);
     }
 
-    private void UpdateAppearance(EntityUid uid, PuddleComponent? puddleComponent = null,
-        AppearanceComponent? appearance = null)
+    private void UpdateAppearance(
+        EntityUid uid,
+        PuddleComponent? puddleComponent = null,
+        AppearanceComponent? appearance = null
+    )
     {
         if (!Resolve(uid, ref puddleComponent, ref appearance, false))
         {
@@ -310,8 +366,14 @@ public sealed partial class PuddleSystem : SharedPuddleSystem
         var volume = FixedPoint2.Zero;
         Color color = Color.White;
 
-        if (_solutionContainerSystem.ResolveSolution(uid, puddleComponent.SolutionName, ref puddleComponent.Solution,
-                out var solution))
+        if (
+            _solutionContainerSystem.ResolveSolution(
+                uid,
+                puddleComponent.SolutionName,
+                ref puddleComponent.Solution,
+                out var solution
+            )
+        )
         {
             volume = solution.Volume / puddleComponent.OverflowVolume;
 
@@ -329,8 +391,11 @@ public sealed partial class PuddleSystem : SharedPuddleSystem
                     continue;
 
                 var interpolateValue = quantity.Float() / solution.Volume.Float();
-                color = Color.InterpolateBetween(color,
-                    _prototypeManager.Index<ReagentPrototype>(standout).SubstanceColor, interpolateValue);
+                color = Color.InterpolateBetween(
+                    color,
+                    _prototypeManager.Index<ReagentPrototype>(standout).SubstanceColor,
+                    interpolateValue
+                );
             }
         }
 
@@ -412,15 +477,15 @@ public sealed partial class PuddleSystem : SharedPuddleSystem
         // A puddle with 10 units of lube vs a puddle with 10 of lube and 20 catchup should stun and launch forward the same amount.
         if (slipperyUnits > 0)
         {
-            slipComp.SlipData.LaunchForwardsMultiplier = (float)(launchMult/slipperyUnits);
-            slipComp.SlipData.ParalyzeTime = (stunTimer/(float)slipperyUnits);
+            slipComp.SlipData.LaunchForwardsMultiplier = (float)(launchMult / slipperyUnits);
+            slipComp.SlipData.ParalyzeTime = (stunTimer / (float)slipperyUnits);
         }
 
         // Only make it super slippery if there is enough super slippery units for its own puddle
         slipComp.SlipData.SuperSlippery = superSlipperyUnits >= smallPuddleThreshold;
 
         // Lower tile friction based on how slippery it is, lets items slide across a puddle of lube
-        slipComp.SlipData.SlipFriction = (float)(puddleFriction/solution.Volume);
+        slipComp.SlipData.SlipFriction = (float)(puddleFriction / solution.Volume);
         _tile.SetModifier(entity, slipComp.SlipData.SlipFriction);
 
         Dirty(entity, slipComp);
@@ -461,8 +526,12 @@ public sealed partial class PuddleSystem : SharedPuddleSystem
         if (!Resolve(uid, ref puddleComponent))
             return FixedPoint2.Zero;
 
-        return _solutionContainerSystem.ResolveSolution(uid, puddleComponent.SolutionName, ref puddleComponent.Solution,
-            out var solution)
+        return _solutionContainerSystem.ResolveSolution(
+            uid,
+            puddleComponent.SolutionName,
+            ref puddleComponent.Solution,
+            out var solution
+        )
             ? solution.Volume
             : FixedPoint2.Zero;
     }
@@ -476,21 +545,28 @@ public sealed partial class PuddleSystem : SharedPuddleSystem
     /// <param name="checkForOverflow">Overflow on encountered values</param>
     /// <param name="puddleComponent">Optional resolved PuddleComponent</param>
     /// <returns></returns>
-    public bool TryAddSolution(EntityUid puddleUid,
+    public bool TryAddSolution(
+        EntityUid puddleUid,
         Solution addedSolution,
         bool sound = true,
         bool checkForOverflow = true,
         PuddleComponent? puddleComponent = null,
-        SolutionContainerManagerComponent? sol = null)
+        SolutionContainerManagerComponent? sol = null
+    )
     {
         if (!Resolve(puddleUid, ref puddleComponent, ref sol))
             return false;
 
         _solutionContainerSystem.EnsureAllSolutions((puddleUid, sol));
 
-        if (addedSolution.Volume == 0 ||
-            !_solutionContainerSystem.ResolveSolution(puddleUid, puddleComponent.SolutionName,
-                ref puddleComponent.Solution))
+        if (
+            addedSolution.Volume == 0
+            || !_solutionContainerSystem.ResolveSolution(
+                puddleUid,
+                puddleComponent.SolutionName,
+                ref puddleComponent.Solution
+            )
+        )
         {
             return false;
         }
@@ -539,28 +615,34 @@ public sealed partial class PuddleSystem : SharedPuddleSystem
     /// </summary>
     public Solution GetOverflowSolution(EntityUid uid, PuddleComponent? puddle = null)
     {
-        if (!Resolve(uid, ref puddle) ||
-            !_solutionContainerSystem.ResolveSolution(uid, puddle.SolutionName, ref puddle.Solution))
+        if (
+            !Resolve(uid, ref puddle)
+            || !_solutionContainerSystem.ResolveSolution(uid, puddle.SolutionName, ref puddle.Solution)
+        )
         {
             return new Solution(0);
         }
 
         // TODO: This is going to fail with struct solutions.
         var remaining = puddle.OverflowVolume;
-        var split = _solutionContainerSystem.SplitSolution(puddle.Solution.Value,
-            CurrentVolume(uid, puddle) - remaining);
+        var split = _solutionContainerSystem.SplitSolution(
+            puddle.Solution.Value,
+            CurrentVolume(uid, puddle) - remaining
+        );
         return split;
     }
 
     #region Spill
 
     /// <inheritdoc/>
-    public override bool TrySplashSpillAt(EntityUid uid,
+    public override bool TrySplashSpillAt(
+        EntityUid uid,
         EntityCoordinates coordinates,
         Solution solution,
         out EntityUid puddleUid,
         bool sound = true,
-        EntityUid? user = null)
+        EntityUid? user = null
+    )
     {
         puddleUid = EntityUid.Invalid;
 
@@ -583,25 +665,41 @@ public sealed partial class PuddleSystem : SharedPuddleSystem
 
             if (user != null)
             {
-                _adminLogger.Add(LogType.Landed,
-                    $"{ToPrettyString(user.Value):user} threw {ToPrettyString(uid):entity} which splashed a solution {SharedSolutionContainerSystem.ToPrettyString(solution):solution} onto {ToPrettyString(owner):target}");
+                _adminLogger.Add(
+                    LogType.Landed,
+                    $"{ToPrettyString(user.Value):user} threw {ToPrettyString(uid):entity} which splashed a solution {SharedSolutionContainerSystem.ToPrettyString(solution):solution} onto {ToPrettyString(owner):target}"
+                );
             }
 
             targets.Add(owner);
             _reactive.DoEntityReaction(owner, splitSolution, ReactionMethod.Touch);
             _popups.PopupEntity(
-                Loc.GetString("spill-land-spilled-on-other", ("spillable", uid),
-                    ("target", Identity.Entity(owner, EntityManager))), owner, PopupType.SmallCaution);
+                Loc.GetString(
+                    "spill-land-spilled-on-other",
+                    ("spillable", uid),
+                    ("target", Identity.Entity(owner, EntityManager))
+                ),
+                owner,
+                PopupType.SmallCaution
+            );
         }
 
-        _color.RaiseEffect(solution.GetColor(_prototypeManager), targets,
-            Filter.Pvs(uid, entityManager: EntityManager));
+        _color.RaiseEffect(
+            solution.GetColor(_prototypeManager),
+            targets,
+            Filter.Pvs(uid, entityManager: EntityManager)
+        );
 
         return TrySpillAt(coordinates, solution, out puddleUid, sound);
     }
 
     /// <inheritdoc/>
-    public override bool TrySpillAt(EntityCoordinates coordinates, Solution solution, out EntityUid puddleUid, bool sound = true)
+    public override bool TrySpillAt(
+        EntityCoordinates coordinates,
+        Solution solution,
+        out EntityUid puddleUid,
+        bool sound = true
+    )
     {
         if (solution.Volume == 0)
         {
@@ -621,8 +719,13 @@ public sealed partial class PuddleSystem : SharedPuddleSystem
     }
 
     /// <inheritdoc/>
-    public override bool TrySpillAt(EntityUid uid, Solution solution, out EntityUid puddleUid, bool sound = true,
-        TransformComponent? transformComponent = null)
+    public override bool TrySpillAt(
+        EntityUid uid,
+        Solution solution,
+        out EntityUid puddleUid,
+        bool sound = true,
+        TransformComponent? transformComponent = null
+    )
     {
         if (!Resolve(uid, ref transformComponent, false))
         {
@@ -634,8 +737,13 @@ public sealed partial class PuddleSystem : SharedPuddleSystem
     }
 
     /// <inheritdoc/>
-    public override bool TrySpillAt(TileRef tileRef, Solution solution, out EntityUid puddleUid, bool sound = true,
-        bool tileReact = true)
+    public override bool TrySpillAt(
+        TileRef tileRef,
+        Solution solution,
+        out EntityUid puddleUid,
+        bool sound = true,
+        bool tileReact = true
+    )
     {
         if (solution.Volume <= 0)
         {

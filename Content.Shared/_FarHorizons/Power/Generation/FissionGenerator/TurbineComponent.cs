@@ -1,11 +1,10 @@
-
-using Robust.Shared.Prototypes;
-using Robust.Shared.GameStates;
-using Content.Shared.Tools;
+using System.Numerics;
 using Content.Shared.Atmos;
 using Content.Shared.DeviceLinking;
+using Content.Shared.Tools;
+using Robust.Shared.GameStates;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
-using System.Numerics;
 
 namespace Content.Shared._FarHorizons.Power.Generation.FissionGenerator;
 
@@ -32,7 +31,7 @@ public sealed partial class TurbineComponent : Component
     /// Maximum setting of stator load
     /// </summary>
     // [DataField]
-    // public float StatorLoadMax = 500000; 
+    // public float StatorLoadMax = 500000;
 
     /// <summary>
     /// Current RPM of turbine
@@ -78,6 +77,7 @@ public sealed partial class TurbineComponent : Component
     /// </summary>
     [DataField]
     public float MaxTemp = 3000;
+
     [DataField]
     public float MinTemp = Atmospherics.T20C;
 
@@ -143,6 +143,7 @@ public sealed partial class TurbineComponent : Component
 
     [ViewVariables, AutoNetworkedField]
     public EntityUid? AlarmAudioOvertemp;
+
     [ViewVariables, AutoNetworkedField]
     public EntityUid? AlarmAudioUnderspeed;
 
@@ -279,10 +280,13 @@ public sealed partial class TurbineComponent : Component
     #region Debug
     [ViewVariables(VVAccess.ReadOnly)]
     public bool HasPipes = false;
+
     [ViewVariables(VVAccess.ReadOnly)]
     public float SupplierMaxSupply = 0;
+
     [ViewVariables(VVAccess.ReadOnly)]
     public float SupplierLastSupply = 0;
+
     [ViewVariables(VVAccess.ReadOnly)]
     public float LastVolumeTransfer = 0;
     #endregion

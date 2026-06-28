@@ -1,5 +1,6 @@
-using Content.Shared.Actions;
 using Content.Shared._EE.CCVar; // EE
+using Content.Shared.Actions;
+using Content.Shared.Clothing; // VRS (Triad #3781)
 using Content.Shared.Gravity;
 using Content.Shared.Interaction.Events;
 using Content.Shared.Movement.Components;
@@ -10,20 +11,34 @@ using Robust.Shared.Containers;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Serialization;
-using Content.Shared.Clothing; // VRS (Triad #3781)
 
 namespace Content.Shared.Movement.Systems;
 
 public abstract class SharedJetpackSystem : EntitySystem
 {
-    [Dependency] private readonly MovementSpeedModifierSystem _movementSpeedModifier = default!;
-    [Dependency] protected readonly SharedAppearanceSystem Appearance = default!;
-    [Dependency] protected readonly SharedContainerSystem Container = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly ActionContainerSystem _actionContainer = default!;
-    [Dependency] private readonly IConfigurationManager _config = default!; // EE
-    [Dependency] private readonly SharedGravitySystem _gravity = default!; // VRS (Triad #3781)
+    [Dependency]
+    private readonly MovementSpeedModifierSystem _movementSpeedModifier = default!;
+
+    [Dependency]
+    protected readonly SharedAppearanceSystem Appearance = default!;
+
+    [Dependency]
+    protected readonly SharedContainerSystem Container = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly SharedPhysicsSystem _physics = default!;
+
+    [Dependency]
+    private readonly ActionContainerSystem _actionContainer = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _config = default!; // EE
+
+    [Dependency]
+    private readonly SharedGravitySystem _gravity = default!; // VRS (Triad #3781)
 
     public override void Initialize()
     {
@@ -42,7 +57,10 @@ public abstract class SharedJetpackSystem : EntitySystem
         SubscribeLocalEvent<JetpackComponent, MapInitEvent>(OnMapInit);
     }
 
-    private void OnJetpackUserWeightlessMovement(Entity<JetpackUserComponent> ent, ref RefreshWeightlessModifiersEvent args)
+    private void OnJetpackUserWeightlessMovement(
+        Entity<JetpackUserComponent> ent,
+        ref RefreshWeightlessModifiersEvent args
+    )
     {
         // Yes this bulldozes the values but primarily for backwards compat atm.
         args.WeightlessAcceleration = ent.Comp.WeightlessAcceleration;
@@ -68,8 +86,11 @@ public abstract class SharedJetpackSystem : EntitySystem
         var query = EntityQueryEnumerator<JetpackUserComponent, TransformComponent>();
         while (query.MoveNext(out var uid, out var user, out var transform))
         {
-            if (transform.GridUid == gridUid && ev.HasGravity &&
-                jetpackQuery.TryGetComponent(user.Jetpack, out var jetpack))
+            if (
+                transform.GridUid == gridUid
+                && ev.HasGravity
+                && jetpackQuery.TryGetComponent(user.Jetpack, out var jetpack)
+            )
             {
                 _popup.PopupClient(Loc.GetString("jetpack-to-grid"), uid, uid);
 
@@ -89,20 +110,32 @@ public abstract class SharedJetpackSystem : EntitySystem
             SetEnabled(ent, ent.Comp, false, ent.Comp.JetpackUser);
     }
 
-    private void OnJetpackUserCanWeightless(EntityUid uid, JetpackUserComponent component, ref CanWeightlessMoveEvent args)
+    private void OnJetpackUserCanWeightless(
+        EntityUid uid,
+        JetpackUserComponent component,
+        ref CanWeightlessMoveEvent args
+    )
     {
         args.CanMove = true;
     }
 
-    private void OnJetpackUserEntParentChanged(EntityUid uid, JetpackUserComponent component, ref EntParentChangedMessage args)
+    private void OnJetpackUserEntParentChanged(
+        EntityUid uid,
+        JetpackUserComponent component,
+        ref EntParentChangedMessage args
+    )
     {
         // Frontier: note - comment from upstream, dead men tell no tales
         // No and no again! Do not attempt to activate the jetpack on a grid with gravity disabled. You will not be the first or the last to try this.
         // https://discord.com/channels/310555209753690112/310555209753690112/1270067921682694234
-        if (TryComp<JetpackComponent>(component.Jetpack, out var jetpack)
-            && (!CanEnableOnGrid(args.Transform.GridUid)
+        if (
+            TryComp<JetpackComponent>(component.Jetpack, out var jetpack)
+            && (
+                !CanEnableOnGrid(args.Transform.GridUid)
                 || !UserNotParented(uid, jetpack) // EE
-                || !_gravity.IsWeightless(uid))) // VRS (Triad #3781)
+                || !_gravity.IsWeightless(uid)
+            )
+        ) // VRS (Triad #3781)
         {
             SetEnabled(component.Jetpack, jetpack, false, uid);
 
@@ -144,8 +177,10 @@ public abstract class SharedJetpackSystem : EntitySystem
         if (args.Handled)
             return;
 
-        if (TryComp(uid, out TransformComponent? xform) && !CanEnableOnGrid(xform.GridUid)
-        || !_gravity.IsWeightless(args.Performer)) // VRS (Triad #3781)
+        if (
+            TryComp(uid, out TransformComponent? xform) && !CanEnableOnGrid(xform.GridUid)
+            || !_gravity.IsWeightless(args.Performer)
+        ) // VRS (Triad #3781)
         {
             _popup.PopupClient(Loc.GetString("jetpack-no-station"), uid, args.Performer);
 
@@ -160,11 +195,11 @@ public abstract class SharedJetpackSystem : EntitySystem
         // No and no again! Do not attempt to activate the jetpack on a grid with gravity disabled. You will not be the first or the last to try this.
         // https://discord.com/channels/310555209753690112/310555209753690112/1270067921682694234
         return gridUid == null // EE
-        //||(!HasComp<GravityComponent>(gridUid)); // EE
+            //||(!HasComp<GravityComponent>(gridUid)); // EE
             || _config.GetCVar(EECCVars.JetpackEnableAnywhere) // EE
             || _config.GetCVar(EECCVars.JetpackEnableInNoGravity) // EE
-            && TryComp<GravityComponent>(gridUid, out var comp) // EE
-            && !comp.Enabled; // EE
+                && TryComp<GravityComponent>(gridUid, out var comp) // EE
+                && !comp.Enabled; // EE
     }
 
     private void OnJetpackGetAction(EntityUid uid, JetpackComponent component, GetItemActionsEvent args)
@@ -179,8 +214,7 @@ public abstract class SharedJetpackSystem : EntitySystem
 
     public void SetEnabled(EntityUid uid, JetpackComponent component, bool enabled, EntityUid? user = null)
     {
-        if (IsEnabled(uid) == enabled ||
-            enabled && !CanEnable(uid, component))
+        if (IsEnabled(uid) == enabled || enabled && !CanEnable(uid, component))
             return;
 
         if (user == null)
@@ -200,7 +234,6 @@ public abstract class SharedJetpackSystem : EntitySystem
             RemoveUser(user.Value, component);
             RemComp<ActiveJetpackComponent>(uid);
         }
-
 
         Appearance.SetData(uid, JetpackVisuals.Enabled, enabled);
         Dirty(uid, component);
@@ -223,12 +256,22 @@ public abstract class SharedJetpackSystem : EntitySystem
             || xform.ParentUid == xform.GridUid
             || xform.ParentUid == xform.MapUid;
     }
+
     // End EE
 
     // VRS: auto-disable jetpack when magboots are toggled on while on a grid (Triad #3781)
-    private void OnJetpackUserMagbootsToggled(EntityUid uid, JetpackUserComponent component, ref MagbootsToggledEvent args)
+    private void OnJetpackUserMagbootsToggled(
+        EntityUid uid,
+        JetpackUserComponent component,
+        ref MagbootsToggledEvent args
+    )
     {
-        if (!args.State || !IsEnabled(component.Jetpack) || _gravity.IsWeightless(uid) || !TryComp<JetpackComponent>(component.Jetpack, out var jetpack))
+        if (
+            !args.State
+            || !IsEnabled(component.Jetpack)
+            || _gravity.IsWeightless(uid)
+            || !TryComp<JetpackComponent>(component.Jetpack, out var jetpack)
+        )
             return;
 
         _popup.PopupClient(Loc.GetString("jetpack-to-grid"), uid, uid);

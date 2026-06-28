@@ -8,8 +8,11 @@ namespace Content.Shared.Nutrition.EntitySystems
     [UsedImplicitly]
     public abstract class SharedCreamPieSystem : EntitySystem
     {
-        [Dependency] private SharedStunSystem _stunSystem = default!;
-        [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+        [Dependency]
+        private SharedStunSystem _stunSystem = default!;
+
+        [Dependency]
+        private readonly SharedAppearanceSystem _appearance = default!;
 
         public override void Initialize()
         {
@@ -31,7 +34,7 @@ namespace Content.Shared.Nutrition.EntitySystems
             SplattedCreamPie(uid, creamPie);
         }
 
-        protected virtual void SplattedCreamPie(EntityUid uid, CreamPieComponent creamPie) {}
+        protected virtual void SplattedCreamPie(EntityUid uid, CreamPieComponent creamPie) { }
 
         public void SetCreamPied(EntityUid uid, CreamPiedComponent creamPied, bool value)
         {
@@ -58,7 +61,11 @@ namespace Content.Shared.Nutrition.EntitySystems
 
         private void OnCreamPiedHitBy(EntityUid uid, CreamPiedComponent creamPied, ThrowHitByEvent args)
         {
-            if (!EntityManager.EntityExists(args.Thrown) || !EntityManager.TryGetComponent(args.Thrown, out CreamPieComponent? creamPie)) return;
+            if (
+                !EntityManager.EntityExists(args.Thrown)
+                || !EntityManager.TryGetComponent(args.Thrown, out CreamPieComponent? creamPie)
+            )
+                return;
 
             SetCreamPied(uid, creamPied, true);
 
@@ -67,6 +74,6 @@ namespace Content.Shared.Nutrition.EntitySystems
             _stunSystem.TryParalyze(uid, TimeSpan.FromSeconds(creamPie.ParalyzeTime), true);
         }
 
-        protected virtual void CreamedEntity(EntityUid uid, CreamPiedComponent creamPied, ThrowHitByEvent args) {}
+        protected virtual void CreamedEntity(EntityUid uid, CreamPiedComponent creamPied, ThrowHitByEvent args) { }
     }
 }

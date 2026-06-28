@@ -1,5 +1,5 @@
-using Content.Server.Station.Components;
 using System.Linq;
+using Content.Server.Station.Components;
 using Content.Server.Worldgen.Components;
 using Content.Shared._NF.Shipyard.Components;
 using Content.Shared.Ghost;
@@ -24,10 +24,17 @@ namespace Content.Server.Trash;
 /// </summary>
 public sealed class TrashCleanupSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
-    [Dependency] private readonly ILogManager _logManager = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transformSystem = default!;
+
+    [Dependency]
+    private readonly ILogManager _logManager = default!;
 
     private ISawmill _sawmill = default!;
 
@@ -63,8 +70,12 @@ public sealed class TrashCleanupSystem : EntitySystem
     public override void Initialize()
     {
         _sawmill = _logManager.GetSawmill("trash-cleanup");
-        _sawmill.Info("Trash cleanup system initialized. Will clean up grids beyond player distance {PlayerDistance} tiles (base loader padding {LoaderPadding}) every {Interval} minutes.",
-            PlayerCleanupDistance, BaseLoaderProtectionPadding, _cleanupInterval.TotalMinutes);
+        _sawmill.Info(
+            "Trash cleanup system initialized. Will clean up grids beyond player distance {PlayerDistance} tiles (base loader padding {LoaderPadding}) every {Interval} minutes.",
+            PlayerCleanupDistance,
+            BaseLoaderProtectionPadding,
+            _cleanupInterval.TotalMinutes
+        );
     }
 
     public override void Update(float frameTime)
@@ -122,8 +133,12 @@ public sealed class TrashCleanupSystem : EntitySystem
         // Delete eligible grids
         if (gridsToDelete.Count > 0)
         {
-            _sawmill.Info("Cleaning up {Count} grids that are outside all protection zones (player radius {PlayerDist}, base loader padding {LoaderPad}).",
-                gridsToDelete.Count, PlayerCleanupDistance, BaseLoaderProtectionPadding);
+            _sawmill.Info(
+                "Cleaning up {Count} grids that are outside all protection zones (player radius {PlayerDist}, base loader padding {LoaderPad}).",
+                gridsToDelete.Count,
+                PlayerCleanupDistance,
+                BaseLoaderProtectionPadding
+            );
 
             foreach (var gridUid in gridsToDelete)
             {

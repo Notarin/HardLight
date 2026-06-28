@@ -11,10 +11,17 @@ namespace Content.Server.HotPotato;
 
 public sealed class HotPotatoSystem : SharedHotPotatoSystem
 {
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly AmbientSoundSystem _ambientSound = default!;
-    [Dependency] private readonly DamageOnHoldingSystem _damageOnHolding = default!;
+    [Dependency]
+    private readonly SharedHandsSystem _hands = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly AmbientSoundSystem _ambientSound = default!;
+
+    [Dependency]
+    private readonly DamageOnHoldingSystem _damageOnHolding = default!;
 
     public override void Initialize()
     {
@@ -43,15 +50,20 @@ public sealed class HotPotatoSystem : SharedHotPotatoSystem
             if (!TryComp<HandsComponent>(hitEntity, out var hands))
                 continue;
 
-            if (!_hands.IsHolding(hitEntity, uid, out _, hands) && _hands.TryForcePickupAnyHand(hitEntity, uid, handsComp: hands))
+            if (
+                !_hands.IsHolding(hitEntity, uid, out _, hands)
+                && _hands.TryForcePickupAnyHand(hitEntity, uid, handsComp: hands)
+            )
             {
-                _popup.PopupEntity(Loc.GetString("hot-potato-passed",
-                    ("from", args.User), ("to", hitEntity)), uid, PopupType.Medium);
+                _popup.PopupEntity(
+                    Loc.GetString("hot-potato-passed", ("from", args.User), ("to", hitEntity)),
+                    uid,
+                    PopupType.Medium
+                );
                 break;
             }
 
-            _popup.PopupEntity(Loc.GetString("hot-potato-failed",
-                ("to", hitEntity)), uid, PopupType.Medium);
+            _popup.PopupEntity(Loc.GetString("hot-potato-failed", ("to", hitEntity)), uid, PopupType.Medium);
 
             break;
         }

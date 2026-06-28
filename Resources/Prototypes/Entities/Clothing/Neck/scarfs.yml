@@ -37,10 +37,10 @@
   name: striped black scarf
   description: A stylish striped black scarf. The perfect winter accessory for those with a keen fashion sense, and those who just can't handle a cold breeze on their necks.
   components:
-    - type: Sprite
-      sprite: Clothing/Neck/Scarfs/black.rsi
-    - type: Clothing
-      sprite: Clothing/Neck/Scarfs/black.rsi
+  - type: Sprite
+    sprite: Clothing/Neck/Scarfs/black.rsi
+  - type: Clothing
+    sprite: Clothing/Neck/Scarfs/black.rsi
 
 - type: entity
   parent: ClothingScarfBase
@@ -48,10 +48,10 @@
   name: striped brown scarf
   description: A stylish striped brown scarf. The perfect winter accessory for those with a keen fashion sense, and those who just can't handle a cold breeze on their necks.
   components:
-    - type: Sprite
-      sprite: Clothing/Neck/Scarfs/brown.rsi
-    - type: Clothing
-      sprite: Clothing/Neck/Scarfs/brown.rsi
+  - type: Sprite
+    sprite: Clothing/Neck/Scarfs/brown.rsi
+  - type: Clothing
+    sprite: Clothing/Neck/Scarfs/brown.rsi
 
 - type: entity
   parent: ClothingScarfBase
@@ -59,10 +59,10 @@
   name: striped light blue scarf
   description: A stylish striped light blue scarf. The perfect winter accessory for those with a keen fashion sense, and those who just can't handle a cold breeze on their necks.
   components:
-    - type: Sprite
-      sprite: Clothing/Neck/Scarfs/lightblue.rsi
-    - type: Clothing
-      sprite: Clothing/Neck/Scarfs/lightblue.rsi
+  - type: Sprite
+    sprite: Clothing/Neck/Scarfs/lightblue.rsi
+  - type: Clothing
+    sprite: Clothing/Neck/Scarfs/lightblue.rsi
 
 - type: entity
   parent: ClothingScarfBase
@@ -70,10 +70,10 @@
   name: striped orange scarf
   description: A stylish striped orange scarf. The perfect winter accessory for those with a keen fashion sense, and those who just can't handle a cold breeze on their necks.
   components:
-    - type: Sprite
-      sprite: Clothing/Neck/Scarfs/orange.rsi
-    - type: Clothing
-      sprite: Clothing/Neck/Scarfs/orange.rsi
+  - type: Sprite
+    sprite: Clothing/Neck/Scarfs/orange.rsi
+  - type: Clothing
+    sprite: Clothing/Neck/Scarfs/orange.rsi
 
 - type: entity
   parent: ClothingScarfBase
@@ -81,21 +81,21 @@
   name: striped purple scarf
   description: A stylish striped purple scarf. The perfect winter accessory for those with a keen fashion sense, and those who just can't handle a cold breeze on their necks.
   components:
-    - type: Sprite
-      sprite: Clothing/Neck/Scarfs/purple.rsi
-    - type: Clothing
-      sprite: Clothing/Neck/Scarfs/purple.rsi
+  - type: Sprite
+    sprite: Clothing/Neck/Scarfs/purple.rsi
+  - type: Clothing
+    sprite: Clothing/Neck/Scarfs/purple.rsi
 
 - type: entity
-  parent: [ ClothingScarfBase, ContrabandClothing ] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband, added ContrabandClothing as parent
+  parent: [ClothingScarfBase, ContrabandClothing] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband, added ContrabandClothing as parent
   id: ClothingNeckScarfStripedSyndieGreen
   name: striped syndicate green scarf
   description: A stylish striped syndicate green scarf. The perfect winter accessory for those with a keen fashion sense, and those who are in the mood to steal something.
   components:
-    - type: Sprite
-      sprite: Clothing/Neck/Scarfs/syndiegreen.rsi
-    - type: Clothing
-      sprite: Clothing/Neck/Scarfs/syndiegreen.rsi
+  - type: Sprite
+    sprite: Clothing/Neck/Scarfs/syndiegreen.rsi
+  - type: Clothing
+    sprite: Clothing/Neck/Scarfs/syndiegreen.rsi
 
 - type: entity
   parent: [ClothingScarfBase, ContrabandClothing] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband, added ContrabandClothing as parent
@@ -103,21 +103,21 @@
   name: striped syndicate red scarf
   description: A stylish striped syndicate red scarf. The perfect winter accessory for those with a keen fashion sense, and those who are in the mood to steal something.
   components:
-    - type: Sprite
-      sprite: Clothing/Neck/Scarfs/syndiered.rsi
-    - type: Clothing
-      sprite: Clothing/Neck/Scarfs/syndiered.rsi
+  - type: Sprite
+    sprite: Clothing/Neck/Scarfs/syndiered.rsi
+  - type: Clothing
+    sprite: Clothing/Neck/Scarfs/syndiered.rsi
 
 - type: entity
-  parent: [ ClothingScarfBase, BaseColcommContraband ]
+  parent: [ClothingScarfBase, BaseColcommContraband]
   id: ClothingNeckScarfStripedCentcom
   name: striped ColComm scarf
   description: A stylish striped Colcomm colored scarf. The perfect winter accessory for those with a keen fashion sense, and those who need to do paperwork in the cold.
   components:
-    - type: Sprite
-      sprite: Clothing/Neck/Scarfs/centcom.rsi
-    - type: Clothing
-      sprite: Clothing/Neck/Scarfs/centcom.rsi
+  - type: Sprite
+    sprite: Clothing/Neck/Scarfs/centcom.rsi
+  - type: Clothing
+    sprite: Clothing/Neck/Scarfs/centcom.rsi
 
 - type: entity
   parent: ClothingScarfBase

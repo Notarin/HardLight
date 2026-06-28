@@ -19,7 +19,7 @@ public sealed partial class GatewayGeneratorComponent : Component
     /// <summary>
     /// Next time another seed unlocks.
     /// </summary>
-    [DataField(customTypeSerializer:typeof(TimeOffsetSerializer))]
+    [DataField(customTypeSerializer: typeof(TimeOffsetSerializer))]
     [AutoPausedField]
     public TimeSpan NextUnlock;
 
@@ -42,11 +42,7 @@ public sealed partial class GatewayGeneratorComponent : Component
     /// Mob layers to pick from.
     /// </summary>
     [DataField]
-    public List<ProtoId<BiomeMarkerLayerPrototype>> MobLayers = new()
-    {
-        "Carps",
-        "Xenos",
-    };
+    public List<ProtoId<BiomeMarkerLayerPrototype>> MobLayers = new() { "Carps", "Xenos" };
 
     [DataField]
     public int LootLayerCount = 3;
@@ -66,4 +62,3 @@ public sealed partial class GatewayGeneratorComponent : Component
         "OreArtifactFragment",
     };
 }
-

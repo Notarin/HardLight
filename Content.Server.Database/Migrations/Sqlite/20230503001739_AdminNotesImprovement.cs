@@ -11,139 +11,128 @@ namespace Content.Server.Database.Migrations.Sqlite
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_admin_notes_player_created_by_id",
-                table: "admin_notes");
+            migrationBuilder.DropForeignKey(name: "FK_admin_notes_player_created_by_id", table: "admin_notes");
 
-            migrationBuilder.DropForeignKey(
-                name: "FK_admin_notes_player_deleted_by_id",
-                table: "admin_notes");
+            migrationBuilder.DropForeignKey(name: "FK_admin_notes_player_deleted_by_id", table: "admin_notes");
 
-            migrationBuilder.DropForeignKey(
-                name: "FK_admin_notes_player_last_edited_by_id",
-                table: "admin_notes");
+            migrationBuilder.DropForeignKey(name: "FK_admin_notes_player_last_edited_by_id", table: "admin_notes");
 
-            migrationBuilder.DropForeignKey(
-                name: "FK_admin_notes_player_player_user_id",
-                table: "admin_notes");
+            migrationBuilder.DropForeignKey(name: "FK_admin_notes_player_player_user_id", table: "admin_notes");
 
-            migrationBuilder.DropCheckConstraint(
-                name: "HaveEitherAddressOrUserIdOrHWId",
-                table: "server_role_ban");
+            migrationBuilder.DropCheckConstraint(name: "HaveEitherAddressOrUserIdOrHWId", table: "server_role_ban");
 
-            migrationBuilder.DropCheckConstraint(
-                name: "HaveEitherAddressOrUserIdOrHWId",
-                table: "server_ban");
+            migrationBuilder.DropCheckConstraint(name: "HaveEitherAddressOrUserIdOrHWId", table: "server_ban");
 
-            migrationBuilder.RenameColumn(
-                name: "user_id",
-                table: "server_role_ban",
-                newName: "player_user_id");
+            migrationBuilder.RenameColumn(name: "user_id", table: "server_role_ban", newName: "player_user_id");
 
             migrationBuilder.RenameIndex(
                 name: "IX_server_role_ban_user_id",
                 table: "server_role_ban",
-                newName: "IX_server_role_ban_player_user_id");
+                newName: "IX_server_role_ban_player_user_id"
+            );
 
-            migrationBuilder.RenameColumn(
-                name: "user_id",
-                table: "server_ban",
-                newName: "player_user_id");
+            migrationBuilder.RenameColumn(name: "user_id", table: "server_ban", newName: "player_user_id");
 
             migrationBuilder.RenameIndex(
                 name: "IX_server_ban_user_id",
                 table: "server_ban",
-                newName: "IX_server_ban_player_user_id");
+                newName: "IX_server_ban_player_user_id"
+            );
 
-            migrationBuilder.RenameColumn(
-                name: "shown_to_player",
-                table: "admin_notes",
-                newName: "secret");
+            migrationBuilder.RenameColumn(name: "shown_to_player", table: "admin_notes", newName: "secret");
 
             migrationBuilder.UpdateData(
                 table: "admin_notes",
                 keyColumn: "secret",
                 keyValue: false,
                 column: "secret",
-                value: true);
+                value: true
+            );
 
             migrationBuilder.AddColumn<bool>(
                 name: "hidden",
                 table: "server_role_ban",
                 type: "INTEGER",
                 nullable: false,
-                defaultValue: false);
+                defaultValue: false
+            );
 
             migrationBuilder.AddColumn<DateTime>(
                 name: "last_edited_at",
                 table: "server_role_ban",
                 type: "TEXT",
-                nullable: true);
+                nullable: true
+            );
 
             migrationBuilder.AddColumn<Guid>(
                 name: "last_edited_by_id",
                 table: "server_role_ban",
                 type: "TEXT",
-                nullable: true);
+                nullable: true
+            );
 
             migrationBuilder.AddColumn<TimeSpan>(
                 name: "playtime_at_note",
                 table: "server_role_ban",
                 type: "TEXT",
                 nullable: false,
-                defaultValue: new TimeSpan(0, 0, 0, 0, 0));
+                defaultValue: new TimeSpan(0, 0, 0, 0, 0)
+            );
 
             migrationBuilder.AddColumn<int>(
                 name: "round_id",
                 table: "server_role_ban",
                 type: "INTEGER",
-                nullable: true);
+                nullable: true
+            );
 
             migrationBuilder.AddColumn<int>(
                 name: "severity",
                 table: "server_role_ban",
                 type: "INTEGER",
                 nullable: false,
-                defaultValue: 2);
+                defaultValue: 2
+            );
 
             migrationBuilder.AddColumn<bool>(
                 name: "hidden",
                 table: "server_ban",
                 type: "INTEGER",
                 nullable: false,
-                defaultValue: false);
+                defaultValue: false
+            );
 
             migrationBuilder.AddColumn<DateTime>(
                 name: "last_edited_at",
                 table: "server_ban",
                 type: "TEXT",
-                nullable: true);
+                nullable: true
+            );
 
             migrationBuilder.AddColumn<Guid>(
                 name: "last_edited_by_id",
                 table: "server_ban",
                 type: "TEXT",
-                nullable: true);
+                nullable: true
+            );
 
             migrationBuilder.AddColumn<TimeSpan>(
                 name: "playtime_at_note",
                 table: "server_ban",
                 type: "TEXT",
                 nullable: false,
-                defaultValue: new TimeSpan(0, 0, 0, 0, 0));
+                defaultValue: new TimeSpan(0, 0, 0, 0, 0)
+            );
 
-            migrationBuilder.AddColumn<int>(
-                name: "round_id",
-                table: "server_ban",
-                type: "INTEGER",
-                nullable: true);
+            migrationBuilder.AddColumn<int>(name: "round_id", table: "server_ban", type: "INTEGER", nullable: true);
 
             migrationBuilder.AddColumn<int>(
                 name: "severity",
                 table: "server_ban",
                 type: "INTEGER",
                 nullable: false,
-                defaultValue: 3);
+                defaultValue: 3
+            );
 
             migrationBuilder.AlterColumn<Guid>(
                 name: "player_user_id",
@@ -151,7 +140,8 @@ namespace Content.Server.Database.Migrations.Sqlite
                 type: "TEXT",
                 nullable: true,
                 oldClrType: typeof(Guid),
-                oldType: "TEXT");
+                oldType: "TEXT"
+            );
 
             migrationBuilder.AlterColumn<Guid>(
                 name: "last_edited_by_id",
@@ -159,7 +149,8 @@ namespace Content.Server.Database.Migrations.Sqlite
                 type: "TEXT",
                 nullable: true,
                 oldClrType: typeof(Guid),
-                oldType: "TEXT");
+                oldType: "TEXT"
+            );
 
             migrationBuilder.AlterColumn<Guid>(
                 name: "created_by_id",
@@ -167,33 +158,38 @@ namespace Content.Server.Database.Migrations.Sqlite
                 type: "TEXT",
                 nullable: true,
                 oldClrType: typeof(Guid),
-                oldType: "TEXT");
+                oldType: "TEXT"
+            );
 
             migrationBuilder.AddColumn<DateTime>(
                 name: "expiration_time",
                 table: "admin_notes",
                 type: "TEXT",
-                nullable: true);
+                nullable: true
+            );
 
             migrationBuilder.AddColumn<int>(
                 name: "severity",
                 table: "admin_notes",
                 type: "INTEGER",
                 nullable: false,
-                defaultValue: 1);
+                defaultValue: 1
+            );
 
             migrationBuilder.AddColumn<TimeSpan>(
                 name: "playtime_at_note",
                 table: "admin_notes",
                 type: "TEXT",
                 nullable: false,
-                defaultValue: new TimeSpan(0, 0, 0, 0, 0));
+                defaultValue: new TimeSpan(0, 0, 0, 0, 0)
+            );
 
             migrationBuilder.CreateTable(
                 name: "admin_messages",
                 columns: table => new
                 {
-                    admin_messages_id = table.Column<int>(type: "INTEGER", nullable: false)
+                    admin_messages_id = table
+                        .Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     round_id = table.Column<int>(type: "INTEGER", nullable: true),
                     player_user_id = table.Column<Guid>(type: "TEXT", nullable: true),
@@ -207,7 +203,7 @@ namespace Content.Server.Database.Migrations.Sqlite
                     deleted = table.Column<bool>(type: "INTEGER", nullable: false),
                     deleted_by_id = table.Column<Guid>(type: "TEXT", nullable: true),
                     deleted_at = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    seen = table.Column<bool>(type: "INTEGER", nullable: false)
+                    seen = table.Column<bool>(type: "INTEGER", nullable: false),
                 },
                 constraints: table =>
                 {
@@ -217,37 +213,44 @@ namespace Content.Server.Database.Migrations.Sqlite
                         column: x => x.created_by_id,
                         principalTable: "player",
                         principalColumn: "user_id",
-                        onDelete: ReferentialAction.SetNull);
+                        onDelete: ReferentialAction.SetNull
+                    );
                     table.ForeignKey(
                         name: "FK_admin_messages_player_deleted_by_id",
                         column: x => x.deleted_by_id,
                         principalTable: "player",
                         principalColumn: "user_id",
-                        onDelete: ReferentialAction.SetNull);
+                        onDelete: ReferentialAction.SetNull
+                    );
                     table.ForeignKey(
                         name: "FK_admin_messages_player_last_edited_by_id",
                         column: x => x.last_edited_by_id,
                         principalTable: "player",
                         principalColumn: "user_id",
-                        onDelete: ReferentialAction.SetNull);
+                        onDelete: ReferentialAction.SetNull
+                    );
                     table.ForeignKey(
                         name: "FK_admin_messages_player_player_user_id",
                         column: x => x.player_user_id,
                         principalTable: "player",
                         principalColumn: "user_id",
-                        onDelete: ReferentialAction.SetNull);
+                        onDelete: ReferentialAction.SetNull
+                    );
                     table.ForeignKey(
                         name: "FK_admin_messages_round_round_id",
                         column: x => x.round_id,
                         principalTable: "round",
-                        principalColumn: "round_id");
-                });
+                        principalColumn: "round_id"
+                    );
+                }
+            );
 
             migrationBuilder.CreateTable(
                 name: "admin_watchlists",
                 columns: table => new
                 {
-                    admin_watchlists_id = table.Column<int>(type: "INTEGER", nullable: false)
+                    admin_watchlists_id = table
+                        .Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     round_id = table.Column<int>(type: "INTEGER", nullable: true),
                     player_user_id = table.Column<Guid>(type: "TEXT", nullable: true),
@@ -260,7 +263,7 @@ namespace Content.Server.Database.Migrations.Sqlite
                     expiration_time = table.Column<DateTime>(type: "TEXT", nullable: true),
                     deleted = table.Column<bool>(type: "INTEGER", nullable: false),
                     deleted_by_id = table.Column<Guid>(type: "TEXT", nullable: true),
-                    deleted_at = table.Column<DateTime>(type: "TEXT", nullable: true)
+                    deleted_at = table.Column<DateTime>(type: "TEXT", nullable: true),
                 },
                 constraints: table =>
                 {
@@ -270,121 +273,141 @@ namespace Content.Server.Database.Migrations.Sqlite
                         column: x => x.created_by_id,
                         principalTable: "player",
                         principalColumn: "user_id",
-                        onDelete: ReferentialAction.SetNull);
+                        onDelete: ReferentialAction.SetNull
+                    );
                     table.ForeignKey(
                         name: "FK_admin_watchlists_player_deleted_by_id",
                         column: x => x.deleted_by_id,
                         principalTable: "player",
                         principalColumn: "user_id",
-                        onDelete: ReferentialAction.SetNull);
+                        onDelete: ReferentialAction.SetNull
+                    );
                     table.ForeignKey(
                         name: "FK_admin_watchlists_player_last_edited_by_id",
                         column: x => x.last_edited_by_id,
                         principalTable: "player",
                         principalColumn: "user_id",
-                        onDelete: ReferentialAction.SetNull);
+                        onDelete: ReferentialAction.SetNull
+                    );
                     table.ForeignKey(
                         name: "FK_admin_watchlists_player_player_user_id",
                         column: x => x.player_user_id,
                         principalTable: "player",
                         principalColumn: "user_id",
-                        onDelete: ReferentialAction.SetNull);
+                        onDelete: ReferentialAction.SetNull
+                    );
                     table.ForeignKey(
                         name: "FK_admin_watchlists_round_round_id",
                         column: x => x.round_id,
                         principalTable: "round",
-                        principalColumn: "round_id");
-                });
+                        principalColumn: "round_id"
+                    );
+                }
+            );
 
             migrationBuilder.CreateIndex(
                 name: "IX_server_role_ban_banning_admin",
                 table: "server_role_ban",
-                column: "banning_admin");
+                column: "banning_admin"
+            );
 
             migrationBuilder.CreateIndex(
                 name: "IX_server_role_ban_last_edited_by_id",
                 table: "server_role_ban",
-                column: "last_edited_by_id");
+                column: "last_edited_by_id"
+            );
 
             migrationBuilder.CreateIndex(
                 name: "IX_server_role_ban_round_id",
                 table: "server_role_ban",
-                column: "round_id");
+                column: "round_id"
+            );
 
             migrationBuilder.AddCheckConstraint(
                 name: "HaveEitherAddressOrUserIdOrHWId",
                 table: "server_role_ban",
-                sql: "address IS NOT NULL OR player_user_id IS NOT NULL OR hwid IS NOT NULL");
+                sql: "address IS NOT NULL OR player_user_id IS NOT NULL OR hwid IS NOT NULL"
+            );
 
             migrationBuilder.CreateIndex(
                 name: "IX_server_ban_banning_admin",
                 table: "server_ban",
-                column: "banning_admin");
+                column: "banning_admin"
+            );
 
             migrationBuilder.CreateIndex(
                 name: "IX_server_ban_last_edited_by_id",
                 table: "server_ban",
-                column: "last_edited_by_id");
+                column: "last_edited_by_id"
+            );
 
-            migrationBuilder.CreateIndex(
-                name: "IX_server_ban_round_id",
-                table: "server_ban",
-                column: "round_id");
+            migrationBuilder.CreateIndex(name: "IX_server_ban_round_id", table: "server_ban", column: "round_id");
 
             migrationBuilder.AddCheckConstraint(
                 name: "HaveEitherAddressOrUserIdOrHWId",
                 table: "server_ban",
-                sql: "address IS NOT NULL OR player_user_id IS NOT NULL OR hwid IS NOT NULL");
+                sql: "address IS NOT NULL OR player_user_id IS NOT NULL OR hwid IS NOT NULL"
+            );
 
             migrationBuilder.CreateIndex(
                 name: "IX_admin_messages_created_by_id",
                 table: "admin_messages",
-                column: "created_by_id");
+                column: "created_by_id"
+            );
 
             migrationBuilder.CreateIndex(
                 name: "IX_admin_messages_deleted_by_id",
                 table: "admin_messages",
-                column: "deleted_by_id");
+                column: "deleted_by_id"
+            );
 
             migrationBuilder.CreateIndex(
                 name: "IX_admin_messages_last_edited_by_id",
                 table: "admin_messages",
-                column: "last_edited_by_id");
+                column: "last_edited_by_id"
+            );
 
             migrationBuilder.CreateIndex(
                 name: "IX_admin_messages_player_user_id",
                 table: "admin_messages",
-                column: "player_user_id");
+                column: "player_user_id"
+            );
 
             migrationBuilder.CreateIndex(
                 name: "IX_admin_messages_round_id",
                 table: "admin_messages",
-                column: "round_id");
+                column: "round_id"
+            );
 
             migrationBuilder.CreateIndex(
                 name: "IX_admin_watchlists_created_by_id",
                 table: "admin_watchlists",
-                column: "created_by_id");
+                column: "created_by_id"
+            );
 
             migrationBuilder.CreateIndex(
                 name: "IX_admin_watchlists_deleted_by_id",
                 table: "admin_watchlists",
-                column: "deleted_by_id");
+                column: "deleted_by_id"
+            );
 
             migrationBuilder.CreateIndex(
                 name: "IX_admin_watchlists_last_edited_by_id",
                 table: "admin_watchlists",
-                column: "last_edited_by_id");
+                column: "last_edited_by_id"
+            );
 
             migrationBuilder.CreateIndex(
                 name: "IX_admin_watchlists_player_user_id",
                 table: "admin_watchlists",
-                column: "player_user_id");
+                column: "player_user_id"
+            );
 
             migrationBuilder.CreateIndex(
                 name: "IX_admin_watchlists_round_id",
                 table: "admin_watchlists",
-                column: "round_id");
+                column: "round_id"
+            );
 
             migrationBuilder.AddForeignKey(
                 name: "FK_admin_notes_player_created_by_id",
@@ -392,7 +415,8 @@ namespace Content.Server.Database.Migrations.Sqlite
                 column: "created_by_id",
                 principalTable: "player",
                 principalColumn: "user_id",
-                onDelete: ReferentialAction.SetNull);
+                onDelete: ReferentialAction.SetNull
+            );
 
             migrationBuilder.AddForeignKey(
                 name: "FK_admin_notes_player_deleted_by_id",
@@ -400,7 +424,8 @@ namespace Content.Server.Database.Migrations.Sqlite
                 column: "deleted_by_id",
                 principalTable: "player",
                 principalColumn: "user_id",
-                onDelete: ReferentialAction.SetNull);
+                onDelete: ReferentialAction.SetNull
+            );
 
             migrationBuilder.AddForeignKey(
                 name: "FK_admin_notes_player_last_edited_by_id",
@@ -408,7 +433,8 @@ namespace Content.Server.Database.Migrations.Sqlite
                 column: "last_edited_by_id",
                 principalTable: "player",
                 principalColumn: "user_id",
-                onDelete: ReferentialAction.SetNull);
+                onDelete: ReferentialAction.SetNull
+            );
 
             migrationBuilder.AddForeignKey(
                 name: "FK_admin_notes_player_player_user_id",
@@ -416,7 +442,8 @@ namespace Content.Server.Database.Migrations.Sqlite
                 column: "player_user_id",
                 principalTable: "player",
                 principalColumn: "user_id",
-                onDelete: ReferentialAction.SetNull);
+                onDelete: ReferentialAction.SetNull
+            );
 
             migrationBuilder.AddForeignKey(
                 name: "FK_server_ban_player_banning_admin",
@@ -424,7 +451,8 @@ namespace Content.Server.Database.Migrations.Sqlite
                 column: "banning_admin",
                 principalTable: "player",
                 principalColumn: "user_id",
-                onDelete: ReferentialAction.SetNull);
+                onDelete: ReferentialAction.SetNull
+            );
 
             migrationBuilder.AddForeignKey(
                 name: "FK_server_ban_player_last_edited_by_id",
@@ -432,14 +460,16 @@ namespace Content.Server.Database.Migrations.Sqlite
                 column: "last_edited_by_id",
                 principalTable: "player",
                 principalColumn: "user_id",
-                onDelete: ReferentialAction.SetNull);
+                onDelete: ReferentialAction.SetNull
+            );
 
             migrationBuilder.AddForeignKey(
                 name: "FK_server_ban_round_round_id",
                 table: "server_ban",
                 column: "round_id",
                 principalTable: "round",
-                principalColumn: "round_id");
+                principalColumn: "round_id"
+            );
 
             migrationBuilder.AddForeignKey(
                 name: "FK_server_role_ban_player_banning_admin",
@@ -447,7 +477,8 @@ namespace Content.Server.Database.Migrations.Sqlite
                 column: "banning_admin",
                 principalTable: "player",
                 principalColumn: "user_id",
-                onDelete: ReferentialAction.SetNull);
+                onDelete: ReferentialAction.SetNull
+            );
 
             migrationBuilder.AddForeignKey(
                 name: "FK_server_role_ban_player_last_edited_by_id",
@@ -455,188 +486,119 @@ namespace Content.Server.Database.Migrations.Sqlite
                 column: "last_edited_by_id",
                 principalTable: "player",
                 principalColumn: "user_id",
-                onDelete: ReferentialAction.SetNull);
+                onDelete: ReferentialAction.SetNull
+            );
 
             migrationBuilder.AddForeignKey(
                 name: "FK_server_role_ban_round_round_id",
                 table: "server_role_ban",
                 column: "round_id",
                 principalTable: "round",
-                principalColumn: "round_id");
+                principalColumn: "round_id"
+            );
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_admin_notes_player_created_by_id",
-                table: "admin_notes");
+            migrationBuilder.DropForeignKey(name: "FK_admin_notes_player_created_by_id", table: "admin_notes");
 
-            migrationBuilder.DropForeignKey(
-                name: "FK_admin_notes_player_deleted_by_id",
-                table: "admin_notes");
+            migrationBuilder.DropForeignKey(name: "FK_admin_notes_player_deleted_by_id", table: "admin_notes");
 
-            migrationBuilder.DropForeignKey(
-                name: "FK_admin_notes_player_last_edited_by_id",
-                table: "admin_notes");
+            migrationBuilder.DropForeignKey(name: "FK_admin_notes_player_last_edited_by_id", table: "admin_notes");
 
-            migrationBuilder.DropForeignKey(
-                name: "FK_admin_notes_player_player_user_id",
-                table: "admin_notes");
+            migrationBuilder.DropForeignKey(name: "FK_admin_notes_player_player_user_id", table: "admin_notes");
 
-            migrationBuilder.DropForeignKey(
-                name: "FK_server_ban_player_banning_admin",
-                table: "server_ban");
+            migrationBuilder.DropForeignKey(name: "FK_server_ban_player_banning_admin", table: "server_ban");
 
-            migrationBuilder.DropForeignKey(
-                name: "FK_server_ban_player_last_edited_by_id",
-                table: "server_ban");
+            migrationBuilder.DropForeignKey(name: "FK_server_ban_player_last_edited_by_id", table: "server_ban");
 
-            migrationBuilder.DropForeignKey(
-                name: "FK_server_ban_round_round_id",
-                table: "server_ban");
+            migrationBuilder.DropForeignKey(name: "FK_server_ban_round_round_id", table: "server_ban");
 
-            migrationBuilder.DropForeignKey(
-                name: "FK_server_role_ban_player_banning_admin",
-                table: "server_role_ban");
+            migrationBuilder.DropForeignKey(name: "FK_server_role_ban_player_banning_admin", table: "server_role_ban");
 
             migrationBuilder.DropForeignKey(
                 name: "FK_server_role_ban_player_last_edited_by_id",
-                table: "server_role_ban");
+                table: "server_role_ban"
+            );
 
-            migrationBuilder.DropForeignKey(
-                name: "FK_server_role_ban_round_round_id",
-                table: "server_role_ban");
+            migrationBuilder.DropForeignKey(name: "FK_server_role_ban_round_round_id", table: "server_role_ban");
 
-            migrationBuilder.DropTable(
-                name: "admin_messages");
+            migrationBuilder.DropTable(name: "admin_messages");
 
-            migrationBuilder.DropTable(
-                name: "admin_watchlists");
+            migrationBuilder.DropTable(name: "admin_watchlists");
 
-            migrationBuilder.DropIndex(
-                name: "IX_server_role_ban_banning_admin",
-                table: "server_role_ban");
+            migrationBuilder.DropIndex(name: "IX_server_role_ban_banning_admin", table: "server_role_ban");
 
-            migrationBuilder.DropIndex(
-                name: "IX_server_role_ban_last_edited_by_id",
-                table: "server_role_ban");
+            migrationBuilder.DropIndex(name: "IX_server_role_ban_last_edited_by_id", table: "server_role_ban");
 
-            migrationBuilder.DropIndex(
-                name: "IX_server_role_ban_round_id",
-                table: "server_role_ban");
+            migrationBuilder.DropIndex(name: "IX_server_role_ban_round_id", table: "server_role_ban");
 
-            migrationBuilder.DropCheckConstraint(
-                name: "HaveEitherAddressOrUserIdOrHWId",
-                table: "server_role_ban");
+            migrationBuilder.DropCheckConstraint(name: "HaveEitherAddressOrUserIdOrHWId", table: "server_role_ban");
 
-            migrationBuilder.DropIndex(
-                name: "IX_server_ban_banning_admin",
-                table: "server_ban");
+            migrationBuilder.DropIndex(name: "IX_server_ban_banning_admin", table: "server_ban");
 
-            migrationBuilder.DropIndex(
-                name: "IX_server_ban_last_edited_by_id",
-                table: "server_ban");
+            migrationBuilder.DropIndex(name: "IX_server_ban_last_edited_by_id", table: "server_ban");
 
-            migrationBuilder.DropIndex(
-                name: "IX_server_ban_round_id",
-                table: "server_ban");
+            migrationBuilder.DropIndex(name: "IX_server_ban_round_id", table: "server_ban");
 
-            migrationBuilder.DropCheckConstraint(
-                name: "HaveEitherAddressOrUserIdOrHWId",
-                table: "server_ban");
+            migrationBuilder.DropCheckConstraint(name: "HaveEitherAddressOrUserIdOrHWId", table: "server_ban");
 
-            migrationBuilder.DropColumn(
-                name: "hidden",
-                table: "server_role_ban");
+            migrationBuilder.DropColumn(name: "hidden", table: "server_role_ban");
 
-            migrationBuilder.DropColumn(
-                name: "last_edited_at",
-                table: "server_role_ban");
+            migrationBuilder.DropColumn(name: "last_edited_at", table: "server_role_ban");
 
-            migrationBuilder.DropColumn(
-                name: "last_edited_by_id",
-                table: "server_role_ban");
+            migrationBuilder.DropColumn(name: "last_edited_by_id", table: "server_role_ban");
 
-            migrationBuilder.DropColumn(
-                name: "playtime_at_note",
-                table: "server_role_ban");
+            migrationBuilder.DropColumn(name: "playtime_at_note", table: "server_role_ban");
 
-            migrationBuilder.DropColumn(
-                name: "round_id",
-                table: "server_role_ban");
+            migrationBuilder.DropColumn(name: "round_id", table: "server_role_ban");
 
-            migrationBuilder.DropColumn(
-                name: "severity",
-                table: "server_role_ban");
+            migrationBuilder.DropColumn(name: "severity", table: "server_role_ban");
 
-            migrationBuilder.DropColumn(
-                name: "hidden",
-                table: "server_ban");
+            migrationBuilder.DropColumn(name: "hidden", table: "server_ban");
 
-            migrationBuilder.DropColumn(
-                name: "last_edited_at",
-                table: "server_ban");
+            migrationBuilder.DropColumn(name: "last_edited_at", table: "server_ban");
 
-            migrationBuilder.DropColumn(
-                name: "last_edited_by_id",
-                table: "server_ban");
+            migrationBuilder.DropColumn(name: "last_edited_by_id", table: "server_ban");
 
-            migrationBuilder.DropColumn(
-                name: "playtime_at_note",
-                table: "server_ban");
+            migrationBuilder.DropColumn(name: "playtime_at_note", table: "server_ban");
 
-            migrationBuilder.DropColumn(
-                name: "round_id",
-                table: "server_ban");
+            migrationBuilder.DropColumn(name: "round_id", table: "server_ban");
 
-            migrationBuilder.DropColumn(
-                name: "severity",
-                table: "server_ban");
+            migrationBuilder.DropColumn(name: "severity", table: "server_ban");
 
-            migrationBuilder.DropColumn(
-                name: "expiration_time",
-                table: "admin_notes");
+            migrationBuilder.DropColumn(name: "expiration_time", table: "admin_notes");
 
-            migrationBuilder.DropColumn(
-                name: "severity",
-                table: "admin_notes");
+            migrationBuilder.DropColumn(name: "severity", table: "admin_notes");
 
-            migrationBuilder.DropColumn(
-                name: "playtime_at_note",
-                table: "admin_notes");
+            migrationBuilder.DropColumn(name: "playtime_at_note", table: "admin_notes");
 
-            migrationBuilder.RenameColumn(
-                name: "player_user_id",
-                table: "server_role_ban",
-                newName: "user_id");
+            migrationBuilder.RenameColumn(name: "player_user_id", table: "server_role_ban", newName: "user_id");
 
             migrationBuilder.RenameIndex(
                 name: "IX_server_role_ban_player_user_id",
                 table: "server_role_ban",
-                newName: "IX_server_role_ban_user_id");
+                newName: "IX_server_role_ban_user_id"
+            );
 
-            migrationBuilder.RenameColumn(
-                name: "player_user_id",
-                table: "server_ban",
-                newName: "user_id");
+            migrationBuilder.RenameColumn(name: "player_user_id", table: "server_ban", newName: "user_id");
 
             migrationBuilder.RenameIndex(
                 name: "IX_server_ban_player_user_id",
                 table: "server_ban",
-                newName: "IX_server_ban_user_id");
+                newName: "IX_server_ban_user_id"
+            );
 
-            migrationBuilder.RenameColumn(
-                name: "secret",
-                table: "admin_notes",
-                newName: "shown_to_player");
+            migrationBuilder.RenameColumn(name: "secret", table: "admin_notes", newName: "shown_to_player");
 
             migrationBuilder.UpdateData(
                 table: "admin_notes",
                 keyColumn: "shown_to_player",
                 keyValue: true,
                 column: "shown_to_player",
-                value: false);
+                value: false
+            );
 
             migrationBuilder.AlterColumn<Guid>(
                 name: "player_user_id",
@@ -646,7 +608,8 @@ namespace Content.Server.Database.Migrations.Sqlite
                 defaultValue: new Guid("00000000-0000-0000-0000-000000000000"),
                 oldClrType: typeof(Guid),
                 oldType: "TEXT",
-                oldNullable: true);
+                oldNullable: true
+            );
 
             migrationBuilder.AlterColumn<Guid>(
                 name: "last_edited_by_id",
@@ -656,7 +619,8 @@ namespace Content.Server.Database.Migrations.Sqlite
                 defaultValue: new Guid("00000000-0000-0000-0000-000000000000"),
                 oldClrType: typeof(Guid),
                 oldType: "TEXT",
-                oldNullable: true);
+                oldNullable: true
+            );
 
             migrationBuilder.AlterColumn<Guid>(
                 name: "created_by_id",
@@ -666,17 +630,20 @@ namespace Content.Server.Database.Migrations.Sqlite
                 defaultValue: new Guid("00000000-0000-0000-0000-000000000000"),
                 oldClrType: typeof(Guid),
                 oldType: "TEXT",
-                oldNullable: true);
+                oldNullable: true
+            );
 
             migrationBuilder.AddCheckConstraint(
                 name: "HaveEitherAddressOrUserIdOrHWId",
                 table: "server_role_ban",
-                sql: "address IS NOT NULL OR user_id IS NOT NULL OR hwid IS NOT NULL");
+                sql: "address IS NOT NULL OR user_id IS NOT NULL OR hwid IS NOT NULL"
+            );
 
             migrationBuilder.AddCheckConstraint(
                 name: "HaveEitherAddressOrUserIdOrHWId",
                 table: "server_ban",
-                sql: "address IS NOT NULL OR user_id IS NOT NULL OR hwid IS NOT NULL");
+                sql: "address IS NOT NULL OR user_id IS NOT NULL OR hwid IS NOT NULL"
+            );
 
             migrationBuilder.AddForeignKey(
                 name: "FK_admin_notes_player_created_by_id",
@@ -684,14 +651,16 @@ namespace Content.Server.Database.Migrations.Sqlite
                 column: "created_by_id",
                 principalTable: "player",
                 principalColumn: "user_id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Cascade
+            );
 
             migrationBuilder.AddForeignKey(
                 name: "FK_admin_notes_player_deleted_by_id",
                 table: "admin_notes",
                 column: "deleted_by_id",
                 principalTable: "player",
-                principalColumn: "user_id");
+                principalColumn: "user_id"
+            );
 
             migrationBuilder.AddForeignKey(
                 name: "FK_admin_notes_player_last_edited_by_id",
@@ -699,7 +668,8 @@ namespace Content.Server.Database.Migrations.Sqlite
                 column: "last_edited_by_id",
                 principalTable: "player",
                 principalColumn: "user_id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Cascade
+            );
 
             migrationBuilder.AddForeignKey(
                 name: "FK_admin_notes_player_player_user_id",
@@ -707,7 +677,8 @@ namespace Content.Server.Database.Migrations.Sqlite
                 column: "player_user_id",
                 principalTable: "player",
                 principalColumn: "user_id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Cascade
+            );
         }
     }
 }

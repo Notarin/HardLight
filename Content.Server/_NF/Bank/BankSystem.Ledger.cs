@@ -73,38 +73,50 @@ public sealed partial class BankSystem : SharedBankSystem
         // Build our printouts
         foreach (var (account, accountInfo) in accountDict)
         {
-            builder.AppendLine(Loc.GetString("ledger-printout-account", ("account", Loc.GetString($"ledger-tab-{account}"))));
+            builder.AppendLine(
+                Loc.GetString("ledger-printout-account", ("account", Loc.GetString($"ledger-tab-{account}")))
+            );
             builder.AppendLine(Loc.GetString("ledger-printout-income-header"));
             foreach (var income in accountInfo.Income)
             {
                 builder.AppendLine(
-                    Loc.GetString("ledger-printout-line-item",
+                    Loc.GetString(
+                        "ledger-printout-line-item",
                         ("entryType", Loc.GetString($"ledger-entry-type-{income.Type}")),
                         ("amount", BankSystemExtensions.ToSpesoString(income.Value))
-                    ));
+                    )
+                );
             }
             builder.AppendLine(
-                Loc.GetString("ledger-printout-total-income",
+                Loc.GetString(
+                    "ledger-printout-total-income",
                     ("amount", BankSystemExtensions.ToSpesoString(accountInfo.TotalIncome))
-                ));
+                )
+            );
             builder.AppendLine();
             builder.AppendLine(Loc.GetString("ledger-printout-expense-header"));
             foreach (var expense in accountInfo.Expenses)
             {
                 builder.AppendLine(
-                    Loc.GetString("ledger-printout-line-item",
+                    Loc.GetString(
+                        "ledger-printout-line-item",
                         ("entryType", Loc.GetString($"ledger-entry-type-{expense.Type}")),
                         ("amount", BankSystemExtensions.ToSpesoString(expense.Value))
-                    ));
+                    )
+                );
             }
             builder.AppendLine(
-                Loc.GetString("ledger-printout-total-expenses",
+                Loc.GetString(
+                    "ledger-printout-total-expenses",
                     ("amount", BankSystemExtensions.ToSpesoString(accountInfo.TotalExpenses))
-                ));
+                )
+            );
             builder.AppendLine(
-                Loc.GetString("ledger-printout-balance",
+                Loc.GetString(
+                    "ledger-printout-balance",
                     ("amount", BankSystemExtensions.ToSpesoString(accountInfo.TotalIncome - accountInfo.TotalExpenses))
-                ));
+                )
+            );
             builder.AppendLine();
         }
         return builder.ToString();

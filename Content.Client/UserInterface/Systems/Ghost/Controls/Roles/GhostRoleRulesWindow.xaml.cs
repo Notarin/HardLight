@@ -12,7 +12,8 @@ namespace Content.Client.UserInterface.Systems.Ghost.Controls.Roles
     [GenerateTypedNameReferences]
     public sealed partial class GhostRoleRulesWindow : DefaultWindow
     {
-        [Dependency] private readonly IConfigurationManager _cfg = IoCManager.Resolve<IConfigurationManager>();
+        [Dependency]
+        private readonly IConfigurationManager _cfg = IoCManager.Resolve<IConfigurationManager>();
         private float _timer;
 
         public GhostRoleRulesWindow(string rules, Action<BaseButton.ButtonEventArgs> requestAction)
@@ -23,23 +24,33 @@ namespace Content.Client.UserInterface.Systems.Ghost.Controls.Roles
 
             if (ghostRoleTime > 0f)
             {
-                RequestButton.Text = Loc.GetString("ghost-roles-window-request-role-button-timer", ("time", $"{_timer:0.0}"));
-                TopBanner.SetMessage(FormattedMessage.FromMarkupPermissive(rules + "\n" + Loc.GetString("ghost-roles-window-rules-footer", ("time", ghostRoleTime))));
+                RequestButton.Text = Loc.GetString(
+                    "ghost-roles-window-request-role-button-timer",
+                    ("time", $"{_timer:0.0}")
+                );
+                TopBanner.SetMessage(
+                    FormattedMessage.FromMarkupPermissive(
+                        rules + "\n" + Loc.GetString("ghost-roles-window-rules-footer", ("time", ghostRoleTime))
+                    )
+                );
                 RequestButton.Disabled = true;
             }
 
             RequestButton.OnPressed += requestAction;
         }
 
-
         protected override void FrameUpdate(FrameEventArgs args)
         {
             base.FrameUpdate(args);
-            if (!RequestButton.Disabled) return;
+            if (!RequestButton.Disabled)
+                return;
             if (_timer > 0.0)
             {
                 _timer -= args.DeltaSeconds;
-                RequestButton.Text = Loc.GetString("ghost-roles-window-request-role-button-timer", ("time", $"{_timer:0.0}"));
+                RequestButton.Text = Loc.GetString(
+                    "ghost-roles-window-request-role-button-timer",
+                    ("time", $"{_timer:0.0}")
+                );
             }
             else
             {

@@ -6,7 +6,8 @@ namespace Content.Server.Shuttles.Systems;
 
 public sealed class DockingSignalControlSystem : EntitySystem
 {
-    [Dependency] private readonly DeviceLinkSystem _deviceLinkSystem = default!;
+    [Dependency]
+    private readonly DeviceLinkSystem _deviceLinkSystem = default!;
 
     public override void Initialize()
     {

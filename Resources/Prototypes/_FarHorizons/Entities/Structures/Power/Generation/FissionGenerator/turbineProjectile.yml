@@ -1,7 +1,7 @@
 - type: entity
   id: TurbineBladeShrapnel
   name: turbine blade
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: FlyBySound
   - type: Sprite
@@ -15,8 +15,7 @@
   - type: Fixtures
     fixtures:
       projectile:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.1,-0.1,0.1,0.1"
         hard: false
         mask:

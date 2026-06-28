@@ -29,15 +29,17 @@ namespace Content.IntegrationTests.Tests
         [Test]
         public async Task ResettingEntitySystemResetTest()
         {
-            await using var pair = await PoolManager.GetServerClient(new PoolSettings
-            {
-                DummyTicker = false,
-                Connected = true,
-                Dirty = true,
-                Map = "Empty",
-                Fresh = true,
-                Destructive = true // HL: Messing with the round state screws up future tests
-            });
+            await using var pair = await PoolManager.GetServerClient(
+                new PoolSettings
+                {
+                    DummyTicker = false,
+                    Connected = true,
+                    Dirty = true,
+                    Map = "Empty",
+                    Fresh = true,
+                    Destructive = true, // HL: Messing with the round state screws up future tests
+                }
+            );
             var server = pair.Server;
 
             var entitySystemManager = server.ResolveDependency<IEntitySystemManager>();

@@ -350,11 +350,11 @@
         # Flee waypoint sits ~6 km from the station; clamp the
         # operator's drop range well above that.
         maxTargetingRange: 60000
-    # After the flee maneuver completes, immediately resume patrol
-    # behavior. ShipAggroSystem will have cleared the Aggroed key
-    # while inside the no-go zone, so the byte returns to wandering
-    # the 7-20 km annulus rather than idling at the border.
     - !type:HTNCompoundTask
+      # After the flee maneuver completes, immediately resume patrol
+      # behavior. ShipAggroSystem will have cleared the Aggroed key
+      # while inside the no-go zone, so the byte returns to wandering
+      # the 7-20 km annulus rather than idling at the border.
       task: ShooterShuttleByteCompound
   - preconditions:
     - !type:KeyExistsPrecondition

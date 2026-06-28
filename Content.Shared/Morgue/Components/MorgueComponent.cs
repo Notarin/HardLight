@@ -22,5 +22,7 @@ public sealed partial class MorgueComponent : Component
     public float BeepTime = 10f;
 
     [DataField]
-    public SoundSpecifier OccupantHasSoulAlarmSound = new SoundPathSpecifier("/Audio/Weapons/Guns/EmptyAlarm/smg_empty_alarm.ogg");
+    public SoundSpecifier OccupantHasSoulAlarmSound = new SoundPathSpecifier(
+        "/Audio/Weapons/Guns/EmptyAlarm/smg_empty_alarm.ogg"
+    );
 }

@@ -16,8 +16,11 @@ namespace Content.Server.NodeContainer.EntitySystems
     [UsedImplicitly]
     public sealed class NodeContainerSystem : SharedNodeContainerSystem
     {
-        [Dependency] private readonly NodeGroupSystem _nodeGroupSystem = default!;
-        [Dependency] private readonly DockPipeSystem _dockPipeSystem = default!; // Starlight: DockPipeSystem
+        [Dependency]
+        private readonly NodeGroupSystem _nodeGroupSystem = default!;
+
+        [Dependency]
+        private readonly DockPipeSystem _dockPipeSystem = default!; // Starlight: DockPipeSystem
         private EntityQuery<NodeContainerComponent> _query;
 
         public override void Initialize()
@@ -35,7 +38,8 @@ namespace Content.Server.NodeContainer.EntitySystems
             _query = GetEntityQuery<NodeContainerComponent>();
         }
 
-        public bool TryGetNode<T>(NodeContainerComponent component, string? identifier, [NotNullWhen(true)] out T? node) where T : Node
+        public bool TryGetNode<T>(NodeContainerComponent component, string? identifier, [NotNullWhen(true)] out T? node)
+            where T : Node
         {
             if (identifier == null)
             {
@@ -53,11 +57,18 @@ namespace Content.Server.NodeContainer.EntitySystems
             return false;
         }
 
-        public bool TryGetNode<T>(Entity<NodeContainerComponent?> ent, string identifier, [NotNullWhen(true)] out T? node) where T : Node
+        public bool TryGetNode<T>(
+            Entity<NodeContainerComponent?> ent,
+            string identifier,
+            [NotNullWhen(true)] out T? node
+        )
+            where T : Node
         {
-            if (_query.Resolve(ent, ref ent.Comp, false)
+            if (
+                _query.Resolve(ent, ref ent.Comp, false)
                 && ent.Comp.Nodes.TryGetValue(identifier, out var n)
-                && n is T t)
+                && n is T t
+            )
             {
                 node = t;
                 return true;
@@ -72,15 +83,18 @@ namespace Content.Server.NodeContainer.EntitySystems
             string id1,
             string id2,
             [NotNullWhen(true)] out T1? node1,
-            [NotNullWhen(true)] out T2? node2)
+            [NotNullWhen(true)] out T2? node2
+        )
             where T1 : Node
             where T2 : Node
         {
-            if (_query.Resolve(ent, ref ent.Comp, false)
+            if (
+                _query.Resolve(ent, ref ent.Comp, false)
                 && ent.Comp.Nodes.TryGetValue(id1, out var n1)
                 && n1 is T1 t1
                 && ent.Comp.Nodes.TryGetValue(id2, out var n2)
-                && n2 is T2 t2)
+                && n2 is T2 t2
+            )
             {
                 node1 = t1;
                 node2 = t2;
@@ -99,18 +113,21 @@ namespace Content.Server.NodeContainer.EntitySystems
             string id3,
             [NotNullWhen(true)] out T1? node1,
             [NotNullWhen(true)] out T2? node2,
-            [NotNullWhen(true)] out T3? node3)
+            [NotNullWhen(true)] out T3? node3
+        )
             where T1 : Node
             where T2 : Node
             where T3 : Node
         {
-            if (_query.Resolve(ent, ref ent.Comp, false)
+            if (
+                _query.Resolve(ent, ref ent.Comp, false)
                 && ent.Comp.Nodes.TryGetValue(id1, out var n1)
                 && n1 is T1 t1
                 && ent.Comp.Nodes.TryGetValue(id2, out var n2)
                 && n2 is T2 t2
                 && ent.Comp.Nodes.TryGetValue(id3, out var n3)
-                && n3 is T3 t3)
+                && n3 is T3 t3
+            )
             {
                 node1 = t1;
                 node2 = t2;
@@ -153,7 +170,8 @@ namespace Content.Server.NodeContainer.EntitySystems
         private void OnAnchorStateChanged(
             EntityUid uid,
             NodeContainerComponent component,
-            ref AnchorStateChangedEvent args)
+            ref AnchorStateChangedEvent args
+        )
         {
             foreach (var node in component.Nodes.Values)
             {
@@ -214,20 +232,18 @@ namespace Content.Server.NodeContainer.EntitySystems
 
             foreach (var node in component.Nodes.Values)
             {
-                if (node == null) continue;
+                if (node == null)
+                    continue;
                 switch (node.NodeGroupID)
                 {
                     case NodeGroupID.HVPower:
-                        args.PushMarkup(
-                            Loc.GetString("node-container-component-on-examine-details-hvpower"));
+                        args.PushMarkup(Loc.GetString("node-container-component-on-examine-details-hvpower"));
                         break;
                     case NodeGroupID.MVPower:
-                        args.PushMarkup(
-                            Loc.GetString("node-container-component-on-examine-details-mvpower"));
+                        args.PushMarkup(Loc.GetString("node-container-component-on-examine-details-mvpower"));
                         break;
                     case NodeGroupID.Apc:
-                        args.PushMarkup(
-                            Loc.GetString("node-container-component-on-examine-details-apc"));
+                        args.PushMarkup(Loc.GetString("node-container-component-on-examine-details-apc"));
                         break;
                 }
             }

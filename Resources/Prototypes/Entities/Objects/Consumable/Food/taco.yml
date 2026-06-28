@@ -44,8 +44,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - meaty
-      - cheesy
+    - meaty
+    - cheesy
   - type: Food
     transferAmount: 3
   - type: Sprite
@@ -64,7 +64,7 @@
     storedRotation: -90
   - type: Tag
     tags:
-      - Meat
+    - Meat
 
 - type: entity
   name: beef taco
@@ -94,8 +94,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - onion
-      - fishy
+    - onion
+    - fishy
   - type: Food
   - type: Sprite
     state: fishtaco
@@ -201,12 +201,12 @@
   components:
   - type: FlavorProfile
     flavors:
-      - cheesy
-      - tomato
-      - meaty
-      - onion
+    - cheesy
+    - tomato
+    - meaty
+    - onion
   - type: Sprite
     state: softtaco
   - type: Tag
     tags:
-      - Meat
+    - Meat

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Content.Server.NodeContainer;
+using Content.Server.NodeContainer.EntitySystems;
 using Content.Server.NodeContainer.Nodes;
 using Content.Server.Power.Components;
 using Content.Server.Power.Nodes;
@@ -8,12 +9,11 @@ using Content.Server.Shuttles.Components;
 using Content.Server.Shuttles.Events;
 using Content.Shared.NodeContainer;
 using Content.Shared.Power;
-using Robust.Shared.Map.Components;
-using Robust.Shared.Utility;
-using Robust.Shared.Log;
-using Content.Server.NodeContainer.EntitySystems;
 using Content.Shared.Starlight.CCVar;
 using Robust.Shared.Configuration;
+using Robust.Shared.Log;
+using Robust.Shared.Map.Components;
+using Robust.Shared.Utility;
 
 namespace Content.Server.Power.EntitySystems
 {
@@ -24,8 +24,11 @@ namespace Content.Server.Power.EntitySystems
     {
         #region Dependencies
 
-        [Dependency] public readonly SharedMapSystem _mapSystem = default!;
-        [Dependency] private IConfigurationManager _configurationManager = default!;
+        [Dependency]
+        public readonly SharedMapSystem _mapSystem = default!;
+
+        [Dependency]
+        private IConfigurationManager _configurationManager = default!;
         private readonly HashSet<EntityUid> _dockConnectionsChecked = new();
 
         #endregion
@@ -66,9 +69,11 @@ namespace Content.Server.Power.EntitySystems
             foreach (var cableA in cablesA)
             foreach (var cableB in cablesB)
             {
-                if (EntityManager.GetComponent<TransformComponent>(cableA.Owner).Anchored &&
-                    EntityManager.GetComponent<TransformComponent>(cableB.Owner).Anchored &&
-                    CanConnect(cableA, cableB))
+                if (
+                    EntityManager.GetComponent<TransformComponent>(cableA.Owner).Anchored
+                    && EntityManager.GetComponent<TransformComponent>(cableB.Owner).Anchored
+                    && CanConnect(cableA, cableB)
+                )
                 {
                     cableA.AddAlwaysReachable(cableB);
                     cableB.AddAlwaysReachable(cableA);
@@ -99,7 +104,7 @@ namespace Content.Server.Power.EntitySystems
         #endregion
 
         #region Cable Query
-        
+
         public IEnumerable<CableNode> GetDockCableNodes(EntityUid dock)
         {
             if (!TryComp<TransformComponent>(dock, out var xform) || xform.GridUid == null)
@@ -135,7 +140,7 @@ namespace Content.Server.Power.EntitySystems
                 CableType.HighVoltage => DockHV,
                 CableType.MediumVoltage => DockMV,
                 CableType.Apc => DockLV,
-                _ => false
+                _ => false,
             };
         }
 
@@ -172,16 +177,20 @@ namespace Content.Server.Power.EntitySystems
             var tile = _mapSystem.TileIndicesFor(xform.GridUid.Value, grid, xform.Coordinates);
 
             var anchoredEntities = _mapSystem.GetAnchoredEntities(xform.GridUid.Value, grid, tile).ToList();
-            var dockedEntities = anchoredEntities.Where(ent =>
-                ent != node.Owner &&
-                TryComp<DockingComponent>(ent, out var docking) &&
-                docking.DockedWith is not null).ToList();
+            var dockedEntities = anchoredEntities
+                .Where(ent =>
+                    ent != node.Owner
+                    && TryComp<DockingComponent>(ent, out var docking)
+                    && docking.DockedWith is not null
+                )
+                .ToList();
 
             foreach (var ent in dockedEntities)
             {
                 var docking = Comp<DockingComponent>(ent);
                 var otherDock = docking.DockedWith!.Value;
-                var otherCables = GetDockCableNodes(otherDock).Where(p => TryComp<TransformComponent>(p.Owner, out var pXform) && pXform.Anchored);
+                var otherCables = GetDockCableNodes(otherDock)
+                    .Where(p => TryComp<TransformComponent>(p.Owner, out var pXform) && pXform.Anchored);
                 foreach (var otherCable in otherCables)
                 {
                     if (CanConnect(node, otherCable))
@@ -202,9 +211,11 @@ namespace Content.Server.Power.EntitySystems
                 return;
             foreach (var target in reachable.ToList())
             {
-                if (target is CableNode cableNode &&
-                    TryComp<CableComponent>(cableNode.Owner, out var cable) &&
-                    ShouldDockCableType(cable))
+                if (
+                    target is CableNode cableNode
+                    && TryComp<CableComponent>(cableNode.Owner, out var cable)
+                    && ShouldDockCableType(cable)
+                )
                 {
                     node.RemoveAlwaysReachable(cableNode);
                     cableNode.RemoveAlwaysReachable(node);
@@ -230,16 +241,20 @@ namespace Content.Server.Power.EntitySystems
             var tile = _mapSystem.TileIndicesFor(xform.GridUid.Value, grid, xform.Coordinates);
 
             var anchoredEntities = _mapSystem.GetAnchoredEntities(xform.GridUid.Value, grid, tile).ToList();
-            var dockedEntities = anchoredEntities.Where(ent =>
-                ent != cableEntity &&
-                TryComp<DockingComponent>(ent, out var docking) &&
-                docking.DockedWith is not null).ToList();
+            var dockedEntities = anchoredEntities
+                .Where(ent =>
+                    ent != cableEntity
+                    && TryComp<DockingComponent>(ent, out var docking)
+                    && docking.DockedWith is not null
+                )
+                .ToList();
 
             foreach (var ent in dockedEntities)
             {
                 var docking = Comp<DockingComponent>(ent);
                 var otherDock = docking.DockedWith!.Value;
-                var cablesOther = GetDockCableNodes(otherDock).Where(p => TryComp<TransformComponent>(p.Owner, out var pXform) && pXform.Anchored);
+                var cablesOther = GetDockCableNodes(otherDock)
+                    .Where(p => TryComp<TransformComponent>(p.Owner, out var pXform) && pXform.Anchored);
                 foreach (var other in cablesOther)
                 {
                     if (CanConnect(cableNode, other))
@@ -324,8 +339,10 @@ namespace Content.Server.Power.EntitySystems
 
         public string TestCableConnection(EntityUid cableAUid, EntityUid cableBUid)
         {
-            if (!EntityManager.TryGetComponent<NodeContainerComponent>(cableAUid, out var nodeA) ||
-                !EntityManager.TryGetComponent<NodeContainerComponent>(cableBUid, out var nodeB))
+            if (
+                !EntityManager.TryGetComponent<NodeContainerComponent>(cableAUid, out var nodeA)
+                || !EntityManager.TryGetComponent<NodeContainerComponent>(cableBUid, out var nodeB)
+            )
                 return "One or both entities are not cables.";
             CableNode? cableA = nodeA.Nodes.Values.OfType<CableNode>().FirstOrDefault();
             CableNode? cableB = nodeB.Nodes.Values.OfType<CableNode>().FirstOrDefault();
@@ -351,9 +368,13 @@ namespace Content.Server.Power.EntitySystems
                 foreach (var cableA in cablesA)
                 foreach (var cableB in cablesB)
                 {
-                    if (!anchoredA.Contains(cableA.Owner) || !anchoredB.Contains(cableB.Owner) ||
-                        !EntityManager.GetComponent<TransformComponent>(cableA.Owner).Anchored ||
-                        !EntityManager.GetComponent<TransformComponent>(cableB.Owner).Anchored) continue;
+                    if (
+                        !anchoredA.Contains(cableA.Owner)
+                        || !anchoredB.Contains(cableB.Owner)
+                        || !EntityManager.GetComponent<TransformComponent>(cableA.Owner).Anchored
+                        || !EntityManager.GetComponent<TransformComponent>(cableB.Owner).Anchored
+                    )
+                        continue;
                     var reachableA = cableA.GetAlwaysReachable();
                     var reachableB = cableB.GetAlwaysReachable();
                     if (reachableA != null && reachableA.Contains(cableB))
@@ -363,10 +384,13 @@ namespace Content.Server.Power.EntitySystems
                 }
                 foreach (var cableA in cablesA)
                 foreach (var cableB in cablesB)
-                    if (anchoredA.Contains(cableA.Owner) && anchoredB.Contains(cableB.Owner) &&
-                        EntityManager.GetComponent<TransformComponent>(cableA.Owner).Anchored &&
-                        EntityManager.GetComponent<TransformComponent>(cableB.Owner).Anchored &&
-                        CanConnect(cableA, cableB))
+                    if (
+                        anchoredA.Contains(cableA.Owner)
+                        && anchoredB.Contains(cableB.Owner)
+                        && EntityManager.GetComponent<TransformComponent>(cableA.Owner).Anchored
+                        && EntityManager.GetComponent<TransformComponent>(cableB.Owner).Anchored
+                        && CanConnect(cableA, cableB)
+                    )
                     {
                         cableA.AddAlwaysReachable(cableB);
                         cableB.AddAlwaysReachable(cableA);

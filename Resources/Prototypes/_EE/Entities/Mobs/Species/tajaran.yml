@@ -23,8 +23,7 @@
   - type: Fixtures
     fixtures: # TODO: This needs a second fixture just for mob collisions.
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.28
         density: 140
         restitution: 0.0
@@ -39,8 +38,8 @@
     damageModifierSet: Tajaran
   - type: SlowOnDamage
     speedModifierThresholds:
-      60: 0.85  # 0.7 is base speed.
-      80: 0.75  # 0.5 is base speed.
+      60: 0.85 # 0.7 is base speed.
+      80: 0.75 # 0.5 is base speed.
   - type: Carriable # Carrying system from nyanotrasen.
   - type: Butcherable
     butcheringType: Spike
@@ -76,9 +75,9 @@
   - type: PseudoItem
     storedOffset: 0,17
     shape:
-      - 0,0,1,4
-      - 0,2,3,4
-      - 4,0,5,4
+    - 0,0,1,4
+    - 0,2,3,4
+    - 4,0,5,4
   - type: Vocal
     wilhelm: "/Audio/Nyanotrasen/Voice/Felinid/cat_wilhelm.ogg"
     sounds:
@@ -93,7 +92,7 @@
     - DoorBumpOpener
   - type: Temperature
     coldDamageThreshold: 248.15 # -25 degrees centigrade, like 12 degrees below normal
-    currentTemperature: 311.76  # Body temperature of cat
+    currentTemperature: 311.76 # Body temperature of cat
     heatDamage:
       types:
         Heat: 0.65 # in line with cold resist
@@ -103,13 +102,12 @@
   - type: ThermalRegulator
     normalBodyTemperature: 311.76
 
-
 - type: entity
   save: false
   name: Urist McHands
   parent: MobHumanDummy
   id: MobTajaranDummy
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   description: A dummy tajaran meant to be used in character setup.
   components:
   - type: HumanoidAppearance

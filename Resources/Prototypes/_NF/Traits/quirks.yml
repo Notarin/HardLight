@@ -8,5 +8,5 @@
   cost: 1
   traitGear: Bible
   components:
-    - type: BibleUser
-    - type: Pacified
+  - type: BibleUser
+  - type: Pacified

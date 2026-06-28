@@ -3,7 +3,7 @@
   name: eZ-14 mk2 Heavy pulse rifle
   description: Fires a heavy pulse laser.
   suffix: Mech Weapon, Gun, Combat, Pulse
-  parent: [ BaseMechWeaponRange, CombatMechEquipment ]
+  parent: [BaseMechWeaponRange, CombatMechEquipment]
   components:
   - type: Sprite
     sprite: Objects/Specific/Mech/mecha_equipment.rsi
@@ -12,7 +12,7 @@
     fireRate: 1.5
     selectedMode: SemiAuto
     availableModes:
-      - SemiAuto
+    - SemiAuto
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/laser3.ogg
   - type: HitscanBatteryAmmoProvider
@@ -26,7 +26,7 @@
   name: ZFI Immolation Beam Gun
   description: A gun for battlemechs, firing high-temperature beams.
   suffix: Mech Weapon, Gun, Combat, Laser
-  parent: [ BaseMechWeaponRange, CombatMechEquipment ]
+  parent: [BaseMechWeaponRange, CombatMechEquipment]
   components:
   - type: Sprite
     sprite: Objects/Specific/Mech/mecha_equipment.rsi
@@ -35,7 +35,7 @@
     fireRate: 0.6
     selectedMode: SemiAuto
     availableModes:
-      - SemiAuto
+    - SemiAuto
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/laser_cannon.ogg
   - type: HitscanBatteryAmmoProvider
@@ -49,7 +49,7 @@
   name: CH-LC "Solaris" laser cannon
   description: An experimental combat mounted laser cannon that causes more damage, but also has a greater cooldown than a "Firedart".
   suffix: Mech Weapon, Gun, Combat, Laser
-  parent: [ BaseMechWeaponRange, CombatMechEquipment ]
+  parent: [BaseMechWeaponRange, CombatMechEquipment]
   components:
   - type: Sprite
     sprite: Objects/Specific/Mech/mecha_equipment.rsi
@@ -58,7 +58,7 @@
     fireRate: 1
     selectedMode: SemiAuto
     availableModes:
-      - SemiAuto
+    - SemiAuto
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/laser.ogg
   - type: HitscanBatteryAmmoProvider
@@ -72,7 +72,7 @@
   name: CH-PS "Firedart" Laser
   description: The standard combat armament of the mechs is a combat mounted laser.
   suffix: Mech Weapon, Gun, Combat, Laser
-  parent: [ BaseMechWeaponRange, CombatMechEquipment ]
+  parent: [BaseMechWeaponRange, CombatMechEquipment]
   components:
   - type: Sprite
     sprite: Objects/Specific/Mech/mecha_equipment.rsi
@@ -81,7 +81,7 @@
     fireRate: 0.8
     selectedMode: SemiAuto
     availableModes:
-      - SemiAuto
+    - SemiAuto
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/laser.ogg
   - type: HitscanBatteryAmmoProvider
@@ -95,7 +95,7 @@
   name: P-X Tesla Cannon
   description: A weapon for combat mechs, firing energy balls, based on the principle of an experimental Tesla engine.
   suffix: Mech Weapon, Gun, Combat, Tesla
-  parent: [ BaseMechWeaponRange, CombatMechEquipment ]
+  parent: [BaseMechWeaponRange, CombatMechEquipment]
   components:
   - type: Sprite
     sprite: Objects/Specific/Mech/mecha_equipment.rsi
@@ -105,7 +105,7 @@
     fireRate: 0.4
     selectedMode: SemiAuto
     availableModes:
-      - SemiAuto
+    - SemiAuto
     soundGunshot:
       path: /Audio/Effects/Lightning/lightningshock.ogg
       params:
@@ -121,7 +121,7 @@
   name: CH-PD Disabler
   description: A non-lethal mounted stun gun that allows you to immobilize intruders.
   suffix: Mech Weapon, Gun, Combat, Disabler
-  parent: [ BaseMechWeaponRange, CombatMechEquipment ]
+  parent: [BaseMechWeaponRange, CombatMechEquipment]
   components:
   - type: Sprite
     sprite: Objects/Specific/Mech/mecha_equipment.rsi
@@ -130,7 +130,7 @@
     fireRate: 1
     selectedMode: SemiAuto
     availableModes:
-      - SemiAuto
+    - SemiAuto
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/taser2.ogg
   - type: ProjectileBatteryAmmoProvider
@@ -144,7 +144,7 @@
   name: PBT "Pacifier" Mounted Taser
   description: A mounted non-lethal taser that allows you to stun intruders.
   suffix: Mech Weapon, Gun, Combat, Disabler, admeme
-  parent: [ BaseMechWeaponRange, CombatMechEquipment ]
+  parent: [BaseMechWeaponRange, CombatMechEquipment]
   components:
   - type: Sprite
     sprite: Objects/Specific/Mech/mecha_equipment.rsi
@@ -153,7 +153,7 @@
     fireRate: 1
     selectedMode: SemiAuto
     availableModes:
-      - SemiAuto
+    - SemiAuto
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/taser2.ogg
   - type: ProjectileBatteryAmmoProvider
@@ -167,7 +167,7 @@
   name: LBX AC 10 "Scattershot"
   description: A mounted non-lethal taser that allows you to stun intruders.
   suffix: Mech Weapon, Gun, Combat, Shotgun
-  parent: [ BaseMechWeaponRange, CombatMechEquipment ]
+  parent: [BaseMechWeaponRange, CombatMechEquipment]
   components:
   - type: Sprite
     sprite: Objects/Specific/Mech/mecha_equipment.rsi
@@ -176,7 +176,7 @@
     fireRate: 0.5
     selectedMode: SemiAuto
     availableModes:
-      - SemiAuto
+    - SemiAuto
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/shotgun.ogg
   - type: ProjectileBatteryAmmoProvider
@@ -190,7 +190,7 @@
   name: FNX-99 "Hades" Carbine
   description: Mounted carbine, firing incendiary cartridges.
   suffix: Mech Weapon, Gun, Combat, Shotgun, Incendiary
-  parent: [ BaseMechWeaponRange, CombatMechEquipment ]
+  parent: [BaseMechWeaponRange, CombatMechEquipment]
   components:
   - type: Sprite
     sprite: Objects/Specific/Mech/mecha_equipment.rsi
@@ -199,7 +199,7 @@
     fireRate: 1.2
     selectedMode: SemiAuto
     availableModes:
-      - SemiAuto
+    - SemiAuto
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/shotgun.ogg
   - type: ProjectileBatteryAmmoProvider
@@ -213,7 +213,7 @@
   name: Ultra AC-2
   description: Mounted carbine, firing incendiary cartridges.
   suffix: Mech Weapon, Gun, Combat, Rifle
-  parent: [ BaseMechWeaponRange, CombatMechEquipment ]
+  parent: [BaseMechWeaponRange, CombatMechEquipment]
   components:
   - type: Sprite
     sprite: Objects/Specific/Mech/mecha_equipment.rsi
@@ -222,7 +222,7 @@
     fireRate: 3
     selectedMode: FullAuto
     availableModes:
-      - FullAuto
+    - FullAuto
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/shotgun.ogg
   - type: ProjectileBatteryAmmoProvider
@@ -236,7 +236,7 @@
   name: SRM-8 Light Missile Rack
   description: Launches low-explosive breaching missiles designed to explode only when striking a sturdy target.
   suffix: Mech Weapon, Gun, Combat, Light Missile
-  parent: [ BaseMechWeaponRange, CombatMechEquipment ]
+  parent: [BaseMechWeaponRange, CombatMechEquipment]
   components:
   - type: Sprite
     sprite: Objects/Specific/Mech/mecha_equipment.rsi
@@ -245,7 +245,7 @@
     fireRate: 1
     selectedMode: SemiAuto
     availableModes:
-      - SemiAuto
+    - SemiAuto
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/rpgfire.ogg
   - type: ProjectileBatteryAmmoProvider
@@ -259,7 +259,7 @@
   name: BRM-6 Missile Rack
   description: Tubes must be reloaded from the outside.
   suffix: Mech Weapon, Gun, Combat, Missile
-  parent: [ BaseMechWeaponRange, CombatMechEquipment ]
+  parent: [BaseMechWeaponRange, CombatMechEquipment]
   components:
   - type: Sprite
     sprite: Objects/Specific/Mech/mecha_equipment.rsi
@@ -268,7 +268,7 @@
     fireRate: 1
     selectedMode: SemiAuto
     availableModes:
-      - SemiAuto
+    - SemiAuto
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/rpgfire.ogg
   - type: ProjectileBatteryAmmoProvider
@@ -282,7 +282,7 @@
   name: SGL-6 Flashbang Launcher
   description: Launches low-explosive breaching missiles designed to explode only when striking a sturdy target.
   suffix: Mech Weapon, Gun, Combat, Flashbang
-  parent: [ BaseMechWeaponRange, CombatMechEquipment ]
+  parent: [BaseMechWeaponRange, CombatMechEquipment]
   components:
   - type: Sprite
     sprite: Objects/Specific/Mech/mecha_equipment.rsi
@@ -291,7 +291,7 @@
     fireRate: 1
     selectedMode: SemiAuto
     availableModes:
-      - SemiAuto
+    - SemiAuto
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/grenade_launcher.ogg
     soundEmpty:

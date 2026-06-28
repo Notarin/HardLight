@@ -6,8 +6,11 @@ namespace Content.Server._FarHorizons.AutoImplanter;
 
 public sealed class AutoImplanterSystem : EntitySystem
 {
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly ImplanterSystem _implanter = default!;
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly ImplanterSystem _implanter = default!;
 
     public override void Initialize()
     {
@@ -17,14 +20,16 @@ public sealed class AutoImplanterSystem : EntitySystem
 
     private void OnEntityInserted(Entity<AutoImplanterComponent> ent, ref EntInsertedIntoContainerMessage args)
     {
-        if (args.Container.ID != AutoImplanterComponent.ContainerId ||
-            !TryComp<ImplanterComponent>(args.Entity, out var comp))
+        if (
+            args.Container.ID != AutoImplanterComponent.ContainerId
+            || !TryComp<ImplanterComponent>(args.Entity, out var comp)
+        )
             return;
 
         _implanter.Implant(ent, ent, args.Entity, comp);
         QueueDel(args.Entity);
     }
 
-    private void OnInit(Entity<AutoImplanterComponent> ent, ref ComponentInit args) => 
+    private void OnInit(Entity<AutoImplanterComponent> ent, ref ComponentInit args) =>
         ent.Comp.Container = _container.EnsureContainer<Container>(ent, AutoImplanterComponent.ContainerId);
 }

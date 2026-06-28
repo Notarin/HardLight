@@ -8,8 +8,11 @@ namespace Content.Server.Storage.EntitySystems;
 
 public sealed class ContainerCountVisualizerSystem : EntitySystem
 {
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly ContainerSystem _container = default!;
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly ContainerSystem _container = default!;
 
     public override void Initialize()
     {
@@ -24,18 +27,29 @@ public sealed class ContainerCountVisualizerSystem : EntitySystem
         UpdateAppearance(uid, component: component);
     }
 
-    private void OnInserted(EntityUid uid, ContainerCountVisualizerComponent component, EntInsertedIntoContainerMessage args)
+    private void OnInserted(
+        EntityUid uid,
+        ContainerCountVisualizerComponent component,
+        EntInsertedIntoContainerMessage args
+    )
     {
         UpdateAppearance(uid, component: component);
     }
 
-    private void OnRemoved(EntityUid uid, ContainerCountVisualizerComponent component, EntRemovedFromContainerMessage args)
+    private void OnRemoved(
+        EntityUid uid,
+        ContainerCountVisualizerComponent component,
+        EntRemovedFromContainerMessage args
+    )
     {
         UpdateAppearance(uid, component: component);
     }
 
-    private void UpdateAppearance(EntityUid uid, AppearanceComponent? appearance = null,
-        ContainerCountVisualizerComponent? component = null)
+    private void UpdateAppearance(
+        EntityUid uid,
+        AppearanceComponent? appearance = null,
+        ContainerCountVisualizerComponent? component = null
+    )
     {
         if (!Resolve(uid, ref appearance, ref component, false))
             return;

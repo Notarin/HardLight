@@ -15,7 +15,7 @@ public enum WarConditionStatus : byte
     NoWarUnknown,
     NoWarTimeout,
     NoWarSmallCrew,
-    NoWarShuttleDeparted
+    NoWarShuttleDeparted,
 }
 
 [Serializable, NetSerializable]
@@ -25,13 +25,16 @@ public sealed class WarDeclaratorBoundUserInterfaceState : BoundUserInterfaceSta
     public TimeSpan ShuttleDisabledTime;
     public TimeSpan EndTime;
 
-    public WarDeclaratorBoundUserInterfaceState(WarConditionStatus? status, TimeSpan endTime, TimeSpan shuttleDisabledTime)
+    public WarDeclaratorBoundUserInterfaceState(
+        WarConditionStatus? status,
+        TimeSpan endTime,
+        TimeSpan shuttleDisabledTime
+    )
     {
         Status = status;
         EndTime = endTime;
         ShuttleDisabledTime = shuttleDisabledTime;
     }
-
 }
 
 [Serializable, NetSerializable]

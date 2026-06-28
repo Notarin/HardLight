@@ -18,11 +18,17 @@ public sealed partial class GunSystem
         SubscribeLocalEvent<ChamberMagazineAmmoProviderComponent, AppearanceChangeEvent>(OnChamberMagazineAppearance);
     }
 
-    private void OnChamberMagazineAppearance(EntityUid uid, ChamberMagazineAmmoProviderComponent component, ref AppearanceChangeEvent args)
+    private void OnChamberMagazineAppearance(
+        EntityUid uid,
+        ChamberMagazineAmmoProviderComponent component,
+        ref AppearanceChangeEvent args
+    )
     {
-        if (args.Sprite == null ||
-            !_sprite.LayerMapTryGet((uid, args.Sprite), GunVisualLayers.Base, out var boltLayer, false) ||
-            !Appearance.TryGetData(uid, AmmoVisuals.BoltClosed, out bool boltClosed))
+        if (
+            args.Sprite == null
+            || !_sprite.LayerMapTryGet((uid, args.Sprite), GunVisualLayers.Base, out var boltLayer, false)
+            || !Appearance.TryGetData(uid, AmmoVisuals.BoltClosed, out bool boltClosed)
+        )
         {
             return;
         }
@@ -38,7 +44,11 @@ public sealed partial class GunSystem
         }
     }
 
-    protected override void OnMagazineSlotChange(EntityUid uid, MagazineAmmoProviderComponent component, ContainerModifiedMessage args)
+    protected override void OnMagazineSlotChange(
+        EntityUid uid,
+        MagazineAmmoProviderComponent component,
+        ContainerModifiedMessage args
+    )
     {
         base.OnMagazineSlotChange(uid, component, args);
 
@@ -55,14 +65,23 @@ public sealed partial class GunSystem
         // to avoid 6-7 additional entity spawns.
     }
 
-    private void OnChamberMagazineCounter(EntityUid uid, ChamberMagazineAmmoProviderComponent component, AmmoCounterControlEvent args)
+    private void OnChamberMagazineCounter(
+        EntityUid uid,
+        ChamberMagazineAmmoProviderComponent component,
+        AmmoCounterControlEvent args
+    )
     {
         args.Control = new ChamberMagazineStatusControl();
     }
 
-    private void OnChamberMagazineAmmoUpdate(EntityUid uid, ChamberMagazineAmmoProviderComponent component, UpdateAmmoCounterEvent args)
+    private void OnChamberMagazineAmmoUpdate(
+        EntityUid uid,
+        ChamberMagazineAmmoProviderComponent component,
+        UpdateAmmoCounterEvent args
+    )
     {
-        if (args.Control is not ChamberMagazineStatusControl control) return;
+        if (args.Control is not ChamberMagazineStatusControl control)
+            return;
 
         var chambered = GetChamberEntity(uid);
         var magEntity = GetMagazineEntity(uid);

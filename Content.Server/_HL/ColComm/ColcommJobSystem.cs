@@ -34,7 +34,10 @@ public sealed class ColcommJobSystem : EntitySystem
     }
 
     // Sets the job configuration on ColComm creation and initializes the registry.
-    public void SetupColcommRegistry(Entity<ColcommJobRegistryComponent> colcomm, Dictionary<ProtoId<JobPrototype>, int[]> configuredJobs)
+    public void SetupColcommRegistry(
+        Entity<ColcommJobRegistryComponent> colcomm,
+        Dictionary<ProtoId<JobPrototype>, int[]> configuredJobs
+    )
     {
         if (colcomm.Comp.ConfiguredJobs.Count > 0)
             return; // Already configured from a prior round. Do not overwrite.
@@ -60,7 +63,10 @@ public sealed class ColcommJobSystem : EntitySystem
 
     // Deducts the given job counts from ColComm's current available slots.
     // Should account for crew transitioning from the previous round.
-    public void DeductActiveRoles(Entity<ColcommJobRegistryComponent> colcomm, Dictionary<ProtoId<JobPrototype>, int> activeCounts)
+    public void DeductActiveRoles(
+        Entity<ColcommJobRegistryComponent> colcomm,
+        Dictionary<ProtoId<JobPrototype>, int> activeCounts
+    )
     {
         foreach (var (job, count) in activeCounts)
         {
@@ -85,13 +91,21 @@ public sealed class ColcommJobSystem : EntitySystem
         return false;
     }
 
-    public bool IsConfiguredJob(Entity<ColcommJobRegistryComponent> colcomm, ProtoId<JobPrototype> jobId)
-        => colcomm.Comp.ConfiguredJobs.ContainsKey(jobId);
+    public bool IsConfiguredJob(Entity<ColcommJobRegistryComponent> colcomm, ProtoId<JobPrototype> jobId) =>
+        colcomm.Comp.ConfiguredJobs.ContainsKey(jobId);
 
-    public bool TryGetJobSlot(Entity<ColcommJobRegistryComponent> colcomm, ProtoId<JobPrototype> jobId, out int? slots)
-        => colcomm.Comp.CurrentSlots.TryGetValue(jobId, out slots);
+    public bool TryGetJobSlot(
+        Entity<ColcommJobRegistryComponent> colcomm,
+        ProtoId<JobPrototype> jobId,
+        out int? slots
+    ) => colcomm.Comp.CurrentSlots.TryGetValue(jobId, out slots);
 
-    public bool TryAdjustJobSlot(Entity<ColcommJobRegistryComponent> colcomm, ProtoId<JobPrototype> jobId, int amount, bool clamp = false)
+    public bool TryAdjustJobSlot(
+        Entity<ColcommJobRegistryComponent> colcomm,
+        ProtoId<JobPrototype> jobId,
+        int amount,
+        bool clamp = false
+    )
     {
         if (!colcomm.Comp.CurrentSlots.TryGetValue(jobId, out var current))
             return false;
@@ -108,7 +122,12 @@ public sealed class ColcommJobSystem : EntitySystem
     }
 
     // Sets the available slot count.
-    public bool TrySetJobSlot(Entity<ColcommJobRegistryComponent> colcomm, ProtoId<JobPrototype> jobId, int amount, bool createSlot = false)
+    public bool TrySetJobSlot(
+        Entity<ColcommJobRegistryComponent> colcomm,
+        ProtoId<JobPrototype> jobId,
+        int amount,
+        bool createSlot = false
+    )
     {
         if (!colcomm.Comp.CurrentSlots.ContainsKey(jobId))
         {
@@ -121,7 +140,12 @@ public sealed class ColcommJobSystem : EntitySystem
     }
 
     // Sets the mid-round max for the given job.
-    public bool TrySetJobMidRoundMax(Entity<ColcommJobRegistryComponent> colcomm, ProtoId<JobPrototype> jobId, int amount, bool createSlot = false)
+    public bool TrySetJobMidRoundMax(
+        Entity<ColcommJobRegistryComponent> colcomm,
+        ProtoId<JobPrototype> jobId,
+        int amount,
+        bool createSlot = false
+    )
     {
         if (!colcomm.Comp.MidRoundMaxSlots.ContainsKey(jobId))
         {
@@ -133,17 +157,28 @@ public sealed class ColcommJobSystem : EntitySystem
         return true;
     }
 
-    public bool IsPlayerJobTracked(Entity<ColcommJobRegistryComponent> colcomm, NetUserId userId, ProtoId<JobPrototype> jobId)
-        => colcomm.Comp.PlayerJobs.TryGetValue(userId, out var jobs) && jobs.Contains(jobId);
+    public bool IsPlayerJobTracked(
+        Entity<ColcommJobRegistryComponent> colcomm,
+        NetUserId userId,
+        ProtoId<JobPrototype> jobId
+    ) => colcomm.Comp.PlayerJobs.TryGetValue(userId, out var jobs) && jobs.Contains(jobId);
 
-    public bool TryTrackPlayerJob(Entity<ColcommJobRegistryComponent> colcomm, NetUserId userId, ProtoId<JobPrototype> jobId)
+    public bool TryTrackPlayerJob(
+        Entity<ColcommJobRegistryComponent> colcomm,
+        NetUserId userId,
+        ProtoId<JobPrototype> jobId
+    )
     {
         colcomm.Comp.PlayerJobs.TryAdd(userId, new HashSet<ProtoId<JobPrototype>>());
         colcomm.Comp.PlayerJobs[userId].Add(jobId);
         return true;
     }
 
-    public bool TryUntrackPlayerJob(Entity<ColcommJobRegistryComponent> colcomm, NetUserId userId, ProtoId<JobPrototype> jobId)
+    public bool TryUntrackPlayerJob(
+        Entity<ColcommJobRegistryComponent> colcomm,
+        NetUserId userId,
+        ProtoId<JobPrototype> jobId
+    )
     {
         if (!colcomm.Comp.PlayerJobs.TryGetValue(userId, out var jobs))
             return false;

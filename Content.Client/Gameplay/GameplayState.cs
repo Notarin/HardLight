@@ -19,12 +19,23 @@ namespace Content.Client.Gameplay
     [Virtual]
     public class GameplayState : GameplayStateBase, IMainViewportState
     {
-        [Dependency] private readonly IEyeManager _eyeManager = default!;
-        [Dependency] private readonly IOverlayManager _overlayManager = default!;
-        [Dependency] private readonly IGameTiming _gameTiming = default!;
-        [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
-        [Dependency] private readonly ChangelogManager _changelog = default!;
-        [Dependency] private readonly IConfigurationManager _configurationManager = default!;
+        [Dependency]
+        private readonly IEyeManager _eyeManager = default!;
+
+        [Dependency]
+        private readonly IOverlayManager _overlayManager = default!;
+
+        [Dependency]
+        private readonly IGameTiming _gameTiming = default!;
+
+        [Dependency]
+        private readonly IUserInterfaceManager _uiManager = default!;
+
+        [Dependency]
+        private readonly ChangelogManager _changelog = default!;
+
+        [Dependency]
+        private readonly IConfigurationManager _configurationManager = default!;
 
         private FpsCounter _fpsCounter = default!;
         private Label _version = default!;
@@ -55,15 +66,35 @@ namespace Content.Client.Gameplay
             _fpsCounter = new FpsCounter(_gameTiming);
             UserInterfaceManager.PopupRoot.AddChild(_fpsCounter);
             _fpsCounter.Visible = _configurationManager.GetCVar(CCVars.HudFpsCounterVisible);
-            _configurationManager.OnValueChanged(CCVars.HudFpsCounterVisible, (show) => { _fpsCounter.Visible = show; });
+            _configurationManager.OnValueChanged(
+                CCVars.HudFpsCounterVisible,
+                (show) =>
+                {
+                    _fpsCounter.Visible = show;
+                }
+            );
 
             // Version number watermark.
             _version = new Label();
             _version.FontColorOverride = Color.FromHex("#FFFFFF20");
             _version.Text = _changelog.GetClientVersion();
             UserInterfaceManager.PopupRoot.AddChild(_version);
-            _configurationManager.OnValueChanged(CCVars.HudVersionWatermark, (show) => { _version.Visible = VersionVisible(); }, true);
-            _configurationManager.OnValueChanged(CCVars.ForceClientHudVersionWatermark, (show) => { _version.Visible = VersionVisible(); }, true);
+            _configurationManager.OnValueChanged(
+                CCVars.HudVersionWatermark,
+                (show) =>
+                {
+                    _version.Visible = VersionVisible();
+                },
+                true
+            );
+            _configurationManager.OnValueChanged(
+                CCVars.ForceClientHudVersionWatermark,
+                (show) =>
+                {
+                    _version.Visible = VersionVisible();
+                },
+                true
+            );
             // TODO make this centered or something
             LayoutContainer.SetPosition(_version, new Vector2(70, 0));
         }

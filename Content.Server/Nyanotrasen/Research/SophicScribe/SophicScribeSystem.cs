@@ -14,11 +14,20 @@ namespace Content.Server.Nyanotrasen.Research.SophicScribe;
 
 public sealed partial class SophicScribeSystem : EntitySystem
 {
-    [Dependency] private readonly ChatSystem _chat = default!;
-    [Dependency] private readonly GlimmerSystem _glimmerSystem = default!;
-    [Dependency] private readonly RadioSystem _radioSystem = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly ChatSystem _chat = default!;
+
+    [Dependency]
+    private readonly GlimmerSystem _glimmerSystem = default!;
+
+    [Dependency]
+    private readonly RadioSystem _radioSystem = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
     private static readonly ProtoId<RadioChannelPrototype> ScienceChannelId = "Science";
     private static readonly ProtoId<RadioChannelPrototype> CommonChannelId = "Common";
 
@@ -64,7 +73,12 @@ public sealed partial class SophicScribeSystem : EntitySystem
 
         component.StateTime = _timing.CurTime + component.StateCD;
 
-        _chat.TrySendInGameICMessage(uid, Loc.GetString("glimmer-report", ("level", _glimmerSystem.Glimmer)), InGameICChatType.Speak, true);
+        _chat.TrySendInGameICMessage(
+            uid,
+            Loc.GetString("glimmer-report", ("level", _glimmerSystem.Glimmer)),
+            InGameICChatType.Speak,
+            true
+        );
     }
 
     private void OnGlimmerEventEnded(GlimmerEventEndedEvent args)
@@ -72,7 +86,8 @@ public sealed partial class SophicScribeSystem : EntitySystem
         var query = EntityQueryEnumerator<SophicScribeComponent>();
         while (query.MoveNext(out var scribe, out _))
         {
-            if (!TryComp<IntrinsicRadioTransmitterComponent>(scribe, out var radio)) return;
+            if (!TryComp<IntrinsicRadioTransmitterComponent>(scribe, out var radio))
+                return;
 
             // mind entities when...
             var speaker = scribe;
@@ -81,7 +96,11 @@ public sealed partial class SophicScribeSystem : EntitySystem
                 speaker = swapped.OriginalEntity;
             }
 
-            var message = Loc.GetString(args.Message, ("decrease", args.GlimmerBurned), ("level", _glimmerSystem.Glimmer));
+            var message = Loc.GetString(
+                args.Message,
+                ("decrease", args.GlimmerBurned),
+                ("level", _glimmerSystem.Glimmer)
+            );
             var channel = _prototypeManager.Index(CommonChannelId);
             _radioSystem.SendRadioMessage(speaker, message, channel, speaker);
         }

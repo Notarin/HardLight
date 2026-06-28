@@ -43,27 +43,68 @@ namespace Content.Shared.Magic;
 /// </summary>
 public abstract class SharedMagicSystem : EntitySystem
 {
-    [Dependency] private readonly ISerializationManager _seriMan = default!;
-    [Dependency] private readonly IComponentFactory _compFact = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedGunSystem _gunSystem = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly SharedBodySystem _body = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly SharedDoorSystem _door = default!;
-    [Dependency] private readonly InventorySystem _inventory = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedInteractionSystem _interaction = default!;
-    [Dependency] private readonly LockSystem _lock = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly TagSystem _tag = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedMindSystem _mind = default!;
-    [Dependency] private readonly SharedStunSystem _stun = default!;
+    [Dependency]
+    private readonly ISerializationManager _seriMan = default!;
+
+    [Dependency]
+    private readonly IComponentFactory _compFact = default!;
+
+    [Dependency]
+    private readonly IMapManager _mapManager = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _mapSystem = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly SharedGunSystem _gunSystem = default!;
+
+    [Dependency]
+    private readonly SharedPhysicsSystem _physics = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly INetManager _net = default!;
+
+    [Dependency]
+    private readonly SharedBodySystem _body = default!;
+
+    [Dependency]
+    private readonly EntityLookupSystem _lookup = default!;
+
+    [Dependency]
+    private readonly SharedDoorSystem _door = default!;
+
+    [Dependency]
+    private readonly InventorySystem _inventory = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly SharedInteractionSystem _interaction = default!;
+
+    [Dependency]
+    private readonly LockSystem _lock = default!;
+
+    [Dependency]
+    private readonly SharedHandsSystem _hands = default!;
+
+    [Dependency]
+    private readonly TagSystem _tag = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedMindSystem _mind = default!;
+
+    [Dependency]
+    private readonly SharedStunSystem _stun = default!;
 
     private static readonly ProtoId<TagPrototype> InvalidForGlobalSpawnSpellTag = "InvalidForGlobalSpawnSpell";
 
@@ -145,7 +186,7 @@ public abstract class SharedMagicSystem : EntitySystem
         args.Handled = true;
     }
 
-        /// <summary>
+    /// <summary>
     ///     Gets spawn positions listed on <see cref="InstantSpawnSpellEvent"/>
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
@@ -154,7 +195,7 @@ public abstract class SharedMagicSystem : EntitySystem
         switch (data)
         {
             case TargetCasterPos:
-                return new List<EntityCoordinates>(1) {casterXform.Coordinates};
+                return new List<EntityCoordinates>(1) { casterXform.Coordinates };
             case TargetInFrontSingle:
             {
                 var directionPos = casterXform.Coordinates.Offset(casterXform.LocalRotation.ToWorldVec().Normalized());
@@ -165,7 +206,10 @@ public abstract class SharedMagicSystem : EntitySystem
                     return new List<EntityCoordinates>();
 
                 var tileIndex = tileReference.Value.GridIndices;
-                return new List<EntityCoordinates>(1) { _mapSystem.GridTileToLocal(casterXform.GridUid.Value, mapGrid, tileIndex) };
+                return new List<EntityCoordinates>(1)
+                {
+                    _mapSystem.GridTileToLocal(casterXform.GridUid.Value, mapGrid, tileIndex),
+                };
             }
             case TargetInFront:
             {
@@ -189,25 +233,23 @@ public abstract class SharedMagicSystem : EntitySystem
                     case Direction.South:
                     {
                         coordsPlus = _mapSystem.GridTileToLocal(casterXform.GridUid.Value, mapGrid, tileIndex + (1, 0));
-                        coordsMinus = _mapSystem.GridTileToLocal(casterXform.GridUid.Value, mapGrid, tileIndex + (-1, 0));
-                        return new List<EntityCoordinates>(3)
-                        {
-                            coords,
-                            coordsPlus,
-                            coordsMinus,
-                        };
+                        coordsMinus = _mapSystem.GridTileToLocal(
+                            casterXform.GridUid.Value,
+                            mapGrid,
+                            tileIndex + (-1, 0)
+                        );
+                        return new List<EntityCoordinates>(3) { coords, coordsPlus, coordsMinus };
                     }
                     case Direction.East:
                     case Direction.West:
                     {
                         coordsPlus = _mapSystem.GridTileToLocal(casterXform.GridUid.Value, mapGrid, tileIndex + (0, 1));
-                        coordsMinus = _mapSystem.GridTileToLocal(casterXform.GridUid.Value, mapGrid, tileIndex + (0, -1));
-                        return new List<EntityCoordinates>(3)
-                        {
-                            coords,
-                            coordsPlus,
-                            coordsMinus,
-                        };
+                        coordsMinus = _mapSystem.GridTileToLocal(
+                            casterXform.GridUid.Value,
+                            mapGrid,
+                            tileIndex + (0, -1)
+                        );
+                        return new List<EntityCoordinates>(3) { coords, coordsPlus, coordsMinus };
                     }
                 }
 
@@ -251,7 +293,13 @@ public abstract class SharedMagicSystem : EntitySystem
     /// <param name="entityCoords"> Map Coordinates where the entities will spawn</param>
     /// <param name="lifetime"> Check to see if the entities should self delete</param>
     /// <param name="offsetVector2"> A Vector2 offset that the entities will spawn in</param>
-    private void WorldSpawnSpellHelper(List<EntitySpawnEntry> entityEntries, EntityCoordinates entityCoords, EntityUid performer, float? lifetime, Vector2 offsetVector2)
+    private void WorldSpawnSpellHelper(
+        List<EntitySpawnEntry> entityEntries,
+        EntityCoordinates entityCoords,
+        EntityUid performer,
+        float? lifetime,
+        Vector2 offsetVector2
+    )
     {
         var getProtos = EntitySpawnCollection.GetSpawns(entityEntries, _random);
 
@@ -285,8 +333,8 @@ public abstract class SharedMagicSystem : EntitySystem
             : new(_mapManager.GetMapEntityId(fromMap.MapId), fromMap.Position);
 
         var ent = Spawn(ev.Prototype, spawnCoords);
-        var direction = _transform.ToMapCoordinates(toCoords).Position -
-                         _transform.ToMapCoordinates(spawnCoords).Position;
+        var direction =
+            _transform.ToMapCoordinates(toCoords).Position - _transform.ToMapCoordinates(spawnCoords).Position;
         _gunSystem.ShootProjectile(ent, direction, userVelocity, ev.Performer, ev.Performer);
     }
     // End Projectile Spells
@@ -319,7 +367,16 @@ public abstract class SharedMagicSystem : EntitySystem
             return;
 
         var transform = Transform(args.Performer);
-        if (transform.MapID != _transform.GetMapId(args.Target) || !_interaction.InRangeUnobstructed(args.Performer, args.Target, range: 1000F, collisionMask: CollisionGroup.Opaque, popup: true))
+        if (
+            transform.MapID != _transform.GetMapId(args.Target)
+            || !_interaction.InRangeUnobstructed(
+                args.Performer,
+                args.Target,
+                range: 1000F,
+                collisionMask: CollisionGroup.Opaque,
+                popup: true
+            )
+        )
             return;
 
         _transform.SetCoordinates(args.Performer, args.Target);
@@ -341,7 +398,13 @@ public abstract class SharedMagicSystem : EntitySystem
     // End Teleport Spells
     #endregion
     #region Spell Helpers
-    private void SpawnSpellHelper(string? proto, EntityCoordinates position, EntityUid performer, float? lifetime = null, bool preventCollide = false)
+    private void SpawnSpellHelper(
+        string? proto,
+        EntityCoordinates position,
+        EntityUid performer,
+        float? lifetime = null,
+        bool preventCollide = false
+    )
     {
         if (!_net.IsServer)
             return;
@@ -394,7 +457,9 @@ public abstract class SharedMagicSystem : EntitySystem
         ev.Handled = true;
         Speak(ev);
 
-        var direction = _transform.GetMapCoordinates(ev.Target, Transform(ev.Target)).Position - _transform.GetMapCoordinates(ev.Performer, Transform(ev.Performer)).Position;
+        var direction =
+            _transform.GetMapCoordinates(ev.Target, Transform(ev.Target)).Position
+            - _transform.GetMapCoordinates(ev.Performer, Transform(ev.Performer)).Position;
         var impulseVector = direction * 10000;
 
         _physics.ApplyLinearImpulse(ev.Target, impulseVector);
@@ -423,9 +488,22 @@ public abstract class SharedMagicSystem : EntitySystem
         var transform = Transform(args.Performer);
 
         // Look for doors and lockers, and don't open/unlock them if they're already opened/unlocked.
-        foreach (var target in _lookup.GetEntitiesInRange(_transform.GetMapCoordinates(args.Performer, transform), args.Range, flags: LookupFlags.Dynamic | LookupFlags.Static))
+        foreach (
+            var target in _lookup.GetEntitiesInRange(
+                _transform.GetMapCoordinates(args.Performer, transform),
+                args.Range,
+                flags: LookupFlags.Dynamic | LookupFlags.Static
+            )
+        )
         {
-            if (!_interaction.InRangeUnobstructed(args.Performer, target, range: 0, collisionMask: CollisionGroup.Opaque))
+            if (
+                !_interaction.InRangeUnobstructed(
+                    args.Performer,
+                    target,
+                    range: 0,
+                    collisionMask: CollisionGroup.Opaque
+                )
+            )
                 continue;
 
             if (TryComp<DoorBoltComponent>(target, out var doorBoltComp) && doorBoltComp.BoltsDown)
@@ -444,7 +522,11 @@ public abstract class SharedMagicSystem : EntitySystem
     // TODO: Future support to charge other items
     private void OnChargeSpell(ChargeSpellEvent ev)
     {
-        if (ev.Handled || !PassesSpellPrerequisites(ev.Action, ev.Performer) || !TryComp<HandsComponent>(ev.Performer, out var handsComp))
+        if (
+            ev.Handled
+            || !PassesSpellPrerequisites(ev.Action, ev.Performer)
+            || !TryComp<HandsComponent>(ev.Performer, out var handsComp)
+        )
             return;
 
         EntityUid? wand = null;
@@ -459,7 +541,11 @@ public abstract class SharedMagicSystem : EntitySystem
         ev.Handled = true;
         Speak(ev);
 
-        if (wand == null || !TryComp<BasicEntityAmmoProviderComponent>(wand, out var basicAmmoComp) || basicAmmoComp.Count == null)
+        if (
+            wand == null
+            || !TryComp<BasicEntityAmmoProviderComponent>(wand, out var basicAmmoComp)
+            || basicAmmoComp.Count == null
+        )
             return;
 
         _gunSystem.UpdateBasicEntityAmmoCount(wand.Value, basicAmmoComp.Count.Value + ev.Charge, basicAmmoComp);
@@ -471,7 +557,12 @@ public abstract class SharedMagicSystem : EntitySystem
     // TODO: Change this into a "StartRuleAction" when actions with multiple events are supported
     protected virtual void OnRandomGlobalSpawnSpell(RandomGlobalSpawnSpellEvent ev)
     {
-        if (!_net.IsServer || ev.Handled || !PassesSpellPrerequisites(ev.Action, ev.Performer) || ev.Spawns is not { } spawns)
+        if (
+            !_net.IsServer
+            || ev.Handled
+            || !PassesSpellPrerequisites(ev.Action, ev.Performer)
+            || ev.Spawns is not { } spawns
+        )
             return;
 
         ev.Handled = true;

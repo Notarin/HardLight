@@ -29,7 +29,10 @@ public sealed partial class CurrencyPrototype : IPrototype
     /// <summary>
     /// The physical entity of the currency
     /// </summary>
-    [DataField("cash", customTypeSerializer: typeof(PrototypeIdValueDictionarySerializer<FixedPoint2, EntityPrototype>))]
+    [DataField(
+        "cash",
+        customTypeSerializer: typeof(PrototypeIdValueDictionarySerializer<FixedPoint2, EntityPrototype>)
+    )]
     public Dictionary<FixedPoint2, string>? Cash { get; private set; }
 
     /// <summary>

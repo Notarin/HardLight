@@ -3,8 +3,7 @@
   id: MasterCMO
   effects:
   - !type:JobRequirementLoadoutEffect
-    requirement:
-      !type:RoleTimeRequirement
+    requirement: !type:RoleTimeRequirement
       role: JobChiefMedicalOfficer
       time: 72000 #20 hrs
 

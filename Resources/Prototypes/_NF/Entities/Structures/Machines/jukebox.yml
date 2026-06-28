@@ -1,7 +1,7 @@
 - type: entity
   id: JukeboxShip
   suffix: Ship
-  parent: [ BaseStructureDisableToolUse, Jukebox ]
+  parent: [BaseStructureDisableToolUse, Jukebox]
   components:
   - type: Machine
     board: Null
@@ -9,7 +9,7 @@
 - type: entity
   id: JukeboxWallmount
   suffix: Wallmount
-  parent: [ BaseStructureWallmount, Jukebox ]
+  parent: [BaseStructureWallmount, Jukebox]
   components:
   - type: Sprite
     sprite: _NF/Structures/Machines/jukebox.rsi
@@ -24,7 +24,7 @@
 - type: entity
   id: JukeboxWallmountShip
   suffix: Wallmount, Ship
-  parent: [ BaseStructureDisableToolUse, JukeboxWallmount ]
+  parent: [BaseStructureDisableToolUse, JukeboxWallmount]
   components:
   - type: Machine
     board: Null

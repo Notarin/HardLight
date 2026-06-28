@@ -76,7 +76,9 @@ public sealed partial class DungeonJob : Job<List<Dungeon>>
         Vector2i position,
         string genID, // Frontier
         EntityCoordinates? targetCoordinates = null,
-        CancellationToken cancellation = default) : base(maxTime, cancellation)
+        CancellationToken cancellation = default
+    )
+        : base(maxTime, cancellation)
     {
         _sawmill = sawmill;
         _entManager = entManager;
@@ -115,7 +117,8 @@ public sealed partial class DungeonJob : Job<List<Dungeon>>
         List<IDunGenLayer> layers,
         HashSet<Vector2i> reservedTiles,
         int seed,
-        Random random)
+        Random random
+    )
     {
         var dungeons = new List<Dungeon>();
         var count = random.Next(config.MinCount, config.MaxCount + 1);
@@ -189,7 +192,8 @@ public sealed partial class DungeonJob : Job<List<Dungeon>>
         IDunGenLayer layer,
         HashSet<Vector2i> reservedTiles,
         int seed,
-        Random random)
+        Random random
+    )
     {
         _sawmill.Debug($"Doing postgen {layer.GetType()} for {_gen} with seed {_seed}");
 
@@ -275,7 +279,9 @@ public sealed partial class DungeonJob : Job<List<Dungeon>>
                 var dataCopy = groupConfig.Data.Clone();
                 dataCopy.Apply(data);
 
-                dungeons.AddRange(await GetDungeons(position, groupConfig, dataCopy, groupConfig.Layers, reservedTiles, seed, random));
+                dungeons.AddRange(
+                    await GetDungeons(position, groupConfig, dataCopy, groupConfig.Layers, reservedTiles, seed, random)
+                );
                 break;
             case ReplaceTileDunGen replace:
                 dungeons.Add(await GenerateTileReplacementDunGen(replace, data, reservedTiles, random));

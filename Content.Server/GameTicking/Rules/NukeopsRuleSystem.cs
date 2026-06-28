@@ -1,3 +1,4 @@
+using System.Linq;
 using Content.Server.Antag;
 using Content.Server.Communications;
 using Content.Server.GameTicking.Rules.Components;
@@ -18,26 +19,38 @@ using Content.Shared.NPC.Systems;
 using Content.Shared.Nuke;
 using Content.Shared.NukeOps;
 using Content.Shared.Store;
+using Content.Shared.Store.Components;
 using Content.Shared.Tag;
 using Content.Shared.Zombies;
 using Robust.Shared.Map;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
-using Robust.Shared.Prototypes;
-using System.Linq;
-using Content.Shared.Store.Components;
 
 namespace Content.Server.GameTicking.Rules;
 
 public sealed class NukeopsRuleSystem : GameRuleSystem<NukeopsRuleComponent>
 {
-    [Dependency] private readonly AntagSelectionSystem _antag = default!;
-    [Dependency] private readonly EmergencyShuttleSystem _emergency = default!;
-    [Dependency] private readonly NpcFactionSystem _npcFaction = default!;
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
-    [Dependency] private readonly RoundEndSystem _roundEndSystem = default!;
-    [Dependency] private readonly StoreSystem _store = default!;
-    [Dependency] private readonly TagSystem _tag = default!;
+    [Dependency]
+    private readonly AntagSelectionSystem _antag = default!;
+
+    [Dependency]
+    private readonly EmergencyShuttleSystem _emergency = default!;
+
+    [Dependency]
+    private readonly NpcFactionSystem _npcFaction = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly RoundEndSystem _roundEndSystem = default!;
+
+    [Dependency]
+    private readonly StoreSystem _store = default!;
+
+    [Dependency]
+    private readonly TagSystem _tag = default!;
 
     private static readonly ProtoId<CurrencyPrototype> TelecrystalCurrencyPrototype = new("Telecrystal");
 
@@ -65,10 +78,12 @@ public sealed class NukeopsRuleSystem : GameRuleSystem<NukeopsRuleComponent>
         SubscribeLocalEvent<NukeopsRuleComponent, RuleLoadedGridsEvent>(OnRuleLoadedGrids);
     }
 
-    protected override void Started(EntityUid uid,
+    protected override void Started(
+        EntityUid uid,
         NukeopsRuleComponent component,
         GameRuleComponent gameRule,
-        GameRuleStartedEvent args)
+        GameRuleStartedEvent args
+    )
     {
         var eligible = new List<Entity<StationEventEligibleComponent, NpcFactionMemberComponent>>();
         var eligibleQuery = EntityQueryEnumerator<StationEventEligibleComponent, NpcFactionMemberComponent>();
@@ -87,10 +102,12 @@ public sealed class NukeopsRuleSystem : GameRuleSystem<NukeopsRuleComponent>
     }
 
     #region Event Handlers
-    protected override void AppendRoundEndText(EntityUid uid,
+    protected override void AppendRoundEndText(
+        EntityUid uid,
         NukeopsRuleComponent component,
         GameRuleComponent gameRule,
-        ref RoundEndTextAppendEvent args)
+        ref RoundEndTextAppendEvent args
+    )
     {
         var winText = Loc.GetString($"nukeops-{component.WinType.ToString().ToLower()}");
         args.AddLine(winText);
@@ -103,7 +120,7 @@ public sealed class NukeopsRuleSystem : GameRuleSystem<NukeopsRuleComponent>
 
         args.AddLine(Loc.GetString("nukeops-list-start"));
 
-        var antags =_antag.GetAntagIdentifiers(uid);
+        var antags = _antag.GetAntagIdentifiers(uid);
 
         foreach (var (_, sessionData, name) in antags)
         {
@@ -213,9 +230,9 @@ public sealed class NukeopsRuleSystem : GameRuleSystem<NukeopsRuleComponent>
             return;
         }
 
-        ent.Comp.WinConditions.Add(_antag.AnyAliveAntags(ent.Owner)
-            ? WinCondition.SomeNukiesAlive
-            : WinCondition.AllNukiesDead);
+        ent.Comp.WinConditions.Add(
+            _antag.AnyAliveAntags(ent.Owner) ? WinCondition.SomeNukiesAlive : WinCondition.AllNukiesDead
+        );
 
         var diskAtColCom = false;
         var diskQuery = AllEntityQuery<NukeDiskComponent, TransformComponent>();
@@ -231,13 +248,8 @@ public sealed class NukeopsRuleSystem : GameRuleSystem<NukeopsRuleComponent>
 
         // If the disk is currently at Colonial Command, the crew wins - just slightly.
         // This also implies that some nuclear operatives have died.
-        SetWinType(ent,
-            diskAtColCom
-            ? WinType.CrewMinor
-            : WinType.OpsMinor);
-        ent.Comp.WinConditions.Add(diskAtColCom
-            ? WinCondition.NukeDiskOnColCom
-            : WinCondition.NukeDiskNotOnColCom);
+        SetWinType(ent, diskAtColCom ? WinType.CrewMinor : WinType.OpsMinor);
+        ent.Comp.WinConditions.Add(diskAtColCom ? WinCondition.NukeDiskOnColCom : WinCondition.NukeDiskNotOnColCom);
     }
 
     private void OnNukeDisarm(NukeDisarmSuccessEvent ev)
@@ -291,8 +303,10 @@ public sealed class NukeopsRuleSystem : GameRuleSystem<NukeopsRuleComponent>
                 if (timeRemain > TimeSpan.Zero)
                 {
                     ev.Cancelled = true;
-                    ev.Reason = Loc.GetString("war-ops-infiltrator-unavailable",
-                        ("time", timeRemain.ToString("mm\\:ss")));
+                    ev.Reason = Loc.GetString(
+                        "war-ops-infiltrator-unavailable",
+                        ("time", timeRemain.ToString("mm\\:ss"))
+                    );
                     continue;
                 }
             }
@@ -382,7 +396,11 @@ public sealed class NukeopsRuleSystem : GameRuleSystem<NukeopsRuleComponent>
             if (Transform(uid).MapID != Transform(outpost).MapID) // Will receive bonus TC only on their start outpost
                 continue;
 
-            _store.TryAddCurrency(new() { { TelecrystalCurrencyPrototype, nukieRule.Comp.WarTcAmountPerNukie } }, uid, component);
+            _store.TryAddCurrency(
+                new() { { TelecrystalCurrencyPrototype, nukieRule.Comp.WarTcAmountPerNukie } },
+                uid,
+                component
+            );
 
             var msg = Loc.GetString("store-currency-war-boost-given", ("target", uid));
             _popupSystem.PopupEntity(msg, uid);
@@ -410,9 +428,12 @@ public sealed class NukeopsRuleSystem : GameRuleSystem<NukeopsRuleComponent>
     {
         var nukeops = ent.Comp;
 
-        if (nukeops.RoundEndBehavior == RoundEndBehavior.Nothing || nukeops.WinType == WinType.CrewMajor || nukeops.WinType == WinType.OpsMajor)
+        if (
+            nukeops.RoundEndBehavior == RoundEndBehavior.Nothing
+            || nukeops.WinType == WinType.CrewMajor
+            || nukeops.WinType == WinType.OpsMajor
+        )
             return;
-
 
         // If there are any nuclear bombs that are active, immediately return. We're not over yet.
         foreach (var nuke in EntityQuery<NukeComponent>())
@@ -423,17 +444,13 @@ public sealed class NukeopsRuleSystem : GameRuleSystem<NukeopsRuleComponent>
 
         var shuttle = GetShuttle((ent, ent));
 
-        MapId? shuttleMapId = Exists(shuttle)
-            ? Transform(shuttle.Value).MapID
-            : null;
+        MapId? shuttleMapId = Exists(shuttle) ? Transform(shuttle.Value).MapID : null;
 
         MapId? targetStationMap = null;
         if (nukeops.TargetStation != null && TryComp(nukeops.TargetStation, out StationDataComponent? data))
         {
             var grid = data.Grids.FirstOrNull();
-            targetStationMap = grid != null
-                ? Transform(grid.Value).MapID
-                : null;
+            targetStationMap = grid != null ? Transform(grid.Value).MapID : null;
         }
 
         // Check if there are nuke operatives still alive on the same map as the shuttle,
@@ -441,9 +458,7 @@ public sealed class NukeopsRuleSystem : GameRuleSystem<NukeopsRuleComponent>
         // If there are, the round can continue.
         var operatives = EntityQuery<NukeOperativeComponent, MobStateComponent, TransformComponent>(true);
         var operativesAlive = operatives
-            .Where(op =>
-                op.Item3.MapID == shuttleMapId
-                || op.Item3.MapID == targetStationMap)
+            .Where(op => op.Item3.MapID == shuttleMapId || op.Item3.MapID == targetStationMap)
             .Any(op => op.Item2.CurrentState == MobState.Alive && op.Item1.Running);
 
         if (operativesAlive)
@@ -456,16 +471,16 @@ public sealed class NukeopsRuleSystem : GameRuleSystem<NukeopsRuleComponent>
 
         // The shuttle is inaccessible to both living nuke operatives and yet to spawn nuke operatives,
         // and there are no nuclear operatives on the target station's map.
-        nukeops.WinConditions.Add(spawnsAvailable
-            ? WinCondition.NukiesAbandoned
-            : WinCondition.AllNukiesDead);
+        nukeops.WinConditions.Add(spawnsAvailable ? WinCondition.NukiesAbandoned : WinCondition.AllNukiesDead);
 
         SetWinType(ent, WinType.CrewMajor, false);
-        _roundEndSystem.DoRoundEndBehavior(nukeops.RoundEndBehavior,
+        _roundEndSystem.DoRoundEndBehavior(
+            nukeops.RoundEndBehavior,
             nukeops.EvacShuttleTime,
             nukeops.RoundEndTextSender,
             nukeops.RoundEndTextShuttleCall,
-            nukeops.RoundEndTextAnnouncement);
+            nukeops.RoundEndTextAnnouncement
+        );
 
         // prevent it called multiple times
         nukeops.RoundEndBehavior = RoundEndBehavior.Nothing;
@@ -475,12 +490,12 @@ public sealed class NukeopsRuleSystem : GameRuleSystem<NukeopsRuleComponent>
     {
         var target = (ent.Comp.TargetStation is not null) ? Name(ent.Comp.TargetStation.Value) : "the target";
 
-        _antag.SendBriefing(args.Session,
-            Loc.GetString("nukeops-welcome",
-                ("station", target),
-                ("name", Name(ent))),
+        _antag.SendBriefing(
+            args.Session,
+            Loc.GetString("nukeops-welcome", ("station", target), ("name", Name(ent))),
             Color.Red,
-            ent.Comp.GreetSoundNotification);
+            ent.Comp.GreetSoundNotification
+        );
     }
 
     private void OnGetBriefing(Entity<NukeopsRoleComponent> role, ref GetBriefingEvent args)

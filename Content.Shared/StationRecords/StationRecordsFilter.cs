@@ -6,7 +6,7 @@ namespace Content.Shared.StationRecords;
 public sealed class StationRecordsFilter
 {
     public StationRecordFilterType Type = StationRecordFilterType.Name;
-    public string Value  = "";
+    public string Value = "";
 
     public StationRecordsFilter(StationRecordFilterType filterType, string newValue = "")
     {
@@ -24,8 +24,7 @@ public sealed class SetStationRecordFilter : BoundUserInterfaceMessage
     public readonly string Value;
     public readonly StationRecordFilterType Type;
 
-    public SetStationRecordFilter(StationRecordFilterType filterType,
-        string filterValue)
+    public SetStationRecordFilter(StationRecordFilterType filterType, string filterValue)
     {
         Type = filterType;
         Value = filterValue;

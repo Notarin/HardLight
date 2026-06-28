@@ -19,11 +19,20 @@ namespace Content.Server.Administration.Logs;
 
 public sealed class AdminLogsEui : BaseEui
 {
-    [Dependency] private readonly IAdminLogManager _adminLogs = default!;
-    [Dependency] private readonly IAdminManager _adminManager = default!;
-    [Dependency] private readonly ILogManager _logManager = default!;
-    [Dependency] private readonly IConfigurationManager _configuration = default!;
-    [Dependency] private readonly IEntityManager _e = default!;
+    [Dependency]
+    private readonly IAdminLogManager _adminLogs = default!;
+
+    [Dependency]
+    private readonly IAdminManager _adminManager = default!;
+
+    [Dependency]
+    private readonly ILogManager _logManager = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _configuration = default!;
+
+    [Dependency]
+    private readonly IEntityManager _e = default!;
 
     private readonly ISawmill _sawmill;
 
@@ -34,8 +43,7 @@ public sealed class AdminLogsEui : BaseEui
     private CancellationTokenSource _logSendCancellation = new();
     private LogFilter _filter;
 
-    private readonly DefaultObjectPool<List<SharedAdminLog>> _adminLogListPool =
-        new(new ListPolicy<SharedAdminLog>());
+    private readonly DefaultObjectPool<List<SharedAdminLog>> _adminLogListPool = new(new ListPolicy<SharedAdminLog>());
 
     public AdminLogsEui()
     {
@@ -45,11 +53,7 @@ public sealed class AdminLogsEui : BaseEui
 
         _configuration.OnValueChanged(CCVars.AdminLogsClientBatchSize, ClientBatchSizeChanged, true);
 
-        _filter = new LogFilter
-        {
-            CancellationToken = _logSendCancellation.Token,
-            Limit = _clientBatchSize
-        };
+        _filter = new LogFilter { CancellationToken = _logSendCancellation.Token, Limit = _clientBatchSize };
     }
 
     private int CurrentRoundId => _e.System<GameTicker>().RoundId;
@@ -81,10 +85,7 @@ public sealed class AdminLogsEui : BaseEui
     {
         if (_isLoading)
         {
-            return new AdminLogsEuiState(CurrentRoundId, new Dictionary<Guid, string>(), 0)
-            {
-                IsLoading = true
-            };
+            return new AdminLogsEuiState(CurrentRoundId, new Dictionary<Guid, string>(), 0) { IsLoading = true };
         }
 
         var state = new AdminLogsEuiState(CurrentRoundId, _players, _roundLogs);
@@ -123,7 +124,7 @@ public sealed class AdminLogsEui : BaseEui
                     AllPlayers = request.AllPlayers,
                     IncludeNonPlayers = request.IncludeNonPlayers,
                     LastLogId = null,
-                    Limit = _clientBatchSize
+                    Limit = _clientBatchSize,
                 };
 
                 var roundId = _filter.Round ??= CurrentRoundId;
@@ -134,7 +135,9 @@ public sealed class AdminLogsEui : BaseEui
             }
             case NextLogsRequest:
             {
-                _sawmill.Info($"Admin log next batch request from admin with id {Player.UserId.UserId} and name {Player.Name}");
+                _sawmill.Info(
+                    $"Admin log next batch request from admin with id {Player.UserId.UserId} and name {Player.Name}"
+                );
 
                 SendLogs(false);
                 break;
@@ -144,10 +147,7 @@ public sealed class AdminLogsEui : BaseEui
 
     public void SetLogFilter(string? search = null, bool invertTypes = false, HashSet<LogType>? types = null)
     {
-        var message = new SetLogFilter(
-            search,
-            invertTypes,
-            types);
+        var message = new SetLogFilter(search, invertTypes, types);
 
         SendMessage(message);
     }
@@ -157,8 +157,10 @@ public sealed class AdminLogsEui : BaseEui
         var stopwatch = new Stopwatch();
         stopwatch.Start();
 
-        var logs = await Task.Run(async () => await _adminLogs.All(_filter, _adminLogListPool.Get),
-            _filter.CancellationToken);
+        var logs = await Task.Run(
+            async () => await _adminLogs.All(_filter, _adminLogListPool.Get),
+            _filter.CancellationToken
+        );
 
         if (logs.Count > 0)
         {
@@ -168,7 +170,7 @@ public sealed class AdminLogsEui : BaseEui
             {
                 DateOrder.Ascending => 0,
                 DateOrder.Descending => ^1,
-                _ => throw new ArgumentOutOfRangeException(nameof(_filter.DateOrder), _filter.DateOrder, null)
+                _ => throw new ArgumentOutOfRangeException(nameof(_filter.DateOrder), _filter.DateOrder, null),
             };
 
             _filter.LastLogId = logs[largestId].Id;
@@ -203,8 +205,7 @@ public sealed class AdminLogsEui : BaseEui
         var count = _adminLogs.CountLogs(roundId);
         await Task.WhenAll(round, count);
 
-        var players = (await round).Players
-            .ToDictionary(player => player.UserId, player => player.LastSeenUserName);
+        var players = (await round).Players.ToDictionary(player => player.UserId, player => player.LastSeenUserName);
 
         _players.Clear();
 

@@ -6,11 +6,11 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - sprite: _NF/Mobs/Pets/cat.rsi
-        state: cultcat
+    - state: green
+    - sprite: _NF/Mobs/Pets/cat.rsi
+      state: cultcat
   - type: RandomSpawner
     prototypes:
-      - MobCatBloodCult
+    - MobCatBloodCult
     chance: 0.05
     offset: 0.0

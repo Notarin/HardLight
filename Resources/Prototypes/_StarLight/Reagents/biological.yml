@@ -16,9 +16,9 @@
       - !type:SatiateThirst
         factor: 0.5
         conditions:
-          - !type:OrganType
-            type: Human
-            shouldHave: false
+        - !type:OrganType
+          type: Human
+          shouldHave: false
       - !type:SatiateHunger
         factor: 0.5
         conditions:
@@ -42,7 +42,7 @@
           type: Vampiric
         reagent: Omnizine
         amount: 0.1
-  # Hardlight addition for Floofstation vampires - end
+        # Hardlight addition for Floofstation vampires - end
 
 - type: reagent
   parent: Blood

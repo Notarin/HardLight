@@ -24,7 +24,7 @@ public sealed partial class PlumbingFilterComponent : Component
 [Serializable, NetSerializable]
 public enum PlumbingFilterUiKey : byte
 {
-    Key
+    Key,
 }
 
 /// <summary>

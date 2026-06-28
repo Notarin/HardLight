@@ -38,11 +38,7 @@ public sealed partial class SerializationTest
         Assert.That(deserialized, Is.EqualTo(value));
 
         // Repeat test with enums in a data definitions.
-        var data = new TestData
-        {
-            Value = TestEnum.Cc,
-            Sequence = [TestEnum.Dd, TestEnum.Aa]
-        };
+        var data = new TestData { Value = TestEnum.Cc, Sequence = [TestEnum.Dd, TestEnum.Aa] };
 
         node = seriMan.WriteValue(data, notNullableOverride: true);
 
@@ -71,12 +67,21 @@ public sealed partial class SerializationTest
         await pair.CleanReturnAsync();
     }
 
-    private enum TestEnum : byte { Aa, Bb, Cc, Dd }
+    private enum TestEnum : byte
+    {
+        Aa,
+        Bb,
+        Cc,
+        Dd,
+    }
 
     [DataDefinition]
     private sealed partial class TestData
     {
-        [DataField] public Enum Value = default!;
-        [DataField] public List<Enum> Sequence = default!;
+        [DataField]
+        public Enum Value = default!;
+
+        [DataField]
+        public List<Enum> Sequence = default!;
     }
 }

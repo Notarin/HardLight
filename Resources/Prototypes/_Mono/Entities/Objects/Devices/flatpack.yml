@@ -108,49 +108,49 @@
   - type: StaticPrice
     price: 400
 
-# - type: entity
+  # - type: entity
   # parent: BaseNFFlatpack
   # id: RDServerUSSPFlatpack
   # name: ussp research and development server flatpack
   # description: A flatpack used for constructing a USSP research and development server.
   # components:
   # - type: Flatpack
-    # entity: ResearchAndDevelopmentServer
+  # entity: ResearchAndDevelopmentServer
   # - type: StaticPrice
-    # vendPrice: 1500
+  # vendPrice: 1500
   # - type: Sprite
-    # layers:
-    # - state: science_server
+  # layers:
+  # - state: science_server
 
-# - type: entity
+- type: entity
+  # - type: entity
   # parent: BaseNFFlatpack
   # id: RDServerRogueFlatpack
   # name: rogue research and development server flatpack
   # description: A flatpack used for constructing a Rogue research and development server.
   # components:
   # - type: Flatpack
-    # entity: ResearchAndDevelopmentServer
+  # entity: ResearchAndDevelopmentServer
   # - type: StaticPrice
-    # price: 1500
+  # price: 1500
   # - type: Sprite
-    # layers:
-    # - state: science_server
+  # layers:
+  # - state: science_server
 
-# - type: entity
+  # - type: entity
   # parent: BaseNFFlatpack
   # id: RDServerTSFFlatpack
   # name: TSF research and development server flatpack
   # description: A flatpack used for constructing a TSF research and development server.
   # components:
   # - type: Flatpack
-    # entity: ResearchAndDevelopmentServer
+  # entity: ResearchAndDevelopmentServer
   # - type: StaticPrice
-    # price: 1500
+  # price: 1500
   # - type: Sprite
-    # layers:
-    # - state: science_server
+  # layers:
+  # - state: science_server
 
-- type: entity
   parent: BaseNFFlatpack
   id: FactionLatheFlatpack
   name: military multipurpose assembler flatpack
@@ -215,7 +215,6 @@
     materialComposition:
       Steel: 100
       Glass: 30
-
 
 - type: entity
   parent: BaseNFFlatpack

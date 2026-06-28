@@ -4,8 +4,8 @@
 - type: latheRecipePack
   id: NFHackedMercenaryTechfabDeprecatedStatic
   recipes:
-# Shared lathe recipes
-## Basic tools
+  # Shared lathe recipes
+  ## Basic tools
   - Wirecutter
   - Screwdriver
   - Welder
@@ -15,12 +15,12 @@
   - HandLabeler
   - Signaller
   - ClothingMaskWeldingGas
-## Basic storage
+  ## Basic storage
   - ToolboxArtisticNF
   - ToolboxElectricalNF
   - ToolboxMechanicalNF
   - ToolboxEmergencyNF
-## Basic parts
+  ## Basic parts
   - CableStack
   - LightTube
   - LedLightTube
@@ -33,14 +33,14 @@
   - ConveyorBeltAssembly
   - PowerCellSmall
   - PowerCellMedium
-## Basic electronics
+  ## Basic electronics
   - SignalTimerElectronics
   - CellRechargerCircuitboard
   - BorgChargerCircuitboard
   - WeaponCapacitorRechargerCircuitboard
   - AirTank
-# Mercenary techfab
-## Clothing / Armor
+  # Mercenary techfab
+  ## Clothing / Armor
   - NFRiotShield
   - ClothingHandsMercenaryGlovesCombat
   - ClothingHandsGlovesCombat
@@ -61,14 +61,14 @@
   - ClothingUniformRandomPunkCroptopShorts
   - ClothingOuterCoatLettermanRandomized
   - ClothingOuterCoatBomberRandomized
-## Storage
+  ## Storage
   - MedkitCombat
   - WeaponCaseShort
   - WeaponCaseLong
   - WeaponCaseHeavy
   - WeaponCaseShortAmmo
   - WeaponCaseShortExplosives
-## Weapons
+  ## Weapons
   - NFWeaponEnergyPistolLaserSvalinn # After the changes made to windows shouldn't be that much of an issue now if it's widely available
   - NFWeaponEnergyPistolLaser
   - WeaponPistolMk58
@@ -81,27 +81,27 @@
 - type: latheRecipePack
   id: NFHackedMercenaryTechfabDeprecated
   recipes:
-# Shared lathe recipes
-## Advanced tools
+  # Shared lathe recipes
+  ## Advanced tools
   - WelderExperimental
   - JawsOfLife
   - PowerDrill
   - JetpackVoid
   - PowerCellHigh
   - PowerCellMicroreactor
-# Mercenary techfab
-## Armor
+  # Mercenary techfab
+  ## Armor
   - NFTelescopicShield
   - ClothingOuterArmorBulletproofNF
   - ClothingOuterCoatBHTrench
-## EVA / Hardsuits
+  ## EVA / Hardsuits
   - ClothingOuterHardsuitCap
   - ClothingOuterHardsuitMercenary
   - ClothingOuterHardsuitPrivateSecurity
   - ClothingOuterHardsuitScaf
   - ClothingShoesBootsMagSecurity
   - ClothingShoesBootsMagMercenary
-## Utilities
+  ## Utilities
   - PinpointerUniversalNF
   - NFHandcuffs
   - SignalTrigger
@@ -114,7 +114,7 @@
   - ClothingBackpackDuffelHolding
   - ClothingBackpackMessengerHolding
   - FlashlightSecliteNF
-## Weapons
+  ## Weapons
   - Truncheon
   - MacheteNF
   - Stunbaton

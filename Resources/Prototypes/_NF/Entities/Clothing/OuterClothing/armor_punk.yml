@@ -1,7 +1,7 @@
 
 - type: entity
   id: ClothingOuterArmorPunkGreen
-  parent: [ ClothingOuterVestWebMercenary, RecyclableItemClothArmor, BaseC1Contraband ]
+  parent: [ClothingOuterVestWebMercenary, RecyclableItemClothArmor, BaseC1Contraband]
   name: punk armor
   components:
   - type: Sprite
@@ -39,10 +39,10 @@
     sprite: _NF/Clothing/OuterClothing/Armor/bulletproof_vest_procedural.rsi
     layers:
     - state: base_OuterClothing_armor_01
-      map: [ "armor_main" ]
+      map: ["armor_main"]
     - state: mask_null
-      map: [ "armor_decor" ]
-    #- state: mask_null
+      map: ["armor_decor"]
+      #- state: mask_null
       #map: [ "armor_overlay" ]
       #shader: unshaded
   - type: Clothing
@@ -50,10 +50,10 @@
     clothingVisuals:
       outerClothing:
       - state: base_OuterClothing_armor_01
-        map: [ "armor_main" ]
+        map: ["armor_main"]
       - state: mask_null
-        map: [ "armor_decor" ]
-      #- state: mask_null
+        map: ["armor_decor"]
+        #- state: mask_null
         #map: [ "armor_overlay" ]
         #shader: unshaded
   - type: RandomSprite
@@ -72,7 +72,7 @@
         decor_base_OuterClothing_armor_05: CyberpunkNeon
         decor_base_OuterClothing_armor_06: CyberpunkNeon
         mask_null: ""
-      #armor_overlay:
+        #armor_overlay:
         #overlay_base_OuterClothing_armor_01: CyberpunkNeon
         #overlay_base_OuterClothing_armor_02: CyberpunkNeon
         #overlay_base_OuterClothing_armor_03: CyberpunkNeon
@@ -81,7 +81,7 @@
 
 - type: entity
   id: ClothingOuterArmorElitePunkRandomized
-  parent: [ ClothingOuterStorageBase, ClothingOuterArmorBulletproof, RecyclableItemClothArmor, BaseC1Contraband ]
+  parent: [ClothingOuterStorageBase, ClothingOuterArmorBulletproof, RecyclableItemClothArmor, BaseC1Contraband]
   name: punk heavy armor
   suffix: Random visuals
   components:
@@ -89,22 +89,22 @@
     sprite: _NF/Clothing/OuterClothing/Armor/bulletproof_vest_procedural_elite.rsi
     layers:
     - state: base_OuterClothing_armor_01
-      map: [ "armor_elite_main" ]
+      map: ["armor_elite_main"]
     - state: mask_null
-      map: [ "armor_elite_decor" ]
+      map: ["armor_elite_decor"]
     - state: mask_null
-      map: [ "armor_elite_overlay" ]
+      map: ["armor_elite_overlay"]
       shader: unshaded
   - type: Clothing
     sprite: _NF/Clothing/OuterClothing/Armor/bulletproof_vest_procedural_elite.rsi
     clothingVisuals:
       outerClothing:
       - state: base_OuterClothing_armor_01
-        map: [ "armor_elite_main" ]
+        map: ["armor_elite_main"]
       - state: mask_null
-        map: [ "armor_elite_decor" ]
+        map: ["armor_elite_decor"]
       - state: mask_null
-        map: [ "armor_elite_overlay" ]
+        map: ["armor_elite_overlay"]
         shader: unshaded
   - type: RandomSprite
     available:

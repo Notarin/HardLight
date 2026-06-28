@@ -70,12 +70,23 @@ public sealed class TegSystem : EntitySystem
     /// </summary>
     public const string DeviceNetworkCommandSyncData = "teg_sync_data";
 
-    [Dependency] private readonly AmbientSoundSystem _ambientSound = default!;
-    [Dependency] private readonly AppearanceSystem _appearance = default!;
-    [Dependency] private readonly AtmosphereSystem _atmosphere = default!;
-    [Dependency] private readonly DeviceNetworkSystem _deviceNetwork = default!;
-    [Dependency] private readonly PointLightSystem _pointLight = default!;
-    [Dependency] private readonly SharedPowerReceiverSystem _receiver = default!;
+    [Dependency]
+    private readonly AmbientSoundSystem _ambientSound = default!;
+
+    [Dependency]
+    private readonly AppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly AtmosphereSystem _atmosphere = default!;
+
+    [Dependency]
+    private readonly DeviceNetworkSystem _deviceNetwork = default!;
+
+    [Dependency]
+    private readonly PointLightSystem _pointLight = default!;
+
+    [Dependency]
+    private readonly SharedPowerReceiverSystem _receiver = default!;
 
     private EntityQuery<NodeContainerComponent> _nodeContainerQuery;
 
@@ -163,7 +174,7 @@ public sealed class TegSystem : EntitySystem
             // Reduce efficiency at low temperature differences to encourage burn chambers (instead
             // of just feeding the TEG room temperature gas from an infinite gas miner).
             var dT = Thot - Tcold;
-            N *= MathF.Tanh(dT/700); // https://www.wolframalpha.com/input?i=tanh(x/700)+from+0+to+1000
+            N *= MathF.Tanh(dT / 700); // https://www.wolframalpha.com/input?i=tanh(x/700)+from+0+to+1000
 
             var transfer = Wmax * N;
             electricalEnergy = transfer * component.PowerFactor;
@@ -209,7 +220,8 @@ public sealed class TegSystem : EntitySystem
         EntityUid uid,
         TegGeneratorComponent component,
         ApcPowerReceiverComponent powerReceiver,
-        TegNodeGroup nodeGroup)
+        TegNodeGroup nodeGroup
+    )
     {
         int powerLevel;
         if (powerReceiver.Powered)
@@ -217,7 +229,8 @@ public sealed class TegSystem : EntitySystem
             powerLevel = ContentHelpers.RoundToLevels(
                 component.RampPosition - component.RampMinimum,
                 component.MaxVisualPower - component.RampMinimum,
-                12);
+                12
+            );
         }
         else
         {
@@ -238,10 +251,7 @@ public sealed class TegSystem : EntitySystem
     }
 
     [Access(typeof(TegNodeGroup))]
-    public void UpdateGeneratorConnectivity(
-        EntityUid uid,
-        TegNodeGroup group,
-        TegGeneratorComponent? component = null)
+    public void UpdateGeneratorConnectivity(EntityUid uid, TegNodeGroup group, TegGeneratorComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
@@ -256,7 +266,8 @@ public sealed class TegSystem : EntitySystem
     public void UpdateCirculatorConnectivity(
         EntityUid uid,
         TegNodeGroup group,
-        TegCirculatorComponent? component = null)
+        TegCirculatorComponent? component = null
+    )
     {
         if (!Resolve(uid, ref component))
             return;
@@ -295,7 +306,11 @@ public sealed class TegSystem : EntitySystem
         if (_pointLight.TryGetLight(ent, out var pointLight))
         {
             _pointLight.SetEnabled(ent, powered, pointLight);
-            _pointLight.SetColor(ent, speed == TegCirculatorSpeed.SpeedFast ? circ.LightColorFast : circ.LightColorSlow, pointLight);
+            _pointLight.SetColor(
+                ent,
+                speed == TegCirculatorSpeed.SpeedFast ? circ.LightColorFast : circ.LightColorSlow,
+                pointLight
+            );
         }
     }
 
@@ -404,8 +419,8 @@ public sealed class TegSystem : EntitySystem
     private (PipeNode inlet, PipeNode outlet) GetPipes(EntityUid uidCirculator)
     {
         var nodeContainer = _nodeContainerQuery.GetComponent(uidCirculator);
-        var inlet = (PipeNode) nodeContainer.Nodes[NodeNameInlet];
-        var outlet = (PipeNode) nodeContainer.Nodes[NodeNameOutlet];
+        var inlet = (PipeNode)nodeContainer.Nodes[NodeNameInlet];
+        var outlet = (PipeNode)nodeContainer.Nodes[NodeNameOutlet];
 
         return (inlet, outlet);
     }
@@ -413,7 +428,8 @@ public sealed class TegSystem : EntitySystem
     private void DeviceNetworkPacketReceived(
         EntityUid uid,
         TegGeneratorComponent component,
-        DeviceNetworkPacketEvent args)
+        DeviceNetworkPacketEvent args
+    )
     {
         if (!args.Data.TryGetValue(DeviceNetworkConstants.Command, out string? cmd))
             return;
@@ -436,8 +452,8 @@ public sealed class TegSystem : EntitySystem
                         CirculatorB = GetCirculatorSensorData(group.CirculatorB!.Owner),
                         LastGeneration = component.LastGeneration,
                         PowerOutput = supplier.CurrentSupply,
-                        RampPosition = component.RampPosition
-                    }
+                        RampPosition = component.RampPosition,
+                    },
                 };
 
                 _deviceNetwork.QueuePacket(uid, args.SenderAddress, payload);
@@ -453,6 +469,7 @@ public sealed class TegSystem : EntitySystem
             inlet.Air.Pressure,
             outlet.Air.Pressure,
             inlet.Air.Temperature,
-            outlet.Air.Temperature);
+            outlet.Air.Temperature
+        );
     }
 }

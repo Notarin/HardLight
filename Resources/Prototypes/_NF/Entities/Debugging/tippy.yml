@@ -1,20 +1,20 @@
 - type: entity
   id: NFTippy
   parent: Tippy
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     layers:
     - sprite: _NF/Tips/clippy.rsi
       state: left
-      map: [ "revealing" ]
+      map: ["revealing"]
     - sprite: _NF/Tips/clippy.rsi
       state: right
-      map: [ "hiding" ]
+      map: ["hiding"]
     - sprite: _NF/Tips/clippy.rsi
       state: down
       visible: false
-      map: [ "speaking" ]
+      map: ["speaking"]
   - type: FootstepModifier
     footstepSoundCollection:
       collection: CatMeows

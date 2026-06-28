@@ -22,12 +22,23 @@ namespace Content.Shared._NF.Manufacturing.EntitySystems;
 /// </summary>
 public sealed partial class GasSpawnPowerConsumerSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly AppearanceSystem _appearance = default!;
-    [Dependency] private readonly AtmosphereSystem _atmos = default!;
-    [Dependency] private readonly NodeContainerSystem _node = default!;
-    [Dependency] private readonly NodeGroupSystem _nodeGroup = default!;
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly AppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly AtmosphereSystem _atmos = default!;
+
+    [Dependency]
+    private readonly NodeContainerSystem _node = default!;
+
+    [Dependency]
+    private readonly NodeGroupSystem _nodeGroup = default!;
+
+    [Dependency]
+    private readonly UserInterfaceSystem _ui = default!;
 
     private GasMixture _mixture = new();
 
@@ -47,28 +58,45 @@ public sealed partial class GasSpawnPowerConsumerSystem : EntitySystem
             {
                 subs.Event<AdjustablePowerDrawSetEnabledMessage>(HandleSetEnabled);
                 subs.Event<AdjustablePowerDrawSetLoadMessage>(HandleSetLoad);
-            });
+            }
+        );
     }
 
     private void OnMapInit(Entity<GasSpawnPowerConsumerComponent> ent, ref MapInitEvent args)
     {
         ent.Comp.NextSpawnCheck = _timing.CurTime + ent.Comp.SpawnCheckPeriod;
         if (TryComp(ent, out PowerConsumerComponent? power))
-            power.DrawRate = Math.Clamp(power.DrawRate, ent.Comp.MinimumRequestablePower, ent.Comp.MaximumRequestablePower);
+            power.DrawRate = Math.Clamp(
+                power.DrawRate,
+                ent.Comp.MinimumRequestablePower,
+                ent.Comp.MaximumRequestablePower
+            );
     }
 
     private void OnExamined(Entity<GasSpawnPowerConsumerComponent> ent, ref ExaminedEvent args)
     {
         if (TryComp(ent, out PowerConsumerComponent? power))
         {
-            args.PushMarkup(Loc.GetString("gas-spawn-power-consumer-examine", ("actual", power.ReceivedPower), ("requested", power.DrawRate)));
+            args.PushMarkup(
+                Loc.GetString(
+                    "gas-spawn-power-consumer-examine",
+                    ("actual", power.ReceivedPower),
+                    ("requested", power.DrawRate)
+                )
+            );
 
             var powered = power.NetworkLoad.Enabled && power.NetworkLoad.ReceivingPower > 0;
             args.PushMarkup(
-                Loc.GetString("power-receiver-component-on-examine-main",
-                    ("stateText", Loc.GetString(powered
-                        ? "power-receiver-component-on-examine-powered"
-                        : "power-receiver-component-on-examine-unpowered"))
+                Loc.GetString(
+                    "power-receiver-component-on-examine-main",
+                    (
+                        "stateText",
+                        Loc.GetString(
+                            powered
+                                ? "power-receiver-component-on-examine-powered"
+                                : "power-receiver-component-on-examine-unpowered"
+                        )
+                    )
                 )
             );
         }
@@ -92,7 +120,10 @@ public sealed partial class GasSpawnPowerConsumerSystem : EntitySystem
                     continue;
                 }
 
-                if (!float.IsFinite(spawn.AccumulatedSpawnCheckEnergy) || !float.IsPositive(spawn.AccumulatedSpawnCheckEnergy))
+                if (
+                    !float.IsFinite(spawn.AccumulatedSpawnCheckEnergy)
+                    || !float.IsPositive(spawn.AccumulatedSpawnCheckEnergy)
+                )
                 {
                     spawn.AccumulatedSpawnCheckEnergy = 0;
                     continue;
@@ -103,10 +134,16 @@ public sealed partial class GasSpawnPowerConsumerSystem : EntitySystem
                     spawn.AccumulatedEnergy = 0;
 
                 // Adjust spawn check energy
-                if (float.IsFinite(spawn.AccumulatedSpawnCheckEnergy) && float.IsPositive(spawn.AccumulatedSpawnCheckEnergy))
+                if (
+                    float.IsFinite(spawn.AccumulatedSpawnCheckEnergy)
+                    && float.IsPositive(spawn.AccumulatedSpawnCheckEnergy)
+                )
                 {
                     var totalPeriodSeconds = (float)spawn.SpawnCheckPeriod.TotalSeconds;
-                    var effectivePower = GetEffectivePower((uid, spawn), spawn.AccumulatedSpawnCheckEnergy / totalPeriodSeconds);
+                    var effectivePower = GetEffectivePower(
+                        (uid, spawn),
+                        spawn.AccumulatedSpawnCheckEnergy / totalPeriodSeconds
+                    );
                     spawn.AccumulatedEnergy += effectivePower * totalPeriodSeconds;
                 }
                 spawn.AccumulatedSpawnCheckEnergy = 0;
@@ -133,7 +170,11 @@ public sealed partial class GasSpawnPowerConsumerSystem : EntitySystem
                 }
             }
 
-            _appearance.SetData(uid, PowerDeviceVisuals.Powered, power.NetworkLoad.Enabled && power.NetworkLoad.ReceivingPower > 0);
+            _appearance.SetData(
+                uid,
+                PowerDeviceVisuals.Powered,
+                power.NetworkLoad.Enabled && power.NetworkLoad.ReceivingPower > 0
+            );
         }
     }
 
@@ -149,7 +190,9 @@ public sealed partial class GasSpawnPowerConsumerSystem : EntitySystem
         if (power <= ent.Comp.LinearMaxValue)
             actualPower = power;
         else
-            actualPower = ent.Comp.LogarithmCoefficient * MathF.Pow(ent.Comp.LogarithmRateBase, MathF.Log10(power) - ent.Comp.LogarithmSubtrahend);
+            actualPower =
+                ent.Comp.LogarithmCoefficient
+                * MathF.Pow(ent.Comp.LogarithmRateBase, MathF.Log10(power) - ent.Comp.LogarithmSubtrahend);
         return actualPower;
     }
 
@@ -175,10 +218,15 @@ public sealed partial class GasSpawnPowerConsumerSystem : EntitySystem
             UpdateUI(ent, power);
     }
 
-    private void HandleSetEnabled(Entity<GasSpawnPowerConsumerComponent> ent, ref AdjustablePowerDrawSetEnabledMessage args)
+    private void HandleSetEnabled(
+        Entity<GasSpawnPowerConsumerComponent> ent,
+        ref AdjustablePowerDrawSetEnabledMessage args
+    )
     {
-        if (TryComp(ent, out NodeContainerComponent? node) &&
-            _node.TryGetNode<CableDeviceNode>(node, ent.Comp.PowerNodeName, out var deviceNode))
+        if (
+            TryComp(ent, out NodeContainerComponent? node)
+            && _node.TryGetNode<CableDeviceNode>(node, ent.Comp.PowerNodeName, out var deviceNode)
+        )
         {
             deviceNode.Enabled = args.On;
             if (deviceNode.Enabled)
@@ -206,8 +254,10 @@ public sealed partial class GasSpawnPowerConsumerSystem : EntitySystem
             return;
 
         bool nodeEnabled = false;
-        if (TryComp(ent, out NodeContainerComponent? node) &&
-            _node.TryGetNode<CableDeviceNode>(node, ent.Comp.PowerNodeName, out var deviceNode))
+        if (
+            TryComp(ent, out NodeContainerComponent? node)
+            && _node.TryGetNode<CableDeviceNode>(node, ent.Comp.PowerNodeName, out var deviceNode)
+        )
         {
             nodeEnabled = deviceNode.Enabled;
         }
@@ -219,7 +269,8 @@ public sealed partial class GasSpawnPowerConsumerSystem : EntitySystem
             {
                 On = nodeEnabled,
                 Load = power.DrawRate,
-                Text = Loc.GetString("gas-spawn-power-consumer-value", ("value", GetGasSpawnRate(ent, power.DrawRate)))
-            });
+                Text = Loc.GetString("gas-spawn-power-consumer-value", ("value", GetGasSpawnRate(ent, power.DrawRate))),
+            }
+        );
     }
 }

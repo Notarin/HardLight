@@ -65,8 +65,8 @@
     sprite: _Starlight/Clothing/Uniforms/Jumpsuit/blueshield.rsi
   - type: Tag
     tags:
-      - ClothMade
-      - WhitelistChameleon
+    - ClothMade
+    - WhitelistChameleon
 
 - type: entity
   parent: [ClothingUniformBase]
@@ -80,8 +80,8 @@
     sprite: _Starlight/Clothing/Uniforms/Jumpsuit/eliteblueshield.rsi
   - type: Tag
     tags:
-      - ClothMade
-      - WhitelistChameleon
+    - ClothMade
+    - WhitelistChameleon
 
 - type: entity
   parent: [ClothingUniformBase]
@@ -95,5 +95,5 @@
     sprite: _Starlight/Clothing/Uniforms/Jumpsuit/blueshieldshirt.rsi
   - type: Tag
     tags:
-      - ClothMade
-      - WhitelistChameleon
+    - ClothMade
+    - WhitelistChameleon

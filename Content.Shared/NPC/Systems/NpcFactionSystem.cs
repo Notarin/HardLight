@@ -1,13 +1,13 @@
+using System.Collections.Frozen;
+using System.Linq;
 using Content.Shared.Access;
 using Content.Shared.Access.Systems;
 using Content.Shared.Contraband;
 using Content.Shared.Inventory;
 using Content.Shared.NPC.Components;
 using Content.Shared.NPC.Prototypes;
-using Robust.Shared.Prototypes;
 using Robust.Shared.Containers;
-using System.Collections.Frozen;
-using System.Linq;
+using Robust.Shared.Prototypes;
 
 namespace Content.Shared.NPC.Systems;
 
@@ -16,11 +16,20 @@ namespace Content.Shared.NPC.Systems;
 /// </summary>
 public sealed partial class NpcFactionSystem : EntitySystem
 {
-    [Dependency] private readonly AccessReaderSystem _accessReader = default!;
-    [Dependency] private readonly InventorySystem _inventory = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly SharedTransformSystem _xform = default!;
+    [Dependency]
+    private readonly AccessReaderSystem _accessReader = default!;
+
+    [Dependency]
+    private readonly InventorySystem _inventory = default!;
+
+    [Dependency]
+    private readonly EntityLookupSystem _lookup = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _xform = default!;
 
     private static readonly ProtoId<NpcFactionPrototype> ContrabandDetectionFaction = "ContrabandDetection";
     private static readonly HashSet<ProtoId<ContrabandSeverityPrototype>> Class3EquivalentContrabandSeverities =
@@ -114,7 +123,10 @@ public sealed partial class NpcFactionSystem : EntitySystem
     /// Returns whether an entity is a member of any listed faction.
     /// If the list is empty this returns false.
     /// </summary>
-    public bool IsMemberOfAny(Entity<NpcFactionMemberComponent?> ent, IEnumerable<ProtoId<NpcFactionPrototype>> factions)
+    public bool IsMemberOfAny(
+        Entity<NpcFactionMemberComponent?> ent,
+        IEnumerable<ProtoId<NpcFactionPrototype>> factions
+    )
     {
         if (!Resolve(ent, ref ent.Comp, false))
             return false;
@@ -161,7 +173,11 @@ public sealed partial class NpcFactionSystem : EntitySystem
     /// <summary>
     /// Adds this entity to the particular faction.
     /// </summary>
-    public void AddFactions(Entity<NpcFactionMemberComponent?> ent, HashSet<ProtoId<NpcFactionPrototype>> factions, bool dirty = true)
+    public void AddFactions(
+        Entity<NpcFactionMemberComponent?> ent,
+        HashSet<ProtoId<NpcFactionPrototype>> factions,
+        bool dirty = true
+    )
     {
         ent.Comp ??= EnsureComp<NpcFactionMemberComponent>(ent);
 
@@ -215,7 +231,10 @@ public sealed partial class NpcFactionSystem : EntitySystem
             RefreshFactions((ent, ent.Comp));
     }
 
-    public IEnumerable<EntityUid> GetNearbyHostiles(Entity<NpcFactionMemberComponent?, FactionExceptionComponent?> ent, float range)
+    public IEnumerable<EntityUid> GetNearbyHostiles(
+        Entity<NpcFactionMemberComponent?, FactionExceptionComponent?> ent,
+        float range
+    )
     {
         if (!Resolve(ent, ref ent.Comp1, false))
             return Array.Empty<EntityUid>();
@@ -223,16 +242,22 @@ public sealed partial class NpcFactionSystem : EntitySystem
         var hostiles = GetNearbyFactions(ent, range, ent.Comp1.HostileFactions)
             // ignore mobs that have both hostile faction and the same faction,
             // otherwise having multiple factions is strictly negative
-            .Where(target => !IsEntityFriendly((ent, ent.Comp1), target)
+            .Where(target =>
+                !IsEntityFriendly((ent, ent.Comp1), target)
                 && !IsSecurityExemptFromContrabandDetection((ent.Owner, ent.Comp1), target)
-                && IsValidContrabandDetectionTarget((ent.Owner, ent.Comp1), target));
+                && IsValidContrabandDetectionTarget((ent.Owner, ent.Comp1), target)
+            );
 
         if (ent.Comp1.Factions.Contains(ContrabandDetectionFaction))
         {
-            hostiles = hostiles.Union(GetNearbyContrabandCarriers(ent.Owner, range)
-                .Where(target => !IsEntityFriendly((ent, ent.Comp1), target)
-                    && !IsSecurityExemptFromContrabandDetection((ent.Owner, ent.Comp1), target)
-                    && IsValidContrabandDetectionTarget((ent.Owner, ent.Comp1), target)));
+            hostiles = hostiles.Union(
+                GetNearbyContrabandCarriers(ent.Owner, range)
+                    .Where(target =>
+                        !IsEntityFriendly((ent, ent.Comp1), target)
+                        && !IsSecurityExemptFromContrabandDetection((ent.Owner, ent.Comp1), target)
+                        && IsValidContrabandDetectionTarget((ent.Owner, ent.Comp1), target)
+                    )
+            );
         }
 
         if (!Resolve(ent, ref ent.Comp2, false))
@@ -242,13 +267,20 @@ public sealed partial class NpcFactionSystem : EntitySystem
         var faction = (ent.Owner, ent.Comp2);
         return hostiles
             .Union(GetHostiles(faction))
-            .Where(target => !IsIgnored(faction, target) && !IsSecurityExemptFromContrabandDetection((ent.Owner, ent.Comp1), target));
+            .Where(target =>
+                !IsIgnored(faction, target) && !IsSecurityExemptFromContrabandDetection((ent.Owner, ent.Comp1), target)
+            );
     }
 
     private IEnumerable<EntityUid> GetNearbyContrabandCarriers(EntityUid entity, float range)
     {
         var xform = Transform(entity);
-        foreach (var ent in _lookup.GetEntitiesInRange<NpcFactionMemberComponent>(_xform.GetMapCoordinates((entity, xform)), range))
+        foreach (
+            var ent in _lookup.GetEntitiesInRange<NpcFactionMemberComponent>(
+                _xform.GetMapCoordinates((entity, xform)),
+                range
+            )
+        )
         {
             if (ent.Owner == entity)
                 continue;
@@ -335,10 +367,19 @@ public sealed partial class NpcFactionSystem : EntitySystem
         return GetNearbyFactions(ent, range, ent.Comp.FriendlyFactions);
     }
 
-    private IEnumerable<EntityUid> GetNearbyFactions(EntityUid entity, float range, HashSet<ProtoId<NpcFactionPrototype>> factions)
+    private IEnumerable<EntityUid> GetNearbyFactions(
+        EntityUid entity,
+        float range,
+        HashSet<ProtoId<NpcFactionPrototype>> factions
+    )
     {
         var xform = Transform(entity);
-        foreach (var ent in _lookup.GetEntitiesInRange<NpcFactionMemberComponent>(_xform.GetMapCoordinates((entity, xform)), range))
+        foreach (
+            var ent in _lookup.GetEntitiesInRange<NpcFactionMemberComponent>(
+                _xform.GetMapCoordinates((entity, xform)),
+                range
+            )
+        )
         {
             if (ent.Owner == entity)
                 continue;
@@ -358,7 +399,8 @@ public sealed partial class NpcFactionSystem : EntitySystem
         if (!Resolve(ent, ref ent.Comp, false) || !Resolve(other, ref other.Comp, false))
             return false;
 
-        return ent.Comp.Factions.Overlaps(other.Comp.Factions) || ent.Comp.FriendlyFactions.Overlaps(other.Comp.Factions);
+        return ent.Comp.Factions.Overlaps(other.Comp.Factions)
+            || ent.Comp.FriendlyFactions.Overlaps(other.Comp.Factions);
     }
 
     public bool IsFactionFriendly(string target, string with)
@@ -371,8 +413,7 @@ public sealed partial class NpcFactionSystem : EntitySystem
         if (!Resolve(with, ref with.Comp, false))
             return false;
 
-        return with.Comp.Factions.All(x => IsFactionFriendly(target, x)) ||
-               with.Comp.FriendlyFactions.Contains(target);
+        return with.Comp.Factions.All(x => IsFactionFriendly(target, x)) || with.Comp.FriendlyFactions.Contains(target);
     }
 
     public bool IsFactionHostile(string target, string with)
@@ -385,8 +426,7 @@ public sealed partial class NpcFactionSystem : EntitySystem
         if (!Resolve(with, ref with.Comp, false))
             return false;
 
-        return with.Comp.Factions.All(x => IsFactionHostile(target, x)) ||
-               with.Comp.HostileFactions.Contains(target);
+        return with.Comp.Factions.All(x => IsFactionHostile(target, x)) || with.Comp.HostileFactions.Contains(target);
     }
 
     public bool IsFactionNeutral(string target, string with)
@@ -440,13 +480,16 @@ public sealed partial class NpcFactionSystem : EntitySystem
 
     private void RefreshFactions()
     {
-        _factions = _proto.EnumeratePrototypes<NpcFactionPrototype>().ToFrozenDictionary(
-            faction => faction.ID,
-            faction =>  new FactionData
-            {
-                Friendly = faction.Friendly.ToHashSet(),
-                Hostile = faction.Hostile.ToHashSet()
-            });
+        _factions = _proto
+            .EnumeratePrototypes<NpcFactionPrototype>()
+            .ToFrozenDictionary(
+                faction => faction.ID,
+                faction => new FactionData
+                {
+                    Friendly = faction.Friendly.ToHashSet(),
+                    Hostile = faction.Hostile.ToHashSet(),
+                }
+            );
 
         var query = AllEntityQuery<NpcFactionMemberComponent>();
         while (query.MoveNext(out var uid, out var comp))

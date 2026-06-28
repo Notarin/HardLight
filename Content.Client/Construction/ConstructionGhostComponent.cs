@@ -8,6 +8,8 @@ namespace Content.Client.Construction
     public sealed partial class ConstructionGhostComponent : Component
     {
         public int GhostId { get; set; }
-        [ViewVariables] public ConstructionPrototype? Prototype { get; set; }
+
+        [ViewVariables]
+        public ConstructionPrototype? Prototype { get; set; }
     }
 }

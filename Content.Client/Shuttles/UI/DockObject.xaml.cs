@@ -22,10 +22,7 @@ public sealed partial class DockObject : PanelContainer
 
     public void AddDock(DockingPortState state, NFShuttleDockControl dockControl) // Frontier: use NF version
     {
-        var viewButton = new Button()
-        {
-            Text = Loc.GetString("shuttle-console-view"),
-        };
+        var viewButton = new Button() { Text = Loc.GetString("shuttle-console-view") };
 
         viewButton.OnPressed += args =>
         {
@@ -37,13 +34,9 @@ public sealed partial class DockObject : PanelContainer
             Orientation = BoxContainer.LayoutOrientation.Vertical,
             Children =
             {
-                new Label()
-                {
-                    Text = state.Name,
-                    HorizontalAlignment = HAlignment.Center,
-                },
-                viewButton
-            }
+                new Label() { Text = state.Name, HorizontalAlignment = HAlignment.Center },
+                viewButton,
+            },
         };
 
         DockContainer.AddChild(container);

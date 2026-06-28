@@ -20,10 +20,9 @@
     Marauder:
       stationProto: StandardFrontierSecurityVessel
       components:
-        - type: StationNameSetup
-          mapNameTemplate: 'Marauder {1}'
-          nameGenerator:
-            !type:NanotrasenNameGenerator
-            prefixCreator: '14'
-        - type: StationJobs
-          availableJobs: {}
+      - type: StationNameSetup
+        mapNameTemplate: 'Marauder {1}'
+        nameGenerator: !type:NanotrasenNameGenerator
+          prefixCreator: '14'
+      - type: StationJobs
+        availableJobs: {}

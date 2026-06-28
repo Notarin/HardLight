@@ -7,7 +7,8 @@ namespace Content.Server.Construction.Completions
     [DataDefinition]
     public sealed partial class SetAnchor : IGraphAction
     {
-        [DataField("value")] public bool Value { get; private set; } = true;
+        [DataField("value")]
+        public bool Value { get; private set; } = true;
 
         public void PerformAction(EntityUid uid, EntityUid? userUid, IEntityManager entityManager)
         {
@@ -22,7 +23,6 @@ namespace Content.Server.Construction.Completions
                 sys.AnchorEntity(uid, transform);
             else
                 sys.Unanchor(uid, transform);
-
         }
     }
 }

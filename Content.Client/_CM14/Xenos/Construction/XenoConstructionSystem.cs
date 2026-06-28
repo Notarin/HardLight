@@ -1,16 +1,17 @@
-﻿using Content.Shared.CM14.Xenos.Construction;
+﻿using Content.Shared.CM14.Xenos;
+using Content.Shared.CM14.Xenos.Construction;
+using Content.Shared.CM14.Xenos.Construction.Events;
+using Content.Shared.UserInterface;
 using JetBrains.Annotations;
 using Robust.Shared.GameObjects;
-using Content.Shared.CM14.Xenos.Construction.Events;
-using Content.Shared.CM14.Xenos;
-using Content.Shared.UserInterface;
 
 namespace Content.Client.CM14.Xenos.Construction;
 
 [UsedImplicitly]
 public sealed class XenoConstructionClientSystem : SharedXenoConstructionSystem
 {
-    [Dependency] private readonly SharedUserInterfaceSystem _ui = default!;
+    [Dependency]
+    private readonly SharedUserInterfaceSystem _ui = default!;
 
     public override void Initialize()
     {
@@ -18,10 +19,15 @@ public sealed class XenoConstructionClientSystem : SharedXenoConstructionSystem
         Log.Info("[XenoWeeds] (client) XenoConstructionSystem.Initialize()");
     }
 
-    protected override void OnXenoChooseStructureAction(Entity<XenoComponent> xeno, ref XenoChooseStructureActionEvent args)
+    protected override void OnXenoChooseStructureAction(
+        Entity<XenoComponent> xeno,
+        ref XenoChooseStructureActionEvent args
+    )
     {
         // On client, always open predictively for snappy UX; server will authoritatively open too.
-        Log.Info($"[XenoChooseStructure] (client) Action received for {ToPrettyString(xeno)}; forcing predictive reopen");
+        Log.Info(
+            $"[XenoChooseStructure] (client) Action received for {ToPrettyString(xeno)}; forcing predictive reopen"
+        );
         // Close any existing open state then re-open predictively so it always reopens after a manual close
         _ui.CloseUi(xeno.Owner, XenoChooseStructureUI.Key);
         _ui.OpenUi(xeno.Owner, XenoChooseStructureUI.Key, predicted: true);

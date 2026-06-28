@@ -9,23 +9,38 @@ using Content.Shared.Roles;
 using Content.Shared.Storage;
 using Content.Shared.Storage.EntitySystems;
 using Robust.Shared.Collections;
+using Robust.Shared.Containers; // Far Horizons
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
-using Robust.Shared.Containers; // Far Horizons
 
 namespace Content.Shared.Station;
 
 public abstract class SharedStationSpawningSystem : EntitySystem
 {
-    [Dependency] protected readonly IPrototypeManager PrototypeManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] protected readonly InventorySystem InventorySystem = default!;
-    [Dependency] private readonly SharedHandsSystem _handsSystem = default!;
-    [Dependency] private readonly MetaDataSystem _metadata = default!;
-    [Dependency] private readonly SharedStorageSystem _storage = default!;
-    [Dependency] private readonly SharedTransformSystem _xformSystem = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!; // Far Horizons
+    [Dependency]
+    protected readonly IPrototypeManager PrototypeManager = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    protected readonly InventorySystem InventorySystem = default!;
+
+    [Dependency]
+    private readonly SharedHandsSystem _handsSystem = default!;
+
+    [Dependency]
+    private readonly MetaDataSystem _metadata = default!;
+
+    [Dependency]
+    private readonly SharedStorageSystem _storage = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _xformSystem = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!; // Far Horizons
 
     private EntityQuery<HandsComponent> _handsQuery;
     private EntityQuery<InventoryComponent> _inventoryQuery;
@@ -67,8 +82,10 @@ public abstract class SharedStationSpawningSystem : EntitySystem
             }
 
             // If a character cannot afford their current job loadout, ensure they have fallback items for mandatory categories.
-            if (PrototypeManager.TryIndex(group.Key, out var groupPrototype) &&
-                equippedItems.Count < groupPrototype.MinLimit)
+            if (
+                PrototypeManager.TryIndex(group.Key, out var groupPrototype)
+                && equippedItems.Count < groupPrototype.MinLimit
+            )
             {
                 foreach (var fallback in groupPrototype.Fallbacks)
                 {
@@ -123,13 +140,17 @@ public abstract class SharedStationSpawningSystem : EntitySystem
     public void EquipStartingGear(EntityUid entity, LoadoutPrototype loadout, bool raiseEvent = true)
     {
         EquipStartingGear(entity, loadout.StartingGear, raiseEvent);
-        EquipStartingGear(entity, (IEquipmentLoadout) loadout, raiseEvent);
+        EquipStartingGear(entity, (IEquipmentLoadout)loadout, raiseEvent);
     }
 
     /// <summary>
     /// <see cref="EquipStartingGear(Robust.Shared.GameObjects.EntityUid,System.Nullable{Robust.Shared.Prototypes.ProtoId{Content.Shared.Roles.StartingGearPrototype}},bool)"/>
     /// </summary>
-    public void EquipStartingGear(EntityUid entity, ProtoId<StartingGearPrototype>? startingGear, bool raiseEvent = true)
+    public void EquipStartingGear(
+        EntityUid entity,
+        ProtoId<StartingGearPrototype>? startingGear,
+        bool raiseEvent = true
+    )
     {
         PrototypeManager.TryIndex(startingGear, out var gearProto);
         EquipStartingGear(entity, gearProto, raiseEvent);
@@ -140,7 +161,7 @@ public abstract class SharedStationSpawningSystem : EntitySystem
     /// </summary>
     public void EquipStartingGear(EntityUid entity, StartingGearPrototype? startingGear, bool raiseEvent = true)
     {
-        EquipStartingGear(entity, (IEquipmentLoadout?) startingGear, raiseEvent);
+        EquipStartingGear(entity, (IEquipmentLoadout?)startingGear, raiseEvent);
     }
 
     /// <summary>
@@ -179,7 +200,13 @@ public abstract class SharedStationSpawningSystem : EntitySystem
 
                 if (_handsSystem.TryGetEmptyHand(entity, out var emptyHand, handsComponent))
                 {
-                    _handsSystem.TryPickup(entity, inhandEntity, emptyHand, checkActionBlocker: false, handsComp: handsComponent);
+                    _handsSystem.TryPickup(
+                        entity,
+                        inhandEntity,
+                        emptyHand,
+                        checkActionBlocker: false,
+                        handsComp: handsComponent
+                    );
                 }
             }
         }
@@ -199,10 +226,19 @@ public abstract class SharedStationSpawningSystem : EntitySystem
                 StorageComponent? storage = null;
                 BaseContainer? container = null;
 
-                if ((inventoryComp != null &&
-                    InventorySystem.TryGetSlotEntity(entity, slotName, out slotEnt, inventoryComponent: inventoryComp) &&
-                    _storageQuery.TryComp(slotEnt, out storage) ||
-                    _container.TryGetContainer(entity, slotName, out container)))
+                if (
+                    (
+                        inventoryComp != null
+                            && InventorySystem.TryGetSlotEntity(
+                                entity,
+                                slotName,
+                                out slotEnt,
+                                inventoryComponent: inventoryComp
+                            )
+                            && _storageQuery.TryComp(slotEnt, out storage)
+                        || _container.TryGetContainer(entity, slotName, out container)
+                    )
+                )
                 {
                     foreach (var entProto in entProtos)
                     {
@@ -211,7 +247,13 @@ public abstract class SharedStationSpawningSystem : EntitySystem
                         if (container != null)
                             _container.Insert(spawnedEntity, container);
                         else
-                            _storage.Insert(slotEnt!.Value, spawnedEntity, out _, storageComp: storage!, playSound: false);
+                            _storage.Insert(
+                                slotEnt!.Value,
+                                spawnedEntity,
+                                out _,
+                                storageComp: storage!,
+                                playSound: false
+                            );
                     }
                 }
                 // Far Horizons end

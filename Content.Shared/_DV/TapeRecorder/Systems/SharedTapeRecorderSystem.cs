@@ -1,6 +1,8 @@
+using System.Diagnostics.CodeAnalysis;
+using System.Text;
+using Content.Shared._DV.TapeRecorder.Components;
 using Content.Shared.Containers.ItemSlots;
 using Content.Shared.Damage;
-using Content.Shared._DV.TapeRecorder.Components;
 using Content.Shared.DoAfter;
 using Content.Shared.Examine;
 using Content.Shared.Interaction;
@@ -13,21 +15,34 @@ using Robust.Shared.Containers;
 using Robust.Shared.Random;
 using Robust.Shared.Serialization;
 using Robust.Shared.Timing;
-using System.Diagnostics.CodeAnalysis;
-using System.Text;
 
 namespace Content.Shared._DV.TapeRecorder.Systems;
 
 public abstract class SharedTapeRecorderSystem : EntitySystem
 {
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!;
-    [Dependency] protected readonly IGameTiming Timing = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] protected readonly SharedAudioSystem Audio = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly ItemSlotsSystem _slots = default!;
-    [Dependency] private readonly SharedUserInterfaceSystem _ui = default!;
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelist = default!;
+
+    [Dependency]
+    protected readonly IGameTiming Timing = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    protected readonly SharedAudioSystem Audio = default!;
+
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfter = default!;
+
+    [Dependency]
+    private readonly ItemSlotsSystem _slots = default!;
+
+    [Dependency]
+    private readonly SharedUserInterfaceSystem _ui = default!;
 
     protected const string SlotName = "cassette_tape";
 
@@ -78,7 +93,7 @@ public abstract class SharedTapeRecorderSystem : EntitySystem
                 TapeRecorderMode.Recording => ProcessRecordingTapeRecorder(ent, frameTime),
                 TapeRecorderMode.Playing => ProcessPlayingTapeRecorder(ent, frameTime),
                 TapeRecorderMode.Rewinding => ProcessRewindingTapeRecorder(ent, frameTime),
-                _ => false
+                _ => false,
             };
 
             if (continuing)
@@ -229,9 +244,12 @@ public abstract class SharedTapeRecorderSystem : EntitySystem
     /// Plays messages back on the server.
     /// Does nothing on the client.
     /// </summary>
-    protected virtual void ReplayMessagesInSegment(Entity<TapeRecorderComponent> ent, TapeCassetteComponent tape, float segmentStart, float segmentEnd)
-    {
-    }
+    protected virtual void ReplayMessagesInSegment(
+        Entity<TapeRecorderComponent> ent,
+        TapeCassetteComponent tape,
+        float segmentStart,
+        float segmentEnd
+    ) { }
 
     /// <summary>
     /// Start repairing a damaged tape when using a screwdriver or pen on it
@@ -246,11 +264,21 @@ public abstract class SharedTapeRecorderSystem : EntitySystem
         if (_whitelist.IsWhitelistFail(ent.Comp.RepairWhitelist, args.Used))
             return;
 
-        _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, ent.Comp.RepairDelay, new TapeCassetteRepairDoAfterEvent(), ent, target: ent, used: args.Used)
-        {
-            BreakOnMove = true,
-            NeedHand = true
-        });
+        _doAfter.TryStartDoAfter(
+            new DoAfterArgs(
+                EntityManager,
+                args.User,
+                ent.Comp.RepairDelay,
+                new TapeCassetteRepairDoAfterEvent(),
+                ent,
+                target: ent,
+                used: args.Used
+            )
+            {
+                BreakOnMove = true,
+                NeedHand = true,
+            }
+        );
     }
 
     /// <summary>
@@ -406,7 +434,7 @@ public abstract class SharedTapeRecorderSystem : EntitySystem
         {
             TapeRecorderMode.Stopped => ent.Comp.StopSound,
             TapeRecorderMode.Rewinding => ent.Comp.RewindSound,
-            _ => ent.Comp.PlaySound
+            _ => ent.Comp.PlaySound,
         };
         Audio.PlayPvs(sound, ent);
 
@@ -458,13 +486,7 @@ public abstract class SharedTapeRecorderSystem : EntitySystem
                     cassetteName = labelComp.CurrentLabel;
         }
 
-        var state = new TapeRecorderState(
-            hasCassette,
-            hasData,
-            currentTime,
-            maxTime,
-            cassetteName,
-            cooldown);
+        var state = new TapeRecorderState(hasCassette, hasData, currentTime, maxTime, cassetteName, cooldown);
 
         _ui.SetUiState(uid, TapeRecorderUIKey.Key, state);
     }
@@ -473,7 +495,11 @@ public abstract class SharedTapeRecorderSystem : EntitySystem
 [Serializable, NetSerializable]
 public sealed partial class TapeCassetteRepairDoAfterEvent : SimpleDoAfterEvent;
 
-public enum TapeRecordingStopReason { TapeFull, TranscriptFull }
+public enum TapeRecordingStopReason
+{
+    TapeFull,
+    TranscriptFull,
+}
 
 public sealed class TapeRecordingStoppedEvent(TapeRecordingStopReason reason) : EntityEventArgs
 {

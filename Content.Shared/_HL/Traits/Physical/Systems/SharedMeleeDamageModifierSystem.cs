@@ -21,8 +21,7 @@ public sealed class SharedMeleeDamageModifierSystem : EntitySystem
         if (!args.IsHit)
             return;
 
-        if (!TryComp<MeleeDamageModifierComponent>(args.User, out var modifier)
-            || modifier.FlatBonus == 0)
+        if (!TryComp<MeleeDamageModifierComponent>(args.User, out var modifier) || modifier.FlatBonus == 0)
         {
             return;
         }

@@ -26,7 +26,6 @@ public sealed partial class PacifiedComponent : Component
     [DataField]
     public bool DisallowAllCombat = false;
 
-
     /// <summary>
     ///     When attempting attack against the same entity multiple times,
     ///     don't spam popups every frame and instead have a cooldown.

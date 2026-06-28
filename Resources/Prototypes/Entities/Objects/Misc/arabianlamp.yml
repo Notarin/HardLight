@@ -6,7 +6,7 @@
   components:
   - type: Appearance
   - type: AccessReader
-    access: [ [ "CentralCommand" ] ]
+    access: [["CentralCommand"]]
     breakOnAccessBreaker: false
   - type: Lock
     lockOnClick: false
@@ -14,8 +14,8 @@
   - type: EntityStorage
     capacity: 1 # Its smol.
   # - type: StorageFill
-    # contents:
-      # - id: PuddleSparkle # Ha! Cute. Unfortunately it despawns before the container is likely to open.
+  # contents:
+  # - id: PuddleSparkle # Ha! Cute. Unfortunately it despawns before the container is likely to open.
   - type: ContainerContainer
     containers:
       entity_storage: !type:Container
@@ -35,9 +35,9 @@
         Blunt: 6
   - type: ItemToggleMeleeWeapon
     activatedDamage:
-        types:
-            Blunt: 6
-            Heat: 3
+      types:
+        Blunt: 6
+        Heat: 3
     activatedSoundOnHit:
       path: /Audio/Weapons/Guns/Hits/energy_meat1.ogg
       params:
@@ -64,7 +64,7 @@
     sprite: Objects/Misc/arabianlamp.rsi
     layers:
     - state: lamp
-      map: [ "enum.StorageVisualLayers.Base" ]
+      map: ["enum.StorageVisualLayers.Base"]
     - state: lamptop
       map: ["enum.StorageVisualLayers.Door"]
     - state: flame
@@ -75,8 +75,8 @@
     visuals:
       enum.ToggleVisuals.Toggled:
         enum.ToggleVisuals.Layer:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
   - type: EntityStorageVisuals
     stateBaseClosed: lamp
     stateDoorOpen: lamp

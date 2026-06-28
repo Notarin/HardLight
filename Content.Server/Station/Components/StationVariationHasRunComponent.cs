@@ -7,6 +7,4 @@ namespace Content.Server.Station.Components;
 ///     has already run, so as to avoid running it again if another station is added.
 /// </summary>
 [RegisterComponent]
-public sealed partial class StationVariationHasRunComponent : Component
-{
-}
+public sealed partial class StationVariationHasRunComponent : Component { }

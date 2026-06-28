@@ -11,7 +11,8 @@ namespace Content.Server.Construction.Completions
     [DataDefinition]
     public sealed partial class EmptyContainer : IGraphAction
     {
-        [DataField("container")] public string Container { get; private set; } = string.Empty;
+        [DataField("container")]
+        public string Container { get; private set; } = string.Empty;
 
         /// <summary>
         ///     Whether or not the user should attempt to pick up the removed entities.
@@ -23,8 +24,11 @@ namespace Content.Server.Construction.Completions
         {
             var containerSys = entityManager.EntitySysManager.GetEntitySystem<SharedContainerSystem>();
 
-            if (!entityManager.TryGetComponent(uid, out ContainerManagerComponent? containerManager) ||
-                !containerSys.TryGetContainer(uid, Container, out var container, containerManager)) return;
+            if (
+                !entityManager.TryGetComponent(uid, out ContainerManagerComponent? containerManager)
+                || !containerSys.TryGetContainer(uid, Container, out var container, containerManager)
+            )
+                return;
 
             var handSys = entityManager.EntitySysManager.GetEntitySystem<HandsSystem>();
 

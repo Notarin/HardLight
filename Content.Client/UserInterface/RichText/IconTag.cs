@@ -1,8 +1,8 @@
 using System; // HardLight
 using System.Diagnostics.CodeAnalysis;
 using System.Numerics;
-using Content.Shared.StatusIcon;
 using Content.Shared.CCVar; // Starlight
+using Content.Shared.StatusIcon;
 using Robust.Client.GameObjects;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
@@ -17,10 +17,15 @@ public sealed class IconTag : IMarkupTag
 {
     private static readonly Thickness IconMargin = new(0, 0, 4, 0); // HardLight
 
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly IEntitySystemManager _entitySystem = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototype = default!;
+
+    [Dependency]
+    private readonly IEntitySystemManager _entitySystem = default!;
     private SpriteSystem? _spriteSystem;
-    [Dependency] private readonly Robust.Shared.Configuration.IConfigurationManager _cfg = default!; // Starlight
+
+    [Dependency]
+    private readonly Robust.Shared.Configuration.IConfigurationManager _cfg = default!; // Starlight
 
     public string Name => "icon";
 
@@ -38,8 +43,7 @@ public sealed class IconTag : IMarkupTag
         // HardLight start
         var iconId = id.StringValue;
 
-        if (_cfg.GetCVar(CCVars.DisableLanguageIcons) &&
-            iconId.StartsWith("LanguageIcon", StringComparison.Ordinal))
+        if (_cfg.GetCVar(CCVars.DisableLanguageIcons) && iconId.StartsWith("LanguageIcon", StringComparison.Ordinal))
         {
             control = null;
             return false;

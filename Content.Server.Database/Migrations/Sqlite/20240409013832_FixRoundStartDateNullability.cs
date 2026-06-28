@@ -18,7 +18,8 @@ namespace Content.Server.Database.Migrations.Sqlite
                 nullable: true,
                 oldClrType: typeof(DateTime),
                 oldType: "TEXT",
-                oldDefaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                oldDefaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+            );
         }
 
         /// <inheritdoc />
@@ -32,7 +33,8 @@ namespace Content.Server.Database.Migrations.Sqlite
                 defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                 oldClrType: typeof(DateTime),
                 oldType: "TEXT",
-                oldNullable: true);
+                oldNullable: true
+            );
         }
     }
 }

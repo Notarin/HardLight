@@ -119,9 +119,10 @@
   wires:
   - !type:PowerWireAction
   - !type:AiVisionWireAction
-  - !type:CameraMapVisibilityWireAction # HardLight
+  - !type:CameraMapVisibilityWireAction
 
-- type: wireLayout
+- # HardLight
+  type: wireLayout
   id: CryoPod
   dummyWires: 2
   wires:
@@ -154,13 +155,13 @@
   id: Defusable
   dummyWires: 3
   wires:
-    - !type:ActivateWireAction
-    - !type:BoltWireAction
-    - !type:DelayWireAction
-    - !type:ProceedWireAction
-    - !type:BoomWireAction
-    - !type:BoomWireAction
-    - !type:BoomWireAction
+  - !type:ActivateWireAction
+  - !type:BoltWireAction
+  - !type:DelayWireAction
+  - !type:ProceedWireAction
+  - !type:BoomWireAction
+  - !type:BoomWireAction
+  - !type:BoomWireAction
 
 - type: wireLayout
   id: TrainingDefusable

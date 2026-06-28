@@ -55,10 +55,12 @@ namespace Content.Server.Nutrition.EntitySystems
         public void OnCigarAfterInteract(Entity<CigarComponent> entity, ref AfterInteractEvent args)
         {
             var targetEntity = args.Target;
-            if (targetEntity == null ||
-                !args.CanReach ||
-                !EntityManager.TryGetComponent(entity, out SmokableComponent? smokable) ||
-                smokable.State == SmokableState.Lit)
+            if (
+                targetEntity == null
+                || !args.CanReach
+                || !EntityManager.TryGetComponent(entity, out SmokableComponent? smokable)
+                || smokable.State == SmokableState.Lit
+            )
                 return;
 
             var isHotEvent = new IsHotEvent();

@@ -34,7 +34,10 @@ public sealed partial class PlayerMoodPrototype : IPrototype
     /// A random value is drawn from each dataset when this mood is rolled
     /// and substituted into the localized description.
     /// </summary>
-    [DataField("moodVars", customTypeSerializer: typeof(PrototypeIdValueDictionarySerializer<string, DatasetPrototype>))]
+    [DataField(
+        "moodVars",
+        customTypeSerializer: typeof(PrototypeIdValueDictionarySerializer<string, DatasetPrototype>)
+    )]
     public Dictionary<string, string> MoodVarDatasets = new();
 
     [DataField]
@@ -61,16 +64,13 @@ public sealed class PlayerMood
     public string? RequiredConsent = null;
     public Dictionary<string, string> MoodVars = new();
 
-    public (string key, object val)[] GetLocArgs() =>
-        MoodVars.Select(kv => (kv.Key, (object)kv.Value)).ToArray();
+    public (string key, object val)[] GetLocArgs() => MoodVars.Select(kv => (kv.Key, (object)kv.Value)).ToArray();
 
     public string GetLocName() => Loc.GetString(MoodName);
 
     public string GetLocDesc()
     {
         var args = GetLocArgs();
-        return args.Length > 0
-            ? Loc.GetString(MoodDesc, args)
-            : Loc.GetString(MoodDesc);
+        return args.Length > 0 ? Loc.GetString(MoodDesc, args) : Loc.GetString(MoodDesc);
     }
 }

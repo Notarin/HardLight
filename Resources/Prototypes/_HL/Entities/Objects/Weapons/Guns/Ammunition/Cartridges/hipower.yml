@@ -8,10 +8,10 @@
     deleteOnSpawn: true
   - type: Sprite
     layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
-      - state: tip
-        color: "#B22222"
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      color: "#B22222"
   - type: Construction
     graph: Cartridge9x19mmHiPowerGraph
     node: shell
@@ -26,10 +26,10 @@
     deleteOnSpawn: true
   - type: Sprite
     layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
-      - state: tip
-        color: "#808080"
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      color: "#808080"
   - type: Construction
     graph: Cartridge9x19mmFlechetteGraph
     node: shell
@@ -44,10 +44,10 @@
     deleteOnSpawn: true
   - type: Sprite
     layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
-      - state: tip
-        color: "#B22222"
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      color: "#B22222"
   - type: Construction
     graph: Cartridge45_ACPHiPowerGraph
     node: shell
@@ -62,10 +62,10 @@
     deleteOnSpawn: true
   - type: Sprite
     layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
-      - state: tip
-        color: "#808080"
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      color: "#808080"
   - type: Construction
     graph: Cartridge45_ACPFlechetteGraph
     node: shell
@@ -80,10 +80,10 @@
     deleteOnSpawn: true
   - type: Sprite
     layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
-      - state: tip
-        color: "#B22222"
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      color: "#B22222"
   - type: Construction
     graph: Cartridge46x30mmHiPowerGraph
     node: shell
@@ -98,10 +98,10 @@
     deleteOnSpawn: true
   - type: Sprite
     layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
-      - state: tip
-        color: "#808080"
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      color: "#808080"
   - type: Construction
     graph: Cartridge46x30mmFlechetteGraph
     node: shell
@@ -116,10 +116,10 @@
     deleteOnSpawn: true
   - type: Sprite
     layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
-      - state: tip
-        color: "#B22222"
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      color: "#B22222"
   - type: Construction
     graph: Cartridge45_magnumHiPowerGraph
     node: shell
@@ -134,10 +134,10 @@
     deleteOnSpawn: true
   - type: Sprite
     layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
-      - state: tip
-        color: "#808080"
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      color: "#808080"
   - type: Construction
     graph: Cartridge45_magnumFlechetteGraph
     node: shell
@@ -152,10 +152,10 @@
     deleteOnSpawn: true
   - type: Sprite
     layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
-      - state: tip
-        color: "#B22222"
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      color: "#B22222"
   - type: Construction
     graph: Cartridge556x45mmHiPowerGraph
     node: shell
@@ -170,10 +170,10 @@
     deleteOnSpawn: true
   - type: Sprite
     layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
-      - state: tip
-        color: "#808080"
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      color: "#808080"
   - type: Construction
     graph: Cartridge556x45mmFlechetteGraph
     node: shell
@@ -188,10 +188,10 @@
     deleteOnSpawn: true
   - type: Sprite
     layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
-      - state: tip
-        color: "#B22222"
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      color: "#B22222"
   - type: Construction
     graph: Cartridge57x28mmHiPowerGraph
     node: shell
@@ -206,10 +206,10 @@
     deleteOnSpawn: true
   - type: Sprite
     layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
-      - state: tip
-        color: "#808080"
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      color: "#808080"
   - type: Construction
     graph: Cartridge57x28mmFlechetteGraph
     node: shell
@@ -224,10 +224,10 @@
     deleteOnSpawn: true
   - type: Sprite
     layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
-      - state: tip
-        color: "#B22222"
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      color: "#B22222"
   - type: Construction
     graph: Cartridge762x39mmHiPowerGraph
     node: shell
@@ -242,10 +242,10 @@
     deleteOnSpawn: true
   - type: Sprite
     layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
-      - state: tip
-        color: "#808080"
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      color: "#808080"
   - type: Construction
     graph: Cartridge762x39mmFlechetteGraph
     node: shell
@@ -260,10 +260,10 @@
     deleteOnSpawn: true
   - type: Sprite
     layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
-      - state: tip
-        color: "#B22222"
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      color: "#B22222"
   - type: Construction
     graph: Cartridge762x51mmHiPowerGraph
     node: shell
@@ -278,10 +278,10 @@
     deleteOnSpawn: true
   - type: Sprite
     layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
-      - state: tip
-        color: "#808080"
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      color: "#808080"
   - type: Construction
     graph: Cartridge762x51mmFlechetteGraph
     node: shell
@@ -296,10 +296,10 @@
     deleteOnSpawn: true
   - type: Sprite
     layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
-      - state: tip
-        color: "#B22222"
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      color: "#B22222"
   - type: Construction
     graph: Cartridge762x54mmRHiPowerGraph
     node: shell
@@ -314,10 +314,10 @@
     deleteOnSpawn: true
   - type: Sprite
     layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
-      - state: tip
-        color: "#808080"
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      color: "#808080"
   - type: Construction
     graph: Cartridge762x54mmRFlechetteGraph
     node: shell
@@ -332,10 +332,10 @@
     deleteOnSpawn: true
   - type: Sprite
     layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
-      - state: tip
-        color: "#B22222"
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      color: "#B22222"
   - type: Construction
     graph: Cartridge8x65mmSKRHiPowerGraph
     node: shell
@@ -350,10 +350,10 @@
     deleteOnSpawn: true
   - type: Sprite
     layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
-      - state: tip
-        color: "#808080"
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      color: "#808080"
   - type: Construction
     graph: Cartridge8x65mmSKRFlechetteGraph
     node: shell
@@ -368,12 +368,12 @@
     deleteOnSpawn: true
   - type: Sprite
     layers:
-      - state: blank
-        map: [ "enum.AmmoVisualLayers.Base" ]
+    - state: blank
+      map: ["enum.AmmoVisualLayers.Base"]
   - type: Construction
     graph: ShellShotgun23x75mmHiPowerBuckshotGraph
     node: shell
-    
+
 - type: entity
   id: ShellShotgun23x75mmHiPowerSlug
   name: shotgun shell (4 gauge high-power slug)
@@ -384,8 +384,8 @@
     deleteOnSpawn: true
   - type: Sprite
     layers:
-      - state: blank
-        map: [ "enum.AmmoVisualLayers.Base" ]
+    - state: blank
+      map: ["enum.AmmoVisualLayers.Base"]
   - type: Construction
     graph: ShellShotgun23x75mmHiPowerSlugGraph
     node: shell
@@ -400,12 +400,12 @@
     deleteOnSpawn: true
   - type: Sprite
     layers:
-      - state: blank
-        map: [ "enum.AmmoVisualLayers.Base" ]
+    - state: blank
+      map: ["enum.AmmoVisualLayers.Base"]
   - type: Construction
     graph: ShellShotgun23x75mmFlechetteGraph
     node: shell
-    
+
 - type: entity
   id: ShellShotgun12_gaugeHiPowerSlug
   name: shotgun shell (12 gauge high-power slug)
@@ -416,12 +416,12 @@
     deleteOnSpawn: true
   - type: Sprite
     layers:
-      - state: blank
-        map: [ "enum.AmmoVisualLayers.Base" ]
+    - state: blank
+      map: ["enum.AmmoVisualLayers.Base"]
   - type: Construction
     graph: ShellShotgun12_gaugeHiPowerSlugGraph
     node: shell
-    
+
 - type: entity
   id: ShellShotgun12_gaugeHiPowerBuckshot
   name: shotgun shell (12 gauge high-power buckshot)
@@ -432,8 +432,8 @@
     deleteOnSpawn: true
   - type: Sprite
     layers:
-      - state: blank
-        map: [ "enum.AmmoVisualLayers.Base" ]
+    - state: blank
+      map: ["enum.AmmoVisualLayers.Base"]
   - type: Construction
     graph: ShellShotgun12_gaugeHiPowerBuckshotGraph
     node: shell
@@ -448,8 +448,8 @@
     deleteOnSpawn: true
   - type: Sprite
     layers:
-      - state: blank
-        map: [ "enum.AmmoVisualLayers.Base" ]
+    - state: blank
+      map: ["enum.AmmoVisualLayers.Base"]
   - type: Construction
     graph: ShellShotgun12_gaugeFlechetteGraph
     node: shell

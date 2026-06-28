@@ -251,6 +251,7 @@ namespace Content.IntegrationTests.Tests
         private sealed class SaveLoadSaveTestSystem : EntitySystem
         {
             public bool Enabled;
+
             public override void Initialize()
             {
                 SubscribeLocalEvent<AfterSerializationEvent>(OnAfterSave);

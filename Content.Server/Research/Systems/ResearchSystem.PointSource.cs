@@ -11,7 +11,10 @@ public sealed partial class ResearchSystem
         SubscribeLocalEvent<ResearchPointSourceComponent, ResearchServerGetPointsPerSecondEvent>(OnGetPointsPerSecond);
     }
 
-    private void OnGetPointsPerSecond(Entity<ResearchPointSourceComponent> source, ref ResearchServerGetPointsPerSecondEvent args)
+    private void OnGetPointsPerSecond(
+        Entity<ResearchPointSourceComponent> source,
+        ref ResearchServerGetPointsPerSecondEvent args
+    )
     {
         if (CanProduce(source))
             args.Points += source.Comp.PointsPerSecond;

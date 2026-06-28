@@ -10,7 +10,8 @@ namespace Content.Server._Mono.FireControl;
 
 public sealed partial class FireControlSystem
 {
-    [Dependency] private readonly TargetGuidedSystem _targetGuided = null!;
+    [Dependency]
+    private readonly TargetGuidedSystem _targetGuided = null!;
 
     /// <summary>
     /// List of active guided missiles that need cursor position updates
@@ -40,7 +41,11 @@ public sealed partial class FireControlSystem
     /// <summary>
     /// Track console fire events to update cursor positions
     /// </summary>
-    private void OnConsoleFireEvent(EntityUid uid, FireControlConsoleComponent component, FireControlConsoleFireEvent args)
+    private void OnConsoleFireEvent(
+        EntityUid uid,
+        FireControlConsoleComponent component,
+        FireControlConsoleFireEvent args
+    )
     {
         // Store the current mouse position for this console
         _consoleMousePositions[uid] = GetCoordinates(args.Coordinates);
@@ -68,8 +73,10 @@ public sealed partial class FireControlSystem
 
         // Find the controlling console for position updates if this is a fire controllable
         EntityUid? controllingConsole = null;
-        if (TryComp<FireControllableComponent>(uid, out var fireControllable) &&
-            fireControllable.ControllingServer != null)
+        if (
+            TryComp<FireControllableComponent>(uid, out var fireControllable)
+            && fireControllable.ControllingServer != null
+        )
         {
             // Find the active console that fired this
             var query = EntityQueryEnumerator<FireControlConsoleComponent>();
@@ -127,8 +134,10 @@ public sealed partial class FireControlSystem
         // (shutdown removal happens via the ComponentShutdown handler), so this is safe.
         foreach (var missileUid in _activeMissiles)
         {
-            if (!TryComp<TargetGuidedComponent>(missileUid, out var guidedComp) ||
-                !guidedComp.ControllingConsole.HasValue)
+            if (
+                !TryComp<TargetGuidedComponent>(missileUid, out var guidedComp)
+                || !guidedComp.ControllingConsole.HasValue
+            )
                 continue;
 
             // Get the controlling console
@@ -156,8 +165,9 @@ public sealed partial class FireControlSystem
         _scratchActiveConsoles.Clear();
         foreach (var missileUid in _activeMissiles)
         {
-            if (TryComp<TargetGuidedComponent>(missileUid, out var guidedComp) &&
-                guidedComp.ControllingConsole.HasValue)
+            if (
+                TryComp<TargetGuidedComponent>(missileUid, out var guidedComp) && guidedComp.ControllingConsole.HasValue
+            )
             {
                 _scratchActiveConsoles.Add(guidedComp.ControllingConsole.Value);
             }

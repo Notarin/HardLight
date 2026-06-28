@@ -7,7 +7,8 @@ namespace Content.Client._Starlight.Language.Systems;
 
 public sealed class LanguageSystem : SharedLanguageSystem
 {
-    [Dependency] private readonly IPlayerManager _player = default!;
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
 
     /// <summary>
     ///     Invoked when the Languages of the local player entity change, for use in UI.

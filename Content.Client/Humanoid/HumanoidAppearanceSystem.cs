@@ -14,11 +14,20 @@ namespace Content.Client.Humanoid;
 
 public sealed class HumanoidAppearanceSystem : SharedHumanoidAppearanceSystem
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly MarkingManager _markingManager = default!;
-    [Dependency] private readonly AppearanceSystem _appearance = default!;
-    [Dependency] private readonly IClientConsentManager _consentManager = default!; // Hardlight
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly MarkingManager _markingManager = default!;
+
+    [Dependency]
+    private readonly AppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly IClientConsentManager _consentManager = default!; // Hardlight
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     private static readonly ProtoId<ConsentTogglePrototype> GenitalMarkingsConsent = "GenitalMarkings"; // Hardlight
 
@@ -68,8 +77,10 @@ public sealed class HumanoidAppearanceSystem : SharedHumanoidAppearanceSystem
         var clampedWidth = width <= 0.005f ? 1.0f : width;
         var clampedHeight = height <= 0.005f ? 1.0f : height;
 
-        if (TryComp<AppearanceComponent>(uid, out var appearance)
-            && _appearance.TryGetData<Vector2>(uid, HumanoidVisuals.Scale, out var scaled, appearance))
+        if (
+            TryComp<AppearanceComponent>(uid, out var appearance)
+            && _appearance.TryGetData<Vector2>(uid, HumanoidVisuals.Scale, out var scaled, appearance)
+        )
         {
             _sprite.SetScale((uid, sprite), scaled);
             return;
@@ -77,6 +88,7 @@ public sealed class HumanoidAppearanceSystem : SharedHumanoidAppearanceSystem
 
         _sprite.SetScale((uid, sprite), new Vector2(clampedWidth, clampedHeight));
     }
+
     // HardLight end
 
     private void OnAppearanceChange(EntityUid uid, HumanoidAppearanceComponent comp, ref AppearanceChangeEvent args)
@@ -100,8 +112,8 @@ public sealed class HumanoidAppearanceSystem : SharedHumanoidAppearanceSystem
         }
     }
 
-    private static bool IsHidden(HumanoidAppearanceComponent humanoid, HumanoidVisualLayers layer)
-        => humanoid.HiddenLayers.ContainsKey(layer) || humanoid.PermanentlyHidden.Contains(layer);
+    private static bool IsHidden(HumanoidAppearanceComponent humanoid, HumanoidVisualLayers layer) =>
+        humanoid.HiddenLayers.ContainsKey(layer) || humanoid.PermanentlyHidden.Contains(layer);
 
     private void UpdateLayers(EntityUid uid, HumanoidAppearanceComponent component, SpriteComponent sprite)
     {
@@ -143,7 +155,8 @@ public sealed class HumanoidAppearanceSystem : SharedHumanoidAppearanceSystem
         string? protoId,
         bool sexMorph = false,
         Color? color = null,
-        bool overrideSkin = false) // Shitmed Change
+        bool overrideSkin = false
+    ) // Shitmed Change
     {
         var layerIndex = _sprite.LayerMapReserve((uid, sprite), key);
         var layer = sprite[layerIndex];
@@ -178,7 +191,11 @@ public sealed class HumanoidAppearanceSystem : SharedHumanoidAppearanceSystem
     ///     This should not be used if the entity is owned by the server. The server will otherwise
     ///     override this with the appearance data it sends over.
     /// </remarks>
-    public override void LoadProfile(EntityUid uid, HumanoidCharacterProfile? profile, HumanoidAppearanceComponent? humanoid = null)
+    public override void LoadProfile(
+        EntityUid uid,
+        HumanoidCharacterProfile? profile,
+        HumanoidAppearanceComponent? humanoid = null
+    )
     {
         if (profile == null)
             return;
@@ -215,17 +232,29 @@ public sealed class HumanoidAppearanceSystem : SharedHumanoidAppearanceSystem
         //markings.RemoveCategory(MarkingCategories.FacialHair);
 
         // We need to ensure hair before applying it or coloring can try depend on markings that can be invalid
-        var hairColor = _markingManager.MustMatchSkin(profile.Species, HumanoidVisualLayers.Hair, out var hairAlpha, _prototypeManager)
+        var hairColor = _markingManager.MustMatchSkin(
+            profile.Species,
+            HumanoidVisualLayers.Hair,
+            out var hairAlpha,
+            _prototypeManager
+        )
             ? profile.Appearance.SkinColor.WithAlpha(hairAlpha)
             : profile.Appearance.HairColor;
-        var hair = new Marking(profile.Appearance.HairStyleId,
-            new[] { hairColor }, profile.Appearance.HairGlowing); // Starlight
+        var hair = new Marking(profile.Appearance.HairStyleId, new[] { hairColor }, profile.Appearance.HairGlowing); // Starlight
 
-        var facialHairColor = _markingManager.MustMatchSkin(profile.Species, HumanoidVisualLayers.FacialHair, out var facialHairAlpha, _prototypeManager)
+        var facialHairColor = _markingManager.MustMatchSkin(
+            profile.Species,
+            HumanoidVisualLayers.FacialHair,
+            out var facialHairAlpha,
+            _prototypeManager
+        )
             ? profile.Appearance.SkinColor.WithAlpha(facialHairAlpha)
             : profile.Appearance.FacialHairColor;
-        var facialHair = new Marking(profile.Appearance.FacialHairStyleId,
-            new[] { facialHairColor }, profile.Appearance.FacialHairGlowing); // Starlight
+        var facialHair = new Marking(
+            profile.Appearance.FacialHairStyleId,
+            new[] { facialHairColor },
+            profile.Appearance.FacialHairGlowing
+        ); // Starlight
 
         if (_markingManager.CanBeApplied(profile.Species, profile.Sex, hair, _prototypeManager))
         {
@@ -250,10 +279,7 @@ public sealed class HumanoidAppearanceSystem : SharedHumanoidAppearanceSystem
 
         markings.EnsureSpecies(profile.Species, profile.Appearance.SkinColor, _markingManager, _prototypeManager);
         markings.EnsureSexes(profile.Sex, _markingManager);
-        markings.EnsureDefault(
-            profile.Appearance.SkinColor,
-            profile.Appearance.EyeColor,
-            _markingManager);
+        markings.EnsureDefault(profile.Appearance.SkinColor, profile.Appearance.EyeColor, _markingManager);
 
         DebugTools.Assert(IsClientSide(uid));
 
@@ -291,7 +317,15 @@ public sealed class HumanoidAppearanceSystem : SharedHumanoidAppearanceSystem
             {
                 if (_markingManager.TryGetMarking(marking, out var markingPrototype))
                 {
-                    ApplyMarking(uid, markingPrototype, marking.MarkingColors, marking.IsGlowing, marking.Visible, humanoid, sprite); //starlight, glowing
+                    ApplyMarking(
+                        uid,
+                        markingPrototype,
+                        marking.MarkingColors,
+                        marking.IsGlowing,
+                        marking.Visible,
+                        humanoid,
+                        sprite
+                    ); //starlight, glowing
                 }
             }
         }
@@ -345,7 +379,13 @@ public sealed class HumanoidAppearanceSystem : SharedHumanoidAppearanceSystem
         }
     }
 
-    private void AddUndergarments(EntityUid uid, HumanoidAppearanceComponent humanoid, SpriteComponent sprite, bool undergarmentTop, bool undergarmentBottom)
+    private void AddUndergarments(
+        EntityUid uid,
+        HumanoidAppearanceComponent humanoid,
+        SpriteComponent sprite,
+        bool undergarmentTop,
+        bool undergarmentBottom
+    )
     {
         if (undergarmentTop && humanoid.UndergarmentTop != null)
         {
@@ -353,7 +393,10 @@ public sealed class HumanoidAppearanceSystem : SharedHumanoidAppearanceSystem
             if (_markingManager.TryGetMarking(marking, out var prototype))
             {
                 // Markings are added to ClientOldMarkings because otherwise it causes issues when toggling the feature on/off.
-                humanoid.ClientOldMarkings.Markings.Add(MarkingCategories.UndergarmentTop, new List<Marking>{ marking });
+                humanoid.ClientOldMarkings.Markings.Add(
+                    MarkingCategories.UndergarmentTop,
+                    new List<Marking> { marking }
+                );
                 ApplyMarking(uid, prototype, null, false, true, humanoid, sprite); //starlight, glowing
             }
         }
@@ -363,18 +406,24 @@ public sealed class HumanoidAppearanceSystem : SharedHumanoidAppearanceSystem
             var marking = new Marking(humanoid.UndergarmentBottom, new List<Color> { new Color() }, false); //starlight, glowing
             if (_markingManager.TryGetMarking(marking, out var prototype))
             {
-                humanoid.ClientOldMarkings.Markings.Add(MarkingCategories.UndergarmentBottom, new List<Marking>{ marking });
+                humanoid.ClientOldMarkings.Markings.Add(
+                    MarkingCategories.UndergarmentBottom,
+                    new List<Marking> { marking }
+                );
                 ApplyMarking(uid, prototype, null, false, true, humanoid, sprite); //starlight, glowing
             }
         }
     }
 
-    private void ApplyMarking(EntityUid uid, MarkingPrototype markingPrototype,
+    private void ApplyMarking(
+        EntityUid uid,
+        MarkingPrototype markingPrototype,
         IReadOnlyList<Color>? colors,
         bool isGlowing, //starlight
         bool visible,
         HumanoidAppearanceComponent humanoid,
-        SpriteComponent sprite)
+        SpriteComponent sprite
+    )
     {
         // FLOOF ADD START
         // make a handy dict of filename -> colors
@@ -387,7 +436,7 @@ public sealed class HumanoidAppearanceSystem : SharedHumanoidAppearanceSystem
             {
                 SpriteSpecifier.Rsi rsi => rsi.RsiState,
                 SpriteSpecifier.Texture texture => texture.TexturePath.Filename,
-                _ => null
+                _ => null,
             };
 
             if (spriteName != null)
@@ -419,7 +468,12 @@ public sealed class HumanoidAppearanceSystem : SharedHumanoidAppearanceSystem
         // FLOOF ADD END
 
         // Hardlight: genital markings consent toggle
-        if (!(_consentManager.GetConsentSettings().Toggles.TryGetValue(GenitalMarkingsConsent, out var val) && val == "on"))
+        if (
+            !(
+                _consentManager.GetConsentSettings().Toggles.TryGetValue(GenitalMarkingsConsent, out var val)
+                && val == "on"
+            )
+        )
         {
             visible &= markingPrototype.MarkingCategory != MarkingCategories.Genital;
         }
@@ -461,13 +515,13 @@ public sealed class HumanoidAppearanceSystem : SharedHumanoidAppearanceSystem
             }
 
             visible &= !IsHidden(humanoid, markingPrototype.BodyPart);
-            visible &= humanoid.BaseLayers.TryGetValue(markingPrototype.BodyPart, out var setting)
-               && setting.AllowsMarkings;
+            visible &=
+                humanoid.BaseLayers.TryGetValue(markingPrototype.BodyPart, out var setting) && setting.AllowsMarkings;
 
             var layerId = $"{markingPrototype.ID}-{rsi.RsiState}";
             // FLOOF CHANGE END
 
-            if (!_sprite.LayerMapTryGet((uid, sprite), layerId, out _ , false))
+            if (!_sprite.LayerMapTryGet((uid, sprite), layerId, out _, false))
             {
                 // for layers that are supposed to be behind everything,
                 // adding 1 to the layer index makes it not be behind
@@ -495,7 +549,11 @@ public sealed class HumanoidAppearanceSystem : SharedHumanoidAppearanceSystem
             // and we need to check the index is correct.
             // So if that happens just default to white?
             // FLOOF ADD =3
-            _sprite.LayerSetColor((uid, sprite), layerId, colorDict.TryGetValue(rsi.RsiState, out var color) ? color : Color.White);
+            _sprite.LayerSetColor(
+                (uid, sprite),
+                layerId,
+                colorDict.TryGetValue(rsi.RsiState, out var color) ? color : Color.White
+            );
 
             // FLOOF CHANGE
             // if (colors != null && j < colors.Count)
@@ -508,26 +566,32 @@ public sealed class HumanoidAppearanceSystem : SharedHumanoidAppearanceSystem
             // }
 
             // Starlight start, # HardLight: Not really sure why it broke, but it had to be rewritten to work again, so here we are.
-                if (isGlowing)
+            if (isGlowing)
+            {
+                sprite.LayerSetShader(layerId, SpriteSystem.UnshadedId.Id);
+            }
+            else if (!string.IsNullOrWhiteSpace(markingPrototype.Shader))
+            {
+                sprite.LayerSetShader(layerId, markingPrototype.Shader);
+            }
+            else
+            {
+                if (_sprite.LayerMapTryGet((uid, sprite), layerId, out var shaderLayerIndex, false))
                 {
-                    sprite.LayerSetShader(layerId, SpriteSystem.UnshadedId.Id);
+                    sprite.LayerSetShader(shaderLayerIndex, null, null);
                 }
-                else if (!string.IsNullOrWhiteSpace(markingPrototype.Shader))
-                {
-                    sprite.LayerSetShader(layerId, markingPrototype.Shader);
-                }
-                else
-                {
-                    if (_sprite.LayerMapTryGet((uid, sprite), layerId, out var shaderLayerIndex, false))
-                    {
-                        sprite.LayerSetShader(shaderLayerIndex, null, null);
-                    }
-                }
+            }
             // Starlight end
         }
     }
 
-    public override void SetSkinColor(EntityUid uid, Color skinColor, bool sync = true, bool verify = true, HumanoidAppearanceComponent? humanoid = null)
+    public override void SetSkinColor(
+        EntityUid uid,
+        Color skinColor,
+        bool sync = true,
+        bool verify = true,
+        HumanoidAppearanceComponent? humanoid = null
+    )
     {
         if (!Resolve(uid, ref humanoid) || humanoid.SkinColor == skinColor)
             return;
@@ -552,7 +616,8 @@ public sealed class HumanoidAppearanceSystem : SharedHumanoidAppearanceSystem
         HumanoidVisualLayers layer,
         bool visible,
         SlotFlags? slot,
-        ref bool dirty)
+        ref bool dirty
+    )
     {
         base.SetLayerVisibility(ent, layer, visible, slot, ref dirty);
 
@@ -579,8 +644,19 @@ public sealed class HumanoidAppearanceSystem : SharedHumanoidAppearanceSystem
         {
             foreach (var marking in markingList)
             {
-                if (_markingManager.TryGetMarking(marking, out var markingPrototype) && markingPrototype.BodyPart == layer)
-                    ApplyMarking(ent.Owner, markingPrototype, marking.MarkingColors, marking.IsGlowing, marking.Visible, ent.Comp, sprite); //starlight, glowing
+                if (
+                    _markingManager.TryGetMarking(marking, out var markingPrototype)
+                    && markingPrototype.BodyPart == layer
+                )
+                    ApplyMarking(
+                        ent.Owner,
+                        markingPrototype,
+                        marking.MarkingColors,
+                        marking.IsGlowing,
+                        marking.Visible,
+                        ent.Comp,
+                        sprite
+                    ); //starlight, glowing
             }
         }
     }

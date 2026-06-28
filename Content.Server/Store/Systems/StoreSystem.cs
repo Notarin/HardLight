@@ -1,17 +1,17 @@
+using System.Linq;
 using Content.Server.Store.Components;
-using Content.Shared.UserInterface;
 using Content.Shared.FixedPoint;
 using Content.Shared.Implants.Components;
 using Content.Shared.Interaction;
+using Content.Shared.Mind;
 using Content.Shared.Popups;
 using Content.Shared.Stacks;
 using Content.Shared.Store.Components;
+using Content.Shared.UserInterface;
 using JetBrains.Annotations;
 using Robust.Shared.Prototypes;
-using Robust.Shared.Utility;
-using System.Linq;
 using Robust.Shared.Timing;
-using Content.Shared.Mind;
+using Robust.Shared.Utility;
 
 namespace Content.Server.Store.Systems;
 
@@ -21,9 +21,14 @@ namespace Content.Server.Store.Systems;
 /// </summary>
 public sealed partial class StoreSystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     public override void Initialize()
     {
@@ -142,8 +147,7 @@ public sealed partial class StoreSystem : EntitySystem
         var value = currency.Comp.Price;
         if (TryComp(currency.Owner, out StackComponent? stack) && stack.Count != 1)
         {
-            value = currency.Comp.Price
-                .ToDictionary(v => v.Key, p => p.Value * stack.Count);
+            value = currency.Comp.Price.ToDictionary(v => v.Key, p => p.Value * stack.Count);
         }
 
         if (!TryAddCurrency(value, store, store.Comp))
@@ -205,9 +209,8 @@ public sealed class CurrencyInsertAttemptEvent : CancellableEntityEventArgs
     }
 }
 
-
 /// <summary>
-/// Nyano/DeltaV Code. For penguin bombs and what not. 
+/// Nyano/DeltaV Code. For penguin bombs and what not.
 /// Raised on an item when it is purchased.
 /// An item may need to set it upself up for its purchaser.
 /// For example, to make sure it isn't hostile to them or

@@ -22,8 +22,7 @@ public sealed partial class NearbyEntitiesRule : RulesRule
 
     public override bool Check(EntityManager entManager, EntityUid uid)
     {
-        if (!entManager.TryGetComponent(uid, out TransformComponent? xform) ||
-            xform.MapUid == null)
+        if (!entManager.TryGetComponent(uid, out TransformComponent? xform) || xform.MapUid == null)
         {
             return false;
         }

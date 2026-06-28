@@ -10,8 +10,11 @@ namespace Content.Client.Chemistry.Visualizers;
 /// </summary>
 public sealed class FoamVisualizerSystem : VisualizerSystem<FoamVisualsComponent>
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     public override void Initialize()
     {
@@ -31,12 +34,17 @@ public sealed class FoamVisualizerSystem : VisualizerSystem<FoamVisualsComponent
 
         while (query.MoveNext(out var uid, out var comp, out var smoke))
         {
-            if (_timing.CurTime < comp.StartTime + TimeSpan.FromSeconds(smoke.Duration) - TimeSpan.FromSeconds(comp.AnimationTime))
+            if (
+                _timing.CurTime
+                < comp.StartTime + TimeSpan.FromSeconds(smoke.Duration) - TimeSpan.FromSeconds(comp.AnimationTime)
+            )
                 continue;
 
             // Despawn animation.
-            if (TryComp(uid, out AnimationPlayerComponent? animPlayer)
-                && !AnimationSystem.HasRunningAnimation(uid, animPlayer, FoamVisualsComponent.AnimationKey))
+            if (
+                TryComp(uid, out AnimationPlayerComponent? animPlayer)
+                && !AnimationSystem.HasRunningAnimation(uid, animPlayer, FoamVisualsComponent.AnimationKey)
+            )
             {
                 AnimationSystem.Play((uid, animPlayer), comp.Animation, FoamVisualsComponent.AnimationKey);
             }
@@ -57,12 +65,9 @@ public sealed class FoamVisualizerSystem : VisualizerSystem<FoamVisualsComponent
                 new AnimationTrackSpriteFlick
                 {
                     LayerKey = FoamVisualLayers.Base,
-                    KeyFrames =
-                    {
-                        new AnimationTrackSpriteFlick.KeyFrame(comp.AnimationState, 0f)
-                    }
-                }
-            }
+                    KeyFrames = { new AnimationTrackSpriteFlick.KeyFrame(comp.AnimationState, 0f) },
+                },
+            },
         };
     }
 
@@ -78,5 +83,5 @@ public sealed class FoamVisualizerSystem : VisualizerSystem<FoamVisualsComponent
 
 public enum FoamVisualLayers : byte
 {
-    Base
+    Base,
 }

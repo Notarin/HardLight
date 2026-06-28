@@ -24,7 +24,8 @@ public sealed class SolutionStatusControl : PollingItemStatusControl<SolutionSta
     public SolutionStatusControl(
         Entity<SolutionItemStatusComponent> parent,
         IEntityManager entityManager,
-        SharedSolutionContainerSystem solutionContainers)
+        SharedSolutionContainerSystem solutionContainers
+    )
     {
         _parent = parent;
         _entityManager = entityManager;
@@ -47,9 +48,11 @@ public sealed class SolutionStatusControl : PollingItemStatusControl<SolutionSta
 
     protected override void Update(in Data data)
     {
-        var markup = Loc.GetString("solution-status-volume",
+        var markup = Loc.GetString(
+            "solution-status-volume",
             ("currentVolume", data.Volume),
-            ("maxVolume", data.MaxVolume));
+            ("maxVolume", data.MaxVolume)
+        );
         if (data.TransferVolume is { } transferVolume)
             markup += "\n" + Loc.GetString("solution-status-transfer", ("volume", transferVolume));
         _label.SetMarkup(markup);

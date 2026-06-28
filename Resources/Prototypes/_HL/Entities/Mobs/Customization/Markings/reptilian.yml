@@ -26,10 +26,10 @@
   markingCategory: Tail
   speciesRestriction: [Skrell, Reptilian, Human, ProtoReptile]
   sprites:
-    - sprite: _HL/Mobs/Customization/Reptilian/naga.rsi
-      state: naga_primary
-    - sprite: _HL/Mobs/Customization/Reptilian/naga.rsi
-      state: naga_secondary
+  - sprite: _HL/Mobs/Customization/Reptilian/naga.rsi
+    state: naga_primary
+  - sprite: _HL/Mobs/Customization/Reptilian/naga.rsi
+    state: naga_secondary
 
 - type: marking
   id: ReptilianTailNagaStriped
@@ -37,12 +37,12 @@
   markingCategory: Tail
   speciesRestriction: [Skrell, Reptilian, Human, ProtoReptile]
   sprites:
-    - sprite: _HL/Mobs/Customization/Reptilian/naga.rsi
-      state: naga_striped_primary
-    - sprite: _HL/Mobs/Customization/Reptilian/naga.rsi
-      state: naga_striped_secondary
-    - sprite: _HL/Mobs/Customization/Reptilian/naga.rsi
-      state: naga_striped_tertiary
+  - sprite: _HL/Mobs/Customization/Reptilian/naga.rsi
+    state: naga_striped_primary
+  - sprite: _HL/Mobs/Customization/Reptilian/naga.rsi
+    state: naga_striped_secondary
+  - sprite: _HL/Mobs/Customization/Reptilian/naga.rsi
+    state: naga_striped_tertiary
 
 - type: marking
   id: ReptilianTailNagaRattlesnake
@@ -50,12 +50,12 @@
   markingCategory: Tail
   speciesRestriction: [Skrell, Reptilian, Human, ProtoReptile]
   sprites:
-    - sprite: _HL/Mobs/Customization/Reptilian/naga.rsi
-      state: naga_rattlesnake_primary
-    - sprite: _HL/Mobs/Customization/Reptilian/naga.rsi
-      state: naga_rattlesnake_secondary
-    - sprite: _HL/Mobs/Customization/Reptilian/naga.rsi
-      state: naga_rattlesnake_tertiary
+  - sprite: _HL/Mobs/Customization/Reptilian/naga.rsi
+    state: naga_rattlesnake_primary
+  - sprite: _HL/Mobs/Customization/Reptilian/naga.rsi
+    state: naga_rattlesnake_secondary
+  - sprite: _HL/Mobs/Customization/Reptilian/naga.rsi
+    state: naga_rattlesnake_tertiary
 
 # Xeno Spines
 

@@ -6,7 +6,7 @@
   sprite: /Textures/_Starlight/Tiles/Planet/abyss.png
   baseTurf: Plating
   isSubfloor: false
-  deconstructTools: [ Prying ]
+  deconstructTools: [Prying]
   footstepSounds:
     collection: FootstepAsteroid
   heatCapacity: 10000
@@ -19,7 +19,7 @@
   sprite: /Textures/_Starlight/Tiles/Planet/abyss2.png
   baseTurf: Plating
   isSubfloor: false
-  deconstructTools: [ Prying ]
+  deconstructTools: [Prying]
   footstepSounds:
     collection: FootstepAsteroid
   heatCapacity: 10000

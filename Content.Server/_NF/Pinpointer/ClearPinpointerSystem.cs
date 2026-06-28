@@ -12,10 +12,17 @@ namespace Content.Server._NF.Pinpointer;
 
 public sealed class ClearPinpointerSystem : EntitySystem
 {
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly PinpointerSystem _pinpointer = default!;
-    [Dependency] private readonly SharedChargesSystem _charges = default!;
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfter = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly PinpointerSystem _pinpointer = default!;
+
+    [Dependency]
+    private readonly SharedChargesSystem _charges = default!;
 
     public override void Initialize()
     {
@@ -42,19 +49,39 @@ public sealed class ClearPinpointerSystem : EntitySystem
         if (args.User == args.Target)
         {
             if (ent.Comp.UseOnSelfMessage != null)
-                _popup.PopupEntity(Loc.GetString(ent.Comp.UseOnSelfMessage, ("user", Identity.Entity(args.User, EntityManager))), args.Target.Value, args.Target.Value, PopupType.Small);
+                _popup.PopupEntity(
+                    Loc.GetString(ent.Comp.UseOnSelfMessage, ("user", Identity.Entity(args.User, EntityManager))),
+                    args.Target.Value,
+                    args.Target.Value,
+                    PopupType.Small
+                );
         }
         else
         {
             if (ent.Comp.UseOnOthersMessage != null)
-                _popup.PopupEntity(Loc.GetString(ent.Comp.UseOnOthersMessage, ("user", Identity.Entity(args.User, EntityManager))), args.Target.Value, args.Target.Value, PopupType.Large);
+                _popup.PopupEntity(
+                    Loc.GetString(ent.Comp.UseOnOthersMessage, ("user", Identity.Entity(args.User, EntityManager))),
+                    args.Target.Value,
+                    args.Target.Value,
+                    PopupType.Large
+                );
         }
 
-        _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, ent.Comp.ClearTime, new ClearPinpointerDoAfterEvent(), ent, target: args.Target, used: ent)
-        {
-            BreakOnDamage = true,
-            BreakOnMove = true
-        });
+        _doAfter.TryStartDoAfter(
+            new DoAfterArgs(
+                EntityManager,
+                args.User,
+                ent.Comp.ClearTime,
+                new ClearPinpointerDoAfterEvent(),
+                ent,
+                target: args.Target,
+                used: ent
+            )
+            {
+                BreakOnDamage = true,
+                BreakOnMove = true,
+            }
+        );
     }
 
     /// <summary>

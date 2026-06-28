@@ -4,7 +4,6 @@
 //
 // SPDX-License-Identifier: CC-BY-NC-SA-3.0
 
-
 using Content.Shared._FarHorizons.Materials;
 using Content.Shared.Atmos;
 using Content.Shared.Materials;
@@ -23,7 +22,8 @@ namespace Content.Shared._FarHorizons.Power.Generation.FissionGenerator;
 [RegisterComponent, NetworkedComponent]
 public sealed partial class ReactorPartComponent : Component
 {
-    [Dependency] private IPrototypeManager _proto = default!;
+    [Dependency]
+    private IPrototypeManager _proto = default!;
 
     /// <summary>
     /// The entity prototype name this component results from.
@@ -52,7 +52,7 @@ public sealed partial class ReactorPartComponent : Component
     public enum RodTypes
     {
         None = 0,
-        FuelRod = 1 << 0,    // 1 Can be processed by the nuclear centrifuge
+        FuelRod = 1 << 0, // 1 Can be processed by the nuclear centrifuge
         ControlRod = 1 << 1, // 2 Can change its NeutronCrossSection according to control rod setting
         GasChannel = 1 << 2, // 4 Can process gas
     }
@@ -133,6 +133,7 @@ public sealed partial class ReactorPartComponent : Component
         }
         set => _properties = value;
     }
+
     [DataField("properties")]
     private MaterialProperties? _properties;
 

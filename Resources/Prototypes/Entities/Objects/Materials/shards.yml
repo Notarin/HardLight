@@ -12,7 +12,7 @@
     layers:
     - sprite: Objects/Materials/Shards/shard.rsi
       state: shard1
-      map: [ "enum.DamageStateVisualLayers.Base" ]
+      map: ["enum.DamageStateVisualLayers.Base"]
   - type: RandomSprite
     available:
     - enum.DamageStateVisualLayers.Base:
@@ -32,15 +32,13 @@
   - type: Fixtures
     fixtures:
       slips:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.2,-0.2,0.2,0.2"
         hard: false
         layer:
         - LowImpassable
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.2,-0.2,0.2,0.2"
         density: 30
         mask:
@@ -58,12 +56,11 @@
     damageModifierSet: Glass
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: StepTrigger
     intersectRatio: 0.2
   - type: PreventableStepTrigger

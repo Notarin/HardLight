@@ -1,26 +1,36 @@
+using Content.Shared._Starlight.Overlay;
 using Content.Shared.Eye.Blinding.Components;
-using Content.Shared.Mech.Components;
+using Content.Shared.Flash.Components;
+using Content.Shared.Inventory.Events;
 using Content.Shared.Mech;
+using Content.Shared.Mech.Components;
 using Robust.Client.GameObjects;
 using Robust.Client.Graphics;
 using Robust.Client.Player;
 using Robust.Shared.Player;
-using Content.Shared.Flash.Components;
 using Robust.Shared.Prototypes;
-using Content.Shared.Inventory.Events;
-using Content.Shared._Starlight.Overlay;
 
 namespace Content.Client._Starlight.Overlay;
 
 public sealed class NightVisionSystem : EntitySystem
 {
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IOverlayManager _overlayMan = default!;
-    [Dependency] private readonly TransformSystem _xformSys = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly FlashImmunitySystem _flashImmunity = default!;
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
+
+    [Dependency]
+    private readonly IOverlayManager _overlayMan = default!;
+
+    [Dependency]
+    private readonly TransformSystem _xformSys = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly FlashImmunitySystem _flashImmunity = default!;
 
     private NightVisionOverlay _overlay = default!;
+
     [ViewVariables]
     private EntityUid? _effect = null;
 
@@ -73,16 +83,20 @@ public sealed class NightVisionSystem : EntitySystem
 
     private void AttemptAddVision(EntityUid uid)
     {
-        if (_player.LocalSession?.AttachedEntity != uid) return;
+        if (_player.LocalSession?.AttachedEntity != uid)
+            return;
 
         //if they currently have flash immunity, dont add
-        if (_flashImmunity.HasFlashImmunityVisionBlockers(uid)) return;
+        if (_flashImmunity.HasFlashImmunityVisionBlockers(uid))
+            return;
 
         //only add if its active
-        if (!TryComp<NightVisionComponent>(uid, out var nightVision) || !nightVision.Active) return;
+        if (!TryComp<NightVisionComponent>(uid, out var nightVision) || !nightVision.Active)
+            return;
 
         //only add if effect isnt already used
-        if (_effect != null) return;
+        if (_effect != null)
+            return;
 
         _overlayMan.AddOverlay(_overlay);
 
@@ -98,7 +112,8 @@ public sealed class NightVisionSystem : EntitySystem
     private void AttemptRemoveVision(EntityUid uid, bool force = false)
     {
         //ENSURE this is the local player
-        if (_player.LocalSession?.AttachedEntity != uid && !force) return;
+        if (_player.LocalSession?.AttachedEntity != uid && !force)
+            return;
 
         _overlayMan.RemoveOverlay(_overlay);
         Del(_effect);

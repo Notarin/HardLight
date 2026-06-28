@@ -14,7 +14,8 @@ namespace Content.Client.Shuttles.UI;
 [GenerateTypedNameReferences]
 public sealed partial class DockingScreen : BoxContainer
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
     private readonly SharedShuttleSystem _shuttles;
 
     /// <summary>

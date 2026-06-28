@@ -9,7 +9,8 @@ namespace Content.Client.Research.UI
         [ViewVariables]
         private ResearchClientServerSelectionMenu? _menu;
 
-        public ResearchClientBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
+        public ResearchClientBoundUserInterface(EntityUid owner, Enum uiKey)
+            : base(owner, uiKey)
         {
             SendMessage(new ResearchClientSyncMessage());
         }
@@ -35,7 +36,8 @@ namespace Content.Client.Research.UI
         protected override void UpdateState(BoundUserInterfaceState state)
         {
             base.UpdateState(state);
-            if (state is not ResearchClientBoundInterfaceState rState) return;
+            if (state is not ResearchClientBoundInterfaceState rState)
+                return;
             _menu?.Populate(rState.ServerCount, rState.ServerNames, rState.ServerIds, rState.SelectedServerId);
         }
     }

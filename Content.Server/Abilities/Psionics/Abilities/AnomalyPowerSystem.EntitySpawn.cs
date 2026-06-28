@@ -1,9 +1,9 @@
 using Content.Shared.Abilities.Psionics;
 using Content.Shared.Actions.Events;
-using Content.Shared.Random.Helpers;
-using Robust.Shared.Random;
 using Content.Shared.Anomaly.Effects.Components;
+using Content.Shared.Random.Helpers;
 using Robust.Shared.Map.Components;
+using Robust.Shared.Random;
 
 namespace Content.Server.Abilities.Psionics;
 
@@ -16,7 +16,12 @@ public sealed partial class AnomalyPowerSystem
     ///     while substituting their Psionic casting stats for "Severity and Stability".
     ///     Essentially, spawn entities on random tiles in a radius around the caster.
     /// </summary>
-    private void DoEntityAnomalyEffects(EntityUid uid, PsionicComponent component, AnomalyPowerActionEvent args, bool overcharged = false)
+    private void DoEntityAnomalyEffects(
+        EntityUid uid,
+        PsionicComponent component,
+        AnomalyPowerActionEvent args,
+        bool overcharged = false
+    )
     {
         if (args.EntitySpawnEntries is null)
             return;
@@ -29,7 +34,8 @@ public sealed partial class AnomalyPowerSystem
 
         if (overcharged)
             EntitySupercrit(uid, component, args);
-        else EntityPulse(uid, component, args);
+        else
+            EntityPulse(uid, component, args);
     }
 
     private void EntitySupercrit(EntityUid uid, PsionicComponent component, AnomalyPowerActionEvent args)
@@ -62,11 +68,13 @@ public sealed partial class AnomalyPowerSystem
         if (!TryComp<MapGridComponent>(Transform(uid).GridUid, out var grid))
             return;
 
-        var tiles = _anomalySystem.GetSpawningPoints(uid,
-                        0.5f, // stability - reasonable default
-                        0.5f, // severity - reasonable default
-                        entry.Settings,
-                        _glimmerSystem.Glimmer / 1000);
+        var tiles = _anomalySystem.GetSpawningPoints(
+            uid,
+            0.5f, // stability - reasonable default
+            0.5f, // severity - reasonable default
+            entry.Settings,
+            _glimmerSystem.Glimmer / 1000
+        );
 
         if (tiles is null)
             return;

@@ -22,7 +22,11 @@ public sealed class GasCanisterSystem : SharedGasCanisterSystem
         }
     }
 
-    protected override void DirtyUI(EntityUid uid, GasCanisterComponent? component = null, NodeContainerComponent? nodes = null)
+    protected override void DirtyUI(
+        EntityUid uid,
+        GasCanisterComponent? component = null,
+        NodeContainerComponent? nodes = null
+    )
     {
         if (UI.TryGetOpenUi<GasCanisterBoundUserInterface>(uid, GasCanisterUiKey.Key, out var bui))
         {

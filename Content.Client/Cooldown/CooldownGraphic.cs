@@ -1,15 +1,18 @@
-﻿using Robust.Client.Graphics;
+﻿using System.Numerics;
+using Robust.Client.Graphics;
 using Robust.Client.UserInterface;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
-using System.Numerics;
 
 namespace Content.Client.Cooldown
 {
     public sealed class CooldownGraphic : Control
     {
-        [Dependency] private readonly IGameTiming _gameTiming = default!;
-        [Dependency] private readonly IPrototypeManager _protoMan = default!;
+        [Dependency]
+        private readonly IGameTiming _gameTiming = default!;
+
+        [Dependency]
+        private readonly IPrototypeManager _protoMan = default!;
 
         private static readonly ProtoId<ShaderPrototype> CooldownShaderId = "CooldownAnimation";
         private readonly ShaderInstance _shader;

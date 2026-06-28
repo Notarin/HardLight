@@ -31,7 +31,4 @@ public sealed partial class AphrodesiacBiteComponent : Component
     public ProtoId<ConsentTogglePrototype> ConsentToggleId = "Aphrodisiacs";
 }
 
-public sealed partial class AphrodesiacBiteEvent : EntityTargetActionEvent
-{
-
-}
+public sealed partial class AphrodesiacBiteEvent : EntityTargetActionEvent { }

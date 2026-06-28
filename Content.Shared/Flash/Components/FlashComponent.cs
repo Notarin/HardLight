@@ -7,7 +7,6 @@ namespace Content.Shared.Flash.Components
     [RegisterComponent, NetworkedComponent, Access(typeof(SharedFlashSystem))]
     public sealed partial class FlashComponent : Component
     {
-
         [DataField("duration")]
         [ViewVariables(VVAccess.ReadWrite)]
         public int FlashDuration { get; set; } = 5000;
@@ -33,10 +32,11 @@ namespace Content.Shared.Flash.Components
 
         [ViewVariables(VVAccess.ReadWrite)]
         [DataField("sound")]
-        public SoundSpecifier Sound { get; set; } = new SoundPathSpecifier("/Audio/Weapons/flash.ogg")
-        {
-            Params = AudioParams.Default.WithVolume(1f).WithMaxDistance(3f)
-        };
+        public SoundSpecifier Sound { get; set; } =
+            new SoundPathSpecifier("/Audio/Weapons/flash.ogg")
+            {
+                Params = AudioParams.Default.WithVolume(1f).WithMaxDistance(3f),
+            };
 
         public bool Flashing;
 

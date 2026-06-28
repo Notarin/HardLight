@@ -1,12 +1,12 @@
 using Content.Server.Instruments;
 using Content.Server.Speech.Components;
-using Content.Shared.Instruments;
+using Content.Shared._DV.Harpy;
 using Content.Shared.ActionBlocker;
 using Content.Shared.Bed.Sleep;
 using Content.Shared.Damage;
 using Content.Shared.Damage.ForceSay;
-using Content.Shared._DV.Harpy;
 using Content.Shared.FixedPoint;
+using Content.Shared.Instruments;
 using Content.Shared.Inventory;
 using Content.Shared.Inventory.Events;
 using Content.Shared.Mobs;
@@ -22,11 +22,20 @@ namespace Content.Server._DV.Harpy;
 
 public sealed class HarpySingerSystem : SharedHarpySingerSystem
 {
-    [Dependency] private readonly InstrumentSystem _instrument = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly InventorySystem _inventorySystem = default!;
-    [Dependency] private readonly ActionBlockerSystem _blocker = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
+    [Dependency]
+    private readonly InstrumentSystem _instrument = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly InventorySystem _inventorySystem = default!;
+
+    [Dependency]
+    private readonly ActionBlockerSystem _blocker = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototype = default!;
 
     public override void Initialize()
     {
@@ -43,16 +52,21 @@ public sealed class HarpySingerSystem : SharedHarpySingerSystem
 
         // This is intended to intercept the UI event and stop the MIDI UI from opening if the
         // singer is unable to sing. Thus it needs to run before the ActivatableUISystem.
-        SubscribeLocalEvent<HarpySingerComponent, OpenUiActionEvent>(OnInstrumentOpen, before: new[] { typeof(ActivatableUISystem) });
+        SubscribeLocalEvent<HarpySingerComponent, OpenUiActionEvent>(
+            OnInstrumentOpen,
+            before: new[] { typeof(ActivatableUISystem) }
+        );
     }
 
     private void OnEquip(GotEquippedEvent args)
     {
         // Check if an item that makes the singer mumble is equipped to their face
         // (not their pockets!). As of writing, this should just be the muzzle.
-        if (TryComp<AddAccentClothingComponent>(args.Equipment, out var accent) &&
-            accent.ReplacementPrototype == "mumble" &&
-            args.Slot == "mask")
+        if (
+            TryComp<AddAccentClothingComponent>(args.Equipment, out var accent)
+            && accent.ReplacementPrototype == "mumble"
+            && args.Slot == "mask"
+        )
         {
             CloseMidiUi(args.Equipee);
         }
@@ -100,11 +114,13 @@ public sealed class HarpySingerSystem : SharedHarpySingerSystem
     /// </summary>
     private void OnDamageChanged(EntityUid uid, InstrumentComponent instrumentComponent, DamageChangedEvent args)
     {
-        if (!TryComp<DamageForceSayComponent>(uid, out var component) ||
-            args.DamageDelta == null ||
-            !args.DamageIncreased ||
-            args.DamageDelta.GetTotal() < component.DamageThreshold ||
-            component.ValidDamageGroups == null)
+        if (
+            !TryComp<DamageForceSayComponent>(uid, out var component)
+            || args.DamageDelta == null
+            || !args.DamageIncreased
+            || args.DamageDelta.GetTotal() < component.DamageThreshold
+            || component.ValidDamageGroups == null
+        )
             return;
 
         var totalApplicableDamage = FixedPoint2.Zero;
@@ -125,8 +141,7 @@ public sealed class HarpySingerSystem : SharedHarpySingerSystem
     /// </summary>
     private void CloseMidiUi(EntityUid uid)
     {
-        if (HasComp<ActiveInstrumentComponent>(uid) &&
-            TryComp<ActorComponent>(uid, out var actor))
+        if (HasComp<ActiveInstrumentComponent>(uid) && TryComp<ActorComponent>(uid, out var actor))
         {
             _instrument.ToggleInstrumentUi(uid, uid);
         }
@@ -141,9 +156,10 @@ public sealed class HarpySingerSystem : SharedHarpySingerSystem
         // (crit/dead), asleep, or for any reason mute inclding glimmer or a mime's vow.
         var canNotSpeak = !_blocker.CanSpeak(uid);
         var zombified = TryComp<ZombieComponent>(uid, out var _);
-        var muzzled = _inventorySystem.TryGetSlotEntity(uid, "mask", out var maskUid) &&
-            TryComp<AddAccentClothingComponent>(maskUid, out var accent) &&
-            accent.ReplacementPrototype == "mumble";
+        var muzzled =
+            _inventorySystem.TryGetSlotEntity(uid, "mask", out var maskUid)
+            && TryComp<AddAccentClothingComponent>(maskUid, out var accent)
+            && accent.ReplacementPrototype == "mumble";
 
         // Set this event as handled when the singer should be incapable of singing in order
         // to stop the ActivatableUISystem event from opening the MIDI UI.

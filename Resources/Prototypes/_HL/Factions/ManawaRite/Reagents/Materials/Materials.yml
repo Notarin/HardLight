@@ -2,7 +2,7 @@
   id: ManaWoodPlank
   name: materials-mana-wood
   unit: materials-unit-plank
-  icon: { sprite: /Textures/_HL/Factions/ManawaRite/Objects/Materials/mana_wood.rsi, state: wood }
+  icon: {sprite: /Textures/_HL/Factions/ManawaRite/Objects/Materials/mana_wood.rsi, state: wood}
   color: "#00e8c8"
   stackEntity: MaterialManaWoodPlank
   price: 0.5

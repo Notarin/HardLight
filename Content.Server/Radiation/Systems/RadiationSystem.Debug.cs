@@ -75,7 +75,8 @@ public partial class RadiationSystem
         double elapsedTime,
         int totalSources,
         int totalReceivers,
-        List<DebugRadiationRay>? rays)
+        List<DebugRadiationRay>? rays
+    )
     {
         if (_debugSessions.Count == 0)
             return;

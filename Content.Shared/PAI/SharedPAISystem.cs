@@ -13,7 +13,8 @@ namespace Content.Shared.PAI;
 /// </summary>
 public abstract class SharedPAISystem : EntitySystem
 {
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
+    [Dependency]
+    private readonly SharedActionsSystem _actions = default!;
 
     public override void Initialize()
     {
@@ -33,6 +34,5 @@ public abstract class SharedPAISystem : EntitySystem
         _actions.RemoveAction(ent, ent.Comp.ShopAction);
     }
 }
-public sealed partial class PAIShopActionEvent : InstantActionEvent
-{
-}
+
+public sealed partial class PAIShopActionEvent : InstantActionEvent { }

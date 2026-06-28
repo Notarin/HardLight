@@ -7,5 +7,5 @@
   components:
   - type: StorageFill
     contents:
-      - id: StasiziumAutoInjector
-        amount: 8
+    - id: StasiziumAutoInjector
+      amount: 8

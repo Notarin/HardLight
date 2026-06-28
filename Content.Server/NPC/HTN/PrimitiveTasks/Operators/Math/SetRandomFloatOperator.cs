@@ -11,7 +11,8 @@ namespace Content.Server.NPC.HTN.PrimitiveTasks.Operators.Math;
 /// </summary>
 public sealed partial class SetRandomFloatOperator : HTNOperator
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
 
     [DataField(required: true), ViewVariables]
     public string TargetKey = string.Empty;
@@ -22,15 +23,11 @@ public sealed partial class SetRandomFloatOperator : HTNOperator
     [DataField, ViewVariables(VVAccess.ReadWrite)]
     public float MinAmount;
 
-    public override async Task<(bool Valid, Dictionary<string, object>? Effects)> Plan(NPCBlackboard blackboard,
-        CancellationToken cancelToken)
+    public override async Task<(bool Valid, Dictionary<string, object>? Effects)> Plan(
+        NPCBlackboard blackboard,
+        CancellationToken cancelToken
+    )
     {
-        return (
-            true,
-            new Dictionary<string, object>
-            {
-                { TargetKey, _random.NextFloat(MinAmount, MaxAmount) }
-            }
-        );
+        return (true, new Dictionary<string, object> { { TargetKey, _random.NextFloat(MinAmount, MaxAmount) } });
     }
 }

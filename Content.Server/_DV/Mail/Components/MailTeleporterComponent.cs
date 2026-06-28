@@ -9,7 +9,6 @@ namespace Content.Server._DV.Mail.Components
     [RegisterComponent]
     public sealed partial class MailTeleporterComponent : Component
     {
-
         // Not starting accumulator at 0 so mail carriers have some deliveries to make shortly after roundstart.
         // [DataField]
         // public float Accumulator = 285f;

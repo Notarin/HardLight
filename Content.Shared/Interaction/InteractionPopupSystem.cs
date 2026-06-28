@@ -17,13 +17,26 @@ namespace Content.Shared.Interaction;
 
 public sealed class InteractionPopupSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly MobStateSystem _mobStateSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly INetManager _netMan = default!;
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly MobStateSystem _mobStateSystem = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly INetManager _netMan = default!;
 
     public override void Initialize()
     {
@@ -53,7 +66,8 @@ public sealed class InteractionPopupSystem : EntitySystem
         InteractionPopupComponent component,
         HandledEntityEventArgs args,
         EntityUid target,
-        EntityUid user)
+        EntityUid user
+    )
     {
         if (args.Handled || user == target)
             return;
@@ -64,8 +78,7 @@ public sealed class InteractionPopupSystem : EntitySystem
         if (HasComp<SleepingComponent>(uid))
             return;
 
-        if (TryComp<MobStateComponent>(uid, out var state)
-            && !_mobStateSystem.IsAlive(uid, state))
+        if (TryComp<MobStateComponent>(uid, out var state) && !_mobStateSystem.IsAlive(uid, state))
         {
             return;
         }
@@ -85,9 +98,10 @@ public sealed class InteractionPopupSystem : EntitySystem
         var msg = ""; // Stores the text to be shown in the popup message
         SoundSpecifier? sfx = null; // Stores the filepath of the sound to be played
 
-        var predict = component.SuccessChance is 0 or 1
-                      && component.InteractSuccessSpawn == null
-                      && component.InteractFailureSpawn == null;
+        var predict =
+            component.SuccessChance is 0 or 1
+            && component.InteractSuccessSpawn == null
+            && component.InteractFailureSpawn == null;
 
         if (_netMan.IsClient && !predict)
             return;
@@ -123,8 +137,11 @@ public sealed class InteractionPopupSystem : EntitySystem
 
         if (!string.IsNullOrEmpty(component.MessagePerceivedByOthers))
         {
-            var msgOthers = Loc.GetString(component.MessagePerceivedByOthers,
-                ("user", Identity.Entity(user, EntityManager)), ("target", Identity.Entity(uid, EntityManager)));
+            var msgOthers = Loc.GetString(
+                component.MessagePerceivedByOthers,
+                ("user", Identity.Entity(user, EntityManager)),
+                ("target", Identity.Entity(uid, EntityManager))
+            );
             _popupSystem.PopupEntity(msgOthers, uid, Filter.PvsExcept(user, entityManager: EntityManager), true);
         }
 
@@ -139,9 +156,7 @@ public sealed class InteractionPopupSystem : EntitySystem
                 else
                     _audio.PlayEntity(sfx, Filter.Entities(user, target), target, false);
             }
-            catch (ArgumentException)
-            {
-            }
+            catch (ArgumentException) { }
 
             return;
         }
@@ -157,9 +172,7 @@ public sealed class InteractionPopupSystem : EntitySystem
             {
                 _audio.PlayPredicted(sfx, target, user);
             }
-            catch (ArgumentException)
-            {
-            }
+            catch (ArgumentException) { }
             return;
         }
 
@@ -171,9 +184,7 @@ public sealed class InteractionPopupSystem : EntitySystem
                 {
                     _audio.PlayEntity(sfx, Filter.Local(), target, true);
                 }
-                catch (ArgumentException)
-                {
-                }
+                catch (ArgumentException) { }
             }
         }
         else
@@ -182,9 +193,7 @@ public sealed class InteractionPopupSystem : EntitySystem
             {
                 _audio.PlayEntity(sfx, Filter.Empty().FromEntities(target), target, false);
             }
-            catch (ArgumentException)
-            {
-            }
+            catch (ArgumentException) { }
         }
     }
 
@@ -223,7 +232,8 @@ public sealed class InteractionPopupSystem : EntitySystem
         EntProtoId? successSpawn,
         EntProtoId? failureSpawn,
         string? messagePerceivedByOthers,
-        bool soundPerceivedByOthers)
+        bool soundPerceivedByOthers
+    )
     {
         ent.Comp.SuccessChance = successChance;
         ent.Comp.InteractSuccessString = successString;

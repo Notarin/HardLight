@@ -4,8 +4,7 @@
   speech:
     color: "#df57aaee"
     fontId: Mangat
-  obfuscation:
-    !type:SyllableObfuscation
+  obfuscation: !type:SyllableObfuscation
     minSyllables: 1
     maxSyllables: 3
     replacement:

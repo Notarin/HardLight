@@ -6,8 +6,11 @@ namespace Content.Server.Ame.EntitySystems;
 
 public sealed class AmeShieldingSystem : EntitySystem
 {
-    [Dependency] private readonly AppearanceSystem _appearanceSystem = default!;
-    [Dependency] private readonly PointLightSystem _pointLightSystem = default!;
+    [Dependency]
+    private readonly AppearanceSystem _appearanceSystem = default!;
+
+    [Dependency]
+    private readonly PointLightSystem _pointLightSystem = default!;
 
     public void SetCore(EntityUid uid, bool value, AmeShieldComponent? shield = null)
     {
@@ -22,7 +25,12 @@ public sealed class AmeShieldingSystem : EntitySystem
             UpdateCoreVisuals(uid, 0, false, shield);
     }
 
-    public void UpdateCoreVisuals(EntityUid uid, int injectionStrength, bool injecting, AmeShieldComponent? shield = null)
+    public void UpdateCoreVisuals(
+        EntityUid uid,
+        int injectionStrength,
+        bool injecting,
+        AmeShieldComponent? shield = null
+    )
     {
         if (!Resolve(uid, ref shield))
             return;
@@ -36,6 +44,10 @@ public sealed class AmeShieldingSystem : EntitySystem
 
         _pointLightSystem.SetRadius(uid, Math.Clamp(injectionStrength, 1, 12));
         _pointLightSystem.SetEnabled(uid, true);
-        _appearanceSystem.SetData(uid, AmeShieldVisuals.CoreState, injectionStrength > 2 ? AmeCoreState.Strong : AmeCoreState.Weak);
+        _appearanceSystem.SetData(
+            uid,
+            AmeShieldVisuals.CoreState,
+            injectionStrength > 2 ? AmeCoreState.Strong : AmeCoreState.Weak
+        );
     }
 }

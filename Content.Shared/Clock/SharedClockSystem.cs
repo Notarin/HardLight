@@ -6,7 +6,8 @@ namespace Content.Shared.Clock;
 
 public abstract class SharedClockSystem : EntitySystem
 {
-    [Dependency] private readonly SharedGameTicker _ticker = default!;
+    [Dependency]
+    private readonly SharedGameTicker _ticker = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -40,7 +41,8 @@ public abstract class SharedClockSystem : EntitySystem
 
     private TimeSpan GetGlobalTime()
     {
-        return (EntityQuery<GlobalTimeManagerComponent>().FirstOrDefault()?.TimeOffset ?? TimeSpan.Zero) + _ticker.RoundDuration();
+        return (EntityQuery<GlobalTimeManagerComponent>().FirstOrDefault()?.TimeOffset ?? TimeSpan.Zero)
+            + _ticker.RoundDuration();
     }
 
     public TimeSpan GetClockTime(Entity<ClockComponent> ent)

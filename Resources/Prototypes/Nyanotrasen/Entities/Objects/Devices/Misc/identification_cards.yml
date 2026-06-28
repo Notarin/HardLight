@@ -1,7 +1,7 @@
 - type: entity
   parent: IDCardStandard
   id: MailCarrierIDCard
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   name: mail carrier ID card
   components:
   - type: Sprite
@@ -28,7 +28,7 @@
 - type: entity
   parent: IDCardStandard
   id: ValetIDCard
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   name: valet ID card
   components:
   - type: Sprite

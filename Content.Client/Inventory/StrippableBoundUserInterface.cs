@@ -7,6 +7,7 @@ using Content.Client.Stylesheets;
 using Content.Client.UserInterface.Controls;
 using Content.Client.UserInterface.Systems.Hands.Controls;
 using Content.Client.Verbs.UI;
+using Content.Shared._EE.Strip.Components; // EE
 using Content.Shared.CCVar;
 using Content.Shared.Clothing.Components;
 using Content.Shared.Contraband;
@@ -31,18 +32,26 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 using static Content.Client.Inventory.ClientInventorySystem;
 using static Robust.Client.UserInterface.Control;
-using Content.Shared._EE.Strip.Components; // EE
 
 namespace Content.Client.Inventory
 {
     [UsedImplicitly]
     public sealed class StrippableBoundUserInterface : BoundUserInterface
     {
-        [Dependency] private readonly IPlayerManager _player = default!;
-        [Dependency] private readonly IUserInterfaceManager _ui = default!;
-        [Dependency] private readonly IClientAdminManager _admin = default!;
-        [Dependency] private readonly IPrototypeManager _proto = default!;
-        [Dependency] private readonly IConfigurationManager _cvar = default!;
+        [Dependency]
+        private readonly IPlayerManager _player = default!;
+
+        [Dependency]
+        private readonly IUserInterfaceManager _ui = default!;
+
+        [Dependency]
+        private readonly IClientAdminManager _admin = default!;
+
+        [Dependency]
+        private readonly IPrototypeManager _proto = default!;
+
+        [Dependency]
+        private readonly IConfigurationManager _cvar = default!;
 
         private readonly ExamineSystem _examine;
         private readonly InventorySystem _inv;
@@ -87,7 +96,8 @@ namespace Content.Client.Inventory
         [ViewVariables]
         private Vector2i _inventoryDimensions;
 
-        public StrippableBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
+        public StrippableBoundUserInterface(EntityUid owner, Enum uiKey)
+            : base(owner, uiKey)
         {
             _examine = EntMan.System<ExamineSystem>();
             _inv = EntMan.System<InventorySystem>();
@@ -106,7 +116,10 @@ namespace Content.Client.Inventory
 
             _strippingMenu = this.CreateWindowCenteredLeft<StrippingMenu>();
             _strippingMenu.OnDirty += UpdateMenu;
-            _strippingMenu.Title = Loc.GetString("strippable-bound-user-interface-stripping-menu-title", ("ownerName", Identity.Name(Owner, EntMan)));
+            _strippingMenu.Title = Loc.GetString(
+                "strippable-bound-user-interface-stripping-menu-title",
+                ("ownerName", Identity.Name(Owner, EntMan))
+            );
         }
 
         protected override void Dispose(bool disposing)
@@ -193,7 +206,7 @@ namespace Content.Client.Inventory
                     Text = Loc.GetString("strippable-bound-user-interface-stripping-menu-admin-button"),
                     ToggleMode = true,
                     Pressed = _isAdminView,
-                    ToolTip = Loc.GetString("strippable-bound-user-interface-stripping-menu-admin-button-tooltip")
+                    ToolTip = Loc.GetString("strippable-bound-user-interface-stripping-menu-admin-button-tooltip"),
                 };
 
                 adminButton.OnToggled += args =>
@@ -217,8 +230,16 @@ namespace Content.Client.Inventory
             // +20 horizontally and vertically from the ContentsContainer margin
             // +16 vertically from the BoxContainer margin
             // +27 vertically from the window header
-            var horizontalMenuSize = Math.Max(200, Math.Max(_handCount, _inventoryDimensions.X + 1) * (SlotControl.DefaultButtonSize + ButtonSeparation) + 20);
-            var verticalMenuSize = Math.Max(200, (_inventoryDimensions.Y + (_handCount > 0 ? 2 : 1)) * (SlotControl.DefaultButtonSize + ButtonSeparation) + 53);
+            var horizontalMenuSize = Math.Max(
+                200,
+                Math.Max(_handCount, _inventoryDimensions.X + 1) * (SlotControl.DefaultButtonSize + ButtonSeparation)
+                    + 20
+            );
+            var verticalMenuSize = Math.Max(
+                200,
+                (_inventoryDimensions.Y + (_handCount > 0 ? 2 : 1)) * (SlotControl.DefaultButtonSize + ButtonSeparation)
+                    + 53
+            );
             verticalMenuSize += 25 * _strippingMenu.ButtonContainer.Children.Count();
             _strippingMenu.SetSize = new Vector2(horizontalMenuSize, verticalMenuSize);
         }
@@ -232,16 +253,25 @@ namespace Content.Client.Inventory
             if (EntMan.TryGetComponent<VirtualItemComponent>(hand.HeldEntity, out var virt))
             {
                 button.Blocked = true;
-                if (EntMan.TryGetComponent<CuffableComponent>(Owner, out var cuff) && _cuffable.GetAllCuffs(cuff).Contains(virt.BlockingEntity))
+                if (
+                    EntMan.TryGetComponent<CuffableComponent>(Owner, out var cuff)
+                    && _cuffable.GetAllCuffs(cuff).Contains(virt.BlockingEntity)
+                )
                     button.BlockedRect.MouseFilter = MouseFilterMode.Ignore;
             }
 
             // Goobstation: use virtual entity if hidden
-            UpdateEntityIcon(button, EntMan.HasComponent<StripMenuHiddenComponent>(hand.HeldEntity) ? _virtualHiddenEntity : hand.HeldEntity);
+            UpdateEntityIcon(
+                button,
+                EntMan.HasComponent<StripMenuHiddenComponent>(hand.HeldEntity) ? _virtualHiddenEntity : hand.HeldEntity
+            );
             // End Goobstation
             _strippingMenu!.HandsContainer.AddChild(button);
 
-            LayoutContainer.SetPosition(button, new Vector2i(_handCount, 0) * (SlotControl.DefaultButtonSize + ButtonSeparation));
+            LayoutContainer.SetPosition(
+                button,
+                new Vector2i(_handCount, 0) * (SlotControl.DefaultButtonSize + ButtonSeparation)
+            );
             _handCount++;
         }
 
@@ -295,7 +325,10 @@ namespace Content.Client.Inventory
 
             UpdateEntityIcon(button, entity);
 
-            LayoutContainer.SetPosition(button, slotDef.StrippingWindowPos * (SlotControl.DefaultButtonSize + ButtonSeparation));
+            LayoutContainer.SetPosition(
+                button,
+                slotDef.StrippingWindowPos * (SlotControl.DefaultButtonSize + ButtonSeparation)
+            );
             if (slotDef.StrippingWindowPos.X > _inventoryDimensions.X)
                 _inventoryDimensions = new Vector2i(slotDef.StrippingWindowPos.X, _inventoryDimensions.Y);
             if (slotDef.StrippingWindowPos.Y > _inventoryDimensions.Y)
@@ -329,7 +362,11 @@ namespace Content.Client.Inventory
                 button.AddAdminOverlay(_chameleonClothingTexturePath, _chameleonColor);
             }
 
-            if (_admin.IsAdmin() && _isAdminView && _contraband.IsContraband(entity.Value, Owner, out var contraProtoId))
+            if (
+                _admin.IsAdmin()
+                && _isAdminView
+                && _contraband.IsContraband(entity.Value, Owner, out var contraProtoId)
+            )
             {
                 button.AddAdminOverlay(_contrabandTexturePath, _proto.Index(contraProtoId).Color);
             }

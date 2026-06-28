@@ -28,9 +28,10 @@ namespace Content.Server.Power.NodeGroups
                 // yield any that implement the interface.
                 foreach (var comp in EntMan.GetComponents<IBaseNetConnectorComponent<TNetType>>(node.Owner))
                 {
-                    if ((comp.NodeId == null ||
-                         comp.NodeId == node.Name) &&
-                        (NodeGroupID) comp.Voltage == node.NodeGroupID)
+                    if (
+                        (comp.NodeId == null || comp.NodeId == node.Name)
+                        && (NodeGroupID)comp.Voltage == node.NodeGroupID
+                    )
                     {
                         SetNetConnectorNet(comp);
                     }

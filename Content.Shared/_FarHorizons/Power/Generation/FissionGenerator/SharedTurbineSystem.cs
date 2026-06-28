@@ -4,7 +4,6 @@
 //
 // SPDX-License-Identifier: CC-BY-NC-SA-3.0
 
-
 using Content.Shared.Administration.Logs;
 using Content.Shared.Damage;
 using Content.Shared.DoAfter;
@@ -27,14 +26,29 @@ namespace Content.Shared._FarHorizons.Power.Generation.FissionGenerator;
 
 public abstract class SharedTurbineSystem : EntitySystem
 {
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] protected readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedToolSystem _toolSystem = default!;
-    [Dependency] private readonly EntityManager _entityManager = default!;
-    [Dependency] private readonly DamageableSystem _damageableSystem = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
+    [Dependency]
+    private readonly ISharedAdminLogManager _adminLogger = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    protected readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly SharedToolSystem _toolSystem = default!;
+
+    [Dependency]
+    private readonly EntityManager _entityManager = default!;
+
+    [Dependency]
+    private readonly DamageableSystem _damageableSystem = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
 
     public override void Initialize()
     {
@@ -54,7 +68,7 @@ public abstract class SharedTurbineSystem : EntitySystem
 
         using (args.PushGroup(nameof(TurbineComponent)))
         {
-            if(comp.CurrentStator == null)
+            if (comp.CurrentStator == null)
                 args.PushMarkup(Loc.GetString("gas-turbine-examine-stator-null"));
 
             if (comp.CurrentBlade == null)
@@ -106,7 +120,11 @@ public abstract class SharedTurbineSystem : EntitySystem
         }
     }
 
-    protected void UpdateAppearance(EntityUid uid, TurbineComponent? comp = null, AppearanceComponent? appearance = null)
+    protected void UpdateAppearance(
+        EntityUid uid,
+        TurbineComponent? comp = null,
+        AppearanceComponent? appearance = null
+    )
     {
         if (!Resolve(uid, ref comp, ref appearance, false))
             return;
@@ -117,7 +135,12 @@ public abstract class SharedTurbineSystem : EntitySystem
         _appearance.SetData(uid, TurbineVisuals.DamageSmoke, comp.IsSmoking);
     }
 
-    protected void PlayAudio(SoundSpecifier? sound, EntityUid uid, out EntityUid? audioStream, AudioParams? audioParams = null)
+    protected void PlayAudio(
+        SoundSpecifier? sound,
+        EntityUid uid,
+        out EntityUid? audioStream,
+        AudioParams? audioParams = null
+    )
     {
         if (sound == null || audioParams == null)
         {
@@ -126,9 +149,7 @@ public abstract class SharedTurbineSystem : EntitySystem
         }
 
         var loop = audioParams.Value.WithLoop(true);
-        var stream = false
-            ? _audio.PlayPredicted(sound, uid, uid, loop)
-            : _audio.PlayPvs(sound, uid, loop);
+        var stream = false ? _audio.PlayPredicted(sound, uid, uid, loop) : _audio.PlayPvs(sound, uid, loop);
         audioStream = stream?.Entity is { } entity ? entity : null;
     }
 
@@ -149,18 +170,28 @@ public abstract class SharedTurbineSystem : EntitySystem
         if (args.Handled)
             return;
 
-        if(_toolSystem.HasQuality(args.Used, comp.RepairTool))
+        if (_toolSystem.HasQuality(args.Used, comp.RepairTool))
         {
             if (comp.CurrentBlade == null)
             {
-                _popupSystem.PopupEntity(Loc.GetString("gas-turbine-repair-fail-blade"), args.User, args.User, PopupType.Medium);
+                _popupSystem.PopupEntity(
+                    Loc.GetString("gas-turbine-repair-fail-blade"),
+                    args.User,
+                    args.User,
+                    PopupType.Medium
+                );
                 args.Handled = true;
                 return;
             }
 
             if (comp.CurrentStator == null)
             {
-                _popupSystem.PopupEntity(Loc.GetString("gas-turbine-repair-fail-stator"), args.User, args.User, PopupType.Medium);
+                _popupSystem.PopupEntity(
+                    Loc.GetString("gas-turbine-repair-fail-stator"),
+                    args.User,
+                    args.User,
+                    PopupType.Medium
+                );
                 args.Handled = true;
                 return;
             }
@@ -168,7 +199,15 @@ public abstract class SharedTurbineSystem : EntitySystem
             if (comp.BladeHealth >= comp.BladeHealthMax && !comp.Ruined)
                 return;
 
-            args.Handled = _toolSystem.UseTool(args.Used, args.User, uid, comp.RepairDelay, comp.RepairTool, new RepairDoAfterEvent(), comp.RepairFuelCost);
+            args.Handled = _toolSystem.UseTool(
+                args.Used,
+                args.User,
+                uid,
+                comp.RepairDelay,
+                comp.RepairTool,
+                new RepairDoAfterEvent(),
+                comp.RepairFuelCost
+            );
         }
     }
 
@@ -181,7 +220,10 @@ public abstract class SharedTurbineSystem : EntitySystem
         if (comp.Ruined)
         {
             comp.Ruined = false;
-            if (comp.BladeHealth <= 0) { comp.BladeHealth = 1; }
+            if (comp.BladeHealth <= 0)
+            {
+                comp.BladeHealth = 1;
+            }
             UpdateHealthIndicators(uid, comp);
         }
         else if (comp.BladeHealth < comp.BladeHealthMax)
@@ -205,7 +247,11 @@ public abstract class SharedTurbineSystem : EntitySystem
         if (comp.BladeHealth <= 0.75 * comp.BladeHealthMax && !comp.IsSparking)
         {
             comp.IsSparking = true;
-            _audio.PlayPvs(new SoundPathSpecifier("/Audio/Effects/PowerSink/electric.ogg"), uid, AudioParams.Default.WithPitchScale(0.75f));
+            _audio.PlayPvs(
+                new SoundPathSpecifier("/Audio/Effects/PowerSink/electric.ogg"),
+                uid,
+                AudioParams.Default.WithPitchScale(0.75f)
+            );
             _popupSystem.PopupEntity(Loc.GetString("turbine-spark", ("owner", uid)), uid, PopupType.MediumCaution);
         }
         else if (comp.BladeHealth > 0.75 * comp.BladeHealthMax && comp.IsSparking)
@@ -234,6 +280,4 @@ public abstract class SharedTurbineSystem : EntitySystem
 }
 
 [Serializable, NetSerializable]
-public sealed partial class RepairDoAfterEvent : SimpleDoAfterEvent
-{
-}
+public sealed partial class RepairDoAfterEvent : SimpleDoAfterEvent { }

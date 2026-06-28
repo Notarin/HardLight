@@ -1,10 +1,10 @@
-using Content.Server.Popups;
-using Content.Shared.Administration;
-using Content.Shared.GameTicking;
+using Content.Server._NF.Roles.Systems; // HardLight
 using Content.Server.GameTicking;
 using Content.Server.Mind;
-using Content.Server._NF.Roles.Systems; // HardLight
+using Content.Server.Popups;
 using Content.Shared._NF.Roles.Components; // HardLight
+using Content.Shared.Administration;
+using Content.Shared.GameTicking;
 using Robust.Server.Player;
 using Robust.Shared.Console;
 
@@ -13,8 +13,11 @@ namespace Content.Server.Ghost
     [AnyCommand]
     public sealed class GhostCommand : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _entities = default!;
-        [Dependency] private readonly IPlayerManager _playerManager = default!;
+        [Dependency]
+        private readonly IEntityManager _entities = default!;
+
+        [Dependency]
+        private readonly IPlayerManager _playerManager = default!;
 
         public string Command => "ghost";
         public string Description => Loc.GetString("ghost-command-description");
@@ -30,20 +33,20 @@ namespace Content.Server.Ghost
             }
 
             var gameTicker = _entities.System<GameTicker>();
-            if (!gameTicker.PlayerGameStatuses.TryGetValue(player.UserId, out var playerStatus) ||
-                playerStatus is not PlayerGameStatus.JoinedGame)
+            if (
+                !gameTicker.PlayerGameStatuses.TryGetValue(player.UserId, out var playerStatus)
+                || playerStatus is not PlayerGameStatus.JoinedGame
+            )
             {
                 shell.WriteLine(Loc.GetString("ghost-command-error-lobby"));
                 return;
             }
 
-            if (player.AttachedEntity is { Valid: true } frozen &&
-                _entities.HasComponent<AdminFrozenComponent>(frozen))
+            if (player.AttachedEntity is { Valid: true } frozen && _entities.HasComponent<AdminFrozenComponent>(frozen))
             {
                 var deniedMessage = Loc.GetString("ghost-command-denied");
                 shell.WriteLine(deniedMessage);
-                _entities.System<PopupSystem>()
-                    .PopupEntity(deniedMessage, frozen, frozen);
+                _entities.System<PopupSystem>().PopupEntity(deniedMessage, frozen, frozen);
                 return;
             }
 

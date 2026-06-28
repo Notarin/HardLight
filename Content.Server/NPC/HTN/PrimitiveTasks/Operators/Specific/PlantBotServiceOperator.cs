@@ -15,12 +15,14 @@ namespace Content.Server.NPC.HTN.PrimitiveTasks.Operators.Specific;
 
 public sealed partial class PlantbotServiceOperator : HTNOperator
 {
-    [Dependency] private readonly IEntityManager _entMan = default!;
+    [Dependency]
+    private readonly IEntityManager _entMan = default!;
 
     private SharedAudioSystem _audio = default!;
     private SharedInteractionSystem _interaction = default!;
     private SharedPopupSystem _popup = default!;
     private PlantHolderSystem _plantHolderSystem = default!;
+
     // private TagSystem _tagSystem = default!;
 
     public const float RequiredWaterLevelToService = 80f;
@@ -58,10 +60,20 @@ public sealed partial class PlantbotServiceOperator : HTNOperator
         if (!blackboard.TryGetValue<EntityUid>(TargetKey, out var target, _entMan) || _entMan.Deleted(target))
             return HTNOperatorStatus.Failed;
 
-        if (!_entMan.TryGetComponent<PlantbotComponent>(owner, out var botComp)
+        if (
+            !_entMan.TryGetComponent<PlantbotComponent>(owner, out var botComp)
             || !_entMan.TryGetComponent<PlantHolderComponent>(target, out var plantHolderComponent)
             || !_interaction.InRangeUnobstructed(owner, target)
-            || (plantHolderComponent is { WaterLevel: >= RequiredWaterLevelToService, WeedLevel: <= RequiredWeedsAmountToWeed } && (!_entMan.HasComponent<EmaggedComponent>(owner) || plantHolderComponent.Dead || plantHolderComponent.WaterLevel <= 0f)))
+            || (
+                plantHolderComponent
+                    is { WaterLevel: >= RequiredWaterLevelToService, WeedLevel: <= RequiredWeedsAmountToWeed }
+                && (
+                    !_entMan.HasComponent<EmaggedComponent>(owner)
+                    || plantHolderComponent.Dead
+                    || plantHolderComponent.WaterLevel <= 0f
+                )
+            )
+        )
             return HTNOperatorStatus.Failed;
 
         if (botComp.IsEmagged)

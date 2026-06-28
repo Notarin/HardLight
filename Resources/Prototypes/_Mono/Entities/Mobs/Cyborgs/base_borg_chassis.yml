@@ -11,8 +11,8 @@
       200: Critical
       300: Dead
   - type: MovementSpeedModifier
-    baseWalkSpeed : 2.5
-    baseSprintSpeed : 4.5
+    baseWalkSpeed: 2.5
+    baseSprintSpeed: 4.5
   - type: SlowOnDamage
     speedModifierThresholds:
       75: 0.7
@@ -21,8 +21,7 @@
     damageModifierSet: FactionBorgChassis
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:PlaySoundBehavior
@@ -30,9 +29,8 @@
           path: /Audio/Machines/warning_buzzer.ogg
           params:
             volume: 5
-    - trigger:
-        !type:DamageTrigger
-         damage: 400
+    - trigger: !type:DamageTrigger
+        damage: 400
       behaviors:
       - !type:PlaySoundBehavior
         sound:
@@ -43,7 +41,7 @@
         - borg_module
         - cell_slot
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: ExplosionResistance
     damageCoefficient: 0.6
 
@@ -84,12 +82,12 @@
     - Faction
     - Nfsd
     - Traffic
-  # VRS: CollectiveMindComponent is a Triad/Starlight feature not present in VRS yet; commented out.
-#   - type: CollectiveMind
-#     channels:
-#     - Binary
-#     defaultChannel: Binary
+    # VRS: CollectiveMindComponent is a Triad/Starlight feature not present in VRS yet; commented out.
   - type: ShowSyndicateIcons
+    #   - type: CollectiveMind
+    #     channels:
+    #     - Binary
+    #     defaultChannel: Binary
   - type: MovementAlwaysTouching
   - type: Speech
     speechSounds: SyndieBorg
@@ -135,12 +133,12 @@
     - Faction
     - Freelance
     - Traffic
-  # VRS: CollectiveMindComponent is a Triad/Starlight feature not present in VRS yet; commented out.
-#   - type: CollectiveMind
-#     channels:
-#     - Binary
-#     defaultChannel: Binary
+    # VRS: CollectiveMindComponent is a Triad/Starlight feature not present in VRS yet; commented out.
   - type: ShowSyndicateIcons
+    #   - type: CollectiveMind
+    #     channels:
+    #     - Binary
+    #     defaultChannel: Binary
   - type: MovementAlwaysTouching
   - type: Speech
     speechSounds: SyndieBorg

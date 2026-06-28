@@ -1,16 +1,19 @@
+using System.Numerics;
 using Content.Shared.Singularity.Components;
 using Robust.Client.Graphics;
 using Robust.Client.UserInterface.CustomControls;
 using Robust.Shared.Enums;
 using Robust.Shared.Prototypes;
-using System.Numerics;
 
 namespace Content.Client.Singularity
 {
     public sealed class SingularityOverlay : Overlay, IEntityEventSubscriber
     {
-        [Dependency] private readonly IEntityManager _entMan = default!;
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+        [Dependency]
+        private readonly IEntityManager _entMan = default!;
+
+        [Dependency]
+        private readonly IPrototypeManager _prototypeManager = default!;
         private SharedTransformSystem? _xformSystem = null;
 
         /// <summary>
@@ -35,7 +38,7 @@ namespace Content.Client.Singularity
             ZIndex = 101; // Should be drawn after the placement overlay so admins placing items near the singularity can tell where they're going.
         }
 
-    private static readonly ProtoId<ShaderPrototype> SingularityShaderId = "Singularity";
+        private static readonly ProtoId<ShaderPrototype> SingularityShaderId = "Singularity";
 
         private readonly Vector2[] _positions = new Vector2[MaxCount];
         private readonly float[] _intensities = new float[MaxCount];
@@ -101,7 +104,7 @@ namespace Content.Client.Singularity
         /// Repeats the transformation applied by the shader in <see cref="Resources/Textures/Shaders/singularity.swsl"/>
         /// </summary>
         private void OnProjectFromScreenToMap(ref PixelToMapEvent args)
-        {   // Mostly copypasta from the singularity shader.
+        { // Mostly copypasta from the singularity shader.
             if (args.Viewport.Eye == null)
                 return;
             var maxDistance = MaxDistance * EyeManager.PixelsPerMeter;
@@ -140,8 +143,10 @@ namespace Content.Client.Singularity
 
             finalCoords.X -= MathF.Floor(finalCoords.X / (args.Viewport.Size.X * 2)) * args.Viewport.Size.X * 2; // Manually handle the wrapping reflection behaviour used by the viewport texture.
             finalCoords.Y -= MathF.Floor(finalCoords.Y / (args.Viewport.Size.Y * 2)) * args.Viewport.Size.Y * 2;
-            finalCoords.X = (finalCoords.X >= args.Viewport.Size.X) ? ((args.Viewport.Size.X * 2) - finalCoords.X) : finalCoords.X;
-            finalCoords.Y = (finalCoords.Y >= args.Viewport.Size.Y) ? ((args.Viewport.Size.Y * 2) - finalCoords.Y) : finalCoords.Y;
+            finalCoords.X =
+                (finalCoords.X >= args.Viewport.Size.X) ? ((args.Viewport.Size.X * 2) - finalCoords.X) : finalCoords.X;
+            finalCoords.Y =
+                (finalCoords.Y >= args.Viewport.Size.Y) ? ((args.Viewport.Size.Y * 2) - finalCoords.Y) : finalCoords.Y;
             args.VisiblePosition = finalCoords;
         }
     }

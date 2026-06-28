@@ -21,40 +21,40 @@
 - type: htnCompound
   id: ShuttleDeedTurretCompound
   branches:
-    - tasks:
-        - !type:HTNPrimitiveTask
-          operator: !type:UtilityOperator
-            proto: NearbyGunTargets
-        
-        - !type:HTNPrimitiveTask
-          preconditions:
-            - !type:KeyExistsPrecondition
-              key: Target
-            - !type:TargetInRangePrecondition
-              targetKey: Target
-              # TODO: Non-scuffed
-              rangeKey: RangedRange
-            - !type:TargetInLOSPrecondition
-              targetKey: Target
-              rangeKey: RangedRange
-          operator: !type:GunOperator
-            targetKey: Target
-            requireLOS: true
-          services:
-            - !type:UtilityService
-              id: RangedService
-              proto: NearbyGunTargets
-              key: Target
-    - tasks:
-      - !type:HTNPrimitiveTask
-        operator: !type:UtilityOperator
-          proto: NearbyShuttleDeedGridTargets
-      - !type:HTNCompoundTask
-        task: ShuttleDeedTurretAttackCompound
-    # Fallback: return to forward-facing position when no targets
-    - tasks:
-      - !type:HTNCompoundTask
-        task: TurretReturnForward
+  - tasks:
+    - !type:HTNPrimitiveTask
+      operator: !type:UtilityOperator
+        proto: NearbyGunTargets
+
+    - !type:HTNPrimitiveTask
+      preconditions:
+      - !type:KeyExistsPrecondition
+        key: Target
+      - !type:TargetInRangePrecondition
+        targetKey: Target
+        # TODO: Non-scuffed
+        rangeKey: RangedRange
+      - !type:TargetInLOSPrecondition
+        targetKey: Target
+        rangeKey: RangedRange
+      operator: !type:GunOperator
+        targetKey: Target
+        requireLOS: true
+      services:
+      - !type:UtilityService
+        id: RangedService
+        proto: NearbyGunTargets
+        key: Target
+  - tasks:
+    - !type:HTNPrimitiveTask
+      operator: !type:UtilityOperator
+        proto: NearbyShuttleDeedGridTargets
+    - !type:HTNCompoundTask
+      task: ShuttleDeedTurretAttackCompound
+  # Fallback: return to forward-facing position when no targets
+  - tasks:
+    - !type:HTNCompoundTask
+      task: TurretReturnForward
 
 # Return turret to forward-facing position
 - type: htnCompound
@@ -75,38 +75,38 @@
 - type: htnCompound
   id: MountedTurretCompound
   branches:
-    - tasks:
-        - !type:HTNPrimitiveTask
-          operator: !type:UtilityOperator
-            proto: NearbyGunTargets
+  - tasks:
+    - !type:HTNPrimitiveTask
+      operator: !type:UtilityOperator
+        proto: NearbyGunTargets
 
-        - !type:HTNPrimitiveTask
-          preconditions:
-            - !type:KeyExistsPrecondition
-              key: Target
-            - !type:TargetInRangePrecondition
-              targetKey: Target
-              rangeKey: RangedRange
-            - !type:TargetInLOSPrecondition
-              targetKey: Target
-              rangeKey: RangedRange
-          operator: !type:GunOperator
-            targetKey: Target
-            requireLOS: true
-          services:
-            - !type:UtilityService
-              id: RangedService
-              proto: NearbyGunTargets
-              key: Target
-    - tasks:
-      - !type:HTNPrimitiveTask
-        operator: !type:UtilityOperator
-          proto: NearbyShuttleDeedGridTargets
-      - !type:HTNCompoundTask
-        task: MountedTurretAttackCompound
-    - tasks:
-      - !type:HTNCompoundTask
-        task: TurretReturnForward
+    - !type:HTNPrimitiveTask
+      preconditions:
+      - !type:KeyExistsPrecondition
+        key: Target
+      - !type:TargetInRangePrecondition
+        targetKey: Target
+        rangeKey: RangedRange
+      - !type:TargetInLOSPrecondition
+        targetKey: Target
+        rangeKey: RangedRange
+      operator: !type:GunOperator
+        targetKey: Target
+        requireLOS: true
+      services:
+      - !type:UtilityService
+        id: RangedService
+        proto: NearbyGunTargets
+        key: Target
+  - tasks:
+    - !type:HTNPrimitiveTask
+      operator: !type:UtilityOperator
+        proto: NearbyShuttleDeedGridTargets
+    - !type:HTNCompoundTask
+      task: MountedTurretAttackCompound
+  - tasks:
+    - !type:HTNCompoundTask
+      task: TurretReturnForward
 
 # Attack compound for mounted turrets: rotate to face + fire, no ShipMoveTo.
 - type: htnCompound

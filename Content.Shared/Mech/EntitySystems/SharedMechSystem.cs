@@ -1,36 +1,35 @@
 using System.Linq;
+using Content.Shared._NF.Mech.Equipment.Events; // Frontier
 using Content.Shared.Access.Components;
 using Content.Shared.ActionBlocker;
 using Content.Shared.Actions;
 using Content.Shared.Destructible;
 using Content.Shared.DoAfter;
 using Content.Shared.DragDrop;
+// Goobstation Change
+using Content.Shared.Emag.Components;
+using Content.Shared.Emag.Systems;
 using Content.Shared.FixedPoint;
+using Content.Shared.HL.CCVar;
 using Content.Shared.Interaction;
 using Content.Shared.Interaction.Components;
 using Content.Shared.Interaction.Events;
 using Content.Shared.Mech.Components;
 using Content.Shared.Mech.Equipment.Components;
+using Content.Shared.Mobs.Components; // Frontier
 using Content.Shared.Movement.Components;
 using Content.Shared.Movement.Systems;
+using Content.Shared.NPC.Components;
 using Content.Shared.Popups;
 using Content.Shared.Shuttles.BUIStates;
 using Content.Shared.Weapons.Melee;
+using Content.Shared.Weapons.Ranged.Events;
 using Content.Shared.Whitelist;
+using Robust.Shared.Configuration;
 using Robust.Shared.Containers;
 using Robust.Shared.Network;
 using Robust.Shared.Serialization;
 using Robust.Shared.Timing;
-using Content.Shared.Mobs.Components; // Frontier
-using Content.Shared.NPC.Components;
-using Content.Shared._NF.Mech.Equipment.Events; // Frontier
-
-// Goobstation Change
-using Content.Shared.Emag.Components;
-using Content.Shared.Emag.Systems;
-using Content.Shared.Weapons.Ranged.Events;
-using Robust.Shared.Configuration;
-using Content.Shared.HL.CCVar;
 
 namespace Content.Shared.Mech.EntitySystems;
 
@@ -39,18 +38,41 @@ namespace Content.Shared.Mech.EntitySystems;
 /// </summary>
 public abstract class SharedMechSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!;
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SharedInteractionSystem _interaction = default!;
-    [Dependency] private readonly SharedMoverController _mover = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
-    [Dependency] private readonly IConfigurationManager _config = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly INetManager _net = default!;
+
+    [Dependency]
+    private readonly ActionBlockerSystem _actionBlocker = default!;
+
+    [Dependency]
+    private readonly SharedActionsSystem _actions = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly SharedInteractionSystem _interaction = default!;
+
+    [Dependency]
+    private readonly SharedMoverController _mover = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfter = default!;
+
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelistSystem = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _config = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -233,17 +255,19 @@ public abstract class SharedMechSystem : EntitySystem
 
         // Frontier
         if (component.PilotSlot.ContainedEntity != null && component.CurrentSelectedEquipment != null)
-            _actions.RemoveProvidedActions(component.PilotSlot.ContainedEntity.Value, component.CurrentSelectedEquipment.Value);
+            _actions.RemoveProvidedActions(
+                component.PilotSlot.ContainedEntity.Value,
+                component.CurrentSelectedEquipment.Value
+            );
         // End Frontier
 
         equipmentIndex++;
-        component.CurrentSelectedEquipment = equipmentIndex >= allEquipment.Count
-            ? null
-            : allEquipment[equipmentIndex];
+        component.CurrentSelectedEquipment = equipmentIndex >= allEquipment.Count ? null : allEquipment[equipmentIndex];
 
-        var popupString = component.CurrentSelectedEquipment != null
-            ? Loc.GetString("mech-equipment-select-popup", ("item", component.CurrentSelectedEquipment))
-            : Loc.GetString("mech-equipment-select-none-popup");
+        var popupString =
+            component.CurrentSelectedEquipment != null
+                ? Loc.GetString("mech-equipment-select-popup", ("item", component.CurrentSelectedEquipment))
+                : Loc.GetString("mech-equipment-select-none-popup");
 
         if (_net.IsServer)
             _popup.PopupEntity(popupString, uid);
@@ -260,8 +284,12 @@ public abstract class SharedMechSystem : EntitySystem
     /// <param name="toInsert"></param>
     /// <param name="component"></param>
     /// <param name="equipmentComponent"></param>
-    public void InsertEquipment(EntityUid uid, EntityUid toInsert, MechComponent? component = null,
-        MechEquipmentComponent? equipmentComponent = null)
+    public void InsertEquipment(
+        EntityUid uid,
+        EntityUid toInsert,
+        MechComponent? component = null,
+        MechEquipmentComponent? equipmentComponent = null
+    )
     {
         if (!Resolve(uid, ref component))
             return;
@@ -290,8 +318,13 @@ public abstract class SharedMechSystem : EntitySystem
     /// <param name="component"></param>
     /// <param name="equipmentComponent"></param>
     /// <param name="forced">Whether or not the removal can be cancelled</param>
-    public void RemoveEquipment(EntityUid uid, EntityUid toRemove, MechComponent? component = null,
-        MechEquipmentComponent? equipmentComponent = null, bool forced = false)
+    public void RemoveEquipment(
+        EntityUid uid,
+        EntityUid toRemove,
+        MechComponent? component = null,
+        MechEquipmentComponent? equipmentComponent = null,
+        bool forced = false
+    )
     {
         if (!Resolve(uid, ref component))
             return;
@@ -397,9 +430,7 @@ public abstract class SharedMechSystem : EntitySystem
     /// <remarks>
     /// This is defined here so that UI updates can be accessed from shared.
     /// </remarks>
-    public virtual void UpdateUserInterface(EntityUid uid, MechComponent? component = null)
-    {
-    }
+    public virtual void UpdateUserInterface(EntityUid uid, MechComponent? component = null) { }
 
     /// <summary>
     /// Attempts to insert a pilot into the mech.
@@ -408,12 +439,14 @@ public abstract class SharedMechSystem : EntitySystem
     /// <param name="toInsert"></param>
     /// <param name="component"></param>
     /// <returns>Whether or not the entity was inserted</returns>
-    public bool TryInsert(EntityUid uid,
+    public bool TryInsert(
+        EntityUid uid,
         EntityUid? toInsert,
         MechComponent? component = null,
         EntityUid? whitelistUser = null,
         bool bypassMovementCheck = false,
-        bool bypassPilotWhitelist = false)
+        bool bypassPilotWhitelist = false
+    )
     {
         if (!Resolve(uid, ref component))
             return false;
@@ -495,8 +528,7 @@ public abstract class SharedMechSystem : EntitySystem
     // Credit to gluesniffer from Goobstation for this code.
     private void OnShotAttempted(EntityUid uid, MechEquipmentComponent component, ref ShotAttemptedEvent args)
     {
-        if (!component.EquipmentOwner.HasValue
-            || !TryComp<MechComponent>(component.EquipmentOwner.Value, out var mech))
+        if (!component.EquipmentOwner.HasValue || !TryComp<MechComponent>(component.EquipmentOwner.Value, out var mech))
         {
             if (!_config.GetCVar(HLCCVars.MechGunOutsideMech))
                 args.Cancel();
@@ -507,8 +539,11 @@ public abstract class SharedMechSystem : EntitySystem
         RaiseLocalEvent(uid, ev);
     }
 
-    private void UpdateAppearance(EntityUid uid, MechComponent? component = null,
-        AppearanceComponent? appearance = null)
+    private void UpdateAppearance(
+        EntityUid uid,
+        MechComponent? component = null,
+        AppearanceComponent? appearance = null
+    )
     {
         if (!Resolve(uid, ref component, ref appearance, false))
             return;
@@ -524,7 +559,14 @@ public abstract class SharedMechSystem : EntitySystem
 
         args.Handled = true;
 
-        var doAfterEventArgs = new DoAfterArgs(EntityManager, args.Dragged, component.EntryDelay, new MechEntryEvent(), uid, target: uid)
+        var doAfterEventArgs = new DoAfterArgs(
+            EntityManager,
+            args.Dragged,
+            component.EntryDelay,
+            new MechEntryEvent(),
+            uid,
+            target: uid
+        )
         {
             BreakOnMove = true,
         };
@@ -547,11 +589,12 @@ public abstract class SharedMechSystem : EntitySystem
             var ev = new MechEquipmentEquippedAction
             {
                 Mech = ent,
-                Pilot = pilot ?? ent.Comp.PilotSlot.ContainedEntity
+                Pilot = pilot ?? ent.Comp.PilotSlot.ContainedEntity,
             };
             RaiseLocalEvent(ent.Comp.CurrentSelectedEquipment.Value, ev);
         }
     }
+
     // End Frontier
 
     private void OnEmagged(EntityUid uid, MechComponent component, ref GotEmaggedEvent args) // Goobstation
@@ -569,35 +612,26 @@ public abstract class SharedMechSystem : EntitySystem
 ///     on both success and failure
 /// </summary>
 [Serializable, NetSerializable]
-public sealed partial class RemoveBatteryEvent : SimpleDoAfterEvent
-{
-}
+public sealed partial class RemoveBatteryEvent : SimpleDoAfterEvent { }
 
 /// <summary>
 ///     Event raised when a person removes someone from a mech,
 ///     on both success and failure
 /// </summary>
 [Serializable, NetSerializable]
-public sealed partial class MechExitEvent : SimpleDoAfterEvent
-{
-}
+public sealed partial class MechExitEvent : SimpleDoAfterEvent { }
 
 /// <summary>
 ///     Event raised when a person enters a mech, on both success and failure
 /// </summary>
 [Serializable, NetSerializable]
-public sealed partial class MechEntryEvent : SimpleDoAfterEvent
-{
-}
+public sealed partial class MechEntryEvent : SimpleDoAfterEvent { }
 
 /// <summary>
 ///     Event raised when an user attempts to fire a mech weapon to check if its battery is drained
 /// </summary>
-
 [Serializable, NetSerializable]
-public sealed partial class HandleMechEquipmentBatteryEvent : EntityEventArgs
-{
-}
+public sealed partial class HandleMechEquipmentBatteryEvent : EntityEventArgs { }
 
 [Serializable, NetSerializable]
 public sealed partial class MechOpenRadarEvent : EntityEventArgs

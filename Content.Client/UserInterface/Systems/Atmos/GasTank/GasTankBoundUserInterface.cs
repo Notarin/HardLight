@@ -12,16 +12,12 @@ namespace Content.Client.UserInterface.Systems.Atmos.GasTank
         [ViewVariables]
         private GasTankWindow? _window;
 
-        public GasTankBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-        {
-        }
+        public GasTankBoundUserInterface(EntityUid owner, Enum uiKey)
+            : base(owner, uiKey) { }
 
         public void SetOutputPressure(float value)
         {
-            SendPredictedMessage(new GasTankSetPressureMessage
-            {
-                Pressure = value
-            });
+            SendPredictedMessage(new GasTankSetPressureMessage { Pressure = value });
         }
 
         public void ToggleInternals()

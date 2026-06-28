@@ -24,7 +24,8 @@ public sealed class NanoChatUiState : BoundUserInterfaceState
         uint ownNumber,
         int maxRecipients,
         bool notificationsMuted,
-        bool listNumber)
+        bool listNumber
+    )
     {
         Recipients = recipients;
         Messages = messages;

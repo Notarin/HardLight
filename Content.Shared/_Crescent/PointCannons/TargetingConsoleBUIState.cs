@@ -8,6 +8,7 @@ namespace Content.Shared.PointCannons;
 public sealed class TargetingConsoleBoundUserInterfaceState : BoundUserInterfaceState
 {
     public NavInterfaceState NavState;
+
     // public IFFInterfaceState IFFState; // TODO: Implement IFF system
     public List<string>? CannonGroups;
     public List<NetEntity>? ControlledCannons;
@@ -16,7 +17,8 @@ public sealed class TargetingConsoleBoundUserInterfaceState : BoundUserInterface
         NavInterfaceState navState,
         // IFFInterfaceState iffState,
         List<string>? groups,
-        List<NetEntity>? controlled)
+        List<NetEntity>? controlled
+    )
     {
         NavState = navState;
         // IFFState = iffState;

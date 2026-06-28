@@ -86,7 +86,11 @@ namespace Content.IntegrationTests.Tests.Interaction
                 });
 
                 // Move them out of range
-                xformSys.SetLocalPosition(origin, xform.LocalPosition + new Vector2(InteractionRangeDivided15 + HumanRadius * 2f, 0f), xform);
+                xformSys.SetLocalPosition(
+                    origin,
+                    xform.LocalPosition + new Vector2(InteractionRangeDivided15 + HumanRadius * 2f, 0f),
+                    xform
+                );
 
                 Assert.Multiple(() =>
                 {
@@ -105,8 +109,12 @@ namespace Content.IntegrationTests.Tests.Interaction
                     Assert.That(interactionSys.InRangeUnobstructed(other, origin, InteractionRangeDivided15Times3));
 
                     // Entity <-> MapCoordinates
-                    Assert.That(interactionSys.InRangeUnobstructed(origin, mapCoordinates, InteractionRangeDivided15Times3));
-                    Assert.That(interactionSys.InRangeUnobstructed(mapCoordinates, origin, InteractionRangeDivided15Times3));
+                    Assert.That(
+                        interactionSys.InRangeUnobstructed(origin, mapCoordinates, InteractionRangeDivided15Times3)
+                    );
+                    Assert.That(
+                        interactionSys.InRangeUnobstructed(mapCoordinates, origin, InteractionRangeDivided15Times3)
+                    );
                 });
             });
 

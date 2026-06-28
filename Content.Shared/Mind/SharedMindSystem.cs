@@ -1,5 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using Content.Shared._Starlight.Language.Components; // Starlight-edit
+using Content.Shared._Starlight.Language.Systems; // Starlight-edit
 using Content.Shared.Administration.Logs;
 using Content.Shared.Database;
 using Content.Shared.Emoting;
@@ -7,38 +9,55 @@ using Content.Shared.Examine;
 using Content.Shared.GameTicking;
 using Content.Shared.Humanoid;
 using Content.Shared.Interaction.Events;
-using Content.Shared.Movement.Components;
 using Content.Shared.Mind.Components;
 using Content.Shared.Mind.Filters; // Starlight
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
+using Content.Shared.Movement.Components;
 using Content.Shared.Objectives.Systems;
 using Content.Shared.Players;
 using Content.Shared.Speech;
-using Content.Shared._Starlight.Language.Systems; // Starlight-edit
-using Content.Shared._Starlight.Language.Components; // Starlight-edit
 using Content.Shared.Whitelist;
+using Robust.Shared.Enums;
 using Robust.Shared.Map;
 using Robust.Shared.Network;
 using Robust.Shared.Player;
 using Robust.Shared.Random; // Starlight
 using Robust.Shared.Utility;
-using Robust.Shared.Enums;
 
 namespace Content.Shared.Mind;
 
 public abstract partial class SharedMindSystem : EntitySystem
 {
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly IRobustRandom _random = default!; // Starlight
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly SharedObjectivesSystem _objectives = default!;
-    [Dependency] private readonly SharedPlayerSystem _player = default!;
-    [Dependency] private readonly ISharedPlayerManager _playerManager = default!;
-    [Dependency] private readonly MetaDataSystem _metadata = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!;
-    [Dependency] private readonly SharedLanguageSystem _language = default!; // Starlight-edit
+    [Dependency]
+    private readonly ISharedAdminLogManager _adminLogger = default!;
+
+    [Dependency]
+    private readonly INetManager _net = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!; // Starlight
+
+    [Dependency]
+    private readonly MobStateSystem _mobState = default!;
+
+    [Dependency]
+    private readonly SharedObjectivesSystem _objectives = default!;
+
+    [Dependency]
+    private readonly SharedPlayerSystem _player = default!;
+
+    [Dependency]
+    private readonly ISharedPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly MetaDataSystem _metadata = default!;
+
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelist = default!;
+
+    [Dependency]
+    private readonly SharedLanguageSystem _language = default!; // Starlight-edit
 
     [ViewVariables]
     protected readonly Dictionary<NetUserId, EntityUid> UserMinds = new();
@@ -84,7 +103,9 @@ public abstract partial class SharedMindSystem : EntitySystem
             return;
         }
 
-        Log.Error($"Encountered a user {component.UserId} that is already assigned to a mind while initializing mind {ToPrettyString(uid)}. Ignoring user field.");
+        Log.Error(
+            $"Encountered a user {component.UserId} that is already assigned to a mind while initializing mind {ToPrettyString(uid)}. Ignoring user field."
+        );
         component.UserId = null;
     }
 
@@ -108,8 +129,9 @@ public abstract partial class SharedMindSystem : EntitySystem
             return false;
 
         return _playerManager.TryGetSessionById(mind.UserId.Value, out var session)
-               && session.State.Status == SessionStatus.InGame;
+            && session.State.Status == SessionStatus.InGame;
     }
+
     public virtual void WipeAllMinds()
     {
         Log.Info($"Wiping all minds");
@@ -127,10 +149,13 @@ public abstract partial class SharedMindSystem : EntitySystem
         return mind;
     }
 
-    public virtual bool TryGetMind(NetUserId user, [NotNullWhen(true)] out EntityUid? mindId, [NotNullWhen(true)] out MindComponent? mind)
+    public virtual bool TryGetMind(
+        NetUserId user,
+        [NotNullWhen(true)] out EntityUid? mindId,
+        [NotNullWhen(true)] out MindComponent? mind
+    )
     {
-        if (UserMinds.TryGetValue(user, out var mindIdValue) &&
-            TryComp(mindIdValue, out mind))
+        if (UserMinds.TryGetValue(user, out var mindIdValue) && TryComp(mindIdValue, out mind))
         {
             DebugTools.Assert(mind.UserId == user);
 
@@ -191,13 +216,17 @@ public abstract partial class SharedMindSystem : EntitySystem
         // 5. Alive + No Session: Player disconnected while alive (SSD)
 
         if (dead && hasUserId == null)
-            args.PushMarkup($"[color=mediumpurple]{Loc.GetString("comp-mind-examined-dead-and-irrecoverable", ("ent", uid))}[/color]");
+            args.PushMarkup(
+                $"[color=mediumpurple]{Loc.GetString("comp-mind-examined-dead-and-irrecoverable", ("ent", uid))}[/color]"
+            );
         else if (dead && !hasActiveSession)
             args.PushMarkup($"[color=yellow]{Loc.GetString("comp-mind-examined-dead-and-ssd", ("ent", uid))}[/color]");
         else if (dead)
             args.PushMarkup($"[color=red]{Loc.GetString("comp-mind-examined-dead", ("ent", uid))}[/color]");
         else if (hasUserId == null)
-            args.PushMarkup($"[color=mediumpurple]{Loc.GetString("comp-mind-examined-catatonic", ("ent", uid))}[/color]");
+            args.PushMarkup(
+                $"[color=mediumpurple]{Loc.GetString("comp-mind-examined-catatonic", ("ent", uid))}[/color]"
+            );
         else if (!hasActiveSession)
             args.PushMarkup($"[color=yellow]{Loc.GetString("comp-mind-examined-ssd", ("ent", uid))}[/color]");
     }
@@ -273,16 +302,12 @@ public abstract partial class SharedMindSystem : EntitySystem
         return _mobState.IsDead(mind.OwnedEntity.Value, targetMobState);
     }
 
-    public virtual void Visit(EntityUid mindId, EntityUid entity, MindComponent? mind = null)
-    {
-    }
+    public virtual void Visit(EntityUid mindId, EntityUid entity, MindComponent? mind = null) { }
 
     /// <summary>
     /// Returns the mind to its original entity.
     /// </summary>
-    public virtual void UnVisit(EntityUid mindId, MindComponent? mind = null)
-    {
-    }
+    public virtual void UnVisit(EntityUid mindId, MindComponent? mind = null) { }
 
     /// <summary>
     /// Returns the mind to its original entity.
@@ -333,7 +358,7 @@ public abstract partial class SharedMindSystem : EntitySystem
         if (mindId == null || !Resolve(mindId.Value, ref mind, false))
             return;
 
-        TransferTo(mindId.Value, null, createGhost:false, mind: mind);
+        TransferTo(mindId.Value, null, createGhost: false, mind: mind);
         SetUserId(mindId.Value, null, mind: mind);
 
         if (mind.Objectives.Count > 0)
@@ -373,13 +398,17 @@ public abstract partial class SharedMindSystem : EntitySystem
     /// <exception cref="ArgumentException">
     ///     Thrown if <paramref name="entity"/> is already controlled by another player.
     /// </exception>
-    public virtual void TransferTo(EntityUid mindId, EntityUid? entity, bool ghostCheckOverride = false, bool createGhost = true, MindComponent? mind = null)
-    {
-    }
+    public virtual void TransferTo(
+        EntityUid mindId,
+        EntityUid? entity,
+        bool ghostCheckOverride = false,
+        bool createGhost = true,
+        MindComponent? mind = null
+    ) { }
 
-    public virtual void ControlMob(EntityUid user, EntityUid target) {}
+    public virtual void ControlMob(EntityUid user, EntityUid target) { }
 
-    public virtual void ControlMob(NetUserId user, EntityUid target) {}
+    public virtual void ControlMob(NetUserId user, EntityUid target) { }
 
     /// <summary>
     /// Tries to create and add an objective from its prototype id.
@@ -401,7 +430,11 @@ public abstract partial class SharedMindSystem : EntitySystem
     public void AddObjective(EntityUid mindId, MindComponent mind, EntityUid objective)
     {
         var title = Name(objective);
-        _adminLogger.Add(LogType.Mind, LogImpact.Low, $"Objective {objective} ({title}) added to mind of {MindOwnerLoggingString(mind)}");
+        _adminLogger.Add(
+            LogType.Mind,
+            LogImpact.Low,
+            $"Objective {objective} ({title}) added to mind of {MindOwnerLoggingString(mind)}"
+        );
         mind.Objectives.Add(objective);
     }
 
@@ -417,7 +450,11 @@ public abstract partial class SharedMindSystem : EntitySystem
         var objective = mind.Objectives[index];
 
         var title = Name(objective);
-        _adminLogger.Add(LogType.Mind, LogImpact.Low, $"Objective {objective} ({title}) removed from the mind of {MindOwnerLoggingString(mind)}");
+        _adminLogger.Add(
+            LogType.Mind,
+            LogImpact.Low,
+            $"Objective {objective} ({title}) removed from the mind of {MindOwnerLoggingString(mind)}"
+        );
         mind.Objectives.Remove(objective);
 
         // garbage collection - only delete the objective entity if no mind uses it anymore
@@ -433,7 +470,8 @@ public abstract partial class SharedMindSystem : EntitySystem
         return true;
     }
 
-    public bool TryGetObjectiveComp<T>(EntityUid uid, [NotNullWhen(true)] out T? objective) where T : IComponent
+    public bool TryGetObjectiveComp<T>(EntityUid uid, [NotNullWhen(true)] out T? objective)
+        where T : IComponent
     {
         if (TryGetMind(uid, out var mindId, out var mind) && TryGetObjectiveComp(mindId, out objective, mind))
         {
@@ -443,7 +481,12 @@ public abstract partial class SharedMindSystem : EntitySystem
         return false;
     }
 
-    public bool TryGetObjectiveComp<T>(EntityUid mindId, [NotNullWhen(true)] out T? objective, MindComponent? mind = null) where T : IComponent
+    public bool TryGetObjectiveComp<T>(
+        EntityUid mindId,
+        [NotNullWhen(true)] out T? objective,
+        MindComponent? mind = null
+    )
+        where T : IComponent
     {
         if (Resolve(mindId, ref mind))
         {
@@ -472,7 +515,12 @@ public abstract partial class SharedMindSystem : EntitySystem
     /// <param name="target"> mind entity of the player to copy to </param>
     /// <param name="except"> whitelist for objectives that should be copied </param>
     /// <param name="except"> blacklist for objectives that should not be copied </param>
-    public void CopyObjectives(Entity<MindComponent?> source, Entity<MindComponent?> target, EntityWhitelist? whitelist = null, EntityWhitelist? blacklist = null)
+    public void CopyObjectives(
+        Entity<MindComponent?> source,
+        Entity<MindComponent?> target,
+        EntityWhitelist? whitelist = null,
+        EntityWhitelist? blacklist = null
+    )
     {
         if (!Resolve(source, ref source.Comp) || !Resolve(target, ref target.Comp))
             return;
@@ -493,7 +541,11 @@ public abstract partial class SharedMindSystem : EntitySystem
     /// <remarks>
     /// Will not work for objectives that have no prototype, or duplicate objectives with the same prototype.
     /// <//remarks>
-    public bool TryFindObjective(Entity<MindComponent?> mind, string prototype, [NotNullWhen(true)] out EntityUid? objective)
+    public bool TryFindObjective(
+        Entity<MindComponent?> mind,
+        string prototype,
+        [NotNullWhen(true)] out EntityUid? objective
+    )
     {
         objective = null;
         if (!Resolve(mind, ref mind.Comp))
@@ -524,7 +576,8 @@ public abstract partial class SharedMindSystem : EntitySystem
         out EntityUid mindId,
         [NotNullWhen(true)] out MindComponent? mind,
         MindContainerComponent? container = null,
-        VisitingMindComponent? visitingmind = null)
+        VisitingMindComponent? visitingmind = null
+    )
     {
         mindId = default;
         mind = null;
@@ -547,10 +600,7 @@ public abstract partial class SharedMindSystem : EntitySystem
     }
 
     // TODO MIND make this return a nullable EntityUid or Entity<MindComponent>
-    public bool TryGetMind(
-        ICommonSession? player,
-        out EntityUid mindId,
-        [NotNullWhen(true)] out MindComponent? mind)
+    public bool TryGetMind(ICommonSession? player, out EntityUid mindId, [NotNullWhen(true)] out MindComponent? mind)
     {
         if (player == null)
         {
@@ -574,9 +624,7 @@ public abstract partial class SharedMindSystem : EntitySystem
     /// entity that any mind is connected to, except as a side effect of the fact that it may change a player's
     /// attached entity. E.g., ghosts get deleted.
     /// </summary>
-    public virtual void SetUserId(EntityUid mindId, NetUserId? userId, MindComponent? mind = null)
-    {
-    }
+    public virtual void SetUserId(EntityUid mindId, NetUserId? userId, MindComponent? mind = null) { }
 
     /// <summary>
     ///     True if this Mind is 'sufficiently dead' IC (Objectives, EndText).
@@ -671,7 +719,11 @@ public abstract partial class SharedMindSystem : EntitySystem
         {
             // the player needs to have a mind and not be the excluded one +
             // the player has to be alive
-            if (!TryGetMind(uid, out var mind, out var mindComp) || mind == exclude || !_mobState.IsAlive(uid, mobState))
+            if (
+                !TryGetMind(uid, out var mind, out var mindComp)
+                || mind == exclude
+                || !_mobState.IsAlive(uid, mobState)
+            )
                 continue;
 
             allHumans.Add((mind, mindComp));

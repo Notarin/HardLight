@@ -15,10 +15,17 @@ namespace Content.Client.Weather;
 
 public sealed class WeatherSystem : SharedWeatherSystem
 {
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly AudioSystem _audio = default!;
-    [Dependency] private readonly MapSystem _mapSystem = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly AudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly MapSystem _mapSystem = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
 
     public override void Initialize()
     {
@@ -82,22 +89,25 @@ public sealed class WeatherSystem : SharedWeatherSystem
                     {
                         for (var y = -1; y <= 1; y++)
                         {
-                            if (Math.Abs(x) == 1 && Math.Abs(y) == 1 ||
-                                x == 0 && y == 0 ||
-                                (new Vector2(x, y) + node.GridIndices - seed.GridIndices).Length() > 3)
+                            if (
+                                Math.Abs(x) == 1 && Math.Abs(y) == 1
+                                || x == 0 && y == 0
+                                || (new Vector2(x, y) + node.GridIndices - seed.GridIndices).Length() > 3
+                            )
                             {
                                 continue;
                             }
 
-                            frontier.Enqueue(_mapSystem.GetTileRef(gridId, grid, new Vector2i(x, y) + node.GridIndices));
+                            frontier.Enqueue(
+                                _mapSystem.GetTileRef(gridId, grid, new Vector2i(x, y) + node.GridIndices)
+                            );
                         }
                     }
 
                     continue;
                 }
 
-                nearestNode = new EntityCoordinates(entXform.GridUid.Value,
-                    node.GridIndices + grid.TileSizeHalfVector);
+                nearestNode = new EntityCoordinates(entXform.GridUid.Value, node.GridIndices + grid.TileSizeHalfVector);
                 break;
             }
 
@@ -122,7 +132,13 @@ public sealed class WeatherSystem : SharedWeatherSystem
         comp.Occlusion = occlusion;
     }
 
-    protected override bool SetState(EntityUid uid, WeatherState state, WeatherComponent comp, WeatherData weather, WeatherPrototype weatherProto)
+    protected override bool SetState(
+        EntityUid uid,
+        WeatherState state,
+        WeatherComponent comp,
+        WeatherData weather,
+        WeatherPrototype weatherProto
+    )
     {
         if (!base.SetState(uid, state, comp, weather, weatherProto))
             return false;

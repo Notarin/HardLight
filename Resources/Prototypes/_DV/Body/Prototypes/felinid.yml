@@ -23,7 +23,7 @@
         heart: OrganAnimalHeart
         lungs: OrganHumanLungs
         stomach: OrganVulpkaninStomach
-        liver:  OrganAnimalLiver
+        liver: OrganAnimalLiver
         kidneys: OrganHumanKidneys
         dermis: OrganCrescentDummy
     right arm:

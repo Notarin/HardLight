@@ -10,7 +10,8 @@ namespace Content.IntegrationTests.Tests
     public sealed class InventoryHelpersTest
     {
         [TestPrototypes]
-        private const string Prototypes = @"
+        private const string Prototypes =
+            @"
 - type: entity
   name: InventoryStunnableDummy
   id: InventoryStunnableDummy
@@ -38,6 +39,7 @@ namespace Content.IntegrationTests.Tests
     - idcard
   - type: Pda
 ";
+
         [Test]
         public async Task SpawnItemInSlotTest()
         {
@@ -64,10 +66,10 @@ namespace Content.IntegrationTests.Tests
 #pragma warning disable NUnit2045
                 // Do we actually have the uniform equipped?
                 Assert.That(invSystem.TryGetSlotEntity(human, "jumpsuit", out var uniform));
-                Assert.That(sEntities.GetComponent<MetaDataComponent>(uniform.Value).EntityPrototype is
-                {
-                    ID: "InventoryJumpsuitJanitorDummy"
-                });
+                Assert.That(
+                    sEntities.GetComponent<MetaDataComponent>(uniform.Value).EntityPrototype
+                        is { ID: "InventoryJumpsuitJanitorDummy" }
+                );
 #pragma warning restore NUnit2045
 
                 systemMan.GetEntitySystem<StunSystem>().TryStun(human, TimeSpan.FromSeconds(1f), true);
@@ -82,10 +84,10 @@ namespace Content.IntegrationTests.Tests
                 // Let's try skipping the interaction check and see if it equips it!
                 Assert.That(invSystem.SpawnItemInSlot(human, "id", "InventoryIDCardDummy", true, true));
                 Assert.That(invSystem.TryGetSlotEntity(human, "id", out var idUid));
-                Assert.That(sEntities.GetComponent<MetaDataComponent>(idUid.Value).EntityPrototype is
-                {
-                    ID: "InventoryIDCardDummy"
-                });
+                Assert.That(
+                    sEntities.GetComponent<MetaDataComponent>(idUid.Value).EntityPrototype
+                        is { ID: "InventoryIDCardDummy" }
+                );
 #pragma warning restore NUnit2045
                 sEntities.DeleteEntity(human);
             });

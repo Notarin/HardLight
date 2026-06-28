@@ -1,16 +1,21 @@
 using Content.Server._Funkystation.Genetics.Mutations.Components;
+using Content.Shared.Damage.Components;
+using Content.Shared.Damage.Systems;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
-using Content.Shared.Damage.Systems;
-using Content.Shared.Damage.Components;
 
 namespace Content.Server._Funkystation.Genetics.Mutations.Systems;
 
 public sealed class MutationStupefactionSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedStaminaSystem _stamina = default!; // HardLight: StaminSystem<SharedStaminaSystem
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly SharedStaminaSystem _stamina = default!; // HardLight: StaminSystem<SharedStaminaSystem
 
     public override void Initialize()
     {

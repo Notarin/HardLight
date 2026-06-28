@@ -1,5 +1,5 @@
-using Robust.Shared.Prototypes;
 using Content.Shared.Damage.Prototypes;
+using Robust.Shared.Prototypes;
 
 namespace Content.Server._Funkystation.Genetics.Mutations.Components;
 

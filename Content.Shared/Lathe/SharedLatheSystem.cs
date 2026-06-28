@@ -17,9 +17,14 @@ namespace Content.Shared.Lathe;
 /// </summary>
 public abstract class SharedLatheSystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly SharedMaterialStorageSystem _materialStorage = default!;
-    [Dependency] private readonly EmagSystem _emag = default!;
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private readonly SharedMaterialStorageSystem _materialStorage = default!;
+
+    [Dependency]
+    private readonly EmagSystem _emag = default!;
 
     public readonly Dictionary<string, List<LatheRecipePrototype>> InverseRecipes = new();
 
@@ -57,7 +62,10 @@ public abstract class SharedLatheSystem : EntitySystem
     /// <summary>
     /// Add every recipe in the list of recipe packs to a single hashset.
     /// </summary>
-    public void AddRecipesFromPacks(HashSet<ProtoId<LatheRecipePrototype>> recipes, IEnumerable<ProtoId<LatheRecipePackPrototype>> packs)
+    public void AddRecipesFromPacks(
+        HashSet<ProtoId<LatheRecipePrototype>> recipes,
+        IEnumerable<ProtoId<LatheRecipePackPrototype>> packs
+    )
     {
         foreach (var id in packs)
         {
@@ -76,13 +84,13 @@ public abstract class SharedLatheSystem : EntitySystem
 
         if (ent.Comp.ProductValueModifier != null) // Frontier
             args.PushMarkup(Loc.GetString($"lathe-product-value-modifier", ("modifier", ent.Comp.ProductValueModifier))); // Frontier
-
     }
 
     [PublicAPI]
     public bool CanProduce(EntityUid uid, string recipe, int amount = 1, LatheComponent? component = null)
     {
-        return _proto.TryIndex<LatheRecipePrototype>(recipe, out var proto) && CanProduce(uid, proto, amount, component);
+        return _proto.TryIndex<LatheRecipePrototype>(recipe, out var proto)
+            && CanProduce(uid, proto, amount, component);
     }
 
     public bool CanProduce(EntityUid uid, LatheRecipePrototype recipe, int amount = 1, LatheComponent? component = null)
@@ -97,7 +105,11 @@ public abstract class SharedLatheSystem : EntitySystem
 
         foreach (var (material, needed) in recipe.Materials)
         {
-            var adjustedAmount = AdjustMaterial(needed, recipe.ApplyMaterialDiscount, component.FinalMaterialUseMultiplier); // Frontier: FinalMaterialUseMultiplier<MaterialUseMultiplier
+            var adjustedAmount = AdjustMaterial(
+                needed,
+                recipe.ApplyMaterialDiscount,
+                component.FinalMaterialUseMultiplier
+            ); // Frontier: FinalMaterialUseMultiplier<MaterialUseMultiplier
 
             if (_materialStorage.GetMaterialAmount(uid, material) < adjustedAmount * amount)
                 return false;
@@ -127,10 +139,11 @@ public abstract class SharedLatheSystem : EntitySystem
 
         args.Handled = true;
     }
+
     // End Frontier: demag
 
-    public static int AdjustMaterial(int original, bool reduce, float multiplier)
-        => reduce ? (int) MathF.Ceiling(original * multiplier) : original;
+    public static int AdjustMaterial(int original, bool reduce, float multiplier) =>
+        reduce ? (int)MathF.Ceiling(original * multiplier) : original;
 
     protected abstract bool HasRecipe(EntityUid uid, LatheRecipePrototype recipe, LatheComponent component);
 
@@ -146,7 +159,7 @@ public abstract class SharedLatheSystem : EntitySystem
         InverseRecipes.Clear();
         foreach (var latheRecipe in _proto.EnumeratePrototypes<LatheRecipePrototype>())
         {
-            if (latheRecipe.Result is not {} result)
+            if (latheRecipe.Result is not { } result)
                 continue;
 
             InverseRecipes.GetOrNew(result).Add(latheRecipe);
@@ -171,16 +184,24 @@ public abstract class SharedLatheSystem : EntitySystem
         if (!string.IsNullOrWhiteSpace(proto.Name))
             return Loc.GetString(proto.Name);
 
-        if (proto.Result is {} result)
+        if (proto.Result is { } result)
         {
             return _proto.Index(result).Name;
         }
 
         if (proto.ResultReagents is { } resultReagents)
         {
-            return ContentLocalizationManager.FormatList(resultReagents
-                .Select(p => Loc.GetString("lathe-menu-result-reagent-display", ("reagent", _proto.Index(p.Key).LocalizedName), ("amount", p.Value)))
-                .ToList());
+            return ContentLocalizationManager.FormatList(
+                resultReagents
+                    .Select(p =>
+                        Loc.GetString(
+                            "lathe-menu-result-reagent-display",
+                            ("reagent", _proto.Index(p.Key).LocalizedName),
+                            ("amount", p.Value)
+                        )
+                    )
+                    .ToList()
+            );
         }
 
         return string.Empty;
@@ -197,7 +218,7 @@ public abstract class SharedLatheSystem : EntitySystem
         if (!string.IsNullOrWhiteSpace(proto.Description))
             return Loc.GetString(proto.Description);
 
-        if (proto.Result is {} result)
+        if (proto.Result is { } result)
         {
             return _proto.Index(result).Description;
         }

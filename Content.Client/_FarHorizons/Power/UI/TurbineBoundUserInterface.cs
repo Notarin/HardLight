@@ -4,12 +4,12 @@
 //
 // SPDX-License-Identifier: CC-BY-NC-SA-3.0
 
+using System.Diagnostics.CodeAnalysis;
 using Content.Client.UserInterface;
 using Content.Shared._FarHorizons.Power.Generation.FissionGenerator;
 using JetBrains.Annotations;
 using Robust.Client.Timing;
 using Robust.Client.UserInterface;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Content.Client._FarHorizons.Power.UI;
 
@@ -19,15 +19,19 @@ namespace Content.Client._FarHorizons.Power.UI;
 [UsedImplicitly]
 public sealed class TurbineBoundUserInterface : BoundUserInterface
 {
-    [Dependency] private readonly IClientGameTiming _gameTiming = null!;
-    [Dependency] private readonly IEntityManager _entityManager = null!;
+    [Dependency]
+    private readonly IClientGameTiming _gameTiming = null!;
+
+    [Dependency]
+    private readonly IEntityManager _entityManager = null!;
 
     [ViewVariables]
     private TurbineWindow? _window;
 
     private BuiPredictionState? _pred;
 
-    public TurbineBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
+    public TurbineBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey)
     {
         IoCManager.InjectDependencies(this);
     }
@@ -36,8 +40,11 @@ public sealed class TurbineBoundUserInterface : BoundUserInterface
     {
         EntityUid? turbineUid = null;
         if (_entityManager.TryGetComponent<GasTurbineMonitorComponent>(Owner, out var turbineMonitorComponent))
-            if (!_entityManager.TryGetEntity(turbineMonitorComponent.turbine, out turbineUid) || turbineUid == null
-                || !_entityManager.HasComponent<TurbineComponent>(turbineUid))
+            if (
+                !_entityManager.TryGetEntity(turbineMonitorComponent.turbine, out turbineUid)
+                || turbineUid == null
+                || !_entityManager.HasComponent<TurbineComponent>(turbineUid)
+            )
                 return;
 
         base.Open();
@@ -67,7 +74,7 @@ public sealed class TurbineBoundUserInterface : BoundUserInterface
             return;
 
         if (!_entityManager.TryGetComponent<TurbineComponent>(Owner, out var comp))
-            if(!TryGetTurbineComp(Owner, out comp))
+            if (!TryGetTurbineComp(Owner, out comp))
                 return;
 
         foreach (var replayMsg in _pred!.MessagesToReplay())

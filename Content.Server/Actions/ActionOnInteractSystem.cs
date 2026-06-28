@@ -13,11 +13,20 @@ namespace Content.Server.Actions;
 /// </summary>
 public sealed class ActionOnInteractSystem : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
-    [Dependency] private readonly ActionContainerSystem _actionContainer = default!;
-    [Dependency] private readonly SharedChargesSystem _charges = default!;
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly SharedActionsSystem _actions = default!;
+
+    [Dependency]
+    private readonly ActionContainerSystem _actionContainer = default!;
+
+    [Dependency]
+    private readonly SharedChargesSystem _charges = default!;
 
     public override void Initialize()
     {
@@ -45,9 +54,9 @@ public sealed class ActionOnInteractSystem : EntitySystem
         if (args.Handled || !args.Complex)
             return;
 
-        if (component.ActionEntities is not {} actionEnts)
+        if (component.ActionEntities is not { } actionEnts)
         {
-            if (!TryComp<ActionsContainerComponent>(uid,  out var actionsContainerComponent))
+            if (!TryComp<ActionsContainerComponent>(uid, out var actionsContainerComponent))
                 return;
 
             actionEnts = actionsContainerComponent.Container.ContainedEntities.ToList();
@@ -70,9 +79,9 @@ public sealed class ActionOnInteractSystem : EntitySystem
         if (args.Handled)
             return;
 
-        if (component.ActionEntities is not {} actionEnts)
+        if (component.ActionEntities is not { } actionEnts)
         {
-            if (!TryComp<ActionsContainerComponent>(uid,  out var actionsContainerComponent))
+            if (!TryComp<ActionsContainerComponent>(uid, out var actionsContainerComponent))
                 return;
 
             actionEnts = actionsContainerComponent.Container.ContainedEntities.ToList();
@@ -157,7 +166,8 @@ public sealed class ActionOnInteractSystem : EntitySystem
         args.Handled = true;
     }
 
-    private List<(EntityUid Id, T Comp)> GetValidActions<T>(List<EntityUid>? actions, bool canReach = true) where T : BaseActionComponent
+    private List<(EntityUid Id, T Comp)> GetValidActions<T>(List<EntityUid>? actions, bool canReach = true)
+        where T : BaseActionComponent
     {
         var valid = new List<(EntityUid Id, T Comp)>();
 
@@ -166,9 +176,11 @@ public sealed class ActionOnInteractSystem : EntitySystem
 
         foreach (var id in actions)
         {
-            if (!_actions.TryGetActionData(id, out var baseAction) ||
-                baseAction as T is not { } action ||
-                !_actions.ValidAction(action, canReach))
+            if (
+                !_actions.TryGetActionData(id, out var baseAction)
+                || baseAction as T is not { } action
+                || !_actions.ValidAction(action, canReach)
+            )
             {
                 continue;
             }

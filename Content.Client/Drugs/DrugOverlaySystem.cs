@@ -10,8 +10,11 @@ namespace Content.Client.Drugs;
 /// </summary>
 public sealed class DrugOverlaySystem : EntitySystem
 {
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IOverlayManager _overlayMan = default!;
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
+
+    [Dependency]
+    private readonly IOverlayManager _overlayMan = default!;
 
     private RainbowOverlay _rainbowOverlay = default!;
     private AbyssalOverlay _abyssalOverlay = default!;
@@ -38,12 +41,20 @@ public sealed class DrugOverlaySystem : EntitySystem
     }
 
     // Rainbow overlay events
-    private void OnRainbowPlayerAttached(EntityUid uid, SeeingRainbowsComponent component, LocalPlayerAttachedEvent args)
+    private void OnRainbowPlayerAttached(
+        EntityUid uid,
+        SeeingRainbowsComponent component,
+        LocalPlayerAttachedEvent args
+    )
     {
         _overlayMan.AddOverlay(_rainbowOverlay);
     }
 
-    private void OnRainbowPlayerDetached(EntityUid uid, SeeingRainbowsComponent component, LocalPlayerDetachedEvent args)
+    private void OnRainbowPlayerDetached(
+        EntityUid uid,
+        SeeingRainbowsComponent component,
+        LocalPlayerDetachedEvent args
+    )
     {
         _rainbowOverlay.Intoxication = 0;
         _rainbowOverlay.TimeTicker = 0;
@@ -67,12 +78,20 @@ public sealed class DrugOverlaySystem : EntitySystem
     }
 
     // Abyssal overlay events
-    private void OnAbyssalPlayerAttached(EntityUid uid, AbyssalWhispersComponent component, LocalPlayerAttachedEvent args)
+    private void OnAbyssalPlayerAttached(
+        EntityUid uid,
+        AbyssalWhispersComponent component,
+        LocalPlayerAttachedEvent args
+    )
     {
         _overlayMan.AddOverlay(_abyssalOverlay);
     }
 
-    private void OnAbyssalPlayerDetached(EntityUid uid, AbyssalWhispersComponent component, LocalPlayerDetachedEvent args)
+    private void OnAbyssalPlayerDetached(
+        EntityUid uid,
+        AbyssalWhispersComponent component,
+        LocalPlayerDetachedEvent args
+    )
     {
         _abyssalOverlay.Intoxication = 0;
         _abyssalOverlay.TimeTicker = 0;

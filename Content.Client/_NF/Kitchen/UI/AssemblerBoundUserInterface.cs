@@ -23,7 +23,8 @@ namespace Content.Client._NF.Kitchen.UI
         private readonly string _menuTitle;
         private readonly string _leftFlavorText;
 
-        public AssemblerBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
+        public AssemblerBoundUserInterface(EntityUid owner, Enum uiKey)
+            : base(owner, uiKey)
         {
             if ((MicrowaveUiKey)uiKey == MicrowaveUiKey.MedicalAssemblerKey)
             {
@@ -45,7 +46,9 @@ namespace Content.Client._NF.Kitchen.UI
             _menu.EjectButton.OnPressed += _ => SendPredictedMessage(new MicrowaveEjectMessage());
             _menu.IngredientsList.OnItemSelected += args =>
             {
-                SendPredictedMessage(new MicrowaveEjectSolidIndexedMessage(EntMan.GetNetEntity(_solids[args.ItemIndex])));
+                SendPredictedMessage(
+                    new MicrowaveEjectSolidIndexedMessage(EntMan.GetNetEntity(_solids[args.ItemIndex]))
+                );
             };
 
             _menu.Title = Loc.GetString(_menuTitle);
@@ -89,7 +92,8 @@ namespace Content.Client._NF.Kitchen.UI
         {
             _reagents.Clear();
 
-            if (_menu == null) return;
+            if (_menu == null)
+                return;
 
             _solids.Clear();
             _menu.IngredientsList.Clear();
@@ -116,7 +120,10 @@ namespace Content.Client._NF.Kitchen.UI
                     continue;
                 }
 
-                var solidItem = _menu.IngredientsList.AddItem(EntMan.GetComponent<MetaDataComponent>(entity).EntityName, texture);
+                var solidItem = _menu.IngredientsList.AddItem(
+                    EntMan.GetComponent<MetaDataComponent>(entity).EntityName,
+                    texture
+                );
                 var solidIndex = _menu.IngredientsList.IndexOf(solidItem);
                 _solids.Add(solidIndex, entity);
             }

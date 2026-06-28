@@ -1,7 +1,7 @@
 - type: entity
   name: toilet
   id: BaseToilet
-  parent: [ DisposalUnitBase, SeatBase ]
+  parent: [DisposalUnitBase, SeatBase]
   description: The HT-451, a torque rotation-based, waste disposal unit for small matter. This one seems remarkably clean.
   abstract: true
   components:
@@ -9,24 +9,24 @@
     sprite: Structures/Furniture/toilet.rsi
     layers:
     - state: condisposal
-      map: [ "enum.DisposalUnitVisualLayers.Unanchored" ]
+      map: ["enum.DisposalUnitVisualLayers.Unanchored"]
     - state: disposal
-      map: [ "enum.DisposalUnitVisualLayers.Base" ]
+      map: ["enum.DisposalUnitVisualLayers.Base"]
     - state: disposal-charging
-      map: [ "enum.DisposalUnitVisualLayers.BaseCharging" ]
+      map: ["enum.DisposalUnitVisualLayers.BaseCharging"]
     - state: disposal-flush
-      map: [ "enum.DisposalUnitVisualLayers.OverlayFlush" ]
+      map: ["enum.DisposalUnitVisualLayers.OverlayFlush"]
     - state: dispover-charge
-      map: [ "enum.DisposalUnitVisualLayers.OverlayCharging" ]
+      map: ["enum.DisposalUnitVisualLayers.OverlayCharging"]
     - state: dispover-ready
-      map: [ "enum.DisposalUnitVisualLayers.OverlayReady" ]
+      map: ["enum.DisposalUnitVisualLayers.OverlayReady"]
     - state: dispover-full
-      map: [ "enum.DisposalUnitVisualLayers.OverlayFull" ]
+      map: ["enum.DisposalUnitVisualLayers.OverlayFull"]
     - state: dispover-handle
-      map: [ "enum.DisposalUnitVisualLayers.OverlayEngaged" ]
-    - map: [ "ToolOpenableVisualState.StashOpen" ] # Frontier
-    - map: [ "DoorVisualState.DoorOpen" ]
-    - map: [ "SeatVisualState.SeatUp" ]
+      map: ["enum.DisposalUnitVisualLayers.OverlayEngaged"]
+    - map: ["ToolOpenableVisualState.StashOpen"] # Frontier
+    - map: ["DoorVisualState.DoorOpen"]
+    - map: ["SeatVisualState.SeatUp"]
   - type: Rotatable
   - type: Transform
     noRot: false
@@ -37,7 +37,7 @@
   - type: DisposalUnit
     blacklist:
       components:
-#      - HumanoidAppearance # Frontier - Allow goblins to jump inside.
+      #      - HumanoidAppearance # Frontier - Allow goblins to jump inside.
       - Plunger
       - SolutionTransfer
       - EntityStorage
@@ -57,8 +57,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.4
         density: 190
         mask:
@@ -103,12 +102,12 @@
     visuals:
       enum.ToiletVisuals.SeatVisualState:
         SeatVisualState.SeatUp:
-          SeatUp: { state: disposal-up }
-          SeatDown: { state: disposal-down }
+          SeatUp: {state: disposal-up}
+          SeatDown: {state: disposal-down}
       enum.ToolOpenableVisuals.ToolOpenableVisualState:
         ToolOpenableVisualState.StashOpen:
-          Open: { state: disposal-open }
-          Closed: { state: disposal-closed }
+          Open: {state: disposal-open}
+          Closed: {state: disposal-closed}
 
 - type: entity
   name: toilet
@@ -153,14 +152,12 @@
     price: 1500
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 200
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:DoActsBehavior

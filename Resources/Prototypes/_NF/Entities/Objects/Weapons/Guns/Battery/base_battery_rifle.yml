@@ -1,7 +1,7 @@
 #region frame
 - type: entity
   id: NFBaseWeaponFrameEnergyRifle
-  parent: [ NFBaseWeaponEncumbranceRifle, BaseWeaponBattery ]
+  parent: [NFBaseWeaponEncumbranceRifle, BaseWeaponBattery]
   suffix: Frontier
   abstract: true
   components:
@@ -38,8 +38,8 @@
     sprintModifier: 0.8
   # - type: CursorOffsetRequiresWield
   # - type: EyeCursorOffset
-    # maxOffset: 5
-    # pvsIncrease: 0.5
+  # maxOffset: 5
+  # pvsIncrease: 0.5
   - type: Battery # Default: 30 shots with 80 fireCost
     maxCharge: 2400
     startingCharge: 2400

@@ -10,21 +10,30 @@ using Content.Shared.Atmos.Piping.Binary.Systems;
 using Content.Shared.Atmos.Piping.Components;
 using Content.Shared.Audio;
 using Content.Shared.DeviceNetwork;
+using Content.Shared.DeviceNetwork.Components;
 using Content.Shared.DeviceNetwork.Events;
 using JetBrains.Annotations;
 using Robust.Server.GameObjects;
-using Content.Shared.DeviceNetwork.Components;
 
 namespace Content.Server.Atmos.Piping.Binary.EntitySystems
 {
     [UsedImplicitly]
     public sealed class GasVolumePumpSystem : SharedGasVolumePumpSystem
     {
-        [Dependency] private readonly AtmosphereSystem _atmosphereSystem = default!;
-        [Dependency] private readonly UserInterfaceSystem _userInterfaceSystem = default!;
-        [Dependency] private readonly SharedAmbientSoundSystem _ambientSoundSystem = default!;
-        [Dependency] private readonly NodeContainerSystem _nodeContainer = default!;
-        [Dependency] private readonly DeviceNetworkSystem _deviceNetwork = default!;
+        [Dependency]
+        private readonly AtmosphereSystem _atmosphereSystem = default!;
+
+        [Dependency]
+        private readonly UserInterfaceSystem _userInterfaceSystem = default!;
+
+        [Dependency]
+        private readonly SharedAmbientSoundSystem _ambientSoundSystem = default!;
+
+        [Dependency]
+        private readonly NodeContainerSystem _nodeContainer = default!;
+
+        [Dependency]
+        private readonly DeviceNetworkSystem _deviceNetwork = default!;
 
         public override void Initialize()
         {
@@ -40,9 +49,17 @@ namespace Content.Server.Atmos.Piping.Binary.EntitySystems
 
         private void OnVolumePumpUpdated(EntityUid uid, GasVolumePumpComponent pump, ref AtmosDeviceUpdateEvent args)
         {
-            if (!pump.Enabled ||
-                (TryComp<ApcPowerReceiverComponent>(uid, out var power) && !power.Powered) ||
-                !_nodeContainer.TryGetNodes(uid, pump.InletName, pump.OutletName, out PipeNode? inlet, out PipeNode? outlet))
+            if (
+                !pump.Enabled
+                || (TryComp<ApcPowerReceiverComponent>(uid, out var power) && !power.Powered)
+                || !_nodeContainer.TryGetNodes(
+                    uid,
+                    pump.InletName,
+                    pump.OutletName,
+                    out PipeNode? inlet,
+                    out PipeNode? outlet
+                )
+            )
             {
                 _ambientSoundSystem.SetAmbience(uid, false);
                 return;
@@ -57,7 +74,10 @@ namespace Content.Server.Atmos.Piping.Binary.EntitySystems
             pump.Blocked = false;
 
             // Pump mechanism won't do anything if the pressure is too high/too low unless you overclock it.
-            if ((inputStartingPressure < pump.LowerThreshold) || (outputStartingPressure > pump.HigherThreshold) && !pump.Overclocked)
+            if (
+                (inputStartingPressure < pump.LowerThreshold)
+                || (outputStartingPressure > pump.HigherThreshold) && !pump.Overclocked
+            )
             {
                 pump.Blocked = true;
             }
@@ -95,7 +115,11 @@ namespace Content.Server.Atmos.Piping.Binary.EntitySystems
             _ambientSoundSystem.SetAmbience(uid, transferredMoles > 0f);
         }
 
-        private void OnVolumePumpLeaveAtmosphere(EntityUid uid, GasVolumePumpComponent pump, ref AtmosDeviceDisabledEvent args)
+        private void OnVolumePumpLeaveAtmosphere(
+            EntityUid uid,
+            GasVolumePumpComponent pump,
+            ref AtmosDeviceDisabledEvent args
+        )
         {
             pump.Enabled = false;
             Dirty(uid, pump);
@@ -105,8 +129,10 @@ namespace Content.Server.Atmos.Piping.Binary.EntitySystems
 
         private void OnPacketRecv(EntityUid uid, GasVolumePumpComponent component, DeviceNetworkPacketEvent args)
         {
-            if (!TryComp(uid, out DeviceNetworkComponent? netConn)
-                || !args.Data.TryGetValue(DeviceNetworkConstants.Command, out var cmd))
+            if (
+                !TryComp(uid, out DeviceNetworkComponent? netConn)
+                || !args.Data.TryGetValue(DeviceNetworkConstants.Command, out var cmd)
+            )
             {
                 return;
             }
@@ -117,7 +143,10 @@ namespace Content.Server.Atmos.Piping.Binary.EntitySystems
             {
                 case AtmosDeviceNetworkSystem.SyncData:
                     payload.Add(DeviceNetworkConstants.Command, AtmosDeviceNetworkSystem.SyncData);
-                    payload.Add(AtmosDeviceNetworkSystem.SyncData, new GasVolumePumpData(component.LastMolesTransferred));
+                    payload.Add(
+                        AtmosDeviceNetworkSystem.SyncData,
+                        new GasVolumePumpData(component.LastMolesTransferred)
+                    );
 
                     _deviceNetwork.QueuePacket(uid, args.SenderAddress, payload, device: netConn);
                     return;

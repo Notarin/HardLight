@@ -1,14 +1,14 @@
-using Robust.Server.GameObjects;
-using Robust.Shared.Random;
 using Content.Server.Abilities.Psionics;
 using Content.Server.GameTicking.Rules.Components;
 using Content.Server.Psionics;
 using Content.Server.StationEvents.Components;
 using Content.Shared.Abilities.Psionics;
+using Content.Shared.GameTicking.Components;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
-using Content.Shared.GameTicking.Components;
+using Robust.Server.GameObjects;
 using Robust.Shared.Player;
+using Robust.Shared.Random;
 
 namespace Content.Server.StationEvents.Events;
 
@@ -17,11 +17,21 @@ namespace Content.Server.StationEvents.Events;
 /// </summary>
 internal sealed class MassMindSwapRule : StationEventSystem<MassMindSwapRuleComponent>
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly MobStateSystem _mobStateSystem = default!;
-    [Dependency] private readonly MindSwapPowerSystem _mindSwap = default!;
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
 
-    protected override void Started(EntityUid uid, MassMindSwapRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
+    [Dependency]
+    private readonly MobStateSystem _mobStateSystem = default!;
+
+    [Dependency]
+    private readonly MindSwapPowerSystem _mindSwap = default!;
+
+    protected override void Started(
+        EntityUid uid,
+        MassMindSwapRuleComponent component,
+        GameRuleComponent gameRule,
+        GameRuleStartedEvent args
+    )
     {
         base.Started(uid, component, gameRule, args);
 

@@ -10,10 +10,16 @@ namespace Content.Server.GameTicking.Rules.VariationPass;
 /// <inheritdoc cref="PuddleMessVariationPassComponent"/>
 public sealed class PuddleMessVariationPassSystem : VariationPassSystem<PuddleMessVariationPassComponent>
 {
-    [Dependency] private readonly PuddleSystem _puddle = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
+    [Dependency]
+    private readonly PuddleSystem _puddle = default!;
 
-    protected override void ApplyVariation(Entity<PuddleMessVariationPassComponent> ent, ref StationVariationPassEvent args)
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
+
+    protected override void ApplyVariation(
+        Entity<PuddleMessVariationPassComponent> ent,
+        ref StationVariationPassEvent args
+    )
     {
         var totalTiles = Stations.GetTileCount(args.Station);
 
@@ -21,7 +27,7 @@ public sealed class PuddleMessVariationPassSystem : VariationPassSystem<PuddleMe
             return;
 
         var puddleMod = Random.NextGaussian(ent.Comp.TilesPerSpillAverage, ent.Comp.TilesPerSpillStdDev);
-        var puddleTiles = Math.Max((int) (totalTiles * (1 / puddleMod)), 0);
+        var puddleTiles = Math.Max((int)(totalTiles * (1 / puddleMod)), 0);
 
         for (var i = 0; i < puddleTiles; i++)
         {

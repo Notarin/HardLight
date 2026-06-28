@@ -3,9 +3,7 @@ using Robust.Shared.Serialization;
 namespace Content.Shared.Communications
 {
     [Virtual]
-    public partial class SharedCommunicationsConsoleComponent : Component
-    {
-    }
+    public partial class SharedCommunicationsConsoleComponent : Component { }
 
     [Serializable, NetSerializable]
     public sealed class CommunicationsConsoleInterfaceState : BoundUserInterfaceState
@@ -19,7 +17,14 @@ namespace Content.Shared.Communications
         public string CurrentAlert;
         public float CurrentAlertDelay;
 
-        public CommunicationsConsoleInterfaceState(bool canAnnounce, bool canCall, List<string>? alertLevels, string currentAlert, float currentAlertDelay, TimeSpan? expectedCountdownEnd = null)
+        public CommunicationsConsoleInterfaceState(
+            bool canAnnounce,
+            bool canCall,
+            List<string>? alertLevels,
+            string currentAlert,
+            float currentAlertDelay,
+            TimeSpan? expectedCountdownEnd = null
+        )
         {
             CanAnnounce = canAnnounce;
             CanCall = canCall;
@@ -57,6 +62,7 @@ namespace Content.Shared.Communications
     public sealed class CommunicationsConsoleBroadcastMessage : BoundUserInterfaceMessage
     {
         public readonly string Message;
+
         public CommunicationsConsoleBroadcastMessage(string message)
         {
             Message = message;
@@ -64,18 +70,14 @@ namespace Content.Shared.Communications
     }
 
     [Serializable, NetSerializable]
-    public sealed class CommunicationsConsoleCallEmergencyShuttleMessage : BoundUserInterfaceMessage
-    {
-    }
+    public sealed class CommunicationsConsoleCallEmergencyShuttleMessage : BoundUserInterfaceMessage { }
 
     [Serializable, NetSerializable]
-    public sealed class CommunicationsConsoleRecallEmergencyShuttleMessage : BoundUserInterfaceMessage
-    {
-    }
+    public sealed class CommunicationsConsoleRecallEmergencyShuttleMessage : BoundUserInterfaceMessage { }
 
     [Serializable, NetSerializable]
     public enum CommunicationsConsoleUiKey
     {
-        Key
+        Key,
     }
 }

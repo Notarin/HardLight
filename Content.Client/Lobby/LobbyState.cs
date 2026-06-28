@@ -20,14 +20,29 @@ namespace Content.Client.Lobby
 {
     public sealed class LobbyState : Robust.Client.State.State
     {
-        [Dependency] private readonly IBaseClient _baseClient = default!;
-        [Dependency] private readonly IConfigurationManager _cfg = default!;
-        [Dependency] private readonly IClientConsoleHost _consoleHost = default!;
-        [Dependency] private readonly IEntityManager _entityManager = default!;
-        [Dependency] private readonly IResourceCache _resourceCache = default!;
-        [Dependency] private readonly IUserInterfaceManager _userInterfaceManager = default!;
-        [Dependency] private readonly IGameTiming _gameTiming = default!;
-        [Dependency] private readonly IVoteManager _voteManager = default!;
+        [Dependency]
+        private readonly IBaseClient _baseClient = default!;
+
+        [Dependency]
+        private readonly IConfigurationManager _cfg = default!;
+
+        [Dependency]
+        private readonly IClientConsoleHost _consoleHost = default!;
+
+        [Dependency]
+        private readonly IEntityManager _entityManager = default!;
+
+        [Dependency]
+        private readonly IResourceCache _resourceCache = default!;
+
+        [Dependency]
+        private readonly IUserInterfaceManager _userInterfaceManager = default!;
+
+        [Dependency]
+        private readonly IGameTiming _gameTiming = default!;
+
+        [Dependency]
+        private readonly IVoteManager _voteManager = default!;
 
         private ClientGameTicker _gameTicker = default!;
         private ContentAudioSystem _contentAudioSystem = default!;
@@ -45,7 +60,7 @@ namespace Content.Client.Lobby
                 return;
             }
 
-            Lobby = (LobbyGui) _userInterfaceManager.ActiveScreen;
+            Lobby = (LobbyGui)_userInterfaceManager.ActiveScreen;
 
             var chatController = _userInterfaceManager.GetUIController<ChatUIController>();
             _gameTicker = _entityManager.System<ClientGameTicker>();
@@ -131,7 +146,11 @@ namespace Content.Client.Lobby
             {
                 Lobby!.StartTime.Text = string.Empty;
                 var roundTime = _gameTiming.CurTime.Subtract(_gameTicker.RoundStartTimeSpan);
-                Lobby!.StationTime.Text = Loc.GetString("lobby-state-player-status-round-time", ("hours", roundTime.Hours), ("minutes", roundTime.Minutes));
+                Lobby!.StationTime.Text = Loc.GetString(
+                    "lobby-state-player-status-round-time",
+                    ("hours", roundTime.Hours),
+                    ("minutes", roundTime.Minutes)
+                );
                 return;
             }
 
@@ -153,7 +172,9 @@ namespace Content.Client.Lobby
                 var seconds = difference.TotalSeconds;
                 if (seconds < 0)
                 {
-                    text = Loc.GetString(seconds < -5 ? "lobby-state-right-now-question" : "lobby-state-right-now-confirmation");
+                    text = Loc.GetString(
+                        seconds < -5 ? "lobby-state-right-now-question" : "lobby-state-right-now-confirmation"
+                    );
                 }
                 else if (difference.TotalHours >= 1)
                 {
@@ -191,7 +212,11 @@ namespace Content.Client.Lobby
             else
             {
                 Lobby!.StartTime.Text = string.Empty;
-                Lobby!.ReadyButton.Text = Loc.GetString(Lobby!.ReadyButton.Pressed ? "lobby-state-player-status-ready": "lobby-state-player-status-not-ready");
+                Lobby!.ReadyButton.Text = Loc.GetString(
+                    Lobby!.ReadyButton.Pressed
+                        ? "lobby-state-player-status-ready"
+                        : "lobby-state-player-status-not-ready"
+                );
                 Lobby!.ReadyButton.ToggleMode = true;
                 Lobby!.ReadyButton.Disabled = false;
                 Lobby!.ReadyButton.Pressed = _gameTicker.AreWeReady;
@@ -213,7 +238,7 @@ namespace Content.Client.Lobby
             else if (
                 ev.SoundtrackFilename != null
                 && _resourceCache.TryGetResource<AudioResource>(ev.SoundtrackFilename, out var lobbySongResource)
-                )
+            )
             {
                 var lobbyStream = lobbySongResource.AudioStream;
 
@@ -225,9 +250,7 @@ namespace Content.Client.Lobby
                     ? Loc.GetString("lobby-state-song-unknown-artist")
                     : lobbyStream.Artist;
 
-                var markup = Loc.GetString("lobby-state-song-text",
-                    ("songTitle", title),
-                    ("songArtist", artist));
+                var markup = Loc.GetString("lobby-state-song-text", ("songTitle", title), ("songArtist", artist));
 
                 Lobby!.LobbySong.SetMarkup(markup);
             }
@@ -237,13 +260,12 @@ namespace Content.Client.Lobby
         {
             if (_gameTicker.LobbyBackground != null)
             {
-                Lobby!.Background.Texture = _resourceCache.GetResource<TextureResource>(_gameTicker.LobbyBackground );
+                Lobby!.Background.Texture = _resourceCache.GetResource<TextureResource>(_gameTicker.LobbyBackground);
             }
             else
             {
                 Lobby!.Background.Texture = null;
             }
-
         }
 
         private void SetReady(bool newReady)

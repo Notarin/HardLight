@@ -75,7 +75,7 @@
 
 - type: entity
   parent: BaseNanotrasenIDCard
-  id: NTLID 
+  id: NTLID
   name: Nanotrasen Lieutenant ID Card
   description: "A Nanotrasen Lieutenant's id card, it has a slight hint of whiskey and cigars to its smell."
   components:
@@ -116,14 +116,14 @@
   name: Nanotrasen Admiral ID
   description: "An NT Admiral's id card, how did you manage to get this while surviving?"
   components:
-  - type: Sprite 
+  - type: Sprite
     sprite: Objects/Misc/id_cards.rsi
     layers:
-    - state: ntidad 
+    - state: ntidad
   - type: Access
-    groups: 
+    groups:
     - NT
-    tags: 
+    tags:
     - Nanotrasen
     - NanotrasenGunny
     - NanotrasenLieutenant

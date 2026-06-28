@@ -5,7 +5,11 @@ namespace Content.Client.Tools.Visualizers;
 
 public sealed class WeldableVisualizerSystem : VisualizerSystem<WeldableComponent>
 {
-    protected override void OnAppearanceChange(EntityUid uid, WeldableComponent component, ref AppearanceChangeEvent args)
+    protected override void OnAppearanceChange(
+        EntityUid uid,
+        WeldableComponent component,
+        ref AppearanceChangeEvent args
+    )
     {
         if (args.Sprite == null)
             return;

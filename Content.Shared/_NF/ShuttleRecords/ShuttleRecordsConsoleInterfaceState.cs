@@ -10,9 +10,7 @@ public sealed class DockedGridEntry
     public NetEntity Grid { get; set; }
     public string Name { get; set; } = string.Empty;
 
-    public DockedGridEntry()
-    {
-    }
+    public DockedGridEntry() { }
 
     public DockedGridEntry(NetEntity grid, string name)
     {

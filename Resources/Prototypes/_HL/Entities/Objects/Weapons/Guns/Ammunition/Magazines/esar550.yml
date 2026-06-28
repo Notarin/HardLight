@@ -6,20 +6,20 @@
   components:
   - type: Tag
     tags:
-      - MagazineEsar550Tag
+    - MagazineEsar550Tag
   - type: Item
     size: Small
   - type: Battery
-    maxCharge: 5000 
+    maxCharge: 5000
     startingCharge: 5000
   - type: Sprite
     sprite: _HL/Objects/Weapons/Guns/Ammunition/Magazine/Esar550.rsi
     layers:
-      - state: base
-        map: ["enum.GunVisualLayers.Base"]
-      - state: mag-unshaded-1
-        map: ["enum.GunVisualLayers.MagUnshaded"]
-        shader: unshaded
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-unshaded-1
+      map: ["enum.GunVisualLayers.MagUnshaded"]
+      shader: unshaded
   - type: MagazineVisuals
     magState: mag
     steps: 6

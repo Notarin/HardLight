@@ -81,18 +81,14 @@ public class ListContainer : Control
         RectClipContent = true;
         MouseFilter = MouseFilterMode.Pass;
 
-        _vScrollBar = new VScrollBar
-        {
-            HorizontalExpand = false,
-            HorizontalAlignment = HAlignment.Right
-        };
+        _vScrollBar = new VScrollBar { HorizontalExpand = false, HorizontalAlignment = HAlignment.Right };
         AddChild(_vScrollBar);
         _vScrollBar.OnValueChanged += ScrollValueChanged;
     }
 
     public virtual void PopulateList(IReadOnlyList<ListData> data)
     {
-        if ((_itemHeight == 0 || _data is {Count: 0}) && data.Count > 0)
+        if ((_itemHeight == 0 || _data is { Count: 0 }) && data.Count > 0)
         {
             ListContainerButton control = new(data[0], 0);
             GenerateItem?.Invoke(data[0], control);
@@ -138,9 +134,19 @@ public class ListContainer : Control
             button.Pressed = true;
         _selected = data;
         button ??= new ListContainerButton(data, _data.IndexOf(data));
-        OnItemPressed(new BaseButton.ButtonEventArgs(button,
-            new GUIBoundKeyEventArgs(EngineKeyFunctions.UIClick, BoundKeyState.Up,
-                new ScreenCoordinates(0, 0, WindowId.Main), true, Vector2.Zero, Vector2.Zero)));
+        OnItemPressed(
+            new BaseButton.ButtonEventArgs(
+                button,
+                new GUIBoundKeyEventArgs(
+                    EngineKeyFunctions.UIClick,
+                    BoundKeyState.Up,
+                    new ScreenCoordinates(0, 0, WindowId.Main),
+                    true,
+                    Vector2.Zero,
+                    Vector2.Zero
+                )
+            )
+        );
     }
 
     /*
@@ -248,12 +254,12 @@ public class ListContainer : Control
          */
         var scroll = GetScrollValue();
         var oldTopIndex = _topIndex;
-        _topIndex = (int) ((scroll.Y + ActualSeparation) / (_itemHeight + ActualSeparation));
+        _topIndex = (int)((scroll.Y + ActualSeparation) / (_itemHeight + ActualSeparation));
         if (_topIndex != oldTopIndex)
             _updateChildren = true;
 
         var oldBottomIndex = _bottomIndex;
-        _bottomIndex = (int) Math.Ceiling((scroll.Y + finalHeight) / (_itemHeight + ActualSeparation));
+        _bottomIndex = (int)Math.Ceiling((scroll.Y + finalHeight) / (_itemHeight + ActualSeparation));
         _bottomIndex = Math.Min(_bottomIndex, _data.Count);
         if (_bottomIndex != oldBottomIndex)
             _updateChildren = true;
@@ -311,9 +317,9 @@ public class ListContainer : Control
         #region Layout Children
         // Use pixel position
         var pixelWidth = (int)(finalWidth * UIScale);
-        var pixelSeparation = (int) (ActualSeparation * UIScale);
+        var pixelSeparation = (int)(ActualSeparation * UIScale);
 
-        var pixelOffset = (int) -((scroll.Y - _topIndex * (_itemHeight + ActualSeparation)) * UIScale);
+        var pixelOffset = (int)-((scroll.Y - _topIndex * (_itemHeight + ActualSeparation)) * UIScale);
         var first = true;
         foreach (var child in Children)
         {
@@ -383,6 +389,7 @@ public sealed class ListContainerButton : ContainerButton, IEntityControl
     public readonly ListData Data;
 
     public readonly int Index;
+
     // public PanelContainer Background;
 
     public ListContainerButton(ListData data, int index)

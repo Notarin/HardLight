@@ -43,7 +43,7 @@ public sealed partial class ExplosionPrototype : IPrototype
     ///     explosion intensity to a tile break chance via linear interpolation.
     /// </summary>
     [DataField("tileBreakIntensity")]
-    private float[] _tileBreakIntensity = {0f, 15f };
+    private float[] _tileBreakIntensity = { 0f, 15f };
 
     /// <summary>
     ///     When a tile is broken by an explosion, the intensity is reduced by this amount and is used to try and
@@ -94,7 +94,10 @@ public sealed partial class ExplosionPrototype : IPrototype
     public SoundSpecifier SoundFar = new SoundCollectionSpecifier("ExplosionFar", AudioParams.Default.WithVolume(2f));
 
     [DataField("smallSoundFar")]
-    public SoundSpecifier SmallSoundFar = new SoundCollectionSpecifier("ExplosionSmallFar", AudioParams.Default.WithVolume(2f));
+    public SoundSpecifier SmallSoundFar = new SoundCollectionSpecifier(
+        "ExplosionSmallFar",
+        AudioParams.Default.WithVolume(2f)
+    );
 
     [DataField("texturePath")]
     public ResPath TexturePath = new("/Textures/Effects/fire.rsi");
@@ -129,7 +132,8 @@ public sealed partial class ExplosionPrototype : IPrototype
 
         int i = Array.FindIndex(_tileBreakIntensity, k => k >= intensity);
 
-        var slope = (_tileBreakChance[i] - _tileBreakChance[i - 1]) / (_tileBreakIntensity[i] - _tileBreakIntensity[i - 1]);
+        var slope =
+            (_tileBreakChance[i] - _tileBreakChance[i - 1]) / (_tileBreakIntensity[i] - _tileBreakIntensity[i - 1]);
         return _tileBreakChance[i - 1] + slope * (intensity - _tileBreakIntensity[i - 1]);
     }
 }

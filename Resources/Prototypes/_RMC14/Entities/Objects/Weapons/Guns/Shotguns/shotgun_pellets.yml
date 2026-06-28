@@ -1,4 +1,4 @@
-﻿- type: entity
+- type: entity
   abstract: true
   parent: CMBulletBase
   id: CMPelletShotgunBase
@@ -30,18 +30,18 @@
     proto: CMPelletShotgunBuckshot
     count: 4
     spread: 20
-  # - type: RMCProjectileDamageFalloff
+    # - type: RMCProjectileDamageFalloff
     # thresholds:
     # - range: 4
-      # falloff: 9999
-      # ignoreModifiers: true
+    # falloff: 9999
+    # ignoreModifiers: true
     # - range: 0
-      # falloff: 1
-  # - type: RMCProjectileAccuracy
+    # falloff: 1
+    # - type: RMCProjectileAccuracy
     # thresholds:
     # - range: 4
-      # falloff: 10
-  # - type: RMCStunOnHit
+    # falloff: 10
+    # - type: RMCStunOnHit
 
 - type: entity
   parent: CMPelletShotgunBase
@@ -57,27 +57,27 @@
     damage:
       types:
         Piercing: 55
-  # - type: RMCProjectileDamageFalloff
-    # thresholds:
-    # - range: 8
+        # - type: RMCProjectileDamageFalloff
+      # thresholds:
+      # - range: 8
       # falloff: 9999
       # ignoreModifiers: true
-    # - range: 0
-      # falloff: 1
-  # - type: CMArmorPiercing
-    # amount: 20
-  # - type: RMCStunOnHit
-    # maxRange: 6.5
-    # stunTime: 1
-    # superSlowTime: 2
-    # slowTime: 6
-  # - type: RMCProjectileAccuracy
-    # accuracy: 100
-    # thresholds:
-    # - range: 8
-      # falloff: 10
-
 - type: entity
+  # - range: 0
+  # falloff: 1
+  # - type: CMArmorPiercing
+  # amount: 20
+  # - type: RMCStunOnHit
+  # maxRange: 6.5
+  # stunTime: 1
+  # superSlowTime: 2
+  # slowTime: 6
+  # - type: RMCProjectileAccuracy
+  # accuracy: 100
+  # thresholds:
+  # - range: 8
+  # falloff: 10
+
   parent: CMPelletShotgunSlug
   id: CMPelletShotgunIncendiary
   name: incendiary slug
@@ -86,17 +86,17 @@
     damage:
       types:
         Heat: 40
-  # - type: RMCProjectileDamageFalloff
-    # thresholds:
-    # - range: 12
+        # - type: RMCProjectileDamageFalloff
+      # thresholds:
+      # - range: 12
       # falloff: 9999
       # ignoreModifiers: true
-    # - range: 0
-      # falloff: 1
-  # - type: RMCProjectileAccuracy
-    # accuracy: 95
   - type: IgniteOnProjectileHit
 
+    # - range: 0
+    # falloff: 1
+    # - type: RMCProjectileAccuracy
+    # accuracy: 95
 - type: entity
   parent: CMPelletShotgunBase
   id: CMPelletShotgunBeanbag
@@ -110,15 +110,15 @@
   - type: Projectile
     damage: {}
   # - type: RMCProjectileDamageFalloff
-    # thresholds:
-    # - range: 12
-      # falloff: 9999
-      # ignoreModifiers: true
-    # - range: 0
-      # falloff: 1
+  # thresholds:
+  # - range: 12
+  # falloff: 9999
+  # ignoreModifiers: true
+  # - range: 0
+  # falloff: 1
   - type: StaminaDamageOnCollide
     damage: 45
-  # - type: RMCProjectileAccuracy
+    # - type: RMCProjectileAccuracy
     # accuracy: 100
 
 - type: entity
@@ -127,7 +127,7 @@
   name: flechette shell
   components:
   # - type: CMArmorPiercing
-    # amount: 35
+  # amount: 35
   - type: Sprite
     sprite: _RMC14/Objects/Weapons/Guns/Ammunition/Projectiles/shotgun_projectiles.rsi
     layers:
@@ -141,13 +141,13 @@
     proto: CMPelletShotgunFlechette
     count: 4
     spread: 15
-  # - type: RMCProjectileDamageFalloff
+    # - type: RMCProjectileDamageFalloff
     # thresholds:
     # - range: 12
-      # falloff: 9999
-      # ignoreModifiers: true
+    # falloff: 9999
+    # ignoreModifiers: true
     # - range: 0
-      # falloff: 1
+    # falloff: 1
 
 - type: entity
   parent: CMPelletShotgunBuckshot
@@ -174,7 +174,7 @@
     damage:
       types:
         Blunt: 40
-  # - type: CMArmorPiercing
+        # - type: CMArmorPiercing
     # amount: 5
   - type: ProjectileSpread
     proto: RMCPelletShotgunBreaching

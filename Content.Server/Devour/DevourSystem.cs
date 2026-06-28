@@ -9,7 +9,8 @@ namespace Content.Server.Devour;
 
 public sealed class DevourSystem : SharedDevourSystem
 {
-    [Dependency] private readonly BloodstreamSystem _bloodstreamSystem = default!;
+    [Dependency]
+    private readonly BloodstreamSystem _bloodstreamSystem = default!;
 
     public override void Initialize()
     {
@@ -62,4 +63,3 @@ public sealed class DevourSystem : SharedDevourSystem
         ContainerSystem.EmptyContainer(component.Stomach);
     }
 }
-

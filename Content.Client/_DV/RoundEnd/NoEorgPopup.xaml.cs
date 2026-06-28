@@ -12,7 +12,8 @@ namespace Content.Client._DV.RoundEnd;
 [GenerateTypedNameReferences]
 public sealed partial class NoEorgPopup : FancyWindow
 {
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
 
     private float _remainingTime;
     private bool _initialSkipState;
@@ -34,8 +35,7 @@ public sealed partial class NoEorgPopup : FancyWindow
         RuleLabel.SetMessage(FormattedMessage.FromMarkupOrThrow(Loc.GetString("no-eorg-popup-rule")));
         RuleTextLabel.SetMessage(FormattedMessage.FromMarkupOrThrow(Loc.GetString("no-eorg-popup-rule-text")));
 
-        _initialSkipState =
-            _cfg.GetCVar(DCCVars.SkipRoundEndNoEorgPopup); // Store the initial CVar value to compare against
+        _initialSkipState = _cfg.GetCVar(DCCVars.SkipRoundEndNoEorgPopup); // Store the initial CVar value to compare against
         SkipCheckBox.Pressed = _initialSkipState;
         NoEorgCloseButton.Disabled = true;
 
@@ -88,4 +88,3 @@ public sealed partial class NoEorgPopup : FancyWindow
         UpdateCloseButtonText();
     }
 }
-

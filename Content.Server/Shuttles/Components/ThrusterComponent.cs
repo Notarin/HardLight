@@ -55,18 +55,20 @@ namespace Content.Server.Shuttles.Components
         [DataField("thrusterType")]
         public ThrusterType Type = ThrusterType.Linear;
 
-        [DataField("burnShape")] public List<Vector2> BurnPoly = new()
+        [DataField("burnShape")]
+        public List<Vector2> BurnPoly = new()
         {
             new Vector2(-0.4f, 0.5f),
             new Vector2(-0.1f, 1.2f),
             new Vector2(0.1f, 1.2f),
-            new Vector2(0.4f, 0.5f)
+            new Vector2(0.4f, 0.5f),
         };
 
         /// <summary>
         /// How much damage is done per second to anything colliding with our thrust.
         /// </summary>
-        [DataField("damage")] public DamageSpecifier? Damage = new();
+        [DataField("damage")]
+        public DamageSpecifier? Damage = new();
 
         [DataField("requireSpace")]
         public bool RequireSpace = true;
@@ -109,6 +111,7 @@ namespace Content.Server.Shuttles.Components
 
         [DataField(customTypeSerializer: typeof(PrototypeIdSerializer<SinkPortPrototype>))]
         public string TogglePort = "Toggle";
+
         // End Frontier: upgradeable parts, togglable thrust
 
         // Mono
@@ -122,6 +125,7 @@ namespace Content.Server.Shuttles.Components
     public enum ThrusterType
     {
         Linear,
+
         // Angular meaning rotational.
         Angular,
     }

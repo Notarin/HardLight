@@ -63,7 +63,6 @@ public sealed partial class BorgSubtypePrototype : IPrototype, IInheritingProtot
     [DataField]
     public required PrototypeLayerData[] LayerData;
 
-
     [DataField]
     public required string SpriteHasMindState;
 
@@ -81,6 +80,7 @@ public sealed partial class BorgSubtypePrototype : IPrototype, IInheritingProtot
 
     [DataField]
     public string PetSuccessString = "petting-success-generic-cyborg";
+
     [DataField]
     public string PetFailureString = "petting-failure-generic-cyborg";
 

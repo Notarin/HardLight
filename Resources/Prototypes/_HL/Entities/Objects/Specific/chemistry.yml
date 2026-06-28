@@ -10,7 +10,7 @@
   - type: Sprite
     sprite: _HL/Objects/Specific/Chemistry/bluespace_cryobeaker.rsi
     layers:
-      - state: beakernoreact
+    - state: beakernoreact
   - type: SolutionContainerVisuals
     maxFillLevels: 0
   - type: SolutionContainerManager

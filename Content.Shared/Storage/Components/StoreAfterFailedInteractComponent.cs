@@ -3,6 +3,4 @@
 namespace Content.Shared.Storage.Components;
 
 [RegisterComponent, NetworkedComponent]
-public sealed partial class StoreAfterFailedInteractComponent : Component
-{
-}
+public sealed partial class StoreAfterFailedInteractComponent : Component { }

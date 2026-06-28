@@ -37,8 +37,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.2,-0.3,0.2,0.4"
         density: 200
         mask:
@@ -54,18 +53,18 @@
     visuals:
       enum.OpenableVisuals.Opened:
         enum.OpenableVisuals.Layer:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
       enum.PaperLabelVisuals.HasLabel:
         enum.PaperLabelVisuals.Layer:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
       enum.PaperLabelVisuals.LabelType:
         enum.PaperLabelVisuals.Layer:
-          Paper: { state: paper }
-          Bounty: { state: paper }
-          CaptainsPaper: { state: paper }
-          Invoice: { state: paper }
+          Paper: {state: paper}
+          Bounty: {state: paper}
+          CaptainsPaper: {state: paper}
+          Invoice: {state: paper}
   - type: Appearance
   - type: PaperLabel
     labelSlot:
@@ -171,8 +170,8 @@
     solutions:
       tank:
         reagents:
-          - ReagentId: WeldingFuel
-            Quantity: 1000
+        - ReagentId: WeldingFuel
+          Quantity: 1000
   - type: DamageOnToolInteract
     tools: Welding
     weldingDamage:
@@ -204,8 +203,8 @@
     solutions:
       tank:
         reagents:
-          - ReagentId: Carbon
-            Quantity: 1000
+        - ReagentId: Carbon
+          Quantity: 1000
   - type: ContainerFill
     containers:
       paper_label:
@@ -228,8 +227,8 @@
     solutions:
       tank:
         reagents:
-          - ReagentId: Iodine
-            Quantity: 1000
+        - ReagentId: Iodine
+          Quantity: 1000
   - type: ContainerFill
     containers:
       paper_label:
@@ -252,8 +251,8 @@
     solutions:
       tank:
         reagents:
-          - ReagentId: Fluorine
-            Quantity: 1000
+        - ReagentId: Fluorine
+          Quantity: 1000
   - type: ContainerFill
     containers:
       paper_label:
@@ -276,8 +275,8 @@
     solutions:
       tank:
         reagents:
-          - ReagentId: Chlorine
-            Quantity: 1000
+        - ReagentId: Chlorine
+          Quantity: 1000
   - type: ContainerFill
     containers:
       paper_label:
@@ -300,8 +299,8 @@
     solutions:
       tank:
         reagents:
-          - ReagentId: Aluminium
-            Quantity: 1000
+        - ReagentId: Aluminium
+          Quantity: 1000
   - type: ContainerFill
     containers:
       paper_label:
@@ -324,8 +323,8 @@
     solutions:
       tank:
         reagents:
-          - ReagentId: Phosphorus
-            Quantity: 1000
+        - ReagentId: Phosphorus
+          Quantity: 1000
   - type: ContainerFill
     containers:
       paper_label:
@@ -348,8 +347,8 @@
     solutions:
       tank:
         reagents:
-          - ReagentId: Sulfur
-            Quantity: 1000
+        - ReagentId: Sulfur
+          Quantity: 1000
   - type: ContainerFill
     containers:
       paper_label:
@@ -372,8 +371,8 @@
     solutions:
       tank:
         reagents:
-          - ReagentId: Silicon
-            Quantity: 1000
+        - ReagentId: Silicon
+          Quantity: 1000
   - type: ContainerFill
     containers:
       paper_label:
@@ -396,8 +395,8 @@
     solutions:
       tank:
         reagents:
-          - ReagentId: Hydrogen
-            Quantity: 1000
+        - ReagentId: Hydrogen
+          Quantity: 1000
   - type: ContainerFill
     containers:
       paper_label:
@@ -420,8 +419,8 @@
     solutions:
       tank:
         reagents:
-          - ReagentId: Lithium
-            Quantity: 1000
+        - ReagentId: Lithium
+          Quantity: 1000
   - type: ContainerFill
     containers:
       paper_label:
@@ -444,8 +443,8 @@
     solutions:
       tank:
         reagents:
-          - ReagentId: Sodium
-            Quantity: 1000
+        - ReagentId: Sodium
+          Quantity: 1000
   - type: ContainerFill
     containers:
       paper_label:
@@ -468,8 +467,8 @@
     solutions:
       tank:
         reagents:
-          - ReagentId: Potassium
-            Quantity: 1000
+        - ReagentId: Potassium
+          Quantity: 1000
   - type: ContainerFill
     containers:
       paper_label:
@@ -492,8 +491,8 @@
     solutions:
       tank:
         reagents:
-          - ReagentId: Radium
-            Quantity: 1000
+        - ReagentId: Radium
+          Quantity: 1000
   - type: ContainerFill
     containers:
       paper_label:
@@ -516,8 +515,8 @@
     solutions:
       tank:
         reagents:
-          - ReagentId: Iron
-            Quantity: 1000
+        - ReagentId: Iron
+          Quantity: 1000
   - type: ContainerFill
     containers:
       paper_label:
@@ -540,8 +539,8 @@
     solutions:
       tank:
         reagents:
-          - ReagentId: Copper
-            Quantity: 1000
+        - ReagentId: Copper
+          Quantity: 1000
   - type: ContainerFill
     containers:
       paper_label:
@@ -564,8 +563,8 @@
     solutions:
       tank:
         reagents:
-          - ReagentId: Gold
-            Quantity: 1000
+        - ReagentId: Gold
+          Quantity: 1000
   - type: ContainerFill
     containers:
       paper_label:
@@ -588,8 +587,8 @@
     solutions:
       tank:
         reagents:
-          - ReagentId: Mercury
-            Quantity: 1000
+        - ReagentId: Mercury
+          Quantity: 1000
   - type: ContainerFill
     containers:
       paper_label:
@@ -612,8 +611,8 @@
     solutions:
       tank:
         reagents:
-          - ReagentId: Silver
-            Quantity: 1000
+        - ReagentId: Silver
+          Quantity: 1000
   - type: ContainerFill
     containers:
       paper_label:
@@ -636,8 +635,8 @@
     solutions:
       tank:
         reagents:
-          - ReagentId: Ethanol
-            Quantity: 1000
+        - ReagentId: Ethanol
+          Quantity: 1000
   - type: ContainerFill
     containers:
       paper_label:
@@ -660,8 +659,8 @@
     solutions:
       tank:
         reagents:
-          - ReagentId: Sugar
-            Quantity: 1000
+        - ReagentId: Sugar
+          Quantity: 1000
   - type: ContainerFill
     containers:
       paper_label:
@@ -684,8 +683,8 @@
     solutions:
       tank:
         reagents:
-          - ReagentId: Nitrogen
-            Quantity: 1000
+        - ReagentId: Nitrogen
+          Quantity: 1000
   - type: ContainerFill
     containers:
       paper_label:
@@ -708,8 +707,8 @@
     solutions:
       tank:
         reagents:
-          - ReagentId: Oxygen
-            Quantity: 1000
+        - ReagentId: Oxygen
+          Quantity: 1000
   - type: ContainerFill
     containers:
       paper_label:
@@ -732,8 +731,8 @@
     solutions:
       tank:
         reagents:
-          - ReagentId: Oil
-            Quantity: 1000
+        - ReagentId: Oil
+          Quantity: 1000
   - type: ContainerFill
     containers:
       paper_label:
@@ -756,8 +755,8 @@
     solutions:
       tank:
         reagents:
-          - ReagentId: Diethylamine
-            Quantity: 1000
+        - ReagentId: Diethylamine
+          Quantity: 1000
   - type: ContainerFill
     containers:
       paper_label:
@@ -780,8 +779,8 @@
     solutions:
       tank:
         reagents:
-          - ReagentId: Mustard
-            Quantity: 1000
+        - ReagentId: Mustard
+          Quantity: 1000
   - type: ContainerFill
     containers:
       paper_label:
@@ -804,8 +803,8 @@
     solutions:
       tank:
         reagents:
-          - ReagentId: Ketchup
-            Quantity: 1000
+        - ReagentId: Ketchup
+          Quantity: 1000
   - type: ContainerFill
     containers:
       paper_label:
@@ -828,8 +827,8 @@
     solutions:
       tank:
         reagents:
-          - ReagentId: Mayo
-            Quantity: 1000
+        - ReagentId: Mayo
+          Quantity: 1000
   - type: ContainerFill
     containers:
       paper_label:
@@ -852,8 +851,8 @@
     solutions:
       tank:
         reagents:
-          - ReagentId: Cornoil
-            Quantity: 1000
+        - ReagentId: Cornoil
+          Quantity: 1000
   - type: ContainerFill
     containers:
       paper_label:
@@ -876,8 +875,8 @@
     solutions:
       tank:
         reagents:
-          - ReagentId: OilOlive
-            Quantity: 1000
+        - ReagentId: OilOlive
+          Quantity: 1000
   - type: ContainerFill
     containers:
       paper_label:
@@ -900,8 +899,8 @@
     solutions:
       tank:
         reagents:
-          - ReagentId: SpaceLube
-            Quantity: 1000
+        - ReagentId: SpaceLube
+          Quantity: 1000
   - type: ContainerFill
     containers:
       paper_label:
@@ -924,8 +923,8 @@
     solutions:
       tank:
         reagents:
-          - ReagentId: SpaceCleaner
-            Quantity: 1000
+        - ReagentId: SpaceCleaner
+          Quantity: 1000
   - type: ContainerFill
     containers:
       paper_label:
@@ -948,8 +947,8 @@
     solutions:
       tank:
         reagents:
-          - ReagentId: Water
-            Quantity: 1000
+        - ReagentId: Water
+          Quantity: 1000
   - type: ContainerFill
     containers:
       paper_label:
@@ -972,8 +971,8 @@
     solutions:
       tank:
         reagents:
-          - ReagentId: Whiskey
-            Quantity: 1000
+        - ReagentId: Whiskey
+          Quantity: 1000
   - type: ContainerFill
     containers:
       paper_label:
@@ -996,8 +995,8 @@
     solutions:
       tank:
         reagents:
-          - ReagentId: Vodka
-            Quantity: 1000
+        - ReagentId: Vodka
+          Quantity: 1000
   - type: ContainerFill
     containers:
       paper_label:
@@ -1020,8 +1019,8 @@
     solutions:
       tank:
         reagents:
-          - ReagentId: Tequila
-            Quantity: 1000
+        - ReagentId: Tequila
+          Quantity: 1000
   - type: ContainerFill
     containers:
       paper_label:
@@ -1044,8 +1043,8 @@
     solutions:
       tank:
         reagents:
-          - ReagentId: Rum
-            Quantity: 1000
+        - ReagentId: Rum
+          Quantity: 1000
   - type: ContainerFill
     containers:
       paper_label:
@@ -1068,8 +1067,8 @@
     solutions:
       tank:
         reagents:
-          - ReagentId: Gin
-            Quantity: 1000
+        - ReagentId: Gin
+          Quantity: 1000
   - type: ContainerFill
     containers:
       paper_label:
@@ -1092,8 +1091,8 @@
     solutions:
       tank:
         reagents:
-          - ReagentId: CoffeeLiqueur
-            Quantity: 1000
+        - ReagentId: CoffeeLiqueur
+          Quantity: 1000
   - type: ContainerFill
     containers:
       paper_label:
@@ -1116,8 +1115,8 @@
     solutions:
       tank:
         reagents:
-          - ReagentId: Absinthe
-            Quantity: 1000
+        - ReagentId: Absinthe
+          Quantity: 1000
   - type: ContainerFill
     containers:
       paper_label:
@@ -1140,8 +1139,8 @@
     solutions:
       tank:
         reagents:
-          - ReagentId: Ale
-            Quantity: 1000
+        - ReagentId: Ale
+          Quantity: 1000
   - type: ContainerFill
     containers:
       paper_label:
@@ -1164,8 +1163,8 @@
     solutions:
       tank:
         reagents:
-          - ReagentId: Vermouth
-            Quantity: 1000
+        - ReagentId: Vermouth
+          Quantity: 1000
   - type: ContainerFill
     containers:
       paper_label:
@@ -1188,8 +1187,8 @@
     solutions:
       tank:
         reagents:
-          - ReagentId: Wine
-            Quantity: 1000
+        - ReagentId: Wine
+          Quantity: 1000
   - type: ContainerFill
     containers:
       paper_label:
@@ -1212,8 +1211,8 @@
     solutions:
       tank:
         reagents:
-          - ReagentId: Beer
-            Quantity: 1000
+        - ReagentId: Beer
+          Quantity: 1000
   - type: ContainerFill
     containers:
       paper_label:
@@ -1236,8 +1235,8 @@
     solutions:
       tank:
         reagents:
-          - ReagentId: Cognac
-            Quantity: 1000
+        - ReagentId: Cognac
+          Quantity: 1000
   - type: ContainerFill
     containers:
       paper_label:
@@ -1260,8 +1259,8 @@
     solutions:
       tank:
         reagents:
-          - ReagentId: Mead
-            Quantity: 1000
+        - ReagentId: Mead
+          Quantity: 1000
   - type: ContainerFill
     containers:
       paper_label:

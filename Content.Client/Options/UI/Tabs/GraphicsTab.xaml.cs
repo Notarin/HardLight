@@ -12,7 +12,8 @@ namespace Content.Client.Options.UI.Tabs;
 [GenerateTypedNameReferences]
 public sealed partial class GraphicsTab : Control
 {
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
 
     public GraphicsTab()
     {
@@ -30,14 +31,16 @@ public sealed partial class GraphicsTab : Control
             [
                 new OptionDropDownCVar<float>.ValueOption(
                     0f,
-                    Loc.GetString("ui-options-scale-auto", ("scale", UserInterfaceManager.DefaultUIScale))),
+                    Loc.GetString("ui-options-scale-auto", ("scale", UserInterfaceManager.DefaultUIScale))
+                ),
                 new OptionDropDownCVar<float>.ValueOption(0.75f, Loc.GetString("ui-options-scale-75")),
                 new OptionDropDownCVar<float>.ValueOption(1.00f, Loc.GetString("ui-options-scale-100")),
                 new OptionDropDownCVar<float>.ValueOption(1.25f, Loc.GetString("ui-options-scale-125")),
                 new OptionDropDownCVar<float>.ValueOption(1.50f, Loc.GetString("ui-options-scale-150")),
                 new OptionDropDownCVar<float>.ValueOption(1.75f, Loc.GetString("ui-options-scale-175")),
                 new OptionDropDownCVar<float>.ValueOption(2.00f, Loc.GetString("ui-options-scale-200")),
-            ]);
+            ]
+        );
 
         var vpStretch = Control.AddOptionCheckBox(CCVars.ViewportStretch, ViewportStretchCheckBox);
         var vpVertFit = Control.AddOptionCheckBox(CCVars.ViewportVerticalFit, ViewportVerticalFitCheckBox);
@@ -46,7 +49,8 @@ public sealed partial class GraphicsTab : Control
             ViewportScaleSlider,
             1,
             5,
-            (_, value) => Loc.GetString("ui-options-vp-scale-value", ("scale", value)));
+            (_, value) => Loc.GetString("ui-options-vp-scale-value", ("scale", value))
+        );
 
         vpStretch.ImmediateValueChanged += _ => UpdateViewportSettingsVisibility();
         vpVertFit.ImmediateValueChanged += _ => UpdateViewportSettingsVisibility();
@@ -55,7 +59,8 @@ public sealed partial class GraphicsTab : Control
             CCVars.ViewportWidth,
             ViewportWidthSlider,
             (int)ViewportWidthSlider.Slider.MinValue,
-            (int)ViewportWidthSlider.Slider.MaxValue);
+            (int)ViewportWidthSlider.Slider.MaxValue
+        );
 
         Control.AddOption(new OptionIntegerScaling(Control, _cfg, IntegerScalingCheckBox));
         Control.AddOptionCheckBox(CCVars.ViewportScaleRender, ViewportLowResCheckBox, invert: true);
@@ -103,7 +108,12 @@ public sealed partial class GraphicsTab : Control
 
         private const int QualityDefault = QualityMedium;
 
-        public OptionLightingQuality(OptionsTabControlRow controller, IConfigurationManager cfg, OptionDropDown dropDown) : base(controller)
+        public OptionLightingQuality(
+            OptionsTabControlRow controller,
+            IConfigurationManager cfg,
+            OptionDropDown dropDown
+        )
+            : base(controller)
         {
             _cfg = cfg;
             _dropDown = dropDown;
@@ -191,14 +201,11 @@ public sealed partial class GraphicsTab : Control
 
         protected override int Value
         {
-            get => _checkBox.Pressed ? (int) WindowMode.Fullscreen : (int) WindowMode.Windowed;
-            set => _checkBox.Pressed = (value == (int) WindowMode.Fullscreen);
+            get => _checkBox.Pressed ? (int)WindowMode.Fullscreen : (int)WindowMode.Windowed;
+            set => _checkBox.Pressed = (value == (int)WindowMode.Fullscreen);
         }
 
-        public OptionFullscreen(
-            OptionsTabControlRow controller,
-            IConfigurationManager cfg,
-            CheckBox checkBox)
+        public OptionFullscreen(OptionsTabControlRow controller, IConfigurationManager cfg, CheckBox checkBox)
             : base(controller, cfg, CVars.DisplayWindowMode)
         {
             _checkBox = checkBox;
@@ -219,10 +226,7 @@ public sealed partial class GraphicsTab : Control
             set => _checkBox.Pressed = (value != 0);
         }
 
-        public OptionIntegerScaling(
-            OptionsTabControlRow controller,
-            IConfigurationManager cfg,
-            CheckBox checkBox)
+        public OptionIntegerScaling(OptionsTabControlRow controller, IConfigurationManager cfg, CheckBox checkBox)
             : base(controller, cfg, CCVars.ViewportSnapToleranceMargin)
         {
             _checkBox = checkBox;

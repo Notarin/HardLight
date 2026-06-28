@@ -1,6 +1,6 @@
-using Robust.Client.UserInterface;
 using Content.Client.UserInterface.Fragments;
 using Content.Shared.CartridgeLoader.Cartridges;
+using Robust.Client.UserInterface;
 
 namespace Content.Client._DV.CartridgeLoader.Cartridges;
 

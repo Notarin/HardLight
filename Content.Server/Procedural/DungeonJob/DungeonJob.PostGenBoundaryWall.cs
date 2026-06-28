@@ -12,10 +12,18 @@ public sealed partial class DungeonJob
     /// <summary>
     /// <see cref="BoundaryWallDunGen"/>
     /// </summary>
-    private async Task PostGen(BoundaryWallDunGen gen, DungeonData data, Dungeon dungeon, HashSet<Vector2i> reservedTiles, Random random)
+    private async Task PostGen(
+        BoundaryWallDunGen gen,
+        DungeonData data,
+        Dungeon dungeon,
+        HashSet<Vector2i> reservedTiles,
+        Random random
+    )
     {
-        if (!data.Tiles.TryGetValue(DungeonDataKey.FallbackTile, out var protoTileDef) ||
-            !data.Entities.TryGetValue(DungeonDataKey.Walls, out var wall))
+        if (
+            !data.Tiles.TryGetValue(DungeonDataKey.FallbackTile, out var protoTileDef)
+            || !data.Entities.TryGetValue(DungeonDataKey.Walls, out var wall)
+        )
         {
             _sawmill.Error($"Error finding dungeon data for {nameof(gen)}");
             return;
@@ -46,7 +54,7 @@ public sealed partial class DungeonJob
             if (!_anchorable.TileFree(_grid, neighbor, DungeonSystem.CollisionLayer, DungeonSystem.CollisionMask))
                 continue;
 
-            tiles.Add((neighbor, _tile.GetVariantTile((ContentTileDefinition) tileDef, random)));
+            tiles.Add((neighbor, _tile.GetVariantTile((ContentTileDefinition)tileDef, random)));
         }
 
         foreach (var index in dungeon.CorridorExteriorTiles)

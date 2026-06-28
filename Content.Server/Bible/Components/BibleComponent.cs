@@ -16,7 +16,10 @@ namespace Content.Server.Bible.Components
         /// Sound to play when bible hits somebody.
         /// </summary>
         [DataField]
-        public SoundSpecifier BibleHitSound = new SoundCollectionSpecifier(DefaultBibleHit, AudioParams.Default.WithVolume(-4f));
+        public SoundSpecifier BibleHitSound = new SoundCollectionSpecifier(
+            DefaultBibleHit,
+            AudioParams.Default.WithVolume(-4f)
+        );
 
         /// <summary>
         /// Damage that will be healed on a success
@@ -48,8 +51,9 @@ namespace Content.Server.Bible.Components
 
         [DataField("sizzleSound")]
         public SoundSpecifier SizzleSoundPath = new SoundPathSpecifier("/Audio/Effects/lightburn.ogg");
+
         [DataField("healSound")]
-        public SoundSpecifier HealSoundPath = new  SoundPathSpecifier("/Audio/Effects/holy.ogg");
+        public SoundSpecifier HealSoundPath = new SoundPathSpecifier("/Audio/Effects/holy.ogg");
 
         [DataField("locPrefix")]
         public string LocPrefix = "bible";

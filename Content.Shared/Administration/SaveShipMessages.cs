@@ -26,7 +26,12 @@ public sealed class SaveShipPreviewResponseMessage : EntityEventArgs
     public string? Error { get; }
     public string? ShipName { get; }
 
-    public SaveShipPreviewResponseMessage(string ownerUserId, bool success, string? error = null, string? shipName = null)
+    public SaveShipPreviewResponseMessage(
+        string ownerUserId,
+        bool success,
+        string? error = null,
+        string? shipName = null
+    )
     {
         OwnerUserId = ownerUserId;
         Success = success;
@@ -69,7 +74,8 @@ public sealed class SaveShipResponseMessage : EntityEventArgs
         bool success,
         string? error = null,
         string? shipName = null,
-        int evictedCount = 0)
+        int evictedCount = 0
+    )
     {
         OwnerUserId = ownerUserId;
         Success = success;

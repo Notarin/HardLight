@@ -33,8 +33,7 @@ public sealed partial class NearbyAccessRule : RulesRule
     {
         var xformQuery = entManager.GetEntityQuery<TransformComponent>();
 
-        if (!xformQuery.TryGetComponent(uid, out var xform) ||
-            xform.MapUid == null)
+        if (!xformQuery.TryGetComponent(uid, out var xform) || xform.MapUid == null)
         {
             return false;
         }
@@ -52,10 +51,10 @@ public sealed partial class NearbyAccessRule : RulesRule
         lookup.GetEntitiesInRange(xform.MapID, worldPos, Range, entities);
         foreach (var comp in entities)
         {
-            if (!reader.AreAccessTagsAllowed(Access, comp) ||
-                Anchored &&
-                (!xformQuery.TryGetComponent(comp, out var compXform) ||
-                 !compXform.Anchored))
+            if (
+                !reader.AreAccessTagsAllowed(Access, comp)
+                || Anchored && (!xformQuery.TryGetComponent(comp, out var compXform) || !compXform.Anchored)
+            )
             {
                 continue;
             }

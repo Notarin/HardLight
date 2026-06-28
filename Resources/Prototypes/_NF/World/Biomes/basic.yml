@@ -362,7 +362,7 @@
     - id: NFWreckDebrisBrassExtraLarge
       prob: 0.1
       orGroup: wreck
-# Xenoborg combat drones - very rare encounters in deep space (beyond 5K)
+      # Xenoborg combat drones - very rare encounters in deep space (beyond 5K)
     - id: XenoborgDroneLbit
       prob: 0.005
       orGroup: wreck

@@ -1,5 +1,3 @@
 namespace Content.Shared.Light;
 
-public abstract class SharedEmergencyLightSystem : EntitySystem
-{
-}
+public abstract class SharedEmergencyLightSystem : EntitySystem { }

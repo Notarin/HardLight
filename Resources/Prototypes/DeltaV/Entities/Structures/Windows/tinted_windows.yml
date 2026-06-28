@@ -13,8 +13,8 @@
     state: tinted_window
   - type: Tag
     tags:
-      - ForceNoFixRotations
-      - WeldbotFixableStructure
+    - ForceNoFixRotations
+    - WeldbotFixableStructure
   - type: Icon
     sprite: Structures/Windows/directional.rsi
     state: tinted_window

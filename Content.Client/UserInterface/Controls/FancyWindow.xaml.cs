@@ -13,7 +13,8 @@ namespace Content.Client.UserInterface.Controls
     [Virtual]
     public partial class FancyWindow : BaseWindow
     {
-        [Dependency] private readonly IEntitySystemManager _sysMan = default!;
+        [Dependency]
+        private readonly IEntitySystemManager _sysMan = default!;
         private GuidebookSystem? _guidebookSystem;
         private const int DRAG_MARGIN_SIZE = 7;
         public const string StyleClassWindowHelpButton = "windowHelpButton";
@@ -81,6 +82,7 @@ namespace Content.Client.UserInterface.Controls
             return mode;
         }
     }
+
     public static class FancyWindowExt
     {
         /// <summary>
@@ -104,10 +106,7 @@ namespace Content.Client.UserInterface.Controls
         /// <param name="entityManager">Entity manager used to retrieve the information.</param>
         /// <param name="entity">The entity that this window represents.</param>
         /// <seealso cref="SetInfoFromEntity"/>
-        public static void SetTitleFromEntity(
-            this FancyWindow window,
-            IEntityManager entityManager,
-            EntityUid entity)
+        public static void SetTitleFromEntity(this FancyWindow window, IEntityManager entityManager, EntityUid entity)
         {
             window.Title = entityManager.GetComponent<MetaDataComponent>(entity).EntityName;
         }
@@ -122,7 +121,8 @@ namespace Content.Client.UserInterface.Controls
         public static void SetGuidebookFromEntity(
             this FancyWindow window,
             IEntityManager entityManager,
-            EntityUid entity)
+            EntityUid entity
+        )
         {
             window.HelpGuidebookIds = entityManager.GetComponentOrNull<GuideHelpComponent>(entity)?.Guides;
         }

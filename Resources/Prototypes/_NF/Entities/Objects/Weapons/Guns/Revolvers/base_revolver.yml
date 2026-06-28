@@ -1,7 +1,7 @@
 #region frame
 - type: entity
   id: NFBaseWeaponFrameRevolver
-  parent: [ NFBaseWeaponEncumbrancePistol, NFBaseItemWeaponGun ]
+  parent: [NFBaseWeaponEncumbrancePistol, NFBaseItemWeaponGun]
   abstract: true
   components:
   - type: Sprite
@@ -43,7 +43,7 @@
 
 - type: entity
   id: NFBaseWeaponFrameRevolverGorlex
-  parent: [ BaseC3SyndicateContraband, NFBaseWeaponFrameRevolver ]
+  parent: [BaseC3SyndicateContraband, NFBaseWeaponFrameRevolver]
   abstract: true
   components:
   - type: Gun
@@ -57,7 +57,7 @@
 
 - type: entity
   id: NFBaseWeaponFrameRevolverSteelbolt
-  parent: [ BaseC3PirateContraband, NFBaseWeaponFrameRevolver ]
+  parent: [BaseC3PirateContraband, NFBaseWeaponFrameRevolver]
   abstract: true
   components:
   - type: Gun
@@ -104,8 +104,8 @@
   - type: RevolverAmmoProvider
     mayTransfer: true
     capacity: 6
-    chambers: [ True, True, True, True, True, True ]
-    ammoSlots: [ null, null, null, null, null, null ]
+    chambers: [True, True, True, True, True, True]
+    ammoSlots: [null, null, null, null, null, null]
     soundEject:
       path: /Audio/Weapons/Guns/MagOut/revolver_magout.ogg
     soundInsert:
@@ -124,8 +124,8 @@
   - type: RevolverAmmoProvider
     whitelist:
       tags:
-        - Cartridge45_magnumFMJ
-        - SpeedLoader45_magnumFMJ
+      - Cartridge45_magnumFMJ
+      - SpeedLoader45_magnumFMJ
     proto: Cartridge45_ACPFMJ
 
 - type: entity
@@ -140,12 +140,12 @@
   - type: RevolverAmmoProvider
     whitelist:
       tags:
-        - NFCartridgePistol35
-        - NFSpeedLoaderPistol35
+      - NFCartridgePistol35
+      - NFSpeedLoaderPistol35
     capacity: 8
     proto: NFCartridgePistol35
-    chambers: [ True, True, True, True, True, True, True, True ]
-    ammoSlots: [ null, null, null, null, null, null, null, null ]
+    chambers: [True, True, True, True, True, True, True, True]
+    ammoSlots: [null, null, null, null, null, null, null, null]
 
 - type: entity
   id: NFBaseWeaponRevolverChamber60
@@ -159,11 +159,11 @@
   - type: RevolverAmmoProvider
     whitelist:
       tags:
-        - NFCartridgeRifle60
+      - NFCartridgeRifle60
     capacity: 1
     proto: NFCartridgeRifle60
-    chambers: [ True ]
-    ammoSlots: [ null ]
+    chambers: [True]
+    ammoSlots: [null]
 
 # Cap guns and fake cap guns
 - type: entity
@@ -176,8 +176,8 @@
   - type: RevolverAmmoProvider
     whitelist:
       tags:
-        - CartridgeCap
-        - SpeedLoaderCap
+      - CartridgeCap
+      - SpeedLoaderCap
     proto: NFCartridgeCap
 
 - type: entity
@@ -188,8 +188,8 @@
   - type: RevolverAmmoProvider
     whitelist:
       tags:
-        - NFCartridgePistol45
-        - NFSpeedLoaderPistol45
-        - CartridgeCap
-        - SpeedLoaderCap
+      - NFCartridgePistol45
+      - NFSpeedLoaderPistol45
+      - CartridgeCap
+      - SpeedLoaderCap
     proto: NFCartridgePistol45

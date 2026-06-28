@@ -14,7 +14,7 @@
     graph: Computer
     node: computer
     containers:
-      - board
+    - board
   - type: Computer
   - type: ApcPowerReceiver
     powerLoad: 200
@@ -31,7 +31,7 @@
       state: generic
     - map: ["computerLayerKeys"]
       state: generic_keys
-    - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+    - map: ["enum.WiresVisualLayers.MaintenancePanel"]
       state: generic_panel_open
   # Starlight start
   - type: EdgeConnection
@@ -43,23 +43,23 @@
     visuals:
       enum.ComputerVisuals.Powered:
         computerLayerScreen:
-          True: { visible: true, shader: unshaded }
-          False: { visible: false }
+          True: {visible: true, shader: unshaded}
+          False: {visible: false}
         computerLayerKeys:
-          True: { visible: true, shader: unshaded }
-          False: { visible: true, shader: shaded }
+          True: {visible: true, shader: unshaded}
+          False: {visible: true, shader: shaded}
       enum.WiresVisuals.MaintenancePanelState:
         enum.WiresVisualLayers.MaintenancePanel:
-          True: { visible: false }
-          False: { visible: true }
+          True: {visible: false}
+          False: {visible: true}
       # Starlight start
       enum.EdgeConnectionVisuals.ConnectionMask:
         computerLayerBody:
-          None: { state: computer, sprite: Structures/Machines/computers.rsi }
-          West: { state: computer_r, sprite: _Starlight/Structures/Machines/computers.rsi }
-          East: { state: computer_l, sprite: _Starlight/Structures/Machines/computers.rsi }
-          East, West: { state: computer_l_r, sprite: _Starlight/Structures/Machines/computers.rsi }
-      # Starlight end
+          None: {state: computer, sprite: Structures/Machines/computers.rsi}
+          West: {state: computer_r, sprite: _Starlight/Structures/Machines/computers.rsi}
+          East: {state: computer_l, sprite: _Starlight/Structures/Machines/computers.rsi}
+          East, West: {state: computer_l_r, sprite: _Starlight/Structures/Machines/computers.rsi}
+          # Starlight end
   - type: LitOnPowered
   - type: PointLight
     radius: 1.5
@@ -75,7 +75,7 @@
       params:
         volume: -1
         variation: 0.10
-        pitch: 1.10  # low pitch keyboard sounds feel kinda weird
+        pitch: 1.10 # low pitch keyboard sounds feel kinda weird
     blacklist:
       tags:
       - NoConsoleSound
@@ -96,7 +96,7 @@
     layoutId: Computer
   - type: Tag
     tags:
-      - NoPaint
+    - NoPaint
 #
 #     This is overwritten by children, so needs to be defined there
 #  - type: UserInterface

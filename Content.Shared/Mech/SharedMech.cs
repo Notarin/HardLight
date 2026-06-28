@@ -7,19 +7,19 @@ namespace Content.Shared.Mech;
 public enum MechVisuals : byte
 {
     Open, //whether or not it's open and has a rider
-    Broken //if it broke and no longer works.
+    Broken, //if it broke and no longer works.
 }
 
 [Serializable, NetSerializable]
 public enum MechAssemblyVisuals : byte
 {
-    State
+    State,
 }
 
 [Serializable, NetSerializable]
 public enum MechVisualLayers : byte
 {
-    Base
+    Base,
 }
 
 /// <summary>
@@ -49,18 +49,10 @@ public record struct AttemptRemoveMechEquipmentEvent()
     public bool Cancelled = false;
 }
 
-public sealed partial class MechToggleEquipmentEvent : InstantActionEvent
-{
-}
+public sealed partial class MechToggleEquipmentEvent : InstantActionEvent { }
 
-public sealed partial class MechOpenUiEvent : InstantActionEvent
-{
-}
+public sealed partial class MechOpenUiEvent : InstantActionEvent { }
 
-public sealed partial class MechEjectPilotEvent : InstantActionEvent
-{
-}
+public sealed partial class MechEjectPilotEvent : InstantActionEvent { }
 
-public sealed partial class MechRadarUiEvent : InstantActionEvent
-{
-}
+public sealed partial class MechRadarUiEvent : InstantActionEvent { }

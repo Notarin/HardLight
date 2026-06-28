@@ -16,13 +16,15 @@ public sealed partial class ReplaySpectatorSystem
         if (_replayPlayback.Replay == null)
             return;
 
-        ev.Verbs.Add(new AlternativeVerb
-        {
-            Priority = 100,
-            Act = () => SpectateEntity(ev.Target),
-            Text = Loc.GetString("replay-verb-spectate"),
-            Icon = new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/VerbIcons/vv.svg.192dpi.png"))
-        });
+        ev.Verbs.Add(
+            new AlternativeVerb
+            {
+                Priority = 100,
+                Act = () => SpectateEntity(ev.Target),
+                Text = Loc.GetString("replay-verb-spectate"),
+                Icon = new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/VerbIcons/vv.svg.192dpi.png")),
+            }
+        );
     }
 
     public void SpectateEntity(EntityUid target)
@@ -119,7 +121,9 @@ public sealed partial class ReplaySpectatorSystem
         if (args.Length != 1)
             return CompletionResult.Empty;
 
-        return CompletionResult.FromHintOptions(CompletionHelper.NetEntities(args[0],
-            EntityManager), Loc.GetString("cmd-replay-spectate-hint"));
+        return CompletionResult.FromHintOptions(
+            CompletionHelper.NetEntities(args[0], EntityManager),
+            Loc.GetString("cmd-replay-spectate-hint")
+        );
     }
 }

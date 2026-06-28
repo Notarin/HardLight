@@ -6,7 +6,8 @@ namespace Content.Server.Spawners.EntitySystems;
 
 public sealed class SpawnerSystem : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
 
     public override void Initialize()
     {
@@ -19,7 +20,11 @@ public sealed class SpawnerSystem : EntitySystem
     {
         component.TokenSource?.Cancel();
         component.TokenSource = new CancellationTokenSource();
-        uid.SpawnRepeatingTimer(TimeSpan.FromSeconds(component.IntervalSeconds), () => OnTimerFired(uid, component), component.TokenSource.Token);
+        uid.SpawnRepeatingTimer(
+            TimeSpan.FromSeconds(component.IntervalSeconds),
+            () => OnTimerFired(uid, component),
+            component.TokenSource.Token
+        );
     }
 
     private void OnTimerFired(EntityUid uid, TimedSpawnerComponent component)

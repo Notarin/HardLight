@@ -1,3 +1,6 @@
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using Content.Server._NF.SectorServices;
 using Content.Server.Popups;
 using Content.Server.Radio.EntitySystems;
 using Content.Server.Station.Systems;
@@ -7,15 +10,12 @@ using Content.Shared.Access.Systems;
 using Content.Shared.CriminalRecords;
 using Content.Shared.CriminalRecords.Components;
 using Content.Shared.CriminalRecords.Systems;
+using Content.Shared.IdentityManagement;
+using Content.Shared.Roles.Jobs;
 using Content.Shared.Security;
+using Content.Shared.Security.Components;
 using Content.Shared.StationRecords;
 using Robust.Server.GameObjects;
-using System.Diagnostics.CodeAnalysis;
-using Content.Shared.IdentityManagement;
-using Content.Shared.Security.Components;
-using System.Linq;
-using Content.Shared.Roles.Jobs;
-using Content.Server._NF.SectorServices;
 
 namespace Content.Server.CriminalRecords.Systems;
 
@@ -24,29 +24,45 @@ namespace Content.Server.CriminalRecords.Systems;
 /// </summary>
 public sealed class CriminalRecordsConsoleSystem : SharedCriminalRecordsConsoleSystem
 {
-    [Dependency] private readonly AccessReaderSystem _access = default!;
-    [Dependency] private readonly CriminalRecordsSystem _criminalRecords = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly RadioSystem _radio = default!;
-    [Dependency] private readonly StationRecordsSystem _records = default!;
-    [Dependency] private readonly SectorServiceSystem _sectorService = default!;
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
+    [Dependency]
+    private readonly AccessReaderSystem _access = default!;
+
+    [Dependency]
+    private readonly CriminalRecordsSystem _criminalRecords = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly RadioSystem _radio = default!;
+
+    [Dependency]
+    private readonly StationRecordsSystem _records = default!;
+
+    [Dependency]
+    private readonly SectorServiceSystem _sectorService = default!;
+
+    [Dependency]
+    private readonly UserInterfaceSystem _ui = default!;
 
     public override void Initialize()
     {
         SubscribeLocalEvent<CriminalRecordsConsoleComponent, RecordModifiedEvent>(UpdateUserInterface);
         SubscribeLocalEvent<CriminalRecordsConsoleComponent, AfterGeneralRecordCreatedEvent>(UpdateUserInterface);
 
-        Subs.BuiEvents<CriminalRecordsConsoleComponent>(CriminalRecordsConsoleKey.Key, subs =>
-        {
-            subs.Event<BoundUIOpenedEvent>(UpdateUserInterface);
-            subs.Event<SelectStationRecord>(OnKeySelected);
-            subs.Event<SetStationRecordFilter>(OnFiltersChanged);
-            subs.Event<CriminalRecordChangeStatus>(OnChangeStatus);
-            subs.Event<CriminalRecordAddHistory>(OnAddHistory);
-            subs.Event<CriminalRecordDeleteHistory>(OnDeleteHistory);
-            subs.Event<CriminalRecordSetStatusFilter>(OnStatusFilterPressed);
-        });
+        Subs.BuiEvents<CriminalRecordsConsoleComponent>(
+            CriminalRecordsConsoleKey.Key,
+            subs =>
+            {
+                subs.Event<BoundUIOpenedEvent>(UpdateUserInterface);
+                subs.Event<SelectStationRecord>(OnKeySelected);
+                subs.Event<SetStationRecordFilter>(OnFiltersChanged);
+                subs.Event<CriminalRecordChangeStatus>(OnChangeStatus);
+                subs.Event<CriminalRecordAddHistory>(OnAddHistory);
+                subs.Event<CriminalRecordDeleteHistory>(OnDeleteHistory);
+                subs.Event<CriminalRecordSetStatusFilter>(OnStatusFilterPressed);
+            }
+        );
     }
 
     private void UpdateUserInterface<T>(Entity<CriminalRecordsConsoleComponent> ent, ref T args)
@@ -61,7 +77,11 @@ public sealed class CriminalRecordsConsoleSystem : SharedCriminalRecordsConsoleS
         ent.Comp.ActiveKey = msg.SelectedKey;
         UpdateUserInterface(ent);
     }
-    private void OnStatusFilterPressed(Entity<CriminalRecordsConsoleComponent> ent, ref CriminalRecordSetStatusFilter msg)
+
+    private void OnStatusFilterPressed(
+        Entity<CriminalRecordsConsoleComponent> ent,
+        ref CriminalRecordSetStatusFilter msg
+    )
     {
         ent.Comp.FilterStatus = msg.FilterStatus;
         UpdateUserInterface(ent);
@@ -69,8 +89,7 @@ public sealed class CriminalRecordsConsoleSystem : SharedCriminalRecordsConsoleS
 
     private void OnFiltersChanged(Entity<CriminalRecordsConsoleComponent> ent, ref SetStationRecordFilter msg)
     {
-        if (ent.Comp.Filter == null ||
-            ent.Comp.Filter.Type != msg.Type || ent.Comp.Filter.Value != msg.Value)
+        if (ent.Comp.Filter == null || ent.Comp.Filter.Type != msg.Type || ent.Comp.Filter.Value != msg.Value)
         {
             ent.Comp.Filter = new StationRecordsFilter(msg.Type, msg.Value);
             UpdateUserInterface(ent);
@@ -101,8 +120,10 @@ public sealed class CriminalRecordsConsoleSystem : SharedCriminalRecordsConsoleS
     private void OnChangeStatus(Entity<CriminalRecordsConsoleComponent> ent, ref CriminalRecordChangeStatus msg)
     {
         // prevent malf client violating wanted/reason nullability
-        if (msg.Status == SecurityStatus.Wanted != (msg.Reason != null) &&
-            msg.Status == SecurityStatus.Suspected != (msg.Reason != null))
+        if (
+            msg.Status == SecurityStatus.Wanted != (msg.Reason != null)
+            && msg.Status == SecurityStatus.Suspected != (msg.Reason != null)
+        )
             return;
 
         if (!CheckSelected(ent, msg.Actor, out var mob, out var key))
@@ -152,7 +173,13 @@ public sealed class CriminalRecordsConsoleSystem : SharedCriminalRecordsConsoleS
 
         (string, object)[] args;
         if (reason != null)
-            args = new (string, object)[] { ("name", name), ("officer", officer), ("reason", reason), ("job", jobName) };
+            args = new (string, object)[]
+            {
+                ("name", name),
+                ("officer", officer),
+                ("reason", reason),
+                ("job", jobName),
+            };
         else
             args = new (string, object)[] { ("name", name), ("officer", officer), ("job", jobName) };
 
@@ -178,10 +205,14 @@ public sealed class CriminalRecordsConsoleSystem : SharedCriminalRecordsConsoleS
             // criminal is no longer on parole
             (SecurityStatus.Paroled, SecurityStatus.None) => "not-parole",
             // this is impossible
-            _ => "not-wanted"
+            _ => "not-wanted",
         };
-        _radio.SendRadioMessage(ent, Loc.GetString($"criminal-records-console-{statusString}", args),
-            ent.Comp.SecurityChannel, ent);
+        _radio.SendRadioMessage(
+            ent,
+            Loc.GetString($"criminal-records-console-{statusString}", args),
+            ent.Comp.SecurityChannel,
+            ent
+        );
 
         UpdateUserInterface(ent);
     }
@@ -235,7 +266,10 @@ public sealed class CriminalRecordsConsoleSystem : SharedCriminalRecordsConsoleS
         if (console.FilterStatus != SecurityStatus.None)
         {
             listing = listing
-                .Where(x => _records.TryGetRecord<CriminalRecord>(new StationRecordKey(x.Key, owningStation), out var record) && record.Status == console.FilterStatus) // Frontier: owningStation.Value<owningStation
+                .Where(x =>
+                    _records.TryGetRecord<CriminalRecord>(new StationRecordKey(x.Key, owningStation), out var record)
+                    && record.Status == console.FilterStatus
+                ) // Frontier: owningStation.Value<owningStation
                 .ToDictionary(x => x.Key, x => x.Value);
         }
 
@@ -259,8 +293,12 @@ public sealed class CriminalRecordsConsoleSystem : SharedCriminalRecordsConsoleS
     /// Boilerplate that most actions use, if they require that a record be selected.
     /// Obviously shouldn't be used for selecting records.
     /// </summary>
-    private bool CheckSelected(Entity<CriminalRecordsConsoleComponent> ent, EntityUid user,
-        [NotNullWhen(true)] out EntityUid? mob, [NotNullWhen(true)] out StationRecordKey? key)
+    private bool CheckSelected(
+        Entity<CriminalRecordsConsoleComponent> ent,
+        EntityUid user,
+        [NotNullWhen(true)] out EntityUid? mob,
+        [NotNullWhen(true)] out StationRecordKey? key
+    )
     {
         key = null;
         mob = null;
@@ -301,8 +339,13 @@ public sealed class CriminalRecordsConsoleSystem : SharedCriminalRecordsConsoleS
 
         if (station.IsValid() && _records.GetRecordByName(station, name) is { } id) // Frontier: "station != null" < station.IsValid(), station.Value < station
         {
-            if (_records.TryGetRecord<CriminalRecord>(new StationRecordKey(id, station), // Frontier: station.Value<station
-                out var record) && record != null)
+            if (
+                _records.TryGetRecord<CriminalRecord>(
+                    new StationRecordKey(id, station), // Frontier: station.Value<station
+                    out var record
+                )
+                && record != null
+            )
             {
                 if (record.Status != SecurityStatus.None)
                 {

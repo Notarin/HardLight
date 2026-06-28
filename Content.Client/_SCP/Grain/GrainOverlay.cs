@@ -6,7 +6,8 @@ namespace Content.Client._Scp.Grain;
 
 public sealed class GrainOverlay : Overlay
 {
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototype = default!;
 
     private readonly ShaderInstance _shader;
 

@@ -9,14 +9,18 @@ using Content.Shared.StationRecords;
 /// <summary>
 /// ADAPTED FROM SECWATCH - DELTAV
 /// </summary>
-
 namespace Content.Server.CartridgeLoader.Cartridges;
 
 public sealed class PsiWatchCartridgeSystem : EntitySystem
 {
-    [Dependency] private readonly CartridgeLoaderSystem _cartridgeLoader = default!;
-    [Dependency] private readonly StationRecordsSystem _records = default!;
-    [Dependency] private readonly StationSystem _station = default!;
+    [Dependency]
+    private readonly CartridgeLoaderSystem _cartridgeLoader = default!;
+
+    [Dependency]
+    private readonly StationRecordsSystem _records = default!;
+
+    [Dependency]
+    private readonly StationSystem _station = default!;
 
     public override void Initialize()
     {

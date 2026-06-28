@@ -15,6 +15,7 @@ public sealed class SlippingTest : MovementTest
     public sealed class SlipTestSystem : EntitySystem
     {
         public HashSet<EntityUid> Slipped = new();
+
         public override void Initialize()
         {
             SubscribeLocalEvent<SlipperyComponent, SlipEvent>(OnSlip);
@@ -53,4 +54,3 @@ public sealed class SlippingTest : MovementTest
         AssertComp<KnockedDownComponent>(true, Player);
     }
 }
-

@@ -11,19 +11,31 @@ namespace Content.Client.Instruments.UI
     public sealed class InstrumentBoundUserInterface : BoundUserInterface
     {
         public IEntityManager Entities => EntMan;
-        [Dependency] public readonly IMidiManager MidiManager = default!;
-        [Dependency] public readonly IFileDialogManager FileDialogManager = default!;
-        [Dependency] public readonly ILocalizationManager Loc = default!;
+
+        [Dependency]
+        public readonly IMidiManager MidiManager = default!;
+
+        [Dependency]
+        public readonly IFileDialogManager FileDialogManager = default!;
+
+        [Dependency]
+        public readonly ILocalizationManager Loc = default!;
 
         public readonly InstrumentSystem Instruments;
         public readonly ActionBlockerSystem ActionBlocker;
         public readonly SharedInteractionSystem Interactions;
 
-        [ViewVariables] private InstrumentMenu? _instrumentMenu;
-        [ViewVariables] private BandMenu? _bandMenu;
-        [ViewVariables] private ChannelsMenu? _channelsMenu;
+        [ViewVariables]
+        private InstrumentMenu? _instrumentMenu;
 
-        public InstrumentBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
+        [ViewVariables]
+        private BandMenu? _bandMenu;
+
+        [ViewVariables]
+        private ChannelsMenu? _channelsMenu;
+
+        public InstrumentBoundUserInterface(EntityUid owner, Enum uiKey)
+            : base(owner, uiKey)
         {
             IoCManager.InjectDependencies(this);
 
@@ -95,7 +107,7 @@ namespace Content.Client.Instruments.UI
 
         public void CloseBandMenu()
         {
-            if(_bandMenu?.IsOpen ?? false)
+            if (_bandMenu?.IsOpen ?? false)
                 _bandMenu.Close();
         }
 
@@ -108,7 +120,7 @@ namespace Content.Client.Instruments.UI
 
         public void CloseChannelsMenu()
         {
-            if(_channelsMenu?.IsOpen ?? false)
+            if (_channelsMenu?.IsOpen ?? false)
                 _channelsMenu.Close();
         }
     }

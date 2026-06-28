@@ -5,8 +5,8 @@
   placement:
     mode: SnapgridCenter
   components:
-    - type: GasMixer
-      startOnMapInit: true
+  - type: GasMixer
+    startOnMapInit: true
 
 - type: entity
   parent: [GasMixerFlipped, GasMixerOn]
@@ -23,8 +23,8 @@
   placement:
     mode: SnapgridCenter
   components:
-    - type: GasFilter
-      startOnMapInit: true
+  - type: GasFilter
+    startOnMapInit: true
 
 - type: entity
   parent: [GasFilterFlipped, GasFilterOn]
@@ -41,9 +41,9 @@
   placement:
     mode: SnapgridCenter
   components:
-    - type: GasFilter
-      startOnMapInit: true
-      filteredGas: Oxygen
+  - type: GasFilter
+    startOnMapInit: true
+    filteredGas: Oxygen
 
 - type: entity
   parent: [GasFilterFlipped, GasFilterOxygenOn]
@@ -60,9 +60,9 @@
   placement:
     mode: SnapgridCenter
   components:
-    - type: GasFilter
-      startOnMapInit: true
-      filteredGas: Nitrogen
+  - type: GasFilter
+    startOnMapInit: true
+    filteredGas: Nitrogen
 
 - type: entity
   parent: [GasFilterFlipped, GasFilterNitrogenOn]

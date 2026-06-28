@@ -76,7 +76,11 @@ public sealed partial class StoreSystem
     {
         var component = ent.Comp;
 
-        if (component.StoreEntity == null || !TryComp<StoreComponent>(component.StoreEntity.Value, out var storeComp) || !storeComp.RefundAllowed)
+        if (
+            component.StoreEntity == null
+            || !TryComp<StoreComponent>(component.StoreEntity.Value, out var storeComp)
+            || !storeComp.RefundAllowed
+        )
             return;
 
         var endTime = component.BoughtTime + component.DisableTime;

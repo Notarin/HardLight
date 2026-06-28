@@ -6,11 +6,11 @@
   startingGear: StcGear
   alwaysUseSpawner: false # HardLight: true<false
   requirements:
-    - !type:OverallPlaytimeRequirement
-      time: 72000 # 20 hrs
-    - !type:RoleTimeRequirement
-      role: JobSecurityOfficer # HardLight: JobSecurityGuard<JobSecurityOfficer
-      time: 10800 # 3 hrs
+  - !type:OverallPlaytimeRequirement
+    time: 72000 # 20 hrs
+  - !type:RoleTimeRequirement
+    role: JobSecurityOfficer # HardLight: JobSecurityGuard<JobSecurityOfficer
+    time: 10800 # 3 hrs
   canBeAntag: false
   icon: "JobIconStc"
   supervisors: job-supervisors-sr # HardLight: -captain<-sr
@@ -27,7 +27,7 @@
   - StationTrafficController
   special:
   - !type:AddImplantSpecial
-    implants: [ MindShieldImplant ]
+    implants: [MindShieldImplant]
   - !type:GiveItemOnHolidaySpecial
     holiday: FrontierBirthday
     prototype: FrontierBirthdayGift

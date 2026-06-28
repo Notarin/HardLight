@@ -1,5 +1,5 @@
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseBullet
   id: shell(20x82mm)
   name: shell (20x82mm)
@@ -16,7 +16,7 @@
     damage: 100
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseBulletTrigger
   id: shell(25x59mm)
   name: shell (25x59mm)

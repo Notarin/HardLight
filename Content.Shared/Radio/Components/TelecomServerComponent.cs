@@ -7,6 +7,4 @@ namespace Content.Shared.Radio.Components;
 /// of channels in order for them to work on the same map as server.
 /// </summary>
 [RegisterComponent]
-public sealed partial class TelecomServerComponent : Component
-{
-}
+public sealed partial class TelecomServerComponent : Component { }

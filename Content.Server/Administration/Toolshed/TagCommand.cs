@@ -29,7 +29,8 @@ public sealed class TagCommand : ToolshedCommand
     public IEnumerable<EntityUid> With(
         [CommandInvocationContext] IInvocationContext ctx,
         [PipedArgument] IEnumerable<EntityUid> entities,
-        [CommandArgument] ProtoId<TagPrototype> tag)
+        [CommandArgument] ProtoId<TagPrototype> tag
+    )
     {
         _tag ??= GetSys<TagSystem>();
         return entities.Where(e => _tag.HasTag(e, tag!));
@@ -44,8 +45,8 @@ public sealed class TagCommand : ToolshedCommand
     }
 
     [CommandImplementation("add")]
-    public IEnumerable<EntityUid> Add([PipedArgument] IEnumerable<EntityUid> input, ProtoId<TagPrototype> tag)
-        => input.Select(x => Add(x, tag));
+    public IEnumerable<EntityUid> Add([PipedArgument] IEnumerable<EntityUid> input, ProtoId<TagPrototype> tag) =>
+        input.Select(x => Add(x, tag));
 
     [CommandImplementation("rm")]
     public EntityUid Rm([PipedArgument] EntityUid input, ProtoId<TagPrototype> tag)
@@ -56,8 +57,8 @@ public sealed class TagCommand : ToolshedCommand
     }
 
     [CommandImplementation("rm")]
-    public IEnumerable<EntityUid> Rm([PipedArgument] IEnumerable<EntityUid> input, ProtoId<TagPrototype> tag)
-        => input.Select(x => Rm(x, tag));
+    public IEnumerable<EntityUid> Rm([PipedArgument] IEnumerable<EntityUid> input, ProtoId<TagPrototype> tag) =>
+        input.Select(x => Rm(x, tag));
 
     [CommandImplementation("addmany")]
     public EntityUid AddMany([PipedArgument] EntityUid input, IEnumerable<ProtoId<TagPrototype>> tags)
@@ -68,8 +69,10 @@ public sealed class TagCommand : ToolshedCommand
     }
 
     [CommandImplementation("addmany")]
-    public IEnumerable<EntityUid> AddMany([PipedArgument] IEnumerable<EntityUid> input, IEnumerable<ProtoId<TagPrototype>> tags)
-        => input.Select(x => AddMany(x, tags.ToArray()));
+    public IEnumerable<EntityUid> AddMany(
+        [PipedArgument] IEnumerable<EntityUid> input,
+        IEnumerable<ProtoId<TagPrototype>> tags
+    ) => input.Select(x => AddMany(x, tags.ToArray()));
 
     [CommandImplementation("rmmany")]
     public EntityUid RmMany([PipedArgument] EntityUid input, IEnumerable<ProtoId<TagPrototype>> tags)
@@ -80,6 +83,8 @@ public sealed class TagCommand : ToolshedCommand
     }
 
     [CommandImplementation("rmmany")]
-    public IEnumerable<EntityUid> RmMany([PipedArgument] IEnumerable<EntityUid> input, IEnumerable<ProtoId<TagPrototype>> tags)
-        => input.Select(x => RmMany(x, tags.ToArray()));
+    public IEnumerable<EntityUid> RmMany(
+        [PipedArgument] IEnumerable<EntityUid> input,
+        IEnumerable<ProtoId<TagPrototype>> tags
+    ) => input.Select(x => RmMany(x, tags.ToArray()));
 }

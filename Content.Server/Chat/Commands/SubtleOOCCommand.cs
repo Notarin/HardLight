@@ -26,7 +26,7 @@ namespace Content.Server.Chat.Commands
             if (player.Status != SessionStatus.InGame)
                 return;
 
-            if (player.AttachedEntity is not {} playerEntity)
+            if (player.AttachedEntity is not { } playerEntity)
             {
                 shell.WriteError("You don't have an entity!");
                 return;
@@ -39,8 +39,19 @@ namespace Content.Server.Chat.Commands
             if (string.IsNullOrEmpty(message))
                 return;
 
-            IoCManager.Resolve<IEntitySystemManager>().GetEntitySystem<ChatSystem>()
-                .TrySendInGameICMessage(playerEntity, message, InGameICChatType.SubtleOOC, ChatTransmitRange.NoGhosts, false, shell, player, color: SubtleOOCColor);
+            IoCManager
+                .Resolve<IEntitySystemManager>()
+                .GetEntitySystem<ChatSystem>()
+                .TrySendInGameICMessage(
+                    playerEntity,
+                    message,
+                    InGameICChatType.SubtleOOC,
+                    ChatTransmitRange.NoGhosts,
+                    false,
+                    shell,
+                    player,
+                    color: SubtleOOCColor
+                );
         }
     }
 }

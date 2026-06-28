@@ -8,13 +8,13 @@ namespace Content.Client.Doors.Electronics;
 
 public sealed class DoorElectronicsBoundUserInterface : BoundUserInterface
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
 
     private DoorElectronicsConfigurationMenu? _window;
 
-    public DoorElectronicsBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-    }
+    public DoorElectronicsBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {
@@ -54,7 +54,7 @@ public sealed class DoorElectronicsBoundUserInterface : BoundUserInterface
     {
         base.UpdateState(state);
 
-        var castState = (DoorElectronicsConfigurationState) state;
+        var castState = (DoorElectronicsConfigurationState)state;
 
         _window?.UpdateState(castState);
     }

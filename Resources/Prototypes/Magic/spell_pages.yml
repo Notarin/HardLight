@@ -21,100 +21,100 @@
   id: TemplateSpell
   name: templatier
   description:
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
-    - type: SubdermalImplant
-      implantAction:
+  - type: SubdermalImplant
+    implantAction:
 
 - type: entity
   parent: BaseMagicAdder
   id: fireballimplant
   name: spicy magic
   description: It smells spicy.
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
-    - type: SubdermalImplant
-      implantAction: ActionFireballWeak
+  - type: SubdermalImplant
+    implantAction: ActionFireballWeak
 
 - type: entity
   parent: BaseMagicAdder
   id: oceanimplant
   name: wet magic
   description: It smells damp.
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
-    - type: SubdermalImplant
-      implantAction: ActionSpawnWaterSpell
+  - type: SubdermalImplant
+    implantAction: ActionSpawnWaterSpell
 
 - type: entity
   parent: BaseMagicAdder
   id: whitestuffimplant
   name: sticky magic
   description: It smells damp?
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
-    - type: SubdermalImplant
-      implantAction: ActionSpawnCumSpell
+  - type: SubdermalImplant
+    implantAction: ActionSpawnCumSpell
 
 - type: entity
   parent: BaseMagicAdder
   id: blueimplant
   name: blue magic
   description: It smells brotherly.
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
-    - type: SubdermalImplant
-      implantAction: ActionVoidApplauseLR
+  - type: SubdermalImplant
+    implantAction: ActionVoidApplauseLR
 
 - type: entity
   parent: BaseMagicAdder
   id: flashimplant
   name: bright magic
   description: It smells like lightbulbs.
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
-    - type: SubdermalImplant
-      implantAction: ActionFlashSpell
+  - type: SubdermalImplant
+    implantAction: ActionFlashSpell
 
 - type: entity
   parent: BaseMagicAdder
   id: repulseimplant
   name: forceful magic
   description: It smells like strong wind.
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
-    - type: SubdermalImplant
-      implantAction: ActionRepulseWeak
+  - type: SubdermalImplant
+    implantAction: ActionRepulseWeak
 
 - type: entity
   parent: BaseMagicAdder
   id: iceimplant
   name: cold magic
   description: It smells like the inside of a freezer.
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
-    - type: SubdermalImplant
-      implantAction: ActionSpawnIceSpell
+  - type: SubdermalImplant
+    implantAction: ActionSpawnIceSpell
 
 - type: entity
   parent: BaseMagicAdder
   id: turretimplant
   name: crystal magic
   description: It smells like nothing.
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
-    - type: SubdermalImplant
-      implantAction: ActionSpawnTurretSpell
+  - type: SubdermalImplant
+    implantAction: ActionSpawnTurretSpell
 
 - type: entity
   parent: BaseMagicAdder
   id: instrumentimplant
   name: melodic magic
   description: It smells like faded tragedies.
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
-    - type: SubdermalImplant
-      implantAction: ActionSummonInstrument
+  - type: SubdermalImplant
+    implantAction: ActionSummonInstrument
 
 #MARK: Base implanter
 # Slightly pared down implanter.
@@ -123,48 +123,48 @@
   parent: BaseItem
   abstract: true
   components:
-    - type: ItemSlots
-    - type: ContainerContainer
-      containers:
-        implanter_slot: !type:ContainerSlot { }
-    - type: Implanter
+  - type: ItemSlots
+  - type: ContainerContainer
+    containers:
+      implanter_slot: !type:ContainerSlot {}
+  - type: Implanter
+    whitelist:
+      components:
+      - Body # no chair microbomb
+    blacklist:
+      components:
+      - Guardian # no holoparasite macrobomb wombo combo
+      tags:
+      - Unimplantable
+    currentMode: Inject
+    implantOnly: true
+    implanterSlot:
+      name: Implant
+      locked: True
+      priority: 0
       whitelist:
-        components:
-        - Body # no chair microbomb
-      blacklist:
-        components:
-        - Guardian # no holoparasite macrobomb wombo combo
         tags:
-        - Unimplantable
-      currentMode: Inject
-      implantOnly: true
-      implanterSlot:
-        name: Implant
-        locked: True
-        priority: 0
-        whitelist:
-          tags:
-            - SubdermalImplant
-    - type: Sprite
-      sprite: Objects/Magic/magicactions.rsi
-      state: spell_default
-      layers:
-        - state: ashed
-          map: [ "implantFull" ]
-          visible: false
-        - state: spell_default
-          map: [ "implantOnly" ]
-    - type: Appearance
-    - type: GenericVisualizer
-      visuals:
-        enum.ImplanterVisuals.Full:
-          implantFull:
-            False: {visible: true}
-            True: {visible: false}
-        enum.ImplanterImplantOnlyVisuals.ImplantOnly:
-          implantOnly:
-            True: {state: ashed}
-            False: {state: spell_default}
+        - SubdermalImplant
+  - type: Sprite
+    sprite: Objects/Magic/magicactions.rsi
+    state: spell_default
+    layers:
+    - state: ashed
+      map: ["implantFull"]
+      visible: false
+    - state: spell_default
+      map: ["implantOnly"]
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.ImplanterVisuals.Full:
+        implantFull:
+          False: {visible: true}
+          True: {visible: false}
+      enum.ImplanterImplantOnlyVisuals.ImplantOnly:
+        implantOnly:
+          True: {state: ashed}
+          False: {state: spell_default}
 
 #MARK: Implanters
 
@@ -173,11 +173,11 @@
   id: template_implanter
   name: torn page
   description: A torn page from a spell book. It looks brittle.
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMagicPage
   components:
-    - type: Implanter
-      implant: TemplateSpell
+  - type: Implanter
+    implant: TemplateSpell
 
 - type: entity
   id: firepage
@@ -185,8 +185,8 @@
   description: A torn page from a spell book. It looks brittle.
   parent: BaseMagicPage
   components:
-    - type: Implanter
-      implant: fireballimplant
+  - type: Implanter
+    implant: fireballimplant
 
 - type: entity
   id: waterpage
@@ -194,8 +194,8 @@
   description: A torn page from a spell book. It looks brittle.
   parent: BaseMagicPage
   components:
-    - type: Implanter
-      implant: oceanimplant
+  - type: Implanter
+    implant: oceanimplant
 
 - type: entity
   id: cumpage
@@ -203,8 +203,8 @@
   description: A torn page from a spell book. It looks brittle.
   parent: BaseMagicPage
   components:
-    - type: Implanter
-      implant: whitestuffimplant
+  - type: Implanter
+    implant: whitestuffimplant
 
 - type: entity
   id: boogiepage
@@ -212,8 +212,8 @@
   description: A torn page from a spell book. It looks brittle.
   parent: BaseMagicPage
   components:
-    - type: Implanter
-      implant: blueimplant
+  - type: Implanter
+    implant: blueimplant
 
 - type: entity
   id: flashpage
@@ -221,8 +221,8 @@
   description: A torn page from a spell book. It looks brittle.
   parent: BaseMagicPage
   components:
-    - type: Implanter
-      implant: flashimplant
+  - type: Implanter
+    implant: flashimplant
 
 - type: entity
   id: repulsepage
@@ -230,8 +230,8 @@
   description: A torn page from a spell book. It looks brittle.
   parent: BaseMagicPage
   components:
-    - type: Implanter
-      implant: repulseimplant
+  - type: Implanter
+    implant: repulseimplant
 
 - type: entity
   id: instrumentpage
@@ -239,8 +239,8 @@
   description: A torn page from a spell book. It looks brittle.
   parent: BaseMagicPage
   components:
-    - type: Implanter
-      implant: instrumentimplant
+  - type: Implanter
+    implant: instrumentimplant
 
 - type: entity
   id: icepage
@@ -248,8 +248,8 @@
   description: A torn page from a spell book. It looks brittle.
   parent: BaseMagicPage
   components:
-    - type: Implanter
-      implant: iceimplant
+  - type: Implanter
+    implant: iceimplant
 
 - type: entity
   id: turretpage
@@ -257,18 +257,18 @@
   description: A torn page from a spell book. It looks brittle.
   parent: BaseMagicPage
   components:
-    - type: Implanter
-      implant: turretimplant
+  - type: Implanter
+    implant: turretimplant
 
 - type: entity
   parent: BaseMagicAdder
   id: chaptest
   name: chaplain test
   description: A test implant for chaplain abilities.
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
-    - type: SubdermalImplant
-      implantAction: ActionTestChaplain
+  - type: SubdermalImplant
+    implantAction: ActionTestChaplain
 
 - type: entity
   id: chaptestplant
@@ -276,5 +276,5 @@
   description: A torn page from a spell book. It looks brittle.
   parent: BaseMagicPage
   components:
-    - type: Implanter
-      implant: chaptest
+  - type: Implanter
+    implant: chaptest

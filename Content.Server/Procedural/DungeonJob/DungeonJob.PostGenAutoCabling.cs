@@ -13,7 +13,13 @@ public sealed partial class DungeonJob
     /// <summary>
     /// <see cref="AutoCablingDunGen"/>
     /// </summary>
-    private async Task PostGen(AutoCablingDunGen gen, DungeonData data, Dungeon dungeon, HashSet<Vector2i> reservedTiles, Random random)
+    private async Task PostGen(
+        AutoCablingDunGen gen,
+        DungeonData data,
+        Dungeon dungeon,
+        HashSet<Vector2i> reservedTiles,
+        Random random
+    )
     {
         if (!data.Entities.TryGetValue(DungeonDataKey.Cabling, out var ent))
         {
@@ -37,8 +43,7 @@ public sealed partial class DungeonJob
 
             while (anchored.MoveNext(out var anc))
             {
-                if (!nodeQuery.TryGetComponent(anc, out var nodeContainer) ||
-                   !nodeContainer.Nodes.ContainsKey("power"))
+                if (!nodeQuery.TryGetComponent(anc, out var nodeContainer) || !nodeContainer.Nodes.ContainsKey("power"))
                 {
                     continue;
                 }
@@ -101,7 +106,7 @@ public sealed partial class DungeonJob
 
             for (var i = 0; i < 4; i++)
             {
-                var dir = (Direction) (i * 2);
+                var dir = (Direction)(i * 2);
 
                 var neighbor = node + dir.ToIntVec();
                 var tileCost = 1f;
@@ -147,8 +152,7 @@ public sealed partial class DungeonJob
 
             while (anchored.MoveNext(out var anc))
             {
-                if (!nodeQuery.TryGetComponent(anc, out var nodeContainer) ||
-                    !nodeContainer.Nodes.ContainsKey("power"))
+                if (!nodeQuery.TryGetComponent(anc, out var nodeContainer) || !nodeContainer.Nodes.ContainsKey("power"))
                 {
                     continue;
                 }

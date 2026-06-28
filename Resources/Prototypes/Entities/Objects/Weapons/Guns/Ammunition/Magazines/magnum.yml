@@ -1,17 +1,17 @@
 - type: entity
   id: BaseMagazineMagnum
   name: pistol magazine (.45 magnum)
-  parent: [ BaseMagazinePistol, BaseC1Contraband, RecyclableItemSteelTiny ] # Frontier: BaseSecurityContraband<BaseC1Contraband, added RecyclableItemSteelTiny
+  parent: [BaseMagazinePistol, BaseC1Contraband, RecyclableItemSteelTiny] # Frontier: BaseSecurityContraband<BaseC1Contraband, added RecyclableItemSteelTiny
   abstract: true
   components:
   - type: Tag
     tags:
-      - MagazineMagnum
+    - MagazineMagnum
   - type: BallisticAmmoProvider
     mayTransfer: true
     whitelist:
       tags:
-        - CartridgeMagnum
+      - CartridgeMagnum
     capacity: 7
 
 - type: entity
@@ -22,12 +22,12 @@
   components:
   - type: Tag
     tags:
-      - MagazineMagnumSubMachineGun
+    - MagazineMagnumSubMachineGun
   - type: BallisticAmmoProvider
     mayTransfer: true
     whitelist:
       tags:
-        - CartridgeMagnum
+      - CartridgeMagnum
     capacity: 25
   - type: Item
     size: Small
@@ -48,7 +48,7 @@
   - type: Appearance
 
 - type: entity
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   id: MagazineMagnumEmpty
   name: pistol magazine (.45 magnum any)
   suffix: empty
@@ -65,7 +65,7 @@
       map: ["enum.GunVisualLayers.Mag"]
 
 - type: entity
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   id: MagazineMagnum
   name: pistol magazine (.45 magnum)
   parent: BaseMagazineMagnum
@@ -81,7 +81,7 @@
       map: ["enum.GunVisualLayers.Mag"]
 
 - type: entity
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   id: MagazineMagnumPractice
   name: pistol magazine (.45 magnum practice)
   parent: BaseMagazineMagnum
@@ -97,7 +97,7 @@
       map: ["enum.GunVisualLayers.Mag"]
 
 - type: entity
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   id: MagazineMagnumUranium
   name: pistol magazine (.45 magnum uranium)
   parent: BaseMagazineMagnum
@@ -113,7 +113,7 @@
       map: ["enum.GunVisualLayers.Mag"]
 
 - type: entity
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   id: MagazineMagnumAP
   name: pistol magazine (.45 magnum armor-piercing)
   parent: BaseMagazineMagnum
@@ -128,9 +128,8 @@
     - state: mag-1
       map: ["enum.GunVisualLayers.Mag"]
 
-
 - type: entity
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   id: MagazineMagnumSubMachineGunEmpty
   name: SMG magazine (.45 magnum any)
   suffix: empty
@@ -146,7 +145,7 @@
       map: ["enum.GunVisualLayers.Mag"]
 
 - type: entity
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   id: MagazineMagnumSubMachineGun
   name: SMG magazine (.45 magnum)
   parent: BaseMagazineMagnumSubMachineGun
@@ -161,7 +160,7 @@
       map: ["enum.GunVisualLayers.Mag"]
 
 - type: entity
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   id: MagazineMagnumSubMachineGunPractice
   name: SMG magazine (.45 magnum practice)
   parent: BaseMagazineMagnumSubMachineGun
@@ -176,7 +175,7 @@
       map: ["enum.GunVisualLayers.Mag"]
 
 - type: entity
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   id: MagazineMagnumSubMachineGunUranium
   name: SMG magazine (.45 magnum uranium)
   parent: BaseMagazineMagnumSubMachineGun
@@ -191,7 +190,7 @@
       map: ["enum.GunVisualLayers.Mag"]
 
 - type: entity
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   id: MagazineMagnumSubMachineGunPiercing
   name: SMG magazine (.45 magnum armor-piercing) # Frontier: armour<armor
   parent: BaseMagazineMagnumSubMachineGun

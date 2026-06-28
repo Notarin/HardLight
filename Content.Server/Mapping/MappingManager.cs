@@ -14,12 +14,23 @@ namespace Content.Server.Mapping;
 
 public sealed class MappingManager : IPostInjectInit
 {
-    [Dependency] private readonly IAdminManager _admin = default!;
-    [Dependency] private readonly ILogManager _log = default!;
-    [Dependency] private readonly IServerNetManager _net = default!;
-    [Dependency] private readonly IPlayerManager _players = default!;
-    [Dependency] private readonly IEntitySystemManager _systems = default!;
-    [Dependency] private readonly IEntityManager _ent = default!;
+    [Dependency]
+    private readonly IAdminManager _admin = default!;
+
+    [Dependency]
+    private readonly ILogManager _log = default!;
+
+    [Dependency]
+    private readonly IServerNetManager _net = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _players = default!;
+
+    [Dependency]
+    private readonly IEntitySystemManager _systems = default!;
+
+    [Dependency]
+    private readonly IEntityManager _ent = default!;
 
     private ISawmill _sawmill = default!;
     private ZStdCompressionContext _zstd = default!;
@@ -41,11 +52,13 @@ public sealed class MappingManager : IPostInjectInit
 #if !FULL_RELEASE
         try
         {
-            if (!_players.TryGetSessionByChannel(message.MsgChannel, out var session) ||
-                !_admin.IsAdmin(session, true) ||
-                !_admin.HasAdminFlag(session, AdminFlags.Host) ||
-                !_ent.TryGetComponent(session.AttachedEntity, out TransformComponent? xform) ||
-                xform.MapUid is not {} mapUid)
+            if (
+                !_players.TryGetSessionByChannel(message.MsgChannel, out var session)
+                || !_admin.IsAdmin(session, true)
+                || !_admin.HasAdminFlag(session, AdminFlags.Host)
+                || !_ent.TryGetComponent(session.AttachedEntity, out TransformComponent? xform)
+                || xform.MapUid is not { } mapUid
+            )
             {
                 return;
             }
@@ -57,11 +70,7 @@ public sealed class MappingManager : IPostInjectInit
             var writer = new StringWriter();
             stream.Save(new YamlMappingFix(new Emitter(writer)), false);
 
-            var msg = new MappingMapDataMessage()
-            {
-                Context = _zstd,
-                Yml = writer.ToString()
-            };
+            var msg = new MappingMapDataMessage() { Context = _zstd, Yml = writer.ToString() };
             _net.ServerSendMessage(msg, message.MsgChannel);
         }
         catch (Exception e)

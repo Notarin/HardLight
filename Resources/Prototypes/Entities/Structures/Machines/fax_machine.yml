@@ -9,7 +9,7 @@
     drawdepth: SmallObjects
     layers:
     - state: icon
-      map: [ "enum.FaxMachineVisuals.VisualState" ]
+      map: ["enum.FaxMachineVisuals.VisualState"]
   - type: Icon
     sprite: Structures/Machines/fax_machine.rsi
     state: icon
@@ -19,8 +19,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.25,-0.25,0.25,0.25"
         density: 25
         mask:
@@ -47,16 +46,16 @@
       ejectSound: /Audio/Machines/tray_eject.ogg
       whitelist:
         components:
-          - FaxableObject #used to be PaperComponent - brainfood1183
+        - FaxableObject #used to be PaperComponent - brainfood1183
   - type: GenericVisualizer
     visuals:
       enum.PowerDeviceVisuals.Powered:
         enum.FaxMachineVisuals.VisualState:
-          True: { state: idle }
-          False: { state: icon }
+          True: {state: idle}
+          False: {state: icon}
       enum.FaxMachineVisuals.VisualState:
         enum.FaxMachineVisuals.VisualState:
-          Printing: { state: printing }
+          Printing: {state: printing}
           Normal: {state: idle}
   - type: ItemSlots
   - type: ContainerContainer
@@ -87,9 +86,9 @@
   components:
   - type: Sprite
     layers:
-      - state: icon
-        map: [ "base" ]
-        color: "#bfe3ff"
+    - state: icon
+      map: ["base"]
+      color: "#bfe3ff"
   - type: FaxMachine
     name: "Colonial Command"
     notifyAdmins: true
@@ -102,9 +101,9 @@
   components:
   - type: Sprite
     layers:
-      - state: icon
-        map: [ "base" ]
-        color: "#a3a3a3"
+    - state: icon
+      map: ["base"]
+      color: "#a3a3a3"
   - type: FaxMachine
     name: "ERR*?*%!"
     responsePings: false
@@ -118,8 +117,8 @@
   name: captain long range fax machine
   suffix: NukeCodes
   components:
-    - type: FaxMachine
-      name: "Captain's Office"
-      receiveNukeCodes: true
-    - type: StealTarget
-      stealGroup: FaxMachineCaptain
+  - type: FaxMachine
+    name: "Captain's Office"
+    receiveNukeCodes: true
+  - type: StealTarget
+    stealGroup: FaxMachineCaptain

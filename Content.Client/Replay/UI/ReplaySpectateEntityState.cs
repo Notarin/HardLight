@@ -12,7 +12,8 @@ namespace Content.Client.Replay.UI;
 [Virtual]
 public class ReplaySpectateEntityState : GameplayState
 {
-    [Dependency] private readonly ContentReplayPlaybackManager _replayManager = default!;
+    [Dependency]
+    private readonly ContentReplayPlaybackManager _replayManager = default!;
 
     protected override void Startup()
     {

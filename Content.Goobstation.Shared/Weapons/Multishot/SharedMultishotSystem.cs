@@ -37,13 +37,26 @@ namespace Content.Goobstation.Shared.Weapons.Multishot;
 
 public sealed class SharedMultishotSystem : EntitySystem
 {
-    [Dependency] private readonly SharedBodySystem _bodySystem = default!;
-    [Dependency] private readonly SharedCombatModeSystem _combatSystem = default!;
-    [Dependency] private readonly SharedGunSystem _gunSystem = default!;
-    [Dependency] private readonly SharedHandsSystem _handsSystem = default!;
-    [Dependency] private readonly MissChanceSystem _miss = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly SharedStaminaSystem _staminaSystem = default!; // HardLight: StaminSystem<SharedStaminaSystem
+    [Dependency]
+    private readonly SharedBodySystem _bodySystem = default!;
+
+    [Dependency]
+    private readonly SharedCombatModeSystem _combatSystem = default!;
+
+    [Dependency]
+    private readonly SharedGunSystem _gunSystem = default!;
+
+    [Dependency]
+    private readonly SharedHandsSystem _handsSystem = default!;
+
+    [Dependency]
+    private readonly MissChanceSystem _miss = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private readonly SharedStaminaSystem _staminaSystem = default!; // HardLight: StaminSystem<SharedStaminaSystem
 
     public override void Initialize()
     {
@@ -62,8 +75,7 @@ public sealed class SharedMultishotSystem : EntitySystem
     {
         var user = args.SenderSession.AttachedEntity;
 
-        if (user == null ||
-            !_combatSystem.IsInCombatMode(user))
+        if (user == null || !_combatSystem.IsInCombatMode(user))
             return;
 
         if (HasComp<BorgChassisComponent>(user)) // Hardlight - Borg modules and multishot don't mix nicely.
@@ -73,7 +85,7 @@ public sealed class SharedMultishotSystem : EntitySystem
         var shootCoords = GetCoordinates(msg.Coordinates);
         var target = GetEntity(msg.Target);
 
-        foreach(var gun in gunsEnumerator)
+        foreach (var gun in gunsEnumerator)
         {
             var (gunEnt, gunComp, _) = gun;
 
@@ -130,7 +142,10 @@ public sealed class SharedMultishotSystem : EntitySystem
 
         var bodyPart = _bodySystem.GetTargetBodyPart(BodyPartType.Hand, bodySymmetry);
 
-        var damage = new DamageSpecifier(_proto.Index<DamageTypePrototype>(component.HandDamageType), component.HandDamageAmount);
+        var damage = new DamageSpecifier(
+            _proto.Index<DamageTypePrototype>(component.HandDamageType),
+            component.HandDamageAmount
+        );
         var handsDamageEv = new TryChangePartDamageEvent(damage, target, bodyPart, true);
 
         RaiseLocalEvent(target, ref handsDamageEv);
@@ -208,7 +223,9 @@ public sealed class SharedMultishotSystem : EntitySystem
 
         foreach (var item in handsItems)
         {
-            if (TryComp<GunComponent>(item, out var gunComp) && TryComp<MultishotComponent>(item, out var multishotComp))
+            if (
+                TryComp<GunComponent>(item, out var gunComp) && TryComp<MultishotComponent>(item, out var multishotComp)
+            )
                 itemList.Add((item, gunComp, multishotComp));
         }
 

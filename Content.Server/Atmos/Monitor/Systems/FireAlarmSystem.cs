@@ -5,20 +5,31 @@ using Content.Shared.Atmos.Monitor;
 using Content.Shared.CCVar;
 using Content.Shared.DeviceNetwork.Components;
 using Content.Shared.DeviceNetwork.Systems;
-using Content.Shared.Interaction;
 using Content.Shared.Emag.Systems;
+using Content.Shared.Interaction;
 using Robust.Shared.Configuration;
 
 namespace Content.Server.Atmos.Monitor.Systems;
 
 public sealed class FireAlarmSystem : EntitySystem
 {
-    [Dependency] private readonly AtmosDeviceNetworkSystem _atmosDevNet = default!;
-    [Dependency] private readonly AtmosAlarmableSystem _atmosAlarmable = default!;
-    [Dependency] private readonly EmagSystem _emag = default!;
-    [Dependency] private readonly SharedInteractionSystem _interactionSystem = default!;
-    [Dependency] private readonly AccessReaderSystem _access = default!;
-    [Dependency] private readonly IConfigurationManager _configManager = default!;
+    [Dependency]
+    private readonly AtmosDeviceNetworkSystem _atmosDevNet = default!;
+
+    [Dependency]
+    private readonly AtmosAlarmableSystem _atmosAlarmable = default!;
+
+    [Dependency]
+    private readonly EmagSystem _emag = default!;
+
+    [Dependency]
+    private readonly SharedInteractionSystem _interactionSystem = default!;
+
+    [Dependency]
+    private readonly AccessReaderSystem _access = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _configManager = default!;
 
     public override void Initialize()
     {

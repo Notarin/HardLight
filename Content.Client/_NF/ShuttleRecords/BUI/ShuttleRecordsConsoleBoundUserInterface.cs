@@ -12,10 +12,8 @@ using static Robust.Client.UserInterface.Controls.BaseButton;
 #pragma warning disable IDE1006
 namespace Content.Client._NF.ShuttleRecords.BUI;
 
-public sealed class ShuttleRecordsConsoleBoundUserInterface(
-    EntityUid owner,
-    Enum uiKey
-) : BoundUserInterface(owner, uiKey)
+public sealed class ShuttleRecordsConsoleBoundUserInterface(EntityUid owner, Enum uiKey)
+    : BoundUserInterface(owner, uiKey)
 {
     private ShuttleRecordsWindow? _window;
     private ItemList? _dockedGridsList;
@@ -30,7 +28,8 @@ public sealed class ShuttleRecordsConsoleBoundUserInterface(
         {
             _window = this.CreateWindow<ShuttleRecordsWindow>();
             _window.OnCopyDeed += CopyDeed;
-            _window.TargetIdButton.OnPressed += _ => SendMessage(new ItemSlotButtonPressedEvent(ShuttleRecordsConsoleComponent.TargetIdCardSlotId));
+            _window.TargetIdButton.OnPressed += _ =>
+                SendMessage(new ItemSlotButtonPressedEvent(ShuttleRecordsConsoleComponent.TargetIdCardSlotId));
 
             _dockedGridsList = _window.FindControl<ItemList>("DockedGridsList");
             _createDeedButton = _window.FindControl<Button>("CreateDeedButton");
@@ -88,5 +87,4 @@ public sealed class ShuttleRecordsConsoleBoundUserInterface(
             return;
         SendMessage(new CreateDeedFromDockedGridMessage(_selectedDockedGrid.Value));
     }
-
 }

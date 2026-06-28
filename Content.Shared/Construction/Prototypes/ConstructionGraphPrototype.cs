@@ -1,8 +1,8 @@
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq; //Hardlight
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
-using System.Linq; //Hardlight
 
 namespace Content.Shared.Construction.Prototypes
 {
@@ -11,7 +11,8 @@ namespace Content.Shared.Construction.Prototypes
     {
         private readonly Dictionary<string, ConstructionGraphNode> _nodes = new();
         private readonly Dictionary<(string, string), ConstructionGraphNode[]?> _paths = new();
-        private readonly Dictionary<string, Dictionary<ConstructionGraphNode, ConstructionGraphNode?>> _pathfinding = new();
+        private readonly Dictionary<string, Dictionary<ConstructionGraphNode, ConstructionGraphNode?>> _pathfinding =
+            new();
 
         [ViewVariables]
         [IdDataField]
@@ -57,7 +58,7 @@ namespace Content.Shared.Construction.Prototypes
 
         public string[]? PathId(string startNode, string finishNode)
         {
-            if (Path(startNode, finishNode) is not {} path)
+            if (Path(startNode, finishNode) is not { } path)
                 return null;
 
             var nodes = new string[path.Length];
@@ -70,7 +71,11 @@ namespace Content.Shared.Construction.Prototypes
             return nodes;
         }
 
-        public ConstructionGraphNode[]? Path(string startNode, string finishNode, List<ConstructionGraphEdge>? validEdges = null) //Hardlight
+        public ConstructionGraphNode[]? Path(
+            string startNode,
+            string finishNode,
+            List<ConstructionGraphEdge>? validEdges = null
+        ) //Hardlight
         {
             var tuple = (startNode, finishNode);
 
@@ -119,7 +124,10 @@ namespace Content.Shared.Construction.Prototypes
         ///     Uses breadth first search for pathfinding.
         /// </summary>
         /// <param name="start"></param>
-        private Dictionary<ConstructionGraphNode, ConstructionGraphNode?> PathsForStart(string start, List<ConstructionGraphEdge>? validEdges = null) //Hardlight
+        private Dictionary<ConstructionGraphNode, ConstructionGraphNode?> PathsForStart(
+            string start,
+            List<ConstructionGraphEdge>? validEdges = null
+        ) //Hardlight
         {
             // TODO: Make this use A* or something, although it's not that important.
             var startNode = _nodes[start];
@@ -135,9 +143,11 @@ namespace Content.Shared.Construction.Prototypes
                 var current = frontier.Dequeue();
                 foreach (var edge in current.Edges)
                 {
-                    if (validEdges != null && validEdges.Any() && !validEdges.Contains(edge)) continue; //Hardlight: Tosses out edge if it has tag requirements not present in the entity
+                    if (validEdges != null && validEdges.Any() && !validEdges.Contains(edge))
+                        continue; //Hardlight: Tosses out edge if it has tag requirements not present in the entity
                     var edgeNode = _nodes[edge.Target];
-                    if(cameFrom.ContainsKey(edgeNode)) continue;
+                    if (cameFrom.ContainsKey(edgeNode))
+                        continue;
                     frontier.Enqueue(edgeNode);
                     cameFrom[edgeNode] = current;
                 }

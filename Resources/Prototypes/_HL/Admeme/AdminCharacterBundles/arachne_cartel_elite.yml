@@ -16,10 +16,8 @@
     belt: ClothingBeltArcadiaArachneFilled
     back: ArachneSpiderBlades
     id: ChameleonPDAArachne
-  # inhand:
+    # inhand:
     # - PlushieLizard
-
-
 
 # pocket1
 - type: entity
@@ -34,10 +32,10 @@
     - Admin
   - type: StorageFill
     contents:
-      - id: Magazine45_magnumPistolAP
-        # amount: 1
-      - id: KukriKnife
-      - id: AmmoBox45_magnumAP
+    - id: Magazine45_magnumPistolAP
+      # amount: 1
+    - id: KukriKnife
+    - id: AmmoBox45_magnumAP
 
 # pocket2
 - type: entity
@@ -60,7 +58,7 @@
         priority: 2
         whitelist:
           tags:
-            - Magazine45_magnumPistolFMJ
+          - Magazine45_magnumPistolFMJ
         whitelistFailPopup: gun-magazine-whitelist-fail
       gun_chamber:
         name: Chamber
@@ -68,30 +66,10 @@
         priority: 1
         whitelist:
           tags:
-            - Cartridge45_magnumFMJ
+          - Cartridge45_magnumFMJ
 
-
-
-# head
-# - type: entity
-  # id:
-  # parent:
-  # name:
-  # description:
-  # suffix:
-  # components:
-
-# neck
-# - type: entity
-  # id:
-  # parent:
-  # name:
-  # description:
-  # suffix:
-  # components:
-
-# mask
-# - type: entity
+  # head
+  # - type: entity
   # id:
   # parent:
   # name:
@@ -101,6 +79,24 @@
 
 # eyes
 - type: entity
+  # neck
+  # - type: entity
+  # id:
+  # parent:
+  # name:
+  # description:
+  # suffix:
+  # components:
+
+  # mask
+  # - type: entity
+  # id:
+  # parent:
+  # name:
+  # description:
+  # suffix:
+  # components:
+
   id: ClothingEyesGlassesChameleonArachne
   parent: ClothingEyesGlassesChameleon
   # name:
@@ -130,27 +126,8 @@
       - EncryptionKeySyndie
       - EncryptionKeyStationMaster
 
-# gloves
-# - type: entity
-  # id:
-  # parent:
-  # name:
-  # description:
-  # suffix:
-  # components:
-
-# shoes
-# - type: entity
-  # id:
-  # parent:
-  # name:
-  # description:
-  # suffix:
-  # components:
-
-
-# suitstorage
-# - type: entity
+  # gloves
+  # - type: entity
   # id:
   # parent:
   # name:
@@ -160,6 +137,24 @@
 
 # outerClothing
 - type: entity
+  # shoes
+  # - type: entity
+  # id:
+  # parent:
+  # name:
+  # description:
+  # suffix:
+  # components:
+
+  # suitstorage
+  # - type: entity
+  # id:
+  # parent:
+  # name:
+  # description:
+  # suffix:
+  # components:
+
   id: ClothingOuterCoatArcadiaTrenchOpenedArachneFilled
   parent: ClothingOuterCoatArcadiaTrenchOpened
   # name:
@@ -171,13 +166,13 @@
     - Admin
   - type: StorageFill
     contents:
-      - id: RadioJammerMicroreactor
-        # amount: 1
-      - id: ClusterGrenade
-      - id: Handcuffs
+    - id: RadioJammerMicroreactor
+      # amount: 1
+    - id: ClusterGrenade
+    - id: Handcuffs
 
-# jumpsuit
-# - type: entity
+  # jumpsuit
+  # - type: entity
   # id:
   # parent:
   # name:
@@ -198,8 +193,8 @@
     - Admin
   - type: StorageFill
     contents:
-      - id: SpaceCash1000000
-        # amount: 1
+    - id: SpaceCash1000000
+      # amount: 1
 
 # belt
 - type: entity
@@ -214,19 +209,19 @@
     - Admin
   - type: StorageFill
     contents:
-      - id: MedicatedSuture
-      - id: RegenerativeMesh
-      - id: HemostasisAutoInjector
-      - id: PunctAutoInjector
-        amount: 2
-      - id: SyringeBluespace
-      - id: Binoculars
-      - id: HypopenWidowArachne
-      - id: HypopenCleanserArachne
-      - id: SyndiHypoArachne
+    - id: MedicatedSuture
+    - id: RegenerativeMesh
+    - id: HemostasisAutoInjector
+    - id: PunctAutoInjector
+      amount: 2
+    - id: SyringeBluespace
+    - id: Binoculars
+    - id: HypopenWidowArachne
+    - id: HypopenCleanserArachne
+    - id: SyndiHypoArachne
 
-# backpack
-# - type: entity
+  # backpack
+  # - type: entity
   # id:
   # parent:
   # name:
@@ -254,13 +249,13 @@
         - Write
   - type: CartridgeLoader
     preinstalled:
-      - CrewManifestCartridge
-      - NotekeeperCartridge
-      - NanoTaskCartridge
-      - NewsReaderCartridge
-      - BountyContractsCartridge
-      - AstroNavCartridge
-      - MedTekCartridge
+    - CrewManifestCartridge
+    - NotekeeperCartridge
+    - NanoTaskCartridge
+    - NewsReaderCartridge
+    - BountyContractsCartridge
+    - AstroNavCartridge
+    - MedTekCartridge
   - type: HealthAnalyzer
 
 # ID Card
@@ -304,10 +299,6 @@
   - type: Contraband
     hideValues: true
 
-
-
-
-
 # organs!
 - type: entity
   id: OrganSyntheticHeartArachne
@@ -332,8 +323,8 @@
     - id: Medicine
     - id: Cryogenic
     - id: Narcotic
-    # - id: Poison
-    # - id: Toxins
+      # - id: Poison
+      # - id: Toxins
   - type: Item
     size: Small
     heldPrefix: heart
@@ -359,7 +350,7 @@
       rateModifier: 10
     - id: Narcotic
       rateModifier: 1 # changed for Arachne
-    # - id: Toxins
+      # - id: Toxins
       # rateModifier: 20
   - type: Liver
   - type: Organ
@@ -367,7 +358,6 @@
   - type: Item
     size: Small
     heldPrefix: liver
-
 
 # Disposable Surgery Toolkit
 - type: entity
@@ -380,9 +370,9 @@
     - Admin
   - type: StorageFill
     contents:
-      - id: OrganSyntheticHeartArachne
-      - id: OrganSyntheticLiverArachne
-      - id: OrganSpaceAnimalLungs
+    - id: OrganSyntheticHeartArachne
+    - id: OrganSyntheticLiverArachne
+    - id: OrganSpaceAnimalLungs
       # - id: OrganSyntheticKidneys
 
 # Disposable Kit
@@ -396,13 +386,12 @@
     - Admin
   - type: StorageFill
     contents:
-      - id: SprayPaintRedDisposable
-      - id: SprayPaintWhiteDisposable
-      - id: SprayPaintGreenDisposable
-      - id: SprayPaintBlackDisposable
-      - id: PaintSoapDisposable
-      - id: AirlossAutoInjectorDisposable
-
+    - id: SprayPaintRedDisposable
+    - id: SprayPaintWhiteDisposable
+    - id: SprayPaintGreenDisposable
+    - id: SprayPaintBlackDisposable
+    - id: PaintSoapDisposable
+    - id: AirlossAutoInjectorDisposable
 
 # Widow hypopen
 - type: entity
@@ -420,8 +409,8 @@
       hypospray:
         maxVol: 30
         reagents:
-          - ReagentId: Widow
-            Quantity: 30
+        - ReagentId: Widow
+          Quantity: 30
 
 # Cleanser hypopen
 - type: entity
@@ -439,10 +428,10 @@
       hypospray:
         maxVol: 30
         reagents:
-          - ReagentId: AbyssalCleansingSerum
-            Quantity: 20
-          - ReagentId: Mechanites
-            Quantity: 10
+        - ReagentId: AbyssalCleansingSerum
+          Quantity: 20
+        - ReagentId: Mechanites
+          Quantity: 10
 
 # Mechanites Hypospray
 - type: entity
@@ -460,9 +449,8 @@
       hypospray:
         maxVol: 60
         reagents:
-          - ReagentId: Mechanites
-            Quantity: 60
-
+        - ReagentId: Mechanites
+          Quantity: 60
 
 # Ruin and WidowsCurse Gas Grenade
 - type: entity

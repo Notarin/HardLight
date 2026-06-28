@@ -9,7 +9,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: TallCabinet
@@ -21,7 +21,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: ChestDrawer
@@ -33,7 +33,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 # ItemCabinets
 - type: construction
@@ -46,7 +46,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 # Shelfs
 # Normals
@@ -59,7 +59,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: ShelfMetal
@@ -70,7 +70,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: ShelfGlass
@@ -81,7 +81,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 # Reinforced
 - type: construction
@@ -93,7 +93,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: ShelfRMetal
@@ -104,7 +104,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: ShelfRGlass
@@ -115,7 +115,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 # Departmental
 - type: construction
@@ -127,7 +127,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: ShelfKitchen
@@ -138,7 +138,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: ShelfChemistry
@@ -149,7 +149,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 # HL - Add Suit Storage Crafting
 - type: construction
@@ -161,4 +161,4 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked

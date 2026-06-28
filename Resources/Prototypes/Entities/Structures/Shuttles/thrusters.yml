@@ -29,77 +29,74 @@
   description: A thruster that allows a shuttle to move.
   abstract: true
   components:
-    - type: AmbientSound
-      enabled: false
-      range: 4
-      volume: -4
-      sound:
-        path: /Audio/Effects/shuttle_thruster.ogg
-    - type: Transform
-      anchored: true
-    - type: Physics
-      bodyType: Static
-    - type: Rotatable
-      rotateWhileAnchored: true
-    - type: Thruster
-      damage:
-        types:
-          Heat: 4
-    - type: InteractionOutline
-    - type: Sprite
-    - type: Appearance
-    - type: ThrusterVisuals
-    - type: ApcPowerReceiver
-      powerLoad: 1500
-    - type: ExtensionCableReceiver
-    - type: Damageable
-      damageContainer: StructuralInorganic
-      damageModifierSet: Electronic
-    - type: Destructible
-      thresholds:
-      - trigger:
-          !type:DamageTrigger
-          damage: 100  # Considering we need a lot of thrusters didn't want to make an individual one too tanky
-        behaviors:
-          - !type:DoActsBehavior
-            acts: ["Destruction"]
-          - !type:PlaySoundBehavior
-            sound:
-              collection: MetalBreak
-    - type: StaticPrice
-      price: 300
-    - type: GuideHelp
-      guides:
-      - ShuttleCraft
+  - type: AmbientSound
+    enabled: false
+    range: 4
+    volume: -4
+    sound:
+      path: /Audio/Effects/shuttle_thruster.ogg
+  - type: Transform
+    anchored: true
+  - type: Physics
+    bodyType: Static
+  - type: Rotatable
+    rotateWhileAnchored: true
+  - type: Thruster
+    damage:
+      types:
+        Heat: 4
+  - type: InteractionOutline
+  - type: Sprite
+  - type: Appearance
+  - type: ThrusterVisuals
+  - type: ApcPowerReceiver
+    powerLoad: 1500
+  - type: ExtensionCableReceiver
+  - type: Damageable
+    damageContainer: StructuralInorganic
+    damageModifierSet: Electronic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 100 # Considering we need a lot of thrusters didn't want to make an individual one too tanky
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+  - type: StaticPrice
+    price: 300
+  - type: GuideHelp
+    guides:
+    - ShuttleCraft
   placement:
     mode: SnapgridCenter
 
 - type: entity
   id: Thruster
   name: thruster
-  parent: [ BaseThruster, ConstructibleMachine ]
+  parent: [BaseThruster, ConstructibleMachine]
   components:
   - type: Machine
     board: ThrusterMachineCircuitboard
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 300
       behaviors:
-        - !type:DoActsBehavior
-          acts: ["Destruction"]
-    - trigger:
-        !type:DamageTrigger
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
-        - !type:DoActsBehavior
-          acts: ["Destruction"]
-        - !type:PlaySoundBehavior
-          sound:
-            collection: MetalBreak
-        - !type:ChangeConstructionNodeBehavior
-          node: machineFrame
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:ChangeConstructionNodeBehavior
+        node: machineFrame
   - type: Sprite
     sprite: _NF/Structures/Shuttles/thruster.rsi # Frontier: use _NF prefix
     layers:
@@ -126,7 +123,7 @@
     - Toggle # frontier
   - type: PirateBountyItem # Frontier
     id: Thruster # Frontier
-  # - type: RadarBlip # Mono
+    # - type: RadarBlip # Mono
     # visibleFromOtherGrids: false
     # radarColor: "#99FF99"
     # scale: 1
@@ -135,37 +132,34 @@
 - type: entity
   id: ThrusterLarge
   name: large thruster
-  parent: [ BaseThruster, ConstructibleMachine ]
+  parent: [BaseThruster, ConstructibleMachine]
   placement:
     mode: AlignTileAny
   components:
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 1800
       behaviors:
-        - !type:DoActsBehavior
-          acts: ["Destruction"]
-        - !type:PlaySoundBehavior
-          sound:
-            collection: MetalBreak
-        - !type:ChangeConstructionNodeBehavior # Mono: return to frame on destruction
-          node: machineFrame
-    - trigger:
-        !type:DamageTrigger
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:ChangeConstructionNodeBehavior
+        node: machineFrame # Mono: return to frame on destruction
+    - trigger: !type:DamageTrigger
         damage: 900
       behaviors:
-        - !type:DoActsBehavior
-          acts: ["Destruction"]
-        - !type:PlaySoundBehavior
-          sound:
-            collection: MetalBreak
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.45,-1.45,1.45,0.45"
         density: 1750
         mask:
@@ -228,10 +222,10 @@
   parent: Thruster
   suffix: Unanchored
   components:
-    - type: Transform
-      anchored: false
-    - type: Physics
-      bodyType: Dynamic
+  - type: Transform
+    anchored: false
+  - type: Physics
+    bodyType: Dynamic
 
 - type: entity
   id: DebugThruster
@@ -260,7 +254,7 @@
 
 - type: entity
   id: Gyroscope
-  parent: [ BaseThruster, ConstructibleMachine ]
+  parent: [BaseThruster, ConstructibleMachine]
   name: gyroscope
   description: Increases the shuttle's potential angular rotation.
   components:
@@ -283,7 +277,7 @@
       shader: unshaded
       visible: false
     - state: thrust_burn
-      map: [ "enum.ThrusterVisualLayers.Thrusting" ]
+      map: ["enum.ThrusterVisualLayers.Thrusting"]
       visible: false
     - state: thrust_burn_unshaded
       map: ["enum.ThrusterVisualLayers.ThrustingUnshaded"]
@@ -301,23 +295,21 @@
     board: GyroscopeMachineCircuitboard
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 300
       behaviors:
-        - !type:DoActsBehavior
-          acts: ["Destruction"]
-    - trigger:
-        !type:DamageTrigger
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
-        - !type:DoActsBehavior
-          acts: ["Destruction"]
-        - !type:PlaySoundBehavior
-          sound:
-            collection: MetalBreak
-        - !type:ChangeConstructionNodeBehavior
-          node: machineFrame
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:ChangeConstructionNodeBehavior
+        node: machineFrame
   - type: UpgradePowerDraw
     powerDrawMultiplier: 0.75
     scaling: Exponential
@@ -334,10 +326,10 @@
   parent: Gyroscope
   suffix: Unanchored
   components:
-    - type: Transform
-      anchored: false
-    - type: Physics
-      bodyType: Dynamic
+  - type: Transform
+    anchored: false
+  - type: Physics
+    bodyType: Dynamic
 
 - type: entity
   id: DebugGyroscope

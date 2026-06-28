@@ -7,16 +7,16 @@
   dummyPrototype: BorgChassisSecurity
   # Visuals
   layerData:
-    - state: borg
-      map: [ "enum.BorgVisualLayers.Body", "movement" ]
-    - state: borg_e
-      map: [ "enum.BorgVisualLayers.Light" ]
-      shader: unshaded
-      visible: false
-    - state: borg_l
-      shader: unshaded
-      map: [ "light","enum.BorgVisualLayers.LightStatus" ]
-      visible: false
+  - state: borg
+    map: ["enum.BorgVisualLayers.Body", "movement"]
+  - state: borg_e
+    map: ["enum.BorgVisualLayers.Light"]
+    shader: unshaded
+    visible: false
+  - state: borg_l
+    shader: unshaded
+    map: ["light", "enum.BorgVisualLayers.LightStatus"]
+    visible: false
 
   spriteBodyState: borg
   spriteHasMindState: borg_e

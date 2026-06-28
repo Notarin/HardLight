@@ -7,13 +7,13 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-        scale: 0.7, 0.7
-      - sprite: Objects/Misc/desk_bell.rsi
-        state: normal
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: red
+    - state: green
+      scale: 0.7, 0.7
+    - sprite: Objects/Misc/desk_bell.rsi
+      state: normal
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: red
   - type: RandomSpawner
     prototypes:
     - SpawnDungeonLootCutlery
@@ -36,13 +36,13 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-        scale: 0.7, 0.7
-      - sprite: Objects/Consumable/Food/bowl.rsi
-        state: bowl
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: red
+    - state: green
+      scale: 0.7, 0.7
+    - sprite: Objects/Consumable/Food/bowl.rsi
+      state: bowl
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: red
   - type: RandomSpawner
     prototypes:
     - NFAshtray
@@ -81,13 +81,13 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-        scale: 0.7, 0.7
-      - sprite: Objects/Consumable/Drinks/mug_moebius.rsi
-        state: icon-0
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: red
+    - state: green
+      scale: 0.7, 0.7
+    - sprite: Objects/Consumable/Drinks/mug_moebius.rsi
+      state: icon-0
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: red
   - type: RandomSpawner
     prototypes:
     - DrinkMugOne
@@ -124,13 +124,13 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-        scale: 0.7, 0.7
-      - sprite: Clothing/Head/Hats/chefhat.rsi
-        state: icon
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: red
+    - state: green
+      scale: 0.7, 0.7
+    - sprite: Clothing/Head/Hats/chefhat.rsi
+      state: icon
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: red
   - type: RandomSpawner
     prototypes:
     - ClothingHeadHatChef
@@ -150,14 +150,14 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - sprite: Structures/Storage/closet.rsi
-        state: freezer
-      - sprite: Structures/Storage/closet.rsi
-        state: freezer_door
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: red
+    - state: green
+    - sprite: Structures/Storage/closet.rsi
+      state: freezer
+    - sprite: Structures/Storage/closet.rsi
+      state: freezer_door
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: red
   - type: RandomSpawner
     prototypes:
     - FoodCartCold
@@ -180,12 +180,12 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - sprite: Structures/Storage/Crates/hydroponics.rsi
-        state: icon
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: red
+    - state: green
+    - sprite: Structures/Storage/Crates/hydroponics.rsi
+      state: icon
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: red
   - type: RandomSpawner
     prototypes:
     # Empty crates
@@ -240,12 +240,12 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - sprite: Structures/Storage/Crates/plastic.rsi
-        state: icon
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: red
+    - state: green
+    - sprite: Structures/Storage/Crates/plastic.rsi
+      state: icon
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: red
   - type: RandomSpawner
     prototypes:
     - CrateVendingMachineRestockBoozeFilled
@@ -265,12 +265,12 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - sprite: Structures/Storage/Crates/plastic.rsi
-        state: icon
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: red
+    - state: green
+    - sprite: Structures/Storage/Crates/plastic.rsi
+      state: icon
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: red
   - type: RandomSpawner
     prototypes:
     - CrateFreezer
@@ -291,12 +291,12 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - sprite: Structures/Machines/microwave.rsi
-        state: mw
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: red
+    - state: green
+    - sprite: Structures/Machines/microwave.rsi
+      state: mw
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: red
   - type: RandomSpawner
     prototypes:
     - KitchenMicrowave
@@ -320,13 +320,13 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-        scale: 0.7, 0.7
-      - sprite: Objects/Consumable/Food/burger.rsi
-        state: plain
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: red
+    - state: green
+      scale: 0.7, 0.7
+    - sprite: Objects/Consumable/Food/burger.rsi
+      state: plain
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: red
   - type: RandomSpawner
     prototypes:
     - FoodMeatRotten
@@ -362,12 +362,12 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - sprite: _NF/Objects/Devices/flatpack.rsi
-        state: engineering_lathe
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: red
+    - state: green
+    - sprite: _NF/Objects/Devices/flatpack.rsi
+      state: engineering_lathe
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: red
   - type: RandomSpawner
     prototypes:
     - UniformPrinterFlatpack

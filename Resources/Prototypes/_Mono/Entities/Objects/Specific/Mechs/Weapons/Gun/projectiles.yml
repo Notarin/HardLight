@@ -1,7 +1,7 @@
 - type: entity
   id: MechPelletShotgun
   name: pellet (0.5 gauge)
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseBullet
   components:
   - type: Sprite
@@ -14,7 +14,7 @@
 
 - type: entity
   id: MechPelletShotgunSpread
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: MechPelletShotgun
   components:
   - type: ProjectileSpread
@@ -26,7 +26,7 @@
   id: MechCoilgunSabot
   name: 3cm sabot
   parent: BulletRocket
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -52,7 +52,7 @@
   id: Bullet45_ACPFMJ_Mech
   name: bullet (.45 ACP FMJ)
   parent: Bullet45_ACPFMJ
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -68,7 +68,7 @@
   id: 60mmMechShell
   name: 60mm shell
   parent: BaseBullet
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -90,7 +90,7 @@
   id: 120mmBulletHE
   name: 120mm Shell
   parent: BulletRocket
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -120,7 +120,7 @@
   id: 280mmRocket
   name: 280mm "Bazooka" Rocket
   parent: BaseBulletTrigger
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -164,7 +164,7 @@
 - type: entity
   id: BlanketFlare
   name: Signal Emitter
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Physics
     bodyType: Dynamic
@@ -174,8 +174,7 @@
   - type: Fixtures
     fixtures:
       projectile:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.1,-0.1,0.1,0.1"
         mask:
         - ItemMask # BulletImpassable
@@ -211,7 +210,7 @@
 - type: entity
   id: SparkFlare
   name: Signal Emitter
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Physics
     bodyType: Dynamic
@@ -221,8 +220,7 @@
   - type: Fixtures
     fixtures:
       projectile:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.1,-0.1,0.1,0.1"
         mask:
         - ItemMask # BulletImpassable
@@ -261,7 +259,7 @@
   id: Mech90mmBullet
   name: 90mm projectile
   parent: BaseBulletTrigger
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: TimedDespawn
     lifetime: 4.2
@@ -294,7 +292,7 @@
   id: MechMediumPlasmaProjectile
   name: plasma projectile
   parent: BaseBulletTrigger
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:

@@ -100,10 +100,10 @@
   tier: 3
   cost: 15000
   recipeUnlocks:
-    - ClothingOuterHardsuitMaximPrototype
-#    - ClothingHeadHelmetAncient
-#    - ClothingOuterHardsuitAncientEVA
-    - NFBlueprintClothingOuterHardsuitMaximPrototype
+  - ClothingOuterHardsuitMaximPrototype
+  #    - ClothingHeadHelmetAncient
+  #    - ClothingOuterHardsuitAncientEVA
+  - NFBlueprintClothingOuterHardsuitMaximPrototype
   technologyPrerequisites:
   - HardsuitsAdvanced
   position: 3, 7

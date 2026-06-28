@@ -4,10 +4,12 @@ namespace Content.Shared.Disposal.Unit;
 
 public abstract class SharedDisposalTubeSystem : EntitySystem
 {
-    public virtual bool TryInsert(EntityUid uid,
+    public virtual bool TryInsert(
+        EntityUid uid,
         DisposalUnitComponent from,
         IEnumerable<string>? tags = default,
-        Tube.DisposalEntryComponent? entry = null)
+        Tube.DisposalEntryComponent? entry = null
+    )
     {
         return false;
     }

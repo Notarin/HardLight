@@ -9,7 +9,7 @@
   canRotate: false
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: ReinforcedGirder
@@ -22,7 +22,7 @@
   canRotate: false
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: ClockworkGirder
@@ -35,7 +35,7 @@
   canRotate: false
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: Wall
@@ -48,7 +48,7 @@
   canRotate: false
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: ReinforcedWall
@@ -61,7 +61,7 @@
   canRotate: false
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: WallClock
@@ -74,7 +74,7 @@
   canRotate: false
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: WoodWall
@@ -87,7 +87,7 @@
   canRotate: false
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: UraniumWall
@@ -100,7 +100,7 @@
   canRotate: false
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: SilverWall
@@ -113,7 +113,7 @@
   canRotate: false
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: PlasticWall
@@ -126,7 +126,7 @@
   canRotate: false
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: PlasmaWall
@@ -139,7 +139,7 @@
   canRotate: false
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: GoldWall
@@ -152,7 +152,7 @@
   canRotate: false
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: ShuttleWall
@@ -165,7 +165,7 @@
   canRotate: false
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: DiagonalShuttleWall
@@ -179,7 +179,7 @@
   canRotate: true
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: ClownWall
@@ -192,7 +192,7 @@
   canRotate: false
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: MeatWall
@@ -227,8 +227,8 @@
   targetNode: grille
   category: construction-category-structures
   conditions:
-    - !type:TileNotBlocked
-      failIfSpace: false
+  - !type:TileNotBlocked
+    failIfSpace: false
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: false
@@ -240,8 +240,8 @@
   targetNode: clockGrille
   category: construction-category-structures
   conditions:
-    - !type:TileNotBlocked
-      failIfSpace: false
+  - !type:TileNotBlocked
+    failIfSpace: false
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: false
@@ -253,8 +253,8 @@
   targetNode: grilleDiagonal
   category: construction-category-structures
   conditions:
-    - !type:TileNotBlocked
-      failIfSpace: false
+  - !type:TileNotBlocked
+    failIfSpace: false
   objectType: Structure
   placementMode: SnapgridCenter
 
@@ -265,8 +265,8 @@
   targetNode: clockworkGrilleDiagonal
   category: construction-category-structures
   conditions:
-    - !type:TileNotBlocked
-      failIfSpace: false
+  - !type:TileNotBlocked
+    failIfSpace: false
   objectType: Structure
   placementMode: SnapgridCenter
 
@@ -278,8 +278,8 @@
   category: construction-category-structures
   canBuildInImpassable: true
   conditions:
-    - !type:EmptyOrWindowValidInTile
-    - !type:NoWindowsInTile
+  - !type:EmptyOrWindowValidInTile
+  - !type:NoWindowsInTile
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: false
@@ -293,8 +293,8 @@
   category: construction-category-structures
   canBuildInImpassable: true
   conditions:
-    - !type:EmptyOrWindowValidInTile
-    - !type:NoWindowsInTile
+  - !type:EmptyOrWindowValidInTile
+  - !type:NoWindowsInTile
   objectType: Structure
   placementMode: SnapgridCenter
 
@@ -306,8 +306,8 @@
   category: construction-category-structures
   canBuildInImpassable: true
   conditions:
-    - !type:EmptyOrWindowValidInTile
-    - !type:NoWindowsInTile
+  - !type:EmptyOrWindowValidInTile
+  - !type:NoWindowsInTile
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: false
@@ -321,8 +321,8 @@
   category: construction-category-structures
   canBuildInImpassable: true
   conditions:
-    - !type:EmptyOrWindowValidInTile
-    - !type:NoWindowsInTile
+  - !type:EmptyOrWindowValidInTile
+  - !type:NoWindowsInTile
   objectType: Structure
   placementMode: SnapgridCenter
 
@@ -334,8 +334,8 @@
   category: construction-category-structures
   canBuildInImpassable: true
   conditions:
-    - !type:EmptyOrWindowValidInTile
-    - !type:NoWindowsInTile
+  - !type:EmptyOrWindowValidInTile
+  - !type:NoWindowsInTile
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: false
@@ -348,8 +348,8 @@
   category: construction-category-structures
   canBuildInImpassable: true
   conditions:
-    - !type:EmptyOrWindowValidInTile
-    - !type:NoWindowsInTile
+  - !type:EmptyOrWindowValidInTile
+  - !type:NoWindowsInTile
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: false
@@ -363,8 +363,8 @@
   category: construction-category-structures
   canBuildInImpassable: true
   conditions:
-    - !type:EmptyOrWindowValidInTile
-    - !type:NoWindowsInTile
+  - !type:EmptyOrWindowValidInTile
+  - !type:NoWindowsInTile
   objectType: Structure
   placementMode: SnapgridCenter
 
@@ -376,8 +376,8 @@
   category: construction-category-structures
   canBuildInImpassable: true
   conditions:
-    - !type:EmptyOrWindowValidInTile
-    - !type:NoWindowsInTile
+  - !type:EmptyOrWindowValidInTile
+  - !type:NoWindowsInTile
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: false
@@ -390,8 +390,8 @@
   category: construction-category-structures
   canBuildInImpassable: true
   conditions:
-    - !type:EmptyOrWindowValidInTile
-    - !type:NoWindowsInTile
+  - !type:EmptyOrWindowValidInTile
+  - !type:NoWindowsInTile
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: false
@@ -404,8 +404,8 @@
   category: construction-category-structures
   canBuildInImpassable: true
   conditions:
-    - !type:EmptyOrWindowValidInTile
-    - !type:NoWindowsInTile
+  - !type:EmptyOrWindowValidInTile
+  - !type:NoWindowsInTile
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: false
@@ -419,8 +419,8 @@
   category: construction-category-structures
   canBuildInImpassable: true
   conditions:
-    - !type:EmptyOrWindowValidInTile
-    - !type:NoWindowsInTile
+  - !type:EmptyOrWindowValidInTile
+  - !type:NoWindowsInTile
   objectType: Structure
   placementMode: SnapgridCenter
 
@@ -433,8 +433,8 @@
   category: construction-category-structures
   canBuildInImpassable: true
   conditions:
-    - !type:EmptyOrWindowValidInTile
-    - !type:NoWindowsInTile
+  - !type:EmptyOrWindowValidInTile
+  - !type:NoWindowsInTile
   objectType: Structure
   placementMode: SnapgridCenter
 
@@ -446,8 +446,8 @@
   category: construction-category-structures
   canBuildInImpassable: true
   conditions:
-    - !type:EmptyOrWindowValidInTile
-    - !type:NoWindowsInTile
+  - !type:EmptyOrWindowValidInTile
+  - !type:NoWindowsInTile
   objectType: Structure
   placementMode: SnapgridCenter
 
@@ -459,8 +459,8 @@
   category: construction-category-structures
   canBuildInImpassable: true
   conditions:
-    - !type:EmptyOrWindowValidInTile
-    - !type:NoWindowsInTile
+  - !type:EmptyOrWindowValidInTile
+  - !type:NoWindowsInTile
   objectType: Structure
   placementMode: SnapgridCenter
 
@@ -472,8 +472,8 @@
   category: construction-category-structures
   canBuildInImpassable: true
   conditions:
-    - !type:EmptyOrWindowValidInTile
-    - !type:NoWindowsInTile
+  - !type:EmptyOrWindowValidInTile
+  - !type:NoWindowsInTile
   objectType: Structure
   placementMode: SnapgridCenter
 
@@ -485,8 +485,8 @@
   category: construction-category-structures
   canBuildInImpassable: true
   conditions:
-    - !type:EmptyOrWindowValidInTile
-    - !type:NoWindowsInTile
+  - !type:EmptyOrWindowValidInTile
+  - !type:NoWindowsInTile
   objectType: Structure
   placementMode: SnapgridCenter
 
@@ -498,8 +498,8 @@
   category: construction-category-structures
   canBuildInImpassable: true
   conditions:
-    - !type:EmptyOrWindowValidInTile
-    - !type:NoWindowsInTile
+  - !type:EmptyOrWindowValidInTile
+  - !type:NoWindowsInTile
   objectType: Structure
   placementMode: SnapgridCenter
 
@@ -511,8 +511,8 @@
   category: construction-category-structures
   canBuildInImpassable: true
   conditions:
-    - !type:EmptyOrWindowValidInTile
-    - !type:NoWindowsInTile
+  - !type:EmptyOrWindowValidInTile
+  - !type:NoWindowsInTile
   objectType: Structure
   placementMode: SnapgridCenter
 
@@ -524,8 +524,8 @@
   category: construction-category-structures
   canBuildInImpassable: true
   conditions:
-    - !type:EmptyOrWindowValidInTile
-    - !type:NoWindowsInTile
+  - !type:EmptyOrWindowValidInTile
+  - !type:NoWindowsInTile
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: false
@@ -538,8 +538,8 @@
   category: construction-category-structures
   canBuildInImpassable: true
   conditions:
-    - !type:EmptyOrWindowValidInTile
-    - !type:NoWindowsInTile
+  - !type:EmptyOrWindowValidInTile
+  - !type:NoWindowsInTile
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: false
@@ -553,8 +553,8 @@
   category: construction-category-structures
   canBuildInImpassable: true
   conditions:
-    - !type:EmptyOrWindowValidInTile
-    - !type:NoWindowsInTile
+  - !type:EmptyOrWindowValidInTile
+  - !type:NoWindowsInTile
   objectType: Structure
   placementMode: SnapgridCenter
 
@@ -567,8 +567,8 @@
   category: construction-category-structures
   canBuildInImpassable: true
   conditions:
-    - !type:EmptyOrWindowValidInTile
-    - !type:NoWindowsInTile
+  - !type:EmptyOrWindowValidInTile
+  - !type:NoWindowsInTile
   objectType: Structure
   placementMode: SnapgridCenter
 
@@ -580,8 +580,8 @@
   category: construction-category-structures
   canBuildInImpassable: true
   conditions:
-    - !type:EmptyOrWindowValidInTile
-    - !type:NoWindowsInTile
+  - !type:EmptyOrWindowValidInTile
+  - !type:NoWindowsInTile
   objectType: Structure
   placementMode: SnapgridCenter
 
@@ -596,7 +596,7 @@
   canRotate: false
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: FirelockGlass
@@ -609,7 +609,7 @@
   canRotate: false
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: FirelockEdge
@@ -622,7 +622,7 @@
   objectType: Structure
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: Turnstile
@@ -683,17 +683,17 @@
   targetNode: Catwalk
   category: construction-category-structures
   conditions:
-    - !type:TileNotBlocked
-      failIfSpace: false
-    - !type:TileType
-      targets:
-        - Lattice
-        - Plating
-        # Frontier : Allow catwalks on top of lava, plasma and water
-        - FloorBasalt
-        - FloorSnow
-        - FloorPlanetDirt
-        # End Frontier
+  - !type:TileNotBlocked
+    failIfSpace: false
+  - !type:TileType
+    targets:
+    - Lattice
+    - Plating
+    # Frontier : Allow catwalks on top of lava, plasma and water
+    - FloorBasalt
+    - FloorSnow
+    - FloorPlanetDirt
+    # End Frontier
   objectType: Structure
   placementMode: SnapgridCenter
   canBuildInImpassable: false
@@ -705,11 +705,11 @@
   targetNode: BananiumFloor
   category: construction-category-structures
   conditions:
-    - !type:TileNotBlocked
-      failIfSpace: false
-    - !type:TileType
-      targets:
-        - Plating
+  - !type:TileNotBlocked
+    failIfSpace: false
+  - !type:TileType
+    targets:
+    - Plating
   objectType: Structure
   placementMode: SnapgridCenter
   canBuildInImpassable: false
@@ -724,7 +724,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: BarricadeDirectional
@@ -737,7 +737,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: Railing
@@ -981,7 +981,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: AirlockGlass
@@ -993,7 +993,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: PinionAirlock
@@ -1006,7 +1006,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: PinionAirlockGlass
@@ -1019,7 +1019,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: AirlockShuttle
@@ -1046,7 +1046,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: Windoor
@@ -1058,7 +1058,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: SecureWindoor
@@ -1070,7 +1070,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: ClockworkWindoor
@@ -1082,7 +1082,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 #lighting
 - type: construction
@@ -1096,9 +1096,7 @@
   canRotate: true
   canBuildInImpassable: false
   conditions:
-  # Need an *additional* condition here that forces there to be a wall in the opposite direction to the one used for placement.
-  # Also see below. Didn't add it b/c construction ECS work going on. Cheers, - 20kdc
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: LightSmallFixture
@@ -1111,8 +1109,7 @@
   canRotate: true
   canBuildInImpassable: false
   conditions:
-  # Same here. - 20kdc
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: EmergencyLightFixture
@@ -1125,7 +1122,7 @@
   canRotate: true
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: LightGroundFixture
@@ -1138,7 +1135,7 @@
   canRotate: false
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: LightStrobeFixture
@@ -1151,7 +1148,7 @@
   canRotate: true
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 #conveyor
 - type: construction
@@ -1164,7 +1161,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: MetalDoor
@@ -1176,7 +1173,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: CardDoor
@@ -1188,7 +1185,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: WoodDoor
@@ -1200,7 +1197,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: PlasmaDoor
@@ -1212,7 +1209,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: GoldDoor
@@ -1224,7 +1221,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: SilverDoor
@@ -1236,7 +1233,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: PaperDoor
@@ -1259,7 +1256,7 @@
   objectType: Structure
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: PlasticFlapsOpaque
@@ -1272,7 +1269,7 @@
   objectType: Structure
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: CarpStatue
@@ -1296,7 +1293,7 @@
   objectType: Structure
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: BananiumDoor
@@ -1308,7 +1305,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: BananiumAltar
@@ -1321,7 +1318,7 @@
   canRotate: false
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: SolidSecretDoor
@@ -1335,7 +1332,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   name: recipes-fungal-soil-name
@@ -1349,7 +1346,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: StationAiCore
@@ -1362,7 +1359,7 @@
   canRotate: false
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: Stairs
@@ -1374,7 +1371,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: StairStage
@@ -1386,7 +1383,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: StairWhite
@@ -1398,7 +1395,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: StairStageWhite
@@ -1410,7 +1407,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: StairDark
@@ -1422,7 +1419,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: StairStageDark
@@ -1434,7 +1431,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: StairWood
@@ -1446,7 +1443,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: StairStageWood
@@ -1458,4 +1455,4 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked

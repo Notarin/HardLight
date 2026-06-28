@@ -101,8 +101,10 @@ public sealed partial class PlayerListControl : BoxContainer
             var displayName = $"{info.CharacterName} ({info.Username})";
             if (info.IdentityName != info.CharacterName)
                 displayName += $" [{info.IdentityName}]";
-            if (!string.IsNullOrEmpty(FilterLineEdit.Text)
-                && !displayName.ToLowerInvariant().Contains(FilterLineEdit.Text.Trim().ToLowerInvariant()))
+            if (
+                !string.IsNullOrEmpty(FilterLineEdit.Text)
+                && !displayName.ToLowerInvariant().Contains(FilterLineEdit.Text.Trim().ToLowerInvariant())
+            )
                 continue;
             _sortedPlayerList.Add(info);
         }
@@ -114,7 +116,6 @@ public sealed partial class PlayerListControl : BoxContainer
         if (_selectedPlayer != null)
             PlayerListContainer.Select(new PlayerListData(_selectedPlayer));
     }
-
 
     public void PopulateList(IReadOnlyList<PlayerInfo>? players = null)
     {
@@ -139,7 +140,6 @@ public sealed partial class PlayerListControl : BoxContainer
 
         FilterList();
     }
-
 
     private string GetText(PlayerInfo info)
     {

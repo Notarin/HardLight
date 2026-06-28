@@ -57,7 +57,8 @@ public sealed partial class ExplosionSystem
         MapCoordinates epicentre,
         EntityUid? referenceGrid,
         List<EntityUid> localGrids,
-        float maxDistance)
+        float maxDistance
+    )
     {
         Dictionary<Vector2i, BlockedSpaceTile> transformedEdges = new();
 
@@ -98,13 +99,16 @@ public sealed partial class ExplosionSystem
 
             if (grid.TileSize != tileSize)
             {
-                Log.Error($"Explosions do not support grids with different grid sizes. GridIds: {gridToTransform} and {referenceGrid}");
+                Log.Error(
+                    $"Explosions do not support grids with different grid sizes. GridIds: {gridToTransform} and {referenceGrid}"
+                );
                 continue;
             }
 
             var xforms = EntityManager.GetEntityQuery<TransformComponent>();
             var xform = xforms.GetComponent(gridToTransform);
-            var (_, gridWorldRotation, gridWorldMatrix, invGridWorldMatrid) = _transformSystem.GetWorldPositionRotationMatrixWithInv(xform, xforms);
+            var (_, gridWorldRotation, gridWorldMatrix, invGridWorldMatrid) =
+                _transformSystem.GetWorldPositionRotationMatrixWithInv(xform, xforms);
 
             var localEpicentre = (Vector2i)Vector2.Transform(epicentre.Position, invGridWorldMatrid);
             var matrix = offsetMatrix * gridWorldMatrix * targetMatrix;
@@ -141,10 +145,10 @@ public sealed partial class ExplosionSystem
 
                 HashSet<Vector2i> transformedTiles = new()
                 {
-                    new((int) MathF.Floor(center.X + x), (int) MathF.Floor(center.Y + x)),  // center of tile, offset by (0.25, 0.25) in tile coordinates
-                    new((int) MathF.Floor(center.X - y), (int) MathF.Floor(center.Y - y)),  // center offset by (-0.25, 0.25)
-                    new((int) MathF.Floor(center.X - x), (int) MathF.Floor(center.Y + y)),  // offset by (-0.25, -0.25)
-                    new((int) MathF.Floor(center.X + y), (int) MathF.Floor(center.Y - x)),  // offset by (0.25, -0.25)
+                    new((int)MathF.Floor(center.X + x), (int)MathF.Floor(center.Y + x)), // center of tile, offset by (0.25, 0.25) in tile coordinates
+                    new((int)MathF.Floor(center.X - y), (int)MathF.Floor(center.Y - y)), // center offset by (-0.25, 0.25)
+                    new((int)MathF.Floor(center.X - x), (int)MathF.Floor(center.Y + y)), // offset by (-0.25, -0.25)
+                    new((int)MathF.Floor(center.X + y), (int)MathF.Floor(center.Y - x)), // offset by (0.25, -0.25)
                 };
 
                 foreach (var newIndices in transformedTiles)
@@ -176,9 +180,13 @@ public sealed partial class ExplosionSystem
                 data.UnblockedDirections = AtmosDirection.Invalid; // all directions are blocked automatically.
 
                 if ((dir & NeighborFlag.Cardinal) == 0)
-                    data.BlockingGridEdges.Add(new(default, null, (tile + Vector2Helpers.Half) * tileSize, 0, tileSize));
+                    data.BlockingGridEdges.Add(
+                        new(default, null, (tile + Vector2Helpers.Half) * tileSize, 0, tileSize)
+                    );
                 else
-                    data.BlockingGridEdges.Add(new(tile, referenceGrid.Value, (tile + Vector2Helpers.Half) * tileSize, 0, tileSize));
+                    data.BlockingGridEdges.Add(
+                        new(tile, referenceGrid.Value, (tile + Vector2Helpers.Half) * tileSize, 0, tileSize)
+                    );
             }
         }
 
@@ -260,7 +268,10 @@ public sealed partial class ExplosionSystem
                 {
                     var neighbourIndex = change.GridIndices + NeighbourVectors[i];
 
-                    if (_mapSystem.TryGetTileRef(ev.Entity, grid, neighbourIndex, out var neighbourTile) && !neighbourTile.Tile.IsEmpty)
+                    if (
+                        _mapSystem.TryGetTileRef(ev.Entity, grid, neighbourIndex, out var neighbourTile)
+                        && !neighbourTile.Tile.IsEmpty
+                    )
                     {
                         var oppositeDirection = (NeighborFlag)(1 << ((i + 4) % 8));
                         edges[neighbourIndex] = edges.GetValueOrDefault(neighbourIndex) | oppositeDirection;
@@ -336,21 +347,33 @@ public sealed partial class ExplosionSystem
 
         Cardinal = North | East | South | West,
         Diagonal = NorthEast | SouthEast | SouthWest | NorthWest,
-        Any = Cardinal | Diagonal
+        Any = Cardinal | Diagonal,
     }
 
     public static bool AnyNeighborBlocked(NeighborFlag neighbors, AtmosDirection blockedDirs)
     {
-        if ((neighbors & NeighborFlag.North) == NeighborFlag.North && (blockedDirs & AtmosDirection.North) == AtmosDirection.North)
+        if (
+            (neighbors & NeighborFlag.North) == NeighborFlag.North
+            && (blockedDirs & AtmosDirection.North) == AtmosDirection.North
+        )
             return true;
 
-        if ((neighbors & NeighborFlag.South) == NeighborFlag.South && (blockedDirs & AtmosDirection.South) == AtmosDirection.South)
+        if (
+            (neighbors & NeighborFlag.South) == NeighborFlag.South
+            && (blockedDirs & AtmosDirection.South) == AtmosDirection.South
+        )
             return true;
 
-        if ((neighbors & NeighborFlag.East) == NeighborFlag.East && (blockedDirs & AtmosDirection.East) == AtmosDirection.East)
+        if (
+            (neighbors & NeighborFlag.East) == NeighborFlag.East
+            && (blockedDirs & AtmosDirection.East) == AtmosDirection.East
+        )
             return true;
 
-        if ((neighbors & NeighborFlag.West) == NeighborFlag.West && (blockedDirs & AtmosDirection.West) == AtmosDirection.West)
+        if (
+            (neighbors & NeighborFlag.West) == NeighborFlag.West
+            && (blockedDirs & AtmosDirection.West) == AtmosDirection.West
+        )
             return true;
 
         return false;
@@ -358,16 +381,16 @@ public sealed partial class ExplosionSystem
 
     // array indices match NeighborFlags shifts.
     public static readonly Vector2i[] NeighbourVectors =
-        {
-            new (0, 1),
-            new (1, 1),
-            new (1, 0),
-            new (1, -1),
-            new (0, -1),
-            new (-1, -1),
-            new (-1, 0),
-            new (-1, 1)
-        };
+    {
+        new(0, 1),
+        new(1, 1),
+        new(1, 0),
+        new(1, -1),
+        new(0, -1),
+        new(-1, -1),
+        new(-1, 0),
+        new(-1, 1),
+    };
 }
 
 /// <summary>

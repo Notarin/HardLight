@@ -1,14 +1,14 @@
+using Content.Client._NF.Cargo.UI;
 using Content.Client.Cargo.UI;
+using Content.Shared._NF.Cargo;
+using Content.Shared._NF.Cargo.BUI;
 using Content.Shared.Cargo.Events;
 using Content.Shared.Cargo.Prototypes;
 using Content.Shared.IdentityManagement;
 using Robust.Client.GameObjects;
 using Robust.Client.Player;
-using Robust.Shared.Utility;
 using Robust.Shared.Prototypes;
-using Content.Shared._NF.Cargo.BUI;
-using Content.Shared._NF.Cargo;
-using Content.Client._NF.Cargo.UI;
+using Robust.Shared.Utility;
 
 namespace Content.Client._NF.Cargo.BUI;
 
@@ -42,9 +42,8 @@ public sealed class CargoOrderConsoleNFBoundUserInterface : BoundUserInterface
     [ViewVariables]
     private CargoProductPrototype? _product;
 
-    public CargoOrderConsoleNFBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-    }
+    public CargoOrderConsoleNFBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {
@@ -100,7 +99,8 @@ public sealed class CargoOrderConsoleNFBoundUserInterface : BoundUserInterface
 
     private void Populate(List<NFCargoOrderData> orders)
     {
-        if (_menu == null) return;
+        if (_menu == null)
+            return;
 
         _menu.PopulateProducts();
         _menu.PopulateCategories();
@@ -129,7 +129,8 @@ public sealed class CargoOrderConsoleNFBoundUserInterface : BoundUserInterface
     {
         base.Dispose(disposing);
 
-        if (!disposing) return;
+        if (!disposing)
+            return;
 
         _menu?.Close();
         _orderMenu?.Close();
@@ -145,11 +146,14 @@ public sealed class CargoOrderConsoleNFBoundUserInterface : BoundUserInterface
 
         orderAmt = int.Min(orderAmt, OrderCapacity);
 
-        SendMessage(new CargoConsoleAddOrderMessage(
-            _orderMenu?.Requester.Text ?? "",
-            _orderMenu?.Notes.Text ?? "",
-            _product?.ID ?? "",
-            orderAmt));
+        SendMessage(
+            new CargoConsoleAddOrderMessage(
+                _orderMenu?.Requester.Text ?? "",
+                _orderMenu?.Notes.Text ?? "",
+                _product?.ID ?? "",
+                orderAmt
+            )
+        );
 
         return true;
     }

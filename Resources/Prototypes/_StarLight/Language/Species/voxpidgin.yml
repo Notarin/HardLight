@@ -3,8 +3,7 @@
   icon: LanguageIconVox
   speech:
     color: "#aa00aa"
-  obfuscation:
-    !type:SyllableObfuscation
+  obfuscation: !type:SyllableObfuscation
     minSyllables: 1
     maxSyllables: 3
     replacement:

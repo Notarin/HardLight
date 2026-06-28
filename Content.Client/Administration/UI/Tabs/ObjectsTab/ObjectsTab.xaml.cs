@@ -13,9 +13,14 @@ namespace Content.Client.Administration.UI.Tabs.ObjectsTab;
 [GenerateTypedNameReferences]
 public sealed partial class ObjectsTab : Control
 {
-    [Dependency] private readonly IClientAdminManager _admin = default!;
-    [Dependency] private readonly IEntityManager _entityManager = default!;
-    [Dependency] private readonly IClientConsoleHost _console = default!;
+    [Dependency]
+    private readonly IClientAdminManager _admin = default!;
+
+    [Dependency]
+    private readonly IEntityManager _entityManager = default!;
+
+    [Dependency]
+    private readonly IClientConsoleHost _console = default!;
 
     private readonly Color _altColor = Color.FromHex("#292B38");
     private readonly Color _defaultColor = Color.FromHex("#2F2F3B");
@@ -67,19 +72,22 @@ public sealed partial class ObjectsTab : Control
                 }
                 break;
             case ObjectsTabSelection.Maps:
-                {
-                    // teleport to the map, not to the map entity (which is in nullspace)
-                    if (!_entityManager.TryGetEntity(nent, out var map) || !_entityManager.TryGetComponent<MapComponent>(map, out var mapComp))
-                        break;
-                    _console.ExecuteCommand($"tp 0 0 {mapComp.MapId}");
+            {
+                // teleport to the map, not to the map entity (which is in nullspace)
+                if (
+                    !_entityManager.TryGetEntity(nent, out var map)
+                    || !_entityManager.TryGetComponent<MapComponent>(map, out var mapComp)
+                )
                     break;
-                }
+                _console.ExecuteCommand($"tp 0 0 {mapComp.MapId}");
+                break;
+            }
             case ObjectsTabSelection.Stations:
-                {
-                    // This client only receives station entities, not the station's grid list.
-                    _console.ExecuteCommand($"tpto {nent}");
-                    break;
-                }
+            {
+                // This client only receives station entities, not the station's grid list.
+                _console.ExecuteCommand($"tpto {nent}");
+                break;
+            }
             default:
                 throw new NotImplementedException();
         }
@@ -105,41 +113,43 @@ public sealed partial class ObjectsTab : Control
                 entities.AddRange(_entityManager.EntitySysManager.GetEntitySystem<StationSystem>().Stations);
                 break;
             case ObjectsTabSelection.Grids:
-                {
-                    var query = _entityManager.AllEntityQueryEnumerator<MapGridComponent, MetaDataComponent>();
-                    while (query.MoveNext(out var uid, out _, out var metadata))
-                        entities.Add((metadata.EntityName, _entityManager.GetNetEntity(uid)));
+            {
+                var query = _entityManager.AllEntityQueryEnumerator<MapGridComponent, MetaDataComponent>();
+                while (query.MoveNext(out var uid, out _, out var metadata))
+                    entities.Add((metadata.EntityName, _entityManager.GetNetEntity(uid)));
 
-                    break;
-                }
+                break;
+            }
             case ObjectsTabSelection.Maps:
-                {
-                    var query = _entityManager.AllEntityQueryEnumerator<MapComponent, MetaDataComponent>();
-                    while (query.MoveNext(out var uid, out _, out var metadata))
-                        entities.Add((metadata.EntityName, _entityManager.GetNetEntity(uid)));
+            {
+                var query = _entityManager.AllEntityQueryEnumerator<MapComponent, MetaDataComponent>();
+                while (query.MoveNext(out var uid, out _, out var metadata))
+                    entities.Add((metadata.EntityName, _entityManager.GetNetEntity(uid)));
 
-                    break;
-                }
+                break;
+            }
             default:
                 throw new ArgumentOutOfRangeException(nameof(selection), selection, null);
         }
 
-        entities.Sort((a, b) =>
-        {
-            var valueA = GetComparableValue(a, _headerClicked);
-            var valueB = GetComparableValue(b, _headerClicked);
-            return _ascending
-                ? Comparer<object>.Default.Compare(valueA, valueB)
-                : Comparer<object>.Default.Compare(valueB, valueA);
-        });
+        entities.Sort(
+            (a, b) =>
+            {
+                var valueA = GetComparableValue(a, _headerClicked);
+                var valueB = GetComparableValue(b, _headerClicked);
+                return _ascending
+                    ? Comparer<object>.Default.Compare(valueA, valueB)
+                    : Comparer<object>.Default.Compare(valueB, valueA);
+            }
+        );
 
         var listData = new List<ObjectsListData>();
         for (var index = 0; index < entities.Count; index++)
         {
             var info = entities[index];
-            listData.Add(new ObjectsListData(info,
-                $"{info.Name} {info.Entity}",
-                index % 2 == 0 ? _altColor : _defaultColor));
+            listData.Add(
+                new ObjectsListData(info, $"{info.Name} {info.Entity}", index % 2 == 0 ? _altColor : _defaultColor)
+            );
         }
 
         SearchList.PopulateList(listData);
@@ -150,7 +160,12 @@ public sealed partial class ObjectsTab : Control
         if (data is not ObjectsListData { Info: var info, BackgroundColor: var backgroundColor })
             return;
 
-        var entry = new ObjectsTabEntry(_admin, info.Name, info.Entity, new StyleBoxFlat { BackgroundColor = backgroundColor });
+        var entry = new ObjectsTabEntry(
+            _admin,
+            info.Name,
+            info.Entity,
+            new StyleBoxFlat { BackgroundColor = backgroundColor }
+        );
         entry.OnTeleport += TeleportTo;
         entry.OnDelete += Delete;
         button.ToolTip = $"{info.Name}, {info.Entity}";

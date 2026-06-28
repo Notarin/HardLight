@@ -7,7 +7,7 @@
   name: dart
   description: Try not to prick yourself.
   abstract: true
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Item
     size: Tiny
@@ -43,7 +43,7 @@
   id: DartSyndicateImpedrezene
   name: syndicate impedrezene dart
   description: Try not to prick yourself.
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: Objects/Fun/Darts/dart_red.rsi
@@ -60,7 +60,7 @@
   parent: DartSyndicateImpedrezene
   id: DartSyndicateTranquilizer
   name: syndicate tranquilizer dart
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: SolutionContainerManager
     solutions:
@@ -75,7 +75,7 @@
   parent: Dart
   id: DartAberrantFleshHorrorSpikeGuidebook
   name: bone spike
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Mobs/Aliens/flesh.rsi
@@ -84,8 +84,8 @@
 - type: entity
   id: DartAberrantFleshHorrorSpike
   name: bone spike
-  parent: [ ConjuredObject10, BaseArrow ]
-  categories: [ HideSpawnMenu ]
+  parent: [ConjuredObject10, BaseArrow]
+  categories: [HideSpawnMenu]
   components:
   - type: EmbeddableProjectile
     offset: -0.15,0.0
@@ -115,7 +115,7 @@
   id: DartAberrantFleshHorrorSpikeCluster
   name: bone spike
   parent: DartAberrantFleshHorrorSpike
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Mobs/Aliens/flesh.rsi
@@ -128,7 +128,7 @@
 - type: entity
   id: DartAberrantFleshHorrorSpikeSpread
   parent: DartAberrantFleshHorrorSpike
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: ProjectileSpread
     proto: DartAberrantFleshHorrorSpike

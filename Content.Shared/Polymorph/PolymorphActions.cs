@@ -12,13 +12,11 @@ public sealed partial class PolymorphActionEvent : InstantActionEvent
     [DataField]
     public ProtoId<PolymorphPrototype>? ProtoId;
 
-    public PolymorphActionEvent(ProtoId<PolymorphPrototype> protoId) : this()
+    public PolymorphActionEvent(ProtoId<PolymorphPrototype> protoId)
+        : this()
     {
         ProtoId = protoId;
     }
 }
 
-public sealed partial class RevertPolymorphActionEvent : InstantActionEvent
-{
-
-}
+public sealed partial class RevertPolymorphActionEvent : InstantActionEvent { }

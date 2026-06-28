@@ -25,7 +25,8 @@ public sealed partial class DungeonSystem
     private sealed record CachedRoomTemplate(
         CachedRoomTile[] Tiles,
         CachedRoomEntity[] Entities,
-        CachedRoomDecal[] Decals);
+        CachedRoomDecal[] Decals
+    );
 
     private readonly record struct CachedRoomTile(Vector2i LocalIndices, Tile Tile);
 
@@ -33,7 +34,8 @@ public sealed partial class DungeonSystem
         string PrototypeId,
         Vector2 LocalPosition,
         Angle LocalRotation,
-        bool Anchored);
+        bool Anchored
+    );
 
     private readonly record struct CachedRoomDecal(
         string Id,
@@ -41,12 +43,17 @@ public sealed partial class DungeonSystem
         Color? Color,
         Angle Angle,
         int ZIndex,
-        bool Cleanable);
+        bool Cleanable
+    );
 
     /// <summary>
     /// Gets a random dungeon room matching the specified area, whitelist and size.
     /// </summary>
-    public DungeonRoomPrototype? GetRoomPrototype(Random random, EntityWhitelist? whitelist = null, Vector2i? size = null)
+    public DungeonRoomPrototype? GetRoomPrototype(
+        Random random,
+        EntityWhitelist? whitelist = null,
+        Vector2i? size = null
+    )
     {
         return GetRoomPrototype(random, whitelist, minSize: size, maxSize: size);
     }
@@ -54,10 +61,12 @@ public sealed partial class DungeonSystem
     /// <summary>
     /// Gets a random dungeon room matching the specified area and whitelist and size range
     /// </summary>
-    public DungeonRoomPrototype? GetRoomPrototype(Random random,
+    public DungeonRoomPrototype? GetRoomPrototype(
+        Random random,
         EntityWhitelist? whitelist = null,
         Vector2i? minSize = null,
-        Vector2i? maxSize = null)
+        Vector2i? maxSize = null
+    )
     {
         // Can never be true.
         if (whitelist is { Tags: null })
@@ -107,7 +116,8 @@ public sealed partial class DungeonSystem
         Random random,
         HashSet<Vector2i>? reservedTiles,
         bool clearExisting = false,
-        bool rotation = false)
+        bool rotation = false
+    )
     {
         var originTransform = Matrix3Helpers.CreateTranslation(origin.X, origin.Y);
         var roomRotation = Angle.Zero;
@@ -146,7 +156,8 @@ public sealed partial class DungeonSystem
         Matrix3x2 roomTransform,
         DungeonRoomPrototype room,
         HashSet<Vector2i>? reservedTiles = null,
-        bool clearExisting = false)
+        bool clearExisting = false
+    )
     {
         var cachedRoom = GetOrCreateRoomTemplateData(room);
         var roomDimensions = room.Size;
@@ -155,7 +166,7 @@ public sealed partial class DungeonSystem
 
         // HardLight: CachedRoomTile.LocalIndices are room-local, so tile transform must use
         // room-local center. Using atlas offset here shifts floors/walls away from room entities.
-        var roomCenter = (Vector2) roomDimensions / 2f * grid.TileSize; // HardLight
+        var roomCenter = (Vector2)roomDimensions / 2f * grid.TileSize; // HardLight
         var tileOffset = -roomCenter + grid.TileSizeHalfVector;
         _tiles.Clear();
 
@@ -239,8 +250,7 @@ public sealed partial class DungeonSystem
                     // I hate this but decals are bottom-left rather than center position and doing the
                     // matrix ops is a PITA hence this workaround for now; I also don't want to add a stupid
                     // field for 1 specific op on decals
-                    if (decal.Id != "DiagonalCheckerAOverlay" &&
-                        decal.Id != "DiagonalCheckerBOverlay")
+                    if (decal.Id != "DiagonalCheckerAOverlay" && decal.Id != "DiagonalCheckerBOverlay")
                     {
                         position += new Vector2(-1f / 32f, 0f);
                     }
@@ -252,7 +262,15 @@ public sealed partial class DungeonSystem
                 // but place 1 nanometre off grid and fail the add.
                 if (!_maps.TryGetTileRef(gridUid, grid, tilePos, out var tileRef) || tileRef.Tile.IsEmpty)
                 {
-                    _maps.SetTile(gridUid, grid, tilePos, _tile.GetVariantTile((ContentTileDefinition)_tileDefManager[FallbackTileId], _random.GetRandom()));
+                    _maps.SetTile(
+                        gridUid,
+                        grid,
+                        tilePos,
+                        _tile.GetVariantTile(
+                            (ContentTileDefinition)_tileDefManager[FallbackTileId],
+                            _random.GetRandom()
+                        )
+                    );
                 }
 
                 var result = _decals.TryAddDecal(
@@ -262,7 +280,8 @@ public sealed partial class DungeonSystem
                     decal.Color,
                     angle,
                     decal.ZIndex,
-                    decal.Cleanable);
+                    decal.Cleanable
+                );
 
                 DebugTools.Assert(result);
             }
@@ -293,7 +312,10 @@ public sealed partial class DungeonSystem
             ExpectedCategory = FileCategory.Map,
         };
 
-        if (!_loader.TryLoadGeneric(atlasPath, out var result, opts) || !result.Grids.TryFirstOrNull(out var templateGridUid))
+        if (
+            !_loader.TryLoadGeneric(atlasPath, out var result, opts)
+            || !result.Grids.TryFirstOrNull(out var templateGridUid)
+        )
             throw new Exception($"Failed to load dungeon atlas template {atlasPath}.");
 
         try
@@ -317,7 +339,8 @@ public sealed partial class DungeonSystem
     private CachedRoomTemplate BuildRoomTemplateData(
         EntityUid templateGridUid,
         MapGridComponent templateGrid,
-        DungeonRoomPrototype room)
+        DungeonRoomPrototype room
+    )
     {
         var roomCenter = (room.Offset + room.Size / 2f) * templateGrid.TileSize;
         var tileBounds = new Box2(room.Offset, room.Offset + room.Size);
@@ -329,14 +352,21 @@ public sealed partial class DungeonSystem
             {
                 var indices = new Vector2i(x + room.Offset.X, y + room.Offset.Y);
 
-                if (room.IgnoreTile is not null &&
-                    _maps.TryGetTileDef(templateGrid, indices, out var tileDef) &&
-                    room.IgnoreTile == tileDef.ID)
+                if (
+                    room.IgnoreTile is not null
+                    && _maps.TryGetTileDef(templateGrid, indices, out var tileDef)
+                    && room.IgnoreTile == tileDef.ID
+                )
                 {
                     continue;
                 }
 
-                cachedTiles.Add(new CachedRoomTile(new Vector2i(x, y), _maps.GetTileRef(templateGridUid, templateGrid, indices).Tile));
+                cachedTiles.Add(
+                    new CachedRoomTile(
+                        new Vector2i(x, y),
+                        _maps.GetTileRef(templateGridUid, templateGrid, indices).Tile
+                    )
+                );
             }
         }
 
@@ -352,17 +382,19 @@ public sealed partial class DungeonSystem
 
             // HardLight: Intersections can include neighboring-room entities whose bounds cross edges.
             // Cache only entities whose origin tile is strictly inside this room rectangle.
-            if (tile.X < room.Offset.X || tile.Y < room.Offset.Y ||
-                tile.X >= room.Offset.X + room.Size.X || tile.Y >= room.Offset.Y + room.Size.Y)
+            if (
+                tile.X < room.Offset.X
+                || tile.Y < room.Offset.Y
+                || tile.X >= room.Offset.X + room.Size.X
+                || tile.Y >= room.Offset.Y + room.Size.Y
+            )
             {
                 continue;
             }
 
-            cachedEntities.Add(new CachedRoomEntity(
-                prototypeId,
-                xform.LocalPosition - roomCenter,
-                xform.LocalRotation,
-                xform.Anchored));
+            cachedEntities.Add(
+                new CachedRoomEntity(prototypeId, xform.LocalPosition - roomCenter, xform.LocalRotation, xform.Anchored)
+            );
         }
 
         var cachedDecals = new List<CachedRoomDecal>();
@@ -373,25 +405,29 @@ public sealed partial class DungeonSystem
                 var tile = decal.Coordinates.Floored(); // HardLight
 
                 // HardLight: Intersections can include neighboring-room decals whose bounds cross edges.
-                if (tile.X < room.Offset.X || tile.Y < room.Offset.Y ||
-                    tile.X >= room.Offset.X + room.Size.X || tile.Y >= room.Offset.Y + room.Size.Y)
+                if (
+                    tile.X < room.Offset.X
+                    || tile.Y < room.Offset.Y
+                    || tile.X >= room.Offset.X + room.Size.X
+                    || tile.Y >= room.Offset.Y + room.Size.Y
+                )
                 {
                     continue;
                 }
 
-                cachedDecals.Add(new CachedRoomDecal(
-                    decal.Id,
-                    decal.Coordinates + templateGrid.TileSizeHalfVector - roomCenter,
-                    decal.Color,
-                    decal.Angle,
-                    decal.ZIndex,
-                    decal.Cleanable));
+                cachedDecals.Add(
+                    new CachedRoomDecal(
+                        decal.Id,
+                        decal.Coordinates + templateGrid.TileSizeHalfVector - roomCenter,
+                        decal.Color,
+                        decal.Angle,
+                        decal.ZIndex,
+                        decal.Cleanable
+                    )
+                );
             }
         }
 
-        return new CachedRoomTemplate(
-            cachedTiles.ToArray(),
-            cachedEntities.ToArray(),
-            cachedDecals.ToArray());
+        return new CachedRoomTemplate(cachedTiles.ToArray(), cachedEntities.ToArray(), cachedDecals.ToArray());
     }
 }

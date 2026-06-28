@@ -1,3 +1,4 @@
+using Content.Shared._NF.Vehicle.Components; // Frontier
 using Content.Shared.Access.Components;
 using Content.Shared.Access.Systems;
 using Content.Shared.Actions;
@@ -6,38 +7,62 @@ using Content.Shared.Buckle;
 using Content.Shared.Buckle.Components;
 using Content.Shared.Hands;
 using Content.Shared.Inventory.VirtualItem;
+using Content.Shared.Light.Components; // Frontier
+using Content.Shared.Light.EntitySystems; // Frontier
 using Content.Shared.Movement.Components;
+using Content.Shared.Movement.Pulling.Components; // Frontier
+using Content.Shared.Movement.Pulling.Events; // Frontier
 using Content.Shared.Movement.Systems;
+using Content.Shared.Popups; // Frontier
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
-using Robust.Shared.Prototypes; // Frontier
-using Content.Shared.Light.Components; // Frontier
-using Content.Shared.Light.EntitySystems; // Frontier
-using Content.Shared.Movement.Pulling.Components; // Frontier
-using Content.Shared.Popups; // Frontier
 using Robust.Shared.Network; // Frontier
-using Content.Shared._NF.Vehicle.Components; // Frontier
-using Content.Shared.Movement.Pulling.Events; // Frontier
+using Robust.Shared.Prototypes; // Frontier
 using Robust.Shared.Timing; // Frontier
 
 namespace Content.Shared._Goobstation.Vehicles; // Frontier: migrate under _Goobstation
 
 public abstract partial class SharedVehicleSystem : EntitySystem
 {
-    [Dependency] private readonly AccessReaderSystem _access = default!;
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
-    [Dependency] private readonly SharedAmbientSoundSystem _ambientSound = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedBuckleSystem _buckle = default!;
-    [Dependency] private readonly SharedMoverController _mover = default!;
-    [Dependency] private readonly SharedVirtualItemSystem _virtualItem = default!;
-    [Dependency] private readonly INetManager _net = default!; // Frontier
-    [Dependency] private readonly UnpoweredFlashlightSystem _flashlight = default!; // Frontier
-    [Dependency] private readonly SharedPopupSystem _popup = default!; // Frontier
-    [Dependency] private readonly ActionContainerSystem _actionContainer = default!; // Frontier
-    [Dependency] private readonly IGameTiming _timing = default!; // Frontier
+    [Dependency]
+    private readonly AccessReaderSystem _access = default!;
+
+    [Dependency]
+    private readonly SharedActionsSystem _actions = default!;
+
+    [Dependency]
+    private readonly SharedAmbientSoundSystem _ambientSound = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedBuckleSystem _buckle = default!;
+
+    [Dependency]
+    private readonly SharedMoverController _mover = default!;
+
+    [Dependency]
+    private readonly SharedVirtualItemSystem _virtualItem = default!;
+
+    [Dependency]
+    private readonly INetManager _net = default!; // Frontier
+
+    [Dependency]
+    private readonly UnpoweredFlashlightSystem _flashlight = default!; // Frontier
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!; // Frontier
+
+    [Dependency]
+    private readonly ActionContainerSystem _actionContainer = default!; // Frontier
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!; // Frontier
 
     public static readonly EntProtoId HornActionId = "ActionHorn";
     public static readonly EntProtoId SirenActionId = "ActionSiren";
@@ -87,6 +112,7 @@ public abstract partial class SharedVehicleSystem : EntitySystem
         if (actionsUpdated)
             Dirty(uid, component);
     }
+
     // End Frontier
 
     private void OnRemove(EntityUid uid, VehicleComponent component, ComponentRemove args)
@@ -173,7 +199,6 @@ public abstract partial class SharedVehicleSystem : EntitySystem
         args.Handled = true;
     }
 
-
     private void OnStrapAttempt(Entity<VehicleComponent> ent, ref StrapAttemptEvent args)
     {
         var driver = args.Buckle.Owner; // i dont want to re write this shit 100 fucking times
@@ -187,7 +212,11 @@ public abstract partial class SharedVehicleSystem : EntitySystem
         // Frontier: no pulling when riding
         if (TryComp<PullerComponent>(args.Buckle, out var puller) && puller.Pulling != null)
         {
-            _popup.PopupPredicted(Loc.GetString("vehicle-cannot-pull", ("object", puller.Pulling), ("vehicle", ent)), ent, args.Buckle);
+            _popup.PopupPredicted(
+                Loc.GetString("vehicle-cannot-pull", ("object", puller.Pulling), ("vehicle", ent)),
+                ent,
+                args.Buckle
+            );
             args.Cancelled = true;
             return;
         }

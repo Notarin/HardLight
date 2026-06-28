@@ -21,9 +21,7 @@ namespace Content.Shared.Administration
             // Specific side code in target.
         }
 
-        protected void LogBwoink(BwoinkTextMessage message)
-        {
-        }
+        protected void LogBwoink(BwoinkTextMessage message) { }
 
         [Serializable, NetSerializable]
         public sealed class BwoinkTextMessage : EntityEventArgs
@@ -42,7 +40,14 @@ namespace Content.Shared.Administration
 
             public readonly bool AdminOnly;
 
-            public BwoinkTextMessage(NetUserId userId, NetUserId trueSender, string text, DateTime? sentAt = default, bool playSound = true, bool adminOnly = false)
+            public BwoinkTextMessage(
+                NetUserId userId,
+                NetUserId trueSender,
+                string text,
+                DateTime? sentAt = default,
+                bool playSound = true,
+                bool adminOnly = false
+            )
             {
                 SentAt = sentAt ?? DateTime.Now;
                 UserId = userId;

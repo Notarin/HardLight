@@ -76,7 +76,7 @@
         bonusMultiplier: 2
   reactiveEffects:
     Acidic:
-      methods: [ Touch ]
+      methods: [Touch]
       effects:
       - !type:ActivateArtifact
         conditions:
@@ -156,7 +156,7 @@
       - !type:PopupMessage
         visualType: MediumCaution
         type: Local
-        messages: [ "generic-reagent-effect-parched" ]
+        messages: ["generic-reagent-effect-parched"]
         probability: 0.1
 
 - type: reagent

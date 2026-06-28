@@ -15,26 +15,24 @@ namespace Content.Server.Database.Migrations.Postgres
                 table: "admin",
                 type: "boolean",
                 nullable: false,
-                defaultValue: false);
+                defaultValue: false
+            );
 
             migrationBuilder.AddColumn<bool>(
                 name: "suspended",
                 table: "admin",
                 type: "boolean",
                 nullable: false,
-                defaultValue: false);
+                defaultValue: false
+            );
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "deadminned",
-                table: "admin");
+            migrationBuilder.DropColumn(name: "deadminned", table: "admin");
 
-            migrationBuilder.DropColumn(
-                name: "suspended",
-                table: "admin");
+            migrationBuilder.DropColumn(name: "suspended", table: "admin");
         }
     }
 }

@@ -38,9 +38,9 @@
     visuals:
       enum.RadioDeviceVisuals.Broadcasting:
         enum.RadioDeviceVisualLayers.Broadcasting:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
       enum.RadioDeviceVisuals.Speaker:
         enum.RadioDeviceVisualLayers.Speaker:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}

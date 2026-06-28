@@ -21,6 +21,7 @@ public sealed partial class ShipRepairDoAfterEvent : SimpleDoAfterEvent
 {
     public Vector2i TargetGridIndices;
     public int Cost;
+
     // if we're repairing an entity, store what we're repairing
     public int? RepairId = null;
 

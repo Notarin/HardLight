@@ -9,9 +9,8 @@ namespace Content.Client.Atmos.UI
         [ViewVariables]
         private GasAnalyzerWindow? _window;
 
-        public GasAnalyzerBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-        {
-        }
+        public GasAnalyzerBoundUserInterface(EntityUid owner, Enum uiKey)
+            : base(owner, uiKey) { }
 
         protected override void Open()
         {

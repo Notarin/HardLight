@@ -18,8 +18,11 @@ namespace Content.Client._NF.Shuttles.UI;
 [GenerateTypedNameReferences]
 public sealed partial class NFShuttleDockControl : BaseShuttleControl
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IMapManager _mapManager = default!;
     private readonly DockingSystem _dockSystem;
     private readonly SharedShuttleSystem _shuttles;
     private readonly SharedTransformSystem _xformSystem;
@@ -57,7 +60,8 @@ public sealed partial class NFShuttleDockControl : BaseShuttleControl
     public event Action<NetEntity, NetEntity>? DockRequest;
     public event Action<NetEntity>? UndockRequest;
 
-    public NFShuttleDockControl() : base(2f, 32f, 8f)
+    public NFShuttleDockControl()
+        : base(2f, 32f, 8f)
     {
         RobustXamlLoader.Load(this);
         _dockSystem = EntManager.System<DockingSystem>();
@@ -96,10 +100,12 @@ public sealed partial class NFShuttleDockControl : BaseShuttleControl
 
         DrawBacking(handle);
 
-        if (_coordinates == null ||
-            _angle == null ||
-            DockState == null ||
-            !EntManager.TryGetComponent<TransformComponent>(GridEntity, out var gridXform))
+        if (
+            _coordinates == null
+            || _angle == null
+            || DockState == null
+            || !EntManager.TryGetComponent<TransformComponent>(GridEntity, out var gridXform)
+        )
         {
             DrawNoSignal(handle);
             return;
@@ -113,10 +119,15 @@ public sealed partial class NFShuttleDockControl : BaseShuttleControl
         var selectedDockToOurGrid = Matrix3Helpers.CreateTransform(_coordinates.Value.Position, Angle.Zero);
         var selectedDockToWorld = Matrix3x2.Multiply(selectedDockToOurGrid, ourGridToWorld);
 
-        Box2 viewBoundsWorld = Matrix3Helpers.TransformBox(selectedDockToWorld, new Box2(-WorldRangeVector, WorldRangeVector));
+        Box2 viewBoundsWorld = Matrix3Helpers.TransformBox(
+            selectedDockToWorld,
+            new Box2(-WorldRangeVector, WorldRangeVector)
+        );
 
         Matrix3x2.Invert(selectedDockToWorld, out var worldToSelectedDock);
-        var selectedDockToView = Matrix3x2.CreateScale(new Vector2(MinimapScale, -MinimapScale)) * Matrix3x2.CreateTranslation(MidPointVector);
+        var selectedDockToView =
+            Matrix3x2.CreateScale(new Vector2(MinimapScale, -MinimapScale))
+            * Matrix3x2.CreateTranslation(MidPointVector);
 
         // Draw nearby grids
         var controlBounds = PixelSizeBox;
@@ -171,14 +182,22 @@ public sealed partial class NFShuttleDockControl : BaseShuttleControl
                 if (!viewBoundsWorld.Intersects(dockRenderBoundsWorld))
                     continue;
 
-                var collisionBL = Vector2.Transform(dock.Coordinates.Position +
-                                                  Vector2.Transform(new Vector2(-0.2f, -0.7f), otherDockRotation), curGridToView);
-                var collisionBR = Vector2.Transform(dock.Coordinates.Position +
-                                                  Vector2.Transform(new Vector2(0.2f, -0.7f), otherDockRotation), curGridToView);
-                var collisionTR = Vector2.Transform(dock.Coordinates.Position +
-                                                  Vector2.Transform(new Vector2(0.2f, -0.5f), otherDockRotation), curGridToView);
-                var collisionTL = Vector2.Transform(dock.Coordinates.Position +
-                                                  Vector2.Transform(new Vector2(-0.2f, -0.5f), otherDockRotation), curGridToView);
+                var collisionBL = Vector2.Transform(
+                    dock.Coordinates.Position + Vector2.Transform(new Vector2(-0.2f, -0.7f), otherDockRotation),
+                    curGridToView
+                );
+                var collisionBR = Vector2.Transform(
+                    dock.Coordinates.Position + Vector2.Transform(new Vector2(0.2f, -0.7f), otherDockRotation),
+                    curGridToView
+                );
+                var collisionTR = Vector2.Transform(
+                    dock.Coordinates.Position + Vector2.Transform(new Vector2(0.2f, -0.5f), otherDockRotation),
+                    curGridToView
+                );
+                var collisionTL = Vector2.Transform(
+                    dock.Coordinates.Position + Vector2.Transform(new Vector2(-0.2f, -0.5f), otherDockRotation),
+                    curGridToView
+                );
 
                 var verts = new[]
                 {
@@ -198,26 +217,23 @@ public sealed partial class NFShuttleDockControl : BaseShuttleControl
                 if (drawShipGeometry)
                 {
                     var otherDockConnection = Color.ToSrgb(Color.Pink);
-                    handle.DrawPrimitives(DrawPrimitiveTopology.TriangleFan, verts, otherDockConnection.WithAlpha(0.2f));
+                    handle.DrawPrimitives(
+                        DrawPrimitiveTopology.TriangleFan,
+                        verts,
+                        otherDockConnection.WithAlpha(0.2f)
+                    );
                     handle.DrawPrimitives(DrawPrimitiveTopology.LineList, verts, otherDockConnection);
 
                     // Draw the dock itself
-                    var dockBL = Vector2.Transform(dock.Coordinates.Position + new Vector2(-0.5f, -0.5f), curGridToView);
+                    var dockBL = Vector2.Transform(
+                        dock.Coordinates.Position + new Vector2(-0.5f, -0.5f),
+                        curGridToView
+                    );
                     var dockBR = Vector2.Transform(dock.Coordinates.Position + new Vector2(0.5f, -0.5f), curGridToView);
                     var dockTR = Vector2.Transform(dock.Coordinates.Position + new Vector2(0.5f, 0.5f), curGridToView);
                     var dockTL = Vector2.Transform(dock.Coordinates.Position + new Vector2(-0.5f, 0.5f), curGridToView);
 
-                    verts = new[]
-                    {
-                        dockBL,
-                        dockBR,
-                        dockBR,
-                        dockTR,
-                        dockTR,
-                        dockTL,
-                        dockTL,
-                        dockBL
-                    };
+                    verts = new[] { dockBL, dockBR, dockBR, dockTR, dockTR, dockTL, dockTL, dockBL };
 
                     if (HighlightedDock == dock.Entity)
                     {
@@ -272,7 +288,9 @@ public sealed partial class NFShuttleDockControl : BaseShuttleControl
                             if (dockButton != null)
                             {
                                 dockButton.Disabled = !canDock && dock.GridDockedWith == null || !canDockChange; // Frontier: add "&& dock.GridDockedWith == null"
-                                dockButton.Visible = dock.GridDockedWith != null || (dock.DockType & viewedDockType) != DockType.None && !viewedReceiveOnly; // Frontier: do not enable docking for receive-only docks
+                                dockButton.Visible =
+                                    dock.GridDockedWith != null
+                                    || (dock.DockType & viewedDockType) != DockType.None && !viewedReceiveOnly; // Frontier: do not enable docking for receive-only docks
                             }
 
                             var lineColor = inAlignment ? Color.Lime : Color.Red;
@@ -288,7 +306,9 @@ public sealed partial class NFShuttleDockControl : BaseShuttleControl
                     else if (dockButton != null)
                     {
                         dockButton.Disabled = true;
-                        dockButton.Visible = dock.GridDockedWith != null || (dock.DockType & viewedDockType) != DockType.None && !viewedReceiveOnly; // Frontier
+                        dockButton.Visible =
+                            dock.GridDockedWith != null
+                            || (dock.DockType & viewedDockType) != DockType.None && !viewedReceiveOnly; // Frontier
                     }
                 }
 
@@ -307,7 +327,10 @@ public sealed partial class NFShuttleDockControl : BaseShuttleControl
                     // Because it's being layed out top-down we have to arrange for first frame.
                     container.Arrange(PixelRect);
                     var dockPositionInView = Vector2.Transform(dock.Coordinates.Position, curGridToView);
-                    var containerPos = dockPositionInView / UIScale - container.DesiredSize / 2 - new Vector2(0f, 0.75f) * MinimapScale;
+                    var containerPos =
+                        dockPositionInView / UIScale
+                        - container.DesiredSize / 2
+                        - new Vector2(0f, 0.75f) * MinimapScale;
                     SetPosition(container, containerPos);
                 }
 
@@ -321,11 +344,13 @@ public sealed partial class NFShuttleDockControl : BaseShuttleControl
         var rotation = Matrix3Helpers.CreateRotation(-_angle.Value + MathF.PI);
         var ourDockConnection = new UIBox2(
             ScalePosition(Vector2.Transform(new Vector2(-0.2f, -0.7f), rotation)),
-            ScalePosition(Vector2.Transform(new Vector2(0.2f, -0.5f), rotation)));
+            ScalePosition(Vector2.Transform(new Vector2(0.2f, -0.5f), rotation))
+        );
 
         var ourDock = new UIBox2(
             ScalePosition(Vector2.Transform(new Vector2(-0.5f, 0.5f), rotation)),
-            ScalePosition(Vector2.Transform(new Vector2(0.5f, -0.5f), rotation)));
+            ScalePosition(Vector2.Transform(new Vector2(0.5f, -0.5f), rotation))
+        );
 
         var dockColor = _viewedState?.HighlightedRadarColor ?? Color.Magenta; // Frontier - use ViewedState
         var connectionColor = Color.Pink;
@@ -390,20 +415,14 @@ public sealed partial class NFShuttleDockControl : BaseShuttleControl
                     HorizontalAlignment = HAlignment.Center,
                     VerticalAlignment = VAlignment.Center,
                     PanelOverride = new StyleBoxFlat(new Color(30, 30, 34, 200)),
-                    Children =
-                    {
-                        container,
-                    }
+                    Children = { container },
                 };
 
                 Button button;
 
                 if (otherShuttle == gridNent)
                 {
-                    button = new Button()
-                    {
-                        Text = Loc.GetString("shuttle-console-view"),
-                    };
+                    button = new Button() { Text = Loc.GetString("shuttle-console-view") };
 
                     button.OnPressed += args =>
                     {
@@ -414,10 +433,7 @@ public sealed partial class NFShuttleDockControl : BaseShuttleControl
                 {
                     if (dock.Connected)
                     {
-                        button = new Button()
-                        {
-                            Text = Loc.GetString("shuttle-console-undock"),
-                        };
+                        button = new Button() { Text = Loc.GetString("shuttle-console-undock") };
 
                         button.OnPressed += args =>
                         {
@@ -427,11 +443,7 @@ public sealed partial class NFShuttleDockControl : BaseShuttleControl
                     }
                     else
                     {
-                        button = new Button()
-                        {
-                            Text = Loc.GetString("shuttle-console-dock"),
-                            Disabled = true,
-                        };
+                        button = new Button() { Text = Loc.GetString("shuttle-console-dock"), Disabled = true };
 
                         button.OnPressed += args =>
                         {
@@ -446,11 +458,13 @@ public sealed partial class NFShuttleDockControl : BaseShuttleControl
                     _dockButtons.Add(dock, button);
                 }
 
-                container.AddChild(new Label()
-                {
-                    Text = dock.LabelName ?? dock.Name, // Frontier: add dock.LabelName
-                    HorizontalAlignment = HAlignment.Center,
-                });
+                container.AddChild(
+                    new Label()
+                    {
+                        Text = dock.LabelName ?? dock.Name, // Frontier: add dock.LabelName
+                        HorizontalAlignment = HAlignment.Center,
+                    }
+                );
 
                 button.HorizontalAlignment = HAlignment.Center;
                 container.AddChild(button);

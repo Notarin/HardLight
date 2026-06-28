@@ -11,7 +11,7 @@
   - type: DeviceList
   - type: DeviceLinkSink
     ports:
-      - MedicalScannerReceiver
+    - MedicalScannerReceiver
   - type: Sprite
     sprite: Structures/Machines/scanner.rsi
     snapCardinals: true
@@ -55,8 +55,7 @@
     damageModifierSet: StrongMetallic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:PlaySoundBehavior

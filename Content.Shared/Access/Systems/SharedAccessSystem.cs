@@ -8,7 +8,8 @@ namespace Content.Shared.Access.Systems
 {
     public abstract class SharedAccessSystem : EntitySystem
     {
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+        [Dependency]
+        private readonly IPrototypeManager _prototypeManager = default!;
 
         public override void Initialize()
         {
@@ -51,7 +52,11 @@ namespace Content.Shared.Access.Systems
         ///     Replaces the set of access tags we have with the provided set.
         /// </summary>
         /// <param name="access">The new access tags</param>
-        public bool TrySetTags(EntityUid uid, IEnumerable<ProtoId<AccessLevelPrototype>> newTags, AccessComponent? access = null)
+        public bool TrySetTags(
+            EntityUid uid,
+            IEnumerable<ProtoId<AccessLevelPrototype>> newTags,
+            AccessComponent? access = null
+        )
         {
             if (!Resolve(uid, ref access, logMissing: false))
                 return false;
@@ -72,7 +77,11 @@ namespace Content.Shared.Access.Systems
             return !Resolve(uid, ref access, logMissing: false) ? null : access.Tags;
         }
 
-        public bool TryAddGroups(EntityUid uid, IEnumerable<ProtoId<AccessGroupPrototype>> newGroups, AccessComponent? access = null)
+        public bool TryAddGroups(
+            EntityUid uid,
+            IEnumerable<ProtoId<AccessGroupPrototype>> newGroups,
+            AccessComponent? access = null
+        )
         {
             if (!Resolve(uid, ref access, logMissing: false))
                 return false;
@@ -96,11 +105,7 @@ namespace Content.Shared.Access.Systems
         /// <param name="prototype">The job prototype to use access from.</param>
         /// <param name="extended">Whether to apply extended job access.</param>
         /// <param name="access">The access component.</param>
-        public void SetAccessToJob(
-            EntityUid uid,
-            JobPrototype prototype,
-            bool extended,
-            AccessComponent? access = null)
+        public void SetAccessToJob(EntityUid uid, JobPrototype prototype, bool extended, AccessComponent? access = null)
         {
             if (!Resolve(uid, ref access, logMissing: false))
                 return;

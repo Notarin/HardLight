@@ -3,25 +3,28 @@ using Content.Server._NF.Cargo.Systems;
 using Content.Server._NF.Market.Components;
 using Content.Server._NF.Market.Extensions;
 using Content.Server.Storage.Components;
+using Content.Shared._NF.Bank.Components;
 using Content.Shared._NF.Market;
 using Content.Shared._NF.Market.BUI;
 using Content.Shared._NF.Market.Events;
-using Content.Shared._NF.Bank.Components;
 using Content.Shared.Containers.ItemSlots;
+using Content.Shared.Materials;
 using Content.Shared.Power;
 using Content.Shared.Stacks;
 using Content.Shared.Storage;
-using Content.Shared.Materials;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
-
 
 namespace Content.Server._NF.Market.Systems;
 
 public sealed partial class MarketSystem
 {
-    [Dependency] private readonly IComponentFactory _componentFactory = default!;
-    [Dependency] private readonly SharedMaterialStorageSystem _sharedMaterialStorageSystem = default!;
+    [Dependency]
+    private readonly IComponentFactory _componentFactory = default!;
+
+    [Dependency]
+    private readonly SharedMaterialStorageSystem _sharedMaterialStorageSystem = default!;
+
     private void InitializeConsole()
     {
         SubscribeLocalEvent<NFEntitySoldEvent>(OnEntitySoldEvent);
@@ -44,8 +47,7 @@ public sealed partial class MarketSystem
     private void OnEntitySoldEvent(ref NFEntitySoldEvent entitySoldEvent)
     {
         var station = _station.GetOwningStation(entitySoldEvent.Grid);
-        if (station is null ||
-            !_entityManager.TryGetComponent<CargoMarketDataComponent>(station, out var market))
+        if (station is null || !_entityManager.TryGetComponent<CargoMarketDataComponent>(station, out var market))
         {
             return;
         }
@@ -57,7 +59,7 @@ public sealed partial class MarketSystem
     }
 
     /// <summary>
-    /// Recursively updates/inserts an entity and everything it contains into the cargo market. 
+    /// Recursively updates/inserts an entity and everything it contains into the cargo market.
     /// </summary>
     /// <param name="market">The market data set that will store these entities.</param>
     /// <param name="sold">The entity to add.</param>
@@ -99,9 +101,11 @@ public sealed partial class MarketSystem
             return;
 
         // Check whitelist/blacklist for particular prototype
-        if (_whitelistSystem.IsWhitelistFail(market.Whitelist, sold) ||
-            _whitelistSystem.IsBlacklistPass(market.Blacklist, sold) &&
-            _whitelistSystem.IsWhitelistFailOrNull(market.WhitelistOverride, sold))
+        if (
+            _whitelistSystem.IsWhitelistFail(market.Whitelist, sold)
+            || _whitelistSystem.IsBlacklistPass(market.Blacklist, sold)
+                && _whitelistSystem.IsWhitelistFailOrNull(market.WhitelistOverride, sold)
+        )
         {
             return;
         }
@@ -118,7 +122,10 @@ public sealed partial class MarketSystem
     /// </summary>
     /// <param name="marketDataComponent">The MarketDataComponent to update.</param>
     /// <param name="entityStorageComponent">The EntityStorageComponent containing entities to process.</param>
-    private void UpsertEntityStorage(CargoMarketDataComponent marketDataComponent, EntityStorageComponent entityStorageComponent)
+    private void UpsertEntityStorage(
+        CargoMarketDataComponent marketDataComponent,
+        EntityStorageComponent entityStorageComponent
+    )
     {
         foreach (var entityUid in entityStorageComponent.Contents.ContainedEntities)
             UpsertEntity(marketDataComponent, entityUid);
@@ -156,7 +163,11 @@ public sealed partial class MarketSystem
     /// </summary>
     /// <param name="marketDataComponent"></param>
     /// <param name="materialStorageComponent"></param>
-    private void UpsertMaterialStorage(CargoMarketDataComponent marketDataComponent, MaterialStorageComponent materialStorageComponent, EntityUid sold)
+    private void UpsertMaterialStorage(
+        CargoMarketDataComponent marketDataComponent,
+        MaterialStorageComponent materialStorageComponent,
+        EntityUid sold
+    )
     {
         foreach (var (materialProto, amount) in materialStorageComponent.Storage)
         {
@@ -166,11 +177,13 @@ public sealed partial class MarketSystem
                 continue;
             }
 
-            if (amount <= 0
+            if (
+                amount <= 0
                 || material.StackEntity == null
                 || !_prototypeManager.TryIndex<EntityPrototype>(material.StackEntity, out var entProto)
                 || !entProto.TryGetComponent<PhysicalCompositionComponent>(out var composition, _componentFactory)
-                || !entProto.TryGetComponent<StackComponent>(out var stack, _componentFactory))
+                || !entProto.TryGetComponent<StackComponent>(out var stack, _componentFactory)
+            )
             {
                 continue;
             }
@@ -183,7 +196,12 @@ public sealed partial class MarketSystem
                 continue;
 
             var overflowMaterial = amount - amountToSpawn * materialPerStack;
-            _sharedMaterialStorageSystem.TrySetMaterialAmount(sold, materialProto, overflowMaterial, materialStorageComponent);
+            _sharedMaterialStorageSystem.TrySetMaterialAmount(
+                sold,
+                materialProto,
+                overflowMaterial,
+                materialStorageComponent
+            );
 
             // Increase the count in the MarketData for this material
             marketDataComponent.MarketDataList.Upsert(entProto.ID, amountToSpawn, price, stack.StackTypeId);
@@ -260,7 +278,10 @@ public sealed partial class MarketSystem
             return;
 
         // Try to get the EntityPrototype that matches marketData.Prototype
-        if (args.ItemPrototype == null || !_prototypeManager.TryIndex<EntityPrototype>(args.ItemPrototype, out var prototype))
+        if (
+            args.ItemPrototype == null
+            || !_prototypeManager.TryIndex<EntityPrototype>(args.ItemPrototype, out var prototype)
+        )
             return; // Skip this iteration if the prototype was not found
 
         // No data set for market data, can't update cart, no data.
@@ -309,16 +330,16 @@ public sealed partial class MarketSystem
             }
 
             marketData.Upsert(existing.Prototype, -toWithdraw, existing.Price, existing.StackPrototype);
-            consoleComponent.CartDataList.Upsert(existing.Prototype, toWithdraw, existing.Price, existing.StackPrototype);
+            consoleComponent.CartDataList.Upsert(
+                existing.Prototype,
+                toWithdraw,
+                existing.Price,
+                existing.StackPrototype
+            );
         }
 
         // FIXME: this should update the state of other other console UI in the same station.
-        RefreshState(
-            consoleUid,
-            bank.Balance,
-            marketMultiplier,
-            consoleComponent
-        );
+        RefreshState(consoleUid, bank.Balance, marketMultiplier, consoleComponent);
     }
 
     /// <summary>
@@ -348,10 +369,7 @@ public sealed partial class MarketSystem
         if (TryComp<MarketModifierComponent>(uid, out var priceMod))
             marketMultiplier = priceMod.Mod;
 
-        RefreshState(uid,
-            bank.Balance,
-            marketMultiplier,
-            component);
+        RefreshState(uid, bank.Balance, marketMultiplier, component);
     }
 
     private void RefreshState(

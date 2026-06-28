@@ -8,9 +8,14 @@ namespace Content.Server.LandMines;
 
 public sealed class LandMineSystem : EntitySystem
 {
-    [Dependency] private readonly SharedAudioSystem _audioSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly TriggerSystem _trigger = default!;
+    [Dependency]
+    private readonly SharedAudioSystem _audioSystem = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly TriggerSystem _trigger = default!;
 
     public override void Initialize()
     {
@@ -26,7 +31,8 @@ public sealed class LandMineSystem : EntitySystem
             Loc.GetString("land-mine-triggered", ("mine", uid)),
             Transform(uid).Coordinates,
             args.Tripper,
-            PopupType.LargeCaution);
+            PopupType.LargeCaution
+        );
 
         _audioSystem.PlayPvs(component.Sound, uid);
     }
@@ -36,7 +42,11 @@ public sealed class LandMineSystem : EntitySystem
         _trigger.Trigger(uid, args.Tripper);
     }
 
-    private static void HandleStepTriggerAttempt(EntityUid uid, LandMineComponent component, ref StepTriggerAttemptEvent args)
+    private static void HandleStepTriggerAttempt(
+        EntityUid uid,
+        LandMineComponent component,
+        ref StepTriggerAttemptEvent args
+    )
     {
         args.Continue = true;
     }

@@ -80,7 +80,4 @@ public sealed partial class DefibrillatorComponent : Component
 }
 
 [Serializable, NetSerializable]
-public sealed partial class DefibrillatorZapDoAfterEvent : SimpleDoAfterEvent
-{
-
-}
+public sealed partial class DefibrillatorZapDoAfterEvent : SimpleDoAfterEvent { }

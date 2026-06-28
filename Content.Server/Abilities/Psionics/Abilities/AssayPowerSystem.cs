@@ -1,28 +1,41 @@
 using Content.Server.Chat.Managers;
 using Content.Shared.Abilities.Psionics;
-using Content.Shared.Nyanotrasen.Abilities.Psionics;
 using Content.Shared.Actions.Events;
 using Content.Shared.Chat;
 using Content.Shared.DoAfter;
+using Content.Shared.Nyanotrasen.Abilities.Psionics;
 using Content.Shared.Popups;
 using Content.Shared.Psionics.Events;
 using Robust.Server.Audio;
-using Robust.Shared.Audio;
 using Robust.Server.Player;
-using Robust.Shared.Timing;
+using Robust.Shared.Audio;
 using Robust.Shared.Player;
+using Robust.Shared.Timing;
 
 namespace Content.Server.Abilities.Psionics;
 
 public sealed class AssayPowerSystem : EntitySystem
 {
-    [Dependency] private readonly SharedPsionicAbilitiesSystem _psionics = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
-    [Dependency] private readonly AudioSystem _audioSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popups = default!;
-    [Dependency] private readonly IChatManager _chatManager = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
+    [Dependency]
+    private readonly SharedPsionicAbilitiesSystem _psionics = default!;
+
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
+
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfterSystem = default!;
+
+    [Dependency]
+    private readonly AudioSystem _audioSystem = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popups = default!;
+
+    [Dependency]
+    private readonly IChatManager _chatManager = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
 
     public override void Initialize()
     {
@@ -36,22 +49,36 @@ public sealed class AssayPowerSystem : EntitySystem
     /// </summary>
     private void OnPowerUsed(EntityUid uid, PsionicComponent psionic, AssayPowerActionEvent args)
     {
-        if (!_psionics.OnAttemptPowerUse(args.Performer, "assay")
-            || psionic.DoAfter is not null)
+        if (!_psionics.OnAttemptPowerUse(args.Performer, "assay") || psionic.DoAfter is not null)
             return;
 
         var ev = new AssayDoAfterEvent(_gameTiming.CurTime, args.FontSize, args.FontColor);
-        _doAfterSystem.TryStartDoAfter(new DoAfterArgs(EntityManager, args.Performer, args.UseDelay - TimeSpan.FromSeconds(psionic.CurrentAmplification), ev, args.Performer, args.Target, args.Performer)
-        {
-            BlockDuplicate = true,
-            BreakOnMove = true,
-            BreakOnDamage = true,
-        }, out var doAfterId);
+        _doAfterSystem.TryStartDoAfter(
+            new DoAfterArgs(
+                EntityManager,
+                args.Performer,
+                args.UseDelay - TimeSpan.FromSeconds(psionic.CurrentAmplification),
+                ev,
+                args.Performer,
+                args.Target,
+                args.Performer
+            )
+            {
+                BlockDuplicate = true,
+                BreakOnMove = true,
+                BreakOnDamage = true,
+            },
+            out var doAfterId
+        );
         psionic.DoAfter = doAfterId;
 
         _popups.PopupEntity(Loc.GetString(args.PopupTarget, ("entity", args.Target)), args.Performer, PopupType.Medium);
 
-        _audioSystem.PlayPvs(args.SoundUse, args.Performer, AudioParams.Default.WithVolume(8f).WithMaxDistance(1.5f).WithRolloffFactor(3.5f));
+        _audioSystem.PlayPvs(
+            args.SoundUse,
+            args.Performer,
+            AudioParams.Default.WithVolume(8f).WithMaxDistance(1.5f).WithRolloffFactor(3.5f)
+        );
         _psionics.LogPowerUsed(args.Performer, args.PowerName, args.MinGlimmer, args.MaxGlimmer);
         args.Handled = true;
     }
@@ -67,8 +94,7 @@ public sealed class AssayPowerSystem : EntitySystem
 
         var user = uid;
         var target = args.Target;
-        if (target == null || args.Cancelled
-            || !_playerManager.TryGetSessionByEntity(user, out var session))
+        if (target == null || args.Cancelled || !_playerManager.TryGetSessionByEntity(user, out var session))
             return;
 
         if (InspectSelf(uid, args, session))
@@ -117,7 +143,8 @@ public sealed class AssayPowerSystem : EntitySystem
         var targetAmp = MathF.Round(targetPsionic.CurrentAmplification, 2).ToString("#.##");
         var targetDamp = MathF.Round(targetPsionic.CurrentDampening, 2).ToString("#.##");
         var targetPotentia = MathF.Round(targetPsionic.Potentia, 2).ToString("#.##");
-        var message = $"[font size={args.FontSize}][color={args.FontColor}]{Loc.GetString("assay-body", ("entity", target!.Value), ("amplification", targetAmp), ("dampening", targetDamp), ("potentia", targetPotentia))}[/color][/font]";
+        var message =
+            $"[font size={args.FontSize}][color={args.FontColor}]{Loc.GetString("assay-body", ("entity", target!.Value), ("amplification", targetAmp), ("dampening", targetDamp), ("potentia", targetPotentia))}[/color][/font]";
         SendDescToChat(message, session);
 
         foreach (var feedback in targetPsionic.AssayFeedback)
@@ -139,6 +166,7 @@ public sealed class AssayPowerSystem : EntitySystem
             feedbackMessage,
             EntityUid.Invalid,
             false,
-            session.Channel);
+            session.Channel
+        );
     }
 }

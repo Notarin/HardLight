@@ -141,7 +141,7 @@
 
 - type: entity
   id: CigPackBaseUnmarked
-  parent: [ BaseStorageItem, BaseBagOpenClose ]
+  parent: [BaseStorageItem, BaseBagOpenClose]
   name: unmarked cigarette pack
   abstract: true
   components:

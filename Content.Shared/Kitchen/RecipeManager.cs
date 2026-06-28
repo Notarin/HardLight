@@ -5,7 +5,8 @@ namespace Content.Shared.Kitchen
 {
     public sealed class RecipeManager
     {
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+        [Dependency]
+        private readonly IPrototypeManager _prototypeManager = default!;
 
         public List<FoodRecipePrototype> Recipes { get; private set; } = new();
 
@@ -20,6 +21,7 @@ namespace Content.Shared.Kitchen
 
             Recipes.Sort(new RecipeComparer());
         }
+
         /// <summary>
         /// Check if a prototype ids appears in any of the recipes that exist.
         /// </summary>

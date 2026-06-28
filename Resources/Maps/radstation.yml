@@ -19645,7 +19645,6 @@ entities:
 
         Ass. Olivia Hass
 
-
         [color=red]Este livro teve a circulação proibida e qualquer exemplar dele deve ser queimado.[/color]
     - type: Physics
       canCollide: False
@@ -19660,18 +19659,13 @@ entities:
       content: >-
         Nas esferas do misticismo e das forças indomáveis, existe uma entidade de poder inigualável conhecida como o A Marionete Suprema. Apesar de seu nome, esse ser extraordinário está longe de ser uma marionete real; ele tem o tamanho de um humano médio, e sua aparência pode mudar de tempos em tempos. Ele incorpora uma misteriosa combinação de poder e consciência, exigindo um mestre para orientar suas ações. A natureza do Boneco está intrinsicamente ligada ao controle, sua existência depende de um mestre que pode aproveitar suas imensas capacidades.
 
-
         A Marionete Suprema possui um arsenal de habilidades e capacidades extraordinárias, tornando-o uma força a ser reconhecida. Quando o mestre emite um comando, a Marionete o executa com uma eficiência, habilidade e sutileza inigualáveis. Seja uma infiltração delicada, uma manobra estratégica ou uma exibição de poder bruto, a Marionete realiza sua ordem dada impecavelmente, sem deixar margem para erro.
-
 
         No entanto, a verdadeira arte da Marionete reside na teatralidade e intriga de seus comandos. O desempenho da Marionete está intrinsecamente ligado às habilidades criativas e teatrais de seu mestre. Quanto mais envolvente, cativante e dramático o cenário criado pelo mestre, mais pronunciada e extraordinária se torna a execução da Marionete. Um comando sem brilho teatral e mundano leva a resultados ineficientes ou falhas, enquanto uma ordem brilhantemente concebida e narrada desbloqueia todo o potencial das habilidades da Marionete.
 
-
         Mas cuidado, pois a Marionete abriga uma inclinação secreta e traiçoeira. Se o mestre falhar repetidamente em cativar a Marionete com cenários fascinantes, a insatisfação penetra lentamente na consciência da entidade. À medida que a Marionete anseia por mais emoção e realização, o vínculo entre mestre e a Marionete começa a se fraturar. Gradualmente, o descontentamento da Marionete se transforma em uma animosidade perigosa, e com insatisfação suficiente, ela pode se voltar contra seu mestre com consequências letais.
 
-
         Assim, a Marionete Suprema caminha numa corda bamba delicada entre lealdade e rebelião, tornando a relação entre mestre e entidade uma dança precária. O mestre deve se esforçar continuamente para cativar e fascinar a Marionete, garantindo sua devoção e lealdade inabaláveis. De forma relativamente simples, esta entidade vê-se a si mesma como personagem de uma obra de ficção, ao mesmo tempo que vê o seu mestre como o criador da obra.
-
 
         Nas sombras do mistério e do poder oculto, a Marionete Suprema aguarda aqueles que ousam comandá-lo. Será você o escolhido para desbloquear seu potencial ilimitado, ou sucumbirá ao seu crescente descontentamento e enfrentará as consequências graves? A escolha reside em sua capacidade de domar o enigma da poderosa entidade que é a Marionete Suprema.
     - type: Physics
@@ -19687,9 +19681,7 @@ entities:
       content: >-
         A pessoa afetada por esta maldição se encontra aprisionada em um ciclo interminável de tarefas exaustivas, sendo compelida a cumpri-las sem descanso. Trata-se de uma maldição cruel que mergulha a vítima em um estado de fadiga extrema, permitindo-lhe descansar apenas quando seu corpo sucumbe ao desmaio.
 
-
         Aqueles sob efeito da Alegoria do Peso Perpétuo vivenciam uma corrente interminável de tarefas, cujo número parece ser infinito. Essas tarefas podem variar em natureza, indo desde atividades físicas extenuantes até tarefas mentais exaustivas, sempre se adaptando às habilidades e destrezas individuais da vítima. A maldição não apenas exige que as tarefas sejam concluídas, mas também pressiona a pessoa afetada a executá-las com eficiência e perfeição, deixando pouco espaço para falhas.
-
 
         Enquanto a Maldição do Peso Eterno é implacável em suas imposições de tarefas, ela concede à pessoa afetada um mínimo de livre-arbítrio. A vítima pode escolher a ordem em que realiza as tarefas e até mesmo o tipo de atividade que deseja empreender, dentro dos limites impostos pela maldição. Essa capacidade de escolha paradoxalmente intensifica o sofrimento da pessoa, pois ela deve decidir constantemente qual tarefa realizar, sabendo que nunca haverá um fim para essa demanda interminável.
     - type: Physics
@@ -112504,13 +112496,11 @@ entities:
 
         ▀█▄▄▄▄▄▄▄▄▄▄▄▄▄▄█  [head=1]Technologies[/head][/color]
 
-
         [color=#002159][head=1] FORMULÁRIO DE TRABALHO [/head]
 
         [/color]
 
         [head=2] Informações [/head]
-
 
         Nome:
 
@@ -112524,9 +112514,7 @@ entities:
 
         Afiliação com a Nanotrasen:
 
-
         [color=#002159][head=2] Trabalho [/head][/color]
-
 
         Trabalho atual:
 
@@ -112534,18 +112522,13 @@ entities:
 
         Motivo:
 
-
         [color=#002159][head=2] O que fazer [/head][/color]
-
 
         [bullet/] Este papel [bold][color=#ff0000]DEVE[/color][/bold] ser entregue ao head do departamento em que a pessoa quer o emprego.
 
-
         [bullet/] Se você (head do departamento) permite que esta pessoa trabalhe no seu departamento, carimbe este papel e entregue no meu escritório.
 
-
         [bullet/] Se você não permite, me avise pelo rádio ou simplesmente não devolva o papel.
-
 
         [bullet/] Não irei dar trabalho para pessoas sem este papel estar carimbado.
     - type: Physics
@@ -112748,7 +112731,6 @@ entities:
         █               █      ▀█   ██▄   █
 
         ▀█▄▄▄▄▄▄▄▄▄▄▄▄▄▄█  [head=1]Technologies[/head][/color]
-
 
         [bold]--------------------------------------------------------------------------[/bold]
 
@@ -160663,4 +160645,3 @@ entities:
     - type: Transform
       pos: 46.602283,-29.364048
       parent: 2
-...

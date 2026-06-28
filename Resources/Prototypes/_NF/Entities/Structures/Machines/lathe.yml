@@ -16,7 +16,7 @@
     - blueprint
 
 - type: entity
-  parent: [ BlueprintReceiverBase, BaseLatheLube ]
+  parent: [BlueprintReceiverBase, BaseLatheLube]
   id: ServiceTechFab
   name: service techfab
   description: Prints equipment for service staff.
@@ -37,8 +37,7 @@
       map: ["enum.WiresVisualLayers.MaintenancePanel"]
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 300
       behaviors:
       - !type:PlaySoundBehavior
@@ -69,165 +68,165 @@
     # staticRecipes:
     # # Shared lathe recipes
     # ## Basic tools
-      # - Wirecutter
-      # - Screwdriver
-      # - Welder
-      # - Wrench
-      # - CrowbarGreen
-      # - Multitool
-      # - FlashlightLantern
-      # - AppraisalTool
-      # - HandLabeler
-      # - Signaller
-      # - ClothingMaskWeldingGas
+    # - Wirecutter
+    # - Screwdriver
+    # - Welder
+    # - Wrench
+    # - CrowbarGreen
+    # - Multitool
+    # - FlashlightLantern
+    # - AppraisalTool
+    # - HandLabeler
+    # - Signaller
+    # - ClothingMaskWeldingGas
     # ## Basic storage
-      # - ToolboxArtisticNF
-      # - ToolboxElectricalNF
-      # - ToolboxMechanicalNF
-      # - ToolboxEmergencyNF
-      # - NFBoxMREEmpty
-      # - NFHappyHonkEmpty
-      # - NFHappyHonkMimeEmpty
-      # - NFHappyHonkMcCargoEmpty
-      # - NFFoodBoxPizza
-      # - NFFoodBoxDonutEmpty
-      # - NFFoodBoxNuggetEmpty
-      # - NFFoodContainerEggEmpty
-      # - NFFoodBoxSushi
-      # - DrinkKegSteel
-      # - DrinkKegPlastic
-      # - DrinkKegWood
+    # - ToolboxArtisticNF
+    # - ToolboxElectricalNF
+    # - ToolboxMechanicalNF
+    # - ToolboxEmergencyNF
+    # - NFBoxMREEmpty
+    # - NFHappyHonkEmpty
+    # - NFHappyHonkMimeEmpty
+    # - NFHappyHonkMcCargoEmpty
+    # - NFFoodBoxPizza
+    # - NFFoodBoxDonutEmpty
+    # - NFFoodBoxNuggetEmpty
+    # - NFFoodContainerEggEmpty
+    # - NFFoodBoxSushi
+    # - DrinkKegSteel
+    # - DrinkKegPlastic
+    # - DrinkKegWood
     # ## Basic parts
-      # - CableStack
-      # - LightTube
-      # - LedLightTube
-      # - SodiumLightTube
-      # - ExteriorLightTube
-      # - LightTubeCrystalBlack
-      # - LightBulb
-      # - LedLightBulb
-      # - SodiumLightBulb
-      # - ExteriorLightBulb
-      # - ConveyorBeltAssembly
-      # - PowerCellSmall
-      # - PowerCellMedium
+    # - CableStack
+    # - LightTube
+    # - LedLightTube
+    # - SodiumLightTube
+    # - ExteriorLightTube
+    # - LightTubeCrystalBlack
+    # - LightBulb
+    # - LedLightBulb
+    # - SodiumLightBulb
+    # - ExteriorLightBulb
+    # - ConveyorBeltAssembly
+    # - PowerCellSmall
+    # - PowerCellMedium
     # ## Basic electronics
-      # - SignalTimerElectronics
-      # - CellRechargerCircuitboard
-      # - BorgChargerCircuitboard
-      # - WeaponCapacitorRechargerCircuitboard
-      # - AirTank
+    # - SignalTimerElectronics
+    # - CellRechargerCircuitboard
+    # - BorgChargerCircuitboard
+    # - WeaponCapacitorRechargerCircuitboard
+    # - AirTank
     # # Service techfab
     # ## Tools
-      # - LightReplacer
-      # - MopBucket
-      # - TrashBag
-      # - Bucket
-      # - MopItem
-      # - SprayBottle
-      # - HydroponicsToolMiniHoe
-      # - HydroponicsToolScythe
-      # - HydroponicsToolHatchet
-      # - HydroponicsToolSpade
-      # - HydroponicsToolClippers
-      # - ServiceSelectiveDropper
-      # - PlantBag
-      # - Beaker
-      # - LargeBeaker
-      # - Jug
-      # - MailCapsule
-      # - LanternNF
-      # - PillCanister
-      # - ChemistryEmptyBottle01
-      # - Mousetrap
-      # - Holoprojector
-      # - Shovel
-      # - FreezerElectronics
+    # - LightReplacer
+    # - MopBucket
+    # - TrashBag
+    # - Bucket
+    # - MopItem
+    # - SprayBottle
+    # - HydroponicsToolMiniHoe
+    # - HydroponicsToolScythe
+    # - HydroponicsToolHatchet
+    # - HydroponicsToolSpade
+    # - HydroponicsToolClippers
+    # - ServiceSelectiveDropper
+    # - PlantBag
+    # - Beaker
+    # - LargeBeaker
+    # - Jug
+    # - MailCapsule
+    # - LanternNF
+    # - PillCanister
+    # - ChemistryEmptyBottle01
+    # - Mousetrap
+    # - Holoprojector
+    # - Shovel
+    # - FreezerElectronics
     # ## Kitchen
-      # - DrinkMug
-      # - DrinkMugMetal
-      # - DrinkGlass
-      # - DrinkIceBucketEmpty
-      # - KitchenKnife
-      # - ButchCleaver
-      # - ServiceRollingPin
-      # - ServiceSpoon
-      # - ServiceFork
-      # - ServicePairedChopsticks
-      # - FoodBowlBig
-      # - FoodPlate
-      # - FoodPlateSmall
-      # - FoodPlateMuffinTin
-      # - FoodPlateTin
-      # - FoodKebabSkewer
-      # - DrinkShotGlass
-      # - DrinkGlassCoupeShaped
-      # - CustomDrinkJug
-      # - FoodPlatePlastic
-      # - FoodPlateSmallPlastic
-      # - NapkinDrum
-      # - Napkin
-      # - CondimentCupDispenser
-      # - CondimentCup
-      # - FoodCondimentSqueezeBottleClear
+    # - DrinkMug
+    # - DrinkMugMetal
+    # - DrinkGlass
+    # - DrinkIceBucketEmpty
+    # - KitchenKnife
+    # - ButchCleaver
+    # - ServiceRollingPin
+    # - ServiceSpoon
+    # - ServiceFork
+    # - ServicePairedChopsticks
+    # - FoodBowlBig
+    # - FoodPlate
+    # - FoodPlateSmall
+    # - FoodPlateMuffinTin
+    # - FoodPlateTin
+    # - FoodKebabSkewer
+    # - DrinkShotGlass
+    # - DrinkGlassCoupeShaped
+    # - CustomDrinkJug
+    # - FoodPlatePlastic
+    # - FoodPlateSmallPlastic
+    # - NapkinDrum
+    # - Napkin
+    # - CondimentCupDispenser
+    # - CondimentCup
+    # - FoodCondimentSqueezeBottleClear
     # ## EVA
-      # - ClothingOuterEVASuitHydro
-      # - ClothingOuterEVASuitJanitor
-      # - ClothingOuterEVASuitServiceWorker
-      # - ClothingOuterEVASuitChaplain
-      # - ClothingOuterEVASuitBoxerRed
-      # - ClothingOuterEVASuitBoxerGreen
-      # - ClothingOuterEVASuitBoxerBlue
-      # - ClothingOuterEVASuitBoxerYellow
+    # - ClothingOuterEVASuitHydro
+    # - ClothingOuterEVASuitJanitor
+    # - ClothingOuterEVASuitServiceWorker
+    # - ClothingOuterEVASuitChaplain
+    # - ClothingOuterEVASuitBoxerRed
+    # - ClothingOuterEVASuitBoxerGreen
+    # - ClothingOuterEVASuitBoxerBlue
+    # - ClothingOuterEVASuitBoxerYellow
     # ## Materials
-      # - SheetPaper
-      # - NFMaterialCardboard1Processed
-      # - PaperFromSheetPaper
+    # - SheetPaper
+    # - NFMaterialCardboard1Processed
+    # - PaperFromSheetPaper
     # ## Misc
-      # - ClothingHeadHatCone
-      # - FireExtinguisher
-      # - WetFloorSign
-      # - DeskBell
-      # - BrbSign
-      # - ClothingNeckShockCollar # Floofstation
-      # - LeashBasic # Floofstation
+    # - ClothingHeadHatCone
+    # - FireExtinguisher
+    # - WetFloorSign
+    # - DeskBell
+    # - BrbSign
+    # - ClothingNeckShockCollar # Floofstation
+    # - LeashBasic # Floofstation
     # dynamicRecipes:
     # # Shared lathe recipes
     # ## Advanced tools
-      # - WelderExperimental
-      # - JawsOfLife
-      # - PowerDrill
-      # - JetpackVoid
-      # - PowerCellHigh
-      # - PowerCellMicroreactor
+    # - WelderExperimental
+    # - JawsOfLife
+    # - PowerDrill
+    # - JetpackVoid
+    # - PowerCellHigh
+    # - PowerCellMicroreactor
     # # Service techfab
-      # - SynthesizerInstrument
-      # - ClothingOuterHardsuitBasic
-      # - ClothingOuterHardsuitPilot
-      # - ClothingOuterHardsuitClown
-      # - ClothingOuterHardsuitMime
-      # - AdvMopItem
-      # - WeaponSprayNozzle
-      # - ClothingBackpackWaterTank
-      # - MegaSprayBottle
-      # - TimerTrigger
-      # - ChemicalPayload
-      # - BluespaceBeaker
-      # - SyringeBluespace
-      # - PlantBagOfHolding
-      # - PlantAnalyzer
-      # - JanicartFlatpack
-      # - FireExtinguisherBluespace # DeltaV
+    # - SynthesizerInstrument
+    # - ClothingOuterHardsuitBasic
+    # - ClothingOuterHardsuitPilot
+    # - ClothingOuterHardsuitClown
+    # - ClothingOuterHardsuitMime
+    # - AdvMopItem
+    # - WeaponSprayNozzle
+    # - ClothingBackpackWaterTank
+    # - MegaSprayBottle
+    # - TimerTrigger
+    # - ChemicalPayload
+    # - BluespaceBeaker
+    # - SyringeBluespace
+    # - PlantBagOfHolding
+    # - PlantAnalyzer
+    # - JanicartFlatpack
+    # - FireExtinguisherBluespace # DeltaV
   - type: EmagLatheRecipes
     emagStaticPacks:
     - NFServiceTechfabDeprecatedEmagStatic
   - type: OreSiloClient
   - type: DeviceLinkSink
     ports:
-      - FillbotAnyItem
+    - FillbotAnyItem
 
 - type: entity
-  parent: [ BlueprintReceiverBase, ServiceTechFab ]
+  parent: [BlueprintReceiverBase, ServiceTechFab]
   id: McServiceTechFab
   name: mcservice techfab
   description: Prints equipment for mcservice staff.
@@ -259,10 +258,10 @@
   - type: OreSiloClient
   - type: DeviceLinkSink
     ports:
-      - FillbotAnyItem
+    - FillbotAnyItem
 
 - type: entity
-  parent: [ BlueprintReceiverBase, BaseLatheLube ]
+  parent: [BlueprintReceiverBase, BaseLatheLube]
   id: EngineeringTechFab
   name: engineering techfab
   description: Prints equipment for engineers.
@@ -297,10 +296,10 @@
   - type: OreSiloClient
   - type: DeviceLinkSink
     ports:
-      - FillbotAnyItem
+    - FillbotAnyItem
 
 - type: entity
-  parent: [ BlueprintReceiverBase, BaseLatheLube ]
+  parent: [BlueprintReceiverBase, BaseLatheLube]
   id: SalvageTechfabNF
   name: salvage techfab
   description: Prints equipment for salvagers.
@@ -337,11 +336,11 @@
   - type: OreSiloClient
   - type: DeviceLinkSink
     ports:
-      - FillbotAnyItem
+    - FillbotAnyItem
 
 - type: entity
   id: NfsdTechFab
-  parent: [ BlueprintReceiverBase, SecurityTechFab ]
+  parent: [BlueprintReceiverBase, SecurityTechFab]
   name: ColSec techfab
   description: Prints equipment for use by ColSec.
   components:
@@ -374,23 +373,23 @@
     - NFNfsdTechfabDeprecatedStatic
     - CivilianAmmoRecipePack
     dynamicPacks:
-      - NFNfsdTechfabDynamicDeprecated
-      - AdvancedAmmoRecipePack
-      - UniversalShellAmmo
-      - UniversalRailgunAmmo
-      - UniversalMissileAmmo
-      - UniversalOrdinance
+    - NFNfsdTechfabDynamicDeprecated
+    - AdvancedAmmoRecipePack
+    - UniversalShellAmmo
+    - UniversalRailgunAmmo
+    - UniversalMissileAmmo
+    - UniversalOrdinance
   # Emag recipes removed: missing NFNfsdTechfabDeprecatedEmag pack
   - type: PirateBountyItem # Mono
     id: Techfab
   - type: OreSiloClient
   - type: DeviceLinkSink
     ports:
-      - FillbotAnyItem
+    - FillbotAnyItem
 
 - type: entity
   id: MercenaryTechFab
-  parent: [ BlueprintReceiverBase, BaseLatheLube ]
+  parent: [BlueprintReceiverBase, BaseLatheLube]
   name: mercenary techfab
   description: Prints the bare minimum of tools of the trade that any budget mercenary or private security could need. Nothing fancy.
   components:
@@ -429,7 +428,7 @@
   - type: OreSiloClient
   - type: DeviceLinkSink
     ports:
-      - FillbotAnyItem
+    - FillbotAnyItem
 
 - type: entity
   id: MercenaryTechFabHacked
@@ -455,7 +454,7 @@
       map: ["enum.WiresVisualLayers.MaintenancePanel"]
     - sprite: _NF/Structures/Holo/graffiti/simple.rsi
       state: holograffiti01
-      map: [ "graffiti" ]
+      map: ["graffiti"]
       shader: unshaded
       scale: 0.7, 0.7
   - type: Machine
@@ -465,7 +464,7 @@
     energy: 2
     color: "#85daeb"
   - type: RgbLightController
-    layers: [ 0 ]
+    layers: [0]
   - type: Lathe
     idleState: mercenary-hacked
     runningState: mercenary-hacked
@@ -480,7 +479,7 @@
   - type: OreSiloClient
   - type: DeviceLinkSink
     ports:
-      - FillbotAnyItem
+    - FillbotAnyItem
 
 - type: entity
   parent: [BaseStructureDisableToolUse, BaseLathe]
@@ -528,11 +527,11 @@
   - type: MaterialStorage
     whitelist:
       tags:
-        - PrizeTicket
+      - PrizeTicket
   - type: OreSiloClient
   - type: DeviceLinkSink
     ports:
-      - FillbotAnyItem
+    - FillbotAnyItem
 
 - type: entity
   id: BlueprintLithograph
@@ -567,7 +566,7 @@
       - Paper
   - type: DeviceLinkSink
     ports:
-      - FillbotAnyItem
+    - FillbotAnyItem
 
 - type: entity
   id: ScrapProcessor
@@ -606,7 +605,7 @@
   - type: OreSiloClient
   - type: DeviceLinkSink
     ports:
-      - FillbotAnyItem
+    - FillbotAnyItem
 
 - type: entity
   id: BiogeneratorFill

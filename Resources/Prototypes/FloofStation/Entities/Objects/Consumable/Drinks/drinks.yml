@@ -247,7 +247,6 @@
     sprite: _Floof/Objects/Consumable/Drinks/deadmansdraught.rsi
     state: icon
 
-
 - type: entity
   parent: DrinkGlass
   id: DrinkDragonsBloodGlass
@@ -322,8 +321,8 @@
       drink:
         maxVol: 30
         reagents:
-        -  ReagentId: MillerMargarita
-           Quantity: 30
+        - ReagentId: MillerMargarita
+          Quantity: 30
   - type: Icon
     sprite: _Floof/Objects/Consumable/Drinks/millermargarita.rsi
     state: icon
@@ -375,7 +374,7 @@
   - type: Icon
     sprite: _Floof/Objects/Consumable/Drinks/grandnavy.rsi
     state: icon
-    
+
 - type: entity
   parent: DrinkGlass
   id: DrinkHarpySnowfallGlass
@@ -391,7 +390,7 @@
   - type: Icon
     sprite: _Floof/Objects/Consumable/Drinks/harpysnowfall.rsi
     state: icon
-  
+
 - type: entity
   parent: DrinkGlass
   id: DrinkHeartbreakMountainGlass

@@ -50,7 +50,14 @@ namespace Content.Client.UserInterface.Systems.Ghost.Controls.Roles
             }
         }
 
-        public void AddEntry(string name, string description, bool hasAccess, FormattedMessage? reason, IEnumerable<GhostRoleInfo> roles, SpriteSystem spriteSystem)
+        public void AddEntry(
+            string name,
+            string description,
+            bool hasAccess,
+            FormattedMessage? reason,
+            IEnumerable<GhostRoleInfo> roles,
+            SpriteSystem spriteSystem
+        )
         {
             NoRolesMessage.Visible = false;
 
@@ -66,17 +73,16 @@ namespace Content.Client.UserInterface.Systems.Ghost.Controls.Roles
 
             if (rolesCount > 1)
             {
-                var buttonHeading = new CollapsibleHeading(Loc.GetString("ghost-roles-window-available-button", ("rolesCount", rolesCount)));
+                var buttonHeading = new CollapsibleHeading(
+                    Loc.GetString("ghost-roles-window-available-button", ("rolesCount", rolesCount))
+                );
 
                 buttonHeading.AddStyleClass(ContainerButton.StyleClassButton);
                 buttonHeading.Label.HorizontalAlignment = HAlignment.Center;
                 buttonHeading.Label.HorizontalExpand = true;
                 buttonHeading.Margin = new Thickness(8, 0, 8, 2);
 
-                var body = new CollapsibleBody
-                {
-                    Margin = new Thickness(0, 5, 0, 0),
-                };
+                var body = new CollapsibleBody { Margin = new Thickness(0, 5, 0, 0) };
 
                 // TODO: Add Requirements to this key when it'll be fixed and work as an equality key in GhostRolesEui
                 var key = (name, description);

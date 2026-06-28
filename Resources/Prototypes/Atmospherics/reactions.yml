@@ -3,40 +3,40 @@
   priority: -2
   minimumTemperature: 373.149 # Same as Atmospherics.FireMinimumTemperatureToExist
   minimumRequirements: # In this case, same as minimum mole count.
-    - 0.01  # oxygen
-    - 0     # nitrogen
-    - 0     # carbon dioxide
-    - 0.01  # plasma
+  - 0.01 # oxygen
+  - 0 # nitrogen
+  - 0 # carbon dioxide
+  - 0.01 # plasma
   effects:
-    - !type:PlasmaFireReaction {}
+  - !type:PlasmaFireReaction {}
 
 - type: gasReaction
   id: TritiumFire
   priority: -1
   minimumTemperature: 700 # Frontier: 373.149<700 - hot for a plasma fire
   minimumRequirements: # In this case, same as minimum mole count.
-    - 0.01  # oxygen
-    - 0     # nitrogen
-    - 0     # carbon dioxide
-    - 0     # plasma
-    - 0.01  # tritium
+  - 0.01 # oxygen
+  - 0 # nitrogen
+  - 0 # carbon dioxide
+  - 0 # plasma
+  - 0.01 # tritium
   effects:
-    - !type:TritiumFireReaction {}
+  - !type:TritiumFireReaction {}
 
 - type: gasReaction
   id: FrezonCoolant
   priority: 1
   minimumTemperature: 23.15
   minimumRequirements:
-  - 0     # oxygen
-  - 0.01  # nitrogen
-  - 0     # carbon dioxide
-  - 0     # plasma
-  - 0     # tritium
-  - 0     # vapor
-  - 0     # ammonia
-  - 0     # n2o
-  - 0.01  # frezon
+  - 0 # oxygen
+  - 0.01 # nitrogen
+  - 0 # carbon dioxide
+  - 0 # plasma
+  - 0 # tritium
+  - 0 # vapor
+  - 0 # ammonia
+  - 0 # n2o
+  - 0.01 # frezon
   effects:
   - !type:FrezonCoolantReaction {}
 
@@ -45,15 +45,15 @@
   priority: 2
   maximumTemperature: 73.15 # Cold tritium fire, basically.
   minimumRequirements:
-  - 0.01  # oxygen
-  - 0.01  # nitrogen
-  - 0     # carbon dioxide
-  - 0     # plasma
-  - 0.01  # tritium
-  - 0     # vapor
-  - 0     # ammonia
-  - 0     # n2o
-  - 0     # frezon
+  - 0.01 # oxygen
+  - 0.01 # nitrogen
+  - 0 # carbon dioxide
+  - 0 # plasma
+  - 0.01 # tritium
+  - 0 # vapor
+  - 0 # ammonia
+  - 0 # n2o
+  - 0 # frezon
   effects:
   - !type:FrezonProductionReaction {}
 
@@ -62,15 +62,15 @@
   priority: 2
   minimumTemperature: 323.149
   minimumRequirements:
-  - 0.01  # oxygen
-  - 0     # nitrogen
-  - 0     # carbon dioxide
-  - 0     # plasma
-  - 0     # tritium
-  - 0     # vapor
-  - 0.01  # ammonia
-  - 0     # n2o
-  - 0     # frezon
+  - 0.01 # oxygen
+  - 0 # nitrogen
+  - 0 # carbon dioxide
+  - 0 # plasma
+  - 0 # tritium
+  - 0 # vapor
+  - 0.01 # ammonia
+  - 0 # n2o
+  - 0 # frezon
   effects:
   - !type:AmmoniaOxygenReaction {}
 
@@ -79,15 +79,15 @@
   priority: 0
   minimumTemperature: 850
   minimumRequirements:
-  - 0     # oxygen
-  - 0     # nitrogen
-  - 0     # carbon dioxide
-  - 0     # plasma
-  - 0     # tritium
-  - 0     # vapor
-  - 0     # ammonia
-  - 0.01  # n2o
-  - 0     # frezon
+  - 0 # oxygen
+  - 0 # nitrogen
+  - 0 # carbon dioxide
+  - 0 # plasma
+  - 0 # tritium
+  - 0 # vapor
+  - 0 # ammonia
+  - 0.01 # n2o
+  - 0 # frezon
   effects:
   - !type:N2ODecompositionReaction {}
 

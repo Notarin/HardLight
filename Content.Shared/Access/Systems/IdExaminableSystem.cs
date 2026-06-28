@@ -9,8 +9,11 @@ namespace Content.Shared.Access.Systems;
 
 public sealed class IdExaminableSystem : EntitySystem
 {
-    [Dependency] private readonly ExamineSystemShared _examineSystem = default!;
-    [Dependency] private readonly InventorySystem _inventorySystem = default!;
+    [Dependency]
+    private readonly ExamineSystemShared _examineSystem = default!;
+
+    [Dependency]
+    private readonly InventorySystem _inventorySystem = default!;
 
     public override void Initialize()
     {
@@ -35,7 +38,7 @@ public sealed class IdExaminableSystem : EntitySystem
             Category = VerbCategory.Examine,
             Disabled = !detailsRange,
             Message = detailsRange ? null : Loc.GetString("id-examinable-component-verb-disabled"),
-            Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/character.svg.192dpi.png"))
+            Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/character.svg.192dpi.png")),
         };
 
         args.Verbs.Add(verb);
@@ -51,8 +54,10 @@ public sealed class IdExaminableSystem : EntitySystem
         if (_inventorySystem.TryGetSlotEntity(uid, "id", out var idUid))
         {
             // PDA
-            if (EntityManager.TryGetComponent(idUid, out PdaComponent? pda) &&
-                TryComp<IdCardComponent>(pda.ContainedId, out var id))
+            if (
+                EntityManager.TryGetComponent(idUid, out PdaComponent? pda)
+                && TryComp<IdCardComponent>(pda.ContainedId, out var id)
+            )
             {
                 return GetNameAndJob(id);
             }
@@ -71,11 +76,8 @@ public sealed class IdExaminableSystem : EntitySystem
         var jobSuffix = string.IsNullOrWhiteSpace(jobTitle) ? string.Empty : $" ({jobTitle})";
 
         var val = string.IsNullOrWhiteSpace(id.FullName)
-            ? Loc.GetString(id.NameLocId,
-                ("jobSuffix", jobSuffix))
-            : Loc.GetString(id.FullNameLocId,
-                ("fullName", id.FullName),
-                ("jobSuffix", jobSuffix));
+            ? Loc.GetString(id.NameLocId, ("jobSuffix", jobSuffix))
+            : Loc.GetString(id.FullNameLocId, ("fullName", id.FullName), ("jobSuffix", jobSuffix));
 
         return val;
     }

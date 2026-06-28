@@ -1,8 +1,8 @@
+using Content.Shared.Paper;
 using JetBrains.Annotations;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Shared.Utility;
-using Content.Shared.Paper;
 using static Content.Shared.Paper.PaperComponent;
 
 namespace Content.Client.Paper.UI;
@@ -13,9 +13,8 @@ public sealed partial class PaperBoundUserInterface : BoundUserInterface // Delt
     [ViewVariables]
     private PaperWindow? _window;
 
-    public PaperBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-    }
+    public PaperBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {
@@ -40,7 +39,7 @@ public sealed partial class PaperBoundUserInterface : BoundUserInterface // Delt
     protected override void UpdateState(BoundUserInterfaceState state)
     {
         base.UpdateState(state);
-        _window?.Populate((PaperBoundUserInterfaceState) state);
+        _window?.Populate((PaperBoundUserInterfaceState)state);
     }
 
     private void InputOnTextEntered(string text)

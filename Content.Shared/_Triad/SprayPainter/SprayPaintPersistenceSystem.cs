@@ -16,7 +16,8 @@ namespace Content.Shared._Triad.SprayPainter;
 /// </summary>
 public sealed class SprayPaintPersistenceSystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _proto = default!;
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
 
     public override void Initialize()
     {
@@ -66,11 +67,7 @@ public sealed class SprayPaintPersistenceSystem : EntitySystem
             return;
 
         // EntityPaintedEvent.Tool is not nullable; use the target entity itself as a stand-in.
-        var ev = new EntityPaintedEvent(
-            User: null,
-            Tool: target,
-            Prototype: style.Id,
-            Group: groupId.Value);
+        var ev = new EntityPaintedEvent(User: null, Tool: target, Prototype: style.Id, Group: groupId.Value);
         RaiseLocalEvent(target, ref ev);
     }
 }

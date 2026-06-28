@@ -20,7 +20,7 @@
   parent: EncryptionKey
   id: EncryptionKeyNfsd
   name: ColSec encryption key # HardLight
-  categories: [ DoNotMap ]
+  categories: [DoNotMap]
   description: An encryption key for the ColSec channel. # HardLight
   components:
   - type: EncryptionKey
@@ -39,7 +39,7 @@
   parent: EncryptionKey
   id: EncryptionKeyDoc
   name: medical dispatch encryption key
-  categories: [ DoNotMap ]
+  categories: [DoNotMap]
   description: An encryption key for coordinating medical dispatch.
   components:
   - type: EncryptionKey

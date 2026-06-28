@@ -3,8 +3,5 @@
 namespace Content.Shared.Eui
 {
     [Serializable, NetSerializable]
-    public abstract class EuiStateBase
-    {
-
-    }
+    public abstract class EuiStateBase { }
 }

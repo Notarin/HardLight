@@ -1,21 +1,27 @@
+using System.Linq;
+using System.Numerics;
 using Content.Shared.Abilities.Psionics;
 using Content.Shared.Actions.Events;
 using Robust.Shared.Map.Components;
-using System.Linq;
-using System.Numerics;
 
 namespace Content.Server.Abilities.Psionics;
 
 public sealed partial class AnomalyPowerSystem
 {
-    private void DoGasProducerAnomalyEffects(EntityUid uid, PsionicComponent component, AnomalyPowerActionEvent args, bool overcharged = false)
+    private void DoGasProducerAnomalyEffects(
+        EntityUid uid,
+        PsionicComponent component,
+        AnomalyPowerActionEvent args,
+        bool overcharged = false
+    )
     {
         if (args.Gas is null)
             return;
 
         if (overcharged)
             GasProducerSupercrit(uid, component, args);
-        else GasProducerPulse(uid, component, args);
+        else
+            GasProducerPulse(uid, component, args);
     }
 
     private void GasProducerSupercrit(EntityUid uid, PsionicComponent component, AnomalyPowerActionEvent args)
@@ -31,7 +37,9 @@ public sealed partial class AnomalyPowerSystem
         var temp = args.Gas!.Value.SupercritTempChange * component.CurrentDampening;
         var localpos = xform.Coordinates.Position;
         var tilerefs = grid.GetLocalTilesIntersecting(
-            new Box2(localpos + new Vector2(-radius, -radius), localpos + new Vector2(radius, radius))).ToArray();
+                new Box2(localpos + new Vector2(-radius, -radius), localpos + new Vector2(radius, radius))
+            )
+            .ToArray();
 
         if (tilerefs.Length == 0)
             return;
@@ -76,7 +84,9 @@ public sealed partial class AnomalyPowerSystem
         var temp = args.Gas!.Value.TempChange * component.CurrentDampening;
         var localpos = xform.Coordinates.Position;
         var tilerefs = grid.GetLocalTilesIntersecting(
-            new Box2(localpos + new Vector2(-radius, -radius), localpos + new Vector2(radius, radius))).ToArray();
+                new Box2(localpos + new Vector2(-radius, -radius), localpos + new Vector2(radius, radius))
+            )
+            .ToArray();
 
         if (tilerefs.Length == 0)
             return;

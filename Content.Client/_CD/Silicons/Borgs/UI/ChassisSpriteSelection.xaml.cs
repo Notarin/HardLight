@@ -17,8 +17,11 @@ namespace Content.Client._CD.Silicons.Borgs.UI;
 [GenerateTypedNameReferences]
 public sealed partial class ChassisSpriteSelection : Control
 {
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IResourceCache _resource = default!;
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private readonly IResourceCache _resource = default!;
 
     public BorgSubtypePrototype? SubtypePrototype;
     public event Action? SubtypeSelected;
@@ -40,12 +43,7 @@ public sealed partial class ChassisSpriteSelection : Control
         var buttonGroup = new ButtonGroup();
         List<Button> buttons = new()
         {
-            CreateSubtypeButton(
-                buttonGroup,
-                borgTypePrototype.DummyPrototype,
-                "Default",
-                null
-            )
+            CreateSubtypeButton(buttonGroup, borgTypePrototype.DummyPrototype, "Default", null),
         };
 
         foreach (var subtypePrototype in _proto.EnumeratePrototypes<BorgSubtypePrototype>())
@@ -53,12 +51,14 @@ public sealed partial class ChassisSpriteSelection : Control
             if (subtypePrototype.ParentType != borgTypePrototype.ID)
                 continue;
 
-            buttons.Add(CreateSubtypeButton(
-                buttonGroup,
-                subtypePrototype.DummyPrototype,
-                subtypePrototype.Name,
-                subtypePrototype
-            ));
+            buttons.Add(
+                CreateSubtypeButton(
+                    buttonGroup,
+                    subtypePrototype.DummyPrototype,
+                    subtypePrototype.Name,
+                    subtypePrototype
+                )
+            );
         }
         // Hardlight end
         foreach (var button in buttons)
@@ -75,11 +75,7 @@ public sealed partial class ChassisSpriteSelection : Control
         BorgSubtypePrototype? subtypePrototype
     )
     {
-        var button = new Button
-        {
-            Group = group,
-            MinHeight = 32,
-        };
+        var button = new Button { Group = group, MinHeight = 32 };
 
         button.OnPressed += _ =>
         {
@@ -91,7 +87,7 @@ public sealed partial class ChassisSpriteSelection : Control
         {
             Orientation = BoxContainer.LayoutOrientation.Vertical,
             HorizontalExpand = true,
-            VerticalExpand = true
+            VerticalExpand = true,
         };
 
         buttonContent.AddChild(CreateEntityPrototypeView(dummyPrototype));
@@ -101,6 +97,7 @@ public sealed partial class ChassisSpriteSelection : Control
 
         return button;
     }
+
     // Hardlight end
 
     private EntityPrototypeView CreateEntityPrototypeView(EntProtoId entProtoId)

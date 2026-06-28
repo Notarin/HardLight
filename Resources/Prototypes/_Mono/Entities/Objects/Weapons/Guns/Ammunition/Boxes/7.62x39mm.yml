@@ -7,7 +7,7 @@
     mayTransfer: true
     whitelist:
       tags:
-        - Cartridge762x39mmFMJ
+      - Cartridge762x39mmFMJ
     proto: Cartridge762x39mmFMJ
     capacity: 80
   - type: Item
@@ -42,7 +42,7 @@
   # Frontier:
   - type: MagazineVisuals
     magState: magb
-  # End Frontier
+    # End Frontier
 
 - type: entity
   parent: BaseAmmoBox762x39mm
@@ -147,7 +147,7 @@
     mayTransfer: true
     whitelist:
       tags:
-        - Cartridge762x39mmSubsonic
+      - Cartridge762x39mmSubsonic
   - type: Sprite
     layers:
     - state: base

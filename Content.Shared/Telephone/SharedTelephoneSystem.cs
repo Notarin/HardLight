@@ -9,48 +9,68 @@ public abstract class SharedTelephoneSystem : EntitySystem
         return entity.Comp.LinkedTelephones.Any();
     }
 
-    public string GetFormattedCallerIdForEntity(string? presumedName, string? presumedJob, Color fontColor, string fontType = "Default", int fontSize = 12)
+    public string GetFormattedCallerIdForEntity(
+        string? presumedName,
+        string? presumedJob,
+        Color fontColor,
+        string fontType = "Default",
+        int fontSize = 12
+    )
     {
-        var callerId = Loc.GetString("chat-telephone-unknown-caller",
+        var callerId = Loc.GetString(
+            "chat-telephone-unknown-caller",
             ("color", fontColor),
             ("fontType", fontType),
-            ("fontSize", fontSize));
+            ("fontSize", fontSize)
+        );
 
         if (presumedName == null)
             return callerId;
 
         if (presumedJob != null)
-            callerId = Loc.GetString("chat-telephone-caller-id-with-job",
+            callerId = Loc.GetString(
+                "chat-telephone-caller-id-with-job",
                 ("callerName", presumedName),
                 ("callerJob", presumedJob),
                 ("color", fontColor),
                 ("fontType", fontType),
-                ("fontSize", fontSize));
-
+                ("fontSize", fontSize)
+            );
         else
-            callerId = Loc.GetString("chat-telephone-caller-id-without-job",
+            callerId = Loc.GetString(
+                "chat-telephone-caller-id-without-job",
                 ("callerName", presumedName),
                 ("color", fontColor),
                 ("fontType", fontType),
-                ("fontSize", fontSize));
+                ("fontSize", fontSize)
+            );
 
         return callerId;
     }
 
-    public string GetFormattedDeviceIdForEntity(string? deviceName, Color fontColor, string fontType = "Default", int fontSize = 12)
+    public string GetFormattedDeviceIdForEntity(
+        string? deviceName,
+        Color fontColor,
+        string fontType = "Default",
+        int fontSize = 12
+    )
     {
         if (deviceName == null)
         {
-            return Loc.GetString("chat-telephone-unknown-device",
+            return Loc.GetString(
+                "chat-telephone-unknown-device",
                 ("color", fontColor),
                 ("fontType", fontType),
-                ("fontSize", fontSize));
+                ("fontSize", fontSize)
+            );
         }
 
-        return Loc.GetString("chat-telephone-device-id",
+        return Loc.GetString(
+            "chat-telephone-device-id",
             ("deviceName", deviceName),
             ("color", fontColor),
             ("fontType", fontType),
-            ("fontSize", fontSize));
+            ("fontSize", fontSize)
+        );
     }
 }

@@ -13,11 +13,20 @@ namespace Content.Client.Overlays;
 
 public sealed class ShowNonconIconsSystem : EntitySystem
 {
-    [Dependency] private readonly IClientConsentManager _consentManager = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly ExamineSystem _examine = default!;
+    [Dependency]
+    private readonly IClientConsentManager _consentManager = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototype = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
+
+    [Dependency]
+    private readonly ExamineSystem _examine = default!;
 
     private static readonly ProtoId<ConsentTogglePrototype> NonconConsentToggle = "NonconIcon";
     private static readonly ProtoId<ConsentTogglePrototype> NonconAggressorToggle = "NonconAggressor";
@@ -32,7 +41,8 @@ public sealed class ShowNonconIconsSystem : EntitySystem
 
     // Colorblind-safe palette (amber / teal-green / lavender), selected via the
     // consent.noncon_colorblind_palette client CVar. Same shapes as default.
-    private static readonly ProtoId<SecurityIconPrototype> NonconStatusIconAggressorCb = "NonconIconAggressorColorblind";
+    private static readonly ProtoId<SecurityIconPrototype> NonconStatusIconAggressorCb =
+        "NonconIconAggressorColorblind";
     private static readonly ProtoId<SecurityIconPrototype> NonconStatusIconVictimCb = "NonconIconVictimColorblind";
     private static readonly ProtoId<SecurityIconPrototype> NonconStatusIconEitherCb = "NonconIconEitherColorblind";
 
@@ -44,8 +54,7 @@ public sealed class ShowNonconIconsSystem : EntitySystem
 
         SubscribeLocalEvent<ConsentComponent, GetStatusIconsEvent>(OnGetStatusIconsEvent);
 
-        _cfg.OnValueChanged(ConsentSystemCCVars.ConsentNonconColorblindPalette,
-            v => _colorblindPalette = v, true);
+        _cfg.OnValueChanged(ConsentSystemCCVars.ConsentNonconColorblindPalette, v => _colorblindPalette = v, true);
     }
 
     private void OnGetStatusIconsEvent(Entity<ConsentComponent> ent, ref GetStatusIconsEvent ev)
@@ -57,8 +66,7 @@ public sealed class ShowNonconIconsSystem : EntitySystem
         var viewerToggles = _consentManager.GetConsentSettings().Toggles;
         var targetToggles = ent.Comp.ConsentSettings.Toggles;
 
-        if (!viewerToggles.ContainsKey(NonconConsentToggle) ||
-            !targetToggles.ContainsKey(NonconConsentToggle))
+        if (!viewerToggles.ContainsKey(NonconConsentToggle) || !targetToggles.ContainsKey(NonconConsentToggle))
         {
             return;
         }

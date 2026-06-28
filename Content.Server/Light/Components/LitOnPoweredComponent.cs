@@ -9,7 +9,5 @@ namespace Content.Server.Light.Components
     ///     state of an entity.
     /// </summary>
     [RegisterComponent, Access(typeof(PoweredLightSystem))]
-    public sealed partial class LitOnPoweredComponent : Component
-    {
-    }
+    public sealed partial class LitOnPoweredComponent : Component { }
 }

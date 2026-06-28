@@ -6,6 +6,4 @@
 /// </summary>
 [RegisterComponent]
 [Access(typeof(EntityPickupAnimationSystem))]
-public sealed partial class EntityPickupAnimationComponent : Component
-{
-}
+public sealed partial class EntityPickupAnimationComponent : Component { }

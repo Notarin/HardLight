@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
-using Content.Shared.Administration;
 using Content.Client.UserInterface.Controls;
+using Content.Shared.Administration;
 using Robust.Client.Graphics;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
@@ -71,10 +71,7 @@ public sealed class SharedMacroWindow : DefaultWindow
             Margin = new Thickness(4),
         };
 
-        _refreshButton = new Button
-        {
-            Text = Loc.GetString("admin-tools-shared-macros-refresh"),
-        };
+        _refreshButton = new Button { Text = Loc.GetString("admin-tools-shared-macros-refresh") };
         _refreshButton.OnPressed += _ => RefreshRequested?.Invoke();
 
         _copySelectedToLocalButton = new Button
@@ -118,7 +115,7 @@ public sealed class SharedMacroWindow : DefaultWindow
                 BackgroundColor = Color.FromHex("#14171A"),
                 BorderThickness = new Thickness(1),
                 BorderColor = Color.FromHex("#5A6572"),
-            }
+            },
         };
         previewPanel.AddChild(_commandPreview);
 
@@ -145,11 +142,9 @@ public sealed class SharedMacroWindow : DefaultWindow
         rightPanel.AddChild(_metaLabel);
         rightPanel.AddChild(previewPanel);
         rightPanel.AddChild(buttonRow);
-        rightPanel.AddChild(new Label
-        {
-            Text = Loc.GetString("admin-tools-shared-macros-note"),
-            StyleClasses = { "LabelSubText" },
-        });
+        rightPanel.AddChild(
+            new Label { Text = Loc.GetString("admin-tools-shared-macros-note"), StyleClasses = { "LabelSubText" } }
+        );
 
         var root = new BoxContainer
         {
@@ -169,7 +164,9 @@ public sealed class SharedMacroWindow : DefaultWindow
     {
         var selectedName = SelectedMacro?.Name;
         var orderedMacros = macros.ToList();
-        orderedMacros.Sort(static (left, right) => string.Compare(left.Name, right.Name, StringComparison.OrdinalIgnoreCase));
+        orderedMacros.Sort(
+            static (left, right) => string.Compare(left.Name, right.Name, StringComparison.OrdinalIgnoreCase)
+        );
 
         _macros.Clear();
         _macroList.Clear();
@@ -186,9 +183,12 @@ public sealed class SharedMacroWindow : DefaultWindow
             return;
         }
 
-        var preferredIndex = selectedName == null
-            ? 0
-            : _macros.FindIndex(macro => string.Equals(macro.Name, selectedName, StringComparison.OrdinalIgnoreCase));
+        var preferredIndex =
+            selectedName == null
+                ? 0
+                : _macros.FindIndex(macro =>
+                    string.Equals(macro.Name, selectedName, StringComparison.OrdinalIgnoreCase)
+                );
 
         _macroList[Math.Max(preferredIndex, 0)].Selected = true;
         SyncSelectedMacro();

@@ -4,11 +4,11 @@
   description: job-description-nf-pirate-first-mate
   playTimeTracker: JobPirateFirstMate
   requirements:
-    - !type:OverallPlaytimeRequirement
-      time: 129600 # 36 hours
-    - !type:DepartmentTimeRequirement
-      department: Security
-      time: 10800 # 3 hours
+  - !type:OverallPlaytimeRequirement
+    time: 129600 # 36 hours
+  - !type:DepartmentTimeRequirement
+    department: Security
+    time: 10800 # 3 hours
   #whitelisted: true
   startingGear: NFPirateFirstMateGear
   alwaysUseSpawner: true
@@ -30,9 +30,9 @@
     - type: SpecialSectorStationRecord # must be given on spawn
       recordGeneration: FalseRecord
   - !type:AddImplantSpecial
-    implants: [ FreelanceTrackingImplant ]
-  - !type:GiveItemOnHolidaySpecial # Even pirates get a piece of cake.
-    holiday: FrontierBirthday
+    implants: [FreelanceTrackingImplant]
+  - !type:GiveItemOnHolidaySpecial
+    holiday: FrontierBirthday # Even pirates get a piece of cake.
     prototype: FrontierBirthdayGift
 
 - type: startingGear

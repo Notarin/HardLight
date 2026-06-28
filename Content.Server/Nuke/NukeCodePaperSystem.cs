@@ -1,9 +1,9 @@
 using System.Diagnostics.CodeAnalysis;
 using Content.Server.Chat.Systems;
 using Content.Server.Fax;
-using Content.Shared.Fax.Components;
 using Content.Server.Station.Components;
 using Content.Server.Station.Systems;
+using Content.Shared.Fax.Components;
 using Content.Shared.Paper;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
@@ -12,17 +12,28 @@ namespace Content.Server.Nuke
 {
     public sealed class NukeCodePaperSystem : EntitySystem
     {
-        [Dependency] private readonly IRobustRandom _random = default!;
-        [Dependency] private readonly ChatSystem _chatSystem = default!;
-        [Dependency] private readonly StationSystem _station = default!;
-        [Dependency] private readonly PaperSystem _paper = default!;
-        [Dependency] private readonly FaxSystem _faxSystem = default!;
+        [Dependency]
+        private readonly IRobustRandom _random = default!;
+
+        [Dependency]
+        private readonly ChatSystem _chatSystem = default!;
+
+        [Dependency]
+        private readonly StationSystem _station = default!;
+
+        [Dependency]
+        private readonly PaperSystem _paper = default!;
+
+        [Dependency]
+        private readonly FaxSystem _faxSystem = default!;
 
         public override void Initialize()
         {
             base.Initialize();
-            SubscribeLocalEvent<NukeCodePaperComponent, MapInitEvent>(OnMapInit,
-                after: new []{ typeof(NukeLabelSystem) });
+            SubscribeLocalEvent<NukeCodePaperComponent, MapInitEvent>(
+                OnMapInit,
+                after: new[] { typeof(NukeLabelSystem) }
+            );
         }
 
         private void OnMapInit(EntityUid uid, NukeCodePaperComponent component, MapInitEvent args)
@@ -35,7 +46,14 @@ namespace Content.Server.Nuke
             if (!Resolve(uid, ref component))
                 return;
 
-            if (TryGetRelativeNukeCode(uid, out var paperContent, station, onlyCurrentStation: component.AllNukesAvailable))
+            if (
+                TryGetRelativeNukeCode(
+                    uid,
+                    out var paperContent,
+                    station,
+                    onlyCurrentStation: component.AllNukesAvailable
+                )
+            )
             {
                 if (TryComp<PaperComponent>(uid, out var paperComp))
                     _paper.SetContent((uid, paperComp), paperContent);
@@ -70,7 +88,11 @@ namespace Content.Server.Nuke
                     "paper_stamp-centcom",
                     new List<StampDisplayInfo>
                     {
-                        new StampDisplayInfo { StampedName = Loc.GetString("stamp-component-stamped-name-centcom"), StampedColor = Color.FromHex("#BB3232") },
+                        new StampDisplayInfo
+                        {
+                            StampedName = Loc.GetString("stamp-component-stamped-name-centcom"),
+                            StampedColor = Color.FromHex("#BB3232"),
+                        },
                     },
                     stampProtected: true // Frontier: centcom signed, should be protected
                 );
@@ -93,7 +115,8 @@ namespace Content.Server.Nuke
             [NotNullWhen(true)] out string? nukeCode,
             EntityUid? station = null,
             TransformComponent? transform = null,
-            bool onlyCurrentStation = false)
+            bool onlyCurrentStation = false
+        )
         {
             nukeCode = null;
             if (!Resolve(uid, ref transform))
@@ -116,21 +139,26 @@ namespace Content.Server.Nuke
 
             foreach (var (nukeUid, nuke) in nukes)
             {
-                if (!onlyCurrentStation &&
-                    (owningStation == null &&
-                    nuke.OriginMapGrid != (transform.MapID, transform.GridUid) ||
-                    nuke.OriginStation != owningStation))
+                if (
+                    !onlyCurrentStation
+                    && (
+                        owningStation == null && nuke.OriginMapGrid != (transform.MapID, transform.GridUid)
+                        || nuke.OriginStation != owningStation
+                    )
+                )
                 {
                     continue;
                 }
 
                 codesMessage.PushNewline();
-                codesMessage.AddMarkupOrThrow(Loc.GetString("nuke-codes-list", ("name", MetaData(nukeUid).EntityName), ("code", nuke.Code)));
+                codesMessage.AddMarkupOrThrow(
+                    Loc.GetString("nuke-codes-list", ("name", MetaData(nukeUid).EntityName), ("code", nuke.Code))
+                );
                 break;
             }
 
             if (!codesMessage.IsEmpty)
-                nukeCode = Loc.GetString("nuke-codes-message")+codesMessage;
+                nukeCode = Loc.GetString("nuke-codes-message") + codesMessage;
             return !codesMessage.IsEmpty;
         }
     }

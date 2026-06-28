@@ -5,16 +5,16 @@
 // SPDX-License-Identifier: CC-BY-NC-SA-3.0
 
 using Content.Server.Atmos.EntitySystems;
+using Content.Shared._FarHorizons.Materials.Systems;
 using Content.Shared._FarHorizons.Power.Generation.FissionGenerator;
 using Content.Shared.Atmos;
-using Robust.Shared.Random;
-using Content.Shared._FarHorizons.Materials.Systems;
+using Content.Shared.Damage;
+using Content.Shared.Damage.Components;
 using Content.Shared.Examine;
 using Content.Shared.Nutrition;
 using Content.Shared.Radiation.Components;
-using Content.Shared.Damage;
-using Content.Shared.Damage.Components;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Random;
 
 namespace Content.Server._FarHorizons.Power.Generation.FissionGenerator;
 
@@ -26,11 +26,20 @@ namespace Content.Server._FarHorizons.Power.Generation.FissionGenerator;
 
 public sealed partial class ReactorPartSystem : SharedReactorPartSystem
 {
-    [Dependency] private readonly AtmosphereSystem _atmosphereSystem = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly EntityManager _entityManager = default!;
-    [Dependency] private readonly SharedPointLightSystem _lightSystem = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
+    [Dependency]
+    private readonly AtmosphereSystem _atmosphereSystem = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly EntityManager _entityManager = default!;
+
+    [Dependency]
+    private readonly SharedPointLightSystem _lightSystem = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
 
     /// <summary>
     /// Changes the overall rate of events
@@ -62,7 +71,7 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
     /// </summary>
     private readonly static float _burnTemp = 400;
 
-    private readonly static float _burnDiv = (_burnTemp - _hotTemp) / 5; // The 5 is how much heat damage insulated gloves protect from
+    private static readonly float _burnDiv = (_burnTemp - _hotTemp) / 5; // The 5 is how much heat damage insulated gloves protect from
 
     private readonly float _threshold = 1f;
     private float _accumulator = 0f;
@@ -79,7 +88,10 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
 
     private void OnInit(EntityUid uid, ReactorPartComponent component, ref MapInitEvent args)
     {
-        var radvalue = (component.Properties.Radioactivity * 0.1f) + (component.Properties.NeutronRadioactivity * 0.15f) + (component.Properties.FissileIsotopes * 0.125f);
+        var radvalue =
+            (component.Properties.Radioactivity * 0.1f)
+            + (component.Properties.NeutronRadioactivity * 0.15f)
+            + (component.Properties.FissileIsotopes * 0.125f);
         if (radvalue > 0)
         {
             var radcomp = EnsureComp<RadiationSourceComponent>(uid);
@@ -162,13 +174,17 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
 
         var properties = comp.Properties;
 
-        if (!_entityManager.TryGetComponent<DamageableComponent>(args.Target, out var damageable) || damageable.Damage.DamageDict == null)
+        if (
+            !_entityManager.TryGetComponent<DamageableComponent>(args.Target, out var damageable)
+            || damageable.Damage.DamageDict == null
+        )
             return;
 
         var dict = damageable.Damage.DamageDict;
 
         var dmgKey = "Radiation";
-        var dmg = (properties.NeutronRadioactivity * 20) + (properties.Radioactivity * 10) + (properties.FissileIsotopes * 5);
+        var dmg =
+            (properties.NeutronRadioactivity * 20) + (properties.Radioactivity * 10) + (properties.FissileIsotopes * 5);
 
         if (!dict.TryAdd(dmgKey, dmg))
         {
@@ -242,7 +258,11 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
     /// <param name="reactorEnt">The entity representing the reactor this part is inserted into.</param>
     /// <param name="inGas">The gas to be processed.</param>
     /// <returns></returns>
-    public GasMixture? ProcessGas(ReactorPartComponent reactorPart, Entity<NuclearReactorComponent> reactorEnt, GasMixture inGas)
+    public GasMixture? ProcessGas(
+        ReactorPartComponent reactorPart,
+        Entity<NuclearReactorComponent> reactorEnt,
+        GasMixture inGas
+    )
     {
         if (!reactorPart.HasRodType(ReactorPartComponent.RodTypes.GasChannel))
             return null;
@@ -264,15 +284,29 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
             var Hottest = Math.Max(gasTemp, compTemp);
             var Coldest = Math.Min(gasTemp, compTemp);
 
-            var MaxDeltaE = Math.Clamp((k * A * DeltaT) + (5.67037442e-8 * A * DeltaTr),
+            var MaxDeltaE = Math.Clamp(
+                (k * A * DeltaT) + (5.67037442e-8 * A * DeltaTr),
                 (compTemp * reactorPart.ThermalMass) - (Hottest * reactorPart.ThermalMass),
-                (compTemp * reactorPart.ThermalMass) - (Coldest * reactorPart.ThermalMass));
+                (compTemp * reactorPart.ThermalMass) - (Coldest * reactorPart.ThermalMass)
+            );
 
-            reactorPart.AirContents.Temperature = (float)Math.Clamp(gasTemp +
-                (MaxDeltaE / _atmosphereSystem.GetHeatCapacity(reactorPart.AirContents, true)), Coldest, Hottest);
+            reactorPart.AirContents.Temperature = (float)
+                Math.Clamp(
+                    gasTemp + (MaxDeltaE / _atmosphereSystem.GetHeatCapacity(reactorPart.AirContents, true)),
+                    Coldest,
+                    Hottest
+                );
 
-            reactorPart.Temperature = (float)Math.Clamp(compTemp -
-                ((_atmosphereSystem.GetThermalEnergy(reactorPart.AirContents) - ThermalEnergy) / reactorPart.ThermalMass), Coldest, Hottest);
+            reactorPart.Temperature = (float)
+                Math.Clamp(
+                    compTemp
+                        - (
+                            (_atmosphereSystem.GetThermalEnergy(reactorPart.AirContents) - ThermalEnergy)
+                            / reactorPart.ThermalMass
+                        ),
+                    Coldest,
+                    Hottest
+                );
 
             if (gasTemp < 0 || compTemp < 0)
                 throw new Exception("Reactor part temperature went below 0k.");
@@ -317,7 +351,12 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
     /// <param name="AdjacentComponents">List of reactor parts next to the reactorPart.</param>
     /// <param name="reactorSystem">The SharedNuclearReactorSystem.</param>
     /// <exception cref="Exception">Calculations resulted in a sub-zero value.</exception>
-    public void ProcessHeat(ReactorPartComponent reactorPart, Entity<NuclearReactorComponent> reactorEnt, ReactorPartComponent?[] AdjacentComponents, SharedNuclearReactorSystem reactorSystem)
+    public void ProcessHeat(
+        ReactorPartComponent reactorPart,
+        Entity<NuclearReactorComponent> reactorEnt,
+        ReactorPartComponent?[] AdjacentComponents,
+        SharedNuclearReactorSystem reactorSystem
+    )
     {
         var reactor = reactorEnt.Comp;
 
@@ -331,7 +370,9 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
             var k = MaterialSystem.CalculateHeatTransferCoefficient(reactorPart.Properties, RC.Properties);
             var A = Math.Min(reactorPart.ThermalCrossSection, RC.ThermalCrossSection);
 
-            reactorPart.Temperature = (float)(reactorPart.Temperature - (k * A * (0.5 * 8) / reactorPart.ThermalMass * DeltaT));
+            reactorPart.Temperature = (float)(
+                reactorPart.Temperature - (k * A * (0.5 * 8) / reactorPart.ThermalMass * DeltaT)
+            );
             RC.Temperature = (float)(RC.Temperature - (k * A * (0.5 * 8) / RC.ThermalMass * -DeltaT));
 
             if (RC.Temperature < 0 || reactorPart.Temperature < 0)
@@ -346,10 +387,15 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
         {
             var DeltaT = reactorPart.Temperature - reactor.Temperature;
 
-            var k = MaterialSystem.CalculateHeatTransferCoefficient(reactorPart.Properties, _proto.Index(reactor.Material).Properties);
+            var k = MaterialSystem.CalculateHeatTransferCoefficient(
+                reactorPart.Properties,
+                _proto.Index(reactor.Material).Properties
+            );
             var A = reactorPart.ThermalCrossSection;
 
-            reactorPart.Temperature = (float)(reactorPart.Temperature - (k * A * (0.5 * 8) / reactorPart.ThermalMass * DeltaT));
+            reactorPart.Temperature = (float)(
+                reactorPart.Temperature - (k * A * (0.5 * 8) / reactorPart.ThermalMass * DeltaT)
+            );
             reactor.Temperature = (float)(reactor.Temperature - (k * A * (0.5 * 8) / reactor.ThermalMass * -DeltaT));
 
             if (reactor.Temperature < 0 || reactorPart.Temperature < 0)
@@ -387,7 +433,14 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
             var molesPerUnit = 100f; // Arbitrary value for how much gaseous plasma is in each unit of active plasma
 
             var payload = new GasMixture();
-            payload.SetMoles(Gas.Plasma, (float)Math.Min(part.Properties.ActivePlasma * molesPerUnit, Math.Log(((part.Temperature - temperatureThreshold) / 100) + 1)));
+            payload.SetMoles(
+                Gas.Plasma,
+                (float)
+                    Math.Min(
+                        part.Properties.ActivePlasma * molesPerUnit,
+                        Math.Log(((part.Temperature - temperatureThreshold) / 100) + 1)
+                    )
+            );
             payload.Temperature = part.Temperature;
             part.Properties.ActivePlasma -= payload.GetMoles(Gas.Plasma) / molesPerUnit;
 
@@ -402,7 +455,11 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
     /// <param name="reactorPart">Reactor part to be melted</param>
     /// <param name="reactorEnt">Reactor housing the reactor part</param>
     /// <param name="reactorSystem">The SharedNuclearReactorSystem</param>
-    public void Melt(ReactorPartComponent reactorPart, Entity<NuclearReactorComponent> reactorEnt, SharedNuclearReactorSystem reactorSystem)
+    public void Melt(
+        ReactorPartComponent reactorPart,
+        Entity<NuclearReactorComponent> reactorEnt,
+        SharedNuclearReactorSystem reactorSystem
+    )
     {
         if (reactorPart.Melted)
             return;
@@ -414,7 +471,7 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
         reactorPart.ThermalCrossSection = 20f;
         reactorPart.IsControlRod = false;
 
-        if(reactorPart.HasRodType(ReactorPartComponent.RodTypes.GasChannel))
+        if (reactorPart.HasRodType(ReactorPartComponent.RodTypes.GasChannel))
             reactorPart.GasThermalCrossSection = 0.1f;
     }
 
@@ -425,7 +482,11 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
     /// <param name="neutrons">List of neutrons to be processed.</param>
     /// <param name="thermalEnergy">Thermal energy released from the process.</param>
     /// <returns>Post-processing list of neutrons.</returns>
-    public List<ReactorNeutron> ProcessNeutrons(ReactorPartComponent reactorPart, List<ReactorNeutron> neutrons, out float thermalEnergy)
+    public List<ReactorNeutron> ProcessNeutrons(
+        ReactorPartComponent reactorPart,
+        List<ReactorNeutron> neutrons,
+        out float thermalEnergy
+    )
     {
         var preCalcTemp = reactorPart.Temperature;
         var result = new List<ReactorNeutron>(neutrons.Count);
@@ -448,7 +509,7 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
                 {
                     reactorPart.Properties.Radioactivity -= _reactant;
                     reactorPart.Properties.FissileIsotopes += _product;
-                    for (var i = 0; i < _random.Next(3, 5 + 1); i++)// was 1, 5+1
+                    for (var i = 0; i < _random.Next(3, 5 + 1); i++) // was 1, 5+1
                     {
                         result.Add(new() { dir = _random.NextAngle().GetDir(), velocity = _random.Next(1, 3 + 1) });
                     }
@@ -458,7 +519,9 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
                 {
                     if (Prob(_rate * reactorPart.Properties.Hardness)) // reflection, based on hardness
                         // A really complicated way of saying do a 180 or a 180+/-45
-                        neutron.dir = (neutron.dir.GetOpposite().ToAngle() + (_random.NextAngle() / 4) - (MathF.Tau / 8)).GetDir();
+                        neutron.dir = (
+                            neutron.dir.GetOpposite().ToAngle() + (_random.NextAngle() / 4) - (MathF.Tau / 8)
+                        ).GetDir();
                     else if (reactorPart.IsControlRod)
                         neutron.velocity = 0;
                     else
@@ -505,9 +568,15 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
             if (!reactorPart.Melted && (reactorPart.NeutronCrossSection != reactorPart.ConfiguredInsertionLevel))
             {
                 if (reactorPart.ConfiguredInsertionLevel < reactorPart.NeutronCrossSection)
-                    reactorPart.NeutronCrossSection -= Math.Min(0.1f, reactorPart.NeutronCrossSection - reactorPart.ConfiguredInsertionLevel);
+                    reactorPart.NeutronCrossSection -= Math.Min(
+                        0.1f,
+                        reactorPart.NeutronCrossSection - reactorPart.ConfiguredInsertionLevel
+                    );
                 else
-                    reactorPart.NeutronCrossSection += Math.Min(0.1f, reactorPart.ConfiguredInsertionLevel - reactorPart.NeutronCrossSection);
+                    reactorPart.NeutronCrossSection += Math.Min(
+                        0.1f,
+                        reactorPart.ConfiguredInsertionLevel - reactorPart.NeutronCrossSection
+                    );
             }
         }
 
@@ -526,7 +595,8 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
     /// <returns>The updated list of neutrons after processing.</returns>
     private List<ReactorNeutron> ProcessNeutronsGas(ReactorPartComponent reactorPart, List<ReactorNeutron> neutrons)
     {
-        if (reactorPart.AirContents == null) return neutrons;
+        if (reactorPart.AirContents == null)
+            return neutrons;
 
         var result = new List<ReactorNeutron>(neutrons.Count + 8);
         foreach (var neutron in neutrons)
@@ -568,7 +638,9 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
             var reactMol = reactMolPerLiter * gas.Volume;
 
             var plasma = gas.GetMoles(Gas.Plasma);
-            var plasmaReactCount = (int)Math.Round((plasma - (plasma % reactMol)) / reactMol) + (Prob(plasma - (plasma % reactMol)) ? 1 : 0);
+            var plasmaReactCount =
+                (int)Math.Round((plasma - (plasma % reactMol)) / reactMol)
+                + (Prob(plasma - (plasma % reactMol)) ? 1 : 0);
             plasmaReactCount = _random.Next(0, plasmaReactCount + 1);
             gas.AdjustMoles(Gas.Plasma, plasmaReactCount * -0.5f);
             gas.AdjustMoles(Gas.Tritium, plasmaReactCount * 2);
@@ -581,7 +653,8 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
             var reactMol = reactMolPerLiter * gas.Volume;
 
             var co2 = gas.GetMoles(Gas.CarbonDioxide);
-            var co2ReactCount = (int)Math.Round((co2 - (co2 % reactMol)) / reactMol) + (Prob(co2 - (co2 % reactMol)) ? 1 : 0);
+            var co2ReactCount =
+                (int)Math.Round((co2 - (co2 % reactMol)) / reactMol) + (Prob(co2 - (co2 % reactMol)) ? 1 : 0);
             co2ReactCount = _random.Next(0, co2ReactCount + 1);
             reactorPart.Temperature += Math.Min(co2ReactCount, neutronCount);
             neutronCount -= Math.Min(co2ReactCount, neutronCount);
@@ -593,7 +666,9 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
             var reactMol = reactMolPerLiter * gas.Volume;
 
             var tritium = gas.GetMoles(Gas.Tritium);
-            var tritiumReactCount = (int)Math.Round((tritium - (tritium % reactMol)) / reactMol) + (Prob(tritium - (tritium % reactMol)) ? 1 : 0);
+            var tritiumReactCount =
+                (int)Math.Round((tritium - (tritium % reactMol)) / reactMol)
+                + (Prob(tritium - (tritium % reactMol)) ? 1 : 0);
             tritiumReactCount = _random.Next(0, tritiumReactCount + 1);
             if (tritiumReactCount > 0)
             {

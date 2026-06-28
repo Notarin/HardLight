@@ -44,7 +44,7 @@ namespace Content.Shared.Arcade
                 BlockGameBlockColor.Blue => BlockGameBlockColor.GhostBlue,
                 BlockGameBlockColor.LightBlue => BlockGameBlockColor.GhostLightBlue,
                 BlockGameBlockColor.Purple => BlockGameBlockColor.GhostPurple,
-                _ => inColor
+                _ => inColor,
             };
         }
 
@@ -66,14 +66,17 @@ namespace Content.Shared.Arcade
                 BlockGameBlockColor.GhostBlue => Color.Blue.WithAlpha(0.33f),
                 BlockGameBlockColor.GhostPurple => Color.DarkOrchid.WithAlpha(0.33f),
                 BlockGameBlockColor.GhostLightBlue => Color.Cyan.WithAlpha(0.33f),
-                _ => Color.Olive //olive is error
+                _ => Color.Olive, //olive is error
             };
         }
     }
 
     public static class BlockGameVector2Extensions
     {
-        public static BlockGameBlock ToBlockGameBlock(this Vector2i vector2, BlockGameBlock.BlockGameBlockColor gameBlockColor)
+        public static BlockGameBlock ToBlockGameBlock(
+            this Vector2i vector2,
+            BlockGameBlock.BlockGameBlockColor gameBlockColor
+        )
         {
             return new(vector2, gameBlockColor);
         }
@@ -82,6 +85,7 @@ namespace Content.Shared.Arcade
         {
             return new(vector2.X + amount, vector2.Y);
         }
+
         public static Vector2i AddToY(this Vector2i vector2, int amount)
         {
             return new(vector2.X, vector2.Y + amount);

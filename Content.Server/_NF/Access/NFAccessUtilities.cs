@@ -13,13 +13,17 @@ namespace Content.Server._NF.Access;
 /// </remarks>
 public sealed partial class NFAccessSystemUtilities : EntitySystem
 {
-    [Dependency] IPrototypeManager _proto = default!;
+    [Dependency]
+    IPrototypeManager _proto = default!;
 
-    public bool IsAllowed(ICollection<ProtoId<AccessLevelPrototype>>? targetTags, ICollection<ProtoId<AccessLevelPrototype>>? accessTags, ICollection<ProtoId<AccessGroupPrototype>>? accessGroups)
+    public bool IsAllowed(
+        ICollection<ProtoId<AccessLevelPrototype>>? targetTags,
+        ICollection<ProtoId<AccessLevelPrototype>>? accessTags,
+        ICollection<ProtoId<AccessGroupPrototype>>? accessGroups
+    )
     {
         // Empty/null sets: no access requested.
-        if ((accessTags == null || accessTags.Count <= 0)
-            && (accessGroups == null || accessGroups.Count <= 0))
+        if ((accessTags == null || accessTags.Count <= 0) && (accessGroups == null || accessGroups.Count <= 0))
             return true;
 
         // Non-empty access set, empty target set, can't fulfill membership

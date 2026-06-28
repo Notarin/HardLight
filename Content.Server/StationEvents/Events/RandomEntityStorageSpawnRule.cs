@@ -10,9 +10,15 @@ namespace Content.Server.StationEvents.Events;
 
 public sealed class RandomEntityStorageSpawnRule : StationEventSystem<RandomEntityStorageSpawnRuleComponent>
 {
-    [Dependency] private readonly EntityStorageSystem _entityStorage = default!;
+    [Dependency]
+    private readonly EntityStorageSystem _entityStorage = default!;
 
-    protected override void Started(EntityUid uid, RandomEntityStorageSpawnRuleComponent comp, GameRuleComponent gameRule, GameRuleStartedEvent args)
+    protected override void Started(
+        EntityUid uid,
+        RandomEntityStorageSpawnRuleComponent comp,
+        GameRuleComponent gameRule,
+        GameRuleStartedEvent args
+    )
     {
         base.Started(uid, comp, gameRule, args);
 

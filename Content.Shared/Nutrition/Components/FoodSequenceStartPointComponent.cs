@@ -146,10 +146,12 @@ public partial record struct FoodSequenceVisualLayer
     /// </summary>
     public Vector2 LocalOffset { get; set; } = Vector2.Zero;
 
-    public FoodSequenceVisualLayer(ProtoId<FoodSequenceElementPrototype> proto,
+    public FoodSequenceVisualLayer(
+        ProtoId<FoodSequenceElementPrototype> proto,
         SpriteSpecifier? sprite,
         Vector2 scale,
-        Vector2 offset)
+        Vector2 offset
+    )
     {
         Proto = proto;
         Sprite = sprite;

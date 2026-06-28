@@ -10,9 +10,8 @@ public sealed class GatewayBoundUserInterface : BoundUserInterface
 {
     private GatewayWindow? _window;
 
-    public GatewayBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-    }
+    public GatewayBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {

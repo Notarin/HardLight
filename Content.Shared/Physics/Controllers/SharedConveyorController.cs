@@ -1,36 +1,53 @@
 using System;
 using System.Numerics;
-using Robust.Shared.Timing;
 using Content.Shared.Conveyor;
 using Content.Shared.Gravity;
 using Content.Shared.Movement.Components;
 using Content.Shared.Movement.Events;
 using Content.Shared.Movement.Systems;
+using Robust.Shared;
 using Robust.Shared.Collections;
+using Robust.Shared.Configuration;
 using Robust.Shared.Map;
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Controllers;
 using Robust.Shared.Physics.Events;
 using Robust.Shared.Physics.Systems;
-using Robust.Shared.Threading;
-using Robust.Shared.Configuration;
 using Robust.Shared.Player;
-using Robust.Shared;
+using Robust.Shared.Threading;
+using Robust.Shared.Timing;
 
 namespace Content.Shared.Physics.Controllers;
 
 public abstract class SharedConveyorController : VirtualController
 {
-    [Dependency] protected readonly IMapManager MapManager = default!;
-    [Dependency] private   readonly IParallelManager _parallel = default!;
-    [Dependency] private   readonly CollisionWakeSystem _wake = default!;
-    [Dependency] protected readonly EntityLookupSystem Lookup = default!;
-    [Dependency] private   readonly FixtureSystem _fixtures = default!;
-    [Dependency] private   readonly SharedGravitySystem _gravity = default!;
-    [Dependency] private   readonly SharedMoverController _mover = default!;
-    [Dependency] private   readonly IConfigurationManager _cfg = default!;
-    [Dependency] private   readonly IGameTiming _timing = default!;
+    [Dependency]
+    protected readonly IMapManager MapManager = default!;
+
+    [Dependency]
+    private readonly IParallelManager _parallel = default!;
+
+    [Dependency]
+    private readonly CollisionWakeSystem _wake = default!;
+
+    [Dependency]
+    protected readonly EntityLookupSystem Lookup = default!;
+
+    [Dependency]
+    private readonly FixtureSystem _fixtures = default!;
+
+    [Dependency]
+    private readonly SharedGravitySystem _gravity = default!;
+
+    [Dependency]
+    private readonly SharedMoverController _mover = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     protected const string ConveyorFixture = "conveyor";
 
@@ -78,7 +95,7 @@ public abstract class SharedConveyorController : VirtualController
 
     private void OnConveyedFriction(Entity<ConveyedComponent> ent, ref TileFrictionEvent args)
     {
-        if(!ent.Comp.Conveying)
+        if (!ent.Comp.Conveying)
             return;
 
         // Conveyed entities don't get friction, they just get wishdir applied so will inherently slowdown anyway.
@@ -104,9 +121,7 @@ public abstract class SharedConveyorController : VirtualController
     /// <summary>
     /// Forcefully awakens all entities near the conveyor.
     /// </summary>
-    protected virtual void AwakenConveyor(Entity<TransformComponent?> ent)
-    {
-    }
+    protected virtual void AwakenConveyor(Entity<TransformComponent?> ent) { }
 
     /// <summary>
     /// Wakes all conveyed entities contacting this conveyor.
@@ -280,11 +295,13 @@ public abstract class SharedConveyorController : VirtualController
     /// Gets the conveying direction for an entity.
     /// </summary>
     /// <returns>False if we should no longer be considered actively conveyed.</returns>
-    private bool TryConvey(Entity<ConveyedComponent, FixturesComponent, PhysicsComponent, TransformComponent> entity,
+    private bool TryConvey(
+        Entity<ConveyedComponent, FixturesComponent, PhysicsComponent, TransformComponent> entity,
         bool prediction,
         out Vector2 direction,
         out EntityUid? bestConveyorUid,
-        out float priority)
+        out float priority
+    )
     {
         direction = Vector2.Zero;
         bestConveyorUid = null;
@@ -309,8 +326,7 @@ public abstract class SharedConveyorController : VirtualController
         if (xform.GridUid == null)
             return true;
 
-        if (physics.BodyStatus == BodyStatus.InAir ||
-            _gravity.IsWeightless(entity, physics, xform))
+        if (physics.BodyStatus == BodyStatus.InAir || _gravity.IsWeightless(entity, physics, xform))
         {
             return true;
         }
@@ -418,6 +434,7 @@ public abstract class SharedConveyorController : VirtualController
 
         return false;
     }
+
     private static Vector2 Convey(Vector2 direction, float speed, Vector2 itemRelative)
     {
         if (speed == 0 || direction.LengthSquared() == 0)
@@ -460,11 +477,13 @@ public abstract class SharedConveyorController : VirtualController
     {
         public int BatchSize => 16;
 
-        public List<(Entity<ConveyedComponent, FixturesComponent, PhysicsComponent, TransformComponent> Entity,
+        public List<(
+            Entity<ConveyedComponent, FixturesComponent, PhysicsComponent, TransformComponent> Entity,
             Vector2 Direction,
             bool Result,
             EntityUid? BestConveyor,
-            float Priority)> Conveyed = new();
+            float Priority
+        )> Conveyed = new();
 
         public SharedConveyorController System;
 
@@ -480,8 +499,18 @@ public abstract class SharedConveyorController : VirtualController
             var convey = Conveyed[index];
 
             var result = System.TryConvey(
-                (convey.Entity.Owner, convey.Entity.Comp1, convey.Entity.Comp2, convey.Entity.Comp3, convey.Entity.Comp4),
-                Prediction, out var direction, out var bestConveyor, out var priority);
+                (
+                    convey.Entity.Owner,
+                    convey.Entity.Comp1,
+                    convey.Entity.Comp2,
+                    convey.Entity.Comp3,
+                    convey.Entity.Comp4
+                ),
+                Prediction,
+                out var direction,
+                out var bestConveyor,
+                out var priority
+            );
 
             Conveyed[index] = (convey.Entity, direction, result, bestConveyor, priority);
         }

@@ -22,14 +22,13 @@
     Gadyuka:
       stationProto: StandardFrontierVessel
       components:
-        - type: StationNameSetup
-          mapNameTemplate: 'Gadyuka USSP{1}'
-          nameGenerator:
-            !type:NanotrasenNameGenerator
-            prefixCreator: '14'
-        - type: StationJobs
-          availableJobs:
-            USSPSergeant: [0, 0]
-            USSPCorporal: [0, 0]
-            USSPMedic: [0, 0]
-            USSPRifleman: [0, 0]
+      - type: StationNameSetup
+        mapNameTemplate: 'Gadyuka USSP{1}'
+        nameGenerator: !type:NanotrasenNameGenerator
+          prefixCreator: '14'
+      - type: StationJobs
+        availableJobs:
+          USSPSergeant: [0, 0]
+          USSPCorporal: [0, 0]
+          USSPMedic: [0, 0]
+          USSPRifleman: [0, 0]

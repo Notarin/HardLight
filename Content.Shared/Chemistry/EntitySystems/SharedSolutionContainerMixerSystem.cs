@@ -1,6 +1,6 @@
+using Content.Shared._Goobstation.Factory;
 using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.Reaction;
-using Content.Shared._Goobstation.Factory;
 using Content.Shared.Interaction;
 using Content.Shared.Popups;
 using Robust.Shared.Audio.Systems;
@@ -15,13 +15,26 @@ namespace Content.Shared.Chemistry.EntitySystems;
 /// </summary>
 public abstract class SharedSolutionContainerMixerSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solution = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly INetManager _net = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly SharedSolutionContainerSystem _solution = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -45,6 +58,7 @@ public abstract class SharedSolutionContainerMixerSystem : EntitySystem
         // Start mixing when a machine receives a start signal.
         TryStartMix(ent, null);
     }
+
     private void OnRemoveAttempt(Entity<SolutionContainerMixerComponent> ent, ref ContainerIsRemovingAttemptEvent args)
     {
         if (args.Container.ID == ent.Comp.ContainerId && ent.Comp.Mixing)
@@ -103,8 +117,10 @@ public abstract class SharedSolutionContainerMixerSystem : EntitySystem
             return;
         StopMix(entity);
 
-        if (!TryComp<ReactionMixerComponent>(entity, out var reactionMixer)
-            || !_container.TryGetContainer(uid, comp.ContainerId, out var container))
+        if (
+            !TryComp<ReactionMixerComponent>(entity, out var reactionMixer)
+            || !_container.TryGetContainer(uid, comp.ContainerId, out var container)
+        )
             return;
 
         foreach (var ent in container.ContainedEntities)

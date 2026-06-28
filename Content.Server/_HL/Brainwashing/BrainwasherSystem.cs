@@ -21,22 +21,46 @@ namespace Content.Server._HL.Brainwashing;
 
 public sealed class BrainwasherSystem : SharedBrainwasherSystem
 {
-    [Dependency] private readonly SharedBrainwashedSystem _sharedBrainwashedSystem = default!;
-    [Dependency] private readonly DoAfterSystem _doAfterSystem = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IEntityManager _entityManager = default!;
-    [Dependency] private readonly EuiManager _euiManager = default!;
-    [Dependency] private readonly AudioSystem _audioSystem = default!;
-    [Dependency] private readonly StatusEffectsSystem _statusEffectsSystem = default!;
-    [Dependency] private readonly SharedFlashSystem _flashSystem = default!;
-    [Dependency] private readonly StunSystem _stun = default!;
-    [Dependency] private readonly ConsentSystem _consentSystem = default!;
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
+    [Dependency]
+    private readonly SharedBrainwashedSystem _sharedBrainwashedSystem = default!;
+
+    [Dependency]
+    private readonly DoAfterSystem _doAfterSystem = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly IEntityManager _entityManager = default!;
+
+    [Dependency]
+    private readonly EuiManager _euiManager = default!;
+
+    [Dependency]
+    private readonly AudioSystem _audioSystem = default!;
+
+    [Dependency]
+    private readonly StatusEffectsSystem _statusEffectsSystem = default!;
+
+    [Dependency]
+    private readonly SharedFlashSystem _flashSystem = default!;
+
+    [Dependency]
+    private readonly StunSystem _stun = default!;
+
+    [Dependency]
+    private readonly ConsentSystem _consentSystem = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popupSystem = default!;
+
     public override void Initialize()
     {
         base.Initialize(); // HL: We've added an Init to the Shared System for the client-side verb drawing
 
-        SubscribeLocalEvent<BrainwasherComponent, ClothingGotEquippedEvent>((uid, component, args) => StartBrainwashing(uid, args.Wearer, component));
+        SubscribeLocalEvent<BrainwasherComponent, ClothingGotEquippedEvent>(
+            (uid, component, args) => StartBrainwashing(uid, args.Wearer, component)
+        );
         SubscribeLocalEvent<BrainwasherComponent, ClothingGotUnequippedEvent>(OnUnequipped);
         SubscribeLocalEvent<BrainwasherComponent, EngagedEvent>(Engaged);
     }
@@ -69,10 +93,12 @@ public sealed class BrainwasherSystem : SharedBrainwasherSystem
         }
 
         _audioSystem.PlayPvs(component.EngageSound, uid, new AudioParams());
-        _statusEffectsSystem.TryAddStatusEffect<FlashedComponent>(user,
+        _statusEffectsSystem.TryAddStatusEffect<FlashedComponent>(
+            user,
             _flashSystem.FlashedKey,
             TimeSpan.FromSeconds(5),
-            true);
+            true
+        );
         _stun.TrySlowdown(user, TimeSpan.FromSeconds(5), true, 0, 0);
         EnsureComp<BrainwashedComponent>(user, out var newBrainwashedComponent);
         _sharedBrainwashedSystem.SetCompulsions(user, newBrainwashedComponent, component.Compulsions);
@@ -91,11 +117,13 @@ public sealed class BrainwasherSystem : SharedBrainwasherSystem
             return;
 
         TryComp<DoAfterComponent>(target, out var doAfterComponent);
-        var doAfterArgs = new DoAfterArgs(_entityManager,
+        var doAfterArgs = new DoAfterArgs(
+            _entityManager,
             target,
             component.ChardingDuration,
             new EngagedEvent(netEntity.Value),
-            uid)
+            uid
+        )
         {
             RequireCanInteract = false,
         };
@@ -106,11 +134,13 @@ public sealed class BrainwasherSystem : SharedBrainwasherSystem
             if (TryComp<DoAfterComponent>(uid, out var newdoAfterComponent))
                 doAfterComponent = newdoAfterComponent;
 
-            doAfterArgs = new DoAfterArgs(_entityManager,
-            uid,
-            component.ChardingDuration,
-            new EngagedEvent(netEntity.Value),
-            uid)
+            doAfterArgs = new DoAfterArgs(
+                _entityManager,
+                uid,
+                component.ChardingDuration,
+                new EngagedEvent(netEntity.Value),
+                uid
+            )
             {
                 RequireCanInteract = false,
                 BreakOnMove = true,

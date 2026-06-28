@@ -34,10 +34,15 @@ public sealed class CombatModeIndicatorsOverlay : Overlay
 
     public Color MainColor = Color.White.WithAlpha(0.3f);
     public Color StrokeColor = Color.Black.WithAlpha(0.5f);
-    public float Scale = 0.6f;  // 1 is a little big
+    public float Scale = 0.6f; // 1 is a little big
 
-    public CombatModeIndicatorsOverlay(IInputManager input, IEntityManager entMan,
-            IEyeManager eye, CombatModeSystem combatSys, HandsSystem hands)
+    public CombatModeIndicatorsOverlay(
+        IInputManager input,
+        IEntityManager entMan,
+        IEyeManager eye,
+        CombatModeSystem combatSys,
+        HandsSystem hands
+    )
     {
         _inputManager = input;
         _entMan = entMan;
@@ -46,12 +51,15 @@ public sealed class CombatModeIndicatorsOverlay : Overlay
         _hands = hands;
 
         var spriteSys = _entMan.EntitySysManager.GetEntitySystem<SpriteSystem>();
-        _gunSight = spriteSys.Frame0(new SpriteSpecifier.Rsi(new ResPath("/Textures/Interface/Misc/crosshair_pointers.rsi"),
-            "gun_sight"));
-        _gunBoltSight = spriteSys.Frame0(new SpriteSpecifier.Rsi(new ResPath("/Textures/Interface/Misc/crosshair_pointers.rsi"),
-            "gun_bolt_sight"));
-        _meleeSight = spriteSys.Frame0(new SpriteSpecifier.Rsi(new ResPath("/Textures/Interface/Misc/crosshair_pointers.rsi"),
-             "melee_sight"));
+        _gunSight = spriteSys.Frame0(
+            new SpriteSpecifier.Rsi(new ResPath("/Textures/Interface/Misc/crosshair_pointers.rsi"), "gun_sight")
+        );
+        _gunBoltSight = spriteSys.Frame0(
+            new SpriteSpecifier.Rsi(new ResPath("/Textures/Interface/Misc/crosshair_pointers.rsi"), "gun_bolt_sight")
+        );
+        _meleeSight = spriteSys.Frame0(
+            new SpriteSpecifier.Rsi(new ResPath("/Textures/Interface/Misc/crosshair_pointers.rsi"), "melee_sight")
+        );
     }
 
     protected override bool BeforeDraw(in OverlayDrawArgs args)
@@ -75,7 +83,6 @@ public sealed class CombatModeIndicatorsOverlay : Overlay
         if (_entMan.TryGetComponent(handEntity, out ChamberMagazineAmmoProviderComponent? chamber))
             isGunBolted = chamber.BoltClosed ?? true;
 
-
         var mousePos = mouseScreenPosition.Position;
         var uiScale = (args.ViewportControl as Control)?.UIScale ?? 1f;
         var limitedScale = uiScale > 1.25f ? 1.25f : uiScale;
@@ -89,9 +96,7 @@ public sealed class CombatModeIndicatorsOverlay : Overlay
         var sightSize = sight.Size * scale;
         var expandedSize = sightSize + new Vector2(7f, 7f);
 
-        screen.DrawTextureRect(sight,
-            UIBox2.FromDimensions(centerPos - sightSize * 0.5f, sightSize), StrokeColor);
-        screen.DrawTextureRect(sight,
-            UIBox2.FromDimensions(centerPos - expandedSize * 0.5f, expandedSize), MainColor);
+        screen.DrawTextureRect(sight, UIBox2.FromDimensions(centerPos - sightSize * 0.5f, sightSize), StrokeColor);
+        screen.DrawTextureRect(sight, UIBox2.FromDimensions(centerPos - expandedSize * 0.5f, expandedSize), MainColor);
     }
 }

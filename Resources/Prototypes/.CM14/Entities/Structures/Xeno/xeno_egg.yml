@@ -1,4 +1,4 @@
-﻿- type: entity
+- type: entity
   parent: BaseItem
   id: XenoEgg
   name: egg
@@ -13,8 +13,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.25,-0.25,0.25,0.25"
         density: 20
         mask:
@@ -24,8 +23,7 @@
         restitution: 0.3
         friction: 0.2
       xeno_egg:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 1.5
         hard: false
         mask:
@@ -42,14 +40,13 @@
     drawdepth: Items
     layers:
     - state: egg_item
-      map: [ "enum.XenoEggLayers.Base" ]
+      map: ["enum.XenoEggLayers.Base"]
   - type: XenoEgg
   - type: Damageable
     damageContainer: StructuralXeno
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 80
       behaviors:
       - !type:SpawnEntitiesBehavior
@@ -61,13 +58,12 @@
         sound:
           path: /Audio/_RMC14/Xeno/alien_egg_burst.ogg
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTypeTrigger
+        acts: ["Destruction"]
+    - trigger: !type:DamageTypeTrigger
         damageType: Heat
         damage: 60
       behaviors:
-      - !type:BurnBodyBehavior { }
+      - !type:BurnBodyBehavior {}
   # Removed: XenoFriendly (component not available in this codebase)
   # - type: XenoFriendly
   - type: StepTrigger
@@ -85,13 +81,13 @@
   #       type: XenoParasiteGhostBui
   #       requireInputValidation: false
   - type: RequireProjectileTarget
-  # Removed: XenoInhandSprite (component not available)
-  # - type: XenoInhandSprite
-  #   stateName: egg
+    # Removed: XenoInhandSprite (component not available)
+    # - type: XenoInhandSprite
+    #   stateName: egg
 
 - type: entity
   parent: BaseItem
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: XenoEggDestroyed
   name: egg
   description: A mess of... something.
@@ -109,8 +105,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.25,-0.25,0.25,0.25"
         density: 20
         mask:
@@ -130,24 +125,22 @@
     sprite: .CM14/Structures/Xenos/xeno_egg.rsi
     drawdepth: Items
     layers:
-    - map: [ "egg" ]
+    - map: ["egg"]
       state: egg_exploded
   - type: Damageable
     damageContainer: StructuralXeno
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 60
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTypeTrigger
+        acts: ["Destruction"]
+    - trigger: !type:DamageTypeTrigger
         damageType: Heat
         damage: 15
       behaviors:
-      - !type:BurnBodyBehavior { }
+      - !type:BurnBodyBehavior {}
   - type: Corrodible
     isCorrodible: false
   - type: RequireProjectileTarget

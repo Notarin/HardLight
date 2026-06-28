@@ -23,7 +23,8 @@ public sealed class ToggleSafetyRangesOverlayCommand : IConsoleCommand
 
 public sealed class SafetyRangesOverlaySystem : EntitySystem
 {
-    [Dependency] private readonly IOverlayManager _overMan = default!;
+    [Dependency]
+    private readonly IOverlayManager _overMan = default!;
     private SafetyRangesOverlay _overlay = default!;
 
     public override void Initialize()
@@ -41,7 +42,8 @@ public sealed class SafetyRangesOverlaySystem : EntitySystem
 
 public sealed class SafetyRangesOverlay : Overlay
 {
-    [Dependency] private readonly IEntityManager _entMan = default!;
+    [Dependency]
+    private readonly IEntityManager _entMan = default!;
     private readonly TransformSystem _formSys;
     public override OverlaySpace Space => OverlaySpace.WorldSpace;
 
@@ -69,7 +71,11 @@ public sealed class SafetyRangesOverlay : Overlay
                 args.WorldHandle.DrawCircle(worldPos, 0.1f, Color.Yellow);
                 args.WorldHandle.DrawLine(worldPos, startVec, Color.Red);
                 args.WorldHandle.DrawLine(worldPos, endVec, Color.Blue);
-                args.WorldHandle.DrawLine(worldPos, worldPos + (start + worldRot + width / 2).ToVec() * 3, Color.Yellow);
+                args.WorldHandle.DrawLine(
+                    worldPos,
+                    worldPos + (start + worldRot + width / 2).ToVec() * 3,
+                    Color.Yellow
+                );
             }
         }
     }

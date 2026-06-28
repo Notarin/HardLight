@@ -9,8 +9,11 @@ namespace Content.Server.Xenoarchaeology.XenoArtifacts.Triggers.Systems;
 
 public sealed class ArtifactElectricityTriggerSystem : EntitySystem
 {
-    [Dependency] private readonly ArtifactSystem _artifactSystem = default!;
-    [Dependency] private readonly SharedToolSystem _toolSystem = default!;
+    [Dependency]
+    private readonly ArtifactSystem _artifactSystem = default!;
+
+    [Dependency]
+    private readonly SharedToolSystem _toolSystem = default!;
 
     public override void Initialize()
     {
@@ -24,7 +27,11 @@ public sealed class ArtifactElectricityTriggerSystem : EntitySystem
         base.Update(frameTime);
 
         List<Entity<ArtifactComponent>> toUpdate = new();
-        var query = EntityQueryEnumerator<ArtifactElectricityTriggerComponent, PowerConsumerComponent, ArtifactComponent>();
+        var query = EntityQueryEnumerator<
+            ArtifactElectricityTriggerComponent,
+            PowerConsumerComponent,
+            ArtifactComponent
+        >();
         while (query.MoveNext(out var uid, out var trigger, out var power, out var artifact))
         {
             if (power.ReceivedPower <= trigger.MinPower)

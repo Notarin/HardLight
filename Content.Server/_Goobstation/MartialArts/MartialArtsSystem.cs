@@ -1,8 +1,8 @@
 using Content.Server.Chat.Systems;
-using Content.Shared.Chat; // HardLight
 using Content.Shared._Goobstation.MartialArts;
 using Content.Shared._Goobstation.MartialArts.Components;
 using Content.Shared._Goobstation.MartialArts.Events;
+using Content.Shared.Chat; // HardLight
 
 namespace Content.Server._Goobstation.MartialArts;
 
@@ -11,7 +11,8 @@ namespace Content.Server._Goobstation.MartialArts;
 /// </summary>
 public sealed class MartialArtsSystem : SharedMartialArtsSystem
 {
-    [Dependency] private readonly ChatSystem _chat = default!;
+    [Dependency]
+    private readonly ChatSystem _chat = default!;
 
     public override void Initialize()
     {

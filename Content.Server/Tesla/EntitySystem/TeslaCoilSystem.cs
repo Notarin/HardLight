@@ -1,7 +1,7 @@
+using Content.Server.Lightning;
 using Content.Server.Power.Components;
 using Content.Server.Power.EntitySystems;
 using Content.Server.Tesla.Components;
-using Content.Server.Lightning;
 
 namespace Content.Server.Tesla.EntitySystems;
 
@@ -10,7 +10,8 @@ namespace Content.Server.Tesla.EntitySystems;
 /// </summary>
 public sealed class TeslaCoilSystem : EntitySystem
 {
-    [Dependency] private readonly BatterySystem _battery = default!;
+    [Dependency]
+    private readonly BatterySystem _battery = default!;
 
     public override void Initialize()
     {

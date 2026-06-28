@@ -25,14 +25,12 @@
     damageContainer: Inorganic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 600
       behaviors:
-        - !type:DoActsBehavior
-          acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 300
       behaviors:
       - !type:PlaySoundBehavior
@@ -139,7 +137,7 @@
 
 - type: entity
   id: StructureGunRackWallmounted
-  parent: [ BaseStructureWallmount, StructureGunRack ]
+  parent: [BaseStructureWallmount, StructureGunRack]
   suffix: Empty, Wallmount
   components:
   - type: Sprite
@@ -232,7 +230,7 @@
 
 - type: entity
   id: StructureMeleeWeaponRackWallmounted
-  parent: [ BaseStructureWallmount, StructureMeleeWeaponRack ]
+  parent: [BaseStructureWallmount, StructureMeleeWeaponRack]
   suffix: Empty, Wallmount
   components:
   - type: Sprite
@@ -253,8 +251,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.10,-0.10,0.10,0.10"
         density: 500
         mask:
@@ -322,7 +319,7 @@
 
 - type: entity
   id: StructurePistolRackWallmounted
-  parent: [ BaseStructureWallmount, StructurePistolRack ]
+  parent: [BaseStructureWallmount, StructurePistolRack]
   suffix: Empty, Wallmount
   components:
   - type: Sprite
@@ -343,8 +340,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.10,-0.10,0.10,0.10"
         density: 500
         mask:
@@ -358,7 +354,7 @@
     - state: pistol-0
     - map: ["enum.StorageFillLayers.Fill"]
     - state: locked
-      map: [ enum.LockVisualLayers.Lock ]
+      map: [enum.LockVisualLayers.Lock]
       shader: unshaded
   - type: AccessReader
   - type: LockVisuals
@@ -385,7 +381,7 @@
 
 - type: entity
   id: StructurePistolRackLockWallmounted
-  parent: [ BaseStructureWallmount, StructurePistolRackLock]
+  parent: [BaseStructureWallmount, StructurePistolRackLock]
   abstract: true
   components:
   - type: Sprite
@@ -397,5 +393,5 @@
     - state: pistol-0
     - map: ["enum.StorageFillLayers.Fill"]
     - state: locked
-      map: [ enum.LockVisualLayers.Lock ]
+      map: [enum.LockVisualLayers.Lock]
       shader: unshaded

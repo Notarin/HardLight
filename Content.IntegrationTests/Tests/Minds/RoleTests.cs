@@ -24,16 +24,31 @@ public sealed class RoleTests
         {
             foreach (var (proto, comp) in pair.GetPrototypesWithComponent<MindRoleComponent>())
             {
-                Assert.That(comp.AntagPrototype == null || comp.JobPrototype == null, $"Role {proto.ID} has both a job and antag prototype.");
-                Assert.That(!comp.ExclusiveAntag || comp.Antag, $"Role {proto.ID} is marked as an exclusive antag, despite not being an antag.");
-                Assert.That(comp.Antag || comp.AntagPrototype == null, $"Role {proto.ID} has an antag prototype, despite not being an antag.");
+                Assert.That(
+                    comp.AntagPrototype == null || comp.JobPrototype == null,
+                    $"Role {proto.ID} has both a job and antag prototype."
+                );
+                Assert.That(
+                    !comp.ExclusiveAntag || comp.Antag,
+                    $"Role {proto.ID} is marked as an exclusive antag, despite not being an antag."
+                );
+                Assert.That(
+                    comp.Antag || comp.AntagPrototype == null,
+                    $"Role {proto.ID} has an antag prototype, despite not being an antag."
+                );
 
                 if (comp.JobPrototype != null)
-                    Assert.That(proto.Components.ContainsKey(jobComp), $"Role {proto.ID} is a job, despite not having a job prototype.");
+                    Assert.That(
+                        proto.Components.ContainsKey(jobComp),
+                        $"Role {proto.ID} is a job, despite not having a job prototype."
+                    );
 
                 // It is possible that this is meant to be supported? Though I would assume that it would be for
                 // admin / prototype uploads, and that pre-defined roles should still check this.
-                Assert.That(!comp.Antag || comp.AntagPrototype != null , $"Role {proto.ID} is an antag, despite not having a antag prototype.");
+                Assert.That(
+                    !comp.Antag || comp.AntagPrototype != null,
+                    $"Role {proto.ID} is an antag, despite not having a antag prototype."
+                );
             }
         });
 
@@ -75,7 +90,8 @@ public sealed class RoleTests
         var refMan = pair.Server.ResolveDependency<IReflectionManager>();
         var mindCompId = pair.Server.ResolveDependency<IComponentFactory>().GetComponentName(typeof(MindRoleComponent));
 
-        var compTypes = refMan.GetAllChildren(typeof(BaseMindRoleComponent))
+        var compTypes = refMan
+            .GetAllChildren(typeof(BaseMindRoleComponent))
             .Append(typeof(RoleBriefingComponent))
             .Where(x => !x.IsAbstract);
 
@@ -85,7 +101,10 @@ public sealed class RoleTests
             {
                 foreach (var proto in pair.GetPrototypesWithComponent(comp))
                 {
-                    Assert.That(proto.Components.ContainsKey(mindCompId), $"Role {proto.ID} does not have a {nameof(MindRoleComponent)} despite having a {comp.Name}");
+                    Assert.That(
+                        proto.Components.ContainsKey(mindCompId),
+                        $"Role {proto.ID} does not have a {nameof(MindRoleComponent)} despite having a {comp.Name}"
+                    );
                 }
             }
         });

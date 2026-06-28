@@ -1,5 +1,5 @@
-using Content.Shared._Goobstation.Factory;
 using Content.Server.Construction.Components;
+using Content.Shared._Goobstation.Factory;
 
 namespace Content.Server._Goobstation.Factory;
 
@@ -43,8 +43,7 @@ public sealed class InteractorSystem : SharedInteractorSystem
 
             // construction supercode queues it instead of starting a doafter now, assume that queuing means it has started
             var newCount = construction?.InteractionQueue?.Count ?? 0;
-            if (newCount > originalCount
-                || HasDoAfter(ent))
+            if (newCount > originalCount || HasDoAfter(ent))
             {
                 Machine.Started(ent.Owner);
                 UpdateAppearance(ent, InteractorState.Active);

@@ -49,7 +49,8 @@ public sealed class PlumbingSynthesizerBoundUserInterfaceState : BoundUserInterf
         string? selectedReagent,
         Dictionary<string, FixedPoint2> bufferContents,
         bool enabled,
-        float batteryCharge)
+        float batteryCharge
+    )
     {
         GeneratableReagents = generatableReagents;
         SelectedReagent = selectedReagent;

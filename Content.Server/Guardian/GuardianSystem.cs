@@ -24,15 +24,32 @@ namespace Content.Server.Guardian
     /// </summary>
     public sealed class GuardianSystem : EntitySystem
     {
-        [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
-        [Dependency] private readonly PopupSystem _popupSystem = default!;
-        [Dependency] private readonly DamageableSystem _damageSystem = default!;
-        [Dependency] private readonly SharedActionsSystem _actionSystem = default!;
-        [Dependency] private readonly SharedHandsSystem _handsSystem = default!;
-        [Dependency] private readonly SharedAudioSystem _audio = default!;
-        [Dependency] private readonly BodySystem _bodySystem = default!;
-        [Dependency] private readonly SharedContainerSystem _container = default!;
-        [Dependency] private readonly SharedTransformSystem _transform = default!;
+        [Dependency]
+        private readonly SharedDoAfterSystem _doAfterSystem = default!;
+
+        [Dependency]
+        private readonly PopupSystem _popupSystem = default!;
+
+        [Dependency]
+        private readonly DamageableSystem _damageSystem = default!;
+
+        [Dependency]
+        private readonly SharedActionsSystem _actionSystem = default!;
+
+        [Dependency]
+        private readonly SharedHandsSystem _handsSystem = default!;
+
+        [Dependency]
+        private readonly SharedAudioSystem _audio = default!;
+
+        [Dependency]
+        private readonly BodySystem _bodySystem = default!;
+
+        [Dependency]
+        private readonly SharedContainerSystem _container = default!;
+
+        [Dependency]
+        private readonly SharedTransformSystem _transform = default!;
 
         public override void Initialize()
         {
@@ -122,7 +139,7 @@ namespace Content.Server.Guardian
 
         private void OnHostShutdown(EntityUid uid, GuardianHostComponent component, ComponentShutdown args)
         {
-            if (component.HostedGuardian is not {} guardian)
+            if (component.HostedGuardian is not { } guardian)
                 return;
 
             // Ensure held items are dropped before deleting guardian.
@@ -175,7 +192,13 @@ namespace Content.Server.Guardian
             args.Handled = true;
             UseCreator(args.User, args.Target.Value, uid, component);
         }
-        private void UseCreator(EntityUid user, EntityUid target, EntityUid injector, GuardianCreatorComponent component)
+
+        private void UseCreator(
+            EntityUid user,
+            EntityUid target,
+            EntityUid injector,
+            GuardianCreatorComponent component
+        )
         {
             if (component.Used)
             {
@@ -186,7 +209,10 @@ namespace Content.Server.Guardian
             // Can only inject things with the component...
             if (!HasComp<CanHostGuardianComponent>(target))
             {
-                var msg = Loc.GetString("guardian-activator-invalid-target", ("entity", Identity.Entity(target, EntityManager, user)));
+                var msg = Loc.GetString(
+                    "guardian-activator-invalid-target",
+                    ("entity", Identity.Entity(target, EntityManager, user))
+                );
 
                 _popupSystem.PopupEntity(msg, user, user);
                 return;
@@ -199,7 +225,20 @@ namespace Content.Server.Guardian
                 return;
             }
 
-            _doAfterSystem.TryStartDoAfter(new DoAfterArgs(EntityManager, user, component.InjectionDelay, new GuardianCreatorDoAfterEvent(), injector, target: target, used: injector){BreakOnMove = true});
+            _doAfterSystem.TryStartDoAfter(
+                new DoAfterArgs(
+                    EntityManager,
+                    user,
+                    component.InjectionDelay,
+                    new GuardianCreatorDoAfterEvent(),
+                    injector,
+                    target: target,
+                    used: injector
+                )
+                {
+                    BreakOnMove = true,
+                }
+            );
         }
 
         private void OnDoAfter(EntityUid uid, GuardianCreatorComponent component, DoAfterEvent args)
@@ -207,13 +246,22 @@ namespace Content.Server.Guardian
             if (args.Handled || args.Args.Target == null)
                 return;
 
-            if (args.Cancelled || component.Deleted || component.Used || !_handsSystem.IsHolding(args.Args.User, uid, out _) || HasComp<GuardianHostComponent>(args.Args.Target))
+            if (
+                args.Cancelled
+                || component.Deleted
+                || component.Used
+                || !_handsSystem.IsHolding(args.Args.User, uid, out _)
+                || HasComp<GuardianHostComponent>(args.Args.Target)
+            )
                 return;
 
             var hostXform = Transform(args.Args.Target.Value);
             var host = EnsureComp<GuardianHostComponent>(args.Args.Target.Value);
             // Use map position so it's not inadvertantly parented to the host + if it's in a container it spawns outside I guess.
-            var guardian = Spawn(component.GuardianProto, _transform.GetMapCoordinates(args.Args.Target.Value, xform: hostXform));
+            var guardian = Spawn(
+                component.GuardianProto,
+                _transform.GetMapCoordinates(args.Args.Target.Value, xform: hostXform)
+            );
 
             _container.Insert(guardian, host.GuardianContainer);
             host.HostedGuardian = guardian;
@@ -222,7 +270,11 @@ namespace Content.Server.Guardian
             {
                 guardianComp.Host = args.Args.Target.Value;
                 _audio.PlayPvs(guardianComp.InjectSound, args.Args.Target.Value);
-                _popupSystem.PopupEntity(Loc.GetString("guardian-created"), args.Args.Target.Value, args.Args.Target.Value);
+                _popupSystem.PopupEntity(
+                    Loc.GetString("guardian-created"),
+                    args.Args.Target.Value,
+                    args.Args.Target.Value
+                );
                 // Exhaust the activator
                 component.Used = true;
             }
@@ -247,7 +299,11 @@ namespace Content.Server.Guardian
 
             if (args.NewMobState == MobState.Critical)
             {
-                _popupSystem.PopupEntity(Loc.GetString("guardian-host-critical-warn"), component.HostedGuardian.Value, component.HostedGuardian.Value);
+                _popupSystem.PopupEntity(
+                    Loc.GetString("guardian-host-critical-warn"),
+                    component.HostedGuardian.Value,
+                    component.HostedGuardian.Value
+                );
                 if (guardianComp != null)
                     _audio.PlayPvs(guardianComp.CriticalSound, component.HostedGuardian.Value);
             }
@@ -272,9 +328,13 @@ namespace Content.Server.Guardian
                 args.DamageDelta * component.DamageShare,
                 origin: args.Origin,
                 ignoreResistances: true,
-                interruptsDoAfters: false);
-            _popupSystem.PopupEntity(Loc.GetString("guardian-entity-taking-damage"), component.Host.Value, component.Host.Value);
-
+                interruptsDoAfters: false
+            );
+            _popupSystem.PopupEntity(
+                Loc.GetString("guardian-entity-taking-damage"),
+                component.Host.Value,
+                component.Host.Value
+            );
         }
 
         /// <summary>
@@ -282,8 +342,8 @@ namespace Content.Server.Guardian
         /// </summary>
         private void OnCreatorExamine(EntityUid uid, GuardianCreatorComponent component, ExaminedEvent args)
         {
-           if (component.Used)
-               args.PushMarkup(Loc.GetString("guardian-activator-empty-examine"));
+            if (component.Used)
+                args.PushMarkup(Loc.GetString("guardian-activator-empty-examine"));
         }
 
         /// <summary>
@@ -291,8 +351,10 @@ namespace Content.Server.Guardian
         /// </summary>
         private void OnHostMove(EntityUid uid, GuardianHostComponent component, ref MoveEvent args)
         {
-            if (!TryComp(component.HostedGuardian, out GuardianComponent? guardianComponent) ||
-                !guardianComponent.GuardianLoose)
+            if (
+                !TryComp(component.HostedGuardian, out GuardianComponent? guardianComponent)
+                || !guardianComponent.GuardianLoose
+            )
             {
                 return;
             }
@@ -320,13 +382,16 @@ namespace Content.Server.Guardian
             GuardianHostComponent? hostComponent = null,
             GuardianComponent? guardianComponent = null,
             TransformComponent? hostXform = null,
-            TransformComponent? guardianXform = null)
+            TransformComponent? guardianXform = null
+        )
         {
             if (TerminatingOrDeleted(guardianUid) || TerminatingOrDeleted(hostUid))
                 return;
 
-            if (!Resolve(hostUid, ref hostComponent, ref hostXform) ||
-                !Resolve(guardianUid, ref guardianComponent, ref guardianXform))
+            if (
+                !Resolve(hostUid, ref hostComponent, ref hostXform)
+                || !Resolve(guardianUid, ref guardianComponent, ref guardianXform)
+            )
             {
                 return;
             }
@@ -334,7 +399,9 @@ namespace Content.Server.Guardian
             if (!guardianComponent.GuardianLoose)
                 return;
 
-            if (!_transform.InRange(guardianXform.Coordinates, hostXform.Coordinates, guardianComponent.DistanceAllowed))
+            if (
+                !_transform.InRange(guardianXform.Coordinates, hostXform.Coordinates, guardianComponent.DistanceAllowed)
+            )
                 RetractGuardian(hostUid, hostComponent, guardianUid, guardianComponent);
         }
 
@@ -343,7 +410,12 @@ namespace Content.Server.Guardian
             return HasComp<ActorComponent>(guardian);
         }
 
-        private void ReleaseGuardian(EntityUid host, GuardianHostComponent hostComponent, EntityUid guardian, GuardianComponent guardianComponent)
+        private void ReleaseGuardian(
+            EntityUid host,
+            GuardianHostComponent hostComponent,
+            EntityUid guardian,
+            GuardianComponent guardianComponent
+        )
         {
             if (guardianComponent.GuardianLoose)
             {
@@ -364,7 +436,12 @@ namespace Content.Server.Guardian
             guardianComponent.GuardianLoose = true;
         }
 
-        private void RetractGuardian(EntityUid host,GuardianHostComponent hostComponent, EntityUid guardian, GuardianComponent guardianComponent)
+        private void RetractGuardian(
+            EntityUid host,
+            GuardianHostComponent hostComponent,
+            EntityUid guardian,
+            GuardianComponent guardianComponent
+        )
         {
             if (!guardianComponent.GuardianLoose)
             {

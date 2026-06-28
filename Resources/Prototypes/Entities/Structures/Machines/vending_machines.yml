@@ -36,8 +36,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.25,-0.45,0.25,0.45"
         mask:
         - MachineMask
@@ -46,15 +45,13 @@
         density: 200
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:DoActsBehavior
         acts: ["Breakage"]
       - !type:EjectVendorItems
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 200
       behaviors:
       - !type:SpawnEntitiesBehavior
@@ -63,7 +60,7 @@
             min: 1
             max: 1
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:PlaySoundBehavior
         sound:
           collection: MetalGlassBreak
@@ -160,16 +157,15 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.3,-0.16,0.3,0.40"
         mask:
         - Impassable # Frontier
-#        - MidImpassable # Frontier - Do not add this, it will block shutters from closing on it.
+        #        - MidImpassable # Frontier - Do not add this, it will block shutters from closing on it.
         - LowImpassable # Frontier
-#        - MachineMask # Frontier
-#        layer: # Frontier
-#        - MachineLayer # Frontier
+        #        - MachineMask # Frontier
+        #        layer: # Frontier
+        #        - MachineLayer # Frontier
         density: 190
   - type: Advertise
     pack: CondimentVendAds
@@ -421,12 +417,12 @@
     sprite: Structures/Machines/VendingMachines/winterdrobe.rsi
     layers:
     - state: "off"
-      map: [ "enum.VendingMachineVisualLayers.Base" ]
+      map: ["enum.VendingMachineVisualLayers.Base"]
     - state: "off"
-      map: [ "enum.VendingMachineVisualLayers.BaseUnshaded" ]
+      map: ["enum.VendingMachineVisualLayers.BaseUnshaded"]
       shader: unshaded
     - state: panel
-      map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
   - type: PointLight
     radius: 1.8
     energy: 1.6
@@ -734,12 +730,12 @@
     sprite: Structures/Machines/VendingMachines/smite.rsi
     layers:
     - state: "off"
-      map: [ "enum.VendingMachineVisualLayers.Base" ]
+      map: ["enum.VendingMachineVisualLayers.Base"]
     - state: "off"
-      map: [ "enum.VendingMachineVisualLayers.BaseUnshaded" ]
+      map: ["enum.VendingMachineVisualLayers.BaseUnshaded"]
       shader: unshaded
     - state: panel
-      map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
   - type: VendingMachine
     pack: SmiteInventory
     dispenseOnHitChance: 0.25
@@ -1574,8 +1570,8 @@
     radius: 1.5
     energy: 1.6
     color: "#326e3f"
-  # - type: AccessReader # Frontier
-  #   access: [["Hydroponics"]] # Frontier
+    # - type: AccessReader # Frontier
+    #   access: [["Hydroponics"]] # Frontier
 
 - type: entity
   parent: VendingMachine
@@ -1716,8 +1712,8 @@
     radius: 1.5
     energy: 1.6
     color: "#b89e2a"
-  # - type: AccessReader # Frontier
-  #   access: [["Cargo"]] # Frontier
+    # - type: AccessReader # Frontier
+    #   access: [["Cargo"]] # Frontier
 
 - type: entity
   parent: VendingMachine
@@ -1828,8 +1824,8 @@
     radius: 1.5
     energy: 1.6
     color: "#b89e2a"
-  # - type: AccessReader # Frontier
-  #   access: [["Engineering"]] # Frontier
+    # - type: AccessReader # Frontier
+    #   access: [["Engineering"]] # Frontier
 
 - type: entity
   parent: VendingMachine
@@ -1860,8 +1856,8 @@
     radius: 1.5
     energy: 1.6
     color: "#b89e2a"
-  # - type: AccessReader # Frontier
-  #   access: [["Engineering"]] # Frontier
+    # - type: AccessReader # Frontier
+    #   access: [["Engineering"]] # Frontier
 
 - type: entity
   parent: VendingMachine
@@ -1944,8 +1940,8 @@
     radius: 1.5
     energy: 1.6
     color: "#6927C5"
-  # - type: AccessReader # Frontier
-  #   access: [["Janitor"]] # Frontier
+    # - type: AccessReader # Frontier
+    #   access: [["Janitor"]] # Frontier
 
 - type: entity
   parent: VendingMachine
@@ -2146,8 +2142,8 @@
     pack: HappyHonkAds
   - type: SpeakOnUIClosed
     pack: HappyHonkGoodbyes
-#  - type: AccessReader # Frontier
-#    access: [["Kitchen"], ["Theatre"]] # Frontier
+    #  - type: AccessReader # Frontier
+    #    access: [["Kitchen"], ["Theatre"]] # Frontier
   - type: MarketModifier # Frontier
     mod: 5 # Frontier
 

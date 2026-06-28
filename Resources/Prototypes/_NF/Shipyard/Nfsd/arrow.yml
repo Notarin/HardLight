@@ -20,10 +20,9 @@
     Arrow:
       stationProto: StandardFrontierSecurityVessel
       components:
-        - type: StationNameSetup
-          mapNameTemplate: 'Arrow {1}'
-          nameGenerator:
-            !type:NanotrasenNameGenerator
-            prefixCreator: '14'
-        - type: StationJobs
-          availableJobs: {}
+      - type: StationNameSetup
+        mapNameTemplate: 'Arrow {1}'
+        nameGenerator: !type:NanotrasenNameGenerator
+          prefixCreator: '14'
+      - type: StationJobs
+        availableJobs: {}

@@ -11,7 +11,7 @@
     drawdepth: SmallObjects
     layers:
     - state: icon
-      map: [ "enum.FaxMachineVisuals.VisualState" ]
+      map: ["enum.FaxMachineVisuals.VisualState"]
   - type: Icon
     sprite: Structures/Machines/fax_machine.rsi
     state: icon
@@ -35,17 +35,17 @@
       ejectSound: /Audio/Machines/tray_eject.ogg
       whitelist:
         components:
-          - FaxableObject
+        - FaxableObject
   - type: GenericVisualizer
     visuals:
       enum.PowerDeviceVisuals.Powered:
         enum.FaxMachineVisuals.VisualState:
-          True: { state: idle }
-          False: { state: icon }
+          True: {state: idle}
+          False: {state: icon}
       enum.FaxMachineVisuals.VisualState:
         enum.FaxMachineVisuals.VisualState:
-          Printing: { state: printing }
-          Normal: { state: idle }
+          Printing: {state: printing}
+          Normal: {state: idle}
   - type: DeviceNetwork
     deviceNetId: Wireless
     receiveFrequencyId: Fax
@@ -69,7 +69,7 @@
     drawdepth: SmallObjects
     layers:
     - state: icon
-      map: [ "enum.FaxMachineVisuals.VisualState" ]
+      map: ["enum.FaxMachineVisuals.VisualState"]
     - state: scanner
       shader: unshaded
   # - type: Prayable
@@ -100,6 +100,6 @@
     drawdepth: SmallObjects
     layers:
     - state: icon
-      map: [ "enum.FaxMachineVisuals.VisualState" ]
+      map: ["enum.FaxMachineVisuals.VisualState"]
     - state: scanner
       shader: unshaded

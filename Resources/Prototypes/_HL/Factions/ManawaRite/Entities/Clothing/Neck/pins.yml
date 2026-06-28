@@ -11,4 +11,4 @@
     sprite: _HL/Factions/ManawaRite/Clothing/Neck/Pins/manawa_rite_pin.rsi
   - type: Clothing
     sprite: _HL/Factions/ManawaRite/Clothing/Neck/Pins/manawa_rite_pin.rsi
-    slots: [ neck ]
+    slots: [neck]

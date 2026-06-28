@@ -7,6 +7,4 @@ namespace Content.Shared.Paper;
 /// </summary>
 [RegisterComponent]
 [Access(typeof(PaperSystem))]
-public sealed partial class ActivateOnPaperOpenedComponent : Component
-{
-}
+public sealed partial class ActivateOnPaperOpenedComponent : Component { }

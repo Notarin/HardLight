@@ -4,18 +4,18 @@
   description: job-description-hos
   playTimeTracker: JobHeadOfSecurity # Frontier JobHeadOfSecurity<JobHeadOfSecurityOld
   requirements:
-    - !type:RoleTimeRequirement
-      role: JobWarden
-      time: 3600 # 1 hr
-    - !type:RoleTimeRequirement
-      role: JobDetective
-      time: 3600 # 1 hr; knowing how to use the tools is important
-    - !type:RoleTimeRequirement
-      role: JobSecurityOfficer
-      time: 18000 # 5 hrs
-    - !type:DepartmentTimeRequirement
-      department: Security
-      time: 36000 # 10 hrs
+  - !type:RoleTimeRequirement
+    role: JobWarden
+    time: 3600 # 1 hr
+  - !type:RoleTimeRequirement
+    role: JobDetective
+    time: 3600 # 1 hr; knowing how to use the tools is important
+  - !type:RoleTimeRequirement
+    role: JobSecurityOfficer
+    time: 18000 # 5 hrs
+  - !type:DepartmentTimeRequirement
+    department: Security
+    time: 36000 # 10 hrs
   weight: 60 # HardLight: 10<60
   startingGear: HoSGear
   icon: "JobIconHeadOfSecurity"
@@ -35,7 +35,7 @@
   - Cryogenics
   special:
   - !type:AddImplantSpecial
-    implants: [ MindShieldImplant ]
+    implants: [MindShieldImplant]
   - !type:AddComponentSpecial
     components:
     - type: CommandStaff

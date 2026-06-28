@@ -163,7 +163,7 @@
 - type: latheRecipePack
   id: MechEquipment
   recipes:
-    - MechEquipmentGrabber
-    - MechEquipmentHorn
-    - MechEquipmentGrabberSmall
-    - MechEquipmentFork # Frontier
+  - MechEquipmentGrabber
+  - MechEquipmentHorn
+  - MechEquipmentGrabberSmall
+  - MechEquipmentFork # Frontier

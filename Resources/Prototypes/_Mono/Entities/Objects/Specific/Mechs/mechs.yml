@@ -6,7 +6,7 @@
 - type: entity
   id: LightMechMount
   abstract: true
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Mech
     equipmentWhitelist:
@@ -16,7 +16,7 @@
 - type: entity
   id: MediumMechMount
   abstract: true
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Mech
     equipmentWhitelist:
@@ -26,7 +26,7 @@
 - type: entity
   id: HeavyMechMount
   abstract: true
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Mech
     equipmentWhitelist:
@@ -36,15 +36,14 @@
 # S2 Mechas
 - type: entity
   id: AFInterceptor
-  parent: [ BaseMech, LightMechMount, BaseC3ExpeditionContraband ]
+  parent: [BaseMech, LightMechMount, BaseC3ExpeditionContraband]
   name: AF-28 "Broadsword"
   description: One of the first purpose built Armored Frames, made to engage light targets and other Armored Frames.
   components:
   - type: Fixtures
     fixtures: # Custom hitbox
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.9
         density: 300
         restitution: 0.0
@@ -58,7 +57,7 @@
     noRot: true
     sprite: _Mono/Objects/Specific/Mech/mechaS2.rsi
     layers:
-    - map: [ "enum.MechVisualLayers.Base" ]
+    - map: ["enum.MechVisualLayers.Base"]
       state: broadsword
     - map: ["enum.PaperLabelVisuals.Layer"]
       sprite: Structures/Storage/Crates/labels.rsi
@@ -75,7 +74,7 @@
     maxIntegrity: 600
     pilotWhitelist:
       components:
-        - HumanoidAppearance
+      - HumanoidAppearance
   - type: MeleeWeapon
     hidden: true
     attackRate: 1
@@ -93,7 +92,7 @@
   - type: MovementAlwaysTouching
   # EXTREMELY slow in gravity. Only really good to taxi, and that's about it.
   - type: MovementSpeedModifier
-    
+
   - type: RadarBlip
     radarColor: "#CF0E0E"
     scale: 4
@@ -125,15 +124,14 @@
 
 - type: entity
   id: AFInterceptorM
-  parent: [ BaseMech, LightMultiroleMountEquipment, BaseC3ExpeditionContraband ]
+  parent: [BaseMech, LightMultiroleMountEquipment, BaseC3ExpeditionContraband]
   name: AF-28-M "Halberd"
   description: A modification of the Broadsword, the Halberd sacrifices armor and speed for heavier weapon mounts.
   components:
   - type: Fixtures
     fixtures: # Custom hitbox
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.9
         density: 300
         restitution: 0.0
@@ -147,7 +145,7 @@
     noRot: true
     sprite: _Mono/Objects/Specific/Mech/mechaS2.rsi
     layers:
-    - map: [ "enum.MechVisualLayers.Base" ]
+    - map: ["enum.MechVisualLayers.Base"]
       state: broadsword
     - map: ["enum.PaperLabelVisuals.Layer"]
       sprite: Structures/Storage/Crates/labels.rsi
@@ -164,7 +162,7 @@
     maxIntegrity: 450
     pilotWhitelist:
       components:
-        - HumanoidAppearance
+      - HumanoidAppearance
   - type: MeleeWeapon
     hidden: true
     attackRate: 1
@@ -206,15 +204,14 @@
 
 - type: entity
   id: AFInterceptorG
-  parent: [ BaseMech, LightMultiroleMountEquipment, BaseC3ExpeditionContraband ]
+  parent: [BaseMech, LightMultiroleMountEquipment, BaseC3ExpeditionContraband]
   name: AF-28-G "Sabre"
   description: A modification of the Broadsword, the Sabre sacrifices it's jetpack and spaceproof shielding to function on planets. Has two hardpoints, which can carry Light or Medium hardpoints.
   components:
   - type: Fixtures
     fixtures: # Custom hitbox
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.9
         density: 300
         restitution: 0.0
@@ -228,7 +225,7 @@
     noRot: true
     sprite: _Mono/Objects/Specific/Mech/mechaS2.rsi
     layers:
-    - map: [ "enum.MechVisualLayers.Base" ]
+    - map: ["enum.MechVisualLayers.Base"]
       state: broadsword
     - map: ["enum.PaperLabelVisuals.Layer"]
       sprite: Structures/Storage/Crates/labels.rsi
@@ -245,7 +242,7 @@
     maxIntegrity: 800
     pilotWhitelist:
       components:
-        - HumanoidAppearance
+      - HumanoidAppearance
   - type: MeleeWeapon
     hidden: true
     attackRate: 1
@@ -291,15 +288,14 @@
 #4x4 mechas
 - type: entity
   id: AFFlail
-  parent: [ BaseMech, HeavyMechMount, BaseC3ExpeditionContraband ]
+  parent: [BaseMech, HeavyMechMount, BaseC3ExpeditionContraband]
   name: ASF-59 "Flail"
   description: Newest mech on the market, the Armored Strike Frame is built to tackle ship-sized foes with it's oversized weapon mounts. Slow as a pig however, it tacks on generous armor plating to survive it's runs.
   components:
   - type: Fixtures
     fixtures: # Custom hitbox
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 1.4
         density: 600
         restitution: 0.0
@@ -313,7 +309,7 @@
     noRot: true
     sprite: _Mono/Objects/Specific/Mech/mechaS4.rsi
     layers:
-    - map: [ "enum.MechVisualLayers.Base" ]
+    - map: ["enum.MechVisualLayers.Base"]
       state: flail
     - map: ["enum.PaperLabelVisuals.Layer"]
       sprite: Structures/Storage/Crates/labels.rsi
@@ -330,7 +326,7 @@
     maxIntegrity: 900
     pilotWhitelist:
       components:
-        - HumanoidAppearance
+      - HumanoidAppearance
   - type: MeleeWeapon
     hidden: true
     attackRate: 1
@@ -372,15 +368,14 @@
 
 - type: entity
   id: AFFlailE
-  parent: [ BaseMech, EWARMechMountEquipment, BaseC3ExpeditionContraband ]
+  parent: [BaseMech, EWARMechMountEquipment, BaseC3ExpeditionContraband]
   name: ASF-59-E "Spyglass"
   description: An extremely specialized mech based off the Flail Chassis. Uses sophisticated radar systems to provide command and control capabilities, in addition to employing advanced EWAR weaponry.
   components:
   - type: Fixtures
     fixtures: # Custom hitbox
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 1.4
         density: 600
         restitution: 0.0
@@ -394,7 +389,7 @@
     noRot: true
     sprite: _Mono/Objects/Specific/Mech/mechaS4.rsi
     layers:
-    - map: [ "enum.MechVisualLayers.Base" ]
+    - map: ["enum.MechVisualLayers.Base"]
       state: flail
     - map: ["enum.PaperLabelVisuals.Layer"]
       sprite: Structures/Storage/Crates/labels.rsi
@@ -411,7 +406,7 @@
     maxIntegrity: 500
     pilotWhitelist:
       components:
-        - HumanoidAppearance
+      - HumanoidAppearance
   - type: MeleeWeapon
     hidden: true
     attackRate: 1
@@ -456,15 +451,14 @@
 
 - type: entity
   id: AFMace
-  parent: [ BaseMech, HeavyMechMount, BaseC3ExpeditionContraband ]
+  parent: [BaseMech, HeavyMechMount, BaseC3ExpeditionContraband]
   name: ASF-59-B "Mace"
   description: A haphazard refit, armor plating is stripped off to add oversized boosters to the machine. Due to the power constraints, it can only equip a single weapon, limiting versatilty. Fits Heavy Mounts.
   components:
   - type: Fixtures
     fixtures: # Custom hitbox
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 1.4
         density: 600
         restitution: 0.0
@@ -478,7 +472,7 @@
     noRot: true
     sprite: _Mono/Objects/Specific/Mech/mechaS4.rsi
     layers:
-    - map: [ "enum.MechVisualLayers.Base" ]
+    - map: ["enum.MechVisualLayers.Base"]
       state: flail
     - map: ["enum.PaperLabelVisuals.Layer"]
       sprite: Structures/Storage/Crates/labels.rsi
@@ -496,7 +490,7 @@
     maxIntegrity: 600
     pilotWhitelist:
       components:
-        - HumanoidAppearance
+      - HumanoidAppearance
   - type: MeleeWeapon
     hidden: true
     attackRate: 1

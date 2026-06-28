@@ -68,7 +68,6 @@
     walkModifier: 0.90
     sprintModifier: 0.90
 
-
 - type: entity
   parent: RMCBaseMarineArmorNoAccessory
   id: RMCBaseMarineArmor
@@ -89,7 +88,7 @@
     - sprite: _RMC14/Objects/Clothing/OuterClothing/Armor/armor_overlays.rsi
       state: lamp-on
       visible: false
-      map: [ "light" ]
+      map: ["light"]
   - type: Clothing
     equippedPrefix: off
     clothingVisuals:

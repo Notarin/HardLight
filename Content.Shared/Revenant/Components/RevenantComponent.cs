@@ -21,13 +21,16 @@ public sealed partial class RevenantComponent : Component
     [AutoNetworkedField]
     public FixedPoint2 Essence = 75;
 
-    [DataField("stolenEssenceCurrencyPrototype", customTypeSerializer: typeof(PrototypeIdSerializer<CurrencyPrototype>))]
+    [DataField(
+        "stolenEssenceCurrencyPrototype",
+        customTypeSerializer: typeof(PrototypeIdSerializer<CurrencyPrototype>)
+    )]
     public string StolenEssenceCurrencyPrototype = "StolenEssence";
 
     /// <summary>
     /// Prototype to spawn when the entity dies.
     /// </summary>
-    [DataField("spawnOnDeathPrototype", customTypeSerializer:typeof(PrototypeIdSerializer<EntityPrototype>))]
+    [DataField("spawnOnDeathPrototype", customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
     public string SpawnOnDeathPrototype = "Ectoplasm";
 
     /// <summary>
@@ -207,13 +210,17 @@ public sealed partial class RevenantComponent : Component
     #region Visualizer
     [DataField("state")]
     public string State = "idle";
+
     [DataField("corporealState")]
     public string CorporealState = "active";
+
     [DataField("stunnedState")]
     public string StunnedState = "stunned";
+
     [DataField("harvestingState")]
     public string HarvestingState = "harvesting";
     #endregion
 
-    [DataField] public EntityUid? Action;
+    [DataField]
+    public EntityUid? Action;
 }

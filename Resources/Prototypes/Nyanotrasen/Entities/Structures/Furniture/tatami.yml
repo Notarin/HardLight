@@ -8,7 +8,7 @@
     netsync: false
     sprite: Nyanotrasen/Structures/Furniture/tatami.rsi
   - type: Tag
-    tags: [ Carpet ]
+    tags: [Carpet]
   - type: Physics
     canCollide: false
   - type: Fixtures

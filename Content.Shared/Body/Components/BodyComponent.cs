@@ -23,7 +23,8 @@ public sealed partial class BodyComponent : Component
     /// <remarks>
     /// Typically is the torso.
     /// </remarks>
-    [ViewVariables] public ContainerSlot RootContainer = default!;
+    [ViewVariables]
+    public ContainerSlot RootContainer = default!;
 
     [ViewVariables]
     public string RootPartSlot => RootContainer.ID;

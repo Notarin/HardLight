@@ -1,6 +1,6 @@
 - type: entity
   name: makeshift sword
-  parent: [ BaseSword, BaseC1Contraband ]
+  parent: [BaseSword, BaseC1Contraband]
   id: SwordMakeshift
   description: Some sharp steel affixed to a metal rod, it can hardly be called a sword.
   components:
@@ -12,7 +12,7 @@
       types:
         Slash: 10
     soundHit:
-        path: /Audio/Weapons/bladeslice.ogg
+      path: /Audio/Weapons/bladeslice.ogg
   - type: Item
   - type: DisarmMalus
   - type: Clothing
@@ -25,7 +25,7 @@
 
 - type: entity
   name: improvised sword
-  parent: [ BaseSword, BaseC1Contraband ]
+  parent: [BaseSword, BaseC1Contraband]
   id: SwordImprovised
   description: Not too sharp, but it does the job just fine.
   components:
@@ -37,7 +37,7 @@
       types:
         Slash: 14
     soundHit:
-        path: /Audio/Weapons/bladeslice.ogg
+      path: /Audio/Weapons/bladeslice.ogg
   - type: Item
   - type: DisarmMalus
   - type: Clothing
@@ -50,7 +50,7 @@
 
 - type: entity
   name: forged sword
-  parent: [ BaseSword, BaseC1Contraband ]
+  parent: [BaseSword, BaseC1Contraband]
   id: SwordForged
   description: Made with plasteel, a single touch of the blade is enough to draw blood.
   components:
@@ -64,7 +64,7 @@
       types:
         Slash: 16
     soundHit:
-        path: /Audio/Weapons/bladeslice.ogg
+      path: /Audio/Weapons/bladeslice.ogg
   - type: Item
   - type: DisarmMalus
   - type: Clothing
@@ -77,9 +77,9 @@
 
 - type: entity
   name: dawnbreaker
-  parent: [ BaseSword, BaseC2Contraband, Welder ]
+  parent: [BaseSword, BaseC2Contraband, Welder]
   id: SwordFlaming
-  description: How do you perfect upon perfection? Why, use fire of course! Be the shining light through maints and fight valiantly! 
+  description: How do you perfect upon perfection? Why, use fire of course! Be the shining light through maints and fight valiantly!
   components:
   - type: Sprite
     sprite: _Starlight/Objects/Weapons/Melee/dawnbreaker.rsi
@@ -93,8 +93,8 @@
     visuals:
       enum.ToggleVisuals.Toggled:
         enum.ToggleVisuals.Layer:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
   - type: PointLight
     enabled: false
     radius: 3
@@ -127,15 +127,15 @@
     deactivatedSoundOnHitNoDamage:
       collection: MetalThud
     activatedDamage:
-        types:
-            Heat: 8
-            Slash: 10
+      types:
+        Heat: 8
+        Slash: 10
   - type: MeleeWeapon
     damage:
       types:
         Slash: 16
     soundHit:
-        path: /Audio/Weapons/bladeslice.ogg
+      path: /Audio/Weapons/bladeslice.ogg
   - type: Item
     sprite: _Starlight/Objects/Weapons/Melee/dawnbreaker.rsi
   - type: DisarmMalus
@@ -149,7 +149,7 @@
 
 - type: entity
   name: tidebreaker
-  parent: [ BaseSword, BaseC2Contraband ]
+  parent: [BaseSword, BaseC2Contraband]
   id: ClaymoreForged
   description: The perfect weapon for an aspiring maints knight!
   components:
@@ -162,7 +162,7 @@
         Slash: 20
         Structural: 10
     soundHit:
-        path: /Audio/Weapons/bladeslice.ogg
+      path: /Audio/Weapons/bladeslice.ogg
   - type: Item
   - type: Clothing
     sprite: _Starlight/Objects/Weapons/Melee/tidebreaker.rsi

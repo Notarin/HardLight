@@ -34,10 +34,7 @@ namespace Content.Client.Nuke
             }
 
             // clear button
-            var clearBtn = new Button()
-            {
-                Text = "C"
-            };
+            var clearBtn = new Button() { Text = "C" };
             clearBtn.OnPressed += _ => OnClearButtonPressed?.Invoke();
             KeypadGrid.AddChild(clearBtn);
 
@@ -45,20 +42,14 @@ namespace Content.Client.Nuke
             AddKeypadButton(0);
 
             // enter button
-            var enterBtn = new Button()
-            {
-                Text = "E"
-            };
+            var enterBtn = new Button() { Text = "E" };
             enterBtn.OnPressed += _ => OnEnterButtonPressed?.Invoke();
             KeypadGrid.AddChild(enterBtn);
         }
 
         private void AddKeypadButton(int i)
         {
-            var btn = new Button()
-            {
-                Text = i.ToString()
-            };
+            var btn = new Button() { Text = i.ToString() };
 
             btn.OnPressed += _ => OnKeypadButtonPressed?.Invoke(i);
             KeypadGrid.AddChild(btn);
@@ -66,7 +57,8 @@ namespace Content.Client.Nuke
 
         public void UpdateState(NukeUiState state)
         {
-            string firstMsg, secondMsg;
+            string firstMsg,
+                secondMsg;
 
             ArmButton.Text = Loc.GetString("nuke-user-interface-arm-button");
 
@@ -78,24 +70,26 @@ namespace Content.Client.Nuke
                     break;
                 case NukeStatus.AWAIT_CODE:
                     firstMsg = Loc.GetString("nuke-user-interface-first-status-input-code");
-                    secondMsg = Loc.GetString("nuke-user-interface-second-status-current-code",
-                        ("code", VisualizeCode(state.EnteredCodeLength, state.MaxCodeLength)));
+                    secondMsg = Loc.GetString(
+                        "nuke-user-interface-second-status-current-code",
+                        ("code", VisualizeCode(state.EnteredCodeLength, state.MaxCodeLength))
+                    );
                     break;
                 case NukeStatus.AWAIT_ARM:
                     firstMsg = Loc.GetString("nuke-user-interface-first-status-device-ready");
-                    secondMsg = Loc.GetString("nuke-user-interface-second-status-time",
-                        ("time", state.RemainingTime));
+                    secondMsg = Loc.GetString("nuke-user-interface-second-status-time", ("time", state.RemainingTime));
                     break;
                 case NukeStatus.ARMED:
                     firstMsg = Loc.GetString("nuke-user-interface-first-status-device-armed");
-                    secondMsg = Loc.GetString("nuke-user-interface-second-status-time",
-                        ("time", state.RemainingTime));
+                    secondMsg = Loc.GetString("nuke-user-interface-second-status-time", ("time", state.RemainingTime));
                     ArmButton.Text = Loc.GetString("nuke-user-interface-disarm-button");
                     break;
                 case NukeStatus.COOLDOWN:
                     firstMsg = Loc.GetString("nuke-user-interface-first-status-device-cooldown");
-                    secondMsg = Loc.GetString("nuke-user-interface-second-status-cooldown-time",
-                        ("time", state.CooldownTime));
+                    secondMsg = Loc.GetString(
+                        "nuke-user-interface-second-status-cooldown-time",
+                        ("time", state.CooldownTime)
+                    );
                     break;
                 default:
                     // shouldn't normally be here

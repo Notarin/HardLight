@@ -1,3 +1,5 @@
+using Content.Server._NF.GameTicking.Rules.Components; // Frontier
+using Content.Server._NF.Pirate.Components; // Frontier
 using Content.Server.Administration.Commands;
 using Content.Server.Antag;
 using Content.Server.GameTicking;
@@ -12,16 +14,19 @@ using Content.Shared.Verbs;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
-using Content.Server._NF.GameTicking.Rules.Components; // Frontier
-using Content.Server._NF.Pirate.Components; // Frontier
 
 namespace Content.Server.Administration.Systems;
 
 public sealed partial class AdminVerbSystem
 {
-    [Dependency] private readonly AntagSelectionSystem _antag = default!;
-    [Dependency] private readonly ZombieSystem _zombie = default!;
-    [Dependency] private readonly GameTicker _gameTicker = default!;
+    [Dependency]
+    private readonly AntagSelectionSystem _antag = default!;
+
+    [Dependency]
+    private readonly ZombieSystem _zombie = default!;
+
+    [Dependency]
+    private readonly GameTicker _gameTicker = default!;
 
     private static readonly EntProtoId DefaultTraitorRule = "Traitor";
 
@@ -65,7 +70,7 @@ public sealed partial class AdminVerbSystem
                 _antag.ForceMakeAntag<TraitorRuleComponent>(targetPlayer, DefaultTraitorRule);
             },
             Impact = LogImpact.High,
-            Message = string.Join(": ", traitorName,  Loc.GetString("admin-verb-make-traitor")),
+            Message = string.Join(": ", traitorName, Loc.GetString("admin-verb-make-traitor")),
         };
         args.Verbs.Add(traitor);
 

@@ -8,7 +8,8 @@ namespace Content.Shared.Gravity;
 /// </summary>
 public abstract class SharedFloatingVisualizerSystem : EntitySystem
 {
-    [Dependency] private readonly SharedGravitySystem GravitySystem = default!;
+    [Dependency]
+    private readonly SharedGravitySystem GravitySystem = default!;
 
     public override void Initialize()
     {
@@ -22,7 +23,13 @@ public abstract class SharedFloatingVisualizerSystem : EntitySystem
     /// <summary>
     /// Offsets a sprite with a linear interpolation animation
     /// </summary>
-    public virtual void FloatAnimation(EntityUid uid, Vector2 offset, string animationKey, float animationTime, bool stop = false) { }
+    public virtual void FloatAnimation(
+        EntityUid uid,
+        Vector2 offset,
+        string animationKey,
+        float animationTime,
+        bool stop = false
+    ) { }
 
     protected bool CanFloat(EntityUid uid, FloatingVisualsComponent component, TransformComponent? transform = null)
     {

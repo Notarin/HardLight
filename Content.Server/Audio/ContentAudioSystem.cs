@@ -15,9 +15,14 @@ public sealed class ContentAudioSystem : SharedContentAudioSystem
 {
     private static readonly ProtoId<SoundCollectionPrototype> LobbyMusicCollection = new("NFLobbyMusic"); // Frontier: LobbyMusic<NFLobbyMusic
 
-    [Dependency] private readonly AudioSystem _serverAudio = default!;
-    [Dependency] private readonly IRobustRandom _robustRandom = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+    [Dependency]
+    private readonly AudioSystem _serverAudio = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _robustRandom = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
 
     private SoundCollectionPrototype _lobbyMusicCollection = default!;
     private string[]? _lobbyPlaylist;
@@ -75,11 +80,9 @@ public sealed class ContentAudioSystem : SharedContentAudioSystem
 
     private string[] ShuffleLobbyPlaylist()
     {
-        var playlist = _lobbyMusicCollection.PickFiles
-                                            .Select(x => x.ToString())
-                                            .ToArray();
-         _robustRandom.Shuffle(playlist);
+        var playlist = _lobbyMusicCollection.PickFiles.Select(x => x.ToString()).ToArray();
+        _robustRandom.Shuffle(playlist);
 
-         return playlist;
+        return playlist;
     }
 }

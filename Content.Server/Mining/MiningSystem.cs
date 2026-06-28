@@ -14,9 +14,14 @@ namespace Content.Server.Mining;
 /// </summary>
 public sealed class MiningSystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SpawnCountSystem _spawnCount = default!; // Mono edit - ore consolidation
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly SpawnCountSystem _spawnCount = default!; // Mono edit - ore consolidation
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -44,13 +49,18 @@ public sealed class MiningSystem : EntitySystem
         var coords = Transform(uid).Coordinates;
 
         // Mono edit start - ore consolidation
-        var yield = _random.Next(proto.MinOreYield, proto.MaxOreYield+1);
+        var yield = _random.Next(proto.MinOreYield, proto.MaxOreYield + 1);
         _spawnCount.SpawnCount(proto.OreEntity.Value, coords.Offset(_random.NextVector2(0.2f)), yield);
         // Mono edit end
     }
+
     private void OnMapInit(EntityUid uid, OreVeinComponent component, MapInitEvent args)
     {
-        if (component.CurrentOre != null || component.OreRarityPrototypeId == null || !_random.Prob(component.OreChance))
+        if (
+            component.CurrentOre != null
+            || component.OreRarityPrototypeId == null
+            || !_random.Prob(component.OreChance)
+        )
             return;
 
         component.CurrentOre = _proto.Index<WeightedRandomOrePrototype>(component.OreRarityPrototypeId).Pick(_random);

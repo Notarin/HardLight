@@ -6,17 +6,17 @@
   components:
   - type: StorageFill
     contents:
-      - id: ExosuitFabricatorFlatpack
-      - id: MachineAnomalyVesselFlatpack
-      - id: CircuitImprinterFlatpack
-      - id: BlueprintLithographFlatpack
-      - id: ResearchAndDevelopmentServerFlatpack
-      - id: ComputerResearchAndDevelopmentFlatpack
-      - id: MachineArtifactAnalyzerFlatpack
-      - id: AutolatheFlatpack
-      - id: ProtolatheFlatpack
-      - id: ComputerAnalysisConsoleFlatpack
-      - id: MachineAPEFlatpack
-      - id: AnomalyScanner
-      - id: NodeScanner
-      - id: Multitool
+    - id: ExosuitFabricatorFlatpack
+    - id: MachineAnomalyVesselFlatpack
+    - id: CircuitImprinterFlatpack
+    - id: BlueprintLithographFlatpack
+    - id: ResearchAndDevelopmentServerFlatpack
+    - id: ComputerResearchAndDevelopmentFlatpack
+    - id: MachineArtifactAnalyzerFlatpack
+    - id: AutolatheFlatpack
+    - id: ProtolatheFlatpack
+    - id: ComputerAnalysisConsoleFlatpack
+    - id: MachineAPEFlatpack
+    - id: AnomalyScanner
+    - id: NodeScanner
+    - id: Multitool

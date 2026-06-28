@@ -16,8 +16,11 @@ namespace Content.Shared.Tag;
 /// </summary>
 public sealed class TagSystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IEntityManager _entityManager = default!;
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private readonly IEntityManager _entityManager = default!;
 
     private EntityQuery<TagComponent> _tagQuery;
 
@@ -96,8 +99,7 @@ public sealed class TagSystem : EntitySystem
     /// </exception>
     public bool TryAddTag(EntityUid entityUid, [ForbidLiteral] ProtoId<TagPrototype> tag)
     {
-        return _tagQuery.TryComp(entityUid, out var component) &&
-               AddTag((entityUid, component), tag);
+        return _tagQuery.TryComp(entityUid, out var component) && AddTag((entityUid, component), tag);
     }
 
     /// <summary>
@@ -127,8 +129,7 @@ public sealed class TagSystem : EntitySystem
     /// </exception>
     public bool TryAddTags(EntityUid entityUid, [ForbidLiteral] IEnumerable<ProtoId<TagPrototype>> tags)
     {
-        return _tagQuery.TryComp(entityUid, out var component) &&
-               AddTags((entityUid, component), tags);
+        return _tagQuery.TryComp(entityUid, out var component) && AddTags((entityUid, component), tags);
     }
 
     /// <summary>
@@ -142,8 +143,7 @@ public sealed class TagSystem : EntitySystem
     /// </exception>
     public bool HasTag(EntityUid entityUid, [ForbidLiteral] ProtoId<TagPrototype> tag)
     {
-        return _tagQuery.TryComp(entityUid, out var component) &&
-               HasTag(component, tag);
+        return _tagQuery.TryComp(entityUid, out var component) && HasTag(component, tag);
     }
 
     /// <summary>
@@ -155,8 +155,7 @@ public sealed class TagSystem : EntitySystem
     /// <exception cref="UnknownPrototypeException">
     /// Thrown if no <see cref="TagPrototype"/> exists with the given id.
     /// </exception>
-    public bool HasAllTags(EntityUid entityUid, ProtoId<TagPrototype> tag) =>
-        HasTag(entityUid, tag);
+    public bool HasAllTags(EntityUid entityUid, ProtoId<TagPrototype> tag) => HasTag(entityUid, tag);
 
     /// <summary>
     /// Checks if all of the given tags have been added to an entity.
@@ -169,8 +168,7 @@ public sealed class TagSystem : EntitySystem
     /// </exception>
     public bool HasAllTags(EntityUid entityUid, [ForbidLiteral] params ProtoId<TagPrototype>[] tags)
     {
-        return _tagQuery.TryComp(entityUid, out var component) &&
-               HasAllTags(component, tags);
+        return _tagQuery.TryComp(entityUid, out var component) && HasAllTags(component, tags);
     }
 
     /// <summary>
@@ -184,8 +182,7 @@ public sealed class TagSystem : EntitySystem
     /// </exception>
     public bool HasAllTags(EntityUid entityUid, [ForbidLiteral] HashSet<ProtoId<TagPrototype>> tags)
     {
-        return _tagQuery.TryComp(entityUid, out var component) &&
-               HasAllTags(component, tags);
+        return _tagQuery.TryComp(entityUid, out var component) && HasAllTags(component, tags);
     }
 
     /// <summary>
@@ -199,8 +196,7 @@ public sealed class TagSystem : EntitySystem
     /// </exception>
     public bool HasAllTags(EntityUid entityUid, [ForbidLiteral] List<ProtoId<TagPrototype>> tags)
     {
-        return _tagQuery.TryComp(entityUid, out var component) &&
-               HasAllTags(component, tags);
+        return _tagQuery.TryComp(entityUid, out var component) && HasAllTags(component, tags);
     }
 
     /// <summary>
@@ -214,8 +210,7 @@ public sealed class TagSystem : EntitySystem
     /// </exception>
     public bool HasAllTags(EntityUid entityUid, [ForbidLiteral] IEnumerable<ProtoId<TagPrototype>> tags)
     {
-        return _tagQuery.TryComp(entityUid, out var component) &&
-               HasAllTags(component, tags);
+        return _tagQuery.TryComp(entityUid, out var component) && HasAllTags(component, tags);
     }
 
     /// <summary>
@@ -227,8 +222,7 @@ public sealed class TagSystem : EntitySystem
     /// <exception cref="UnknownPrototypeException">
     /// Thrown if no <see cref="TagPrototype"/> exists with the given id.
     /// </exception>
-    public bool HasAnyTag(EntityUid entityUid, [ForbidLiteral] ProtoId<TagPrototype> tag) =>
-        HasTag(entityUid, tag);
+    public bool HasAnyTag(EntityUid entityUid, [ForbidLiteral] ProtoId<TagPrototype> tag) => HasTag(entityUid, tag);
 
     /// <summary>
     /// Checks if any of the given tags have been added to an entity.
@@ -241,8 +235,7 @@ public sealed class TagSystem : EntitySystem
     /// </exception>
     public bool HasAnyTag(EntityUid entityUid, [ForbidLiteral] params ProtoId<TagPrototype>[] tags)
     {
-         return _entityManager.TryGetComponent(entityUid, out TagComponent? component) &&
-               HasAnyTag(component, tags);
+        return _entityManager.TryGetComponent(entityUid, out TagComponent? component) && HasAnyTag(component, tags);
     }
 
     /// <summary>
@@ -256,8 +249,7 @@ public sealed class TagSystem : EntitySystem
     /// </exception>
     public bool HasAnyTag(EntityUid entityUid, [ForbidLiteral] HashSet<ProtoId<TagPrototype>> tags)
     {
-        return _tagQuery.TryComp(entityUid, out var component) &&
-               HasAnyTag(component, tags);
+        return _tagQuery.TryComp(entityUid, out var component) && HasAnyTag(component, tags);
     }
 
     /// <summary>
@@ -271,8 +263,7 @@ public sealed class TagSystem : EntitySystem
     /// </exception>
     public bool HasAnyTag(EntityUid entityUid, [ForbidLiteral] List<ProtoId<TagPrototype>> tags)
     {
-        return _tagQuery.TryComp(entityUid, out var component) &&
-               HasAnyTag(component, tags);
+        return _tagQuery.TryComp(entityUid, out var component) && HasAnyTag(component, tags);
     }
 
     /// <summary>
@@ -286,8 +277,7 @@ public sealed class TagSystem : EntitySystem
     /// </exception>
     public bool HasAnyTag(EntityUid entityUid, [ForbidLiteral] IEnumerable<ProtoId<TagPrototype>> tags)
     {
-        return _tagQuery.TryComp(entityUid, out var component) &&
-               HasAnyTag(component, tags);
+        return _tagQuery.TryComp(entityUid, out var component) && HasAnyTag(component, tags);
     }
 
     /// <summary>
@@ -316,8 +306,7 @@ public sealed class TagSystem : EntitySystem
     /// <exception cref="UnknownPrototypeException">
     /// Thrown if no <see cref="TagPrototype"/> exists with the given id.
     /// </exception>
-    public bool HasAllTags(TagComponent component, [ForbidLiteral] ProtoId<TagPrototype> tag) =>
-        HasTag(component, tag);
+    public bool HasAllTags(TagComponent component, [ForbidLiteral] ProtoId<TagPrototype> tag) => HasTag(component, tag);
 
     /// <summary>
     /// Checks if all of the given tags have been added to an component.
@@ -443,8 +432,7 @@ public sealed class TagSystem : EntitySystem
     /// <exception cref="UnknownPrototypeException">
     /// Thrown if no <see cref="TagPrototype"/> exists with the given id.
     /// </exception>
-    public bool HasAnyTag(TagComponent component, [ForbidLiteral] ProtoId<TagPrototype> tag) =>
-        HasTag(component, tag);
+    public bool HasAnyTag(TagComponent component, [ForbidLiteral] ProtoId<TagPrototype> tag) => HasTag(component, tag);
 
     /// <summary>
     /// Checks if any of the given tags have been added to an component.
@@ -549,8 +537,7 @@ public sealed class TagSystem : EntitySystem
     /// </exception>
     public bool RemoveTag(EntityUid entityUid, [ForbidLiteral] ProtoId<TagPrototype> tag)
     {
-        return _tagQuery.TryComp(entityUid, out var component) &&
-               RemoveTag((entityUid, component), tag);
+        return _tagQuery.TryComp(entityUid, out var component) && RemoveTag((entityUid, component), tag);
     }
 
     /// <summary>
@@ -578,8 +565,7 @@ public sealed class TagSystem : EntitySystem
     /// </exception>
     public bool RemoveTags(EntityUid entityUid, [ForbidLiteral] IEnumerable<ProtoId<TagPrototype>> tags)
     {
-        return _tagQuery.TryComp(entityUid, out var component) &&
-               RemoveTags((entityUid, component), tags);
+        return _tagQuery.TryComp(entityUid, out var component) && RemoveTags((entityUid, component), tags);
     }
 
     /// <summary>

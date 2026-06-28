@@ -73,7 +73,6 @@
   - MystiCanine
   entity: PlayerBorgQuadMoss
 
-
 - type: spawnCharacterOverrideRule
   id: Quadvizonspawn
   match: VexonOrkali
@@ -127,7 +126,7 @@
   logins:
   - xiv3n
   entity: PlayerBorgQuadxiv3n
-  
+
 - type: spawnCharacterOverrideRule
   id: spiderspawn
   match: Spoder
@@ -136,7 +135,7 @@
   logins:
   - Taffel
   entity: Spoder
-  
+
 - type: spawnCharacterOverrideRule
   id: LittleHelperspawn
   match: Little Helper
@@ -166,8 +165,8 @@
   components:
   - type: DamagedByFlashing
     flashDamage:
-        types:
-           Heat: 120
+      types:
+        Heat: 120
   - type: BloodSolutionModifier
     solution:
       reagents:

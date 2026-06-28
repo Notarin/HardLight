@@ -8,7 +8,8 @@ namespace Content.Client.Nutrition.EntitySystems;
 /// </summary>
 public sealed class InfantSystem : EntitySystem
 {
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     /// <inheritdoc/>
     public override void Initialize()

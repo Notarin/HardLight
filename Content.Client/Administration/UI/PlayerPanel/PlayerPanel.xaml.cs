@@ -57,7 +57,7 @@ public sealed partial class PlayerPanel : FancyWindow
         DeleteButton.OnPressed += _ => OnDelete?.Invoke();
         RejuvenateButton.OnPressed += _ => OnRejuvenate?.Invoke();
 
-            JobWhitelistsButton.OnPressed += _ => OnOpenJobWhitelists?.Invoke(TargetPlayer); // DeltaV: Job whitelists
+        JobWhitelistsButton.OnPressed += _ => OnOpenJobWhitelists?.Invoke(TargetPlayer); // DeltaV: Job whitelists
     }
 
     public void SetUsername(string player)
@@ -76,7 +76,9 @@ public sealed partial class PlayerPanel : FancyWindow
         else
         {
             Whitelisted.Text = Loc.GetString("player-panel-whitelisted");
-            WhitelistToggle.Text = whitelisted.Value ? Loc.GetString("player-panel-true") : Loc.GetString("player-panel-false");
+            WhitelistToggle.Text = whitelisted.Value
+                ? Loc.GetString("player-panel-true")
+                : Loc.GetString("player-panel-false");
             WhitelistToggle.Visible = true;
             _isWhitelisted = whitelisted.Value;
         }
@@ -89,7 +91,8 @@ public sealed partial class PlayerPanel : FancyWindow
 
         Bans.Text = totalBans != null ? Loc.GetString("player-panel-bans", ("totalBans", totalBans)) : null;
 
-        RoleBans.Text = totalRoleBans != null ? Loc.GetString("player-panel-rolebans", ("totalRoleBans", totalRoleBans)) : null;
+        RoleBans.Text =
+            totalRoleBans != null ? Loc.GetString("player-panel-rolebans", ("totalRoleBans", totalRoleBans)) : null;
     }
 
     public void SetNotes(int? totalNotes)
@@ -99,15 +102,20 @@ public sealed partial class PlayerPanel : FancyWindow
 
     public void SetSharedConnections(int sharedConnections)
     {
-        SharedConnections.Text = Loc.GetString("player-panel-shared-connections", ("sharedConnections", sharedConnections));
+        SharedConnections.Text = Loc.GetString(
+            "player-panel-shared-connections",
+            ("sharedConnections", sharedConnections)
+        );
     }
 
     public void SetPlaytime(TimeSpan playtime)
     {
-        Playtime.Text = Loc.GetString("player-panel-playtime",
+        Playtime.Text = Loc.GetString(
+            "player-panel-playtime",
             ("days", playtime.Days),
             ("hours", playtime.Hours % 24),
-            ("minutes", playtime.Minutes % (24 * 60)));
+            ("minutes", playtime.Minutes % (24 * 60))
+        );
     }
 
     public void SetFrozen(bool canFreeze, bool frozen)
@@ -115,7 +123,9 @@ public sealed partial class PlayerPanel : FancyWindow
         FreezeAndMuteToggleButton.Disabled = !canFreeze;
         FreezeButton.Disabled = !canFreeze || frozen;
 
-        FreezeAndMuteToggleButton.Text = Loc.GetString(!frozen ? "player-panel-freeze-and-mute" : "player-panel-unfreeze");
+        FreezeAndMuteToggleButton.Text = Loc.GetString(
+            !frozen ? "player-panel-freeze-and-mute" : "player-panel-unfreeze"
+        );
     }
 
     public void SetAhelp(bool canAhelp)
@@ -130,8 +140,9 @@ public sealed partial class PlayerPanel : FancyWindow
         CameraButton.Disabled = !_adminManager.CanCommand("camera");
         NotesButton.Disabled = !_adminManager.CanCommand("adminnotes");
         ShowBansButton.Disabled = !_adminManager.CanCommand("banlist");
-        WhitelistToggle.Disabled =
-            !(_adminManager.CanCommand("whitelistadd") && _adminManager.CanCommand("whitelistremove"));
+        WhitelistToggle.Disabled = !(
+            _adminManager.CanCommand("whitelistadd") && _adminManager.CanCommand("whitelistremove")
+        );
         LogsButton.Disabled = !_adminManager.CanCommand("adminlogs");
         RejuvenateButton.Disabled = !_adminManager.HasFlag(AdminFlags.Debug);
         DeleteButton.Disabled = !_adminManager.HasFlag(AdminFlags.Debug);

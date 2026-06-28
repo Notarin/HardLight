@@ -34,29 +34,32 @@ namespace Content.Client.Cargo.UI
 
             foreach (var order in orders)
             {
-                 var product = protoManager.Index<EntityPrototype>(order.ProductId);
-                 var productName = product.Name;
+                var product = protoManager.Index<EntityPrototype>(order.ProductId);
+                var productName = product.Name;
 
-                 var row = new CargoOrderRow
-                 {
-                     Order = order,
-                     Icon = { Texture = sprites.Frame0(product) },
-                     ProductName =
-                     {
-                         Text = Loc.GetString(
-                             "cargo-console-menu-populate-orders-cargo-order-row-product-name-text",
-                             ("productName", productName),
-                             ("orderAmount", order.OrderQuantity - order.NumDispatched),
-                             ("orderRequester", order.Requester))
-                     },
-                     Description = {Text = Loc.GetString("cargo-console-menu-order-reason-description",
-                         ("reason", order.Reason))}
-                 };
+                var row = new CargoOrderRow
+                {
+                    Order = order,
+                    Icon = { Texture = sprites.Frame0(product) },
+                    ProductName =
+                    {
+                        Text = Loc.GetString(
+                            "cargo-console-menu-populate-orders-cargo-order-row-product-name-text",
+                            ("productName", productName),
+                            ("orderAmount", order.OrderQuantity - order.NumDispatched),
+                            ("orderRequester", order.Requester)
+                        ),
+                    },
+                    Description =
+                    {
+                        Text = Loc.GetString("cargo-console-menu-order-reason-description", ("reason", order.Reason)),
+                    },
+                };
 
-                 row.Approve.Visible = false;
-                 row.Cancel.Visible = false;
+                row.Approve.Visible = false;
+                row.Cancel.Visible = false;
 
-                 Orders.AddChild(row);
+                Orders.AddChild(row);
             }
         }
     }

@@ -32,11 +32,10 @@
     Bocakillo:
       stationProto: StandardFrontierAntagVessel
       components:
-        - type: StationNameSetup
-          mapNameTemplate: 'Bocadillo {1}' #Sneaky spoofed name
-          nameGenerator:
-            !type:NanotrasenNameGenerator
-            prefixCreator: '14'
-        - type: StationJobs
-          availableJobs:
-            NFPirate: [ 0, 0 ]
+      - type: StationNameSetup
+        mapNameTemplate: 'Bocadillo {1}' #Sneaky spoofed name
+        nameGenerator: !type:NanotrasenNameGenerator
+          prefixCreator: '14'
+      - type: StationJobs
+        availableJobs:
+          NFPirate: [0, 0]

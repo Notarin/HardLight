@@ -76,20 +76,27 @@ namespace Content.Client.Administration.UI.Bwoink
 
             var window = new TriageInfoWindow("Spawn Item Next To Player");
             window.AddMarkup(
-                $"Spawn [color=goldenrod]{FormattedMessage.EscapeText(displayName)}[/color] " +
-                $"([color=lightgray]{FormattedMessage.EscapeText(prototypeId)}[/color]) on a floor tile next to " +
-                $"[color=white]{FormattedMessage.EscapeText(target.ToString())}[/color]?");
-            window.AddActionButton("Spawn Item", () =>
-            {
-                var bwoink = IoCManager.Resolve<IEntityManager>().System<BwoinkSystem>();
-                bwoink.RequestSpawnAhelpItemNearPlayer(target, prototypeId);
-            }, closeOnPressed: true);
+                $"Spawn [color=goldenrod]{FormattedMessage.EscapeText(displayName)}[/color] "
+                    + $"([color=lightgray]{FormattedMessage.EscapeText(prototypeId)}[/color]) on a floor tile next to "
+                    + $"[color=white]{FormattedMessage.EscapeText(target.ToString())}[/color]?"
+            );
+            window.AddActionButton(
+                "Spawn Item",
+                () =>
+                {
+                    var bwoink = IoCManager.Resolve<IEntityManager>().System<BwoinkSystem>();
+                    bwoink.RequestSpawnAhelpItemNearPlayer(target, prototypeId);
+                },
+                closeOnPressed: true
+            );
             window.OpenCentered();
         }
 
         internal static string ResolveDisplayName(string prototypeId, IPrototypeManager protoMan)
         {
-            if (protoMan.TryIndex<EntityPrototype>(prototypeId, out var proto) && !string.IsNullOrWhiteSpace(proto.Name))
+            if (
+                protoMan.TryIndex<EntityPrototype>(prototypeId, out var proto) && !string.IsNullOrWhiteSpace(proto.Name)
+            )
                 return proto.Name;
             return prototypeId;
         }
@@ -148,10 +155,7 @@ namespace Content.Client.Administration.UI.Bwoink
                     ClipText = true,
                 };
 
-                var spawnButton = new Button
-                {
-                    Text = "Spawn",
-                };
+                var spawnButton = new Button { Text = "Spawn" };
 
                 var prototypeId = row.Id;
                 spawnButton.OnPressed += _ =>
@@ -176,10 +180,7 @@ namespace Content.Client.Administration.UI.Bwoink
             };
             scroll.AddChild(list);
 
-            var header = new Label
-            {
-                Text = $"Pick an item to spawn next to {target}:",
-            };
+            var header = new Label { Text = $"Pick an item to spawn next to {target}:" };
 
             var closeButton = new Button { Text = "Close", HorizontalAlignment = Control.HAlignment.Right };
             closeButton.OnPressed += _ => Close();

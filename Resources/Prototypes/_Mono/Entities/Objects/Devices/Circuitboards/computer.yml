@@ -15,10 +15,10 @@
   name: gunnery control computer board
   description: A computer printed circuit board for a gunnery control computer.
   components:
-    - type: Sprite
-      state: cpu_command
-    - type: ComputerBoard
-      prototype: ComputerGunneryConsole
+  - type: Sprite
+    state: cpu_command
+  - type: ComputerBoard
+    prototype: ComputerGunneryConsole
 
 - type: entity
   parent: StationAiUploadCircuitboard
@@ -26,5 +26,5 @@
   suffix: Unlocked
   description: A computer printed circuit board for a AI upload console.
   components:
-    - type: ComputerBoard
-      prototype: StationAiUploadComputerUnlocked
+  - type: ComputerBoard
+    prototype: StationAiUploadComputerUnlocked

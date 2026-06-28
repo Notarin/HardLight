@@ -15,9 +15,14 @@ namespace Content.Server.NPC.Systems;
 
 public sealed partial class NPCCombatSystem
 {
-    [Dependency] private readonly SharedCombatModeSystem _combat = default!;
-    [Dependency] private readonly RotateToFaceSystem _rotate = default!;
-    [Dependency] private readonly DestructibleSystem _destructible = default!; // VRS (Triad #3732)
+    [Dependency]
+    private readonly SharedCombatModeSystem _combat = default!;
+
+    [Dependency]
+    private readonly RotateToFaceSystem _rotate = default!;
+
+    [Dependency]
+    private readonly DestructibleSystem _destructible = default!; // VRS (Triad #3732)
 
     private EntityQuery<CombatModeComponent> _combatQuery;
     private EntityQuery<NPCSteeringComponent> _steeringQuery;
@@ -85,8 +90,10 @@ public sealed partial class NPCCombatSystem
                 continue;
             }
 
-            if (!_xformQuery.TryGetComponent(comp.Target, out var targetXform) ||
-                !_physicsQuery.TryGetComponent(comp.Target, out var targetBody))
+            if (
+                !_xformQuery.TryGetComponent(comp.Target, out var targetXform)
+                || !_physicsQuery.TryGetComponent(comp.Target, out var targetBody)
+            )
             {
                 comp.Status = CombatStatus.TargetUnreachable;
                 comp.ShootAccumulator = 0f;
@@ -132,7 +139,7 @@ public sealed partial class NPCCombatSystem
 
             var worldPos = _transform.GetWorldPosition(xform);
             var targetPos = _transform.GetWorldPosition(targetXform);
-            
+
             // Frontier -- Ranged NPC miss chance
             if (_random.Prob(comp.MissChance))
             {
@@ -158,9 +165,18 @@ public sealed partial class NPCCombatSystem
                 comp.LOSAccumulator += UnoccludedCooldown;
 
                 // For consistency with NPC steering.
-                var obstructedMask = comp.UseOpaqueForLOSChecks ? CollisionGroup.Opaque : (CollisionGroup.Impassable | CollisionGroup.InteractImpassable);
+                var obstructedMask = comp.UseOpaqueForLOSChecks
+                    ? CollisionGroup.Opaque
+                    : (CollisionGroup.Impassable | CollisionGroup.InteractImpassable);
                 // VRS (Triad #3732): use InRangeGoodTarget to allow shooting through destroyable obstacles
-                comp.TargetInLOS = InRangeGoodTarget((gunUid, gun), uid, comp.Target, distance, comp.ShotsThreshold, obstructedMask);
+                comp.TargetInLOS = InRangeGoodTarget(
+                    (gunUid, gun),
+                    uid,
+                    comp.Target,
+                    distance,
+                    comp.ShotsThreshold,
+                    obstructedMask
+                );
             }
 
             if (!comp.TargetInLOS)
@@ -195,7 +211,16 @@ public sealed partial class NPCCombatSystem
             var goalRotation = (targetSpot - worldPos).ToWorldAngle();
             var rotationSpeed = comp.RotationSpeed;
 
-            if (!_rotate.TryRotateTo(uid, goalRotation, frameTime, comp.AccuracyThreshold, rotationSpeed?.Theta ?? double.MaxValue, xform))
+            if (
+                !_rotate.TryRotateTo(
+                    uid,
+                    goalRotation,
+                    frameTime,
+                    comp.AccuracyThreshold,
+                    rotationSpeed?.Theta ?? double.MaxValue,
+                    xform
+                )
+            )
             {
                 continue;
             }
@@ -235,7 +260,15 @@ public sealed partial class NPCCombatSystem
     }
 
     // VRS (Triad #3732)
-    public bool InRangeGoodTarget(Entity<GunComponent?> gun, EntityUid source, EntityUid target, float distance, float shotsThreshold, CollisionGroup obstructedMask = CollisionGroup.Opaque, CollisionGroup bulletMask = CollisionGroup.Impassable | CollisionGroup.BulletImpassable)
+    public bool InRangeGoodTarget(
+        Entity<GunComponent?> gun,
+        EntityUid source,
+        EntityUid target,
+        float distance,
+        float shotsThreshold,
+        CollisionGroup obstructedMask = CollisionGroup.Opaque,
+        CollisionGroup bulletMask = CollisionGroup.Impassable | CollisionGroup.BulletImpassable
+    )
     {
         if (!Resolve(gun, ref gun.Comp, false))
             return false;
@@ -245,9 +278,15 @@ public sealed partial class NPCCombatSystem
         var firerate = gun.Comp.FireRateModified;
         var threshold = shotsThreshold;
         // For consistency with NPC steering.
-        return _interaction.InRangeUnobstructed(source, target, distance + 0.1f, obstructedMask,
-            predicate: (EntityUid uid) => {
-                if (_physicsQuery.TryGetComponent(uid, out var physics)
+        return _interaction.InRangeUnobstructed(
+            source,
+            target,
+            distance + 0.1f,
+            obstructedMask,
+            predicate: (EntityUid uid) =>
+            {
+                if (
+                    _physicsQuery.TryGetComponent(uid, out var physics)
                     && (physics.CollisionLayer & (int)bulletMask) == 0
                 ) // this will collide with the bullet
                     return true;
@@ -256,14 +295,14 @@ public sealed partial class NPCCombatSystem
                     return true;
 
                 // do not consider living things for shoot-through
-                if (!_factionQuery.HasComp(uid)
-                    && _destructible.TryGetDestroyedAt(uid, out var at))
+                if (!_factionQuery.HasComp(uid) && _destructible.TryGetDestroyedAt(uid, out var at))
                 {
                     destroyAccum += at.Value.Float() / dmg / firerate;
                     if (destroyAccum < threshold)
                         return true;
                 }
                 return false;
-            });
+            }
+        );
     }
 }

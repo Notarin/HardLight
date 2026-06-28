@@ -7,10 +7,10 @@
   - type: Sprite
     sprite: Structures/Decoration/decorated_fir_tree.rsi
     layers:
-      - state: base
-      - state: balls
-      - state: lights
-        shader: unshaded
+    - state: base
+    - state: balls
+    - state: lights
+      shader: unshaded
   - type: PointLight
     radius: 1.6
     energy: 1.2
@@ -23,20 +23,18 @@
     damageModifierSet: Wood
   - type: Destructible
     thresholds:
-      - trigger:
-          !type:DamageTrigger
-          damage: 400
-        behaviors:
-          - !type:DoActsBehavior
-            acts: [ "Destruction" ]
-      - trigger:
-          !type:DamageTrigger
-          damage: 75
-        behaviors:
-          - !type:DoActsBehavior
-            acts: [ "Destruction" ]
-          - !type:SpawnEntitiesBehavior
-            spawn:
-              Log:
-                min: 2
-                max: 8
+    - trigger: !type:DamageTrigger
+        damage: 400
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
+        damage: 75
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          Log:
+            min: 2
+            max: 8

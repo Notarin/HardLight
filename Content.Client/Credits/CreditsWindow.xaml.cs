@@ -25,11 +25,20 @@ namespace Content.Client.Credits;
 [GenerateTypedNameReferences]
 public sealed partial class CreditsWindow : DefaultWindow
 {
-    [Dependency] private readonly IResourceManager _resourceManager = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly ISerializationManager _serialization = default!;
-    [Dependency] private readonly IPrototypeManager _protoManager = default!;
-    [Dependency] private readonly ILocalizationManager _loc = default!;
+    [Dependency]
+    private readonly IResourceManager _resourceManager = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
+
+    [Dependency]
+    private readonly ISerializationManager _serialization = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _protoManager = default!;
+
+    [Dependency]
+    private readonly ILocalizationManager _loc = default!;
 
     private static readonly Dictionary<string, int> PatronTierPriority = new()
     {
@@ -101,12 +110,12 @@ public sealed partial class CreditsWindow : DefaultWindow
         var container = new BoxContainer { Orientation = LayoutOrientation.Horizontal };
 
         var previousPageButton = new Button { Text = "Previous Page" };
-        previousPageButton.OnPressed +=
-            _ => PopulateAttributions(attributionsContainer, count - AttributionsSourcesPerPage);
+        previousPageButton.OnPressed += _ =>
+            PopulateAttributions(attributionsContainer, count - AttributionsSourcesPerPage);
 
         var nextPageButton = new Button { Text = "Next Page" };
-        nextPageButton.OnPressed +=
-            _ => PopulateAttributions(attributionsContainer, count + AttributionsSourcesPerPage);
+        nextPageButton.OnPressed += _ =>
+            PopulateAttributions(attributionsContainer, count + AttributionsSourcesPerPage);
 
         if (count - AttributionsSourcesPerPage >= 0)
             container.AddChild(previousPageButton);
@@ -120,7 +129,8 @@ public sealed partial class CreditsWindow : DefaultWindow
     {
         return Task.Run(() =>
         {
-            var rsiStreams = _resourceManager.ContentFindFiles("/Textures/")
+            var rsiStreams = _resourceManager
+                .ContentFindFiles("/Textures/")
                 .Where(p => p.ToString().EndsWith(".rsi/meta.json"));
 
             var attrs = new List<FormattedMessage>();
@@ -147,7 +157,10 @@ public sealed partial class CreditsWindow : DefaultWindow
 
                     var copyright = copyrightNode.ToString();
                     // Frontier: handle copyright lists
-                    if (map.TryGet("extra_copyright", out var extraCopyrightNode) && extraCopyrightNode is SequenceDataNode copyrightSequence)
+                    if (
+                        map.TryGet("extra_copyright", out var extraCopyrightNode)
+                        && extraCopyrightNode is SequenceDataNode copyrightSequence
+                    )
                     {
                         foreach (var value in copyrightSequence)
                         {
@@ -157,17 +170,22 @@ public sealed partial class CreditsWindow : DefaultWindow
                         }
                     }
                     // End Frontier
-                    var files = states.Select(n => (MappingDataNode)n)
-                        .Select(n => n.Get("name") + ".png");
+                    var files = states.Select(n => (MappingDataNode)n).Select(n => n.Get("name") + ".png");
 
-                    m.AddMarkupPermissive(_loc.GetString("credits-window-attributions-directory",
-                        ("directory", stream.Directory.ToString())));
+                    m.AddMarkupPermissive(
+                        _loc.GetString(
+                            "credits-window-attributions-directory",
+                            ("directory", stream.Directory.ToString())
+                        )
+                    );
                     m.AddText("\n");
-                    m.AddMarkupPermissive(_loc.GetString("credits-window-attributions-files",
-                        ("files", string.Join(", ", files))));
+                    m.AddMarkupPermissive(
+                        _loc.GetString("credits-window-attributions-files", ("files", string.Join(", ", files)))
+                    );
                     m.AddText("\n");
-                    m.AddMarkupPermissive(_loc.GetString("credits-window-attributions-copyright",
-                        ("copyright", copyright)));
+                    m.AddMarkupPermissive(
+                        _loc.GetString("credits-window-attributions-copyright", ("copyright", copyright))
+                    );
                     m.AddText("\n");
 
                     attrs.Add(m);
@@ -175,8 +193,9 @@ public sealed partial class CreditsWindow : DefaultWindow
                 catch (Exception e)
                 {
                     var m = new FormattedMessage();
-                    m.AddMarkupPermissive(_loc.GetString("credits-window-attributions-failed",
-                        ("file", stream.ToString())));
+                    m.AddMarkupPermissive(
+                        _loc.GetString("credits-window-attributions-failed", ("file", stream.ToString()))
+                    );
                     m.AddText("\n");
                     _sawmill.Error($"{stream.ToString()}\n{e}");
                     attrs.Add(m);
@@ -191,8 +210,7 @@ public sealed partial class CreditsWindow : DefaultWindow
     {
         return Task.Run(() =>
         {
-            var rgaStreams = _resourceManager.ContentFindFiles("/")
-                .Where(p => p.Filename == "attributions.yml");
+            var rgaStreams = _resourceManager.ContentFindFiles("/").Where(p => p.Filename == "attributions.yml");
 
             var attrs = new List<FormattedMessage>();
 
@@ -229,17 +247,24 @@ public sealed partial class CreditsWindow : DefaultWindow
                         var license = licenseNode.ToString();
                         var source = sourceNode.ToString();
 
-                        m.AddMarkupPermissive(_loc.GetString("credits-window-attributions-directory",
-                            ("directory", stream.Directory.ToString())));
-                        m.AddText("\n");
-                        m.AddMarkupPermissive(_loc.GetString("credits-window-attributions-files",
-                            ("files", string.Join(", ", files))));
-                        m.AddText("\n");
-                        m.AddMarkupPermissive(_loc.GetString("credits-window-attributions-copyright",
-                            ("copyright", copyright)));
+                        m.AddMarkupPermissive(
+                            _loc.GetString(
+                                "credits-window-attributions-directory",
+                                ("directory", stream.Directory.ToString())
+                            )
+                        );
                         m.AddText("\n");
                         m.AddMarkupPermissive(
-                            _loc.GetString("credits-window-attributions-license", ("license", license)));
+                            _loc.GetString("credits-window-attributions-files", ("files", string.Join(", ", files)))
+                        );
+                        m.AddText("\n");
+                        m.AddMarkupPermissive(
+                            _loc.GetString("credits-window-attributions-copyright", ("copyright", copyright))
+                        );
+                        m.AddText("\n");
+                        m.AddMarkupPermissive(
+                            _loc.GetString("credits-window-attributions-license", ("license", license))
+                        );
                         m.AddText("\n");
                         m.AddMarkupPermissive(_loc.GetString("credits-window-attributions-source", ("source", source)));
                         m.AddText("\n");
@@ -250,8 +275,9 @@ public sealed partial class CreditsWindow : DefaultWindow
                 catch (Exception e)
                 {
                     var m = new FormattedMessage();
-                    m.AddMarkupPermissive(_loc.GetString("credits-window-attributions-failed",
-                        ("file", stream.ToString())));
+                    m.AddMarkupPermissive(
+                        _loc.GetString("credits-window-attributions-failed", ("file", stream.ToString()))
+                    );
                     m.AddText("\n");
                     _sawmill.Error($"{stream.ToString()}\n{e}");
                     attrs.Add(m);
@@ -266,8 +292,9 @@ public sealed partial class CreditsWindow : DefaultWindow
     {
         foreach (var entry in CreditsManager.GetLicenses(_resourceManager).OrderBy(p => p.Name))
         {
-            licensesContainer.AddChild(new Label
-                { StyleClasses = { StyleBase.StyleClassLabelHeading }, Text = entry.Name });
+            licensesContainer.AddChild(
+                new Label { StyleClasses = { StyleBase.StyleClassLabelHeading }, Text = entry.Name }
+            );
 
             // We split these line by line because otherwise
             // the LGPL causes Clyde to go out of bounds in the rendering code.
@@ -288,14 +315,15 @@ public sealed partial class CreditsWindow : DefaultWindow
         if (!_cfg.GetCVar(CCVars.BrandingSteam) && linkPatreon != "")
         {
             Button patronButton;
-            patronsContainer.AddChild(patronButton = new Button
-            {
-                Text = Loc.GetString("credits-window-become-patron-button"),
-                HorizontalAlignment = HAlignment.Center,
-            });
+            patronsContainer.AddChild(
+                patronButton = new Button
+                {
+                    Text = Loc.GetString("credits-window-become-patron-button"),
+                    HorizontalAlignment = HAlignment.Center,
+                }
+            );
 
-            patronButton.OnPressed +=
-                _ => IoCManager.Resolve<IUriOpener>().OpenUri(linkPatreon);
+            patronButton.OnPressed += _ => IoCManager.Resolve<IUriOpener>().OpenUri(linkPatreon);
         }
 
         var first = true;
@@ -305,8 +333,9 @@ public sealed partial class CreditsWindow : DefaultWindow
                 patronsContainer.AddChild(new Control { MinSize = new Vector2(0, 10) });
 
             first = false;
-            patronsContainer.AddChild(new Label
-                { StyleClasses = { StyleBase.StyleClassLabelHeading }, Text = $"{tier.Key}" });
+            patronsContainer.AddChild(
+                new Label { StyleClasses = { StyleBase.StyleClassLabelHeading }, Text = $"{tier.Key}" }
+            );
 
             var msg = string.Join(", ", tier.OrderBy(p => p.Name).Select(p => p.Name));
 
@@ -331,17 +360,19 @@ public sealed partial class CreditsWindow : DefaultWindow
     {
         Button contributeButton;
 
-        ss14ContributorsContainer.AddChild(new BoxContainer
-        {
-            Orientation = LayoutOrientation.Horizontal,
-            HorizontalAlignment = HAlignment.Center,
-            SeparationOverride = 20,
-            Children =
+        ss14ContributorsContainer.AddChild(
+            new BoxContainer
             {
-                new Label { Text = Loc.GetString("credits-window-contributor-encouragement-label") },
-                (contributeButton = new Button { Text = Loc.GetString("credits-window-contribute-button") }),
-            },
-        });
+                Orientation = LayoutOrientation.Horizontal,
+                HorizontalAlignment = HAlignment.Center,
+                SeparationOverride = 20,
+                Children =
+                {
+                    new Label { Text = Loc.GetString("credits-window-contributor-encouragement-label") },
+                    (contributeButton = new Button { Text = Loc.GetString("credits-window-contribute-button") }),
+                },
+            }
+        );
 
         var first = true;
 
@@ -351,8 +382,9 @@ public sealed partial class CreditsWindow : DefaultWindow
                 ss14ContributorsContainer.AddChild(new Control { MinSize = new Vector2(0, 10) });
 
             first = false;
-            ss14ContributorsContainer.AddChild(new Label
-                { StyleClasses = { StyleBase.StyleClassLabelHeading }, Text = title });
+            ss14ContributorsContainer.AddChild(
+                new Label { StyleClasses = { StyleBase.StyleClassLabelHeading }, Text = title }
+            );
 
             var label = new RichTextLabel();
             var text = _resourceManager.ContentFileReadAllText($"/Credits/{path}");
@@ -371,8 +403,7 @@ public sealed partial class CreditsWindow : DefaultWindow
 
         var linkGithub = _cfg.GetCVar(CCVars.InfoLinksGithub);
 
-        contributeButton.OnPressed += _ =>
-            IoCManager.Resolve<IUriOpener>().OpenUri(linkGithub);
+        contributeButton.OnPressed += _ => IoCManager.Resolve<IUriOpener>().OpenUri(linkGithub);
 
         if (linkGithub == "")
             contributeButton.Visible = false;

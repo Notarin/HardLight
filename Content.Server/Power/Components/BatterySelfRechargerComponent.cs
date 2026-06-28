@@ -12,22 +12,26 @@ namespace Content.Server.Power.Components
         /// <summary>
         /// Does the entity auto recharge?
         /// </summary>
-        [DataField] public bool AutoRecharge;
+        [DataField]
+        public bool AutoRecharge;
 
         /// <summary>
         /// At what rate does the entity automatically recharge?
         /// </summary>
-        [DataField] public float AutoRechargeRate;
+        [DataField]
+        public float AutoRechargeRate;
 
         /// <summary>
         /// Should this entity stop automatically recharging if a charge is used?
         /// </summary>
-        [DataField] public bool AutoRechargePause = false;
+        [DataField]
+        public bool AutoRechargePause = false;
 
         /// <summary>
         /// How long should the entity stop automatically recharging if a charge is used?
         /// </summary>
-        [DataField] public float AutoRechargePauseTime = 0f;
+        [DataField]
+        public float AutoRechargePauseTime = 0f;
 
         /// <summary>
         /// Do not auto recharge if this timestamp has yet to happen, set for the auto recharge pause system.

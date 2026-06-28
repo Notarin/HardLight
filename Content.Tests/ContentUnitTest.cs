@@ -30,10 +30,7 @@ namespace Content.Tests
 
         protected override Assembly[] GetContentAssemblies()
         {
-            var l = new List<Assembly>
-            {
-                typeof(Content.Shared.Entry.EntryPoint).Assembly
-            };
+            var l = new List<Assembly> { typeof(Content.Shared.Entry.EntryPoint).Assembly };
 
             if (Project == UnitTestProject.Server)
             {

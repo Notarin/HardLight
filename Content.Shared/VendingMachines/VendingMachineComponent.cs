@@ -1,11 +1,11 @@
+using Content.Shared._NF.Bank.Components; // Frontier
 using Content.Shared.Actions;
+using Content.Shared.Containers.ItemSlots; // Frontier
 using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Serialization;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
-using Content.Shared._NF.Bank.Components; // Frontier
-using Content.Shared.Containers.ItemSlots; // Frontier
 
 namespace Content.Shared.VendingMachines
 {
@@ -16,7 +16,11 @@ namespace Content.Shared.VendingMachines
         /// PrototypeID for the vending machine's inventory, see <see cref="VendingMachineInventoryPrototype"/>
         /// </summary>
         // Okay so not using ProtoId here is load-bearing because the ProtoId serializer will log errors if the prototype doesn't exist.
-        [DataField("pack", customTypeSerializer: typeof(PrototypeIdSerializer<VendingMachineInventoryPrototype>), required: true)]
+        [DataField(
+            "pack",
+            customTypeSerializer: typeof(PrototypeIdSerializer<VendingMachineInventoryPrototype>),
+            required: true
+        )]
         public string PackPrototypeId = string.Empty;
 
         /// <summary>
@@ -58,6 +62,7 @@ namespace Content.Shared.VendingMachines
         /// </summary>
         [DataField(customTypeSerializer: typeof(TimeOffsetSerializer))]
         public TimeSpan EjectNextChargeTime;
+
         // End Frontier: random ejection
 
         [DataField]
@@ -135,11 +140,7 @@ namespace Content.Shared.VendingMachines
         // Grabbed from: https://github.com/tgstation/tgstation/blob/d34047a5ae911735e35cd44a210953c9563caa22/sound/machines/machine_vend.ogg
         public SoundSpecifier SoundVend = new SoundPathSpecifier("/Audio/Machines/machine_vend.ogg")
         {
-            Params = new AudioParams
-            {
-                Volume = -4f,
-                Variation = 0.15f
-            }
+            Params = new AudioParams { Volume = -4f, Variation = 0.15f },
         };
 
         /// <summary>
@@ -255,10 +256,13 @@ namespace Content.Shared.VendingMachines
     {
         [ViewVariables(VVAccess.ReadWrite), DataField]
         public InventoryType Type;
+
         [ViewVariables(VVAccess.ReadWrite), DataField]
         public string ID;
+
         [ViewVariables(VVAccess.ReadWrite), DataField]
         public uint Amount;
+
         public VendingMachineInventoryEntry(InventoryType type, string id, uint amount)
         {
             Type = type;
@@ -279,13 +283,13 @@ namespace Content.Shared.VendingMachines
     {
         Regular,
         Emagged,
-        Contraband
+        Contraband,
     }
 
     [Serializable, NetSerializable]
     public enum VendingMachineVisuals : byte
     {
-        VisualState
+        VisualState,
     }
 
     [Serializable, NetSerializable]
@@ -304,21 +308,23 @@ namespace Content.Shared.VendingMachines
         /// Off / Broken. The other layers will overlay this if the machine is on.
         /// </summary>
         Base,
+
         /// <summary>
         /// Normal / Deny / Eject
         /// </summary>
         BaseUnshaded,
+
         /// <summary>
         /// Screens that are persistent (where the machine is not off or broken)
         /// </summary>
-        Screen
+        Screen,
     }
 
     [Serializable, NetSerializable]
     public enum ContrabandWireKey : byte
     {
         StatusKey,
-        TimeoutKey
+        TimeoutKey,
     }
 
     [Serializable, NetSerializable]
@@ -327,10 +333,7 @@ namespace Content.Shared.VendingMachines
         StatusKey,
     }
 
-    public sealed partial class VendingMachineSelfDispenseEvent : InstantActionEvent
-    {
-
-    };
+    public sealed partial class VendingMachineSelfDispenseEvent : InstantActionEvent { };
 
     [Serializable, NetSerializable]
     public sealed class VendingMachineComponentState : ComponentState

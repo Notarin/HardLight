@@ -2,7 +2,6 @@ using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Robust.Shared.Map;
 
-
 namespace Content.Shared.Interaction
 {
     [PublicAPI]
@@ -33,8 +32,13 @@ namespace Content.Shared.Interaction
         /// </summary>
         public bool CanReach { get; }
 
-        public InteractEvent(EntityUid user, EntityUid used, EntityUid? target,
-            EntityCoordinates clickLocation, bool canReach)
+        public InteractEvent(
+            EntityUid user,
+            EntityUid used,
+            EntityUid? target,
+            EntityCoordinates clickLocation,
+            bool canReach
+        )
         {
             User = user;
             Used = used;
@@ -50,9 +54,14 @@ namespace Content.Shared.Interaction
     /// </summary>
     public sealed class AfterInteractEvent : InteractEvent
     {
-        public AfterInteractEvent(EntityUid user, EntityUid used, EntityUid? target,
-            EntityCoordinates clickLocation, bool canReach) : base(user, used, target, clickLocation, canReach)
-        { }
+        public AfterInteractEvent(
+            EntityUid user,
+            EntityUid used,
+            EntityUid? target,
+            EntityCoordinates clickLocation,
+            bool canReach
+        )
+            : base(user, used, target, clickLocation, canReach) { }
     }
 
     /// <summary>
@@ -61,8 +70,13 @@ namespace Content.Shared.Interaction
     /// </summary>
     public sealed class AfterInteractUsingEvent : InteractEvent
     {
-        public AfterInteractUsingEvent(EntityUid user, EntityUid used, EntityUid? target,
-            EntityCoordinates clickLocation, bool canReach) : base(user, used, target, clickLocation, canReach)
-        { }
+        public AfterInteractUsingEvent(
+            EntityUid user,
+            EntityUid used,
+            EntityUid? target,
+            EntityCoordinates clickLocation,
+            bool canReach
+        )
+            : base(user, used, target, clickLocation, canReach) { }
     }
 }

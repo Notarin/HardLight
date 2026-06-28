@@ -1,3 +1,4 @@
+using System;
 using Content.Shared.Abilities.Psionics;
 using Content.Shared.Actions;
 using Content.Shared.Administration.Logs;
@@ -8,18 +9,28 @@ using Content.Shared.Popups;
 using Content.Shared.Psionics.Glimmer;
 using Robust.Shared.Random;
 using Robust.Shared.Serialization;
-using System;
 
 namespace Content.Shared.Nyanotrasen.Abilities.Psionics
 {
     public sealed class SharedPsionicAbilitiesSystem : EntitySystem
     {
-        [Dependency] private readonly SharedActionsSystem _actions = default!;
-        [Dependency] private readonly EntityLookupSystem _lookup = default!;
-        [Dependency] private readonly SharedPopupSystem _popups = default!;
-        [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-        [Dependency] private readonly GlimmerSystem _glimmerSystem = default!;
-        [Dependency] private readonly IRobustRandom _robustRandom = default!;
+        [Dependency]
+        private readonly SharedActionsSystem _actions = default!;
+
+        [Dependency]
+        private readonly EntityLookupSystem _lookup = default!;
+
+        [Dependency]
+        private readonly SharedPopupSystem _popups = default!;
+
+        [Dependency]
+        private readonly ISharedAdminLogManager _adminLogger = default!;
+
+        [Dependency]
+        private readonly GlimmerSystem _glimmerSystem = default!;
+
+        [Dependency]
+        private readonly IRobustRandom _robustRandom = default!;
 
         public override void Initialize()
         {
@@ -35,9 +46,18 @@ namespace Content.Shared.Nyanotrasen.Abilities.Psionics
         {
             foreach (var entity in _lookup.GetEntitiesInRange(uid, 10f))
             {
-                if (HasComp<MetapsionicPowerComponent>(entity) && entity != uid && !(TryComp<PsionicInsulationComponent>(entity, out var insul) && !insul.Passthrough))
+                if (
+                    HasComp<MetapsionicPowerComponent>(entity)
+                    && entity != uid
+                    && !(TryComp<PsionicInsulationComponent>(entity, out var insul) && !insul.Passthrough)
+                )
                 {
-                    _popups.PopupEntity(Loc.GetString("metapsionic-pulse-power", ("power", args.Power)), entity, entity, PopupType.LargeCaution);
+                    _popups.PopupEntity(
+                        Loc.GetString("metapsionic-pulse-power", ("power", args.Power)),
+                        entity,
+                        entity,
+                        PopupType.LargeCaution
+                    );
                     args.Handled = true;
                     return;
                 }
@@ -91,7 +111,11 @@ namespace Content.Shared.Nyanotrasen.Abilities.Psionics
 
         public void LogPowerUsed(EntityUid uid, string power, int minGlimmer = 8, int maxGlimmer = 12)
         {
-            _adminLogger.Add(Database.LogType.Psionics, Database.LogImpact.Medium, $"{ToPrettyString(uid):player} used {power}");
+            _adminLogger.Add(
+                Database.LogType.Psionics,
+                Database.LogImpact.Medium,
+                $"{ToPrettyString(uid):player} used {power}"
+            );
             var ev = new PsionicPowerUsedEvent(uid, power);
             RaiseLocalEvent(uid, ev, false);
 
@@ -199,7 +223,11 @@ namespace Content.Shared.Nyanotrasen.Abilities.Psionics
         /// </summary>
         public void LogPowerUsed(EntityUid uid, string power)
         {
-            _adminLogger.Add(Database.LogType.Psionics, Database.LogImpact.Low, $"{ToPrettyString(uid)} used psionic power {power}");
+            _adminLogger.Add(
+                Database.LogType.Psionics,
+                Database.LogImpact.Low,
+                $"{ToPrettyString(uid)} used psionic power {power}"
+            );
         }
     }
 
@@ -220,6 +248,7 @@ namespace Content.Shared.Nyanotrasen.Abilities.Psionics
     public sealed class PsionicsChangedEvent : EntityEventArgs
     {
         public readonly NetEntity Euid;
+
         public PsionicsChangedEvent(NetEntity euid)
         {
             Euid = euid;

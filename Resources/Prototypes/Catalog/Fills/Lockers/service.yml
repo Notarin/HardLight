@@ -13,7 +13,7 @@
   table: !type:AllSelector
     children:
     - id: ClothingOuterArmorBasicSlim
-#    - id: WeaponShotgunDoubleBarreledRubber # Frontier
+      #    - id: WeaponShotgunDoubleBarreledRubber # Frontier
     - id: DrinkShaker
     - id: ClothingEyesHudBeer
     - id: HandLabeler
@@ -27,8 +27,8 @@
       rolls: !type:ConstantNumberSelector
         value: 2
       children:
-#      - id: AmmoBox12_gaugeBeanbag # Frontier
-#        amount: 2  # Frontier
+      #      - id: AmmoBox12_gaugeBeanbag # Frontier
+      #        amount: 2  # Frontier
       - id: RagItem
 
 #- type: entity
@@ -43,26 +43,26 @@
   components:
   - type: StorageFill
     contents:
-      - id: CrowbarRed
-      - id: VariantCubeBox
-      - id: BoxMousetrap
-        amount: 2
-      - id: SprayBottleWater
-      - id: ReagentContainerFlour
-        amount: 2
-      # - id: FoodBoxCloth # Frontier
-      #   amount: 1 # Frontier
-      - id: ReagentContainerSugar
-      - id: FoodCondimentPacketSalt
-        amount: 3
-      - id: FoodCondimentPacketPepper
-        amount: 3
-      - id: FoodCondimentBottleEnzyme
-      # really, milk should go in the fridge. Unfortunately saltern only has freezers.
-      # yes, I'm using this as an excuse to not have to do extra work.
-      - id: DrinkMilkCarton
-        amount: 2
-      - id: DrinkSoyMilkCarton
+    - id: CrowbarRed
+    - id: VariantCubeBox
+    - id: BoxMousetrap
+      amount: 2
+    - id: SprayBottleWater
+    - id: ReagentContainerFlour
+      amount: 2
+    # - id: FoodBoxCloth # Frontier
+    #   amount: 1 # Frontier
+    - id: ReagentContainerSugar
+    - id: FoodCondimentPacketSalt
+      amount: 3
+    - id: FoodCondimentPacketPepper
+      amount: 3
+    - id: FoodCondimentBottleEnzyme
+    # really, milk should go in the fridge. Unfortunately saltern only has freezers.
+    # yes, I'm using this as an excuse to not have to do extra work.
+    - id: DrinkMilkCarton
+      amount: 2
+    - id: DrinkSoyMilkCarton
 
 - type: entity
   id: ClosetJanitorFilled
@@ -71,25 +71,25 @@
   components:
   - type: StorageFill
     contents:
-      - id: MopItem
-        amount: 2
-      - id: BoxMousetrap
-        amount: 2
-      - id: WetFloorSign
-        amount: 3
-      - id: TrashBag
-        amount: 2
-      - id: LightReplacer
-      - id: BoxLightMixed
-      - id: Holoprojector
-      - id: SoapNT
-        amount: 2
-      - id: FlashlightLantern
-        amount: 2
-      - id: Plunger
-        amount: 2
-      - id: WireBrush
-        amount: 2
+    - id: MopItem
+      amount: 2
+    - id: BoxMousetrap
+      amount: 2
+    - id: WetFloorSign
+      amount: 3
+    - id: TrashBag
+      amount: 2
+    - id: LightReplacer
+    - id: BoxLightMixed
+    - id: Holoprojector
+    - id: SoapNT
+      amount: 2
+    - id: FlashlightLantern
+      amount: 2
+    - id: Plunger
+      amount: 2
+    - id: WireBrush
+      amount: 2
 
 - type: entity
   id: ClosetLegalFilled
@@ -98,8 +98,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: BriefcaseBrownFilled
-      - id: ClothingOuterRobesJudge
+    - id: BriefcaseBrownFilled
+    - id: ClothingOuterRobesJudge
 
 - type: entity
   id: LockerBotanistFilled
@@ -115,12 +115,12 @@
   id: FillLockerBotanist
   table: !type:AllSelector
     children:
-#    - id: ClothingHandsGlovesLeather
-#    - id: ClothingOuterApronBotanist
-#    - id: ClothingHeadBandBotany
-#    - id: ChemistryBottleRobustHarvest
-#      prob: 0.3
-#    - id: ClothingBeltPlant
+    #    - id: ClothingHandsGlovesLeather
+    #    - id: ClothingOuterApronBotanist
+    #    - id: ClothingHeadBandBotany
+    #    - id: ChemistryBottleRobustHarvest
+    #      prob: 0.3
+    #    - id: ClothingBeltPlant
     - id: ClothingBeltPlantFilled # Frontier
     - id: PlantBag ##Some maps don't have nutrivend
     - id: BoxMouthSwab
@@ -137,23 +137,23 @@
   components:
   - type: StorageFill
     contents:
-      - id: ClothingUniformOveralls
-      - id: ClothingHeadHatTrucker
-        prob: 0.3
-      - id: GatfruitSeeds
-        prob: 0.1
-      - id: FlyAmanitaSeeds
-        prob: 0.5
-      - id: NettleSeeds
-        prob: 0.7
+    - id: ClothingUniformOveralls
+    - id: ClothingHeadHatTrucker
+      prob: 0.3
+    - id: GatfruitSeeds
+      prob: 0.1
+    - id: FlyAmanitaSeeds
+      prob: 0.5
+    - id: NettleSeeds
+      prob: 0.7
 
 - type: entity
   id: ClosetJanitorBombFilled
   parent: ClosetJanitorBomb
   suffix: DO NOT MAP, Filled
-  categories: [ DoNotMap ]
+  categories: [DoNotMap]
   components:
   - type: StorageFill
     contents:
-      - id: ClothingHeadHelmetJanitorBombSuit
-      - id: ClothingOuterSuitJanitorBomb
+    - id: ClothingHeadHelmetJanitorBombSuit
+    - id: ClothingOuterSuitJanitorBomb

@@ -17,4 +17,3 @@ public sealed partial class PlantAdjustPests : PlantAdjustAttribute
         plantHolderComp.PestLevel += Amount;
     }
 }
-

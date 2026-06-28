@@ -10,7 +10,8 @@ namespace Content.Client._NF.LateJoin.Controls;
 [GenerateTypedNameReferences]
 public sealed partial class StationOrCrewLargeControl : PickerControl
 {
-    [Dependency] private readonly IEntitySystemManager _entitySystem = default!;
+    [Dependency]
+    private readonly IEntitySystemManager _entitySystem = default!;
     private readonly ClientGameTicker _gameTicker;
 
     public Action<Windows.PickerWindow.PickerType>? OnTabChange;

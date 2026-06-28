@@ -110,12 +110,12 @@
     Potassium:
       amount: 1
   effects:
-    - !type:ExplosionReactionEffect
-      explosionType: Default
-      maxIntensity: 100
-      intensityPerUnit: 0.5 # 50+50 reagent for maximum explosion
-      intensitySlope: 4
-      maxTotalIntensity: 100
+  - !type:ExplosionReactionEffect
+    explosionType: Default
+    maxIntensity: 100
+    intensityPerUnit: 0.5 # 50+50 reagent for maximum explosion
+    intensitySlope: 4
+    maxTotalIntensity: 100
 
 - type: reaction
   id: Smoke
@@ -129,11 +129,11 @@
     Sugar:
       amount: 1
   effects:
-    - !type:AreaReactionEffect
-      duration: 10
-      prototypeId: Smoke
-      sound:
-        path: /Audio/Effects/smoke.ogg
+  - !type:AreaReactionEffect
+    duration: 10
+    prototypeId: Smoke
+    sound:
+      path: /Audio/Effects/smoke.ogg
 
 - type: reaction
   id: Foam
@@ -145,11 +145,11 @@
     Water:
       amount: 1
   effects:
-    - !type:AreaReactionEffect
-      duration: 10
-      prototypeId: Foam
-      sound:
-        path: /Audio/Effects/extinguish.ogg
+  - !type:AreaReactionEffect
+    duration: 10
+    prototypeId: Foam
+    sound:
+      path: /Audio/Effects/extinguish.ogg
 
 - type: reaction
   id: IronMetalFoam
@@ -163,11 +163,11 @@
     FluorosulfuricAcid:
       amount: 1
   effects:
-    - !type:AreaReactionEffect
-      duration: 10
-      prototypeId: IronMetalFoam
-      sound:
-        path: /Audio/Effects/extinguish.ogg
+  - !type:AreaReactionEffect
+    duration: 10
+    prototypeId: IronMetalFoam
+    sound:
+      path: /Audio/Effects/extinguish.ogg
 
 - type: reaction
   id: AluminiumMetalFoam
@@ -181,11 +181,11 @@
     FluorosulfuricAcid:
       amount: 1
   effects:
-    - !type:AreaReactionEffect
-      duration: 10
-      prototypeId: AluminiumMetalFoam
-      sound:
-        path: /Audio/Effects/extinguish.ogg
+  - !type:AreaReactionEffect
+    duration: 10
+    prototypeId: AluminiumMetalFoam
+    sound:
+      path: /Audio/Effects/extinguish.ogg
 
 - type: reaction
   id: UraniumEmpExplosion
@@ -199,11 +199,11 @@
     Aluminium:
       amount: 1
   effects:
-    - !type:EmpReactionEffect
-      rangePerUnit: 0.2
-      maxRange: 6
-      energyConsumption: 675000 # Frontier: 12.5kJ<675kJ
-      duration: 15
+  - !type:EmpReactionEffect
+    rangePerUnit: 0.2
+    maxRange: 6
+    energyConsumption: 675000 # Frontier: 12.5kJ<675kJ
+    duration: 15
 
 - type: reaction
   id: Flash
@@ -217,7 +217,7 @@
     Sulfur:
       amount: 1
   effects:
-    - !type:FlashReactionEffect
+  - !type:FlashReactionEffect
 
 - type: reaction
   id: TableSalt
@@ -304,7 +304,7 @@
     Iodine:
       amount: 1
     Phosphorus:
-     amount: 1
+      amount: 1
   products:
     Desoxyephedrine: 4 #I kinda remember having to heat this up, and if you heated it up too much, it went boom, I can't remember the specific values tho.
 
@@ -333,7 +333,7 @@
     Sugar:
       amount: 1
     Diethylamine:
-     amount: 1
+      amount: 1
   products:
     Ephedrine: 4
 

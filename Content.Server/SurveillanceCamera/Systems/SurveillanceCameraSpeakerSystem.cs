@@ -1,7 +1,7 @@
 using Content.Server.Chat.Systems;
 using Content.Server.Speech;
-using Content.Shared.Speech;
 using Content.Shared.Chat;
+using Content.Shared.Speech;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Timing;
 
@@ -12,10 +12,17 @@ namespace Content.Server.SurveillanceCamera;
 /// </summary>
 public sealed class SurveillanceCameraSpeakerSystem : EntitySystem
 {
-    [Dependency] private readonly SharedAudioSystem _audioSystem = default!;
-    [Dependency] private readonly SpeechSoundSystem _speechSound = default!;
-    [Dependency] private readonly ChatSystem _chatSystem = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
+    [Dependency]
+    private readonly SharedAudioSystem _audioSystem = default!;
+
+    [Dependency]
+    private readonly SpeechSoundSystem _speechSound = default!;
+
+    [Dependency]
+    private readonly ChatSystem _chatSystem = default!;
+
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -23,8 +30,11 @@ public sealed class SurveillanceCameraSpeakerSystem : EntitySystem
         SubscribeLocalEvent<SurveillanceCameraSpeakerComponent, SurveillanceCameraSpeechSendEvent>(OnSpeechSent);
     }
 
-    private void OnSpeechSent(EntityUid uid, SurveillanceCameraSpeakerComponent component,
-        SurveillanceCameraSpeechSendEvent args)
+    private void OnSpeechSent(
+        EntityUid uid,
+        SurveillanceCameraSpeakerComponent component,
+        SurveillanceCameraSpeechSendEvent args
+    )
     {
         if (!component.SpeechEnabled)
         {
@@ -36,8 +46,7 @@ public sealed class SurveillanceCameraSpeakerSystem : EntitySystem
 
         // this part's mostly copied from speech
         //     what is wrong with you?
-        if (time - component.LastSoundPlayed < cd
-            && TryComp<SpeechComponent>(args.Speaker, out var speech))
+        if (time - component.LastSoundPlayed < cd && TryComp<SpeechComponent>(args.Speaker, out var speech))
         {
             var sound = _speechSound.GetSpeechSound((args.Speaker, speech), args.Message);
             _audioSystem.PlayPvs(sound, uid);
@@ -48,11 +57,17 @@ public sealed class SurveillanceCameraSpeakerSystem : EntitySystem
         var nameEv = new TransformSpeakerNameEvent(args.Speaker, Name(args.Speaker));
         RaiseLocalEvent(args.Speaker, nameEv);
 
-        var name = Loc.GetString("speech-name-relay", ("speaker", Name(uid)),
-            ("originalName", nameEv.VoiceName));
+        var name = Loc.GetString("speech-name-relay", ("speaker", Name(uid)), ("originalName", nameEv.VoiceName));
 
         // Frontier: Do not send TV messages to admins that are out of range. (GhostRangeLimit>GhostRangeLimitNoAdminCheck)
         // log to chat so people can identity the speaker/source, but avoid clogging ghost chat if there are many radios
-        _chatSystem.TrySendInGameICMessage(uid, args.Message, InGameICChatType.Speak, ChatTransmitRange.GhostRangeLimitNoAdminCheck, nameOverride: name, languageOverride: args.Language); // Starlight
+        _chatSystem.TrySendInGameICMessage(
+            uid,
+            args.Message,
+            InGameICChatType.Speak,
+            ChatTransmitRange.GhostRangeLimitNoAdminCheck,
+            nameOverride: name,
+            languageOverride: args.Language
+        ); // Starlight
     }
 }

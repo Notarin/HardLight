@@ -1,23 +1,34 @@
-using Robust.Shared.Timing;
 using Content.Server.Administration.Systems;
 using Content.Shared.Alert;
 using Content.Shared.CombatMode.Pacification;
+using Content.Shared.Hands.Components;
 using Content.Shared.Humanoid;
 using Content.Shared.Mind;
 using Content.Shared.Roles.Jobs;
 using Robust.Shared.Prototypes;
-using Content.Shared.Hands.Components;
+using Robust.Shared.Timing;
 
 namespace Content.Server._NF.PacifiedZone;
 
 public sealed class PacifiedZoneGeneratorSystem : EntitySystem
 {
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly SharedMindSystem _mindSystem = default!;
-    [Dependency] private readonly SharedJobSystem _jobSystem = default!;
-    [Dependency] private readonly AlertsSystem _alerts = default!;
-    [Dependency] private readonly AdminSystem _admin = default!;
+    [Dependency]
+    private readonly EntityLookupSystem _lookup = default!;
+
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
+
+    [Dependency]
+    private readonly SharedMindSystem _mindSystem = default!;
+
+    [Dependency]
+    private readonly SharedJobSystem _jobSystem = default!;
+
+    [Dependency]
+    private readonly AlertsSystem _alerts = default!;
+
+    [Dependency]
+    private readonly AdminSystem _admin = default!;
 
     private static readonly ProtoId<AlertPrototype> AlertProto = "PacifiedZone";
 
@@ -50,7 +61,7 @@ public sealed class PacifiedZoneGeneratorSystem : EntitySystem
         var genQuery = AllEntityQuery<PacifiedZoneGeneratorComponent>();
         while (genQuery.MoveNext(out var genUid, out var component))
         {
-            // Not yet update time, skip this 
+            // Not yet update time, skip this
             if (_gameTiming.CurTime < component.NextUpdate)
                 continue;
 

@@ -1,7 +1,7 @@
+using System.Numerics;
 using Content.Shared.Roles;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
-using System.Numerics;
 
 namespace Content.Shared._NF.Roles.Components;
 
@@ -99,6 +99,7 @@ public sealed partial class InterviewHologramComponent : Component
 
     [DataField, AutoNetworkedField]
     public EntityUid? ToggleApprovalActionEntity;
+
     [DataField]
     public EntProtoId CancelApplicationAction = "ActionInterviewCancel";
 

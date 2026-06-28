@@ -14,18 +14,27 @@ namespace Content.Server._Mono.Shipyard;
 /// </summary>
 public sealed class ShipyardDirectionSystem : EntitySystem
 {
-    [Dependency] private readonly IChatManager _chatManager = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly TransformSystem _transformSystem = default!;
+    [Dependency]
+    private readonly IChatManager _chatManager = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly IMapManager _mapManager = default!;
+
+    [Dependency]
+    private readonly TransformSystem _transformSystem = default!;
 
     /// <summary>
     /// Sends a message to the player indicating the compass direction of their newly purchased ship
     /// </summary>
     public void SendShipDirectionMessage(EntityUid player, EntityUid ship)
     {
-        if (!TryComp(player, out TransformComponent? playerTransform) ||
-            !TryComp(ship, out TransformComponent? shipTransform))
+        if (
+            !TryComp(player, out TransformComponent? playerTransform)
+            || !TryComp(ship, out TransformComponent? shipTransform)
+        )
             return;
 
         TryComp(ship, out MetaDataComponent? metaData);
@@ -61,14 +70,23 @@ public sealed class ShipyardDirectionSystem : EntitySystem
         var shipName = metaData?.EntityName ?? "ship";
 
         // Send message to player
-        var message = Loc.GetString("shipyard-direction-message",
+        var message = Loc.GetString(
+            "shipyard-direction-message",
             ("shipName", shipName),
             ("direction", directionName),
-            ("distance", distance));
+            ("distance", distance)
+        );
 
         if (_playerManager.TryGetSessionByEntity(player, out var session))
         {
-            _chatManager.ChatMessageToOne(ChatChannel.Server, message, message, EntityUid.Invalid, false, session.Channel);
+            _chatManager.ChatMessageToOne(
+                ChatChannel.Server,
+                message,
+                message,
+                EntityUid.Invalid,
+                false,
+                session.Channel
+            );
         }
     }
 

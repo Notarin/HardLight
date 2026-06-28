@@ -3,12 +3,12 @@ using Content.Server.Access.Systems;
 using Content.Server.Administration.Logs;
 using Content.Server.Kitchen.Components;
 using Content.Server.NameIdentifier;
-using Content.Shared.PDA;
-using Robust.Shared.Containers;
-using Content.Shared.Database;
 using Content.Shared._DeltaV.CartridgeLoader.Cartridges;
 using Content.Shared._DeltaV.NanoChat;
+using Content.Shared.Database;
 using Content.Shared.NameIdentifier;
+using Content.Shared.PDA;
+using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 
@@ -19,9 +19,14 @@ namespace Content.Server._DeltaV.NanoChat;
 /// </summary>
 public sealed class NanoChatSystem : SharedNanoChatSystem
 {
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly NameIdentifierSystem _name = default!;
+    [Dependency]
+    private readonly IAdminLogManager _adminLogger = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly NameIdentifierSystem _name = default!;
 
     private readonly ProtoId<NameIdentifierGroupPrototype> _nameIdentifierGroup = "NanoChat";
 
@@ -74,9 +79,11 @@ public sealed class NanoChatSystem : SharedNanoChatSystem
             //     ent,
             //     PopupType.Medium);
 
-            _adminLogger.Add(LogType.Action,
+            _adminLogger.Add(
+                LogType.Action,
                 LogImpact.Medium,
-                $"{ToPrettyString(args.Microwave)} erased all messages on {ToPrettyString(ent)}");
+                $"{ToPrettyString(args.Microwave)} erased all messages on {ToPrettyString(ent)}"
+            );
         }
         else
         {
@@ -86,9 +93,11 @@ public sealed class NanoChatSystem : SharedNanoChatSystem
             //     ent,
             //     PopupType.Medium);
 
-            _adminLogger.Add(LogType.Action,
+            _adminLogger.Add(
+                LogType.Action,
                 LogImpact.Medium,
-                $"{ToPrettyString(args.Microwave)} scrambled messages on {ToPrettyString(ent)}");
+                $"{ToPrettyString(args.Microwave)} scrambled messages on {ToPrettyString(ent)}"
+            );
         }
 
         Dirty(ent);
@@ -148,6 +157,6 @@ public sealed class NanoChatSystem : SharedNanoChatSystem
 
         // Assign a random number
         _name.GenerateUniqueName(ent, _nameIdentifierGroup, out var number);
-        SetNumber((ent.Owner, (NanoChatCardComponent?) ent.Comp), (uint) number);
+        SetNumber((ent.Owner, (NanoChatCardComponent?)ent.Comp), (uint)number);
     }
 }

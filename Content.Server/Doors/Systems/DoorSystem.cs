@@ -10,7 +10,8 @@ namespace Content.Server.Doors.Systems;
 
 public sealed class DoorSystem : SharedDoorSystem
 {
-    [Dependency] private readonly AirtightSystem _airtightSystem = default!;
+    [Dependency]
+    private readonly AirtightSystem _airtightSystem = default!;
 
     public override void Initialize()
     {
@@ -24,7 +25,8 @@ public sealed class DoorSystem : SharedDoorSystem
         bool collidable,
         DoorComponent? door = null,
         PhysicsComponent? physics = null,
-        OccluderComponent? occluder = null)
+        OccluderComponent? occluder = null
+    )
     {
         if (!Resolve(uid, ref door))
             return;

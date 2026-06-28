@@ -56,13 +56,13 @@ entities:
     typeChange:
       something: true
     example:
-      - 0
-      - 1
-      - 2
-      - 3
-      - 4
-      - 855
-      - "contributionC"
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+    - 855
+    - "contributionC"
 - uid: 1
   type: FakeTestDummy
   components:

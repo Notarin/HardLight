@@ -1,5 +1,3 @@
 namespace Content.Shared.Explosion.EntitySystems;
 
-public abstract class SharedSmokeOnTriggerSystem : EntitySystem
-{
-}
+public abstract class SharedSmokeOnTriggerSystem : EntitySystem { }

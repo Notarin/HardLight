@@ -32,7 +32,8 @@ public class MapLoadBenchmark
         _pair = PoolManager.GetServerClient().GetAwaiter().GetResult();
         var server = _pair.Server;
 
-        Paths = server.ResolveDependency<IPrototypeManager>()
+        Paths = server
+            .ResolveDependency<IPrototypeManager>()
             .EnumeratePrototypes<GameMapPrototype>()
             .ToDictionary(x => x.ID, x => x.MapPath.ToString());
 
@@ -47,7 +48,26 @@ public class MapLoadBenchmark
         PoolManager.Shutdown();
     }
 
-    public static readonly string[] MapsSource = { "Empty", "Satlern", "Box", "Bagel", "Dev", "ColComm", "Core", "TestTeg", "Packed", "Omega", "Reach", "Meta", "Marathon", "MeteorArena", "Fland", "Oasis", "Convex"};
+    public static readonly string[] MapsSource =
+    {
+        "Empty",
+        "Satlern",
+        "Box",
+        "Bagel",
+        "Dev",
+        "ColComm",
+        "Core",
+        "TestTeg",
+        "Packed",
+        "Omega",
+        "Reach",
+        "Meta",
+        "Marathon",
+        "MeteorArena",
+        "Fland",
+        "Oasis",
+        "Convex",
+    };
 
     [ParamsSource(nameof(MapsSource))]
     public string Map;
@@ -73,7 +93,6 @@ public class MapLoadBenchmark
     public void IterationCleanup()
     {
         var server = _pair.Server;
-        server.WaitPost(() => _mapSys.DeleteMap(_mapId))
-            .Wait();
+        server.WaitPost(() => _mapSys.DeleteMap(_mapId)).Wait();
     }
 }

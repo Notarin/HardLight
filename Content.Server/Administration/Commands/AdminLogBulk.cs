@@ -28,9 +28,8 @@ public sealed class AdminLogBulk : IConsoleCommand
 
         switch (args)
         {
-            case {Length: 1} when int.TryParse(args[0], out amount):
-            case {Length: 2} when int.TryParse(args[0], out amount) &&
-                                  bool.TryParse(args[1], out parallel):
+            case { Length: 1 } when int.TryParse(args[0], out amount):
+            case { Length: 2 } when int.TryParse(args[0], out amount) && bool.TryParse(args[1], out parallel):
                 break;
             default:
                 shell.WriteError(Help);
@@ -44,10 +43,14 @@ public sealed class AdminLogBulk : IConsoleCommand
 
         if (parallel)
         {
-            Parallel.For(0, amount, _ =>
-            {
-                logManager.Add(LogType.Unknown, $"Debug log added by {entity:Player}");
-            });
+            Parallel.For(
+                0,
+                amount,
+                _ =>
+                {
+                    logManager.Add(LogType.Unknown, $"Debug log added by {entity:Player}");
+                }
+            );
         }
         else
         {

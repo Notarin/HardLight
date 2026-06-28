@@ -5,7 +5,8 @@ namespace Content.Server._HL.Actions;
 
 public sealed class DuskEnclaveOnboardingSystem : EntitySystem
 {
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
+    [Dependency]
+    private readonly SharedHandsSystem _hands = default!;
 
     public override void Initialize()
     {

@@ -5,15 +5,15 @@
   playTimeTracker: JobChiefEngineer
   setPreference: true
   requirements:
-    - !type:RoleTimeRequirement
-      role: JobAtmosphericTechnician
-      time: 9000 # 2.5 hrs
-    - !type:RoleTimeRequirement
-      role: JobStationEngineer
-      time: 18000 # 5 hrs
-    - !type:DepartmentTimeRequirement
-      department: Engineering
-      time: 36000 # 10 hrs
+  - !type:RoleTimeRequirement
+    role: JobAtmosphericTechnician
+    time: 9000 # 2.5 hrs
+  - !type:RoleTimeRequirement
+    role: JobStationEngineer
+    time: 18000 # 5 hrs
+  - !type:DepartmentTimeRequirement
+    department: Engineering
+    time: 36000 # 10 hrs
   weight: 40 # HardLight: 10<40
   startingGear: ChiefEngineerGear
   icon: "JobIconChiefEngineer"
@@ -32,7 +32,7 @@
   # - Frontier
   special:
   - !type:AddImplantSpecial
-    implants: [ MindShieldImplant ]
+    implants: [MindShieldImplant]
   - !type:AddComponentSpecial
     components:
     - type: CommandStaff

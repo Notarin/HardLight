@@ -19,9 +19,15 @@ public sealed class UnremovableClothingSystem : EntitySystem
         SubscribeLocalEvent<UnremovableClothingComponent, ExaminedEvent>(OnUnequipMarkup);
     }
 
-    private void OnUnequip(Entity<UnremovableClothingComponent> unremovableClothing, ref BeingUnequippedAttemptEvent args)
+    private void OnUnequip(
+        Entity<UnremovableClothingComponent> unremovableClothing,
+        ref BeingUnequippedAttemptEvent args
+    )
     {
-        if (TryComp<ClothingComponent>(unremovableClothing, out var clothing) && (clothing.Slots & args.SlotFlags) == SlotFlags.NONE)
+        if (
+            TryComp<ClothingComponent>(unremovableClothing, out var clothing)
+            && (clothing.Slots & args.SlotFlags) == SlotFlags.NONE
+        )
             return;
 
         args.Cancel();

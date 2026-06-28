@@ -42,20 +42,30 @@ namespace Content.Server.GameTicking
 {
     public sealed partial class GameTicker
     {
-        [Dependency] private readonly DiscordWebhook _discord = default!;
-        [Dependency] private readonly RoleSystem _role = default!;
-        [Dependency] private readonly ITaskManager _taskManager = default!;
-        [Dependency] private readonly ArrivalsSystem _arrivalsSystem = default!;
-        [Dependency] private readonly ShuttleSystem _shuttleSystem = default!;
-        [Dependency] private readonly EntityLookupSystem _lookup = default!; // Hardlight
+        [Dependency]
+        private readonly DiscordWebhook _discord = default!;
 
-        private static readonly Counter RoundNumberMetric = Metrics.CreateCounter(
-            "ss14_round_number",
-            "Round number.");
+        [Dependency]
+        private readonly RoleSystem _role = default!;
+
+        [Dependency]
+        private readonly ITaskManager _taskManager = default!;
+
+        [Dependency]
+        private readonly ArrivalsSystem _arrivalsSystem = default!;
+
+        [Dependency]
+        private readonly ShuttleSystem _shuttleSystem = default!;
+
+        [Dependency]
+        private readonly EntityLookupSystem _lookup = default!; // Hardlight
+
+        private static readonly Counter RoundNumberMetric = Metrics.CreateCounter("ss14_round_number", "Round number.");
 
         private static readonly Gauge RoundLengthMetric = Metrics.CreateGauge(
             "ss14_round_length",
-            "Round length in seconds.");
+            "Round length in seconds."
+        );
 
 #if EXCEPTION_TOLERANCE
         [ViewVariables]
@@ -97,8 +107,7 @@ namespace Content.Server.GameTicking
         {
             // Allow map updates during the entire lobby phase, not just the early part
             // The original constraint was too restrictive and prevented late votes from taking effect
-            return RunLevel == GameRunLevel.PreRoundLobby &&
-                   _roundStartTime - RoundPreloadTime > _gameTiming.CurTime;
+            return RunLevel == GameRunLevel.PreRoundLobby && _roundStartTime - RoundPreloadTime > _gameTiming.CurTime;
         }
 
         /// <summary>
@@ -157,15 +166,12 @@ namespace Content.Server.GameTicking
             GameMapPrototype proto,
             DeserializationOptions? opts = null,
             Vector2? offset = null,
-            Angle? rot = null)
+            Angle? rot = null
+        )
         {
-            offset ??= proto.MaxRandomOffset != 0f
-                ? _robustRandom.NextVector2(proto.MaxRandomOffset)
-                : Vector2.Zero;
+            offset ??= proto.MaxRandomOffset != 0f ? _robustRandom.NextVector2(proto.MaxRandomOffset) : Vector2.Zero;
 
-            rot ??= proto.RandomRotation
-                ? _robustRandom.NextAngle()
-                : Angle.Zero;
+            rot ??= proto.RandomRotation ? _robustRandom.NextAngle() : Angle.Zero;
 
             opts ??= DeserializationOptions.Default;
             var ev = new PreGameMapLoad(proto, opts.Value, offset.Value, rot.Value);
@@ -194,35 +200,26 @@ namespace Content.Server.GameTicking
             DeserializationOptions? options = null,
             string? stationName = null,
             Vector2? offset = null,
-            Angle? rot = null)
+            Angle? rot = null
+        )
         {
             var ev = RaisePreLoad(proto, options, offset, rot);
 
             if (ev.GameMap.IsGrid)
             {
                 var mapUid = _map.CreateMap(out mapId, runMapInit: options?.InitializeMaps ?? false);
-                if (!_loader.TryLoadGrid(mapId,
-                        ev.GameMap.MapPath,
-                        out var grid,
-                        ev.Options,
-                        ev.Offset,
-                        ev.Rotation))
+                if (!_loader.TryLoadGrid(mapId, ev.GameMap.MapPath, out var grid, ev.Options, ev.Offset, ev.Rotation))
                 {
                     throw new Exception($"Failed to load game-map grid {ev.GameMap.ID}");
                 }
 
                 _metaData.SetEntityName(mapUid, proto.MapName);
-                var g = new List<EntityUid> {grid.Value.Owner};
+                var g = new List<EntityUid> { grid.Value.Owner };
                 RaiseLocalEvent(new PostGameMapLoad(proto, mapId, g, stationName));
                 return g;
             }
 
-            if (!_loader.TryLoadMap(ev.GameMap.MapPath,
-                    out var map,
-                    out var grids,
-                    ev.Options,
-                    ev.Offset,
-                    ev.Rotation))
+            if (!_loader.TryLoadMap(ev.GameMap.MapPath, out var map, out var grids, ev.Options, ev.Offset, ev.Rotation))
             {
                 throw new Exception($"Failed to load game map {ev.GameMap.ID}");
             }
@@ -244,37 +241,36 @@ namespace Content.Server.GameTicking
             DeserializationOptions? opts = null,
             string? stationName = null,
             Vector2? offset = null,
-            Angle? rot = null)
+            Angle? rot = null
+        )
         {
             var ev = RaisePreLoad(proto, opts, offset, rot);
 
             if (ev.GameMap.IsGrid)
             {
                 var mapUid = _map.CreateMap(mapId);
-                if (!_loader.TryLoadGrid(mapId,
-                        ev.GameMap.MapPath,
-                        out var grid,
-                        ev.Options,
-                        ev.Offset,
-                        ev.Rotation))
+                if (!_loader.TryLoadGrid(mapId, ev.GameMap.MapPath, out var grid, ev.Options, ev.Offset, ev.Rotation))
                 {
                     throw new Exception($"Failed to load game-map grid {ev.GameMap.ID}");
                 }
 
                 _metaData.SetEntityName(mapUid, proto.MapName);
-                var g = new List<EntityUid> {grid.Value.Owner};
+                var g = new List<EntityUid> { grid.Value.Owner };
                 RaiseLocalEvent(new PostGameMapLoad(proto, mapId, g, stationName));
                 return g;
             }
 
-            if (!_loader.TryLoadMapWithId(
+            if (
+                !_loader.TryLoadMapWithId(
                     mapId,
                     ev.GameMap.MapPath,
                     out var map,
                     out var grids,
                     ev.Options,
                     ev.Offset,
-                    ev.Rotation))
+                    ev.Rotation
+                )
+            )
             {
                 throw new Exception($"Failed to load map");
             }
@@ -294,7 +290,8 @@ namespace Content.Server.GameTicking
             DeserializationOptions? opts = null,
             string? stationName = null,
             Vector2? offset = null,
-            Angle? rot = null)
+            Angle? rot = null
+        )
         {
             // TODO MAP LOADING use a new event?
             // This is quite different from the other methods, which will actually create a **new** map.
@@ -302,28 +299,27 @@ namespace Content.Server.GameTicking
 
             if (ev.GameMap.IsGrid)
             {
-                if (!_loader.TryLoadGrid(targetMap,
+                if (
+                    !_loader.TryLoadGrid(
+                        targetMap,
                         ev.GameMap.MapPath,
                         out var grid,
                         ev.Options,
                         ev.Offset,
-                        ev.Rotation))
+                        ev.Rotation
+                    )
+                )
                 {
                     throw new Exception($"Failed to load game-map grid {ev.GameMap.ID}");
                 }
 
-                var g = new List<EntityUid> {grid.Value.Owner};
+                var g = new List<EntityUid> { grid.Value.Owner };
                 // TODO MAP LOADING use a new event?
                 RaiseLocalEvent(new PostGameMapLoad(proto, targetMap, g, stationName));
                 return g;
             }
 
-            if (!_loader.TryMergeMap(targetMap,
-                    ev.GameMap.MapPath,
-                    out var grids,
-                    ev.Options,
-                    ev.Offset,
-                    ev.Rotation))
+            if (!_loader.TryMergeMap(targetMap, ev.GameMap.MapPath, out var grids, ev.Options, ev.Offset, ev.Rotation))
             {
                 throw new Exception($"Failed to load map");
             }
@@ -379,22 +375,27 @@ namespace Content.Server.GameTicking
             var autoDeAdmin = _cfg.GetCVar(CCVars.AdminDeadminOnJoin);
             foreach (var (userId, status) in _playerGameStatuses)
             {
-                if (LobbyEnabled && status != PlayerGameStatus.ReadyToPlay) continue;
-                if (!_playerManager.TryGetSessionById(userId, out var session)) continue;
+                if (LobbyEnabled && status != PlayerGameStatus.ReadyToPlay)
+                    continue;
+                if (!_playerManager.TryGetSessionById(userId, out var session))
+                    continue;
 
                 if (autoDeAdmin && _adminManager.IsAdmin(session))
                 {
                     _adminManager.DeAdmin(session);
                 }
 #if DEBUG
-                DebugTools.Assert(_userDb.IsLoadComplete(session), $"Player was readied up but didn't have user DB data loaded yet??");
+                DebugTools.Assert(
+                    _userDb.IsLoadComplete(session),
+                    $"Player was readied up but didn't have user DB data loaded yet??"
+                );
 #endif
 
                 readyPlayers.Add(session);
                 HumanoidCharacterProfile profile;
                 if (_prefsManager.TryGetCachedPreferences(userId, out var preferences))
                 {
-                    profile = (HumanoidCharacterProfile) preferences.SelectedCharacter;
+                    profile = (HumanoidCharacterProfile)preferences.SelectedCharacter;
                 }
                 else
                 {
@@ -457,7 +458,9 @@ namespace Content.Server.GameTicking
 
                 if (RoundStartFailShutdownCount > 0 && _roundStartFailCount >= RoundStartFailShutdownCount)
                 {
-                    _sawmill.Fatal($"Failed to start a round {_roundStartFailCount} time(s) in a row... Shutting down!");
+                    _sawmill.Fatal(
+                        $"Failed to start a round {_roundStartFailCount} time(s) in a row... Shutting down!"
+                    );
                     _runtimeLog.LogException(e, nameof(GameTicker));
                     _baseServer.Shutdown("Restarting server");
                     return;
@@ -546,7 +549,10 @@ namespace Content.Server.GameTicking
 
                     var shuttleRadius = 32f;
                     if (TryComp<MapGridComponent>(shuttleUid, out var grid))
-                        shuttleRadius = MathF.Max(shuttleRadius, MathF.Max(grid.LocalAABB.Width, grid.LocalAABB.Height) * 0.5f);
+                        shuttleRadius = MathF.Max(
+                            shuttleRadius,
+                            MathF.Max(grid.LocalAABB.Width, grid.LocalAABB.Height) * 0.5f
+                        );
 
                     shuttlesToMove.Add((shuttleUid, shuttle, shuttleRadius));
                 }
@@ -559,7 +565,11 @@ namespace Content.Server.GameTicking
                 }
 
                 // Queue each TransitShuttle (but not ShuttleDeed) for deterministic Colcomm placement.
-                var transitShuttleQuery = EntityQueryEnumerator<ShuttleComponent, TransitShuttleComponent, TransformComponent>();
+                var transitShuttleQuery = EntityQueryEnumerator<
+                    ShuttleComponent,
+                    TransitShuttleComponent,
+                    TransformComponent
+                >();
                 while (transitShuttleQuery.MoveNext(out var shuttleUid, out var shuttle, out _, out var xform))
                 {
                     // Skip if it also has ShuttleDeedComponent (already handled above)
@@ -580,13 +590,17 @@ namespace Content.Server.GameTicking
                     // Each ring uses spacing from its largest shuttle, so a single giant ship
                     // does not force all smaller ships into very distant rings.
                     var ringMaxRadius = shuttlesToMove[shuttleIndex].Radius;
-                    var inRingSpacing = MathF.Max(colcommArrivalMinSpacing, (ringMaxRadius * 2f) + colcommArrivalSpacingBuffer);
+                    var inRingSpacing = MathF.Max(
+                        colcommArrivalMinSpacing,
+                        (ringMaxRadius * 2f) + colcommArrivalSpacingBuffer
+                    );
 
                     float ringRadius;
                     if (previousRingRadius <= 0f)
                         ringRadius = MathF.Max(colcommArrivalMinRadius, inRingSpacing);
                     else
-                        ringRadius = previousRingRadius + previousRingMaxRadius + ringMaxRadius + colcommArrivalSpacingBuffer;
+                        ringRadius =
+                            previousRingRadius + previousRingMaxRadius + ringMaxRadius + colcommArrivalSpacingBuffer;
 
                     int slotsInRing;
                     if (inRingSpacing >= ringRadius * 2f)
@@ -596,8 +610,10 @@ namespace Content.Server.GameTicking
                     else
                     {
                         // Use chord distance so neighboring slots are at least inRingSpacing apart.
-                        slotsInRing = Math.Max(1,
-                            (int) MathF.Floor(MathF.PI / MathF.Asin(inRingSpacing / (2f * ringRadius))));
+                        slotsInRing = Math.Max(
+                            1,
+                            (int)MathF.Floor(MathF.PI / MathF.Asin(inRingSpacing / (2f * ringRadius)))
+                        );
                     }
 
                     var shipsInRing = Math.Min(slotsInRing, shuttlesToMove.Count - shuttleIndex);
@@ -607,7 +623,10 @@ namespace Content.Server.GameTicking
                     {
                         var (shuttleUid, shuttle, _) = shuttlesToMove[shuttleIndex + slot];
                         var angle = Angle.FromDegrees(angleStep * slot);
-                        var targetCoordinates = new EntityCoordinates(colcommMap.Value, angle.ToWorldVec() * ringRadius);
+                        var targetCoordinates = new EntityCoordinates(
+                            colcommMap.Value,
+                            angle.ToWorldVec() * ringRadius
+                        );
 
                         // HardLight: End-round cleanup should always evacuate owned/transit shuttles,
                         // even if they are currently in FTL cooldown.
@@ -629,20 +648,23 @@ namespace Content.Server.GameTicking
             var defaultMapEntityUid = _mapManager.GetMapEntityId(DefaultMap);
             if (DefaultMap != null)
             {
-                Timer.Spawn(TimeSpan.FromSeconds(30), () =>
-                {
-                    // Send all players on the default map to the lobby before deleting the map
-                    foreach (var session in _playerManager.Sessions)
+                Timer.Spawn(
+                    TimeSpan.FromSeconds(30),
+                    () =>
                     {
-                        var attachedEntity = session.AttachedEntity;
-                        if (attachedEntity != null && Transform(attachedEntity.Value).MapID == DefaultMap)
+                        // Send all players on the default map to the lobby before deleting the map
+                        foreach (var session in _playerManager.Sessions)
                         {
-                            PlayerJoinLobby(session);
+                            var attachedEntity = session.AttachedEntity;
+                            if (attachedEntity != null && Transform(attachedEntity.Value).MapID == DefaultMap)
+                            {
+                                PlayerJoinLobby(session);
+                            }
                         }
-                    }
 
-                    QueueDel(defaultMapEntityUid);
-                });
+                        QueueDel(defaultMapEntityUid);
+                    }
+                );
             }
 
             try
@@ -739,14 +761,17 @@ namespace Content.Server.GameTicking
                     JobPrototypes = roles.Where(role => !role.Antagonist).Select(role => role.Prototype).ToArray(),
                     AntagPrototypes = roles.Where(role => role.Antagonist).Select(role => role.Prototype).ToArray(),
                     Observer = observer,
-                    Connected = connected
+                    Connected = connected,
                 };
                 listOfPlayerInfo.Add(playerEndRoundInfo);
             }
 
             // This ordering mechanism isn't great (no ordering of minds) but functions
             var listOfPlayerInfoFinal = listOfPlayerInfo.OrderBy(pi => pi.PlayerOOCName).ToArray();
-            var sound = RoundEndSoundCollection == null ? null : _audio.ResolveSound(new SoundCollectionSpecifier(RoundEndSoundCollection));
+            var sound =
+                RoundEndSoundCollection == null
+                    ? null
+                    : _audio.ResolveSound(new SoundCollectionSpecifier(RoundEndSoundCollection));
 
             var roundEndMessageEvent = new RoundEndMessageEvent(
                 gamemodeTitle,
@@ -772,11 +797,13 @@ namespace Content.Server.GameTicking
                     return;
 
                 var duration = RoundDuration();
-                var content = Loc.GetString("discord-round-notifications-end",
+                var content = Loc.GetString(
+                    "discord-round-notifications-end",
                     ("id", RoundId),
                     ("hours", Math.Truncate(duration.TotalHours)),
                     ("minutes", duration.Minutes),
-                    ("seconds", duration.Seconds));
+                    ("seconds", duration.Seconds)
+                );
                 var payload = new WebhookPayload { Content = content };
 
                 await _discord.CreateMessage(_webhookIdentifier.Value, payload);
@@ -886,6 +913,7 @@ namespace Content.Server.GameTicking
                 }
             }
         }
+
         // Hardlight end
 
         /// <summary>
@@ -946,7 +974,7 @@ namespace Content.Server.GameTicking
                 "ShadowKudzu",
                 "ShadowKudzuWeak",
                 "ShadowTree"
-                );
+            );
 
             // Clear up any game rules.
             ClearGameRules();
@@ -971,7 +999,7 @@ namespace Content.Server.GameTicking
                 {
                     //if (!_stationJobs.IsJobUnlimited(station.Owner, job))
                     //{
-                        // Set slot count to zero if not already
+                    // Set slot count to zero if not already
                     if (jobs[job] != 0)
                         _stationJobs.TrySetJobSlot(station.Owner, job, 0);
 
@@ -991,7 +1019,9 @@ namespace Content.Server.GameTicking
 
             RaiseNetworkEvent(new TickerLobbyCountdownEvent(_roundStartTime, Paused));
 
-            _chatManager.DispatchServerAnnouncement(Loc.GetString("game-ticker-delay-start", ("seconds", time.TotalSeconds)));
+            _chatManager.DispatchServerAnnouncement(
+                Loc.GetString("game-ticker-delay-start", ("seconds", time.TotalSeconds))
+            );
 
             return true;
         }
@@ -1003,11 +1033,13 @@ namespace Content.Server.GameTicking
                 RoundLengthMetric.Inc(frameTime);
             }
 
-            if (_roundStartTime == TimeSpan.Zero ||
-                RunLevel != GameRunLevel.PreRoundLobby ||
-                Paused ||
-                _roundStartTime - RoundPreloadTime > _gameTiming.CurTime ||
-                _roundStartCountdownHasNotStartedYetDueToNoPlayers)
+            if (
+                _roundStartTime == TimeSpan.Zero
+                || RunLevel != GameRunLevel.PreRoundLobby
+                || Paused
+                || _roundStartTime - RoundPreloadTime > _gameTiming.CurTime
+                || _roundStartCountdownHasNotStartedYetDueToNoPlayers
+            )
             {
                 return;
             }
@@ -1025,7 +1057,8 @@ namespace Content.Server.GameTicking
 
         private void AnnounceRound()
         {
-            if (CurrentPreset == null) return;
+            if (CurrentPreset == null)
+                return;
 
             var options = _prototypeManager.EnumeratePrototypes<RoundAnnouncementPrototype>().ToList();
 
@@ -1048,7 +1081,9 @@ namespace Content.Server.GameTicking
                 if (_webhookIdentifier == null)
                     return;
 
-                var mapName = _gameMapManager.GetSelectedMap()?.MapName ?? Loc.GetString("discord-round-notifications-unknown-map");
+                var mapName =
+                    _gameMapManager.GetSelectedMap()?.MapName
+                    ?? Loc.GetString("discord-round-notifications-unknown-map");
                 var content = Loc.GetString("discord-round-notifications-started", ("id", RoundId), ("map", mapName));
 
                 var payload = new WebhookPayload { Content = content };
@@ -1066,7 +1101,7 @@ namespace Content.Server.GameTicking
     {
         PreRoundLobby = 0,
         InRound = 1,
-        PostRound = 2
+        PostRound = 2,
     }
 
     public sealed class GameRunLevelChangedEvent
@@ -1105,7 +1140,12 @@ namespace Content.Server.GameTicking
     ///     You likely want to subscribe to this after StationSystem.
     /// </remarks>
     [PublicAPI]
-    public sealed class PreGameMapLoad(GameMapPrototype gameMap, DeserializationOptions options, Vector2 offset, Angle rotation) : EntityEventArgs
+    public sealed class PreGameMapLoad(
+        GameMapPrototype gameMap,
+        DeserializationOptions options,
+        Vector2 offset,
+        Angle rotation
+    ) : EntityEventArgs
     {
         public readonly GameMapPrototype GameMap = gameMap;
         public DeserializationOptions Options = options;
@@ -1182,7 +1222,11 @@ namespace Content.Server.GameTicking
         public IReadOnlyDictionary<NetUserId, HumanoidCharacterProfile> Profiles { get; }
         public bool Forced { get; }
 
-        public RulePlayerSpawningEvent(List<ICommonSession> playerPool, IReadOnlyDictionary<NetUserId, HumanoidCharacterProfile> profiles, bool forced)
+        public RulePlayerSpawningEvent(
+            List<ICommonSession> playerPool,
+            IReadOnlyDictionary<NetUserId, HumanoidCharacterProfile> profiles,
+            bool forced
+        )
         {
             PlayerPool = playerPool;
             Profiles = profiles;
@@ -1200,7 +1244,11 @@ namespace Content.Server.GameTicking
         public IReadOnlyDictionary<NetUserId, HumanoidCharacterProfile> Profiles { get; }
         public bool Forced { get; }
 
-        public RulePlayerJobsAssignedEvent(ICommonSession[] players, IReadOnlyDictionary<NetUserId, HumanoidCharacterProfile> profiles, bool forced)
+        public RulePlayerJobsAssignedEvent(
+            ICommonSession[] players,
+            IReadOnlyDictionary<NetUserId, HumanoidCharacterProfile> profiles,
+            bool forced
+        )
         {
             Players = players;
             Profiles = profiles;

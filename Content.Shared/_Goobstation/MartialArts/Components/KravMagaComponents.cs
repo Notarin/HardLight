@@ -38,9 +38,7 @@ public sealed partial class KravMagaComponent : GrabStagesOverrideComponent
         "ActionLungPunch",
     };
 
-    public readonly List<EntityUid> KravMagaMoveEntities = new()
-    {
-    };
+    public readonly List<EntityUid> KravMagaMoveEntities = new() { };
 
     [DataField]
     public int BaseDamage = 5;
@@ -48,6 +46,7 @@ public sealed partial class KravMagaComponent : GrabStagesOverrideComponent
     [DataField]
     public int DownedDamageModifier = 2;
 }
+
 /// <summary>
 /// Tracks when an entity is silenced through Krav Maga techniques.
 /// Prevents the affected entity from using voice-activated abilities or speaking.

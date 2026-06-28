@@ -59,9 +59,5 @@ public sealed partial class SensorMonitoringConsoleComponent : Component
         public Queue<SensorSample> Samples = new();
     }
 
-    public sealed class ViewingPlayer
-    {
-
-    }
+    public sealed class ViewingPlayer { }
 }
-

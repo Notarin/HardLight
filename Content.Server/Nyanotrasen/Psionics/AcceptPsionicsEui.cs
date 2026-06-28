@@ -1,7 +1,7 @@
-using Content.Shared.Psionics;
-using Content.Shared.Eui;
-using Content.Server.EUI;
 using Content.Server.Abilities.Psionics;
+using Content.Server.EUI;
+using Content.Shared.Eui;
+using Content.Shared.Psionics;
 
 namespace Content.Server.Psionics
 {
@@ -20,8 +20,7 @@ namespace Content.Server.Psionics
         {
             base.HandleMessage(msg);
 
-            if (msg is not AcceptPsionicsChoiceMessage choice ||
-                choice.Button == AcceptPsionicsUiButton.Deny)
+            if (msg is not AcceptPsionicsChoiceMessage choice || choice.Button == AcceptPsionicsUiButton.Deny)
             {
                 Close();
                 return;

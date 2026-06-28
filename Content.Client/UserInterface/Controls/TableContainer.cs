@@ -111,7 +111,7 @@ public class TableContainer : Container
             // at least without causing *some* sort of word wrapping (assuming text contents).
             //
             // Assign horizontal space proportional to the wanted maximum size of the columns.
-            var assignableWidth =  Math.Max(0, availableSize.X - totalMinWidth);
+            var assignableWidth = Math.Max(0, availableSize.X - totalMinWidth);
             for (var c = 0; c < _columns; c++)
             {
                 ref var column = ref _columnDataCache[c];
@@ -199,13 +199,18 @@ public class TableContainer : Container
                     break;
                 var child = GetChild(c + r * _columns);
 
-                child.Arrange(UIBox2.FromDimensions(column.ArrangedX, arrangeY, column.ArrangedWidth, row.MeasuredHeight));
+                child.Arrange(
+                    UIBox2.FromDimensions(column.ArrangedX, arrangeY, column.ArrangedWidth, row.MeasuredHeight)
+                );
             }
 
             arrangeY += row.MeasuredHeight;
         }
 
-        return finalSize with { Y = arrangeY };
+        return finalSize with
+        {
+            Y = arrangeY,
+        };
     }
 
     /// <summary>

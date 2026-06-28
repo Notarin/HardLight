@@ -20,11 +20,20 @@ namespace Content.Shared.Emag.Systems;
 /// 5. Optionally, set Repeatable on the event to true if you don't want the emagged component to be added
 public sealed class EmagSystem : EntitySystem
 {
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly SharedChargesSystem _sharedCharges = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly TagSystem _tag = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency]
+    private readonly ISharedAdminLogManager _adminLogger = default!;
+
+    [Dependency]
+    private readonly SharedChargesSystem _sharedCharges = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly TagSystem _tag = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
 
     public override void Initialize()
     {
@@ -34,7 +43,10 @@ public sealed class EmagSystem : EntitySystem
         SubscribeLocalEvent<EmaggedComponent, OnAccessOverriderAccessUpdatedEvent>(OnAccessOverriderAccessUpdated);
     }
 
-    private void OnAccessOverriderAccessUpdated(Entity<EmaggedComponent> entity, ref OnAccessOverriderAccessUpdatedEvent args)
+    private void OnAccessOverriderAccessUpdated(
+        Entity<EmaggedComponent> entity,
+        ref OnAccessOverriderAccessUpdatedEvent args
+    )
     {
         if (!CompareFlag(entity.Comp.EmagType, EmagType.Access))
             return;
@@ -42,6 +54,7 @@ public sealed class EmagSystem : EntitySystem
         entity.Comp.EmagType &= ~EmagType.Access;
         Dirty(entity);
     }
+
     private void OnAfterInteract(EntityUid uid, EmagComponent comp, AfterInteractEvent args)
     {
         if (!args.CanReach || args.Target is not { } target)
@@ -79,11 +92,20 @@ public sealed class EmagSystem : EntitySystem
         if (!emaggedEvent.Handled)
             return false;
 
-        _popup.PopupPredicted(Loc.GetString("emag-success", ("target", Identity.Entity(target, EntityManager))), user, user, PopupType.Medium);
+        _popup.PopupPredicted(
+            Loc.GetString("emag-success", ("target", Identity.Entity(target, EntityManager))),
+            user,
+            user,
+            PopupType.Medium
+        );
 
         _audio.PlayPredicted(ent.Comp.EmagSound, ent, ent);
 
-        _adminLogger.Add(LogType.Emag, LogImpact.High, $"{ToPrettyString(user):player} emagged {ToPrettyString(target):target} with flag(s): {ent.Comp.EmagType}");
+        _adminLogger.Add(
+            LogType.Emag,
+            LogImpact.High,
+            $"{ToPrettyString(user):player} emagged {ToPrettyString(target):target} with flag(s): {ent.Comp.EmagType}"
+        );
 
         if (emaggedEvent.Handled)
             _sharedCharges.TryUseCharge(chargesEnt);
@@ -123,11 +145,20 @@ public sealed class EmagSystem : EntitySystem
         if (!emaggedEvent.Handled)
             return false;
 
-        _popup.PopupPredicted(Loc.GetString("emag-success", ("target", Identity.Entity(target, EntityManager))), user, user, PopupType.Medium);
+        _popup.PopupPredicted(
+            Loc.GetString("emag-success", ("target", Identity.Entity(target, EntityManager))),
+            user,
+            user,
+            PopupType.Medium
+        );
 
         _audio.PlayPredicted(ent.Comp.EmagSound, ent, ent);
 
-        _adminLogger.Add(LogType.Emag, LogImpact.Medium, $"{ToPrettyString(user):player} demagged {ToPrettyString(target):target} with flag(s): {ent.Comp.EmagType}");
+        _adminLogger.Add(
+            LogType.Emag,
+            LogImpact.Medium,
+            $"{ToPrettyString(user):player} demagged {ToPrettyString(target):target} with flag(s): {ent.Comp.EmagType}"
+        );
 
         if (emaggedEvent.Handled)
             _sharedCharges.TryUseCharge(ent.Owner);
@@ -147,6 +178,7 @@ public sealed class EmagSystem : EntitySystem
 
         return emaggedEvent.Handled;
     }
+
     // End Frontier: demag
 
     /// Checks whether an entity has the EmaggedComponent with a set flag.
@@ -180,7 +212,6 @@ public sealed class EmagSystem : EntitySystem
     }
 }
 
-
 [Flags]
 [Serializable, NetSerializable]
 public enum EmagType : byte
@@ -188,8 +219,9 @@ public enum EmagType : byte
     None = 0,
     Interaction = 1 << 1,
     Access = 1 << 2,
-    StationBound = 1 << 3 // Frontier
+    StationBound = 1 << 3, // Frontier
 }
+
 /// <summary>
 /// Shows a popup to emag user (client side only!) and adds <see cref="EmaggedComponent"/> to the entity when handled
 /// </summary>

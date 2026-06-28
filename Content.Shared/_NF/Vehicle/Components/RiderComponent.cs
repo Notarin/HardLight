@@ -1,5 +1,6 @@
 using Content.Shared._Goobstation.Vehicles;
 using Robust.Shared.GameStates;
+
 namespace Content.Shared._NF.Vehicle.Components;
 
 /// <summary>

@@ -9,14 +9,16 @@ namespace Content.Client.CM14.Xenos.Evolution;
 [UsedImplicitly]
 public sealed class XenoEvolutionBoundUserInterface : BoundUserInterface
 {
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototype = default!;
 
     private readonly SpriteSystem _sprite;
 
     [ViewVariables]
     private XenoEvolutionWindow? _window;
 
-    public XenoEvolutionBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
+    public XenoEvolutionBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey)
     {
         _sprite = EntMan.System<SpriteSystem>();
     }

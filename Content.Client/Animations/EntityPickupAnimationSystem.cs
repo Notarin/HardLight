@@ -13,10 +13,17 @@ namespace Content.Client.Animations;
 /// </summary>
 public sealed class EntityPickupAnimationSystem : EntitySystem
 {
-    [Dependency] private readonly AnimationPlayerSystem _animations = default!;
-    [Dependency] private readonly MetaDataSystem _metaData = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
+    [Dependency]
+    private readonly AnimationPlayerSystem _animations = default!;
+
+    [Dependency]
+    private readonly MetaDataSystem _metaData = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
+
+    [Dependency]
+    private readonly TransformSystem _transform = default!;
 
     public override void Initialize()
     {
@@ -25,7 +32,11 @@ public sealed class EntityPickupAnimationSystem : EntitySystem
         SubscribeLocalEvent<EntityPickupAnimationComponent, AnimationCompletedEvent>(OnEntityPickupAnimationCompleted);
     }
 
-    private void OnEntityPickupAnimationCompleted(EntityUid uid, EntityPickupAnimationComponent component, AnimationCompletedEvent args)
+    private void OnEntityPickupAnimationCompleted(
+        EntityUid uid,
+        EntityPickupAnimationComponent component,
+        AnimationCompletedEvent args
+    )
     {
         Del(uid);
     }
@@ -54,7 +65,11 @@ public sealed class EntityPickupAnimationSystem : EntitySystem
 
         if (!TryComp(uid, out SpriteComponent? sprite0))
         {
-            Log.Error("Entity ({0}) couldn't be animated for pickup since it doesn't have a {1}!", metadata.EntityName, nameof(SpriteComponent));
+            Log.Error(
+                "Entity ({0}) couldn't be animated for pickup since it doesn't have a {1}!",
+                metadata.EntityName,
+                nameof(SpriteComponent)
+            );
             return;
         }
 
@@ -68,23 +83,23 @@ public sealed class EntityPickupAnimationSystem : EntitySystem
         despawn.Lifetime = 0.25f;
         _transform.SetLocalRotationNoLerp(animatableClone, initialAngle);
 
-        _animations.Play(new Entity<AnimationPlayerComponent>(animatableClone, animations), new Animation
-        {
-            Length = TimeSpan.FromMilliseconds(125),
-            AnimationTracks =
+        _animations.Play(
+            new Entity<AnimationPlayerComponent>(animatableClone, animations),
+            new Animation
             {
-                new AnimationTrackComponentProperty
+                Length = TimeSpan.FromMilliseconds(125),
+                AnimationTracks =
                 {
-                    ComponentType = typeof(TransformComponent),
-                    Property = nameof(TransformComponent.LocalPosition),
-                    InterpolationMode = AnimationInterpolationMode.Linear,
-                    KeyFrames =
+                    new AnimationTrackComponentProperty
                     {
-                        new KeyFrame(initial.Position, 0),
-                        new KeyFrame(final, 0.125f)
-                    }
+                        ComponentType = typeof(TransformComponent),
+                        Property = nameof(TransformComponent.LocalPosition),
+                        InterpolationMode = AnimationInterpolationMode.Linear,
+                        KeyFrames = { new KeyFrame(initial.Position, 0), new KeyFrame(final, 0.125f) },
+                    },
                 },
-            }
-        }, "fancy_pickup_anim");
+            },
+            "fancy_pickup_anim"
+        );
     }
 }

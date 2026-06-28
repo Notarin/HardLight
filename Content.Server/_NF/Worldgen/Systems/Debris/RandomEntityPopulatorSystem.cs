@@ -13,9 +13,14 @@ namespace Content.Server.Worldgen.Systems.Debris;
 /// </summary>
 public sealed class RandomEntityPopulatorSystem : BaseWorldSystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly MapSystem _map = default!;
-    [Dependency] private readonly AtmosphereSystem _atmosphere = default!;
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly MapSystem _map = default!;
+
+    [Dependency]
+    private readonly AtmosphereSystem _atmosphere = default!;
 
     /// <inheritdoc />
     public override void Initialize()
@@ -57,11 +62,13 @@ public sealed class RandomEntityPopulatorSystem : BaseWorldSystem
         }
     }
 
-    private bool SelectRandomTile(EntityUid gridUid,
+    private bool SelectRandomTile(
+        EntityUid gridUid,
         MapGridComponent mapComp,
         bool canBeAirSealed,
         ref List<Vector2i>? tileIndices,
-        out EntityCoordinates targetCoords)
+        out EntityCoordinates targetCoords
+    )
     {
         targetCoords = default;
 

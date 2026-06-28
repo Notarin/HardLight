@@ -9,7 +9,7 @@
   id: ShipTarnyxProjectile
   name: TARNYX 150mm EMP projectile
   parent: BaseBulletTrigger
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -42,7 +42,7 @@
   id: ShipTarnyxApProjectile
   name: TARNYX 150mm AP projectile
   parent: BaseBulletTrigger
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:

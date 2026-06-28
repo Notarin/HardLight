@@ -3,12 +3,12 @@
   parent: BaseBulletTrigger
   id: NFBulletRocketMini
   name: mini rocket
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
     layers:
-      - state: grenade
+    - state: grenade
   - type: ExplodeOnTrigger
   - type: Explosive
     explosionType: Default
@@ -27,23 +27,23 @@
   name: minirocket
   parent: BaseItem
   components:
-    - type: Item
-      size: Small
-    - type: CartridgeAmmo
-      proto: NFBulletRocketMini
-      deleteOnSpawn: true
-    - type: Sprite
-      sprite: _Mono/Objects/Weapons/Guns/Ammunition/Explosives/explosives.rsi
-      state: frag
-    - type: StaticPrice
-      price: 20
+  - type: Item
+    size: Small
+  - type: CartridgeAmmo
+    proto: NFBulletRocketMini
+    deleteOnSpawn: true
+  - type: Sprite
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Explosives/explosives.rsi
+    state: frag
+  - type: StaticPrice
+    price: 20
 
 # Explorer Captain Seismic Charge
 - type: entity
   parent: BaseBulletTrigger
   id: NFBulletSeismicCharge
   name: seismic charge
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: Objects/Weapons/Bombs/seismic.rsi
@@ -67,7 +67,7 @@
   parent: BaseBulletTrigger
   id: NFBulletPartyNade
   name: party 'nade
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: Objects/Weapons/Grenades/metalfoam.rsi
@@ -96,4 +96,4 @@
     radius: 3.5
     energy: 0.5
   - type: RgbLightController
-    layers: [ 0 ]
+    layers: [0]

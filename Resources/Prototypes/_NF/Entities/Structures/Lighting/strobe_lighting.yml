@@ -11,7 +11,7 @@
     softness: 1.1
   - type: ContainerFill # HardLight
     containers:
-      light_bulb: [ LightBulb ]
+      light_bulb: [LightBulb]
 
 - type: entity
   parent: PoweredStrobeLightEmpty
@@ -22,7 +22,7 @@
     enabled: true
   - type: ContainerFill # HardLight
     containers:
-      light_bulb: [ LedLightBulb ]
+      light_bulb: [LedLightBulb]
 
 - type: entity
   parent: PoweredStrobeLightEmpty
@@ -33,7 +33,7 @@
     enabled: true
   - type: ContainerFill # HardLight
     containers:
-      light_bulb: [ ServiceLightBulb ]
+      light_bulb: [ServiceLightBulb]
 
 - type: entity
   parent: PoweredStrobeLightEmpty
@@ -44,7 +44,7 @@
     enabled: true
   - type: ContainerFill # HardLight
     containers:
-      light_bulb: [ SodiumLightBulb ]
+      light_bulb: [SodiumLightBulb]
 
 - type: entity
   parent: PoweredStrobeLightEmpty
@@ -55,7 +55,7 @@
     enabled: true
   - type: ContainerFill # HardLight
     containers:
-      light_bulb: [ ExteriorLightBulb ]
+      light_bulb: [ExteriorLightBulb]
 
 - type: entity
   parent: PoweredStrobeLightEmpty
@@ -66,7 +66,7 @@
     enabled: true
   - type: ContainerFill # HardLight
     containers:
-      light_bulb: [ LightBulbCrystalCyan ]
+      light_bulb: [LightBulbCrystalCyan]
 
 - type: entity
   parent: PoweredStrobeLightEmpty
@@ -77,7 +77,7 @@
     enabled: true
   - type: ContainerFill # HardLight
     containers:
-      light_bulb: [ LightBulbCrystalBlue ]
+      light_bulb: [LightBulbCrystalBlue]
 
 - type: entity
   parent: PoweredStrobeLightEmpty
@@ -88,7 +88,7 @@
     enabled: true
   - type: ContainerFill # HardLight
     containers:
-      light_bulb: [ LightBulbCrystalPink ]
+      light_bulb: [LightBulbCrystalPink]
 
 - type: entity
   parent: PoweredStrobeLightEmpty
@@ -99,7 +99,7 @@
     enabled: true
   - type: ContainerFill # HardLight
     containers:
-      light_bulb: [ LightBulbCrystalOrange ]
+      light_bulb: [LightBulbCrystalOrange]
 
 - type: entity
   parent: PoweredStrobeLightEmpty
@@ -110,7 +110,7 @@
     enabled: true
   - type: ContainerFill # HardLight
     containers:
-      light_bulb: [ LightBulbCrystalRed ]
+      light_bulb: [LightBulbCrystalRed]
 
 - type: entity
   parent: PoweredStrobeLightEmpty
@@ -121,4 +121,4 @@
     enabled: true
   - type: ContainerFill # HardLight
     containers:
-      light_bulb: [ LightBulbCrystalGreen ]
+      light_bulb: [LightBulbCrystalGreen]

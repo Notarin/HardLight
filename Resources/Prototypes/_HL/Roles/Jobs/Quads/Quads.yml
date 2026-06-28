@@ -4,11 +4,11 @@
   description: job-description-medical-quadborg
   playTimeTracker: JobMedicalQuadBorg
   requirements:
-    - !type:OverallPlaytimeRequirement
-      time: 21600 # Floof: 6 hrs
-    - !type:DepartmentTimeRequirement
-      department: Medical
-      time: 3600 # Floof: 1 hrs
+  - !type:OverallPlaytimeRequirement
+    time: 21600 # Floof: 6 hrs
+  - !type:DepartmentTimeRequirement
+    department: Medical
+    time: 3600 # Floof: 1 hrs
   canBeAntag: false
   weight: -20
   startingGear: MedicalQuadBorgGear
@@ -27,8 +27,8 @@
   description: job-description-service-quadborg
   playTimeTracker: JobServiceQuadBorg
   requirements:
-    - !type:OverallPlaytimeRequirement
-      time: 21600 # Floof: 6 hrs
+  - !type:OverallPlaytimeRequirement
+    time: 21600 # Floof: 6 hrs
   canBeAntag: false
   weight: -50 # HardLight
   startingGear: ServiceQuadBorgGear
@@ -42,11 +42,11 @@
   description: job-description-salvage-quadborg
   playTimeTracker: JobSalvageQuadBorg
   requirements:
-    - !type:OverallPlaytimeRequirement
-      time: 21600 # Floof: 6 hrs
-    - !type:DepartmentTimeRequirement
-      department: Cargo
-      time: 3600 # Floof: 1 hrs
+  - !type:OverallPlaytimeRequirement
+    time: 21600 # Floof: 6 hrs
+  - !type:DepartmentTimeRequirement
+    department: Cargo
+    time: 3600 # Floof: 1 hrs
   canBeAntag: false
   weight: -20
   startingGear: SalvageQuadBorgGear
@@ -60,11 +60,11 @@
   description: job-description-security-quadborg
   playTimeTracker: JobSecurityQuadBorg
   requirements:
-    - !type:OverallPlaytimeRequirement
-      time: 21600 # Floof: 6 hrs
-    - !type:DepartmentTimeRequirement
-      department: Security
-      time: 3600 # Floof: 1 hrs
+  - !type:OverallPlaytimeRequirement
+    time: 21600 # Floof: 6 hrs
+  - !type:DepartmentTimeRequirement
+    department: Security
+    time: 3600 # Floof: 1 hrs
   canBeAntag: false
   startingGear: SecurityQuadBorgGear
   icon: JobIconSecurityBorg
@@ -77,11 +77,11 @@
   description: job-description-engineering-quadborg
   playTimeTracker: JobEngineeringQuadBorg
   requirements:
-    - !type:OverallPlaytimeRequirement
-      time: 21600 # Floof: 6 hrs
-    - !type:DepartmentTimeRequirement
-      department: Engineering
-      time: 3600 # Floof: 1 hrs
+  - !type:OverallPlaytimeRequirement
+    time: 21600 # Floof: 6 hrs
+  - !type:DepartmentTimeRequirement
+    department: Engineering
+    time: 3600 # Floof: 1 hrs
   canBeAntag: false
   startingGear: EngineeringQuadBorgGear
   icon: JobIconEngineeringBorg

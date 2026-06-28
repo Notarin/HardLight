@@ -2,7 +2,7 @@
   id: WarpPointAdmin
   parent: WarpPoint
   suffix: Admin-only
-  categories: [ DoNotMap ]
+  categories: [DoNotMap]
   components:
   - type: WarpPoint
     adminOnly: true
@@ -11,7 +11,7 @@
   id: WarpPointDungeon
   parent: WarpPoint
   suffix: Dungeon
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: WarpPoint
     queryGridName: true

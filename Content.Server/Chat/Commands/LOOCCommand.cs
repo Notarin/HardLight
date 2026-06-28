@@ -9,7 +9,8 @@ namespace Content.Server.Chat.Commands
     [AnyCommand]
     internal sealed class LOOCCommand : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _e = default!;
+        [Dependency]
+        private readonly IEntityManager _e = default!;
 
         public string Command => "looc";
         public string Description => "Send Local Out Of Character chat messages.";
@@ -36,7 +37,8 @@ namespace Content.Server.Chat.Commands
             if (string.IsNullOrEmpty(message))
                 return;
 
-            _e.System<ChatSystem>().TrySendInGameOOCMessage(entity, message, InGameOOCChatType.Looc, false, shell, player);
+            _e.System<ChatSystem>()
+                .TrySendInGameOOCMessage(entity, message, InGameOOCChatType.Looc, false, shell, player);
         }
     }
 }

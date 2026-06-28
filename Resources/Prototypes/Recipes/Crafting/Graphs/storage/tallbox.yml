@@ -60,7 +60,7 @@
         amount: 2
       - !type:EmptyAllContainers
       - !type:DeleteEntity
-  # Floof edit section - upgrade to ID-lockable version
+      # Floof edit section - upgrade to ID-lockable version
     - to: idLockable
       steps:
       - material: Cable
@@ -99,7 +99,7 @@
         amount: 5
       - !type:EmptyAllContainers
       - !type:DeleteEntity
-  # Floof edit section end
+      # Floof edit section end
 
 - type: constructionGraph
   id: ClosetFreezer

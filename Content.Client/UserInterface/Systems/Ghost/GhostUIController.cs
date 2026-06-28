@@ -1,30 +1,38 @@
+using Content.Client._Corvax.Respawn; // Frontier
 using Content.Client.Gameplay;
 using Content.Client.Ghost;
 using Content.Client.UserInterface.Systems.Gameplay;
 using Content.Client.UserInterface.Systems.Ghost.Widgets;
-using Content.Shared.CCVar;
 using Content.Shared._NF.CCVar; // Frontier
+using Content.Shared.CCVar;
 using Content.Shared.Ghost;
 using Robust.Client.Console;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controllers;
-using Robust.Shared.IoC;
 using Robust.Shared.Configuration;
 using Robust.Shared.Console;
+using Robust.Shared.IoC;
 using Robust.Shared.Timing;
-using Content.Client._Corvax.Respawn; // Frontier
 
 namespace Content.Client.UserInterface.Systems.Ghost;
 
 // TODO hud refactor BEFORE MERGE fix ghost gui being too far up
 public sealed class GhostUIController : UIController, IOnSystemChanged<GhostSystem>, IOnSystemChanged<RespawnSystem>
 {
-    [Dependency] private readonly IEntityNetworkManager _net = default!;
-    [Dependency] private readonly IConsoleHost _consoleHost = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
+    [Dependency]
+    private readonly IEntityNetworkManager _net = default!;
 
-    [UISystemDependency] private readonly GhostSystem? _system = default;
-    [UISystemDependency] private readonly RespawnSystem? _respawn = default;
+    [Dependency]
+    private readonly IConsoleHost _consoleHost = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
+
+    [UISystemDependency]
+    private readonly GhostSystem? _system = default;
+
+    [UISystemDependency]
+    private readonly RespawnSystem? _respawn = default;
 
     private GhostGui? Gui => UIManager.GetActiveUIWidgetOrNull<GhostGui>();
 
@@ -91,8 +99,11 @@ public sealed class GhostUIController : UIController, IOnSystemChanged<GhostSyst
         }
 
         Gui.Visible = _system?.IsGhost ?? false;
-        Gui.Update(_system?.AvailableGhostRoleCount, _system?.Player?.CanReturnToBody,
-            _cfg.GetCVar(NFCCVars.CryoReturnEnabled) ? _system?.Player?.CanReturnFromCryo : false);
+        Gui.Update(
+            _system?.AvailableGhostRoleCount,
+            _system?.Player?.CanReturnToBody,
+            _cfg.GetCVar(NFCCVars.CryoReturnEnabled) ? _system?.Player?.CanReturnFromCryo : false
+        );
     }
 
     private void UpdateRespawn(TimeSpan? timeOfDeath)
@@ -103,12 +114,12 @@ public sealed class GhostUIController : UIController, IOnSystemChanged<GhostSyst
     private void OnPlayerRemoved(GhostComponent component)
     {
         Gui?.Hide();
-//        UpdateRespawn(component.TimeOfDeath);
+        //        UpdateRespawn(component.TimeOfDeath);
     }
 
     private void OnPlayerUpdated(GhostComponent component)
     {
-//        UpdateRespawn(component.TimeOfDeath);
+        //        UpdateRespawn(component.TimeOfDeath);
         UpdateGui();
     }
 

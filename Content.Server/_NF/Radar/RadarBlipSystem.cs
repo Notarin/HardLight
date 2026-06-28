@@ -17,13 +17,17 @@ namespace Content.Server._NF.Radar;
 /// </remarks>
 public sealed partial class RadarBlipSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedTransformSystem _xform = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _xform = default!;
 
     private Dictionary<NetUserId, TimeSpan> _nextBlipRequestPerUser = new();
 
     // The minimum amount of time between handled blip requests.
     private static readonly TimeSpan MinRequestPeriod = TimeSpan.FromSeconds(1);
+
     public override void Initialize()
     {
         base.Initialize();
@@ -45,7 +49,10 @@ public sealed partial class RadarBlipSystem : EntitySystem
         if (!TryComp<RadarConsoleComponent>(radarUid, out var radar))
             return;
 
-        if (_nextBlipRequestPerUser.TryGetValue(args.SenderSession.UserId, out var requestTime) && _timing.RealTime < requestTime)
+        if (
+            _nextBlipRequestPerUser.TryGetValue(args.SenderSession.UserId, out var requestTime)
+            && _timing.RealTime < requestTime
+        )
             return;
 
         _nextBlipRequestPerUser[args.SenderSession.UserId] = _timing.RealTime + MinRequestPeriod;
@@ -67,7 +74,13 @@ public sealed partial class RadarBlipSystem : EntitySystem
     /// <summary>
     /// Assembles a list of radar blips visible to the given radar console.
     /// </summary>
-    private List<(NetEntity? Grid, Vector2 Position, float Scale, Color Color, RadarBlipShape Shape)> AssembleBlipsReport(Entity<RadarConsoleComponent> ent)
+    private List<(
+        NetEntity? Grid,
+        Vector2 Position,
+        float Scale,
+        Color Color,
+        RadarBlipShape Shape
+    )> AssembleBlipsReport(Entity<RadarConsoleComponent> ent)
     {
         var blips = new List<(NetEntity? Grid, Vector2 Position, float Scale, Color Color, RadarBlipShape Shape)>();
 
@@ -135,7 +148,13 @@ public sealed partial class RadarBlipSystem : EntitySystem
     /// <summary>
     /// Configures the radar blip for a jetpack or vehicle entity.
     /// </summary>
-    private void SetupRadarBlip(EntityUid uid, Color color, float scale, bool visibleFromOtherGrids = true, bool requireNoGrid = false)
+    private void SetupRadarBlip(
+        EntityUid uid,
+        Color color,
+        float scale,
+        bool visibleFromOtherGrids = true,
+        bool requireNoGrid = false
+    )
     {
         var blip = EnsureComp<RadarBlipComponent>(uid);
         blip.RadarColor = color;

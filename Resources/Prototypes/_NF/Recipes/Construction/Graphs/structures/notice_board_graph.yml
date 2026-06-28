@@ -4,10 +4,10 @@
   graph:
   - node: start
     actions:
-      - !type:SpawnPrototype
-        prototype: MaterialWoodPlank1
-        amount: 2
-      - !type:DeleteEntity {}
+    - !type:SpawnPrototype
+      prototype: MaterialWoodPlank1
+      amount: 2
+    - !type:DeleteEntity {}
     edges:
     - to: NoticeBoardNFNode
       completed:

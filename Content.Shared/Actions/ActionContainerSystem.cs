@@ -15,12 +15,23 @@ namespace Content.Shared.Actions;
 /// </summary>
 public sealed class ActionContainerSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
-    [Dependency] private readonly INetManager _netMan = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedMindSystem _mind = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly SharedActionsSystem _actions = default!;
+
+    [Dependency]
+    private readonly INetManager _netMan = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly SharedMindSystem _mind = default!;
 
     public override void Initialize()
     {
@@ -42,7 +53,7 @@ public sealed class ActionContainerSystem : EntitySystem
         if (!TryComp<ActionsContainerComponent>(mindId, out var mindActionContainerComp))
             return;
 
-        if (!HasComp<GhostComponent>(uid) && mindActionContainerComp.Container.ContainedEntities.Count > 0 )
+        if (!HasComp<GhostComponent>(uid) && mindActionContainerComp.Container.ContainedEntities.Count > 0)
             _actions.GrantContainedActions(uid, mindId);
     }
 
@@ -66,20 +77,24 @@ public sealed class ActionContainerSystem : EntitySystem
     /// If the entity does not exist, it will attempt to spawn a new action.
     /// Returns false if the given entity exists, but is not in a valid state.
     /// </summary>
-    public bool EnsureAction(EntityUid uid,
+    public bool EnsureAction(
+        EntityUid uid,
         [NotNullWhen(true)] ref EntityUid? actionId,
         string actionPrototypeId,
-        ActionsContainerComponent? comp = null)
+        ActionsContainerComponent? comp = null
+    )
     {
         return EnsureAction(uid, ref actionId, out _, actionPrototypeId, comp);
     }
 
     /// <inheritdoc cref="EnsureAction(Robust.Shared.GameObjects.EntityUid,ref System.Nullable{Robust.Shared.GameObjects.EntityUid},string?,Content.Shared.Actions.ActionsContainerComponent?)"/>
-    public bool EnsureAction(EntityUid uid,
+    public bool EnsureAction(
+        EntityUid uid,
         [NotNullWhen(true)] ref EntityUid? actionId,
         [NotNullWhen(true)] out BaseActionComponent? action,
         string? actionPrototypeId,
-        ActionsContainerComponent? comp = null)
+        ActionsContainerComponent? comp = null
+    )
     {
         action = null;
 
@@ -93,11 +108,15 @@ public sealed class ActionContainerSystem : EntitySystem
 
         if (Exists(actionId))
         {
-            if (!comp.Container.Contains(actionId.Value)
+            if (
+                !comp.Container.Contains(actionId.Value)
                 || !_actions.TryGetActionData(actionId, out action)
-                || action.Container != uid)
+                || action.Container != uid
+            )
             {
-                Log.Warning($"Recreating stale action {ToPrettyString(actionId.Value)} for {ToPrettyString(uid)} because its container state is invalid.");
+                Log.Warning(
+                    $"Recreating stale action {ToPrettyString(actionId.Value)} for {ToPrettyString(uid)} because its container state is invalid."
+                );
 
                 if (Exists(actionId.Value))
                     Del(actionId.Value);
@@ -141,7 +160,8 @@ public sealed class ActionContainerSystem : EntitySystem
         EntityUid actionId,
         EntityUid newContainer,
         BaseActionComponent? action = null,
-        ActionsContainerComponent? container = null)
+        ActionsContainerComponent? container = null
+    )
     {
         if (!_actions.ResolveActionData(actionId, ref action))
             return;
@@ -167,7 +187,8 @@ public sealed class ActionContainerSystem : EntitySystem
         EntityUid from,
         EntityUid to,
         ActionsContainerComponent? oldContainer = null,
-        ActionsContainerComponent? newContainer = null)
+        ActionsContainerComponent? newContainer = null
+    )
     {
         if (!Resolve(from, ref oldContainer) || !Resolve(to, ref newContainer))
             return;
@@ -192,7 +213,8 @@ public sealed class ActionContainerSystem : EntitySystem
         EntityUid newContainer,
         EntityUid newAttached,
         BaseActionComponent? action = null,
-        ActionsContainerComponent? container = null)
+        ActionsContainerComponent? container = null
+    )
     {
         if (!_actions.ResolveActionData(actionId, ref action))
             return;
@@ -222,7 +244,8 @@ public sealed class ActionContainerSystem : EntitySystem
         EntityUid to,
         EntityUid newAttached,
         ActionsContainerComponent? oldContainer = null,
-        ActionsContainerComponent? newContainer = null)
+        ActionsContainerComponent? newContainer = null
+    )
     {
         if (!Resolve(from, ref oldContainer) || !Resolve(to, ref newContainer))
             return;
@@ -238,7 +261,12 @@ public sealed class ActionContainerSystem : EntitySystem
     /// <summary>
     /// Adds a pre-existing action to an action container. If the action is already in some container it will first remove it.
     /// </summary>
-    public bool AddAction(EntityUid uid, EntityUid actionId, BaseActionComponent? action = null, ActionsContainerComponent? comp = null)
+    public bool AddAction(
+        EntityUid uid,
+        EntityUid actionId,
+        BaseActionComponent? action = null,
+        ActionsContainerComponent? comp = null
+    )
     {
         if (!_actions.ResolveActionData(actionId, ref action))
             return false;
@@ -279,7 +307,9 @@ public sealed class ActionContainerSystem : EntitySystem
         if (action.Container != null)
         {
             if (Exists(action.Container))
-                Log.Error($"Failed to remove action {ToPrettyString(actionId)} from its container {ToPrettyString(action.Container)}?");
+                Log.Error(
+                    $"Failed to remove action {ToPrettyString(actionId)} from its container {ToPrettyString(action.Container)}?"
+                );
             action.Container = null;
         }
 
@@ -303,7 +333,11 @@ public sealed class ActionContainerSystem : EntitySystem
         _container.ShutdownContainer(component.Container);
     }
 
-    private void OnEntityInserted(EntityUid uid, ActionsContainerComponent component, EntInsertedIntoContainerMessage args)
+    private void OnEntityInserted(
+        EntityUid uid,
+        ActionsContainerComponent component,
+        EntInsertedIntoContainerMessage args
+    )
     {
         if (args.Container.ID != ActionsContainerComponent.ContainerId)
             return;
@@ -321,7 +355,11 @@ public sealed class ActionContainerSystem : EntitySystem
         RaiseLocalEvent(uid, ref ev);
     }
 
-    private void OnEntityRemoved(EntityUid uid, ActionsContainerComponent component, EntRemovedFromContainerMessage args)
+    private void OnEntityRemoved(
+        EntityUid uid,
+        ActionsContainerComponent component,
+        EntRemovedFromContainerMessage args
+    )
     {
         if (args.Container.ID != ActionsContainerComponent.ContainerId)
             return;
@@ -341,7 +379,11 @@ public sealed class ActionContainerSystem : EntitySystem
 
     private void OnActionAdded(EntityUid uid, ActionsContainerComponent component, ActionAddedEvent args)
     {
-        if (TryComp<MindComponent>(uid, out var mindComp) && mindComp.OwnedEntity != null && HasComp<ActionsContainerComponent>(mindComp.OwnedEntity.Value))
+        if (
+            TryComp<MindComponent>(uid, out var mindComp)
+            && mindComp.OwnedEntity != null
+            && HasComp<ActionsContainerComponent>(mindComp.OwnedEntity.Value)
+        )
             _actions.GrantContainedAction(mindComp.OwnedEntity.Value, uid, args.Action);
     }
 }

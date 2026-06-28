@@ -1,18 +1,20 @@
 using Content.Shared._EinsteinEngines.Silicon.Components;
 using Content.Shared.Alert;
 using Content.Shared.Bed.Sleep;
-using Robust.Shared.Serialization;
-using Content.Shared.Movement.Systems;
 using Content.Shared.Containers.ItemSlots;
+using Content.Shared.Movement.Systems;
 using Content.Shared.PowerCell.Components;
+using Robust.Shared.Serialization;
 
 namespace Content.Shared._EinsteinEngines.Silicon.Systems;
 
-
 public sealed class SharedSiliconChargeSystem : EntitySystem
 {
-    [Dependency] private readonly AlertsSystem _alertsSystem = default!;
-    [Dependency] private readonly ItemSlotsSystem _itemSlots = default!;
+    [Dependency]
+    private readonly AlertsSystem _alertsSystem = default!;
+
+    [Dependency]
+    private readonly ItemSlotsSystem _itemSlots = default!;
 
     public override void Initialize()
     {
@@ -23,15 +25,18 @@ public sealed class SharedSiliconChargeSystem : EntitySystem
         SubscribeLocalEvent<SiliconComponent, RefreshMovementSpeedModifiersEvent>(OnRefreshMovespeed);
         SubscribeLocalEvent<SiliconComponent, ItemSlotInsertAttemptEvent>(OnItemSlotInsertAttempt);
         SubscribeLocalEvent<SiliconComponent, ItemSlotEjectAttemptEvent>(OnItemSlotEjectAttempt);
-        SubscribeLocalEvent<SiliconComponent, TryingToSleepEvent>(OnTryingToSleep);    
+        SubscribeLocalEvent<SiliconComponent, TryingToSleepEvent>(OnTryingToSleep);
     }
 
     private void OnItemSlotInsertAttempt(EntityUid uid, SiliconComponent component, ref ItemSlotInsertAttemptEvent args)
     {
-        if (args.Cancelled
+        if (
+            args.Cancelled
             || !TryComp<PowerCellSlotComponent>(uid, out var cellSlotComp)
             || !_itemSlots.TryGetSlot(uid, cellSlotComp.CellSlotId, out var cellSlot)
-            || cellSlot != args.Slot || args.User != uid)
+            || cellSlot != args.Slot
+            || args.User != uid
+        )
             return;
 
         args.Cancelled = true;
@@ -39,10 +44,13 @@ public sealed class SharedSiliconChargeSystem : EntitySystem
 
     private void OnItemSlotEjectAttempt(EntityUid uid, SiliconComponent component, ref ItemSlotEjectAttemptEvent args)
     {
-        if (args.Cancelled
+        if (
+            args.Cancelled
             || !TryComp<PowerCellSlotComponent>(uid, out var cellSlotComp)
             || !_itemSlots.TryGetSlot(uid, cellSlotComp.CellSlotId, out var cellSlot)
-            || cellSlot != args.Slot || args.User != uid)
+            || cellSlot != args.Slot
+            || args.User != uid
+        )
             return;
 
         args.Cancelled = true;
@@ -85,7 +93,6 @@ public sealed class SharedSiliconChargeSystem : EntitySystem
         args.Cancelled = !component.DoSiliconsDreamOfElectricSheep;
     }
 }
-
 
 public enum SiliconType
 {

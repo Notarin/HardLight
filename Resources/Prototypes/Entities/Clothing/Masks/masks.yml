@@ -61,7 +61,7 @@
         Slash: 0.95
         Piercing: 0.95
         Heat: 0.95
-  - type: Tag  # Goobstation - For survial boxes
+  - type: Tag # Goobstation - For survial boxes
     tags:
     - PetWearable
     - WhitelistChameleon
@@ -96,7 +96,7 @@
   - type: IngestionBlocker
 
 - type: entity
-  parent: [ ClothingMaskGasAtmos, BaseColcommContraband ]
+  parent: [ClothingMaskGasAtmos, BaseColcommContraband]
   id: ClothingMaskGasCentcom
   name: ColComm gas mask
   description: Oooh, gold and green. Fancy! This should help as you sit in your office.
@@ -374,7 +374,7 @@
     accent: StutteringAccent
 
 - type: entity
-  parent: [ ClothingMaskGas, BaseC2ContrabandUnredeemable ] # Frontier: BaseSecurityContraband<BaseC2ContrabandUnredeemable
+  parent: [ClothingMaskGas, BaseC2ContrabandUnredeemable] # Frontier: BaseSecurityContraband<BaseC2ContrabandUnredeemable
   id: ClothingMaskGasSwat
   name: swat gas mask
   description: A elite issue Security gas mask.
@@ -400,7 +400,7 @@
         Heat: 0.95
 
 - type: entity
-  parent: [ ClothingMaskGas ] # Frontier: Removed BaseSecurityCargoContraband
+  parent: [ClothingMaskGas] # Frontier: Removed BaseSecurityCargoContraband
   id: ClothingMaskGasMercenary # Frontier: Merc to Mercenary
   name: mercenary gas mask
   description: Slightly outdated, but reliable military-style gas mask.
@@ -420,7 +420,7 @@
     id: ClothingMaskGasMercenary # Frontier
 
 - type: entity
-  parent: [ ClothingMaskGas, BaseColcommContraband ]
+  parent: [ClothingMaskGas, BaseColcommContraband]
   id: ClothingMaskGasERT
   name: ert gas mask
   description: The gas mask of the elite squad of the ERT.

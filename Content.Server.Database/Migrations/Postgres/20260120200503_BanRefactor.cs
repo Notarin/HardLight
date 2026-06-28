@@ -18,8 +18,12 @@ namespace Content.Server.Database.Migrations.Postgres
                 name: "ban",
                 columns: table => new
                 {
-                    ban_id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ban_id = table
+                        .Column<int>(type: "integer", nullable: false)
+                        .Annotation(
+                            "Npgsql:ValueGenerationStrategy",
+                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
+                        ),
                     type = table.Column<byte>(type: "smallint", nullable: false),
                     playtime_at_note = table.Column<TimeSpan>(type: "interval", nullable: false),
                     ban_time = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
@@ -31,7 +35,7 @@ namespace Content.Server.Database.Migrations.Postgres
                     last_edited_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     exempt_flags = table.Column<int>(type: "integer", nullable: false),
                     auto_delete = table.Column<bool>(type: "boolean", nullable: false),
-                    hidden = table.Column<bool>(type: "boolean", nullable: false)
+                    hidden = table.Column<bool>(type: "boolean", nullable: false),
                 },
                 constraints: table =>
                 {
@@ -42,23 +46,30 @@ namespace Content.Server.Database.Migrations.Postgres
                         column: x => x.banning_admin,
                         principalTable: "player",
                         principalColumn: "user_id",
-                        onDelete: ReferentialAction.SetNull);
+                        onDelete: ReferentialAction.SetNull
+                    );
                     table.ForeignKey(
                         name: "FK_ban_player_last_edited_by_id",
                         column: x => x.last_edited_by_id,
                         principalTable: "player",
                         principalColumn: "user_id",
-                        onDelete: ReferentialAction.SetNull);
-                });
+                        onDelete: ReferentialAction.SetNull
+                    );
+                }
+            );
 
             migrationBuilder.CreateTable(
                 name: "ban_address",
                 columns: table => new
                 {
-                    ban_address_id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ban_address_id = table
+                        .Column<int>(type: "integer", nullable: false)
+                        .Annotation(
+                            "Npgsql:ValueGenerationStrategy",
+                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
+                        ),
                     address = table.Column<NpgsqlInet>(type: "inet", nullable: false),
-                    ban_id = table.Column<int>(type: "integer", nullable: false)
+                    ban_id = table.Column<int>(type: "integer", nullable: false),
                 },
                 constraints: table =>
                 {
@@ -69,18 +80,24 @@ namespace Content.Server.Database.Migrations.Postgres
                         column: x => x.ban_id,
                         principalTable: "ban",
                         principalColumn: "ban_id",
-                        onDelete: ReferentialAction.Cascade);
-                });
+                        onDelete: ReferentialAction.Cascade
+                    );
+                }
+            );
 
             migrationBuilder.CreateTable(
                 name: "ban_hwid",
                 columns: table => new
                 {
-                    ban_hwid_id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ban_hwid_id = table
+                        .Column<int>(type: "integer", nullable: false)
+                        .Annotation(
+                            "Npgsql:ValueGenerationStrategy",
+                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
+                        ),
                     hwid = table.Column<byte[]>(type: "bytea", nullable: false),
                     hwid_type = table.Column<int>(type: "integer", nullable: false),
-                    ban_id = table.Column<int>(type: "integer", nullable: false)
+                    ban_id = table.Column<int>(type: "integer", nullable: false),
                 },
                 constraints: table =>
                 {
@@ -90,17 +107,23 @@ namespace Content.Server.Database.Migrations.Postgres
                         column: x => x.ban_id,
                         principalTable: "ban",
                         principalColumn: "ban_id",
-                        onDelete: ReferentialAction.Cascade);
-                });
+                        onDelete: ReferentialAction.Cascade
+                    );
+                }
+            );
 
             migrationBuilder.CreateTable(
                 name: "ban_player",
                 columns: table => new
                 {
-                    ban_player_id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ban_player_id = table
+                        .Column<int>(type: "integer", nullable: false)
+                        .Annotation(
+                            "Npgsql:ValueGenerationStrategy",
+                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
+                        ),
                     user_id = table.Column<Guid>(type: "uuid", nullable: false),
-                    ban_id = table.Column<int>(type: "integer", nullable: false)
+                    ban_id = table.Column<int>(type: "integer", nullable: false),
                 },
                 constraints: table =>
                 {
@@ -110,18 +133,24 @@ namespace Content.Server.Database.Migrations.Postgres
                         column: x => x.ban_id,
                         principalTable: "ban",
                         principalColumn: "ban_id",
-                        onDelete: ReferentialAction.Cascade);
-                });
+                        onDelete: ReferentialAction.Cascade
+                    );
+                }
+            );
 
             migrationBuilder.CreateTable(
                 name: "ban_role",
                 columns: table => new
                 {
-                    ban_role_id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ban_role_id = table
+                        .Column<int>(type: "integer", nullable: false)
+                        .Annotation(
+                            "Npgsql:ValueGenerationStrategy",
+                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
+                        ),
                     role_type = table.Column<string>(type: "text", nullable: false),
                     role_id = table.Column<string>(type: "text", nullable: false),
-                    ban_id = table.Column<int>(type: "integer", nullable: false)
+                    ban_id = table.Column<int>(type: "integer", nullable: false),
                 },
                 constraints: table =>
                 {
@@ -131,17 +160,23 @@ namespace Content.Server.Database.Migrations.Postgres
                         column: x => x.ban_id,
                         principalTable: "ban",
                         principalColumn: "ban_id",
-                        onDelete: ReferentialAction.Cascade);
-                });
+                        onDelete: ReferentialAction.Cascade
+                    );
+                }
+            );
 
             migrationBuilder.CreateTable(
                 name: "ban_round",
                 columns: table => new
                 {
-                    ban_round_id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ban_round_id = table
+                        .Column<int>(type: "integer", nullable: false)
+                        .Annotation(
+                            "Npgsql:ValueGenerationStrategy",
+                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
+                        ),
                     ban_id = table.Column<int>(type: "integer", nullable: false),
-                    round_id = table.Column<int>(type: "integer", nullable: false)
+                    round_id = table.Column<int>(type: "integer", nullable: false),
                 },
                 constraints: table =>
                 {
@@ -151,24 +186,31 @@ namespace Content.Server.Database.Migrations.Postgres
                         column: x => x.ban_id,
                         principalTable: "ban",
                         principalColumn: "ban_id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Cascade
+                    );
                     table.ForeignKey(
                         name: "FK_ban_round_round_round_id",
                         column: x => x.round_id,
                         principalTable: "round",
                         principalColumn: "round_id",
-                        onDelete: ReferentialAction.Cascade);
-                });
+                        onDelete: ReferentialAction.Cascade
+                    );
+                }
+            );
 
             migrationBuilder.CreateTable(
                 name: "unban",
                 columns: table => new
                 {
-                    unban_id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    unban_id = table
+                        .Column<int>(type: "integer", nullable: false)
+                        .Annotation(
+                            "Npgsql:ValueGenerationStrategy",
+                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
+                        ),
                     ban_id = table.Column<int>(type: "integer", nullable: false),
                     unbanning_admin = table.Column<Guid>(type: "uuid", nullable: true),
-                    unban_time = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    unban_time = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                 },
                 constraints: table =>
                 {
@@ -178,67 +220,47 @@ namespace Content.Server.Database.Migrations.Postgres
                         column: x => x.ban_id,
                         principalTable: "ban",
                         principalColumn: "ban_id",
-                        onDelete: ReferentialAction.Cascade);
-                });
+                        onDelete: ReferentialAction.Cascade
+                    );
+                }
+            );
 
-            migrationBuilder.CreateIndex(
-                name: "IX_ban_banning_admin",
-                table: "ban",
-                column: "banning_admin");
+            migrationBuilder.CreateIndex(name: "IX_ban_banning_admin", table: "ban", column: "banning_admin");
 
-            migrationBuilder.CreateIndex(
-                name: "IX_ban_last_edited_by_id",
-                table: "ban",
-                column: "last_edited_by_id");
+            migrationBuilder.CreateIndex(name: "IX_ban_last_edited_by_id", table: "ban", column: "last_edited_by_id");
 
-            migrationBuilder.CreateIndex(
-                name: "IX_ban_address_ban_id",
-                table: "ban_address",
-                column: "ban_id");
+            migrationBuilder.CreateIndex(name: "IX_ban_address_ban_id", table: "ban_address", column: "ban_id");
 
-            migrationBuilder.CreateIndex(
-                name: "IX_ban_hwid_ban_id",
-                table: "ban_hwid",
-                column: "ban_id");
+            migrationBuilder.CreateIndex(name: "IX_ban_hwid_ban_id", table: "ban_hwid", column: "ban_id");
 
-            migrationBuilder.CreateIndex(
-                name: "IX_ban_player_ban_id",
-                table: "ban_player",
-                column: "ban_id");
+            migrationBuilder.CreateIndex(name: "IX_ban_player_ban_id", table: "ban_player", column: "ban_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ban_player_user_id_ban_id",
                 table: "ban_player",
                 columns: new[] { "user_id", "ban_id" },
-                unique: true);
+                unique: true
+            );
 
-            migrationBuilder.CreateIndex(
-                name: "IX_ban_role_ban_id",
-                table: "ban_role",
-                column: "ban_id");
+            migrationBuilder.CreateIndex(name: "IX_ban_role_ban_id", table: "ban_role", column: "ban_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ban_role_role_type_role_id_ban_id",
                 table: "ban_role",
                 columns: new[] { "role_type", "role_id", "ban_id" },
-                unique: true);
+                unique: true
+            );
 
-            migrationBuilder.CreateIndex(
-                name: "IX_ban_round_ban_id",
-                table: "ban_round",
-                column: "ban_id");
+            migrationBuilder.CreateIndex(name: "IX_ban_round_ban_id", table: "ban_round", column: "ban_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ban_round_round_id_ban_id",
                 table: "ban_round",
                 columns: new[] { "round_id", "ban_id" },
-                unique: true);
+                unique: true
+            );
 
-            migrationBuilder.CreateIndex(
-                name: "IX_unban_ban_id",
-                table: "unban",
-                column: "ban_id",
-                unique: true);
+            migrationBuilder.CreateIndex(name: "IX_unban_ban_id", table: "unban", column: "ban_id", unique: true);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_server_ban_hit_ban_ban_id",
@@ -246,9 +268,11 @@ namespace Content.Server.Database.Migrations.Postgres
                 column: "ban_id",
                 principalTable: "ban",
                 principalColumn: "ban_id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Cascade
+            );
 
-            migrationBuilder.Sql("""
+            migrationBuilder.Sql(
+                """
                 CREATE INDEX "IX_ban_address_address"
                     ON ban_address
                     USING gist
@@ -262,9 +286,11 @@ namespace Content.Server.Database.Migrations.Postgres
                 CREATE UNIQUE INDEX "IX_ban_address_address_ban_id"
                     ON ban_address
                     (address, ban_id);
-                """);
+                """
+            );
 
-            migrationBuilder.Sql($"""
+            migrationBuilder.Sql(
+                $"""
                 -- REMOVE:
                 -- TRUNCATE ban RESTART IDENTITY CASCADE;
 
@@ -274,7 +300,8 @@ namespace Content.Server.Database.Migrations.Postgres
                 INSERT INTO
                 	ban	(ban_id, type, playtime_at_note, ban_time, expiration_time, reason, severity, banning_admin, last_edited_by_id, last_edited_at, exempt_flags, auto_delete, hidden)
                 SELECT
-                	server_ban_id, {(int)BanType.Server}, playtime_at_note, ban_time, expiration_time, reason, severity, banning_admin, last_edited_by_id, last_edited_at, exempt_flags, auto_delete, hidden
+                	server_ban_id, {(int)
+                    BanType.Server}, playtime_at_note, ban_time, expiration_time, reason, severity, banning_admin, last_edited_by_id, last_edited_at, exempt_flags, auto_delete, hidden
                 FROM
                 	server_ban;
 
@@ -401,7 +428,8 @@ namespace Content.Server.Database.Migrations.Postgres
                 INSERT INTO
                 	ban	(ban_id, type, playtime_at_note, ban_time, expiration_time, reason, severity, banning_admin, last_edited_by_id, last_edited_at, exempt_flags, auto_delete, hidden)
                 SELECT
-                	im.ban_id, {(int)BanType.Role}, playtime_at_note, ban_time, expiration_time, reason, severity, banning_admin, last_edited_by_id, last_edited_at, 0, FALSE, hidden
+                	im.ban_id, {(int)
+                    BanType.Role}, playtime_at_note, ban_time, expiration_time, reason, severity, banning_admin, last_edited_by_id, last_edited_at, 0, FALSE, hidden
                 FROM
                 	_role_ban_import_id_map im
                 INNER JOIN _role_ban_import_merge_map mm
@@ -488,25 +516,21 @@ namespace Content.Server.Database.Migrations.Postgres
                 ON srb.server_role_ban_id = im.merge_id
                 WHERE mm.merge_id = mm.server_role_ban_id
                 	AND round_id IS NOT NULL;
-                """);
+                """
+            );
 
-            migrationBuilder.DropForeignKey(
-                name: "FK_server_ban_hit_server_ban_ban_id",
-                table: "server_ban_hit");
+            migrationBuilder.DropForeignKey(name: "FK_server_ban_hit_server_ban_ban_id", table: "server_ban_hit");
 
-            migrationBuilder.DropTable(
-                name: "server_role_unban");
+            migrationBuilder.DropTable(name: "server_role_unban");
 
-            migrationBuilder.DropTable(
-                name: "server_unban");
+            migrationBuilder.DropTable(name: "server_unban");
 
-            migrationBuilder.DropTable(
-                name: "server_role_ban");
+            migrationBuilder.DropTable(name: "server_role_ban");
 
-            migrationBuilder.DropTable(
-                name: "server_ban");
+            migrationBuilder.DropTable(name: "server_ban");
 
-            migrationBuilder.Sql($"""
+            migrationBuilder.Sql(
+                $"""
                 CREATE OR REPLACE FUNCTION send_server_ban_notification()
                     RETURNS trigger AS $$
                     BEGIN
@@ -523,7 +547,8 @@ namespace Content.Server.Database.Migrations.Postgres
                     FOR EACH ROW
                     WHEN (NEW.type = {(int)BanType.Server})
                     EXECUTE FUNCTION send_server_ban_notification();
-                """);
+                """
+            );
         }
 
         /// <inheritdoc />

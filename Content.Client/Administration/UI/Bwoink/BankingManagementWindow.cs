@@ -36,10 +36,7 @@ namespace Content.Client.Administration.UI.Bwoink
             MinSize = new Vector2(400, 300);
             SetSize = new Vector2(500, 350);
 
-            _balanceLabel = new RichTextLabel
-            {
-                VerticalAlignment = VAlignment.Top,
-            };
+            _balanceLabel = new RichTextLabel { VerticalAlignment = VAlignment.Top };
             UpdateBalanceLabel(initialBalance);
 
             var amountContainer = new BoxContainer
@@ -48,17 +45,11 @@ namespace Content.Client.Administration.UI.Bwoink
                 SeparationOverride = 4,
             };
 
-            amountContainer.AddChild(new Label
-            {
-                Text = Loc.GetString("bwoink-banking-amount-label"),
-                VerticalAlignment = VAlignment.Center,
-            });
+            amountContainer.AddChild(
+                new Label { Text = Loc.GetString("bwoink-banking-amount-label"), VerticalAlignment = VAlignment.Center }
+            );
 
-            _amountInput = new LineEdit
-            {
-                HorizontalExpand = true,
-                PlaceHolder = "0",
-            };
+            _amountInput = new LineEdit { HorizontalExpand = true, PlaceHolder = "0" };
             amountContainer.AddChild(_amountInput);
 
             _reasonLabel = new Label
@@ -111,11 +102,7 @@ namespace Content.Client.Administration.UI.Bwoink
             _confiscateButton.OnPressed += _ => OnConfiscateAll();
             buttonContainer.AddChild(_confiscateButton);
 
-            _statusLabel = new RichTextLabel
-            {
-                VerticalAlignment = VAlignment.Bottom,
-                MinHeight = 40,
-            };
+            _statusLabel = new RichTextLabel { VerticalAlignment = VAlignment.Bottom, MinHeight = 40 };
 
             var closeButton = new Button
             {
@@ -177,9 +164,7 @@ namespace Content.Client.Administration.UI.Bwoink
                 return;
             }
 
-            var reason = string.IsNullOrWhiteSpace(_reasonInput.Text)
-                ? "Admin adjustment"
-                : _reasonInput.Text;
+            var reason = string.IsNullOrWhiteSpace(_reasonInput.Text) ? "Admin adjustment" : _reasonInput.Text;
 
             SendBankModification(amount, reason);
         }
@@ -192,9 +177,7 @@ namespace Content.Client.Administration.UI.Bwoink
                 return;
             }
 
-            var reason = string.IsNullOrWhiteSpace(_reasonInput.Text)
-                ? "Admin adjustment"
-                : _reasonInput.Text;
+            var reason = string.IsNullOrWhiteSpace(_reasonInput.Text) ? "Admin adjustment" : _reasonInput.Text;
 
             SendBankModification(-amount, reason);
         }

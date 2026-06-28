@@ -1,7 +1,7 @@
 using System.Numerics;
+using Content.Client.SubFloor;
 using Content.Shared._Starlight.Plumbing;
 using Content.Shared._Starlight.Plumbing.Components;
-using Content.Client.SubFloor;
 using Content.Shared.Atmos;
 using Content.Shared.Atmos.Components;
 using Content.Shared.Atmos.Piping;
@@ -19,12 +19,15 @@ namespace Content.Client._Starlight.Plumbing;
 [UsedImplicitly]
 public sealed class PlumbingConnectorAppearanceSystem : EntitySystem
 {
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
 
-    private static readonly Color InletColor = new(1.0f, 0.35f, 0.35f);  // Vibrant Red
-    private static readonly Color OutletColor = new(0.35f, 0.6f, 1.0f);  // Vibrant Blue
-    private static readonly Color MixingInletColor = new(0.35f, 0.9f, 0.35f);  // Vibrant Green
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
+
+    private static readonly Color InletColor = new(1.0f, 0.35f, 0.35f); // Vibrant Red
+    private static readonly Color OutletColor = new(0.35f, 0.6f, 1.0f); // Vibrant Blue
+    private static readonly Color MixingInletColor = new(0.35f, 0.9f, 0.35f); // Vibrant Green
     private static readonly PlumbingConnectionLayer[] ConnectionLayers = Enum.GetValues<PlumbingConnectionLayer>();
     private static readonly PipeDirection[] CardinalDirections =
     [
@@ -50,7 +53,10 @@ public sealed class PlumbingConnectorAppearanceSystem : EntitySystem
         _xformQuery = GetEntityQuery<TransformComponent>();
 
         SubscribeLocalEvent<PlumbingConnectorAppearanceComponent, ComponentInit>(OnInit);
-        SubscribeLocalEvent<PlumbingConnectorAppearanceComponent, AppearanceChangeEvent>(OnAppearanceChanged, after: [typeof(SubFloorHideSystem)]);
+        SubscribeLocalEvent<PlumbingConnectorAppearanceComponent, AppearanceChangeEvent>(
+            OnAppearanceChanged,
+            after: [typeof(SubFloorHideSystem)]
+        );
     }
 
     private void OnInit(EntityUid uid, PlumbingConnectorAppearanceComponent component, ComponentInit args)
@@ -63,7 +69,7 @@ public sealed class PlumbingConnectorAppearanceSystem : EntitySystem
         // Insert at layer 0 so connectors render UNDER the plumbing machine sprite
         foreach (var layerKey in ConnectionLayers)
         {
-            var direction = (PipeDirection) layerKey;
+            var direction = (PipeDirection)layerKey;
             var baseOffset = GetDirectionOffset(direction, component.Offset);
 
             // Each insertion at 0 pushes previous layers up, so we use index 0 for all operations
@@ -85,7 +91,11 @@ public sealed class PlumbingConnectorAppearanceSystem : EntitySystem
         return direction.ToDirection().ToVec() * offset;
     }
 
-    private void OnAppearanceChanged(EntityUid uid, PlumbingConnectorAppearanceComponent component, ref AppearanceChangeEvent args)
+    private void OnAppearanceChanged(
+        EntityUid uid,
+        PlumbingConnectorAppearanceComponent component,
+        ref AppearanceChangeEvent args
+    )
     {
         if (args.Sprite == null)
             return;
@@ -102,23 +112,60 @@ public sealed class PlumbingConnectorAppearanceSystem : EntitySystem
         }
 
         // Hide if no nodes exists somehow
-        if (!_appearance.TryGetData<int>(uid, PlumbingVisuals.NodeDirections, out var nodeDirectionsInt, args.Component))
+        if (
+            !_appearance.TryGetData<int>(uid, PlumbingVisuals.NodeDirections, out var nodeDirectionsInt, args.Component)
+        )
         {
             HideAllLayers(uid, args.Sprite);
             return;
         }
 
-        if (!_appearance.TryGetData<int>(uid, PlumbingVisuals.ConnectedDirections, out var connectedDirectionsInt, args.Component))
+        if (
+            !_appearance.TryGetData<int>(
+                uid,
+                PlumbingVisuals.ConnectedDirections,
+                out var connectedDirectionsInt,
+                args.Component
+            )
+        )
             connectedDirectionsInt = 0;
 
-        if (!_appearance.TryGetData<int>(uid, PlumbingVisuals.ConnectedLayerByDirection, out var connectedLayersPacked, args.Component))
+        if (
+            !_appearance.TryGetData<int>(
+                uid,
+                PlumbingVisuals.ConnectedLayerByDirection,
+                out var connectedLayersPacked,
+                args.Component
+            )
+        )
             connectedLayersPacked = 0;
 
-        if (!_appearance.TryGetData<int>(uid, PlumbingVisuals.InletDirections, out var inletDirectionsInt, args.Component))
+        if (
+            !_appearance.TryGetData<int>(
+                uid,
+                PlumbingVisuals.InletDirections,
+                out var inletDirectionsInt,
+                args.Component
+            )
+        )
             inletDirectionsInt = 0;
-        if (!_appearance.TryGetData<int>(uid, PlumbingVisuals.OutletDirections, out var outletDirectionsInt, args.Component))
+        if (
+            !_appearance.TryGetData<int>(
+                uid,
+                PlumbingVisuals.OutletDirections,
+                out var outletDirectionsInt,
+                args.Component
+            )
+        )
             outletDirectionsInt = 0;
-        if (!_appearance.TryGetData<int>(uid, PlumbingVisuals.MixingInletDirections, out var mixingInletDirectionsInt, args.Component))
+        if (
+            !_appearance.TryGetData<int>(
+                uid,
+                PlumbingVisuals.MixingInletDirections,
+                out var mixingInletDirectionsInt,
+                args.Component
+            )
+        )
             mixingInletDirectionsInt = 0;
 
         if (!_appearance.TryGetData<bool>(uid, PlumbingVisuals.CoveredByFloor, out var coveredByFloor, args.Component))
@@ -139,7 +186,6 @@ public sealed class PlumbingConnectorAppearanceSystem : EntitySystem
         var inletDirectionsLocal = inletDirections.RotatePipeDirection(-localRotation);
         var outletDirectionsLocal = outletDirections.RotatePipeDirection(-localRotation);
         var mixingInletDirectionsLocal = mixingInletDirections.RotatePipeDirection(-localRotation);
-
 
         foreach (var layerKey in ConnectionLayers)
         {
@@ -166,12 +212,20 @@ public sealed class PlumbingConnectorAppearanceSystem : EntitySystem
                         _sprite.LayerSetRsiState((uid, args.Sprite), layerKey2, component.Connected.RsiState);
                         var worldDirection = dir.RotatePipeDirection(localRotation);
                         var connectedLayer = GetConnectedLayer(connectedLayersPacked, worldDirection);
-                        _sprite.LayerSetOffset((uid, args.Sprite), layerKey2, GetConnectedLayerOffset(worldDirection, localRotation, connectedLayer, component.Offset));
+                        _sprite.LayerSetOffset(
+                            (uid, args.Sprite),
+                            layerKey2,
+                            GetConnectedLayerOffset(worldDirection, localRotation, connectedLayer, component.Offset)
+                        );
                     }
                     else
                     {
                         _sprite.LayerSetRsiState((uid, args.Sprite), layerKey2, component.Disconnected.RsiState);
-                        _sprite.LayerSetOffset((uid, args.Sprite), layerKey2, GetDirectionOffset(dir, component.Offset));
+                        _sprite.LayerSetOffset(
+                            (uid, args.Sprite),
+                            layerKey2,
+                            GetDirectionOffset(dir, component.Offset)
+                        );
                     }
                     layer.Color = color;
                 }
@@ -179,12 +233,23 @@ public sealed class PlumbingConnectorAppearanceSystem : EntitySystem
         }
     }
 
-    private void UpdateManifoldAppearance(EntityUid uid, PlumbingConnectorAppearanceComponent component, ref AppearanceChangeEvent args)
+    private void UpdateManifoldAppearance(
+        EntityUid uid,
+        PlumbingConnectorAppearanceComponent component,
+        ref AppearanceChangeEvent args
+    )
     {
         if (args.Sprite is not { } sprite)
             return;
 
-        if (!_appearance.TryGetData<int>(uid, PlumbingVisuals.ManifoldConnectedSlotsByDirection, out var connectedSlotsPacked, args.Component))
+        if (
+            !_appearance.TryGetData<int>(
+                uid,
+                PlumbingVisuals.ManifoldConnectedSlotsByDirection,
+                out var connectedSlotsPacked,
+                args.Component
+            )
+        )
             connectedSlotsPacked = 0;
 
         if (!_appearance.TryGetData<bool>(uid, PlumbingVisuals.CoveredByFloor, out var coveredByFloor, args.Component))
@@ -210,8 +275,19 @@ public sealed class PlumbingConnectorAppearanceSystem : EntitySystem
 
             _sprite.LayerSetRsiState((uid, sprite), layerKey, component.Connected.RsiState);
             const float forwardOffset = 0f;
-            _sprite.LayerSetOffset((uid, sprite), layerKey,
-                GetManifoldSlotOffset(direction, slotIndex, slotCount, forwardOffset, ManifoldSlotSpacing, component.Offset, localRotation));
+            _sprite.LayerSetOffset(
+                (uid, sprite),
+                layerKey,
+                GetManifoldSlotOffset(
+                    direction,
+                    slotIndex,
+                    slotCount,
+                    forwardOffset,
+                    ManifoldSlotSpacing,
+                    component.Offset,
+                    localRotation
+                )
+            );
             layer.Color = Color.White;
         }
     }
@@ -224,7 +300,11 @@ public sealed class PlumbingConnectorAppearanceSystem : EntitySystem
         return _appearance.TryGetData<int>(uid, PlumbingVisuals.ManifoldConnectedSlotsByDirection, out _, appearance);
     }
 
-    private void EnsureManifoldLayers(EntityUid uid, PlumbingConnectorAppearanceComponent component, SpriteComponent sprite)
+    private void EnsureManifoldLayers(
+        EntityUid uid,
+        PlumbingConnectorAppearanceComponent component,
+        SpriteComponent sprite
+    )
     {
         foreach (var (direction, slotIndex, slotCount, layerName) in EnumerateManifoldLayers())
         {
@@ -236,12 +316,29 @@ public sealed class PlumbingConnectorAppearanceSystem : EntitySystem
             _sprite.LayerSetRsi((uid, sprite), 0, component.Disconnected.RsiPath);
             _sprite.LayerSetRsiState((uid, sprite), 0, component.Disconnected.RsiState);
             _sprite.LayerSetDirOffset((uid, sprite), 0, ToOffset(direction));
-            _sprite.LayerSetOffset((uid, sprite), 0, GetManifoldSlotOffset(direction, slotIndex, slotCount, 0f, ManifoldSlotSpacing, component.Offset, Angle.Zero));
+            _sprite.LayerSetOffset(
+                (uid, sprite),
+                0,
+                GetManifoldSlotOffset(
+                    direction,
+                    slotIndex,
+                    slotCount,
+                    0f,
+                    ManifoldSlotSpacing,
+                    component.Offset,
+                    Angle.Zero
+                )
+            );
             _sprite.LayerSetVisible((uid, sprite), 0, false);
         }
     }
 
-    private static IEnumerable<(PipeDirection Direction, int SlotIndex, int SlotCount, string LayerName)> EnumerateManifoldLayers()
+    private static IEnumerable<(
+        PipeDirection Direction,
+        int SlotIndex,
+        int SlotCount,
+        string LayerName
+    )> EnumerateManifoldLayers()
     {
         foreach (var side in ManifoldSides)
         {
@@ -268,10 +365,15 @@ public sealed class PlumbingConnectorAppearanceSystem : EntitySystem
         if (encoded == 0)
             return AtmosPipeLayer.Primary;
 
-        return (AtmosPipeLayer) Math.Clamp(encoded - 1, 0, (int) AtmosPipeLayer.Tertiary); // HL TODO: update for 5 layers later
+        return (AtmosPipeLayer)Math.Clamp(encoded - 1, 0, (int)AtmosPipeLayer.Tertiary); // HL TODO: update for 5 layers later
     }
 
-    private static Vector2 GetConnectedLayerOffset(PipeDirection worldDirection, Angle localRotation, AtmosPipeLayer layer, float offset)
+    private static Vector2 GetConnectedLayerOffset(
+        PipeDirection worldDirection,
+        Angle localRotation,
+        AtmosPipeLayer layer,
+        float offset
+    )
     {
         var sidewaysOffset = offset + (1f / 32f);
 
@@ -346,7 +448,15 @@ public sealed class PlumbingConnectorAppearanceSystem : EntitySystem
         };
     }
 
-    private static Vector2 GetManifoldSlotOffset(PipeDirection direction, int slotIndex, int slotCount, float baseOffset, float slotSpacing, float connectorOffset, Angle localRotation)
+    private static Vector2 GetManifoldSlotOffset(
+        PipeDirection direction,
+        int slotIndex,
+        int slotCount,
+        float baseOffset,
+        float slotSpacing,
+        float connectorOffset,
+        Angle localRotation
+    )
     {
         var baseDirectionOffset = direction.ToDirection().ToVec() * baseOffset;
 

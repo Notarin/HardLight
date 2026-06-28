@@ -11,8 +11,9 @@ using Robust.Shared.Timing;
 namespace Content.Client.Shuttles.UI;
 
 [GenerateTypedNameReferences]
-public sealed partial class EmergencyConsoleWindow : FancyWindow,
-    IComputerWindow<EmergencyConsoleBoundUserInterfaceState>
+public sealed partial class EmergencyConsoleWindow
+    : FancyWindow,
+        IComputerWindow<EmergencyConsoleBoundUserInterfaceState>
 {
     private readonly IGameTiming _timing;
     private TimeSpan? _earlyLaunchTime;
@@ -65,11 +66,7 @@ public sealed partial class EmergencyConsoleWindow : FancyWindow,
 
         foreach (var auth in scc.Authorizations)
         {
-            AuthorizationsContainer.AddChild(new Label
-            {
-                Text = auth,
-                FontColorOverride = Color.Lime,
-            });
+            AuthorizationsContainer.AddChild(new Label { Text = auth, FontColorOverride = Color.Lime });
         }
     }
 

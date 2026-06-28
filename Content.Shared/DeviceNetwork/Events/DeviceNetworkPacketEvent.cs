@@ -35,7 +35,14 @@ public sealed class DeviceNetworkPacketEvent : EntityEventArgs
     /// </summary>
     public readonly NetworkPayload Data;
 
-    public DeviceNetworkPacketEvent(int netId, string? address, uint frequency, string senderAddress, EntityUid sender, NetworkPayload data)
+    public DeviceNetworkPacketEvent(
+        int netId,
+        string? address,
+        uint frequency,
+        string senderAddress,
+        EntityUid sender,
+        NetworkPayload data
+    )
     {
         NetId = netId;
         Address = address;

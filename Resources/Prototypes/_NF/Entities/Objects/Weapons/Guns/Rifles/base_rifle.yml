@@ -1,7 +1,7 @@
 #region frame
 - type: entity
   id: NFBaseWeaponFrameRifle
-  parent: [ NFBaseWeaponEncumbranceRifle, NFBaseItemWeaponGun ]
+  parent: [NFBaseWeaponEncumbranceRifle, NFBaseItemWeaponGun]
   abstract: true
   components:
   - type: Wieldable
@@ -22,8 +22,8 @@
     - SemiAuto
   # - type: CursorOffsetRequiresWield
   # - type: EyeCursorOffset
-    # maxOffset: 5
-    # pvsIncrease: 0.5
+  # maxOffset: 5
+  # pvsIncrease: 0.5
   - type: StaticPrice
     price: 400
   - type: NFWeaponDetails
@@ -46,7 +46,7 @@
 
 - type: entity
   id: NFBaseWeaponFrameRifleSteelbolt
-  parent: [ BaseC3PirateContraband, NFBaseWeaponFrameRifle ]
+  parent: [BaseC3PirateContraband, NFBaseWeaponFrameRifle]
   abstract: true
   components:
   - type: Gun
@@ -65,7 +65,7 @@
   components:
   - type: NFWeaponDetails
     manufacturer: weapon-details-manufacturer-foam-force-llc
-  # - type: EyeCursorOffset
+    # - type: EyeCursorOffset
     # maxOffset: 0
     # pvsIncrease: 0
 

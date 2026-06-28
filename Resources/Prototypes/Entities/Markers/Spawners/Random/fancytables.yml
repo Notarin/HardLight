@@ -3,20 +3,20 @@
   id: FancyTableSpawner
   parent: MarkerBase
   components:
-    - type: Sprite
-      layers:
-        - state: red
-        - sprite: Structures/Furniture/Tables/Fancy/blue.rsi
-          state: full
-    - type: RandomSpawner
-      prototypes:
-        - TableFancyBlue
-        - TableFancyCyan
-        - TableFancyBlack
-        - TableFancyRed
-        - TableFancyPurple
-        - TableFancyPink
-        - TableFancyGreen
-        - TableFancyOrange
-        - TableFancyWhite
-      offset: 0.0
+  - type: Sprite
+    layers:
+    - state: red
+    - sprite: Structures/Furniture/Tables/Fancy/blue.rsi
+      state: full
+  - type: RandomSpawner
+    prototypes:
+    - TableFancyBlue
+    - TableFancyCyan
+    - TableFancyBlack
+    - TableFancyRed
+    - TableFancyPurple
+    - TableFancyPink
+    - TableFancyGreen
+    - TableFancyOrange
+    - TableFancyWhite
+    offset: 0.0

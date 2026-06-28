@@ -12,10 +12,7 @@ public sealed partial class PdaProgramItem : ContainerButton
     public const string NormalBgColor = "#313331";
     public const string HoverColor = "#3E6C45";
 
-    private readonly StyleBoxFlat _styleBox = new()
-    {
-        BackgroundColor = Color.FromHex("#252725"),
-    };
+    private readonly StyleBoxFlat _styleBox = new() { BackgroundColor = Color.FromHex("#252725") };
 
     public Color BackgroundColor
     {
@@ -35,6 +32,5 @@ public sealed partial class PdaProgramItem : ContainerButton
 
         if (TryGetStyleProperty<Color>(StylePropertyBgColor, out var bgColor))
             BackgroundColor = bgColor;
-
     }
 }

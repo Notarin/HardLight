@@ -21,26 +21,35 @@ namespace Content.Client.Light.Components
         protected IEntityManager _entMan = default!;
         protected IRobustRandom _random = default!;
 
-        [DataField("id")] public string ID { get; set; } = string.Empty;
+        [DataField("id")]
+        public string ID { get; set; } = string.Empty;
 
         [DataField("property")]
         public virtual string Property { get; protected set; } = nameof(PointLightComponent.AnimatedRadius);
 
-        [DataField("isLooped")] public bool IsLooped { get; set; }
+        [DataField("isLooped")]
+        public bool IsLooped { get; set; }
 
-        [DataField("enabled")] public bool Enabled { get; set; }
+        [DataField("enabled")]
+        public bool Enabled { get; set; }
 
-        [DataField("startValue")] public float StartValue { get; set; } = 0f;
+        [DataField("startValue")]
+        public float StartValue { get; set; } = 0f;
 
-        [DataField("endValue")] public float EndValue { get; set; } = 2f;
+        [DataField("endValue")]
+        public float EndValue { get; set; } = 2f;
 
-        [DataField("minDuration")] public float MinDuration { get; set; } = -1f;
+        [DataField("minDuration")]
+        public float MinDuration { get; set; } = -1f;
 
-        [DataField("maxDuration")] public float MaxDuration { get; set; } = 2f;
+        [DataField("maxDuration")]
+        public float MaxDuration { get; set; } = 2f;
 
-        [DataField("interpolate")] public AnimationInterpolationMode InterpolateMode { get; set; } = AnimationInterpolationMode.Linear;
+        [DataField("interpolate")]
+        public AnimationInterpolationMode InterpolateMode { get; set; } = AnimationInterpolationMode.Linear;
 
-        [ViewVariables] protected float MaxTime { get; set; }
+        [ViewVariables]
+        protected float MaxTime { get; set; }
 
         private float _maxTime = default;
         private EntityUid _parent = default!;
@@ -104,6 +113,7 @@ namespace Content.Client.Light.Components
         }
 
         public virtual void OnInitialize() { }
+
         public virtual void OnStart() { }
     }
 
@@ -114,7 +124,11 @@ namespace Content.Client.Light.Components
     public sealed partial class PulseBehaviour : LightBehaviourAnimationTrack
     {
         public override (int KeyFrameIndex, float FramePlayingTime) AdvancePlayback(
-            object context, int prevKeyFrameIndex, float prevPlayingTime, float frameTime)
+            object context,
+            int prevKeyFrameIndex,
+            float prevPlayingTime,
+            float frameTime
+        )
         {
             var playingTime = prevPlayingTime + frameTime;
             var interpolateValue = playingTime / MaxTime;
@@ -133,7 +147,9 @@ namespace Content.Client.Light.Components
                         ApplyProperty(InterpolateLinear(StartValue, EndValue, interpolateValue * 2f));
                         break;
                     case AnimationInterpolationMode.Cubic:
-                        ApplyProperty(InterpolateCubic(EndValue, StartValue, EndValue, StartValue, interpolateValue * 2f));
+                        ApplyProperty(
+                            InterpolateCubic(EndValue, StartValue, EndValue, StartValue, interpolateValue * 2f)
+                        );
                         break;
                     default:
                     case AnimationInterpolationMode.Nearest:
@@ -149,7 +165,9 @@ namespace Content.Client.Light.Components
                         ApplyProperty(InterpolateLinear(EndValue, StartValue, (interpolateValue - 0.5f) * 2f));
                         break;
                     case AnimationInterpolationMode.Cubic:
-                        ApplyProperty(InterpolateCubic(StartValue, EndValue, StartValue, EndValue, (interpolateValue - 0.5f) * 2f));
+                        ApplyProperty(
+                            InterpolateCubic(StartValue, EndValue, StartValue, EndValue, (interpolateValue - 0.5f) * 2f)
+                        );
                         break;
                     default:
                     case AnimationInterpolationMode.Nearest:
@@ -176,7 +194,11 @@ namespace Content.Client.Light.Components
         public bool ReverseWhenFinished { get; set; }
 
         public override (int KeyFrameIndex, float FramePlayingTime) AdvancePlayback(
-            object context, int prevKeyFrameIndex, float prevPlayingTime, float frameTime)
+            object context,
+            int prevKeyFrameIndex,
+            float prevPlayingTime,
+            float frameTime
+        )
         {
             var playingTime = prevPlayingTime + frameTime;
             var interpolateValue = playingTime / MaxTime;
@@ -258,11 +280,15 @@ namespace Content.Client.Light.Components
             }
 
             _randomValue3 = _randomValue4;
-            _randomValue4 = (float)InterpolateLinear(StartValue, EndValue, (float) _random.NextDouble());
+            _randomValue4 = (float)InterpolateLinear(StartValue, EndValue, (float)_random.NextDouble());
         }
 
         public override (int KeyFrameIndex, float FramePlayingTime) AdvancePlayback(
-           object context, int prevKeyFrameIndex, float prevPlayingTime, float frameTime)
+            object context,
+            int prevKeyFrameIndex,
+            float prevPlayingTime,
+            float frameTime
+        )
         {
             var playingTime = prevPlayingTime + frameTime;
             var interpolateValue = playingTime / MaxTime;
@@ -278,7 +304,9 @@ namespace Content.Client.Light.Components
                     ApplyProperty(InterpolateLinear(_randomValue3, _randomValue4, interpolateValue));
                     break;
                 case AnimationInterpolationMode.Cubic:
-                    ApplyProperty(InterpolateCubic(_randomValue1, _randomValue2, _randomValue3, _randomValue4, interpolateValue));
+                    ApplyProperty(
+                        InterpolateCubic(_randomValue1, _randomValue2, _randomValue3, _randomValue4, interpolateValue)
+                    );
                     break;
                 default:
                 case AnimationInterpolationMode.Nearest:
@@ -300,7 +328,8 @@ namespace Content.Client.Light.Components
         [DataField("property")]
         public override string Property { get; protected set; } = nameof(PointLightComponent.Color);
 
-        [DataField("colors")] public List<Color> ColorsToCycle { get; set; } = new();
+        [DataField("colors")]
+        public List<Color> ColorsToCycle { get; set; } = new();
 
         private int _colorIndex;
 
@@ -315,7 +344,11 @@ namespace Content.Client.Light.Components
         }
 
         public override (int KeyFrameIndex, float FramePlayingTime) AdvancePlayback(
-           object context, int prevKeyFrameIndex, float prevPlayingTime, float frameTime)
+            object context,
+            int prevKeyFrameIndex,
+            float prevPlayingTime,
+            float frameTime
+        )
         {
             var playingTime = prevPlayingTime + frameTime;
             var interpolateValue = playingTime / MaxTime;
@@ -323,16 +356,24 @@ namespace Content.Client.Light.Components
             switch (InterpolateMode)
             {
                 case AnimationInterpolationMode.Linear:
-                    ApplyProperty(InterpolateLinear(ColorsToCycle[(_colorIndex - 1) % ColorsToCycle.Count],
-                                                                    ColorsToCycle[_colorIndex],
-                                                                    interpolateValue));
+                    ApplyProperty(
+                        InterpolateLinear(
+                            ColorsToCycle[(_colorIndex - 1) % ColorsToCycle.Count],
+                            ColorsToCycle[_colorIndex],
+                            interpolateValue
+                        )
+                    );
                     break;
                 case AnimationInterpolationMode.Cubic:
-                    ApplyProperty(InterpolateCubic(ColorsToCycle[_colorIndex],
-                                                                    ColorsToCycle[(_colorIndex + 1) % ColorsToCycle.Count],
-                                                                    ColorsToCycle[(_colorIndex + 2) % ColorsToCycle.Count],
-                                                                    ColorsToCycle[(_colorIndex + 3) % ColorsToCycle.Count],
-                                                                    interpolateValue));
+                    ApplyProperty(
+                        InterpolateCubic(
+                            ColorsToCycle[_colorIndex],
+                            ColorsToCycle[(_colorIndex + 1) % ColorsToCycle.Count],
+                            ColorsToCycle[(_colorIndex + 2) % ColorsToCycle.Count],
+                            ColorsToCycle[(_colorIndex + 3) % ColorsToCycle.Count],
+                            interpolateValue
+                        )
+                    );
                     break;
                 default:
                 case AnimationInterpolationMode.Nearest:
@@ -392,10 +433,7 @@ namespace Content.Client.Light.Components
 
             foreach (var behaviour in Behaviours)
             {
-                var animation = new Animation()
-                {
-                    AnimationTracks = { behaviour }
-                };
+                var animation = new Animation() { AnimationTracks = { behaviour } };
 
                 Animations.Add(new AnimationContainer(key, animation, behaviour));
                 key++;

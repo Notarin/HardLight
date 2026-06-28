@@ -13,7 +13,6 @@ public sealed class PowerNetSystem : SharedPowerNetSystem
 
     private bool IsPoweredCalculate(ApcPowerReceiverComponent comp)
     {
-        return !comp.PowerDisabled
-               && !comp.NeedsPower;
+        return !comp.PowerDisabled && !comp.NeedsPower;
     }
 }

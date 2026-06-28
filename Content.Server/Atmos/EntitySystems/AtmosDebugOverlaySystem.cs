@@ -17,11 +17,20 @@ namespace Content.Server.Atmos.EntitySystems
     [UsedImplicitly]
     public sealed class AtmosDebugOverlaySystem : SharedAtmosDebugOverlaySystem
     {
-        [Dependency] private readonly IPlayerManager _playerManager = default!;
-        [Dependency] private readonly IMapManager _mapManager = default!;
-        [Dependency] private readonly IConfigurationManager _configManager = default!;
-        [Dependency] private readonly SharedTransformSystem _transform = default!;
-        [Dependency] private readonly MapSystem _mapSystem = default!;
+        [Dependency]
+        private readonly IPlayerManager _playerManager = default!;
+
+        [Dependency]
+        private readonly IMapManager _mapManager = default!;
+
+        [Dependency]
+        private readonly IConfigurationManager _configManager = default!;
+
+        [Dependency]
+        private readonly SharedTransformSystem _transform = default!;
+
+        [Dependency]
+        private readonly MapSystem _mapSystem = default!;
 
         /// <summary>
         ///     Players allowed to see the atmos debug overlay.
@@ -110,7 +119,8 @@ namespace Content.Server.Atmos.EntitySystems
                 tile.Space,
                 tile.MapAtmosphere,
                 tile.NoGridTile,
-                tile.Air?.Immutable ?? false);
+                tile.Air?.Immutable ?? false
+            );
         }
 
         public override void Update(float frameTime)
@@ -131,13 +141,12 @@ namespace Content.Server.Atmos.EntitySystems
             // Afterwards we reset all the chunk data for the next time we tick.
             foreach (var session in _playerObservers)
             {
-                if (session.AttachedEntity is not {Valid: true} entity)
+                if (session.AttachedEntity is not { Valid: true } entity)
                     continue;
 
                 var transform = Transform(entity);
                 var pos = _transform.GetWorldPosition(transform);
-                var worldBounds = Box2.CenteredAround(pos,
-                    new Vector2(LocalViewRange, LocalViewRange));
+                var worldBounds = Box2.CenteredAround(pos, new Vector2(LocalViewRange, LocalViewRange));
 
                 _grids.Clear();
                 _mapManager.FindGridsIntersecting(transform.MapID, worldBounds, ref _grids);

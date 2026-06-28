@@ -87,6 +87,7 @@ public sealed partial class HumanoidAppearanceComponent : Component
 
     [DataField, AutoNetworkedField]
     public Color EyeColor = Color.Brown;
+
     [DataField, AutoNetworkedField]
     public bool EyeGlowing = false; //starlight
 
@@ -133,7 +134,9 @@ public readonly partial struct CustomBaseLayerInfo
 {
     public CustomBaseLayerInfo(string? id, Color? color = null)
     {
-        DebugTools.Assert(id == null || IoCManager.Resolve<IPrototypeManager>().HasIndex<HumanoidSpeciesSpriteLayer>(id));
+        DebugTools.Assert(
+            id == null || IoCManager.Resolve<IPrototypeManager>().HasIndex<HumanoidSpeciesSpriteLayer>(id)
+        );
         Id = id;
         Color = color;
     }

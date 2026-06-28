@@ -1,5 +1,6 @@
 using System.Numerics;
 using Content.Client.UserInterface.Controls;
+using Content.Shared._NF.Bank; // Frontier
 using Content.Shared.Dataset;
 using Content.Shared.Preferences;
 using Content.Shared.Preferences.Loadouts;
@@ -10,7 +11,6 @@ using Robust.Client.UserInterface.XAML;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
-using Content.Shared._NF.Bank; // Frontier
 
 namespace Content.Client.Lobby.UI.Loadouts;
 
@@ -25,7 +25,13 @@ public sealed partial class LoadoutWindow : FancyWindow
 
     public HumanoidCharacterProfile Profile;
 
-    public LoadoutWindow(HumanoidCharacterProfile profile, RoleLoadout loadout, RoleLoadoutPrototype proto, ICommonSession session, IDependencyCollection collection)
+    public LoadoutWindow(
+        HumanoidCharacterProfile profile,
+        RoleLoadout loadout,
+        RoleLoadoutPrototype proto,
+        ICommonSession session,
+        IDependencyCollection collection
+    )
     {
         RobustXamlLoader.Load(this);
         Profile = profile;
@@ -41,13 +47,15 @@ public sealed partial class LoadoutWindow : FancyWindow
         {
             var name = loadout.EntityName;
 
-            LoadoutNameLabel.Text = proto.NameDataset == null ?
-                Loc.GetString("loadout-name-edit-label") :
-                Loc.GetString("loadout-name-edit-label-dataset");
+            LoadoutNameLabel.Text =
+                proto.NameDataset == null
+                    ? Loc.GetString("loadout-name-edit-label")
+                    : Loc.GetString("loadout-name-edit-label-dataset");
 
             RoleNameEdit.ToolTip = Loc.GetString(
                 "loadout-name-edit-tooltip",
-                ("max", HumanoidCharacterProfile.MaxLoadoutNameLength));
+                ("max", HumanoidCharacterProfile.MaxLoadoutNameLength)
+            );
             RoleNameEdit.Text = name ?? string.Empty;
             RoleNameEdit.OnTextChanged += args => OnNameChanged?.Invoke(args.Text);
         }
@@ -68,7 +76,13 @@ public sealed partial class LoadoutWindow : FancyWindow
                 if (groupProto.Hidden)
                     continue;
 
-                var container = new LoadoutGroupContainer(profile, loadout, protoManager.Index(group), session, collection);
+                var container = new LoadoutGroupContainer(
+                    profile,
+                    loadout,
+                    protoManager.Index(group),
+                    session,
+                    collection
+                );
                 LoadoutGroupsContainer.AddTab(container, Loc.GetString(groupProto.Name));
                 _groups.Add(container);
 
@@ -88,7 +102,10 @@ public sealed partial class LoadoutWindow : FancyWindow
         CalculateLoadoutCost(loadout, collection);
         // Frontier - update bank balance label text - value should not change.
         Balance.Margin = new Thickness(5, 2, 5, 5);
-        Balance.Text = Loc.GetString("frontier-loadout-balance", ("balance", BankSystemExtensions.ToSpesoString(Profile.BankBalance)));
+        Balance.Text = Loc.GetString(
+            "frontier-loadout-balance",
+            ("balance", BankSystemExtensions.ToSpesoString(Profile.BankBalance))
+        );
     }
 
     public void RefreshLoadouts(RoleLoadout loadout, ICommonSession session, IDependencyCollection collection)

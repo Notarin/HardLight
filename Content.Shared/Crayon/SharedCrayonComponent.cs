@@ -3,7 +3,6 @@ using Robust.Shared.Serialization;
 
 namespace Content.Shared.Crayon
 {
-
     /// <summary>
     /// Component holding the state of a crayon-like component
     /// </summary>
@@ -35,6 +34,7 @@ namespace Content.Shared.Crayon
     public sealed class CrayonSelectMessage : BoundUserInterfaceMessage
     {
         public readonly string State;
+
         public CrayonSelectMessage(string selected)
         {
             State = selected;
@@ -48,6 +48,7 @@ namespace Content.Shared.Crayon
     public sealed class CrayonColorMessage : BoundUserInterfaceMessage
     {
         public readonly Color Color;
+
         public CrayonColorMessage(Color color)
         {
             Color = color;
@@ -97,6 +98,7 @@ namespace Content.Shared.Crayon
     public sealed class CrayonBoundUserInterfaceState : BoundUserInterfaceState
     {
         public string Selected;
+
         /// <summary>
         /// Whether or not the color can be selected
         /// </summary>

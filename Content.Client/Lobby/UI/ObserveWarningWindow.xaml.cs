@@ -11,8 +11,11 @@ namespace Content.Client.Lobby.UI;
 [UsedImplicitly]
 public sealed partial class ObserveWarningWindow : DefaultWindow
 {
-    [Dependency] private readonly ISharedAdminManager _adminManager = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
+    [Dependency]
+    private readonly ISharedAdminManager _adminManager = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
 
     public ObserveWarningWindow()
     {
@@ -25,10 +28,19 @@ public sealed partial class ObserveWarningWindow : DefaultWindow
         {
             ObserveButton.Text = Loc.GetString("observe-as-player");
             ObserveAsAdminButton.Visible = true;
-            ObserveAsAdminButton.OnPressed += _ => { this.Close(); };
+            ObserveAsAdminButton.OnPressed += _ =>
+            {
+                this.Close();
+            };
         }
 
-        ObserveButton.OnPressed += _ => { this.Close(); };
-        NevermindButton.OnPressed += _ => { this.Close(); };
+        ObserveButton.OnPressed += _ =>
+        {
+            this.Close();
+        };
+        NevermindButton.OnPressed += _ =>
+        {
+            this.Close();
+        };
     }
 }

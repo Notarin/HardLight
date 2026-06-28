@@ -6,7 +6,8 @@ namespace Content.Shared.StepTrigger.Systems;
 
 public sealed class StepTriggerImmuneSystem : EntitySystem
 {
-    [Dependency] private readonly InventorySystem _inventory = default!;
+    [Dependency]
+    private readonly InventorySystem _inventory = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -15,9 +16,15 @@ public sealed class StepTriggerImmuneSystem : EntitySystem
         SubscribeLocalEvent<PreventableStepTriggerComponent, ExaminedEvent>(OnExamined);
     }
 
-    private void OnStepTriggerClothingAttempt(Entity<PreventableStepTriggerComponent> ent, ref StepTriggerAttemptEvent args)
+    private void OnStepTriggerClothingAttempt(
+        Entity<PreventableStepTriggerComponent> ent,
+        ref StepTriggerAttemptEvent args
+    )
     {
-        if (HasComp<ProtectedFromStepTriggersComponent>(args.Tripper) || _inventory.TryGetInventoryEntity<ProtectedFromStepTriggersComponent>(args.Tripper, out _))
+        if (
+            HasComp<ProtectedFromStepTriggersComponent>(args.Tripper)
+            || _inventory.TryGetInventoryEntity<ProtectedFromStepTriggersComponent>(args.Tripper, out _)
+        )
         {
             args.Cancelled = true;
         }

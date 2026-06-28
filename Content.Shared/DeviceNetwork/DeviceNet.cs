@@ -1,5 +1,5 @@
-using Robust.Shared.Random;
 using Content.Shared.DeviceNetwork.Components;
+using Robust.Shared.Random;
 
 namespace Content.Shared.DeviceNetwork;
 
@@ -230,8 +230,7 @@ public sealed class DeviceNet
         {
             var num = _random.Next();
             address = $"{prefix}{num >> 16:X4}-{num & 0xFFFF:X4}";
-        }
-        while (Devices.ContainsKey(address));
+        } while (Devices.ContainsKey(address));
 
         return address;
     }

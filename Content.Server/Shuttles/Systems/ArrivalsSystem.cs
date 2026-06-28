@@ -1,21 +1,20 @@
 using System.Linq;
 using System.Numerics;
-using Content.Server.Administration;
-using Content.Server.Chat.Managers;
-using Content.Server.DeviceNetwork.Systems;
-using Content.Server.GameTicking;
-using Content.Server.GameTicking.Events;
 using Content.Server._NF.GameTicking.Events;
 using Content.Server._NF.PublicTransit;
 using Content.Server._NF.PublicTransit.Components;
 using Content.Server._NF.PublicTransit.Prototypes;
 using Content.Server._NF.SectorServices;
 using Content.Server._NF.Station.Systems;
+using Content.Server.Administration;
+using Content.Server.Chat.Managers;
+using Content.Server.DeviceNetwork.Systems;
+using Content.Server.GameTicking;
+using Content.Server.GameTicking.Events;
 using Content.Server.Parallax;
 using Content.Server.Screens.Components;
 using Content.Server.Shuttles.Components;
 using Content.Server.Shuttles.Events;
-using Content.Shared.Shuttles.Events;
 using Content.Server.Spawners.Components;
 using Content.Server.Spawners.EntitySystems;
 using Content.Server.Station.Components;
@@ -32,6 +31,7 @@ using Content.Shared.Movement.Components;
 using Content.Shared.Parallax.Biomes;
 using Content.Shared.Salvage;
 using Content.Shared.Shuttles.Components;
+using Content.Shared.Shuttles.Events;
 using Content.Shared.Tiles;
 using Robust.Shared.Collections;
 using Robust.Shared.Configuration;
@@ -52,20 +52,34 @@ namespace Content.Server.Shuttles.Systems;
 /// </summary>
 public sealed class ArrivalsSystem : EntitySystem
 {
-    [Dependency] private readonly IConfigurationManager _cfgManager = default!;
-    [Dependency] private readonly IPrototypeManager _protoManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly BiomeSystem _biomes = default!;
-    [Dependency] private readonly MapLoaderSystem _loader = default!;
-    [Dependency] private readonly MetaDataSystem _metaData = default!;
-    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
-    [Dependency] private readonly StationSystem _station = default!;
-    [Dependency] private readonly PublicTransitSystem _publicTransit = default!;
+    [Dependency]
+    private readonly IConfigurationManager _cfgManager = default!;
 
-    private readonly List<ProtoId<BiomeTemplatePrototype>> _arrivalsBiomeOptions = new()
-    {
-        "Grasslands"
-    };
+    [Dependency]
+    private readonly IPrototypeManager _protoManager = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly BiomeSystem _biomes = default!;
+
+    [Dependency]
+    private readonly MapLoaderSystem _loader = default!;
+
+    [Dependency]
+    private readonly MetaDataSystem _metaData = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _mapSystem = default!;
+
+    [Dependency]
+    private readonly StationSystem _station = default!;
+
+    [Dependency]
+    private readonly PublicTransitSystem _publicTransit = default!;
+
+    private readonly List<ProtoId<BiomeTemplatePrototype>> _arrivalsBiomeOptions = new() { "Grasslands" };
 
     public bool Enabled { get; private set; }
 

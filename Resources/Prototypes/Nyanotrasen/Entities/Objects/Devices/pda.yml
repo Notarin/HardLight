@@ -8,9 +8,7 @@
     id: PrisonerIDCard
   - type: Appearance
     appearanceDataInit:
-      enum.PdaVisuals.PdaType:
-        !type:String
-        pda-clear
+      enum.PdaVisuals.PdaType: !type:String pda-clear
   - type: Icon
     state: pda-clear
 
@@ -24,9 +22,7 @@
     id: ValetNFIDCard # Frontier: ValetIDCard<ValetNFIDCard
   - type: Appearance
     appearanceDataInit:
-      enum.PdaVisuals.PdaType:
-        !type:String
-        pda-valet
+      enum.PdaVisuals.PdaType: !type:String pda-valet
   - type: PdaBorderColor
     borderColor: "#860000"
     accentVColor: "#F2F2F2"
@@ -43,9 +39,7 @@
     id: PrisonGuardIDCard
   - type: Appearance
     appearanceDataInit:
-      enum.PdaVisuals.PdaType:
-        !type:String
-        pda-security
+      enum.PdaVisuals.PdaType: !type:String pda-security
   - type: PdaBorderColor
     borderColor: "#A32D26"
     accentVColor: "#DFDFDF"
@@ -62,16 +56,14 @@
     id: ForensicMantisIDCard
   - type: Appearance
     appearanceDataInit:
-      enum.PdaVisuals.PdaType:
-        !type:String
-        pda-science
+      enum.PdaVisuals.PdaType: !type:String pda-science
   - type: Icon
     state: pda-science
   - type: CartridgeLoader
     preinstalled:
-     - CrewManifestCartridge
-     - NotekeeperCartridge
-     - NewsReaderCartridge
-     - GlimmerMonitorCartridge
-     - NanoChatCartridge
-     - PsiWatchCartridge
+    - CrewManifestCartridge
+    - NotekeeperCartridge
+    - NewsReaderCartridge
+    - GlimmerMonitorCartridge
+    - NanoChatCartridge
+    - PsiWatchCartridge

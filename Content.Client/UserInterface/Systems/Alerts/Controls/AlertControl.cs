@@ -12,7 +12,8 @@ namespace Content.Client.UserInterface.Systems.Alerts.Controls
 {
     public sealed class AlertControl : BaseButton
     {
-        [Dependency] private readonly IEntityManager _entityManager = default!;
+        [Dependency]
+        private readonly IEntityManager _entityManager = default!;
 
         private readonly SpriteSystem _sprite;
 
@@ -58,18 +59,12 @@ namespace Content.Client.UserInterface.Systems.Alerts.Controls
             TooltipSupplier = SupplyTooltip;
             Alert = alert;
             _severity = severity;
-            _icon = new SpriteView
-            {
-                Scale = new Vector2(2, 2)
-            };
+            _icon = new SpriteView { Scale = new Vector2(2, 2) };
 
             SetupIcon();
 
             Children.Add(_icon);
-            _cooldownGraphic = new CooldownGraphic
-            {
-                MaxSize = new Vector2(64, 64)
-            };
+            _cooldownGraphic = new CooldownGraphic { MaxSize = new Vector2(64, 64) };
             Children.Add(_cooldownGraphic);
         }
 
@@ -99,7 +94,9 @@ namespace Content.Client.UserInterface.Systems.Alerts.Controls
         protected override void FrameUpdate(FrameEventArgs args)
         {
             base.FrameUpdate(args);
-            UserInterfaceManager.GetUIController<AlertsUIController>().UpdateAlertSpriteEntity(_spriteViewEntity, Alert);
+            UserInterfaceManager
+                .GetUIController<AlertsUIController>()
+                .UpdateAlertSpriteEntity(_spriteViewEntity, Alert);
 
             if (!Cooldown.HasValue)
             {
@@ -152,6 +149,6 @@ namespace Content.Client.UserInterface.Systems.Alerts.Controls
 
     public enum AlertVisualLayers : byte
     {
-        Base
+        Base,
     }
 }

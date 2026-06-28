@@ -6,7 +6,8 @@ namespace Content.Server.Atmos.EntitySystems
 {
     public sealed partial class AtmosphereSystem
     {
-        [Dependency] private readonly IConfigurationManager _cfg = default!;
+        [Dependency]
+        private readonly IConfigurationManager _cfg = default!;
 
         public bool SpaceWind { get; private set; }
         public float SpaceWindPressureForceDivisorThrow { get; private set; }
@@ -39,8 +40,18 @@ namespace Content.Server.Atmos.EntitySystems
         private void InitializeCVars()
         {
             Subs.CVar(_cfg, CCVars.SpaceWind, value => SpaceWind = value, true);
-            Subs.CVar(_cfg, CCVars.SpaceWindPressureForceDivisorThrow, value => SpaceWindPressureForceDivisorThrow = value, true);
-            Subs.CVar(_cfg, CCVars.SpaceWindPressureForceDivisorPush, value => SpaceWindPressureForceDivisorPush = value, true);
+            Subs.CVar(
+                _cfg,
+                CCVars.SpaceWindPressureForceDivisorThrow,
+                value => SpaceWindPressureForceDivisorThrow = value,
+                true
+            );
+            Subs.CVar(
+                _cfg,
+                CCVars.SpaceWindPressureForceDivisorPush,
+                value => SpaceWindPressureForceDivisorPush = value,
+                true
+            );
             Subs.CVar(_cfg, CCVars.SpaceWindMaxVelocity, value => SpaceWindMaxVelocity = value, true);
             Subs.CVar(_cfg, CCVars.SpaceWindMaxPushForce, value => SpaceWindMaxPushForce = value, true);
             Subs.CVar(_cfg, CCVars.MonstermosEqualization, value => MonstermosEqualization = value, true);
@@ -54,9 +65,23 @@ namespace Content.Server.Atmos.EntitySystems
             Subs.CVar(_cfg, CCVars.AtmosMaxProcessTime, value => AtmosMaxProcessTime = value, true);
             Subs.CVar(_cfg, CCVars.AtmosTickRate, value => AtmosTickRate = value, true);
             Subs.CVar(_cfg, CCVars.AtmosSpeedup, value => Speedup = value, true);
-            Subs.CVar(_cfg, CCVars.AtmosHeatScale, value => { HeatScale = value; InitializeGases(); }, true);
+            Subs.CVar(
+                _cfg,
+                CCVars.AtmosHeatScale,
+                value =>
+                {
+                    HeatScale = value;
+                    InitializeGases();
+                },
+                true
+            );
             Subs.CVar(_cfg, CCVars.ExcitedGroups, value => ExcitedGroups = value, true);
-            Subs.CVar(_cfg, CCVars.ExcitedGroupsSpaceIsAllConsuming, value => ExcitedGroupsSpaceIsAllConsuming = value, true);
+            Subs.CVar(
+                _cfg,
+                CCVars.ExcitedGroupsSpaceIsAllConsuming,
+                value => ExcitedGroupsSpaceIsAllConsuming = value,
+                true
+            );
             Subs.CVar(_cfg, NFCCVars.AllowMapGasExtraction, value => AllowMapGasExtraction = value, true); // Frontier
         }
     }

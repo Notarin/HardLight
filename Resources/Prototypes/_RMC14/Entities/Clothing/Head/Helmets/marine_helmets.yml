@@ -184,7 +184,7 @@
     sprite: _RMC14/Objects/Clothing/Head/Helmets/m10/medic/jungle.rsi
   - type: Clothing
     sprite: _RMC14/Objects/Clothing/Head/Helmets/m10/medic/jungle.rsi
-  # TODO toggleable medhud
+    # TODO toggleable medhud
 
 - type: entity
   parent: CMArmorHelmetM10Medic
@@ -568,12 +568,12 @@
         Slash: 0.8
         Piercing: 0.8
         Heat: 0.8
-  # - type: ParasiteResistance
+        # - type: ParasiteResistance
     # maxCount: 6 TODO
-  # - type: Corrodible
-    # isCorrodible: false TODO
-
 - type: entity
+  # - type: Corrodible
+  # isCorrodible: false TODO
+
   parent: RMCArmorHelmetM3G4
   id: RMCArmorHelmetM3G4Desert
   suffix: Desert

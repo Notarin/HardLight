@@ -6,7 +6,8 @@ namespace Content.Shared._HL.Vacbed;
 
 public abstract partial class SharedVacbedSystem
 {
-    [Dependency] private readonly BlindableSystem _blindableSystem = default!;
+    [Dependency]
+    private readonly BlindableSystem _blindableSystem = default!;
 
     public virtual void InitializeInsideVacbed()
     {
@@ -33,7 +34,11 @@ public abstract partial class SharedVacbedSystem
     }
 
     //should be private but has to be public so i can override it in server system
-    public virtual void OnEntGotRemovedFromContainer(EntityUid uid, InsideVacbedComponent component, EntGotRemovedFromContainerMessage args)
+    public virtual void OnEntGotRemovedFromContainer(
+        EntityUid uid,
+        InsideVacbedComponent component,
+        EntGotRemovedFromContainerMessage args
+    )
     {
         if (Terminating(uid))
         {
@@ -43,5 +48,4 @@ public abstract partial class SharedVacbedSystem
         RemComp<InsideVacbedComponent>(uid);
         _blindableSystem.UpdateIsBlind(component.Owner);
     }
-
 }

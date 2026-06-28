@@ -11,8 +11,11 @@ namespace Content.Server.NPC.HTN.PrimitiveTasks.Operators;
 /// </summary>
 public sealed partial class PickAccessibleComponentOperator : HTNOperator
 {
-    [Dependency] private readonly IComponentFactory _factory = default!;
-    [Dependency] private readonly IEntityManager _entManager = default!;
+    [Dependency]
+    private readonly IComponentFactory _factory = default!;
+
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
     private PathfindingSystem _pathfinding = default!;
     private EntityLookupSystem _lookup = default!;
 
@@ -42,8 +45,10 @@ public sealed partial class PickAccessibleComponentOperator : HTNOperator
     }
 
     /// <inheritdoc/>
-    public override async Task<(bool Valid, Dictionary<string, object>? Effects)> Plan(NPCBlackboard blackboard,
-        CancellationToken cancelToken)
+    public override async Task<(bool Valid, Dictionary<string, object>? Effects)> Plan(
+        NPCBlackboard blackboard,
+        CancellationToken cancelToken
+    )
     {
         // Check if the component exists
         if (!_factory.TryGetRegistration(Component, out var registration))
@@ -54,7 +59,9 @@ public sealed partial class PickAccessibleComponentOperator : HTNOperator
         var range = blackboard.GetValueOrDefault<float>(RangeKey, _entManager);
         var owner = blackboard.GetValue<EntityUid>(NPCBlackboard.Owner);
 
-        if (!blackboard.TryGetValue<EntityCoordinates>(NPCBlackboard.OwnerCoordinates, out var coordinates, _entManager))
+        if (
+            !blackboard.TryGetValue<EntityCoordinates>(NPCBlackboard.OwnerCoordinates, out var coordinates, _entManager)
+        )
         {
             return (false, null);
         }
@@ -86,7 +93,8 @@ public sealed partial class PickAccessibleComponentOperator : HTNOperator
                 target,
                 1f,
                 cancelToken,
-                flags: _pathfinding.GetFlags(blackboard));
+                flags: _pathfinding.GetFlags(blackboard)
+            );
 
             if (path.Result != PathResult.Path)
             {
@@ -95,12 +103,15 @@ public sealed partial class PickAccessibleComponentOperator : HTNOperator
 
             var xform = _entManager.GetComponent<TransformComponent>(target);
 
-            return (true, new Dictionary<string, object>()
-            {
-                { TargetEntity, target },
-                { TargetKey, xform.Coordinates },
-                { PathfindKey, path }
-            });
+            return (
+                true,
+                new Dictionary<string, object>()
+                {
+                    { TargetEntity, target },
+                    { TargetKey, xform.Coordinates },
+                    { PathfindKey, path },
+                }
+            );
         }
 
         return (false, null);

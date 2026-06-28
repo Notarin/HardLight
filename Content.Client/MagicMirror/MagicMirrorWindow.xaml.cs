@@ -28,12 +28,18 @@ public sealed partial class MagicMirrorWindow : DefaultWindow
         HairPicker.OnMarkingSelect += args => OnHairSelected!(args);
         HairPicker.OnColorChanged += args => OnHairColorChanged!(args);
         HairPicker.OnSlotRemove += args => OnHairSlotRemoved!(args);
-        HairPicker.OnSlotAdd += delegate { OnHairSlotAdded!(); };
+        HairPicker.OnSlotAdd += delegate
+        {
+            OnHairSlotAdded!();
+        };
 
         FacialHairPicker.OnMarkingSelect += args => OnFacialHairSelected!(args);
         FacialHairPicker.OnColorChanged += args => OnFacialHairColorChanged!(args);
         FacialHairPicker.OnSlotRemove += args => OnFacialHairSlotRemoved!(args);
-        FacialHairPicker.OnSlotAdd += delegate { OnFacialHairSlotAdded!(); };
+        FacialHairPicker.OnSlotAdd += delegate
+        {
+            OnFacialHairSlotAdded!();
+        };
     }
 
     public void UpdateState(MagicMirrorUiState state)

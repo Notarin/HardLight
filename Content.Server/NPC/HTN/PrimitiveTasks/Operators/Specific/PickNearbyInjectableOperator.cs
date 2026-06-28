@@ -1,24 +1,26 @@
 using System.Threading;
 using System.Threading.Tasks;
-using Content.Shared.NPC.Components;
 using Content.Server.NPC.Pathfinding;
 using Content.Shared.Chemistry.Components.SolutionManager;
 using Content.Shared.Damage;
+using Content.Shared.Emag.Components;
 using Content.Shared.Interaction;
 using Content.Shared.Mobs.Components;
+using Content.Shared.NPC.Components;
 using Content.Shared.Silicons.Bots;
-using Content.Shared.Emag.Components;
 
 namespace Content.Server.NPC.HTN.PrimitiveTasks.Operators.Specific;
 
 public sealed partial class PickNearbyInjectableOperator : HTNOperator
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
     private EntityLookupSystem _lookup = default!;
     private MedibotSystem _medibot = default!;
     private PathfindingSystem _pathfinding = default!;
 
-    [DataField("rangeKey")] public string RangeKey = NPCBlackboard.MedibotInjectRange;
+    [DataField("rangeKey")]
+    public string RangeKey = NPCBlackboard.MedibotInjectRange;
 
     /// <summary>
     /// Target entity to inject
@@ -40,8 +42,10 @@ public sealed partial class PickNearbyInjectableOperator : HTNOperator
         _pathfinding = sysManager.GetEntitySystem<PathfindingSystem>();
     }
 
-    public override async Task<(bool Valid, Dictionary<string, object>? Effects)> Plan(NPCBlackboard blackboard,
-        CancellationToken cancelToken)
+    public override async Task<(bool Valid, Dictionary<string, object>? Effects)> Plan(
+        NPCBlackboard blackboard,
+        CancellationToken cancelToken
+    )
     {
         var owner = blackboard.GetValue<EntityUid>(NPCBlackboard.Owner);
 
@@ -59,10 +63,12 @@ public sealed partial class PickNearbyInjectableOperator : HTNOperator
 
         foreach (var entity in _lookup.GetEntitiesInRange(owner, range))
         {
-            if (mobState.TryGetComponent(entity, out var state) &&
-                injectQuery.HasComponent(entity) &&
-                damageQuery.TryGetComponent(entity, out var damage) &&
-                !recentlyInjected.HasComponent(entity))
+            if (
+                mobState.TryGetComponent(entity, out var state)
+                && injectQuery.HasComponent(entity)
+                && damageQuery.TryGetComponent(entity, out var damage)
+                && !recentlyInjected.HasComponent(entity)
+            )
             {
                 // no treating dead bodies
                 if (!_medibot.TryGetTreatment(medibot, state.CurrentState, out var treatment))
@@ -81,12 +87,15 @@ public sealed partial class PickNearbyInjectableOperator : HTNOperator
                 if (path.Result == PathResult.NoPath)
                     continue;
 
-                return (true, new Dictionary<string, object>()
-                {
-                    {TargetKey, entity},
-                    {TargetMoveKey, _entManager.GetComponent<TransformComponent>(entity).Coordinates},
-                    {NPCBlackboard.PathfindKey, path},
-                });
+                return (
+                    true,
+                    new Dictionary<string, object>()
+                    {
+                        { TargetKey, entity },
+                        { TargetMoveKey, _entManager.GetComponent<TransformComponent>(entity).Coordinates },
+                        { NPCBlackboard.PathfindKey, path },
+                    }
+                );
             }
         }
 

@@ -45,22 +45,36 @@ public sealed class FtlDriveRangeTests
             var localDrivePower = _entManager.GetComponent<ApcPowerReceiverComponent>(localDrive);
             localDrivePower.Powered = true;
 
-            var remoteDrive = _entManager.SpawnEntity("MachineFTLDrive50", new EntityCoordinates(otherMap.Grid.Owner, 0f, 0f));
+            var remoteDrive = _entManager.SpawnEntity(
+                "MachineFTLDrive50",
+                new EntityCoordinates(otherMap.Grid.Owner, 0f, 0f)
+            );
             var remoteDrivePower = _entManager.GetComponent<ApcPowerReceiverComponent>(remoteDrive);
             remoteDrivePower.Powered = true;
 
-            var strongerLocalDrive = _entManager.SpawnEntity("MachineFTLDrive50", new EntityCoordinates(map.Grid.Owner, 0f, 0f));
+            var strongerLocalDrive = _entManager.SpawnEntity(
+                "MachineFTLDrive50",
+                new EntityCoordinates(map.Grid.Owner, 0f, 0f)
+            );
             var strongerLocalDrivePower = _entManager.GetComponent<ApcPowerReceiverComponent>(strongerLocalDrive);
             strongerLocalDrivePower.Powered = false;
 
             Assert.Multiple(() =>
             {
-                Assert.That(_shuttle.GetFTLRange(map.Grid.Owner), Is.EqualTo(5000f), "Other grids should not affect this shuttle's range.");
+                Assert.That(
+                    _shuttle.GetFTLRange(map.Grid.Owner),
+                    Is.EqualTo(5000f),
+                    "Other grids should not affect this shuttle's range."
+                );
                 Assert.That(_shuttle.GetFTLRange(otherMap.Grid.Owner), Is.EqualTo(10000f));
             });
 
             strongerLocalDrivePower.Powered = true;
-            Assert.That(_shuttle.GetFTLRange(map.Grid.Owner), Is.EqualTo(10000f), "Multiple drives should use the strongest powered drive instead of stacking.");
+            Assert.That(
+                _shuttle.GetFTLRange(map.Grid.Owner),
+                Is.EqualTo(10000f),
+                "Multiple drives should use the strongest powered drive instead of stacking."
+            );
         });
     }
 
@@ -73,19 +87,28 @@ public sealed class FtlDriveRangeTests
         {
             var farCoordinates = new EntityCoordinates(map.MapUid, 300f, 0f);
 
-            Assert.That(_shuttle.FTLFree(map.Grid.Owner, farCoordinates, Angle.Zero, null), Is.False,
-                "Shuttles without a powered drive should still be limited to the default range.");
+            Assert.That(
+                _shuttle.FTLFree(map.Grid.Owner, farCoordinates, Angle.Zero, null),
+                Is.False,
+                "Shuttles without a powered drive should still be limited to the default range."
+            );
 
             var drive = _entManager.SpawnEntity("MachineFTLDrive", new EntityCoordinates(map.Grid.Owner, 0f, 0f));
             var drivePower = _entManager.GetComponent<ApcPowerReceiverComponent>(drive);
             drivePower.Powered = true;
 
-            Assert.That(_shuttle.FTLFree(map.Grid.Owner, farCoordinates, Angle.Zero, null), Is.True,
-                "A powered drive should extend the actual FTL validation range.");
+            Assert.That(
+                _shuttle.FTLFree(map.Grid.Owner, farCoordinates, Angle.Zero, null),
+                Is.True,
+                "A powered drive should extend the actual FTL validation range."
+            );
 
             drivePower.Powered = false;
-            Assert.That(_shuttle.FTLFree(map.Grid.Owner, farCoordinates, Angle.Zero, null), Is.False,
-                "Unpowered drives should not contribute to FTL range.");
+            Assert.That(
+                _shuttle.FTLFree(map.Grid.Owner, farCoordinates, Angle.Zero, null),
+                Is.False,
+                "Unpowered drives should not contribute to FTL range."
+            );
         });
     }
 }

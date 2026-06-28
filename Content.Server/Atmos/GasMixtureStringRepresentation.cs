@@ -2,7 +2,12 @@
 
 namespace Content.Server.Atmos;
 
-public readonly record struct GasMixtureStringRepresentation(float TotalMoles, float Temperature, float Pressure, Dictionary<string, float> MolesPerGas) : IFormattable
+public readonly record struct GasMixtureStringRepresentation(
+    float TotalMoles,
+    float Temperature,
+    float Pressure,
+    Dictionary<string, float> MolesPerGas
+) : IFormattable
 {
     public override string ToString()
     {

@@ -24,7 +24,15 @@ public sealed class MeleeArcOverlay : Overlay
 
     public override OverlaySpace Space => OverlaySpace.WorldSpaceBelowFOV;
 
-    public MeleeArcOverlay(IEntityManager entManager, IEyeManager eyeManager, IInputManager inputManager, IPlayerManager playerManager, MeleeWeaponSystem melee, SharedCombatModeSystem combatMode, SharedTransformSystem transform)
+    public MeleeArcOverlay(
+        IEntityManager entManager,
+        IEyeManager eyeManager,
+        IInputManager inputManager,
+        IPlayerManager playerManager,
+        MeleeWeaponSystem melee,
+        SharedCombatModeSystem combatMode,
+        SharedTransformSystem transform
+    )
     {
         _entManager = entManager;
         _eyeManager = eyeManager;
@@ -39,8 +47,10 @@ public sealed class MeleeArcOverlay : Overlay
     {
         var player = _playerManager.LocalEntity;
 
-        if (!_entManager.TryGetComponent<TransformComponent>(player, out var xform) ||
-            !_combatMode.IsInCombatMode(player))
+        if (
+            !_entManager.TryGetComponent<TransformComponent>(player, out var xform)
+            || !_combatMode.IsInCombatMode(player)
+        )
         {
             return;
         }
@@ -70,7 +80,15 @@ public sealed class MeleeArcOverlay : Overlay
         if (weapon.Angle.Theta == 0)
             return;
 
-        args.WorldHandle.DrawLine(playerPos.Position, playerPos.Position + new Angle(-weapon.Angle / 2).RotateVec(diff), Color.Orange);
-        args.WorldHandle.DrawLine(playerPos.Position, playerPos.Position + new Angle(weapon.Angle / 2).RotateVec(diff), Color.Orange);
+        args.WorldHandle.DrawLine(
+            playerPos.Position,
+            playerPos.Position + new Angle(-weapon.Angle / 2).RotateVec(diff),
+            Color.Orange
+        );
+        args.WorldHandle.DrawLine(
+            playerPos.Position,
+            playerPos.Position + new Angle(weapon.Angle / 2).RotateVec(diff),
+            Color.Orange
+        );
     }
 }

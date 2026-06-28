@@ -1,27 +1,27 @@
 #SOFTSUITS
 - type: entity
-  parent: [ SuitStorageBase, StorageFillEVASuitGoblin ]
+  parent: [SuitStorageBase, StorageFillEVASuitGoblin]
   id: SuitStorageEVAGoblin
   suffix: EVA, Goblin
   components:
   - type: AccessReader
 
 - type: entity
-  parent: [ SuitStorageBase, StorageFillEVASuitContractor ]
+  parent: [SuitStorageBase, StorageFillEVASuitContractor]
   id: SuitStorageEVAContractor
   suffix: EVA, Contractor
   components:
   - type: AccessReader
 
 - type: entity
-  parent: [ SuitStorageBase, StorageFillEVASuitPilot ]
+  parent: [SuitStorageBase, StorageFillEVASuitPilot]
   id: SuitStorageEVAPilot
   suffix: EVA, Pilot
   components:
   - type: AccessReader
 
 - type: entity
-  parent: [ SuitStorageBase, StorageFillEVASuitSr ]
+  parent: [SuitStorageBase, StorageFillEVASuitSr]
   id: SuitStorageEVASr
   suffix: EVA, Colonial Liaison
   components:
@@ -29,147 +29,147 @@
     access: [["HeadOfPersonnel"]]
 
 - type: entity
-  parent: [ SuitStorageBase, StorageFillEVASuitCaptain ]
+  parent: [SuitStorageBase, StorageFillEVASuitCaptain]
   id: SuitStorageEVACaptain
   suffix: EVA, Captain
   components:
   - type: AccessReader
 
 - type: entity
-  parent: [ SuitStorageBase, StorageFillEVASuitEngineer ]
+  parent: [SuitStorageBase, StorageFillEVASuitEngineer]
   id: SuitStorageEVAEngineer
   suffix: EVA, Engineer
   components:
   - type: AccessReader
 
 - type: entity
-  parent: [ SuitStorageBase, StorageFillEVASuitAtmosTech ]
+  parent: [SuitStorageBase, StorageFillEVASuitAtmosTech]
   id: SuitStorageEVAAtmosTech
   suffix: EVA, Atmospherics Technician
   components:
   - type: AccessReader
 
 - type: entity
-  parent: [ SuitStorageBase, StorageFillEVASuitCargo ]
+  parent: [SuitStorageBase, StorageFillEVASuitCargo]
   id: SuitStorageEVACargo
   suffix: EVA, Cargo Technician
   components:
   - type: AccessReader
 
 - type: entity
-  parent: [ SuitStorageBase, StorageFillEVASuitSalvage ]
+  parent: [SuitStorageBase, StorageFillEVASuitSalvage]
   id: SuitStorageEVASalvage
   suffix: EVA, Salvage Specialist
   components:
   - type: AccessReader
 
 - type: entity
-  parent: [ SuitStorageBase, StorageFillEVASuitMedic ]
+  parent: [SuitStorageBase, StorageFillEVASuitMedic]
   id: SuitStorageEVAMedical
   suffix: EVA, Medical Doctor
   components:
   - type: AccessReader
 
 - type: entity
-  parent: [ SuitStorageBase, StorageFillEVASuitParamedic ]
+  parent: [SuitStorageBase, StorageFillEVASuitParamedic]
   id: SuitStorageParamedic
   suffix: EVA, Paramedic
   components:
   - type: AccessReader
 
 - type: entity
-  parent: [ SuitStorageBase, StorageFillEVASuitScientist ]
+  parent: [SuitStorageBase, StorageFillEVASuitScientist]
   id: SuitStorageEVAScientist
   suffix: EVA, Scientist
   components:
   - type: AccessReader
 
 - type: entity
-  parent: [ SuitStorageBase, StorageFillEVASuitJanitor ]
+  parent: [SuitStorageBase, StorageFillEVASuitJanitor]
   id: SuitStorageEVAJanitor
   suffix: EVA, Janitor
   components:
   - type: AccessReader
 
 - type: entity
-  parent: [ SuitStorageBase, StorageFillEVASuitServiceWorker ]
+  parent: [SuitStorageBase, StorageFillEVASuitServiceWorker]
   id: SuitStorageEVAServiceWorker
   suffix: EVA, Service Worker
   components:
   - type: AccessReader
 
 - type: entity
-  parent: [ SuitStorageBase, StorageFillEVASuitChaplain ]
+  parent: [SuitStorageBase, StorageFillEVASuitChaplain]
   id: SuitStorageEVAChaplain
   suffix: EVA, Chaplain
   components:
   - type: AccessReader
 
 - type: entity
-  parent: [ SuitStorageBase, StorageFillEVASuitBoxerRed ]
+  parent: [SuitStorageBase, StorageFillEVASuitBoxerRed]
   id: SuitStorageEVABoxerRed
   suffix: EVA, Boxer, Red
   components:
   - type: AccessReader
 
 - type: entity
-  parent: [ SuitStorageBase, StorageFillEVASuitBoxerGreen ]
+  parent: [SuitStorageBase, StorageFillEVASuitBoxerGreen]
   id: SuitStorageEVABoxerGreen
   suffix: EVA, Boxer, Green
   components:
   - type: AccessReader
 
 - type: entity
-  parent: [ SuitStorageBase, StorageFillEVASuitBoxerBlue ]
+  parent: [SuitStorageBase, StorageFillEVASuitBoxerBlue]
   id: SuitStorageEVABoxerBlue
   suffix: EVA, Boxer, Blue
   components:
   - type: AccessReader
 
 - type: entity
-  parent: [ SuitStorageBase, StorageFillEVASuitBoxerYellow ]
+  parent: [SuitStorageBase, StorageFillEVASuitBoxerYellow]
   id: SuitStorageEVABoxerYellow
   suffix: EVA, Boxer, Yellow
   components:
   - type: AccessReader
 
 - type: entity
-  parent: [ SuitStorageBase, StorageFillEVASuitBoxerRandom ]
+  parent: [SuitStorageBase, StorageFillEVASuitBoxerRandom]
   id: SuitStorageEVABoxerRandom
   suffix: EVA, Boxer, Random
   components:
   - type: AccessReader
 
 - type: entity
-  parent: [ SuitStorageBase, StorageFillEVASuitHydro ]
+  parent: [SuitStorageBase, StorageFillEVASuitHydro]
   id: SuitStorageEVAHydro
   suffix: EVA, Hydroponics
   components:
   - type: AccessReader
 
 - type: entity
-  parent: [ SuitStorageBase, StorageFillEVASuitMail ]
+  parent: [SuitStorageBase, StorageFillEVASuitMail]
   id: SuitStorageEVAMail
   suffix: EVA, Mail Carrier
   components:
   - type: AccessReader
 
 - type: entity
-  parent: [ SuitStorageBase, StorageFillEVASuitMercenary ]
+  parent: [SuitStorageBase, StorageFillEVASuitMercenary]
   id: SuitStorageEVAMercenary
   suffix: EVA, Mercenary
   components:
   - type: AccessReader
 
 - type: entity
-  parent: [ SuitStorageBase, StorageFillEVASuitPrivateSec ]
+  parent: [SuitStorageBase, StorageFillEVASuitPrivateSec]
   id: SuitStorageEVAPrivateSec
   suffix: EVA, Private Security
   components:
   - type: AccessReader
 
 - type: entity
-  parent: [ SuitStorageBase, StorageFillEVASuitNfsd ]
+  parent: [SuitStorageBase, StorageFillEVASuitNfsd]
   id: SuitStorageEVANfsd
   suffix: EVA, ColSec
   components:
@@ -185,12 +185,12 @@
   components:
   - type: StorageFill
     contents:
-        - id: OxygenTankFilled
-        - id: NitrogenTankFilled
-        - id: ClothingShoesBootsMag
-        - id: ClothingOuterHardsuitLuxury
-        - id: ClothingMaskGasExplorer
-        - id: JetpackMiniFilled
+    - id: OxygenTankFilled
+    - id: NitrogenTankFilled
+    - id: ClothingShoesBootsMag
+    - id: ClothingOuterHardsuitLuxury
+    - id: ClothingMaskGasExplorer
+    - id: JetpackMiniFilled
   - type: AccessReader
 
 #Mining hardsuit
@@ -201,12 +201,12 @@
   components:
   - type: StorageFill
     contents:
-        - id: OxygenTankFilled
-        - id: NitrogenTankFilled
-        - id: ClothingShoesBootsMag
-        - id: ClothingOuterHardsuitSalvage
-        - id: ClothingMaskGasExplorer
-        - id: JetpackMiniFilled
+    - id: OxygenTankFilled
+    - id: NitrogenTankFilled
+    - id: ClothingShoesBootsMag
+    - id: ClothingOuterHardsuitSalvage
+    - id: ClothingMaskGasExplorer
+    - id: JetpackMiniFilled
   - type: AccessReader
 
 #Mercenary hardsuit
@@ -217,12 +217,12 @@
   components:
   - type: StorageFill
     contents:
-        - id: OxygenTankFilled
-        - id: NitrogenTankFilled
-        - id: ClothingOuterHardsuitMercenary
-        - id: ClothingMaskGasMercenary
-        - id: JetpackMiniFilled
-        - id: ClothingShoesBootsMagMercenaryFilled
+    - id: OxygenTankFilled
+    - id: NitrogenTankFilled
+    - id: ClothingOuterHardsuitMercenary
+    - id: ClothingMaskGasMercenary
+    - id: JetpackMiniFilled
+    - id: ClothingShoesBootsMagMercenaryFilled
   - type: AccessReader
     access: [["Captain"], ["Mercenary"]]
 
@@ -233,12 +233,12 @@
   components:
   - type: StorageFill
     contents:
-        - id: OxygenTankFilled
-        - id: NitrogenTankFilled
-        - id: ClothingOuterHardsuitPrivateSecurity
-        - id: ClothingMaskGasSecurity
-        - id: JetpackMiniFilled
-        - id: ClothingShoesBootsMagSecurity
+    - id: OxygenTankFilled
+    - id: NitrogenTankFilled
+    - id: ClothingOuterHardsuitPrivateSecurity
+    - id: ClothingMaskGasSecurity
+    - id: JetpackMiniFilled
+    - id: ClothingShoesBootsMagSecurity
   - type: AccessReader
     access: [["Captain"], ["Mercenary"]]
 
@@ -250,12 +250,12 @@
   components:
   - type: StorageFill
     contents:
-        - id: OxygenTankFilled
-        - id: NitrogenTankFilled
-        - id: ClothingOuterHardsuitScaf
-        - id: ClothingMaskGasMercenary
-        - id: JetpackMiniFilled
-        - id: ClothingShoesBootsMagMercenaryFilled
+    - id: OxygenTankFilled
+    - id: NitrogenTankFilled
+    - id: ClothingOuterHardsuitScaf
+    - id: ClothingMaskGasMercenary
+    - id: JetpackMiniFilled
+    - id: ClothingShoesBootsMagMercenaryFilled
   - type: AccessReader
     access: [["Captain"], ["Mercenary"]]
 
@@ -267,11 +267,11 @@
   components:
   - type: StorageFill
     contents:
-        - id: OxygenTankFilled
-        - id: NitrogenTankFilled
-        - id: ClothingOuterHardsuitPilot
-        - id: ClothingMaskBreath
-        - id: JetpackMiniFilled
+    - id: OxygenTankFilled
+    - id: NitrogenTankFilled
+    - id: ClothingOuterHardsuitPilot
+    - id: ClothingMaskBreath
+    - id: JetpackMiniFilled
   - type: AccessReader
 
 #Clown hardsuit
@@ -282,11 +282,11 @@
   components:
   - type: StorageFill
     contents:
-        - id: OxygenTankFilled
-        - id: NitrogenTankFilled
-        - id: ClothingOuterHardsuitClown
-        - id: ClothingMaskBreath
-        - id: JetpackMiniFilled
+    - id: OxygenTankFilled
+    - id: NitrogenTankFilled
+    - id: ClothingOuterHardsuitClown
+    - id: ClothingMaskBreath
+    - id: JetpackMiniFilled
   - type: AccessReader
 
 #Cadet hardsuit
@@ -297,12 +297,12 @@
   components:
   - type: StorageFill
     contents:
-        - id: OxygenTankFilled
-        - id: NitrogenTankFilled
-        - id: ClothingOuterHardsuitNfsdBronze # Frontier
-        - id: ClothingMaskGasSecurity
-        - id: JetpackNfsdFilled
-        - id: ClothingShoesBootsMagSecurity # Frontier
+    - id: OxygenTankFilled
+    - id: NitrogenTankFilled
+    - id: ClothingOuterHardsuitNfsdBronze # Frontier
+    - id: ClothingMaskGasSecurity
+    - id: JetpackNfsdFilled
+    - id: ClothingShoesBootsMagSecurity # Frontier
   - type: AccessReader
     access: [["Security"]]
 
@@ -314,12 +314,12 @@
   components:
   - type: StorageFill
     contents:
-        - id: OxygenTankFilled
-        - id: NitrogenTankFilled
-        - id: ClothingOuterHardsuitNfsdSilver # Frontier
-        - id: ClothingMaskGasSecurity
-        - id: JetpackNfsdFilled
-        - id: ClothingShoesBootsMagSecurity # Frontier
+    - id: OxygenTankFilled
+    - id: NitrogenTankFilled
+    - id: ClothingOuterHardsuitNfsdSilver # Frontier
+    - id: ClothingMaskGasSecurity
+    - id: JetpackNfsdFilled
+    - id: ClothingShoesBootsMagSecurity # Frontier
   - type: AccessReader
     access: [["Security"]]
 
@@ -331,12 +331,12 @@
   components:
   - type: StorageFill
     contents:
-        - id: OxygenTankFilled
-        - id: NitrogenTankFilled
-        - id: ClothingOuterHardsuitNfsdBrigmedic # Frontier
-        - id: ClothingMaskGasSecurity
-        - id: JetpackNfsdFilled
-        - id: ClothingShoesBootsMagSecurity # Frontier
+    - id: OxygenTankFilled
+    - id: NitrogenTankFilled
+    - id: ClothingOuterHardsuitNfsdBrigmedic # Frontier
+    - id: ClothingMaskGasSecurity
+    - id: JetpackNfsdFilled
+    - id: ClothingShoesBootsMagSecurity # Frontier
   - type: AccessReader
     access: [["Security"]]
 
@@ -348,12 +348,12 @@
   components:
   - type: StorageFill
     contents:
-        - id: OxygenTankFilled
-        - id: NitrogenTankFilled
-        - id: ClothingOuterHardsuitNfsdGold # Frontier
-        - id: ClothingMaskGasSecurity
-        - id: JetpackNfsdFilled
-        - id: ClothingShoesBootsMagSecurity # Frontier
+    - id: OxygenTankFilled
+    - id: NitrogenTankFilled
+    - id: ClothingOuterHardsuitNfsdGold # Frontier
+    - id: ClothingMaskGasSecurity
+    - id: JetpackNfsdFilled
+    - id: ClothingShoesBootsMagSecurity # Frontier
   - type: AccessReader
     access: [["Security"]]
 
@@ -365,12 +365,12 @@
   components:
   - type: StorageFill
     contents:
-        - id: OxygenTankFilled
-        - id: NitrogenTankFilled
-        - id: ClothingOuterHardsuitNfsdGold # Frontier
-        - id: ClothingMaskGasSecurity
-        - id: JetpackNfsdFilled
-        - id: ClothingShoesBootsMagSecurity # Frontier
+    - id: OxygenTankFilled
+    - id: NitrogenTankFilled
+    - id: ClothingOuterHardsuitNfsdGold # Frontier
+    - id: ClothingMaskGasSecurity
+    - id: JetpackNfsdFilled
+    - id: ClothingShoesBootsMagSecurity # Frontier
   - type: AccessReader
     access: [["Security"]]
 
@@ -382,12 +382,12 @@
   components:
   - type: StorageFill
     contents:
-        - id: OxygenTankFilled
-        - id: NitrogenTankFilled
-        - id: ClothingOuterHardsuitNfsdSheriff # Frontier
-        - id: ClothingMaskGasSheriff
-        - id: JetpackNfsdFilled
-        - id: ClothingShoesBootsMagSecurity # Frontier
+    - id: OxygenTankFilled
+    - id: NitrogenTankFilled
+    - id: ClothingOuterHardsuitNfsdSheriff # Frontier
+    - id: ClothingMaskGasSheriff
+    - id: JetpackNfsdFilled
+    - id: ClothingShoesBootsMagSecurity # Frontier
   - type: AccessReader
     access: [["Security"]]
 
@@ -399,12 +399,12 @@
   components:
   - type: StorageFill
     contents:
-        - id: OxygenTankFilled
-        - id: NitrogenTankFilled
-        - id: ClothingOuterHardsuitNfsdCombat # Frontier
-        - id: ClothingMaskGasSecurity
-        - id: JetpackNfsdFilled
-        - id: ClothingShoesBootsMagSecurity # Frontier
+    - id: OxygenTankFilled
+    - id: NitrogenTankFilled
+    - id: ClothingOuterHardsuitNfsdCombat # Frontier
+    - id: ClothingMaskGasSecurity
+    - id: JetpackNfsdFilled
+    - id: ClothingShoesBootsMagSecurity # Frontier
   - type: AccessReader
     access: [["Security"]]
 
@@ -416,11 +416,11 @@
   components:
   - type: StorageFill
     contents:
-        - id: OxygenTankFilled
-        - id: NitrogenTankFilled
-        - id: ClothingOuterHardsuitNfsdCommand # Frontier
-        - id: ClothingMaskGasSecurity
-        - id: JetpackNfsdFilled
-        - id: ClothingShoesBootsMagSecurity # Frontier
+    - id: OxygenTankFilled
+    - id: NitrogenTankFilled
+    - id: ClothingOuterHardsuitNfsdCommand # Frontier
+    - id: ClothingMaskGasSecurity
+    - id: JetpackNfsdFilled
+    - id: ClothingShoesBootsMagSecurity # Frontier
   - type: AccessReader
     access: [["Security"]]

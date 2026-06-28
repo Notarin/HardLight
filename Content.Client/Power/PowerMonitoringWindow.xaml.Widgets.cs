@@ -1,28 +1,33 @@
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Numerics;
 using Content.Client.Stylesheets;
 using Content.Shared.Power;
 using Robust.Client.Graphics;
 using Robust.Client.UserInterface.Controls;
 using Robust.Shared.Utility;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Numerics;
 
 namespace Content.Client.Power;
 
 public sealed partial class PowerMonitoringWindow
 {
-    private SpriteSpecifier.Texture _sourceIcon = new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/PowerMonitoring/source_arrow.png"));
-    private SpriteSpecifier.Texture _loadIconPath = new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/PowerMonitoring/load_arrow.png"));
+    private SpriteSpecifier.Texture _sourceIcon = new SpriteSpecifier.Texture(
+        new ResPath("/Textures/Interface/PowerMonitoring/source_arrow.png")
+    );
+    private SpriteSpecifier.Texture _loadIconPath = new SpriteSpecifier.Texture(
+        new ResPath("/Textures/Interface/PowerMonitoring/load_arrow.png")
+    );
 
     private bool _autoScrollActive = false;
     private bool _autoScrollAwaitsUpdate = false;
 
-    private void UpdateWindowConsoleEntry
-        (BoxContainer masterContainer,
+    private void UpdateWindowConsoleEntry(
+        BoxContainer masterContainer,
         int index,
         PowerMonitoringConsoleEntry entry,
         PowerMonitoringConsoleEntry[] focusSources,
-        PowerMonitoringConsoleEntry[] focusLoads)
+        PowerMonitoringConsoleEntry[] focusLoads
+    )
     {
         UpdateWindowConsoleEntry(masterContainer, index, entry);
 
@@ -58,7 +63,6 @@ public sealed partial class PowerMonitoringWindow
                 ButtonAction(windowEntry, masterContainer);
             };
         }
-
         else
         {
             windowEntry = masterContainer.GetChild(index) as PowerMonitoringWindowEntry;
@@ -75,7 +79,11 @@ public sealed partial class PowerMonitoringWindow
         UpdateWindowEntryButton(entry.NetEntity, windowEntry.Button, entry);
     }
 
-    public void UpdateWindowEntryButton(NetEntity netEntity, PowerMonitoringButton button, PowerMonitoringConsoleEntry entry)
+    public void UpdateWindowEntryButton(
+        NetEntity netEntity,
+        PowerMonitoringButton button,
+        PowerMonitoringConsoleEntry entry
+    )
     {
         if (!netEntity.IsValid())
             return;
@@ -86,13 +94,14 @@ public sealed partial class PowerMonitoringWindow
         // Update button style
         if (netEntity == _focusEntity)
             button.AddStyleClass(StyleNano.StyleClassButtonColorGreen);
-
         else
             button.RemoveStyleClass(StyleNano.StyleClassButtonColorGreen);
 
         // Update sprite
         if (entry.MetaData.Value.SpritePath != string.Empty && entry.MetaData.Value.SpriteState != string.Empty)
-            button.TextureRect.Texture = _spriteSystem.Frame0(new SpriteSpecifier.Rsi(new ResPath(entry.MetaData.Value.SpritePath), entry.MetaData.Value.SpriteState));
+            button.TextureRect.Texture = _spriteSystem.Frame0(
+                new SpriteSpecifier.Rsi(new ResPath(entry.MetaData.Value.SpritePath), entry.MetaData.Value.SpriteState)
+            );
 
         // Update name
         var name = Loc.GetString(entry.MetaData.Value.EntityName);
@@ -103,7 +112,10 @@ public sealed partial class PowerMonitoringWindow
 
         // Update power value
         // Don't use SI prefixes, just give the number in W, so that it is readily apparent which consumer is using a lot of power.
-        button.PowerValue.Text = Loc.GetString("power-monitoring-window-button-value", ("value", Math.Round(entry.PowerValue).ToString("N0")));
+        button.PowerValue.Text = Loc.GetString(
+            "power-monitoring-window-button-value",
+            ("value", Math.Round(entry.PowerValue).ToString("N0"))
+        );
 
         // Update battery level if applicable
         if (entry.BatteryLevel != null)
@@ -127,7 +139,12 @@ public sealed partial class PowerMonitoringWindow
         }
     }
 
-    private void UpdateEntrySourcesOrLoads(BoxContainer masterContainer, BoxContainer currentContainer, PowerMonitoringConsoleEntry[]? entries, SpriteSpecifier.Texture icon)
+    private void UpdateEntrySourcesOrLoads(
+        BoxContainer masterContainer,
+        BoxContainer currentContainer,
+        PowerMonitoringConsoleEntry[]? entries,
+        SpriteSpecifier.Texture icon
+    )
     {
         if (currentContainer == null)
             return;
@@ -152,7 +169,10 @@ public sealed partial class PowerMonitoringWindow
             currentContainer.AddChild(subEntry);
 
             // Selection action
-            subEntry.Button.OnButtonUp += args => { ButtonAction(subEntry, masterContainer); };
+            subEntry.Button.OnButtonUp += args =>
+            {
+                ButtonAction(subEntry, masterContainer);
+            };
         }
 
         if (!_entManager.TryGetComponent<PowerMonitoringConsoleComponent>(Entity, out var console))
@@ -309,7 +329,6 @@ public sealed partial class PowerMonitoringWindow
             msg.AddMarkupOrThrow(Loc.GetString("power-monitoring-window-rogue-power-consumer"));
             SystemWarningPanel.Visible = true;
         }
-
         else if ((flags & PowerMonitoringFlags.PowerNetAbnormalities) != 0)
         {
             SystemWarningPanel.PanelOverride = new StyleBoxFlat
@@ -331,13 +350,17 @@ public sealed partial class PowerMonitoringWindow
         switch (group)
         {
             case PowerMonitoringConsoleGroup.Generator:
-                MasterTabContainer.CurrentTab = 0; break;
+                MasterTabContainer.CurrentTab = 0;
+                break;
             case PowerMonitoringConsoleGroup.SMES:
-                MasterTabContainer.CurrentTab = 1; break;
+                MasterTabContainer.CurrentTab = 1;
+                break;
             case PowerMonitoringConsoleGroup.Substation:
-                MasterTabContainer.CurrentTab = 2; break;
+                MasterTabContainer.CurrentTab = 2;
+                break;
             case PowerMonitoringConsoleGroup.APC:
-                MasterTabContainer.CurrentTab = 3; break;
+                MasterTabContainer.CurrentTab = 3;
+                break;
         }
     }
 
@@ -353,7 +376,8 @@ public sealed class PowerMonitoringWindowEntry : PowerMonitoringWindowBaseEntry
     public BoxContainer SourcesContainer;
     public BoxContainer LoadsContainer;
 
-    public PowerMonitoringWindowEntry(PowerMonitoringConsoleEntry entry) : base(entry)
+    public PowerMonitoringWindowEntry(PowerMonitoringConsoleEntry entry)
+        : base(entry)
     {
         Entry = entry;
 
@@ -377,20 +401,12 @@ public sealed class PowerMonitoringWindowEntry : PowerMonitoringWindowBaseEntry
         AddChild(MainContainer);
 
         // Grid container to hold the list of sources when selected
-        SourcesContainer = new BoxContainer()
-        {
-            Orientation = LayoutOrientation.Vertical,
-            HorizontalExpand = true,
-        };
+        SourcesContainer = new BoxContainer() { Orientation = LayoutOrientation.Vertical, HorizontalExpand = true };
 
         MainContainer.AddChild(SourcesContainer);
 
         // Grid container to hold the list of loads when selected
-        LoadsContainer = new BoxContainer()
-        {
-            Orientation = LayoutOrientation.Vertical,
-            HorizontalExpand = true,
-        };
+        LoadsContainer = new BoxContainer() { Orientation = LayoutOrientation.Vertical, HorizontalExpand = true };
 
         MainContainer.AddChild(LoadsContainer);
     }
@@ -400,17 +416,14 @@ public sealed class PowerMonitoringWindowSubEntry : PowerMonitoringWindowBaseEnt
 {
     public TextureRect? Icon;
 
-    public PowerMonitoringWindowSubEntry(PowerMonitoringConsoleEntry entry) : base(entry)
+    public PowerMonitoringWindowSubEntry(PowerMonitoringConsoleEntry entry)
+        : base(entry)
     {
         Orientation = LayoutOrientation.Horizontal;
         HorizontalExpand = true;
 
         // Source/load icon
-        Icon = new TextureRect()
-        {
-            VerticalAlignment = VAlignment.Center,
-            Margin = new Thickness(0, 0, 2, 0),
-        };
+        Icon = new TextureRect() { VerticalAlignment = VAlignment.Center, Margin = new Thickness(0, 0, 2, 0) };
 
         AddChild(Icon);
 
@@ -472,11 +485,7 @@ public sealed class PowerMonitoringButton : Button
 
         MainContainer.AddChild(TextureRect);
 
-        NameLocalized = new Label()
-        {
-            HorizontalExpand = true,
-            ClipText = true,
-        };
+        NameLocalized = new Label() { HorizontalExpand = true, ClipText = true };
 
         MainContainer.AddChild(NameLocalized);
 
@@ -495,16 +504,13 @@ public sealed class PowerMonitoringButton : Button
         BackgroundPanel = new PanelContainer
         {
             // Draw a half-transparent box over the battery level to make the text more readable.
-            PanelOverride = new StyleBoxFlat
-            {
-                BackgroundColor = new Color(0, 0, 0, 0.9f)
-            },
+            PanelOverride = new StyleBoxFlat { BackgroundColor = new Color(0, 0, 0, 0.9f) },
             HorizontalAlignment = HAlignment.Center,
             VerticalAlignment = VAlignment.Center,
             HorizontalExpand = true,
             VerticalExpand = true,
             // Box is undersized perfectly compared to the progress bar, so a little bit of the unaffected progress bar is visible.
-            SetSize = new Vector2(43f, 16f)
+            SetSize = new Vector2(43f, 16f),
         };
 
         BatteryLevel.AddChild(BackgroundPanel);

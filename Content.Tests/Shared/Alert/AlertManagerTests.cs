@@ -15,7 +15,8 @@ namespace Content.Tests.Shared.Alert
     [TestFixture, TestOf(typeof(AlertsSystem))]
     public sealed class AlertManagerTests : RobustUnitTest
     {
-        const string PROTOTYPES = @"
+        const string PROTOTYPES =
+            @"
 - type: alert
   id: LowPressure
   icons:
@@ -45,14 +46,26 @@ namespace Content.Tests.Shared.Alert
             prototypeManager.LoadFromStream(new StringReader(PROTOTYPES));
 
             Assert.That(alertsSystem.TryGet("LowPressure", out var lowPressure));
-            Assert.That(lowPressure!.Icons[0], Is.EqualTo(new SpriteSpecifier.Texture(new ("/Textures/Interface/Alerts/Pressure/lowpressure.png"))));
+            Assert.That(
+                lowPressure!.Icons[0],
+                Is.EqualTo(new SpriteSpecifier.Texture(new("/Textures/Interface/Alerts/Pressure/lowpressure.png")))
+            );
             Assert.That(alertsSystem.TryGet("HighPressure", out var highPressure));
-            Assert.That(highPressure!.Icons[0], Is.EqualTo(new SpriteSpecifier.Texture(new ("/Textures/Interface/Alerts/Pressure/highpressure.png"))));
+            Assert.That(
+                highPressure!.Icons[0],
+                Is.EqualTo(new SpriteSpecifier.Texture(new("/Textures/Interface/Alerts/Pressure/highpressure.png")))
+            );
 
             Assert.That(alertsSystem.TryGet("LowPressure", out lowPressure));
-            Assert.That(lowPressure!.Icons[0], Is.EqualTo(new SpriteSpecifier.Texture(new ("/Textures/Interface/Alerts/Pressure/lowpressure.png"))));
+            Assert.That(
+                lowPressure!.Icons[0],
+                Is.EqualTo(new SpriteSpecifier.Texture(new("/Textures/Interface/Alerts/Pressure/lowpressure.png")))
+            );
             Assert.That(alertsSystem.TryGet("HighPressure", out highPressure));
-            Assert.That(highPressure!.Icons[0], Is.EqualTo(new SpriteSpecifier.Texture(new ("/Textures/Interface/Alerts/Pressure/highpressure.png"))));
+            Assert.That(
+                highPressure!.Icons[0],
+                Is.EqualTo(new SpriteSpecifier.Texture(new("/Textures/Interface/Alerts/Pressure/highpressure.png")))
+            );
         }
     }
 }

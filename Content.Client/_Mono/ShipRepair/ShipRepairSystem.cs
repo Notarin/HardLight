@@ -15,19 +15,44 @@ namespace Content.Client._Mono.ShipRepair;
 
 public sealed partial class ShipRepairSystem : SharedShipRepairSystem
 {
-    [Dependency] private readonly ForceParentSystem _parent = default!;
-    [Dependency] private readonly IconSmoothSystem _smooth = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IMapManager _mapMan = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly ISerializationManager _serialization = default!;
-    [Dependency] private readonly ITileDefinitionManager _tileDefs = default!;
-    [Dependency] private readonly MetaDataSystem _metaData = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly ForceParentSystem _parent = default!;
+
+    [Dependency]
+    private readonly IconSmoothSystem _smooth = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IMapManager _mapMan = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private readonly ISerializationManager _serialization = default!;
+
+    [Dependency]
+    private readonly ITileDefinitionManager _tileDefs = default!;
+
+    [Dependency]
+    private readonly MetaDataSystem _metaData = default!;
+
+    [Dependency]
+    private readonly SharedHandsSystem _hands = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _map = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     // so Update() is less evil
     private EntityQuery<MapGridComponent> _gridQuery;
@@ -52,14 +77,17 @@ public sealed partial class ShipRepairSystem : SharedShipRepairSystem
     private void OnRepairMessage(RepairEntityMessage args)
     {
         var grid = GetEntity(args.Grid);
-        if (TerminatingOrDeleted(grid)
+        if (
+            TerminatingOrDeleted(grid)
             || !TryComp<ShipRepairDataComponent>(grid, out var data)
             || !TryGetChunk(data, args.Indices, out var chunk)
         )
             return;
 
         if (!chunk.Entities.ContainsKey(args.SpecId))
-            Log.Warning($"Tried to sync repaired entity at {args.Indices} on grid {ToPrettyString(grid)}, but we did not have this entity prior.");
+            Log.Warning(
+                $"Tried to sync repaired entity at {args.Indices} on grid {ToPrettyString(grid)}, but we did not have this entity prior."
+            );
 
         chunk.Entities[args.SpecId] = args.NewSpec;
     }

@@ -1,24 +1,27 @@
-using System.Numerics;
 using System.Linq;
+using System.Numerics;
 using Content.Server.StationEvents.Components;
+using Content.Shared._Goobstation.Vehicles;
 using Content.Shared._NF.Bank.Components;
 using Content.Shared.Humanoid;
 using Content.Shared.Mech.Components;
 using Content.Shared.Mind;
 using Content.Shared.Mind.Components;
 using Content.Shared.Mobs.Components;
-using Content.Shared.Silicons.Borgs.Components;
 using Content.Shared.Movement.Pulling.Components;
+using Content.Shared.Silicons.Borgs.Components;
 using Robust.Shared.Map;
 using Robust.Shared.Player;
-using Content.Shared._Goobstation.Vehicles;
 
 namespace Content.Server.StationEvents.Events;
 
 public sealed class LinkedLifecycleGridSystem : EntitySystem
 {
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedMindSystem _mind = default!;
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly SharedMindSystem _mind = default!;
 
     public readonly record struct ReparentTarget(EntityUid EntityUid, EntityUid MapUid, Vector2 MapPosition);
 
@@ -168,7 +171,11 @@ public sealed class LinkedLifecycleGridSystem : EntitySystem
     /// <summary>
     /// Tries to get what the passed entity is pulling, if anything, and adds it to the passed list.
     /// </summary>
-    private void HandlePulledEntity(Entity<PullerComponent?> entity, ref List<ReparentTarget> listToReparent, HashSet<EntityUid> queuedEntities)
+    private void HandlePulledEntity(
+        Entity<PullerComponent?> entity,
+        ref List<ReparentTarget> listToReparent,
+        HashSet<EntityUid> queuedEntities
+    )
     {
         if (!Resolve(entity, ref entity.Comp, false))
             return;
@@ -189,7 +196,8 @@ public sealed class LinkedLifecycleGridSystem : EntitySystem
         EntityUid uid,
         TransformComponent xform,
         ref List<ReparentTarget> listToReparent,
-        HashSet<EntityUid> queuedEntities)
+        HashSet<EntityUid> queuedEntities
+    )
     {
         if (!queuedEntities.Add(uid))
             return;
@@ -213,7 +221,10 @@ public sealed class LinkedLifecycleGridSystem : EntitySystem
 
         foreach (var target in reparentEntities)
         {
-            if (!TryComp<MetaDataComponent>(target.EntityUid, out var meta) || meta.EntityLifeStage >= EntityLifeStage.Terminating)
+            if (
+                !TryComp<MetaDataComponent>(target.EntityUid, out var meta)
+                || meta.EntityLifeStage >= EntityLifeStage.Terminating
+            )
                 continue;
 
             if (!TryComp<TransformComponent>(target.EntityUid, out var xform))
@@ -233,7 +244,10 @@ public sealed class LinkedLifecycleGridSystem : EntitySystem
 
         foreach (var target in reparentEntities)
         {
-            if (!TryComp<MetaDataComponent>(target.EntityUid, out var meta) || meta.EntityLifeStage >= EntityLifeStage.Terminating)
+            if (
+                !TryComp<MetaDataComponent>(target.EntityUid, out var meta)
+                || meta.EntityLifeStage >= EntityLifeStage.Terminating
+            )
                 continue;
 
             if (!TryComp<TransformComponent>(target.EntityUid, out var xform))
@@ -243,7 +257,11 @@ public sealed class LinkedLifecycleGridSystem : EntitySystem
             if (xform.MapID != MapId.Nullspace)
                 continue;
 
-            _transform.SetCoordinates(target.EntityUid, xform, new EntityCoordinates(target.MapUid, target.MapPosition));
+            _transform.SetCoordinates(
+                target.EntityUid,
+                xform,
+                new EntityCoordinates(target.MapUid, target.MapPosition)
+            );
         }
     }
 }

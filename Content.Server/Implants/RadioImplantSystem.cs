@@ -93,8 +93,10 @@ public sealed class RadioImplantSystem : EntitySystem
             RemCompDeferred<IntrinsicRadioTransmitterComponent>(args.Container.Owner);
         }
 
-        if (TryComp<IntrinsicRadioReceiverComponent>(args.Container.Owner, out _)
-            && !HasComp<ActiveRadioComponent>(args.Container.Owner))
+        if (
+            TryComp<IntrinsicRadioReceiverComponent>(args.Container.Owner, out _)
+            && !HasComp<ActiveRadioComponent>(args.Container.Owner)
+        )
         {
             RemCompDeferred<IntrinsicRadioReceiverComponent>(args.Container.Owner);
         }

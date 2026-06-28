@@ -28,7 +28,7 @@
 - type: stack
   id: ScrapOre
   name: stack-scrap-ore
-  icon: { sprite: /Textures/_NF/Objects/Materials/ore.rsi, state: scrapore }
+  icon: {sprite: /Textures/_NF/Objects/Materials/ore.rsi, state: scrapore}
   spawn: ScrapOre1
   maxCount: 100
 
@@ -61,7 +61,7 @@
   stackEntity: ScrapOre1
   name: materials-raw-scrap
   unit: materials-unit-chunk
-  icon: { sprite: /Textures/_NF/Objects/Materials/ore.rsi, state: scrapore }
+  icon: {sprite: /Textures/_NF/Objects/Materials/ore.rsi, state: scrapore}
   color: "#FFD700"
   price: 0.02
 
@@ -70,16 +70,16 @@
   name: refined scrap
   id: SpawnRandomRefinedScrap
   parent: MarkerBasePlaceFree
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     layers:
-      - state: green
-      - sprite: _NF/Objects/Materials/ore.rsi
-        state: scrapore
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: red
+    - state: green
+    - sprite: _NF/Objects/Materials/ore.rsi
+      state: scrapore
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: red
   - type: RandomSpawner
     prototypes:
     - SpawnDungeonLootMaterialsBasicSingle
@@ -104,16 +104,16 @@
   name: refined tech
   id: SpawnRandomRefinedTech
   parent: MarkerBasePlaceFree
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     layers:
-      - state: green
-      - sprite: _NF/Objects/Materials/ore.rsi
-        state: scrapore
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: blue
+    - state: green
+    - sprite: _NF/Objects/Materials/ore.rsi
+      state: scrapore
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: blue
   - type: RandomSpawner
     prototypes:
     - ResearchDisk

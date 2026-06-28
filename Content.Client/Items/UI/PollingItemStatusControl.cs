@@ -7,7 +7,8 @@ namespace Content.Client.Items.UI;
 /// A base for item status controls that poll data every frame. Avoids UI updates if data didn't change.
 /// </summary>
 /// <typeparam name="TData">The full status control data that is polled every frame.</typeparam>
-public abstract class PollingItemStatusControl<TData> : Control where TData : struct, IEquatable<TData>
+public abstract class PollingItemStatusControl<TData> : Control
+    where TData : struct, IEquatable<TData>
 {
     private TData _lastData;
 

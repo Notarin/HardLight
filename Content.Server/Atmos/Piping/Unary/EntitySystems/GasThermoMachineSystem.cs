@@ -6,25 +6,32 @@ using Content.Server.DeviceNetwork.Systems;
 using Content.Server.NodeContainer.EntitySystems;
 using Content.Server.NodeContainer.Nodes;
 using Content.Server.Power.Components;
+using Content.Server.Power.EntitySystems;
 using Content.Shared.Atmos;
 using Content.Shared.Atmos.Piping.Unary.Components;
-using JetBrains.Annotations;
-using Content.Server.Power.EntitySystems;
 using Content.Shared.Atmos.Piping.Unary.Systems;
 using Content.Shared.DeviceNetwork;
+using Content.Shared.DeviceNetwork.Components;
 using Content.Shared.DeviceNetwork.Events;
 using Content.Shared.Examine;
-using Content.Shared.DeviceNetwork.Components;
+using JetBrains.Annotations;
 
 namespace Content.Server.Atmos.Piping.Unary.EntitySystems
 {
     [UsedImplicitly]
     public sealed class GasThermoMachineSystem : SharedGasThermoMachineSystem
     {
-        [Dependency] private readonly AtmosphereSystem _atmosphereSystem = default!;
-        [Dependency] private readonly PowerReceiverSystem _power = default!;
-        [Dependency] private readonly NodeContainerSystem _nodeContainer = default!;
-        [Dependency] private readonly DeviceNetworkSystem _deviceNetwork = default!;
+        [Dependency]
+        private readonly AtmosphereSystem _atmosphereSystem = default!;
+
+        [Dependency]
+        private readonly PowerReceiverSystem _power = default!;
+
+        [Dependency]
+        private readonly NodeContainerSystem _nodeContainer = default!;
+
+        [Dependency]
+        private readonly DeviceNetworkSystem _deviceNetwork = default!;
 
         public override void Initialize()
         {
@@ -36,7 +43,11 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
             SubscribeLocalEvent<GasThermoMachineComponent, DeviceNetworkPacketEvent>(OnPacketRecv);
         }
 
-        private void OnThermoMachineUpdated(EntityUid uid, GasThermoMachineComponent thermoMachine, ref AtmosDeviceUpdateEvent args)
+        private void OnThermoMachineUpdated(
+            EntityUid uid,
+            GasThermoMachineComponent thermoMachine,
+            ref AtmosDeviceUpdateEvent args
+        )
         {
             thermoMachine.LastEnergyDelta = 0f;
             if (!(_power.IsPowered(uid) && TryComp<ApcPowerReceiverComponent>(uid, out var receiver)))
@@ -93,18 +104,26 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
                 _atmosphereSystem.AddHeat(heatExchangeGasMixture, dQPipe);
                 thermoMachine.LastEnergyDelta = dQPipe;
 
-                if (dQLeak != 0f && _atmosphereSystem.GetContainingMixture(uid, args.Grid, args.Map, excite: true) is { } containingMixture)
+                if (
+                    dQLeak != 0f
+                    && _atmosphereSystem.GetContainingMixture(uid, args.Grid, args.Map, excite: true)
+                        is { } containingMixture
+                )
                     _atmosphereSystem.AddHeat(containingMixture, dQLeak);
             }
 
-            receiver.Load = thermoMachine.HeatCapacity;// * scale; // we're not ready for dynamic load yet, see note above
+            receiver.Load = thermoMachine.HeatCapacity; // * scale; // we're not ready for dynamic load yet, see note above
         }
 
         /// <summary>
         /// Returns the gas mixture with which the thermomachine will exchange heat (the local atmosphere if atmospheric or the inlet pipe
         /// air if not). Returns null if no gas mixture is found.
         /// </summary>
-        private void GetHeatExchangeGasMixture(EntityUid uid, GasThermoMachineComponent thermoMachine, out GasMixture? heatExchangeGasMixture)
+        private void GetHeatExchangeGasMixture(
+            EntityUid uid,
+            GasThermoMachineComponent thermoMachine,
+            out GasMixture? heatExchangeGasMixture
+        )
         {
             heatExchangeGasMixture = null;
             if (thermoMachine.Atmospheric)
@@ -121,8 +140,10 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
 
         private void OnPacketRecv(EntityUid uid, GasThermoMachineComponent component, DeviceNetworkPacketEvent args)
         {
-            if (!TryComp(uid, out DeviceNetworkComponent? netConn)
-                || !args.Data.TryGetValue(DeviceNetworkConstants.Command, out var cmd))
+            if (
+                !TryComp(uid, out DeviceNetworkComponent? netConn)
+                || !args.Data.TryGetValue(DeviceNetworkConstants.Command, out var cmd)
+            )
                 return;
 
             var payload = new NetworkPayload();

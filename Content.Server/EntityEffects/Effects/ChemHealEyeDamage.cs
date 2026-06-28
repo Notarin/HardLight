@@ -17,8 +17,12 @@ public sealed partial class ChemHealEyeDamage : EntityEffect
     [DataField]
     public int Amount = -1;
 
-    protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys)
-        => Loc.GetString("reagent-effect-guidebook-cure-eye-damage", ("chance", Probability), ("deltasign", MathF.Sign(Amount)));
+    protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys) =>
+        Loc.GetString(
+            "reagent-effect-guidebook-cure-eye-damage",
+            ("chance", Probability),
+            ("deltasign", MathF.Sign(Amount))
+        );
 
     public override void Effect(EntityEffectBaseArgs args)
     {
@@ -26,6 +30,7 @@ public sealed partial class ChemHealEyeDamage : EntityEffect
             if (reagentArgs.Scale != 1f) // huh?
                 return;
 
-        args.EntityManager.EntitySysManager.GetEntitySystem<BlindableSystem>().AdjustEyeDamage(args.TargetEntity, Amount);
+        args.EntityManager.EntitySysManager.GetEntitySystem<BlindableSystem>()
+            .AdjustEyeDamage(args.TargetEntity, Amount);
     }
 }

@@ -1,43 +1,64 @@
-using Content.Shared.Inventory.Events;
-using Content.Shared.Clothing.Components;
-using Content.Shared.Actions;
-using Content.Shared._Starlight.NullSpace;
-using Content.Shared.Maps;
-using Robust.Server.GameObjects;
-using Content.Shared.Popups;
-using Content.Shared.Physics;
 using System.Linq;
-using Content.Server.Ghost;
-using Robust.Server.Containers;
-using Robust.Shared.Prototypes;
-using Content.Shared.Light.Components;
-using Robust.Shared.Containers;
-using Content.Shared.Mobs.Components;
-using Content.Shared.Inventory;
-using Content.Shared._Starlight.Shadekin;
-using Content.Shared.Timing;
-using Robust.Shared.Timing;
-using Content.Server._Starlight.Shadekin;
-using Content.Shared.Sprite;
-using Content.Shared.Movement.Pulling.Components;
-using Content.Shared.Humanoid;
 using System.Numerics;
+using Content.Server._Starlight.Shadekin;
+using Content.Server.Ghost;
+using Content.Shared._Starlight.NullSpace;
+using Content.Shared._Starlight.Shadekin;
+using Content.Shared.Actions;
+using Content.Shared.Clothing.Components;
+using Content.Shared.Humanoid;
+using Content.Shared.Inventory;
+using Content.Shared.Inventory.Events;
+using Content.Shared.Light.Components;
+using Content.Shared.Maps;
+using Content.Shared.Mobs.Components;
+using Content.Shared.Movement.Pulling.Components;
+using Content.Shared.Physics;
+using Content.Shared.Popups;
+using Content.Shared.Sprite;
+using Content.Shared.Timing;
+using Robust.Server.Containers;
+using Robust.Server.GameObjects;
+using Robust.Shared.Containers;
+using Robust.Shared.Prototypes;
+using Robust.Shared.Timing;
 
 namespace Content.Server._Starlight.NullSpace;
 
 public sealed class NullSpacePhaseSystem : EntitySystem
 {
-    [Dependency] private readonly SharedActionsSystem _actionsSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly GhostSystem _ghost = default!;
-    [Dependency] private readonly ContainerSystem _container = default!;
-    [Dependency] private readonly TurfSystem _turf = default!;
-    [Dependency] private readonly InventorySystem _inventorySystem = default!;
-    [Dependency] private readonly UseDelaySystem _usedelay = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly SharedScaleVisualsSystem _scaleVisuals = default!;
-    [Dependency] private readonly AppearanceSystem _appearance = default!;
+    [Dependency]
+    private readonly SharedActionsSystem _actionsSystem = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly EntityLookupSystem _lookup = default!;
+
+    [Dependency]
+    private readonly GhostSystem _ghost = default!;
+
+    [Dependency]
+    private readonly ContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly TurfSystem _turf = default!;
+
+    [Dependency]
+    private readonly InventorySystem _inventorySystem = default!;
+
+    [Dependency]
+    private readonly UseDelaySystem _usedelay = default!;
+
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
+
+    [Dependency]
+    private readonly SharedScaleVisualsSystem _scaleVisuals = default!;
+
+    [Dependency]
+    private readonly AppearanceSystem _appearance = default!;
 
     private readonly EntProtoId _shadekinShadow = "ShadekinShadow";
     private readonly EntProtoId ShadekinPhaseInEffect = "ShadekinPhaseInEffect";
@@ -65,17 +86,19 @@ public sealed class NullSpacePhaseSystem : EntitySystem
 
     private void OnEquipped(EntityUid uid, NullPhaseComponent component, GotEquippedEvent args)
     {
-        if (HasComp<BrighteyeComponent>(args.Equipee)) return;
+        if (HasComp<BrighteyeComponent>(args.Equipee))
+            return;
 
-        if (!TryComp<ClothingComponent>(uid, out var clothing)
-            || !clothing.Slots.HasFlag(args.SlotFlags))
+        if (!TryComp<ClothingComponent>(uid, out var clothing) || !clothing.Slots.HasFlag(args.SlotFlags))
             return;
 
         var nullphase = EnsureComp<NullPhaseComponent>(args.Equipee);
         nullphase.Cooldown = component.Cooldown;
         nullphase.ShuntCooldown = component.ShuntCooldown;
 
-        if (TryComp<UseDelayComponent>(uid, out var usedelay) && _usedelay.IsDelayed((uid, usedelay), "nullphase-delay"))
+        if (
+            TryComp<UseDelayComponent>(uid, out var usedelay) && _usedelay.IsDelayed((uid, usedelay), "nullphase-delay")
+        )
         {
             if (_usedelay.TryGetDelayInfo(uid, out var info, "nullphase-delay"))
             {
@@ -89,14 +112,18 @@ public sealed class NullSpacePhaseSystem : EntitySystem
 
     private void OnUnequipped(EntityUid uid, NullPhaseComponent component, GotUnequippedEvent args)
     {
-        if (HasComp<BrighteyeComponent>(args.Equipee)) return;
+        if (HasComp<BrighteyeComponent>(args.Equipee))
+            return;
 
         if (TryComp<NullPhaseComponent>(args.Equipee, out var nullphase))
         {
             component.Cooldown = nullphase.Cooldown;
             component.ShuntCooldown = nullphase.ShuntCooldown;
 
-            if (TryComp<UseDelayComponent>(args.Equipee, out var usedelay) && _usedelay.IsDelayed((args.Equipee, usedelay), "nullphase-delay"))
+            if (
+                TryComp<UseDelayComponent>(args.Equipee, out var usedelay)
+                && _usedelay.IsDelayed((args.Equipee, usedelay), "nullphase-delay")
+            )
             {
                 if (_usedelay.TryGetDelayInfo(args.Equipee, out var info, "nullphase-delay"))
                 {
@@ -170,7 +197,10 @@ public sealed class NullSpacePhaseSystem : EntitySystem
             }
 
             // No phaising if were holding or have an entity with the MobStateComponent (including backpack)
-            if (TryComp<InventoryComponent>(uid, out var inventoryComponent) && _inventorySystem.TryGetSlots(uid, out var slots))
+            if (
+                TryComp<InventoryComponent>(uid, out var inventoryComponent)
+                && _inventorySystem.TryGetSlots(uid, out var slots)
+            )
                 foreach (var slot in slots)
                     if (_inventorySystem.TryGetSlotEntity(uid, slot.Name, out var slotEnt, inventoryComponent))
                     {
@@ -182,12 +212,12 @@ public sealed class NullSpacePhaseSystem : EntitySystem
 
                         if (TryComp<ContainerManagerComponent>(slotEnt, out var containercomp))
                             foreach (var container in containercomp.Containers.Values)
-                                foreach (var contEnt in container.ContainedEntities)
-                                    if (HasComp<MobStateComponent>(contEnt))
-                                    {
-                                        _popup.PopupEntity(Loc.GetString("phase-fail-generic"), uid, uid);
-                                        return false;
-                                    }
+                            foreach (var contEnt in container.ContainedEntities)
+                                if (HasComp<MobStateComponent>(contEnt))
+                                {
+                                    _popup.PopupEntity(Loc.GetString("phase-fail-generic"), uid, uid);
+                                    return false;
+                                }
                     }
         }
 
@@ -206,7 +236,8 @@ public sealed class NullSpacePhaseSystem : EntitySystem
 
             if (TryComp<ShadekinComponent>(uid, out var shadekin))
             {
-                var lightQuery = _lookup.GetEntitiesInRange(uid, 5, flags: LookupFlags.StaticSundries)
+                var lightQuery = _lookup
+                    .GetEntitiesInRange(uid, 5, flags: LookupFlags.StaticSundries)
                     .Where(x => HasComp<PoweredLightComponent>(x));
                 foreach (var light in lightQuery)
                     _ghost.DoGhostBooEvent(light);
@@ -228,7 +259,8 @@ public sealed class NullSpacePhaseSystem : EntitySystem
 
             if (TryComp<ShadekinComponent>(uid, out var shadekin))
             {
-                var lightQuery = _lookup.GetEntitiesInRange(uid, 5, flags: LookupFlags.StaticSundries)
+                var lightQuery = _lookup
+                    .GetEntitiesInRange(uid, 5, flags: LookupFlags.StaticSundries)
                     .Where(x => HasComp<PoweredLightComponent>(x));
                 foreach (var light in lightQuery)
                     _ghost.DoGhostBooEvent(light);
@@ -245,8 +277,10 @@ public sealed class NullSpacePhaseSystem : EntitySystem
         var effect = SpawnAtPosition(effectproto, Transform(uid).Coordinates);
 
         var scaled = _scaleVisuals.GetSpriteScale(uid);
-        if (HasComp<AppearanceComponent>(uid)
-            && _appearance.TryGetData<Vector2>(uid, HumanoidVisuals.Scale, out var humanoidscaled))
+        if (
+            HasComp<AppearanceComponent>(uid)
+            && _appearance.TryGetData<Vector2>(uid, HumanoidVisuals.Scale, out var humanoidscaled)
+        )
             scaled = humanoidscaled;
 
         _scaleVisuals.SetSpriteScale(effect, scaled);

@@ -19,11 +19,20 @@ namespace Content.Shared.Friction
 {
     public sealed class TileFrictionController : VirtualController
     {
-        [Dependency] private readonly IConfigurationManager _configManager = default!;
-        [Dependency] private readonly ITileDefinitionManager _tileDefinitionManager = default!;
-        [Dependency] private readonly SharedGravitySystem _gravity = default!;
-        [Dependency] private readonly SharedMoverController _mover = default!;
-        [Dependency] private readonly SharedMapSystem _map = default!;
+        [Dependency]
+        private readonly IConfigurationManager _configManager = default!;
+
+        [Dependency]
+        private readonly ITileDefinitionManager _tileDefinitionManager = default!;
+
+        [Dependency]
+        private readonly SharedGravitySystem _gravity = default!;
+
+        [Dependency]
+        private readonly SharedMoverController _mover = default!;
+
+        [Dependency]
+        private readonly SharedMapSystem _map = default!;
 
         private EntityQuery<TileFrictionModifierComponent> _frictionQuery;
         private EntityQuery<TransformComponent> _xformQuery;
@@ -81,8 +90,13 @@ namespace Content.Shared.Friction
 
                 // If we're not touching the ground, don't use tileFriction.
                 // TODO: Make IsWeightless event-based; we already have grid traversals tracked so just raise events
-                if (body.BodyStatus == BodyStatus.InAir || _gravity.IsWeightless(uid, body, xform) || !xform.Coordinates.IsValid(EntityManager))
-                    friction = xform.GridUid == null || !_gridQuery.HasComp(xform.GridUid) ? _offGridDamping : _airDamping;
+                if (
+                    body.BodyStatus == BodyStatus.InAir
+                    || _gravity.IsWeightless(uid, body, xform)
+                    || !xform.Coordinates.IsValid(EntityManager)
+                )
+                    friction =
+                        xform.GridUid == null || !_gridQuery.HasComp(xform.GridUid) ? _offGridDamping : _airDamping;
                 else
                     friction = _frictionModifier * GetTileFriction(uid, body, xform);
 
@@ -101,8 +115,12 @@ namespace Content.Shared.Friction
                 // If we're sandwiched between 2 pullers reduce friction
                 // Might be better to make this dynamic and check how many are in the pull chain?
                 // Either way should be much faster for now.
-                if (_pullerQuery.TryGetComponent(uid, out var puller) && puller.Pulling != null &&
-                    _pullableQuery.TryGetComponent(uid, out var pullable) && pullable.BeingPulled)
+                if (
+                    _pullerQuery.TryGetComponent(uid, out var puller)
+                    && puller.Pulling != null
+                    && _pullableQuery.TryGetComponent(uid, out var pullable)
+                    && pullable.BeingPulled
+                )
                 {
                     bodyModifier *= 0.2f;
                 }
@@ -131,10 +149,7 @@ namespace Content.Shared.Friction
         }
 
         [Pure]
-        private float GetTileFriction(
-            EntityUid uid,
-            PhysicsComponent body,
-            TransformComponent xform)
+        private float GetTileFriction(EntityUid uid, PhysicsComponent body, TransformComponent xform)
         {
             var tileModifier = 1f;
             // If not on a grid and not in the air then return the map's friction.
@@ -148,9 +163,11 @@ namespace Content.Shared.Friction
             var tile = _map.GetTileRef(xform.GridUid.Value, grid, xform.Coordinates);
 
             // If it's a map but on an empty tile then just assume it has gravity.
-            if (tile.Tile.IsEmpty &&
-                HasComp<MapComponent>(xform.GridUid) &&
-                (!TryComp<GravityComponent>(xform.GridUid, out var gravity) || gravity.Enabled))
+            if (
+                tile.Tile.IsEmpty
+                && HasComp<MapComponent>(xform.GridUid)
+                && (!TryComp<GravityComponent>(xform.GridUid, out var gravity) || gravity.Enabled)
+            )
                 return tileModifier;
 
             // Check for anchored ents that modify friction

@@ -12,7 +12,8 @@ namespace Content.Server.Destructible.Thresholds.Behaviors
         /// <summary>
         ///     Sound played upon destruction.
         /// </summary>
-        [DataField("sound", required: true)] public SoundSpecifier Sound { get; set; } = default!;
+        [DataField("sound", required: true)]
+        public SoundSpecifier Sound { get; set; } = default!;
 
         public void Execute(EntityUid owner, DestructibleSystem system, EntityUid? cause = null)
         {

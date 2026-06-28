@@ -128,10 +128,12 @@ namespace Content.Shared.Hands
         public readonly NetCoordinates FinalPosition;
         public readonly Angle InitialAngle;
 
-        public PickupAnimationEvent(NetEntity itemUid,
+        public PickupAnimationEvent(
+            NetEntity itemUid,
             NetCoordinates initialPosition,
             NetCoordinates finalPosition,
-            Angle initialAngle)
+            Angle initialAngle
+        )
         {
             ItemUid = itemUid;
             FinalPosition = finalPosition;
@@ -170,7 +172,13 @@ namespace Content.Shared.Hands
         public EntityUid User;
         public EntityUid VirtualItem;
         public Vector2 Direction;
-        public VirtualItemThrownEvent(EntityUid blockingEntity, EntityUid user, EntityUid virtualItem, Vector2 direction)
+
+        public VirtualItemThrownEvent(
+            EntityUid blockingEntity,
+            EntityUid user,
+            EntityUid virtualItem,
+            Vector2 direction
+        )
         {
             BlockingEntity = blockingEntity;
             User = user;
@@ -190,6 +198,7 @@ namespace Content.Shared.Hands
         public EntityUid User;
         public EntityUid VirtualItem;
         public bool Throw;
+
         public VirtualItemDropAttemptEvent(EntityUid blockingEntity, EntityUid user, EntityUid virtualItem, bool thrown)
         {
             BlockingEntity = blockingEntity;
@@ -198,6 +207,7 @@ namespace Content.Shared.Hands
             Throw = thrown;
         }
     }
+
     // Goobstation end
 
     /// <summary>
@@ -263,7 +273,8 @@ namespace Content.Shared.Hands
     /// </summary>
     public sealed class GotEquippedHandEvent : EquippedHandEvent
     {
-        public GotEquippedHandEvent(EntityUid user, EntityUid unequipped, Hand hand) : base(user, unequipped, hand) { }
+        public GotEquippedHandEvent(EntityUid user, EntityUid unequipped, Hand hand)
+            : base(user, unequipped, hand) { }
     }
 
     /// <summary>
@@ -271,7 +282,8 @@ namespace Content.Shared.Hands
     /// </summary>
     public sealed class GotUnequippedHandEvent : UnequippedHandEvent
     {
-        public GotUnequippedHandEvent(EntityUid user, EntityUid unequipped, Hand hand) : base(user, unequipped, hand) { }
+        public GotUnequippedHandEvent(EntityUid user, EntityUid unequipped, Hand hand)
+            : base(user, unequipped, hand) { }
     }
 
     /// <summary>
@@ -279,7 +291,8 @@ namespace Content.Shared.Hands
     /// </summary>
     public sealed class DidEquipHandEvent : EquippedHandEvent
     {
-        public DidEquipHandEvent(EntityUid user, EntityUid unequipped, Hand hand) : base(user, unequipped, hand) { }
+        public DidEquipHandEvent(EntityUid user, EntityUid unequipped, Hand hand)
+            : base(user, unequipped, hand) { }
     }
 
     /// <summary>
@@ -287,16 +300,15 @@ namespace Content.Shared.Hands
     /// </summary>
     public sealed class DidUnequipHandEvent : UnequippedHandEvent
     {
-        public DidUnequipHandEvent(EntityUid user, EntityUid unequipped, Hand hand) : base(user, unequipped, hand) { }
+        public DidUnequipHandEvent(EntityUid user, EntityUid unequipped, Hand hand)
+            : base(user, unequipped, hand) { }
     }
 
     /// <summary>
     ///     Event raised by a client when they want to use the item currently held in their hands.
     /// </summary>
     [Serializable, NetSerializable]
-    public sealed class RequestUseInHandEvent : EntityEventArgs
-    {
-    }
+    public sealed class RequestUseInHandEvent : EntityEventArgs { }
 
     /// <summary>
     ///     Event raised by a client when they want to activate the item currently in their hands.

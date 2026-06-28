@@ -10,8 +10,11 @@ namespace Content.Client.Overlays;
 
 public sealed class ShowJobIconsSystem : EquipmentHudSystem<ShowJobIconsComponent>
 {
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly AccessReaderSystem _accessReader = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototype = default!;
+
+    [Dependency]
+    private readonly AccessReaderSystem _accessReader = default!;
 
     private static readonly ProtoId<JobIconPrototype> JobIconForNoId = "JobIconNoId";
 
@@ -41,9 +44,11 @@ public sealed class ShowJobIconsSystem : EquipmentHudSystem<ShowJobIconsComponen
                 }
 
                 // PDA
-                if (TryComp<PdaComponent>(item, out var pda)
+                if (
+                    TryComp<PdaComponent>(item, out var pda)
                     && pda.ContainedId != null
-                    && TryComp(pda.ContainedId, out id))
+                    && TryComp(pda.ContainedId, out id)
+                )
                 {
                     iconId = id.JobIcon;
                     break;

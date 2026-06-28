@@ -88,7 +88,7 @@
     - state: popsicle
       color: orange
   - type: Food
-    trash: 
+    trash:
     - FoodFrozenPopsicleTrash
 
 - type: entity
@@ -104,7 +104,7 @@
     - state: popsicle
       color: red
   - type: Food
-    trash: 
+    trash:
     - FoodFrozenPopsicleTrash
   - type: Tag
     tags:
@@ -121,7 +121,7 @@
     - state: stick
     - state: jumbo
   - type: Food
-    trash: 
+    trash:
     - FoodFrozenPopsicleTrash
   - type: SolutionContainerManager
     solutions:
@@ -146,25 +146,25 @@
   description: It's just shaved ice and simple syrup, minimum effort.
   #  description: [Liquid] drizzled over a snowball in a paper cup.
   components:
-    - type: Sprite
-      layers:
-        - state: cone
-        - state: alpha-filling
-    #      color: foo
-    - type: Food
-      trash: 
-      - FoodFrozenSnowconeTrash
-    - type: SolutionContainerManager
-      solutions:
-        food:
-          maxVol: 20 # For sprinkles or something? Idk.
-          reagents:
-            - ReagentId: Ice
-              Quantity: 8
-            - ReagentId: Water
-              Quantity: 2
-            - ReagentId: Sugar
-              Quantity: 2
+  - type: Sprite
+    layers:
+    - state: cone
+    - state: alpha-filling
+  #      color: foo
+  - type: Food
+    trash:
+    - FoodFrozenSnowconeTrash
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 20 # For sprinkles or something? Idk.
+        reagents:
+        - ReagentId: Ice
+          Quantity: 8
+        - ReagentId: Water
+          Quantity: 2
+        - ReagentId: Sugar
+          Quantity: 2
 
 - type: entity
   name: flavorless snowcone
@@ -177,8 +177,8 @@
       food:
         maxVol: 20
         reagents:
-          - ReagentId: Ice
-            Quantity: 8
+        - ReagentId: Ice
+          Quantity: 8
 
 - type: entity
   name: berry snowcone
@@ -191,7 +191,7 @@
     - state: cone
     - state: berry
   - type: Food
-    trash: 
+    trash:
     - FoodFrozenSnowconeTrash
   - type: Tag
     tags:
@@ -208,7 +208,7 @@
     - state: cone
     - state: fruitsalad
   - type: Food
-    trash: 
+    trash:
     - FoodFrozenSnowconeTrash
   - type: Tag
     tags:
@@ -225,21 +225,21 @@
     - state: cone
     - state: clown
   - type: Food
-    trash: 
+    trash:
     - FoodFrozenSnowconeTrash
 
 - type: entity
   name: mime snowcone
   parent: FoodFrozenSnowconeBase
   id: FoodFrozenSnowconeMime
-  description: ...
+  description: '...'
   components:
   - type: Sprite
     layers:
     - state: cone
     - state: mime
   - type: Food
-    trash: 
+    trash:
     - FoodFrozenSnowconeTrash
 
 - type: entity
@@ -253,7 +253,7 @@
     - state: cone
     - state: rainbow
   - type: Food
-    trash: 
+    trash:
     - FoodFrozenSnowconeTrash
 
 # Trash
@@ -281,13 +281,13 @@
   - type: Sprite
     sprite: Objects/Consumable/Food/frozen.rsi
     layers:
-      - state: stick
-        map: [ "enum.DamageStateVisualLayers.Base" ]
+    - state: stick
+      map: ["enum.DamageStateVisualLayers.Base"]
   - type: RandomSprite
     available:
-      - enum.DamageStateVisualLayers.Base:
-          stick: ""
-          stick2: ""
+    - enum.DamageStateVisualLayers.Base:
+        stick: ""
+        stick2: ""
   - type: Tag
     tags:
     - Trash

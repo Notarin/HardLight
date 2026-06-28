@@ -6,7 +6,7 @@
   components:
   - type: StorageFill
     contents:
-      - id: TegCirculatorFlatpack
-        amount: 2
-      - id: TegCenterFlatpack
-        amount: 1
+    - id: TegCirculatorFlatpack
+      amount: 2
+    - id: TegCenterFlatpack
+      amount: 1

@@ -13,9 +13,9 @@
   - type: Sprite
     sprite: _Mono/Objects/Power/power_cells.rsi
     layers:
-    - map: [ "enum.PowerCellVisualLayers.Base" ]
+    - map: ["enum.PowerCellVisualLayers.Base"]
       state: combat
-    - map: [ "enum.PowerCellVisualLayers.Unshaded" ]
+    - map: ["enum.PowerCellVisualLayers.Unshaded"]
       state: o2
       shader: unshaded
   - type: EmpResistance
@@ -28,12 +28,12 @@
   components:
   - type: Sprite
     layers:
-      - map: [ "enum.PowerCellVisualLayers.Base" ]
-        state: combat
-      - map: [ "enum.PowerCellVisualLayers.Unshaded" ]
-        state: o2
-        shader: unshaded
-        visible: false
+    - map: ["enum.PowerCellVisualLayers.Base"]
+      state: combat
+    - map: ["enum.PowerCellVisualLayers.Unshaded"]
+      state: o2
+      shader: unshaded
+      visible: false
   - type: Battery
     maxCharge: 1080
     startingCharge: 0

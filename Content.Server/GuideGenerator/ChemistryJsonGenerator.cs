@@ -16,17 +16,13 @@ public sealed class ChemistryJsonGenerator
     public static void PublishJson(StreamWriter file)
     {
         var prototype = IoCManager.Resolve<IPrototypeManager>();
-        var prototypes =
-            prototype
-                .EnumeratePrototypes<ReagentPrototype>()
-                .Where(x => !x.Abstract)
-                .Select(x => new ReagentEntry(x))
-                .ToDictionary(x => x.Id, x => x);
+        var prototypes = prototype
+            .EnumeratePrototypes<ReagentPrototype>()
+            .Where(x => !x.Abstract)
+            .Select(x => new ReagentEntry(x))
+            .ToDictionary(x => x.Id, x => x);
 
-        var reactions =
-            prototype
-                .EnumeratePrototypes<ReactionPrototype>()
-                .Where(x => x.Products.Count != 0);
+        var reactions = prototype.EnumeratePrototypes<ReactionPrototype>().Where(x => x.Products.Count != 0);
 
         foreach (var reaction in reactions)
         {
@@ -45,8 +41,8 @@ public sealed class ChemistryJsonGenerator
                 new UniversalJsonConverter<EntityEffectCondition>(),
                 new UniversalJsonConverter<ReagentEffectsEntry>(),
                 new UniversalJsonConverter<DamageSpecifier>(),
-                new FixedPointJsonConverter()
-            }
+                new FixedPointJsonConverter(),
+            },
         };
 
         file.Write(JsonSerializer.Serialize(prototypes, serializeOptions));

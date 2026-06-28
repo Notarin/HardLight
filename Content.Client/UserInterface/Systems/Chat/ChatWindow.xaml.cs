@@ -34,10 +34,11 @@ public sealed partial class ChatWindow : FancyWindow
         foreach (var c in Enum.GetValues(typeof(ChatChannel)))
         {
             var channel = (ChatChannel)c;
-            var isAdminInterest = channel == ChatChannel.Admin
-                                  || channel == ChatChannel.AdminChat
-                                  || channel == ChatChannel.AdminAlert
-                                  || channel == ChatChannel.AdminRelated;
+            var isAdminInterest =
+                channel == ChatChannel.Admin
+                || channel == ChatChannel.AdminChat
+                || channel == ChatChannel.AdminAlert
+                || channel == ChatChannel.AdminRelated;
             filter.SetActive(channel, isAdminInterest);
         }
     }

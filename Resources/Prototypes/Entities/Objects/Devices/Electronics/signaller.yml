@@ -15,7 +15,7 @@
     price: 40
   - type: DeviceLinkSource
     ports:
-      - Pressed
+    - Pressed
   - type: Tag
     tags:
     - Payload

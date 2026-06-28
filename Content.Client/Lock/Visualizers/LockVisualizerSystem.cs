@@ -1,17 +1,17 @@
-using Content.Shared.Storage;
 using Content.Shared.Lock;
+using Content.Shared.Storage;
 using Robust.Client.GameObjects;
 
 namespace Content.Client.Lock.Visualizers;
 
 public sealed class LockVisualizerSystem : VisualizerSystem<LockVisualsComponent>
 {
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     protected override void OnAppearanceChange(EntityUid uid, LockVisualsComponent comp, ref AppearanceChangeEvent args)
     {
-        if (args.Sprite == null
-            || !AppearanceSystem.TryGetData<bool>(uid, LockVisuals.Locked, out _, args.Component))
+        if (args.Sprite == null || !AppearanceSystem.TryGetData<bool>(uid, LockVisuals.Locked, out _, args.Component))
             return;
 
         // Lock state for the entity.
@@ -29,12 +29,16 @@ public sealed class LockVisualizerSystem : VisualizerSystem<LockVisualsComponent
 
         if (!open && (bool)unlockedStateExist!)
         {
-            _sprite.LayerSetRsiState((uid, args.Sprite), LockVisualLayers.Lock, locked ? comp.StateLocked : comp.StateUnlocked);
+            _sprite.LayerSetRsiState(
+                (uid, args.Sprite),
+                LockVisualLayers.Lock,
+                locked ? comp.StateLocked : comp.StateUnlocked
+            );
         }
     }
 }
 
 public enum LockVisualLayers : byte
 {
-    Lock
+    Lock,
 }

@@ -4,8 +4,8 @@
   id: OmniHand
   suffix: Unremoveable
   description: Advanced engineering cybernetic, useful for many construction tasks. Has a manipulator to use your hand normally when tools are not active. Warning! Programmed to be unable to pry powered doors!
-  components: 
-  - type: Unremoveable  
+  components:
+  - type: Unremoveable
   - type: Sprite
     sprite: _HL/Objects/Tools/omnihand.rsi
     layers:
@@ -33,8 +33,8 @@
     visuals:
       enum.ToggleVisuals.Toggled:
         enum.ToggleVisuals.Layer:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
   - type: Item
     sprite: _HL/Objects/Tools/omnihand.rsi
     size: Normal
@@ -60,7 +60,7 @@
           speedModifier: 1.5
         - type: Tool
           qualities:
-            - Prying
+          - Prying
           useSound:
             path: /Audio/Items/jaws_pry.ogg
         - type: MeleeWeapon
@@ -82,7 +82,7 @@
         components:
         - type: Tool
           qualities:
-            - Screwing
+          - Screwing
           useSound:
             path: /Audio/Items/drill_use.ogg
         - type: Item
@@ -112,7 +112,7 @@
         - type: ToolTileCompatible
         - type: Tool
           qualities:
-            - Cutting
+          - Cutting
           useSound:
             path: /Audio/Items/jaws_cut.ogg
         - type: Item
@@ -141,7 +141,7 @@
         components:
         - type: Tool
           qualities:
-            - Anchoring
+          - Anchoring
           useSound:
             path: /Audio/Items/drill_use.ogg
         - type: Item
@@ -170,7 +170,7 @@
         components:
         - type: Tool
           qualities:
-            - Pulsing
+          - Pulsing
         - type: NetworkConfigurator
         - type: Item
           sprite: _HL/Objects/Tools/omnihand.rsi
@@ -259,46 +259,46 @@
               Blunt: 5
   - type: Tag
     tags:
-      - Multitool
-      - DoorElectronicsConfigurator
-      - Wrench
-      - PlantSampleTaker
-      - Wirecutter
-      - Screwdriver
-      
+    - Multitool
+    - DoorElectronicsConfigurator
+    - Wrench
+    - PlantSampleTaker
+    - Wirecutter
+    - Screwdriver
+
 - type: entity
   id: CyberneticsOmnihandRight
   parent: [RightArmCybernetic, BaseC2ContrabandUnredeemable]
   name: right omnihand "P.E.T. 6"
   description: Have you ever been jealous of borgs and their built-in tools? Well that issue is now solved forever!
   components:
-    - type: Sprite
-      sprite: _HL/Objects/Tools/omnihand.rsi
-      layers:
-        - state: omnihand
-    - type: BodyPart
-      onAdd:
-        - type: OmniHand
-     
+  - type: Sprite
+    sprite: _HL/Objects/Tools/omnihand.rsi
+    layers:
+    - state: omnihand
+  - type: BodyPart
+    onAdd:
+    - type: OmniHand
+
 - type: entity
   id: CyberneticsOmnihandLeft
   parent: [LeftArmCybernetic, BaseC2ContrabandUnredeemable]
   name: left omnihand "P.E.T. 6"
   description: Have you ever been jealous of borgs and their built-in tools? Well that issue is now solved forever!
   components:
-    - type: Sprite
-      sprite: _HL/Objects/Tools/omnihand.rsi
-      layers:
-        - state: omnihand
-    - type: BodyPart
-      onAdd:
-        - type: OmniHand
-     
+  - type: Sprite
+    sprite: _HL/Objects/Tools/omnihand.rsi
+    layers:
+    - state: omnihand
+  - type: BodyPart
+    onAdd:
+    - type: OmniHand
+
 - type: entity
   id: ActionToggleOmniHand
   name: Toggle Omnitool Hand
   description: Turns your arm into a set of tools.
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: InstantAction
     useDelay: 2

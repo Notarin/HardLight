@@ -1,34 +1,51 @@
-﻿using Content.Shared.Coordinates.Helpers;
-using Content.Shared.Popups;
-using Content.Shared.Actions;
+﻿using Content.Shared.Actions;
 using Content.Shared.Actions.Events;
+using Content.Shared.CM14.Xenos;
 using Content.Shared.CM14.Xenos.Construction;
 using Content.Shared.CM14.Xenos.Construction.Events;
-using Content.Shared.CM14.Xenos;
-using Content.Shared.UserInterface;
+using Content.Shared.Coordinates.Helpers;
 using Content.Shared.DoAfter;
 using Content.Shared.Maps;
 using Content.Shared.Physics;
-using Robust.Shared.Player;
+using Content.Shared.Popups;
+using Content.Shared.UserInterface;
+using JetBrains.Annotations;
+using Robust.Shared.GameObjects;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Network;
-using JetBrains.Annotations;
-using Robust.Shared.GameObjects;
+using Robust.Shared.Player;
 
 namespace Content.Shared.CM14.Xenos.Construction;
 
 public abstract class SharedXenoConstructionSystem : EntitySystem
 {
-    [Dependency] private readonly IMapManager _map = default!;
-    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedUserInterfaceSystem _ui = default!;
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly TurfSystem _turf = default!;
+    [Dependency]
+    private readonly IMapManager _map = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _mapSystem = default!;
+
+    [Dependency]
+    private readonly INetManager _net = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly SharedUserInterfaceSystem _ui = default!;
+
+    [Dependency]
+    private readonly SharedActionsSystem _actions = default!;
+
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfter = default!;
+
+    [Dependency]
+    private readonly TurfSystem _turf = default!;
 
     private EntityQuery<XenoWeedsComponent> _weedsQuery;
 
@@ -40,15 +57,20 @@ public abstract class SharedXenoConstructionSystem : EntitySystem
         _weedsQuery = GetEntityQuery<XenoWeedsComponent>();
         // Choose structure UI open/selection (shared side wiring)
         SubscribeLocalEvent<XenoComponent, XenoChooseStructureActionEvent>(OnXenoChooseStructureAction);
-    SubscribeLocalEvent<XenoComponent, XenoChooseStructureBuiMessage>(OnXenoChooseStructureBui);
+        SubscribeLocalEvent<XenoComponent, XenoChooseStructureBuiMessage>(OnXenoChooseStructureBui);
         // Secrete/build resin structure
         SubscribeLocalEvent<XenoComponent, XenoSecreteStructureEvent>(OnXenoSecreteStructureAction);
         SubscribeLocalEvent<XenoComponent, XenoSecreteStructureDoAfterEvent>(OnXenoSecreteStructureDoAfter);
     }
 
-    protected virtual void OnXenoChooseStructureAction(Entity<XenoComponent> xeno, ref XenoChooseStructureActionEvent args)
+    protected virtual void OnXenoChooseStructureAction(
+        Entity<XenoComponent> xeno,
+        ref XenoChooseStructureActionEvent args
+    )
     {
-        Log.Info($"[XenoChooseStructure] ({(_net.IsServer ? "server" : "client")}) Received action for {ToPrettyString(xeno)}; HasUi={_ui.HasUi(xeno.Owner, XenoChooseStructureUI.Key)}");
+        Log.Info(
+            $"[XenoChooseStructure] ({(_net.IsServer ? "server" : "client")}) Received action for {ToPrettyString(xeno)}; HasUi={_ui.HasUi(xeno.Owner, XenoChooseStructureUI.Key)}"
+        );
         // Only open from server to avoid predictive/UI desync; server will replicate the open to the client.
         if (_net.IsClient)
             return;
@@ -57,7 +79,9 @@ public abstract class SharedXenoConstructionSystem : EntitySystem
         // even though we won't open a UI.
         if (!TryComp(xeno, out ActorComponent? actor))
         {
-            Log.Info($"[XenoChooseStructure] (server) No actor on {ToPrettyString(xeno)}; marking handled without opening UI.");
+            Log.Info(
+                $"[XenoChooseStructure] (server) No actor on {ToPrettyString(xeno)}; marking handled without opening UI."
+            );
             args.Handled = true;
             return;
         }
@@ -65,7 +89,9 @@ public abstract class SharedXenoConstructionSystem : EntitySystem
         // Ensure the entity actually has the UI mapped
         if (!_ui.HasUi(xeno.Owner, XenoChooseStructureUI.Key))
         {
-            Log.Warning($"[XenoChooseStructure] (server) {ToPrettyString(xeno)} has no UserInterface mapping for {nameof(XenoChooseStructureUI)}.{XenoChooseStructureUI.Key}.");
+            Log.Warning(
+                $"[XenoChooseStructure] (server) {ToPrettyString(xeno)} has no UserInterface mapping for {nameof(XenoChooseStructureUI)}.{XenoChooseStructureUI.Key}."
+            );
             _popup.PopupClient("This xeno doesn't have a choose-structure UI.", xeno, xeno);
             args.Handled = true;
             return;
@@ -88,7 +114,9 @@ public abstract class SharedXenoConstructionSystem : EntitySystem
         {
             _popup.PopupClient("Failed to open choose-structure UI.", xeno, xeno);
         }
-        Log.Info($"[XenoChooseStructure] (server) Attempted to open UI for {ToPrettyString(xeno)}. Result={(opened ? "opened" : "failed")}.");
+        Log.Info(
+            $"[XenoChooseStructure] (server) Attempted to open UI for {ToPrettyString(xeno)}. Result={(opened ? "opened" : "failed")}."
+        );
         args.Handled = true;
     }
 
@@ -115,7 +143,9 @@ public abstract class SharedXenoConstructionSystem : EntitySystem
         if (_net.IsClient)
             return;
 
-    Log.Info($"[XenoBuild] (server) Secrete action received for {ToPrettyString(xeno)} with choice={(xeno.Comp.BuildChoice?.ToString() ?? "<null>")} at target={args.Target}");
+        Log.Info(
+            $"[XenoBuild] (server) Secrete action received for {ToPrettyString(xeno)} with choice={(xeno.Comp.BuildChoice?.ToString() ?? "<null>")} at target={args.Target}"
+        );
 
         // Ensure a choice has been made and target is valid
         if (xeno.Comp.BuildChoice == null)
@@ -137,13 +167,12 @@ public abstract class SharedXenoConstructionSystem : EntitySystem
         // Use a local non-null variable to satisfy nullable flow analysis.
         var choice = xeno.Comp.BuildChoice!.Value;
         var ev = new XenoSecreteStructureDoAfterEvent(GetNetCoordinates(args.Target), choice);
-        var doAfter = new DoAfterArgs(EntityManager, xeno, xeno.Comp.BuildDelay, ev, xeno)
-        {
-            BreakOnMove = true
-        };
+        var doAfter = new DoAfterArgs(EntityManager, xeno, xeno.Comp.BuildDelay, ev, xeno) { BreakOnMove = true };
 
         var started = _doAfter.TryStartDoAfter(doAfter);
-        Log.Info($"[XenoBuild] (server) Secrete started={started} for {ToPrettyString(xeno)} choice={choice} at {args.Target}");
+        Log.Info(
+            $"[XenoBuild] (server) Secrete started={started} for {ToPrettyString(xeno)} choice={choice} at {args.Target}"
+        );
     }
 
     private void OnXenoSecreteStructureDoAfter(Entity<XenoComponent> xeno, ref XenoSecreteStructureDoAfterEvent args)
@@ -151,11 +180,15 @@ public abstract class SharedXenoConstructionSystem : EntitySystem
         if (args.Handled || args.Cancelled)
             return;
 
-        Log.Info($"[XenoBuild] ({(_net.IsServer ? "server" : "client")}) DoAfter completed for {ToPrettyString(xeno)} choice={args.StructureId}");
+        Log.Info(
+            $"[XenoBuild] ({(_net.IsServer ? "server" : "client")}) DoAfter completed for {ToPrettyString(xeno)} choice={args.StructureId}"
+        );
         var coordinates = GetCoordinates(args.Coordinates);
-        if (!coordinates.IsValid(EntityManager) ||
-            !xeno.Comp.CanBuild.Contains(args.StructureId) ||
-            !CanBuildOnTilePopup(xeno, coordinates))
+        if (
+            !coordinates.IsValid(EntityManager)
+            || !xeno.Comp.CanBuild.Contains(args.StructureId)
+            || !CanBuildOnTilePopup(xeno, coordinates)
+        )
         {
             return;
         }
@@ -165,16 +198,19 @@ public abstract class SharedXenoConstructionSystem : EntitySystem
         if (_net.IsServer)
         {
             var ent = Spawn(args.StructureId, coordinates);
-            Log.Info($"[XenoBuild] (server) Spawned {args.StructureId} at {coordinates} for {ToPrettyString(xeno)} -> {ToPrettyString(ent)}");
+            Log.Info(
+                $"[XenoBuild] (server) Spawned {args.StructureId} at {coordinates} for {ToPrettyString(xeno)} -> {ToPrettyString(ent)}"
+            );
         }
     }
 
     private bool CanBuildOnTilePopup(Entity<XenoComponent> xeno, EntityCoordinates target)
     {
-        if (target.GetGridUid(EntityManager) is not { } gridId ||
-            !TryComp(gridId, out MapGridComponent? grid))
+        if (target.GetGridUid(EntityManager) is not { } gridId || !TryComp(gridId, out MapGridComponent? grid))
         {
-            Log.Info($"[XenoBuild][dbg] No grid at target {target}; gridId={(target.GetGridUid(EntityManager)?.ToString() ?? "<null>")}");
+            Log.Info(
+                $"[XenoBuild][dbg] No grid at target {target}; gridId={(target.GetGridUid(EntityManager)?.ToString() ?? "<null>")}"
+            );
             _popup.PopupClient("You can't build there!", target, xeno);
             return false;
         }
@@ -215,11 +251,11 @@ public abstract class SharedXenoConstructionSystem : EntitySystem
 
     private bool TileSolidAndNotBlocked(EntityCoordinates target)
     {
-     // Allow building on normal floor tiles (non-space) that are not blocked by impassable collisions.
-     // Requiring Sturdy would incorrectly limit building to walls/solid tiles and break building on weeds floors.
-     return target.GetTileRef(EntityManager, _map) is { } tile &&
-         !tile.IsSpace() &&
-         !_turf.IsTileBlocked(tile, CollisionGroup.Impassable);
+        // Allow building on normal floor tiles (non-space) that are not blocked by impassable collisions.
+        // Requiring Sturdy would incorrectly limit building to walls/solid tiles and break building on weeds floors.
+        return target.GetTileRef(EntityManager, _map) is { } tile
+            && !tile.IsSpace()
+            && !_turf.IsTileBlocked(tile, CollisionGroup.Impassable);
     }
 
     private bool IsOnWeeds(Entity<MapGridComponent> grid, EntityCoordinates coordinates)

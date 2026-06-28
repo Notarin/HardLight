@@ -11,9 +11,8 @@ public sealed class FireControlConsoleBoundUserInterface : BoundUserInterface
     [ViewVariables]
     private FireControlWindow? _window;
 
-    public FireControlConsoleBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-    }
+    public FireControlConsoleBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {

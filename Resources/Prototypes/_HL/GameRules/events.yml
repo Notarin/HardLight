@@ -14,8 +14,8 @@
 
 - type: entityTable
   id: BasicCalmEventsTable
-  table: !type:AllSelector # we need to pass a list of rules, since rules have further restrictions to consider via StationEventComp
-    children:
+  table: !type:AllSelector
+    children: # we need to pass a list of rules, since rules have further restrictions to consider via StationEventComp
     - id: AnomalySpawn
     - id: BluespaceArtifact
     - id: BluespaceLocker
@@ -28,9 +28,9 @@
     - id: IonStorm # its calm like 90% of the time smh
     - id: KudzuGrowth
     - id: MassHallucinations
-   # - id: MimicVendorRule
+      # - id: MimicVendorRule
     - id: PowerGridCheck
-   # - id: RandomSentience
+      # - id: RandomSentience
     - id: SlimesSpawn
     - id: SolarFlare
     - id: SnakeSpawn
@@ -100,22 +100,22 @@
     - id: Abyssvents
     - id: glimmervents
     - id: HostileLizardVents
-    #- id: Lavavents
-    # - id: GiftsEngineering
-    # - id: GiftsFireProtection
-    # - id: GiftsJanitor
-    # - id: GiftsMedical
-    # - id: GiftsPizzaPartyLarge
-    # - id: GiftsPizzaPartySmall
-    # - id: GiftsSecurityGuns
-    # - id: GiftsSecurityRiot
-    # - id: GiftsSpacingSupplies
-    # - id: GiftsVendingRestock
+      #- id: Lavavents
+      # - id: GiftsEngineering
+      # - id: GiftsFireProtection
+      # - id: GiftsJanitor
+      # - id: GiftsMedical
+      # - id: GiftsPizzaPartyLarge
+      # - id: GiftsPizzaPartySmall
+      # - id: GiftsSecurityGuns
+      # - id: GiftsSecurityRiot
+      # - id: GiftsSpacingSupplies
+      # - id: GiftsVendingRestock
 
 - type: entityTable
   id: BasicAntagEventsTable
-  table: !type:AllSelector # we need to pass a list of rules, since rules have further restrictions to consider via StationEventComp
-    children:
+  table: !type:AllSelector
+    children: # we need to pass a list of rules, since rules have further restrictions to consider via StationEventComp
     - id: ClosetSkeleton
     - id: DragonSpawn
     - id: RainbowDragonSpawn
@@ -131,10 +131,10 @@
     - id: SleeperRevolutionaries
     - id: ZombieOutbreak
     - id: LoneOpsSpawn
-    #- id: WizardSpawn
-    #- id: LoneOpsSpawn
-    # - id: UnknownShuttleManOWar
-    # - id: UnknownShuttleInstigator
+      #- id: WizardSpawn
+      #- id: LoneOpsSpawn
+      # - id: UnknownShuttleManOWar
+      # - id: UnknownShuttleInstigator
 
 - type: entity
   id: BaseStationEvent
@@ -143,8 +143,8 @@
   components:
   - type: GameRule
     delay:
-      min:  10
-      max:  20
+      min: 10
+      max: 20
 
 - type: entity
   id: BaseStationEventShortDelay
@@ -153,8 +153,8 @@
   components:
   - type: GameRule
     delay:
-      min:  10
-      max:  20
+      min: 10
+      max: 20
 
 - type: entity
   id: BaseStationEventLongDelay
@@ -163,8 +163,8 @@
   components:
   - type: GameRule
     delay:
-      min:  40
-      max:  60
+      min: 40
+      max: 60
 
 - type: entity
   id: AnomalySpawn
@@ -185,8 +185,8 @@
   components:
   - type: GameRule
     delay:
-      min:  1
-      max:  30
+      min: 1
+      max: 30
   - type: StationEvent
     startAnnouncementColor: "#18abf5"
     startAudio:
@@ -706,7 +706,7 @@
       - id: MobAdultSlimesBlueAngry
       - id: MobAdultSlimesGreenAngry
       - id: MobAdultSlimesYellowAngry
-      
+
 - type: entity
   id: SnakeSpawn
   parent: BaseStationEventShortDelay
@@ -731,7 +731,6 @@
       - id: MobSmallPurpleSnake
       - id: MobCobraSpace
       - id: NFMobSmallRainbowSnake
-      
 
 - type: entity
   id: SpiderSpawn
@@ -797,7 +796,7 @@
   - type: ZombieRule
   - type: AntagSelection
     definitions:
-    - prefRoles: [ InitialInfected ]
+    - prefRoles: [InitialInfected]
       max: 3
       playerRatio: 10
       blacklist:
@@ -879,8 +878,8 @@
   - type: AlertLevelInterceptionRule
   - type: AntagSelection
     definitions:
-    - prefRoles: [ TraitorSleeper ]
-      fallbackRoles: [ Traitor ]
+    - prefRoles: [TraitorSleeper]
+      fallbackRoles: [Traitor]
       min: 1
       max: 2
       playerRatio: 30
@@ -913,7 +912,7 @@
   - type: AntagSelection
     selectionTime: PostPlayerSpawn
     definitions:
-    - prefRoles: [ HeadRev ]
+    - prefRoles: [HeadRev]
       min: 1
       max: 3
       lateJoinAdditional: true
@@ -1132,10 +1131,10 @@
   parent: BaseGameRule
   abstract: true
   components:
-    - type: GameRule
-      delay:
-        min:  30
-        max:  40
+  - type: GameRule
+    delay:
+      min: 30
+      max: 40
 
 - type: entity
   id: NFBluespaceCargoCrate
@@ -1234,7 +1233,7 @@
   id: BluespaceSalvage
   parent: BaseStationEventShortDelay
   name: NT Bluespace Monitoring # This name shows up in the radio messages.
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: StationEvent
     startRadioAnnouncement: station-event-bluespace-scrap-start-announcement
@@ -1263,7 +1262,7 @@
           preventArtifactTriggers: true
         - type: PreventPilot
         paths:
-#        - /Maps/_NF/Shuttles/Scrap/canister.yml # Too small
+        #        - /Maps/_NF/Shuttles/Scrap/canister.yml # Too small
         - /Maps/_NF/Shuttles/Scrap/disciple.yml
         - /Maps/_NF/Shuttles/Scrap/nugget.yml
         - /Maps/_NF/Shuttles/Scrap/orange.yml
@@ -1295,8 +1294,8 @@
     duration: 1350
     maxDuration: 1560
     reoccurrenceDelay: 520 # 2 hours
-#    requiredJobs:
-#      Sheriff: 1
+    #    requiredJobs:
+    #      Sheriff: 1
   - type: BluespaceErrorRule
     groups:
       grid: !type:GridSpawnGroup
@@ -1338,8 +1337,8 @@
     duration: 1020
     maxDuration: 1350
     reoccurrenceDelay: 520 # 2 hours
-#    requiredJobs:
-#      Sheriff: 1
+    #    requiredJobs:
+    #      Sheriff: 1
   - type: BluespaceErrorRule
     groups:
       grid: !type:GridSpawnGroup
@@ -1381,8 +1380,8 @@
     duration: 590
     maxDuration: 780
     reoccurrenceDelay: 580 # 3 hours
-#    requiredJobs:
-#      Sheriff: 1
+    #    requiredJobs:
+    #      Sheriff: 1
   - type: BluespaceErrorRule
     groups:
       grid: !type:GridSpawnGroup
@@ -1622,7 +1621,7 @@
 - type: entity
   id: BluespaceDungeonBasalt
   parent: BluespaceDungeonBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: BluespaceErrorRule
     groups:
@@ -1652,7 +1651,7 @@
 - type: entity
   id: BluespaceDungeonSnow
   parent: BluespaceDungeonBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: BluespaceErrorRule
     groups:
@@ -1667,7 +1666,7 @@
 - type: entity
   id: BluespaceDungeonCave
   parent: BluespaceDungeonBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: BluespaceErrorRule
     groups:
@@ -1682,7 +1681,7 @@
 - type: entity
   id: BluespaceDungeonChromite
   parent: BluespaceDungeonBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: BluespaceErrorRule
     groups:
@@ -1697,7 +1696,7 @@
 - type: entity
   id: BluespaceDungeonScrap
   parent: BluespaceDungeonBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: BluespaceErrorRule
     groups:
@@ -1712,7 +1711,7 @@
 - type: entity
   id: ArgocyteVents
   parent: BaseGameRule
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: StationEvent
     startAnnouncement: station-event-vent-creatures-start-announcement
@@ -1745,11 +1744,10 @@
       - id: MobArgocyteFounder
       - id: MobArgocyteLeviathing
 
-
 - type: entity
   id: TickVents
   parent: BaseGameRule
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: StationEvent
     startAnnouncement: station-event-vent-creatures-start-announcement
@@ -1769,11 +1767,10 @@
       - id: MobTickSalvage
       - id: NFMobTick
 
-
 - type: entity
   id: MedicalBountyTargetsSpawn
   parent: BaseGameRule
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: StationEvent
     startAnnouncement: station-event-medical-bounty-targets-start-announcement
@@ -1808,7 +1805,7 @@
 - type: entity
   id: CarpVents
   parent: BaseGameRule
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: StationEvent
     startAnnouncement: station-event-vent-creatures-start-announcement
@@ -1841,7 +1838,7 @@
 - type: entity
   id: SpaceVents
   parent: BaseGameRule
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: StationEvent
     startAnnouncement: station-event-vent-creatures-start-announcement
@@ -1869,7 +1866,7 @@
 - type: entity
   id: reagentslimeVents
   parent: BaseGameRule
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: StationEvent
     startAnnouncement: station-event-vent-creatures-start-announcement
@@ -1910,7 +1907,7 @@
       - id: ReagentSlimePomelustine
       - id: ReagentSlimePhilterex
       - id: ReagentSlimeLibidozenithizine
-    # - id: ReagentSlimeWehjuice
+        # - id: ReagentSlimeWehjuice
       - id: ReagentCognizine
       - id: ReagentSlimeNecrosol
       - id: ReagentSlimeSpaceDrugs
@@ -1918,13 +1915,12 @@
       - id: ReagentSlimeLead
       - id: ReagentSlimechlorinetriflouride
       - id: ReagentSlimePotassium
-    # - id: ReagentSlimeLotophagoiOil
-
+        # - id: ReagentSlimeLotophagoiOil
 
 - type: entity
   id: XenoVents
   parent: BaseGameRule
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: StationEvent
     startAnnouncement: station-event-vent-creatures-start-announcement
@@ -1972,7 +1968,7 @@
 - type: entity
   id: XenoVentsLarva
   parent: BaseGameRule
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: StationEvent
     startAnnouncement: station-event-vent-creatures-start-announcement
@@ -2004,7 +2000,7 @@
 - type: entity
   id: AiVents
   parent: BaseGameRule
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: StationEvent
     startAnnouncement: station-event-vent-creatures-start-announcement
@@ -2047,7 +2043,7 @@
 - type: entity
   id: Syndivents
   parent: BaseGameRule
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: StationEvent
     startAnnouncement: station-event-vent-creatures-start-announcement
@@ -2084,7 +2080,7 @@
 - type: entity
   id: Dinosaurvents
   parent: BaseGameRule
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: StationEvent
     startAnnouncement: station-event-vent-creatures-start-announcement
@@ -2111,7 +2107,7 @@
 - type: entity
   id: Fleshvents
   parent: BaseGameRule
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: StationEvent
     startAnnouncement: station-event-vent-creatures-start-announcement
@@ -2137,7 +2133,7 @@
 - type: entity
   id: Explorervents
   parent: BaseGameRule
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: StationEvent
     startAnnouncement: station-event-vent-creatures-start-announcement
@@ -2164,7 +2160,7 @@
 - type: entity
   id: Mercvents
   parent: BaseGameRule
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: StationEvent
     startAnnouncement: station-event-vent-creatures-start-announcement
@@ -2191,7 +2187,7 @@
 - type: entity
   id: Zedvents
   parent: BaseGameRule
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: StationEvent
     startAnnouncement: station-event-vent-creatures-start-announcement
@@ -2221,7 +2217,7 @@
 - type: entity
   id: Punkvents
   parent: BaseGameRule
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: StationEvent
     startAnnouncement: station-event-vent-creatures-start-announcement
@@ -2252,7 +2248,7 @@
 - type: entity
   id: Cultvents
   parent: BaseGameRule
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: StationEvent
     startAnnouncement: station-event-vent-creatures-start-announcement
@@ -2281,12 +2277,11 @@
       - id: SpawnMobBloodCultistPriest
       - id: SpawnMobBloodCultistJanitor
       - id: MobBloodCultistAscended
-    
 
 - type: entity
   id: LizardVents
   parent: BaseGameRule
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: StationEvent
     startAnnouncement: station-event-vent-creatures-start-announcement
@@ -2318,11 +2313,11 @@
       - id: HostileRedRainLizard
       - id: TrainRainLizard
       - id: HostileTrainRainLizard
-      
+
 - type: entity
   id: HostileLizardVents
   parent: BaseGameRule
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: StationEvent
     startAnnouncement: station-event-vent-creatures-start-announcement
@@ -2351,7 +2346,7 @@
 - type: entity
   id: WawaVents
   parent: BaseGameRule
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: StationEvent
     startAnnouncement: station-event-vent-creatures-start-announcement
@@ -2372,7 +2367,7 @@
 - type: entity
   id: glimmervents
   parent: BaseGameRule
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: StationEvent
     startAnnouncement: station-event-vent-creatures-start-announcement
@@ -2393,7 +2388,7 @@
 - type: entity
   id: Abyssvents
   parent: BaseGameRule
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: StationEvent
     startAnnouncement: station-event-vent-creatures-start-announcement
@@ -2411,46 +2406,45 @@
       children:
       - id: PortalAbyssal
       - id: PortalAbyssalGhost
-      
-# - type: entity
-  # id: Lavavents
-  # parent: BaseGameRule
-  # categories: [ HideSpawnMenu ]
-  # components:
-  # - type: StationEvent
-    # startAnnouncement: station-event-vent-creatures-start-announcement
-    # startAudio:
+
+      # - type: entity
+      # id: Lavavents
+      # parent: BaseGameRule
+      # categories: [ HideSpawnMenu ]
+      # components:
+      # - type: StationEvent
+      # startAnnouncement: station-event-vent-creatures-start-announcement
+      # startAudio:
       # path: /Audio/Announcements/attention.ogg
-    # earliestStart: 30
-    # reoccurrenceDelay: 200
-    # minimumPlayers: 40
-    # weight: 6 # Really weak compared to other critters
-    # duration: 60
-  # - type: VentHordeRule
-    # table: !type:GroupSelector
-      # rolls: !type:RangeNumberSelector
-        # range: 1, 5
-      # children:
-      # - id: MobWatcherLavaland
-      # - id: MobWatcherIcewing
-      # - id: MobWatcherMagmawing
-      # - id: MobWatcherPride
-      # - id: MobHellspawn
-      # - id: LavaTalon
-      # - id: MobGoliath
-      # - id: MobHivelord
-      # - id: MobLavalandGoliath
-      # - id: MobLavalandGoldgrub
-      # - id: MobLavalandLegion
-      # - id: MobLavalandHierophant
-      # - id: MobLavalandAshDrake
-      # - id: MobLavalandBubblegum
-
-
 - type: entity
+  # earliestStart: 30
+  # reoccurrenceDelay: 200
+  # minimumPlayers: 40
+  # weight: 6 # Really weak compared to other critters
+  # duration: 60
+  # - type: VentHordeRule
+  # table: !type:GroupSelector
+  # rolls: !type:RangeNumberSelector
+  # range: 1, 5
+  # children:
+  # - id: MobWatcherLavaland
+  # - id: MobWatcherIcewing
+  # - id: MobWatcherMagmawing
+  # - id: MobWatcherPride
+  # - id: MobHellspawn
+  # - id: LavaTalon
+  # - id: MobGoliath
+  # - id: MobHivelord
+  # - id: MobLavalandGoliath
+  # - id: MobLavalandGoldgrub
+  # - id: MobLavalandLegion
+  # - id: MobLavalandHierophant
+  # - id: MobLavalandAshDrake
+  # - id: MobLavalandBubblegum
+
   id: Beehallucination
   parent: BaseGameRule
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: StationEvent
     startAnnouncement: station-event-vent-creatures-start-announcement
@@ -2478,6 +2472,6 @@
   - type: GameRule # Persistent game rule
     minPlayers: 0
   - type: DynamicJobAllocationRule
-    checkInterval: 600  # Check every 10 minutes (600 seconds)
+    checkInterval: 600 # Check every 10 minutes (600 seconds)
     mercenaryJob: Mercenary
-    mercenaryCap: 40  # Maximum slots
+    mercenaryCap: 40 # Maximum slots

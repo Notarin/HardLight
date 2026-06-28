@@ -13,13 +13,21 @@ namespace Content.Server.Atmos.Reactions
     [DataDefinition]
     public sealed partial class WaterVaporReaction : IGasReactionEffect
     {
-        [DataField("reagent")] public string? Reagent { get; private set; } = null;
+        [DataField("reagent")]
+        public string? Reagent { get; private set; } = null;
 
-        [DataField("gas")] public int GasId { get; private set; } = 0;
+        [DataField("gas")]
+        public int GasId { get; private set; } = 0;
 
-        [DataField("molesPerUnit")] public float MolesPerUnit { get; private set; } = 1;
+        [DataField("molesPerUnit")]
+        public float MolesPerUnit { get; private set; } = 1;
 
-        public ReactionResult React(GasMixture mixture, IGasMixtureHolder? holder, AtmosphereSystem atmosphereSystem, float heatScale)
+        public ReactionResult React(
+            GasMixture mixture,
+            IGasMixtureHolder? holder,
+            AtmosphereSystem atmosphereSystem,
+            float heatScale
+        )
         {
             // If any of the prototypes is invalid, we do nothing.
             if (string.IsNullOrEmpty(Reagent))
@@ -37,7 +45,12 @@ namespace Content.Server.Atmos.Reactions
             mixture.AdjustMoles(GasId, -MolesPerUnit);
 
             var tileRef = atmosphereSystem.GetTileRef(tile);
-            atmosphereSystem.Puddle.TrySpillAt(tileRef, new Solution(Reagent, FixedPoint2.New(MolesPerUnit)), out _, sound: false);
+            atmosphereSystem.Puddle.TrySpillAt(
+                tileRef,
+                new Solution(Reagent, FixedPoint2.New(MolesPerUnit)),
+                out _,
+                sound: false
+            );
 
             return ReactionResult.Reacting;
         }

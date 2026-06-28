@@ -10,10 +10,7 @@ public sealed class MappingEditorTest
     [Test]
     public async Task StopHardCodingWidgetsJesusChristTest()
     {
-        await using var pair = await PoolManager.GetServerClient(new PoolSettings
-        {
-            Connected = true
-        });
+        await using var pair = await PoolManager.GetServerClient(new PoolSettings { Connected = true });
         var client = pair.Client;
         var state = client.ResolveDependency<IStateManager>();
 

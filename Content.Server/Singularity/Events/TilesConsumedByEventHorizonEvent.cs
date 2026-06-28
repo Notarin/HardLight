@@ -1,7 +1,6 @@
+using Content.Shared.Singularity.Components;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
-
-using Content.Shared.Singularity.Components;
 
 namespace Content.Server.Singularity.Events;
 
@@ -9,8 +8,13 @@ namespace Content.Server.Singularity.Events;
 /// Event raised on the event horizon entity whenever an event horizon consumes an entity.
 /// </summary>
 [ByRefEvent]
-public readonly record struct TilesConsumedByEventHorizonEvent
-(IReadOnlyList<(Vector2i, Tile)> tiles, EntityUid mapGridUid, MapGridComponent mapGrid, EntityUid eventHorizonUid, EventHorizonComponent eventHorizon)
+public readonly record struct TilesConsumedByEventHorizonEvent(
+    IReadOnlyList<(Vector2i, Tile)> tiles,
+    EntityUid mapGridUid,
+    MapGridComponent mapGrid,
+    EntityUid eventHorizonUid,
+    EventHorizonComponent eventHorizon
+)
 {
     /// <summary>
     /// The tiles that the event horizon is consuming.

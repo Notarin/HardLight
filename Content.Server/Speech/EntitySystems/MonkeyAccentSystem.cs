@@ -6,7 +6,8 @@ namespace Content.Server.Speech.EntitySystems;
 
 public sealed class MonkeyAccentSystem : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
 
     public override void Initialize()
     {
@@ -46,7 +47,6 @@ public sealed class MonkeyAccentSystem : EntitySystem
                     else
                         accentedMessage.Append('A');
                 }
-
             }
 
             if (i < words.Length - 1)

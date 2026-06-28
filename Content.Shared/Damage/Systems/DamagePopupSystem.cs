@@ -6,7 +6,8 @@ namespace Content.Shared.Damage.Systems;
 
 public sealed class DamagePopupSystem : EntitySystem
 {
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
+    [Dependency]
+    private readonly SharedPopupSystem _popupSystem = default!;
 
     public override void Initialize()
     {
@@ -42,7 +43,11 @@ public sealed class DamagePopupSystem : EntitySystem
             var next = (DamagePopupType)(((int)ent.Comp.Type + 1) % Enum.GetValues<DamagePopupType>().Length);
             ent.Comp.Type = next;
             Dirty(ent);
-            _popupSystem.PopupPredicted(Loc.GetString("damage-popup-component-switched", ("setting", ent.Comp.Type)), ent.Owner, args.User);
+            _popupSystem.PopupPredicted(
+                Loc.GetString("damage-popup-component-switched", ("setting", ent.Comp.Type)),
+                ent.Owner,
+                args.User
+            );
         }
     }
 }

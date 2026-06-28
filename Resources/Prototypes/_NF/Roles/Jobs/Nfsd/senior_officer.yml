@@ -4,14 +4,14 @@
   description: job-description-senior-officer
   playTimeTracker: JobSeniorOfficer
   requirements:
-    - !type:OverallPlaytimeRequirement
-      time: 108000 # 30 hours
-    - !type:DepartmentTimeRequirement
-      department: Security
-      time: 64800 # 18 hours
-    - !type:RoleTimeRequirement
-      role: JobSecurityOfficer
-      time: 43200 # 12 hours
+  - !type:OverallPlaytimeRequirement
+    time: 108000 # 30 hours
+  - !type:DepartmentTimeRequirement
+    department: Security
+    time: 64800 # 18 hours
+  - !type:RoleTimeRequirement
+    role: JobSecurityOfficer
+    time: 43200 # 12 hours
   alternateRequirementSets:
     longerPlaytimeLessSec:
     - !type:OverallPlaytimeRequirement
@@ -32,7 +32,7 @@
   - GeneralNfsdAccess
   special:
   - !type:AddImplantSpecial
-    implants: [ MindShieldImplant, TrackingImplant ]
+    implants: [MindShieldImplant, TrackingImplant]
   - !type:GiveItemOnHolidaySpecial
     holiday: FrontierBirthday
     prototype: FrontierBirthdayGift

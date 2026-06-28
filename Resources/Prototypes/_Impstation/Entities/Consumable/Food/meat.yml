@@ -12,7 +12,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - fishy
+    - fishy
   - type: Tag
     tags:
     - Raw

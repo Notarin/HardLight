@@ -14,8 +14,7 @@
     fixtures:
       fix1:
         hard: false
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.4,-0.4,0.4,0.4"
         mask:
         - ItemMask
@@ -51,8 +50,7 @@
     fixtures:
       fix1:
         hard: false
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.4,-0.4,0.4,0.4"
         mask:
         - ItemMask
@@ -78,7 +76,7 @@
   parent: BaseFoamNoSpread
   id: SmokeNoSlip
   name: smoke
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Occluder
   - type: Sprite
@@ -95,24 +93,24 @@
   parent: BaseFoamNoSpread
   id: FoamNoSpread
   name: blessing
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
-#  - type: SmoothEdge
-#  - type: IconSmooth
-#    mode: NoSprite
+  #  - type: SmoothEdge
+  #  - type: IconSmooth
+  #    mode: NoSprite
   - type: Sprite
     sprite: _HL/Structures/Magic/Misc/blessing.rsi
     layers:
-      - state: circle
-        color: '#FFFF0055'
-        shader: unshaded
-        drawdepth: ThinPipe
+    - state: circle
+      color: '#FFFF0055'
+      shader: unshaded
+      drawdepth: ThinPipe
 
 - type: entity
   parent: BaseFoamNoSlip
   id: FoamNoSlip
   name: wide blessing
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     color: "#FFFF0055"
@@ -121,16 +119,16 @@
     layers:
     - map: ["enum.FoamVisualLayers.Base"]
       state: base
-    - map: [ "enum.EdgeLayer.South" ]
+    - map: ["enum.EdgeLayer.South"]
       state: blessoutlineS
       shader: unshaded
-    - map: [ "enum.EdgeLayer.East" ]
+    - map: ["enum.EdgeLayer.East"]
       state: blessoutlineE
       shader: unshaded
-    - map: [ "enum.EdgeLayer.North" ]
+    - map: ["enum.EdgeLayer.North"]
       state: blessoutlineN
       shader: unshaded
-    - map: [ "enum.EdgeLayer.West" ]
+    - map: ["enum.EdgeLayer.West"]
       state: blessoutlineW
       shader: unshaded
   - type: SmoothEdge
@@ -141,7 +139,7 @@
   parent: BaseFoamNoSlip
   id: FoamNoSlipRain
   name: the rain
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     color: "#FFFF0055"
@@ -150,16 +148,16 @@
     layers:
     - map: ["enum.FoamVisualLayers.Base"]
       state: rain
-    - map: [ "enum.EdgeLayer.South" ]
+    - map: ["enum.EdgeLayer.South"]
       state: blessoutlineS
       shader: unshaded
-    - map: [ "enum.EdgeLayer.East" ]
+    - map: ["enum.EdgeLayer.East"]
       state: blessoutlineE
       shader: unshaded
-    - map: [ "enum.EdgeLayer.North" ]
+    - map: ["enum.EdgeLayer.North"]
       state: blessoutlineN
       shader: unshaded
-    - map: [ "enum.EdgeLayer.West" ]
+    - map: ["enum.EdgeLayer.West"]
       state: blessoutlineW
       shader: unshaded
   - type: SmoothEdge
@@ -178,5 +176,5 @@
   boilingPoint: 147.0 # Made this up, loosely based on bleach
   meltingPoint: -11.0
   tileReactions:
-    - !type:CleanTileReaction {}
-    - !type:CleanDecalsReaction {}
+  - !type:CleanTileReaction {}
+  - !type:CleanDecalsReaction {}

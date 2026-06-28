@@ -43,7 +43,12 @@ namespace Content.Server.Singularity
             var radiationCollectorSystem = entitySystemManager.GetEntitySystem<RadiationCollectorSystem>();
             while (radiationCollectorQuery.MoveNext(out var uid, out var radiationCollectorComponent))
             {
-                radiationCollectorSystem.SetCollectorEnabled(uid, enabled: true, user: null, radiationCollectorComponent);
+                radiationCollectorSystem.SetCollectorEnabled(
+                    uid,
+                    enabled: true,
+                    user: null,
+                    radiationCollectorComponent
+                );
             }
 
             // Setup PA

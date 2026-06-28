@@ -7,7 +7,7 @@
   requirements:
   - !type:OverallPlaytimeRequirement
     time: 18000 # 5h
-  guides: [ NuclearOperatives ]
+  guides: [NuclearOperatives]
 
 - type: antag
   id: NukeopsMedic
@@ -21,7 +21,7 @@
   - !type:RoleTimeRequirement
     role: JobChemist
     time: 10800 # 3h
-  guides: [ NuclearOperatives ]
+  guides: [NuclearOperatives]
 
 - type: antag
   id: NukeopsCommander
@@ -35,7 +35,7 @@
   - !type:DepartmentTimeRequirement
     department: Security
     time: 18000 # 5h
-  guides: [ NuclearOperatives ]
+  guides: [NuclearOperatives]
 
 - type: startingGear
   id: SyndicateOperativeGearFullNoUplink

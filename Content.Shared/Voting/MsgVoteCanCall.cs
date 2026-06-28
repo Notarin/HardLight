@@ -13,6 +13,7 @@ namespace Content.Shared.Voting
 
         // If true, we can currently call votes.
         public bool CanCall;
+
         // When we can call votes again in server RealTime.
         // Can be null if the reason is something not timeout related.
         public TimeSpan WhenCanCallVote;
@@ -34,7 +35,7 @@ namespace Content.Shared.Voting
             VotesUnavailable = new (StandardVoteType type, TimeSpan whenAvailable)[lenVotes];
             for (var i = 0; i < lenVotes; i++)
             {
-                var type = (StandardVoteType) buffer.ReadByte();
+                var type = (StandardVoteType)buffer.ReadByte();
                 var timeOut = TimeSpan.FromTicks(buffer.ReadInt64());
 
                 VotesUnavailable[i] = (type, timeOut);
@@ -47,10 +48,10 @@ namespace Content.Shared.Voting
             buffer.WritePadBits();
             buffer.Write(WhenCanCallVote.Ticks);
 
-            buffer.Write((byte) VotesUnavailable.Length);
+            buffer.Write((byte)VotesUnavailable.Length);
             foreach (var (type, timeout) in VotesUnavailable)
             {
-                buffer.Write((byte) type);
+                buffer.Write((byte)type);
                 buffer.Write(timeout.Ticks);
             }
         }

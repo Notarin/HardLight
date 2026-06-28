@@ -13,10 +13,17 @@ namespace Content.Server.Administration.Managers;
 /// </summary>
 public sealed class CVarControlManager : IPostInjectInit
 {
-    [Dependency] private readonly IReflectionManager _reflectionManager = default!;
-    [Dependency] private readonly IAdminManager _adminManager = default!;
-    [Dependency] private readonly ILocalizationManager _localizationManager = default!;
-    [Dependency] private readonly ILogManager _logger = default!;
+    [Dependency]
+    private readonly IReflectionManager _reflectionManager = default!;
+
+    [Dependency]
+    private readonly IAdminManager _adminManager = default!;
+
+    [Dependency]
+    private readonly ILocalizationManager _localizationManager = default!;
+
+    [Dependency]
+    private readonly ILogManager _logger = default!;
 
     private readonly List<ChangableCVar> _changableCvars = new();
     private ISawmill _sawmill = default!;
@@ -43,7 +50,9 @@ public sealed class CVarControlManager : IPostInjectInit
 
         foreach (var type in validCvarsDefs)
         {
-            foreach (var field in type.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy))
+            foreach (
+                var field in type.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy)
+            )
             {
                 var allowed = field.GetCustomAttribute<CVarControl>();
                 if (allowed == null)
@@ -78,9 +87,7 @@ public sealed class CVarControlManager : IPostInjectInit
         if (adminData == null)
             return []; // Not an admin
 
-        return _changableCvars
-            .Where(cvar => adminData.HasFlag(cvar.Control.AdminFlags))
-            .ToList();
+        return _changableCvars.Where(cvar => adminData.HasFlag(cvar.Control.AdminFlags)).ToList();
     }
 
     public ChangableCVar? GetCVar(string name)

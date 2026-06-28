@@ -28,15 +28,32 @@ namespace Content.Server.Instruments;
 [UsedImplicitly]
 public sealed partial class InstrumentSystem : SharedInstrumentSystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IConsoleHost _conHost = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly StunSystem _stuns = default!;
-    [Dependency] private readonly UserInterfaceSystem _bui = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
-    [Dependency] private readonly ExamineSystemShared _examineSystem = default!;
-    [Dependency] private readonly IAdminLogManager _admingLogSystem = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IConsoleHost _conHost = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
+
+    [Dependency]
+    private readonly StunSystem _stuns = default!;
+
+    [Dependency]
+    private readonly UserInterfaceSystem _bui = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly TransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly ExamineSystemShared _examineSystem = default!;
+
+    [Dependency]
+    private readonly IAdminLogManager _admingLogSystem = default!;
 
     private const float MaxInstrumentBandRange = 10f;
 
@@ -64,12 +81,15 @@ public sealed partial class InstrumentSystem : SharedInstrumentSystem
         SubscribeNetworkEvent<InstrumentSetFilteredChannelEvent>(OnMidiSetFilteredChannel);
         SubscribeNetworkEvent<InstrumentSetChannelsEvent>(OnMidiSetChannels);
 
-        Subs.BuiEvents<InstrumentComponent>(InstrumentUiKey.Key, subs =>
-        {
-            subs.Event<BoundUIClosedEvent>(OnBoundUIClosed);
-            subs.Event<BoundUIOpenedEvent>(OnBoundUIOpened);
-            subs.Event<InstrumentBandRequestBuiMessage>(OnBoundUIRequestBands);
-        });
+        Subs.BuiEvents<InstrumentComponent>(
+            InstrumentUiKey.Key,
+            subs =>
+            {
+                subs.Event<BoundUIClosedEvent>(OnBoundUIClosed);
+                subs.Event<BoundUIOpenedEvent>(OnBoundUIOpened);
+                subs.Event<InstrumentBandRequestBuiMessage>(OnBoundUIRequestBands);
+            }
+        );
 
         SubscribeLocalEvent<InstrumentComponent, ComponentGetState>(OnStrumentGetState);
 
@@ -93,7 +113,7 @@ public sealed partial class InstrumentSystem : SharedInstrumentSystem
             AllowProgramChange = component.AllowProgramChange,
             RespectMidiLimits = component.RespectMidiLimits,
             Master = GetNetEntity(component.Master),
-            FilteredChannels = component.FilteredChannels
+            FilteredChannels = component.FilteredChannels,
         };
     }
 
@@ -151,12 +171,14 @@ public sealed partial class InstrumentSystem : SharedInstrumentSystem
         Clean(uid, instrument);
     }
 
-
     private void OnMidiSetChannels(InstrumentSetChannelsEvent msg, EntitySessionEventArgs args)
     {
         var uid = GetEntity(msg.Uid);
 
-        if (!TryComp(uid, out InstrumentComponent? instrument) || !TryComp(uid, out ActiveInstrumentComponent? activeInstrument))
+        if (
+            !TryComp(uid, out InstrumentComponent? instrument)
+            || !TryComp(uid, out ActiveInstrumentComponent? activeInstrument)
+        )
             return;
 
         if (args.SenderSession.AttachedEntity != instrument.InstrumentPlayer)
@@ -164,19 +186,19 @@ public sealed partial class InstrumentSystem : SharedInstrumentSystem
 
         if (msg.Tracks.Length > RobustMidiEvent.MaxChannels)
         {
-            Log.Warning($"{args.SenderSession.UserId.ToString()} - Tried to send tracks over the limit! Received: {msg.Tracks.Length}; Limit: {RobustMidiEvent.MaxChannels}");
+            Log.Warning(
+                $"{args.SenderSession.UserId.ToString()} - Tried to send tracks over the limit! Received: {msg.Tracks.Length}; Limit: {RobustMidiEvent.MaxChannels}"
+            );
             return;
         }
 
-        var tracksString = string.Join("\n",
-            msg.Tracks
-            .Where(t => t != null)
-            .Select(t => t!.ToString()));
+        var tracksString = string.Join("\n", msg.Tracks.Where(t => t != null).Select(t => t!.ToString()));
 
         _admingLogSystem.Add(
             LogType.Instrument,
             LogImpact.Low,
-            $"{ToPrettyString(args.SenderSession.AttachedEntity)} set the midi channels for {ToPrettyString(uid)} to {tracksString}");
+            $"{ToPrettyString(args.SenderSession.AttachedEntity)} set the midi channels for {ToPrettyString(uid)} to {tracksString}"
+        );
 
         // Truncate any track names too long.
         foreach (var t in msg.Tracks)
@@ -243,7 +265,9 @@ public sealed partial class InstrumentSystem : SharedInstrumentSystem
         if (msg.Value)
         {
             // Prevent stuck notes when turning off a channel... Shrimple.
-            RaiseNetworkEvent(new InstrumentMidiEventEvent(msg.Uid, new []{RobustMidiEvent.AllNotesOff((byte)msg.Channel, 0)}));
+            RaiseNetworkEvent(
+                new InstrumentMidiEventEvent(msg.Uid, new[] { RobustMidiEvent.AllNotesOff((byte)msg.Channel, 0) })
+            );
         }
 
         Dirty(uid, instrument);
@@ -251,8 +275,7 @@ public sealed partial class InstrumentSystem : SharedInstrumentSystem
 
     private void OnBoundUIClosed(EntityUid uid, InstrumentComponent component, BoundUIClosedEvent args)
     {
-        if (HasComp<ActiveInstrumentComponent>(uid)
-            && !_bui.IsUiOpen(uid, args.UiKey))
+        if (HasComp<ActiveInstrumentComponent>(uid) && !_bui.IsUiOpen(uid, args.UiKey))
         {
             RemComp<ActiveInstrumentComponent>(uid);
         }
@@ -266,7 +289,11 @@ public sealed partial class InstrumentSystem : SharedInstrumentSystem
         Clean(uid, component);
     }
 
-    private void OnBoundUIRequestBands(EntityUid uid, InstrumentComponent component, InstrumentBandRequestBuiMessage args)
+    private void OnBoundUIRequestBands(
+        EntityUid uid,
+        InstrumentComponent component,
+        InstrumentBandRequestBuiMessage args
+    )
     {
         foreach (var request in _bandRequestQueue)
         {
@@ -285,8 +312,10 @@ public sealed partial class InstrumentSystem : SharedInstrumentSystem
 
         var list = new ValueList<(NetEntity, string)>();
 
-        if (!TryComp(uid, out InstrumentComponent? originInstrument)
-            || originInstrument.InstrumentPlayer is not {} originPlayer)
+        if (
+            !TryComp(uid, out InstrumentComponent? originInstrument)
+            || originInstrument.InstrumentPlayer is not { } originPlayer
+        )
             return Array.Empty<(NetEntity, string)>();
 
         // It's probably faster to get all possible active instruments than all entities in range
@@ -301,16 +330,25 @@ public sealed partial class InstrumentSystem : SharedInstrumentSystem
                 continue;
 
             // We want to use the instrument player's name.
-            if (instrument.InstrumentPlayer is not {} playerUid)
+            if (instrument.InstrumentPlayer is not { } playerUid)
                 continue;
 
             // Maybe a bit expensive but oh well GetBands is queued and has a timer anyway.
             // Make sure the instrument is visible
-            if (!_examineSystem.InRangeUnOccluded(uid, entity, MaxInstrumentBandRange, e => e == playerUid || e == originPlayer))
+            if (
+                !_examineSystem.InRangeUnOccluded(
+                    uid,
+                    entity,
+                    MaxInstrumentBandRange,
+                    e => e == playerUid || e == originPlayer
+                )
+            )
                 continue;
 
-            if (!_metadataQuery.TryGetComponent(playerUid, out var playerMetadata)
-                || !_metadataQuery.TryGetComponent(entity, out var metadata))
+            if (
+                !_metadataQuery.TryGetComponent(playerUid, out var playerMetadata)
+                || !_metadataQuery.TryGetComponent(entity, out var metadata)
+            )
                 continue;
 
             list.Add((GetNetEntity(entity), $"{playerMetadata.EntityName} - {metadata.EntityName}"));
@@ -329,7 +367,7 @@ public sealed partial class InstrumentSystem : SharedInstrumentSystem
             var netUid = GetNetEntity(uid);
 
             // Reset puppet instruments too.
-            RaiseNetworkEvent(new InstrumentMidiEventEvent(netUid, new[]{RobustMidiEvent.SystemReset(0)}));
+            RaiseNetworkEvent(new InstrumentMidiEventEvent(netUid, new[] { RobustMidiEvent.SystemReset(0) }));
 
             RaiseNetworkEvent(new InstrumentStopMidiEvent(netUid));
         }
@@ -350,10 +388,12 @@ public sealed partial class InstrumentSystem : SharedInstrumentSystem
         if (!TryComp(uid, out InstrumentComponent? instrument))
             return;
 
-        if (!instrument.Playing
+        if (
+            !instrument.Playing
             || args.SenderSession.AttachedEntity != instrument.InstrumentPlayer
             || instrument.InstrumentPlayer == null
-            || args.SenderSession.AttachedEntity is not { } attached)
+            || args.SenderSession.AttachedEntity is not { } attached
+        )
         {
             return;
         }
@@ -380,15 +420,23 @@ public sealed partial class InstrumentSystem : SharedInstrumentSystem
 
             if (instrument.RespectMidiLimits)
             {
-                if (instrument.LaggedBatches == (int) (MaxMidiLaggedBatches * (1 / 3d) + 1))
+                if (instrument.LaggedBatches == (int)(MaxMidiLaggedBatches * (1 / 3d) + 1))
                 {
-                    _popup.PopupEntity(Loc.GetString("instrument-component-finger-cramps-light-message"),
-                        uid, attached, PopupType.SmallCaution);
+                    _popup.PopupEntity(
+                        Loc.GetString("instrument-component-finger-cramps-light-message"),
+                        uid,
+                        attached,
+                        PopupType.SmallCaution
+                    );
                 }
-                else if (instrument.LaggedBatches == (int) (MaxMidiLaggedBatches * (2 / 3d) + 1))
+                else if (instrument.LaggedBatches == (int)(MaxMidiLaggedBatches * (2 / 3d) + 1))
                 {
-                    _popup.PopupEntity(Loc.GetString("instrument-component-finger-cramps-serious-message"),
-                        uid, attached, PopupType.MediumCaution);
+                    _popup.PopupEntity(
+                        Loc.GetString("instrument-component-finger-cramps-serious-message"),
+                        uid,
+                        attached,
+                        PopupType.MediumCaution
+                    );
                 }
             }
 
@@ -398,8 +446,7 @@ public sealed partial class InstrumentSystem : SharedInstrumentSystem
             }
         }
 
-        if (++instrument.MidiEventCount > MaxMidiEventsPerSecond
-            || msg.MidiEvent.Length > MaxMidiEventsPerBatch)
+        if (++instrument.MidiEventCount > MaxMidiEventsPerSecond || msg.MidiEvent.Length > MaxMidiEventsPerBatch)
         {
             instrument.BatchesDropped++;
 
@@ -427,7 +474,12 @@ public sealed partial class InstrumentSystem : SharedInstrumentSystem
                 var entity = GetEntity(request.Entity);
 
                 var nearby = GetBands(entity);
-                _bui.ServerSendUiMessage(entity, request.UiKey, new InstrumentBandResponseBuiMessage(nearby), request.Actor);
+                _bui.ServerSendUiMessage(
+                    entity,
+                    request.UiKey,
+                    new InstrumentBandResponseBuiMessage(nearby),
+                    request.Actor
+                );
             }
 
             _bandRequestQueue.Clear();
@@ -436,7 +488,7 @@ public sealed partial class InstrumentSystem : SharedInstrumentSystem
         var query = AllEntityQuery<ActiveInstrumentComponent, InstrumentComponent>();
         while (query.MoveNext(out var uid, out _, out var instrument))
         {
-            if (instrument.Master is {} master)
+            if (instrument.Master is { } master)
             {
                 if (Deleted(master))
                 {
@@ -451,23 +503,30 @@ public sealed partial class InstrumentSystem : SharedInstrumentSystem
 
                 var trans = _transformQuery.GetComponent(uid);
                 var masterTrans = _transformQuery.GetComponent(master);
-                if (!_transform.InRange(masterTrans.Coordinates, trans.Coordinates, 10f)
-)
+                if (!_transform.InRange(masterTrans.Coordinates, trans.Coordinates, 10f))
                 {
                     Clean(uid, instrument);
                 }
             }
 
-            if (instrument.RespectMidiLimits &&
-                (instrument.BatchesDropped >= MaxMidiBatchesDropped
-                 || instrument.LaggedBatches >= MaxMidiLaggedBatches))
+            if (
+                instrument.RespectMidiLimits
+                && (
+                    instrument.BatchesDropped >= MaxMidiBatchesDropped
+                    || instrument.LaggedBatches >= MaxMidiLaggedBatches
+                )
+            )
             {
-                if (instrument.InstrumentPlayer is {Valid: true} mob)
+                if (instrument.InstrumentPlayer is { Valid: true } mob)
                 {
                     _stuns.TryParalyze(mob, TimeSpan.FromSeconds(1), true);
 
-                    _popup.PopupEntity(Loc.GetString("instrument-component-finger-cramps-max-message"),
-                        uid, mob, PopupType.LargeCaution);
+                    _popup.PopupEntity(
+                        Loc.GetString("instrument-component-finger-cramps-max-message"),
+                        uid,
+                        mob,
+                        PopupType.LargeCaution
+                    );
                 }
 
                 // Just in case

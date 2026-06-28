@@ -55639,21 +55639,7 @@ entities:
           priority: 0
           component: ClothingSpeedModifier
         - message: >-
-            It provides the following protection:
-
-            - [color=yellow]Blunt[/color] damage reduced by [color=lightblue]60%[/color].
-
-            - [color=yellow]Slash[/color] damage reduced by [color=lightblue]60%[/color].
-
-            - [color=yellow]Piercing[/color] damage reduced by [color=lightblue]70%[/color].
-
-            - [color=yellow]Heat[/color] damage reduced by [color=lightblue]50%[/color].
-
-            - [color=yellow]Radiation[/color] damage reduced by [color=lightblue]75%[/color].
-
-            - [color=yellow]Caustic[/color] damage reduced by [color=lightblue]60%[/color].
-
-            - [color=orange]Explosion[/color] damage reduced by [color=lightblue]50%[/color].
+            It provides the following protection: #magic___^_^___line - [color=yellow]Blunt[/color] damage reduced by [color=lightblue]60%[/color]. #magic___^_^___line - [color=yellow]Slash[/color] damage reduced by [color=lightblue]60%[/color]. #magic___^_^___line - [color=yellow]Piercing[/color] damage reduced by [color=lightblue]70%[/color]. #magic___^_^___line - [color=yellow]Heat[/color] damage reduced by [color=lightblue]50%[/color]. #magic___^_^___line - [color=yellow]Radiation[/color] damage reduced by [color=lightblue]75%[/color]. #magic___^_^___line - [color=yellow]Caustic[/color] damage reduced by [color=lightblue]60%[/color]. #magic___^_^___line - [color=orange]Explosion[/color] damage reduced by [color=lightblue]50%[/color].
           priority: 0
           component: Armor
         title: null
@@ -55677,21 +55663,7 @@ entities:
           priority: 0
           component: ClothingSpeedModifier
         - message: >-
-            It provides the following protection:
-
-            - [color=yellow]Blunt[/color] damage reduced by [color=lightblue]60%[/color].
-
-            - [color=yellow]Slash[/color] damage reduced by [color=lightblue]60%[/color].
-
-            - [color=yellow]Piercing[/color] damage reduced by [color=lightblue]70%[/color].
-
-            - [color=yellow]Heat[/color] damage reduced by [color=lightblue]50%[/color].
-
-            - [color=yellow]Radiation[/color] damage reduced by [color=lightblue]75%[/color].
-
-            - [color=yellow]Caustic[/color] damage reduced by [color=lightblue]60%[/color].
-
-            - [color=orange]Explosion[/color] damage reduced by [color=lightblue]50%[/color].
+            It provides the following protection: #magic___^_^___line - [color=yellow]Blunt[/color] damage reduced by [color=lightblue]60%[/color]. #magic___^_^___line - [color=yellow]Slash[/color] damage reduced by [color=lightblue]60%[/color]. #magic___^_^___line - [color=yellow]Piercing[/color] damage reduced by [color=lightblue]70%[/color]. #magic___^_^___line - [color=yellow]Heat[/color] damage reduced by [color=lightblue]50%[/color]. #magic___^_^___line - [color=yellow]Radiation[/color] damage reduced by [color=lightblue]75%[/color]. #magic___^_^___line - [color=yellow]Caustic[/color] damage reduced by [color=lightblue]60%[/color]. #magic___^_^___line - [color=orange]Explosion[/color] damage reduced by [color=lightblue]50%[/color].
           priority: 0
           component: Armor
         title: null
@@ -66538,7 +66510,7 @@ entities:
     - type: DeviceNetwork
       deviceLists:
       - 5
-# VRS: HL#1305 - firelocks behind evac docking arm airlocks to prevent decompression when shuttle despawns
+      # VRS: HL#1305 - firelocks behind evac docking arm airlocks to prevent decompression when shuttle despawns
   - uid: 22994
     components:
     - type: Transform
@@ -149853,4 +149825,3 @@ entities:
       rot: 3.141592653589793 rad
       pos: 17.5,32.5
       parent: 2
-...

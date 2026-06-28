@@ -1,11 +1,11 @@
 // SPDX-FileCopyrightText: Copyright (c) 2024-2025 Space Wizards Federation
 // SPDX-License-Identifier: MIT
 
+using System.IO;
 using Lidgren.Network;
 using Robust.Shared.Network;
 using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
-using System.IO;
 
 namespace Content.Shared._Common.Consent;
 
@@ -31,7 +31,7 @@ public sealed class MsgUpdateConsent : NetMessage
     {
         var stream = new MemoryStream();
         serializer.SerializeDirect(stream, Consent);
-        buffer.WriteVariableInt32((int) stream.Length);
+        buffer.WriteVariableInt32((int)stream.Length);
         buffer.Write(stream.AsSpan());
     }
 }

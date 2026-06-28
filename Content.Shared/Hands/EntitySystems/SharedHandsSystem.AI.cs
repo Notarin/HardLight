@@ -20,7 +20,12 @@ public abstract partial class SharedHandsSystem : EntitySystem
         return true;
     }
 
-    public bool TrySelect<TComponent>(EntityUid uid, [NotNullWhen(true)] out TComponent? component, HandsComponent? handsComp = null) where TComponent : Component
+    public bool TrySelect<TComponent>(
+        EntityUid uid,
+        [NotNullWhen(true)] out TComponent? component,
+        HandsComponent? handsComp = null
+    )
+        where TComponent : Component
     {
         component = null;
         if (!Resolve(uid, ref handsComp, false))

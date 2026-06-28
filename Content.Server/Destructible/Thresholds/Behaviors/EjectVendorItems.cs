@@ -25,8 +25,10 @@ namespace Content.Server.Destructible.Thresholds.Behaviors
 
         public void Execute(EntityUid owner, DestructibleSystem system, EntityUid? cause = null)
         {
-            if (!system.EntityManager.TryGetComponent<VendingMachineComponent>(owner, out var vendingcomp) ||
-                !system.EntityManager.TryGetComponent<TransformComponent>(owner, out var xform))
+            if (
+                !system.EntityManager.TryGetComponent<VendingMachineComponent>(owner, out var vendingcomp)
+                || !system.EntityManager.TryGetComponent<TransformComponent>(owner, out var xform)
+            )
                 return;
 
             var vendingMachineSystem = system.EntityManager.System<VendingMachineSystem>();

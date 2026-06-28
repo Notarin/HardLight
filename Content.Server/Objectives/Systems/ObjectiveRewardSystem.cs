@@ -1,14 +1,14 @@
 using System.Diagnostics.CodeAnalysis;
+using Content.Server._NF.Bank;
+using Content.Server.Administration.Logs;
 using Content.Server.Chat.Managers; // HardLight
 using Content.Server.GameTicking;
-using Content.Server.Preferences.Managers; // HardLight
-using Content.Server.Popups;
-using Content.Shared._NF.Bank.Components;
-using Content.Shared.Database;
-using Content.Server.Administration.Logs;
 using Content.Server.Objectives.Components;
-using Content.Server._NF.Bank;
+using Content.Server.Popups;
+using Content.Server.Preferences.Managers; // HardLight
+using Content.Shared._NF.Bank.Components;
 using Content.Shared.Chat; // HardLight
+using Content.Shared.Database;
 using Content.Shared.Mind;
 using Content.Shared.Objectives.Components;
 using Content.Shared.Objectives.Systems;
@@ -26,13 +26,26 @@ public sealed class ObjectiveRewardSystem : EntitySystem
 {
     private const float CompletionThreshold = 0.999f; // HardLight
 
-    [Dependency] private readonly SharedObjectivesSystem _objectives = default!;
-    [Dependency] private readonly BankSystem _bank = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly IAdminLogManager _adminLog = default!;
-    [Dependency] private readonly IChatManager _chat = default!; // HardLight
-    [Dependency] private readonly ISharedPlayerManager _players = default!; // HardLight
-    [Dependency] private readonly IServerPreferencesManager _prefs = default!; // HardLight
+    [Dependency]
+    private readonly SharedObjectivesSystem _objectives = default!;
+
+    [Dependency]
+    private readonly BankSystem _bank = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly IAdminLogManager _adminLog = default!;
+
+    [Dependency]
+    private readonly IChatManager _chat = default!; // HardLight
+
+    [Dependency]
+    private readonly ISharedPlayerManager _players = default!; // HardLight
+
+    [Dependency]
+    private readonly IServerPreferencesManager _prefs = default!; // HardLight
 
     private float _accum;
     private const float ScanInterval = 2.0f; // seconds
@@ -115,8 +128,11 @@ public sealed class ObjectiveRewardSystem : EntitySystem
                     var payoutTargetText = payoutTarget is { } targetUid
                         ? ToPrettyString(targetUid)
                         : mind.UserId?.ToString() ?? "unknown-user";
-                    _adminLog.Add(LogType.Action, LogImpact.Low,
-                        $"ObjectiveReward: Paid {reward.Amount} to {payoutTargetText} for completing objective '{title}' (ent {objective}).");
+                    _adminLog.Add(
+                        LogType.Action,
+                        LogImpact.Low,
+                        $"ObjectiveReward: Paid {reward.Amount} to {payoutTargetText} for completing objective '{title}' (ent {objective})."
+                    );
                 }
             }
         }

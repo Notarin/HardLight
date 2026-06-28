@@ -10,8 +10,11 @@ namespace Content.Server.GameTicking.Rules;
 
 public sealed class InactivityTimeRestartRuleSystem : GameRuleSystem<InactivityRuleComponent>
 {
-    [Dependency] private readonly IChatManager _chatManager = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
+    [Dependency]
+    private readonly IChatManager _chatManager = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
 
     public override void Initialize()
     {
@@ -27,7 +30,12 @@ public sealed class InactivityTimeRestartRuleSystem : GameRuleSystem<InactivityR
         _playerManager.PlayerStatusChanged -= PlayerStatusChanged;
     }
 
-    protected override void Ended(EntityUid uid, InactivityRuleComponent component, GameRuleComponent gameRule, GameRuleEndedEvent args)
+    protected override void Ended(
+        EntityUid uid,
+        InactivityRuleComponent component,
+        GameRuleComponent gameRule,
+        GameRuleEndedEvent args
+    )
     {
         base.Ended(uid, component, gameRule, args);
 
@@ -59,7 +67,9 @@ public sealed class InactivityTimeRestartRuleSystem : GameRuleSystem<InactivityR
 
         GameTicker.EndRound(Loc.GetString("rule-time-has-run-out"));
 
-        _chatManager.DispatchServerAnnouncement(Loc.GetString("rule-restarting-in-seconds", ("seconds",(int) component.RoundEndDelay.TotalSeconds)));
+        _chatManager.DispatchServerAnnouncement(
+            Loc.GetString("rule-restarting-in-seconds", ("seconds", (int)component.RoundEndDelay.TotalSeconds))
+        );
 
         Timer.Spawn(component.RoundEndDelay, () => GameTicker.RestartRound());
     }

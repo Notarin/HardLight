@@ -15,8 +15,11 @@ namespace Content.Server._Starlight.Plumbing.EntitySystems;
 [UsedImplicitly]
 public sealed class PlumbingInletSystem : EntitySystem
 {
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionSystem = default!;
-    [Dependency] private readonly PlumbingPullSystem _pullSystem = default!;
+    [Dependency]
+    private readonly SharedSolutionContainerSystem _solutionSystem = default!;
+
+    [Dependency]
+    private readonly PlumbingPullSystem _pullSystem = default!;
 
     public override void Initialize()
     {
@@ -60,7 +63,13 @@ public sealed class PlumbingInletSystem : EntitySystem
                 continue;
 
             var roundRobinIndex = ent.Comp.RoundRobinIndices.GetValueOrDefault(inletName, 0);
-            var (pulled, nextIndex) = _pullSystem.PullFromNetwork(ent.Owner, plumbingNode.PlumbingNet, solutionEnt.Value, remaining, roundRobinIndex);
+            var (pulled, nextIndex) = _pullSystem.PullFromNetwork(
+                ent.Owner,
+                plumbingNode.PlumbingNet,
+                solutionEnt.Value,
+                remaining,
+                roundRobinIndex
+            );
             ent.Comp.RoundRobinIndices[inletName] = nextIndex;
             remaining -= pulled;
         }

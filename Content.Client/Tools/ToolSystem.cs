@@ -9,7 +9,8 @@ namespace Content.Client.Tools
 {
     public sealed class ToolSystem : SharedToolSystem
     {
-        [Dependency] private readonly SpriteSystem _sprite = default!;
+        [Dependency]
+        private readonly SpriteSystem _sprite = default!;
 
         public override void Initialize()
         {
@@ -19,11 +20,13 @@ namespace Content.Client.Tools
             Subs.ItemStatus<MultipleToolComponent>(ent => new MultipleToolStatusControl(ent));
         }
 
-        public override void SetMultipleTool(EntityUid uid,
-        MultipleToolComponent? multiple = null,
-        ToolComponent? tool = null,
-        bool playSound = false,
-        EntityUid? user = null)
+        public override void SetMultipleTool(
+            EntityUid uid,
+            MultipleToolComponent? multiple = null,
+            ToolComponent? tool = null,
+            bool playSound = false,
+            EntityUid? user = null
+        )
         {
             if (!Resolve(uid, ref multiple))
                 return;

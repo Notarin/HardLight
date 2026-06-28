@@ -1,5 +1,5 @@
-using Content.Client.Examine;
 using Content.Client._NF.Atmos.Components;
+using Content.Client.Examine;
 using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 

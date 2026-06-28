@@ -18,11 +18,20 @@ namespace Content.Shared.Storage.EntitySystems;
 /// </summary>
 public sealed class BinSystem : EntitySystem
 {
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly ISharedAdminLogManager _admin = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
+    [Dependency]
+    private readonly INetManager _net = default!;
+
+    [Dependency]
+    private readonly ISharedAdminLogManager _admin = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly SharedHandsSystem _hands = default!;
+
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelistSystem = default!;
 
     public const string BinContainerId = "bin-container";
 
@@ -32,7 +41,10 @@ public sealed class BinSystem : EntitySystem
         SubscribeLocalEvent<BinComponent, ComponentStartup>(OnStartup);
         SubscribeLocalEvent<BinComponent, MapInitEvent>(OnMapInit);
         SubscribeLocalEvent<BinComponent, EntRemovedFromContainerMessage>(OnEntRemoved);
-        SubscribeLocalEvent<BinComponent, InteractHandEvent>(OnInteractHand, before: new[] { typeof(SharedItemSystem) });
+        SubscribeLocalEvent<BinComponent, InteractHandEvent>(
+            OnInteractHand,
+            before: new[] { typeof(SharedItemSystem) }
+        );
         SubscribeLocalEvent<BinComponent, AfterInteractUsingEvent>(OnAfterInteractUsing);
         SubscribeLocalEvent<BinComponent, GetVerbsEvent<AlternativeVerb>>(OnAltInteractHand);
         SubscribeLocalEvent<BinComponent, ExaminedEvent>(OnExamined);
@@ -81,8 +93,11 @@ public sealed class BinSystem : EntitySystem
             return;
 
         _hands.TryPickupAnyHand(args.User, toGrab.Value);
-        _admin.Add(LogType.Pickup, LogImpact.Low,
-            $"{ToPrettyString(uid):player} removed {ToPrettyString(toGrab.Value)} from bin {ToPrettyString(uid)}.");
+        _admin.Add(
+            LogType.Pickup,
+            LogImpact.Low,
+            $"{ToPrettyString(uid):player} removed {ToPrettyString(toGrab.Value)} from bin {ToPrettyString(uid)}."
+        );
         args.Handled = true;
     }
 
@@ -96,7 +111,7 @@ public sealed class BinSystem : EntitySystem
         if (args.Using != null)
         {
             var canReach = args.CanAccess && args.CanInteract;
-            InsertIntoBin(args.User, args.Target, (EntityUid) args.Using, component, false, canReach);
+            InsertIntoBin(args.User, args.Target, (EntityUid)args.Using, component, false, canReach);
         }
     }
 
@@ -106,7 +121,14 @@ public sealed class BinSystem : EntitySystem
         args.Handled = true;
     }
 
-    private void InsertIntoBin(EntityUid user, EntityUid target, EntityUid itemInHand, BinComponent component, bool handled, bool canReach)
+    private void InsertIntoBin(
+        EntityUid user,
+        EntityUid target,
+        EntityUid itemInHand,
+        BinComponent component,
+        bool handled,
+        bool canReach
+    )
     {
         if (handled || !canReach)
             return;
@@ -114,7 +136,11 @@ public sealed class BinSystem : EntitySystem
         if (!TryInsertIntoBin(target, itemInHand, component))
             return;
 
-        _admin.Add(LogType.Pickup, LogImpact.Low, $"{ToPrettyString(target):player} inserted {ToPrettyString(user)} into bin {ToPrettyString(target)}.");
+        _admin.Add(
+            LogType.Pickup,
+            LogImpact.Low,
+            $"{ToPrettyString(target):player} inserted {ToPrettyString(user)} into bin {ToPrettyString(target)}."
+        );
     }
 
     /// <summary>

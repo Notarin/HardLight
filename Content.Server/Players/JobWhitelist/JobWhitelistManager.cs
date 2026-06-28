@@ -19,12 +19,23 @@ namespace Content.Server.Players.JobWhitelist;
 
 public sealed class JobWhitelistManager : IPostInjectInit
 {
-    [Dependency] private readonly IConfigurationManager _config = default!;
-    [Dependency] private readonly IServerDbManager _db = default!;
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IPrototypeManager _prototypes = default!;
-    [Dependency] private readonly UserDbDataManager _userDb = default!;
+    [Dependency]
+    private readonly IConfigurationManager _config = default!;
+
+    [Dependency]
+    private readonly IServerDbManager _db = default!;
+
+    [Dependency]
+    private readonly INetManager _net = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypes = default!;
+
+    [Dependency]
+    private readonly UserDbDataManager _userDb = default!;
 
     private readonly Dictionary<NetUserId, HashSet<string>> _whitelists = new();
     private readonly Dictionary<NetUserId, bool> _globalWhitelists = new(); // Frontier
@@ -75,8 +86,7 @@ public sealed class JobWhitelistManager : IPostInjectInit
         if (!_config.GetCVar(CCVars.GameRoleWhitelist))
             return true;
 
-        if (!_prototypes.TryIndex(job, out var jobPrototype) ||
-            !jobPrototype.Whitelisted)
+        if (!_prototypes.TryIndex(job, out var jobPrototype) || !jobPrototype.Whitelisted)
         {
             return true;
         }
@@ -88,10 +98,12 @@ public sealed class JobWhitelistManager : IPostInjectInit
     {
         if (!_whitelists.TryGetValue(player, out var whitelists)) // Frontier
         {
-            Log.Error("Unable to check if player {Player} is whitelisted for {Job}. Stack trace:\\n{StackTrace}",
+            Log.Error(
+                "Unable to check if player {Player} is whitelisted for {Job}. Stack trace:\\n{StackTrace}",
                 player,
                 job,
-                Environment.StackTrace);
+                Environment.StackTrace
+            );
             return false;
         }
 
@@ -111,7 +123,7 @@ public sealed class JobWhitelistManager : IPostInjectInit
     {
         var msg = new MsgJobWhitelist
         {
-            Whitelist = _whitelists.GetValueOrDefault(player.UserId) ?? new HashSet<string>()
+            Whitelist = _whitelists.GetValueOrDefault(player.UserId) ?? new HashSet<string>(),
         };
 
         _net.ServerSendMessage(msg, player.Channel);
@@ -134,8 +146,7 @@ public sealed class JobWhitelistManager : IPostInjectInit
         if (!_config.GetCVar(CCVars.GameRoleWhitelist))
             return true;
 
-        if (!_prototypes.TryIndex(ghostRole, out var ghostRolePrototype) ||
-            !ghostRolePrototype.Whitelisted)
+        if (!_prototypes.TryIndex(ghostRole, out var ghostRolePrototype) || !ghostRolePrototype.Whitelisted)
         {
             return true;
         }
@@ -147,10 +158,12 @@ public sealed class JobWhitelistManager : IPostInjectInit
     {
         if (!_whitelists.TryGetValue(player, out var whitelists))
         {
-            Log.Error("Unable to check if player {Player} is whitelisted for {GhostRole}. Stack trace:\\n{StackTrace}",
+            Log.Error(
+                "Unable to check if player {Player} is whitelisted for {GhostRole}. Stack trace:\\n{StackTrace}",
                 player,
                 ghostRole,
-                Environment.StackTrace);
+                Environment.StackTrace
+            );
             return false;
         }
 
@@ -184,9 +197,11 @@ public sealed class JobWhitelistManager : IPostInjectInit
 
         if (!_globalWhitelists.TryGetValue(player, out var whitelist))
         {
-            Log.Error("Unable to check if player {Player} is globally whitelisted. Stack trace:\\n{StackTrace}",
+            Log.Error(
+                "Unable to check if player {Player} is globally whitelisted. Stack trace:\\n{StackTrace}",
                 player,
-                Environment.StackTrace);
+                Environment.StackTrace
+            );
             return false;
         }
 
@@ -206,13 +221,11 @@ public sealed class JobWhitelistManager : IPostInjectInit
 
     public void SendWhitelist(ICommonSession player)
     {
-        var msg = new MsgWhitelist
-        {
-            Whitelisted = _globalWhitelists.GetValueOrDefault(player.UserId)
-        };
+        var msg = new MsgWhitelist { Whitelisted = _globalWhitelists.GetValueOrDefault(player.UserId) };
 
         _net.ServerSendMessage(msg, player.Channel);
     }
+
     // End Frontier
 
     void IPostInjectInit.PostInject()

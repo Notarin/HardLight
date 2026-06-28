@@ -1,16 +1,16 @@
-﻿- type: entity
+- type: entity
   id: AutolatheMachineCircuitboard
   parent: BaseMachineCircuitboard
   name: autolathe machine board
   description: A machine printed circuit board for an autolathe.
   components:
-    - type: MachineBoard
-      prototype: Autolathe
-      requirements: # Frontier
-        MatterBin: 3 # Frontier stackRequirements<requirements
-        Manipulator: 1 # Frontier stackRequirements<requirements
-      stackRequirements:
-        Glass: 1
+  - type: MachineBoard
+    prototype: Autolathe
+    requirements: # Frontier
+      MatterBin: 3 # Frontier stackRequirements<requirements
+      Manipulator: 1 # Frontier stackRequirements<requirements
+    stackRequirements:
+      Glass: 1
 
 - type: entity
   parent: BaseMachineCircuitboard
@@ -86,20 +86,20 @@
   id: SecurityTechFabCircuitboard
   parent: BaseMachineCircuitboard
   name: security techfab machine board
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   description: A machine printed circuit board for a security techfab.
   components:
-    - type: Sprite
-      state: security
-    - type: MachineBoard
-      prototype: SecurityTechFab
-      requirements: # Frontier
-        MatterBin: 2 # Frontier stackRequirements<requirements
-        Manipulator: 2 # Frontier stackRequirements<requirements
-      tagRequirements:
-        GlassBeaker:
-          amount: 2
-          defaultPrototype: Beaker
+  - type: Sprite
+    state: security
+  - type: MachineBoard
+    prototype: SecurityTechFab
+    requirements: # Frontier
+      MatterBin: 2 # Frontier stackRequirements<requirements
+      Manipulator: 2 # Frontier stackRequirements<requirements
+    tagRequirements:
+      GlassBeaker:
+        amount: 2
+        defaultPrototype: Beaker
 
 - type: entity
   id: AmmoTechFabCircuitboard
@@ -107,13 +107,13 @@
   name: ammo techfab circuit board
   description: A machine printed circuit board for an ammo techfab.
   components:
-    - type: Sprite
-      state: security
-    - type: MachineBoard
-      prototype: AmmoTechFab
-      requirements: # Frontier
-        MatterBin: 1 # Frontier stackRequirements<requirements
-        Manipulator: 1 # Frontier stackRequirements<requirements
+  - type: Sprite
+    state: security
+  - type: MachineBoard
+    prototype: AmmoTechFab
+    requirements: # Frontier
+      MatterBin: 1 # Frontier stackRequirements<requirements
+      Manipulator: 1 # Frontier stackRequirements<requirements
 
 - type: entity
   id: MedicalTechFabCircuitboard
@@ -121,21 +121,21 @@
   name: medical techfab machine board
   description: A machine printed circuit board for a medical techfab.
   components:
-    - type: Sprite
-      state: medical
-    - type: MachineBoard
-      prototype: MedicalTechFab
-      requirements: # Frontier
-        MatterBin: 2 # Frontier stackRequirements<requirements
-        Manipulator: 2 # Frontier stackRequirements<requirements
-      tagRequirements:
-        GlassBeaker:
-          amount: 2
-          defaultPrototype: Beaker
-    - type: StealTarget
-      stealGroup: MedicalTechFabCircuitboard
-    - type: PirateBountyItem # Frontier
-      id: MedicalTechFabCircuitboard # Frontier
+  - type: Sprite
+    state: medical
+  - type: MachineBoard
+    prototype: MedicalTechFab
+    requirements: # Frontier
+      MatterBin: 2 # Frontier stackRequirements<requirements
+      Manipulator: 2 # Frontier stackRequirements<requirements
+    tagRequirements:
+      GlassBeaker:
+        amount: 2
+        defaultPrototype: Beaker
+  - type: StealTarget
+    stealGroup: MedicalTechFabCircuitboard
+  - type: PirateBountyItem # Frontier
+    id: MedicalTechFabCircuitboard # Frontier
 
 - type: entity
   id: CircuitImprinterMachineCircuitboard
@@ -251,9 +251,9 @@
     stackRequirements:
       Cable: 5
     tagRequirements:
-        GlassBeaker:
-          amount: 1
-          defaultPrototype: Beaker
+      GlassBeaker:
+        amount: 1
+        defaultPrototype: Beaker
 
 - type: entity
   id: DiagnoserMachineCircuitboard
@@ -281,17 +281,17 @@
   name: artifact analyzer machine board
   description: A machine printed circuit board for an artifact analyzer.
   components:
-    - type: Sprite
-      state: science
-    - type: MachineBoard
-      prototype: MachineArtifactAnalyzer
-      requirements: # Frontier
-        Manipulator: 3 # Frontier stackRequirements<requirements
-        Capacitor: 1 # Frontier stackRequirements<requirements
-      stackRequirements:
-        Glass: 5
-    - type: PirateBountyItem # Frontier
-      id: ArtifactAnalyzerMachineCircuitboard # Frontier
+  - type: Sprite
+    state: science
+  - type: MachineBoard
+    prototype: MachineArtifactAnalyzer
+    requirements: # Frontier
+      Manipulator: 3 # Frontier stackRequirements<requirements
+      Capacitor: 1 # Frontier stackRequirements<requirements
+    stackRequirements:
+      Glass: 5
+  - type: PirateBountyItem # Frontier
+    id: ArtifactAnalyzerMachineCircuitboard # Frontier
 
 - type: entity
   id: ArtifactCrusherMachineCircuitboard
@@ -315,15 +315,15 @@
   name: anomaly vessel machine board
   description: A machine printed circuit board for an anomaly vessel.
   components:
-    - type: Sprite
-      state: science
-    - type: MachineBoard
-      prototype: MachineAnomalyVessel
-      requirements: # Frontier
-        Capacitor: 3 # Frontier stackRequirements<requirements
-      stackRequirements:
-        Cable: 1
-        PlasmaGlass: 10
+  - type: Sprite
+    state: science
+  - type: MachineBoard
+    prototype: MachineAnomalyVessel
+    requirements: # Frontier
+      Capacitor: 3 # Frontier stackRequirements<requirements
+    stackRequirements:
+      Cable: 1
+      PlasmaGlass: 10
 
 - type: entity
   parent: BaseMachineCircuitboard
@@ -348,16 +348,16 @@
   name: anomaly synchronizer machine board
   description: A machine printed circuit board for an anomaly synchronizer.
   components:
-    - type: Sprite
-      state: science
-    - type: MachineBoard
-      prototype: MachineAnomalySynchronizer
-      requirements: # Frontier
-        Manipulator: 2 # Frontier stackRequirements<requirements
-        Capacitor: 5 # Frontier stackRequirements<requirements
-      stackRequirements:
-        PlasmaGlass: 5
-        Cable: 5
+  - type: Sprite
+    state: science
+  - type: MachineBoard
+    prototype: MachineAnomalySynchronizer
+    requirements: # Frontier
+      Manipulator: 2 # Frontier stackRequirements<requirements
+      Capacitor: 5 # Frontier stackRequirements<requirements
+    stackRequirements:
+      PlasmaGlass: 5
+      Cable: 5
 
 - type: entity
   parent: BaseMachineCircuitboard
@@ -365,16 +365,16 @@
   name: A.P.E. machine board
   description: A machine printed circuit board for an A.P.E.
   components:
-    - type: Sprite
-      state: science
-    - type: MachineBoard
-      prototype: MachineAPE
-      requirements: # Frontier
-        Capacitor: 2 # Frontier stackRequirements<requirements
-      stackRequirements:
-        Cable: 1
-        Glass: 1
-    - type: BindToStationExemption # Frontier - we exempt this machine from binding to grids because the intention is for it to have that ability
+  - type: Sprite
+    state: science
+  - type: MachineBoard
+    prototype: MachineAPE
+    requirements: # Frontier
+      Capacitor: 2 # Frontier stackRequirements<requirements
+    stackRequirements:
+      Cable: 1
+      Glass: 1
+  - type: BindToStationExemption # Frontier - we exempt this machine from binding to grids because the intention is for it to have that ability
 
 - type: entity
   id: ThermomachineFreezerMachineCircuitBoard
@@ -511,16 +511,16 @@
   name: cloning pod machine board
   description: A machine printed circuit board for a cloning pod.
   components:
-    - type: Sprite
-      state: medical
-    - type: MachineBoard
-      prototype: CloningPod
-      requirements: # Frontier
-        MatterBin: 2 # Frontier stackRequirements<requirements
-        Manipulator: 2 # Frontier stackRequirements<requirements
-      stackRequirements:
-        Glass: 1
-        Cable: 1
+  - type: Sprite
+    state: medical
+  - type: MachineBoard
+    prototype: CloningPod
+    requirements: # Frontier
+      MatterBin: 2 # Frontier stackRequirements<requirements
+      Manipulator: 2 # Frontier stackRequirements<requirements
+    stackRequirements:
+      Glass: 1
+      Cable: 1
 
 - type: entity
   id: MedicalScannerMachineCircuitboard
@@ -528,15 +528,15 @@
   name: medical scanner machine board
   description: A machine printed circuit board for a medical scanner.
   components:
-    - type: Sprite
-      state: medical
-    - type: MachineBoard
-      prototype: MedicalScanner
-      requirements: # Frontier
-        Capacitor: 1 # Frontier stackRequirements<requirements
-      stackRequirements:
-        Glass: 5
-        Cable: 1
+  - type: Sprite
+    state: medical
+  - type: MachineBoard
+    prototype: MedicalScanner
+    requirements: # Frontier
+      Capacitor: 1 # Frontier stackRequirements<requirements
+    stackRequirements:
+      Glass: 5
+      Cable: 1
 
 - type: entity
   id: CrewMonitoringServerMachineCircuitboard
@@ -544,11 +544,11 @@
   name: crew monitoring server machine board
   description: A machine printed circuit board for a crew monitoring server.
   components:
-    - type: MachineBoard
-      prototype: CrewMonitoringServer
-      stackRequirements:
-        Steel: 1
-        Cable: 2
+  - type: MachineBoard
+    prototype: CrewMonitoringServer
+    stackRequirements:
+      Steel: 1
+      Cable: 2
 
 - type: entity
   id: CryoPodMachineCircuitboard
@@ -556,13 +556,13 @@
   name: cryo pod machine board
   description: A machine printed circuit board for a cryo pod.
   components:
-    - type: Sprite
-      state: medical
-    - type: MachineBoard
-      prototype: CryoPod
-      stackRequirements:
-        Glass: 5
-        Cable: 1
+  - type: Sprite
+    state: medical
+  - type: MachineBoard
+    prototype: CryoPod
+    stackRequirements:
+      Glass: 5
+      Cable: 1
 
 - type: entity
   id: ChemMasterMachineCircuitboard
@@ -570,19 +570,19 @@
   name: ChemMaster 4000 machine board
   description: A machine printed circuit board for a ChemMaster 4000.
   components:
-    - type: Sprite
-      state: medical
-    - type: MachineBoard
-      prototype: ChemMaster
-      requirements: # Frontier
-        Capacitor: 1 # Frontier stackRequirements<requirements
-      stackRequirements:
-        Glass: 1
-        Cable: 1
-      tagRequirements:
-        GlassBeaker:
-          amount: 2
-          defaultPrototype: Beaker
+  - type: Sprite
+    state: medical
+  - type: MachineBoard
+    prototype: ChemMaster
+    requirements: # Frontier
+      Capacitor: 1 # Frontier stackRequirements<requirements
+    stackRequirements:
+      Glass: 1
+      Cable: 1
+    tagRequirements:
+      GlassBeaker:
+        amount: 2
+        defaultPrototype: Beaker
 
 - type: entity
   id: ChemDispenserMachineCircuitboard
@@ -590,20 +590,20 @@
   name: chem dispenser machine board
   description: A machine printed circuit board for a chem dispenser.
   components:
-    - type: Sprite
-      state: medical
-    - type: MachineBoard
-      prototype: ChemDispenserEmpty
-      requirements: # Frontier
-        # Capacitor: 1 # Frontier stackRequirements<requirements
-        MatterBin: 1 # Frontier: upgrades number of stored jugs
-      stackRequirements:
-        Glass: 1
-        Steel: 3
-      tagRequirements:
-        GlassBeaker:
-          amount: 2
-          defaultPrototype: Beaker
+  - type: Sprite
+    state: medical
+  - type: MachineBoard
+    prototype: ChemDispenserEmpty
+    requirements: # Frontier
+      # Capacitor: 1 # Frontier stackRequirements<requirements
+      MatterBin: 1 # Frontier: upgrades number of stored jugs
+    stackRequirements:
+      Glass: 1
+      Steel: 3
+    tagRequirements:
+      GlassBeaker:
+        amount: 2
+        defaultPrototype: Beaker
 
 - type: entity
   id: BiomassReclaimerMachineCircuitboard
@@ -632,18 +632,18 @@
   name: hydroponics tray machine board
   description: A machine printed circuit board for a hydroponics tray.
   components:
-    - type: Sprite
-      state: service
-    - type: MachineBoard
-      prototype: HydroponicsTrayEmpty
-      stackRequirements:
-        # replacing the console screen
-        Glass: 5
-        Cable: 2
-      tagRequirements:
-        GlassBeaker:
-          amount: 2
-          defaultPrototype: Beaker
+  - type: Sprite
+    state: service
+  - type: MachineBoard
+    prototype: HydroponicsTrayEmpty
+    stackRequirements:
+      # replacing the console screen
+      Glass: 5
+      Cable: 2
+    tagRequirements:
+      GlassBeaker:
+        amount: 2
+        defaultPrototype: Beaker
 
 - type: entity
   id: SeedExtractorMachineCircuitboard
@@ -651,17 +651,17 @@
   name: seed extractor machine board
   description: A machine printed circuit board for a seed extractor.
   components:
-    - type: Sprite
-      state: service
-    - type: MachineBoard
-      prototype: SeedExtractor
-      requirements: # Frontier
-        Manipulator: 2 # Frontier stackRequirements<requirements
-        Capacitor: 1 # Frontier stackRequirements<requirements
-      stackRequirements:
-        # replacing the console screen
-        Glass: 1
-        Cable: 2
+  - type: Sprite
+    state: service
+  - type: MachineBoard
+    prototype: SeedExtractor
+    requirements: # Frontier
+      Manipulator: 2 # Frontier stackRequirements<requirements
+      Capacitor: 1 # Frontier stackRequirements<requirements
+    stackRequirements:
+      # replacing the console screen
+      Glass: 1
+      Cable: 2
 
 - type: entity
   id: SMESMachineCircuitboard
@@ -669,16 +669,16 @@
   name: SMES machine board
   description: A machine printed circuit board for a SMES.
   components:
-    - type: Sprite
-      sprite: Objects/Misc/module.rsi
-      state: power_mod
-    - type: MachineBoard
-      prototype: SMESBasicEmpty
-      requirements: # Frontier
-        Capacitor: 1 # Frontier stackRequirements<requirements
-        PowerCell: 4 # Frontier componentRequirements<requirements
-      stackRequirements:
-        CableHV: 10
+  - type: Sprite
+    sprite: Objects/Misc/module.rsi
+    state: power_mod
+  - type: MachineBoard
+    prototype: SMESBasicEmpty
+    requirements: # Frontier
+      Capacitor: 1 # Frontier stackRequirements<requirements
+      PowerCell: 4 # Frontier componentRequirements<requirements
+    stackRequirements:
+      CableHV: 10
 
 - type: entity
   id: SMESAdvancedMachineCircuitboard
@@ -692,8 +692,8 @@
   - type: MachineBoard
     prototype: SMESAdvancedEmpty
     requirements: # Frontier
-        Capacitor: 2 # Frontier stackRequirements<requirements
-        PowerCell: 8 # Frontier componentRequirements<requirements, 4<8
+      Capacitor: 2 # Frontier stackRequirements<requirements
+      PowerCell: 8 # Frontier componentRequirements<requirements, 4<8
     stackRequirements:
       CableHV: 20
 
@@ -703,21 +703,21 @@
   name: cell recharger machine board
   description: A machine printed circuit board for a cell recharger.
   components:
-    - type: Sprite
-      sprite: Objects/Misc/module.rsi
-      state: charger_APC
-    - type: MachineBoard
-      prototype: PowerCellRecharger
-      requirements: # Frontier
-        Capacitor: 2 # Frontier stackRequirements<requirements
-      stackRequirements:
-        Cable: 5
-    - type: PhysicalComposition
-      materialComposition:
-        Steel: 30
-        Plastic: 30
-    - type: StaticPrice
-      price: 15
+  - type: Sprite
+    sprite: Objects/Misc/module.rsi
+    state: charger_APC
+  - type: MachineBoard
+    prototype: PowerCellRecharger
+    requirements: # Frontier
+      Capacitor: 2 # Frontier stackRequirements<requirements
+    stackRequirements:
+      Cable: 5
+  - type: PhysicalComposition
+    materialComposition:
+      Steel: 30
+      Plastic: 30
+  - type: StaticPrice
+    price: 15
 
 - type: entity
   id: PowerCageRechargerCircuitboard
@@ -725,22 +725,22 @@
   name: cage recharger machine board
   description: A machine printed circuit board for a energy cage recharger.
   components:
-    - type: Sprite
-      sprite: Objects/Misc/module.rsi
-      state: charger_APC
-    - type: MachineBoard
-      prototype: PowerCageRecharger
-      requirements: # Frontier
-        Capacitor: 4 # Frontier stackRequirements<requirements
-      stackRequirements:
-        Steel: 5
-        Cable: 10
-    - type: PhysicalComposition
-      materialComposition:
-        Steel: 30
-        Plastic: 30
-    - type: StaticPrice
-      price: 30
+  - type: Sprite
+    sprite: Objects/Misc/module.rsi
+    state: charger_APC
+  - type: MachineBoard
+    prototype: PowerCageRecharger
+    requirements: # Frontier
+      Capacitor: 4 # Frontier stackRequirements<requirements
+    stackRequirements:
+      Steel: 5
+      Cable: 10
+  - type: PhysicalComposition
+    materialComposition:
+      Steel: 30
+      Plastic: 30
+  - type: StaticPrice
+    price: 30
 
 - type: entity
   id: BorgChargerCircuitboard
@@ -748,21 +748,21 @@
   name: cyborg recharging station machine board
   description: A machine printed circuit board for a robot recharging station.
   components:
-    - type: Sprite
-      sprite: Objects/Misc/module.rsi
-      state: charger_APC
-    - type: MachineBoard
-      prototype: BorgCharger
-      requirements: # Frontier
-        Capacitor: 2 # Frontier stackRequirements<requirements
-      stackRequirements:
-        Cable: 5
-    - type: PhysicalComposition
-      materialComposition:
-        Steel: 30
-        Plastic: 30
-    - type: StaticPrice
-      price: 15
+  - type: Sprite
+    sprite: Objects/Misc/module.rsi
+    state: charger_APC
+  - type: MachineBoard
+    prototype: BorgCharger
+    requirements: # Frontier
+      Capacitor: 2 # Frontier stackRequirements<requirements
+    stackRequirements:
+      Cable: 5
+  - type: PhysicalComposition
+    materialComposition:
+      Steel: 30
+      Plastic: 30
+  - type: StaticPrice
+    price: 15
 
 - type: entity
   id: WeaponCapacitorRechargerCircuitboard
@@ -770,21 +770,21 @@
   name: recharger machine board
   description: A machine printed circuit board for a recharger.
   components:
-    - type: Sprite
-      sprite: Objects/Misc/module.rsi
-      state: charger_APC
-    - type: MachineBoard
-      prototype: WeaponCapacitorRecharger
-      requirements: # Frontier
-        Capacitor: 2 # Frontier stackRequirements<requirements
-      stackRequirements:
-        CableMV: 5
-    - type: PhysicalComposition
-      materialComposition:
-        Steel: 30
-        Plastic: 30
-    - type: StaticPrice
-      price: 15
+  - type: Sprite
+    sprite: Objects/Misc/module.rsi
+    state: charger_APC
+  - type: MachineBoard
+    prototype: WeaponCapacitorRecharger
+    requirements: # Frontier
+      Capacitor: 2 # Frontier stackRequirements<requirements
+    stackRequirements:
+      CableMV: 5
+  - type: PhysicalComposition
+    materialComposition:
+      Steel: 30
+      Plastic: 30
+  - type: StaticPrice
+    price: 15
 
 - type: entity
   id: TurboItemRechargerCircuitboard
@@ -812,21 +812,21 @@
   name: substation machine board
   description: A machine printed circuit board for a substation.
   components:
-    - type: MachineBoard
-      prototype: SubstationBasicEmpty
-      requirements: # Frontier
-        Capacitor: 1 # Frontier stackRequirements<requirements
-        PowerCell: 1 # Frontier componentRequirements<requirements
-      stackRequirements:
-        CableMV: 5
-        CableHV: 5
-    - type: PhysicalComposition
-      materialComposition:
-        Glass: 200
-      chemicalComposition:
-        Silicon: 20
-    - type: StaticPrice
-      price: 58
+  - type: MachineBoard
+    prototype: SubstationBasicEmpty
+    requirements: # Frontier
+      Capacitor: 1 # Frontier stackRequirements<requirements
+      PowerCell: 1 # Frontier componentRequirements<requirements
+    stackRequirements:
+      CableMV: 5
+      CableHV: 5
+  - type: PhysicalComposition
+    materialComposition:
+      Glass: 200
+    chemicalComposition:
+      Silicon: 20
+  - type: StaticPrice
+    price: 58
 
 - type: entity
   parent: BaseMachineCircuitboard
@@ -841,48 +841,48 @@
       Glass: 1
       Cable: 1
     tagRequirements:
-#      One instrument to bring them all and in the darkness bind them...
-       KeyedInstrument:
-          amount: 1
-          defaultPrototype: SynthesizerInstrument
-          examineName: construction-insert-info-examine-name-instrument-keyed
-       StringInstrument:
-          amount: 1
-          defaultPrototype: AcousticGuitarInstrument
-          examineName: construction-insert-info-examine-name-instrument-string
-       PercussionInstrument:
-          amount: 1
-          defaultPrototype: GlockenspielInstrument
-          examineName: construction-insert-info-examine-name-instrument-percussion
-       BrassInstrument:
-          amount: 1
-          defaultPrototype: TrumpetInstrument
-          examineName: construction-insert-info-examine-name-instrument-brass
-       WoodwindInstrument:
-          amount: 1
-          defaultPrototype: SaxophoneInstrument
-          examineName: construction-insert-info-examine-name-instrument-woodwind
+      #      One instrument to bring them all and in the darkness bind them...
+      KeyedInstrument:
+        amount: 1
+        defaultPrototype: SynthesizerInstrument
+        examineName: construction-insert-info-examine-name-instrument-keyed
+      StringInstrument:
+        amount: 1
+        defaultPrototype: AcousticGuitarInstrument
+        examineName: construction-insert-info-examine-name-instrument-string
+      PercussionInstrument:
+        amount: 1
+        defaultPrototype: GlockenspielInstrument
+        examineName: construction-insert-info-examine-name-instrument-percussion
+      BrassInstrument:
+        amount: 1
+        defaultPrototype: TrumpetInstrument
+        examineName: construction-insert-info-examine-name-instrument-brass
+      WoodwindInstrument:
+        amount: 1
+        defaultPrototype: SaxophoneInstrument
+        examineName: construction-insert-info-examine-name-instrument-woodwind
 
 - type: entity
   id: PortableGeneratorPacmanMachineCircuitboard
   parent: BaseMachineCircuitboard
   name: P.A.C.M.A.N. portable generator machine board # Frontier: no -type
   components:
-    - type: Sprite
-      state: engineering
-    - type: MachineBoard
-      prototype: PortableGeneratorPacman
-      requirements: # Frontier
-        Capacitor: 1 # Frontier stackRequirements<requirements
-      stackRequirements:
-        CableHV: 5
-    - type: PhysicalComposition
-      materialComposition:
-        Glass: 200
-      chemicalComposition:
-        Silicon: 20
-    - type: StaticPrice
-      price: 40
+  - type: Sprite
+    state: engineering
+  - type: MachineBoard
+    prototype: PortableGeneratorPacman
+    requirements: # Frontier
+      Capacitor: 1 # Frontier stackRequirements<requirements
+    stackRequirements:
+      CableHV: 5
+  - type: PhysicalComposition
+    materialComposition:
+      Glass: 200
+    chemicalComposition:
+      Silicon: 20
+  - type: StaticPrice
+    price: 40
 
 - type: entity
   id: ThrusterMachineCircuitboard
@@ -918,43 +918,43 @@
   parent: BaseMachineCircuitboard
   name: S.U.P.E.R.P.A.C.M.A.N. portable generator machine board # Frontier: no -type
   components:
-    - type: Sprite
-      state: engineering
-    - type: MachineBoard
-      prototype: PortableGeneratorSuperPacman
-      requirements: # Frontier
-        Capacitor: 2 # Frontier stackRequirements<requirements
-      stackRequirements:
-        CableHV: 10
-    - type: PhysicalComposition
-      materialComposition:
-        Glass: 200
-      chemicalComposition:
-        Silicon: 20
-    - type: StaticPrice
-      price: 40
+  - type: Sprite
+    state: engineering
+  - type: MachineBoard
+    prototype: PortableGeneratorSuperPacman
+    requirements: # Frontier
+      Capacitor: 2 # Frontier stackRequirements<requirements
+    stackRequirements:
+      CableHV: 10
+  - type: PhysicalComposition
+    materialComposition:
+      Glass: 200
+    chemicalComposition:
+      Silicon: 20
+  - type: StaticPrice
+    price: 40
 
 - type: entity
   id: PortableGeneratorJrPacmanMachineCircuitboard
   parent: BaseMachineCircuitboard
   name: J.R.P.A.C.M.A.N. portable generator machine board # Frontier: no -type
   components:
-    - type: Sprite
-      state: engineering
-    - type: MachineBoard
-      prototype: PortableGeneratorJrPacman
-      requirements: # Frontier
-        Capacitor: 1 # Frontier stackRequirements<requirements
-      stackRequirements:
-        Cable: 10
-    - type: PhysicalComposition
-      materialComposition:
-        Glass: 200
-      chemicalComposition:
-        Silicon: 20
-    - type: StaticPrice
-      price: 40
-    - type: BindToStationExemption # Frontier - we exempt this machine from binding to grids because the intention is for it to have that ability
+  - type: Sprite
+    state: engineering
+  - type: MachineBoard
+    prototype: PortableGeneratorJrPacman
+    requirements: # Frontier
+      Capacitor: 1 # Frontier stackRequirements<requirements
+    stackRequirements:
+      Cable: 10
+  - type: PhysicalComposition
+    materialComposition:
+      Glass: 200
+    chemicalComposition:
+      Silicon: 20
+  - type: StaticPrice
+    price: 40
+  - type: BindToStationExemption # Frontier - we exempt this machine from binding to grids because the intention is for it to have that ability
 
 - type: entity
   id: ReagentGrinderMachineCircuitboard
@@ -962,15 +962,15 @@
   name: reagent grinder machine board
   description: A machine printed circuit board for a reagent grinder.
   components:
-    - type: MachineBoard
-      prototype: KitchenReagentGrinder
-      requirements: # Frontier
-        MatterBin: 2 # Frontier stackRequirements<requirements
-        Manipulator: 2 # Frontier stackRequirements<requirements
-      tagRequirements:
-        GlassBeaker:
-          amount: 1
-          defaultPrototype: Beaker
+  - type: MachineBoard
+    prototype: KitchenReagentGrinder
+    requirements: # Frontier
+      MatterBin: 2 # Frontier stackRequirements<requirements
+      Manipulator: 2 # Frontier stackRequirements<requirements
+    tagRequirements:
+      GlassBeaker:
+        amount: 1
+        defaultPrototype: Beaker
 
 - type: entity
   id: HotplateMachineCircuitboard
@@ -1008,16 +1008,16 @@
   parent: BaseMachineCircuitboard
   name: stasis bed machine board
   components:
-    - type: Sprite
-      state: medical
-    - type: MachineBoard
-      prototype: StasisBed
-      requirements: # Frontier
-        Capacitor: 1 # Frontier stackRequirements<requirements
-        Manipulator: 1 # Frontier stackRequirements<requirements
-      stackRequirements:
-        Cable: 3
-        Steel: 2
+  - type: Sprite
+    state: medical
+  - type: MachineBoard
+    prototype: StasisBed
+    requirements: # Frontier
+      Capacitor: 1 # Frontier stackRequirements<requirements
+      Manipulator: 1 # Frontier stackRequirements<requirements
+    stackRequirements:
+      Cable: 3
+      Steel: 2
 
 - type: entity
   id: ElectrolysisUnitMachineCircuitboard
@@ -1068,15 +1068,15 @@
   parent: BaseMachineCircuitboard
   name: ore processor machine board
   components:
-    - type: Sprite
-      state: supply
-    - type: MachineBoard
-      prototype: OreProcessor
-      requirements: # Frontier
-        MatterBin: 1 # Frontier stackRequirements<requirements
-        Manipulator: 3 # Frontier stackRequirements<requirements
-      stackRequirements:
-        Glass: 1
+  - type: Sprite
+    state: supply
+  - type: MachineBoard
+    prototype: OreProcessor
+    requirements: # Frontier
+      MatterBin: 1 # Frontier stackRequirements<requirements
+      Manipulator: 3 # Frontier stackRequirements<requirements
+    stackRequirements:
+      Glass: 1
 
 - type: entity
   parent: BaseMachineCircuitboard
@@ -1109,50 +1109,50 @@
   parent: BaseMachineCircuitboard
   name: microwave machine board
   components:
-    - type: Sprite
-      state: service
-    - type: MachineBoard
-      prototype: KitchenMicrowave
-      requirements: # Frontier
-        Capacitor: 1 # Frontier stackRequirements<requirements
-      stackRequirements:
-        Glass: 2
-        Cable: 2
-    - type: Tag
-      tags:
-      - MicrowaveMachineBoard
+  - type: Sprite
+    state: service
+  - type: MachineBoard
+    prototype: KitchenMicrowave
+    requirements: # Frontier
+      Capacitor: 1 # Frontier stackRequirements<requirements
+    stackRequirements:
+      Glass: 2
+      Cable: 2
+  - type: Tag
+    tags:
+    - MicrowaveMachineBoard
 
 - type: entity
   id: SyndicateMicrowaveMachineCircuitboard
   parent: BaseMachineCircuitboard
   name: donk co. microwave machine board
   components:
-    - type: Sprite
-      state: service
-    - type: MachineBoard
-      prototype: SyndicateMicrowave
-      requirements: # Frontier
-        Capacitor: 1 # Frontier stackRequirements<requirements
-      stackRequirements:
-        Glass: 2
-        Cable: 2
+  - type: Sprite
+    state: service
+  - type: MachineBoard
+    prototype: SyndicateMicrowave
+    requirements: # Frontier
+      Capacitor: 1 # Frontier stackRequirements<requirements
+    stackRequirements:
+      Glass: 2
+      Cable: 2
 
 - type: entity
   id: FatExtractorMachineCircuitboard
   parent: BaseMachineCircuitboard
   name: lipid extractor machine board
   components:
-    - type: Sprite
-      state: service
-    - type: MachineBoard
-      prototype: FatExtractor
-      requirements: # Frontier
-        Manipulator: 1 # Frontier stackRequirements<requirements
-      componentRequirements:
-        Utensil:
-          amount: 1
-          defaultPrototype: ForkPlastic
-          examineName: construction-insert-info-examine-name-utensil
+  - type: Sprite
+    state: service
+  - type: MachineBoard
+    prototype: FatExtractor
+    requirements: # Frontier
+      Manipulator: 1 # Frontier stackRequirements<requirements
+    componentRequirements:
+      Utensil:
+        amount: 1
+        defaultPrototype: ForkPlastic
+        examineName: construction-insert-info-examine-name-utensil
 
 - type: entity
   parent: BaseMachineCircuitboard
@@ -1172,15 +1172,15 @@
   parent: BaseMachineCircuitboard
   name: emitter machine board
   components:
-    - type: Sprite
-      state: engineering
-    - type: MachineBoard
-      prototype: Emitter
-      requirements: # Frontier
-        Capacitor: 2 # Frontier stackRequirements<requirements
-      stackRequirements:
-        CableHV: 5
-        Glass: 2
+  - type: Sprite
+    state: engineering
+  - type: MachineBoard
+    prototype: Emitter
+    requirements: # Frontier
+      Capacitor: 2 # Frontier stackRequirements<requirements
+    stackRequirements:
+      CableHV: 5
+      Glass: 2
 
 - type: entity
   id: SurveillanceCameraRouterCircuitboard
@@ -1274,18 +1274,18 @@
   name: booze dispenser machine board
   description: A machine printed circuit board for a booze dispenser.
   components:
-    - type: Sprite
-      state: service
-    - type: MachineBoard
-      prototype: BoozeDispenserEmpty
-      requirements: # Frontier
-        MatterBin: 1 # Frontier
-      stackRequirements:
-        Steel: 5
-      tagRequirements:
-          GlassBeaker:
-            amount: 1
-            defaultPrototype: Beaker
+  - type: Sprite
+    state: service
+  - type: MachineBoard
+    prototype: BoozeDispenserEmpty
+    requirements: # Frontier
+      MatterBin: 1 # Frontier
+    stackRequirements:
+      Steel: 5
+    tagRequirements:
+      GlassBeaker:
+        amount: 1
+        defaultPrototype: Beaker
 
 - type: entity
   id: CargoTelepadMachineCircuitboard
@@ -1293,14 +1293,14 @@
   name: cargo telepad machine board
   description: A machine printed circuit board for a cargo telepad.
   components:
-    - type: Sprite
-      state: supply
-    - type: MachineBoard
-      prototype: CargoTelepad
-      requirements: # Frontier
-        Capacitor: 2 # Frontier stackRequirements<requirements
-      stackRequirements:
-        Steel: 5
+  - type: Sprite
+    state: supply
+  - type: MachineBoard
+    prototype: CargoTelepad
+    requirements: # Frontier
+      Capacitor: 2 # Frontier stackRequirements<requirements
+    stackRequirements:
+      Steel: 5
 
 - type: entity
   id: MailTeleporterMachineCircuitboard
@@ -1322,18 +1322,18 @@
   name: soda dispenser machine board
   description: A machine printed circuit board for a soda dispenser.
   components:
-    - type: Sprite
-      state: service
-    - type: MachineBoard
-      prototype: SodaDispenserEmpty
-      requirements: # Frontier
-        MatterBin: 1 # Frontier
-      stackRequirements:
-        Steel: 5
-      tagRequirements:
-          GlassBeaker:
-            amount: 1
-            defaultPrototype: Beaker
+  - type: Sprite
+    state: service
+  - type: MachineBoard
+    prototype: SodaDispenserEmpty
+    requirements: # Frontier
+      MatterBin: 1 # Frontier
+    stackRequirements:
+      Steel: 5
+    tagRequirements:
+      GlassBeaker:
+        amount: 1
+        defaultPrototype: Beaker
 
 - type: entity
   id: TelecomServerCircuitboard
@@ -1451,13 +1451,13 @@
   name: medical biofab machine board
   description: A machine printed circuit board for a medical biofab.
   components:
-    - type: Sprite
-      state: medical
-    - type: MachineBoard
-      prototype: MedicalBiofabricator
-      requirements:
-        MatterBin: 2
-        Manipulator: 2
+  - type: Sprite
+    state: medical
+  - type: MachineBoard
+    prototype: MedicalBiofabricator
+    requirements:
+      MatterBin: 2
+      Manipulator: 2
 # Shitmed Change End
 
 # Mono - #3899 organ harvesting

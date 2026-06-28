@@ -8,9 +8,8 @@ public sealed class ExpeditionDiskPrinterBoundUserInterface : BoundUserInterface
     [ViewVariables]
     private ExpeditionDiskPrinterMenu? _menu;
 
-    public ExpeditionDiskPrinterBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-    }
+    public ExpeditionDiskPrinterBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {

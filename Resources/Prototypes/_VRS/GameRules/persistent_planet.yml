@@ -6,7 +6,7 @@
 - type: entity
   id: VRSPersistentPlanet
   parent: BaseGameRule
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: VRSPersistentPlanetRule
     # Continental gives grass + snow + lava + caves on a single planet so

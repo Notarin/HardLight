@@ -7,10 +7,10 @@
   - type: Sprite
     sprite: _Goobstation/Objects/Weapons/Guns/Rifles/annie.rsi
     layers:
-      - state: base
-        map: ["enum.GunVisualLayers.Base"]
-      - state: mag-0
-        map: ["enum.GunVisualLayers.Mag"]
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
   - type: Clothing
     sprite: _Goobstation/Objects/Weapons/Guns/Rifles/annie.rsi
   - type: Gun
@@ -37,7 +37,7 @@
         priority: 2
         whitelist:
           tags:
-            - Magazine762x39mmFMJ
+          - Magazine762x39mmFMJ
         whitelistFailPopup: gun-magazine-whitelist-fail
       gun_chamber:
         name: Chamber
@@ -45,7 +45,7 @@
         priority: 1
         whitelist:
           tags:
-            - Cartridge762x39mmFMJ
+          - Cartridge762x39mmFMJ
   - type: ContainerContainer
     containers:
       gun_magazine: !type:ContainerSlot
@@ -67,10 +67,10 @@
   - type: Sprite
     sprite: _Goobstation/Objects/Weapons/Guns/Rifles/wspr.rsi
     layers:
-      - state: base
-        map: ["enum.GunVisualLayers.Base"]
-      - state: mag-0
-        map: ["enum.GunVisualLayers.Mag"]
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
   - type: Clothing
     sprite: _Goobstation/Objects/Weapons/Guns/Rifles/wspr.rsi
   - type: Gun
@@ -93,8 +93,8 @@
         priority: 2
         whitelist:
           tags:
-            - Magazine762x39mmSubsonic
-            - Magazine762x39mmFMJ
+          - Magazine762x39mmSubsonic
+          - Magazine762x39mmFMJ
         whitelistFailPopup: gun-magazine-whitelist-fail
       gun_chamber:
         name: Chamber
@@ -102,8 +102,8 @@
         priority: 1
         whitelist:
           tags:
-            - Cartridge762x39mmSubsonic
-            - Cartridge762x39mmFMJ
+          - Cartridge762x39mmSubsonic
+          - Cartridge762x39mmFMJ
   - type: MagazineVisuals
     magState: mag
     steps: 1

@@ -7,6 +7,4 @@ namespace Content.Server._HL;
 /// Dummy Node group class for handling the explosive cables.
 /// </summary>
 [NodeGroup(NodeGroupID.NullEnforcer)]
-public sealed class NullEnforcerNodeGroup : BaseNodeGroup
-{
-}
+public sealed class NullEnforcerNodeGroup : BaseNodeGroup { }

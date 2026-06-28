@@ -41,7 +41,7 @@
   parent: ClothingOuterWinterCoat
   id: ClothingOuterWinterCoatToggleable
   name: winter coat with hood
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: ToggleableClothing
     clothingPrototype: ClothingHeadHatHoodWinterDefault
@@ -168,7 +168,7 @@
     clothingPrototype: ClothingHeadHatHoodWinterCE
 
 - type: entity
-  parent: [ ClothingOuterWinterCoatToggleable, BaseColcommContraband ]
+  parent: [ClothingOuterWinterCoatToggleable, BaseColcommContraband]
   id: ClothingOuterWinterCentcom
   name: ColComm winter coat
   components:
@@ -357,7 +357,6 @@
       - state: HOP-equipped-OUTERCLOTHING
   - type: ToggleableClothing
     clothingPrototype: ClothingHeadHatHoodWinterHOP
-
 
 ##########################################################
 - type: entity
@@ -580,7 +579,6 @@
   - type: ToggleableClothing
     clothingPrototype: ClothingHeadHatHoodWinterQM
 
-
 - type: entity
   parent: ClothingOuterWinterCoatToggleable # Frontier: removed BaseCommandContraband
   id: ClothingOuterWinterRD
@@ -633,7 +631,6 @@
       - state: ROBO-equipped-OUTERCLOTHING
   - type: ToggleableClothing
     clothingPrototype: ClothingHeadHatHoodWinterRobo
-
 
 - type: entity
   parent: ClothingOuterWinterCoatToggleable
@@ -861,9 +858,9 @@
       amount: 5
   - type: FlavorProfile
     flavors:
-      - cobwebs
+    - cobwebs
     ignoreReagents:
-      - Fiber
+    - Fiber
   - type: SolutionContainerManager
     solutions: # 15 (3 (fiber count of web) * 5 (to craft)) + 5 (magical crafting bonus)
       food:

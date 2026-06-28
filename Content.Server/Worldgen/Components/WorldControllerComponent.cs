@@ -20,6 +20,6 @@ public sealed partial class WorldControllerComponent : Component
     /// <summary>
     ///     An index of chunks owned by the controller.
     /// </summary>
-    [DataField("chunks")] public Dictionary<Vector2i, EntityUid> Chunks = new();
+    [DataField("chunks")]
+    public Dictionary<Vector2i, EntityUid> Chunks = new();
 }
-

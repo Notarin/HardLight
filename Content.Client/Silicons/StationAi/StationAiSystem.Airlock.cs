@@ -24,13 +24,8 @@ public sealed partial class StationAiSystem
                 Sprite = ent.Comp.BoltsDown
                     ? new SpriteSpecifier.Rsi(_aiActionsRsi, "unbolt_door")
                     : new SpriteSpecifier.Rsi(_aiActionsRsi, "bolt_door"),
-                Tooltip = ent.Comp.BoltsDown
-                    ? Loc.GetString("bolt-open")
-                    : Loc.GetString("bolt-close"),
-                Event = new StationAiBoltEvent
-                {
-                    Bolted = !ent.Comp.BoltsDown,
-                }
+                Tooltip = ent.Comp.BoltsDown ? Loc.GetString("bolt-open") : Loc.GetString("bolt-close"),
+                Event = new StationAiBoltEvent { Bolted = !ent.Comp.BoltsDown },
             }
         );
     }
@@ -46,10 +41,7 @@ public sealed partial class StationAiSystem
                 Tooltip = ent.Comp.EmergencyAccess
                     ? Loc.GetString("emergency-access-off")
                     : Loc.GetString("emergency-access-on"),
-                Event = new StationAiEmergencyAccessEvent
-                {
-                    EmergencyAccess = !ent.Comp.EmergencyAccess,
-                }
+                Event = new StationAiEmergencyAccessEvent { EmergencyAccess = !ent.Comp.EmergencyAccess },
             }
         );
     }
@@ -62,13 +54,8 @@ public sealed partial class StationAiSystem
                 Sprite = ent.Comp.Enabled
                     ? new SpriteSpecifier.Rsi(_aiActionsRsi, "door_overcharge_off")
                     : new SpriteSpecifier.Rsi(_aiActionsRsi, "door_overcharge_on"),
-                Tooltip = ent.Comp.Enabled
-                    ? Loc.GetString("electrify-door-off")
-                    : Loc.GetString("electrify-door-on"),
-                Event = new StationAiElectrifiedEvent
-                {
-                    Electrified = !ent.Comp.Enabled,
-                }
+                Tooltip = ent.Comp.Enabled ? Loc.GetString("electrify-door-off") : Loc.GetString("electrify-door-on"),
+                Event = new StationAiElectrifiedEvent { Electrified = !ent.Comp.Enabled },
             }
         );
     }

@@ -31,23 +31,56 @@ namespace Content.Shared._Goobstation.MartialArts;
 /// </summary>
 public abstract partial class SharedMartialArtsSystem : EntitySystem
 {
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly PullingSystem _pulling = default!;
-    [Dependency] private readonly StatusEffectsSystem _status = default!;
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly SharedStaminaSystem _stamina = default!; // HardLight: StaminSystem<SharedStaminaSystem
-    [Dependency] private readonly GrabThrownSystem _grabThrowing = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedStunSystem _stun = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
-    [Dependency] private readonly INetManager _netManager = default!;
-    [Dependency] private readonly StandingStateSystem _standingState = default!;
+    [Dependency]
+    private readonly SharedPopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private readonly PullingSystem _pulling = default!;
+
+    [Dependency]
+    private readonly StatusEffectsSystem _status = default!;
+
+    [Dependency]
+    private readonly DamageableSystem _damageable = default!;
+
+    [Dependency]
+    private readonly SharedStaminaSystem _stamina = default!; // HardLight: StaminSystem<SharedStaminaSystem
+
+    [Dependency]
+    private readonly GrabThrownSystem _grabThrowing = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly SharedStunSystem _stun = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly EntityLookupSystem _lookup = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly SharedHandsSystem _hands = default!;
+
+    [Dependency]
+    private readonly SharedActionsSystem _actions = default!;
+
+    [Dependency]
+    private readonly INetManager _netManager = default!;
+
+    [Dependency]
+    private readonly StandingStateSystem _standingState = default!;
 
     public override void Initialize()
     {
@@ -102,13 +135,16 @@ public abstract partial class SharedMartialArtsSystem : EntitySystem
         if (args.Handled)
             return;
 
-        if(!_proto.TryIndex<MartialArtPrototype>(ent.Comp.MartialArtsForm.ToString(), out var martialArtsPrototype))
+        if (!_proto.TryIndex<MartialArtPrototype>(ent.Comp.MartialArtsForm.ToString(), out var martialArtsPrototype))
             return;
 
         if (!martialArtsPrototype.RandomDamageModifier)
             return;
 
-        var randomDamage = _random.Next(martialArtsPrototype.MinRandomDamageModifier, martialArtsPrototype.MaxRandomDamageModifier);
+        var randomDamage = _random.Next(
+            martialArtsPrototype.MinRandomDamageModifier,
+            martialArtsPrototype.MaxRandomDamageModifier
+        );
         var bonusDamageSpec = new DamageSpecifier();
         bonusDamageSpec.DamageDict.Add("Blunt", randomDamage);
         args.BonusDamage += bonusDamageSpec;
@@ -116,7 +152,7 @@ public abstract partial class SharedMartialArtsSystem : EntitySystem
 
     private void OnShutdown(Entity<MartialArtsKnowledgeComponent> ent, ref ComponentShutdown args)
     {
-        if(TryComp<CanPerformComboComponent>(ent, out var comboComponent))
+        if (TryComp<CanPerformComboComponent>(ent, out var comboComponent))
             comboComponent.AllowedCombos.Clear();
     }
 
@@ -129,9 +165,7 @@ public abstract partial class SharedMartialArtsSystem : EntitySystem
 
     private void OnSilencedSpeakAttempt(Entity<KravMagaSilencedComponent> ent, ref SpeakAttemptEvent args)
     {
-        _popupSystem.PopupEntity(Loc.GetString("popup-grabbed-cant-speak"),
-            ent,
-            ent); // You cant speak while someone is choking you
+        _popupSystem.PopupEntity(Loc.GetString("popup-grabbed-cant-speak"), ent, ent); // You cant speak while someone is choking you
         args.Cancel();
     }
 
@@ -149,16 +183,16 @@ public abstract partial class SharedMartialArtsSystem : EntitySystem
             return;
         var userName = Identity.Entity(user, EntityManager);
         var targetName = Identity.Entity(target, EntityManager);
-        _popupSystem.PopupEntity(Loc.GetString("martial-arts-action-sender",
-            ("name", targetName),
-            ("move", comboName)),
+        _popupSystem.PopupEntity(
+            Loc.GetString("martial-arts-action-sender", ("name", targetName), ("move", comboName)),
             user,
-            user);
-        _popupSystem.PopupEntity(Loc.GetString("martial-arts-action-receiver",
-            ("name", userName),
-            ("move", comboName)),
+            user
+        );
+        _popupSystem.PopupEntity(
+            Loc.GetString("martial-arts-action-receiver", ("name", userName), ("move", comboName)),
             target,
-            target);
+            target
+        );
     }
 
     #endregion
@@ -211,8 +245,10 @@ public abstract partial class SharedMartialArtsSystem : EntitySystem
         var martialArtsKnowledgeComponent = EnsureComp<MartialArtsKnowledgeComponent>(user);
         var pullerComponent = EnsureComp<PullerComponent>(user);
 
-        if (!_proto.TryIndex<MartialArtPrototype>(comp.MartialArtsForm.ToString(), out var martialArtsPrototype)
-            || !TryComp<MeleeWeaponComponent>(user, out var meleeWeaponComponent))
+        if (
+            !_proto.TryIndex<MartialArtPrototype>(comp.MartialArtsForm.ToString(), out var martialArtsPrototype)
+            || !TryComp<MeleeWeaponComponent>(user, out var meleeWeaponComponent)
+        )
             return false;
 
         martialArtsKnowledgeComponent.MartialArtsForm = martialArtsPrototype.MartialArtsForm;
@@ -241,10 +277,12 @@ public abstract partial class SharedMartialArtsSystem : EntitySystem
         }
     }
 
-    private bool TryUseMartialArt(Entity<CanPerformComboComponent> ent,
+    private bool TryUseMartialArt(
+        Entity<CanPerformComboComponent> ent,
         MartialArtsForms form,
         out EntityUid target,
-        out bool downed)
+        out bool downed
+    )
     {
         target = EntityUid.Invalid;
         downed = false;
@@ -276,18 +314,25 @@ public abstract partial class SharedMartialArtsSystem : EntitySystem
         return false;
     }
 
-    private void DoDamage(EntityUid ent,
+    private void DoDamage(
+        EntityUid ent,
         EntityUid target,
         string damageType,
         int damageAmount,
         out DamageSpecifier damage,
-        TargetBodyPart? targetBodyPart = null)
+        TargetBodyPart? targetBodyPart = null
+    )
     {
         damage = new DamageSpecifier();
-        if(!TryComp<TargetingComponent>(ent, out var targetingComponent))
+        if (!TryComp<TargetingComponent>(ent, out var targetingComponent))
             return;
         damage.DamageDict.Add(damageType, damageAmount);
-        _damageable.TryChangeDamage(target, damage, origin: ent, targetPart: targetBodyPart ?? targetingComponent.Target);
+        _damageable.TryChangeDamage(
+            target,
+            damage,
+            origin: ent,
+            targetPart: targetBodyPart ?? targetingComponent.Target
+        );
     }
 
     #endregion

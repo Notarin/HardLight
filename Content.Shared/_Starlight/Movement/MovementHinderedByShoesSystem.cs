@@ -1,13 +1,14 @@
-using Content.Shared.Inventory;
-using Content.Shared.Body.Components;
-using Content.Shared.Movement.Systems;
 using Content.Shared._Starlight.Movement.Components;
+using Content.Shared.Body.Components;
+using Content.Shared.Inventory;
+using Content.Shared.Movement.Systems;
 
 namespace Content.Shared._Starlight.Movement;
 
 public sealed class MovementHinderedByShoesSystem : EntitySystem
 {
-    [Dependency] private readonly InventorySystem _inventory = default!;
+    [Dependency]
+    private readonly InventorySystem _inventory = default!;
 
     public override void Initialize()
     {
@@ -21,7 +22,7 @@ public sealed class MovementHinderedByShoesSystem : EntitySystem
         // shoes check
         if (!_inventory.TryGetSlotEntity(uid, "shoes", out var _))
             return;
-     
+
         float hinderModifier = 0f;
 
         foreach (var legEntity in body.LegEntities)

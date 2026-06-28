@@ -22,10 +22,16 @@ public sealed partial class DiskConsoleComponent : Component
     /// <summary>
     /// The prototype of what's being printed
     /// </summary>
-    [DataField("diskPrototype", customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>)), ViewVariables(VVAccess.ReadWrite)]
+    [
+        DataField("diskPrototype", customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>)),
+        ViewVariables(VVAccess.ReadWrite)
+    ]
     public string DiskPrototype = "TechnologyDisk";
 
-    [DataField("diskPrototypeRare", customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>)), ViewVariables(VVAccess.ReadWrite)] // Frontier
+    [
+        DataField("diskPrototypeRare", customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>)),
+        ViewVariables(VVAccess.ReadWrite)
+    ] // Frontier
     public string DiskPrototypeRare = "TechnologyDiskRare"; // Frontier
 
     [DataField, ViewVariables(VVAccess.ReadWrite)] // Frontier

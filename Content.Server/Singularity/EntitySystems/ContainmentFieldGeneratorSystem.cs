@@ -17,13 +17,26 @@ namespace Content.Server.Singularity.EntitySystems;
 
 public sealed class ContainmentFieldGeneratorSystem : EntitySystem
 {
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly AppearanceSystem _visualizer = default!;
-    [Dependency] private readonly PhysicsSystem _physics = default!;
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedPointLightSystem _light = default!;
-    [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
-    [Dependency] private readonly TagSystem _tags = default!;
+    [Dependency]
+    private readonly IAdminLogManager _adminLogger = default!;
+
+    [Dependency]
+    private readonly AppearanceSystem _visualizer = default!;
+
+    [Dependency]
+    private readonly PhysicsSystem _physics = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly SharedPointLightSystem _light = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transformSystem = default!;
+
+    [Dependency]
+    private readonly TagSystem _tags = default!;
 
     public override void Initialize()
     {
@@ -74,10 +87,15 @@ public sealed class ContainmentFieldGeneratorSystem : EntitySystem
     /// <summary>
     /// A generator receives power from a source colliding with it.
     /// </summary>
-    private void HandleGeneratorCollide(Entity<ContainmentFieldGeneratorComponent> generator, ref StartCollideEvent args)
+    private void HandleGeneratorCollide(
+        Entity<ContainmentFieldGeneratorComponent> generator,
+        ref StartCollideEvent args
+    )
     {
-        if (args.OtherFixtureId == generator.Comp.SourceFixtureId &&
-            _tags.HasTag(args.OtherEntity, generator.Comp.IDTag))
+        if (
+            args.OtherFixtureId == generator.Comp.SourceFixtureId
+            && _tags.HasTag(args.OtherEntity, generator.Comp.IDTag)
+        )
         {
             ReceivePower(generator.Comp.PowerReceived, generator);
             generator.Comp.Accumulator = 0f;
@@ -88,7 +106,6 @@ public sealed class ContainmentFieldGeneratorSystem : EntitySystem
     {
         if (component.Enabled)
             args.PushMarkup(Loc.GetString("comp-containment-on"));
-
         else
             args.PushMarkup(Loc.GetString("comp-containment-off"));
     }
@@ -104,7 +121,12 @@ public sealed class ContainmentFieldGeneratorSystem : EntitySystem
                 TurnOn(generator);
             else if (generator.Comp.Enabled && generator.Comp.IsConnected)
             {
-                _popupSystem.PopupEntity(Loc.GetString("comp-containment-toggle-warning"), args.User, args.User, PopupType.LargeCaution);
+                _popupSystem.PopupEntity(
+                    Loc.GetString("comp-containment-toggle-warning"),
+                    args.User,
+                    args.User,
+                    PopupType.LargeCaution
+                );
                 return;
             }
             else
@@ -124,12 +146,20 @@ public sealed class ContainmentFieldGeneratorSystem : EntitySystem
         GridCheck(generator);
     }
 
-    private void OnUnanchorAttempt(EntityUid uid, ContainmentFieldGeneratorComponent component,
-        UnanchorAttemptEvent args)
+    private void OnUnanchorAttempt(
+        EntityUid uid,
+        ContainmentFieldGeneratorComponent component,
+        UnanchorAttemptEvent args
+    )
     {
         if (component.Enabled || component.IsConnected)
         {
-            _popupSystem.PopupEntity(Loc.GetString("comp-containment-anchor-warning"), args.User, args.User, PopupType.LargeCaution);
+            _popupSystem.PopupEntity(
+                Loc.GetString("comp-containment-anchor-warning"),
+                args.User,
+                args.User,
+                PopupType.LargeCaution
+            );
             args.Cancel();
         }
     }
@@ -204,7 +234,7 @@ public sealed class ContainmentFieldGeneratorSystem : EntitySystem
         if (component.PowerBuffer >= component.PowerMinimum)
         {
             var directions = Enum.GetValues<Direction>().Length;
-            for (int i = 0; i < directions-1; i+=2)
+            for (int i = 0; i < directions - 1; i += 2)
             {
                 var dir = (Direction)i;
 
@@ -239,7 +269,11 @@ public sealed class ContainmentFieldGeneratorSystem : EntitySystem
     /// <param name="generator">The field generator component</param>
     /// <param name="gen1XForm">The transform component for the first generator</param>
     /// <returns></returns>
-    private bool TryGenerateFieldConnection(Direction dir, Entity<ContainmentFieldGeneratorComponent> generator, TransformComponent gen1XForm)
+    private bool TryGenerateFieldConnection(
+        Direction dir,
+        Entity<ContainmentFieldGeneratorComponent> generator,
+        TransformComponent gen1XForm
+    )
     {
         var component = generator.Comp;
         if (!component.Enabled)
@@ -269,11 +303,13 @@ public sealed class ContainmentFieldGeneratorSystem : EntitySystem
 
         var ent = closestResult.Value.HitEntity;
 
-        if (!TryComp<ContainmentFieldGeneratorComponent>(ent, out var otherFieldGeneratorComponent) ||
-            otherFieldGeneratorComponent == component ||
-            !TryComp<PhysicsComponent>(ent, out var collidableComponent) ||
-            collidableComponent.BodyType != BodyType.Static ||
-            gen1XForm.ParentUid != Transform(ent).ParentUid)
+        if (
+            !TryComp<ContainmentFieldGeneratorComponent>(ent, out var otherFieldGeneratorComponent)
+            || otherFieldGeneratorComponent == component
+            || !TryComp<PhysicsComponent>(ent, out var collidableComponent)
+            || collidableComponent.BodyType != BodyType.Static
+            || gen1XForm.ParentUid != Transform(ent).ParentUid
+        )
         {
             return false;
         }
@@ -310,7 +346,10 @@ public sealed class ContainmentFieldGeneratorSystem : EntitySystem
     /// <param name="firstGen">The source field generator</param>
     /// <param name="secondGen">The second generator that the source is connected to</param>
     /// <returns></returns>
-    private List<EntityUid> GenerateFieldConnection(Entity<ContainmentFieldGeneratorComponent> firstGen, Entity<ContainmentFieldGeneratorComponent> secondGen)
+    private List<EntityUid> GenerateFieldConnection(
+        Entity<ContainmentFieldGeneratorComponent> firstGen,
+        Entity<ContainmentFieldGeneratorComponent> secondGen
+    )
     {
         var fieldList = new List<EntityUid>();
         var gen1Coords = Transform(firstGen).Coordinates;
@@ -381,14 +420,18 @@ public sealed class ContainmentFieldGeneratorSystem : EntitySystem
     private void ChangePowerVisualizer(int power, Entity<ContainmentFieldGeneratorComponent> generator)
     {
         var component = generator.Comp;
-        _visualizer.SetData(generator, ContainmentFieldGeneratorVisuals.PowerLight, component.PowerBuffer switch
-        {
-            <= 0 => PowerLevelVisuals.NoPower,
-            >= 25 => PowerLevelVisuals.HighPower,
-            _ => (component.PowerBuffer < component.PowerMinimum)
-                ? PowerLevelVisuals.LowPower
-                : PowerLevelVisuals.MediumPower
-        });
+        _visualizer.SetData(
+            generator,
+            ContainmentFieldGeneratorVisuals.PowerLight,
+            component.PowerBuffer switch
+            {
+                <= 0 => PowerLevelVisuals.NoPower,
+                >= 25 => PowerLevelVisuals.HighPower,
+                _ => (component.PowerBuffer < component.PowerMinimum)
+                    ? PowerLevelVisuals.LowPower
+                    : PowerLevelVisuals.MediumPower,
+            }
+        );
     }
 
     /// <summary>
@@ -397,12 +440,16 @@ public sealed class ContainmentFieldGeneratorSystem : EntitySystem
     /// <param name="generator"></param>
     private void ChangeFieldVisualizer(Entity<ContainmentFieldGeneratorComponent> generator)
     {
-        _visualizer.SetData(generator, ContainmentFieldGeneratorVisuals.FieldLight, generator.Comp.Connections.Count switch
-        {
-            >1 => FieldLevelVisuals.MultipleFields,
-            1 => FieldLevelVisuals.OneField,
-            _ => generator.Comp.Enabled ? FieldLevelVisuals.On : FieldLevelVisuals.NoLevel
-        });
+        _visualizer.SetData(
+            generator,
+            ContainmentFieldGeneratorVisuals.FieldLight,
+            generator.Comp.Connections.Count switch
+            {
+                > 1 => FieldLevelVisuals.MultipleFields,
+                1 => FieldLevelVisuals.OneField,
+                _ => generator.Comp.Enabled ? FieldLevelVisuals.On : FieldLevelVisuals.NoLevel,
+            }
+        );
     }
 
     private void ChangeOnLightVisualizer(Entity<ContainmentFieldGeneratorComponent> generator)
@@ -417,7 +464,11 @@ public sealed class ContainmentFieldGeneratorSystem : EntitySystem
     /// <param name="uid">The entity the singularity is trying to eat.</param>
     /// <param name="comp">The containment field generator the singularity is trying to eat.</param>
     /// <param name="args">The event arguments.</param>
-    private void PreventBreach(EntityUid uid, ContainmentFieldGeneratorComponent comp, ref EventHorizonAttemptConsumeEntityEvent args)
+    private void PreventBreach(
+        EntityUid uid,
+        ContainmentFieldGeneratorComponent comp,
+        ref EventHorizonAttemptConsumeEntityEvent args
+    )
     {
         if (args.Cancelled)
             return;

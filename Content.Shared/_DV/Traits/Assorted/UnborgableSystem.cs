@@ -12,7 +12,8 @@ namespace Content.Shared._DV.Traits.Assorted;
 /// </summary>
 public sealed class UnborgableSystem : EntitySystem
 {
-    [Dependency] private readonly SharedBodySystem _body = default!;
+    [Dependency]
+    private readonly SharedBodySystem _body = default!;
 
     public override void Initialize()
     {

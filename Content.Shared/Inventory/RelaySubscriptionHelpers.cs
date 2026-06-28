@@ -21,7 +21,8 @@ public static class RelaySubscriptionHelpers
         EntityEventRefHandler<TComp, TEvent> handler,
         bool baseEvent = true,
         bool inventory = true,
-        bool held = true)
+        bool held = true
+    )
         where TEvent : notnull
         where TComp : IComponent
     {
@@ -30,18 +31,22 @@ public static class RelaySubscriptionHelpers
 
         if (inventory)
         {
-            subs.SubscribeLocalEvent((Entity<TComp> ent, ref InventoryRelayedEvent<TEvent> ev) =>
-            {
-                handler(ent, ref ev.Args);
-            });
+            subs.SubscribeLocalEvent(
+                (Entity<TComp> ent, ref InventoryRelayedEvent<TEvent> ev) =>
+                {
+                    handler(ent, ref ev.Args);
+                }
+            );
         }
 
         if (held)
         {
-            subs.SubscribeLocalEvent((Entity<TComp> ent, ref HeldRelayedEvent<TEvent> ev) =>
-            {
-                handler(ent, ref ev.Args);
-            });
+            subs.SubscribeLocalEvent(
+                (Entity<TComp> ent, ref HeldRelayedEvent<TEvent> ev) =>
+                {
+                    handler(ent, ref ev.Args);
+                }
+            );
         }
     }
 
@@ -59,7 +64,8 @@ public static class RelaySubscriptionHelpers
         ComponentEventHandler<TComp, TEvent> handler,
         bool baseEvent = true,
         bool inventory = true,
-        bool held = true)
+        bool held = true
+    )
         where TEvent : notnull
         where TComp : IComponent
     {
@@ -68,18 +74,22 @@ public static class RelaySubscriptionHelpers
 
         if (inventory)
         {
-            subs.SubscribeLocalEvent((EntityUid uid, TComp component, InventoryRelayedEvent<TEvent> args) =>
-            {
-                handler(uid, component, args.Args);
-            });
+            subs.SubscribeLocalEvent(
+                (EntityUid uid, TComp component, InventoryRelayedEvent<TEvent> args) =>
+                {
+                    handler(uid, component, args.Args);
+                }
+            );
         }
 
         if (held)
         {
-            subs.SubscribeLocalEvent((EntityUid uid, TComp component, HeldRelayedEvent<TEvent> args) =>
-            {
-                handler(uid, component, args.Args);
-            });
+            subs.SubscribeLocalEvent(
+                (EntityUid uid, TComp component, HeldRelayedEvent<TEvent> args) =>
+                {
+                    handler(uid, component, args.Args);
+                }
+            );
         }
     }
 
@@ -97,7 +107,8 @@ public static class RelaySubscriptionHelpers
         ComponentEventRefHandler<TComp, TEvent> handler,
         bool baseEvent = true,
         bool inventory = true,
-        bool held = true)
+        bool held = true
+    )
         where TEvent : notnull
         where TComp : IComponent
     {
@@ -106,18 +117,22 @@ public static class RelaySubscriptionHelpers
 
         if (inventory)
         {
-            subs.SubscribeLocalEvent((EntityUid uid, TComp component, ref InventoryRelayedEvent<TEvent> args) =>
-            {
-                handler(uid, component, ref args.Args);
-            });
+            subs.SubscribeLocalEvent(
+                (EntityUid uid, TComp component, ref InventoryRelayedEvent<TEvent> args) =>
+                {
+                    handler(uid, component, ref args.Args);
+                }
+            );
         }
 
         if (held)
         {
-            subs.SubscribeLocalEvent((EntityUid uid, TComp component, ref HeldRelayedEvent<TEvent> args) =>
-            {
-                handler(uid, component, ref args.Args);
-            });
+            subs.SubscribeLocalEvent(
+                (EntityUid uid, TComp component, ref HeldRelayedEvent<TEvent> args) =>
+                {
+                    handler(uid, component, ref args.Args);
+                }
+            );
         }
     }
 }

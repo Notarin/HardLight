@@ -12,9 +12,8 @@ public sealed class StackFilterBUI : BoundUserInterface
 {
     private StackFilterWindow? _window;
 
-    public StackFilterBUI(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-    }
+    public StackFilterBUI(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {

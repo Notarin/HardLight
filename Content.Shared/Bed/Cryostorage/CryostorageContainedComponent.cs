@@ -21,7 +21,11 @@ public sealed partial class CryostorageContainedComponent : Component
     /// <summary>
     /// The time at which the cryostorage grace period ends.
     /// </summary>
-    [DataField(customTypeSerializer: typeof(TimeOffsetSerializer)), ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
+    [
+        DataField(customTypeSerializer: typeof(TimeOffsetSerializer)),
+        ViewVariables(VVAccess.ReadWrite),
+        AutoNetworkedField
+    ]
     [AutoPausedField]
     public TimeSpan? GracePeriodEndTime;
 

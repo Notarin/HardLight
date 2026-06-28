@@ -28,13 +28,11 @@ public sealed partial class CardComponent : Component
     [DataField(readOnly: true), AutoNetworkedField]
     public bool Flipped = false;
 
-
     /// <summary>
     /// The name of the card.
     /// </summary>
     [DataField(readOnly: true), AutoNetworkedField]
     public string Name = "";
-
 }
 
 [Serializable, NetSerializable]

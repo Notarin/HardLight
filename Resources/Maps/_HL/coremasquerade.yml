@@ -96940,9 +96940,7 @@ entities:
         - ClothingSpeedModifier
         entries:
         - message: >-
-            It provides the following protection:
-
-            - [color=orange]Explosion[/color] damage [color=white]to contents[/color] reduced by [color=lightblue]10%[/color].
+            It provides the following protection: #magic___^_^___line - [color=orange]Explosion[/color] damage [color=white]to contents[/color] reduced by [color=lightblue]10%[/color].
           priority: 0
           component: Armor
         - message: This decreases your running speed by [color=yellow]10%[/color].
@@ -96977,9 +96975,7 @@ entities:
         - ClothingSpeedModifier
         entries:
         - message: >-
-            It provides the following protection:
-
-            - [color=orange]Explosion[/color] damage [color=white]to contents[/color] reduced by [color=lightblue]10%[/color].
+            It provides the following protection: #magic___^_^___line - [color=orange]Explosion[/color] damage [color=white]to contents[/color] reduced by [color=lightblue]10%[/color].
           priority: 0
           component: Armor
         title: null
@@ -169708,9 +169704,7 @@ entities:
 
         [italic]Please pretend that this was not an oversight, but instead an intended decision.[/italic]
 
-
         It is now a spare substation for any case where a substation or APC becomes damaged or wears out over time.
-
 
         [italic]Best wishes, [bold]NanoTrasen Technical Build Team.[/bold][/italic]
       editingDisabled: True
@@ -169778,18 +169772,13 @@ entities:
 
         Hi there!
 
-
         Don't ask just how long it took me to get this thing to work.
-
 
         It's, uh, unstable as hell, still.
 
-
         Just put it in the AME and hope it doesn't blow up while you set up som Radcollectors around the ESSM.
 
-
         You got this!
-
 
         -Caelo Quillwing, Head of Experimental Research, Colonial Command
     - type: Tag
@@ -225315,4 +225304,3 @@ entities:
     - type: Transform
       pos: 23.433456,-65.575584
       parent: 2
-...

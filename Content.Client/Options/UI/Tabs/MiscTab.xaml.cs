@@ -14,8 +14,11 @@ namespace Content.Client.Options.UI.Tabs;
 [GenerateTypedNameReferences]
 public sealed partial class MiscTab : Control
 {
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
 
     public MiscTab()
     {
@@ -33,7 +36,12 @@ public sealed partial class MiscTab : Control
         var layoutEntries = new List<OptionDropDownCVar<string>.ValueOption>();
         foreach (var layout in Enum.GetValues(typeof(ScreenType)))
         {
-            layoutEntries.Add(new OptionDropDownCVar<string>.ValueOption(layout.ToString()!, Loc.GetString($"ui-options-hud-layout-{layout.ToString()!.ToLower()}")));
+            layoutEntries.Add(
+                new OptionDropDownCVar<string>.ValueOption(
+                    layout.ToString()!,
+                    Loc.GetString($"ui-options-hud-layout-{layout.ToString()!.ToLower()}")
+                )
+            );
         }
 
         // Channel can be null in replays so.

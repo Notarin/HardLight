@@ -4,11 +4,11 @@ using Robust.Client.GameObjects;
 using Robust.Client.Input;
 using Robust.Client.Player;
 using Robust.Client.State;
-using Robust.Client.UserInterface.CustomControls;
 using Robust.Client.UserInterface;
+using Robust.Client.UserInterface.CustomControls;
 using Robust.Shared.Map;
-using Robust.Shared.Physics.Systems;
 using Robust.Shared.Physics;
+using Robust.Shared.Physics.Systems;
 
 namespace Content.Client.Sprite;
 
@@ -19,14 +19,29 @@ public sealed class SpriteFadeSystem : EntitySystem
      * so the player is still visible.
      */
 
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IStateManager _stateManager = default!;
-    [Dependency] private readonly FixtureSystem _fixtures = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
-    [Dependency] private readonly IInputManager _inputManager = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly IStateManager _stateManager = default!;
+
+    [Dependency]
+    private readonly FixtureSystem _fixtures = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly IUserInterfaceManager _uiManager = default!;
+
+    [Dependency]
+    private readonly IInputManager _inputManager = default!;
+
+    [Dependency]
+    private readonly SharedPhysicsSystem _physics = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     private List<(MapCoordinates Point, bool ExcludeBoundingBox)> _points = new();
 
@@ -72,8 +87,7 @@ public sealed class SpriteFadeSystem : EntitySystem
         // ExcludeBoundingBox is set if we don't want to fade this sprite within the collision bounding boxes for the given POI
         _points.Clear();
 
-        if (_uiManager.CurrentlyHovered is IViewportControl vp
-            && _inputManager.MouseScreenPosition.IsValid)
+        if (_uiManager.CurrentlyHovered is IViewportControl vp && _inputManager.MouseScreenPosition.IsValid)
         {
             _points.Add((vp.PixelToMap(_inputManager.MouseScreenPosition.Position), true));
         }
@@ -83,17 +97,22 @@ public sealed class SpriteFadeSystem : EntitySystem
             _points.Add((_transform.GetMapCoordinates(_playerManager.LocalEntity!.Value, xform: playerXform), false));
         }
 
-        if (_stateManager.CurrentState is GameplayState state && _spriteQuery.TryGetComponent(player, out var playerSprite))
+        if (
+            _stateManager.CurrentState is GameplayState state
+            && _spriteQuery.TryGetComponent(player, out var playerSprite)
+        )
         {
             foreach (var (mapPos, excludeBB) in _points)
             {
                 // Also want to handle large entities even if they may not be clickable.
                 foreach (var ent in state.GetClickableEntities(mapPos, excludeFaded: false))
                 {
-                    if (ent == player ||
-                        !_fadeQuery.HasComponent(ent) ||
-                        !_spriteQuery.TryGetComponent(ent, out var sprite) ||
-                        sprite.DrawDepth < playerSprite.DrawDepth)
+                    if (
+                        ent == player
+                        || !_fadeQuery.HasComponent(ent)
+                        || !_spriteQuery.TryGetComponent(ent, out var sprite)
+                        || sprite.DrawDepth < playerSprite.DrawDepth
+                    )
                     {
                         continue;
                     }

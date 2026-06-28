@@ -13,7 +13,7 @@
     blacklist:
       components:
       - UpgradedMachine
-    # ALWAYS add UpgradedMachine to components in inheritors
+      # ALWAYS add UpgradedMachine to components in inheritors
 
 # - type: entity
 #   parent: BaseLatheUpgradeKit

@@ -20,9 +20,11 @@ public sealed partial class BatteryMenu : FancyWindow
 {
     // Cutoff for the ETA time to switch from "~" to ">" and cap out.
     private const float MaxEtaValueMinutes = 60;
+
     // Cutoff where ETA times likely don't make sense and it's better to just say "N/A".
     private const float NotApplicableEtaHighCutoffMinutes = 1000;
     private const float NotApplicableEtaLowCutoffMinutes = 0.01f;
+
     // Fudge factor to ignore small charge/discharge values, that are likely caused by floating point rounding errors.
     private const float PrecisionRoundFactor = 100_000;
 
@@ -50,8 +52,11 @@ public sealed partial class BatteryMenu : FancyWindow
     private const float PowerPulseFactor = 4;
 
     // Dependencies
-    [Dependency] private readonly IEntityManager _entityManager = null!;
-    [Dependency] private readonly ILocalizationManager _loc = null!;
+    [Dependency]
+    private readonly IEntityManager _entityManager = null!;
+
+    [Dependency]
+    private readonly ILocalizationManager _loc = null!;
 
     // Active and inactive style boxes for power lines.
     // We modify _activePowerLineStyleBox's properties programmatically to implement the pulsing animation.
@@ -155,8 +160,10 @@ public sealed partial class BatteryMenu : FancyWindow
         SetPowerLineState(InSecondPowerLine, msg.SupplyingNetworkHasPower && msg.CanCharge);
         SetPowerLineState(ChargePowerLine, msg.SupplyingNetworkHasPower && msg.CanCharge && storageDelta > 0);
         SetPowerLineState(PassthroughPowerLine, msg.SupplyingNetworkHasPower && msg.CanCharge && msg.CanDischarge);
-        SetPowerLineState(OutSecondPowerLine,
-            msg.CanDischarge && (msg.Charge > 0 || msg.SupplyingNetworkHasPower && msg.CanCharge));
+        SetPowerLineState(
+            OutSecondPowerLine,
+            msg.CanDischarge && (msg.Charge > 0 || msg.SupplyingNetworkHasPower && msg.CanCharge)
+        );
         SetPowerLineState(DischargePowerLine, storageDelta < 0);
 
         // Update breakers.
@@ -188,11 +195,12 @@ public sealed partial class BatteryMenu : FancyWindow
         var etaTimeSeconds = storageEtaDiff / storageDelta;
         var etaTimeMinutes = etaTimeSeconds / 60.0;
 
-        EtaLabel.Text = _loc.GetString(
-            storageDelta > 0 ? "battery-menu-eta-full" : "battery-menu-eta-empty");
-        if (!double.IsFinite(etaTimeMinutes)
+        EtaLabel.Text = _loc.GetString(storageDelta > 0 ? "battery-menu-eta-full" : "battery-menu-eta-empty");
+        if (
+            !double.IsFinite(etaTimeMinutes)
             || Math.Abs(etaTimeMinutes) > NotApplicableEtaHighCutoffMinutes
-            || Math.Abs(etaTimeMinutes) < NotApplicableEtaLowCutoffMinutes)
+            || Math.Abs(etaTimeMinutes) < NotApplicableEtaLowCutoffMinutes
+        )
         {
             EtaValue.Text = _loc.GetString("battery-menu-eta-value-na");
         }
@@ -200,16 +208,16 @@ public sealed partial class BatteryMenu : FancyWindow
         {
             EtaValue.Text = _loc.GetString(
                 etaTimeMinutes > MaxEtaValueMinutes ? "battery-menu-eta-value-max" : "battery-menu-eta-value",
-                ("minutes", Math.Min(Math.Ceiling(etaTimeMinutes), MaxEtaValueMinutes)));
+                ("minutes", Math.Min(Math.Ceiling(etaTimeMinutes), MaxEtaValueMinutes))
+            );
         }
 
         // Update storage display.
         StoredPercentageValue.Text = _loc.GetString(
             "battery-menu-stored-percent-value",
-            ("value", msg.Charge / msg.Capacity));
-        StoredEnergyValue.Text = _loc.GetString(
-            "battery-menu-stored-energy-value",
-            ("value", msg.Charge));
+            ("value", msg.Charge / msg.Capacity)
+        );
+        StoredEnergyValue.Text = _loc.GetString("battery-menu-stored-energy-value", ("value", msg.Charge));
 
         // Update charge meter.
         _storageLevel = ContentHelpers.RoundToNearestLevels(msg.Charge, msg.Capacity, _chargeMeterBoxes.Length);
@@ -243,7 +251,8 @@ public sealed partial class BatteryMenu : FancyWindow
         var color = Color.InterpolateBetween(
             ActivePowerLineLowColor,
             ActivePowerLineHighColor,
-            MathF.Sin(_powerPulseValue) / 2 + 1);
+            MathF.Sin(_powerPulseValue) / 2 + 1
+        );
         _activePowerLineStyleBox.BackgroundColor = color;
 
         // Update storage indicator and blink it.
@@ -273,8 +282,9 @@ public sealed partial class BatteryMenu : FancyWindow
         {
             // If there is no highest bar (UI completely at 0), then blink bar 0.
             var toBlink = Math.Max(0, _storageLevel - 1);
-            _chargeMeterBoxes[toBlink].BackgroundColor =
-                _blinkPulse ? StorageColors[toBlink] : DimStorageColors[toBlink];
+            _chargeMeterBoxes[toBlink].BackgroundColor = _blinkPulse
+                ? StorageColors[toBlink]
+                : DimStorageColors[toBlink];
         }
     }
 }

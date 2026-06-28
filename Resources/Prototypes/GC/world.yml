@@ -2,4 +2,4 @@
   id: SpaceDebris
   depth: 256 # Frontier
   minDepthToProcess: 128 # Frontier
-  trySkipQueue: true  # Frontier - Attempt immediate removal if possible  # Frontier - Attempt immediate removal if possible # Mono Revert
+  trySkipQueue: true # Frontier - Attempt immediate removal if possible  # Frontier - Attempt immediate removal if possible # Mono Revert

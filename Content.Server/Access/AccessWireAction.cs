@@ -40,7 +40,12 @@ public sealed partial class AccessWireAction : ComponentWireAction<AccessReaderC
     {
         comp.Enabled = false;
         EntityManager.Dirty(wire.Owner, comp);
-        WiresSystem.StartWireAction(wire.Owner, _pulseTimeout, PulseTimeoutKey.Key, new TimedWireEvent(AwaitPulseCancel, wire));
+        WiresSystem.StartWireAction(
+            wire.Owner,
+            _pulseTimeout,
+            PulseTimeoutKey.Key,
+            new TimedWireEvent(AwaitPulseCancel, wire)
+        );
     }
 
     public override void Update(Wire wire)
@@ -65,6 +70,6 @@ public sealed partial class AccessWireAction : ComponentWireAction<AccessReaderC
 
     private enum PulseTimeoutKey : byte
     {
-        Key
+        Key,
     }
 }

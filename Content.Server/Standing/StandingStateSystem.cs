@@ -10,13 +10,20 @@ namespace Content.Server.Standing;
 
 public sealed class StandingStateSystem : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedHandsSystem _handsSystem = default!;
-    [Dependency] private readonly ThrowingSystem _throwingSystem = default!;
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly SharedHandsSystem _handsSystem = default!;
+
+    [Dependency]
+    private readonly ThrowingSystem _throwingSystem = default!;
 
     private void FallOver(EntityUid uid, StandingStateComponent component, DropHandItemsEvent args)
     {
-        var direction = EntityManager.TryGetComponent(uid, out PhysicsComponent? comp) ? comp.LinearVelocity / 50 : Vector2.Zero;
+        var direction = EntityManager.TryGetComponent(uid, out PhysicsComponent? comp)
+            ? comp.LinearVelocity / 50
+            : Vector2.Zero;
         var dropAngle = _random.NextFloat(0.8f, 1.2f);
 
         var fellEvent = new FellDownEvent(uid);
@@ -34,10 +41,13 @@ public sealed class StandingStateSystem : EntitySystem
             if (!_handsSystem.TryDrop(uid, hand, null, checkActionBlocker: false, handsComp: handsComp))
                 continue;
 
-            _throwingSystem.TryThrow(held,
+            _throwingSystem.TryThrow(
+                held,
                 _random.NextAngle().RotateVec(direction / dropAngle + worldRotation / 50),
                 0.5f * dropAngle * _random.NextFloat(-0.9f, 1.1f),
-                uid, 0);
+                uid,
+                0
+            );
         }
     }
 
@@ -46,17 +56,17 @@ public sealed class StandingStateSystem : EntitySystem
         base.Initialize();
         SubscribeLocalEvent<StandingStateComponent, DropHandItemsEvent>(FallOver);
     }
-
 }
 
-    /// <summary>
-    /// Raised after an entity falls down.
-    /// </summary>
-    public sealed class FellDownEvent : EntityEventArgs
+/// <summary>
+/// Raised after an entity falls down.
+/// </summary>
+public sealed class FellDownEvent : EntityEventArgs
+{
+    public EntityUid Uid { get; }
+
+    public FellDownEvent(EntityUid uid)
     {
-        public EntityUid Uid { get; }
-        public FellDownEvent(EntityUid uid)
-        {
-            Uid = uid;
-        }
+        Uid = uid;
     }
+}

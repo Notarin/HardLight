@@ -8,7 +8,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - food
+    - food
   - type: Food
   - type: Sprite
   - type: StaticPrice

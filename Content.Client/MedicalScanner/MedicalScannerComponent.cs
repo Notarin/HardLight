@@ -3,6 +3,4 @@
 namespace Content.Client.MedicalScanner;
 
 [RegisterComponent]
-public sealed partial class MedicalScannerComponent : SharedMedicalScannerComponent
-{
-}
+public sealed partial class MedicalScannerComponent : SharedMedicalScannerComponent { }

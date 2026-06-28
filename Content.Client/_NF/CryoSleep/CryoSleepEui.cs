@@ -23,9 +23,11 @@ public sealed class CryoSleepEui : BaseEui
         _window = new AcceptCryoWindow();
 
         // Try to get the player's mind.
-        if (!entityManager.TryGetComponent(playerEntity, out JobTrackingComponent? jobTracking)
+        if (
+            !entityManager.TryGetComponent(playerEntity, out JobTrackingComponent? jobTracking)
             || jobTracking.Job == null
-            || !SharedJobTrackingSystem.JobShouldBeReopened(jobTracking.Job.Value))
+            || !SharedJobTrackingSystem.JobShouldBeReopened(jobTracking.Job.Value)
+        )
         {
             var configManager = IoCManager.Resolve<INetConfigurationManager>();
             var cryoTime = TimeSpan.FromSeconds(configManager.GetCVar(NFCCVars.CryoExpirationTime));

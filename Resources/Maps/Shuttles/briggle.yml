@@ -809,17 +809,13 @@ entities:
 
         Jim,
 
-
         I left you some plasma for the generator on the Briggle.
 
         Don't forget to retool it for medium voltage, and I swear to god, if you run out of power in the middle of nowhere and I have to ask the QM to come save you one more time I'm going to blow a gasket.
 
-
         The dock's containment field works again, but I had the intern set it up, so you might want to double check that he turned the containment generators on.
 
-
         Try not to let the Briggle get banged up this time okay? Body work isn't cheap.
-
 
         Best,
 
@@ -1185,4 +1181,3 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 2.5,-3.5
       parent: 1
-...

@@ -4,7 +4,8 @@ namespace Content.Server.Implants;
 
 public sealed class AutoImplantSystem : EntitySystem
 {
-    [Dependency] private readonly SubdermalImplantSystem _subdermalImplant = default!;
+    [Dependency]
+    private readonly SubdermalImplantSystem _subdermalImplant = default!;
 
     public override void Initialize()
     {

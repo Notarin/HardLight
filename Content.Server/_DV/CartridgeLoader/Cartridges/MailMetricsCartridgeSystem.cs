@@ -1,17 +1,20 @@
 using Content.Server._DV.Cargo.Components;
 using Content.Server._DV.Cargo.Systems;
+using Content.Server._DV.Mail.Components;
+using Content.Server._NF.SectorServices; // Frontier
 using Content.Server.CartridgeLoader;
 using Content.Shared.CartridgeLoader;
 using Content.Shared.CartridgeLoader.Cartridges;
-using Content.Server._DV.Mail.Components;
-using Content.Server._NF.SectorServices; // Frontier
 
 namespace Content.Server._DV.CartridgeLoader.Cartridges;
 
 public sealed class MailMetricsCartridgeSystem : EntitySystem
 {
-    [Dependency] private readonly CartridgeLoaderSystem _cartridgeLoader = default!;
-    [Dependency] private readonly SectorServiceSystem _sectorService = default!; // Frontier
+    [Dependency]
+    private readonly CartridgeLoaderSystem _cartridgeLoader = default!;
+
+    [Dependency]
+    private readonly SectorServiceSystem _sectorService = default!; // Frontier
 
     public override void Initialize()
     {
@@ -63,7 +66,6 @@ public sealed class MailMetricsCartridgeSystem : EntitySystem
         var state = new MailMetricUiState(logiStats.Metrics, unopenedMailCount);
         _cartridgeLoader.UpdateCartridgeUiState(loader, state);
     }
-
 
     private int GetUnopenedMailCount() // Frontier: remove EntityUid param
     {

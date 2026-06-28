@@ -1,11 +1,11 @@
-using Content.Shared.Body.Components;
-using Content.Server.Body.Systems;
-using Content.Server.Explosion.EntitySystems;
-using Content.Shared.Mobs;
 using Content.Server.Administration.Logs;
+using Content.Server.Body.Systems;
 using Content.Server.Chat.Managers;
+using Content.Server.Explosion.EntitySystems;
 using Content.Server.Popups;
+using Content.Shared.Body.Components;
 using Content.Shared.Database;
+using Content.Shared.Mobs;
 using Content.Shared.Popups;
 using Robust.Shared.Player;
 
@@ -13,9 +13,14 @@ namespace Content.Server._NF.Salvage;
 
 public sealed class SalvageMobRestrictionsSystem : EntitySystem
 {
-    [Dependency] private readonly BodySystem _body = default!;
-    [Dependency] private readonly ExplosionSystem _explosion = default!;
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
+    [Dependency]
+    private readonly BodySystem _body = default!;
+
+    [Dependency]
+    private readonly ExplosionSystem _explosion = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popupSystem = default!;
 
     public override void Initialize()
     {
@@ -102,7 +107,11 @@ public sealed class SalvageMobRestrictionsSystem : EntitySystem
         }
     }
 
-    private void OnParentChanged(EntityUid uid, NFSalvageMobRestrictionsComponent component, ref EntParentChangedMessage args)
+    private void OnParentChanged(
+        EntityUid uid,
+        NFSalvageMobRestrictionsComponent component,
+        ref EntParentChangedMessage args
+    )
     {
         // If this entity is being destroyed, no need to fiddle with components
         if (Terminating(uid))
@@ -139,7 +148,12 @@ public sealed class SalvageMobRestrictionsSystem : EntitySystem
             if (component.DespawnIfOffLinkedGrid)
             {
                 //_adminLogger.Add(LogType.AdminMessage, LogImpact.Low, $"{ToPrettyString(actor.PlayerSession.AttachedEntity.Value):player} left the dungeon grid");
-                _popupSystem.PopupEntity(popupMessage, actor.PlayerSession.AttachedEntity.Value, actor.PlayerSession, PopupType.MediumCaution);
+                _popupSystem.PopupEntity(
+                    popupMessage,
+                    actor.PlayerSession.AttachedEntity.Value,
+                    actor.PlayerSession,
+                    PopupType.MediumCaution
+                );
             }
         }
     }
@@ -153,4 +167,3 @@ public sealed class SalvageMobRestrictionsSystem : EntitySystem
         return meta.EntityLifeStage >= EntityLifeStage.Terminating;
     }
 }
-

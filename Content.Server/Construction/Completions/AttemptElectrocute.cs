@@ -1,6 +1,6 @@
 using Content.Server.Electrocution;
-using Content.Shared.Electrocution;
 using Content.Shared.Construction;
+using Content.Shared.Electrocution;
 
 namespace Content.Server.Construction.Completions;
 
@@ -18,7 +18,9 @@ public sealed partial class AttemptElectrocute : IGraphAction
         var currentValue = electrified.Enabled;
         electrified.Enabled = true;
 
-        entityManager.EntitySysManager.GetEntitySystem<ElectrocutionSystem>().TryDoElectrifiedAct(uid, userUid.Value, electrified: electrified);
+        entityManager
+            .EntitySysManager.GetEntitySystem<ElectrocutionSystem>()
+            .TryDoElectrifiedAct(uid, userUid.Value, electrified: electrified);
 
         electrified.Enabled = currentValue;
     }

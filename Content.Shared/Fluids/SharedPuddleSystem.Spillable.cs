@@ -13,7 +13,8 @@ namespace Content.Shared.Fluids;
 
 public abstract partial class SharedPuddleSystem
 {
-    [Dependency] protected readonly OpenableSystem Openable = default!;
+    [Dependency]
+    protected readonly OpenableSystem Openable = default!;
 
     protected virtual void InitializeSpillable()
     {
@@ -37,7 +38,14 @@ public abstract partial class SharedPuddleSystem
         if (!args.CanAccess || !args.CanInteract || args.Hands == null)
             return;
 
-        if (!_solutionContainerSystem.TryGetSolution(args.Target, entity.Comp.SolutionName, out var soln, out var solution))
+        if (
+            !_solutionContainerSystem.TryGetSolution(
+                args.Target,
+                entity.Comp.SolutionName,
+                out var soln,
+                out var solution
+            )
+        )
             return;
 
         if (Openable.IsClosed(args.Target))
@@ -46,10 +54,7 @@ public abstract partial class SharedPuddleSystem
         if (solution.Volume == FixedPoint2.Zero)
             return;
 
-        Verb verb = new()
-        {
-            Text = Loc.GetString("spill-target-verb-get-data-text")
-        };
+        Verb verb = new() { Text = Loc.GetString("spill-target-verb-get-data-text") };
 
         // TODO VERB ICONS spill icon? pouring out a glass/beaker?
         if (entity.Comp.SpillDelay == null)
@@ -72,12 +77,21 @@ public abstract partial class SharedPuddleSystem
             var user = args.User;
             verb.Act = () =>
             {
-                _doAfterSystem.TryStartDoAfter(new DoAfterArgs(EntityManager, user, entity.Comp.SpillDelay ?? 0, new SpillDoAfterEvent(), entity.Owner, target: entity.Owner)
-                {
-                    BreakOnDamage = true,
-                    BreakOnMove = true,
-                    NeedHand = true,
-                });
+                _doAfterSystem.TryStartDoAfter(
+                    new DoAfterArgs(
+                        EntityManager,
+                        user,
+                        entity.Comp.SpillDelay ?? 0,
+                        new SpillDoAfterEvent(),
+                        entity.Owner,
+                        target: entity.Owner
+                    )
+                    {
+                        BreakOnDamage = true,
+                        BreakOnMove = true,
+                        NeedHand = true,
+                    }
+                );
             };
         }
         verb.Impact = LogImpact.Medium; // dangerous reagent reaction are logged separately.

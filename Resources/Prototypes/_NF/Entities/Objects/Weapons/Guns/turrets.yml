@@ -4,7 +4,7 @@
   id: WeaponTurretContrabandDenyingDeployed
   name: CDET
   description: |-
-   A Contraband Denying Energy Turret (CDET). A disabler turret with built-in microreactor. Use screwdriver to disassemble.
+    A Contraband Denying Energy Turret (CDET). A disabler turret with built-in microreactor. Use screwdriver to disassemble.
   parent:
   - BaseC2ContrabandUnredeemable
   - BaseWeaponTurretEnergyNF
@@ -13,8 +13,7 @@
     rootTask:
       task: StunTurretCompound
     blackboard:
-      RotateSpeed: !type:Single
-        3.141
+      RotateSpeed: !type:Single 3.141
       SoundTargetInLOS: !type:SoundPathSpecifier
         path: /Audio/Effects/double_beep.ogg
   - type: Gun
@@ -48,14 +47,14 @@
     visuals:
       enum.BatteryWeaponFireModeVisuals.State:
         enum.GunVisualLayers.Base:
-          NFBulletDisablerStaminaOnly: { sprite: _NF/Objects/Weapons/Guns/Turrets/disabler.rsi, state: base }
-          NFBulletLaserHeavy: { sprite: _NF/Objects/Weapons/Guns/Turrets/laser.rsi, state: base }
+          NFBulletDisablerStaminaOnly: {sprite: _NF/Objects/Weapons/Guns/Turrets/disabler.rsi, state: base}
+          NFBulletLaserHeavy: {sprite: _NF/Objects/Weapons/Guns/Turrets/laser.rsi, state: base}
         CdetTurretGlow:
-          NFBulletDisablerStaminaOnly: { sprite: _NF/Objects/Weapons/Guns/Turrets/disabler.rsi, state: unshaded }
-          NFBulletLaserHeavy: { sprite: _NF/Objects/Weapons/Guns/Turrets/laser.rsi, state: unshaded }
+          NFBulletDisablerStaminaOnly: {sprite: _NF/Objects/Weapons/Guns/Turrets/disabler.rsi, state: unshaded}
+          NFBulletLaserHeavy: {sprite: _NF/Objects/Weapons/Guns/Turrets/laser.rsi, state: unshaded}
         enum.GunVisualLayers.Mag:
-          NFBulletDisablerStaminaOnly: { sprite: _NF/Objects/Weapons/Guns/Turrets/disabler.rsi }
-          NFBulletLaserHeavy: { sprite: _NF/Objects/Weapons/Guns/Turrets/laser.rsi }
+          NFBulletDisablerStaminaOnly: {sprite: _NF/Objects/Weapons/Guns/Turrets/disabler.rsi}
+          NFBulletLaserHeavy: {sprite: _NF/Objects/Weapons/Guns/Turrets/laser.rsi}
   - type: CdetReactiveLethal
     nonLethalSound:
       path: /Audio/Weapons/Guns/Gunshots/taser2.ogg
@@ -80,7 +79,7 @@
   id: WeaponTurretLethalContrabandDenyingDeployed
   name: CDET
   description: |-
-   A Contraband Denying Energy Turret (CDET). A laser turret with built-in microreactor. Use screwdriver to disassemble.
+    A Contraband Denying Energy Turret (CDET). A laser turret with built-in microreactor. Use screwdriver to disassemble.
   parent: WeaponTurretContrabandDenyingDeployed
   components:
   - type: CdetReactiveLethal
@@ -94,7 +93,7 @@
   id: WeaponTurretContrabandDenyingPacked
   name: packed CDET
   description: |-
-   A disassembled and packed Contraband Denying Energy Turret (CDET).
+    A disassembled and packed Contraband Denying Energy Turret (CDET).
   suffix: NT, Packed
   parent:
   - BaseC2ContrabandUnredeemable
@@ -114,12 +113,12 @@
     shape:
     - 0,0,3,3
     sprite: _NF/Objects/Weapons/Guns/Turrets/disabler.rsi
-    
+
 - type: entity # folded turret
   id: WeaponTurretLethalContrabandDenyingPacked
   name: packed CDET
   description: |-
-   A disassembled and packed Contraband Denying Energy Turret (CDET).
+    A disassembled and packed Contraband Denying Energy Turret (CDET).
   suffix: NT, Packed
   parent: WeaponTurretContrabandDenyingPacked
   components:
@@ -148,14 +147,14 @@
     - to: WeaponTurretContrabandDenyingPacked
       completed:
       - !type:SpawnPrototype
-            prototype: WeaponTurretContrabandDenyingPacked
-            amount: 1
+        prototype: WeaponTurretContrabandDenyingPacked
+        amount: 1
       - !type:EmptyAllContainers
       - !type:DeleteEntity {}
       steps:
-        - tool: Screwing
-          doAfter: 14
-          
+      - tool: Screwing
+        doAfter: 14
+
 - type: constructionGraph # deconstruction graph
   id: WeaponTurretLethalContrabandDenyingPackingGraph
   start: WeaponTurretLethalContrabandDenyingPacked
@@ -166,26 +165,26 @@
     - to: WeaponTurretLethalContrabandDenyingPacked
       completed:
       - !type:SpawnPrototype
-            prototype: WeaponTurretLethalContrabandDenyingPacked
-            amount: 1
+        prototype: WeaponTurretLethalContrabandDenyingPacked
+        amount: 1
       - !type:EmptyAllContainers
       - !type:DeleteEntity {}
       steps:
-        - tool: Screwing
-          doAfter: 14
+      - tool: Screwing
+        doAfter: 14
 
 #region SLAT Self-Recharging Laser Auto Turret
 - type: entity
   id: WeaponTurretLaserNanoTrasenDeployed
   name: SLAT
   description: |-
-   A Self-Recharging Laser Auto Turret (SLAT). A laser turret with built-in microreactor. Use screwdriver to disassemble.
+    A Self-Recharging Laser Auto Turret (SLAT). A laser turret with built-in microreactor. Use screwdriver to disassemble.
   suffix: Frontier, NT
   parent:
   - BaseC2ContrabandUnredeemable
   - BaseTurretSearchBeam
   - BaseWeaponTurretEnergyNF
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     sprite: _NF/Objects/Weapons/Guns/Turrets/laser.rsi
@@ -210,7 +209,7 @@
   id: WeaponTurretLaserNanoTrasenPacked
   name: packed SLAT
   description: |-
-   A disassembled and packed Self-Recharging Laser Auto Turret (SLAT).
+    A disassembled and packed Self-Recharging Laser Auto Turret (SLAT).
   suffix: NT, Packed
   parent:
   - BaseC2ContrabandUnredeemable
@@ -241,13 +240,13 @@
     - to: WeaponTurretLaserNanoTrasenPacked
       completed:
       - !type:SpawnPrototype
-            prototype: WeaponTurretLaserNanoTrasenPacked
-            amount: 1
+        prototype: WeaponTurretLaserNanoTrasenPacked
+        amount: 1
       - !type:EmptyAllContainers
       - !type:DeleteEntity {}
       steps:
-        - tool: Screwing
-          doAfter: 14
+      - tool: Screwing
+        doAfter: 14
 
 - type: entity
   id: NFWeaponTurretLaserSyndicate
@@ -257,7 +256,7 @@
   - BaseC3SyndicateContraband
   - BaseTurretSearchBeam
   - BaseWeaponTurretEnergyNF
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     sprite: _NF/Objects/Weapons/Guns/Turrets/laser.rsi
@@ -341,7 +340,7 @@
   id: WeaponTurretAsmgtNtPacked
   name: packed ASMGT
   description: |-
-   A disassembled and packed Autonomous Sentry Machine Gun Turret (ASMGT).
+    A disassembled and packed Autonomous Sentry Machine Gun Turret (ASMGT).
   suffix: NT, Packed
   parent:
   - BaseC2ContrabandUnredeemable
@@ -372,13 +371,13 @@
     - to: WeaponTurretAsmgtNtPacked
       completed:
       - !type:SpawnPrototype
-            prototype: WeaponTurretAsmgtNtPacked
-            amount: 1
+        prototype: WeaponTurretAsmgtNtPacked
+        amount: 1
       - !type:EmptyAllContainers
       - !type:DeleteEntity {}
       steps:
-        - tool: Screwing
-          doAfter: 14
+      - tool: Screwing
+        doAfter: 14
 
 ## Magazine fed, deployable punk turret
 - type: entity # deployed turret
@@ -404,7 +403,7 @@
   id: WeaponTurretAsmgtHostileUniversallyPacked
   suffix: Universally Hostile, Packed
   description: |-
-   A disassembled and packed Autonomous Sentry Machine Gun Turret (ASMGT). WARNING! Unpacked turret will be hostile towards anyone who wasn't in close proximity (within 3 m) after unpacking!
+    A disassembled and packed Autonomous Sentry Machine Gun Turret (ASMGT). WARNING! Unpacked turret will be hostile towards anyone who wasn't in close proximity (within 3 m) after unpacking!
   parent:
   - BaseC3Contraband
   - WeaponTurretAsmgtNtPacked
@@ -426,13 +425,13 @@
     - to: WeaponTurretAsmgtHostileUniversallyPacked
       completed:
       - !type:SpawnPrototype
-            prototype: WeaponTurretAsmgtHostileUniversallyPacked
-            amount: 1
+        prototype: WeaponTurretAsmgtHostileUniversallyPacked
+        amount: 1
       - !type:EmptyAllContainers
       - !type:DeleteEntity {}
       steps:
-        - tool: Screwing
-          doAfter: 14
+      - tool: Screwing
+        doAfter: 14
 
 - type: entity
   id: NFSpawnMobWeaponTurretLaserContraband
@@ -448,7 +447,7 @@
   - type: ConditionalSpawner
     prototypes:
     - WeaponTurretLethalContrabandDenyingDeployed
-    
+
 - type: entity
   id: NFSpawnMobWeaponTurretDisablerContraband
   parent: MarkerBase

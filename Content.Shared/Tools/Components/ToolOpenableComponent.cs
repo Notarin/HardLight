@@ -1,6 +1,6 @@
-using Robust.Shared.Prototypes;
-using Robust.Shared.GameStates;
 using Content.Shared.DoAfter;
+using Robust.Shared.GameStates;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
 namespace Content.Shared.Tools.Components
@@ -61,16 +61,13 @@ namespace Content.Shared.Tools.Components
         /// </summary>
         [DataField, AutoNetworkedField]
         public string? Name;
-
     }
 
     /// <summary>
     ///     Simple do after event for opening or closing.
     /// </summary>
     [Serializable, NetSerializable]
-    public sealed partial class ToolOpenableDoAfterEventToggleOpen : SimpleDoAfterEvent
-    {
-    }
+    public sealed partial class ToolOpenableDoAfterEventToggleOpen : SimpleDoAfterEvent { }
 
     /// <summary>
     ///     Visualizers for handling stash open closed state if stash has door.
@@ -85,6 +82,6 @@ namespace Content.Shared.Tools.Components
     public enum ToolOpenableVisualState : byte
     {
         Open,
-        Closed
+        Closed,
     }
 }

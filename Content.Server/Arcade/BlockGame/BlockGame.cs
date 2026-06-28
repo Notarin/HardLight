@@ -1,14 +1,17 @@
+using System.Linq;
 using Content.Shared.Arcade;
 using Robust.Server.GameObjects;
 using Robust.Shared.Random;
-using System.Linq;
 
 namespace Content.Server.Arcade.BlockGame;
 
 public sealed partial class BlockGame
 {
-    [Dependency] private readonly IEntityManager _entityManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency]
+    private readonly IEntityManager _entityManager = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
     private readonly ArcadeSystem _arcadeSystem;
     private readonly UserInterfaceSystem _uiSystem;
     private readonly BlockGameArcadeSystem _arcade = default!; // Coyote
@@ -43,7 +46,6 @@ public sealed partial class BlockGame
     /// </summary>
     private bool IsGameOver => _field.Any(block => block.Position.Y == 0);
 
-
     public BlockGame(EntityUid owner)
     {
         IoCManager.InjectDependencies(this);
@@ -52,7 +54,7 @@ public sealed partial class BlockGame
         _arcade = _entityManager.System<BlockGameArcadeSystem>();
 
         _owner = owner;
-        _allBlockGamePieces = (BlockGamePieceType[]) Enum.GetValues(typeof(BlockGamePieceType));
+        _allBlockGamePieces = (BlockGamePieceType[])Enum.GetValues(typeof(BlockGamePieceType));
         _internalNextPiece = GetRandomBlockGamePiece(_random);
         InitializeNewBlock();
     }
@@ -79,14 +81,22 @@ public sealed partial class BlockGame
         _running = false;
         _gameOver = true;
 
-        if (_entityManager.TryGetComponent<BlockGameArcadeComponent>(_owner, out var cabinet)
-        && _entityManager.TryGetComponent<MetaDataComponent>(cabinet.Player, out var meta))
+        if (
+            _entityManager.TryGetComponent<BlockGameArcadeComponent>(_owner, out var cabinet)
+            && _entityManager.TryGetComponent<MetaDataComponent>(cabinet.Player, out var meta)
+        )
         {
             _highScorePlacement = _arcadeSystem.RegisterHighScore(meta.EntityName, Points);
             SendHighscoreUpdate();
             _arcade.OnGameOver(_owner, cabinet, points: Points); // Coyote
         }
-        SendMessage(new BlockGameMessages.BlockGameGameOverScreenMessage(Points, _highScorePlacement?.LocalPlacement, _highScorePlacement?.GlobalPlacement));
+        SendMessage(
+            new BlockGameMessages.BlockGameGameOverScreenMessage(
+                Points,
+                _highScorePlacement?.LocalPlacement,
+                _highScorePlacement?.GlobalPlacement
+            )
+        );
     }
 
     /// <summary>
@@ -136,8 +146,7 @@ public sealed partial class BlockGame
     /// </summary>
     private void InternalFieldTick()
     {
-        if (CurrentPiece.Positions(_currentPiecePosition.AddToY(1), _currentRotation)
-            .All(DropCheck))
+        if (CurrentPiece.Positions(_currentPiecePosition.AddToY(1), _currentRotation).All(DropCheck))
         {
             _currentPiecePosition = _currentPiecePosition.AddToY(1);
         }
@@ -186,7 +195,7 @@ public sealed partial class BlockGame
                     2 => 100,
                     3 => 300,
                     4 => 1200,
-                    _ => 0
+                    _ => 0,
                 };
                 pointsToAdd += mod * (Level + 1);
             }
@@ -246,7 +255,12 @@ public sealed partial class BlockGame
         NextPiece = GetRandomBlockGamePiece(_random);
         _holdBlock = false;
 
-        SendMessage(new BlockGameMessages.BlockGameVisualUpdateMessage(NextPiece.BlocksForPreview(), BlockGameMessages.BlockGameVisualType.NextBlock));
+        SendMessage(
+            new BlockGameMessages.BlockGameVisualUpdateMessage(
+                NextPiece.BlocksForPreview(),
+                BlockGameMessages.BlockGameVisualType.NextBlock
+            )
+        );
     }
 
     /// <summary>
@@ -293,8 +307,7 @@ public sealed partial class BlockGame
     private void PerformHarddrop()
     {
         var spacesDropped = 0;
-        while (CurrentPiece.Positions(_currentPiecePosition.AddToY(1), _currentRotation)
-            .All(DropCheck))
+        while (CurrentPiece.Positions(_currentPiecePosition.AddToY(1), _currentRotation).All(DropCheck))
         {
             _currentPiecePosition = _currentPiecePosition.AddToY(1);
             spacesDropped++;

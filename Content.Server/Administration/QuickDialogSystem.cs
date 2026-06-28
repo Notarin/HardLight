@@ -12,12 +12,14 @@ namespace Content.Server.Administration;
 /// </summary>
 public sealed partial class QuickDialogSystem : EntitySystem
 {
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
 
     /// <summary>
     /// Contains the success/cancel actions for a dialog.
     /// </summary>
-    private readonly Dictionary<int, (Action<QuickDialogResponseEvent> okAction, Action cancelAction)> _openDialogs = new();
+    private readonly Dictionary<int, (Action<QuickDialogResponseEvent> okAction, Action cancelAction)> _openDialogs =
+        new();
     private readonly Dictionary<NetUserId, List<int>> _openDialogsByUser = new();
 
     private int _nextDialogId = 1;
@@ -38,7 +40,10 @@ public sealed partial class QuickDialogSystem : EntitySystem
 
     private void Handler(QuickDialogResponseEvent msg, EntitySessionEventArgs args)
     {
-        if (!_openDialogs.ContainsKey(msg.DialogId) || !_openDialogsByUser[args.SenderSession.UserId].Contains(msg.DialogId))
+        if (
+            !_openDialogs.ContainsKey(msg.DialogId)
+            || !_openDialogsByUser[args.SenderSession.UserId].Contains(msg.DialogId)
+        )
         {
             args.SenderSession.Channel.Disconnect($"Replied with invalid quick dialog data with id {msg.DialogId}.");
             return;
@@ -84,17 +89,17 @@ public sealed partial class QuickDialogSystem : EntitySystem
         _openDialogsByUser.Remove(user);
     }
 
-    private void OpenDialogInternal(ICommonSession session, string title, List<QuickDialogEntry> entries, QuickDialogButtonFlag buttons, Action<QuickDialogResponseEvent> okAction, Action cancelAction)
+    private void OpenDialogInternal(
+        ICommonSession session,
+        string title,
+        List<QuickDialogEntry> entries,
+        QuickDialogButtonFlag buttons,
+        Action<QuickDialogResponseEvent> okAction,
+        Action cancelAction
+    )
     {
         var did = GetDialogId();
-        RaiseNetworkEvent(
-            new QuickDialogOpenEvent(
-                title,
-                entries,
-                did,
-                buttons),
-            session
-        );
+        RaiseNetworkEvent(new QuickDialogOpenEvent(title, entries, did, buttons), session);
 
         _openDialogs.Add(did, (okAction, cancelAction));
         if (!_openDialogsByUser.ContainsKey(session.UserId))
@@ -110,13 +115,13 @@ public sealed partial class QuickDialogSystem : EntitySystem
             case QuickDialogEntryType.Integer:
             {
                 var result = int.TryParse(input, out var val);
-                output = (T?) (object?) val;
+                output = (T?)(object?)val;
                 return result;
             }
             case QuickDialogEntryType.Float:
             {
                 var result = float.TryParse(input, out var val);
-                output = (T?) (object?) val;
+                output = (T?)(object?)val;
                 return result;
             }
             case QuickDialogEntryType.ShortText:
@@ -127,7 +132,7 @@ public sealed partial class QuickDialogSystem : EntitySystem
                     return false;
                 }
 
-                output = (T?) (object?) input;
+                output = (T?)(object?)input;
                 return output is not null;
             }
             case QuickDialogEntryType.LongText:
@@ -139,9 +144,9 @@ public sealed partial class QuickDialogSystem : EntitySystem
                 }
 
                 //It's verrrry likely that this will be longstring
-                var longString = (LongString) input;
+                var longString = (LongString)input;
 
-                output = (T?) (object?) longString;
+                output = (T?)(object?)longString;
                 return output is not null;
             }
             default:
@@ -177,6 +182,7 @@ public record struct LongString(string String)
     {
         return longString.String;
     }
+
     public static explicit operator LongString(string s)
     {
         return new(s);

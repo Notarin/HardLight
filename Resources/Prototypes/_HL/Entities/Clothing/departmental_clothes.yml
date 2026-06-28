@@ -299,7 +299,7 @@
 - type: entity
   parent: ClothingHeadHatHoodWinterBase
   id: ClothingHeadHatHoodEpiChaplainHood
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   name: chaplain mantle hood
   components:
   - type: Sprite
@@ -1137,7 +1137,6 @@
   - type: StaticPrice # Frontier: setting base price to make material arbitrage happier
     price: 80 # Frontier
 
-
 #Misc Outfits
 #Colonial Command
 - type: entity
@@ -1158,7 +1157,7 @@
     price: 80 # Frontier
 
 - type: entity
-  parent: [ ClothingShoesBase, ClothingShoesMilitaryBase ]
+  parent: [ClothingShoesBase, ClothingShoesMilitaryBase]
   id: ClothingUnderSocksCC
   name: CC thigh-high socks
   description: A pair of thigh-high socks, styled for Colonial Command roles.
@@ -1204,7 +1203,7 @@
     price: 80 # Frontier
 
 - type: entity
-  parent: [ ClothingShoesBase, ClothingShoesMilitaryBase ]
+  parent: [ClothingShoesBase, ClothingShoesMilitaryBase]
   id: ClothingUnderSocksMerc
   name: Merc thigh-high socks
   description: A pair of thigh-high socks, styled for Mercenary roles.
@@ -1250,7 +1249,7 @@
     price: 80 # Frontier
 
 - type: entity
-  parent: [ ClothingShoesBase, ClothingShoesMilitaryBase ]
+  parent: [ClothingShoesBase, ClothingShoesMilitaryBase]
   id: ClothingUnderSocksPrivSec
   name: Private Security thigh-high socks
   description: A pair of thigh-high socks, styled for Private Security roles.
@@ -1296,7 +1295,7 @@
     price: 80 # Frontier
 
 - type: entity
-  parent: [ ClothingShoesBase, ClothingShoesMilitaryBase ]
+  parent: [ClothingShoesBase, ClothingShoesMilitaryBase]
   id: ClothingUnderSocksPilot
   name: Pilot thigh-high socks
   description: A pair of thigh-high socks, styled for Pilot roles.

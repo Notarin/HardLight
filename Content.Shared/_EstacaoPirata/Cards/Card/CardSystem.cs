@@ -19,12 +19,24 @@ namespace Content.Shared._EstacaoPirata.Cards.Card;
 /// </summary>
 public sealed class CardSystem : EntitySystem
 {
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly CardStackSystem _cardStack = default!;
-    [Dependency] private readonly CardDeckSystem _cardDeck = default!;
-    [Dependency] private readonly CardHandSystem _cardHand = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
+    [Dependency]
+    private readonly INetManager _net = default!;
+
+    [Dependency]
+    private readonly CardStackSystem _cardStack = default!;
+
+    [Dependency]
+    private readonly CardDeckSystem _cardDeck = default!;
+
+    [Dependency]
+    private readonly CardHandSystem _cardHand = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly SharedHandsSystem _hands = default!;
+
     /// <inheritdoc/>
     public override void Initialize()
     {
@@ -34,11 +46,12 @@ public sealed class CardSystem : EntitySystem
         SubscribeLocalEvent<CardComponent, UseInHandEvent>(OnUse);
         SubscribeLocalEvent<CardComponent, ActivateInWorldEvent>(OnActivate);
     }
+
     private void OnExamined(EntityUid uid, CardComponent component, ExaminedEvent args)
     {
         if (args.IsInDetailsRange && !component.Flipped)
         {
-            args.PushMarkup(Loc.GetString("card-examined", ("target",  Loc.GetString(component.Name))));
+            args.PushMarkup(Loc.GetString("card-examined", ("target", Loc.GetString(component.Name))));
         }
     }
 
@@ -47,37 +60,51 @@ public sealed class CardSystem : EntitySystem
         if (!args.CanAccess || !args.CanInteract || args.Hands == null)
             return;
 
-        args.Verbs.Add(new AlternativeVerb()
-        {
-            Act = () => FlipCard(uid, component),
-            Text = Loc.GetString("cards-verb-flip"),
-            Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/flip.svg.192dpi.png")),
-            Priority = 1
-        });
+        args.Verbs.Add(
+            new AlternativeVerb()
+            {
+                Act = () => FlipCard(uid, component),
+                Text = Loc.GetString("cards-verb-flip"),
+                Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/flip.svg.192dpi.png")),
+                Priority = 1,
+            }
+        );
 
         if (args.Using == null || args.Using == args.Target)
             return;
 
         if (TryComp<CardStackComponent>(args.Using, out var usingStack))
         {
-            args.Verbs.Add(new AlternativeVerb()
-            {
-                Act = () => JoinCards(args.User, args.Target, component, (EntityUid)args.Using, usingStack),
-                Text = Loc.GetString("card-verb-join"),
-                Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/refresh.svg.192dpi.png")),
-                Priority = 2
-            });
+            args.Verbs.Add(
+                new AlternativeVerb()
+                {
+                    Act = () => JoinCards(args.User, args.Target, component, (EntityUid)args.Using, usingStack),
+                    Text = Loc.GetString("card-verb-join"),
+                    Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/refresh.svg.192dpi.png")),
+                    Priority = 2,
+                }
+            );
         }
         else if (TryComp<CardComponent>(args.Using, out var usingCard))
         {
             var pickup = _hands.IsHolding(args.User, args.Target);
-            args.Verbs.Add(new AlternativeVerb()
-            {
-                Act = () => _cardHand.TrySetupHandOfCards(args.User, args.Target, component, args.Using.Value, usingCard, pickup),
-                Text = Loc.GetString("card-verb-join"),
-                Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/refresh.svg.192dpi.png")),
-                Priority = 2
-            });
+            args.Verbs.Add(
+                new AlternativeVerb()
+                {
+                    Act = () =>
+                        _cardHand.TrySetupHandOfCards(
+                            args.User,
+                            args.Target,
+                            component,
+                            args.Using.Value,
+                            usingCard,
+                            pickup
+                        ),
+                    Text = Loc.GetString("card-verb-join"),
+                    Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/refresh.svg.192dpi.png")),
+                    Priority = 2,
+                }
+            );
         }
     }
 
@@ -104,7 +131,13 @@ public sealed class CardSystem : EntitySystem
         RaiseNetworkEvent(new CardFlipUpdatedEvent(GetNetEntity(uid)));
     }
 
-    private void JoinCards(EntityUid user, EntityUid first, CardComponent firstComp, EntityUid second, CardStackComponent secondStack)
+    private void JoinCards(
+        EntityUid user,
+        EntityUid first,
+        CardComponent firstComp,
+        EntityUid second,
+        CardStackComponent secondStack
+    )
     {
         if (_net.IsClient)
             return;
@@ -118,7 +151,7 @@ public sealed class CardSystem : EntitySystem
         else if (HasComp<CardHandComponent>(second))
         {
             cardStack = SpawnInSameParent(_cardHand.CardHandBaseName, first);
-            if(TryComp<CardHandComponent>(cardStack, out var stackHand))
+            if (TryComp<CardHandComponent>(cardStack, out var stackHand))
                 stackHand.Flipped = firstComp.Flipped;
             flip = firstComp.Flipped;
         }
@@ -132,7 +165,7 @@ public sealed class CardSystem : EntitySystem
         _cardStack.TransferNLastCardFromStacks(user, secondStack.Cards.Count, second, secondStack, cardStack, stack);
         if (flip != null)
             _cardStack.FlipAllCards(cardStack, stack, flip); //???
-        if(pickup)
+        if (pickup)
             _hands.TryPickupAnyHand(user, cardStack);
     }
 
@@ -140,8 +173,10 @@ public sealed class CardSystem : EntitySystem
     //           Useful when spawning decks/hands in a backpack, for example.
     private EntityUid SpawnInSameParent(EntProtoId prototype, EntityUid uid)
     {
-        if (_container.IsEntityOrParentInContainer(uid) &&
-            _container.TryGetOuterContainer(uid, Transform(uid), out var container))
+        if (
+            _container.IsEntityOrParentInContainer(uid)
+            && _container.TryGetOuterContainer(uid, Transform(uid), out var container)
+        )
         {
             return SpawnInContainerOrDrop(prototype, container.Owner, container.ID);
         }
@@ -162,35 +197,43 @@ public sealed class CardSystem : EntitySystem
 
         if (args.Using == null)
         {
-            args.Verbs.Add(new ActivationVerb()
-            {
-                Act = () => _hands.TryPickupAnyHand(args.User, args.Target),
-                Text = Loc.GetString("cards-verb-draw"),
-                Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/eject.svg.192dpi.png")),
-                Priority = 16
-            });
+            args.Verbs.Add(
+                new ActivationVerb()
+                {
+                    Act = () => _hands.TryPickupAnyHand(args.User, args.Target),
+                    Text = Loc.GetString("cards-verb-draw"),
+                    Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/eject.svg.192dpi.png")),
+                    Priority = 16,
+                }
+            );
         }
         else if (TryComp<CardStackComponent>(args.Using, out var cardStack))
         {
-            args.Verbs.Add(new ActivationVerb()
-            {
-                Act = () => _cardStack.InsertCardOnStack(args.User, args.Using.Value, cardStack, args.Target),
-                Text = Loc.GetString("cards-verb-draw"),
-                Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/eject.svg.192dpi.png")),
-                Priority = 16
-            });
+            args.Verbs.Add(
+                new ActivationVerb()
+                {
+                    Act = () => _cardStack.InsertCardOnStack(args.User, args.Using.Value, cardStack, args.Target),
+                    Text = Loc.GetString("cards-verb-draw"),
+                    Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/eject.svg.192dpi.png")),
+                    Priority = 16,
+                }
+            );
         }
         else if (TryComp<CardComponent>(args.Using, out var card))
         {
-            args.Verbs.Add(new ActivationVerb()
-            {
-                Act = () => _cardHand.TrySetupHandOfCards(args.User, args.Using.Value, card, args.Target, component, true),
-                Text = Loc.GetString("cards-verb-draw"),
-                Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/eject.svg.192dpi.png")),
-                Priority = 16
-            });
+            args.Verbs.Add(
+                new ActivationVerb()
+                {
+                    Act = () =>
+                        _cardHand.TrySetupHandOfCards(args.User, args.Using.Value, card, args.Target, component, true),
+                    Text = Loc.GetString("cards-verb-draw"),
+                    Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/eject.svg.192dpi.png")),
+                    Priority = 16,
+                }
+            );
         }
     }
+
     // End Frontier
 
     private void OnActivate(EntityUid uid, CardComponent component, ActivateInWorldEvent args)

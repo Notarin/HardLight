@@ -17,15 +17,29 @@ namespace Content.Server.ImmovableRod;
 
 public sealed class ImmovableRodSystem : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
 
-    [Dependency] private readonly BodySystem _bodySystem = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
+    [Dependency]
+    private readonly BodySystem _bodySystem = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly SharedPhysicsSystem _physics = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly DamageableSystem _damageable = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _map = default!;
 
     public override void Update(float frameTime)
     {
@@ -70,7 +84,8 @@ public sealed class ImmovableRodSystem : EntitySystem
                 vel = component.DirectionOverride.Degrees switch
                 {
                     0f => _random.NextVector2(component.MinSpeed, component.MaxSpeed),
-                    _ => worldRot.RotateVec(component.DirectionOverride.ToVec()) * _random.NextFloat(component.MinSpeed, component.MaxSpeed)
+                    _ => worldRot.RotateVec(component.DirectionOverride.ToVec())
+                        * _random.NextFloat(component.MinSpeed, component.MaxSpeed),
                 };
             }
 
@@ -92,7 +107,11 @@ public sealed class ImmovableRodSystem : EntitySystem
         {
             // oh god.
             var coords = Transform(uid).Coordinates;
-            _popup.PopupCoordinates(Loc.GetString("immovable-rod-collided-rod-not-good"), coords, PopupType.LargeCaution);
+            _popup.PopupCoordinates(
+                Loc.GetString("immovable-rod-collided-rod-not-good"),
+                coords,
+                PopupType.LargeCaution
+            );
 
             Del(uid);
             Del(ent);
@@ -112,7 +131,11 @@ public sealed class ImmovableRodSystem : EntitySystem
         if (TryComp<BodyComponent>(ent, out var body))
         {
             component.MobCount++;
-            _popup.PopupEntity(Loc.GetString("immovable-rod-penetrated-mob", ("rod", uid), ("mob", ent)), uid, PopupType.LargeCaution);
+            _popup.PopupEntity(
+                Loc.GetString("immovable-rod-penetrated-mob", ("rod", uid), ("mob", ent)),
+                uid,
+                PopupType.LargeCaution
+            );
 
             if (!component.ShouldGib)
             {

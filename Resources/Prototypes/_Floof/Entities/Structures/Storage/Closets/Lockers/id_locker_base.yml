@@ -19,7 +19,7 @@
   components:
   - type: IdLock
     revealInfo: true
-    masterAccesses: [ CentralCommand, Captain, HeadOfPersonnel ]
+    masterAccesses: [CentralCommand, Captain, HeadOfPersonnel]
 
 # A base lockable entity whose ID lock has to be enabled first (typically via construction)
 - type: entity
@@ -48,7 +48,7 @@
   abstract: true
   components:
   - type: IdLock
-    masterAccesses: [ Quartermaster ]
+    masterAccesses: [Quartermaster]
 
 - type: entity
   id: IdLockableBaseMedical
@@ -56,7 +56,7 @@
   abstract: true
   components:
   - type: IdLock
-    masterAccesses: [ ChiefMedicalOfficer ]
+    masterAccesses: [ChiefMedicalOfficer]
 
 - type: entity
   id: IdLockableBaseEngineering
@@ -64,7 +64,7 @@
   abstract: true
   components:
   - type: IdLock
-    masterAccesses: [ ChiefEngineer ]
+    masterAccesses: [ChiefEngineer]
 
 - type: entity
   id: IdLockableBaseResearch
@@ -72,7 +72,7 @@
   abstract: true
   components:
   - type: IdLock
-    masterAccesses: [ ResearchDirector ]
+    masterAccesses: [ResearchDirector]
 
 - type: entity
   id: IdLockableBaseSecurity
@@ -80,4 +80,4 @@
   abstract: true
   components:
   - type: IdLock
-    masterAccesses: [ HeadOfSecurity, Armory ]
+    masterAccesses: [HeadOfSecurity, Armory]

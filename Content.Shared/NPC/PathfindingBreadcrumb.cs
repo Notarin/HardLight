@@ -18,7 +18,13 @@ public struct PathfindingBreadcrumb : IEquatable<PathfindingBreadcrumb>
         Data = new PathfindingData(PathfindingBreadcrumbFlag.None, -1, -1, 0f),
     };
 
-    public PathfindingBreadcrumb(Vector2i coordinates, int layer, int mask, float damage, PathfindingBreadcrumbFlag flags = PathfindingBreadcrumbFlag.None)
+    public PathfindingBreadcrumb(
+        Vector2i coordinates,
+        int layer,
+        int mask,
+        float damage,
+        PathfindingBreadcrumbFlag flags = PathfindingBreadcrumbFlag.None
+    )
     {
         Coordinates = coordinates;
         Data = new PathfindingData(flags, layer, mask, damage);
@@ -71,17 +77,18 @@ public struct PathfindingData : IEquatable<PathfindingData>
 
     public bool IsEquivalent(PathfindingData other)
     {
-        return CollisionLayer.Equals(other.CollisionLayer) &&
-               CollisionMask.Equals(other.CollisionMask) &&
-               Flags == other.Flags; // VRS: avoid boxing enum (Triad #3853)
+        return CollisionLayer.Equals(other.CollisionLayer)
+            && CollisionMask.Equals(other.CollisionMask)
+            && Flags == other.Flags; // VRS: avoid boxing enum (Triad #3853)
     }
 
     public bool Equals(PathfindingData other)
     {
-        return CollisionLayer.Equals(other.CollisionLayer) &&
-               CollisionMask.Equals(other.CollisionMask) &&
-               Flags == other.Flags && // VRS: avoid boxing enum (Triad #3853)
-               Damage.Equals(other.Damage);
+        return CollisionLayer.Equals(other.CollisionLayer)
+            && CollisionMask.Equals(other.CollisionMask)
+            && Flags == other.Flags
+            && // VRS: avoid boxing enum (Triad #3853)
+            Damage.Equals(other.Damage);
     }
 
     public override bool Equals(object? obj)
@@ -91,7 +98,7 @@ public struct PathfindingData : IEquatable<PathfindingData>
 
     public override int GetHashCode()
     {
-        return HashCode.Combine((int) Flags, CollisionLayer, CollisionMask);
+        return HashCode.Combine((int)Flags, CollisionLayer, CollisionMask);
     }
 }
 

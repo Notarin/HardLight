@@ -9,14 +9,13 @@ using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 using Serilog;
 
-
 namespace Content.Client._Floof.Examine;
-
 
 [GenerateTypedNameReferences]
 public sealed partial class CustomExaminePart : Control
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     public string? Title { get; set; }
     public int MaxContentLength { get; set; }
@@ -50,7 +49,11 @@ public sealed partial class CustomExaminePart : Control
             var tooltip = new Tooltip();
             var expiresIn = _lastData.ExpireTime - _timing.CurTime;
             var minutes = $"{expiresIn.TotalMinutes:0.00}";
-            tooltip.SetMessage(FormattedMessage.FromMarkupPermissive(Loc.GetString("custom-exam-part-expiration-tooltip", ("minutes", minutes))));
+            tooltip.SetMessage(
+                FormattedMessage.FromMarkupPermissive(
+                    Loc.GetString("custom-exam-part-expiration-tooltip", ("minutes", minutes))
+                )
+            );
             return tooltip;
         };
 
@@ -75,9 +78,10 @@ public sealed partial class CustomExaminePart : Control
         Content.TextRope = new Rope.Leaf(data.Content ?? String.Empty);
         NsfwCheckbox.Pressed = data.RequiresConsent;
         DistanceSpin.Value = data.VisibilityRange;
-        ExpirationSpin.Value = data.ExpireTime.Ticks == 0 || data.ExpireTime < _timing.CurTime
-            ? 60 // Texts last for 30 minutes by default
-            : (int) Math.Round((data.ExpireTime - _timing.CurTime).TotalMinutes); // TODO rounding is bad
+        ExpirationSpin.Value =
+            data.ExpireTime.Ticks == 0 || data.ExpireTime < _timing.CurTime
+                ? 60 // Texts last for 30 minutes by default
+                : (int)Math.Round((data.ExpireTime - _timing.CurTime).TotalMinutes); // TODO rounding is bad
     }
 
     public CustomExamineData GetData() =>
@@ -88,7 +92,6 @@ public sealed partial class CustomExaminePart : Control
             VisibilityRange = DistanceSpin.Value,
             // Adding a little to account for rounding above so the error doesn't keep adding up
             ExpireTime = _timing.CurTime + TimeSpan.FromMinutes(ExpirationSpin.Value + 0.4),
-            LastUpdate = _lastUpdated
+            LastUpdate = _lastUpdated,
         };
 }
-

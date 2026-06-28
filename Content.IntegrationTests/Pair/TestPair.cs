@@ -78,17 +78,18 @@ public sealed partial class TestPair : RobustIntegrationTest.TestPair
         opts.LoadTestAssembly = false;
         opts.ContentStart = true;
         opts.FailureLogLevel = LogLevel.Warning;
-        opts.Options = new()
-        {
-            LoadConfigAndUserData = false,
-        };
+        opts.Options = new() { LoadConfigAndUserData = false };
 
         opts.BeforeStart += () =>
         {
-            IoCManager.Resolve<IModLoader>().SetModuleBaseCallbacks(new ClientModuleTestingCallbacks
-                {
-                    ClientBeforeIoC = () => IoCManager.Register<IParallaxManager, DummyParallaxManager>(true)
-                });
+            IoCManager
+                .Resolve<IModLoader>()
+                .SetModuleBaseCallbacks(
+                    new ClientModuleTestingCallbacks
+                    {
+                        ClientBeforeIoC = () => IoCManager.Register<IParallaxManager, DummyParallaxManager>(true),
+                    }
+                );
         };
         return opts;
     }
@@ -99,10 +100,7 @@ public sealed partial class TestPair : RobustIntegrationTest.TestPair
 
         opts.LoadTestAssembly = false;
         opts.ContentStart = true;
-        opts.Options = new()
-        {
-            LoadConfigAndUserData = false,
-        };
+        opts.Options = new() { LoadConfigAndUserData = false };
 
         opts.BeforeStart += () =>
         {

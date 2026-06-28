@@ -1,5 +1,5 @@
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseBullet
   id: BoltBase
   name: bolt (.75)
@@ -14,7 +14,7 @@
     - Structural
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BoltBase
   id: BoltExplosive
   name: explosive bolt (.75)
@@ -35,7 +35,7 @@
         Structural: 50
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BoltBase
   id: BoltIncendiary
   name: incendiary bolt (.75)
@@ -50,7 +50,7 @@
     fireStacks: 0.5
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BoltBase
   id: BoltCorrosive
   name: corrosive bolt (.75)
@@ -62,7 +62,7 @@
         Caustic: 15
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BoltBase
   id: BoltTaser
   name: taser bolt (.75)
@@ -76,7 +76,7 @@
     knockdownAmount: 3
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BoltBase
   id: BoltCryogenic
   name: cryogenic bolt (.75)
@@ -88,7 +88,7 @@
         Cold: 30
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BoltBase
   id: BoltFusor
   name: fusor bolt (.75)

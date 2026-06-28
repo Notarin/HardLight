@@ -5,7 +5,8 @@ using Robust.Client.UserInterface.XAML;
 
 namespace Content.Client.Guidebook.Controls;
 
-[UsedImplicitly] [GenerateTypedNameReferences]
+[UsedImplicitly]
+[GenerateTypedNameReferences]
 public sealed partial class GuidebookError : BoxContainer
 {
     public GuidebookError()
@@ -13,7 +14,8 @@ public sealed partial class GuidebookError : BoxContainer
         RobustXamlLoader.Load(this);
     }
 
-    public GuidebookError(string original, string? error) : this()
+    public GuidebookError(string original, string? error)
+        : this()
     {
         Original.AddText(original);
 

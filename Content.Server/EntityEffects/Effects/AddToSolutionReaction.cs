@@ -13,16 +13,30 @@ namespace Content.Server.EntityEffects.Effects
 
         public override void Effect(EntityEffectBaseArgs args)
         {
-            if (args is EntityEffectReagentArgs reagentArgs) {
+            if (args is EntityEffectReagentArgs reagentArgs)
+            {
                 if (reagentArgs.Reagent == null)
                     return;
 
                 // TODO see if this is correct
                 var solutionContainerSystem = reagentArgs.EntityManager.System<SharedSolutionContainerSystem>();
-                if (!solutionContainerSystem.TryGetSolution(reagentArgs.TargetEntity, _solution, out var solutionContainer))
+                if (
+                    !solutionContainerSystem.TryGetSolution(
+                        reagentArgs.TargetEntity,
+                        _solution,
+                        out var solutionContainer
+                    )
+                )
                     return;
 
-                if (solutionContainerSystem.TryAddReagent(solutionContainer.Value, reagentArgs.Reagent.ID, reagentArgs.Quantity, out var accepted))
+                if (
+                    solutionContainerSystem.TryAddReagent(
+                        solutionContainer.Value,
+                        reagentArgs.Reagent.ID,
+                        reagentArgs.Quantity,
+                        out var accepted
+                    )
+                )
                     reagentArgs.Source?.RemoveReagent(reagentArgs.Reagent.ID, accepted);
 
                 return;
@@ -32,7 +46,9 @@ namespace Content.Server.EntityEffects.Effects
             throw new NotImplementedException();
         }
 
-        protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys) =>
-            Loc.GetString("reagent-effect-guidebook-add-to-solution-reaction", ("chance", Probability));
+        protected override string? ReagentEffectGuidebookText(
+            IPrototypeManager prototype,
+            IEntitySystemManager entSys
+        ) => Loc.GetString("reagent-effect-guidebook-add-to-solution-reaction", ("chance", Probability));
     }
 }

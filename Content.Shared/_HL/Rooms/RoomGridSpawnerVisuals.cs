@@ -5,5 +5,5 @@ namespace Content.Shared._HL.Rooms;
 [Serializable, NetSerializable]
 public enum RoomGridSpawnerVisuals : byte
 {
-    InUse
+    InUse,
 }

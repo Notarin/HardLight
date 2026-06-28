@@ -1,6 +1,6 @@
 using System.Numerics;
-using Content.Shared.Physics;
 using Content.Shared.Mobs;
+using Content.Shared.Physics;
 using Content.Shared.Standing;
 using Robust.Shared.Maths;
 using Robust.Shared.Physics;
@@ -12,10 +12,12 @@ public sealed partial class CrawlUnderObjectsSystem
 {
     private void EnsureBaselineInflation(Entity<CrawlUnderObjectsComponent> ent)
     {
-        if (ent.Comp.BaselineInflationApplied
+        if (
+            ent.Comp.BaselineInflationApplied
             || ent.Comp.Enabled
             || MathHelper.CloseTo(ent.Comp.UnsqueezedRadiusScale, 1f)
-            || !TryComp(ent, out Robust.Shared.Physics.FixturesComponent? fixtures))
+            || !TryComp(ent, out Robust.Shared.Physics.FixturesComponent? fixtures)
+        )
             return;
 
         foreach (var (key, fixture) in fixtures.Fixtures)
@@ -23,7 +25,15 @@ public sealed partial class CrawlUnderObjectsSystem
             if (fixture.Shape is not PhysShapeCircle circle)
                 continue;
 
-            _physics.SetPositionRadius(ent.Owner, key, fixture, circle, circle.Position, circle.Radius * ent.Comp.UnsqueezedRadiusScale, fixtures);
+            _physics.SetPositionRadius(
+                ent.Owner,
+                key,
+                fixture,
+                circle,
+                circle.Position,
+                circle.Radius * ent.Comp.UnsqueezedRadiusScale,
+                fixtures
+            );
         }
 
         ent.Comp.BaselineInflationApplied = true;
@@ -35,8 +45,7 @@ public sealed partial class CrawlUnderObjectsSystem
         if (ent.Comp.Enabled)
             SetEnabled(ent, false);
 
-        if (ent.Comp.DownedScaleApplied
-            || !TryComp(ent, out Robust.Shared.Physics.FixturesComponent? fixtures))
+        if (ent.Comp.DownedScaleApplied || !TryComp(ent, out Robust.Shared.Physics.FixturesComponent? fixtures))
         {
             return;
         }
@@ -52,8 +61,7 @@ public sealed partial class CrawlUnderObjectsSystem
 
     private void OnStood(Entity<CrawlUnderObjectsComponent> ent, ref Content.Shared.Standing.StoodEvent args)
     {
-        if (!ent.Comp.DownedScaleApplied
-            || !TryComp(ent, out Robust.Shared.Physics.FixturesComponent? fixtures))
+        if (!ent.Comp.DownedScaleApplied || !TryComp(ent, out Robust.Shared.Physics.FixturesComponent? fixtures))
         {
             return;
         }
@@ -88,7 +96,10 @@ public sealed partial class CrawlUnderObjectsSystem
         }
     }
 
-    private void CaptureCurrentCircles(Entity<Robust.Shared.Physics.FixturesComponent> ent, List<(string key, Vector2 position, float radius)> output)
+    private void CaptureCurrentCircles(
+        Entity<Robust.Shared.Physics.FixturesComponent> ent,
+        List<(string key, Vector2 position, float radius)> output
+    )
     {
         output.Clear();
         output.Capacity = Math.Max(output.Capacity, ent.Comp.Fixtures.Count);
@@ -110,12 +121,15 @@ public sealed partial class CrawlUnderObjectsSystem
         return comp.SqueezeRadiusScale / comp.UnsqueezedRadiusScale;
     }
 
-    private void ApplyCircles(Entity<Robust.Shared.Physics.FixturesComponent> ent, List<(string key, Vector2 position, float radius)> circles, float scale)
+    private void ApplyCircles(
+        Entity<Robust.Shared.Physics.FixturesComponent> ent,
+        List<(string key, Vector2 position, float radius)> circles,
+        float scale
+    )
     {
         foreach (var (key, position, radius) in circles)
         {
-            if (!ent.Comp.Fixtures.TryGetValue(key, out var fixture)
-                || fixture.Shape is not PhysShapeCircle circle)
+            if (!ent.Comp.Fixtures.TryGetValue(key, out var fixture) || fixture.Shape is not PhysShapeCircle circle)
             {
                 continue;
             }
@@ -124,12 +138,14 @@ public sealed partial class CrawlUnderObjectsSystem
         }
     }
 
-    private void RestoreCircles(Entity<Robust.Shared.Physics.FixturesComponent> ent, List<(string key, Vector2 position, float radius)> circles)
+    private void RestoreCircles(
+        Entity<Robust.Shared.Physics.FixturesComponent> ent,
+        List<(string key, Vector2 position, float radius)> circles
+    )
     {
         foreach (var (key, position, radius) in circles)
         {
-            if (!ent.Comp.Fixtures.TryGetValue(key, out var fixture)
-                || fixture.Shape is not PhysShapeCircle circle)
+            if (!ent.Comp.Fixtures.TryGetValue(key, out var fixture) || fixture.Shape is not PhysShapeCircle circle)
             {
                 continue;
             }

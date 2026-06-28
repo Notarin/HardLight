@@ -8,7 +8,7 @@
   name: LAC-29
   description: The everyman's mecha rifle. Chambered in 20mm, with balanced stats to tackle both Armored Frames and do light damage against ships. Fits on Light Hardpoints.
   suffix: Mech Weapon, Gun, Combat, Rifle
-  parent: [ BaseMechWeaponRange, LightMechMountEquipment ]
+  parent: [BaseMechWeaponRange, LightMechMountEquipment]
   components:
   - type: Sprite
     sprite: _Mono/Objects/Specific/Mech/tgmc_mecha_weapons.rsi
@@ -18,7 +18,7 @@
     fireRate: 3
     selectedMode: FullAuto
     availableModes:
-      - FullAuto
+    - FullAuto
     soundGunshot:
       path: /Audio/_Mono/Weapons/Guns/Gunshots/slammer.ogg
   - type: Battery
@@ -34,7 +34,7 @@
   name: RAC-3
   description: An uncommon choice of weaponry, it consists of a 6 barrelled gatling gun, chambered in .45 ACP. Overwhelms mecha with sheer firerate. Good for CQC. Fits on Light Hardpoints.
   suffix: Mech Weapon, Gun, Combat, SMG
-  parent: [ BaseMechWeaponRange, LightMechMountEquipment ]
+  parent: [BaseMechWeaponRange, LightMechMountEquipment]
   components:
   - type: Sprite
     sprite: _Mono/Objects/Specific/Mech/tgmc_mecha_weapons.rsi
@@ -44,7 +44,7 @@
     fireRate: 10
     selectedMode: FullAuto
     availableModes:
-      - FullAuto
+    - FullAuto
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/minigun.ogg
   - type: Battery
@@ -55,13 +55,12 @@
   - type: Appearance
   - type: AmmoCounter
 
-
 - type: entity
   id: LightMechaShotgun
   name: SH-35
   description: A large mech-grade shotgun chambered in 0.5 gauge shells, perfect for CQC combat, the firerate leaves much to be desired however. Fits on Light Hardpoints.
   suffix: Mech Weapon, Gun, Combat, Shotgun
-  parent: [ BaseMechWeaponRange, LightMechMountEquipment ]
+  parent: [BaseMechWeaponRange, LightMechMountEquipment]
   components:
   - type: Sprite
     sprite: _Mono/Objects/Specific/Mech/tgmc_mecha_weapons.rsi
@@ -71,7 +70,7 @@
     fireRate: 2
     selectedMode: FullAuto
     availableModes:
-      - FullAuto
+    - FullAuto
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/lmg.ogg
   - type: Battery
@@ -88,7 +87,7 @@
   name: DMR-49
   description: A heavy duty autocannon chambered in 57mm. General purpose Medium Hardpoint gun.
   suffix: Mech Weapon, Gun, Combat, Cannon
-  parent: [ BaseMechWeaponRange, MediumMechMountEquipment ]
+  parent: [BaseMechWeaponRange, MediumMechMountEquipment]
   components:
   - type: Sprite
     sprite: _Mono/Objects/Specific/Mech/tgmc_mecha_weapons.rsi
@@ -98,7 +97,7 @@
     fireRate: 2
     selectedMode: FullAuto
     availableModes:
-      - FullAuto
+    - FullAuto
     soundGunshot:
       path: /Audio/_Mono/Weapons/Guns/Gunshots/uaf_57mm.ogg
   - type: Battery
@@ -114,7 +113,7 @@
   name: CL-03
   description: A light coilgun chambered in 3cm sabots. Inflicts minor damage, however spreads the dreaded EMP effect across an area. Needs a Medium Hardpoint.
   suffix: Mech Weapon, Gun, Combat, Cannon
-  parent: [ BaseMechWeaponRange, MediumMechMountEquipment ]
+  parent: [BaseMechWeaponRange, MediumMechMountEquipment]
   components:
   - type: Sprite
     sprite: _Mono/Objects/Specific/Mech/tgmc_mecha_weapons.rsi
@@ -124,7 +123,7 @@
     fireRate: 1
     selectedMode: SemiAuto
     availableModes:
-      - SemiAuto
+    - SemiAuto
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/ship_perforator.ogg
   - type: Battery
@@ -140,7 +139,7 @@
   name: ASM-55 TOW
   description: Repurposed anti-tank missile. Wire guided computer is exchanged for a much more sophisticated targetting system, but the mobility leaves much to be desired. Fits in Medium Hardpoints.
   suffix: Mech Weapon, Gun, Combat, Cannon
-  parent: [ BaseMechWeaponRange, MediumMechMountEquipment ]
+  parent: [BaseMechWeaponRange, MediumMechMountEquipment]
   components:
   - type: Sprite
     sprite: _Mono/Objects/Specific/Mech/tgmc_mecha_weapons.rsi
@@ -150,7 +149,7 @@
     fireRate: 1
     selectedMode: SemiAuto
     availableModes:
-      - SemiAuto
+    - SemiAuto
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/lmg.ogg
   - type: Battery
@@ -167,7 +166,7 @@
   name: R3 "Bazooka" Missile System
   description: Ground based cruise missile launcher repurposed for mech usage. Guidance systems are all but removed to reduce the size, making the munitions into a glorified rocket. Mounts on Heavy Hardpoints.
   suffix: Mech Weapon, Gun, Combat, Missile
-  parent: [ BaseMechWeaponRange, HeavyMechMountEquipment ]
+  parent: [BaseMechWeaponRange, HeavyMechMountEquipment]
   components:
   - type: Sprite
     sprite: _Mono/Objects/Specific/Mech/tgmc_mecha_weapons.rsi
@@ -176,7 +175,7 @@
     fireRate: 0.1
     selectedMode: SemiAuto
     availableModes:
-      - SemiAuto
+    - SemiAuto
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/lmg.ogg
   - type: Battery
@@ -192,7 +191,7 @@
   name: 120mm "Metronome"
   description: A burst fire 120mm cannon, relatively inaccurate, but much longer ranged than the "Bazooka". Mounts on Heavy Hardpoints.
   suffix: Mech Weapon, Gun, Combat, Cannon
-  parent: [ BaseMechWeaponRange, HeavyMechMountEquipment ]
+  parent: [BaseMechWeaponRange, HeavyMechMountEquipment]
   components:
   - type: Sprite
     sprite: _Mono/Objects/Specific/Mech/tgmc_mecha_weapons.rsi
@@ -205,7 +204,7 @@
     burstCooldown: 5
     selectedMode: Burst
     availableModes:
-      - Burst
+    - Burst
     soundGunshot:
       path: /Audio/_Mono/Weapons/Guns/Gunshots/120mm_mortar.ogg
   - type: Battery
@@ -221,7 +220,7 @@
   name: RAVAGER-type Plasma Cannon
   description: Based on the MARAUDER, the Ravager sacrifices range for rate of fire. Extremely inaccurate, and subpar lensing causes the projectiles to dissipate only a few seconds away. Devastating up close. Fits on Large Hardpoints.
   suffix: Mech Weapon, Gun, Combat, EnergyCannon
-  parent: [ BaseMechWeaponRange, HeavyMechMountEquipment ]
+  parent: [BaseMechWeaponRange, HeavyMechMountEquipment]
   components:
   - type: Sprite
     sprite: _Mono/Objects/Specific/Mech/tgmc_mecha_weapons.rsi
@@ -233,7 +232,7 @@
     fireRate: 3
     selectedMode: FullAuto
     availableModes:
-      - FullAuto
+    - FullAuto
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/laser_cannon2.ogg
   - type: Battery
@@ -250,7 +249,7 @@
   name: E-58 "Blanket"
   description: An extremely specialized jamming tool, fires a volley of flares with extremely large jamming signals to screen an advance. Fits on EWAR Hardpoints.
   suffix: Mech Weapon, Gun, Combat, EWAR
-  parent: [ BaseMechWeaponRange, EWARMechMountEquipment ]
+  parent: [BaseMechWeaponRange, EWARMechMountEquipment]
   components:
   - type: Sprite
     sprite: Objects/Specific/Mech/mecha_equipment.rsi
@@ -260,7 +259,7 @@
     fireRate: 0.1
     selectedMode: FullAuto
     availableModes:
-      - FullAuto
+    - FullAuto
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/lmg.ogg
   - type: Battery
@@ -276,7 +275,7 @@
   name: E-58 "Spark"
   description: A cheaper alternative to the Blanket, this emitter launches a volley of 5 flares to confuse enemy gunners. Fits on EWAR Hardpoints.
   suffix: Mech Weapon, Gun, Combat, EWAR
-  parent: [ BaseMechWeaponRange, EWARMechMountEquipment ]
+  parent: [BaseMechWeaponRange, EWARMechMountEquipment]
   components:
   - type: Sprite
     sprite: Objects/Specific/Mech/mecha_equipment.rsi
@@ -288,7 +287,7 @@
     burstCooldown: 15
     selectedMode: Burst
     availableModes:
-      - Burst
+    - Burst
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/lmg.ogg
   - type: Battery

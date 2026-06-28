@@ -1,5 +1,5 @@
-using Robust.Shared.Prototypes;
 using Content.Shared.Atmos;
+using Robust.Shared.Prototypes;
 
 namespace Content.Server.Atmos.Components
 {

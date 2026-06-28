@@ -6,7 +6,6 @@ namespace Content.Shared._Shitmed.BodyEffects.Subsystems;
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class GenerateChildPartComponent : Component
 {
-
     [DataField(required: true)]
     public EntProtoId Id = "";
 

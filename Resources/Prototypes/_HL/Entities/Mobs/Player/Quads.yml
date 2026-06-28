@@ -6,9 +6,9 @@
   - type: ContainerFill
     containers:
       borg_brain:
-        - PositronicBrain
+      - PositronicBrain
       borg_module:
-        - BorgModuleTool
+      - BorgModuleTool
   - type: ItemSlots
     slots:
       cell_slot:
@@ -25,12 +25,12 @@
   - type: ContainerFill
     containers:
       borg_brain:
-        - PositronicBrain
+      - PositronicBrain
       borg_module:
-        - BorgModuleTool
-        - BorgModuleTopicals
-        - BorgModuleRescue
-        - BorgModuleChemical
+      - BorgModuleTool
+      - BorgModuleTopicals
+      - BorgModuleRescue
+      - BorgModuleChemical
   - type: SurgerySpeedModifier #shitmed
     speedModifier: 1.75
   - type: ItemSlots
@@ -50,9 +50,9 @@
   - type: ContainerFill
     containers:
       borg_brain:
-        - PositronicBrain
+      - PositronicBrain
       borg_module:
-        - BorgModuleTool
+      - BorgModuleTool
   - type: ItemSlots
     slots:
       cell_slot:
@@ -67,11 +67,11 @@
   - type: ContainerFill
     containers:
       borg_brain:
-        - PositronicBrain
+      - PositronicBrain
       borg_module:
-        - BorgModuleTool
-        - BorgModuleMining
-        - BorgModuleTraversal
+      - BorgModuleTool
+      - BorgModuleMining
+      - BorgModuleTraversal
   - type: ItemSlots
     slots:
       cell_slot:
@@ -88,12 +88,12 @@
   - type: ContainerFill
     containers:
       borg_brain:
-        - PositronicBrain
+      - PositronicBrain
       borg_module:
-        - BorgModuleTool
-        - BorgModuleConstruction
-        - BorgModuleRCD
-        - BorgModuleCable
+      - BorgModuleTool
+      - BorgModuleConstruction
+      - BorgModuleRCD
+      - BorgModuleCable
   - type: ItemSlots
     slots:
       cell_slot:
@@ -110,12 +110,12 @@
   - type: ContainerFill
     containers:
       borg_brain:
-        - PositronicBrain
+      - PositronicBrain
       borg_module:
-        - BorgModuleTool
-        - BorgModuleStun
-        - BorgModuleKill
-        - BorgModuleInvestigation
+      - BorgModuleTool
+      - BorgModuleStun
+      - BorgModuleKill
+      - BorgModuleInvestigation
   - type: ItemSlots
     slots:
       cell_slot:
@@ -310,8 +310,8 @@
       visible: false
   - type: DamagedByFlashing
     flashDamage:
-        types:
-           Heat: 120
+      types:
+        Heat: 120
   - type: SpriteMovement
     movementLayers:
       movement:
@@ -360,7 +360,7 @@
     useKey: false
     selectedMode: SemiAuto
     availableModes:
-      - SemiAuto
+    - SemiAuto
     soundGunshot: /Audio/_HL/Effects/abysslaser.ogg
 
 - type: hitscan
@@ -388,9 +388,9 @@
   - type: ContainerFill
     containers:
       borg_brain:
-        - PositronicBrain
+      - PositronicBrain
       borg_module:
-        - BorgModuleTool
+      - BorgModuleTool
   - type: ItemSlots
     slots:
       cell_slot:
@@ -406,9 +406,9 @@
   - type: ContainerFill
     containers:
       borg_brain:
-        - PositronicBrain
+      - PositronicBrain
       borg_module:
-        - BorgModuleTool
+      - BorgModuleTool
   - type: ItemSlots
     slots:
       cell_slot:
@@ -424,9 +424,9 @@
   - type: ContainerFill
     containers:
       borg_brain:
-        - PositronicBrain
+      - PositronicBrain
       borg_module:
-        - BorgModuleTool
+      - BorgModuleTool
   - type: ItemSlots
     slots:
       cell_slot:
@@ -442,9 +442,9 @@
   - type: ContainerFill
     containers:
       borg_brain:
-        - PositronicBrain
+      - PositronicBrain
       borg_module:
-        - BorgModuleTool
+      - BorgModuleTool
   - type: ItemSlots
     slots:
       cell_slot:
@@ -460,9 +460,9 @@
   - type: ContainerFill
     containers:
       borg_brain:
-        - PositronicBrain
+      - PositronicBrain
       borg_module:
-        - BorgModuleTool
+      - BorgModuleTool
   - type: ItemSlots
     slots:
       cell_slot:
@@ -478,9 +478,9 @@
   - type: ContainerFill
     containers:
       borg_brain:
-        - PositronicBrain
+      - PositronicBrain
       borg_module:
-        - BorgModuleTool
+      - BorgModuleTool
   - type: ItemSlots
     slots:
       cell_slot:
@@ -496,9 +496,9 @@
   - type: ContainerFill
     containers:
       borg_brain:
-        - PositronicBrain
+      - PositronicBrain
       borg_module:
-        - BorgModuleTool
+      - BorgModuleTool
   - type: ItemSlots
     slots:
       cell_slot:
@@ -514,9 +514,9 @@
   - type: ContainerFill
     containers:
       borg_brain:
-        - PositronicBrain
+      - PositronicBrain
       borg_module:
-        - BorgModuleTool
+      - BorgModuleTool
   - type: ItemSlots
     slots:
       cell_slot:
@@ -532,9 +532,9 @@
   - type: ContainerFill
     containers:
       borg_brain:
-        - PositronicBrain
+      - PositronicBrain
       borg_module:
-        - BorgModuleTool
+      - BorgModuleTool
   - type: ItemSlots
     slots:
       cell_slot:
@@ -551,9 +551,9 @@
   - type: ContainerFill
     containers:
       borg_brain:
-        - PositronicBrain
+      - PositronicBrain
       borg_module:
-        - BorgModuleTool
+      - BorgModuleTool
   - type: ItemSlots
     slots:
       cell_slot:
@@ -569,9 +569,9 @@
   - type: ContainerFill
     containers:
       borg_brain:
-        - PositronicBrain
+      - PositronicBrain
       borg_module:
-        - BorgModuleTool
+      - BorgModuleTool
   - type: ItemSlots
     slots:
       cell_slot:

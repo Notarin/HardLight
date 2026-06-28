@@ -12,11 +12,20 @@ namespace Content.Server.Administration.Commands;
 [AdminCommand(AdminFlags.Ban)]
 public sealed class DepartmentBanCommand : IConsoleCommand
 {
-    [Dependency] private readonly IPrototypeManager _protoManager = default!;
-    [Dependency] private readonly IPlayerLocator _locator = default!;
-    [Dependency] private readonly IBanManager _banManager = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly ILogManager _log = default!;
+    [Dependency]
+    private readonly IPrototypeManager _protoManager = default!;
+
+    [Dependency]
+    private readonly IPlayerLocator _locator = default!;
+
+    [Dependency]
+    private readonly IBanManager _banManager = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
+
+    [Dependency]
+    private readonly ILogManager _log = default!;
 
     private ISawmill? _sawmill;
 
@@ -134,15 +143,15 @@ public sealed class DepartmentBanCommand : IConsoleCommand
 
         return args.Length switch
         {
-            1 => CompletionResult.FromHintOptions(CompletionHelper.SessionNames(),
-                Loc.GetString("cmd-roleban-hint-1")),
-            2 => CompletionResult.FromHintOptions(CompletionHelper.PrototypeIDs<DepartmentPrototype>(),
-                Loc.GetString("cmd-roleban-hint-2")),
+            1 => CompletionResult.FromHintOptions(CompletionHelper.SessionNames(), Loc.GetString("cmd-roleban-hint-1")),
+            2 => CompletionResult.FromHintOptions(
+                CompletionHelper.PrototypeIDs<DepartmentPrototype>(),
+                Loc.GetString("cmd-roleban-hint-2")
+            ),
             3 => CompletionResult.FromHint(Loc.GetString("cmd-roleban-hint-3")),
             4 => CompletionResult.FromHintOptions(durOpts, Loc.GetString("cmd-roleban-hint-4")),
             5 => CompletionResult.FromHintOptions(severities, Loc.GetString("cmd-roleban-hint-5")),
-            _ => CompletionResult.Empty
+            _ => CompletionResult.Empty,
         };
     }
-
 }

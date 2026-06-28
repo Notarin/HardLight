@@ -53,7 +53,13 @@ public struct PowerMonitoringDeviceMetaData
     public string SpriteState;
     public NetEntity? CollectionMaster;
 
-    public PowerMonitoringDeviceMetaData(string name, NetCoordinates coordinates, PowerMonitoringConsoleGroup group, string spritePath, string spriteState)
+    public PowerMonitoringDeviceMetaData(
+        string name,
+        NetCoordinates coordinates,
+        PowerMonitoringConsoleGroup group,
+        string spritePath,
+        string spriteState
+    )
     {
         EntityName = name;
         Coordinates = coordinates;
@@ -76,13 +82,14 @@ public sealed class PowerMonitoringConsoleBoundInterfaceState : BoundUserInterfa
     public PowerMonitoringConsoleEntry[] FocusSources;
     public PowerMonitoringConsoleEntry[] FocusLoads;
 
-    public PowerMonitoringConsoleBoundInterfaceState
-        (double totalSources,
+    public PowerMonitoringConsoleBoundInterfaceState(
+        double totalSources,
         double totalBatteryUsage,
         double totalLoads,
         PowerMonitoringConsoleEntry[] allEntries,
         PowerMonitoringConsoleEntry[] focusSources,
-        PowerMonitoringConsoleEntry[] focusLoads)
+        PowerMonitoringConsoleEntry[] focusLoads
+    )
     {
         TotalSources = totalSources;
         TotalBatteryUsage = totalBatteryUsage;
@@ -104,9 +111,15 @@ public struct PowerMonitoringConsoleEntry
     public double PowerValue;
     public float? BatteryLevel;
 
-    [NonSerialized] public PowerMonitoringDeviceMetaData? MetaData = null;
+    [NonSerialized]
+    public PowerMonitoringDeviceMetaData? MetaData = null;
 
-    public PowerMonitoringConsoleEntry(NetEntity netEntity, PowerMonitoringConsoleGroup group, double powerValue = 0d, float? batteryLevel = null)
+    public PowerMonitoringConsoleEntry(
+        NetEntity netEntity,
+        PowerMonitoringConsoleGroup group,
+        double powerValue = 0d,
+        float? batteryLevel = null
+    )
     {
         NetEntity = netEntity;
         Group = group;
@@ -157,5 +170,5 @@ public enum PowerMonitoringFlags : byte
 [Serializable, NetSerializable]
 public enum PowerMonitoringConsoleUiKey
 {
-    Key
+    Key,
 }

@@ -25,7 +25,7 @@
   id: CatClarpy
   name: ghost-role-information-clarpy-name
   description: ghost-role-information-clarpy-description
-  rules:  ghost-role-information-emotional-support-rules
+  rules: ghost-role-information-emotional-support-rules
   entityPrototype: MobCatClarpy
 
 - type: ghostRole
@@ -46,7 +46,7 @@
   id: CatBloodCult
   name: ghost-role-information-cult-cat-name
   description: ghost-role-information-cult-cat-description
-  rules:  ghost-role-information-emotional-support-rules
+  rules: ghost-role-information-emotional-support-rules
   entityPrototype: MobCatBloodCult
 
 - type: ghostRole

@@ -1,7 +1,7 @@
-using Robust.Client.GameObjects;
-using Content.Shared.Fax.Components;
 using Content.Shared.Fax;
+using Content.Shared.Fax.Components;
 using Robust.Client.Animations;
+using Robust.Client.GameObjects;
 
 namespace Content.Client.Fax.System;
 
@@ -10,8 +10,11 @@ namespace Content.Client.Fax.System;
 /// </summary>
 public sealed class FaxVisualsSystem : EntitySystem
 {
-    [Dependency] private readonly AnimationPlayerSystem _player = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+    [Dependency]
+    private readonly AnimationPlayerSystem _player = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
 
     public override void Initialize()
     {
@@ -28,10 +31,13 @@ public sealed class FaxVisualsSystem : EntitySystem
         if (_player.HasRunningAnimation(uid, "faxecute"))
             return;
 
-        if (_appearance.TryGetData(uid, FaxMachineVisuals.VisualState, out FaxMachineVisualState visuals) &&
-            visuals == FaxMachineVisualState.Inserting)
+        if (
+            _appearance.TryGetData(uid, FaxMachineVisuals.VisualState, out FaxMachineVisualState visuals)
+            && visuals == FaxMachineVisualState.Inserting
+        )
         {
-            _player.Play(uid,
+            _player.Play(
+                uid,
                 new Animation()
                 {
                     Length = TimeSpan.FromSeconds(2.4),
@@ -48,7 +54,8 @@ public sealed class FaxVisualsSystem : EntitySystem
                         },
                     },
                 },
-                "faxecute");
+                "faxecute"
+            );
         }
     }
 }

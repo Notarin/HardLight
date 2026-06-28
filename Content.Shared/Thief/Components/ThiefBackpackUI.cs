@@ -36,7 +36,7 @@ public sealed class ThiefBackpackApproveMessage : BoundUserInterfaceMessage
 [Serializable, NetSerializable]
 public enum ThiefBackpackUIKey : byte
 {
-    Key
+    Key,
 };
 
 [Serializable, NetSerializable, DataDefinition]

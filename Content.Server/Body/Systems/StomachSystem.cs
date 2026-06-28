@@ -1,8 +1,8 @@
 using Content.Server.Body.Components;
-using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Body.Organ;
 using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.Components.SolutionManager;
+using Content.Shared.Chemistry.EntitySystems;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
@@ -10,8 +10,11 @@ namespace Content.Server.Body.Systems
 {
     public sealed class StomachSystem : EntitySystem
     {
-        [Dependency] private readonly IGameTiming _gameTiming = default!;
-        [Dependency] private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
+        [Dependency]
+        private readonly IGameTiming _gameTiming = default!;
+
+        [Dependency]
+        private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
 
         public const string DefaultSolutionName = "stomach";
 
@@ -43,10 +46,20 @@ namespace Content.Server.Body.Systems
                 stomach.NextUpdate += stomach.UpdateInterval;
 
                 // Get our solutions
-                if (!_solutionContainerSystem.ResolveSolution((uid, sol), DefaultSolutionName, ref stomach.Solution, out var stomachSolution))
+                if (
+                    !_solutionContainerSystem.ResolveSolution(
+                        (uid, sol),
+                        DefaultSolutionName,
+                        ref stomach.Solution,
+                        out var stomachSolution
+                    )
+                )
                     continue;
 
-                if (organ.Body is not { } body || !_solutionContainerSystem.TryGetSolution(body, stomach.BodySolutionName, out var bodySolution))
+                if (
+                    organ.Body is not { } body
+                    || !_solutionContainerSystem.TryGetSolution(body, stomach.BodySolutionName, out var bodySolution)
+                )
                     continue;
 
                 var transferSolution = new Solution();
@@ -82,9 +95,7 @@ namespace Content.Server.Body.Systems
             }
         }
 
-        private void OnApplyMetabolicMultiplier(
-            Entity<StomachComponent> ent,
-            ref ApplyMetabolicMultiplierEvent args)
+        private void OnApplyMetabolicMultiplier(Entity<StomachComponent> ent, ref ApplyMetabolicMultiplierEvent args)
         {
             if (args.Apply)
             {
@@ -100,10 +111,16 @@ namespace Content.Server.Body.Systems
             EntityUid uid,
             Solution solution,
             StomachComponent? stomach = null,
-            SolutionContainerManagerComponent? solutions = null)
+            SolutionContainerManagerComponent? solutions = null
+        )
         {
             return Resolve(uid, ref stomach, ref solutions, logMissing: false)
-                && _solutionContainerSystem.ResolveSolution((uid, solutions), DefaultSolutionName, ref stomach.Solution, out var stomachSolution)
+                && _solutionContainerSystem.ResolveSolution(
+                    (uid, solutions),
+                    DefaultSolutionName,
+                    ref stomach.Solution,
+                    out var stomachSolution
+                )
                 // TODO: For now no partial transfers. Potentially change by design
                 && stomachSolution.CanAddSolution(solution);
         }
@@ -112,11 +129,18 @@ namespace Content.Server.Body.Systems
             EntityUid uid,
             Solution solution,
             StomachComponent? stomach = null,
-            SolutionContainerManagerComponent? solutions = null)
+            SolutionContainerManagerComponent? solutions = null
+        )
         {
-            if (!Resolve(uid, ref stomach, ref solutions, logMissing: false)
-                || !_solutionContainerSystem.ResolveSolution((uid, solutions), DefaultSolutionName, ref stomach.Solution)
-                || !CanTransferSolution(uid, solution, stomach, solutions))
+            if (
+                !Resolve(uid, ref stomach, ref solutions, logMissing: false)
+                || !_solutionContainerSystem.ResolveSolution(
+                    (uid, solutions),
+                    DefaultSolutionName,
+                    ref stomach.Solution
+                )
+                || !CanTransferSolution(uid, solution, stomach, solutions)
+            )
             {
                 return false;
             }

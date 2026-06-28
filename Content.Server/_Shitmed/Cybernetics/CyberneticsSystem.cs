@@ -1,9 +1,9 @@
 using Content.Server.Emp;
-using Content.Shared.Body.Part;
-using Content.Shared.Body.Organ;
-using Content.Shared._Shitmed.Body.Organ;
 using Content.Shared._Shitmed.Body.Events;
+using Content.Shared._Shitmed.Body.Organ;
 using Content.Shared._Shitmed.Cybernetics;
+using Content.Shared.Body.Organ;
+using Content.Shared.Body.Part;
 
 namespace Content.Server._Shitmed.Cybernetics;
 
@@ -14,6 +14,7 @@ internal sealed class CyberneticsSystem : EntitySystem
         SubscribeLocalEvent<CyberneticsComponent, EmpPulseEvent>(OnEmpPulse);
         SubscribeLocalEvent<CyberneticsComponent, EmpDisabledRemoved>(OnEmpDisabledRemoved);
     }
+
     private void OnEmpPulse(Entity<CyberneticsComponent> cyberEnt, ref EmpPulseEvent ev)
     {
         if (!cyberEnt.Comp.Disabled)

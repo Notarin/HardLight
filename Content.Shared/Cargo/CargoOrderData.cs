@@ -1,5 +1,6 @@
-using Robust.Shared.Serialization;
 using System.Text;
+using Robust.Shared.Serialization;
+
 namespace Content.Shared.Cargo
 {
     [DataDefinition, NetSerializable, Serializable]
@@ -44,15 +45,25 @@ namespace Content.Shared.Cargo
 
         [DataField]
         public string Requester { get; private set; }
+
         // public String RequesterRank; // TODO Figure out how to get Character ID card data
         // public int RequesterId;
         [DataField]
         public string Reason { get; private set; }
-        public  bool Approved;
+        public bool Approved;
+
         [DataField]
         public string? Approver;
 
-        public CargoOrderData(int orderId, string productId, string productName, int price, int amount, string requester, string reason)
+        public CargoOrderData(
+            int orderId,
+            string productId,
+            string productName,
+            int price,
+            int amount,
+            string requester,
+            string reason
+        )
         {
             OrderId = orderId;
             ProductId = productId;

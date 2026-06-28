@@ -18,10 +18,17 @@ namespace Content.Server.CM14.Xenos.Construction;
 [UsedImplicitly]
 public sealed class XenoConstructionServerSystem : SharedXenoConstructionSystem
 {
-    [Dependency] private readonly MapSystem _mapSystem = default!;
-    [Dependency] private readonly IMapManager _map = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly INetManager _net = default!;
+    [Dependency]
+    private readonly MapSystem _mapSystem = default!;
+
+    [Dependency]
+    private readonly IMapManager _map = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly INetManager _net = default!;
 
     private readonly List<EntityUid> _anchored = new();
 
@@ -56,10 +63,12 @@ public sealed class XenoConstructionServerSystem : SharedXenoConstructionSystem
         // from expanding further. If this is the case then the weeds should reassign
         // their source to this one and reactivate if it is closer to them than their
         // original source and only if it is still within range
-        if (args.NeighborFreeTiles.Count <= 0 ||
-            !Exists(source) ||
-            !TryComp(source, out TransformComponent? transform) ||
-            ent.Comp.Spawns.Id is not { } prototype)
+        if (
+            args.NeighborFreeTiles.Count <= 0
+            || !Exists(source)
+            || !TryComp(source, out TransformComponent? transform)
+            || ent.Comp.Spawns.Id is not { } prototype
+        )
         {
             RemCompDeferred<ActiveEdgeSpreaderComponent>(ent);
             return;
@@ -102,10 +111,12 @@ public sealed class XenoConstructionServerSystem : SharedXenoConstructionSystem
                 _mapSystem.GetAnchoredEntities((gridUid, neighbor.Grid), adjacent.GridIndices, _anchored);
                 foreach (var anchored in _anchored)
                 {
-                    if (!TryComp(anchored, out XenoWeedableComponent? weedable) ||
-                        weedable.Entity != null ||
-                        !TryComp(anchored, out TransformComponent? weedableTransform) ||
-                        !weedableTransform.Anchored)
+                    if (
+                        !TryComp(anchored, out XenoWeedableComponent? weedable)
+                        || weedable.Entity != null
+                        || !TryComp(anchored, out TransformComponent? weedableTransform)
+                        || !weedableTransform.Anchored
+                    )
                     {
                         continue;
                     }

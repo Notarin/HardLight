@@ -6,7 +6,7 @@ using Robust.Shared.Prototypes;
 namespace Content.Shared._NF.Vehicle.Components;
 
 /// <summary>
-/// 
+///
 /// </summary>
 [RegisterComponent, NetworkedComponent]
 [Access(typeof(VehicleHornSystem))]
@@ -19,7 +19,7 @@ public sealed partial class VehicleHornComponent : Component
     [ViewVariables(VVAccess.ReadWrite)]
     public SoundSpecifier? HornSound = new SoundPathSpecifier("/Audio/Effects/Vehicle/carhorn.ogg")
     {
-        Params = AudioParams.Default.WithVolume(-3f)
+        Params = AudioParams.Default.WithVolume(-3f),
     };
 
     [ViewVariables]

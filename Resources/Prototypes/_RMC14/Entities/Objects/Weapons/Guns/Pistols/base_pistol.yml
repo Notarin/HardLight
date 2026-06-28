@@ -1,5 +1,5 @@
-﻿- type: entity
-  parent: [BaseItem, CMBaseWeaponGun, RMCBaseAttachableHolder, BaseC3ExpeditionContraband ]
+- type: entity
+  parent: [BaseItem, CMBaseWeaponGun, RMCBaseAttachableHolder, BaseC3ExpeditionContraband]
   abstract: true
   id: CMWeaponPistolBase
   components:
@@ -9,10 +9,10 @@
     layers:
     - sprite: _RMC14/Objects/Weapons/Guns/Pistols/mk80.rsi
       state: base
-      map: [ "enum.GunVisualLayers.Base" ]
+      map: ["enum.GunVisualLayers.Base"]
     - sprite: _RMC14/Objects/Weapons/Guns/Pistols/mk80.rsi
       state: mag-0
-      map: [ "enum.GunVisualLayers.Mag" ]
+      map: ["enum.GunVisualLayers.Mag"]
   - type: Item
     size: Normal
   - type: Tag
@@ -35,7 +35,7 @@
     - SemiAuto
     soundGunshot:
       collection: CMM1984Shoot
-  # - type: RMCSelectiveFire
+      # - type: RMCSelectiveFire
     # baseFireModes:
     # - SemiAuto
   - type: ItemSlots
@@ -60,33 +60,33 @@
   - type: Appearance
   - type: MagazineAmmoProvider
     autoEject: true
-  # - type: RMCNameItemOnVend
+    # - type: RMCNameItemOnVend
     # item: Sidearm
-  # - type: GunUnskilledPenalty
+    # - type: GunUnskilledPenalty
     # angleIncrease: 5
-  # - type: GunPointBlank
-  # - type: GunDualWielding
+    # - type: GunPointBlank
+    # - type: GunDualWielding
     # weaponGroup: Handgun
-  # - type: AttachableHolder
+    # - type: AttachableHolder
     # slots:
-      # rmc-aslot-barrel:
-        # whitelist:
-          # tags:
-          # - RMCAttachmentBarrelCharger
-          # - RMCAttachmentExtendedBarrel
-          # - RMCAttachmentRecoilCompensator
-          # - RMCAttachmentSuppressor
-      # rmc-aslot-rail:
-        # whitelist:
-          # tags:
-          # - RMCAttachmentRailFlashlight
-          # - RMCAttachmentS5RedDotSight
-          # - RMCAttachmentS6ReflexSight
-      # rmc-aslot-underbarrel:
-        # whitelist:
-          # tags:
-          # - RMCAttachmentBurstFireAssembly
-          # - RMCAttachmentLaserSight
+    # rmc-aslot-barrel:
+    # whitelist:
+    # tags:
+    # - RMCAttachmentBarrelCharger
+    # - RMCAttachmentExtendedBarrel
+    # - RMCAttachmentRecoilCompensator
+    # - RMCAttachmentSuppressor
+    # rmc-aslot-rail:
+    # whitelist:
+    # tags:
+    # - RMCAttachmentRailFlashlight
+    # - RMCAttachmentS5RedDotSight
+    # - RMCAttachmentS6ReflexSight
+    # rmc-aslot-underbarrel:
+    # whitelist:
+    # tags:
+    # - RMCAttachmentBurstFireAssembly
+    # - RMCAttachmentLaserSight
 
 - type: entity
   abstract: true
@@ -119,8 +119,8 @@
   - HideSpawnMenu
   components:
   - type: Projectile
-  # - type: RMCProjectileDamageFalloff
-  # - type: RMCProjectileAccuracy
+    # - type: RMCProjectileDamageFalloff
+    # - type: RMCProjectileAccuracy
     # accuracy: 60
 
 - type: entity
@@ -132,7 +132,7 @@
     damage:
       types:
         Piercing: 35
-  # - type: CMArmorPiercing
+        # - type: CMArmorPiercing
     # amount: 10
 
 - type: Tag

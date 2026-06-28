@@ -13,10 +13,17 @@ namespace Content.Server._Mono.NPC.HTN;
 /// </summary>
 public sealed class ShipAutoFTLSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
-    [Dependency] private readonly ShuttleSystem _shuttle = default!;
-    [Dependency] private readonly SharedTransformSystem _xform = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _mapSystem = default!;
+
+    [Dependency]
+    private readonly ShuttleSystem _shuttle = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _xform = default!;
 
     private static readonly TimeSpan CheckInterval = TimeSpan.FromSeconds(1);
     private TimeSpan _nextCheck = TimeSpan.Zero;

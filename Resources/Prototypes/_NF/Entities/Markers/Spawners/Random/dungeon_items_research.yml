@@ -7,14 +7,14 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-        scale: 0.7, 0.7
-      - sprite: Objects/Misc/skub.rsi
-        scale: 0.7, 0.7
-        state: icon
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: red
+    - state: green
+      scale: 0.7, 0.7
+    - sprite: Objects/Misc/skub.rsi
+      scale: 0.7, 0.7
+      state: icon
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: red
   - type: RandomSpawner
     prototypes:
     - SpawnDungeonLootPartsEngi
@@ -44,13 +44,13 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-        scale: 0.7, 0.7
-      - sprite: Clothing/Uniforms/Jumpsuit/scientist.rsi
-        state: icon
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: red
+    - state: green
+      scale: 0.7, 0.7
+    - sprite: Clothing/Uniforms/Jumpsuit/scientist.rsi
+      state: icon
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: red
   - type: RandomSpawner
     prototypes:
     - ClothingUniformJumpsuitScientistFormal
@@ -73,14 +73,14 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - sprite: Structures/Storage/closet.rsi
-        state: eng_secure
-      - sprite: Structures/Storage/closet.rsi
-        state: eng_secure_door
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: red
+    - state: green
+    - sprite: Structures/Storage/closet.rsi
+      state: eng_secure
+    - sprite: Structures/Storage/closet.rsi
+      state: eng_secure_door
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: red
   - type: RandomSpawner
     prototypes:
     - NFLockerScientist
@@ -106,12 +106,12 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - sprite: Structures/Storage/Crates/scicrate_secure.rsi
-        state: icon
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: red
+    - state: green
+    - sprite: Structures/Storage/Crates/scicrate_secure.rsi
+      state: icon
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: red
   - type: RandomSpawner
     prototypes:
     # Empty crates
@@ -203,13 +203,13 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-        scale: 0.7, 0.7
-      - sprite: Objects/Specific/Research/researchdisk.rsi
-        state: icon
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: red
+    - state: green
+      scale: 0.7, 0.7
+    - sprite: Objects/Specific/Research/researchdisk.rsi
+      state: icon
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: red
   - type: RandomSpawner
     prototypes:
     - ResearchDisk
@@ -230,13 +230,13 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-        scale: 0.7, 0.7
-      - sprite: Objects/Misc/module.rsi
-        state: science
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: red
+    - state: green
+      scale: 0.7, 0.7
+    - sprite: Objects/Misc/module.rsi
+      state: science
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: red
   - type: RandomSpawner
     prototypes:
     # Computers
@@ -272,12 +272,12 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - sprite: _NF/Objects/Devices/flatpack.rsi
-        state: engineering_lathe
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: red
+    - state: green
+    - sprite: _NF/Objects/Devices/flatpack.rsi
+      state: engineering_lathe
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: red
   - type: RandomSpawner
     prototypes:
     - ExosuitFabricatorFlatpack

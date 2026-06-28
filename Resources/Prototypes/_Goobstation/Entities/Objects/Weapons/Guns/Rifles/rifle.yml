@@ -7,10 +7,10 @@
   - type: Sprite
     sprite: _Goobstation/Objects/Weapons/Guns/Rifles/burner.rsi
     layers:
-      - state: base
-        map: ["enum.GunVisualLayers.Base"]
-      - state: mag-0
-        map: ["enum.GunVisualLayers.Mag"]
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
   - type: Gun
     fireRate: 1.7
     soundGunshot:
@@ -28,7 +28,7 @@
         priority: 2
         whitelist:
           tags:
-            - Magazine127x99mm
+          - Magazine127x99mm
         whitelistFailPopup: gun-magazine-whitelist-fail
       gun_chamber:
         name: Chamber
@@ -36,7 +36,7 @@
         priority: 1
         whitelist:
           tags:
-            - Cartridge127x99mm
+          - Cartridge127x99mm
   - type: ContainerContainer
     containers:
       gun_magazine: !type:ContainerSlot

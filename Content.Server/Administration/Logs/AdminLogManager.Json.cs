@@ -17,10 +17,7 @@ public sealed partial class AdminLogManager
 
     private void InitializeJson()
     {
-        _jsonOptions = new JsonSerializerOptions
-        {
-            PropertyNamingPolicy = NamingPolicy
-        };
+        _jsonOptions = new JsonSerializerOptions { PropertyNamingPolicy = NamingPolicy };
 
         foreach (var converter in _reflection.FindTypesWithAttribute<AdminLogConverterAttribute>())
         {
@@ -33,8 +30,7 @@ public sealed partial class AdminLogManager
         _sawmill.Debug($"Admin log converters found: {string.Join(" ", converterNames)}");
     }
 
-    private (JsonDocument Json, HashSet<Guid> Players) ToJson(
-        Dictionary<string, object?> properties)
+    private (JsonDocument Json, HashSet<Guid> Players) ToJson(Dictionary<string, object?> properties)
     {
         var players = new HashSet<Guid>();
         var parsed = new Dictionary<string, object?>();
@@ -45,8 +41,11 @@ public sealed partial class AdminLogManager
             value = value switch
             {
                 ICommonSession player => new SerializablePlayer(player),
-                EntityCoordinates entityCoordinates => new SerializableEntityCoordinates(_entityManager, entityCoordinates),
-                _ => value
+                EntityCoordinates entityCoordinates => new SerializableEntityCoordinates(
+                    _entityManager,
+                    entityCoordinates
+                ),
+                _ => value,
             };
 
             var parsedKey = NamingPolicy.ConvertName(key);
@@ -56,13 +55,12 @@ public sealed partial class AdminLogManager
             {
                 EntityUid id => id,
                 EntityStringRepresentation rep => rep.Uid,
-                ICommonSession {AttachedEntity: {Valid: true}} session => session.AttachedEntity,
+                ICommonSession { AttachedEntity: { Valid: true } } session => session.AttachedEntity,
                 IComponent component => component.Owner,
-                _ => null
+                _ => null,
             };
 
-            if (_entityManager.TryGetComponent(entityId, out ActorComponent? actor)
-                && actor.PlayerSession != null)
+            if (_entityManager.TryGetComponent(entityId, out ActorComponent? actor) && actor.PlayerSession != null)
             {
                 players.Add(actor.PlayerSession.UserId.UserId);
             }

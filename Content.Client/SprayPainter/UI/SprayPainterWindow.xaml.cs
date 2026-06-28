@@ -17,8 +17,11 @@ namespace Content.Client.SprayPainter.UI;
 [GenerateTypedNameReferences]
 public sealed partial class SprayPainterWindow : DefaultWindow
 {
-    [Dependency] private readonly IEntitySystemManager _sysMan = default!;
-    [Dependency] private readonly ILocalizationManager _loc = default!;
+    [Dependency]
+    private readonly IEntitySystemManager _sysMan = default!;
+
+    [Dependency]
+    private readonly ILocalizationManager _loc = default!;
 
     private readonly SpriteSystem _spriteSystem;
 
@@ -52,14 +55,16 @@ public sealed partial class SprayPainterWindow : DefaultWindow
 
     private readonly SpriteSpecifier _colorEntryIconTexture = new SpriteSpecifier.Rsi(
         new ResPath("Structures/Piping/Atmospherics/pipe.rsi"),
-        "pipeStraight");
+        "pipeStraight"
+    );
 
     public SprayPainterWindow()
     {
         RobustXamlLoader.Load(this);
         IoCManager.InjectDependencies(this);
         _spriteSystem = _sysMan.GetEntitySystem<SpriteSystem>();
-        Tabs.OnTabChanged += (index) => OnTabChanged?.Invoke(index, _sprayPainterDecals?.GetPositionInParent() == index);
+        Tabs.OnTabChanged += (index) =>
+            OnTabChanged?.Invoke(index, _sprayPainterDecals?.GetPositionInParent() == index);
     }
 
     private string GetColorLocString(string? colorKey)
@@ -99,7 +104,11 @@ public sealed partial class SprayPainterWindow : DefaultWindow
     /// <param name="stylesByGroup">Each group, mapped by name to the set of named styles by their associated entity prototype.</param>
     /// <param name="groupsByCategory">The set of categories and the groups associated with them.</param>
     /// <param name="decals">A list of each decal.</param>
-    public void PopulateCategories(Dictionary<string, Dictionary<string, EntProtoId>> stylesByGroup, Dictionary<string, List<string>> groupsByCategory, List<SprayPainterDecalEntry> decals)
+    public void PopulateCategories(
+        Dictionary<string, Dictionary<string, EntProtoId>> stylesByGroup,
+        Dictionary<string, List<string>> groupsByCategory,
+        List<SprayPainterDecalEntry> decals
+    )
     {
         bool tabsCleared = false;
         var lastTab = Tabs.CurrentTab;
@@ -168,8 +177,10 @@ public sealed partial class SprayPainterWindow : DefaultWindow
                 // Finally, populate all groups with new data.
                 foreach (var group in categoryGroups)
                 {
-                    if (!stylesByGroup.TryGetValue(group, out var styles) ||
-                        !_paintableControls.TryGetValue(group, out var control))
+                    if (
+                        !stylesByGroup.TryGetValue(group, out var styles)
+                        || !_paintableControls.TryGetValue(group, out var control)
+                    )
                         continue;
 
                     var dataList = styles
@@ -239,7 +250,11 @@ public sealed partial class SprayPainterWindow : DefaultWindow
             foreach (var color in palette)
             {
                 var locString = GetColorLocString(color.Key);
-                var item = _colorList.AddItem(locString, _spriteSystem.Frame0(_colorEntryIconTexture), metadata: color.Key);
+                var item = _colorList.AddItem(
+                    locString,
+                    _spriteSystem.Frame0(_colorEntryIconTexture),
+                    metadata: color.Key
+                );
                 item.IconModulate = color.Value;
 
                 ItemColorIndex.Add(color.Key, index);

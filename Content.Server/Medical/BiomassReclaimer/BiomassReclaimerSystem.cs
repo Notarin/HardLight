@@ -1,7 +1,7 @@
 using System.Numerics;
 using Content.Server.Body.Components;
-using Content.Server.Construction;
 using Content.Server.Botany.Components;
+using Content.Server.Construction;
 using Content.Server.Fluids.EntitySystems;
 using Content.Server.Materials;
 using Content.Server.Power.Components;
@@ -11,6 +11,7 @@ using Content.Shared.CCVar;
 using Content.Shared.Chemistry.Components;
 using Content.Shared.Climbing.Events;
 using Content.Shared.Construction.Components;
+using Content.Shared.Contraband; // Frontier
 using Content.Shared.Database;
 using Content.Shared.DoAfter;
 using Content.Shared.Humanoid;
@@ -18,9 +19,9 @@ using Content.Shared.Interaction;
 using Content.Shared.Interaction.Events;
 using Content.Shared.Inventory;
 using Content.Shared.Jittering;
+using Content.Shared.Materials;
 using Content.Shared.Medical;
 using Content.Shared.Mind;
-using Content.Shared.Materials;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Nutrition.Components;
@@ -34,28 +35,58 @@ using Robust.Shared.Configuration;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
-using Content.Shared.Contraband; // Frontier
 
 namespace Content.Server.Medical.BiomassReclaimer
 {
     public sealed class BiomassReclaimerSystem : EntitySystem
     {
-        [Dependency] private readonly IConfigurationManager _configManager = default!;
-        [Dependency] private readonly SharedTransformSystem _transform = default!;
-        [Dependency] private readonly MobStateSystem _mobState = default!;
-        [Dependency] private readonly SharedJitteringSystem _jitteringSystem = default!;
-        [Dependency] private readonly SharedAudioSystem _sharedAudioSystem = default!;
-        [Dependency] private readonly SharedAmbientSoundSystem _ambientSoundSystem = default!;
-        [Dependency] private readonly SharedPopupSystem _popup = default!;
-        [Dependency] private readonly PuddleSystem _puddleSystem = default!;
-        [Dependency] private readonly ThrowingSystem _throwing = default!;
-        [Dependency] private readonly IRobustRandom _robustRandom = default!;
-        [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-        [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
-        [Dependency] private readonly IPlayerManager _playerManager = default!;
-        [Dependency] private readonly MaterialStorageSystem _material = default!;
-        [Dependency] private readonly SharedMindSystem _minds = default!;
-        [Dependency] private readonly InventorySystem _inventory = default!;
+        [Dependency]
+        private readonly IConfigurationManager _configManager = default!;
+
+        [Dependency]
+        private readonly SharedTransformSystem _transform = default!;
+
+        [Dependency]
+        private readonly MobStateSystem _mobState = default!;
+
+        [Dependency]
+        private readonly SharedJitteringSystem _jitteringSystem = default!;
+
+        [Dependency]
+        private readonly SharedAudioSystem _sharedAudioSystem = default!;
+
+        [Dependency]
+        private readonly SharedAmbientSoundSystem _ambientSoundSystem = default!;
+
+        [Dependency]
+        private readonly SharedPopupSystem _popup = default!;
+
+        [Dependency]
+        private readonly PuddleSystem _puddleSystem = default!;
+
+        [Dependency]
+        private readonly ThrowingSystem _throwing = default!;
+
+        [Dependency]
+        private readonly IRobustRandom _robustRandom = default!;
+
+        [Dependency]
+        private readonly ISharedAdminLogManager _adminLogger = default!;
+
+        [Dependency]
+        private readonly SharedDoAfterSystem _doAfterSystem = default!;
+
+        [Dependency]
+        private readonly IPlayerManager _playerManager = default!;
+
+        [Dependency]
+        private readonly MaterialStorageSystem _material = default!;
+
+        [Dependency]
+        private readonly SharedMindSystem _minds = default!;
+
+        [Dependency]
+        private readonly InventorySystem _inventory = default!;
 
         public static readonly ProtoId<MaterialPrototype> BiomassPrototype = new("Biomass");
 
@@ -79,11 +110,14 @@ namespace Content.Server.Medical.BiomassReclaimer
                     }
                     if (_robustRandom.Prob(0.03f) && reclaimer.SpawnedEntities.Count > 0)
                     {
-                        var thrown = Spawn(_robustRandom.Pick(reclaimer.SpawnedEntities).PrototypeId, Transform(uid).Coordinates);
+                        var thrown = Spawn(
+                            _robustRandom.Pick(reclaimer.SpawnedEntities).PrototypeId,
+                            Transform(uid).Coordinates
+                        );
                         var direction = new Vector2(_robustRandom.Next(-30, 30), _robustRandom.Next(-30, 30));
                         _throwing.TryThrow(thrown, direction, _robustRandom.Next(1, 10));
                     }
-                    reclaimer.RandomMessTimer += (float) reclaimer.RandomMessInterval.TotalSeconds;
+                    reclaimer.RandomMessTimer += (float)reclaimer.RandomMessInterval.TotalSeconds;
                 }
 
                 if (reclaimer.ProcessingTimer > 0)
@@ -91,7 +125,7 @@ namespace Content.Server.Medical.BiomassReclaimer
                     continue;
                 }
 
-                var actualYield = (int) (reclaimer.CurrentExpectedYield); // can only have integer biomass
+                var actualYield = (int)(reclaimer.CurrentExpectedYield); // can only have integer biomass
                 reclaimer.CurrentExpectedYield = reclaimer.CurrentExpectedYield - actualYield; // store non-integer leftovers
                 _material.SpawnMultipleFromMaterial(actualYield, BiomassPrototype, Transform(uid).Coordinates);
 
@@ -100,6 +134,7 @@ namespace Content.Server.Medical.BiomassReclaimer
                 RemCompDeferred<ActiveBiomassReclaimerComponent>(uid);
             }
         }
+
         public override void Initialize()
         {
             base.Initialize();
@@ -126,7 +161,11 @@ namespace Content.Server.Medical.BiomassReclaimer
             if (TryComp<ApcPowerReceiverComponent>(ent, out var power) && !power.Powered)
                 return;
 
-            _popup.PopupEntity(Loc.GetString("biomass-reclaimer-suicide-others", ("victim", args.Victim)), ent, PopupType.LargeCaution);
+            _popup.PopupEntity(
+                Loc.GetString("biomass-reclaimer-suicide-others", ("victim", args.Victim)),
+                ent,
+                PopupType.LargeCaution
+            );
             StartProcessing(args.Victim, ent);
             args.Handled = true;
         }
@@ -155,10 +194,15 @@ namespace Content.Server.Medical.BiomassReclaimer
                 RemComp<ActiveBiomassReclaimerComponent>(uid);
         }
 
-        private void OnUnanchorAttempt(EntityUid uid, ActiveBiomassReclaimerComponent component, UnanchorAttemptEvent args)
+        private void OnUnanchorAttempt(
+            EntityUid uid,
+            ActiveBiomassReclaimerComponent component,
+            UnanchorAttemptEvent args
+        )
         {
             args.Cancel();
         }
+
         private void OnAfterInteractUsing(Entity<BiomassReclaimerComponent> reclaimer, ref AfterInteractUsingEvent args)
         {
             if (!args.CanReach || args.Target == null)
@@ -171,11 +215,21 @@ namespace Content.Server.Medical.BiomassReclaimer
                 return;
 
             var delay = reclaimer.Comp.BaseInsertionDelay * physics.FixturesMass;
-            _doAfterSystem.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, delay, new ReclaimerDoAfterEvent(), reclaimer, target: args.Target, used: args.Used)
-            {
-                NeedHand = true,
-                BreakOnMove = true,
-            });
+            _doAfterSystem.TryStartDoAfter(
+                new DoAfterArgs(
+                    EntityManager,
+                    args.User,
+                    delay,
+                    new ReclaimerDoAfterEvent(),
+                    reclaimer,
+                    target: args.Target,
+                    used: args.Used
+                )
+                {
+                    NeedHand = true,
+                    BreakOnMove = true,
+                }
+            );
         }
 
         private void OnClimbedOn(Entity<BiomassReclaimerComponent> reclaimer, ref ClimbedOnEvent args)
@@ -186,7 +240,11 @@ namespace Content.Server.Medical.BiomassReclaimer
                 _throwing.TryThrow(args.Climber, direction, 0.5f);
                 return;
             }
-            _adminLogger.Add(LogType.Action, LogImpact.High, $"{ToPrettyString(args.Instigator):player} used a biomass reclaimer to gib {ToPrettyString(args.Climber):target} in {ToPrettyString(reclaimer):reclaimer}");
+            _adminLogger.Add(
+                LogType.Action,
+                LogImpact.High,
+                $"{ToPrettyString(args.Instigator):player} used a biomass reclaimer to gib {ToPrettyString(args.Climber):target} in {ToPrettyString(reclaimer):reclaimer}"
+            );
 
             StartProcessing(args.Climber, reclaimer);
         }
@@ -198,7 +256,8 @@ namespace Content.Server.Medical.BiomassReclaimer
 
             // Processing time slopes downwards with part rating.
             component.ProcessingTimePerUnitMass =
-                component.BaseProcessingTimePerUnitMass / MathF.Pow(component.PartRatingSpeedMultiplier, laserRating - 1);
+                component.BaseProcessingTimePerUnitMass
+                / MathF.Pow(component.PartRatingSpeedMultiplier, laserRating - 1);
 
             // Yield slopes upwards with part rating.
             component.YieldPerUnitMass =
@@ -207,8 +266,14 @@ namespace Content.Server.Medical.BiomassReclaimer
 
         private void OnUpgradeExamine(EntityUid uid, BiomassReclaimerComponent component, UpgradeExamineEvent args)
         {
-            args.AddPercentageUpgrade("biomass-reclaimer-component-upgrade-speed", component.BaseProcessingTimePerUnitMass / component.ProcessingTimePerUnitMass);
-            args.AddPercentageUpgrade("biomass-reclaimer-component-upgrade-biomass-yield", component.YieldPerUnitMass / component.BaseYieldPerUnitMass);
+            args.AddPercentageUpgrade(
+                "biomass-reclaimer-component-upgrade-speed",
+                component.BaseProcessingTimePerUnitMass / component.ProcessingTimePerUnitMass
+            );
+            args.AddPercentageUpgrade(
+                "biomass-reclaimer-component-upgrade-biomass-yield",
+                component.YieldPerUnitMass / component.BaseYieldPerUnitMass
+            );
         }
 
         private void OnDoAfter(Entity<BiomassReclaimerComponent> reclaimer, ref ReclaimerDoAfterEvent args)
@@ -216,16 +281,28 @@ namespace Content.Server.Medical.BiomassReclaimer
             if (args.Handled || args.Cancelled)
                 return;
 
-            if (args.Args.Used == null || args.Args.Target == null || !HasComp<BiomassReclaimerComponent>(args.Args.Target.Value))
+            if (
+                args.Args.Used == null
+                || args.Args.Target == null
+                || !HasComp<BiomassReclaimerComponent>(args.Args.Target.Value)
+            )
                 return;
 
-            _adminLogger.Add(LogType.Action, LogImpact.High, $"{ToPrettyString(args.Args.User):player} used a biomass reclaimer to gib {ToPrettyString(args.Args.Target.Value):target} in {ToPrettyString(reclaimer):reclaimer}");
+            _adminLogger.Add(
+                LogType.Action,
+                LogImpact.High,
+                $"{ToPrettyString(args.Args.User):player} used a biomass reclaimer to gib {ToPrettyString(args.Args.Target.Value):target} in {ToPrettyString(reclaimer):reclaimer}"
+            );
             StartProcessing(args.Args.Used.Value, reclaimer);
 
             args.Handled = true;
         }
 
-        private void StartProcessing(EntityUid toProcess, Entity<BiomassReclaimerComponent> ent, PhysicsComponent? physics = null)
+        private void StartProcessing(
+            EntityUid toProcess,
+            Entity<BiomassReclaimerComponent> ent,
+            PhysicsComponent? physics = null
+        )
         {
             if (!Resolve(toProcess, ref physics))
                 return;
@@ -280,9 +357,11 @@ namespace Content.Server.Medical.BiomassReclaimer
                 return false;
 
             // Reject souled bodies in easy mode.
-            if (_configManager.GetCVar(CCVars.BiomassEasyMode) &&
-                HasComp<HumanoidAppearanceComponent>(dragged) &&
-                _minds.TryGetMind(dragged, out _, out var mind))
+            if (
+                _configManager.GetCVar(CCVars.BiomassEasyMode)
+                && HasComp<HumanoidAppearanceComponent>(dragged)
+                && _minds.TryGetMind(dragged, out _, out var mind)
+            )
             {
                 if (mind.UserId != null && _playerManager.TryGetSessionById(mind.UserId.Value, out _))
                     return false;

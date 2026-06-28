@@ -19,7 +19,15 @@ public sealed class SalvageExpeditionConsoleState : BoundUserInterfaceState
     public bool CanFinish; // Frontier
     public TimeSpan CooldownTime; // Frontier: separate fail vs. success time
 
-    public SalvageExpeditionConsoleState(TimeSpan nextOffer, bool claimed, bool cooldown, ushort activeMission, List<SalvageMissionParams> missions, bool canFinish, TimeSpan cooldownTime) // Frontier: add canFinish, cooldownTime
+    public SalvageExpeditionConsoleState(
+        TimeSpan nextOffer,
+        bool claimed,
+        bool cooldown,
+        ushort activeMission,
+        List<SalvageMissionParams> missions,
+        bool canFinish,
+        TimeSpan cooldownTime
+    ) // Frontier: add canFinish, cooldownTime
     {
         NextOffer = nextOffer;
         Claimed = claimed;
@@ -55,9 +63,8 @@ public sealed partial class SalvageExpeditionConsoleComponent : Component
     /// </summary>
     [DataField]
     public bool Debug = false;
+
     // End Frontier:
-
-
 
     /// <summary>
     /// HARDLIGHT: Reference to the console that initiated the current mission for FTL completion tracking
@@ -75,11 +82,13 @@ public sealed class ClaimSalvageMessage : BoundUserInterfaceMessage
 // Frontier: early expedition finish
 [Serializable, NetSerializable]
 public sealed class FinishSalvageMessage : BoundUserInterfaceMessage;
+
 // End Frontier: early expedition finish
 
 // HARDLIGHT: manual console refresh to re-link station expedition data if logic ever desyncs
 [Serializable, NetSerializable]
 public sealed class RefreshSalvageConsoleMessage : BoundUserInterfaceMessage;
+
 // End HARDLIGHT
 
 /// <summary>
@@ -113,7 +122,8 @@ public sealed partial class SalvageExpeditionDataComponent : Component
     [ViewVariables]
     public readonly Dictionary<ushort, SalvageMissionParams> Missions = new();
 
-    [ViewVariables] public ushort ActiveMission;
+    [ViewVariables]
+    public ushort ActiveMission;
 
     public ushort NextIndex = 1;
 
@@ -144,7 +154,8 @@ public sealed record SalvageMissionParams
     [ViewVariables]
     public ushort Index;
 
-    [ViewVariables(VVAccess.ReadWrite)] public int Seed;
+    [ViewVariables(VVAccess.ReadWrite)]
+    public int Seed;
 
     public string Difficulty = string.Empty;
 
@@ -167,7 +178,8 @@ public sealed record SalvageMission(
     TimeSpan Duration,
     List<string> Modifiers,
     ProtoId<SalvageDifficultyPrototype> Difficulty, // Frontier
-    SalvageMissionType MissionType) // Frontier
+    SalvageMissionType MissionType
+) // Frontier
 {
     /// <summary>
     /// Seed used for the mission.
@@ -219,6 +231,7 @@ public sealed record SalvageMission(
     /// Difficulty rating.
     /// </summary>
     public readonly ProtoId<SalvageDifficultyPrototype> Difficulty = Difficulty;
+
     /// <summary>
     /// Difficulty rating.
     /// </summary>

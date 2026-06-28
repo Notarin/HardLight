@@ -1,9 +1,14 @@
+using System.Linq;
+using Content.Server._NF.Bank; // Frontier
 using Content.Server.Access.Systems;
 using Content.Server.Humanoid;
 using Content.Server.IdentityManagement;
 using Content.Server.Mind;
 using Content.Server.PDA;
+using Content.Server.Preferences.Managers; // Frontier
+using Content.Server.Spawners.Components;
 using Content.Server.Station.Components;
+using Content.Shared._NF.Bank.Components; // DeltaV
 using Content.Shared.Access.Components;
 using Content.Shared.Access.Systems;
 using Content.Shared.CCVar;
@@ -11,6 +16,7 @@ using Content.Shared.Clothing;
 using Content.Shared.DetailExaminable;
 using Content.Shared.Humanoid;
 using Content.Shared.Humanoid.Prototypes;
+using Content.Shared.NameIdentifier; // Frontier
 using Content.Shared.PDA;
 using Content.Shared.Preferences;
 using Content.Shared.Preferences.Loadouts;
@@ -25,12 +31,6 @@ using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
-using Content.Server.Spawners.Components;
-using Content.Shared._NF.Bank.Components; // DeltaV
-using Content.Server._NF.Bank; // Frontier
-using Content.Server.Preferences.Managers; // Frontier
-using System.Linq;
-using Content.Shared.NameIdentifier; // Frontier
 
 namespace Content.Server.Station.Systems;
 
@@ -41,21 +41,47 @@ namespace Content.Server.Station.Systems;
 [PublicAPI]
 public sealed class StationSpawningSystem : SharedStationSpawningSystem
 {
-    [Dependency] private readonly SharedAccessSystem _accessSystem = default!;
-    [Dependency] private readonly ActorSystem _actors = default!;
-    [Dependency] private readonly IdCardSystem _cardSystem = default!;
-    [Dependency] private readonly IConfigurationManager _configurationManager = default!;
-    [Dependency] private readonly HumanoidAppearanceSystem _humanoidSystem = default!;
-    [Dependency] private readonly IdentitySystem _identity = default!;
-    [Dependency] private readonly MetaDataSystem _metaSystem = default!;
-    [Dependency] private readonly PdaSystem _pdaSystem = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly MindSystem _mindSystem = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IDependencyCollection _dependencyCollection = default!; // Frontier
-    [Dependency] private readonly IServerPreferencesManager _preferences = default!; // Frontier
+    [Dependency]
+    private readonly SharedAccessSystem _accessSystem = default!;
 
-    [Dependency] private readonly BankSystem _bank = default!; // Frontier
+    [Dependency]
+    private readonly ActorSystem _actors = default!;
+
+    [Dependency]
+    private readonly IdCardSystem _cardSystem = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _configurationManager = default!;
+
+    [Dependency]
+    private readonly HumanoidAppearanceSystem _humanoidSystem = default!;
+
+    [Dependency]
+    private readonly IdentitySystem _identity = default!;
+
+    [Dependency]
+    private readonly MetaDataSystem _metaSystem = default!;
+
+    [Dependency]
+    private readonly PdaSystem _pdaSystem = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly MindSystem _mindSystem = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly IDependencyCollection _dependencyCollection = default!; // Frontier
+
+    [Dependency]
+    private readonly IServerPreferencesManager _preferences = default!; // Frontier
+
+    [Dependency]
+    private readonly BankSystem _bank = default!; // Frontier
     private bool _randomizeCharacters;
 
     /// <inheritdoc/>
@@ -79,7 +105,14 @@ public sealed class StationSpawningSystem : SharedStationSpawningSystem
     /// <remarks>
     /// This only spawns the character, and does none of the mind-related setup you'd need for it to be playable.
     /// </remarks>
-    public EntityUid? SpawnPlayerCharacterOnStation(EntityUid? station, ProtoId<JobPrototype>? job, HumanoidCharacterProfile? profile, StationSpawningComponent? stationSpawning = null, SpawnPointType spawnPointType = SpawnPointType.Unset, ICommonSession? session = null) // Frontier: add session
+    public EntityUid? SpawnPlayerCharacterOnStation(
+        EntityUid? station,
+        ProtoId<JobPrototype>? job,
+        HumanoidCharacterProfile? profile,
+        StationSpawningComponent? stationSpawning = null,
+        SpawnPointType spawnPointType = SpawnPointType.Unset,
+        ICommonSession? session = null
+    ) // Frontier: add session
     {
         if (station != null && !Resolve(station.Value, ref stationSpawning))
             throw new ArgumentException("Tried to use a non-station entity as a station!", nameof(station));
@@ -114,7 +147,8 @@ public sealed class StationSpawningSystem : SharedStationSpawningSystem
         HumanoidCharacterProfile? profile,
         EntityUid? station,
         EntityUid? entity = null,
-        ICommonSession? session = null) // Frontier
+        ICommonSession? session = null
+    ) // Frontier
     {
         _prototypeManager.TryIndex(job ?? string.Empty, out var prototype);
         RoleLoadout? loadout = null;
@@ -206,9 +240,11 @@ public sealed class StationSpawningSystem : SharedStationSpawningSystem
             // Note: since this is stored per character, we don't have a cached
             //       reference for randomly generated characters.
             PlayerPreferences? prefs = null;
-            if (session != null &&
-                _preferences.TryGetCachedPreferences(session.UserId, out prefs) &&
-                prefs.IndexOfCharacter(profile) != -1)
+            if (
+                session != null
+                && _preferences.TryGetCachedPreferences(session.UserId, out prefs)
+                && prefs.IndexOfCharacter(profile) != -1
+            )
             {
                 hasBalance = true;
             }
@@ -239,8 +275,10 @@ public sealed class StationSpawningSystem : SharedStationSpawningSystem
                 }
 
                 // If a character cannot afford their current job loadout, ensure they have fallback items for mandatory categories.
-                if (_prototypeManager.TryIndex(group.Key, out var groupPrototype) &&
-                    equippedItems.Count < groupPrototype.MinLimit)
+                if (
+                    _prototypeManager.TryIndex(group.Key, out var groupPrototype)
+                    && equippedItems.Count < groupPrototype.MinLimit
+                )
                 {
                     foreach (var fallback in groupPrototype.Fallbacks)
                     {
@@ -257,7 +295,15 @@ public sealed class StationSpawningSystem : SharedStationSpawningSystem
                         }
 
                         // Validate effects against the current character.
-                        if (!loadout.IsValid(profile!, _actors.GetSession(entity!), fallback, _dependencyCollection, out var _))
+                        if (
+                            !loadout.IsValid(
+                                profile!,
+                                _actors.GetSession(entity!),
+                                fallback,
+                                _dependencyCollection,
+                                out var _
+                            )
+                        )
                         {
                             continue;
                         }
@@ -286,7 +332,12 @@ public sealed class StationSpawningSystem : SharedStationSpawningSystem
         }
 
         // Far Horizons Start - Subspecies
-        if (species.Loadout != null && _prototypeManager.TryIndex(species.Loadout.Value, out var speciesLoadoutProto) && profile != null && profile.SpeciesLoadout != null)
+        if (
+            species.Loadout != null
+            && _prototypeManager.TryIndex(species.Loadout.Value, out var speciesLoadoutProto)
+            && profile != null
+            && profile.SpeciesLoadout != null
+        )
             EquipRoleLoadout(entity.Value, profile.SpeciesLoadout, speciesLoadoutProto);
         // Far Horizons End
 
@@ -322,7 +373,12 @@ public sealed class StationSpawningSystem : SharedStationSpawningSystem
     /// <param name="characterName">Character name to use for the ID.</param>
     /// <param name="jobPrototype">Job prototype to use for the PDA and ID.</param>
     /// <param name="station">The station this player is being spawned on.</param>
-    public void SetPdaAndIdCardData(EntityUid entity, string characterName, JobPrototype jobPrototype, EntityUid? station)
+    public void SetPdaAndIdCardData(
+        EntityUid entity,
+        string characterName,
+        JobPrototype jobPrototype,
+        EntityUid? station
+    )
     {
         if (!InventorySystem.TryGetSlotEntity(entity, "id", out var idUid))
             return;
@@ -353,7 +409,6 @@ public sealed class StationSpawningSystem : SharedStationSpawningSystem
             _pdaSystem.SetOwner(idUid.Value, pdaComponent, entity, characterName);
     }
 
-
     #endregion Player spawning helpers
 }
 
@@ -370,28 +425,39 @@ public sealed class PlayerSpawningEvent : EntityEventArgs
     /// The entity spawned, if any. You should set this if you succeed at spawning the character, and leave it alone if it's not null.
     /// </summary>
     public EntityUid? SpawnResult;
+
     /// <summary>
     /// The job to use, if any.
     /// </summary>
     public readonly ProtoId<JobPrototype>? Job;
+
     /// <summary>
     /// The profile to use, if any.
     /// </summary>
     public readonly HumanoidCharacterProfile? HumanoidCharacterProfile;
+
     /// <summary>
     /// The target station, if any.
     /// </summary>
     public readonly EntityUid? Station;
+
     /// <summary>
     /// Delta-V: Desired SpawnPointType, if any.
     /// </summary>
     public readonly SpawnPointType DesiredSpawnPointType;
+
     /// <summary>
     /// Frontier: The session associated with the entity, if any.
     /// </summary>
     public readonly ICommonSession? Session;
 
-    public PlayerSpawningEvent(ProtoId<JobPrototype>? job, HumanoidCharacterProfile? humanoidCharacterProfile, EntityUid? station, SpawnPointType spawnPointType = SpawnPointType.Unset, ICommonSession? session = null) // Frontier: added session
+    public PlayerSpawningEvent(
+        ProtoId<JobPrototype>? job,
+        HumanoidCharacterProfile? humanoidCharacterProfile,
+        EntityUid? station,
+        SpawnPointType spawnPointType = SpawnPointType.Unset,
+        ICommonSession? session = null
+    ) // Frontier: added session
     {
         Job = job;
         HumanoidCharacterProfile = humanoidCharacterProfile;

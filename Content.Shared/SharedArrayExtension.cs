@@ -21,8 +21,7 @@ public static class SharedArrayExtension
         {
             n--;
             var k = random.Next(n + 1);
-            (array[k], array[n]) =
-                (array[n], array[k]);
+            (array[k], array[n]) = (array[n], array[k]);
         }
     }
 }

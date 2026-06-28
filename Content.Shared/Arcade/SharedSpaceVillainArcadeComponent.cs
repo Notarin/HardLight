@@ -11,10 +11,11 @@ namespace Content.Shared.Arcade
             /// Blinks when any invincible flag is set
             /// </summary>
             HealthManager,
+
             /// <summary>
             /// Blinks when Overflow flag is set
             /// </summary>
-            HealthLimiter
+            HealthLimiter,
         }
 
         [Serializable, NetSerializable]
@@ -24,7 +25,7 @@ namespace Content.Shared.Arcade
             Heal,
             Recharge,
             NewGame,
-            RequestData
+            RequestData,
         }
 
         [Serializable, NetSerializable]
@@ -47,6 +48,7 @@ namespace Content.Shared.Arcade
         public sealed class SpaceVillainArcadePlayerActionMessage : BoundUserInterfaceMessage
         {
             public readonly PlayerAction PlayerAction;
+
             public SpaceVillainArcadePlayerActionMessage(PlayerAction playerAction)
             {
                 PlayerAction = playerAction;
@@ -59,7 +61,19 @@ namespace Content.Shared.Arcade
             public readonly string GameTitle;
             public readonly string EnemyName;
             public readonly bool ButtonsDisabled;
-            public SpaceVillainArcadeMetaDataUpdateMessage(int playerHp, int playerMp, int enemyHp, int enemyMp, string playerActionMessage, string enemyActionMessage, string gameTitle, string enemyName, bool buttonsDisabled) : base(playerHp, playerMp, enemyHp, enemyMp, playerActionMessage, enemyActionMessage)
+
+            public SpaceVillainArcadeMetaDataUpdateMessage(
+                int playerHp,
+                int playerMp,
+                int enemyHp,
+                int enemyMp,
+                string playerActionMessage,
+                string enemyActionMessage,
+                string gameTitle,
+                string enemyName,
+                bool buttonsDisabled
+            )
+                : base(playerHp, playerMp, enemyHp, enemyMp, playerActionMessage, enemyActionMessage)
             {
                 GameTitle = gameTitle;
                 EnemyName = enemyName;
@@ -76,7 +90,15 @@ namespace Content.Shared.Arcade
             public readonly int EnemyMP;
             public readonly string PlayerActionMessage;
             public readonly string EnemyActionMessage;
-            public SpaceVillainArcadeDataUpdateMessage(int playerHp, int playerMp, int enemyHp, int enemyMp, string playerActionMessage, string enemyActionMessage)
+
+            public SpaceVillainArcadeDataUpdateMessage(
+                int playerHp,
+                int playerMp,
+                int enemyHp,
+                int enemyMp,
+                string playerActionMessage,
+                string enemyActionMessage
+            )
             {
                 PlayerHP = playerHp;
                 PlayerMP = playerMp;

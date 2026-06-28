@@ -1,9 +1,9 @@
-using Content.Shared.Abilities.Psionics;
-using Content.Shared.Nyanotrasen.Abilities.Psionics;
 using Content.Server.Electrocution;
 using Content.Server.Weapons.Ranged.Systems;
-using Content.Shared.Weapons.Ranged.Components;
+using Content.Shared.Abilities.Psionics;
 using Content.Shared.Actions.Events;
+using Content.Shared.Nyanotrasen.Abilities.Psionics;
+using Content.Shared.Weapons.Ranged.Components;
 using Robust.Shared.Prototypes;
 
 namespace Content.Server.Abilities.Psionics
@@ -12,10 +12,14 @@ namespace Content.Server.Abilities.Psionics
     {
         private static readonly EntProtoId NoosphericZapGunPrototype = "NoosphericZapGun";
 
-        [Dependency] private readonly SharedPsionicAbilitiesSystem _psionics = default!;
-        [Dependency] private readonly ElectrocutionSystem _electrocution = default!;
-        [Dependency] private readonly GunSystem _gun = default!;
+        [Dependency]
+        private readonly SharedPsionicAbilitiesSystem _psionics = default!;
 
+        [Dependency]
+        private readonly ElectrocutionSystem _electrocution = default!;
+
+        [Dependency]
+        private readonly GunSystem _gun = default!;
 
         public override void Initialize()
         {
@@ -37,7 +41,14 @@ namespace Content.Server.Abilities.Psionics
 
             QueueDel(zapGun);
 
-            _electrocution.TryDoElectrocution(args.Target, args.Performer, 1, TimeSpan.FromSeconds(3), refresh: true, ignoreInsulation: true);
+            _electrocution.TryDoElectrocution(
+                args.Target,
+                args.Performer,
+                1,
+                TimeSpan.FromSeconds(3),
+                refresh: true,
+                ignoreInsulation: true
+            );
 
             _psionics.LogPowerUsed(args.Performer, "noospheric zap");
             args.Handled = true;

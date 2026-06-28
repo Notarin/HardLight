@@ -26,34 +26,26 @@ public sealed class AtmosDeviceNetworkSystem : EntitySystem
     /// </summary>
     public const string SyncData = "atmos_sync_data";
 
-    [Dependency] private readonly DeviceNetworkSystem _deviceNet = default!;
+    [Dependency]
+    private readonly DeviceNetworkSystem _deviceNet = default!;
 
     public void Register(EntityUid uid, string? address)
     {
-        var registerPayload = new NetworkPayload
-        {
-            [DeviceNetworkConstants.Command] = RegisterDevice
-        };
+        var registerPayload = new NetworkPayload { [DeviceNetworkConstants.Command] = RegisterDevice };
 
         _deviceNet.QueuePacket(uid, address, registerPayload);
     }
 
     public void Deregister(EntityUid uid, string? address)
     {
-        var deregisterPayload = new NetworkPayload
-        {
-            [DeviceNetworkConstants.Command] = DeregisterDevice
-        };
+        var deregisterPayload = new NetworkPayload { [DeviceNetworkConstants.Command] = DeregisterDevice };
 
         _deviceNet.QueuePacket(uid, address, deregisterPayload);
     }
 
     public void Sync(EntityUid uid, string? address)
     {
-        var syncPayload = new NetworkPayload
-        {
-            [DeviceNetworkConstants.Command] = SyncData
-        };
+        var syncPayload = new NetworkPayload { [DeviceNetworkConstants.Command] = SyncData };
 
         _deviceNet.QueuePacket(uid, address, syncPayload);
     }
@@ -63,7 +55,7 @@ public sealed class AtmosDeviceNetworkSystem : EntitySystem
         var payload = new NetworkPayload()
         {
             [DeviceNetworkConstants.Command] = DeviceNetworkConstants.CmdSetState,
-            [DeviceNetworkConstants.CmdSetState] = data
+            [DeviceNetworkConstants.CmdSetState] = data,
         };
 
         _deviceNet.QueuePacket(uid, address, payload);

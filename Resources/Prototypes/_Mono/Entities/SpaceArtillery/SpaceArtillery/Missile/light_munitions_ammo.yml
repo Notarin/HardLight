@@ -3,7 +3,7 @@
   name: GPO-L 50kg Unguided Bomb
   description: Just passing by.
   parent: BaseBulletTrigger
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -42,8 +42,7 @@
   - type: Fixtures
     fixtures:
       projectile:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.4
         density: 50
         layer:
@@ -59,12 +58,11 @@
         Blunt: 1
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 1000
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:ExplodeBehavior
       - !type:PlaySoundBehavior
         sound:
@@ -99,7 +97,7 @@
   id: LightFighterOrdinanceZenithProjectile
   name: ASM(LF) "Zenith" Anti-Ship Warhead
   parent: BaseBulletTrigger
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -149,8 +147,7 @@
   - type: Fixtures
     fixtures:
       projectile:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.4
         density: 10
         layer:
@@ -166,12 +163,11 @@
         Blunt: 0.5
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 200
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:ExplodeBehavior
       - !type:PlaySoundBehavior
         sound:
@@ -206,7 +202,7 @@
   id: LightFighterOrdinanceQuasarProjectile
   name: QUASAR hyperpenetrator
   parent: BaseBulletTrigger
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:

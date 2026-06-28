@@ -1,11 +1,12 @@
 using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.Reagent;
-using Content.Shared.EntityEffects; // Frontier
 using Content.Shared.Construction.Prototypes;
+using Content.Shared.EntityEffects; // Frontier
 using Content.Shared.FixedPoint;
 using Content.Shared.Nutrition;
 using Content.Shared.Nyanotrasen.Kitchen;
 using Content.Shared.Nyanotrasen.Kitchen.Components;
+using Content.Shared.Nyanotrasen.Kitchen.Prototypes;
 using Content.Shared.Whitelist;
 using Robust.Shared.Audio;
 using Robust.Shared.Containers;
@@ -13,7 +14,6 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype.Set;
-using Content.Shared.Nyanotrasen.Kitchen.Prototypes;
 
 namespace Content.Server.Nyanotrasen.Kitchen.Components
 {
@@ -208,13 +208,17 @@ namespace Content.Server.Nyanotrasen.Kitchen.Components
         /// What sound is played when an item is inserted into hot oil?
         /// </summary>
         [DataField]
-        public SoundSpecifier SoundInsertItem = new SoundPathSpecifier("/Audio/Nyanotrasen/Machines/deepfryer_basket_add_item.ogg");
+        public SoundSpecifier SoundInsertItem = new SoundPathSpecifier(
+            "/Audio/Nyanotrasen/Machines/deepfryer_basket_add_item.ogg"
+        );
 
         /// <summary>
         /// What sound is played when an item is removed?
         /// </summary>
         [DataField]
-        public SoundSpecifier SoundRemoveItem = new SoundPathSpecifier("/Audio/Nyanotrasen/Machines/deepfryer_basket_remove_item.ogg");
+        public SoundSpecifier SoundRemoveItem = new SoundPathSpecifier(
+            "/Audio/Nyanotrasen/Machines/deepfryer_basket_remove_item.ogg"
+        );
 
         /// <summary>
         /// Frontier: crispiness level set to use for examination and shaders

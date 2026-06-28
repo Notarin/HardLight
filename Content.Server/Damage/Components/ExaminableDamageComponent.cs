@@ -9,7 +9,11 @@ namespace Content.Server.Damage.Components;
 [RegisterComponent]
 public sealed partial class ExaminableDamageComponent : Component
 {
-    [DataField("messages", required: true, customTypeSerializer:typeof(PrototypeIdSerializer<ExaminableDamagePrototype>))]
+    [DataField(
+        "messages",
+        required: true,
+        customTypeSerializer: typeof(PrototypeIdSerializer<ExaminableDamagePrototype>)
+    )]
     public string? MessagesProtoId;
 
     public ExaminableDamagePrototype? MessagesProto;

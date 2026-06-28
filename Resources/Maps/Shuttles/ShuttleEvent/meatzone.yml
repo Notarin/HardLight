@@ -2930,7 +2930,7 @@ entities:
       pos: 0.15453678,-0.2413783
       parent: 1
     - type: Paper
-      content: >+
+      content: >
         Ribs:
 
         [bullet] 5u BBQ sauce
@@ -2940,7 +2940,6 @@ entities:
         [bullet] 1x skewer
 
         [bullet] Microwave 15s
-
 
         McRib:
 
@@ -3709,4 +3708,3 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -1.5,0.5
       parent: 1
-...

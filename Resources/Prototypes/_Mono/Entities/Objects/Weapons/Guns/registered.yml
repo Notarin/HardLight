@@ -29,7 +29,7 @@
     id: PMCGun
 
 - type: entity # C-20r
-  parent: [ BaseC2ContrabandUnredeemable, WeaponSubMachineGunC20r ] # HardLight: BaseC2ContrabandMercenary<BaseC2ContrabandUnredeemable; swapped parenting order
+  parent: [BaseC2ContrabandUnredeemable, WeaponSubMachineGunC20r] # HardLight: BaseC2ContrabandMercenary<BaseC2ContrabandUnredeemable; swapped parenting order
   name: PMC C-20r
   id: WeaponSubMachineGunC20rPMC
   description: A C-20r that has been properly registered for private security and mercenary use.
@@ -63,7 +63,7 @@
     price: 800
 
 - type: entity
-  parent: [ BaseC2ContrabandUnredeemable, WeaponPistolViper ] # HardLight: BaseC2ContrabandMercenary<BaseC2ContrabandUnredeemable; swapped parenting order
+  parent: [BaseC2ContrabandUnredeemable, WeaponPistolViper] # HardLight: BaseC2ContrabandMercenary<BaseC2ContrabandUnredeemable; swapped parenting order
   name: PMC Viper
   id: WeaponPistolViperPMC
   description: A Viper that has been properly registered for private security and mercenary use.
@@ -134,7 +134,7 @@
 # HardLight
 
 - type: entity # PMC Energy Shotgun
-  parent: [ BaseC2ContrabandUnredeemable, WeaponEnergyShotgun ]
+  parent: [BaseC2ContrabandUnredeemable, WeaponEnergyShotgun]
   name: PMC Energy Shotgun
   id: EnergyShotgunPMC
   description: A PMC version of the "One-Of-A-Kind" energy shotgun. Registered for mercenary use in a more mass-producable fashion.

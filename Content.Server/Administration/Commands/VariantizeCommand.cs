@@ -9,8 +9,11 @@ namespace Content.Server.Administration.Commands;
 [AdminCommand(AdminFlags.Mapping)]
 public sealed class VariantizeCommand : IConsoleCommand
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
-    [Dependency] private readonly ITileDefinitionManager _tileDefManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
+
+    [Dependency]
+    private readonly ITileDefinitionManager _tileDefManager = default!;
 
     public string Command => "variantize";
 

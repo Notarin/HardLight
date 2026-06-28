@@ -1,5 +1,5 @@
 - type: entity
-  parent: [ SimpleSpaceMobBase, FlyingMobBase ]
+  parent: [SimpleSpaceMobBase, FlyingMobBase]
   id: BaseMobDragon
   suffix: ""
   name: space dragon
@@ -37,12 +37,9 @@
     rootTask:
       task: XenoCompound
     blackboard:
-      NavInteract: !type:Bool
-        true
-      NavPry: !type:Bool
-        true
-      NavSmash: !type:Bool
-        true
+      NavInteract: !type:Bool true
+      NavPry: !type:Bool true
+      NavSmash: !type:Bool true
   - type: NpcFactionMember
     factions:
     - Dragon
@@ -59,9 +56,9 @@
     sprite: Mobs/Aliens/Carps/dragon.rsi
     noRot: true
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: alive
-    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+    - map: ["enum.DamageStateVisualLayers.BaseUnshaded"]
       state: alive-unshaded
       shader: unshaded
   - type: Appearance
@@ -80,8 +77,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.40
         density: 100
         mask:
@@ -126,7 +122,7 @@
   - type: Metabolizer
     solutionOnBody: false
     updateInterval: 0.25
-    metabolizerTypes: [ Dragon ]
+    metabolizerTypes: [Dragon]
     groups:
     - id: Medicine
     - id: Cryogenic # Frontier
@@ -205,9 +201,9 @@
   - type: ActionGun
     action: ActionDragonsBreath
     gunProto: DragonsBreathGun
-  # - type: GuideHelp # Frontier: removed from guidebook
-  #   guides: # Frontier: removed from guidebook
-  #   - MinorAntagonists # Frontier: removed from guidebook
+    # - type: GuideHelp # Frontier: removed from guidebook
+    #   guides: # Frontier: removed from guidebook
+    #   - MinorAntagonists # Frontier: removed from guidebook
 
 - type: entity
   parent: BaseMobDragon
@@ -227,17 +223,16 @@
     sprite: Mobs/Aliens/Carps/holodragon.rsi
     noRot: true
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: alive
-    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+    - map: ["enum.DamageStateVisualLayers.BaseUnshaded"]
       state: alive-unshaded
       shader: unshaded
   - type: Physics
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.35 # Frontier 0.40<0.35 Lowered the value, to allow them to fit through the airlocks
         density: 10
         mask:
@@ -265,16 +260,16 @@
     sprite: Mobs/Aliens/Carps/dragon.rsi
     noRot: true
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: alive
-    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+    - map: ["enum.DamageStateVisualLayers.BaseUnshaded"]
       state: alive-unshaded
       shader: unshaded
   - type: PointLight
     radius: 1.5
     energy: 0.5
   - type: RgbLightController
-    layers: [ 0 ]
+    layers: [0]
 
 - type: entity
   parent: BaseMobDragon
@@ -294,14 +289,14 @@
     sprite: Mobs/Aliens/Carps/magidragon.rsi
     noRot: true
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: alive
-    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+    - map: ["enum.DamageStateVisualLayers.BaseUnshaded"]
       state: alive-unshaded
       shader: unshaded
 
 - type: entity
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   id: DragonsBreathGun
   name: dragon's lung
   description: For dragon's breathing.
@@ -368,20 +363,20 @@
   description: Attempt to break a structure with your jaws or swallow a creature.
   components:
   - type: EntityTargetAction
-    icon: { sprite : Interface/Actions/devour.rsi, state: icon }
-    iconOn: { sprite : Interface/Actions/devour.rsi, state: icon-on }
+    icon: {sprite: Interface/Actions/devour.rsi, state: icon}
+    iconOn: {sprite: Interface/Actions/devour.rsi, state: icon-on}
     event: !type:DevourActionEvent
     priority: 1
 
 - type: entity
-#  categories: [ HideSpawnMenu ] # Frontier
+  #  categories: [ HideSpawnMenu ] # Frontier
   id: ActionDragonsBreath
   name: "[color=orange]Dragon's Breath[/color]"
   description: Spew out flames at anyone foolish enough to attack you!
   components:
   - type: WorldTargetAction
     # TODO: actual sprite
-    icon: { sprite : Objects/Weapons/Guns/Projectiles/magic.rsi, state: fireball }
+    icon: {sprite: Objects/Weapons/Guns/Projectiles/magic.rsi, state: fireball}
     event: !type:ActionGunShootEvent
     priority: 2
     checkCanAccess: false

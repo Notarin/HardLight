@@ -1,11 +1,11 @@
-using System.Threading;
-using Content.Shared.PointCannons;
-using Timer = Robust.Shared.Timing.Timer;
-using JetBrains.Annotations;
 using System.Numerics;
-using Robust.Client.GameObjects;
-using Content.Shared.Weapons.Ranged.Events;
+using System.Threading;
 using Content.Client.Weapons.Ranged.Systems;
+using Content.Shared.PointCannons;
+using Content.Shared.Weapons.Ranged.Events;
+using JetBrains.Annotations;
+using Robust.Client.GameObjects;
+using Timer = Robust.Shared.Timing.Timer;
 
 namespace Content.Client._Crescent.PointCannons;
 
@@ -21,7 +21,8 @@ public sealed class TargetingConsoleBoundUserInterface : BoundUserInterface
     private CancellationTokenSource _updTimerTok = new();
     private List<NetEntity>? _controlled;
 
-    public TargetingConsoleBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
+    public TargetingConsoleBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey)
     {
         _entMan = IoCManager.Resolve<IEntityManager>();
         _formSys = _entMan.System<TransformSystem>();

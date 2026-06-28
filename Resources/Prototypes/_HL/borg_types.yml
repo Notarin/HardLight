@@ -16,17 +16,16 @@
     - XenoborgModuleGeneric
 
   defaultModules:
-    - BorgModuleTool
-    - BorgModuleStun
-    - BorgModuleKill
-    - BorgModuleInvestigation
+  - BorgModuleTool
+  - BorgModuleStun
+  - BorgModuleKill
+  - BorgModuleInvestigation
 
   radioChannels:
   - Science
   - ColSec
   - Security
 
-  
   addComponents:
   - type: FlashImmunity
   - type: SiliconLawProvider

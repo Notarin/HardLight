@@ -23,7 +23,11 @@ public partial class AtmosphereSystem
         return _transformSystem.GetWorldPosition(ent.Comp).Floored();
     }
 
-    public GasMixture? GetContainingMixture(Entity<TransformComponent?> ent, bool ignoreExposed = false, bool excite = false)
+    public GasMixture? GetContainingMixture(
+        Entity<TransformComponent?> ent,
+        bool ignoreExposed = false,
+        bool excite = false
+    )
     {
         if (!Resolve(ent, ref ent.Comp))
             return null;
@@ -36,7 +40,8 @@ public partial class AtmosphereSystem
         Entity<GridAtmosphereComponent?, GasTileOverlayComponent?>? grid,
         Entity<MapAtmosphereComponent?>? map,
         bool ignoreExposed = false,
-        bool excite = false)
+        bool excite = false
+    )
     {
         if (!Resolve(ent, ref ent.Comp))
             return null;
@@ -81,7 +86,7 @@ public partial class AtmosphereSystem
         var ev = new GetAllMixturesMethodEvent(gridUid, excite);
         RaiseLocalEvent(gridUid, ref ev);
 
-        if(!ev.Handled)
+        if (!ev.Handled)
             return Enumerable.Empty<GasMixture>();
 
         DebugTools.AssertNotNull(ev.Mixtures);
@@ -98,13 +103,14 @@ public partial class AtmosphereSystem
         Entity<GridAtmosphereComponent?, GasTileOverlayComponent?>? grid,
         Entity<MapAtmosphereComponent?>? map,
         List<Vector2i> tiles,
-        bool excite = false)
+        bool excite = false
+    )
     {
         GasMixture?[]? mixtures = null;
         var handled = false;
 
         // If we've been passed a grid, try to let it handle it.
-        if (grid is {} gridEnt && Resolve(gridEnt, ref gridEnt.Comp1))
+        if (grid is { } gridEnt && Resolve(gridEnt, ref gridEnt.Comp1))
         {
             if (excite)
                 Resolve(gridEnt, ref gridEnt.Comp2);
@@ -137,7 +143,7 @@ public partial class AtmosphereSystem
 
         // We either don't have a grid, or the event wasn't handled.
         // Let the map handle it instead, and also broadcast the event.
-        if (map is {} mapEnt && _mapAtmosQuery.Resolve(mapEnt, ref mapEnt.Comp))
+        if (map is { } mapEnt && _mapAtmosQuery.Resolve(mapEnt, ref mapEnt.Comp))
         {
             mixtures ??= new GasMixture?[tiles.Count];
             for (var i = 0; i < tiles.Count; i++)
@@ -157,7 +163,7 @@ public partial class AtmosphereSystem
         return mixtures;
     }
 
-    public GasMixture? GetTileMixture (Entity<TransformComponent?> entity, bool excite = false)
+    public GasMixture? GetTileMixture(Entity<TransformComponent?> entity, bool excite = false)
     {
         if (!Resolve(entity.Owner, ref entity.Comp))
             return null;
@@ -170,12 +176,15 @@ public partial class AtmosphereSystem
         Entity<GridAtmosphereComponent?, GasTileOverlayComponent?>? grid,
         Entity<MapAtmosphereComponent?>? map,
         Vector2i gridTile,
-        bool excite = false)
+        bool excite = false
+    )
     {
         // If we've been passed a grid, try to let it handle it.
-        if (grid is {} gridEnt
+        if (
+            grid is { } gridEnt
             && Resolve(gridEnt, ref gridEnt.Comp1, false)
-            && gridEnt.Comp1.Tiles.TryGetValue(gridTile, out var tile))
+            && gridEnt.Comp1.Tiles.TryGetValue(gridTile, out var tile)
+        )
         {
             if (excite)
             {
@@ -186,7 +195,7 @@ public partial class AtmosphereSystem
             return tile.Air;
         }
 
-        if (map is {} mapEnt && _mapAtmosQuery.Resolve(mapEnt, ref mapEnt.Comp, false))
+        if (map is { } mapEnt && _mapAtmosQuery.Resolve(mapEnt, ref mapEnt.Comp, false))
             return mapEnt.Comp.Mixture;
 
         // Default to a space mixture... This is a space game, after all!
@@ -203,7 +212,12 @@ public partial class AtmosphereSystem
         return ev.Result;
     }
 
-    public bool IsTileAirBlocked(EntityUid gridUid, Vector2i tile, AtmosDirection directions = AtmosDirection.All, MapGridComponent? mapGridComp = null)
+    public bool IsTileAirBlocked(
+        EntityUid gridUid,
+        Vector2i tile,
+        AtmosDirection directions = AtmosDirection.All,
+        MapGridComponent? mapGridComp = null
+    )
     {
         if (!Resolve(gridUid, ref mapGridComp, false))
             return false;
@@ -214,13 +228,16 @@ public partial class AtmosphereSystem
 
     public bool IsTileSpace(Entity<GridAtmosphereComponent?>? grid, Entity<MapAtmosphereComponent?>? map, Vector2i tile)
     {
-        if (grid is {} gridEnt && _atmosQuery.Resolve(gridEnt, ref gridEnt.Comp, false)
-            && gridEnt.Comp.Tiles.TryGetValue(tile, out var tileAtmos))
+        if (
+            grid is { } gridEnt
+            && _atmosQuery.Resolve(gridEnt, ref gridEnt.Comp, false)
+            && gridEnt.Comp.Tiles.TryGetValue(tile, out var tileAtmos)
+        )
         {
             return tileAtmos.Space;
         }
 
-        if (map is {} mapEnt && _mapAtmosQuery.Resolve(mapEnt, ref mapEnt.Comp, false))
+        if (map is { } mapEnt && _mapAtmosQuery.Resolve(mapEnt, ref mapEnt.Comp, false))
             return mapEnt.Comp.Space;
 
         // If nothing handled the event, it'll default to true.
@@ -228,17 +245,30 @@ public partial class AtmosphereSystem
         return true;
     }
 
-    public bool IsTileMixtureProbablySafe(Entity<GridAtmosphereComponent?>? grid, Entity<MapAtmosphereComponent?> map, Vector2i tile)
+    public bool IsTileMixtureProbablySafe(
+        Entity<GridAtmosphereComponent?>? grid,
+        Entity<MapAtmosphereComponent?> map,
+        Vector2i tile
+    )
     {
         return IsMixtureProbablySafe(GetTileMixture(grid, map, tile));
     }
 
-    public float GetTileHeatCapacity(Entity<GridAtmosphereComponent?>? grid, Entity<MapAtmosphereComponent?> map, Vector2i tile)
+    public float GetTileHeatCapacity(
+        Entity<GridAtmosphereComponent?>? grid,
+        Entity<MapAtmosphereComponent?> map,
+        Vector2i tile
+    )
     {
         return GetHeatCapacity(GetTileMixture(grid, map, tile) ?? GasMixture.SpaceGas);
     }
 
-    public TileMixtureEnumerator GetAdjacentTileMixtures(Entity<GridAtmosphereComponent?> grid, Vector2i tile, bool includeBlocked = false, bool excite = false)
+    public TileMixtureEnumerator GetAdjacentTileMixtures(
+        Entity<GridAtmosphereComponent?> grid,
+        Vector2i tile,
+        bool includeBlocked = false,
+        bool excite = false
+    )
     {
         if (!_atmosQuery.Resolve(grid, ref grid.Comp, false))
             return TileMixtureEnumerator.Empty;
@@ -248,8 +278,14 @@ public partial class AtmosphereSystem
             : new(atmosTile.AdjacentTiles);
     }
 
-    public void HotspotExpose(Entity<GridAtmosphereComponent?> grid, Vector2i tile, float exposedTemperature, float exposedVolume,
-        EntityUid? sparkSourceUid = null, bool soh = false)
+    public void HotspotExpose(
+        Entity<GridAtmosphereComponent?> grid,
+        Vector2i tile,
+        float exposedTemperature,
+        float exposedVolume,
+        EntityUid? sparkSourceUid = null,
+        bool soh = false
+    )
     {
         if (!_atmosQuery.Resolve(grid, ref grid.Comp, false))
             return;
@@ -258,8 +294,13 @@ public partial class AtmosphereSystem
             HotspotExpose(grid.Comp, atmosTile, exposedTemperature, exposedVolume, soh, sparkSourceUid);
     }
 
-    public void HotspotExpose(TileAtmosphere tile, float exposedTemperature, float exposedVolume,
-        EntityUid? sparkSourceUid = null, bool soh = false)
+    public void HotspotExpose(
+        TileAtmosphere tile,
+        float exposedTemperature,
+        float exposedVolume,
+        EntityUid? sparkSourceUid = null,
+        bool soh = false
+    )
     {
         if (!_atmosQuery.TryGetComponent(tile.GridIndex, out var atmos))
             return;
@@ -322,21 +363,36 @@ public partial class AtmosphereSystem
         return true;
     }
 
-    [ByRefEvent] private record struct SetSimulatedGridMethodEvent
-        (EntityUid Grid, bool Simulated, bool Handled = false);
+    [ByRefEvent]
+    private record struct SetSimulatedGridMethodEvent(EntityUid Grid, bool Simulated, bool Handled = false);
 
-    [ByRefEvent] private record struct IsSimulatedGridMethodEvent
-        (EntityUid Grid, bool Simulated = false, bool Handled = false);
+    [ByRefEvent]
+    private record struct IsSimulatedGridMethodEvent(EntityUid Grid, bool Simulated = false, bool Handled = false);
 
-    [ByRefEvent] private record struct GetAllMixturesMethodEvent
-        (EntityUid Grid, bool Excite = false, IEnumerable<GasMixture>? Mixtures = null, bool Handled = false);
+    [ByRefEvent]
+    private record struct GetAllMixturesMethodEvent(
+        EntityUid Grid,
+        bool Excite = false,
+        IEnumerable<GasMixture>? Mixtures = null,
+        bool Handled = false
+    );
 
-    [ByRefEvent] private record struct ReactTileMethodEvent
-        (EntityUid GridId, Vector2i Tile, ReactionResult Result = default, bool Handled = false);
+    [ByRefEvent]
+    private record struct ReactTileMethodEvent(
+        EntityUid GridId,
+        Vector2i Tile,
+        ReactionResult Result = default,
+        bool Handled = false
+    );
 
-    [ByRefEvent] private record struct HotspotExtinguishMethodEvent
-        (EntityUid Grid, Vector2i Tile, bool Handled = false);
+    [ByRefEvent]
+    private record struct HotspotExtinguishMethodEvent(EntityUid Grid, Vector2i Tile, bool Handled = false);
 
-    [ByRefEvent] private record struct IsHotspotActiveMethodEvent
-        (EntityUid Grid, Vector2i Tile, bool Result = false, bool Handled = false);
+    [ByRefEvent]
+    private record struct IsHotspotActiveMethodEvent(
+        EntityUid Grid,
+        Vector2i Tile,
+        bool Result = false,
+        bool Handled = false
+    );
 }

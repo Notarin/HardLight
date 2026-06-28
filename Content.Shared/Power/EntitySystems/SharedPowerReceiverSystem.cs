@@ -11,19 +11,27 @@ namespace Content.Shared.Power.EntitySystems;
 
 public abstract class SharedPowerReceiverSystem : EntitySystem
 {
-    [Dependency] private readonly INetManager _netMan = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedPowerNetSystem _net = default!;
+    [Dependency]
+    private readonly INetManager _netMan = default!;
 
-    public abstract bool ResolveApc(EntityUid entity, [NotNullWhen(true)] ref SharedApcPowerReceiverComponent? component);
+    [Dependency]
+    private readonly ISharedAdminLogManager _adminLogger = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedPowerNetSystem _net = default!;
+
+    public abstract bool ResolveApc(
+        EntityUid entity,
+        [NotNullWhen(true)] ref SharedApcPowerReceiverComponent? component
+    );
 
     /// <summary>
     /// Goobstation - Lets shared code set power load.
     /// </summary>
-    public virtual void SetLoad(SharedApcPowerReceiverComponent comp, float load)
-    {
-    }
+    public virtual void SetLoad(SharedApcPowerReceiverComponent comp, float load) { }
 
     public void SetNeedsPower(EntityUid uid, bool value, SharedApcPowerReceiverComponent? receiver = null)
     {
@@ -47,7 +55,12 @@ public abstract class SharedPowerReceiverSystem : EntitySystem
     /// Turn this machine on or off.
     /// Returns true if we turned it on, false if we turned it off.
     /// </summary>
-    public bool TogglePower(EntityUid uid, bool playSwitchSound = true, SharedApcPowerReceiverComponent? receiver = null, EntityUid? user = null)
+    public bool TogglePower(
+        EntityUid uid,
+        bool playSwitchSound = true,
+        SharedApcPowerReceiverComponent? receiver = null,
+        EntityUid? user = null
+    )
     {
         if (!ResolveApc(uid, ref receiver))
             return true;
@@ -71,12 +84,20 @@ public abstract class SharedPowerReceiverSystem : EntitySystem
         SetPowerDisabled(uid, !receiver.PowerDisabled, receiver);
 
         if (user != null)
-            _adminLogger.Add(LogType.Action, LogImpact.Low, $"{ToPrettyString(user.Value):player} hit power button on {ToPrettyString(uid)}, it's now {(!receiver.PowerDisabled ? "on" : "off")}");
+            _adminLogger.Add(
+                LogType.Action,
+                LogImpact.Low,
+                $"{ToPrettyString(user.Value):player} hit power button on {ToPrettyString(uid)}, it's now {(!receiver.PowerDisabled ? "on" : "off")}"
+            );
 
         if (playSwitchSound)
         {
-            _audio.PlayPredicted(new SoundPathSpecifier("/Audio/Machines/machine_switch.ogg"), uid, user: user,
-                AudioParams.Default.WithVolume(-2f));
+            _audio.PlayPredicted(
+                new SoundPathSpecifier("/Audio/Machines/machine_switch.ogg"),
+                uid,
+                user: user,
+                AudioParams.Default.WithVolume(-2f)
+            );
         }
 
         if (_netMan.IsClient && receiver.PowerDisabled)
@@ -113,9 +134,16 @@ public abstract class SharedPowerReceiverSystem : EntitySystem
 
     protected string GetExamineText(bool powered)
     {
-        return Loc.GetString("power-receiver-component-on-examine-main",
-                                ("stateText", Loc.GetString(powered
-                                    ? "power-receiver-component-on-examine-powered"
-                                    : "power-receiver-component-on-examine-unpowered")));
+        return Loc.GetString(
+            "power-receiver-component-on-examine-main",
+            (
+                "stateText",
+                Loc.GetString(
+                    powered
+                        ? "power-receiver-component-on-examine-powered"
+                        : "power-receiver-component-on-examine-unpowered"
+                )
+            )
+        );
     }
 }

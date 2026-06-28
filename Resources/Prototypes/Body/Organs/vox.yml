@@ -8,7 +8,7 @@
   - type: Sprite
     sprite: Mobs/Species/Vox/organs.rsi
   - type: Metabolizer
-    metabolizerTypes: [ Vox ]
+    metabolizerTypes: [Vox]
   - type: Lung
     alert: LowNitrogen
   - type: Item
@@ -24,7 +24,7 @@
   - type: Metabolizer #Skreeeee!
     metabolizerTypes: [Vox]
   - type: Stomach
-#Bird vs tags
+    #Bird vs tags
     specialDigestible:
       tags:
       - Trash

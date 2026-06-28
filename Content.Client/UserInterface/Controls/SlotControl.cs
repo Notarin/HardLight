@@ -52,9 +52,17 @@ namespace Content.Client.UserInterface.Controls
             }
         }
 
-        public bool Highlight { get => HighlightRect.Visible; set => HighlightRect.Visible = value;}
+        public bool Highlight
+        {
+            get => HighlightRect.Visible;
+            set => HighlightRect.Visible = value;
+        }
 
-        public bool Blocked { get => BlockedRect.Visible; set => BlockedRect.Visible = value;}
+        public bool Blocked
+        {
+            get => BlockedRect.Visible;
+            set => BlockedRect.Visible = value;
+        }
 
         private string? _blockedTexturePath;
         public string? BlockedTexturePath
@@ -88,7 +96,6 @@ namespace Content.Client.UserInterface.Controls
                 UpdateButtonTexture();
             }
         }
-
 
         private string? _storageTexturePath;
         public string? StorageTexturePath
@@ -125,49 +132,57 @@ namespace Content.Client.UserInterface.Controls
             IoCManager.InjectDependencies(this);
             Name = "SlotButton_null";
             MinSize = new Vector2(DefaultButtonSize, DefaultButtonSize);
-            AddChild(ButtonRect = new TextureRect
-            {
-                TextureScale = new Vector2(2, 2),
-                MouseFilter = MouseFilterMode.Stop
-            });
-            AddChild(HighlightRect = new TextureRect
-            {
-                Visible = false,
-                TextureScale = new Vector2(2, 2),
-                MouseFilter = MouseFilterMode.Ignore
-            });
+            AddChild(
+                ButtonRect = new TextureRect { TextureScale = new Vector2(2, 2), MouseFilter = MouseFilterMode.Stop }
+            );
+            AddChild(
+                HighlightRect = new TextureRect
+                {
+                    Visible = false,
+                    TextureScale = new Vector2(2, 2),
+                    MouseFilter = MouseFilterMode.Ignore,
+                }
+            );
 
             ButtonRect.OnKeyBindDown += OnButtonPressed;
             ButtonRect.OnKeyBindUp += OnButtonUnpressed;
 
-            AddChild(SpriteView = new SpriteView
-            {
-                Scale = new Vector2(2, 2),
-                SetSize = new Vector2(DefaultButtonSize, DefaultButtonSize),
-                OverrideDirection = Direction.South
-            });
-            AddChild(ProtoView = new EntityPrototypeView
-            {
-                Visible = false,
-                Scale = new Vector2(2, 2),
-                SetSize = new Vector2(DefaultButtonSize, DefaultButtonSize),
-                OverrideDirection = Direction.South
-            });
+            AddChild(
+                SpriteView = new SpriteView
+                {
+                    Scale = new Vector2(2, 2),
+                    SetSize = new Vector2(DefaultButtonSize, DefaultButtonSize),
+                    OverrideDirection = Direction.South,
+                }
+            );
+            AddChild(
+                ProtoView = new EntityPrototypeView
+                {
+                    Visible = false,
+                    Scale = new Vector2(2, 2),
+                    SetSize = new Vector2(DefaultButtonSize, DefaultButtonSize),
+                    OverrideDirection = Direction.South,
+                }
+            );
 
-            AddChild(HoverSpriteView = new SpriteView
-            {
-                Scale = new Vector2(2, 2),
-                SetSize = new Vector2(DefaultButtonSize, DefaultButtonSize),
-                OverrideDirection = Direction.South
-            });
+            AddChild(
+                HoverSpriteView = new SpriteView
+                {
+                    Scale = new Vector2(2, 2),
+                    SetSize = new Vector2(DefaultButtonSize, DefaultButtonSize),
+                    OverrideDirection = Direction.South,
+                }
+            );
 
-            AddChild(StorageButton = new TextureButton
-            {
-                Scale = new Vector2(0.75f, 0.75f),
-                HorizontalAlignment = HAlignment.Right,
-                VerticalAlignment = VAlignment.Bottom,
-                Visible = false,
-            });
+            AddChild(
+                StorageButton = new TextureButton
+                {
+                    Scale = new Vector2(0.75f, 0.75f),
+                    HorizontalAlignment = HAlignment.Right,
+                    VerticalAlignment = VAlignment.Bottom,
+                    Visible = false,
+                }
+            );
 
             AddChild(AdminOverlays = new Control());
 
@@ -193,17 +208,16 @@ namespace Content.Client.UserInterface.Controls
                 ClearHover();
             };
 
-            AddChild(CooldownDisplay = new CooldownGraphic
-            {
-                Visible = false,
-            });
+            AddChild(CooldownDisplay = new CooldownGraphic { Visible = false });
 
-            AddChild(BlockedRect = new TextureRect
-            {
-                TextureScale = new Vector2(2, 2),
-                MouseFilter = MouseFilterMode.Stop,
-                Visible = false
-            });
+            AddChild(
+                BlockedRect = new TextureRect
+                {
+                    TextureScale = new Vector2(2, 2),
+                    MouseFilter = MouseFilterMode.Stop,
+                    Visible = false,
+                }
+            );
 
             HighlightTexturePath = "slot_highlight";
             BlockedTexturePath = "blocked";
@@ -262,9 +276,10 @@ namespace Content.Client.UserInterface.Controls
         private void UpdateButtonTexture()
         {
             var fullTexture = Theme.ResolveTextureOrNull(_fullButtonTexturePath);
-            var texture = Entity.HasValue && fullTexture != null
-                ? fullTexture.Texture
-                : Theme.ResolveTextureOrNull(_buttonTexturePath)?.Texture;
+            var texture =
+                Entity.HasValue && fullTexture != null
+                    ? fullTexture.Texture
+                    : Theme.ResolveTextureOrNull(_buttonTexturePath)?.Texture;
             ButtonRect.Texture = texture;
         }
 

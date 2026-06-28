@@ -4,8 +4,8 @@ using Content.Server._NF.Cargo.Components;
 using Content.Shared._NF.Bank.BUI;
 using Content.Shared._NF.Bank.Components;
 using Content.Shared._NF.Cargo;
-using Content.Shared._NF.Cargo.Components;
 using Content.Shared._NF.Cargo.BUI;
+using Content.Shared._NF.Cargo.Components;
 using Content.Shared.Cargo.Events;
 using Content.Shared.Cargo.Prototypes;
 using Content.Shared.Database;
@@ -26,7 +26,6 @@ public sealed partial class NFCargoSystem
     /// Keeps track of how much time has elapsed since last balance increase.
     /// </summary>
     private float _timer;
-
 
     public void InitializeConsole()
     {
@@ -60,7 +59,8 @@ public sealed partial class NFCargoSystem
             var query = EntityQueryEnumerator<NFCargoOrderConsoleComponent>();
             while (query.MoveNext(out var uid, out var comp))
             {
-                if (!_ui.IsUiOpen(uid, NFCargoConsoleUiKey.Orders)) continue;
+                if (!_ui.IsUiOpen(uid, NFCargoConsoleUiKey.Orders))
+                    continue;
 
                 var station = _station.GetOwningStation(uid);
                 UpdateOrderState((uid, comp), station);
@@ -178,15 +178,17 @@ public sealed partial class NFCargoSystem
                 continue;
 
             // We only want to see orders made on the same computer, so filter them out
-            var filteredOrders = orderDatabase.Orders
-                .Where(order => order.Computer == EntityManager.GetNetEntity(ent)).ToList();
+            var filteredOrders = orderDatabase
+                .Orders.Where(order => order.Computer == EntityManager.GetNetEntity(ent))
+                .ToList();
 
             var state = new NFCargoConsoleInterfaceState(
                 meta.EntityName,
                 GetOutstandingOrderCount(orderDatabase),
                 orderDatabase.Capacity,
                 balance,
-                filteredOrders);
+                filteredOrders
+            );
 
             _ui.SetUiState(ent.Owner, NFCargoConsoleUiKey.Orders, state);
         }
@@ -202,9 +204,23 @@ public sealed partial class NFCargoSystem
         _audio.PlayPvs(_audio.ResolveSound(ent.Comp.ErrorSound), ent);
     }
 
-    private static NFCargoOrderData GetOrderData(NetEntity consoleUid, CargoConsoleAddOrderMessage args, CargoProductPrototype cargoProduct, int id)
+    private static NFCargoOrderData GetOrderData(
+        NetEntity consoleUid,
+        CargoConsoleAddOrderMessage args,
+        CargoProductPrototype cargoProduct,
+        int id
+    )
     {
-        return new NFCargoOrderData(id, cargoProduct.Product, cargoProduct.Name, cargoProduct.Cost, args.Amount, args.Requester, args.Reason, consoleUid);
+        return new NFCargoOrderData(
+            id,
+            cargoProduct.Product,
+            cargoProduct.Name,
+            cargoProduct.Cost,
+            args.Amount,
+            args.Requester,
+            args.Reason,
+            consoleUid
+        );
     }
 
     public static int GetOutstandingOrderCount(NFStationCargoOrderDatabaseComponent component)
@@ -267,9 +283,15 @@ public sealed partial class NFCargoSystem
         component.Orders.Clear();
     }
 
-    private static bool PopFrontOrder(List<NetEntity> consoleUidList, NFStationCargoOrderDatabaseComponent orderDB, [NotNullWhen(true)] out NFCargoOrderData? orderOut)
+    private static bool PopFrontOrder(
+        List<NetEntity> consoleUidList,
+        NFStationCargoOrderDatabaseComponent orderDB,
+        [NotNullWhen(true)] out NFCargoOrderData? orderOut
+    )
     {
-        var orderIdx = orderDB.Orders.FindIndex(order => consoleUidList.Any(consoleUid => consoleUid == order.Computer));
+        var orderIdx = orderDB.Orders.FindIndex(order =>
+            consoleUidList.Any(consoleUid => consoleUid == order.Computer)
+        );
         if (orderIdx == -1)
         {
             orderOut = null;
@@ -290,7 +312,12 @@ public sealed partial class NFCargoSystem
     /// <summary>
     /// Tries to fulfill the next outstanding order.
     /// </summary>
-    private bool FulfillNextOrder(List<NetEntity> consoleUidList, NFStationCargoOrderDatabaseComponent orderDB, EntityCoordinates spawn, string? paperProto)
+    private bool FulfillNextOrder(
+        List<NetEntity> consoleUidList,
+        NFStationCargoOrderDatabaseComponent orderDB,
+        EntityCoordinates spawn,
+        string? paperProto
+    )
     {
         if (!PopFrontOrder(consoleUidList, orderDB, out var order))
             return false;
@@ -317,14 +344,18 @@ public sealed partial class NFCargoSystem
             var val = Loc.GetString("cargo-console-paper-print-name", ("orderNumber", order.OrderId));
             _meta.SetEntityName(printed, val);
 
-            _paper.SetContent((printed, paper), Loc.GetString(
+            _paper.SetContent(
+                (printed, paper),
+                Loc.GetString(
                     "cargo-console-nf-paper-print-text",
                     ("orderNumber", order.OrderId),
                     ("itemName", MetaData(item).EntityName),
                     ("orderIndex", order.NumDispatched),
                     ("orderQuantity", order.OrderQuantity),
                     ("purchaser", order.Purchaser),
-                    ("notes", order.Notes)));
+                    ("notes", order.Notes)
+                )
+            );
 
             // attempt to attach the label to the item
             if (TryComp<PaperLabelComponent>(item, out var label))
@@ -334,10 +365,13 @@ public sealed partial class NFCargoSystem
         }
 
         return true;
-
     }
 
-    private bool TryGetOrderDatabase(EntityUid uid, [NotNullWhen(true)] out EntityUid? dbUid, [NotNullWhen(true)] out NFStationCargoOrderDatabaseComponent? dbComp)
+    private bool TryGetOrderDatabase(
+        EntityUid uid,
+        [NotNullWhen(true)] out EntityUid? dbUid,
+        [NotNullWhen(true)] out NFStationCargoOrderDatabaseComponent? dbComp
+    )
     {
         dbUid = _station.GetOwningStation(uid);
         return TryComp(dbUid, out dbComp);

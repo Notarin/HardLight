@@ -61,17 +61,19 @@ public sealed partial class GenericStatusEffect : EntityEffect
         }
     }
 
-    protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys) => Loc.GetString(
-        "reagent-effect-guidebook-status-effect",
-        ("chance", Probability),
-        ("type", Type),
-        ("time", Time),
-        ("key", $"reagent-effect-status-effect-{Key}"));
+    protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys) =>
+        Loc.GetString(
+            "reagent-effect-guidebook-status-effect",
+            ("chance", Probability),
+            ("type", Type),
+            ("time", Time),
+            ("key", $"reagent-effect-status-effect-{Key}")
+        );
 }
 
 public enum StatusEffectMetabolismType
 {
     Add,
     Remove,
-    Set
+    Set,
 }

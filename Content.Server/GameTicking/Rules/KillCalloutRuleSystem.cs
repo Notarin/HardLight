@@ -14,9 +14,14 @@ namespace Content.Server.GameTicking.Rules;
 /// </summary>
 public sealed class KillCalloutRuleSystem : GameRuleSystem<KillCalloutRuleComponent>
 {
-    [Dependency] private readonly IChatManager _chatManager = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency]
+    private readonly IChatManager _chatManager = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -45,8 +50,7 @@ public sealed class KillCalloutRuleSystem : GameRuleSystem<KillCalloutRuleCompon
         if (ev.Primary is KillEnvironmentSource || ev.Suicide)
         {
             var selfCallout = $"{component.SelfKillCalloutPrefix}{_random.Next(component.SelfKillCalloutAmount)}";
-            return Loc.GetString(selfCallout,
-                ("victim", GetCalloutName(ev.Entity)));
+            return Loc.GetString(selfCallout, ("victim", GetCalloutName(ev.Entity)));
         }
 
         var primary = GetCalloutName(ev.Primary);
@@ -54,13 +58,11 @@ public sealed class KillCalloutRuleSystem : GameRuleSystem<KillCalloutRuleCompon
         if (ev.Assist != null)
         {
             var secondary = GetCalloutName(ev.Assist);
-            killerString = Loc.GetString("death-match-assist",
-                ("primary", primary), ("secondary", secondary));
+            killerString = Loc.GetString("death-match-assist", ("primary", primary), ("secondary", secondary));
         }
 
         var callout = $"{component.KillCalloutPrefix}{_random.Next(component.KillCalloutAmount)}";
-        return Loc.GetString(callout, ("killer", killerString),
-            ("victim", GetCalloutName(ev.Entity)));
+        return Loc.GetString(callout, ("killer", killerString), ("victim", GetCalloutName(ev.Entity)));
     }
 
     private string GetCalloutName(KillSource source)
@@ -73,9 +75,11 @@ public sealed class KillCalloutRuleSystem : GameRuleSystem<KillCalloutRuleCompon
                 if (session.AttachedEntity == null)
                     break;
 
-                return Loc.GetString("death-match-name-player",
+                return Loc.GetString(
+                    "death-match-name-player",
                     ("name", MetaData(session.AttachedEntity.Value).EntityName),
-                    ("username", session.Name));
+                    ("username", session.Name)
+                );
 
             case KillNpcSource npc:
                 if (Deleted(npc.NpcEnt))
@@ -90,9 +94,11 @@ public sealed class KillCalloutRuleSystem : GameRuleSystem<KillCalloutRuleCompon
     {
         if (TryComp<ActorComponent>(source, out var actorComp))
         {
-            return Loc.GetString("death-match-name-player",
+            return Loc.GetString(
+                "death-match-name-player",
                 ("name", MetaData(source).EntityName),
-                ("username", actorComp.PlayerSession.Name));
+                ("username", actorComp.PlayerSession.Name)
+            );
         }
 
         return Loc.GetString("death-match-name-npc", ("name", MetaData(source).EntityName));

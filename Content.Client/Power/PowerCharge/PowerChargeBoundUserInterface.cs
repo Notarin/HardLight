@@ -8,9 +8,8 @@ public sealed class PowerChargeBoundUserInterface : BoundUserInterface
     [ViewVariables]
     private PowerChargeWindow? _window;
 
-    public PowerChargeBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-    }
+    public PowerChargeBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     public void SetPowerSwitch(bool on)
     {
@@ -22,6 +21,7 @@ public sealed class PowerChargeBoundUserInterface : BoundUserInterface
     {
         SendMessage(new PowerChargeActionMessage());
     }
+
     // Frontier End
 
     protected override void Open()

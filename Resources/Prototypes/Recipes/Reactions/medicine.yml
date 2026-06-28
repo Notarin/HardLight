@@ -561,7 +561,7 @@
   id: Opporozidone
   minTemp: 400 #Maybe if a method of reducing reagent temp exists one day, this could be -50
   reactants:
-    Cognizine: 
+    Cognizine:
       amount: 1
     Plasma:
       amount: 2
@@ -595,7 +595,7 @@
     Sigynate:
       amount: 2
   products:
-      Aloxadone: 4
+    Aloxadone: 4
 
 - type: reaction
   id: Psicodine
@@ -608,7 +608,7 @@
     Water:
       amount: 2
   products:
-      Psicodine: 4
+    Psicodine: 4
 
 - type: reaction
   id: Lipolicide

@@ -18,13 +18,26 @@ namespace Content.Shared.Nyanotrasen.Item.PseudoItem;
 
 public abstract partial class SharedPseudoItemSystem : EntitySystem
 {
-    [Dependency] private readonly SharedStorageSystem _storage = default!;
-    [Dependency] private readonly SharedItemSystem _item = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly TagSystem _tag = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency]
+    private readonly SharedStorageSystem _storage = default!;
+
+    [Dependency]
+    private readonly SharedItemSystem _item = default!;
+
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfter = default!;
+
+    [Dependency]
+    private readonly TagSystem _tag = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly SharedActionsSystem _actions = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
 
     private readonly ProtoId<TagPrototype> _preventTag = "PreventLabel";
     private readonly EntProtoId _sleepActionId = "ActionSleep"; // The action used for sleeping inside bags. Currently uses the default sleep action (same as beds)
@@ -66,13 +79,17 @@ public abstract partial class SharedPseudoItemSystem : EntitySystem
                 TryInsert(args.Target, uid, component, targetStorage);
             },
             Text = Loc.GetString("action-name-insert-self"),
-            Priority = 2
+            Priority = 2,
         };
         args.Verbs.Add(verb);
     }
 
-    public bool TryInsert(EntityUid storageUid, EntityUid toInsert, PseudoItemComponent component,
-        StorageComponent? storage = null)
+    public bool TryInsert(
+        EntityUid storageUid,
+        EntityUid toInsert,
+        PseudoItemComponent component,
+        StorageComponent? storage = null
+    )
     {
         if (!Resolve(storageUid, ref storage))
             return false;
@@ -85,7 +102,7 @@ public abstract partial class SharedPseudoItemSystem : EntitySystem
             Size = component.Size,
             Shape = component.Shape,
             StoredOffset = component.StoredOffset,
-            StoredRotation = component.StoredRotation
+            StoredRotation = component.StoredRotation,
         }; // Frontier: added StoredRotation
         AddComp(toInsert, itemComp);
         _item.VisualsChanged(toInsert);
@@ -118,8 +135,11 @@ public abstract partial class SharedPseudoItemSystem : EntitySystem
         _actions.RemoveAction(uid, component.SleepAction); // Remove sleep action if it was added
     }
 
-    protected virtual void OnGettingPickedUpAttempt(EntityUid uid, PseudoItemComponent component,
-        GettingPickedUpAttemptEvent args)
+    protected virtual void OnGettingPickedUpAttempt(
+        EntityUid uid,
+        PseudoItemComponent component,
+        GettingPickedUpAttemptEvent args
+    )
     {
         if (args.User == args.Item)
             return;
@@ -134,8 +154,11 @@ public abstract partial class SharedPseudoItemSystem : EntitySystem
             args.Cancel();
     }
 
-    private void OnInsertAttempt(EntityUid uid, PseudoItemComponent component,
-        ContainerGettingInsertedAttemptEvent args)
+    private void OnInsertAttempt(
+        EntityUid uid,
+        PseudoItemComponent component,
+        ContainerGettingInsertedAttemptEvent args
+    )
     {
         if (!component.Active)
             return;
@@ -158,8 +181,12 @@ public abstract partial class SharedPseudoItemSystem : EntitySystem
         args.Handled = TryInsert(args.Args.Used.Value, uid, component);
     }
 
-    protected void StartInsertDoAfter(EntityUid inserter, EntityUid toInsert, EntityUid storageEntity,
-        PseudoItemComponent? pseudoItem = null)
+    protected void StartInsertDoAfter(
+        EntityUid inserter,
+        EntityUid toInsert,
+        EntityUid storageEntity,
+        PseudoItemComponent? pseudoItem = null
+    )
     {
         if (!Resolve(toInsert, ref pseudoItem))
             return;
@@ -168,7 +195,7 @@ public abstract partial class SharedPseudoItemSystem : EntitySystem
         var args = new DoAfterArgs(EntityManager, inserter, 5f, ev, toInsert, toInsert, storageEntity)
         {
             BreakOnMove = true,
-            NeedHand = true
+            NeedHand = true,
         };
 
         if (_doAfter.TryStartDoAfter(args))

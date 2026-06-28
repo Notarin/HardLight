@@ -15,7 +15,18 @@ public sealed partial class VentClogRuleComponent : Component
     [DataField(customTypeSerializer: typeof(PrototypeIdListSerializer<ReagentPrototype>))]
     public IReadOnlyList<string> SafeishVentChemicals = new[]
     {
-        "Water", "Blood", "Slime", "SpaceDrugs", "SpaceCleaner", "Nutriment", "Sugar", "SpaceLube", "Ephedrine", "Ale", "Beer", "SpaceGlue"
+        "Water",
+        "Blood",
+        "Slime",
+        "SpaceDrugs",
+        "SpaceCleaner",
+        "Nutriment",
+        "Sugar",
+        "SpaceLube",
+        "Ephedrine",
+        "Ale",
+        "Beer",
+        "SpaceGlue",
     };
 
     /// <summary>
@@ -46,10 +57,7 @@ public sealed partial class VentClogRuleComponent : Component
     /// Reagents that gets the weak numbers used instead of regular ones.
     /// </summary>
     [DataField(customTypeSerializer: typeof(PrototypeIdListSerializer<ReagentPrototype>))]
-    public IReadOnlyList<string> WeakReagents = new[]
-    {
-        "SpaceLube", "SpaceGlue"
-    };
+    public IReadOnlyList<string> WeakReagents = new[] { "SpaceLube", "SpaceGlue" };
 
     /// <summary>
     /// Quantity of weak reagents to put in the foam.

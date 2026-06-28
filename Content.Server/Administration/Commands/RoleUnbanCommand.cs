@@ -36,7 +36,7 @@ public sealed class RoleUnbanCommand : IConsoleCommand
         return args.Length switch
         {
             1 => CompletionResult.FromHint(Loc.GetString("cmd-roleunban-hint-1")),
-            _ => CompletionResult.Empty
+            _ => CompletionResult.Empty,
         };
     }
 }

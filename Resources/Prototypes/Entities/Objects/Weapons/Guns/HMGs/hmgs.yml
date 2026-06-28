@@ -25,12 +25,12 @@
       path: /Audio/Weapons/Guns/Empty/lmg_empty.ogg
   - type: StaticPrice
     price: 500
-  # No chamber because HMG may want its own
+    # No chamber because HMG may want its own
 
 - type: entity
   name: minigun
   id: WeaponMinigun
-  parent: [ BaseWeaponHeavyMachineGun, BaseC3SyndicateContraband ] # HardLight: BaseMajorContraband<BaseC3SyndicateContraband
+  parent: [BaseWeaponHeavyMachineGun, BaseC3SyndicateContraband] # HardLight: BaseMajorContraband<BaseC3SyndicateContraband
   description: Vzzzzzt! Rahrahrahrah! Vrrrrr! Uses .10 rifle ammo.
   components:
   - type: Sprite

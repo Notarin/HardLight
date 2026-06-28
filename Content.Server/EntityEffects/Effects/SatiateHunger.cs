@@ -19,7 +19,8 @@ namespace Content.Server.EntityEffects.Effects
         ///     How much hunger is satiated.
         ///     Is multiplied by quantity if used with EntityEffectReagentArgs.
         /// </summary>
-        [DataField("factor")] public float NutritionFactor { get; set; } = DefaultNutritionFactor;
+        [DataField("factor")]
+        public float NutritionFactor { get; set; } = DefaultNutritionFactor;
 
         //Remove reagent at set rate, satiate hunger if a HungerComponent can be found
         public override void Effect(EntityEffectBaseArgs args)
@@ -29,7 +30,9 @@ namespace Content.Server.EntityEffects.Effects
                 return;
             if (args is EntityEffectReagentArgs reagentArgs)
             {
-                entman.System<HungerSystem>().ModifyHunger(reagentArgs.TargetEntity, NutritionFactor * (float) reagentArgs.Quantity, hunger);
+                entman
+                    .System<HungerSystem>()
+                    .ModifyHunger(reagentArgs.TargetEntity, NutritionFactor * (float)reagentArgs.Quantity, hunger);
             }
             else
             {
@@ -37,7 +40,14 @@ namespace Content.Server.EntityEffects.Effects
             }
         }
 
-        protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys)
-            => Loc.GetString("reagent-effect-guidebook-satiate-hunger", ("chance", Probability), ("relative", NutritionFactor / DefaultNutritionFactor));
+        protected override string? ReagentEffectGuidebookText(
+            IPrototypeManager prototype,
+            IEntitySystemManager entSys
+        ) =>
+            Loc.GetString(
+                "reagent-effect-guidebook-satiate-hunger",
+                ("chance", Probability),
+                ("relative", NutritionFactor / DefaultNutritionFactor)
+            );
     }
 }

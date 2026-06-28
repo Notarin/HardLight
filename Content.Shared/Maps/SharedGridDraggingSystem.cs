@@ -11,7 +11,6 @@ public abstract class SharedGridDraggingSystem : EntitySystem
     public const string CommandName = "griddrag";
 }
 
-
 /// <summary>
 /// Sent from server to client if grid dragging is toggled on.
 /// </summary>

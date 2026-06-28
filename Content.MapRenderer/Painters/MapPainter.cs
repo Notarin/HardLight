@@ -28,14 +28,16 @@ namespace Content.MapRenderer.Painters
             var stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            await using var pair = await PoolManager.GetServerClient(new PoolSettings
-            {
-                DummyTicker = false,
-                Connected = true,
-                Fresh = true,
-                // Seriously whoever made MapPainter use GameMapPrototype I wish you step on a lego one time.
-                Map = map,
-            });
+            await using var pair = await PoolManager.GetServerClient(
+                new PoolSettings
+                {
+                    DummyTicker = false,
+                    Connected = true,
+                    Fresh = true,
+                    // Seriously whoever made MapPainter use GameMapPrototype I wish you step on a lego one time.
+                    Map = map,
+                }
+            );
 
             var server = pair.Server;
             var client = pair.Client;
@@ -110,8 +112,8 @@ namespace Content.MapRenderer.Painters
                 var top = bounds.Top;
                 var bottom = bounds.Bottom;
 
-                var w = (int) Math.Ceiling(right - left) * tileXSize;
-                var h = (int) Math.Ceiling(top - bottom) * tileYSize;
+                var w = (int)Math.Ceiling(right - left) * tileXSize;
+                var h = (int)Math.Ceiling(top - bottom) * tileYSize;
 
                 var gridCanvas = new Image<Rgba32>(w, h);
 

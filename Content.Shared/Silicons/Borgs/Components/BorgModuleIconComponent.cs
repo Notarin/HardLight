@@ -16,5 +16,4 @@ public sealed partial class BorgModuleIconComponent : Component
     /// </summary>
     [DataField]
     public SpriteSpecifier.Rsi Icon = default!;
-
 }

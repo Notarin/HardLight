@@ -13,13 +13,19 @@ public sealed partial class PlumbingConnectorAppearanceComponent : Component
     /// Sprite for disconnected (jagged) connectors.
     /// </summary>
     [DataField]
-    public SpriteSpecifier.Rsi Disconnected = new(new("_Starlight/Structures/Piping/Plumbing/plumbers.rsi"), "ductConnector");
+    public SpriteSpecifier.Rsi Disconnected = new(
+        new("_Starlight/Structures/Piping/Plumbing/plumbers.rsi"),
+        "ductConnector"
+    );
 
     /// <summary>
     /// Sprite for connected (smooth) connectors - overlays disconnected state.
     /// </summary>
     [DataField]
-    public SpriteSpecifier.Rsi Connected = new(new("_Starlight/Structures/Piping/Plumbing/plumbers.rsi"), "ductConnector_connected");
+    public SpriteSpecifier.Rsi Connected = new(
+        new("_Starlight/Structures/Piping/Plumbing/plumbers.rsi"),
+        "ductConnector_connected"
+    );
 
     /// <summary>
     /// Offset from center for connector sprites. Used so jagged ends stick out from under a machine to be visible under big sprites.

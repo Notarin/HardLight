@@ -15,14 +15,19 @@ namespace Content.Client.Atmos.EntitySystems
         // Configuration set by debug commands and used by AtmosDebugOverlay {
         /// <summary>Value source for display</summary>
         public AtmosDebugOverlayMode CfgMode;
+
         /// <summary>This is subtracted from value (applied before CfgScale)</summary>
         public float CfgBase = 0;
+
         /// <summary>The value is divided by this (applied after CfgBase)</summary>
         public float CfgScale = Atmospherics.MolesCellStandard * 2;
+
         /// <summary>Gas ID used by GasMoles mode</summary>
         public int CfgSpecificGas = 0;
+
         /// <summary>Uses black-to-white interpolation (as opposed to red-green-blue) for colourblind users</summary>
         public bool CfgCBM = false;
+
         // }
 
         public override void Initialize()
@@ -36,7 +41,7 @@ namespace Content.Client.Atmos.EntitySystems
             SubscribeLocalEvent<GridRemovalEvent>(OnGridRemoved);
 
             var overlayManager = IoCManager.Resolve<IOverlayManager>();
-            if(!overlayManager.HasOverlay<AtmosDebugOverlay>())
+            if (!overlayManager.HasOverlay<AtmosDebugOverlay>())
                 overlayManager.AddOverlay(new AtmosDebugOverlay(this));
         }
 
@@ -81,6 +86,6 @@ namespace Content.Client.Atmos.EntitySystems
     {
         TotalMoles,
         GasMoles,
-        Temperature
+        Temperature,
     }
 }

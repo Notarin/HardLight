@@ -10,13 +10,13 @@
   - type: Sprite
     sprite: Objects/Consumable/Drinks/glue-tube.rsi
     layers:
-      - state: icon
-        map: ["enum.OpenableVisuals.Layer"]
-      - state: fill1
-        map: [ "enum.SolutionContainerLayers.Fill" ]
-        visible: false
-      - state: icon-front
-        map: [ "enum.SolutionContainerLayers.Overlay" ]
+    - state: icon
+      map: ["enum.OpenableVisuals.Layer"]
+    - state: fill1
+      map: ["enum.SolutionContainerLayers.Fill"]
+      visible: false
+    - state: icon-front
+      map: ["enum.SolutionContainerLayers.Overlay"]
   - type: Appearance
   - type: Glue
   - type: SolutionContainerManager
@@ -37,7 +37,7 @@
           False: {state: "icon"}
   - type: Tag
     tags:
-      - DrinkSpaceGlue
+    - DrinkSpaceGlue
   - type: TrashOnSolutionEmpty
     solution: drink
 
@@ -53,13 +53,13 @@
   - type: Sprite
     sprite: Objects/Consumable/Drinks/lube-tube.rsi
     layers:
-      - state: icon
-        map: ["enum.OpenableVisuals.Layer"]
-      - state: fill1
-        map: [ "enum.SolutionContainerLayers.Fill" ]
-        visible: false
-      - state: icon-front
-        map: [ "enum.SolutionContainerLayers.Overlay" ]
+    - state: icon
+      map: ["enum.OpenableVisuals.Layer"]
+    - state: fill1
+      map: ["enum.SolutionContainerLayers.Fill"]
+      visible: false
+    - state: icon-front
+      map: ["enum.SolutionContainerLayers.Overlay"]
   - type: Appearance
   - type: SolutionContainerManager
     solutions:
@@ -80,7 +80,6 @@
   - type: Lube
   - type: TrashOnSolutionEmpty
     solution: drink
-
 
 # Mopwata
 - type: weightedRandomFillSolution
@@ -160,11 +159,11 @@
   - type: Sprite
     sprite: Objects/Consumable/Drinks/mopwata.rsi
     layers:
-      - state: icon
-        map: ["enum.OpenableVisuals.Layer"]
-      - state: fill-1
-        map: ["enum.SolutionContainerLayers.Fill"]
-        visible: false
+    - state: icon
+      map: ["enum.OpenableVisuals.Layer"]
+    - state: fill-1
+      map: ["enum.SolutionContainerLayers.Fill"]
+      visible: false
   - type: SolutionContainerVisuals
     maxFillLevels: 5
     fillBaseName: fill-

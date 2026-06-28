@@ -61,8 +61,9 @@ namespace Content.Client.Administration.UI.Tabs.AtmosTab
 
             var gasList = _gasData.ToList();
             var gasId = gasList[GasOptions.SelectedId].ID;
-            IoCManager.Resolve<IClientConsoleHost>().ExecuteCommand(
-                $"addgas {TileXSpin.Value} {TileYSpin.Value} {gridIndex} {gasId} {AmountSpin.Value}");
+            IoCManager
+                .Resolve<IClientConsoleHost>()
+                .ExecuteCommand($"addgas {TileXSpin.Value} {TileYSpin.Value} {gridIndex} {gasId} {AmountSpin.Value}");
         }
     }
 }

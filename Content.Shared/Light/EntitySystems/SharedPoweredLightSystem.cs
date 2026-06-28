@@ -22,19 +22,44 @@ namespace Content.Shared.Light.EntitySystems;
 
 public abstract class SharedPoweredLightSystem : EntitySystem
 {
-    [Dependency] protected readonly IGameTiming GameTiming = default!;
-    [Dependency] private readonly DamageOnInteractSystem _damageOnInteractSystem = default!;
-    [Dependency] private readonly SharedAmbientSoundSystem _ambientSystem = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] protected readonly SharedContainerSystem ContainerSystem = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
-    [Dependency] private readonly SharedLightBulbSystem _bulbSystem = default!;
-    [Dependency] private readonly SharedHandsSystem _handsSystem = default!;
-    [Dependency] private readonly SharedPowerReceiverSystem _receiver = default!;
-    [Dependency] private readonly SharedPointLightSystem _pointLight = default!;
-    [Dependency] private readonly SharedStorageSystem _storage = default!;
-    [Dependency] private readonly SharedDeviceLinkSystem _deviceLink = default!;
+    [Dependency]
+    protected readonly IGameTiming GameTiming = default!;
+
+    [Dependency]
+    private readonly DamageOnInteractSystem _damageOnInteractSystem = default!;
+
+    [Dependency]
+    private readonly SharedAmbientSoundSystem _ambientSystem = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    protected readonly SharedContainerSystem ContainerSystem = default!;
+
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfterSystem = default!;
+
+    [Dependency]
+    private readonly SharedLightBulbSystem _bulbSystem = default!;
+
+    [Dependency]
+    private readonly SharedHandsSystem _handsSystem = default!;
+
+    [Dependency]
+    private readonly SharedPowerReceiverSystem _receiver = default!;
+
+    [Dependency]
+    private readonly SharedPointLightSystem _pointLight = default!;
+
+    [Dependency]
+    private readonly SharedStorageSystem _storage = default!;
+
+    [Dependency]
+    private readonly SharedDeviceLinkSystem _deviceLink = default!;
 
     private static readonly TimeSpan ThunkDelay = TimeSpan.FromSeconds(2);
     public const string LightBulbContainer = "light_bulb";
@@ -103,11 +128,20 @@ public abstract class SharedPoweredLightSystem : EntitySystem
         }
 
         // removing a working bulb, so require a delay
-        _doAfterSystem.TryStartDoAfter(new DoAfterArgs(EntityManager, userUid, light.EjectBulbDelay, new PoweredLightDoAfterEvent(), uid, target: uid)
-        {
-            BreakOnMove = true,
-            BreakOnDamage = true,
-        });
+        _doAfterSystem.TryStartDoAfter(
+            new DoAfterArgs(
+                EntityManager,
+                userUid,
+                light.EjectBulbDelay,
+                new PoweredLightDoAfterEvent(),
+                uid,
+                target: uid
+            )
+            {
+                BreakOnMove = true,
+                BreakOnDamage = true,
+            }
+        );
 
         args.Handled = true;
     }
@@ -128,8 +162,13 @@ public abstract class SharedPoweredLightSystem : EntitySystem
     /// </summary>
     private void OnPacketReceived(EntityUid uid, PoweredLightComponent component, DeviceNetworkPacketEvent args)
     {
-        if (!args.Data.TryGetValue(DeviceNetworkConstants.Command, out string? command) || command != DeviceNetworkConstants.CmdSetState) return;
-        if (!args.Data.TryGetValue(DeviceNetworkConstants.StateEnabled, out bool enabled)) return;
+        if (
+            !args.Data.TryGetValue(DeviceNetworkConstants.Command, out string? command)
+            || command != DeviceNetworkConstants.CmdSetState
+        )
+            return;
+        if (!args.Data.TryGetValue(DeviceNetworkConstants.StateEnabled, out bool enabled))
+            return;
 
         SetState(uid, enabled, component);
     }
@@ -138,7 +177,13 @@ public abstract class SharedPoweredLightSystem : EntitySystem
     ///     Inserts the bulb if possible.
     /// </summary>
     /// <returns>True if it could insert it, false if it couldn't.</returns>
-    public bool InsertBulb(EntityUid uid, EntityUid bulbUid, PoweredLightComponent? light = null, EntityUid? user = null, bool playAnimation = false)
+    public bool InsertBulb(
+        EntityUid uid,
+        EntityUid bulbUid,
+        PoweredLightComponent? light = null,
+        EntityUid? user = null,
+        bool playAnimation = false
+    )
     {
         if (!Resolve(uid, ref light))
             return false;
@@ -161,7 +206,13 @@ public abstract class SharedPoweredLightSystem : EntitySystem
         if (playAnimation && TryComp(user, out TransformComponent? xform))
         {
             var itemXform = Transform(uid);
-            _storage.PlayPickupAnimation(bulbUid, xform.Coordinates, itemXform.Coordinates, itemXform.LocalRotation, user: user);
+            _storage.PlayPickupAnimation(
+                bulbUid,
+                xform.Coordinates,
+                itemXform.Coordinates,
+                itemXform.LocalRotation,
+                user: user
+            );
         }
 
         return true;
@@ -257,11 +308,13 @@ public abstract class SharedPoweredLightSystem : EntitySystem
         return true;
     }
 
-    protected void UpdateLight(EntityUid uid,
+    protected void UpdateLight(
+        EntityUid uid,
         PoweredLightComponent? light = null,
         SharedApcPowerReceiverComponent? powerReceiver = null,
         AppearanceComponent? appearance = null,
-        EntityUid? user = null)
+        EntityUid? user = null
+    )
     {
         // We don't do anything during state application on the client as if
         // it's due to an entity spawn, we'd have to wait for component init to
@@ -295,14 +348,27 @@ public abstract class SharedPoweredLightSystem : EntitySystem
             case LightBulbState.Normal:
                 if (powerReceiver.Powered && light.On)
                 {
-                    SetLight(uid, true, lightBulb.Color, light, lightBulb.LightRadius, lightBulb.LightEnergy, lightBulb.LightSoftness);
+                    SetLight(
+                        uid,
+                        true,
+                        lightBulb.Color,
+                        light,
+                        lightBulb.LightRadius,
+                        lightBulb.LightEnergy,
+                        lightBulb.LightSoftness
+                    );
                     _appearance.SetData(uid, PoweredLightVisuals.BulbState, PoweredLightState.On, appearance);
                     var time = GameTiming.CurTime;
                     if (time > light.LastThunk + ThunkDelay)
                     {
                         light.LastThunk = time;
                         Dirty(uid, light);
-                        _audio.PlayPredicted(light.TurnOnSound, uid, user: user, light.TurnOnSound.Params.AddVolume(-10f));
+                        _audio.PlayPredicted(
+                            light.TurnOnSound,
+                            uid,
+                            user: user,
+                            light.TurnOnSound.Params.AddVolume(-10f)
+                        );
                     }
                 }
                 else
@@ -362,7 +428,15 @@ public abstract class SharedPoweredLightSystem : EntitySystem
         _appearance.SetData(uid, PoweredLightVisuals.Blinking, isNowBlinking, appearance);
     }
 
-    private void SetLight(EntityUid uid, bool value, Color? color = null, PoweredLightComponent? light = null, float? radius = null, float? energy = null, float? softness = null)
+    private void SetLight(
+        EntityUid uid,
+        bool value,
+        Color? color = null,
+        PoweredLightComponent? light = null,
+        float? radius = null,
+        float? energy = null,
+        float? softness = null
+    )
     {
         if (!Resolve(uid, ref light))
             return;

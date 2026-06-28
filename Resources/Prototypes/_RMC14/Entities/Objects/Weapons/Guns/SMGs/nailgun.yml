@@ -1,4 +1,4 @@
-﻿- type: entity
+- type: entity
   parent: CMBaseWeaponSMG
   name: nailgun
   id: WeaponNailgun
@@ -9,9 +9,9 @@
     sprite: _RMC14/Objects/Weapons/Guns/SMGs/nailgun.rsi
     layers:
     - state: base
-      map: [ "enum.GunVisualLayers.Base" ]
+      map: ["enum.GunVisualLayers.Base"]
     - state: mag-0
-      map: [ "enum.GunVisualLayers.Mag" ]
+      map: ["enum.GunVisualLayers.Mag"]
   - type: Clothing
     sprite: _RMC14/Objects/Weapons/Guns/SMGs/nailgun.rsi
   - type: Item
@@ -20,7 +20,7 @@
     shotsPerBurst: 3
     soundGunshot:
       path: /Audio/_RMC14/Weapons/Guns/Gunshots/nailgun_fire.ogg
-  # - type: RMCSelectiveFire
+      # - type: RMCSelectiveFire
     # baseFireModes:
     # - SemiAuto
     # - Burst
@@ -32,21 +32,21 @@
     # baseFireRate: 2.4
     # burstScatterMult: 3
     # modifiers:
-      # Burst:
-        # fireDelay: 0.0999
-        # maxScatterModifier: 10
-        # useBurstScatterMult: true
-        # unwieldedScatterMultiplier: 2
-        # shotsToMaxScatter: 6
-      # FullAuto:
-        # maxScatterModifier: 3
-        # useBurstScatterMult: true
-        # unwieldedScatterMultiplier: 2
-        # shotsToMaxScatter: 4
-  # - type: RMCWeaponAccuracy
+    # Burst:
+    # fireDelay: 0.0999
+    # maxScatterModifier: 10
+    # useBurstScatterMult: true
+    # unwieldedScatterMultiplier: 2
+    # shotsToMaxScatter: 6
+    # FullAuto:
+    # maxScatterModifier: 3
+    # useBurstScatterMult: true
+    # unwieldedScatterMultiplier: 2
+    # shotsToMaxScatter: 4
+  - type: ItemSlots
+    # - type: RMCWeaponAccuracy
     # accuracyMultiplier: 1.25
     # accuracyMultiplierUnwielded: 1.2
-  - type: ItemSlots
     slots:
       gun_magazine:
         name: Magazine
@@ -59,7 +59,7 @@
           - RMCMagazineSMGNailgun
   - type: GunDamageModifier
     multiplier: 1.2
-  # - type: Nailgun
+    # - type: Nailgun
 
 - type: entity
   parent: BaseMagazineRifle
@@ -91,7 +91,7 @@
     zeroVisible: false
     zeroOnlyOnEmpty: true
   - type: Appearance
-  
+
 - type: entity
   parent: CMCartridgeSMGBase
   id: RMCCartridge7x45mm
@@ -112,20 +112,20 @@
     damage:
       types:
         Piercing: 25
-  # - type: RMCProjectileDamageFalloff
-    # thresholds:
-    # - range: 22
+        # - type: RMCProjectileDamageFalloff
+      # thresholds:
+      # - range: 22
       # falloff: 9999
       # ignoreModifiers: true
-    # - range: 4
-      # falloff: 6
-  # - type: CMArmorPiercing
-    # amount: 25
-  # - type: RMCProjectileAccuracy
-    # accuracy: 100
-    # thresholds:
-    # - range: 5
-      # falloff: 10
-
 - type: Tag
+  # - range: 4
+  # falloff: 6
+  # - type: CMArmorPiercing
+  # amount: 25
+  # - type: RMCProjectileAccuracy
+  # accuracy: 100
+  # thresholds:
+  # - range: 5
+  # falloff: 10
+
   id: RMCMagazineSMGNailgun

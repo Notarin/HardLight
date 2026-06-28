@@ -2,7 +2,7 @@
   parent: OrganAnimalStomach
   id: OrganFeroxiStomach
   name: feroxian stomach
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Stomach
     specialDigestible:
@@ -14,7 +14,7 @@
       - Paper
   - type: Metabolizer
     maxReagents: 2
-    metabolizerTypes: [ Feroxi, Animal ]
+    metabolizerTypes: [Feroxi, Animal]
   - type: SolutionContainerManager
     solutions:
       stomach:
@@ -37,14 +37,14 @@
     - state: lung-l
     - state: lung-r
   - type: Organ
- #   slotId: lungs
- #   removable: false
+    #   slotId: lungs
+    #   removable: false
   - type: Lung
   - type: Metabolizer
     removeEmpty: true
     solutionOnBody: false
     solution: "Lung"
-    metabolizerTypes: [ Feroxi ]
+    metabolizerTypes: [Feroxi]
     groups:
     - id: Gas
       rateModifier: 100.0

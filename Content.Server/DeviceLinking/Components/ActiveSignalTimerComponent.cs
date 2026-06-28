@@ -1,4 +1,3 @@
-
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
 namespace Content.Server.DeviceLinking.Components

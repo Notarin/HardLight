@@ -7,15 +7,13 @@ namespace Content.Shared.Light.Components;
 /// All logic is serverside, animation is handled by <see cref="RotatingLightComponent"/>.
 /// </summary>
 [Access(typeof(SharedEmergencyLightSystem))]
-public abstract partial class SharedEmergencyLightComponent : Component
-{
-}
+public abstract partial class SharedEmergencyLightComponent : Component { }
 
 [Serializable, NetSerializable]
 public enum EmergencyLightVisuals
 {
     On,
-    Color
+    Color,
 }
 
 public enum EmergencyLightVisualLayers

@@ -3,7 +3,7 @@
   id: ShuttleMapAdder
   name: "LVHI Adder"
   description: "Detailed map of a Adder shuttle."
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Guidebook/shuttle_maps/128x96.rsi
@@ -15,7 +15,7 @@
   id: ShuttleMapAmbition
   name: "UAC Ambition"
   description: "Detailed map of a Ambition shuttle."
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Guidebook/shuttle_maps/128x96.rsi
@@ -27,7 +27,7 @@
   id: ShuttleMapApothecary
   name: "NM Apothecary"
   description: "Detailed map of a Apothecary shuttle."
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Guidebook/shuttle_maps/128x96.rsi
@@ -39,7 +39,7 @@
   id: ShuttleMapBarge
   name: "NC Barge"
   description: "Detailed map of a Barge shuttle."
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Guidebook/shuttle_maps/128x96.rsi
@@ -51,7 +51,7 @@
   id: ShuttleMapBazaar
   name: "SLI Bazaar"
   description: "Detailed map of a Bazaar shuttle."
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Guidebook/shuttle_maps/128x96.rsi
@@ -63,7 +63,7 @@
   id: ShuttleMapBocadillo
   name: "NC Bocadillo"
   description: "Detailed map of a Bocadillo shuttle."
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Guidebook/shuttle_maps/128x96.rsi
@@ -75,7 +75,7 @@
   id: ShuttleMapBrigand
   name: "NT Brigand"
   description: "Detailed map of a Brigand shuttle."
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Guidebook/shuttle_maps/128x96.rsi
@@ -87,7 +87,7 @@
   id: ShuttleMapBulker
   name: "KL Bulker"
   description: "Detailed map of a Bulker shuttle."
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Guidebook/shuttle_maps/128x96.rsi
@@ -99,7 +99,7 @@
   id: ShuttleMapCaladrius
   name: "FSB Caladrius"
   description: "Detailed map of a Caladrius shuttle."
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Guidebook/shuttle_maps/128x96.rsi
@@ -111,7 +111,7 @@
   id: ShuttleMapCeres
   name: "BB Ceres"
   description: "Detailed map of a Ceres shuttle."
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Guidebook/shuttle_maps/128x96.rsi
@@ -123,7 +123,7 @@
   id: ShuttleMapCharon
   name: "ITS Apothecary"
   description: "Detailed map of a Charon shuttle."
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Guidebook/shuttle_maps/128x96.rsi
@@ -135,7 +135,7 @@
   id: ShuttleMapChisel
   name: "ICR Chisel"
   description: "Detailed map of a Chisel shuttle."
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Guidebook/shuttle_maps/128x96.rsi
@@ -147,7 +147,7 @@
   id: ShuttleMapComet
   name: "NT Comet"
   description: "Detailed map of a Comet shuttle."
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Guidebook/shuttle_maps/128x96.rsi
@@ -159,7 +159,7 @@
   id: ShuttleMapConstruct
   name: "NT Construct"
   description: "Detailed map of a Construct shuttle."
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Guidebook/shuttle_maps/128x96.rsi
@@ -183,7 +183,7 @@
   id: ShuttleMapCourier
   name: "FSB Courier"
   description: "Detailed map of a Courier shuttle."
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Guidebook/shuttle_maps/128x96.rsi
@@ -195,7 +195,7 @@
   id: ShuttleMapDruid
   name: "FSB Druid"
   description: "Detailed map of a Druid shuttle."
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Guidebook/shuttle_maps/128x96.rsi
@@ -207,7 +207,7 @@
   id: ShuttleMapEagle
   name: "NM Eagle"
   description: "Detailed map of an Eagle shuttle."
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Guidebook/shuttle_maps/128x96.rsi
@@ -219,7 +219,7 @@
   id: ShuttleMapGarden
   name: "NT Garden"
   description: "Detailed map of a Garden shuttle."
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Guidebook/shuttle_maps/128x96.rsi
@@ -231,7 +231,7 @@
   id: ShuttleMapGasbender
   name: "NT Gasbender"
   description: "Detailed map of a Gasbender shuttle."
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Guidebook/shuttle_maps/128x96.rsi
@@ -243,7 +243,7 @@
   id: ShuttleMapHarbormaster
   name: "NC Harbormaster"
   description: "Detailed map of a Harbormaster shuttle."
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Guidebook/shuttle_maps/128x96.rsi
@@ -255,7 +255,7 @@
   id: ShuttleMapHauler
   name: "NC Hauler"
   description: "Detailed map of a Hauler shuttle."
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Guidebook/shuttle_maps/128x96.rsi
@@ -267,7 +267,7 @@
   id: ShuttleMapHonker
   name: "NT Honker"
   description: "Detailed map of a Honker shuttle."
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Guidebook/shuttle_maps/128x96.rsi
@@ -279,7 +279,7 @@
   id: ShuttleMapInvestigator
   name: "NR Investigator"
   description: "Detailed map of a Investigator shuttle."
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Guidebook/shuttle_maps/128x96.rsi
@@ -291,7 +291,7 @@
   id: ShuttleMapIzakaya
   name: "SSS Izakaya"
   description: "Detailed map of an Izakaya shuttle."
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Guidebook/shuttle_maps/128x96.rsi
@@ -303,7 +303,7 @@
   id: ShuttleMapKestrel
   name: "NT Kestrel"
   description: "Detailed map of a Kestrel shuttle."
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Guidebook/shuttle_maps/128x96.rsi
@@ -315,7 +315,7 @@
   id: ShuttleMapKilderkin
   name: "NC Kilderkin"
   description: "Detailed map of a Kilderkin shuttle."
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Guidebook/shuttle_maps/128x96.rsi
@@ -327,7 +327,7 @@
   id: ShuttleMapLegman
   name: "NC Legman"
   description: "Detailed map of a Legman shuttle."
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Guidebook/shuttle_maps/128x96.rsi
@@ -339,7 +339,7 @@
   id: ShuttleMapLiquidator
   name: "NC Liquidator"
   description: "Detailed map of a Liquidator shuttle."
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Guidebook/shuttle_maps/128x96.rsi
@@ -351,7 +351,7 @@
   id: ShuttleMapLoader
   name: "NC Loader"
   description: "Detailed map of a Loader shuttle."
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Guidebook/shuttle_maps/128x96.rsi
@@ -363,7 +363,7 @@
   id: ShuttleMapNightlight
   name: "FSB Nightlight"
   description: "Detailed map of a Nightlight shuttle."
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Guidebook/shuttle_maps/128x96.rsi
@@ -375,7 +375,7 @@
   id: ShuttleMapPathfinder
   name: "KC Pathfinder"
   description: "Detailed map of a Pathfinder shuttle."
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Guidebook/shuttle_maps/128x96.rsi
@@ -387,7 +387,7 @@
   id: ShuttleMapPhoenix
   name: "NR Phoenix"
   description: "Detailed map of a Phoenix shuttle."
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Guidebook/shuttle_maps/128x96.rsi
@@ -399,7 +399,7 @@
   id: ShuttleMapPlacebo
   name: "NC Placebo"
   description: "Detailed map of a Placebo shuttle."
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Guidebook/shuttle_maps/128x96.rsi
@@ -411,19 +411,19 @@
   id: ShuttleMapProspector
   name: "NC Prospector"
   description: "Detailed map of a Prospector shuttle."
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Guidebook/shuttle_maps/128x96.rsi
     state: prospector
-    scale: 1.2, 1.2    
- 
+    scale: 1.2, 1.2
+
 - type: entity
   parent: PosterBase
   id: ShuttleMapPulsar
   name: "FSB Pulsar"
   description: "Detailed map of a Pulsar shuttle."
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Guidebook/shuttle_maps/128x96.rsi
@@ -435,7 +435,7 @@
   id: ShuttleMapRetort
   name: "FSB Retort"
   description: "Detailed map of a Retort shuttle."
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Guidebook/shuttle_maps/128x96.rsi
@@ -447,7 +447,7 @@
   id: ShuttleMapSearchlight
   name: "NM Searchlight"
   description: "Detailed map of a Searchlight shuttle."
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Guidebook/shuttle_maps/128x96.rsi
@@ -459,7 +459,7 @@
   id: ShuttleMapSparrow
   name: "NR Sparrow"
   description: "Detailed map of a Sparrow shuttle."
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Guidebook/shuttle_maps/128x96.rsi
@@ -471,7 +471,7 @@
   id: ShuttleMapSkipper
   name: "NC Skipper"
   description: "Detailed map of a Skipper shuttle."
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Guidebook/shuttle_maps/128x96.rsi
@@ -483,7 +483,7 @@
   id: ShuttleMapSpirit
   name: "FSB Spirit"
   description: "Detailed map of a Spirit shuttle."
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Guidebook/shuttle_maps/128x96.rsi
@@ -495,7 +495,7 @@
   id: ShuttleMapStasis
   name: "FSB Stasis"
   description: "Detailed map of a Stasis shuttle."
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Guidebook/shuttle_maps/128x96.rsi
@@ -507,7 +507,7 @@
   id: ShuttleMapSurveyor
   name: "FSB Surveyor"
   description: "Detailed map of a Surveyor shuttle."
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Guidebook/shuttle_maps/128x96.rsi
@@ -519,7 +519,7 @@
   id: ShuttleMapTide
   name: "Tide"
   description: "Detailed map of a Tide shuttle."
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Guidebook/shuttle_maps/128x96.rsi
@@ -531,7 +531,7 @@
   id: ShuttleMapVagabond
   name: "NT Vagabond"
   description: "Detailed map of a Vagabond shuttle."
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Guidebook/shuttle_maps/128x96.rsi
@@ -543,7 +543,7 @@
   id: ShuttleMapNook
   name: "WSE Nook"
   description: "Detailed map of a Nook shuttle."
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Guidebook/shuttle_maps/128x96.rsi
@@ -555,7 +555,7 @@
   id: ShuttleMapPhantom
   name: "Phantom"
   description: "Detailed map of a Phantom shuttle."
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Guidebook/shuttle_maps/128x96.rsi
@@ -567,7 +567,7 @@
   id: ShuttleMapPioneer
   name: "Pioneer"
   description: "Detailed map of a Pioneer shuttle."
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Guidebook/shuttle_maps/128x96.rsi

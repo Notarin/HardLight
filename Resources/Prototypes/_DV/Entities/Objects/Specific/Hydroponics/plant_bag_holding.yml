@@ -13,8 +13,8 @@
     # Frontier: magnet toggle layer
     - state: icon-on
       visible: False
-      map: [ "enum.ToggleVisuals.Layer" ]
-    # End Frontier: magnet toggle layer
+      map: ["enum.ToggleVisuals.Layer"]
+      # End Frontier: magnet toggle layer
   - type: Clothing
     sprite: _DV/Objects/Specific/Hydroponics/plant_bag_holding.rsi
   - type: Storage
@@ -45,6 +45,6 @@
     visuals:
       enum.ToggleVisuals.Toggled:
         enum.ToggleVisuals.Layer:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
   # End Frontier

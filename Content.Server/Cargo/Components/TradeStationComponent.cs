@@ -4,7 +4,4 @@ namespace Content.Server.Cargo.Components;
 /// Target for approved orders to spawn at.
 /// </summary>
 [RegisterComponent]
-public sealed partial class TradeStationComponent : Component
-{
-
-}
+public sealed partial class TradeStationComponent : Component { }

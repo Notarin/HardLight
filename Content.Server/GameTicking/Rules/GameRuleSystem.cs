@@ -7,16 +7,27 @@ using Robust.Shared.Timing;
 
 namespace Content.Server.GameTicking.Rules;
 
-public abstract partial class GameRuleSystem<T> : EntitySystem where T : IComponent
+public abstract partial class GameRuleSystem<T> : EntitySystem
+    where T : IComponent
 {
-    [Dependency] protected readonly IRobustRandom RobustRandom = default!;
-    [Dependency] protected readonly IChatManager ChatManager = default!;
-    [Dependency] protected readonly GameTicker GameTicker = default!;
-    [Dependency] protected readonly IGameTiming Timing = default!;
+    [Dependency]
+    protected readonly IRobustRandom RobustRandom = default!;
+
+    [Dependency]
+    protected readonly IChatManager ChatManager = default!;
+
+    [Dependency]
+    protected readonly GameTicker GameTicker = default!;
+
+    [Dependency]
+    protected readonly IGameTiming Timing = default!;
 
     // Not protected, just to be used in utility methods
-    [Dependency] private readonly AtmosphereSystem _atmosphere = default!;
-    [Dependency] private readonly MapSystem _map = default!;
+    [Dependency]
+    private readonly AtmosphereSystem _atmosphere = default!;
+
+    [Dependency]
+    private readonly MapSystem _map = default!;
 
     public override void Initialize()
     {
@@ -43,10 +54,14 @@ public abstract partial class GameRuleSystem<T> : EntitySystem where T : ICompon
 
             if (gameRule.CancelPresetOnTooFewPlayers)
             {
-                ChatManager.SendAdminAnnouncement(Loc.GetString("preset-not-enough-ready-players",
-                    ("readyPlayersCount", args.Players.Length),
-                    ("minimumPlayers", minPlayers),
-                    ("presetName", ToPrettyString(uid))));
+                ChatManager.SendAdminAnnouncement(
+                    Loc.GetString(
+                        "preset-not-enough-ready-players",
+                        ("readyPlayersCount", args.Players.Length),
+                        ("minimumPlayers", minPlayers),
+                        ("presetName", ToPrettyString(uid))
+                    )
+                );
                 args.Cancel();
             }
             else
@@ -95,42 +110,37 @@ public abstract partial class GameRuleSystem<T> : EntitySystem where T : ICompon
     /// <summary>
     /// Called when the gamerule is added
     /// </summary>
-    protected virtual void Added(EntityUid uid, T component, GameRuleComponent gameRule, GameRuleAddedEvent args)
-    {
-
-    }
+    protected virtual void Added(EntityUid uid, T component, GameRuleComponent gameRule, GameRuleAddedEvent args) { }
 
     /// <summary>
     /// Called when the gamerule begins
     /// </summary>
-    protected virtual void Started(EntityUid uid, T component, GameRuleComponent gameRule, GameRuleStartedEvent args)
-    {
-
-    }
+    protected virtual void Started(
+        EntityUid uid,
+        T component,
+        GameRuleComponent gameRule,
+        GameRuleStartedEvent args
+    ) { }
 
     /// <summary>
     /// Called when the gamerule ends
     /// </summary>
-    protected virtual void Ended(EntityUid uid, T component, GameRuleComponent gameRule, GameRuleEndedEvent args)
-    {
-
-    }
+    protected virtual void Ended(EntityUid uid, T component, GameRuleComponent gameRule, GameRuleEndedEvent args) { }
 
     /// <summary>
     /// Called at the end of a round when text needs to be added for a game rule.
     /// </summary>
-    protected virtual void AppendRoundEndText(EntityUid uid, T component, GameRuleComponent gameRule, ref RoundEndTextAppendEvent args)
-    {
-
-    }
+    protected virtual void AppendRoundEndText(
+        EntityUid uid,
+        T component,
+        GameRuleComponent gameRule,
+        ref RoundEndTextAppendEvent args
+    ) { }
 
     /// <summary>
     /// Called on an active gamerule entity in the Update function
     /// </summary>
-    protected virtual void ActiveTick(EntityUid uid, T component, GameRuleComponent gameRule, float frameTime)
-    {
-
-    }
+    protected virtual void ActiveTick(EntityUid uid, T component, GameRuleComponent gameRule, float frameTime) { }
 
     public override void Update(float frameTime)
     {

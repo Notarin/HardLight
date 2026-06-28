@@ -11,7 +11,13 @@ public sealed partial class DungeonJob
     /// <summary>
     /// <see cref="WallMountDunGen"/>
     /// </summary>
-    private async Task PostGen(WallMountDunGen gen, DungeonData data, Dungeon dungeon, HashSet<Vector2i> reservedTiles, Random random)
+    private async Task PostGen(
+        WallMountDunGen gen,
+        DungeonData data,
+        Dungeon dungeon,
+        HashSet<Vector2i> reservedTiles,
+        Random random
+    )
     {
         if (!data.Tiles.TryGetValue(DungeonDataKey.FallbackTile, out var tileProto))
         {
@@ -34,7 +40,11 @@ public sealed partial class DungeonJob
         foreach (var neighbor in allExterior)
         {
             // Occupado
-            if (dungeon.RoomTiles.Contains(neighbor) || checkedTiles.Contains(neighbor) || !_anchorable.TileFree(_grid, neighbor, DungeonSystem.CollisionLayer, DungeonSystem.CollisionMask))
+            if (
+                dungeon.RoomTiles.Contains(neighbor)
+                || checkedTiles.Contains(neighbor)
+                || !_anchorable.TileFree(_grid, neighbor, DungeonSystem.CollisionLayer, DungeonSystem.CollisionMask)
+            )
                 continue;
 
             if (!random.Prob(gen.Prob) || !checkedTiles.Add(neighbor))

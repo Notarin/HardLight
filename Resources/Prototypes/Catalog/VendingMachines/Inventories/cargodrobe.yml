@@ -20,7 +20,7 @@
     # MailBag: 2 # Frontier
     # Frontier
     ClothingNeckScarfStripedBrown: 3
-# Salvage:
+    # Salvage:
     ClothingBackpackSalvage: 2
     ClothingBackpackSatchelSalvage: 2
     ClothingBackpackDuffelSalvage: 2
@@ -34,7 +34,7 @@
     ClothingShoesBootsSalvage: 2
     ClothingMaskGasExplorer: 2
     ClothingNeckCloakMiner: 2
-# QM:
+    # QM:
     #ClothingHeadsetAltCargo: 1
     #RubberStampQm: 1
     # End Frontier

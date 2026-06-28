@@ -25,9 +25,8 @@
   - type: Fixtures
     fixtures:
       EventHorizonCollider:
-        shape:
-          !type:PhysShapeCircle
-            radius: 0.35
+        shape: !type:PhysShapeCircle
+          radius: 0.35
         hard: true
         restitution: 0.8
         density: 99999
@@ -36,9 +35,8 @@
         layer:
         - SingularityLayer
       EventHorizonConsumer:
-        shape:
-          !type:PhysShapeCircle
-            radius: 0.35
+        shape: !type:PhysShapeCircle
+          radius: 0.35
         hard: false
         mask:
         - SingularityLayer
@@ -82,12 +80,12 @@
     sprite: Structures/Power/Generation/Singularity/singularity_1.rsi
     shader: unshaded
     layers:
-    - map: [ "VisualLevel" ]
+    - map: ["VisualLevel"]
       state: singularity_1
   - type: GenericVisualizer
     visuals:
       enum.SingularityAppearanceKeys.Singularity:
-       VisualLevel:
+        VisualLevel:
           1:
             sprite: Structures/Power/Generation/Singularity/singularity_1.rsi
             state: singularity_1

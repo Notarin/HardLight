@@ -1,15 +1,16 @@
+using System.Linq;
 using Content.Client.NPC;
 using Content.Shared.NPC;
 using JetBrains.Annotations;
 using Robust.Shared.Console;
-using System.Linq;
 
 namespace Content.Client.Commands;
 
 [UsedImplicitly]
 public sealed class DebugPathfindingCommand : LocalizedCommands
 {
-    [Dependency] private readonly IEntitySystemManager _entitySystemManager = default!;
+    [Dependency]
+    private readonly IEntitySystemManager _entitySystemManager = default!;
 
     public override string Command => "pathfinder";
 
@@ -34,7 +35,13 @@ public sealed class DebugPathfindingCommand : LocalizedCommands
             }
 
             system.Modes ^= mode;
-            shell.WriteLine(LocalizationManager.GetString($"cmd-{Command}-notify", ("arg", arg), ("newMode", (system.Modes & mode) != 0x0)));
+            shell.WriteLine(
+                LocalizationManager.GetString(
+                    $"cmd-{Command}-notify",
+                    ("arg", arg),
+                    ("newMode", (system.Modes & mode) != 0x0)
+                )
+            );
         }
     }
 

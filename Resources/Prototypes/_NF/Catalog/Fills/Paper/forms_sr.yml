@@ -37,10 +37,10 @@
   id: PaperWrittenFrontierEmployment
   name: employment contract
   parent: Paper
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Paper
-    content: |2
+    content: |
       [color=#000f89]◥[bold]CC[/bold]◣ [bold]Colonial Outpost Command[/bold][/color]
       [color=#000f89]‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾[/color]
       [head=2]Employment Contract[/head]
@@ -57,18 +57,16 @@
 
       [bold]Shift Time:[/bold][form]
 
-
-
       [color=#AAAAAA]This Form is void without the signatures of both Parties and a stamp of the department heads.[/color]
 
 - type: entity
   id: PaperWrittenFrontierEmployeePayHistory
   name: employee pay history
   parent: Paper
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Paper
-    content: |2 # If editing this, edit PaperWrittenNfsdPayHistory
+    content: | # If editing this, edit PaperWrittenNfsdPayHistory
       [color=#000f89]◥[bold]CC[/bold]◣ [bold]Colonial Outpost Command[/bold][/color]
       [color=#000f89]‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾[/color]
       [head=2]Employee Pay History[/head]
@@ -84,18 +82,16 @@
           [bullet/][form]
           [bullet/][form]
 
-
-
       [color=#AAAAAA]This Form is void without the signature and stamp of the head of department.[/color]
 
 - type: entity # Based on form made by Willzile1 (Jon-Gah)
   id: PaperWrittenFrontierFundRequisition
   name: fund requisition
   parent: Paper
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Paper
-    content: |2
+    content: |
       [color=#000f89]◥[bold]CC[/bold]◣ [bold]Colonial Outpost Command[/bold][/color]
       [color=#000f89]‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾[/color]
       [head=2]Fund Requisition[/head]
@@ -105,18 +101,16 @@
       [bold]Reason:[/bold][form]
       [bold]Shift Time:[/bold][form]
 
-
-
       [color=#AAAAAA]This Form is void without the signature and stamp of the head of department.[/color]
 
 - type: entity # Based on form made by Starly (Shaw Clifflower)
   id: PaperWrittenFrontierAuthorization
   name: authorization for bluespace threats
   parent: Paper
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Paper
-    content: |2 # When updating this, update PaperWrittenNfsdAuthorization
+    content: | # When updating this, update PaperWrittenNfsdAuthorization
       [color=#000f89]◥[bold]CC[/bold]◣ [bold]Colonial Outpost Command[/bold][/color]
       [color=#000f89]‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾[/color]
       [head=2]Authorization for Bluespace Threats[/head]
@@ -144,18 +138,16 @@
 
       Before engaging with hostile vessels, the authorized party is expected to follow any instructions given by ColSec for staging or other preparation prior to boarding.
 
-
-
       [color=#AAAAAA]This Form is void without the signatures of both Parties and a stamp of the acting head of security.[/color]
 
 - type: entity # Based on form made by Willzile1 (Jon-Gah)
   id: PaperWrittenFrontierShuttleTitleChange
   name: shuttle title change
   parent: Paper
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Paper
-    content: |2
+    content: |
       [color=#000f89]◥[bold]CC[/bold]◣ [bold]Colonial Outpost Command[/bold][/color]
       [color=#000f89]‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾[/color]
       [head=2]Shuttle Title Change[/head]
@@ -165,18 +157,16 @@
       [bold]New Ship Title:[/bold]
       [bold]Shift Time:[/bold]
 
-
-
       [color=#AAAAAA]This Form is void without the signatures of both Parties and a stamp of Frontier Command (Colonel or Colonial Liason).[/color]
 
 - type: entity # Based on form made by Blumbee (Aki Suboshi)
   id: PaperWrittenFrontierShuttleDerelict
   name: declaration of salvage
   parent: Paper
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Paper
-    content: |2
+    content: |
       [color=#000f89]◥[bold]CC[/bold]◣ [bold]Colonial Outpost Command[/bold][/color]
       [color=#000f89]‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾[/color]
       [head=2]Declaration of Salvage[/head]
@@ -191,18 +181,16 @@
 
       Neither the Station Administration, nor Colonial Command, nor any other group will reimburse any party affiliated with this vessel for losses incurred.
 
-
-
       [color=#AAAAAA]This Form is void without the signatures of both Parties and a stamp of the harbor master or acting captain.[/color]
 
 - type: entity # Based on form made by Blumbee (Aki Suboshi)
   id: PaperWrittenFrontierContrabandAmnesty
   name: contraband amnesty agreement
   parent: Paper
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Paper
-    content: |2 # If updating this, update PaperWrittenNfsdContrabandAmnesty
+    content: | # If updating this, update PaperWrittenNfsdContrabandAmnesty
       [color=#000f89]◥[bold]CC[/bold]◣ [bold]Colonial Outpost Command[/bold][/color]
       [color=#000f89]‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾[/color]
       [head=2]Contraband Amnesty Agreement[/head]
@@ -223,18 +211,16 @@
 
       If the Contraband Holder is not paid in full at the above rate for any contraband turned in, they may remain in possession of the contraband without penalty at their discretion.
 
-
-
       [color=#AAAAAA]This form is void without the signatures of both Parties and a stamp of Frontier Command (Colonel or Colonial Liason).[/color]
 
 - type: entity # Based on form made by Blumbee (Aki Suboshi)
   id: PaperWrittenFrontierContrabandTurnover
   name: contraband turnover receipt
   parent: Paper
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Paper
-    content: |2 # If updating this, update PaperWrittenNfsdContrabandTurnover
+    content: | # If updating this, update PaperWrittenNfsdContrabandTurnover
       [color=#000f89]◥[bold]N[/bold]◣ [bold]Frontier Outpost Command[/bold][/color]
       [color=#000f89]‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾[/color]
       [head=2]Contraband Turnover Receipt[/head]
@@ -256,18 +242,16 @@
 
       [bold]Shift Time:[/bold]
 
-
-
       [color=#AAAAAA]This Form is void without the signatures of both Parties and a stamp of Frontier Command (Colonel or Colonial Liason).[/color]
 
 - type: entity # Based on form made by Blumbee (Aki Suboshi)
   id: PaperWrittenFrontierContrabandPermit
   name: class 2 contraband permit
   parent: Paper
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Paper
-    content: |2 # If updating this, update PaperWrittenNfsdContrabandPermit
+    content: | # If updating this, update PaperWrittenNfsdContrabandPermit
       [color=#000f89]◥[bold]N[/bold]◣ [bold]Frontier Outpost Command[/bold][/color]
       [color=#000f89]‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾[/color]
       [head=2]Class 2 Contraband Permit[/head]
@@ -285,7 +269,5 @@
       This Permit allows the Holder and crew, as listed above, to possess and use class 2 contraband.
       Non-compliance with a Contraband Amnesty agreement voids this Permit.
       Refer to §6.1.4 of Space Law for a full definition of class 2 contraband.
-
-
 
       [color=#AAAAAA]This Permit is void without the signature of the Holder and the signature and stamp of the Sheriff.[/color]

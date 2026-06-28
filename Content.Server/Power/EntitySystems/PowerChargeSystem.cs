@@ -12,10 +12,17 @@ namespace Content.Server.Power.EntitySystems;
 
 public sealed class PowerChargeSystem : EntitySystem
 {
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly UserInterfaceSystem _uiSystem = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly AmbientSoundSystem _ambientSoundSystem = default!;
+    [Dependency]
+    private readonly IAdminLogManager _adminLogger = default!;
+
+    [Dependency]
+    private readonly UserInterfaceSystem _uiSystem = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly AmbientSoundSystem _ambientSoundSystem = default!;
 
     public override void Initialize()
     {
@@ -40,7 +47,9 @@ public sealed class PowerChargeSystem : EntitySystem
 
         component.Active = false;
         component.Charge = 0;
-        UpdateState(new Entity<PowerChargeComponent, ApcPowerReceiverComponent>(uid, component, powerReceiverComponent));
+        UpdateState(
+            new Entity<PowerChargeComponent, ApcPowerReceiverComponent>(uid, component, powerReceiverComponent)
+        );
     }
 
     private void OnAfterUiOpened(EntityUid uid, PowerChargeComponent component, AfterActivatableUIOpenEvent args)
@@ -83,14 +92,23 @@ public sealed class PowerChargeSystem : EntitySystem
         UpdateState((ent, ent.Comp, powerReceiver));
     }
 
-    public void SetSwitchedOn(EntityUid uid, PowerChargeComponent component, bool on,  // Frontier: private<public for linking system in StationAnchorSystem.
-        ApcPowerReceiverComponent? powerReceiver = null, EntityUid? user = null)
+    public void SetSwitchedOn(
+        EntityUid uid,
+        PowerChargeComponent component,
+        bool on, // Frontier: private<public for linking system in StationAnchorSystem.
+        ApcPowerReceiverComponent? powerReceiver = null,
+        EntityUid? user = null
+    )
     {
         if (!Resolve(uid, ref powerReceiver))
             return;
 
-        if (user is { } )
-            _adminLogger.Add(LogType.Action, on ? LogImpact.Medium : LogImpact.High, $"{ToPrettyString(user):player} set ${ToPrettyString(uid):target} to {(on ? "on" : "off")}");
+        if (user is { })
+            _adminLogger.Add(
+                LogType.Action,
+                on ? LogImpact.Medium : LogImpact.High,
+                $"{ToPrettyString(user):player} set ${ToPrettyString(uid):target} to {(on ? "on" : "off")}"
+            );
 
         component.SwitchedOn = on;
         UpdatePowerState(component, powerReceiver);
@@ -103,8 +121,12 @@ public sealed class PowerChargeSystem : EntitySystem
         OnAction(uid, component, user: args.Actor);
     }
 
-    private void OnAction(EntityUid uid, PowerChargeComponent component,
-    ApcPowerReceiverComponent? powerReceiver = null, EntityUid? user = null)
+    private void OnAction(
+        EntityUid uid,
+        PowerChargeComponent component,
+        ApcPowerReceiverComponent? powerReceiver = null,
+        EntityUid? user = null
+    )
     {
         if (component.Charge < component.ActionCharge)
             return;
@@ -113,7 +135,11 @@ public sealed class PowerChargeSystem : EntitySystem
             return;
 
         if (user is { })
-            _adminLogger.Add(LogType.Action, LogImpact.High, $"{ToPrettyString(user):player} set ${ToPrettyString(uid):target}");
+            _adminLogger.Add(
+                LogType.Action,
+                LogImpact.High,
+                $"{ToPrettyString(user):player} set ${ToPrettyString(uid):target}"
+            );
 
         var eventActionArgs = new PowerChargeActionEvent();
         RaiseLocalEvent(uid, ref eventActionArgs);
@@ -127,13 +153,15 @@ public sealed class PowerChargeSystem : EntitySystem
             component.NeedUIUpdate = true;
         }
     }
+
     // Frontier End
 
     private static void UpdatePowerState(PowerChargeComponent component, ApcPowerReceiverComponent powerReceiver)
     {
         // Frontier: update power state
         if (component.SwitchedOn)
-            powerReceiver.Load = component.MaxCharge == component.Charge ? component.ActivePowerUse : component.ActiveChargingPowerUse;
+            powerReceiver.Load =
+                component.MaxCharge == component.Charge ? component.ActivePowerUse : component.ActiveChargingPowerUse;
         else
             powerReceiver.Load = component.IdlePowerUse;
         // End Frontier: update power state
@@ -164,7 +192,8 @@ public sealed class PowerChargeSystem : EntitySystem
                     // Scale discharge rate such that if we're at 25% active power we discharge at 75% rate.
                     var receiving = powerReceiver.PowerReceived;
                     var mainSystemPower = Math.Max(0, receiving - chargingMachine.IdlePowerUse);
-                    var ratio = 1 - mainSystemPower / (chargingMachine.ActiveChargingPowerUse - chargingMachine.IdlePowerUse); // Frontier: ActivePowerUse<ActiveChargingPowerUse
+                    var ratio =
+                        1 - mainSystemPower / (chargingMachine.ActiveChargingPowerUse - chargingMachine.IdlePowerUse); // Frontier: ActivePowerUse<ActiveChargingPowerUse
                     chargeRate = -(ratio * chargingMachine.ChargeRate);
                 }
             }
@@ -175,7 +204,11 @@ public sealed class PowerChargeSystem : EntitySystem
 
             var active = chargingMachine.Active;
             var lastCharge = chargingMachine.Charge;
-            chargingMachine.Charge = Math.Clamp(chargingMachine.Charge + frameTime * chargeRate, 0, chargingMachine.MaxCharge);
+            chargingMachine.Charge = Math.Clamp(
+                chargingMachine.Charge + frameTime * chargeRate,
+                0,
+                chargingMachine.MaxCharge
+            );
             if (chargeRate > 0)
             {
                 // Charging.
@@ -243,7 +276,7 @@ public sealed class PowerChargeSystem : EntitySystem
         else
         {
             var diff = chargeTarget - component.Charge;
-            chargeEta = (short) Math.Abs(diff / chargeRate);
+            chargeEta = (short)Math.Abs(diff / chargeRate);
         }
 
         var status = chargeRate switch
@@ -252,23 +285,20 @@ public sealed class PowerChargeSystem : EntitySystem
             < 0 when atTarget => PowerChargePowerStatus.Off,
             > 0 => PowerChargePowerStatus.Charging,
             < 0 => PowerChargePowerStatus.Discharging,
-            _ => throw new ArgumentOutOfRangeException()
+            _ => throw new ArgumentOutOfRangeException(),
         };
 
         var state = new PowerChargeState(
             component.SwitchedOn,
             component.Charge >= component.ActionCharge, // Frontier
-            (byte) (component.Charge * 255),
+            (byte)(component.Charge * 255),
             status,
-            (short) Math.Round(powerReceiver.PowerReceived),
-            (short) Math.Round(powerReceiver.Load),
+            (short)Math.Round(powerReceiver.PowerReceived),
+            (short)Math.Round(powerReceiver.Load),
             chargeEta
         );
 
-        _uiSystem.SetUiState(
-            ent.Owner,
-            component.UiKey,
-            state);
+        _uiSystem.SetUiState(ent.Owner, component.UiKey, state);
 
         component.NeedUIUpdate = false;
     }
@@ -279,7 +309,6 @@ public sealed class PowerChargeSystem : EntitySystem
         var appearance = EntityManager.GetComponentOrNull<AppearanceComponent>(uid);
         _appearance.SetData(uid, PowerChargeVisuals.Charge, machine.Charge, appearance);
         _appearance.SetData(uid, PowerChargeVisuals.Active, machine.Active);
-
 
         if (!machine.Intact)
         {
@@ -346,6 +375,11 @@ public sealed class PowerChargeSystem : EntitySystem
     // End Frontier
 }
 
-[ByRefEvent] public record struct ChargedMachineActivatedEvent;
-[ByRefEvent] public record struct ChargedMachineDeactivatedEvent;
-[ByRefEvent] public record struct PowerChargeActionEvent; // Frontier
+[ByRefEvent]
+public record struct ChargedMachineActivatedEvent;
+
+[ByRefEvent]
+public record struct ChargedMachineDeactivatedEvent;
+
+[ByRefEvent]
+public record struct PowerChargeActionEvent; // Frontier

@@ -10,7 +10,7 @@
   - type: Sharp
   - type: Utensil
     types:
-      - Knife
+    - Knife
   - type: Sprite
     sprite: Nyanotrasen/Objects/Weapons/Melee/wakizashi.rsi
     state: icon
@@ -20,13 +20,13 @@
       types:
         Slash: 12
     soundHit:
-        path: /Audio/Weapons/bladeslice.ogg
+      path: /Audio/Weapons/bladeslice.ogg
   - type: Item
     size: Normal
     sprite: Nyanotrasen/Objects/Weapons/Melee/wakizashi.rsi
   - type: Tool
     qualities:
-      - Slicing
+    - Slicing
     useSound:
       path: /Audio/Items/Culinary/chop.ogg
   - type: DisarmMalus

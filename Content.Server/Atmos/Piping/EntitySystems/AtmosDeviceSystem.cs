@@ -11,8 +11,11 @@ namespace Content.Server.Atmos.Piping.EntitySystems
     [UsedImplicitly]
     public sealed class AtmosDeviceSystem : EntitySystem
     {
-        [Dependency] private readonly IGameTiming _gameTiming = default!;
-        [Dependency] private readonly AtmosphereSystem _atmosphereSystem = default!;
+        [Dependency]
+        private readonly IGameTiming _gameTiming = default!;
+
+        [Dependency]
+        private readonly AtmosphereSystem _atmosphereSystem = default!;
 
         private float _timer;
 
@@ -50,7 +53,8 @@ namespace Content.Server.Atmos.Piping.EntitySystems
                 return;
 
             // Attempt to add device to a grid atmosphere.
-            bool onGrid = (transform.GridUid != null) && _atmosphereSystem.AddAtmosDevice(transform.GridUid!.Value, ent);
+            bool onGrid =
+                (transform.GridUid != null) && _atmosphereSystem.AddAtmosDevice(transform.GridUid!.Value, ent);
 
             if (!onGrid && component.JoinSystem)
             {

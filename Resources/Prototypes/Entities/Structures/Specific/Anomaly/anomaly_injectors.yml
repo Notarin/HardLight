@@ -15,8 +15,7 @@
   - type: Fixtures
     fixtures:
       anom:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 2.27 # i love 27
         hard: false
         mask:
@@ -42,21 +41,21 @@
       state: full
   - type: InnerBodyAnomalyInjector
     injectionComponents:
-      - type: Anomaly
-        deleteEntity: false
-        maxPointsPerSecond: 100
-        corePrototype: AnomalyCorePyroclastic
-        coreInertPrototype: AnomalyCorePyroclasticInert
-      - type: InnerBodyAnomaly
-        injectionProto: AnomalyInjectionPyroclastic
-        startMessage: inner-anomaly-start-message-pyro
-        fallbackSprite:
+    - type: Anomaly
+      deleteEntity: false
+      maxPointsPerSecond: 100
+      corePrototype: AnomalyCorePyroclastic
+      coreInertPrototype: AnomalyCorePyroclasticInert
+    - type: InnerBodyAnomaly
+      injectionProto: AnomalyInjectionPyroclastic
+      startMessage: inner-anomaly-start-message-pyro
+      fallbackSprite:
+        sprite: Structures/Specific/Anomalies/inner_anom_layer.rsi
+        state: fire
+      speciesSprites:
+        Vox:
           sprite: Structures/Specific/Anomalies/inner_anom_layer.rsi
-          state: fire
-        speciesSprites:
-          Vox:
-            sprite: Structures/Specific/Anomalies/inner_anom_layer.rsi
-            state: fire_VOX
+          state: fire_VOX
 
 - type: entity
   parent: BaseAnomalyInjector
@@ -72,21 +71,21 @@
       state: full
   - type: InnerBodyAnomalyInjector
     injectionComponents:
-      - type: Anomaly
-        deleteEntity: false
-        maxPointsPerSecond: 100
-        corePrototype: AnomalyCoreElectricity
-        coreInertPrototype: AnomalyCoreElectricityInert
-      - type: InnerBodyAnomaly
-        injectionProto: AnomalyInjectionElectric
-        startMessage: inner-anomaly-start-message-shock
-        fallbackSprite:
+    - type: Anomaly
+      deleteEntity: false
+      maxPointsPerSecond: 100
+      corePrototype: AnomalyCoreElectricity
+      coreInertPrototype: AnomalyCoreElectricityInert
+    - type: InnerBodyAnomaly
+      injectionProto: AnomalyInjectionElectric
+      startMessage: inner-anomaly-start-message-shock
+      fallbackSprite:
+        sprite: Structures/Specific/Anomalies/inner_anom_layer.rsi
+        state: shock
+      speciesSprites:
+        Vox:
           sprite: Structures/Specific/Anomalies/inner_anom_layer.rsi
-          state: shock
-        speciesSprites:
-          Vox:
-            sprite: Structures/Specific/Anomalies/inner_anom_layer.rsi
-            state: shock_VOX
+          state: shock_VOX
 
 - type: entity
   parent: BaseAnomalyInjector
@@ -102,21 +101,21 @@
       state: full
   - type: InnerBodyAnomalyInjector
     injectionComponents:
-      - type: Anomaly
-        deleteEntity: false
-        maxPointsPerSecond: 100
-        corePrototype: AnomalyCoreShadow
-        coreInertPrototype: AnomalyCoreShadowInert
-      - type: InnerBodyAnomaly
-        injectionProto: AnomalyInjectionShadow
-        startMessage: inner-anomaly-start-message-shadow
-        fallbackSprite:
+    - type: Anomaly
+      deleteEntity: false
+      maxPointsPerSecond: 100
+      corePrototype: AnomalyCoreShadow
+      coreInertPrototype: AnomalyCoreShadowInert
+    - type: InnerBodyAnomaly
+      injectionProto: AnomalyInjectionShadow
+      startMessage: inner-anomaly-start-message-shadow
+      fallbackSprite:
+        sprite: Structures/Specific/Anomalies/inner_anom_layer.rsi
+        state: shadow
+      speciesSprites:
+        Vox:
           sprite: Structures/Specific/Anomalies/inner_anom_layer.rsi
-          state: shadow
-        speciesSprites:
-          Vox:
-            sprite: Structures/Specific/Anomalies/inner_anom_layer.rsi
-            state: shadow_VOX
+          state: shadow_VOX
 
 - type: entity
   parent: BaseAnomalyInjector
@@ -132,21 +131,21 @@
       state: full
   - type: InnerBodyAnomalyInjector
     injectionComponents:
-      - type: Anomaly
-        deleteEntity: false
-        maxPointsPerSecond: 100
-        corePrototype: AnomalyCoreIce
-        coreInertPrototype: AnomalyCoreIceInert
-      - type: InnerBodyAnomaly
-        injectionProto: AnomalyInjectionIce
-        startMessage: inner-anomaly-start-message-frost
-        fallbackSprite:
+    - type: Anomaly
+      deleteEntity: false
+      maxPointsPerSecond: 100
+      corePrototype: AnomalyCoreIce
+      coreInertPrototype: AnomalyCoreIceInert
+    - type: InnerBodyAnomaly
+      injectionProto: AnomalyInjectionIce
+      startMessage: inner-anomaly-start-message-frost
+      fallbackSprite:
+        sprite: Structures/Specific/Anomalies/inner_anom_layer.rsi
+        state: frost
+      speciesSprites:
+        Vox:
           sprite: Structures/Specific/Anomalies/inner_anom_layer.rsi
-          state: frost
-        speciesSprites:
-          Vox:
-            sprite: Structures/Specific/Anomalies/inner_anom_layer.rsi
-            state: frost_VOX
+          state: frost_VOX
 
 - type: entity
   parent: BaseAnomalyInjector
@@ -162,21 +161,21 @@
       state: full
   - type: InnerBodyAnomalyInjector
     injectionComponents:
-      - type: Anomaly
-        deleteEntity: false
-        maxPointsPerSecond: 100
-        corePrototype: AnomalyCoreFlora
-        coreInertPrototype: AnomalyCoreFloraInert
-      - type: InnerBodyAnomaly
-        injectionProto: AnomalyInjectionFlora
-        startMessage: inner-anomaly-start-message-flora
-        fallbackSprite:
+    - type: Anomaly
+      deleteEntity: false
+      maxPointsPerSecond: 100
+      corePrototype: AnomalyCoreFlora
+      coreInertPrototype: AnomalyCoreFloraInert
+    - type: InnerBodyAnomaly
+      injectionProto: AnomalyInjectionFlora
+      startMessage: inner-anomaly-start-message-flora
+      fallbackSprite:
+        sprite: Structures/Specific/Anomalies/inner_anom_layer.rsi
+        state: flora
+      speciesSprites:
+        Vox:
           sprite: Structures/Specific/Anomalies/inner_anom_layer.rsi
-          state: flora
-        speciesSprites:
-          Vox:
-            sprite: Structures/Specific/Anomalies/inner_anom_layer.rsi
-            state: flora_VOX
+          state: flora_VOX
 
 - type: entity
   parent: BaseAnomalyInjector
@@ -192,21 +191,21 @@
       state: full
   - type: InnerBodyAnomalyInjector
     injectionComponents:
-      - type: Anomaly
-        deleteEntity: false
-        maxPointsPerSecond: 100
-        corePrototype: AnomalyCoreBluespace
-        coreInertPrototype: AnomalyCoreBluespaceInert
-      - type: InnerBodyAnomaly
-        injectionProto: AnomalyInjectionBluespace
-        startMessage: inner-anomaly-start-message-bluespace
-        fallbackSprite:
+    - type: Anomaly
+      deleteEntity: false
+      maxPointsPerSecond: 100
+      corePrototype: AnomalyCoreBluespace
+      coreInertPrototype: AnomalyCoreBluespaceInert
+    - type: InnerBodyAnomaly
+      injectionProto: AnomalyInjectionBluespace
+      startMessage: inner-anomaly-start-message-bluespace
+      fallbackSprite:
+        sprite: Structures/Specific/Anomalies/inner_anom_layer.rsi
+        state: bluespace
+      speciesSprites:
+        Vox:
           sprite: Structures/Specific/Anomalies/inner_anom_layer.rsi
-          state: bluespace
-        speciesSprites:
-          Vox:
-            sprite: Structures/Specific/Anomalies/inner_anom_layer.rsi
-            state: bluespace_VOX
+          state: bluespace_VOX
 
 - type: entity
   parent: BaseAnomalyInjector
@@ -222,21 +221,21 @@
       state: full
   - type: InnerBodyAnomalyInjector
     injectionComponents:
-      - type: Anomaly
-        deleteEntity: false
-        maxPointsPerSecond: 100
-        corePrototype: AnomalyCoreFlesh
-        coreInertPrototype: AnomalyCoreFleshInert
-      - type: InnerBodyAnomaly
-        injectionProto: AnomalyInjectionFlesh
-        startMessage: inner-anomaly-start-message-flesh
-        fallbackSprite:
+    - type: Anomaly
+      deleteEntity: false
+      maxPointsPerSecond: 100
+      corePrototype: AnomalyCoreFlesh
+      coreInertPrototype: AnomalyCoreFleshInert
+    - type: InnerBodyAnomaly
+      injectionProto: AnomalyInjectionFlesh
+      startMessage: inner-anomaly-start-message-flesh
+      fallbackSprite:
+        sprite: Structures/Specific/Anomalies/inner_anom_layer.rsi
+        state: flesh
+      speciesSprites:
+        Vox:
           sprite: Structures/Specific/Anomalies/inner_anom_layer.rsi
-          state: flesh
-        speciesSprites:
-          Vox:
-            sprite: Structures/Specific/Anomalies/inner_anom_layer.rsi
-            state: flesh_VOX
+          state: flesh_VOX
 
 - type: entity
   parent: BaseAnomalyInjector
@@ -252,21 +251,21 @@
       state: full
   - type: InnerBodyAnomalyInjector
     injectionComponents:
-      - type: Anomaly
-        deleteEntity: false
-        maxPointsPerSecond: 100
-        corePrototype: AnomalyCoreGravity
-        coreInertPrototype: AnomalyCoreGravityInert
-      - type: InnerBodyAnomaly
-        injectionProto: AnomalyInjectionGravity
-        startMessage: inner-anomaly-start-message-grav
-        fallbackSprite:
+    - type: Anomaly
+      deleteEntity: false
+      maxPointsPerSecond: 100
+      corePrototype: AnomalyCoreGravity
+      coreInertPrototype: AnomalyCoreGravityInert
+    - type: InnerBodyAnomaly
+      injectionProto: AnomalyInjectionGravity
+      startMessage: inner-anomaly-start-message-grav
+      fallbackSprite:
+        sprite: Structures/Specific/Anomalies/inner_anom_layer.rsi
+        state: grav
+      speciesSprites:
+        Vox:
           sprite: Structures/Specific/Anomalies/inner_anom_layer.rsi
-          state: grav
-        speciesSprites:
-          Vox:
-            sprite: Structures/Specific/Anomalies/inner_anom_layer.rsi
-            state: grav_VOX
+          state: grav_VOX
 
 - type: entity
   parent: BaseAnomalyInjector
@@ -282,21 +281,21 @@
       state: full
   - type: InnerBodyAnomalyInjector
     injectionComponents:
-      - type: Anomaly
-        deleteEntity: false
-        maxPointsPerSecond: 100
-        corePrototype: AnomalyCoreTech
-        coreInertPrototype: AnomalyCoreTechInert
-      - type: InnerBodyAnomaly
-        injectionProto: AnomalyInjectionTech
-        startMessage: inner-anomaly-start-message-tech
-        fallbackSprite:
+    - type: Anomaly
+      deleteEntity: false
+      maxPointsPerSecond: 100
+      corePrototype: AnomalyCoreTech
+      coreInertPrototype: AnomalyCoreTechInert
+    - type: InnerBodyAnomaly
+      injectionProto: AnomalyInjectionTech
+      startMessage: inner-anomaly-start-message-tech
+      fallbackSprite:
+        sprite: Structures/Specific/Anomalies/inner_anom_layer.rsi
+        state: tech
+      speciesSprites:
+        Vox:
           sprite: Structures/Specific/Anomalies/inner_anom_layer.rsi
-          state: tech
-        speciesSprites:
-          Vox:
-            sprite: Structures/Specific/Anomalies/inner_anom_layer.rsi
-            state: tech_VOX
+          state: tech_VOX
 
 - type: entity
   parent: BaseAnomalyInjector
@@ -313,21 +312,21 @@
       state: full
   - type: InnerBodyAnomalyInjector
     injectionComponents:
-      - type: Anomaly
-        deleteEntity: false
-        maxPointsPerSecond: 100
-        corePrototype: AnomalyCoreRock
-        coreInertPrototype: AnomalyCoreRockInert
-      - type: InnerBodyAnomaly
-        injectionProto: AnomalyInjectionRock
-        startMessage: inner-anomaly-start-message-rock
-        fallbackSprite:
+    - type: Anomaly
+      deleteEntity: false
+      maxPointsPerSecond: 100
+      corePrototype: AnomalyCoreRock
+      coreInertPrototype: AnomalyCoreRockInert
+    - type: InnerBodyAnomaly
+      injectionProto: AnomalyInjectionRock
+      startMessage: inner-anomaly-start-message-rock
+      fallbackSprite:
+        sprite: Structures/Specific/Anomalies/inner_anom_layer.rsi
+        state: rock
+      speciesSprites:
+        Vox:
           sprite: Structures/Specific/Anomalies/inner_anom_layer.rsi
-          state: rock
-        speciesSprites:
-          Vox:
-            sprite: Structures/Specific/Anomalies/inner_anom_layer.rsi
-            state: rock_VOX
+          state: rock_VOX
 
 - type: entity
   parent: BaseAnomalyInjector
@@ -343,14 +342,14 @@
       state: full
   - type: InnerBodyAnomalyInjector
     injectionComponents:
-      - type: Anomaly
-        deleteEntity: false
-        maxPointsPerSecond: 100
-        corePrototype: AnomalyCoreSanta
-        coreInertPrototype: AnomalyCoreSantaInert
-      - type: InnerBodyAnomaly
-        injectionProto: AnomalyInjectionSanta
-        startMessage: inner-anomaly-start-message-santa
-        fallbackSprite:
-          sprite: Structures/Specific/Anomalies/inner_anom_layer.rsi
-          state: santa
+    - type: Anomaly
+      deleteEntity: false
+      maxPointsPerSecond: 100
+      corePrototype: AnomalyCoreSanta
+      coreInertPrototype: AnomalyCoreSantaInert
+    - type: InnerBodyAnomaly
+      injectionProto: AnomalyInjectionSanta
+      startMessage: inner-anomaly-start-message-santa
+      fallbackSprite:
+        sprite: Structures/Specific/Anomalies/inner_anom_layer.rsi
+        state: santa

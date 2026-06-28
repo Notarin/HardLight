@@ -8,7 +8,5 @@ namespace Content.Shared._NF.Shipyard.Events;
 [Serializable, NetSerializable]
 public sealed class ShipyardConsoleSaveMessage : BoundUserInterfaceMessage
 {
-    public ShipyardConsoleSaveMessage()
-    {
-    }
+    public ShipyardConsoleSaveMessage() { }
 }

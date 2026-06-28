@@ -1,3 +1,4 @@
+using System.Numerics;
 using Content.Client.IconSmoothing;
 using Content.Shared._Mono.ShipRepair;
 using Content.Shared._Mono.ShipRepair.Components;
@@ -8,7 +9,6 @@ using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
-using System.Numerics;
 
 namespace Content.Client._Mono.ShipRepair;
 
@@ -96,16 +96,22 @@ public sealed partial class ShipRepairSystem : SharedShipRepairSystem
                     // process entity ghosts
                     foreach (var (specId, spec) in chunk.Entities)
                     {
-                        var origUid = spec.OriginalEntity == null ? (EntityUid?)null : GetEntity(spec.OriginalEntity.Value);
+                        var origUid =
+                            spec.OriginalEntity == null ? (EntityUid?)null : GetEntity(spec.OriginalEntity.Value);
                         // this will get trolled by PVS but hope repairable entities aren't too often on the same grid but at a far position
-                        if (origUid != null && !TerminatingOrDeleted(origUid) && Transform(origUid.Value).GridUid == grid.Owner)
+                        if (
+                            origUid != null
+                            && !TerminatingOrDeleted(origUid)
+                            && Transform(origUid.Value).GridUid == grid.Owner
+                        )
                             continue;
 
                         var specCoords = new EntityCoordinates(grid, spec.LocalPosition);
                         var specMapPos = _transform.ToMapCoordinates(specCoords);
 
                         // check if it's actually in range
-                        if (specMapPos.MapId != playerMapPos.MapId
+                        if (
+                            specMapPos.MapId != playerMapPos.MapId
                             || (specMapPos.Position - playerMapPos.Position).LengthSquared() > maxRange * maxRange
                         )
                             continue;
@@ -134,7 +140,8 @@ public sealed partial class ShipRepairSystem : SharedShipRepairSystem
                         var tileMapPos = _transform.ToMapCoordinates(tileCoords);
 
                         // check out of range
-                        if (tileMapPos.MapId != playerMapPos.MapId
+                        if (
+                            tileMapPos.MapId != playerMapPos.MapId
                             || (tileMapPos.Position - playerMapPos.Position).LengthSquared() > maxRange * maxRange
                         )
                             continue;
@@ -194,8 +201,10 @@ public sealed partial class ShipRepairSystem : SharedShipRepairSystem
 
     private void SpawnEntityGhost(GhostPosData key, ShipRepairEntitySpecifier spec, EntProtoId protoId)
     {
-        if (_proto.TryIndex(protoId, out var proto)
-            && proto.TryGetComponent<SpriteComponent>(out var specSprite, Factory))
+        if (
+            _proto.TryIndex(protoId, out var proto)
+            && proto.TryGetComponent<SpriteComponent>(out var specSprite, Factory)
+        )
         {
             // needed so it doesn't fall off if offgrid
             var ghost = Spawn(RepairGhostId, new EntityCoordinates(key.Grid, Vector2.Zero));
@@ -237,8 +246,7 @@ public sealed partial class ShipRepairSystem : SharedShipRepairSystem
 
     private void SpawnTileGhost(GhostPosData key, Vector2i indices, ushort tileId)
     {
-        if (_tileDefs.TryGetDefinition(tileId, out var def)
-            && def is ContentTileDefinition tileDef)
+        if (_tileDefs.TryGetDefinition(tileId, out var def) && def is ContentTileDefinition tileDef)
         {
             var localPos = _map.TileCenterToVector((key.Grid, key.Grid.Comp2), indices);
             var ghost = Spawn(RepairGhostId, new EntityCoordinates(key.Grid, Vector2.Zero));
@@ -265,5 +273,10 @@ public sealed partial class ShipRepairSystem : SharedShipRepairSystem
         }
     }
 
-    private record struct GhostPosData(Entity<ShipRepairDataComponent, MapGridComponent> Grid, Vector2i ChunkIndices, int Id, bool IsTile);
+    private record struct GhostPosData(
+        Entity<ShipRepairDataComponent, MapGridComponent> Grid,
+        Vector2i ChunkIndices,
+        int Id,
+        bool IsTile
+    );
 }

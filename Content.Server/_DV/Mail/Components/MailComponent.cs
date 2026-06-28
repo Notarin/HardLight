@@ -1,7 +1,7 @@
 using System.Threading;
-using Robust.Shared.Audio;
-using Content.Shared.Storage;
 using Content.Shared._DV.Mail;
+using Content.Shared.Storage;
+using Robust.Shared.Audio;
 
 namespace Content.Server._DV.Mail.Components
 {
@@ -67,6 +67,7 @@ namespace Content.Server._DV.Mail.Components
         /// </summary>
         [DataField]
         public bool IsLarge = false;
+
         // End Frontier: large mail
 
         /// <summary>

@@ -103,8 +103,8 @@
   flavor: nikkoscumlust
   color: "#c977b5"
   metamorphicSprite:
-   sprite: _Floof/Objects/Consumable/Drinks/nikkoscumlust.rsi
-   state: icon_empty
+    sprite: _Floof/Objects/Consumable/Drinks/nikkoscumlust.rsi
+    state: icon_empty
   metamorphicMaxFillLevels: 4
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
@@ -1026,7 +1026,6 @@
       - !type:AdjustReagent
         reagent: Pomelustine
         amount: 0.25
-
 
 - type: reagent
   id: RedRocket

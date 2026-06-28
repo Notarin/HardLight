@@ -6,5 +6,5 @@
   components:
   - type: StorageFill
     contents:
-      - id: WeaponPistolDualetta
-        amount: 2
+    - id: WeaponPistolDualetta
+      amount: 2

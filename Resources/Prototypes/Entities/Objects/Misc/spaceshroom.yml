@@ -5,37 +5,35 @@
   suffix: Structure
   description: A cluster of wild mushrooms that likes to grow in dark, moist environments.
   components:
-    - type: Sprite
-      sprite: Objects/Misc/spaceshroom.rsi
-      state: structure
-    - type: Transform
-      anchored: true
-    - type: Physics
-      bodyType: Static
-    - type: Fixtures
-      fixtures:
-        fix1:
-          shape:
-            !type:PhysShapeCircle
-            radius: 0.2
-    - type: InteractionOutline
-    - type: Gatherable
-      toolWhitelist:
-        components:
-          - Hands
-      loot:
-        All: SpaceshroomGather
-    - type: Damageable
-      damageContainer: StructuralInorganic
-      damageModifierSet: Wood
-    - type: Destructible
-      thresholds:
-        - trigger:
-            !type:DamageTrigger
-            damage: 150
-          behaviors:
-            - !type:DoActsBehavior
-              acts: [ "Destruction" ]
+  - type: Sprite
+    sprite: Objects/Misc/spaceshroom.rsi
+    state: structure
+  - type: Transform
+    anchored: true
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+  - type: InteractionOutline
+  - type: Gatherable
+    toolWhitelist:
+      components:
+      - Hands
+    loot:
+      All: SpaceshroomGather
+  - type: Damageable
+    damageContainer: StructuralInorganic
+    damageModifierSet: Wood
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
 
 - type: entityLootTable
   id: SpaceshroomGather
@@ -56,7 +54,7 @@
     state: object
   - type: FlavorProfile
     flavors:
-      - spaceshroom
+    - spaceshroom
   - type: Extractable
     juiceSolution:
       reagents:
@@ -79,8 +77,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.25,-0.25,0.25,0.25"
         density: 1
         mask:
@@ -135,7 +132,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - spaceshroomcooked
+    - spaceshroomcooked
   - type: SolutionContainerManager
     solutions:
       food:

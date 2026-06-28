@@ -29,7 +29,11 @@ namespace Content.Tests.Server._HL.Shipyard;
 [Parallelizable(ParallelScope.All)]
 public sealed class ShipSaveDanglingRefTest
 {
-    private static MappingDataNode BuildEntityWithComponent(string uid, string componentType, MappingDataNode? extraFields = null)
+    private static MappingDataNode BuildEntityWithComponent(
+        string uid,
+        string componentType,
+        MappingDataNode? extraFields = null
+    )
     {
         var comp = new MappingDataNode();
         comp["type"] = new ValueDataNode(componentType);
@@ -72,19 +76,26 @@ public sealed class ShipSaveDanglingRefTest
 
         foreach (var protoNode in protoSeq)
         {
-            if (protoNode is not MappingDataNode protoMap) continue;
-            if (!protoMap.TryGet("entities", out SequenceDataNode? entitiesSeq) || entitiesSeq == null) continue;
+            if (protoNode is not MappingDataNode protoMap)
+                continue;
+            if (!protoMap.TryGet("entities", out SequenceDataNode? entitiesSeq) || entitiesSeq == null)
+                continue;
 
             foreach (var entityNode in entitiesSeq)
             {
-                if (entityNode is not MappingDataNode entMap) continue;
-                if (!entMap.TryGet("components", out SequenceDataNode? comps) || comps == null) continue;
+                if (entityNode is not MappingDataNode entMap)
+                    continue;
+                if (!entMap.TryGet("components", out SequenceDataNode? comps) || comps == null)
+                    continue;
 
                 foreach (var compNode in comps)
                 {
-                    if (compNode is not MappingDataNode compMap) continue;
-                    if (!compMap.TryGet("type", out ValueDataNode? t) || t == null) continue;
-                    if (t.Value == componentType) return true;
+                    if (compNode is not MappingDataNode compMap)
+                        continue;
+                    if (!compMap.TryGet("type", out ValueDataNode? t) || t == null)
+                        continue;
+                    if (t.Value == componentType)
+                        return true;
                 }
             }
         }
@@ -93,12 +104,12 @@ public sealed class ShipSaveDanglingRefTest
     }
 
     [Test]
-    [TestCase("Actions",                TestName = "ActionsStripped")]
-    [TestCase("Projectile",             TestName = "ProjectileStripped")]
-    [TestCase("ItemToggleActiveSound",  TestName = "ItemToggleActiveSoundStripped")]
-    [TestCase("Blocking",               TestName = "BlockingStripped")]
-    [TestCase("Turnstile",              TestName = "TurnstileStripped")]
-    [TestCase("SubdermalImplant",       TestName = "SubdermalImplantStripped")]
+    [TestCase("Actions", TestName = "ActionsStripped")]
+    [TestCase("Projectile", TestName = "ProjectileStripped")]
+    [TestCase("ItemToggleActiveSound", TestName = "ItemToggleActiveSoundStripped")]
+    [TestCase("Blocking", TestName = "BlockingStripped")]
+    [TestCase("Turnstile", TestName = "TurnstileStripped")]
+    [TestCase("SubdermalImplant", TestName = "SubdermalImplantStripped")]
     public void RuntimeOnlyComponentRemovedFromShipSave(string componentType)
     {
         // Two entities: one carrying the runtime-only component (which should be stripped or
@@ -110,8 +121,11 @@ public sealed class ShipSaveDanglingRefTest
 
         ShipSaveYamlSanitizer.SanitizeShipSaveNode(root, null!);
 
-        Assert.That(SaveContainsComponent(root, componentType), Is.False,
-            $"Component '{componentType}' must be stripped from ship saves to prevent stale EntityUid leakage.");
+        Assert.That(
+            SaveContainsComponent(root, componentType),
+            Is.False,
+            $"Component '{componentType}' must be stripped from ship saves to prevent stale EntityUid leakage."
+        );
     }
 
     [Test]
@@ -151,8 +165,11 @@ public sealed class ShipSaveDanglingRefTest
         var surviving = entsAfter!.Select(n => ((ValueDataNode)n).Value).ToList();
 
         Assert.That(surviving, Does.Contain("2"));
-        Assert.That(surviving, Does.Not.Contain("999"),
-            "ContainerContainer entry pointing at undeclared uid 999 must be pruned to avoid EntityUid.Invalid lookup spam.");
+        Assert.That(
+            surviving,
+            Does.Not.Contain("999"),
+            "ContainerContainer entry pointing at undeclared uid 999 must be pruned to avoid EntityUid.Invalid lookup spam."
+        );
     }
 
     [Test]
@@ -181,7 +198,10 @@ public sealed class ShipSaveDanglingRefTest
         var storedAfter = (MappingDataNode)storage["storedItems"];
 
         Assert.That(storedAfter.Has("2"), Is.True);
-        Assert.That(storedAfter.Has("999"), Is.False,
-            "Storage entry pointing at undeclared uid 999 must be pruned to avoid EntityUid.Invalid lookup spam.");
+        Assert.That(
+            storedAfter.Has("999"),
+            Is.False,
+            "Storage entry pointing at undeclared uid 999 must be pruned to avoid EntityUid.Invalid lookup spam."
+        );
     }
 }

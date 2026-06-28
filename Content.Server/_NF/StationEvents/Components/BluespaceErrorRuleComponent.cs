@@ -1,12 +1,12 @@
-using Content.Server.StationEvents.Events;
+using Content.Server._NF.StationEvents.Events;
 using Content.Server.Shuttles.Systems;
+using Content.Server.StationEvents.Events;
+using Content.Shared._NF.Bank.Components;
 using Content.Shared.Dataset;
 using Content.Shared.Procedural;
+using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
-using Content.Shared._NF.Bank.Components;
-using Robust.Shared.Map;
-using Content.Server._NF.StationEvents.Events;
 
 namespace Content.Server._NF.StationEvents.Components;
 
@@ -17,7 +17,8 @@ public sealed partial class BluespaceErrorRuleComponent : Component
     /// Dictionary of groups where each group will have entries selected.
     /// String is just an identifier to make yaml easier.
     /// </summary>
-    [DataField(required: true)] public Dictionary<string, IBluespaceSpawnGroup> Groups = new();
+    [DataField(required: true)]
+    public Dictionary<string, IBluespaceSpawnGroup> Groups = new();
 
     /// <summary>
     /// Sector accounts and factor to be credited on event completion.
@@ -75,7 +76,6 @@ public interface IBluespaceSpawnGroup
     /// <summary>
     /// A dataset to pick a random name from.
     /// </summary>
-
     public ProtoId<LocalizedDatasetPrototype>? NameDataset { get; }
 
     /// <summary>

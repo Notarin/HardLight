@@ -1,6 +1,6 @@
 # Operations
 - type: rcd
-  id: Invalid   # Hidden prototype - do not add to RCDs
+  id: Invalid # Hidden prototype - do not add to RCDs
   mode: Invalid
 
 - type: rcd
@@ -13,7 +13,7 @@
   rotation: Camera
 
 - type: rcd
-  id: DeconstructLattice   # Hidden prototype - do not add to RCDs
+  id: DeconstructLattice # Hidden prototype - do not add to RCDs
   name: rcd-component-deconstruct
   mode: Deconstruct
   cost: 2
@@ -22,7 +22,7 @@
   fx: EffectRCDConstruct0
 
 - type: rcd
-  id: DeconstructTile      # Hidden prototype - do not add to RCDs
+  id: DeconstructTile # Hidden prototype - do not add to RCDs
   name: rcd-component-deconstruct
   mode: Deconstruct
   cost: 4
@@ -42,7 +42,7 @@
   delay: 1
   collisionMask: InteractImpassable
   rules:
-    - CanBuildOnEmptyTile
+  - CanBuildOnEmptyTile
   fx: EffectRCDConstruct1
 
 - type: rcd
@@ -56,7 +56,7 @@
   delay: 1
   collisionMask: InteractImpassable
   rules:
-    - CanBuildOnEmptyTile
+  - CanBuildOnEmptyTile
   fx: EffectRCDConstruct1
 
 - type: rcd
@@ -70,7 +70,7 @@
   delay: 1
   collisionMask: InteractImpassable
   rules:
-    - CanBuildOnEmptyTile
+  - CanBuildOnEmptyTile
   fx: EffectRCDConstruct1
 
 - type: rcd
@@ -84,7 +84,7 @@
   delay: 1
   collisionMask: InteractImpassable
   rules:
-    - CanBuildOnEmptyTile
+  - CanBuildOnEmptyTile
   fx: EffectRCDConstruct1
 
 - type: rcd
@@ -98,7 +98,7 @@
   delay: 1
   collisionMask: InteractImpassable
   rules:
-    - CanBuildOnEmptyTile
+  - CanBuildOnEmptyTile
   fx: EffectRCDConstruct1
 
 - type: rcd
@@ -112,7 +112,7 @@
   delay: 1
   collisionMask: InteractImpassable
   rules:
-    - CanBuildOnEmptyTile
+  - CanBuildOnEmptyTile
   fx: EffectRCDConstruct1
 
 - type: rcd
@@ -125,8 +125,8 @@
   delay: 1
   collisionMask: InteractImpassable
   rules:
-    - MustBuildOnSubfloor
-    - IsCatwalk
+  - MustBuildOnSubfloor
+  - IsCatwalk
   rotation: Fixed
   fx: EffectRCDConstruct1
 
@@ -179,7 +179,6 @@
   rotation: Fixed
   fx: EffectRCDConstruct2
 
-
 - type: rcd
   id: Grille
   category: WindowsAndGrilles
@@ -203,7 +202,7 @@
   delay: 2
   collisionMask: Impassable
   rules:
-    - IsWindow
+  - IsWindow
   rotation: Fixed
   fx: EffectRCDConstruct2
 
@@ -217,7 +216,7 @@
   delay: 2
   collisionMask: Impassable
   rules:
-    - IsWindow
+  - IsWindow
   rotation: Fixed
   fx: EffectRCDConstruct2
 
@@ -232,7 +231,7 @@
   collisionMask: Impassable
   collisionBounds: "-0.23,-0.49,0.23,-0.36"
   rules:
-    - IsWindow
+  - IsWindow
   rotation: User
   fx: EffectRCDConstruct1
   allowMultiDirection: true
@@ -247,7 +246,7 @@
   delay: 3
   collisionMask: Impassable
   rules:
-    - IsWindow
+  - IsWindow
   rotation: User
   fx: EffectRCDConstruct3
 
@@ -262,7 +261,7 @@
   collisionMask: Impassable
   collisionBounds: "-0.23,-0.49,0.23,-0.36"
   rules:
-    - IsWindow
+  - IsWindow
   rotation: User
   fx: EffectRCDConstruct2
   allowMultiDirection: true
@@ -401,7 +400,6 @@
   rotation: User
   fx: EffectRCDConstruct0
 
-
 # HardLight
 
 # Airlocks
@@ -432,7 +430,7 @@
   delay: 1
   collisionMask: InteractImpassable
   rules:
-    - CanBuildOnEmptyTile
+  - CanBuildOnEmptyTile
   fx: EffectRCDConstruct1
 
 - type: rcd
@@ -446,7 +444,7 @@
   delay: 1
   collisionMask: InteractImpassable
   rules:
-    - CanBuildOnEmptyTile
+  - CanBuildOnEmptyTile
   fx: EffectRCDConstruct1
 
 - type: rcd
@@ -460,7 +458,7 @@
   delay: 1
   collisionMask: InteractImpassable
   rules:
-    - CanBuildOnEmptyTile
+  - CanBuildOnEmptyTile
   fx: EffectRCDConstruct1
 
 - type: rcd
@@ -474,7 +472,7 @@
   delay: 1
   collisionMask: InteractImpassable
   rules:
-    - CanBuildOnEmptyTile
+  - CanBuildOnEmptyTile
   fx: EffectRCDConstruct1
 
 - type: rcd
@@ -488,7 +486,7 @@
   delay: 1
   collisionMask: InteractImpassable
   rules:
-    - CanBuildOnEmptyTile
+  - CanBuildOnEmptyTile
   fx: EffectRCDConstruct1
 
 - type: rcd
@@ -502,7 +500,7 @@
   delay: 1
   collisionMask: InteractImpassable
   rules:
-    - CanBuildOnEmptyTile
+  - CanBuildOnEmptyTile
   fx: EffectRCDConstruct1
 
 - type: rcd
@@ -516,7 +514,7 @@
   delay: 1
   collisionMask: InteractImpassable
   rules:
-    - CanBuildOnEmptyTile
+  - CanBuildOnEmptyTile
   fx: EffectRCDConstruct1
 
 - type: rcd
@@ -530,7 +528,7 @@
   delay: 1
   collisionMask: InteractImpassable
   rules:
-    - CanBuildOnEmptyTile
+  - CanBuildOnEmptyTile
   fx: EffectRCDConstruct1
 
 - type: rcd
@@ -544,7 +542,7 @@
   delay: 1
   collisionMask: InteractImpassable
   rules:
-    - CanBuildOnEmptyTile
+  - CanBuildOnEmptyTile
   fx: EffectRCDConstruct1
 
 - type: rcd
@@ -558,7 +556,7 @@
   delay: 1
   collisionMask: InteractImpassable
   rules:
-    - CanBuildOnEmptyTile
+  - CanBuildOnEmptyTile
   fx: EffectRCDConstruct1
 
 - type: rcd
@@ -572,7 +570,7 @@
   delay: 1
   collisionMask: InteractImpassable
   rules:
-    - CanBuildOnEmptyTile
+  - CanBuildOnEmptyTile
   fx: EffectRCDConstruct1
 
 - type: rcd
@@ -586,7 +584,7 @@
   delay: 1
   collisionMask: InteractImpassable
   rules:
-    - CanBuildOnEmptyTile
+  - CanBuildOnEmptyTile
   fx: EffectRCDConstruct1
 
 - type: rcd
@@ -600,7 +598,7 @@
   delay: 1
   collisionMask: InteractImpassable
   rules:
-    - CanBuildOnEmptyTile
+  - CanBuildOnEmptyTile
   fx: EffectRCDConstruct1
 
 - type: rcd
@@ -614,7 +612,7 @@
   delay: 1
   collisionMask: InteractImpassable
   rules:
-    - CanBuildOnEmptyTile
+  - CanBuildOnEmptyTile
   fx: EffectRCDConstruct1
 
 - type: rcd
@@ -628,7 +626,7 @@
   delay: 1
   collisionMask: InteractImpassable
   rules:
-    - CanBuildOnEmptyTile
+  - CanBuildOnEmptyTile
   fx: EffectRCDConstruct1
 
 - type: rcd
@@ -642,7 +640,7 @@
   delay: 1
   collisionMask: InteractImpassable
   rules:
-    - CanBuildOnEmptyTile
+  - CanBuildOnEmptyTile
   fx: EffectRCDConstruct1
 
 - type: rcd
@@ -656,7 +654,7 @@
   delay: 1
   collisionMask: InteractImpassable
   rules:
-    - CanBuildOnEmptyTile
+  - CanBuildOnEmptyTile
   fx: EffectRCDConstruct1
 
 - type: rcd
@@ -670,7 +668,7 @@
   delay: 1
   collisionMask: InteractImpassable
   rules:
-    - CanBuildOnEmptyTile
+  - CanBuildOnEmptyTile
   fx: EffectRCDConstruct1
 
 - type: rcd
@@ -684,7 +682,7 @@
   delay: 1
   collisionMask: InteractImpassable
   rules:
-    - CanBuildOnEmptyTile
+  - CanBuildOnEmptyTile
   fx: EffectRCDConstruct1
 
 - type: rcd
@@ -698,7 +696,7 @@
   delay: 1
   collisionMask: InteractImpassable
   rules:
-    - CanBuildOnEmptyTile
+  - CanBuildOnEmptyTile
   fx: EffectRCDConstruct1
 
 - type: rcd
@@ -712,7 +710,7 @@
   delay: 1
   collisionMask: InteractImpassable
   rules:
-    - CanBuildOnEmptyTile
+  - CanBuildOnEmptyTile
   fx: EffectRCDConstruct1
 
 - type: rcd
@@ -726,7 +724,7 @@
   delay: 1
   collisionMask: InteractImpassable
   rules:
-    - CanBuildOnEmptyTile
+  - CanBuildOnEmptyTile
   fx: EffectRCDConstruct1
 
 - type: rcd
@@ -740,7 +738,7 @@
   delay: 1
   collisionMask: InteractImpassable
   rules:
-    - CanBuildOnEmptyTile
+  - CanBuildOnEmptyTile
   fx: EffectRCDConstruct1
 
 - type: rcd
@@ -754,7 +752,7 @@
   delay: 1
   collisionMask: InteractImpassable
   rules:
-    - CanBuildOnEmptyTile
+  - CanBuildOnEmptyTile
   fx: EffectRCDConstruct1
 
 - type: rcd
@@ -768,7 +766,7 @@
   delay: 1
   collisionMask: InteractImpassable
   rules:
-    - CanBuildOnEmptyTile
+  - CanBuildOnEmptyTile
   fx: EffectRCDConstruct1
 
 - type: rcd
@@ -782,7 +780,7 @@
   delay: 1
   collisionMask: InteractImpassable
   rules:
-    - CanBuildOnEmptyTile
+  - CanBuildOnEmptyTile
   fx: EffectRCDConstruct1
 
 - type: rcd
@@ -796,7 +794,7 @@
   delay: 1
   collisionMask: InteractImpassable
   rules:
-    - CanBuildOnEmptyTile
+  - CanBuildOnEmptyTile
   fx: EffectRCDConstruct1
 
 # Plating - Mono - #3919
@@ -811,7 +809,7 @@
   delay: 1
   collisionMask: InteractImpassable
   rules:
-    - CanBuildOnEmptyTile
+  - CanBuildOnEmptyTile
   fx: EffectRCDConstruct1
 
 - type: rcd
@@ -825,7 +823,7 @@
   delay: 1
   collisionMask: InteractImpassable
   rules:
-    - CanBuildOnEmptyTile
+  - CanBuildOnEmptyTile
   fx: EffectRCDConstruct1
 
 - type: rcd
@@ -839,7 +837,7 @@
   delay: 1
   collisionMask: InteractImpassable
   rules:
-    - CanBuildOnEmptyTile
+  - CanBuildOnEmptyTile
   fx: EffectRCDConstruct1
 
 - type: rcd
@@ -853,5 +851,5 @@
   delay: 1
   collisionMask: InteractImpassable
   rules:
-    - CanBuildOnEmptyTile
+  - CanBuildOnEmptyTile
   fx: EffectRCDConstruct1

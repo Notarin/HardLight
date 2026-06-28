@@ -1,5 +1,5 @@
-using Content.Server.Atmos.EntitySystems;
 using Content.Server.Anomaly.Components;
+using Content.Server.Atmos.EntitySystems;
 using Content.Shared.Anomaly.Components;
 using Robust.Server.GameObjects;
 
@@ -10,8 +10,11 @@ namespace Content.Server.Anomaly.Effects;
 /// </summary>
 public sealed class TempAffectingAnomalySystem : EntitySystem
 {
-    [Dependency] private readonly AtmosphereSystem _atmosphere = default!;
-    [Dependency] private readonly TransformSystem _xform = default!;
+    [Dependency]
+    private readonly AtmosphereSystem _atmosphere = default!;
+
+    [Dependency]
+    private readonly TransformSystem _xform = default!;
 
     public override void Update(float frameTime)
     {
@@ -32,7 +35,14 @@ public sealed class TempAffectingAnomalySystem : EntitySystem
 
             if (grid != null && anom.Severity > comp.AnomalyHotSpotThreshold)
             {
-                _atmosphere.HotspotExpose(grid.Value, indices, comp.HotspotExposeTemperature, comp.HotspotExposeVolume, ent, true);
+                _atmosphere.HotspotExpose(
+                    grid.Value,
+                    indices,
+                    comp.HotspotExposeTemperature,
+                    comp.HotspotExposeVolume,
+                    ent,
+                    true
+                );
             }
         }
     }

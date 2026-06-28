@@ -1,5 +1,5 @@
-using Content.Server.Power.Components;
 using Content.Server.NodeContainer.EntitySystems; // HardLight
+using Content.Server.Power.Components;
 using Content.Server.Power.Nodes; // HardLight
 using Content.Shared.NodeContainer; // HardLight
 using Content.Shared.Power;
@@ -11,16 +11,15 @@ namespace Content.Server.Power.EntitySystems;
 /// </summary>
 public sealed class SubstationStartupSystem : EntitySystem
 {
-    [Dependency] private readonly BatterySystem _batterySystem = default!;
-    [Dependency] private readonly NodeGroupSystem _nodeGroup = default!; // HardLight
+    [Dependency]
+    private readonly BatterySystem _batterySystem = default!;
+
+    [Dependency]
+    private readonly NodeGroupSystem _nodeGroup = default!; // HardLight
 
     private readonly HashSet<EntityUid> _pendingNetRebind = new(); // HardLight
 
-    private static readonly HashSet<string> FullChargeSubstations = new()
-    {
-        "SubstationBasic",
-        "SubstationWallBasic"
-    };
+    private static readonly HashSet<string> FullChargeSubstations = new() { "SubstationBasic", "SubstationWallBasic" };
 
     public override void Initialize()
     {

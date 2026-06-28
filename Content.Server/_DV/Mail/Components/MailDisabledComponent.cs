@@ -1,6 +1,5 @@
 namespace Content.Server._DV.Mail.Components
 {
     [RegisterComponent]
-    public sealed partial class MailDisabledComponent : Component
-    {}
+    public sealed partial class MailDisabledComponent : Component { }
 }

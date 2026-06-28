@@ -10,8 +10,8 @@
       amount: 5
       catalyst: true
   effects:
-    - !type:CreateEntityReactionEffect
-      entity: FoodCheese
+  - !type:CreateEntityReactionEffect
+    entity: FoodCheese
 
 - type: reaction
   id: ChevreCurdling
@@ -25,8 +25,8 @@
       amount: 5
       catalyst: true
   effects:
-    - !type:CreateEntityReactionEffect
-      entity: FoodChevre
+  - !type:CreateEntityReactionEffect
+    entity: FoodChevre
 
 - type: reaction
   id: CreateDough
@@ -39,8 +39,8 @@
     Water:
       amount: 10
   effects:
-    - !type:CreateEntityReactionEffect
-      entity: FoodDough
+  - !type:CreateEntityReactionEffect
+    entity: FoodDough
 
 - type: reaction
   id: CreateCornmealDough
@@ -55,8 +55,8 @@
     Egg:
       amount: 6
   effects:
-    - !type:CreateEntityReactionEffect
-      entity: FoodDoughCornmeal
+  - !type:CreateEntityReactionEffect
+    entity: FoodDoughCornmeal
 
 - type: reaction
   id: CreateTortillaDough
@@ -69,8 +69,8 @@
     Water:
       amount: 10
   effects:
-    - !type:CreateEntityReactionEffect
-      entity: FoodDoughTortilla
+  - !type:CreateEntityReactionEffect
+    entity: FoodDoughTortilla
 
 - type: reaction
   id: CreateDoughCotton
@@ -103,8 +103,8 @@
     Milk:
       amount: 5
   effects:
-    - !type:CreateEntityReactionEffect
-      entity: FoodCakeBatter
+  - !type:CreateEntityReactionEffect
+    entity: FoodCakeBatter
 
 - type: reaction
   id: CreateButter
@@ -118,8 +118,8 @@
       amount: 5
       catalyst: true
   effects:
-    - !type:CreateEntityReactionEffect
-      entity: FoodButter
+  - !type:CreateEntityReactionEffect
+    entity: FoodButter
 
 - type: reaction
   id: CreatePieDough
@@ -134,8 +134,8 @@
     TableSalt:
       amount: 5
   effects:
-    - !type:CreateEntityReactionEffect
-      entity: FoodDoughPie
+  - !type:CreateEntityReactionEffect
+    entity: FoodDoughPie
 
 # TG has a cake recipe that uses soy milk instead of eggs.
 # but afaik it spawns the exact same cake batter entity.
@@ -153,8 +153,8 @@
     Sugar:
       amount: 5
   effects:
-    - !type:CreateEntityReactionEffect
-      entity: FoodCakeBatter
+  - !type:CreateEntityReactionEffect
+    entity: FoodCakeBatter
 
 - type: reaction
   id: CreateTofu
@@ -168,8 +168,8 @@
       amount: 5
       catalyst: true
   effects:
-    - !type:CreateEntityReactionEffect
-      entity: FoodTofu
+  - !type:CreateEntityReactionEffect
+    entity: FoodTofu
 
 - type: reaction
   id: CreateMeatball
@@ -184,8 +184,8 @@
     Egg:
       amount: 6
   effects:
-    - !type:CreateEntityReactionEffect
-      entity: FoodMeatMeatball
+  - !type:CreateEntityReactionEffect
+    entity: FoodMeatMeatball
 
 - type: reaction
   id: CreateChocolate
@@ -200,8 +200,8 @@
     Sugar:
       amount: 2
   effects:
-    - !type:CreateEntityReactionEffect
-      entity: FoodSnackChocolateBar
+  - !type:CreateEntityReactionEffect
+    entity: FoodSnackChocolateBar
 
 # Condiments
 
@@ -452,7 +452,7 @@
   requiredMixerCategories:
   - Shake
   reactants:
-   Milk:
-    amount: 2
+    Milk:
+      amount: 2
   products:
-   Cream: 1
+    Cream: 1

@@ -1,8 +1,8 @@
 using Content.Shared.Mind;
 using Content.Shared.Objectives;
 using Content.Shared.Objectives.Systems;
-using Robust.Shared.Utility;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Utility;
 
 namespace Content.Shared.Objectives.Components;
 
@@ -64,7 +64,12 @@ public record struct ObjectiveAssignedEvent(EntityUid MindId, MindComponent Mind
 /// Use this to set the objective's title description or icon.
 /// </summary>
 [ByRefEvent]
-public record struct ObjectiveAfterAssignEvent(EntityUid MindId, MindComponent Mind, ObjectiveComponent Objective, MetaDataComponent Meta);
+public record struct ObjectiveAfterAssignEvent(
+    EntityUid MindId,
+    MindComponent Mind,
+    ObjectiveComponent Objective,
+    MetaDataComponent Meta
+);
 
 /// <summary>
 /// Event raised on an objective to update the Progress field.

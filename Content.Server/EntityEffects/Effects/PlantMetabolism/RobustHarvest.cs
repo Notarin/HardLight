@@ -22,11 +22,13 @@ public sealed partial class RobustHarvest : EntityEffect
 
     public override void Effect(EntityEffectBaseArgs args)
     {
-        if (!args.EntityManager.TryGetComponent(args.TargetEntity, out PlantHolderComponent? plantHolderComp)
-                                || plantHolderComp.Seed == null || plantHolderComp.Dead ||
-                                plantHolderComp.Seed.Immutable)
+        if (
+            !args.EntityManager.TryGetComponent(args.TargetEntity, out PlantHolderComponent? plantHolderComp)
+            || plantHolderComp.Seed == null
+            || plantHolderComp.Dead
+            || plantHolderComp.Seed.Immutable
+        )
             return;
-
 
         var plantHolder = args.EntityManager.System<PlantHolderSystem>();
         var random = IoCManager.Resolve<IRobustRandom>();
@@ -49,5 +51,12 @@ public sealed partial class RobustHarvest : EntityEffect
         }
     }
 
-    protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys) => Loc.GetString("reagent-effect-guidebook-plant-robust-harvest", ("seedlesstreshold", PotencySeedlessThreshold), ("limit", PotencyLimit), ("increase", PotencyIncrease), ("chance", Probability));
+    protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys) =>
+        Loc.GetString(
+            "reagent-effect-guidebook-plant-robust-harvest",
+            ("seedlesstreshold", PotencySeedlessThreshold),
+            ("limit", PotencyLimit),
+            ("increase", PotencyIncrease),
+            ("chance", Probability)
+        );
 }

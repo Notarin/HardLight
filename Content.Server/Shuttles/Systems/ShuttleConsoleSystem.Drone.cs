@@ -12,10 +12,7 @@ public sealed partial class ShuttleConsoleSystem
     /// </summary>
     public EntityUid? GetDroneConsole(EntityUid consoleUid)
     {
-        var getShuttleEv = new ConsoleShuttleEvent
-        {
-            Console = consoleUid,
-        };
+        var getShuttleEv = new ConsoleShuttleEvent { Console = consoleUid };
 
         RaiseLocalEvent(consoleUid, ref getShuttleEv);
         return getShuttleEv.Console;
@@ -34,7 +31,11 @@ public sealed partial class ShuttleConsoleSystem
         }
     }
 
-    private void OnDronePilotConsoleOpen(EntityUid uid, DroneConsoleComponent component, AfterActivatableUIOpenEvent args)
+    private void OnDronePilotConsoleOpen(
+        EntityUid uid,
+        DroneConsoleComponent component,
+        AfterActivatableUIOpenEvent args
+    )
     {
         component.Entity = GetShuttleConsole(uid);
     }

@@ -18,4 +18,3 @@ public sealed partial class PredictedProjectileServerComponent : Component
     [DataField]
     public bool Hit;
 }
-

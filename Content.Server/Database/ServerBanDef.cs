@@ -4,7 +4,6 @@ using Content.Shared.Database;
 using Robust.Shared.Configuration;
 using Robust.Shared.Network;
 
-
 namespace Content.Server.Database
 {
     public sealed class ServerBanDef
@@ -24,7 +23,8 @@ namespace Content.Server.Database
         public ServerUnbanDef? Unban { get; }
         public ServerBanExemptFlags ExemptFlags { get; }
 
-        public ServerBanDef(int? id,
+        public ServerBanDef(
+            int? id,
             NetUserId? userId,
             (IPAddress, int)? address,
             TypedHwid? hwId,
@@ -36,14 +36,15 @@ namespace Content.Server.Database
             NoteSeverity severity,
             NetUserId? banningAdmin,
             ServerUnbanDef? unban,
-            ServerBanExemptFlags exemptFlags = default)
+            ServerBanExemptFlags exemptFlags = default
+        )
         {
-            if (userId == null && address == null && hwId ==  null)
+            if (userId == null && address == null && hwId == null)
             {
                 throw new ArgumentException("Must have at least one of banned user, banned address or hardware ID");
             }
 
-            if (address is {} addr && addr.Item1.IsIPv4MappedToIPv6)
+            if (address is { } addr && addr.Item1.IsIPv4MappedToIPv6)
             {
                 // Fix IPv6-mapped IPv4 addresses
                 // So that IPv4 addresses are consistent between separate-socket and dual-stack socket modes.
@@ -72,7 +73,11 @@ namespace Content.Server.Database
             {
                 var duration = expireTime - BanTime;
                 var utc = expireTime.ToUniversalTime();
-                expires = loc.GetString("ban-expires", ("duration", duration.TotalMinutes.ToString("N0")), ("time", utc.ToString("f")));
+                expires = loc.GetString(
+                    "ban-expires",
+                    ("duration", duration.TotalMinutes.ToString("N0")),
+                    ("time", utc.ToString("f"))
+                );
             }
             else
             {
@@ -83,12 +88,12 @@ namespace Content.Server.Database
             }
 
             return $"""
-                   {loc.GetString("ban-banned-1")}
-                   {loc.GetString("ban-banned-2", ("reason", Reason))}
-                   {expires}
-                   {loc.GetString("ban-banned-3")}
-                   {loc.GetString("ban-banned-4")}
-                   """;
+                {loc.GetString("ban-banned-1")}
+                {loc.GetString("ban-banned-2", ("reason", Reason))}
+                {expires}
+                {loc.GetString("ban-banned-3")}
+                {loc.GetString("ban-banned-4")}
+                """;
         }
     }
 }

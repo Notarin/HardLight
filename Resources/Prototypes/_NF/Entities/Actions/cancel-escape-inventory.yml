@@ -2,9 +2,9 @@
   id: ActionCancelEscape
   name: Stop escaping
   description: Calm down and sit peacefuly in your carrier's inventory
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: InstantAction
-    icon: { sprite: _NF/Actions/escapeinventory.rsi, state: cancel-escape }
+    icon: {sprite: _NF/Actions/escapeinventory.rsi, state: cancel-escape}
     event: !type:EscapeInventoryCancelActionEvent
     useDelay: 2

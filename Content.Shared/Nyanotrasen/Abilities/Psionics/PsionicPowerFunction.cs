@@ -23,7 +23,8 @@ public abstract partial class PsionicPowerFunction : Robust.Shared.Serialization
         ISharedPlayerManager playerManager,
         ILocalizationManager loc,
         PsionicComponent psionicComponent,
-        PsionicPowerPrototype proto);
+        PsionicPowerPrototype proto
+    );
 
     /// <summary>
     /// Called when a psionic power is removed from an entity
@@ -36,7 +37,8 @@ public abstract partial class PsionicPowerFunction : Robust.Shared.Serialization
         ISharedPlayerManager playerManager,
         ILocalizationManager loc,
         PsionicComponent psionicComponent,
-        PsionicPowerPrototype proto)
+        PsionicPowerPrototype proto
+    )
     {
         // Base implementation - do nothing
     }

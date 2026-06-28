@@ -1,6 +1,6 @@
-using Content.Shared.Inventory;
 using Content.Shared.Chemistry.Reagent;
 using Content.Shared.EntityEffects;
+using Content.Shared.Inventory;
 using Robust.Shared.Prototypes;
 
 namespace Content.Server.EntityEffects.Effects.Effects;
@@ -30,7 +30,8 @@ public sealed partial class WearableReaction : EntityEffect
     [DataField(required: true)]
     public string PrototypeID;
 
-    protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys) => null;
+    protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys) =>
+        null;
 
     public override void Effect(EntityEffectBaseArgs args)
     {

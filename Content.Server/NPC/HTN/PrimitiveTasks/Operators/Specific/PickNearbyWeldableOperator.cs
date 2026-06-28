@@ -12,14 +12,18 @@ namespace Content.Server.NPC.HTN.PrimitiveTasks.Operators.Specific;
 
 public sealed partial class PickNearbyWeldableOperator : HTNOperator
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
     private EntityLookupSystem _lookup = default!;
     private WeldbotSystem _weldbot = default!;
     private PathfindingSystem _pathfinding = default!;
     private TagSystem _tagSystem = default!;
 
-    [DataField] public string RangeKey = NPCBlackboard.WeldbotWeldRange;
+    [DataField]
+    public string RangeKey = NPCBlackboard.WeldbotWeldRange;
 
     /// <summary>
     /// Target entity to weld
@@ -42,12 +46,17 @@ public sealed partial class PickNearbyWeldableOperator : HTNOperator
         _tagSystem = sysManager.GetEntitySystem<TagSystem>();
     }
 
-    public override async Task<(bool Valid, Dictionary<string, object>? Effects)> Plan(NPCBlackboard blackboard,
-        CancellationToken cancelToken)
+    public override async Task<(bool Valid, Dictionary<string, object>? Effects)> Plan(
+        NPCBlackboard blackboard,
+        CancellationToken cancelToken
+    )
     {
         var owner = blackboard.GetValue<EntityUid>(NPCBlackboard.Owner);
 
-        if (!blackboard.TryGetValue<float>(RangeKey, out var range, _entManager) || !_entManager.TryGetComponent<WeldbotComponent>(owner, out var weldbot))
+        if (
+            !blackboard.TryGetValue<float>(RangeKey, out var range, _entManager)
+            || !_entManager.TryGetComponent<WeldbotComponent>(owner, out var weldbot)
+        )
             return (false, null);
 
         var damageQuery = _entManager.GetEntityQuery<DamageableComponent>();
@@ -59,15 +68,20 @@ public sealed partial class PickNearbyWeldableOperator : HTNOperator
                 continue;
 
             var tagSiliconMobPrototype = _prototypeManager.Index<TagPrototype>(WeldbotWeldOperator.SiliconTag);
-            var tagWeldFixableStructurePrototype = _prototypeManager.Index<TagPrototype>(WeldbotWeldOperator.WeldotFixableStructureTag);
+            var tagWeldFixableStructurePrototype = _prototypeManager.Index<TagPrototype>(
+                WeldbotWeldOperator.WeldotFixableStructureTag
+            );
 
             if (!_entManager.TryGetComponent<TagComponent>(target, out var tagComponent))
                 continue;
 
-            var canWeldSiliconMob = _tagSystem.HasTag(tagComponent, tagSiliconMobPrototype) && (emagged || damage.DamagePerGroup["Brute"].Value > 0);
-            var canWeldStructure = _tagSystem.HasTag(tagComponent, tagWeldFixableStructurePrototype) && damage.TotalDamage.Value > 0;
+            var canWeldSiliconMob =
+                _tagSystem.HasTag(tagComponent, tagSiliconMobPrototype)
+                && (emagged || damage.DamagePerGroup["Brute"].Value > 0);
+            var canWeldStructure =
+                _tagSystem.HasTag(tagComponent, tagWeldFixableStructurePrototype) && damage.TotalDamage.Value > 0;
 
-            if(!canWeldSiliconMob && !canWeldStructure)
+            if (!canWeldSiliconMob && !canWeldStructure)
                 continue;
 
             var pathRange = SharedInteractionSystem.InteractionRange;
@@ -81,12 +95,15 @@ public sealed partial class PickNearbyWeldableOperator : HTNOperator
             if (path.Result == PathResult.NoPath)
                 continue;
 
-            return (true, new Dictionary<string, object>()
-            {
-                {TargetKey, target},
-                {TargetMoveKey, _entManager.GetComponent<TransformComponent>(target).Coordinates},
-                {NPCBlackboard.PathfindKey, path},
-            });
+            return (
+                true,
+                new Dictionary<string, object>()
+                {
+                    { TargetKey, target },
+                    { TargetMoveKey, _entManager.GetComponent<TransformComponent>(target).Coordinates },
+                    { NPCBlackboard.PathfindKey, path },
+                }
+            );
         }
 
         return (false, null);

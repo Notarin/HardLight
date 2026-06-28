@@ -3,8 +3,8 @@
   id: TableStashVariety
   table: !type:GroupSelector
     children:
-    # Normal
     - !type:GroupSelector
+      # Normal
       weight: 98
       children:
       - id: DuffelBlackStashValuables
@@ -16,8 +16,8 @@
       - id: DuffelBrownLightStashValuables
       - id: DuffelBrownStashValuables
       - id: DuffelWhiteStashValuables
-    # Contraband
     - !type:GroupSelector
+      # Contraband
       weight: 2
       children:
       - id: DuffelTraumaStashDrinks
@@ -36,14 +36,14 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-        scale: 0.7, 0.7
-      - sprite: Clothing/Back/Duffels/cargo.rsi
-        scale: 0.7, 0.7
-        state: icon
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: red
+    - state: green
+      scale: 0.7, 0.7
+    - sprite: Clothing/Back/Duffels/cargo.rsi
+      scale: 0.7, 0.7
+      state: icon
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: red
   - type: EntityTableSpawner
     offset: 0.0
     table: !type:NestedSelector

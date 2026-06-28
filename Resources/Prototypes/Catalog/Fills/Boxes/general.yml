@@ -25,14 +25,14 @@
   id: BoxMousetrap
   description: This box is filled with mousetraps. Try not to get your hand stuck in one.
   components:
-    - type: StorageFill
-      contents:
-        - id: Mousetrap
-          amount: 4
-    - type: Sprite
-      layers:
-        - state: box
-        - state: mousetraps
+  - type: StorageFill
+    contents:
+    - id: Mousetrap
+      amount: 4
+  - type: Sprite
+    layers:
+    - state: box
+    - state: mousetraps
 
 - type: entity
   name: lightbulb box
@@ -42,8 +42,8 @@
   components:
   - type: Sprite
     layers:
-      - state: box
-      - state: light
+    - state: box
+    - state: light
   - type: Storage
     grid:
     - 0,0,5,3
@@ -52,8 +52,8 @@
       - LightBulb
   - type: StorageFill
     contents:
-      - id: LightBulb
-        amount: 12
+    - id: LightBulb
+      amount: 12
 
 - type: entity
   name: warm lightbulb box # Frontier: "warm" to beginning
@@ -62,8 +62,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: WarmLightBulb
-        amount: 12
+    - id: WarmLightBulb
+      amount: 12
 
 - type: entity
   name: lighttube box
@@ -72,12 +72,12 @@
   components:
   - type: Sprite
     layers:
-      - state: box
-      - state: lighttube
+    - state: box
+    - state: lighttube
   - type: StorageFill
     contents:
-      - id: LightTube
-        amount: 12
+    - id: LightTube
+      amount: 12
 
 - type: entity
   name: mixed lights box
@@ -86,14 +86,14 @@
   components:
   - type: Sprite
     layers:
-      - state: box
-      - state: lightmixed
+    - state: box
+    - state: lightmixed
   - type: StorageFill
     contents:
-      - id: LightTube
-        amount: 6
-      - id: LightBulb
-        amount: 6
+    - id: LightTube
+      amount: 6
+    - id: LightBulb
+      amount: 6
 
 - type: entity
   name: holiday lighttube box
@@ -102,18 +102,18 @@
   components:
   - type: StorageFill
     contents:
-      - id: LightTubeCrystalRed # Its alternating on purpose for the light replacer.
-      - id: LightTubeCrystalGreen
-      - id: LightTubeCrystalRed
-      - id: LightTubeCrystalGreen
-      - id: LightTubeCrystalRed
-      - id: LightTubeCrystalGreen
-      - id: LightTubeCrystalRed
-      - id: LightTubeCrystalGreen
-      - id: LightTubeCrystalRed
-      - id: LightTubeCrystalGreen
-      - id: LightTubeCrystalRed
-      - id: LightTubeCrystalGreen
+    - id: LightTubeCrystalRed # Its alternating on purpose for the light replacer.
+    - id: LightTubeCrystalGreen
+    - id: LightTubeCrystalRed
+    - id: LightTubeCrystalGreen
+    - id: LightTubeCrystalRed
+    - id: LightTubeCrystalGreen
+    - id: LightTubeCrystalRed
+    - id: LightTubeCrystalGreen
+    - id: LightTubeCrystalRed
+    - id: LightTubeCrystalGreen
+    - id: LightTubeCrystalRed
+    - id: LightTubeCrystalGreen
 
 - type: entity
   name: PDA box
@@ -123,12 +123,12 @@
   components:
   - type: StorageFill
     contents:
-      - id: PassengerPDA
-        amount: 4
+    - id: PassengerPDA
+      amount: 4
   - type: Sprite
     layers:
-      - state: box
-      - state: pda
+    - state: box
+    - state: pda
 
 - type: entity
   name: ID card box
@@ -138,12 +138,12 @@
   components:
   - type: StorageFill
     contents:
-      - id: PassengerIDCard
-        amount: 4
+    - id: PassengerIDCard
+      amount: 4
   - type: Sprite
     layers:
-      - state: box
-      - state: pda
+    - state: box
+    - state: pda
 
 - type: entity
   name: headset box
@@ -153,12 +153,12 @@
   components:
   - type: StorageFill
     contents:
-      - id: ClothingHeadsetGrey
-        amount: 4
+    - id: ClothingHeadsetGrey
+      amount: 4
   - type: Sprite
     layers:
-      - state: box
-      - state: headset
+    - state: box
+    - state: headset
 
 - type: entity
   name: meson box
@@ -168,12 +168,12 @@
   components:
   - type: StorageFill
     contents:
-      - id: ClothingEyesGlassesMeson
-        amount: 4
+    - id: ClothingEyesGlassesMeson
+      amount: 4
   - type: Sprite
     layers:
-      - state: box
-      - state: meson
+    - state: box
+    - state: meson
 
 - type: entity
   name: M.R.E.
@@ -183,14 +183,14 @@
   components:
   - type: StorageFill
     contents:
-      - id: DrinkMREFlask
-      - id: FoodSnackNutribrick
-      - id: FoodSnackMREBrownie
-      - id: FoodCondimentPacketKetchup
+    - id: DrinkMREFlask
+    - id: FoodSnackNutribrick
+    - id: FoodSnackMREBrownie
+    - id: FoodCondimentPacketKetchup
   - type: Sprite
     layers:
-      - state: box
-      - state: writing
+    - state: box
+    - state: writing
   - type: NFIngredient # Frontier: I suppose
 
 - type: entity
@@ -200,8 +200,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: Brutepack
-        amount: 3
+    - id: Brutepack
+      amount: 3
 
 - type: entity
   name: inflatable wall box
@@ -211,15 +211,14 @@
   components:
   - type: StorageFill
     contents:
-        - id: NFInflatableWallStack # Frontier: InflatableWallStack<NFInflatableWallStack
-          amount: 2
-        - id: NFInflatableDoorStack # Frontier: InflatableDoorStack<NFInflatableDoorStack
-          amount: 2
+    - id: NFInflatableWallStack # Frontier: InflatableWallStack<NFInflatableWallStack
+      amount: 2
+    - id: NFInflatableDoorStack # Frontier: InflatableDoorStack<NFInflatableDoorStack
+      amount: 2
   - type: Sprite
     layers:
-      - state: box
-      - state: inflatable
-
+    - state: box
+    - state: inflatable
 
 - type: entity
   name: hatsune miku day bag
@@ -229,11 +228,11 @@
   components:
   - type: StorageFill
     contents:
-      - id: ClothingShoesBootsPerformer
-      - id: ClothingUniformJumpskirtPerformer
-      - id: ClothingHeadPerformerWig
-      - id: FoodMealMemoryleek
-        amount: 2
+    - id: ClothingShoesBootsPerformer
+    - id: ClothingUniformJumpskirtPerformer
+    - id: ClothingHeadPerformerWig
+    - id: FoodMealMemoryleek
+      amount: 2
 
 - type: entity
   name: flare box
@@ -243,12 +242,12 @@
   components:
   - type: StorageFill
     contents:
-      - id: Flare
-        amount: 6
+    - id: Flare
+      amount: 6
   - type: Sprite
     layers:
-      - state: box
-      - state: flare
+    - state: box
+    - state: flare
 
 - type: entity
   name: trashbag box
@@ -258,19 +257,19 @@
   components:
   - type: StorageFill
     contents:
-      - id: TrashBag
-        amount: 6
+    - id: TrashBag
+      amount: 6
   - type: Storage
     grid:
     - 0,0,5,3
     maxItemSize: Large
     whitelist:
       tags:
-        - TrashBag
+      - TrashBag
   - type: Sprite
     layers:
-      - state: box
-      - state: trashbag
+    - state: box
+    - state: trashbag
 
 - type: entity
   name: passenger encryption key box
@@ -280,12 +279,12 @@
   components:
   - type: StorageFill
     contents:
-      - id: EncryptionKeyCommon
-        amount: 4
+    - id: EncryptionKeyCommon
+      amount: 4
   - type: Sprite
     layers:
-      - state: box
-      - state: encryptokey
+    - state: box
+    - state: encryptokey
   - type: Storage
     whitelist:
       components:
@@ -298,8 +297,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: EncryptionKeyCargo
-        amount: 4
+    - id: EncryptionKeyCargo
+      amount: 4
 
 - type: entity
   name: engineering encryption key box
@@ -308,8 +307,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: EncryptionKeyEngineering
-        amount: 4
+    - id: EncryptionKeyEngineering
+      amount: 4
 
 - type: entity
   name: med-sci encryption key box
@@ -318,8 +317,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: EncryptionKeyMedicalScience
-        amount: 4
+    - id: EncryptionKeyMedicalScience
+      amount: 4
 
 - type: entity
   name: medical encryption key box
@@ -328,8 +327,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: EncryptionKeyMedical
-        amount: 4
+    - id: EncryptionKeyMedical
+      amount: 4
 
 - type: entity
   name: robotech encryption key box
@@ -338,8 +337,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: EncryptionKeyRobo
-        amount: 4
+    - id: EncryptionKeyRobo
+      amount: 4
 
 - type: entity
   name: science encryption key box
@@ -348,8 +347,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: EncryptionKeyScience
-        amount: 4
+    - id: EncryptionKeyScience
+      amount: 4
 
 - type: entity
   name: Security encryption key box
@@ -358,8 +357,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: EncryptionKeySecurity
-        amount: 4
+    - id: EncryptionKeySecurity
+      amount: 4
 
 - type: entity
   name: service encryption key box
@@ -368,8 +367,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: EncryptionKeyService
-        amount: 4
+    - id: EncryptionKeyService
+      amount: 4
 
 - type: entity
   name: syndicate encryption key box
@@ -381,8 +380,8 @@
     size: Normal
   - type: StorageFill
     contents:
-      - id: EncryptionKeySyndie
-        amount: 2
+    - id: EncryptionKeySyndie
+      amount: 2
   - type: Storage
 
 - type: entity
@@ -405,8 +404,8 @@
   components:
   - type: Sprite
     layers:
-      - state: box
-      - state: candle
+    - state: box
+    - state: candle
   - type: Storage
     grid:
     - 0,0,5,3
@@ -415,16 +414,16 @@
       - Candle
   - type: StorageFill
     contents:
-      - id: Candle
-        amount: 4
-      - id: CandleBlue
-        amount: 2
-      - id: CandleRed
-        amount: 2
-      - id: CandleGreen
-        amount: 2
-      - id: CandlePurple
-        amount: 2
+    - id: Candle
+      amount: 4
+    - id: CandleBlue
+      amount: 2
+    - id: CandleRed
+      amount: 2
+    - id: CandleGreen
+      amount: 2
+    - id: CandlePurple
+      amount: 2
 
 - type: entity
   name: small candle box
@@ -433,16 +432,16 @@
   components:
   - type: StorageFill
     contents:
-      - id: CandleSmall
-        amount: 8
-      - id: CandleBlueSmall
-        amount: 4
-      - id: CandleRedSmall
-        amount: 4
-      - id: CandleGreenSmall
-        amount: 4
-      - id: CandlePurpleSmall
-        amount: 4
+    - id: CandleSmall
+      amount: 8
+    - id: CandleBlueSmall
+      amount: 4
+    - id: CandleRedSmall
+      amount: 4
+    - id: CandleGreenSmall
+      amount: 4
+    - id: CandlePurpleSmall
+      amount: 4
 
 - type: entity
   name: darts box
@@ -452,18 +451,18 @@
   components:
   - type: Sprite
     layers:
-      - state: box
-      - state: darts
+    - state: box
+    - state: darts
   - type: StorageFill
     contents:
-      - id: Dart
-        amount: 2
-      - id: DartBlue
-        amount: 2
-      - id: DartPurple
-        amount: 2
-      - id: DartYellow
-        amount: 2
+    - id: Dart
+      amount: 2
+    - id: DartBlue
+      amount: 2
+    - id: DartPurple
+      amount: 2
+    - id: DartYellow
+      amount: 2
 
 - type: entity
   name: envelope box
@@ -473,9 +472,9 @@
   components:
   - type: Sprite
     layers:
-      - state: box
-      - state: envelope
+    - state: box
+    - state: envelope
   - type: StorageFill
     contents:
-      - id: Envelope
-        amount: 9
+    - id: Envelope
+      amount: 9

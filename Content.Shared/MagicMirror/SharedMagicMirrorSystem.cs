@@ -9,8 +9,11 @@ namespace Content.Shared.MagicMirror;
 
 public abstract class SharedMagicMirrorSystem : EntitySystem
 {
-    [Dependency] private readonly SharedInteractionSystem _interaction = default!;
-    [Dependency] protected readonly SharedUserInterfaceSystem UISystem = default!;
+    [Dependency]
+    private readonly SharedInteractionSystem _interaction = default!;
+
+    [Dependency]
+    protected readonly SharedUserInterfaceSystem UISystem = default!;
 
     public override void Initialize()
     {
@@ -30,7 +33,11 @@ public abstract class SharedMagicMirrorSystem : EntitySystem
         UISystem.TryOpenUi(mirror.Owner, MagicMirrorUiKey.Key, args.User);
     }
 
-    private void OnMirrorRangeCheck(EntityUid uid, MagicMirrorComponent component, ref BoundUserInterfaceCheckRangeEvent args)
+    private void OnMirrorRangeCheck(
+        EntityUid uid,
+        MagicMirrorComponent component,
+        ref BoundUserInterfaceCheckRangeEvent args
+    )
     {
         if (args.Result == BoundUserInterfaceRangeResult.Fail)
             return;
@@ -79,7 +86,8 @@ public abstract class SharedMagicMirrorSystem : EntitySystem
             hair,
             humanoid.MarkingSet.PointsLeft(MarkingCategories.Hair) + hair.Count,
             facialHair,
-            humanoid.MarkingSet.PointsLeft(MarkingCategories.FacialHair) + facialHair.Count);
+            humanoid.MarkingSet.PointsLeft(MarkingCategories.FacialHair) + facialHair.Count
+        );
 
         // TODO: Component states
         component.Target = targetUid;
@@ -91,14 +99,14 @@ public abstract class SharedMagicMirrorSystem : EntitySystem
 [Serializable, NetSerializable]
 public enum MagicMirrorUiKey : byte
 {
-    Key
+    Key,
 }
 
 [Serializable, NetSerializable]
 public enum MagicMirrorCategory : byte
 {
     Hair,
-    FacialHair
+    FacialHair,
 }
 
 [Serializable, NetSerializable]
@@ -171,7 +179,13 @@ public sealed class MagicMirrorAddSlotMessage : BoundUserInterfaceMessage
 [Serializable, NetSerializable]
 public sealed class MagicMirrorUiState : BoundUserInterfaceState
 {
-    public MagicMirrorUiState(string species, List<Marking> hair, int hairSlotTotal, List<Marking> facialHair, int facialHairSlotTotal)
+    public MagicMirrorUiState(
+        string species,
+        List<Marking> hair,
+        int hairSlotTotal,
+        List<Marking> facialHair,
+        int facialHairSlotTotal
+    )
     {
         Species = species;
         Hair = hair;
@@ -195,6 +209,7 @@ public sealed class MagicMirrorUiState : BoundUserInterfaceState
 public sealed partial class MagicMirrorRemoveSlotDoAfterEvent : DoAfterEvent
 {
     public override DoAfterEvent Clone() => this;
+
     public MagicMirrorCategory Category;
     public int Slot;
 }
@@ -203,6 +218,7 @@ public sealed partial class MagicMirrorRemoveSlotDoAfterEvent : DoAfterEvent
 public sealed partial class MagicMirrorAddSlotDoAfterEvent : DoAfterEvent
 {
     public override DoAfterEvent Clone() => this;
+
     public MagicMirrorCategory Category;
 }
 
@@ -220,6 +236,7 @@ public sealed partial class MagicMirrorSelectDoAfterEvent : DoAfterEvent
 public sealed partial class MagicMirrorChangeColorDoAfterEvent : DoAfterEvent
 {
     public override DoAfterEvent Clone() => this;
+
     public MagicMirrorCategory Category;
     public int Slot;
     public List<Color> Colors = new List<Color>();

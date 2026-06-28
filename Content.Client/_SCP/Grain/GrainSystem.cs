@@ -8,8 +8,11 @@ namespace Content.Client._Scp.Grain;
 // TODO: Коммон оверлей систем
 public sealed class GrainOverlaySystem : EntitySystem
 {
-    [Dependency] private readonly IOverlayManager _overlayManager = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!; // Mono
+    [Dependency]
+    private readonly IOverlayManager _overlayManager = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!; // Mono
 
     private GrainOverlay _overlay = default!;
 
@@ -17,7 +20,7 @@ public sealed class GrainOverlaySystem : EntitySystem
     {
         base.Initialize();
 
-        _overlay = new ();
+        _overlay = new();
 
         SubscribeLocalEvent<LocalPlayerAttachedEvent>(OnPlayerAttached);
         SubscribeLocalEvent<LocalPlayerDetachedEvent>(OnPlayerDetached);
@@ -56,6 +59,7 @@ public sealed class GrainOverlaySystem : EntitySystem
         if (_overlayManager.HasOverlay<GrainOverlay>())
             _overlayManager.RemoveOverlay(_overlay); // Mono
     }
+
     // Mono start
     private void OnGrainCvarChanged(bool enabled)
     {

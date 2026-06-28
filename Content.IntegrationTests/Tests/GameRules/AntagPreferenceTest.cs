@@ -20,12 +20,14 @@ public sealed class AntagPreferenceTest
     [Ignore("Antag role selection isn't used on Frontier.")] // Frontier
     public async Task TestLobbyPlayersValid()
     {
-        await using var pair = await PoolManager.GetServerClient(new PoolSettings
-        {
-            DummyTicker = false,
-            Connected = true,
-            InLobby = true
-        });
+        await using var pair = await PoolManager.GetServerClient(
+            new PoolSettings
+            {
+                DummyTicker = false,
+                Connected = true,
+                InLobby = true,
+            }
+        );
 
         var server = pair.Server;
         var client = pair.Client;

@@ -21,10 +21,14 @@ public sealed partial class BotanySystem
             }
         }
 
-        if (!_solutionContainerSystem.EnsureSolution(uid,
+        if (
+            !_solutionContainerSystem.EnsureSolution(
+                uid,
                 produce.SolutionName,
                 out var solutionContainer,
-                FixedPoint2.Zero))
+                FixedPoint2.Zero
+            )
+        )
             return;
 
         solutionContainer.RemoveAllSolution();

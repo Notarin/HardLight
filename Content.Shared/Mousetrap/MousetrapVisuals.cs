@@ -7,5 +7,5 @@ public enum MousetrapVisuals : byte
 {
     Visual,
     Armed,
-    Unarmed
+    Unarmed,
 }

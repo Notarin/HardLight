@@ -30,12 +30,13 @@ public sealed partial class HitscanPrototype : IPrototype, IShootable
     public SpriteSpecifier? ImpactFlash;
 
     [DataField("collisionMask")]
-    public int CollisionMask = (int) (CollisionGroup.Opaque | CollisionGroup.HitscanImpassable);
+    public int CollisionMask = (int)(CollisionGroup.Opaque | CollisionGroup.HitscanImpassable);
 
     /// <summary>
     /// What we count as for reflection.
     /// </summary>
-    [DataField("reflective")] public ReflectType Reflective = ReflectType.Energy;
+    [DataField("reflective")]
+    public ReflectType Reflective = ReflectType.Energy;
 
     /// <summary>
     /// Sound that plays upon the thing being hit.

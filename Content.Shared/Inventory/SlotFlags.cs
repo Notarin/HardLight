@@ -31,5 +31,5 @@ public enum SlotFlags
     WALLET = 1 << 18, // Frontier: using an unused slot, redefine to a new bit if/when it's used (goodbye ushort)
     All = ~NONE,
 
-    WITHOUT_POCKET = All & ~POCKET
+    WITHOUT_POCKET = All & ~POCKET,
 }

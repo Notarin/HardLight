@@ -5,7 +5,8 @@ namespace Content.Client.Floofstation.Leash;
 
 public sealed class LeashVisualsSystem : EntitySystem
 {
-    [Dependency] private readonly IOverlayManager _overlay = default!;
+    [Dependency]
+    private readonly IOverlayManager _overlay = default!;
 
     public override void Initialize()
     {

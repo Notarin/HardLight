@@ -47,7 +47,7 @@ namespace Content.Server.Construction.Conditions
             {
                 Localization = IsLocked
                     ? "construction-step-condition-wire-panel-lock"
-                    : "construction-step-condition-wire-panel-unlock"
+                    : "construction-step-condition-wire-panel-unlock",
             };
         }
     }

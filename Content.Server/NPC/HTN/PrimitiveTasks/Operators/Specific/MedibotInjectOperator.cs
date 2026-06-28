@@ -1,11 +1,11 @@
 using Content.Server.Chat.Systems;
-using Content.Shared.NPC.Components;
 using Content.Shared.Chat; // For InGameICChatType
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Damage;
 using Content.Shared.Emag.Components;
 using Content.Shared.Interaction;
 using Content.Shared.Mobs.Components;
+using Content.Shared.NPC.Components;
 using Content.Shared.Popups;
 using Content.Shared.Silicons.Bots;
 using Robust.Shared.Audio.Systems;
@@ -14,7 +14,8 @@ namespace Content.Server.NPC.HTN.PrimitiveTasks.Operators.Specific;
 
 public sealed partial class MedibotInjectOperator : HTNOperator
 {
-    [Dependency] private readonly IEntityManager _entMan = default!;
+    [Dependency]
+    private readonly IEntityManager _entMan = default!;
     private ChatSystem _chat = default!;
     private MedibotSystem _medibot = default!;
     private SharedAudioSystem _audio = default!;
@@ -59,7 +60,13 @@ public sealed partial class MedibotInjectOperator : HTNOperator
         if (!_medibot.CheckInjectable((owner, botComp), target) || !_medibot.TryInject((owner, botComp), target))
             return HTNOperatorStatus.Failed;
 
-        _chat.TrySendInGameICMessage(owner, Loc.GetString("medibot-finish-inject"), InGameICChatType.Speak, hideChat: true, hideLog: true);
+        _chat.TrySendInGameICMessage(
+            owner,
+            Loc.GetString("medibot-finish-inject"),
+            InGameICChatType.Speak,
+            hideChat: true,
+            hideLog: true
+        );
 
         return HTNOperatorStatus.Finished;
     }

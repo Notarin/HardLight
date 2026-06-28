@@ -18,9 +18,15 @@ public sealed class SelfUnremovableClothingSystem : EntitySystem
         SubscribeLocalEvent<SelfUnremovableClothingComponent, ExaminedEvent>(OnUnequipMarkup);
     }
 
-    private void OnUnequip(Entity<SelfUnremovableClothingComponent> selfUnremovableClothing, ref BeingUnequippedAttemptEvent args)
+    private void OnUnequip(
+        Entity<SelfUnremovableClothingComponent> selfUnremovableClothing,
+        ref BeingUnequippedAttemptEvent args
+    )
     {
-        if (TryComp<ClothingComponent>(selfUnremovableClothing, out var clothing) && (clothing.Slots & args.SlotFlags) == SlotFlags.NONE)
+        if (
+            TryComp<ClothingComponent>(selfUnremovableClothing, out var clothing)
+            && (clothing.Slots & args.SlotFlags) == SlotFlags.NONE
+        )
             return;
 
         if (args.UnEquipTarget == args.Unequipee)
@@ -29,7 +35,10 @@ public sealed class SelfUnremovableClothingSystem : EntitySystem
         }
     }
 
-    private void OnUnequipMarkup(Entity<SelfUnremovableClothingComponent> selfUnremovableClothing, ref ExaminedEvent args)
+    private void OnUnequipMarkup(
+        Entity<SelfUnremovableClothingComponent> selfUnremovableClothing,
+        ref ExaminedEvent args
+    )
     {
         args.PushMarkup(Loc.GetString("comp-self-unremovable-clothing"));
     }

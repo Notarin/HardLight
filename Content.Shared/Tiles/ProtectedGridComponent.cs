@@ -1,5 +1,5 @@
-using Robust.Shared.GameStates;
 using Robust.Shared.Audio; // Frontier
+using Robust.Shared.GameStates;
 
 namespace Content.Shared.Tiles;
 
@@ -15,19 +15,26 @@ public sealed partial class ProtectedGridComponent : Component
     /// </summary>
     [DataField, AutoNetworkedField]
     public Dictionary<Vector2i, ulong> BaseIndices = new();
+
     // Frontier start: Define protection types.
     [DataField]
     public bool PreventFloorRemoval = false;
+
     [DataField]
     public bool PreventFloorPlacement = false;
+
     [DataField]
     public bool PreventRCDUse = false;
+
     [DataField]
     public bool PreventEmpEvents = false;
+
     [DataField]
     public bool PreventExplosions = false;
+
     [DataField]
     public bool PreventArtifactTriggers = false;
+
     [DataField]
     public bool KillHostileMobs = false;
 

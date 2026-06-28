@@ -10,7 +10,8 @@ public sealed class BatterySensorSystem : EntitySystem
 {
     public const string DeviceNetworkCommandSyncData = "bat_sync_data";
 
-    [Dependency] private readonly DeviceNetworkSystem _deviceNetwork = default!;
+    [Dependency]
+    private readonly DeviceNetworkSystem _deviceNetwork = default!;
 
     public override void Initialize()
     {
@@ -37,7 +38,8 @@ public sealed class BatterySensorSystem : EntitySystem
                         netBattery.CurrentReceiving,
                         netBattery.MaxChargeRate,
                         netBattery.CurrentSupply,
-                        netBattery.MaxSupply)
+                        netBattery.MaxSupply
+                    ),
                 };
 
                 _deviceNetwork.QueuePacket(uid, args.SenderAddress, payload);

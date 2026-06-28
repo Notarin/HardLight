@@ -1,7 +1,7 @@
 #region base
 - type: entity
   id: NFBaseWeaponFrameLightMachineGun
-  parent: [ NFBaseWeaponEncumbranceSniper, NFBaseItemWeaponGunMagazineFed ]
+  parent: [NFBaseWeaponEncumbranceSniper, NFBaseItemWeaponGunMagazineFed]
   suffix: Frontier
   abstract: true
   components:
@@ -27,7 +27,7 @@
 #region manufacturer
 - type: entity
   id: NFBaseWeaponFrameLightMachineGunGorlex
-  parent: [ BaseC3SyndicateContraband, NFBaseWeaponFrameLightMachineGun ]
+  parent: [BaseC3SyndicateContraband, NFBaseWeaponFrameLightMachineGun]
   abstract: true
   components:
   - type: Gun
@@ -63,14 +63,14 @@
         priority: 2
         whitelist:
           tags:
-            - NFMagazineBoxRifle30
+          - NFMagazineBoxRifle30
       gun_chamber:
         name: Chamber
         startingItem: NFCartridgeRifle30
         priority: 1
         whitelist:
           tags:
-            - NFCartridgeRifle30
+          - NFCartridgeRifle30
   - type: ContainerContainer
     containers:
       gun_magazine: !type:ContainerSlot

@@ -22,7 +22,10 @@ public sealed partial class UpgradePowerDrawComponent : Component
     /// <summary>
     /// The machine part that affects the power draw.
     /// </summary>
-    [DataField("machinePartPowerDraw", customTypeSerializer: typeof(PrototypeIdSerializer<MachinePartPrototype>)), ViewVariables(VVAccess.ReadWrite)]
+    [
+        DataField("machinePartPowerDraw", customTypeSerializer: typeof(PrototypeIdSerializer<MachinePartPrototype>)),
+        ViewVariables(VVAccess.ReadWrite)
+    ]
     public string MachinePartPowerDraw = "Capacitor";
 
     /// <summary>

@@ -42,17 +42,17 @@
     range: 200
   - type: DeviceLinkSink
     ports:
-      - Reverse
-      - Forward
-      - Off
+    - Reverse
+    - Forward
+    - Off
   - type: Appearance
   - type: GenericVisualizer
     visuals:
       enum.ConveyorVisuals.State:
         enum.ConveyorState.Off:
-          Off: { state: conveyor_stopped_cw }
-          Forward: { state: conveyor_started_cw }
-          Reverse: { state: conveyor_started_cw_r }
+          Off: {state: conveyor_stopped_cw}
+          Forward: {state: conveyor_started_cw}
+          Reverse: {state: conveyor_started_cw_r}
   - type: Construction
     graph: ConveyorGraph
     node: entity
@@ -61,13 +61,12 @@
     damageModifierSet: Metallic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 200
       behaviors:
-      # if ConveyorBeltAssembly becomes craftable, maybe spawn some of the ingredients?
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        # if ConveyorBeltAssembly becomes craftable, maybe spawn some of the ingredients?
+        acts: ["Destruction"]
   - type: SyncSprite # Frontier
 
 - type: entity

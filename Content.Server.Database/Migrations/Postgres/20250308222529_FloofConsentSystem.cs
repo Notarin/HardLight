@@ -16,25 +16,34 @@ namespace Content.Server.Database.Migrations.Postgres
                 name: "consent_settings",
                 columns: table => new
                 {
-                    consent_settings_id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    consent_settings_id = table
+                        .Column<int>(type: "integer", nullable: false)
+                        .Annotation(
+                            "Npgsql:ValueGenerationStrategy",
+                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
+                        ),
                     user_id = table.Column<Guid>(type: "uuid", nullable: false),
-                    consent_freetext = table.Column<string>(type: "text", nullable: false)
+                    consent_freetext = table.Column<string>(type: "text", nullable: false),
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_consent_settings", x => x.consent_settings_id);
-                });
+                }
+            );
 
             migrationBuilder.CreateTable(
                 name: "consent_toggle",
                 columns: table => new
                 {
-                    consent_toggle_id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    consent_toggle_id = table
+                        .Column<int>(type: "integer", nullable: false)
+                        .Annotation(
+                            "Npgsql:ValueGenerationStrategy",
+                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
+                        ),
                     consent_settings_id = table.Column<int>(type: "integer", nullable: false),
                     toggle_proto_id = table.Column<string>(type: "text", nullable: false),
-                    toggle_proto_state = table.Column<string>(type: "text", nullable: false)
+                    toggle_proto_state = table.Column<string>(type: "text", nullable: false),
                 },
                 constraints: table =>
                 {
@@ -44,30 +53,32 @@ namespace Content.Server.Database.Migrations.Postgres
                         column: x => x.consent_settings_id,
                         principalTable: "consent_settings",
                         principalColumn: "consent_settings_id",
-                        onDelete: ReferentialAction.Cascade);
-                });
+                        onDelete: ReferentialAction.Cascade
+                    );
+                }
+            );
 
             migrationBuilder.CreateIndex(
                 name: "IX_consent_settings_user_id",
                 table: "consent_settings",
                 column: "user_id",
-                unique: true);
+                unique: true
+            );
 
             migrationBuilder.CreateIndex(
                 name: "IX_consent_toggle_consent_settings_id_toggle_proto_id",
                 table: "consent_toggle",
                 columns: new[] { "consent_settings_id", "toggle_proto_id" },
-                unique: true);
+                unique: true
+            );
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "consent_toggle");
+            migrationBuilder.DropTable(name: "consent_toggle");
 
-            migrationBuilder.DropTable(
-                name: "consent_settings");
+            migrationBuilder.DropTable(name: "consent_settings");
         }
     }
 }

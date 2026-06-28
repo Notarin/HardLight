@@ -11,7 +11,8 @@ public sealed partial class GridModEntityReplace : GridModifier
     [DataField(required: true)]
     public List<ReplaceData> Data = [];
 
-    [Dependency] private readonly IRobustRandom _random = new RobustRandom();
+    [Dependency]
+    private readonly IRobustRandom _random = new RobustRandom();
 
     public override void Modify(EntityUid gridUid, EntityManager system, IComponentFactory? factory = null)
     {

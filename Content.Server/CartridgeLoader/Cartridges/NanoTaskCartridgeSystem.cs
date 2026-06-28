@@ -1,5 +1,5 @@
-using Content.Shared.CartridgeLoader.Cartridges;
 using Content.Shared.CartridgeLoader;
+using Content.Shared.CartridgeLoader.Cartridges;
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Interaction;
 using Content.Shared.Paper;
@@ -15,11 +15,20 @@ namespace Content.Server.CartridgeLoader.Cartridges;
 /// </summary>
 public sealed class NanoTaskCartridgeSystem : SharedNanoTaskCartridgeSystem
 {
-    [Dependency] private readonly CartridgeLoaderSystem _cartridgeLoader = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly PaperSystem _paper = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
+    [Dependency]
+    private readonly CartridgeLoaderSystem _cartridgeLoader = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly PaperSystem _paper = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedHandsSystem _hands = default!;
 
     public override void Initialize()
     {
@@ -81,12 +90,15 @@ public sealed class NanoTaskCartridgeSystem : SharedNanoTaskCartridgeSystem
         msg.PushNewline();
         msg.AddText(Loc.GetString("nano-task-printed-requester", ("requester", item.TaskIsFor)));
         msg.PushNewline();
-        msg.AddText(item.Priority switch {
-            NanoTaskPriority.High => Loc.GetString("nano-task-printed-high-priority"),
-            NanoTaskPriority.Medium => Loc.GetString("nano-task-printed-medium-priority"),
-            NanoTaskPriority.Low => Loc.GetString("nano-task-printed-low-priority"),
-            _ => "",
-        });
+        msg.AddText(
+            item.Priority switch
+            {
+                NanoTaskPriority.High => Loc.GetString("nano-task-printed-high-priority"),
+                NanoTaskPriority.Medium => Loc.GetString("nano-task-printed-medium-priority"),
+                NanoTaskPriority.Low => Loc.GetString("nano-task-printed-low-priority"),
+                _ => "",
+            }
+        );
 
         _paper.SetContent((uid, paper), msg.ToMarkup());
     }
@@ -141,7 +153,6 @@ public sealed class NanoTaskCartridgeSystem : SharedNanoTaskCartridgeSystem
 
         UpdateUiState(ent, GetEntity(args.LoaderUid));
     }
-
 
     private void UpdateUiState(Entity<NanoTaskCartridgeComponent> ent, EntityUid loaderUid)
     {

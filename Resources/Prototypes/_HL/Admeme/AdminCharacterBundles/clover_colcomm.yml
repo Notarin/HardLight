@@ -82,7 +82,7 @@
     tags:
     - CentralCommand
 
-       # ID Card - Directorate Clover
+    # ID Card - Directorate Clover
 - type: entity
   id: CloverColcommDirectorIDCard
   parent: DirectorateIDCard
@@ -184,28 +184,28 @@
     damageCoefficient: 0
   - type: StorageFill
     contents:
-      - id: MedkitAdvancedFilled
-      - id: JawsOfLife
-      - id: PowerDrill
-      - id: WelderIndustrialAdvanced
-      - id: BoxDispenserFlare
-      - id: Stunbaton
-      - id: Handcuffs
-        amount: 2
-      - id: Flash
-      - id: BodyBagFolded
-      - id: FoodWaterJugBluespace
-      - id: BoxFolderColComClipboardNirou
-      - id: HandheldCrewMonitorMicroreactor
-      - id: HandHeldMassScannerMarrik
-      - id: BoxDisposableKitClover
-      - id: StorageImplanterDisposable
-      - id: TrackingImplanterDisposable
-      - id: MedicalTrackingImplanterDisposable
-      - id: DeathRattleImplanterColcommDisposable
-      - id: MindShieldImplanterDisposable
-      - id: RadioImplanterColcommDisposable
-      - id: DeathAcidifierImplanterDisposable
+    - id: MedkitAdvancedFilled
+    - id: JawsOfLife
+    - id: PowerDrill
+    - id: WelderIndustrialAdvanced
+    - id: BoxDispenserFlare
+    - id: Stunbaton
+    - id: Handcuffs
+      amount: 2
+    - id: Flash
+    - id: BodyBagFolded
+    - id: FoodWaterJugBluespace
+    - id: BoxFolderColComClipboardNirou
+    - id: HandheldCrewMonitorMicroreactor
+    - id: HandHeldMassScannerMarrik
+    - id: BoxDisposableKitClover
+    - id: StorageImplanterDisposable
+    - id: TrackingImplanterDisposable
+    - id: MedicalTrackingImplanterDisposable
+    - id: DeathRattleImplanterColcommDisposable
+    - id: MindShieldImplanterDisposable
+    - id: RadioImplanterColcommDisposable
+    - id: DeathAcidifierImplanterDisposable
 
 #storage implant box
 - type: entity
@@ -219,9 +219,9 @@
     - Admin
   - type: StorageFill
     contents:
-      - id: DoorRemoteAll
-      - id: AccessConfiguratorUniversalUniversalIDCard
-      - id: HandTeleporterAdmin
-      - id: AdminHypo
-      - id: RCDExperimental
-      - id: RubberStampCentcom
+    - id: DoorRemoteAll
+    - id: AccessConfiguratorUniversalUniversalIDCard
+    - id: HandTeleporterAdmin
+    - id: AdminHypo
+    - id: RCDExperimental
+    - id: RubberStampCentcom

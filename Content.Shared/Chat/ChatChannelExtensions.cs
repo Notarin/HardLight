@@ -15,11 +15,11 @@ public static class ChatChannelExtensions
             ChatChannel.AdminAlert => Color.Red,
             ChatChannel.AdminChat => Color.HotPink,
             ChatChannel.Whisper => Color.DarkGray,
-            _ => Color.LightGray
+            _ => Color.LightGray,
         };
     }
 
     // Starlight
     public static bool IsExemptFromLanguages(this ChatChannel channel) =>
-    channel is ChatChannel.LOOC or ChatChannel.Emotes or ChatChannel.Notifications or ChatChannel.Visual;
+        channel is ChatChannel.LOOC or ChatChannel.Emotes or ChatChannel.Notifications or ChatChannel.Visual;
 }

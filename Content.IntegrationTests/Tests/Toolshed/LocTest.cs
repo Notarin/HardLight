@@ -18,8 +18,7 @@ public sealed class LocTest : ToolshedTest
         var toolMan = Server.ResolveDependency<ToolshedManager>();
         var locStrings = new HashSet<string>();
 
-        var ignored = new HashSet<Assembly>()
-            {typeof(LocTest).Assembly, typeof(ToolshedTest).Assembly};
+        var ignored = new HashSet<Assembly>() { typeof(LocTest).Assembly, typeof(ToolshedTest).Assembly };
 
         await Server.WaitAssertion(() =>
         {
@@ -32,7 +31,10 @@ public sealed class LocTest : ToolshedTest
 
                     var descLoc = cmd.DescLocStr();
                     Assert.That(locStrings.Add(descLoc), $"Duplicate command description key: {descLoc}");
-                    Assert.That(locMan.TryGetString(descLoc, out _), $"Failed to get command description for command {cmd.FullName()}");
+                    Assert.That(
+                        locMan.TryGetString(descLoc, out _),
+                        $"Failed to get command description for command {cmd.FullName()}"
+                    );
                 }
             });
         });

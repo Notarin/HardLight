@@ -16,10 +16,10 @@
   - type: RandomHumanoidAppearance
     randomizeName: false
     hair: HairBald
-#  - type: BankAccount
+    #  - type: BankAccount
   - type: Loadout
     prototypes: [SyndicateOperativeGearExtremelyBasic]
-    roleLoadout: [ RoleSurvivalSyndicate ]
+    roleLoadout: [RoleSurvivalSyndicate]
   - type: RandomMetadata
     nameSegments: [NamesDeathCommando]
   - type: NpcFactionMember
@@ -43,7 +43,7 @@
   components:
   - type: Loadout
     prototypes: [SyndicateReinforcementMedic]
-    roleLoadout: [ RoleSurvivalSyndicate ]
+    roleLoadout: [RoleSurvivalSyndicate]
 
 - type: entity
   parent: MobHumanSyndicateAgent
@@ -52,7 +52,7 @@
   components:
   - type: Loadout
     prototypes: [SyndicateReinforcementSpy]
-    roleLoadout: [ RoleSurvivalSyndicate ]
+    roleLoadout: [RoleSurvivalSyndicate]
 
 - type: entity
   parent: MobHumanSyndicateAgent
@@ -61,7 +61,7 @@
   components:
   - type: Loadout
     prototypes: [SyndicateReinforcementThief]
-    roleLoadout: [ RoleSurvivalSyndicate ]
+    roleLoadout: [RoleSurvivalSyndicate]
 
 - type: entity
   parent: MobHumanSyndicateAgentBase
@@ -78,7 +78,7 @@
 
 # Nuclear Operative
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   name: Nuclear Operative
   parent: MobHuman
   id: MobHumanNukeOp
@@ -90,7 +90,7 @@
     warn: false
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: MobHuman
   id: MobHumanLoneNuclearOperative
   name: Lone Operative
@@ -100,7 +100,7 @@
   - type: NukeOperative
   - type: Loadout
     prototypes: [SyndicateLoneOperativeGearFull]
-    roleLoadout: [ RoleSurvivalSyndicate ]
+    roleLoadout: [RoleSurvivalSyndicate]
   - type: RandomMetadata
     nameSegments:
     - NamesSyndicatePrefix
@@ -115,7 +115,7 @@
 
 # Wizard
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   name: Wizard
   parent: MobHuman
   id: MobHumanWizard

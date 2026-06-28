@@ -16,21 +16,30 @@ using static Content.Shared.Decals.DecalGridComponent;
 namespace Content.Shared.Decals
 {
     [TypeSerializer]
-    public sealed partial class DecalGridChunkCollectionTypeSerializer : ITypeSerializer<DecalGridChunkCollection, MappingDataNode>
+    public sealed partial class DecalGridChunkCollectionTypeSerializer
+        : ITypeSerializer<DecalGridChunkCollection, MappingDataNode>
     {
-        public ValidationNode Validate(ISerializationManager serializationManager, MappingDataNode node,
-            IDependencyCollection dependencies, ISerializationContext? context = null)
+        public ValidationNode Validate(
+            ISerializationManager serializationManager,
+            MappingDataNode node,
+            IDependencyCollection dependencies,
+            ISerializationContext? context = null
+        )
         {
             return serializationManager.ValidateNode<Dictionary<Vector2i, Dictionary<uint, Decal>>>(node, context);
         }
 
-        public DecalGridChunkCollection Read(ISerializationManager serializationManager,
+        public DecalGridChunkCollection Read(
+            ISerializationManager serializationManager,
             MappingDataNode node,
-            IDependencyCollection dependencies, SerializationHookContext hookCtx, ISerializationContext? context = null,
-            ISerializationManager.InstantiationDelegate<DecalGridChunkCollection>? _ = default)
+            IDependencyCollection dependencies,
+            SerializationHookContext hookCtx,
+            ISerializationContext? context = null,
+            ISerializationManager.InstantiationDelegate<DecalGridChunkCollection>? _ = default
+        )
         {
             node.TryGetValue("version", out var versionNode);
-            var version = ((ValueDataNode?) versionNode)?.AsInt() ?? 1;
+            var version = ((ValueDataNode?)versionNode)?.AsInt() ?? 1;
             Dictionary<Vector2i, DecalChunk> dictionary;
             uint nextIndex = 0;
             var ids = new HashSet<uint>();
@@ -38,14 +47,14 @@ namespace Content.Shared.Decals
             // TODO: Dump this when we don't need support anymore.
             if (version > 1)
             {
-                var nodes = (SequenceDataNode) node["nodes"];
+                var nodes = (SequenceDataNode)node["nodes"];
                 dictionary = new Dictionary<Vector2i, DecalChunk>();
 
                 foreach (var dNode in nodes)
                 {
-                    var aNode = (MappingDataNode) dNode;
+                    var aNode = (MappingDataNode)dNode;
                     var data = serializationManager.Read<DecalData>(aNode["node"], hookCtx, context);
-                    var deckNodes = (MappingDataNode) aNode["decals"];
+                    var deckNodes = (MappingDataNode)aNode["decals"];
 
                     foreach (var (decalUidNode, decalData) in deckNodes)
                     {
@@ -72,7 +81,12 @@ namespace Content.Shared.Decals
             }
             else
             {
-                dictionary = serializationManager.Read<Dictionary<Vector2i, DecalChunk>>(node, hookCtx, context, notNullableOverride: true);
+                dictionary = serializationManager.Read<Dictionary<Vector2i, DecalChunk>>(
+                    node,
+                    hookCtx,
+                    context,
+                    notNullableOverride: true
+                );
 
                 foreach (var decals in dictionary.Values)
                 {
@@ -87,10 +101,13 @@ namespace Content.Shared.Decals
             return new DecalGridChunkCollection(dictionary) { NextDecalId = nextIndex };
         }
 
-        public DataNode Write(ISerializationManager serializationManager,
-            DecalGridChunkCollection value, IDependencyCollection dependencies,
+        public DataNode Write(
+            ISerializationManager serializationManager,
+            DecalGridChunkCollection value,
+            IDependencyCollection dependencies,
             bool alwaysWrite = false,
-            ISerializationContext? context = null)
+            ISerializationContext? context = null
+        )
         {
             var lookup = new Dictionary<DecalData, List<uint>>();
             var decalLookup = new Dictionary<uint, Decal>();
@@ -123,7 +140,10 @@ namespace Content.Shared.Decals
             foreach (var data in lookupNodes)
             {
                 var uids = lookup[data];
-                var lookupNode = new MappingDataNode { { "node", serializationManager.WriteValue(data, alwaysWrite, context) } };
+                var lookupNode = new MappingDataNode
+                {
+                    { "node", serializationManager.WriteValue(data, alwaysWrite, context) },
+                };
                 var decks = new MappingDataNode();
 
                 uids.Sort();
@@ -183,11 +203,11 @@ namespace Content.Shared.Decals
 
             public bool Equals(DecalData other)
             {
-                return Id == other.Id &&
-                       Nullable.Equals(Color, other.Color) &&
-                       Angle.Equals(other.Angle) &&
-                       ZIndex == other.ZIndex &&
-                       Cleanable == other.Cleanable;
+                return Id == other.Id
+                    && Nullable.Equals(Color, other.Color)
+                    && Angle.Equals(other.Angle)
+                    && ZIndex == other.ZIndex
+                    && Cleanable == other.Cleanable;
             }
 
             public override bool Equals(object? obj)

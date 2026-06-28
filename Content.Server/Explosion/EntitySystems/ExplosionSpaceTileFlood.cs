@@ -23,7 +23,13 @@ public sealed class ExplosionSpaceTileFlood : ExplosionTileFlood
 
     public ushort TileSize = ExplosionSystem.DefaultTileSize;
 
-    public ExplosionSpaceTileFlood(ExplosionSystem system, MapCoordinates epicentre, EntityUid? referenceGrid, List<EntityUid> localGrids, float maxDistance)
+    public ExplosionSpaceTileFlood(
+        ExplosionSystem system,
+        MapCoordinates epicentre,
+        EntityUid? referenceGrid,
+        List<EntityUid> localGrids,
+        float maxDistance
+    )
     {
         (_gridBlockMap, TileSize) = system.TransformGridEdges(epicentre, referenceGrid, localGrids, maxDistance);
         system.GetUnblockedDirections(_gridBlockMap, TileSize);
@@ -69,7 +75,8 @@ public sealed class ExplosionSpaceTileFlood : ExplosionTileFlood
     {
         foreach (var edge in blocker.BlockingGridEdges)
         {
-            if (edge.Grid == null) continue;
+            if (edge.Grid == null)
+                continue;
 
             if (!GridJump.TryGetValue(edge.Grid.Value, out var set))
             {
@@ -92,7 +99,7 @@ public sealed class ExplosionSpaceTileFlood : ExplosionTileFlood
 
             for (var i = 0; i < Atmospherics.Directions; i++)
             {
-                var direction = (AtmosDirection) (1 << i);
+                var direction = (AtmosDirection)(1 << i);
 
                 if (!unblockedDirections.IsFlagSet(direction))
                     continue; // explosion cannot propagate in this direction. Ever.
@@ -131,7 +138,7 @@ public sealed class ExplosionSpaceTileFlood : ExplosionTileFlood
             if (EnteredBlockedTiles.Contains(tile))
                 return;
 
-            // Did the explosion already attempt to enter this tile from some other direction? 
+            // Did the explosion already attempt to enter this tile from some other direction?
             if (!UnenteredBlockedTiles.Add(tile))
                 return;
 
@@ -144,7 +151,7 @@ public sealed class ExplosionSpaceTileFlood : ExplosionTileFlood
         if (!EnteredBlockedTiles.Add(tile))
             return;
 
-        // Did the explosion already attempt to enter this tile from some other direction? 
+        // Did the explosion already attempt to enter this tile from some other direction?
         if (UnenteredBlockedTiles.Contains(tile))
         {
             NewFreedTiles.Add(tile);

@@ -13,7 +13,8 @@ namespace Content.Client._Starlight.Plumbing.UI;
 [GenerateTypedNameReferences]
 public sealed partial class StarlightPlumbingFilterWindow : DefaultWindow // HL: see StarlightPlumbingFilterComponent
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
 
     public event Action<bool>? OnToggle;
     public event Action<string>? OnAddReagent;
@@ -94,11 +95,7 @@ public sealed partial class StarlightPlumbingFilterWindow : DefaultWindow // HL:
         FilteredList.Clear();
         foreach (var reagentId in state.FilteredReagents)
         {
-            FilteredList.Add(new ItemList.Item(FilteredList)
-            {
-                Metadata = reagentId,
-                Text = reagentId
-            });
+            FilteredList.Add(new ItemList.Item(FilteredList) { Metadata = reagentId, Text = reagentId });
         }
 
         _selectedReagent = null;
@@ -131,11 +128,7 @@ public sealed partial class StarlightPlumbingFilterWindow : DefaultWindow // HL:
 
         foreach (var reagent in matches)
         {
-            SuggestionList.Add(new ItemList.Item(SuggestionList)
-            {
-                Metadata = reagent.ID,
-                Text = reagent.ID
-            });
+            SuggestionList.Add(new ItemList.Item(SuggestionList) { Metadata = reagent.ID, Text = reagent.ID });
         }
 
         SuggestionList.Visible = SuggestionList.Count > 0;

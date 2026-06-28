@@ -1,44 +1,67 @@
 using System.Linq;
 using Content.Server.Flash.Components;
-using Content.Shared.Flash.Components;
 using Content.Server.Light.EntitySystems;
 using Content.Server.Popups;
 using Content.Server.Stunnable;
 using Content.Shared.Charges.Components;
 using Content.Shared.Charges.Systems;
+using Content.Shared.Examine;
 using Content.Shared.Eye.Blinding.Components;
 using Content.Shared.Flash;
+using Content.Shared.Flash.Components;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Interaction.Events;
 using Content.Shared.Inventory;
+using Content.Shared.StatusEffect;
 using Content.Shared.Tag;
 using Content.Shared.Traits.Assorted;
 using Content.Shared.Weapons.Melee.Events;
-using Content.Shared.StatusEffect;
-using Content.Shared.Examine;
 using Robust.Server.Audio;
 using Robust.Server.GameObjects;
 using Robust.Shared.Audio;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using InventoryComponent = Content.Shared.Inventory.InventoryComponent;
-using Robust.Shared.Prototypes;
 
 namespace Content.Server.Flash
 {
     internal sealed class FlashSystem : SharedFlashSystem
     {
-        [Dependency] private readonly AppearanceSystem _appearance = default!;
-        [Dependency] private readonly AudioSystem _audio = default!;
-        [Dependency] private readonly SharedChargesSystem _sharedCharges = default!;
-        [Dependency] private readonly EntityLookupSystem _entityLookup = default!;
-        [Dependency] private readonly SharedTransformSystem _transform = default!;
-        [Dependency] private readonly ExamineSystemShared _examine = default!;
-        [Dependency] private readonly InventorySystem _inventory = default!;
-        [Dependency] private readonly PopupSystem _popup = default!;
-        [Dependency] private readonly StunSystem _stun = default!;
-        [Dependency] private readonly TagSystem _tag = default!;
-        [Dependency] private readonly IRobustRandom _random = default!;
-        [Dependency] private readonly StatusEffectsSystem _statusEffectsSystem = default!;
+        [Dependency]
+        private readonly AppearanceSystem _appearance = default!;
+
+        [Dependency]
+        private readonly AudioSystem _audio = default!;
+
+        [Dependency]
+        private readonly SharedChargesSystem _sharedCharges = default!;
+
+        [Dependency]
+        private readonly EntityLookupSystem _entityLookup = default!;
+
+        [Dependency]
+        private readonly SharedTransformSystem _transform = default!;
+
+        [Dependency]
+        private readonly ExamineSystemShared _examine = default!;
+
+        [Dependency]
+        private readonly InventorySystem _inventory = default!;
+
+        [Dependency]
+        private readonly PopupSystem _popup = default!;
+
+        [Dependency]
+        private readonly StunSystem _stun = default!;
+
+        [Dependency]
+        private readonly TagSystem _tag = default!;
+
+        [Dependency]
+        private readonly IRobustRandom _random = default!;
+
+        [Dependency]
+        private readonly StatusEffectsSystem _statusEffectsSystem = default!;
 
         private static readonly ProtoId<TagPrototype> TrashTag = "Trash";
 
@@ -48,7 +71,10 @@ namespace Content.Server.Flash
 
             SubscribeLocalEvent<FlashComponent, MeleeHitEvent>(OnFlashMeleeHit);
             // ran before toggling light for extra-bright lantern
-            SubscribeLocalEvent<FlashComponent, UseInHandEvent>(OnFlashUseInHand, before: new[] { typeof(HandheldLightSystem) });
+            SubscribeLocalEvent<FlashComponent, UseInHandEvent>(
+                OnFlashUseInHand,
+                before: new[] { typeof(HandheldLightSystem) }
+            );
             SubscribeLocalEvent<InventoryComponent, FlashAttemptEvent>(OnInventoryFlashAttempt);
             SubscribeLocalEvent<FlashImmunityComponent, FlashAttemptEvent>(OnFlashImmunityFlashAttempt);
             SubscribeLocalEvent<PermanentBlindnessComponent, FlashAttemptEvent>(OnPermanentBlindnessFlashAttempt);
@@ -57,9 +83,7 @@ namespace Content.Server.Flash
 
         private void OnFlashMeleeHit(EntityUid uid, FlashComponent comp, MeleeHitEvent args)
         {
-            if (!args.IsHit ||
-                !args.HitEntities.Any() ||
-                !UseFlash(uid, comp, args.User))
+            if (!args.IsHit || !args.HitEntities.Any() || !UseFlash(uid, comp, args.User))
             {
                 return;
             }
@@ -67,7 +91,15 @@ namespace Content.Server.Flash
             args.Handled = true;
             foreach (var e in args.HitEntities)
             {
-                Flash(e, args.User, uid, comp.FlashDuration, comp.SlowTo, melee: true, stunDuration: comp.MeleeStunDuration);
+                Flash(
+                    e,
+                    args.User,
+                    uid,
+                    comp.FlashDuration,
+                    comp.SlowTo,
+                    melee: true,
+                    stunDuration: comp.MeleeStunDuration
+                );
             }
         }
 
@@ -101,23 +133,28 @@ namespace Content.Server.Flash
                 _popup.PopupEntity(Loc.GetString("flash-component-becomes-empty"), user);
             }
 
-            uid.SpawnTimer(400, () =>
-            {
-                _appearance.SetData(uid, FlashVisuals.Flashing, false);
-                comp.Flashing = false;
-            });
+            uid.SpawnTimer(
+                400,
+                () =>
+                {
+                    _appearance.SetData(uid, FlashVisuals.Flashing, false);
+                    comp.Flashing = false;
+                }
+            );
 
             return true;
         }
 
-        public void Flash(EntityUid target,
+        public void Flash(
+            EntityUid target,
             EntityUid? user,
             EntityUid? used,
             float flashDuration,
             float slowTo,
             bool displayPopup = true,
             bool melee = false,
-            TimeSpan? stunDuration = null)
+            TimeSpan? stunDuration = null
+        )
         {
             var attempt = new FlashAttemptEvent(target, user, used);
             RaiseLocalEvent(target, attempt, true);
@@ -126,7 +163,14 @@ namespace Content.Server.Flash
                 return;
 
             // don't paralyze, slowdown or convert to rev if the target is immune to flashes
-            if (!_statusEffectsSystem.TryAddStatusEffect<FlashedComponent>(target, FlashedKey, TimeSpan.FromSeconds(flashDuration / 1000f), true))
+            if (
+                !_statusEffectsSystem.TryAddStatusEffect<FlashedComponent>(
+                    target,
+                    FlashedKey,
+                    TimeSpan.FromSeconds(flashDuration / 1000f),
+                    true
+                )
+            )
                 return;
 
             if (stunDuration != null)
@@ -135,14 +179,19 @@ namespace Content.Server.Flash
             }
             else
             {
-                _stun.TrySlowdown(target, TimeSpan.FromSeconds(flashDuration / 1000f), true,
-                slowTo, slowTo);
+                _stun.TrySlowdown(target, TimeSpan.FromSeconds(flashDuration / 1000f), true, slowTo, slowTo);
             }
 
             if (displayPopup && user != null && target != user && Exists(user.Value))
             {
-                _popup.PopupEntity(Loc.GetString("flash-component-user-blinds-you",
-                    ("user", Identity.Entity(user.Value, EntityManager))), target, target);
+                _popup.PopupEntity(
+                    Loc.GetString(
+                        "flash-component-user-blinds-you",
+                        ("user", Identity.Entity(user.Value, EntityManager))
+                    ),
+                    target,
+                    target
+                );
             }
 
             if (melee)
@@ -155,7 +204,16 @@ namespace Content.Server.Flash
             }
         }
 
-        public override void FlashArea(Entity<FlashComponent?> source, EntityUid? user, float range, float duration, float slowTo = 0.8f, bool displayPopup = false, float probability = 1f, SoundSpecifier? sound = null)
+        public override void FlashArea(
+            Entity<FlashComponent?> source,
+            EntityUid? user,
+            float range,
+            float duration,
+            float slowTo = 0.8f,
+            bool displayPopup = false,
+            float probability = 1f,
+            SoundSpecifier? sound = null
+        )
         {
             var transform = Transform(source);
             var mapPosition = _transform.GetMapCoordinates(transform);
@@ -173,7 +231,14 @@ namespace Content.Server.Flash
 
                 // Check for entites in view
                 // put damagedByFlashingComponent in the predicate because shadow anomalies block vision.
-                if (!_examine.InRangeUnOccluded(entity, mapPosition, range, predicate: (e) => damagedByFlashingQuery.HasComponent(e)))
+                if (
+                    !_examine.InRangeUnOccluded(
+                        entity,
+                        mapPosition,
+                        range,
+                        predicate: (e) => damagedByFlashingQuery.HasComponent(e)
+                    )
+                )
                     continue;
 
                 // They shouldn't have flash removed in between right?
@@ -194,20 +259,32 @@ namespace Content.Server.Flash
             }
         }
 
-        private void OnFlashImmunityFlashAttempt(EntityUid uid, FlashImmunityComponent component, FlashAttemptEvent args)
+        private void OnFlashImmunityFlashAttempt(
+            EntityUid uid,
+            FlashImmunityComponent component,
+            FlashAttemptEvent args
+        )
         {
             if (component.Enabled)
                 args.Cancel();
         }
 
-        private void OnPermanentBlindnessFlashAttempt(EntityUid uid, PermanentBlindnessComponent component, FlashAttemptEvent args)
+        private void OnPermanentBlindnessFlashAttempt(
+            EntityUid uid,
+            PermanentBlindnessComponent component,
+            FlashAttemptEvent args
+        )
         {
             // check for total blindness
             if (component.Blindness == 0)
                 args.Cancel();
         }
 
-        private void OnTemporaryBlindnessFlashAttempt(EntityUid uid, TemporaryBlindnessComponent component, FlashAttemptEvent args)
+        private void OnTemporaryBlindnessFlashAttempt(
+            EntityUid uid,
+            TemporaryBlindnessComponent component,
+            FlashAttemptEvent args
+        )
         {
             args.Cancel();
         }
@@ -230,6 +307,7 @@ namespace Content.Server.Flash
             Used = used;
         }
     }
+
     /// <summary>
     ///     Called after a flash is used via melee on another person to check for rev conversion.
     ///     Raised on the target hit by the flash, the user of the flash and the flash used.

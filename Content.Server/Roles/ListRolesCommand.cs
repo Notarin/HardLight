@@ -24,7 +24,7 @@ namespace Content.Server.Roles
             }
 
             var prototypeManager = IoCManager.Resolve<IPrototypeManager>();
-            foreach(var job in prototypeManager.EnumeratePrototypes<JobPrototype>())
+            foreach (var job in prototypeManager.EnumeratePrototypes<JobPrototype>())
             {
                 shell.WriteLine(job.ID);
             }

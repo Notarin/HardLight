@@ -10,6 +10,7 @@ using Content.Server.Roles;
 using Content.Server.RoundEnd;
 using Content.Server.Shuttles.Components;
 using Content.Server.Station.Components;
+using Content.Shared._EinsteinEngines.Silicon.Components; // Goobstation
 using Content.Shared.CCVar;
 using Content.Shared.Damage;
 using Content.Shared.FixedPoint;
@@ -23,7 +24,6 @@ using Content.Shared.Station.Components;
 using Robust.Server.GameObjects;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Map.Components;
-using Content.Shared._EinsteinEngines.Silicon.Components; // Goobstation
 
 namespace Content.IntegrationTests.Tests.GameRules;
 
@@ -37,13 +37,15 @@ public sealed class NukeOpsTest
     [Ignore("Not relevant for Frontier, no nuke ops gameplay.")] // Frontier
     public async Task TryStopNukeOpsFromConstantlyFailing()
     {
-        await using var pair = await PoolManager.GetServerClient(new PoolSettings
-        {
-            Dirty = true,
-            DummyTicker = false,
-            Connected = true,
-            InLobby = true
-        });
+        await using var pair = await PoolManager.GetServerClient(
+            new PoolSettings
+            {
+                Dirty = true,
+                DummyTicker = false,
+                Connected = true,
+                InLobby = true,
+            }
+        );
 
         var server = pair.Server;
         var client = pair.Client;
@@ -224,7 +226,7 @@ public sealed class NukeOpsTest
 
         // Check the nukie commander passed basic training and figured out how to breathe.
         var totalSeconds = 30;
-        var totalTicks = (int) Math.Ceiling(totalSeconds / server.Timing.TickPeriod.TotalSeconds);
+        var totalTicks = (int)Math.Ceiling(totalSeconds / server.Timing.TickPeriod.TotalSeconds);
         var increment = 5;
         var resp = entMan.GetComponent<RespiratorComponent>(player);
         var damage = entMan.GetComponent<DamageableComponent>(player);
@@ -243,18 +245,19 @@ public sealed class NukeOpsTest
             for (var i = 0; i < nukies.Length - 1; i++)
             {
                 entMan.DeleteEntity(nukies[i]);
-                Assert.That(roundEndSys.IsRoundEndRequested,
+                Assert.That(
+                    roundEndSys.IsRoundEndRequested,
                     Is.False,
-                    $"The round ended, but {nukies.Length - i - 1} nukies are still alive!");
+                    $"The round ended, but {nukies.Length - i - 1} nukies are still alive!"
+                );
             }
             // Delete the last nukie and make sure the round ends.
             entMan.DeleteEntity(nukies[^1]);
 
-            Assert.That(roundEndSys.IsRoundEndRequested,
-                "All nukies were deleted, but the round didn't end!");
+            Assert.That(roundEndSys.IsRoundEndRequested, "All nukies were deleted, but the round didn't end!");
         });
 
-        ticker.SetGamePreset((GamePresetPrototype?) null);
+        ticker.SetGamePreset((GamePresetPrototype?)null);
         await pair.CleanReturnAsync();
     }
 }

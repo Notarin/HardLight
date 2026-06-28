@@ -1,17 +1,17 @@
 - type: entity
   id: BaseMagazineCaselessRifle
   name: "magazine (.25 caseless)"
-  parent: [ BaseCartridge, BaseC3SyndicateContrabandNoValue, RecyclableItemSteelTiny ] # Frontier: BaseSecurityContraband<BaseC3SyndicateContraband, added RecyclableItemSteelTiny
+  parent: [BaseCartridge, BaseC3SyndicateContrabandNoValue, RecyclableItemSteelTiny] # Frontier: BaseSecurityContraband<BaseC3SyndicateContraband, added RecyclableItemSteelTiny
   abstract: true
   components:
   - type: Tag
     tags:
-      - MagazineCaselessRifle
+    - MagazineCaselessRifle
   - type: BallisticAmmoProvider
     mayTransfer: true
     whitelist:
       tags:
-        - CartridgeCaselessRifle
+      - CartridgeCaselessRifle
     proto: CartridgeCaselessRifle # Frontier
     capacity: 30
   - type: Item
@@ -33,7 +33,7 @@
   - type: Appearance
 
 - type: entity
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   id: BaseMagazineCaselessRifleShort
   name: "caseless rifle short magazine (.25 caseless)"
   parent: BaseMagazineCaselessRifle
@@ -53,7 +53,7 @@
       map: ["enum.GunVisualLayers.Mag"]
 
 - type: entity
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   id: BaseMagazinePistolCaselessRifle
   name: "pistol magazine (.25 caseless)"
   parent: BaseMagazineCaselessRifle
@@ -61,11 +61,11 @@
   components:
   - type: Tag
     tags:
-      - MagazinePistolCaselessRifle
+    - MagazinePistolCaselessRifle
   - type: BallisticAmmoProvider
     whitelist:
       tags:
-        - CartridgeCaselessRifle
+      - CartridgeCaselessRifle
     proto: CartridgeCaselessRifle # Frontier
     capacity: 10
   - type: Item
@@ -84,7 +84,7 @@
   - type: Appearance
 
 - type: entity
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   id: MagazineCaselessRifle10x24
   name: "box magazine (.25 caseless)"
   parent: BaseMagazineCaselessRifle
@@ -100,7 +100,7 @@
     zeroVisible: false
 
 - type: entity
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   id: MagazinePistolCaselessRifle
   name: "pistol magazine (.25 caseless)"
   parent: BaseMagazinePistolCaselessRifle
@@ -122,7 +122,7 @@
   - type: Appearance
 
 - type: entity
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   id: MagazinePistolCaselessRiflePractice
   name: "pistol magazine (.25 caseless practice)"
   parent: BaseMagazinePistolCaselessRifle
@@ -144,7 +144,7 @@
   - type: Appearance
 
 - type: entity
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   id: MagazineCaselessRifle
   name: "magazine (.25 caseless)"
   parent: BaseMagazineCaselessRifle
@@ -159,7 +159,7 @@
       map: ["enum.GunVisualLayers.Mag"]
 
 - type: entity
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   id: MagazineCaselessRiflePractice
   name: "magazine (.25 caseless practice)"
   parent: BaseMagazineCaselessRifle
@@ -174,7 +174,7 @@
       map: ["enum.GunVisualLayers.Mag"]
 
 - type: entity
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   id: MagazineCaselessRifleShort
   name: "short magazine (.25 caseless)"
   parent: BaseMagazineCaselessRifleShort
@@ -190,7 +190,7 @@
       map: ["enum.GunVisualLayers.Mag"]
 
 - type: entity
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   id: MagazineCaselessRifleShortPractice
   name: "short magazine (.25 caseless practice)"
   parent: BaseMagazineCaselessRifleShort

@@ -67,8 +67,8 @@
         amount: -3
       - !type:HealthChange
         conditions:
-          - !type:ReagentThreshold
-            min: 25
+        - !type:ReagentThreshold
+          min: 25
         damage:
           types:
             Asphyxiation: 5

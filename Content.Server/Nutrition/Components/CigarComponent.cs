@@ -6,7 +6,5 @@ namespace Content.Server.Nutrition.Components
     ///     A disposable, single-use smokable.
     /// </summary>
     [RegisterComponent, Access(typeof(SmokingSystem))]
-    public sealed partial class CigarComponent : Component
-    {
-    }
+    public sealed partial class CigarComponent : Component { }
 }

@@ -6,7 +6,7 @@ namespace Content.Shared.MassMedia.Components;
 [Serializable, NetSerializable]
 public enum NewsWriterUiKey : byte
 {
-    Key
+    Key,
 }
 
 [Serializable, NetSerializable]
@@ -18,7 +18,13 @@ public sealed class NewsWriterBoundUserInterfaceState : BoundUserInterfaceState
     public readonly string DraftTitle;
     public readonly string DraftContent;
 
-    public NewsWriterBoundUserInterfaceState(NewsArticle[] articles, bool publishEnabled, TimeSpan nextPublish, string draftTitle, string draftContent)
+    public NewsWriterBoundUserInterfaceState(
+        NewsArticle[] articles,
+        bool publishEnabled,
+        TimeSpan nextPublish,
+        string draftTitle,
+        string draftContent
+    )
     {
         Articles = articles;
         PublishEnabled = publishEnabled;
@@ -33,7 +39,6 @@ public sealed class NewsWriterPublishMessage : BoundUserInterfaceMessage
 {
     public readonly string Title;
     public readonly string Content;
-
 
     public NewsWriterPublishMessage(string title, string content)
     {
@@ -54,9 +59,7 @@ public sealed class NewsWriterDeleteMessage : BoundUserInterfaceMessage
 }
 
 [Serializable, NetSerializable]
-public sealed class NewsWriterArticlesRequestMessage : BoundUserInterfaceMessage
-{
-}
+public sealed class NewsWriterArticlesRequestMessage : BoundUserInterfaceMessage { }
 
 [Serializable, NetSerializable]
 public sealed class NewsWriterSaveDraftMessage : BoundUserInterfaceMessage
@@ -72,6 +75,4 @@ public sealed class NewsWriterSaveDraftMessage : BoundUserInterfaceMessage
 }
 
 [Serializable, NetSerializable]
-public sealed class NewsWriterRequestDraftMessage : BoundUserInterfaceMessage
-{
-}
+public sealed class NewsWriterRequestDraftMessage : BoundUserInterfaceMessage { }

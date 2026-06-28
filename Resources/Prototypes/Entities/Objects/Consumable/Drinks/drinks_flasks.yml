@@ -75,9 +75,9 @@
   name: bar flask
   description: A metal flask often given out by the bartender on loan. Don't forget to return it!
   components:
-    - type: Sprite
-      sprite: Objects/Consumable/Drinks/barflask.rsi
-    - type: Engraveable # Frontier
+  - type: Sprite
+    sprite: Objects/Consumable/Drinks/barflask.rsi
+  - type: Engraveable # Frontier
 
 - type: entity
   parent: FlaskBase
@@ -121,10 +121,10 @@
   - type: Sprite
     sprite: Objects/Consumable/Drinks/pitcher.rsi
     layers:
-      - state: icon
-      - state: fill-6
-        map: ["enum.SolutionContainerLayers.Fill"]
-        visible: false
+    - state: icon
+    - state: fill-6
+      map: ["enum.SolutionContainerLayers.Fill"]
+      visible: false
   - type: Appearance
   - type: SolutionContainerVisuals
     maxFillLevels: 6

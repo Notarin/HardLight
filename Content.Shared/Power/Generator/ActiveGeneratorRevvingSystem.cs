@@ -11,7 +11,11 @@ public sealed class ActiveGeneratorRevvingSystem : EntitySystem
     /// <summary>
     /// Handles the AnchorStateChangedEvent to stop auto-revving when unanchored.
     /// </summary>
-    private void OnAnchorStateChanged(EntityUid uid, ActiveGeneratorRevvingComponent component, AnchorStateChangedEvent args)
+    private void OnAnchorStateChanged(
+        EntityUid uid,
+        ActiveGeneratorRevvingComponent component,
+        AnchorStateChangedEvent args
+    )
     {
         if (!args.Anchored)
             StopAutoRevving(uid);

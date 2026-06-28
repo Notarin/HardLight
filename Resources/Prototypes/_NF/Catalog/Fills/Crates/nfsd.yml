@@ -6,8 +6,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: ClothingOuterArmorNfsd
-        amount: 3
+    - id: ClothingOuterArmorNfsd
+      amount: 3
 
 - type: entity
   id: CrateNfsdHelmet
@@ -17,8 +17,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: ClothingHeadHelmetNfsd
-        amount: 3
+    - id: ClothingHeadHelmetNfsd
+      amount: 3
 
 - type: entity
   id: CrateNfsdNonlethal
@@ -28,13 +28,13 @@
   components:
   - type: StorageFill
     contents:
-      - id: NFWeaponEnergyPistolDisabler
-        amount: 3
-      - id: Stunbaton
-        amount: 3
-      - id: BoxFlashbang
-      - id: Flash
-        amount: 3
+    - id: NFWeaponEnergyPistolDisabler
+      amount: 3
+    - id: Stunbaton
+      amount: 3
+    - id: BoxFlashbang
+    - id: Flash
+      amount: 3
 #      - Pepperspray
 #      - GrenadeTeargas
 
@@ -46,16 +46,16 @@
   components:
   - type: StorageFill
     contents:
-      - id: ClothingOuterArmorRiot
-        amount: 2
-      - id: ClothingHeadHelmetRiot
-        amount: 2
-      - id: NFWeaponShotgunEnforcerLessLethal
-        amount: 2
-      - id: AmmoBox12_gaugeBeanbag
-        amount: 2
-      - id: RiotShield
-        amount: 2
+    - id: ClothingOuterArmorRiot
+      amount: 2
+    - id: ClothingHeadHelmetRiot
+      amount: 2
+    - id: NFWeaponShotgunEnforcerLessLethal
+      amount: 2
+    - id: AmmoBox12_gaugeBeanbag
+      amount: 2
+    - id: RiotShield
+      amount: 2
 #      - SecGasmask
 
 - type: entity
@@ -66,8 +66,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: BoxHandcuff
-      - id: BoxSechud
+    - id: BoxHandcuff
+    - id: BoxSechud
 #      - SecBelt
 #      - SecGasmask
 #      - SpacelawBook
@@ -80,10 +80,10 @@
   components:
   - type: StorageFill
     contents:
-      - id: BoxHandcuff
-        amount: 2
-      - id: BoxZiptie
-        amount: 2
+    - id: BoxHandcuff
+      amount: 2
+    - id: BoxZiptie
+      amount: 2
 
 - type: entity
   id: CrateNfsdBioSuit
@@ -93,12 +93,12 @@
   components:
   - type: StorageFill
     contents:
-      - id: ClothingOuterBioSecurity
-        amount: 2
-      - id: ClothingHeadHatHoodBioSecurity
-        amount: 2
-      - id: ClothingMaskSterile
-        amount: 2
+    - id: ClothingOuterBioSecurity
+      amount: 2
+    - id: ClothingHeadHatHoodBioSecurity
+      amount: 2
+    - id: ClothingMaskSterile
+      amount: 2
 
 - type: entity
   id: CrateNfsdImplants
@@ -108,9 +108,9 @@
   components:
   - type: StorageFill
     contents:
-      - id: MindShieldImplanter
-        amount: 4
-      - id: TrackingImplanter
-        amount: 4
+    - id: MindShieldImplanter
+      amount: 4
+    - id: TrackingImplanter
+      amount: 4
 
 # Cosmetic Crates

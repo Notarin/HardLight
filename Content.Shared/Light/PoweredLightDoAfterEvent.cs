@@ -4,6 +4,4 @@ using Robust.Shared.Serialization;
 namespace Content.Shared.Light;
 
 [Serializable, NetSerializable]
-public sealed partial class PoweredLightDoAfterEvent : SimpleDoAfterEvent
-{
-}
+public sealed partial class PoweredLightDoAfterEvent : SimpleDoAfterEvent { }

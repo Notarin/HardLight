@@ -18,11 +18,20 @@ namespace Content.Client.Administration.UI.SpawnExplosion;
 [UsedImplicitly]
 public sealed partial class SpawnExplosionWindow : DefaultWindow
 {
-    [Dependency] private readonly IClientConsoleHost _conHost = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IEntityManager _entMan = default!;
+    [Dependency]
+    private readonly IClientConsoleHost _conHost = default!;
+
+    [Dependency]
+    private readonly IMapManager _mapManager = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly IEntityManager _entMan = default!;
     private readonly SharedTransformSystem _transform = default!;
 
     private readonly SpawnExplosionEui _eui;
@@ -106,7 +115,9 @@ public sealed partial class SpawnExplosionWindow : DefaultWindow
 
         _pausePreview = true;
         MapOptions.Select(_mapData.IndexOf(transform.MapID));
-        (MapX.Value, MapY.Value) = _transform.GetMapCoordinates(_playerManager.LocalEntity!.Value, xform: transform).Position;
+        (MapX.Value, MapY.Value) = _transform
+            .GetMapCoordinates(_playerManager.LocalEntity!.Value, xform: transform)
+            .Position;
         _pausePreview = false;
 
         UpdatePreview();
@@ -138,7 +149,8 @@ public sealed partial class SpawnExplosionWindow : DefaultWindow
         // so assemble command arguments:
         var mapId = _mapData[MapOptions.SelectedId];
         var explosionType = _explosionTypes[ExplosionOption.SelectedId];
-        var cmd = $"explosion {Intensity.Value} {Slope.Value} {MaxIntensity.Value} {MapX.Value} {MapY.Value} {mapId} {explosionType}";
+        var cmd =
+            $"explosion {Intensity.Value} {Slope.Value} {MaxIntensity.Value} {MapX.Value} {MapY.Value} {mapId} {explosionType}";
 
         _conHost.ExecuteCommand(cmd);
     }

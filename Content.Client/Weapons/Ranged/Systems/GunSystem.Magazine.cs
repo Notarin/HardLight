@@ -11,7 +11,11 @@ public sealed partial class GunSystem
         SubscribeLocalEvent<MagazineAmmoProviderComponent, AmmoCounterControlEvent>(OnMagazineControl);
     }
 
-    private void OnMagazineAmmoUpdate(EntityUid uid, MagazineAmmoProviderComponent component, UpdateAmmoCounterEvent args)
+    private void OnMagazineAmmoUpdate(
+        EntityUid uid,
+        MagazineAmmoProviderComponent component,
+        UpdateAmmoCounterEvent args
+    )
     {
         var ent = GetMagazineEntity(uid);
 

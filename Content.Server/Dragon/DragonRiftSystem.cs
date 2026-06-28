@@ -1,3 +1,4 @@
+using System.Numerics;
 using Content.Server.Chat.Systems;
 using Content.Server.NPC;
 using Content.Server.NPC.Systems;
@@ -6,14 +7,13 @@ using Content.Shared.Damage;
 using Content.Shared.Dragon;
 using Content.Shared.Examine;
 using Content.Shared.Sprite;
+using Robust.Shared.Audio;
+using Robust.Shared.Audio.Systems;
 using Robust.Shared.GameObjects;
+using Robust.Shared.GameStates;
 using Robust.Shared.Map;
 using Robust.Shared.Player;
 using Robust.Shared.Serialization.Manager;
-using System.Numerics;
-using Robust.Shared.Audio;
-using Robust.Shared.Audio.Systems;
-using Robust.Shared.GameStates;
 using Robust.Shared.Utility;
 
 namespace Content.Server.Dragon;
@@ -23,12 +23,23 @@ namespace Content.Server.Dragon;
 /// </summary>
 public sealed class DragonRiftSystem : EntitySystem
 {
-    [Dependency] private readonly ChatSystem _chat = default!;
-    [Dependency] private readonly DragonSystem _dragon = default!;
-    [Dependency] private readonly ISerializationManager _serManager = default!;
-    [Dependency] private readonly NavMapSystem _navMap = default!;
-    [Dependency] private readonly NPCSystem _npc = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency]
+    private readonly ChatSystem _chat = default!;
+
+    [Dependency]
+    private readonly DragonSystem _dragon = default!;
+
+    [Dependency]
+    private readonly ISerializationManager _serManager = default!;
+
+    [Dependency]
+    private readonly NavMapSystem _navMap = default!;
+
+    [Dependency]
+    private readonly NPCSystem _npc = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
 
     public override void Initialize()
     {
@@ -42,10 +53,7 @@ public sealed class DragonRiftSystem : EntitySystem
 
     private void OnGetState(Entity<DragonRiftComponent> ent, ref ComponentGetState args)
     {
-        args.State = new DragonRiftComponentState
-        {
-            State = ent.Comp.State,
-        };
+        args.State = new DragonRiftComponentState { State = ent.Comp.State };
     }
 
     public override void Update(float frameTime)
@@ -80,8 +88,10 @@ public sealed class DragonRiftSystem : EntitySystem
                 comp.State = DragonRiftState.AlmostFinished;
                 Dirty(uid, comp);
 
-                var msg = Loc.GetString("carp-rift-warning",
-                    ("location", FormattedMessage.RemoveMarkupOrThrow(_navMap.GetNearestBeaconString((uid, xform)))));
+                var msg = Loc.GetString(
+                    "carp-rift-warning",
+                    ("location", FormattedMessage.RemoveMarkupOrThrow(_navMap.GetNearestBeaconString((uid, xform))))
+                );
                 _chat.DispatchGlobalAnnouncement(msg, playSound: false, colorOverride: Color.Red);
                 _audio.PlayGlobal("/Audio/Misc/notice1.ogg", Filter.Broadcast(), true);
                 _navMap.SetBeaconEnabled(uid, true);
@@ -101,14 +111,23 @@ public sealed class DragonRiftSystem : EntitySystem
                 }
 
                 if (comp.Dragon != null)
-                    _npc.SetBlackboard(ent, NPCBlackboard.FollowTarget, new EntityCoordinates(comp.Dragon.Value, Vector2.Zero));
+                    _npc.SetBlackboard(
+                        ent,
+                        NPCBlackboard.FollowTarget,
+                        new EntityCoordinates(comp.Dragon.Value, Vector2.Zero)
+                    );
             }
         }
     }
 
     private void OnExamined(EntityUid uid, DragonRiftComponent component, ExaminedEvent args)
     {
-        args.PushMarkup(Loc.GetString("carp-rift-examine", ("percentage", MathF.Round(component.Accumulator / component.MaxAccumulator * 100))));
+        args.PushMarkup(
+            Loc.GetString(
+                "carp-rift-examine",
+                ("percentage", MathF.Round(component.Accumulator / component.MaxAccumulator * 100))
+            )
+        );
     }
 
     private void OnAnchorChange(EntityUid uid, DragonRiftComponent component, ref AnchorStateChangedEvent args)

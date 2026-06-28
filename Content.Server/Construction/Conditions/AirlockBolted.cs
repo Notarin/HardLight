@@ -1,7 +1,7 @@
 using Content.Shared.Construction;
-using JetBrains.Annotations;
 using Content.Shared.Doors.Components;
 using Content.Shared.Examine;
+using JetBrains.Annotations;
 
 namespace Content.Server.Construction.Conditions
 {
@@ -26,14 +26,25 @@ namespace Content.Server.Construction.Conditions
 
             var entMan = IoCManager.Resolve<IEntityManager>();
 
-            if (!entMan.TryGetComponent(entity, out DoorBoltComponent? airlock)) return false;
+            if (!entMan.TryGetComponent(entity, out DoorBoltComponent? airlock))
+                return false;
 
             if (airlock.BoltsDown != Value)
             {
                 if (Value)
-                    args.PushMarkup(Loc.GetString("construction-examine-condition-airlock-bolt", ("entityName", entMan.GetComponent<MetaDataComponent>(entity).EntityName)) + "\n");
+                    args.PushMarkup(
+                        Loc.GetString(
+                            "construction-examine-condition-airlock-bolt",
+                            ("entityName", entMan.GetComponent<MetaDataComponent>(entity).EntityName)
+                        ) + "\n"
+                    );
                 else
-                    args.PushMarkup(Loc.GetString("construction-examine-condition-airlock-unbolt", ("entityName", entMan.GetComponent<MetaDataComponent>(entity).EntityName)) + "\n");
+                    args.PushMarkup(
+                        Loc.GetString(
+                            "construction-examine-condition-airlock-unbolt",
+                            ("entityName", entMan.GetComponent<MetaDataComponent>(entity).EntityName)
+                        ) + "\n"
+                    );
                 return true;
             }
 
@@ -44,7 +55,9 @@ namespace Content.Server.Construction.Conditions
         {
             yield return new ConstructionGuideEntry()
             {
-                Localization = Value ? "construction-step-condition-airlock-bolt" : "construction-step-condition-airlock-unbolt"
+                Localization = Value
+                    ? "construction-step-condition-airlock-bolt"
+                    : "construction-step-condition-airlock-unbolt",
             };
         }
     }

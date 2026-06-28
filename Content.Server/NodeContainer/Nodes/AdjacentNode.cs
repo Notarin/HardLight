@@ -10,11 +10,13 @@ namespace Content.Server.NodeContainer.Nodes
     [DataDefinition]
     public sealed partial class AdjacentNode : Node
     {
-        public override IEnumerable<Node> GetReachableNodes(TransformComponent xform,
+        public override IEnumerable<Node> GetReachableNodes(
+            TransformComponent xform,
             EntityQuery<NodeContainerComponent> nodeQuery,
             EntityQuery<TransformComponent> xformQuery,
             MapGridComponent? grid,
-            IEntityManager entMan)
+            IEntityManager entMan
+        )
         {
             if (!xform.Anchored || grid == null)
                 yield break;

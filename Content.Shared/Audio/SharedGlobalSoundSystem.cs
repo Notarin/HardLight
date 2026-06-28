@@ -1,14 +1,13 @@
 ﻿using Content.Shared.CCVar;
 using Robust.Shared.Audio;
 using Robust.Shared.Serialization;
+
 namespace Content.Shared.Audio;
 
 /// <summary>
 /// Handles playing audio to all players globally unless disabled by cvar. Some events are grid-specific.
 /// </summary>
-public abstract class SharedGlobalSoundSystem : EntitySystem
-{
-}
+public abstract class SharedGlobalSoundSystem : EntitySystem { }
 
 [Virtual]
 [Serializable, NetSerializable]
@@ -16,6 +15,7 @@ public class GlobalSoundEvent : EntityEventArgs
 {
     public ResolvedSoundSpecifier Specifier;
     public AudioParams? AudioParams;
+
     public GlobalSoundEvent(ResolvedSoundSpecifier specifier, AudioParams? audioParams = null)
     {
         Specifier = specifier;
@@ -29,7 +29,8 @@ public class GlobalSoundEvent : EntityEventArgs
 [Serializable, NetSerializable]
 public sealed class AdminSoundEvent : GlobalSoundEvent
 {
-    public AdminSoundEvent(ResolvedSoundSpecifier specifier, AudioParams? audioParams = null) : base(specifier, audioParams){}
+    public AdminSoundEvent(ResolvedSoundSpecifier specifier, AudioParams? audioParams = null)
+        : base(specifier, audioParams) { }
 }
 
 /// <summary>
@@ -38,12 +39,13 @@ public sealed class AdminSoundEvent : GlobalSoundEvent
 [Serializable, NetSerializable]
 public sealed class GameGlobalSoundEvent : GlobalSoundEvent
 {
-    public GameGlobalSoundEvent(ResolvedSoundSpecifier specifier, AudioParams? audioParams = null) : base(specifier, audioParams){}
+    public GameGlobalSoundEvent(ResolvedSoundSpecifier specifier, AudioParams? audioParams = null)
+        : base(specifier, audioParams) { }
 }
 
 public enum StationEventMusicType : byte
 {
-    Nuke
+    Nuke,
 }
 
 /// <summary>
@@ -54,8 +56,12 @@ public sealed class StationEventMusicEvent : GlobalSoundEvent
 {
     public StationEventMusicType Type;
 
-    public StationEventMusicEvent(ResolvedSoundSpecifier specifier, StationEventMusicType type, AudioParams? audioParams = null) : base(
-        specifier, audioParams)
+    public StationEventMusicEvent(
+        ResolvedSoundSpecifier specifier,
+        StationEventMusicType type,
+        AudioParams? audioParams = null
+    )
+        : base(specifier, audioParams)
     {
         Type = type;
     }

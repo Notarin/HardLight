@@ -13,7 +13,8 @@ namespace Content.IntegrationTests.Tests.DoAfter
     public sealed partial class DoAfterServerTest
     {
         [TestPrototypes]
-        private const string Prototypes = @"
+        private const string Prototypes =
+            @"
 - type: entity
   name: DoAfterDummy
   id: DoAfterDummy
@@ -47,9 +48,11 @@ namespace Content.IntegrationTests.Tests.DoAfter
                         if (type.IsAbstract || type == typeof(TestDoAfterEvent))
                             continue;
 
-                        Assert.That(type.HasCustomAttribute<NetSerializableAttribute>()
-                                    && type.HasCustomAttribute<SerializableAttribute>(),
-                            $"{nameof(DoAfterEvent)} is not NetSerializable. Event: {type.Name}");
+                        Assert.That(
+                            type.HasCustomAttribute<NetSerializableAttribute>()
+                                && type.HasCustomAttribute<SerializableAttribute>(),
+                            $"{nameof(DoAfterEvent)} is not NetSerializable. Event: {type.Name}"
+                        );
                     }
                 });
             });
@@ -113,7 +116,6 @@ namespace Content.IntegrationTests.Tests.DoAfter
                 Assert.That(!ev.Cancelled);
                 doAfterSystem.Cancel(id);
                 Assert.That(ev.Cancelled);
-
             });
 
             await server.WaitRunTicks(3);

@@ -125,7 +125,7 @@
   id: ShipyardBulker
   name: guide-entry-shipyard-bulker
   text: "/ServerInfo/_NF/Guidebook/Shipyard/Bulker.xml"
-  
+
 - type: guideEntry
   id: ShipyardCaladrius
   name: guide-entry-shipyard-caladrius
@@ -310,7 +310,7 @@
   id: ShipyardProspector
   name: guide-entry-shipyard-prospector
   text: "/ServerInfo/_NF/Guidebook/Shipyard/Prospector.xml"
-  
+
 - type: guideEntry
   id: ShipyardPulsar
   name: guide-entry-shipyard-pulsar

@@ -7,8 +7,12 @@ namespace Content.Client._NF.EmpGenerator;
 
 public sealed partial class EmpGeneratorSystem : EntitySystem
 {
-    [Dependency] private readonly AppearanceSystem _appearanceSystem = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly AppearanceSystem _appearanceSystem = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
+
     public override void Initialize()
     {
         base.Initialize();
@@ -23,7 +27,14 @@ public sealed partial class EmpGeneratorSystem : EntitySystem
         if (args.Sprite == null)
             return;
 
-        if (_appearanceSystem.TryGetData<PowerChargeStatus>(uid, PowerChargeVisuals.State, out var state, args.Component))
+        if (
+            _appearanceSystem.TryGetData<PowerChargeStatus>(
+                uid,
+                PowerChargeVisuals.State,
+                out var state,
+                args.Component
+            )
+        )
         {
             if (comp.SpriteMap.TryGetValue(state, out var spriteState))
             {
@@ -52,5 +63,5 @@ public sealed partial class EmpGeneratorSystem : EntitySystem
 public enum EmpGeneratorVisualLayers : byte
 {
     Base,
-    Core
+    Core,
 }

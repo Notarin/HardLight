@@ -22,7 +22,11 @@ namespace Content.Server._DV.Mail.EntitySystems
         /// <summary>
         /// EntGotRemovedFromContainerMessage handler - spawn the intended entity after removed from a container and delete the.
         /// </summary>
-        private void OnRemovedFromContainer(EntityUid uid, DelayedItemComponent component, EntGotRemovedFromContainerMessage args)
+        private void OnRemovedFromContainer(
+            EntityUid uid,
+            DelayedItemComponent component,
+            EntGotRemovedFromContainerMessage args
+        )
         {
             SpawnAtPosition(component.Item, Transform(uid).Coordinates);
             QueueDel(uid);

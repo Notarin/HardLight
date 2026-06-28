@@ -17,10 +17,7 @@ public sealed partial class LightReplacerComponent : Component
     [DataField("sound")]
     public SoundSpecifier Sound = new SoundPathSpecifier("/Audio/Weapons/click.ogg")
     {
-        Params = new()
-        {
-            Volume = -4f
-        }
+        Params = new() { Volume = -4f },
     };
 
     /// <summary>

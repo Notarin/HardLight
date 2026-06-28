@@ -1,60 +1,94 @@
 using Content.Server.Audio;
-using Content.Server.Power.Components;
-using Content.Server.Electrocution;
-using Content.Server.Lightning;
-using Content.Server.Explosion.EntitySystems;
 using Content.Server.Construction;
+using Content.Server.Electrocution;
+using Content.Server.Explosion.EntitySystems;
 using Content.Server.Ghost;
+using Content.Server.Lightning;
+using Content.Server.Power.Components;
 using Content.Server.Revenant.EntitySystems;
 using Content.Shared.Audio;
+using Content.Shared.Construction.Components;
 using Content.Shared.Construction.EntitySystems;
 using Content.Shared.Coordinates.Helpers;
-using Content.Shared.GameTicking;
-using Content.Shared.Psionics.Glimmer;
-using Content.Shared.Verbs;
-using Content.Shared.StatusEffect;
 using Content.Shared.Damage;
 using Content.Shared.Destructible;
-using Content.Shared.Construction.Components;
-using Robust.Shared.Audio;
-using Robust.Shared.Map;
-using Robust.Shared.Map.Components;
-using Robust.Shared.Random;
-using Robust.Shared.Physics.Components;
-using Robust.Shared.Utility;
+using Content.Shared.GameTicking;
 using Content.Shared.Power;
+using Content.Shared.Psionics.Glimmer;
+using Content.Shared.StatusEffect;
+using Content.Shared.Verbs;
+using Robust.Shared;
+using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Configuration;
+using Robust.Shared.Map;
+using Robust.Shared.Map.Components;
+using Robust.Shared.Physics.Components;
 using Robust.Shared.Player;
-using Robust.Shared;
+using Robust.Shared.Random;
+using Robust.Shared.Utility;
 
 namespace Content.Server.Psionics.Glimmer
 {
     public sealed class GlimmerReactiveSystem : EntitySystem
     {
-        [Dependency] private readonly GlimmerSystem _glimmerSystem = default!;
-        [Dependency] private readonly SharedAppearanceSystem _appearanceSystem = default!;
-        [Dependency] private readonly ElectrocutionSystem _electrocutionSystem = default!;
-        [Dependency] private readonly SharedAudioSystem _sharedAudioSystem = default!;
-        [Dependency] private readonly SharedAmbientSoundSystem _sharedAmbientSoundSystem = default!;
-        [Dependency] private readonly IRobustRandom _random = default!;
-        [Dependency] private readonly LightningSystem _lightning = default!;
-        [Dependency] private readonly ExplosionSystem _explosionSystem = default!;
-        [Dependency] private readonly EntityLookupSystem _entityLookupSystem = default!;
-        [Dependency] private readonly AnchorableSystem _anchorableSystem = default!;
-        [Dependency] private readonly SharedDestructibleSystem _destructibleSystem = default!;
-        [Dependency] private readonly GhostSystem _ghostSystem = default!;
-        [Dependency] private readonly RevenantSystem _revenantSystem = default!;
-        [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
-        [Dependency] private readonly SharedPointLightSystem _pointLightSystem = default!;
-        [Dependency] private readonly SharedMapSystem _mapSystem = default!;
-        [Dependency] private readonly IConfigurationManager _cfg = default!;
+        [Dependency]
+        private readonly GlimmerSystem _glimmerSystem = default!;
+
+        [Dependency]
+        private readonly SharedAppearanceSystem _appearanceSystem = default!;
+
+        [Dependency]
+        private readonly ElectrocutionSystem _electrocutionSystem = default!;
+
+        [Dependency]
+        private readonly SharedAudioSystem _sharedAudioSystem = default!;
+
+        [Dependency]
+        private readonly SharedAmbientSoundSystem _sharedAmbientSoundSystem = default!;
+
+        [Dependency]
+        private readonly IRobustRandom _random = default!;
+
+        [Dependency]
+        private readonly LightningSystem _lightning = default!;
+
+        [Dependency]
+        private readonly ExplosionSystem _explosionSystem = default!;
+
+        [Dependency]
+        private readonly EntityLookupSystem _entityLookupSystem = default!;
+
+        [Dependency]
+        private readonly AnchorableSystem _anchorableSystem = default!;
+
+        [Dependency]
+        private readonly SharedDestructibleSystem _destructibleSystem = default!;
+
+        [Dependency]
+        private readonly GhostSystem _ghostSystem = default!;
+
+        [Dependency]
+        private readonly RevenantSystem _revenantSystem = default!;
+
+        [Dependency]
+        private readonly SharedTransformSystem _transformSystem = default!;
+
+        [Dependency]
+        private readonly SharedPointLightSystem _pointLightSystem = default!;
+
+        [Dependency]
+        private readonly SharedMapSystem _mapSystem = default!;
+
+        [Dependency]
+        private readonly IConfigurationManager _cfg = default!;
 
         public float Accumulator = 0;
         public const float UpdateFrequency = 15f;
         public float BeamCooldown = 3;
         public GlimmerTier LastGlimmerTier = GlimmerTier.Minimal;
         public bool GhostsVisible = false;
+
         public override void Initialize()
         {
             base.Initialize();
@@ -76,7 +110,12 @@ namespace Content.Server.Psionics.Glimmer
         /// <param name="glimmerTierDelta">The number of steps in tier
         /// difference since last update. This can be zero for the sake of
         /// toggling the enabled states.</param>
-        private void UpdateEntityState(EntityUid uid, SharedGlimmerReactiveComponent component, GlimmerTier currentGlimmerTier, int glimmerTierDelta)
+        private void UpdateEntityState(
+            EntityUid uid,
+            SharedGlimmerReactiveComponent component,
+            GlimmerTier currentGlimmerTier,
+            int glimmerTierDelta
+        )
         {
             var isEnabled = true;
 
@@ -84,12 +123,18 @@ namespace Content.Server.Psionics.Glimmer
                 if (TryComp(uid, out ApcPowerReceiverComponent? apcPower))
                     isEnabled = apcPower.Powered;
 
-            _appearanceSystem.SetData(uid, GlimmerReactiveVisuals.GlimmerTier, isEnabled ? currentGlimmerTier : GlimmerTier.Minimal);
+            _appearanceSystem.SetData(
+                uid,
+                GlimmerReactiveVisuals.GlimmerTier,
+                isEnabled ? currentGlimmerTier : GlimmerTier.Minimal
+            );
 
             // update ambient sound
-            if (TryComp(uid, out GlimmerSoundComponent? glimmerSound)
+            if (
+                TryComp(uid, out GlimmerSoundComponent? glimmerSound)
                 && TryComp(uid, out AmbientSoundComponent? ambientSoundComponent)
-                && glimmerSound.GetSound(currentGlimmerTier, out SoundSpecifier? spec))
+                && glimmerSound.GetSound(currentGlimmerTier, out SoundSpecifier? spec)
+            )
             {
                 if (spec != null)
                     _sharedAmbientSoundSystem.SetSound(uid, spec, ambientSoundComponent);
@@ -98,17 +143,28 @@ namespace Content.Server.Psionics.Glimmer
             if (component.ModulatesPointLight) //SharedPointLightComponent is now being fetched via TryGetLight.
                 if (_pointLightSystem.TryGetLight(uid, out var pointLight))
                 {
-                    _pointLightSystem.SetEnabled(uid, isEnabled ? currentGlimmerTier != GlimmerTier.Minimal : false, pointLight);
+                    _pointLightSystem.SetEnabled(
+                        uid,
+                        isEnabled ? currentGlimmerTier != GlimmerTier.Minimal : false,
+                        pointLight
+                    );
                     // The light energy and radius are kept updated even when off
                     // to prevent the need to store additional state.
                     //
                     // Note that this doesn't handle edge cases where the
                     // PointLightComponent is removed while the
                     // GlimmerReactiveComponent is still present.
-                    _pointLightSystem.SetEnergy(uid, pointLight.Energy + glimmerTierDelta * component.GlimmerToLightEnergyFactor, pointLight);
-                    _pointLightSystem.SetRadius(uid, pointLight.Radius + glimmerTierDelta * component.GlimmerToLightRadiusFactor, pointLight);
+                    _pointLightSystem.SetEnergy(
+                        uid,
+                        pointLight.Energy + glimmerTierDelta * component.GlimmerToLightEnergyFactor,
+                        pointLight
+                    );
+                    _pointLightSystem.SetRadius(
+                        uid,
+                        pointLight.Radius + glimmerTierDelta * component.GlimmerToLightRadiusFactor,
+                        pointLight
+                    );
                 }
-
         }
 
         /// <summary>
@@ -119,9 +175,11 @@ namespace Content.Server.Psionics.Glimmer
         private void OnMapInit(EntityUid uid, SharedGlimmerReactiveComponent component, MapInitEvent args)
         {
             if (component.RequiresApcPower && !HasComp<ApcPowerReceiverComponent>(uid))
-                Logger.Warning($"{ToPrettyString(uid)} had RequiresApcPower set to true but no ApcPowerReceiverComponent was found on init.");
+                Logger.Warning(
+                    $"{ToPrettyString(uid)} had RequiresApcPower set to true but no ApcPowerReceiverComponent was found on init."
+                );
 
-            UpdateEntityState(uid, component, LastGlimmerTier, (int) LastGlimmerTier);
+            UpdateEntityState(uid, component, LastGlimmerTier, (int)LastGlimmerTier);
         }
 
         /// <summary>
@@ -131,7 +189,7 @@ namespace Content.Server.Psionics.Glimmer
         /// </summary>
         private void OnComponentRemove(EntityUid uid, SharedGlimmerReactiveComponent component, ComponentRemove args)
         {
-            UpdateEntityState(uid, component, GlimmerTier.Minimal, -1 * (int) LastGlimmerTier);
+            UpdateEntityState(uid, component, GlimmerTier.Minimal, -1 * (int)LastGlimmerTier);
         }
 
         /// <summary>
@@ -147,7 +205,11 @@ namespace Content.Server.Psionics.Glimmer
         /// <summary>
         ///     Enable / disable special effects from higher tiers.
         /// </summary>
-        private void OnTierChanged(EntityUid uid, SharedGlimmerReactiveComponent component, GlimmerTierChangedEvent args)
+        private void OnTierChanged(
+            EntityUid uid,
+            SharedGlimmerReactiveComponent component,
+            GlimmerTierChangedEvent args
+        )
         {
             if (!TryComp<ApcPowerReceiverComponent>(uid, out var receiver))
                 return;
@@ -159,15 +221,20 @@ namespace Content.Server.Psionics.Glimmer
 
                 receiver.PowerDisabled = false;
                 receiver.NeedsPower = false;
-            } else
+            }
+            else
             {
                 receiver.NeedsPower = true;
             }
         }
 
-        private void AddShockVerb(EntityUid uid, SharedGlimmerReactiveComponent component, GetVerbsEvent<AlternativeVerb> args)
+        private void AddShockVerb(
+            EntityUid uid,
+            SharedGlimmerReactiveComponent component,
+            GetVerbsEvent<AlternativeVerb> args
+        )
         {
-            if(!args.CanAccess || !args.CanInteract)
+            if (!args.CanAccess || !args.CanInteract)
                 return;
 
             if (!TryComp<ApcPowerReceiverComponent>(uid, out var receiver))
@@ -181,11 +248,19 @@ namespace Content.Server.Psionics.Glimmer
                 Act = () =>
                 {
                     _sharedAudioSystem.PlayPvs(component.ShockNoises, args.User);
-                    _electrocutionSystem.TryDoElectrocution(args.User, null, _glimmerSystem.Glimmer / 200, TimeSpan.FromSeconds((float) _glimmerSystem.Glimmer / 100), false);
+                    _electrocutionSystem.TryDoElectrocution(
+                        args.User,
+                        null,
+                        _glimmerSystem.Glimmer / 200,
+                        TimeSpan.FromSeconds((float)_glimmerSystem.Glimmer / 100),
+                        false
+                    );
                 },
-                Icon = new SpriteSpecifier.Texture(new ("/Textures/Interface/VerbIcons/Spare/poweronoff.svg.192dpi.png")),
+                Icon = new SpriteSpecifier.Texture(
+                    new("/Textures/Interface/VerbIcons/Spare/poweronoff.svg.192dpi.png")
+                ),
                 Text = Loc.GetString("power-switch-component-toggle-verb"),
-                Priority = -3
+                Priority = -3,
             };
             args.Verbs.Add(verb);
         }
@@ -195,7 +270,7 @@ namespace Content.Server.Psionics.Glimmer
             if (args.Origin == null)
                 return;
 
-            if (!_random.Prob((float) _glimmerSystem.Glimmer / 1000))
+            if (!_random.Prob((float)_glimmerSystem.Glimmer / 1000))
                 return;
 
             var tier = _glimmerSystem.GetGlimmerTier();
@@ -212,22 +287,32 @@ namespace Content.Server.Psionics.Glimmer
             if (tier < GlimmerTier.High)
                 return;
 
-            var totalIntensity = (float) (_glimmerSystem.Glimmer * 2);
-            var slope = (float) (11 - _glimmerSystem.Glimmer / 100);
+            var totalIntensity = (float)(_glimmerSystem.Glimmer * 2);
+            var slope = (float)(11 - _glimmerSystem.Glimmer / 100);
             var maxIntensity = 20;
 
-            var removed = (float) _glimmerSystem.Glimmer * _random.NextFloat(0.1f, 0.15f);
-            _glimmerSystem.Glimmer -= (int) removed;
+            var removed = (float)_glimmerSystem.Glimmer * _random.NextFloat(0.1f, 0.15f);
+            _glimmerSystem.Glimmer -= (int)removed;
             BeamRandomNearProber(uid, _glimmerSystem.Glimmer / 350, _glimmerSystem.Glimmer / 50);
             _explosionSystem.QueueExplosion(uid, "Default", totalIntensity, slope, maxIntensity);
         }
 
-        private void OnUnanchorAttempt(EntityUid uid, SharedGlimmerReactiveComponent component, UnanchorAttemptEvent args)
+        private void OnUnanchorAttempt(
+            EntityUid uid,
+            SharedGlimmerReactiveComponent component,
+            UnanchorAttemptEvent args
+        )
         {
             if (_glimmerSystem.GetGlimmerTier() >= GlimmerTier.Dangerous)
             {
                 _sharedAudioSystem.PlayPvs(component.ShockNoises, args.User);
-                _electrocutionSystem.TryDoElectrocution(args.User, null, _glimmerSystem.Glimmer / 200, TimeSpan.FromSeconds((float) _glimmerSystem.Glimmer / 100), false);
+                _electrocutionSystem.TryDoElectrocution(
+                    args.User,
+                    null,
+                    _glimmerSystem.Glimmer / 200,
+                    TimeSpan.FromSeconds((float)_glimmerSystem.Glimmer / 100),
+                    false
+                );
                 args.Cancel();
             }
         }
@@ -235,13 +320,26 @@ namespace Content.Server.Psionics.Glimmer
         public void BeamRandomNearProber(EntityUid prober, int targets, float range = 10f)
         {
             List<EntityUid> targetList = new();
-            foreach (var (targetUid, targetComp) in _entityLookupSystem.GetEntitiesInRange<StatusEffectsComponent>(Transform(prober).Coordinates, range))
+            foreach (
+                var (targetUid, targetComp) in _entityLookupSystem.GetEntitiesInRange<StatusEffectsComponent>(
+                    Transform(prober).Coordinates,
+                    range
+                )
+            )
             {
                 if (targetComp.AllowedEffects.Contains("Electrocution"))
                     targetList.Add(targetUid);
             }
 
-            foreach (var (reactiveUid, reactiveComp) in _entityLookupSystem.GetEntitiesInRange<SharedGlimmerReactiveComponent>(Transform(prober).Coordinates, range))
+            foreach (
+                var (
+                    reactiveUid,
+                    reactiveComp
+                ) in _entityLookupSystem.GetEntitiesInRange<SharedGlimmerReactiveComponent>(
+                    Transform(prober).Coordinates,
+                    range
+                )
+            )
             {
                 targetList.Add(reactiveUid);
             }
@@ -270,7 +368,7 @@ namespace Content.Server.Psionics.Glimmer
 
             if (!lxform.Coordinates.TryDistance(EntityManager, txform.Coordinates, out var distance))
                 return;
-            if (distance > (float) (_glimmerSystem.Glimmer / 100))
+            if (distance > (float)(_glimmerSystem.Glimmer / 100))
                 return;
 
             string beamproto;
@@ -287,7 +385,6 @@ namespace Content.Server.Psionics.Glimmer
                     beamproto = "ChargedLightning";
                     break;
             }
-
 
             _lightning.ShootLightning(prober, target, beamproto);
             BeamCooldown += 3f;
@@ -309,8 +406,10 @@ namespace Content.Server.Psionics.Glimmer
             {
                 var tileIndices = _mapSystem.TileIndicesFor(gridUid.Value, grid, coordinates);
 
-                if (_anchorableSystem.TileFree(grid, tileIndices, physics.CollisionLayer, physics.CollisionMask) &&
-                    _transformSystem.AnchorEntity(uid, xform))
+                if (
+                    _anchorableSystem.TileFree(grid, tileIndices, physics.CollisionLayer, physics.CollisionMask)
+                    && _transformSystem.AnchorEntity(uid, xform)
+                )
                 {
                     return;
                 }
@@ -343,8 +442,9 @@ namespace Content.Server.Psionics.Glimmer
                 var currentGlimmerTier = _glimmerSystem.GetGlimmerTier();
 
                 var reactives = EntityQueryEnumerator<SharedGlimmerReactiveComponent>();
-                if (currentGlimmerTier != LastGlimmerTier) {
-                    var glimmerTierDelta = (int) currentGlimmerTier - (int) LastGlimmerTier;
+                if (currentGlimmerTier != LastGlimmerTier)
+                {
+                    var glimmerTierDelta = (int)currentGlimmerTier - (int)LastGlimmerTier;
                     var ev = new GlimmerTierChangedEvent(LastGlimmerTier, currentGlimmerTier, glimmerTierDelta);
 
                     while (reactives.MoveNext(out var reactiveUid, out var reactiveComp))
@@ -427,4 +527,3 @@ namespace Content.Server.Psionics.Glimmer
         }
     }
 }
-

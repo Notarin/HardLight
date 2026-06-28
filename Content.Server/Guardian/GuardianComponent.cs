@@ -48,7 +48,10 @@ namespace Content.Server.Guardian
         /// Sound played when the guardian dies.
         /// </summary>
         [DataField]
-        public SoundSpecifier DeathSound = new SoundPathSpecifier("/Audio/Voice/Human/malescream_guardian.ogg", AudioParams.Default.WithVariation(0.2f));
+        public SoundSpecifier DeathSound = new SoundPathSpecifier(
+            "/Audio/Voice/Human/malescream_guardian.ogg",
+            AudioParams.Default.WithVariation(0.2f)
+        );
 
         // Frontier: NPC guardians
         /// <summary>

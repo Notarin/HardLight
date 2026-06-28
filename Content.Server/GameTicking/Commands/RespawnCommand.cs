@@ -10,10 +10,17 @@ namespace Content.Server.GameTicking.Commands
 {
     sealed class RespawnCommand : LocalizedEntityCommands
     {
-        [Dependency] private readonly IPlayerManager _player = default!;
-        [Dependency] private readonly IPlayerLocator _locator = default!;
-        [Dependency] private readonly GameTicker _gameTicker = default!;
-        [Dependency] private readonly MindSystem _mind = default!;
+        [Dependency]
+        private readonly IPlayerManager _player = default!;
+
+        [Dependency]
+        private readonly IPlayerLocator _locator = default!;
+
+        [Dependency]
+        private readonly GameTicker _gameTicker = default!;
+
+        [Dependency]
+        private readonly MindSystem _mind = default!;
 
         public override string Command => "respawn";
 
@@ -66,7 +73,7 @@ namespace Content.Server.GameTicking.Commands
             _gameTicker.Respawn(targetPlayer);
         }
 
-      public override CompletionResult GetCompletion(IConsoleShell shell, string[] args)
+        public override CompletionResult GetCompletion(IConsoleShell shell, string[] args)
         {
             if (args.Length != 1)
                 return CompletionResult.Empty;

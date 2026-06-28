@@ -1,14 +1,15 @@
 using Content.Shared.Projectiles;
-using Content.Shared.Weapons.Ranged.Components;
 using Content.Shared.Standing;
-using Robust.Shared.Physics.Events;
+using Content.Shared.Weapons.Ranged.Components;
 using Robust.Shared.Containers;
+using Robust.Shared.Physics.Events;
 
 namespace Content.Shared.Damage.Components;
 
 public sealed class RequireProjectileTargetSystem : EntitySystem
 {
-    [Dependency] private readonly SharedContainerSystem _container = default!;
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
 
     public override void Initialize()
     {
@@ -20,15 +21,19 @@ public sealed class RequireProjectileTargetSystem : EntitySystem
     private void PreventCollide(Entity<RequireProjectileTargetComponent> ent, ref PreventCollideEvent args)
     {
         if (args.Cancelled)
-          return;
+            return;
 
         if (!ent.Comp.Active)
             return;
 
         var other = args.OtherEntity;
-        if (TryComp(other, out ProjectileComponent? projectile) &&
-            (CompOrNull<TargetedProjectileComponent>(other) is not { } targeted
-             || EntityManager.GetEntity(targeted.Target) != ent.Owner))
+        if (
+            TryComp(other, out ProjectileComponent? projectile)
+            && (
+                CompOrNull<TargetedProjectileComponent>(other) is not { } targeted
+                || EntityManager.GetEntity(targeted.Target) != ent.Owner
+            )
+        )
         {
             // Prevents shooting out of while inside of crates
             var shooter = projectile.Shooter;
@@ -41,7 +46,7 @@ public sealed class RequireProjectileTargetSystem : EntitySystem
                 return;
 
             if (!_container.IsEntityOrParentInContainer(shooter.Value))
-               args.Cancelled = true;
+                args.Cancelled = true;
         }
     }
 

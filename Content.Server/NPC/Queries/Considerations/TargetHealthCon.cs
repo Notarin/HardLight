@@ -7,7 +7,6 @@ namespace Content.Server.NPC.Queries.Considerations;
 /// </summary>
 public sealed partial class TargetHealthCon : UtilityConsideration
 {
-
     /// <summary>
     /// Which MobState the consideration returns 0f at, defaults to choosing earliest incapacitating MobState
     /// </summary>

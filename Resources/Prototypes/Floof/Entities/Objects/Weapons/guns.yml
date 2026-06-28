@@ -5,53 +5,53 @@
   id: WeaponBorgDisabler
   description: A self-defense weapon that exhausts organic targets, weakening them until they collapse.
   components:
-    - type: ProjectileBatteryAmmoProvider
-      proto: NFBulletDisabler
-      fireCost: 50
-    - type: BatterySelfRecharger
-      autoRecharge: true
-      autoRechargeRate: 30
+  - type: ProjectileBatteryAmmoProvider
+    proto: NFBulletDisabler
+    fireCost: 50
+  - type: BatterySelfRecharger
+    autoRecharge: true
+    autoRechargeRate: 30
 
-# - type: entity
+  # - type: entity
   # name: borg taser
   # parent: BaseWeaponBatterySmall
   # id: WeaponborgTaser
   # description: A low-capacity, energy-based stun gun used by security teams to subdue targets at range.
   # components:
   # - type: Tag
-    # tags:
-    # - Taser
-    # - Sidearm
+  # tags:
+  # - Taser
+  # - Sidearm
+- type: entity
   # - type: Sprite
-    # sprite: Objects/Weapons/Guns/Battery/taser.rsi
-    # layers:
-    # - state: base
-      # map: ["enum.GunVisualLayers.Base"]
-    # - state: mag-unshaded-0
-      # map: ["enum.GunVisualLayers.MagUnshaded"]
-      # shader: unshaded
+  # sprite: Objects/Weapons/Guns/Battery/taser.rsi
+  # layers:
+  # - state: base
+  # map: ["enum.GunVisualLayers.Base"]
+  # - state: mag-unshaded-0
+  # map: ["enum.GunVisualLayers.MagUnshaded"]
+  # shader: unshaded
   # - type: Item
-    # heldPrefix: taser4
+  # heldPrefix: taser4
   # - type: Clothing
-    # quickEquip: false
-    # slots:
-    # - Belt
+  # quickEquip: false
+  # slots:
+  # - Belt
   # - type: Gun
-    # soundGunshot:
-      # path: /Audio/Weapons/Guns/Gunshots/taser.ogg
+  # soundGunshot:
+  # path: /Audio/Weapons/Guns/Gunshots/taser.ogg
   # - type: ProjectileBatteryAmmoProvider
-    # proto: BulletTaser
-    # fireCost: 200
+  # proto: BulletTaser
+  # fireCost: 200
   # - type: BatterySelfRecharger
-    # autoRecharge: true
-    # autoRechargeRate: 40
+  # autoRecharge: true
+  # autoRechargeRate: 40
   # - type: MagazineVisuals
-    # magState: mag
-    # steps: 5
-    # zeroVisible: true
+  # magState: mag
+  # steps: 5
+  # zeroVisible: true
   # - type: Appearance
 
-- type: entity
   parent: WeaponPulseRifle
   suffix: Robot
   id: BorgWeaponPulseRifle
@@ -116,7 +116,7 @@
     - SemiAuto
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/mk58.ogg
-    # fireOnDropChance: 0.5
+      # fireOnDropChance: 0.5
   - type: ProjectileBatteryAmmoProvider
     proto: NFBulletPistol35
     fireCost: 100
@@ -137,11 +137,11 @@
   - type: Sprite
     sprite: Objects/Weapons/Guns/Battery/energy_shotgun.rsi
     layers:
-      - state: base
-        map: ["enum.GunVisualLayers.Base"]
-      - state: mag-unshaded-4
-        map: ["enum.GunVisualLayers.MagUnshaded"]
-        shader: unshaded
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-unshaded-4
+      map: ["enum.GunVisualLayers.MagUnshaded"]
+      shader: unshaded
   - type: Clothing
     sprite: Objects/Weapons/Guns/Battery/energy_shotgun.rsi
   - type: Gun
@@ -189,4 +189,4 @@
   suffix: Robot
   parent: BaseWeaponEnergyShotgun
   id: WeaponBorgEnergyShotgun
-  categories: [ HideSpawnMenu ] # Hardlight change
+  categories: [HideSpawnMenu] # Hardlight change

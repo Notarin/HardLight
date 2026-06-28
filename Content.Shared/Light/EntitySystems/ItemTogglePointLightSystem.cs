@@ -10,9 +10,14 @@ namespace Content.Shared.Light.EntitySystems;
 /// </summary>
 public sealed class ItemTogglePointLightSystem : EntitySystem
 {
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedPointLightSystem _light = default!;
-    [Dependency] private readonly SharedHandheldLightSystem _handheldLight = default!;
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SharedPointLightSystem _light = default!;
+
+    [Dependency]
+    private readonly SharedHandheldLightSystem _handheldLight = default!;
 
     public override void Initialize()
     {

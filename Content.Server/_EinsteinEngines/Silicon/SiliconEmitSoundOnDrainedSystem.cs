@@ -1,14 +1,16 @@
 using Content.Server._EinsteinEngines.Silicon.Death;
-using Content.Shared.Sound.Components;
 using Content.Server.Sound;
-using Content.Shared.Mobs;
 using Content.Shared._EinsteinEngines.Silicon.Systems;
+using Content.Shared.Mobs;
+using Content.Shared.Sound.Components;
 
 namespace Content.Server._EinsteinEngines.Silicon;
 
 public sealed class EmitSoundOnCritSystem : EntitySystem
 {
-    [Dependency] private readonly EmitSoundSystem _emitSound = default!;
+    [Dependency]
+    private readonly EmitSoundSystem _emitSound = default!;
+
     public override void Initialize()
     {
         SubscribeLocalEvent<SiliconEmitSoundOnDrainedComponent, SiliconChargeDeathEvent>(OnDeath);

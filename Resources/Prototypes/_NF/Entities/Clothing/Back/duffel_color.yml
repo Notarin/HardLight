@@ -931,53 +931,53 @@
     sprite: _NF/Clothing/Back/Duffels/color.rsi
     layers:
     - state: icon-base
-      map: [ "iconDuffelMain" ]
+      map: ["iconDuffelMain"]
     - state: icon-sling
-      map: [ "iconDuffelSling" ]
+      map: ["iconDuffelSling"]
     - state: icon-decal-straps
-      map: [ "iconDuffelStraps" ]
+      map: ["iconDuffelStraps"]
     - state: icon-handle
-      map: [ "iconDuffelHandle" ]
+      map: ["iconDuffelHandle"]
     - state: icon-zipper
-      map: [ "iconDuffelZipper" ]
+      map: ["iconDuffelZipper"]
       shader: unshaded
   - type: Clothing
     sprite: _NF/Clothing/Back/Duffels/color.rsi
     clothingVisuals:
       back:
       - state: equipped-BACKPACK-base
-        map: [ "equippedDuffelBase" ]
+        map: ["equippedDuffelBase"]
       - state: equipped-BACKPACK-sling
-        map: [ "equippedDuffelSling" ]
+        map: ["equippedDuffelSling"]
       - state: equipped-BACKPACK-decal-straps
-        map: [ "equippedDuffelStraps" ]
+        map: ["equippedDuffelStraps"]
       - state: equipped-BACKPACK-handle
-        map: [ "equippedDuffelHandle" ]
+        map: ["equippedDuffelHandle"]
   - type: Item
     inhandVisuals:
       left:
       - state: inhand-left-base
-        map: [ "leftDuffelBase" ]
+        map: ["leftDuffelBase"]
       - state: inhand-left-sling
-        map: [ "leftDuffelSling" ]
+        map: ["leftDuffelSling"]
       - state: inhand-left-decal-straps
-        map: [ "leftDuffelStraps" ]
+        map: ["leftDuffelStraps"]
       - state: inhand-left-handle
-        map: [ "leftDuffelHandle" ]
+        map: ["leftDuffelHandle"]
       - state: inhand-left-zipper
-        map: [ "leftDuffelZipper" ]
+        map: ["leftDuffelZipper"]
         shader: unshaded
       right:
       - state: inhand-right-base
-        map: [ "rightDuffelBase" ]
+        map: ["rightDuffelBase"]
       - state: inhand-right-sling
-        map: [ "rightDuffelSling" ]
+        map: ["rightDuffelSling"]
       - state: inhand-right-decal-straps
-        map: [ "rightDuffelStraps" ]
+        map: ["rightDuffelStraps"]
       - state: inhand-right-handle
-        map: [ "rightDuffelHandle" ]
+        map: ["rightDuffelHandle"]
       - state: inhand-right-zipper
-        map: [ "rightDuffelZipper" ]
+        map: ["rightDuffelZipper"]
         shader: unshaded
   - type: RandomSprite
     available:
@@ -992,7 +992,7 @@
         icon-handle: Handle
       iconDuffelZipper:
         icon-zipper: Zipper
-    # clothing
+        # clothing
       equippedDuffelBase:
         equipped-BACKPACK-base: Base
       equippedDuffelSling:
@@ -1001,7 +1001,7 @@
         equipped-BACKPACK-decal-straps: Straps
       equippedDuffelHandle:
         equipped-BACKPACK-handle: Handle
-    # left hand
+        # left hand
       leftDuffelBase:
         inhand-left-base: Base
       leftDuffelSling:
@@ -1012,7 +1012,7 @@
         inhand-left-handle: Handle
       leftDuffelZipper:
         inhand-left-zipper: Zipper
-    # right hand
+        # right hand
       rightDuffelBase:
         inhand-right-base: Base
       rightDuffelSling:

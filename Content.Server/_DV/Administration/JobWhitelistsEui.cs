@@ -3,8 +3,8 @@ using Content.Server.Administration.Managers;
 using Content.Server.Database;
 using Content.Server.EUI;
 using Content.Server.Players.JobWhitelist;
-using Content.Shared.Administration;
 using Content.Shared._DV.Administration;
+using Content.Shared.Administration;
 using Content.Shared.Eui;
 using Content.Shared.Ghost.Roles; // Frontier
 using Content.Shared.Roles;
@@ -16,11 +16,20 @@ namespace Content.Server._DV.Administration;
 
 public sealed class JobWhitelistsEui : BaseEui
 {
-    [Dependency] private readonly IAdminManager _admin = default!;
-    [Dependency] private readonly ILogManager _log = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IServerDbManager _db = default!;
-    [Dependency] private readonly JobWhitelistManager _jobWhitelist = default!;
+    [Dependency]
+    private readonly IAdminManager _admin = default!;
+
+    [Dependency]
+    private readonly ILogManager _log = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private readonly IServerDbManager _db = default!;
+
+    [Dependency]
+    private readonly JobWhitelistManager _jobWhitelist = default!;
 
     private readonly ISawmill _sawmill;
 
@@ -65,7 +74,9 @@ public sealed class JobWhitelistsEui : BaseEui
 
         if (!_admin.HasAdminFlag(Player, AdminFlags.Whitelist))
         {
-            _sawmill.Warning($"{Player.Name} ({Player.UserId}) tried to change role whitelists for {PlayerName} without whitelists flag");
+            _sawmill.Warning(
+                $"{Player.Name} ({Player.UserId}) tried to change role whitelists for {PlayerName} without whitelists flag"
+            );
             return;
         }
 
@@ -115,7 +126,9 @@ public sealed class JobWhitelistsEui : BaseEui
         }
 
         var verb = added ? "added" : "removed";
-        _sawmill.Info($"{Player.Name} ({Player.UserId}) {verb} whitelist for {role} to player {PlayerName} ({PlayerId.UserId})");
+        _sawmill.Info(
+            $"{Player.Name} ({Player.UserId}) {verb} whitelist for {role} to player {PlayerName} ({PlayerId.UserId})"
+        );
         // End Frontier
 
         StateDirty();

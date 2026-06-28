@@ -13,7 +13,8 @@ public sealed partial class StationListItem : PanelContainer
         string stationSubtext,
         string stationDescription,
         bool selected,
-        string? iconPath)
+        string? iconPath
+    )
     {
         public string StationName { get; } = stationName;
         public string StationSubtext { get; } = stationSubtext;

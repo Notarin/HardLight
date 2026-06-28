@@ -1,7 +1,7 @@
 using Content.Shared.Bed.Sleep;
 using Content.Shared.StatusEffect;
-using Robust.Shared.Random;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Random;
 
 namespace Content.Server.Traits.Assorted;
 
@@ -12,8 +12,11 @@ public sealed class NarcolepsySystem : EntitySystem
 {
     private static readonly ProtoId<StatusEffectPrototype> StatusEffectKey = new("ForcedSleep"); // Same one used by N2O and other sleep chems.
 
-    [Dependency] private readonly StatusEffectsSystem _statusEffects = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency]
+    private readonly StatusEffectsSystem _statusEffects = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -23,8 +26,10 @@ public sealed class NarcolepsySystem : EntitySystem
 
     private void SetupNarcolepsy(EntityUid uid, NarcolepsyComponent component, ComponentStartup args)
     {
-        component.NextIncidentTime =
-            _random.NextFloat(component.TimeBetweenIncidents.X, component.TimeBetweenIncidents.Y);
+        component.NextIncidentTime = _random.NextFloat(
+            component.TimeBetweenIncidents.X,
+            component.TimeBetweenIncidents.Y
+        );
     }
 
     public void AdjustNarcolepsyTimer(EntityUid uid, int TimerReset, NarcolepsyComponent? narcolepsy = null)
@@ -48,16 +53,22 @@ public sealed class NarcolepsySystem : EntitySystem
                 continue;
 
             // Set the new time.
-            narcolepsy.NextIncidentTime +=
-                _random.NextFloat(narcolepsy.TimeBetweenIncidents.X, narcolepsy.TimeBetweenIncidents.Y);
+            narcolepsy.NextIncidentTime += _random.NextFloat(
+                narcolepsy.TimeBetweenIncidents.X,
+                narcolepsy.TimeBetweenIncidents.Y
+            );
 
             var duration = _random.NextFloat(narcolepsy.DurationOfIncident.X, narcolepsy.DurationOfIncident.Y);
 
             // Make sure the sleep time doesn't cut into the time to next incident.
             narcolepsy.NextIncidentTime += duration;
 
-            _statusEffects.TryAddStatusEffect<ForcedSleepingComponent>(uid, StatusEffectKey,
-                TimeSpan.FromSeconds(duration), false);
+            _statusEffects.TryAddStatusEffect<ForcedSleepingComponent>(
+                uid,
+                StatusEffectKey,
+                TimeSpan.FromSeconds(duration),
+                false
+            );
         }
     }
 }

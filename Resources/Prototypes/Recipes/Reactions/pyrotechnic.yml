@@ -24,7 +24,7 @@
     gas: Plasma
   - !type:PopupMessage
     visualType: LargeCaution
-    messages: [ "phlogiston-plasma-created" ]
+    messages: ["phlogiston-plasma-created"]
     type: Pvs
   products:
     Phlogiston: 3
@@ -46,7 +46,7 @@
     intensitySlope: 5
     maxTotalIntensity: 200
   - !type:PopupMessage
-    messages: [ "clf3-explosion" ]
+    messages: ["clf3-explosion"]
     type: Pvs
     visualType: LargeCaution
   products:

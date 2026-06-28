@@ -1,10 +1,10 @@
+using System;
 using Content.Shared.Atmos.EntitySystems;
 using Content.Shared.DoAfter;
 using Content.Shared.Tools;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
-using System;
 
 namespace Content.Shared.Atmos.Components;
 
@@ -141,9 +141,7 @@ public sealed class AtmosPipeLayerSpriteLayerEntry
     public string LayerKey = string.Empty;
     public string RsiPath = string.Empty;
 
-    public AtmosPipeLayerSpriteLayerEntry()
-    {
-    }
+    public AtmosPipeLayerSpriteLayerEntry() { }
 
     public AtmosPipeLayerSpriteLayerEntry(string layerKey, string rsiPath)
     {

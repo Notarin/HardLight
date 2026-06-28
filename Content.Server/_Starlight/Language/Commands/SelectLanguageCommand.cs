@@ -1,7 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using Content.Shared.Administration;
 using Content.Shared._Starlight.Language;
+using Content.Shared.Administration;
 using Robust.Shared.Console;
 using Robust.Shared.Enums;
 
@@ -55,7 +55,8 @@ public sealed class SelectLanguageCommand : IConsoleCommand
         EntityUid speaker,
         string input,
         [NotNullWhen(false)] out string? failureReason,
-        [NotNullWhen(true)] out LanguagePrototype? language)
+        [NotNullWhen(true)] out LanguagePrototype? language
+    )
     {
         failureReason = null;
         language = null;

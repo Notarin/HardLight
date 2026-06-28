@@ -1,6 +1,6 @@
 using System.Linq;
-using Content.Client.UserInterface.Controls;
 using Content.Client._NF.Shipyard.BUI;
+using Content.Client.UserInterface.Controls;
 using Content.Shared._NF.Bank;
 using Content.Shared._NF.Shipyard.BUI;
 using Content.Shared._NF.Shipyard.Prototypes;
@@ -15,7 +15,8 @@ namespace Content.Client._NF.Shipyard.UI;
 [GenerateTypedNameReferences]
 public sealed partial class ShipyardConsoleMenu : FancyWindow
 {
-    [Dependency] private readonly IPrototypeManager _protoManager = default!;
+    [Dependency]
+    private readonly IPrototypeManager _protoManager = default!;
 
     public event Action<ButtonEventArgs>? OnSellShip;
     public event Action<ButtonEventArgs>? OnSaveShip;
@@ -42,11 +43,19 @@ public sealed partial class ShipyardConsoleMenu : FancyWindow
         Categories.OnItemSelected += OnCategoryItemSelected;
         Classes.OnItemSelected += OnClassItemSelected;
         Engines.OnItemSelected += OnEngineItemSelected;
-        SellShipButton.OnPressed += (args) => { OnSellShip?.Invoke(args); };
-    SaveShipButton.OnPressed += (args) => { OnSaveShip?.Invoke(args); };
-    ReloadShipsButton.OnPressed += (args) => { OnReloadShips?.Invoke(args); };
+        SellShipButton.OnPressed += (args) =>
+        {
+            OnSellShip?.Invoke(args);
+        };
+        SaveShipButton.OnPressed += (args) =>
+        {
+            OnSaveShip?.Invoke(args);
+        };
+        ReloadShipsButton.OnPressed += (args) =>
+        {
+            OnReloadShips?.Invoke(args);
+        };
     }
-
 
     private void OnCategoryItemSelected(OptionButton.ItemSelectedEventArgs args)
     {
@@ -76,20 +85,28 @@ public sealed partial class ShipyardConsoleMenu : FancyWindow
         _category = id == 0 ? null : _categoryStrings[id];
         Categories.SelectId(id);
     }
+
     private void SetClassText(int id)
     {
         _class = id == 0 ? null : _classStrings[id];
         Classes.SelectId(id);
     }
+
     private void SetEngineText(int id)
     {
         _engine = id == 0 ? null : _engineStrings[id];
         Engines.SelectId(id);
     }
+
     /// <summary>
     ///     Populates the list of products that will actually be shown, using the current filters.
     /// </summary>
-    public void PopulateProducts(List<string> availablePrototypes, List<string> unavailablePrototypes, bool free, bool canPurchase)
+    public void PopulateProducts(
+        List<string> availablePrototypes,
+        List<string> unavailablePrototypes,
+        bool free,
+        bool canPurchase
+    )
     {
         Vessels.RemoveAllChildren();
 
@@ -110,12 +127,12 @@ public sealed partial class ShipyardConsoleMenu : FancyWindow
     /// </summary>
     private List<VesselPrototype?> GetVesselPrototypesFromIds(IEnumerable<string> protoIds)
     {
-        var vesselList = protoIds.Select(it => _protoManager.TryIndex<VesselPrototype>(it, out var proto) ? proto : null)
+        var vesselList = protoIds
+            .Select(it => _protoManager.TryIndex<VesselPrototype>(it, out var proto) ? proto : null)
             .Where(it => it != null)
             .ToList();
 
-        vesselList.Sort((x, y) =>
-            string.Compare(x!.Name, y!.Name, StringComparison.CurrentCultureIgnoreCase));
+        vesselList.Sort((x, y) => string.Compare(x!.Name, y!.Name, StringComparison.CurrentCultureIgnoreCase));
         return vesselList;
     }
 
@@ -147,10 +164,18 @@ public sealed partial class ShipyardConsoleMenu : FancyWindow
                 Vessel = prototype,
                 VesselName = { Text = prototype!.Name },
                 Purchase = { Text = Loc.GetString("shipyard-console-purchase-available"), Disabled = !canPurchase },
-                Guidebook = { Disabled = prototype.GuidebookPage is null, TooltipDelay = 0.2f, ToolTip = prototype.Description },
+                Guidebook =
+                {
+                    Disabled = prototype.GuidebookPage is null,
+                    TooltipDelay = 0.2f,
+                    ToolTip = prototype.Description,
+                },
                 Price = { Text = priceText },
             };
-            vesselEntry.Purchase.OnPressed += (args) => { OnOrderApproved?.Invoke(args); };
+            vesselEntry.Purchase.OnPressed += (args) =>
+            {
+                OnOrderApproved?.Invoke(args);
+            };
             Vessels.AddChild(vesselEntry);
         }
     }
@@ -287,11 +312,9 @@ public sealed partial class ShipyardConsoleMenu : FancyWindow
 
         ShipAppraisalLabel.Text = $"{BankSystemExtensions.ToSpesoString(shipPrice)} ({state.SellRate * 100.0f:F1}%)";
         SellShipButton.Disabled = state.ShipDeedTitle == null;
-        SaveShipButton.Disabled = !state.IsTargetIdPresent;  // Enable save button when ID card is present
+        SaveShipButton.Disabled = !state.IsTargetIdPresent; // Enable save button when ID card is present
         LoadShipButton.Disabled = !state.IsTargetIdPresent;
-        LoadShipButton.ToolTip = state.IsTargetIdPresent
-            ? null
-            : Loc.GetString("shipyard-console-load-ship-no-id");
+        LoadShipButton.ToolTip = state.IsTargetIdPresent ? null : Loc.GetString("shipyard-console-load-ship-no-id");
         TargetIdButton.Text = state.IsTargetIdPresent
             ? Loc.GetString("id-card-console-window-eject-button")
             : Loc.GetString("id-card-console-window-insert-button");

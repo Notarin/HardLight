@@ -1,6 +1,6 @@
-﻿- type: entity
+- type: entity
   id: MachineFlatpacker
-  parent: [ BaseMachinePowered, ConstructibleMachine ]
+  parent: [BaseMachinePowered, ConstructibleMachine]
   name: Flatpacker 1001
   description: An industrial machine used for expediting machine construction across the station.
   components:
@@ -24,12 +24,12 @@
     visuals:
       enum.PowerDeviceVisuals.Powered:
         enum.PowerDeviceVisualLayers.Powered:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
       enum.FlatpackCreatorVisuals.Packing:
         anim:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
   - type: FlatpackCreator
     baseMachineCost:
       Steel: 750

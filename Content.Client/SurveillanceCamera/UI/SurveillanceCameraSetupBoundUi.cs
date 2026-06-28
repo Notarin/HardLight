@@ -11,7 +11,8 @@ public sealed class SurveillanceCameraSetupBoundUi : BoundUserInterface
     [ViewVariables]
     private SurveillanceCameraSetupWindow? _window;
 
-    public SurveillanceCameraSetupBoundUi(EntityUid component, Enum uiKey) : base(component, uiKey)
+    public SurveillanceCameraSetupBoundUi(EntityUid component, Enum uiKey)
+        : base(component, uiKey)
     {
         if (uiKey is not SurveillanceCameraSetupUiKey key)
             return;

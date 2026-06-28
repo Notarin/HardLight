@@ -18,7 +18,10 @@ public sealed class FireProtectionSystem : EntitySystem
         SubscribeLocalEvent<FireProtectionComponent, ArmorExamineEvent>(OnArmorExamine);
     }
 
-    private void OnGetProtection(Entity<FireProtectionComponent> ent, ref InventoryRelayedEvent<GetFireProtectionEvent> args)
+    private void OnGetProtection(
+        Entity<FireProtectionComponent> ent,
+        ref InventoryRelayedEvent<GetFireProtectionEvent> args
+    )
     {
         args.Args.Reduce(ent.Comp.Reduction);
     }

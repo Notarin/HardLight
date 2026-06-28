@@ -1,15 +1,21 @@
-﻿using Content.Shared.GameTicking;
+﻿using Content.Server.Body.Systems;
+using Content.Shared.GameTicking;
 using Content.Shared.Gibbing.Components;
 using Content.Shared.Mind;
 using Content.Shared.Objectives.Systems;
-using Content.Server.Body.Systems;
 
 namespace Content.Server.Gibbing.Systems;
+
 public sealed class GibOnRoundEndSystem : EntitySystem
 {
-    [Dependency] private readonly BodySystem _body = default!;
-    [Dependency] private readonly SharedMindSystem _mind = default!;
-    [Dependency] private readonly SharedObjectivesSystem _objectives = default!;
+    [Dependency]
+    private readonly BodySystem _body = default!;
+
+    [Dependency]
+    private readonly SharedMindSystem _mind = default!;
+
+    [Dependency]
+    private readonly SharedObjectivesSystem _objectives = default!;
 
     public override void Initialize()
     {
@@ -32,8 +38,10 @@ public sealed class GibOnRoundEndSystem : EntitySystem
             {
                 foreach (var objectiveId in gibComp.PreventGibbingObjectives)
                 {
-                    if (!_mind.TryFindObjective((mindId, mindComp), objectiveId, out var objective)
-                        || !_objectives.IsCompleted(objective.Value, (mindId, mindComp)))
+                    if (
+                        !_mind.TryFindObjective((mindId, mindComp), objectiveId, out var objective)
+                        || !_objectives.IsCompleted(objective.Value, (mindId, mindComp))
+                    )
                     {
                         gib = true;
                         break;

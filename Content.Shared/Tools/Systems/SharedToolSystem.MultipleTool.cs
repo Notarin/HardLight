@@ -15,7 +15,11 @@ public abstract partial class SharedToolSystem
         SubscribeLocalEvent<MultipleToolComponent, Interaction.Events.UseInHandEvent>(OnMultipleToolUseInHand); // HardLight - allow Z key to cycle modes
     }
 
-    private void OnMultipleToolHandleState(EntityUid uid, MultipleToolComponent component, ref AfterAutoHandleStateEvent args)
+    private void OnMultipleToolHandleState(
+        EntityUid uid,
+        MultipleToolComponent component,
+        ref AfterAutoHandleStateEvent args
+    )
     {
         SetMultipleTool(uid, component);
     }
@@ -36,13 +40,18 @@ public abstract partial class SharedToolSystem
     }
 
     // HardLight - allow Z key to cycle modes
-    private void OnMultipleToolUseInHand(EntityUid uid, MultipleToolComponent multiple, Interaction.Events.UseInHandEvent args)
+    private void OnMultipleToolUseInHand(
+        EntityUid uid,
+        MultipleToolComponent multiple,
+        Interaction.Events.UseInHandEvent args
+    )
     {
         if (args.Handled)
             return;
 
         args.Handled = CycleMultipleTool(uid, multiple, args.User);
     }
+
     // End HardLight
 
     public bool CycleMultipleTool(EntityUid uid, MultipleToolComponent? multiple = null, EntityUid? user = null)
@@ -59,11 +68,13 @@ public abstract partial class SharedToolSystem
         return true;
     }
 
-    public virtual void SetMultipleTool(EntityUid uid,
+    public virtual void SetMultipleTool(
+        EntityUid uid,
         MultipleToolComponent? multiple = null,
         ToolComponent? tool = null,
         bool playSound = false,
-        EntityUid? user = null)
+        EntityUid? user = null
+    )
     {
         if (!Resolve(uid, ref multiple, ref tool))
             return;
@@ -93,4 +104,3 @@ public abstract partial class SharedToolSystem
             multiple.CurrentQualityName = Loc.GetString(quality.Name);
     }
 }
-

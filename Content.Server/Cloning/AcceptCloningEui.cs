@@ -22,8 +22,7 @@ namespace Content.Server.Cloning
         {
             base.HandleMessage(msg);
 
-            if (msg is not AcceptCloningChoiceMessage choice ||
-                choice.Button == AcceptCloningUiButton.Deny)
+            if (msg is not AcceptCloningChoiceMessage choice || choice.Button == AcceptCloningUiButton.Deny)
             {
                 Close();
                 return;

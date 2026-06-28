@@ -27,9 +27,8 @@ namespace Content.Client.Atmos.UI
         [ViewVariables]
         private bool _isHeater = true;
 
-        public GasThermomachineBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-        {
-        }
+        public GasThermomachineBoundUserInterface(EntityUid owner, Enum uiKey)
+            : base(owner, uiKey) { }
 
         protected override void Open()
         {
@@ -45,7 +44,8 @@ namespace Content.Client.Atmos.UI
 
         private void OnToggleStatusButtonPressed()
         {
-            if (_window is null) return;
+            if (_window is null)
+                return;
 
             _window.SetActive(!_window.Active);
             SendPredictedMessage(new GasThermomachineToggleMessage());
@@ -94,7 +94,7 @@ namespace Content.Client.Atmos.UI
             _window.Title = _isHeater switch
             {
                 false => Loc.GetString("comp-gas-thermomachine-ui-title-freezer"),
-                true => Loc.GetString("comp-gas-thermomachine-ui-title-heater")
+                true => Loc.GetString("comp-gas-thermomachine-ui-title-heater"),
             };
         }
     }

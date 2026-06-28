@@ -14,7 +14,7 @@ namespace Content.Server.Power.Pow3r
         public static readonly JsonSerializerOptions SerializerOptions = new()
         {
             IncludeFields = true,
-            Converters = {new NodeIdJsonConverter()}
+            Converters = { new NodeIdJsonConverter() },
         };
 
         public GenIdStorage<Supply> Supplies = new();
@@ -28,7 +28,7 @@ namespace Content.Server.Power.Pow3r
             public readonly int Index;
             public readonly int Generation;
 
-            public long Combined => (uint) Index | ((long) Generation << 32);
+            public long Combined => (uint)Index | ((long)Generation << 32);
 
             public NodeId(int index, int generation)
             {
@@ -38,8 +38,8 @@ namespace Content.Server.Power.Pow3r
 
             public NodeId(long combined)
             {
-                Index = (int) combined;
-                Generation = (int) (combined >> 32);
+                Index = (int)combined;
+                Generation = (int)(combined >> 32);
             }
 
             public bool Equals(NodeId other)
@@ -247,6 +247,7 @@ namespace Content.Server.Power.Pow3r
                 // Next link on the free list. if int.MaxValue then this is the tail.
                 // If negative, this slot is occupied.
                 public int NextSlot;
+
                 // Generation of this slot.
                 public int Generation;
                 public T Value;
@@ -324,9 +325,7 @@ namespace Content.Server.Power.Pow3r
 
                     public T Current { get; private set; }
 
-                    public void Dispose()
-                    {
-                    }
+                    public void Dispose() { }
                 }
             }
         }
@@ -346,71 +345,111 @@ namespace Content.Server.Power.Pow3r
 
         public sealed class Supply
         {
-            [ViewVariables] public NodeId Id;
+            [ViewVariables]
+            public NodeId Id;
 
             // == Static parameters ==
-            [ViewVariables(VVAccess.ReadWrite)] public bool Enabled = true;
-            [ViewVariables(VVAccess.ReadWrite)] public bool Paused;
-            [ViewVariables(VVAccess.ReadWrite)] public float MaxSupply;
+            [ViewVariables(VVAccess.ReadWrite)]
+            public bool Enabled = true;
 
-            [ViewVariables(VVAccess.ReadWrite)] public float SupplyRampRate = 5000;
-            [ViewVariables(VVAccess.ReadWrite)] public float SupplyRampTolerance = 5000;
+            [ViewVariables(VVAccess.ReadWrite)]
+            public bool Paused;
+
+            [ViewVariables(VVAccess.ReadWrite)]
+            public float MaxSupply;
+
+            [ViewVariables(VVAccess.ReadWrite)]
+            public float SupplyRampRate = 5000;
+
+            [ViewVariables(VVAccess.ReadWrite)]
+            public float SupplyRampTolerance = 5000;
 
             // == Runtime parameters ==
 
             /// <summary>
             ///     Actual power supplied last network update.
             /// </summary>
-            [ViewVariables(VVAccess.ReadWrite)] public float CurrentSupply;
+            [ViewVariables(VVAccess.ReadWrite)]
+            public float CurrentSupply;
 
             /// <summary>
             ///     The amount of power we WANT to be supplying to match grid load.
             /// </summary>
-            [ViewVariables(VVAccess.ReadWrite)] [JsonIgnore]
+            [ViewVariables(VVAccess.ReadWrite)]
+            [JsonIgnore]
             public float SupplyRampTarget;
 
             /// <summary>
             ///     Position of the supply ramp.
             /// </summary>
-            [ViewVariables(VVAccess.ReadWrite)] public float SupplyRampPosition;
+            [ViewVariables(VVAccess.ReadWrite)]
+            public float SupplyRampPosition;
 
-            [ViewVariables] [JsonIgnore] public NodeId LinkedNetwork;
+            [ViewVariables]
+            [JsonIgnore]
+            public NodeId LinkedNetwork;
 
             /// <summary>
             ///     Supply available during a tick. The actual current supply will be less than or equal to this. Used
             ///     during calculations.
             /// </summary>
-            [JsonIgnore] public float AvailableSupply;
+            [JsonIgnore]
+            public float AvailableSupply;
         }
 
         public sealed class Load
         {
-            [ViewVariables] public NodeId Id;
+            [ViewVariables]
+            public NodeId Id;
 
             // == Static parameters ==
-            [ViewVariables(VVAccess.ReadWrite)] public bool Enabled = true;
-            [ViewVariables(VVAccess.ReadWrite)] public bool Paused;
-            [ViewVariables(VVAccess.ReadWrite)] public float DesiredPower;
+            [ViewVariables(VVAccess.ReadWrite)]
+            public bool Enabled = true;
+
+            [ViewVariables(VVAccess.ReadWrite)]
+            public bool Paused;
+
+            [ViewVariables(VVAccess.ReadWrite)]
+            public float DesiredPower;
 
             // == Runtime parameters ==
-            [ViewVariables(VVAccess.ReadWrite)] public float ReceivingPower;
+            [ViewVariables(VVAccess.ReadWrite)]
+            public float ReceivingPower;
 
-            [ViewVariables] [JsonIgnore] public NodeId LinkedNetwork;
+            [ViewVariables]
+            [JsonIgnore]
+            public NodeId LinkedNetwork;
         }
 
         public sealed class Battery
         {
-            [ViewVariables] public NodeId Id;
+            [ViewVariables]
+            public NodeId Id;
 
             // == Static parameters ==
-            [ViewVariables(VVAccess.ReadWrite)] public bool Enabled = true;
-            [ViewVariables(VVAccess.ReadWrite)] public bool Paused;
-            [ViewVariables(VVAccess.ReadWrite)] public bool CanDischarge = true;
-            [ViewVariables(VVAccess.ReadWrite)] public bool CanCharge = true;
-            [ViewVariables(VVAccess.ReadWrite)] public float Capacity;
-            [ViewVariables(VVAccess.ReadWrite)] public float MaxChargeRate;
-            [ViewVariables(VVAccess.ReadWrite)] public float MaxThroughput; // 0 = infinite cuz imgui
-            [ViewVariables(VVAccess.ReadWrite)] public float MaxSupply;
+            [ViewVariables(VVAccess.ReadWrite)]
+            public bool Enabled = true;
+
+            [ViewVariables(VVAccess.ReadWrite)]
+            public bool Paused;
+
+            [ViewVariables(VVAccess.ReadWrite)]
+            public bool CanDischarge = true;
+
+            [ViewVariables(VVAccess.ReadWrite)]
+            public bool CanCharge = true;
+
+            [ViewVariables(VVAccess.ReadWrite)]
+            public float Capacity;
+
+            [ViewVariables(VVAccess.ReadWrite)]
+            public float MaxChargeRate;
+
+            [ViewVariables(VVAccess.ReadWrite)]
+            public float MaxThroughput; // 0 = infinite cuz imgui
+
+            [ViewVariables(VVAccess.ReadWrite)]
+            public float MaxSupply;
 
             /// <summary>
             ///     The batteries supply ramp tolerance. This is an always available supply added to the ramped supply.
@@ -418,40 +457,60 @@ namespace Content.Server.Power.Pow3r
             /// <remarks>
             ///     Note that this MUST BE GREATER THAN ZERO, otherwise the current battery ramping calculation will not work.
             /// </remarks>
-            [ViewVariables(VVAccess.ReadWrite)] public float SupplyRampTolerance = 5000;
+            [ViewVariables(VVAccess.ReadWrite)]
+            public float SupplyRampTolerance = 5000;
 
-            [ViewVariables(VVAccess.ReadWrite)] public float SupplyRampRate = 5000;
-            [ViewVariables(VVAccess.ReadWrite)] public float Efficiency = 1;
+            [ViewVariables(VVAccess.ReadWrite)]
+            public float SupplyRampRate = 5000;
+
+            [ViewVariables(VVAccess.ReadWrite)]
+            public float Efficiency = 1;
 
             // == Runtime parameters ==
-            [ViewVariables(VVAccess.ReadWrite)] public float SupplyRampPosition;
-            [ViewVariables(VVAccess.ReadWrite)] public float CurrentSupply;
-            [ViewVariables(VVAccess.ReadWrite)] public float CurrentStorage;
-            [ViewVariables(VVAccess.ReadWrite)] public float CurrentReceiving;
-            [ViewVariables(VVAccess.ReadWrite)] public float LoadingNetworkDemand;
+            [ViewVariables(VVAccess.ReadWrite)]
+            public float SupplyRampPosition;
 
-            [ViewVariables(VVAccess.ReadWrite)] [JsonIgnore]
+            [ViewVariables(VVAccess.ReadWrite)]
+            public float CurrentSupply;
+
+            [ViewVariables(VVAccess.ReadWrite)]
+            public float CurrentStorage;
+
+            [ViewVariables(VVAccess.ReadWrite)]
+            public float CurrentReceiving;
+
+            [ViewVariables(VVAccess.ReadWrite)]
+            public float LoadingNetworkDemand;
+
+            [ViewVariables(VVAccess.ReadWrite)]
+            [JsonIgnore]
             public bool SupplyingMarked;
 
-            [ViewVariables(VVAccess.ReadWrite)] [JsonIgnore]
+            [ViewVariables(VVAccess.ReadWrite)]
+            [JsonIgnore]
             public bool LoadingMarked;
 
             /// <summary>
             ///     Amount of supply that the battery can provide this tick.
             /// </summary>
-            [ViewVariables(VVAccess.ReadWrite)] [JsonIgnore]
+            [ViewVariables(VVAccess.ReadWrite)]
+            [JsonIgnore]
             public float AvailableSupply;
 
-            [ViewVariables(VVAccess.ReadWrite)] [JsonIgnore]
+            [ViewVariables(VVAccess.ReadWrite)]
+            [JsonIgnore]
             public float DesiredPower;
 
-            [ViewVariables(VVAccess.ReadWrite)] [JsonIgnore]
+            [ViewVariables(VVAccess.ReadWrite)]
+            [JsonIgnore]
             public float SupplyRampTarget;
 
-            [ViewVariables(VVAccess.ReadWrite)] [JsonIgnore]
+            [ViewVariables(VVAccess.ReadWrite)]
+            [JsonIgnore]
             public NodeId LinkedNetworkCharging;
 
-            [ViewVariables(VVAccess.ReadWrite)] [JsonIgnore]
+            [ViewVariables(VVAccess.ReadWrite)]
+            [JsonIgnore]
             public NodeId LinkedNetworkDischarging;
 
             /// <summary>
@@ -466,44 +525,54 @@ namespace Content.Server.Power.Pow3r
         [SuppressMessage("ReSharper", "FieldCanBeMadeReadOnly.Local")]
         public sealed class Network
         {
-            [ViewVariables] public NodeId Id;
+            [ViewVariables]
+            public NodeId Id;
 
             /// <summary>
             ///     Power generators
             /// </summary>
-            [ViewVariables] public List<NodeId> Supplies = new();
+            [ViewVariables]
+            public List<NodeId> Supplies = new();
 
             /// <summary>
             ///     Power consumers.
             /// </summary>
-            [ViewVariables] public List<NodeId> Loads = new();
+            [ViewVariables]
+            public List<NodeId> Loads = new();
 
             /// <summary>
             ///     Batteries that are draining power from this network (connected to the INPUT port of the battery).
             /// </summary>
-            [ViewVariables] public List<NodeId> BatteryLoads = new();
+            [ViewVariables]
+            public List<NodeId> BatteryLoads = new();
 
             /// <summary>
             ///     Batteries that are supplying power to this network (connected to the OUTPUT port of the battery).
             /// </summary>
-            [ViewVariables] public List<NodeId> BatterySupplies = new();
+            [ViewVariables]
+            public List<NodeId> BatterySupplies = new();
 
             /// <summary>
             ///     The total load on the power network as of last tick.
             /// </summary>
-            [ViewVariables] public float LastCombinedLoad = 0f;
+            [ViewVariables]
+            public float LastCombinedLoad = 0f;
 
             /// <summary>
             ///     Available supply, including both normal supplies and batteries.
             /// </summary>
-            [ViewVariables] public float LastCombinedSupply = 0f;
+            [ViewVariables]
+            public float LastCombinedSupply = 0f;
 
             /// <summary>
             ///     Theoretical maximum supply, including both normal supplies and batteries.
             /// </summary>
-            [ViewVariables] public float LastCombinedMaxSupply = 0f;
+            [ViewVariables]
+            public float LastCombinedMaxSupply = 0f;
 
-            [ViewVariables] [JsonIgnore] public int Height;
+            [ViewVariables]
+            [JsonIgnore]
+            public int Height;
         }
     }
 }

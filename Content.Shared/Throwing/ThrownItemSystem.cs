@@ -2,8 +2,8 @@ using System.Linq;
 using Content.Shared.Administration.Logs;
 using Content.Shared.Database;
 using Content.Shared.Gravity;
-using Content.Shared.Physics;
 using Content.Shared.Movement.Pulling.Events;
+using Content.Shared.Physics;
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Events;
@@ -17,12 +17,23 @@ namespace Content.Shared.Throwing
     /// </summary>
     public sealed class ThrownItemSystem : EntitySystem
     {
-        [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-        [Dependency] private readonly IGameTiming _gameTiming = default!;
-        [Dependency] private readonly SharedBroadphaseSystem _broadphase = default!;
-        [Dependency] private readonly FixtureSystem _fixtures = default!;
-        [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-        [Dependency] private readonly SharedGravitySystem _gravity = default!;
+        [Dependency]
+        private readonly ISharedAdminLogManager _adminLogger = default!;
+
+        [Dependency]
+        private readonly IGameTiming _gameTiming = default!;
+
+        [Dependency]
+        private readonly SharedBroadphaseSystem _broadphase = default!;
+
+        [Dependency]
+        private readonly FixtureSystem _fixtures = default!;
+
+        [Dependency]
+        private readonly SharedPhysicsSystem _physics = default!;
+
+        [Dependency]
+        private readonly SharedGravitySystem _gravity = default!;
 
         private const string ThrowingFixture = "throw-fixture";
 
@@ -45,16 +56,26 @@ namespace Content.Shared.Throwing
 
         private void ThrowItem(EntityUid uid, ThrownItemComponent component, ref ThrownEvent @event)
         {
-            if (!EntityManager.TryGetComponent(uid, out FixturesComponent? fixturesComponent) ||
-                fixturesComponent.Fixtures.Count != 1 ||
-                !TryComp<PhysicsComponent>(uid, out var body))
+            if (
+                !EntityManager.TryGetComponent(uid, out FixturesComponent? fixturesComponent)
+                || fixturesComponent.Fixtures.Count != 1
+                || !TryComp<PhysicsComponent>(uid, out var body)
+            )
             {
                 return;
             }
 
             var fixture = fixturesComponent.Fixtures.Values.First();
             var shape = fixture.Shape;
-            _fixtures.TryCreateFixture(uid, shape, ThrowingFixture, hard: false, collisionMask: (int) CollisionGroup.ThrownItem, manager: fixturesComponent, body: body);
+            _fixtures.TryCreateFixture(
+                uid,
+                shape,
+                ThrowingFixture,
+                hard: false,
+                collisionMask: (int)CollisionGroup.ThrownItem,
+                manager: fixturesComponent,
+                body: body
+            );
         }
 
         private void HandleCollision(EntityUid uid, ThrownItemComponent component, ref StartCollideEvent args)
@@ -108,11 +129,20 @@ namespace Content.Shared.Throwing
                 }
             }
 
-            EntityManager.EventBus.RaiseLocalEvent(uid, new StopThrowEvent { User = thrownItemComponent.Thrower }, true);
+            EntityManager.EventBus.RaiseLocalEvent(
+                uid,
+                new StopThrowEvent { User = thrownItemComponent.Thrower },
+                true
+            );
             EntityManager.RemoveComponent<ThrownItemComponent>(uid);
         }
 
-        public void LandComponent(EntityUid uid, ThrownItemComponent thrownItem, PhysicsComponent physics, bool playSound)
+        public void LandComponent(
+            EntityUid uid,
+            ThrownItemComponent thrownItem,
+            PhysicsComponent physics,
+            bool playSound
+        )
         {
             if (thrownItem.Landed || thrownItem.Deleted || _gravity.IsWeightless(uid) || Deleted(uid))
                 return;
@@ -121,7 +151,11 @@ namespace Content.Shared.Throwing
 
             // Assume it's uninteresting if it has no thrower. For now anyway.
             if (thrownItem.Thrower is not null)
-                _adminLogger.Add(LogType.Landed, LogImpact.Low, $"{ToPrettyString(uid):entity} thrown by {ToPrettyString(thrownItem.Thrower.Value):thrower} landed.");
+                _adminLogger.Add(
+                    LogType.Landed,
+                    LogImpact.Low,
+                    $"{ToPrettyString(uid):entity} thrown by {ToPrettyString(thrownItem.Thrower.Value):thrower} landed."
+                );
 
             _broadphase.RegenerateContacts((uid, physics));
             var landEvent = new LandEvent(thrownItem.Thrower, playSound);
@@ -134,8 +168,11 @@ namespace Content.Shared.Throwing
         public void ThrowCollideInteraction(ThrownItemComponent component, EntityUid thrown, EntityUid target)
         {
             if (component.Thrower is not null)
-                _adminLogger.Add(LogType.ThrowHit, LogImpact.Low,
-                    $"{ToPrettyString(thrown):thrown} thrown by {ToPrettyString(component.Thrower.Value):thrower} hit {ToPrettyString(target):target}.");
+                _adminLogger.Add(
+                    LogType.ThrowHit,
+                    LogImpact.Low,
+                    $"{ToPrettyString(thrown):thrown} thrown by {ToPrettyString(component.Thrower.Value):thrower} hit {ToPrettyString(target):target}."
+                );
 
             // Hardlight: Clean this up and specify thrower in DoHitEvent
             RaiseLocalEvent(target, new ThrowHitByEvent(component.Thrower, thrown, target, component), true);

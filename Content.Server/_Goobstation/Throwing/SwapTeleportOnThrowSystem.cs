@@ -1,7 +1,7 @@
 using Content.Goobstation.Shared.Throwing;
 using Content.Shared.Mobs.Components;
-using Robust.Shared.Audio.Systems;
 using Content.Shared.Throwing;
+using Robust.Shared.Audio.Systems;
 
 namespace Content.Goobstation.Server.Throwing;
 
@@ -9,8 +9,11 @@ namespace Content.Goobstation.Server.Throwing;
 // that's why for now it stays only on server.
 public sealed class SwapTeleportOnThrowSystem : EntitySystem
 {
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
 
     public override void Initialize()
     {
@@ -26,8 +29,7 @@ public sealed class SwapTeleportOnThrowSystem : EntitySystem
         var thrower = args.Component.Thrower;
         var target = args.Target;
 
-        if (thrower == null
-            || !HasComp<MobStateComponent>(target))
+        if (thrower == null || !HasComp<MobStateComponent>(target))
             return;
 
         var throwerTransform = Transform(thrower.Value);

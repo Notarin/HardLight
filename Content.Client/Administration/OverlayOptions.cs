@@ -4,12 +4,12 @@ public enum AdminOverlayAntagFormat
 {
     Binary,
     Roletype,
-    Subtype
+    Subtype,
 }
 
 public enum AdminOverlayAntagSymbolStyle
 {
     Off,
     Basic,
-    Specific
+    Specific,
 }

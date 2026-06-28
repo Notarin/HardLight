@@ -23,8 +23,11 @@ namespace Content.Client.Medical.CrewMonitoring;
 [GenerateTypedNameReferences]
 public sealed partial class CrewMonitoringWindow : FancyWindow
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
     private readonly SharedTransformSystem _transformSystem;
     private readonly SpriteSystem _spriteSystem;
 
@@ -45,11 +48,12 @@ public sealed partial class CrewMonitoringWindow : FancyWindow
 
     public void Set(string stationName, EntityUid? mapUid)
     {
-        _blipTexture = _spriteSystem.Frame0(new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/NavMap/beveled_circle.png")));
+        _blipTexture = _spriteSystem.Frame0(
+            new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/NavMap/beveled_circle.png"))
+        );
 
         if (_entManager.TryGetComponent<TransformComponent>(mapUid, out var xform))
             NavMap.MapUid = xform.GridUid;
-
         else
             NavMap.Visible = false;
 
@@ -115,19 +119,12 @@ public sealed partial class CrewMonitoringWindow : FancyWindow
 
             if (SensorsTable.ChildCount > 0)
             {
-                var spacer = new Control()
-                {
-                    SetHeight = 20,
-                };
+                var spacer = new Control() { SetHeight = 20 };
 
                 SensorsTable.AddChild(spacer);
             }
 
-            var deparmentLabel = new RichTextLabel()
-            {
-                Margin = new Thickness(10, 0),
-                HorizontalExpand = true,
-            };
+            var deparmentLabel = new RichTextLabel() { Margin = new Thickness(10, 0), HorizontalExpand = true };
 
             deparmentLabel.SetMessage(department);
             deparmentLabel.StyleClasses.Add(StyleNano.StyleClassTooltipActionDescription);
@@ -142,18 +139,11 @@ public sealed partial class CrewMonitoringWindow : FancyWindow
 
         if (remainingSensors.Any())
         {
-            var spacer = new Control()
-            {
-                SetHeight = 20,
-            };
+            var spacer = new Control() { SetHeight = 20 };
 
             SensorsTable.AddChild(spacer);
 
-            var deparmentLabel = new RichTextLabel()
-            {
-                Margin = new Thickness(10, 0),
-                HorizontalExpand = true,
-            };
+            var deparmentLabel = new RichTextLabel() { Margin = new Thickness(10, 0), HorizontalExpand = true };
 
             deparmentLabel.SetMessage(Loc.GetString("crew-monitoring-user-interface-no-department"));
             deparmentLabel.StyleClasses.Add(StyleNano.StyleClassTooltipActionDescription);
@@ -166,7 +156,13 @@ public sealed partial class CrewMonitoringWindow : FancyWindow
         // Show monitor on nav map
         if (monitorCoords != null && _blipTexture != null)
         {
-             NavMap.TrackedEntities[_entManager.GetNetEntity(monitor)] = new NavMapBlip(monitorCoords.Value, _blipTexture, Color.Cyan, true, false); // Frontier modification
+            NavMap.TrackedEntities[_entManager.GetNetEntity(monitor)] = new NavMapBlip(
+                monitorCoords.Value,
+                _blipTexture,
+                Color.Cyan,
+                true,
+                false
+            ); // Frontier modification
         }
     }
 
@@ -175,9 +171,11 @@ public sealed partial class CrewMonitoringWindow : FancyWindow
         // Populate departments
         foreach (var sensor in departmentSensors)
         {
-            if (!string.IsNullOrEmpty(SearchLineEdit.Text)
+            if (
+                !string.IsNullOrEmpty(SearchLineEdit.Text)
                 && !sensor.Name.Contains(SearchLineEdit.Text, StringComparison.CurrentCultureIgnoreCase)
-                && !sensor.Job.Contains(SearchLineEdit.Text, StringComparison.CurrentCultureIgnoreCase))
+                && !sensor.Job.Contains(SearchLineEdit.Text, StringComparison.CurrentCultureIgnoreCase)
+            )
                 continue;
 
             var coordinates = _entManager.GetCoordinates(sensor.Coordinates);
@@ -236,16 +234,20 @@ public sealed partial class CrewMonitoringWindow : FancyWindow
             {
                 specifier = new SpriteSpecifier.Rsi(new ResPath("Interface/Alerts/human_crew_monitoring.rsi"), "dead");
             }
-
             else if (sensor.DamagePercentage != null)
             {
                 var index = MathF.Round(4f * sensor.DamagePercentage.Value);
 
                 if (index >= 5)
-                    specifier = new SpriteSpecifier.Rsi(new ResPath("Interface/Alerts/human_crew_monitoring.rsi"), "critical");
-
+                    specifier = new SpriteSpecifier.Rsi(
+                        new ResPath("Interface/Alerts/human_crew_monitoring.rsi"),
+                        "critical"
+                    );
                 else
-                    specifier = new SpriteSpecifier.Rsi(new ResPath("Interface/Alerts/human_crew_monitoring.rsi"), "health" + index);
+                    specifier = new SpriteSpecifier.Rsi(
+                        new ResPath("Interface/Alerts/human_crew_monitoring.rsi"),
+                        "health" + index
+                    );
             }
 
             // Status icon
@@ -308,12 +310,17 @@ public sealed partial class CrewMonitoringWindow : FancyWindow
             // Add user coordinates to the navmap
             if (coordinates != null && NavMap.Visible && _blipTexture != null)
             {
-                NavMap.TrackedEntities.TryAdd(sensor.SuitSensorUid,
-                    new NavMapBlip
-                    (CoordinatesToMap(coordinates.Value), // Frontier: Local<Map
-                    _blipTexture,
-                    (_trackedEntity == null || sensor.SuitSensorUid == _trackedEntity) ? Color.LimeGreen : Color.LimeGreen * Color.DimGray,
-                    sensor.SuitSensorUid == _trackedEntity));
+                NavMap.TrackedEntities.TryAdd(
+                    sensor.SuitSensorUid,
+                    new NavMapBlip(
+                        CoordinatesToMap(coordinates.Value), // Frontier: Local<Map
+                        _blipTexture,
+                        (_trackedEntity == null || sensor.SuitSensorUid == _trackedEntity)
+                            ? Color.LimeGreen
+                            : Color.LimeGreen * Color.DimGray,
+                        sensor.SuitSensorUid == _trackedEntity
+                    )
+                );
 
                 NavMap.Focus = _trackedEntity;
 
@@ -326,7 +333,6 @@ public sealed partial class CrewMonitoringWindow : FancyWindow
                     {
                         _trackedEntity = null;
                     }
-
                     else
                     {
                         _trackedEntity = sensor.SuitSensorUid;
@@ -362,11 +368,10 @@ public sealed partial class CrewMonitoringWindow : FancyWindow
             if (sensor is not CrewMonitoringButton)
                 continue;
 
-            var castSensor = (CrewMonitoringButton) sensor;
+            var castSensor = (CrewMonitoringButton)sensor;
 
             if (castSensor.SuitSensorUid == prevTrackedEntity)
                 castSensor.RemoveStyleClass(StyleNano.StyleClassButtonColorGreen);
-
             else if (castSensor.SuitSensorUid == currTrackedEntity)
                 castSensor.AddStyleClass(StyleNano.StyleClassButtonColorGreen);
 
@@ -375,11 +380,14 @@ public sealed partial class CrewMonitoringWindow : FancyWindow
 
             if (NavMap.TrackedEntities.TryGetValue(castSensor.SuitSensorUid, out var data))
             {
-                data = new NavMapBlip
-                    (CoordinatesToMap(data.Coordinates), // Frontier: Local<Map
+                data = new NavMapBlip(
+                    CoordinatesToMap(data.Coordinates), // Frontier: Local<Map
                     data.Texture,
-                    (currTrackedEntity == null || castSensor.SuitSensorUid == currTrackedEntity) ? Color.LimeGreen : Color.LimeGreen * Color.DimGray,
-                    castSensor.SuitSensorUid == currTrackedEntity);
+                    (currTrackedEntity == null || castSensor.SuitSensorUid == currTrackedEntity)
+                        ? Color.LimeGreen
+                        : Color.LimeGreen * Color.DimGray,
+                    castSensor.SuitSensorUid == currTrackedEntity
+                );
 
                 NavMap.TrackedEntities[castSensor.SuitSensorUid] = data;
             }
@@ -409,8 +417,7 @@ public sealed partial class CrewMonitoringWindow : FancyWindow
 
         foreach (var sensor in SensorsTable.Children)
         {
-            if (sensor is CrewMonitoringButton &&
-                ((CrewMonitoringButton) sensor).SuitSensorUid == _trackedEntity)
+            if (sensor is CrewMonitoringButton && ((CrewMonitoringButton)sensor).SuitSensorUid == _trackedEntity)
                 return true;
 
             nextScrollPosition += sensor.Height;
@@ -424,7 +431,7 @@ public sealed partial class CrewMonitoringWindow : FancyWindow
 
     // Frontier: all crew monitoring happens in map coords.
     /// <summary>
-    /// report all 
+    /// report all
     /// </summary>
     private EntityCoordinates CoordinatesToMap(EntityCoordinates refCoords)
     {
@@ -434,6 +441,7 @@ public sealed partial class CrewMonitoringWindow : FancyWindow
         else
             return refCoords;
     }
+
     // End Frontier
 
     private void ClearOutDatedData()

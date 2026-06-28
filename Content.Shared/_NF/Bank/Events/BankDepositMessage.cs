@@ -6,11 +6,8 @@ namespace Content.Shared._NF.Bank.Events;
 /// Raised on a client bank deposit
 /// </summary>
 [Serializable, NetSerializable]
-
 public sealed class BankDepositMessage : BoundUserInterfaceMessage
 {
     // an empty message because we dont really want clients to be able to send funny ints to deposit
-    public BankDepositMessage()
-    {
-    }
+    public BankDepositMessage() { }
 }

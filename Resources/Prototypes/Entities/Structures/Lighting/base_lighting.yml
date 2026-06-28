@@ -50,8 +50,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.4,0.5,0.4,0.35"
         density: 190
         mask:
@@ -60,17 +59,15 @@
         - TabletopMachineLayer
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 200
       behaviors: #excess damage, don't spawn entities.
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:PlaySoundBehavior
         sound:
           collection: GlassBreak
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 50
       behaviors:
       - !type:EmptyAllContainersBehaviour
@@ -119,9 +116,9 @@
     range: 200
   - type: DeviceLinkSink
     ports:
-      - On
-      - Off
-      - Toggle
+    - On
+    - Off
+    - Toggle
   - type: Appearance
   - type: PoweredLightVisuals
     blinkingSound:
@@ -150,7 +147,7 @@
     enabled: true
   - type: ContainerFill # HardLight
     containers:
-      light_bulb: [ LightTube ]
+      light_bulb: [LightTube]
   - type: AmbientOnPowered
   - type: AmbientSound
     volume: -15
@@ -172,7 +169,7 @@
   components:
   - type: ContainerFill # HardLight
     containers:
-      light_bulb: [ LedLightTube ]
+      light_bulb: [LedLightTube]
   - type: PointLight
     radius: 15
     energy: 1
@@ -204,7 +201,7 @@
   components:
   - type: ContainerFill # HardLight
     containers:
-      light_bulb: [ ExteriorLightTube ]
+      light_bulb: [ExteriorLightTube]
   - type: DamageOnInteract
     damage:
       types:
@@ -231,7 +228,7 @@
   components:
   - type: ContainerFill # HardLight
     containers:
-      light_bulb: [ SodiumLightTube ]
+      light_bulb: [SodiumLightTube]
   - type: PointLight
     radius: 10
     energy: 2.5
@@ -262,61 +259,58 @@
   suffix: Always Powered
   parent: AlwaysPoweredWallLight
   components:
-    - type: AmbientSound
-      volume: -15
-      range: 2
-      sound:
-        path: /Audio/Ambience/Objects/light_hum.ogg
-    - type: Sprite
-      sprite: Structures/Wallmounts/Lighting/light_small.rsi
-      state: base
-    - type: PointLight
-      energy: 1.0
-      radius: 6
-      softness: 1.1
-      enabled: true
-    - type: Physics
-      bodyType: Static
-    - type: Fixtures
-      fixtures:
-        fix1:
-          shape:
-            !type:PhysShapeAabb
-            bounds: "-0.1,0.5,0.1,0.255"
-          density: 190
-          mask:
-          - None
-          layer:
-          - TabletopMachineLayer
-    - type: Damageable
-      damageContainer: Inorganic
-    - type: Destructible
-      thresholds:
-      - trigger:
-          !type:DamageTrigger
-          damage: 100
-        behaviors: #excess damage, don't spawn entities.
-        - !type:DoActsBehavior
-          acts: [ "Destruction" ]
-      - trigger:
-          !type:DamageTrigger
-          damage: 25
-        behaviors:
-        - !type:EmptyAllContainersBehaviour
-        - !type:SpawnEntitiesBehavior
-          spawn:
-            SheetSteel1:
-              min: 1
-              max: 1
-        - !type:DoActsBehavior
-          acts: ["Destruction"]
-    - type: Construction
-      graph: LightFixture
-      node: bulbLight
-    # Mono
-    - type: ShipRepairable
-      repairTime: 0.5
-      repairCost: 1
+  - type: AmbientSound
+    volume: -15
+    range: 2
+    sound:
+      path: /Audio/Ambience/Objects/light_hum.ogg
+  - type: Sprite
+    sprite: Structures/Wallmounts/Lighting/light_small.rsi
+    state: base
+  - type: PointLight
+    energy: 1.0
+    radius: 6
+    softness: 1.1
+    enabled: true
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.1,0.5,0.1,0.255"
+        density: 190
+        mask:
+        - None
+        layer:
+        - TabletopMachineLayer
+  - type: Damageable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 100
+      behaviors: #excess damage, don't spawn entities.
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
+        damage: 25
+      behaviors:
+      - !type:EmptyAllContainersBehaviour
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 1
+            max: 1
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+  - type: Construction
+    graph: LightFixture
+    node: bulbLight
+  # Mono
+  - type: ShipRepairable
+    repairTime: 0.5
+    repairCost: 1
 
 - type: entity
   name: small light
@@ -355,9 +349,9 @@
       burned: burned
   - type: DeviceLinkSink
     ports:
-      - On
-      - Off
-      - Toggle
+    - On
+    - Off
+    - Toggle
   - type: DamageOnInteract
     damage:
       types:
@@ -379,7 +373,7 @@
     color: "#EEEEFF"
   - type: ContainerFill # HardLight
     containers:
-      light_bulb: [ LedLightBulb ]
+      light_bulb: [LedLightBulb]
   - type: DamageOnInteract
     damage:
       types:
@@ -401,7 +395,7 @@
     color: "#ba473f"
   - type: ContainerFill # HardLight
     containers:
-      light_bulb: [ DimLightBulb ]
+      light_bulb: [DimLightBulb]
   - type: DamageOnInteract
     damage:
       types:
@@ -423,7 +417,7 @@
     color: "#FF8A0C"
   - type: ContainerFill # HardLight
     containers:
-      light_bulb: [ WarmLightBulb ]
+      light_bulb: [WarmLightBulb]
   - type: DamageOnInteract
     damage:
       types:
@@ -441,7 +435,7 @@
     enabled: true
   - type: ContainerFill # HardLight
     containers:
-      light_bulb: [ LightBulb ]
+      light_bulb: [LightBulb]
   - type: DamageOnInteract
     damage:
       types:
@@ -475,12 +469,12 @@
     sprite: Structures/Wallmounts/Lighting/emergency_light.rsi
     layers:
     - state: base
-      map: [ "enum.EmergencyLightVisualLayers.Base" ]
+      map: ["enum.EmergencyLightVisualLayers.Base"]
     - state: emergency_light_off
-      map: [ "enum.EmergencyLightVisualLayers.LightOff" ]
+      map: ["enum.EmergencyLightVisualLayers.LightOff"]
       color: "#7CFC00"
     - state: emergency_light_on
-      map: [ "enum.EmergencyLightVisualLayers.LightOn" ]
+      map: ["enum.EmergencyLightVisualLayers.LightOn"]
       color: "#7CFC00"
       shader: "unshaded"
       visible: false
@@ -490,17 +484,15 @@
     node: emergencyLight
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors: #excess damage, don't spawn entities.
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:PlaySoundBehavior
         sound:
           collection: GlassBreak
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 25
       behaviors:
       - !type:SpawnEntitiesBehavior
@@ -530,7 +522,7 @@
   components:
   - type: ContainerFill # HardLight
     containers:
-      light_bulb: [ LightTubeCrystalCyan ]
+      light_bulb: [LightTubeCrystalCyan]
   - type: PointLight
     radius: 8
     energy: 3
@@ -560,7 +552,7 @@
   components:
   - type: ContainerFill # HardLight
     containers:
-      light_bulb: [ LightTubeCrystalBlue ]
+      light_bulb: [LightTubeCrystalBlue]
   - type: PointLight
     radius: 8
     energy: 3
@@ -590,7 +582,7 @@
   components:
   - type: ContainerFill # HardLight
     containers:
-      light_bulb: [ LightTubeCrystalYellow ]
+      light_bulb: [LightTubeCrystalYellow]
   - type: PointLight
     radius: 8
     energy: 3
@@ -620,7 +612,7 @@
   components:
   - type: ContainerFill # HardLight
     containers:
-      light_bulb: [ LightTubeCrystalPink ]
+      light_bulb: [LightTubeCrystalPink]
   - type: PointLight
     radius: 8
     energy: 3
@@ -650,7 +642,7 @@
   components:
   - type: ContainerFill # HardLight
     containers:
-      light_bulb: [ LightTubeCrystalOrange ]
+      light_bulb: [LightTubeCrystalOrange]
   - type: PointLight
     radius: 8
     energy: 3
@@ -681,7 +673,7 @@
   components:
   - type: ContainerFill # HardLight
     containers:
-      light_bulb: [ LightTubeCrystalBlack ]
+      light_bulb: [LightTubeCrystalBlack]
   - type: PointLight
     radius: 8
     energy: 1
@@ -711,7 +703,7 @@
   components:
   - type: ContainerFill # HardLight
     containers:
-      light_bulb: [ LightTubeCrystalRed ]
+      light_bulb: [LightTubeCrystalRed]
   - type: PointLight
     radius: 8
     energy: 3
@@ -741,7 +733,7 @@
   components:
   - type: ContainerFill # HardLight
     containers:
-      light_bulb: [ LightTubeCrystalGreen ]
+      light_bulb: [LightTubeCrystalGreen]
   - type: PointLight
     radius: 8
     energy: 3

@@ -1,14 +1,15 @@
-using Content.Shared.DeviceLinking.Events;
 using Content.Server.DeviceLinking.Systems;
-using Content.Shared.DeviceLinking.Systems;
 using Content.Server.Power.Components;
 using Content.Server.Power.EntitySystems;
 using Content.Server.PowerCell;
 using Content.Shared.Actions;
 using Content.Shared.Damage;
+using Content.Shared.DeviceLinking.Events;
+using Content.Shared.DeviceLinking.Systems;
 using Content.Shared.Examine;
 using Content.Shared.Interaction;
 using Content.Shared.Popups;
+using Content.Shared.Power;
 using Content.Shared.PowerCell;
 using Content.Shared.PowerCell.Components;
 using Content.Shared.Timing;
@@ -16,20 +17,34 @@ using Content.Shared.Toggleable;
 using Content.Shared.Verbs;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
-using Content.Shared.Power;
 
 namespace Content.Server.EnergyDome;
 
 public sealed partial class EnergyDomeSystem : EntitySystem
 {
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly BatterySystem _battery = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly UseDelaySystem _useDelay = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly PowerCellSystem _powerCell = default!;
-    [Dependency] private readonly DeviceLinkSystem _signalSystem = default!;
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly BatterySystem _battery = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly UseDelaySystem _useDelay = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly PowerCellSystem _powerCell = default!;
+
+    [Dependency]
+    private readonly DeviceLinkSystem _signalSystem = default!;
 
     public override void Initialize()
     {
@@ -54,18 +69,21 @@ public sealed partial class EnergyDomeSystem : EntitySystem
         SubscribeLocalEvent<EnergyDomeGeneratorComponent, GetVerbsEvent<ActivationVerb>>(AddToggleDomeVerb);
         SubscribeLocalEvent<EnergyDomeGeneratorComponent, ExaminedEvent>(OnExamine);
 
-
         SubscribeLocalEvent<EnergyDomeGeneratorComponent, ComponentRemove>(OnComponentRemove);
 
         //Dome events
         SubscribeLocalEvent<EnergyDomeComponent, DamageChangedEvent>(OnDomeDamaged);
     }
 
-
     private void OnInit(Entity<EnergyDomeGeneratorComponent> generator, ref MapInitEvent args)
     {
         if (generator.Comp.CanDeviceNetworkUse)
-            _signalSystem.EnsureSinkPorts(generator, generator.Comp.TogglePort, generator.Comp.OnPort, generator.Comp.OffPort);
+            _signalSystem.EnsureSinkPorts(
+                generator,
+                generator.Comp.TogglePort,
+                generator.Comp.OnPort,
+                generator.Comp.OffPort
+            );
     }
 
     //different ways of use
@@ -103,14 +121,19 @@ public sealed partial class EnergyDomeSystem : EntitySystem
 
     private void OnExamine(Entity<EnergyDomeGeneratorComponent> generator, ref ExaminedEvent args)
     {
-        args.PushMarkup(Loc.GetString(
-            (generator.Comp.Enabled)
-            ? "energy-dome-on-examine-is-on-message"
-            : "energy-dome-on-examine-is-off-message"
-            ));
+        args.PushMarkup(
+            Loc.GetString(
+                (generator.Comp.Enabled)
+                    ? "energy-dome-on-examine-is-on-message"
+                    : "energy-dome-on-examine-is-off-message"
+            )
+        );
     }
 
-    private void AddToggleDomeVerb(Entity<EnergyDomeGeneratorComponent> generator, ref GetVerbsEvent<ActivationVerb> args)
+    private void AddToggleDomeVerb(
+        Entity<EnergyDomeGeneratorComponent> generator,
+        ref GetVerbsEvent<ActivationVerb> args
+    )
     {
         if (!args.CanAccess || !args.CanInteract || !generator.Comp.CanInteractUse)
             return;
@@ -119,11 +142,12 @@ public sealed partial class EnergyDomeSystem : EntitySystem
         ActivationVerb verb = new()
         {
             Text = Loc.GetString("energy-dome-verb-toggle"),
-            Act = () => AttemptToggle(generator, !generator.Comp.Enabled)
+            Act = () => AttemptToggle(generator, !generator.Comp.Enabled),
         };
 
         args.Verbs.Add(verb);
     }
+
     private void OnGetActions(Entity<EnergyDomeGeneratorComponent> generator, ref GetItemActionsEvent args)
     {
         if (generator.Comp.CanInteractUse)
@@ -158,6 +182,7 @@ public sealed partial class EnergyDomeSystem : EntitySystem
         if (args.Charge == 0)
             TurnOff(generator, true);
     }
+
     private void OnDomeDamaged(Entity<EnergyDomeComponent> dome, ref DamageChangedEvent args)
     {
         if (dome.Comp.Generator == null)
@@ -189,7 +214,8 @@ public sealed partial class EnergyDomeSystem : EntitySystem
         }
 
         //it seems to me it would not work well to hang both a powercell and an internal battery with wire charging on the object....
-        if (TryComp<BatteryComponent>(generatorUid, out var battery)) {
+        if (TryComp<BatteryComponent>(generatorUid, out var battery))
+        {
             _battery.UseCharge(generatorUid, energyLeak);
 
             if (battery.CurrentCharge == 0)
@@ -216,12 +242,13 @@ public sealed partial class EnergyDomeSystem : EntitySystem
 
     public bool AttemptToggle(Entity<EnergyDomeGeneratorComponent> generator, bool status)
     {
-    if (TryComp<UseDelayComponent>(generator, out var useDelay) && _useDelay.IsDelayed(new Entity<UseDelayComponent?>(generator, useDelay)))
+        if (
+            TryComp<UseDelayComponent>(generator, out var useDelay)
+            && _useDelay.IsDelayed(new Entity<UseDelayComponent?>(generator, useDelay))
+        )
         {
             _audio.PlayPvs(generator.Comp.TurnOffSound, generator);
-            _popup.PopupEntity(
-                    Loc.GetString("energy-dome-recharging"),
-                    generator);
+            _popup.PopupEntity(Loc.GetString("energy-dome-recharging"), generator);
             return false;
         }
 
@@ -230,18 +257,14 @@ public sealed partial class EnergyDomeSystem : EntitySystem
             if (!_powerCell.TryGetBatteryFromSlot(generator, out var cell) && !TryComp(generator, out cell))
             {
                 _audio.PlayPvs(generator.Comp.TurnOffSound, generator);
-                _popup.PopupEntity(
-                    Loc.GetString("energy-dome-no-cell"),
-                    generator);
+                _popup.PopupEntity(Loc.GetString("energy-dome-no-cell"), generator);
                 return false;
             }
 
             if (!_powerCell.HasDrawCharge(generator))
             {
                 _audio.PlayPvs(generator.Comp.TurnOffSound, generator);
-                _popup.PopupEntity(
-                    Loc.GetString("energy-dome-no-power"),
-                    generator);
+                _popup.PopupEntity(Loc.GetString("energy-dome-no-power"), generator);
                 return false;
             }
         }
@@ -251,9 +274,7 @@ public sealed partial class EnergyDomeSystem : EntitySystem
             if (battery.CurrentCharge == 0)
             {
                 _audio.PlayPvs(generator.Comp.TurnOffSound, generator);
-                _popup.PopupEntity(
-                    Loc.GetString("energy-dome-no-power"),
-                    generator);
+                _popup.PopupEntity(Loc.GetString("energy-dome-no-power"), generator);
                 return false;
             }
         }
@@ -300,7 +321,8 @@ public sealed partial class EnergyDomeSystem : EntitySystem
         }
 
         _powerCell.SetPowerCellDrawEnabled(generator, true);
-        if (TryComp<BatterySelfRechargerComponent>(generator, out var recharger)) {
+        if (TryComp<BatterySelfRechargerComponent>(generator, out var recharger))
+        {
             recharger.AutoRecharge = true;
         }
 

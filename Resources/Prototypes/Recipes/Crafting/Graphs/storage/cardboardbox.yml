@@ -2,14 +2,13 @@
   id: BoxCardboard
   start: start
   graph:
-    - node: start
-      edges:
-        - to: boxcardboard
-          steps:
-            - material: Cardboard
-              amount: 1
-              doAfter: 4
+  - node: start
+    edges:
+    - to: boxcardboard
+      steps:
+      - material: Cardboard
+        amount: 1
+        doAfter: 4
 
-
-    - node: boxcardboard
-      entity: BoxCardboard
+  - node: boxcardboard
+    entity: BoxCardboard

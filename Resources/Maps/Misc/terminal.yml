@@ -9646,9 +9646,7 @@ entities:
 
         [head=1]Note to Barkeep[/head]
 
-
         Please request keg refills from the ColComm office.
-
 
         Available Refills:
 
@@ -14967,4 +14965,3 @@ entities:
     - type: Transform
       pos: 93.5,97.5
       parent: 2
-...

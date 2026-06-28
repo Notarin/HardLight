@@ -1,7 +1,7 @@
 - type: entity
   id: ClothingBackpackDuffelArcadia
   name: arcadia duffel
-  parent: [ NFClothingDuffel, ContrabandClothing ]
+  parent: [NFClothingDuffel, ContrabandClothing]
   description: A duffelbag produced by Arcadia Industries
   components:
   - type: Sprite
@@ -23,7 +23,7 @@
     sprite: _NF/Clothing/Back/Duffels/nfsd_cream.rsi
 
 - type: entity
-  parent: [ RecyclableItemPlasticSmall, NFClothingDuffel ]
+  parent: [RecyclableItemPlasticSmall, NFClothingDuffel]
   id: NFGoblinMadeClothingBackpackDuffelTrashBlue
   name: trashel
   description: This bad boy can fit so much trash!
@@ -41,10 +41,10 @@
       collection: trashBagRustle
     whitelist:
       tags:
-        - Cartridge
-        - Trash
+      - Cartridge
+      - Trash
       components:
-        - GoblinMade
+      - GoblinMade
   - type: Construction
     graph: NFGoblinMadeClothingBackpackDuffelTrashBlue
     node: NFGoblinMadeClothingBackpackDuffelTrashBlue
@@ -57,4 +57,4 @@
   components:
   - type: Storage
     grid:
-      - 0,0,20,5 # 1 wider than ClothingBackpackDuffelHolding, capable of fitting the StorableSpecies pseudoitem
+    - 0,0,20,5 # 1 wider than ClothingBackpackDuffelHolding, capable of fitting the StorableSpecies pseudoitem

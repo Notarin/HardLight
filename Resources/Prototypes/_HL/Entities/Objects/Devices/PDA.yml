@@ -8,9 +8,7 @@
     id: NanotrasenIDCard
   - type: Appearance
     appearanceDataInit:
-     enum.PdaVisuals.PdaType:
-       !type:String
-       pda-nanotrasen
+      enum.PdaVisuals.PdaType: !type:String pda-nanotrasen
   - type: PdaBorderColor
     borderColor: "#2d78c8"
   - type: Icon
@@ -26,9 +24,7 @@
     id: NanotrasenOperativeIDCard
   - type: Appearance
     appearanceDataInit:
-     enum.PdaVisuals.PdaType:
-       !type:String
-       pda-nanotrasen-operative
+      enum.PdaVisuals.PdaType: !type:String pda-nanotrasen-operative
   - type: PdaBorderColor
     borderColor: "#1a5aa0"
   - type: Icon
@@ -44,9 +40,7 @@
     id: ArcadiaIDCard
   - type: Appearance
     appearanceDataInit:
-     enum.PdaVisuals.PdaType:
-       !type:String
-       pda-arcadia
+      enum.PdaVisuals.PdaType: !type:String pda-arcadia
   - type: PdaBorderColor
     borderColor: "#9f2a2e"
   - type: Icon
@@ -62,9 +56,7 @@
     id: CartelIDCard
   - type: Appearance
     appearanceDataInit:
-     enum.PdaVisuals.PdaType:
-       !type:String
-       pda-cartel
+      enum.PdaVisuals.PdaType: !type:String pda-cartel
   - type: PdaBorderColor
     borderColor: "#7c00ee"
   - type: Icon
@@ -80,9 +72,7 @@
     id: CartelLieutenantIDCard
   - type: Appearance
     appearanceDataInit:
-     enum.PdaVisuals.PdaType:
-       !type:String
-       pda-cartel-lieutenant
+      enum.PdaVisuals.PdaType: !type:String pda-cartel-lieutenant
   - type: PdaBorderColor
     borderColor: "#5c00b3"
   - type: Icon
@@ -97,13 +87,13 @@
     id: ContractorIDCard
   - type: CartridgeLoader
     preinstalled:
-      - CrewManifestCartridge
-      - NotekeeperCartridge
-      - NanoTaskCartridge
-      - NewsReaderCartridge
-      - BountyContractsCartridge
-      - AstroNavCartridge
-      - NanoChatCartridge
+    - CrewManifestCartridge
+    - NotekeeperCartridge
+    - NanoTaskCartridge
+    - NewsReaderCartridge
+    - BountyContractsCartridge
+    - AstroNavCartridge
+    - NanoChatCartridge
   - type: Tag #  Ignore Chameleon tags
     tags:
     - DoorBumpOpener
@@ -268,7 +258,6 @@
   id: ContractorMusicianPDA
   suffix: Contractor
 
-
 ### Interdyne PDAs
 - type: entity
   parent: BasePDA
@@ -280,20 +269,18 @@
     id: InterdyneIDCard
   - type: Appearance
     appearanceDataInit:
-      enum.PdaVisuals.PdaType:
-        !type:String
-        pda-interdyne
+      enum.PdaVisuals.PdaType: !type:String pda-interdyne
   - type: Sprite
     sprite: _HL/Objects/Devices/interdyne_pda.rsi
     layers:
-    - map: [ "enum.PdaVisualLayers.Base" ]
+    - map: ["enum.PdaVisualLayers.Base"]
       state: "pda-interdyne"
     - state: "light-overlay"
-      map: [ "enum.PdaVisualLayers.Flashlight" ]
+      map: ["enum.PdaVisualLayers.Flashlight"]
       shader: "unshaded"
       visible: false
     - state: "id-overlay"
-      map: [ "enum.PdaVisualLayers.IdLight" ]
+      map: ["enum.PdaVisualLayers.IdLight"]
       shader: "unshaded"
       visible: false
   - type: Icon
@@ -313,20 +300,18 @@
     id: InterdyneHeadIDCard
   - type: Appearance
     appearanceDataInit:
-      enum.PdaVisuals.PdaType:
-        !type:String
-        pda-interdynehead
+      enum.PdaVisuals.PdaType: !type:String pda-interdynehead
   - type: Sprite
     sprite: _HL/Objects/Devices/interdyne_pda.rsi
     layers:
-    - map: [ "enum.PdaVisualLayers.Base" ]
+    - map: ["enum.PdaVisualLayers.Base"]
       state: "pda-interdynehead"
     - state: "light-overlay"
-      map: [ "enum.PdaVisualLayers.Flashlight" ]
+      map: ["enum.PdaVisualLayers.Flashlight"]
       shader: "unshaded"
       visible: false
     - state: "id-overlay"
-      map: [ "enum.PdaVisualLayers.IdLight" ]
+      map: ["enum.PdaVisualLayers.IdLight"]
       shader: "unshaded"
       visible: false
   - type: Icon
@@ -357,9 +342,7 @@
     state: pda-directorate
   - type: Appearance
     appearanceDataInit:
-     enum.PdaVisuals.PdaType:
-       !type:String
-       pda-directorate
+      enum.PdaVisuals.PdaType: !type:String pda-directorate
 
 - type: entity
   parent: CentcomPDA
@@ -382,6 +365,4 @@
     state: pda-sof
   - type: Appearance
     appearanceDataInit:
-     enum.PdaVisuals.PdaType:
-       !type:String
-       pda-sof
+      enum.PdaVisuals.PdaType: !type:String pda-sof

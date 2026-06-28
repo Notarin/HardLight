@@ -9,8 +9,8 @@ using Content.Shared.Interaction.Events;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Popups;
 using Content.Shared.Verbs;
-using Robust.Shared.Prototypes;
 using Robust.Shared.Player;
+using Robust.Shared.Prototypes;
 
 namespace Content.Shared.Chemistry.EntitySystems;
 
@@ -21,13 +21,26 @@ public abstract class SharedInjectorSystem : EntitySystem
     /// </summary>
     public static readonly FixedPoint2[] TransferAmounts = { 1, 5, 10, 15 };
 
-    [Dependency] protected readonly SharedPopupSystem Popup = default!;
-    [Dependency] protected readonly SharedSolutionContainerSystem SolutionContainers = default!;
-    [Dependency] protected readonly MobStateSystem MobState = default!;
-    [Dependency] protected readonly SharedCombatModeSystem Combat = default!;
-    [Dependency] protected readonly SharedDoAfterSystem DoAfter = default!;
-    [Dependency] protected readonly ISharedAdminLogManager AdminLogger = default!;
-    [Dependency] protected readonly IPrototypeManager Prototypes = default!;
+    [Dependency]
+    protected readonly SharedPopupSystem Popup = default!;
+
+    [Dependency]
+    protected readonly SharedSolutionContainerSystem SolutionContainers = default!;
+
+    [Dependency]
+    protected readonly MobStateSystem MobState = default!;
+
+    [Dependency]
+    protected readonly SharedCombatModeSystem Combat = default!;
+
+    [Dependency]
+    protected readonly SharedDoAfterSystem DoAfter = default!;
+
+    [Dependency]
+    protected readonly ISharedAdminLogManager AdminLogger = default!;
+
+    [Dependency]
+    protected readonly IPrototypeManager Prototypes = default!;
 
     public override void Initialize()
     {
@@ -68,11 +81,15 @@ public abstract class SharedInjectorSystem : EntitySystem
             {
                 component.TransferAmount = toggleAmount;
                 component.CurrentTransferAmount = toggleAmount;
-                Popup.PopupClient(Loc.GetString("comp-solution-transfer-set-amount", ("amount", toggleAmount)), user, user);
+                Popup.PopupClient(
+                    Loc.GetString("comp-solution-transfer-set-amount", ("amount", toggleAmount)),
+                    user,
+                    user
+                );
                 Dirty(entity);
             },
 
-            Priority = priority
+            Priority = priority,
         };
         args.Verbs.Add(toggleVerb);
 
@@ -89,12 +106,16 @@ public abstract class SharedInjectorSystem : EntitySystem
                 {
                     component.TransferAmount = amount;
                     component.CurrentTransferAmount = amount;
-                    Popup.PopupClient(Loc.GetString("comp-solution-transfer-set-amount", ("amount", amount)), user, user);
+                    Popup.PopupClient(
+                        Loc.GetString("comp-solution-transfer-set-amount", ("amount", amount)),
+                        user,
+                        user
+                    );
                     Dirty(entity);
                 },
 
                 // we want to sort by size, not alphabetically by the verb text.
-                Priority = priority
+                Priority = priority,
             };
 
             priority -= 1;
@@ -150,9 +171,10 @@ public abstract class SharedInjectorSystem : EntitySystem
             var next = allowed[(index + 1) % allowed.Count];
             injector.Comp.ActiveModeProtoId = next;
             SyncLegacyFieldsFromMode(injector);
-            var key = injector.Comp.ToggleState == InjectorToggleMode.Draw
-                ? "injector-component-drawing-text"
-                : "injector-component-injecting-text";
+            var key =
+                injector.Comp.ToggleState == InjectorToggleMode.Draw
+                    ? "injector-component-drawing-text"
+                    : "injector-component-injecting-text";
             Popup.PopupClient(Loc.GetString(key), injector, user);
             Dirty(injector);
             return;
@@ -166,7 +188,14 @@ public abstract class SharedInjectorSystem : EntitySystem
         if (injector.Comp.InjectOnly)
             return;
 
-        if (!SolutionContainers.TryGetSolution(injector.Owner, injector.Comp.SolutionName, out var solEnt, out var solution))
+        if (
+            !SolutionContainers.TryGetSolution(
+                injector.Owner,
+                injector.Comp.SolutionName,
+                out var solEnt,
+                out var solution
+            )
+        )
             return;
 
         string msg;
@@ -257,7 +286,10 @@ public abstract class SharedInjectorSystem : EntitySystem
             var hasDraw = false;
             foreach (var allowed in injector.Comp.AllowedModes)
             {
-                if (Prototypes.TryIndex(allowed, out var allowedMode) && allowedMode.Behavior.HasAnyFlag(InjectorBehavior.Draw | InjectorBehavior.Dynamic))
+                if (
+                    Prototypes.TryIndex(allowed, out var allowedMode)
+                    && allowedMode.Behavior.HasAnyFlag(InjectorBehavior.Draw | InjectorBehavior.Dynamic)
+                )
                 {
                     hasDraw = true;
                     break;

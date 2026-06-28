@@ -168,10 +168,10 @@
 # region Generators
 - type: latheRecipe
   id: PortableGeneratorDKMachineCircuitboard
-  parent: [ BaseGoldCircuitboardRecipe, BaseEngineeringMachineRecipeCategory ]
+  parent: [BaseGoldCircuitboardRecipe, BaseEngineeringMachineRecipeCategory]
   result: PortableGeneratorDKMachineCircuitboard
 
 - type: latheRecipe
   id: PortableGeneratorDKJrMachineCircuitboard
-  parent: [ BaseGoldCircuitboardRecipe, BaseEngineeringMachineRecipeCategory ]
+  parent: [BaseGoldCircuitboardRecipe, BaseEngineeringMachineRecipeCategory]
   result: PortableGeneratorDKJrMachineCircuitboard

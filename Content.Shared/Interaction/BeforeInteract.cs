@@ -39,7 +39,8 @@ namespace Content.Shared.Interaction
             EntityUid used,
             EntityUid? target,
             EntityCoordinates clickLocation,
-            bool canReach)
+            bool canReach
+        )
         {
             User = user;
             Used = used;

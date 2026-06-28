@@ -18,10 +18,7 @@ public sealed partial class TriggerSystem
         SubscribeLocalEvent<TriggerOnMobstateChangeComponent, ImplantRelayEvent<MobStateChangedEvent>>(OnMobStateRelay);
     }
 
-    private void OnMobStateChanged(
-        EntityUid uid,
-        TriggerOnMobstateChangeComponent component,
-        MobStateChangedEvent args)
+    private void OnMobStateChanged(EntityUid uid, TriggerOnMobstateChangeComponent component, MobStateChangedEvent args)
     {
         if (!component.MobState.Contains(args.NewMobState))
             return;
@@ -46,7 +43,8 @@ public sealed partial class TriggerSystem
                 timerTrigger.Delay,
                 timerTrigger.BeepInterval,
                 timerTrigger.InitialBeepDelay,
-                timerTrigger.BeepSound);
+                timerTrigger.BeepSound
+            );
         }
         else
             Trigger(uid);
@@ -64,30 +62,25 @@ public sealed partial class TriggerSystem
         if (!component.PreventSuicide)
             return;
 
-        _popupSystem.PopupEntity(
-            Loc.GetString("suicide-prevented"),
-            args.Victim,
-            args.Victim);
+        _popupSystem.PopupEntity(Loc.GetString("suicide-prevented"), args.Victim, args.Victim);
         args.Handled = true;
     }
 
-    private void OnSuicideRelay(EntityUid uid,
+    private void OnSuicideRelay(
+        EntityUid uid,
         TriggerOnMobstateChangeComponent component,
-        ImplantRelayEvent<SuicideEvent> args)
+        ImplantRelayEvent<SuicideEvent> args
+    )
     {
-        OnSuicide(
-            uid,
-            component,
-            args.Event);
+        OnSuicide(uid, component, args.Event);
     }
 
-    private void OnMobStateRelay(EntityUid uid,
+    private void OnMobStateRelay(
+        EntityUid uid,
         TriggerOnMobstateChangeComponent component,
-        ImplantRelayEvent<MobStateChangedEvent> args)
+        ImplantRelayEvent<MobStateChangedEvent> args
+    )
     {
-        OnMobStateChanged(
-            uid,
-            component,
-            args.Event);
+        OnMobStateChanged(uid, component, args.Event);
     }
 }

@@ -27,19 +27,39 @@ namespace Content.Server.Decals
 {
     public sealed class DecalSystem : SharedDecalSystem
     {
-        [Dependency] private readonly IPlayerManager _playerManager = default!;
-        [Dependency] private readonly IAdminManager _adminManager = default!;
-        [Dependency] private readonly ITileDefinitionManager _tileDefMan = default!;
-        [Dependency] private readonly IParallelManager _parMan = default!;
-        [Dependency] private readonly ChunkingSystem _chunking = default!;
-        [Dependency] private readonly IConfigurationManager _conf = default!;
-        [Dependency] private readonly IGameTiming _timing = default!;
-        [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-        [Dependency] private readonly SharedMapSystem _mapSystem = default!;
-        [Dependency] private readonly SharedTransformSystem _transform = default!;
+        [Dependency]
+        private readonly IPlayerManager _playerManager = default!;
+
+        [Dependency]
+        private readonly IAdminManager _adminManager = default!;
+
+        [Dependency]
+        private readonly ITileDefinitionManager _tileDefMan = default!;
+
+        [Dependency]
+        private readonly IParallelManager _parMan = default!;
+
+        [Dependency]
+        private readonly ChunkingSystem _chunking = default!;
+
+        [Dependency]
+        private readonly IConfigurationManager _conf = default!;
+
+        [Dependency]
+        private readonly IGameTiming _timing = default!;
+
+        [Dependency]
+        private readonly IAdminLogManager _adminLogger = default!;
+
+        [Dependency]
+        private readonly SharedMapSystem _mapSystem = default!;
+
+        [Dependency]
+        private readonly SharedTransformSystem _transform = default!;
 
         private readonly Dictionary<NetEntity, HashSet<Vector2i>> _dirtyChunks = new();
-        private readonly Dictionary<ICommonSession, Dictionary<NetEntity, HashSet<Vector2i>>> _previousSentChunks = new();
+        private readonly Dictionary<ICommonSession, Dictionary<NetEntity, HashSet<Vector2i>>> _previousSentChunks =
+            new();
         private static readonly Vector2 BoundsMinExpansion = new(0.01f, 0.01f);
         private static readonly Vector2 BoundsMaxExpansion = new(1.01f, 1.01f);
 
@@ -47,23 +67,20 @@ namespace Content.Server.Decals
         private List<ICommonSession> _sessions = new();
 
         // If this ever gets parallelised then you'll want to increase the pooled count.
-        private ObjectPool<HashSet<Vector2i>> _chunkIndexPool =
-            new DefaultObjectPool<HashSet<Vector2i>>(
-                new DefaultPooledObjectPolicy<HashSet<Vector2i>>(), 64);
+        private ObjectPool<HashSet<Vector2i>> _chunkIndexPool = new DefaultObjectPool<HashSet<Vector2i>>(
+            new DefaultPooledObjectPolicy<HashSet<Vector2i>>(),
+            64
+        );
 
-        private ObjectPool<Dictionary<NetEntity, HashSet<Vector2i>>> _chunkViewerPool =
-            new DefaultObjectPool<Dictionary<NetEntity, HashSet<Vector2i>>>(
-                new DefaultPooledObjectPolicy<Dictionary<NetEntity, HashSet<Vector2i>>>(), 64);
+        private ObjectPool<Dictionary<NetEntity, HashSet<Vector2i>>> _chunkViewerPool = new DefaultObjectPool<
+            Dictionary<NetEntity, HashSet<Vector2i>>
+        >(new DefaultPooledObjectPolicy<Dictionary<NetEntity, HashSet<Vector2i>>>(), 64);
 
         public override void Initialize()
         {
             base.Initialize();
 
-            _updateJob = new UpdatePlayerJob()
-            {
-                System = this,
-                Sessions = _sessions,
-            };
+            _updateJob = new UpdatePlayerJob() { System = this, Sessions = _sessions };
 
             _playerManager.PlayerStatusChanged += OnPlayerStatusChanged;
             SubscribeLocalEvent<TileChangedEvent>(OnTileChanged);
@@ -175,7 +192,10 @@ namespace Content.Server.Decals
 
                 foreach (var (uid, decal) in chunk.Decals)
                 {
-                    if (new Vector2((int)Math.Floor(decal.Coordinates.X), (int)Math.Floor(decal.Coordinates.Y)) == change.GridIndices)
+                    if (
+                        new Vector2((int)Math.Floor(decal.Coordinates.X), (int)Math.Floor(decal.Coordinates.Y))
+                        == change.GridIndices
+                    )
                     {
                         toDelete.Add(uid);
                     }
@@ -228,13 +248,19 @@ namespace Content.Server.Decals
 
             if (eventArgs.SenderSession.AttachedEntity != null)
             {
-                _adminLogger.Add(LogType.CrayonDraw, LogImpact.Low,
-                    $"{ToPrettyString(eventArgs.SenderSession.AttachedEntity.Value):actor} drew a {ev.Decal.Color} {ev.Decal.Id} at {ev.Coordinates}");
+                _adminLogger.Add(
+                    LogType.CrayonDraw,
+                    LogImpact.Low,
+                    $"{ToPrettyString(eventArgs.SenderSession.AttachedEntity.Value):actor} drew a {ev.Decal.Color} {ev.Decal.Id} at {ev.Coordinates}"
+                );
             }
             else
             {
-                _adminLogger.Add(LogType.CrayonDraw, LogImpact.Low,
-                    $"{eventArgs.SenderSession.Name} drew a {ev.Decal.Color} {ev.Decal.Id} at {ev.Coordinates}");
+                _adminLogger.Add(
+                    LogType.CrayonDraw,
+                    LogImpact.Low,
+                    $"{eventArgs.SenderSession.Name} drew a {ev.Decal.Color} {ev.Decal.Id} at {ev.Coordinates}"
+                );
             }
         }
 
@@ -262,13 +288,19 @@ namespace Content.Server.Decals
             {
                 if (eventArgs.SenderSession.AttachedEntity != null)
                 {
-                    _adminLogger.Add(LogType.CrayonDraw, LogImpact.Low,
-                        $"{ToPrettyString(eventArgs.SenderSession.AttachedEntity.Value):actor} removed a {decal.Color} {decal.Id} at {ev.Coordinates}");
+                    _adminLogger.Add(
+                        LogType.CrayonDraw,
+                        LogImpact.Low,
+                        $"{ToPrettyString(eventArgs.SenderSession.AttachedEntity.Value):actor} removed a {decal.Color} {decal.Id} at {ev.Coordinates}"
+                    );
                 }
                 else
                 {
-                    _adminLogger.Add(LogType.CrayonDraw, LogImpact.Low,
-                        $"{eventArgs.SenderSession.Name} removed a {decal.Color} {decal.Id} at {ev.Coordinates}");
+                    _adminLogger.Add(
+                        LogType.CrayonDraw,
+                        LogImpact.Low,
+                        $"{eventArgs.SenderSession.Name} removed a {decal.Color} {decal.Id} at {ev.Coordinates}"
+                    );
                 }
 
                 RemoveDecal(gridId.Value, decalId);
@@ -284,7 +316,15 @@ namespace Content.Server.Decals
             _dirtyChunks[id].Add(chunkIndices);
         }
 
-        public bool TryAddDecal(string id, EntityCoordinates coordinates, out uint decalId, Color? color = null, Angle? rotation = null, int zIndex = 0, bool cleanable = false)
+        public bool TryAddDecal(
+            string id,
+            EntityCoordinates coordinates,
+            out uint decalId,
+            Color? color = null,
+            Angle? rotation = null,
+            int zIndex = 0,
+            bool cleanable = false
+        )
         {
             rotation ??= Angle.Zero;
             var decal = new Decal(coordinates.Position, id, color, rotation.Value, zIndex, cleanable);
@@ -319,10 +359,15 @@ namespace Content.Server.Decals
             return true;
         }
 
-        public override bool RemoveDecal(EntityUid gridId, uint decalId, DecalGridComponent? component = null)
-            => RemoveDecalInternal(gridId, decalId, out _, component);
+        public override bool RemoveDecal(EntityUid gridId, uint decalId, DecalGridComponent? component = null) =>
+            RemoveDecalInternal(gridId, decalId, out _, component);
 
-        public override HashSet<(uint Index, Decal Decal)> GetDecalsInRange(EntityUid gridId, Vector2 position, float distance = 0.75f, Func<Decal, bool>? validDelegate = null)
+        public override HashSet<(uint Index, Decal Decal)> GetDecalsInRange(
+            EntityUid gridId,
+            Vector2 position,
+            float distance = 0.75f,
+            Func<Decal, bool>? validDelegate = null
+        )
         {
             var decalIds = new HashSet<(uint, Decal)>();
             var chunkCollection = ChunkCollection(gridId);
@@ -344,7 +389,11 @@ namespace Content.Server.Decals
             return decalIds;
         }
 
-        public HashSet<(uint Index, Decal Decal)> GetDecalsIntersecting(EntityUid gridUid, Box2 bounds, DecalGridComponent? component = null)
+        public HashSet<(uint Index, Decal Decal)> GetDecalsIntersecting(
+            EntityUid gridUid,
+            Box2 bounds,
+            DecalGridComponent? component = null
+        )
         {
             var decalIds = new HashSet<(uint, Decal)>();
             var chunkCollection = ChunkCollection(gridUid, component);
@@ -377,7 +426,12 @@ namespace Content.Server.Decals
         /// <remarks>
         ///     If the new position is invalid, this will result in the decal getting deleted.
         /// </remarks>
-        public bool SetDecalPosition(EntityUid gridId, uint decalId, EntityCoordinates coordinates, DecalGridComponent? comp = null)
+        public bool SetDecalPosition(
+            EntityUid gridId,
+            uint decalId,
+            EntityCoordinates coordinates,
+            DecalGridComponent? comp = null
+        )
         {
             if (!Resolve(gridId, ref comp))
                 return false;
@@ -388,7 +442,12 @@ namespace Content.Server.Decals
             return TryAddDecal(removed.WithCoordinates(coordinates.Position), coordinates, out _);
         }
 
-        private bool ModifyDecal(EntityUid gridId, uint decalId, Func<Decal, Decal> modifyDecal, DecalGridComponent? comp = null)
+        private bool ModifyDecal(
+            EntityUid gridId,
+            uint decalId,
+            Func<Decal, Decal> modifyDecal,
+            DecalGridComponent? comp = null
+        )
         {
             if (!Resolve(gridId, ref comp))
                 return false;
@@ -403,17 +462,17 @@ namespace Content.Server.Decals
             return true;
         }
 
-        public bool SetDecalColor(EntityUid gridId, uint decalId, Color? value, DecalGridComponent? comp = null)
-            => ModifyDecal(gridId, decalId, x => x.WithColor(value), comp);
+        public bool SetDecalColor(EntityUid gridId, uint decalId, Color? value, DecalGridComponent? comp = null) =>
+            ModifyDecal(gridId, decalId, x => x.WithColor(value), comp);
 
-        public bool SetDecalRotation(EntityUid gridId, uint decalId, Angle value, DecalGridComponent? comp = null)
-            => ModifyDecal(gridId, decalId, x => x.WithRotation(value), comp);
+        public bool SetDecalRotation(EntityUid gridId, uint decalId, Angle value, DecalGridComponent? comp = null) =>
+            ModifyDecal(gridId, decalId, x => x.WithRotation(value), comp);
 
-        public bool SetDecalZIndex(EntityUid gridId, uint decalId, int value, DecalGridComponent? comp = null)
-            => ModifyDecal(gridId, decalId, x => x.WithZIndex(value), comp);
+        public bool SetDecalZIndex(EntityUid gridId, uint decalId, int value, DecalGridComponent? comp = null) =>
+            ModifyDecal(gridId, decalId, x => x.WithZIndex(value), comp);
 
-        public bool SetDecalCleanable(EntityUid gridId, uint decalId, bool value, DecalGridComponent? comp = null)
-            => ModifyDecal(gridId, decalId, x => x.WithCleanable(value), comp);
+        public bool SetDecalCleanable(EntityUid gridId, uint decalId, bool value, DecalGridComponent? comp = null) =>
+            ModifyDecal(gridId, decalId, x => x.WithCleanable(value), comp);
 
         public bool SetDecalId(EntityUid gridId, uint decalId, string id, DecalGridComponent? comp = null)
         {
@@ -558,7 +617,8 @@ namespace Content.Server.Decals
         private void SendChunkUpdates(
             ICommonSession session,
             Dictionary<NetEntity, HashSet<Vector2i>> updatedChunks,
-            Dictionary<NetEntity, HashSet<Vector2i>> staleChunks)
+            Dictionary<NetEntity, HashSet<Vector2i>> staleChunks
+        )
         {
             var updatedDecals = new Dictionary<NetEntity, Dictionary<Vector2i, DecalChunk>>();
             foreach (var (netGrid, chunks) in updatedChunks)
@@ -572,16 +632,16 @@ namespace Content.Server.Decals
                 var gridChunks = new Dictionary<Vector2i, DecalChunk>();
                 foreach (var indices in chunks)
                 {
-                    gridChunks.Add(indices,
-                        collection.TryGetValue(indices, out var chunk)
-                            ? chunk
-                            : new());
+                    gridChunks.Add(indices, collection.TryGetValue(indices, out var chunk) ? chunk : new());
                 }
                 updatedDecals[netGrid] = gridChunks;
             }
 
             if (updatedDecals.Count != 0 || staleChunks.Count != 0)
-                RaiseNetworkEvent(new DecalChunkUpdateEvent { Data = updatedDecals, RemovedChunks = staleChunks }, session);
+                RaiseNetworkEvent(
+                    new DecalChunkUpdateEvent { Data = updatedDecals, RemovedChunks = staleChunks },
+                    session
+                );
 
             ReturnToPool(updatedChunks);
             ReturnToPool(staleChunks);

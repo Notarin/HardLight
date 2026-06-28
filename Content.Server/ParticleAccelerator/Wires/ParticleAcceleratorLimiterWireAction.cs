@@ -8,7 +8,8 @@ using Content.Shared.Wires;
 
 namespace Content.Server.ParticleAccelerator.Wires;
 
-public sealed partial class ParticleAcceleratorLimiterWireAction : ComponentWireAction<ParticleAcceleratorControlBoxComponent>
+public sealed partial class ParticleAcceleratorLimiterWireAction
+    : ComponentWireAction<ParticleAcceleratorControlBoxComponent>
 {
     public override string Name { get; set; } = "wire-name-pa-limiter";
     public override Color Color { get; set; } = Color.Teal;
@@ -18,9 +19,11 @@ public sealed partial class ParticleAcceleratorLimiterWireAction : ComponentWire
     {
         var result = base.GetStatusLightData(wire);
 
-        if (result.HasValue
-        && EntityManager.TryGetComponent<ParticleAcceleratorControlBoxComponent>(wire.Owner, out var controller)
-        && controller.MaxStrength >= ParticleAcceleratorPowerState.Level3)
+        if (
+            result.HasValue
+            && EntityManager.TryGetComponent<ParticleAcceleratorControlBoxComponent>(wire.Owner, out var controller)
+            && controller.MaxStrength >= ParticleAcceleratorPowerState.Level3
+        )
             result = new(Color.Purple, result.Value.State, result.Value.Text);
 
         return result;
@@ -41,7 +44,6 @@ public sealed partial class ParticleAcceleratorLimiterWireAction : ComponentWire
 
     public override bool Mend(EntityUid user, Wire wire, ParticleAcceleratorControlBoxComponent controller)
     {
-
         controller.MaxStrength = ParticleAcceleratorPowerState.Level2;
         if (controller.SelectedStrength <= controller.MaxStrength || controller.StrengthLocked)
             return true;
@@ -56,16 +58,14 @@ public sealed partial class ParticleAcceleratorLimiterWireAction : ComponentWire
 
     public override void Pulse(EntityUid user, Wire wire, ParticleAcceleratorControlBoxComponent controller)
     {
-        EntityManager.System<PopupSystem>()
+        EntityManager
+            .System<PopupSystem>()
             .PopupEntity(
-            Loc.GetString("particle-accelerator-control-box-component-wires-update-limiter-on-pulse"),
-            user,
-            PopupType.SmallCaution
-        );
+                Loc.GetString("particle-accelerator-control-box-component-wires-update-limiter-on-pulse"),
+                user,
+                PopupType.SmallCaution
+            );
     }
 
-    public override void Update(Wire wire)
-    {
-
-    }
+    public override void Update(Wire wire) { }
 }

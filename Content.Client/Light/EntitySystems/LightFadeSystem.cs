@@ -7,7 +7,8 @@ namespace Content.Client.Light.EntitySystems;
 
 public sealed class LightFadeSystem : EntitySystem
 {
-    [Dependency] private readonly AnimationPlayerSystem _player = default!;
+    [Dependency]
+    private readonly AnimationPlayerSystem _player = default!;
 
     private const string FadeTrack = "light-fade";
 
@@ -35,10 +36,10 @@ public sealed class LightFadeSystem : EntitySystem
                     KeyFrames =
                     {
                         new AnimationTrackProperty.KeyFrame(light.Energy, 0f),
-                        new AnimationTrackProperty.KeyFrame(0f, component.Duration)
-                    }
-                }
-            }
+                        new AnimationTrackProperty.KeyFrame(0f, component.Duration),
+                    },
+                },
+            },
         };
 
         _player.Play(uid, animation, FadeTrack);

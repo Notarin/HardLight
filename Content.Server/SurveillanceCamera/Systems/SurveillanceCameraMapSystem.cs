@@ -7,7 +7,8 @@ namespace Content.Server.SurveillanceCamera;
 
 public sealed class SurveillanceCameraMapSystem : EntitySystem
 {
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
 
     public override void Initialize()
     {
@@ -100,8 +101,10 @@ public sealed class SurveillanceCameraMapSystem : EntitySystem
     {
         var cameraEntity = GetEntity(args.CameraEntity);
 
-        if (TryComp<SurveillanceCameraComponent>(cameraEntity, out var comp)
-            && HasComp<DeviceNetworkComponent>(cameraEntity))
+        if (
+            TryComp<SurveillanceCameraComponent>(cameraEntity, out var comp)
+            && HasComp<DeviceNetworkComponent>(cameraEntity)
+        )
             UpdateCameraMarker((cameraEntity, comp));
     }
 
@@ -136,11 +139,13 @@ public sealed class SurveillanceCameraMapSystem : EntitySystem
 
         bool exists = mapComp.Cameras.TryGetValue(netEntity, out var existing);
 
-        if (exists &&
-            existing.Position.Equals(localPos) &&
-            existing.Active == active &&
-            existing.Address == address &&
-            existing.Subnet == subnet)
+        if (
+            exists
+            && existing.Position.Equals(localPos)
+            && existing.Active == active
+            && existing.Address == address
+            && existing.Subnet == subnet
+        )
         {
             return;
         }
@@ -153,7 +158,7 @@ public sealed class SurveillanceCameraMapSystem : EntitySystem
             Active = active,
             Address = address,
             Subnet = subnet,
-            Visible = visible
+            Visible = visible,
         };
         Dirty(gridUid.Value, mapComp);
     }

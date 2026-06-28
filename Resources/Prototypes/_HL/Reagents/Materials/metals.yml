@@ -2,7 +2,7 @@
   id: Plastitanium
   stackEntity: SheetPlastitanium1
   name: materials-plastitanium
-  icon: { sprite: Objects/Materials/Sheets/metal.rsi, state: plastitanium }
+  icon: {sprite: Objects/Materials/Sheets/metal.rsi, state: plastitanium}
   color: "#66CDAA"
   price: 0.55
   properties: # FH edit

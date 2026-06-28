@@ -6,8 +6,8 @@ using Content.Server.NameIdentifier;
 using Content.Shared._NF.Bank;
 using Content.Shared._NF.Pirate;
 using Content.Shared._NF.Pirate.Components;
-using Content.Shared._NF.Pirate.Prototypes;
 using Content.Shared._NF.Pirate.Events;
+using Content.Shared._NF.Pirate.Prototypes;
 using Content.Shared.Access.Components;
 using Content.Shared.Database;
 using Content.Shared.Labels.EntitySystems;
@@ -16,15 +16,16 @@ using Content.Shared.Paper;
 using Content.Shared.Stacks;
 using JetBrains.Annotations;
 using Robust.Shared.Containers;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
-using Robust.Shared.Prototypes;
 
 namespace Content.Server._NF.Cargo.Systems;
 
 public sealed partial class NFCargoSystem
 {
-    [Dependency] private readonly NameIdentifierSystem _nameIdentifier = default!;
+    [Dependency]
+    private readonly NameIdentifierSystem _nameIdentifier = default!;
 
     private static readonly ProtoId<NameIdentifierGroupPrototype> PirateBountyNameIdentifierGroup = new("Bounty"); // Use the bounty name ID group (0-999) for now.
 
@@ -47,7 +48,11 @@ public sealed partial class NFCargoSystem
         _containerQuery = GetEntityQuery<ContainerManagerComponent>();
     }
 
-    private void OnPirateBountyConsoleOpened(EntityUid uid, PirateBountyConsoleComponent component, BoundUIOpenedEvent args)
+    private void OnPirateBountyConsoleOpened(
+        EntityUid uid,
+        PirateBountyConsoleComponent component,
+        BoundUIOpenedEvent args
+    )
     {
         var service = _sectorService.GetServiceEntity();
         if (!TryComp<SectorPirateBountyDatabaseComponent>(service, out var bountyDb))
@@ -59,7 +64,11 @@ public sealed partial class NFCargoSystem
         _ui.SetUiState(uid, PirateConsoleUiKey.Bounty, new PirateBountyConsoleState(bountyDb.Bounties, untilNextSkip));
     }
 
-    private void OnPirateBountyAccept(EntityUid uid, PirateBountyConsoleComponent component, PirateBountyAcceptMessage args)
+    private void OnPirateBountyAccept(
+        EntityUid uid,
+        PirateBountyConsoleComponent component,
+        PirateBountyAcceptMessage args
+    )
     {
         if (_timing.CurTime < component.NextPrintTime)
             return;
@@ -95,7 +104,11 @@ public sealed partial class NFCargoSystem
         UpdatePirateBountyConsoles();
     }
 
-    private void OnSkipPirateBountyMessage(EntityUid uid, PirateBountyConsoleComponent component, PirateBountySkipMessage args)
+    private void OnSkipPirateBountyMessage(
+        EntityUid uid,
+        PirateBountyConsoleComponent component,
+        PirateBountySkipMessage args
+    )
     {
         var service = _sectorService.GetServiceEntity();
         if (!TryComp<SectorPirateBountyDatabaseComponent>(service, out var db))
@@ -110,8 +123,10 @@ public sealed partial class NFCargoSystem
         if (args.Actor is not { Valid: true } mob)
             return;
 
-        if (TryComp<AccessReaderComponent>(uid, out var accessReaderComponent) &&
-            !_accessReader.IsAllowed(mob, uid, accessReaderComponent))
+        if (
+            TryComp<AccessReaderComponent>(uid, out var accessReaderComponent)
+            && !_accessReader.IsAllowed(mob, uid, accessReaderComponent)
+        )
         {
             _audio.PlayPvs(component.DenySound, uid);
             return;
@@ -140,12 +155,21 @@ public sealed partial class NFCargoSystem
         foreach (var entry in prototype.Entries)
         {
             message.PushNewline();
-            message.TryAddMarkup($"- {Loc.GetString("pirate-bounty-console-manifest-entry",
+            message.TryAddMarkup(
+                $"- {Loc.GetString("pirate-bounty-console-manifest-entry",
                 ("amount", entry.Amount),
-                ("item", Loc.GetString(entry.Name)))}", out var _);
+                ("item", Loc.GetString(entry.Name)))}",
+                out var _
+            );
         }
         message.PushNewline();
-        message.TryAddMarkup(Loc.GetString("pirate-bounty-console-manifest-reward", ("reward", BankSystemExtensions.ToDoubloonString(prototype.Reward))), out var _);
+        message.TryAddMarkup(
+            Loc.GetString(
+                "pirate-bounty-console-manifest-reward",
+                ("reward", BankSystemExtensions.ToDoubloonString(prototype.Reward))
+            ),
+            out var _
+        );
 
         _meta.SetEntityDescription(uid, message.ToMarkup());
 
@@ -153,7 +177,12 @@ public sealed partial class NFCargoSystem
             label.Id = bounty.Id;
     }
 
-    private void SetupPirateBountyManifest(EntityUid uid, PirateBountyData bounty, PirateBountyPrototype prototype, PaperComponent? paper = null)
+    private void SetupPirateBountyManifest(
+        EntityUid uid,
+        PirateBountyData bounty,
+        PirateBountyPrototype prototype,
+        PaperComponent? paper = null
+    )
     {
         _meta.SetEntityName(uid, Loc.GetString("pirate-bounty-manifest-name", ("id", bounty.Id)));
 
@@ -167,18 +196,29 @@ public sealed partial class NFCargoSystem
         msg.PushNewline();
         foreach (var entry in prototype.Entries)
         {
-            msg.TryAddMarkup($"- {Loc.GetString("pirate-bounty-console-manifest-entry",
+            msg.TryAddMarkup(
+                $"- {Loc.GetString("pirate-bounty-console-manifest-entry",
                 ("amount", entry.Amount),
-                ("item", Loc.GetString(entry.Name)))}", out var _);
+                ("item", Loc.GetString(entry.Name)))}",
+                out var _
+            );
             msg.PushNewline();
         }
-        msg.TryAddMarkup(Loc.GetString("pirate-bounty-console-manifest-reward", ("reward", BankSystemExtensions.ToDoubloonString(prototype.Reward))), out var _);
+        msg.TryAddMarkup(
+            Loc.GetString(
+                "pirate-bounty-console-manifest-reward",
+                ("reward", BankSystemExtensions.ToDoubloonString(prototype.Reward))
+            ),
+            out var _
+        );
         _paper.SetContent((uid, paper), msg.ToMarkup());
     }
 
-    private bool TryGetPirateBountyLabel(EntityUid uid,
+    private bool TryGetPirateBountyLabel(
+        EntityUid uid,
         [NotNullWhen(true)] out EntityUid? labelEnt,
-        [NotNullWhen(true)] out PirateBountyLabelComponent? labelComp)
+        [NotNullWhen(true)] out PirateBountyLabelComponent? labelComp
+    )
     {
         labelEnt = null;
         labelComp = null;
@@ -189,8 +229,10 @@ public sealed partial class NFCargoSystem
         if (!_container.TryGetContainer(uid, LabelSystem.ContainerName, out var container, containerMan))
             return false;
 
-        if (container.ContainedEntities.FirstOrNull() is not { } label ||
-            !_pirateBountyLabelQuery.TryGetComponent(label, out var component))
+        if (
+            container.ContainedEntities.FirstOrNull() is not { } label
+            || !_pirateBountyLabelQuery.TryGetComponent(label, out var component)
+        )
             return false;
 
         labelEnt = label;
@@ -242,7 +284,11 @@ public sealed partial class NFCargoSystem
     }
 
     [PublicAPI]
-    public bool TryAddPirateBounty(EntityUid serviceId, string bountyId, SectorPirateBountyDatabaseComponent? component = null)
+    public bool TryAddPirateBounty(
+        EntityUid serviceId,
+        string bountyId,
+        SectorPirateBountyDatabaseComponent? component = null
+    )
     {
         if (!_proto.TryIndex<PirateBountyPrototype>(bountyId, out var bounty))
             return false;
@@ -250,7 +296,11 @@ public sealed partial class NFCargoSystem
         return TryAddPirateBounty(serviceId, bounty, component);
     }
 
-    public bool TryAddPirateBounty(EntityUid serviceId, PirateBountyPrototype bounty, SectorPirateBountyDatabaseComponent? component = null)
+    public bool TryAddPirateBounty(
+        EntityUid serviceId,
+        PirateBountyPrototype bounty,
+        SectorPirateBountyDatabaseComponent? component = null
+    )
     {
         if (!Resolve(serviceId, ref component))
             return false;
@@ -266,7 +316,11 @@ public sealed partial class NFCargoSystem
     }
 
     [PublicAPI]
-    public bool TryRemovePirateBounty(EntityUid serviceId, string dataId, SectorPirateBountyDatabaseComponent? component = null)
+    public bool TryRemovePirateBounty(
+        EntityUid serviceId,
+        string dataId,
+        SectorPirateBountyDatabaseComponent? component = null
+    )
     {
         if (!TryGetPirateBountyFromId(serviceId, dataId, out var data, component))
             return false;
@@ -274,7 +328,11 @@ public sealed partial class NFCargoSystem
         return TryRemovePirateBounty(serviceId, data.Value, component);
     }
 
-    public bool TryRemovePirateBounty(EntityUid serviceId, PirateBountyData data, SectorPirateBountyDatabaseComponent? component = null)
+    public bool TryRemovePirateBounty(
+        EntityUid serviceId,
+        PirateBountyData data,
+        SectorPirateBountyDatabaseComponent? component = null
+    )
     {
         if (!Resolve(serviceId, ref component))
             return false;
@@ -295,7 +353,8 @@ public sealed partial class NFCargoSystem
         EntityUid uid,
         string id,
         [NotNullWhen(true)] out PirateBountyData? bounty,
-        SectorPirateBountyDatabaseComponent? component = null)
+        SectorPirateBountyDatabaseComponent? component = null
+    )
     {
         bounty = null;
         if (!Resolve(uid, ref component))
@@ -315,7 +374,8 @@ public sealed partial class NFCargoSystem
     private bool TryOverwritePirateBountyFromId(
         EntityUid uid,
         PirateBountyData bounty,
-        SectorPirateBountyDatabaseComponent? component = null)
+        SectorPirateBountyDatabaseComponent? component = null
+    )
     {
         if (!Resolve(uid, ref component))
             return false;
@@ -342,7 +402,11 @@ public sealed partial class NFCargoSystem
         while (query.MoveNext(out var uid, out _, out var ui))
         {
             var untilNextSkip = db.NextSkipTime - _timing.CurTime;
-            _ui.SetUiState((uid, ui), PirateConsoleUiKey.Bounty, new PirateBountyConsoleState(db.Bounties, untilNextSkip));
+            _ui.SetUiState(
+                (uid, ui),
+                PirateConsoleUiKey.Bounty,
+                new PirateBountyConsoleState(db.Bounties, untilNextSkip)
+            );
         }
     }
 
@@ -353,8 +417,7 @@ public sealed partial class NFCargoSystem
 
         while (query.MoveNext(out var uid, out var comp, out var compXform))
         {
-            if (compXform.ParentUid != gridUid ||
-                !compXform.Anchored)
+            if (compXform.ParentUid != gridUid || !compXform.Anchored)
             {
                 continue;
             }
@@ -365,7 +428,11 @@ public sealed partial class NFCargoSystem
         return pads;
     }
 
-    private void OnRedeemBounty(EntityUid uid, PirateBountyRedemptionConsoleComponent component, PirateBountyRedemptionMessage args)
+    private void OnRedeemBounty(
+        EntityUid uid,
+        PirateBountyRedemptionConsoleComponent component,
+        PirateBountyRedemptionMessage args
+    )
     {
         var amount = 0;
 
@@ -413,14 +480,17 @@ public sealed partial class NFCargoSystem
         // 2. Iterate over bounty pads, find all tagged, non-tagged items.
         foreach (var (palletUid, _) in GetContrabandPallets(gridUid))
         {
-            foreach (var ent in _lookup.GetEntitiesIntersecting(palletUid,
-                         LookupFlags.Dynamic | LookupFlags.Sundries | LookupFlags.Approximate | LookupFlags.Sensors))
+            foreach (
+                var ent in _lookup.GetEntitiesIntersecting(
+                    palletUid,
+                    LookupFlags.Dynamic | LookupFlags.Sundries | LookupFlags.Approximate | LookupFlags.Sensors
+                )
+            )
             {
                 // Dont match:
                 // - anything anchored (e.g. light fixtures)
                 // Checks against already handled set done by CheckEntityForPirateBounties
-                if (_xformQuery.TryGetComponent(ent, out var xform) &&
-                    xform.Anchored)
+                if (_xformQuery.TryGetComponent(ent, out var xform) && xform.Anchored)
                 {
                     continue;
                 }
@@ -438,8 +508,7 @@ public sealed partial class NFCargoSystem
             var prototype = bounty.Prototype;
             foreach (var entry in prototype.Entries)
             {
-                if (!bounty.Entries.ContainsKey(entry.Name) ||
-                    entry.Amount > bounty.Entries[entry.Name])
+                if (!bounty.Entries.ContainsKey(entry.Name) || entry.Amount > bounty.Entries[entry.Name])
                 {
                     bountyMet = false;
                     break;
@@ -449,7 +518,12 @@ public sealed partial class NFCargoSystem
             if (bountyMet)
             {
                 bountiesRemoved = true;
-                redeemedBounties = Loc.GetString("pirate-bounty-redemption-append", ("bounty", id), ("empty", string.IsNullOrEmpty(redeemedBounties) ? 0 : 1), ("prev", redeemedBounties));
+                redeemedBounties = Loc.GetString(
+                    "pirate-bounty-redemption-append",
+                    ("bounty", id),
+                    ("empty", string.IsNullOrEmpty(redeemedBounties) ? 0 : 1),
+                    ("prev", redeemedBounties)
+                );
 
                 TryRemovePirateBounty(_sectorService.GetServiceEntity(), id);
                 amount += prototype.Reward;
@@ -466,8 +540,7 @@ public sealed partial class NFCargoSystem
             var prototype = bounty.Prototype;
             foreach (var entry in prototype.Entries)
             {
-                if (!bounty.Entries.ContainsKey(entry.Name) ||
-                    entry.Amount > bounty.Entries[entry.Name])
+                if (!bounty.Entries.ContainsKey(entry.Name) || entry.Amount > bounty.Entries[entry.Name])
                 {
                     bountyMet = false;
                     break;
@@ -477,7 +550,12 @@ public sealed partial class NFCargoSystem
             if (bountyMet)
             {
                 bountiesRemoved = true;
-                redeemedBounties = Loc.GetString("pirate-bounty-redemption-append", ("bounty", id), ("empty", string.IsNullOrEmpty(redeemedBounties) ? 0 : 1), ("prev", redeemedBounties));
+                redeemedBounties = Loc.GetString(
+                    "pirate-bounty-redemption-append",
+                    ("bounty", id),
+                    ("empty", string.IsNullOrEmpty(redeemedBounties) ? 0 : 1),
+                    ("prev", redeemedBounties)
+                );
 
                 TryRemovePirateBounty(_sectorService.GetServiceEntity(), id);
                 amount += prototype.Reward;
@@ -492,7 +570,10 @@ public sealed partial class NFCargoSystem
         {
             _stack.SpawnMultiple("Doubloon", amount, Transform(uid).Coordinates);
             _audio.PlayPvs(component.AcceptSound, uid);
-            _popup.PopupEntity(Loc.GetString("pirate-bounty-redemption-success", ("bounties", redeemedBounties), ("amount", amount)), args.Actor);
+            _popup.PopupEntity(
+                Loc.GetString("pirate-bounty-redemption-success", ("bounties", redeemedBounties), ("amount", amount)),
+                args.Actor
+            );
         }
         else
         {

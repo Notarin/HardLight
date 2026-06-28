@@ -17,29 +17,33 @@ public sealed partial class DocumentParsingManager
     private const string SublistBullet = "      • "; // Frontier
 
     // Parser that consumes a - and then just parses normal rich text with some prefix text (a bullet point).
-    private static readonly Parser<char, char> TryEscapedChar = Try(Char('\\')
-        .Then(OneOf(
-            Try(Char('<')),
-            Try(Char('>')),
-            Try(Char('\\')),
-            Try(Char('-')),
-            Try(Char('=')),
-            Try(Char('"')),
-            Try(Char(' ')),
-            Try(Char('n')).ThenReturn('\n'),
-            Try(Char('t')).ThenReturn('\t')
-        )));
+    private static readonly Parser<char, char> TryEscapedChar = Try(
+        Char('\\')
+            .Then(
+                OneOf(
+                    Try(Char('<')),
+                    Try(Char('>')),
+                    Try(Char('\\')),
+                    Try(Char('-')),
+                    Try(Char('=')),
+                    Try(Char('"')),
+                    Try(Char(' ')),
+                    Try(Char('n')).ThenReturn('\n'),
+                    Try(Char('t')).ThenReturn('\t')
+                )
+            )
+    );
 
     private static readonly Parser<char, Unit> SkipNewline = Whitespace.SkipUntil(Char('\n'));
 
     // XML comment parser, skips <!-- ... --> comments
-    private static readonly Parser<char, Unit> TrySkipComment =
-        Try(String("<!--"))
-            .Then(AnyCharExcept('\0').SkipUntil(Try(String("-->"))))
-            .Then(SkipWhitespaces);
+    private static readonly Parser<char, Unit> TrySkipComment = Try(String("<!--"))
+        .Then(AnyCharExcept('\0').SkipUntil(Try(String("-->"))))
+        .Then(SkipWhitespaces);
 
-    private static readonly Parser<char, char> TrySingleNewlineToSpace =
-        Try(SkipNewline).Then(SkipWhitespaces).ThenReturn(' ');
+    private static readonly Parser<char, char> TrySingleNewlineToSpace = Try(SkipNewline)
+        .Then(SkipWhitespaces)
+        .ThenReturn(' ');
 
     private static readonly Parser<char, char> TextChar = OneOf(
         TryEscapedChar, // consume any backslashed being used to escape text
@@ -49,109 +53,142 @@ public sealed partial class DocumentParsingManager
 
     private static readonly Parser<char, char> QuotedTextChar = OneOf(TryEscapedChar, Any);
 
-    private static readonly Parser<char, string> QuotedText =
-        Char('"').Then(QuotedTextChar.Until(Try(Char('"'))).Select(string.Concat)).Labelled("quoted text");
+    private static readonly Parser<char, string> QuotedText = Char('"')
+        .Then(QuotedTextChar.Until(Try(Char('"'))).Select(string.Concat))
+        .Labelled("quoted text");
 
-    private static readonly Parser<char, Unit> TryStartList =
-        Try(SkipNewline.Then(SkipWhitespaces).Then(Char('-'))).Then(SkipWhitespaces);
+    private static readonly Parser<char, Unit> TryStartList = Try(SkipNewline.Then(SkipWhitespaces).Then(Char('-')))
+        .Then(SkipWhitespaces);
 
     private static readonly Parser<char, Unit> TryStartTag = Try(Char('<')).Then(SkipWhitespaces);
 
-    private static readonly Parser<char, Unit> TryStartParagraph =
-        Try(SkipNewline.Then(SkipNewline)).Then(SkipWhitespaces);
+    private static readonly Parser<char, Unit> TryStartParagraph = Try(SkipNewline.Then(SkipNewline))
+        .Then(SkipWhitespaces);
 
     // Added Try to make sure we don't miss <!-- comments
-    private static readonly Parser<char, Unit> TryLookTextEnd =
-        Lookahead(OneOf(TryStartTag, TryStartList, TryStartParagraph, Try(Whitespace.SkipUntil(End)), Try(String("<!--").Then(Return(Unit.Value)))));
+    private static readonly Parser<char, Unit> TryLookTextEnd = Lookahead(
+        OneOf(
+            TryStartTag,
+            TryStartList,
+            TryStartParagraph,
+            Try(Whitespace.SkipUntil(End)),
+            Try(String("<!--").Then(Return(Unit.Value)))
+        )
+    );
 
-    private static readonly Parser<char, string> TextParser =
-        TextChar.AtLeastOnceUntil(TryLookTextEnd).Select(string.Concat);
+    private static readonly Parser<char, string> TextParser = TextChar
+        .AtLeastOnceUntil(TryLookTextEnd)
+        .Select(string.Concat);
 
-    private static readonly Parser<char, Control> TextControlParser = Try(Map<char, string, Control>(text =>
-                {
-                    var rt = new RichTextLabel
+    private static readonly Parser<char, Control> TextControlParser = Try(
+            Map<char, string, Control>(
+                    text =>
                     {
-                        HorizontalExpand = true,
-                        Margin = new Thickness(0, 0, 0, 15.0f)
-                    };
+                        var rt = new RichTextLabel { HorizontalExpand = true, Margin = new Thickness(0, 0, 0, 15.0f) };
 
-                    var msg = new FormattedMessage();
-                    // THANK YOU RICHTEXT VERY COOL
-                    // (text doesn't default to white).
-                    msg.PushColor(Color.White);
+                        var msg = new FormattedMessage();
+                        // THANK YOU RICHTEXT VERY COOL
+                        // (text doesn't default to white).
+                        msg.PushColor(Color.White);
 
-                    // If the parsing fails, don't throw an error and instead make an inline error message
-                    string? error;
-                    if (!msg.TryAddMarkup(text, out error))
-                    {
-                        Logger.GetSawmill("Guidebook").Error("Failed to parse RichText in Guidebook");
+                        // If the parsing fails, don't throw an error and instead make an inline error message
+                        string? error;
+                        if (!msg.TryAddMarkup(text, out error))
+                        {
+                            Logger.GetSawmill("Guidebook").Error("Failed to parse RichText in Guidebook");
 
-                        return new GuidebookError(text, error);
-                    }
+                            return new GuidebookError(text, error);
+                        }
 
-                    msg.Pop();
-                    rt.SetMessage(msg, tagsAllowed: null);
-                    return rt;
-                },
-                TextParser)
-            .Cast<Control>())
+                        msg.Pop();
+                        rt.SetMessage(msg, tagsAllowed: null);
+                        return rt;
+                    },
+                    TextParser
+                )
+                .Cast<Control>()
+        )
         .Labelled("richtext");
 
     private static readonly Parser<char, Control> HeaderControlParser = Try(Char('#'))
-        .Then(SkipWhitespaces.Then(Map(text => new Label
-                {
-                    Text = text,
-                    StyleClasses = { "LabelHeadingBigger" }
-                },
-                AnyCharExcept('\n').AtLeastOnceString())
-            .Cast<Control>()))
+        .Then(
+            SkipWhitespaces.Then(
+                Map(
+                        text => new Label { Text = text, StyleClasses = { "LabelHeadingBigger" } },
+                        AnyCharExcept('\n').AtLeastOnceString()
+                    )
+                    .Cast<Control>()
+            )
+        )
         .Labelled("header");
 
     private static readonly Parser<char, Control> SubHeaderControlParser = Try(String("##"))
-        .Then(SkipWhitespaces.Then(Map(text => new Label
-                {
-                    Text = text,
-                    StyleClasses = { "LabelHeading" }
-                },
-                AnyCharExcept('\n').AtLeastOnceString())
-            .Cast<Control>()))
+        .Then(
+            SkipWhitespaces.Then(
+                Map(
+                        text => new Label { Text = text, StyleClasses = { "LabelHeading" } },
+                        AnyCharExcept('\n').AtLeastOnceString()
+                    )
+                    .Cast<Control>()
+            )
+        )
         .Labelled("subheader");
 
     private static readonly Parser<char, Control> TertiaryHeaderControlParser = Try(String("###"))
-        .Then(SkipWhitespaces.Then(Map(text => new Label
-                {
-                    Text = text,
-                    StyleClasses = { "LabelKeyText" }
-                },
-                AnyCharExcept('\n').AtLeastOnceString())
-            .Cast<Control>()))
+        .Then(
+            SkipWhitespaces.Then(
+                Map(
+                        text => new Label { Text = text, StyleClasses = { "LabelKeyText" } },
+                        AnyCharExcept('\n').AtLeastOnceString()
+                    )
+                    .Cast<Control>()
+            )
+        )
         .Labelled("tertiaryheader");
 
-    private static readonly Parser<char, Control> TryHeaderControl = OneOf(TertiaryHeaderControlParser, SubHeaderControlParser, HeaderControlParser);
+    private static readonly Parser<char, Control> TryHeaderControl = OneOf(
+        TertiaryHeaderControlParser,
+        SubHeaderControlParser,
+        HeaderControlParser
+    );
 
     private static readonly Parser<char, Control> ListControlParser = Try(Char('-'))
         .Then(SkipWhitespaces)
-        .Then(Map(
-                control => new BoxContainer
-                {
-                    Children = { new Label { Text = ListBullet, VerticalAlignment = VAlignment.Top }, control },
-                    Orientation = LayoutOrientation.Horizontal
-                },
-                TextControlParser)
-            .Cast<Control>())
+        .Then(
+            Map(
+                    control => new BoxContainer
+                    {
+                        Children =
+                        {
+                            new Label { Text = ListBullet, VerticalAlignment = VAlignment.Top },
+                            control,
+                        },
+                        Orientation = LayoutOrientation.Horizontal,
+                    },
+                    TextControlParser
+                )
+                .Cast<Control>()
+        )
         .Labelled("list");
 
     // Frontier: sublists - should duplicate ListControlParser but for more hyphens, and print out more spaces before your list character
     private static readonly Parser<char, Control> SublistControlParser = Try(String("--"))
         .Then(SkipWhitespaces)
-        .Then(Map(
-                control => new BoxContainer
-                {
-                    Children = { new Label { Text = SublistBullet, VerticalAlignment = VAlignment.Top }, control },
-                    Orientation = LayoutOrientation.Horizontal
-                },
-                TextControlParser)
-            .Cast<Control>())
+        .Then(
+            Map(
+                    control => new BoxContainer
+                    {
+                        Children =
+                        {
+                            new Label { Text = SublistBullet, VerticalAlignment = VAlignment.Top },
+                            control,
+                        },
+                        Orientation = LayoutOrientation.Horizontal,
+                    },
+                    TextControlParser
+                )
+                .Cast<Control>()
+        )
         .Labelled("sublist");
 
     private static readonly Parser<char, Control> TryListControl = OneOf(SublistControlParser, ListControlParser);
@@ -163,9 +200,7 @@ public sealed partial class DocumentParsingManager
 
     // Try look for an escaped character. If found, skip the escaping slash and return the character.
 
-
     // like TextChar, but not skipping whitespace around newlines
-
 
     // Quoted text
 
@@ -192,29 +227,36 @@ public sealed partial class DocumentParsingManager
     private static readonly Parser<char, Unit> TryLookTagEnd = Lookahead(OneOf(Try(TagEnd), Try(ImmediateTagEnd)));
 
     //parse tag argument key. any normal text character up until we hit a "="
-    private static readonly Parser<char, string> TagArgKey =
-        LetterOrDigit.Until(Char('=')).Select(string.Concat).Labelled("tag argument key");
+    private static readonly Parser<char, string> TagArgKey = LetterOrDigit
+        .Until(Char('='))
+        .Select(string.Concat)
+        .Labelled("tag argument key");
 
     // parser for a singular tag argument. Note that each TryQuoteOrChar will consume a whole quoted block before the Until() looks for whitespace
-    private static readonly Parser<char, (string, string)> TagArgParser =
-        Map((key, value) => (key, value), TagArgKey, QuotedText).Before(SkipWhitespaces);
+    private static readonly Parser<char, (string, string)> TagArgParser = Map(
+            (key, value) => (key, value),
+            TagArgKey,
+            QuotedText
+        )
+        .Before(SkipWhitespaces);
 
     // parser for all tag arguments
-    private static readonly Parser<char, IEnumerable<(string, string)>> TagArgsParser =
-        TagArgParser.Until(TryLookTagEnd);
+    private static readonly Parser<char, IEnumerable<(string, string)>> TagArgsParser = TagArgParser.Until(
+        TryLookTagEnd
+    );
 
     // parser for an opening tag.
-    private static readonly Parser<char, string> TryOpeningTag =
-        Try(Char('<'))
-            .Then(Not(String("!--"))) // Don't match if this is a comment
-            .Then(SkipWhitespaces)
-            .Then(TextChar.Until(OneOf(Whitespace.SkipAtLeastOnce(), TryLookTagEnd)))
-            .Select(string.Concat)
-            .Labelled("opening tag");
+    private static readonly Parser<char, string> TryOpeningTag = Try(Char('<'))
+        .Then(Not(String("!--"))) // Don't match if this is a comment
+        .Then(SkipWhitespaces)
+        .Then(TextChar.Until(OneOf(Whitespace.SkipAtLeastOnce(), TryLookTagEnd)))
+        .Select(string.Concat)
+        .Labelled("opening tag");
 
     private static Parser<char, Dictionary<string, string>> ParseTagArgs(string tag)
     {
-        return TagArgsParser.Labelled($"{tag} arguments")
+        return TagArgsParser
+            .Labelled($"{tag} arguments")
             .Select(x => x.ToDictionary(y => y.Item1, y => y.Item2))
             .Before(SkipWhitespaces);
     }

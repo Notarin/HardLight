@@ -19,7 +19,7 @@ public class ChatInputBox : PanelContainer
         Container = new BoxContainer
         {
             Orientation = BoxContainer.LayoutOrientation.Horizontal,
-            SeparationOverride = 4
+            SeparationOverride = 4,
         };
         AddChild(Container);
 
@@ -27,8 +27,8 @@ public class ChatInputBox : PanelContainer
         {
             Name = "ChannelSelector",
             ToggleMode = true,
-            StyleClasses = {"chatSelectorOptionButton"},
-            MinWidth = 75
+            StyleClasses = { "chatSelectorOptionButton" },
+            MinWidth = 75,
         };
         Container.AddChild(ChannelSelector);
         Input = new HistoryLineEdit
@@ -36,14 +36,10 @@ public class ChatInputBox : PanelContainer
             Name = "Input",
             PlaceHolder = GetChatboxInfoPlaceholder(),
             HorizontalExpand = true,
-            StyleClasses = {"chatLineEdit"}
+            StyleClasses = { "chatLineEdit" },
         };
         Container.AddChild(Input);
-        FilterButton = new ChannelFilterButton
-        {
-            Name = "FilterButton",
-            StyleClasses = {"chatFilterOptionButton"}
-        };
+        FilterButton = new ChannelFilterButton { Name = "FilterButton", StyleClasses = { "chatFilterOptionButton" } };
         Container.AddChild(FilterButton);
         AddStyleClass(StyleNano.StyleClassChatSubPanel);
         ChannelSelector.OnChannelSelect += UpdateActiveChannel;
@@ -51,17 +47,30 @@ public class ChatInputBox : PanelContainer
 
     private void UpdateActiveChannel(ChatSelectChannel selectedChannel)
     {
-        ActiveChannel = (ChatChannel) selectedChannel;
+        ActiveChannel = (ChatChannel)selectedChannel;
     }
 
     private static string GetChatboxInfoPlaceholder()
     {
-        return (BoundKeyHelper.IsBound(ContentKeyFunctions.FocusChat), BoundKeyHelper.IsBound(ContentKeyFunctions.CycleChatChannelForward)) switch
+        return (
+            BoundKeyHelper.IsBound(ContentKeyFunctions.FocusChat),
+            BoundKeyHelper.IsBound(ContentKeyFunctions.CycleChatChannelForward)
+        ) switch
         {
-            (true, true) => Loc.GetString("hud-chatbox-info", ("talk-key", BoundKeyHelper.ShortKeyName(ContentKeyFunctions.FocusChat)), ("cycle-key", BoundKeyHelper.ShortKeyName(ContentKeyFunctions.CycleChatChannelForward))),
-            (true, false) => Loc.GetString("hud-chatbox-info-talk", ("talk-key", BoundKeyHelper.ShortKeyName(ContentKeyFunctions.FocusChat))),
-            (false, true) => Loc.GetString("hud-chatbox-info-cycle", ("cycle-key", BoundKeyHelper.ShortKeyName(ContentKeyFunctions.CycleChatChannelForward))),
-            (false, false) => Loc.GetString("hud-chatbox-info-unbound")
+            (true, true) => Loc.GetString(
+                "hud-chatbox-info",
+                ("talk-key", BoundKeyHelper.ShortKeyName(ContentKeyFunctions.FocusChat)),
+                ("cycle-key", BoundKeyHelper.ShortKeyName(ContentKeyFunctions.CycleChatChannelForward))
+            ),
+            (true, false) => Loc.GetString(
+                "hud-chatbox-info-talk",
+                ("talk-key", BoundKeyHelper.ShortKeyName(ContentKeyFunctions.FocusChat))
+            ),
+            (false, true) => Loc.GetString(
+                "hud-chatbox-info-cycle",
+                ("cycle-key", BoundKeyHelper.ShortKeyName(ContentKeyFunctions.CycleChatChannelForward))
+            ),
+            (false, false) => Loc.GetString("hud-chatbox-info-unbound"),
         };
     }
 }

@@ -6,6 +6,4 @@ namespace Content.Server.Objectives.Components;
 /// Requires that the player is not a member of command.
 /// </summary>
 [RegisterComponent, Access(typeof(NotCommandRequirementSystem))]
-public sealed partial class NotCommandRequirementComponent : Component
-{
-}
+public sealed partial class NotCommandRequirementComponent : Component { }

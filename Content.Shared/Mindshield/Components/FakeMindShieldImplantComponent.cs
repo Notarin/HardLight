@@ -3,6 +3,4 @@
 namespace Content.Shared.Mindshield.Components;
 
 [RegisterComponent, NetworkedComponent]
-public sealed partial class FakeMindShieldImplantComponent : Component
-{
-}
+public sealed partial class FakeMindShieldImplantComponent : Component { }

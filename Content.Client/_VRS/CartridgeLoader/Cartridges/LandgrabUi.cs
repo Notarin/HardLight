@@ -22,8 +22,7 @@ public sealed partial class LandgrabUi : UIFragment
     {
         _fragment = new LandgrabUiFragment();
 
-        _fragment.OnPurchase += () =>
-            userInterface.SendMessage(new CartridgeUiMessage(new LandgrabPurchaseMessage()));
+        _fragment.OnPurchase += () => userInterface.SendMessage(new CartridgeUiMessage(new LandgrabPurchaseMessage()));
 
         _fragment.OnSave += slot =>
             userInterface.SendMessage(new CartridgeUiMessage(new LandgrabSaveMessage { SlotName = slot }));
@@ -34,8 +33,7 @@ public sealed partial class LandgrabUi : UIFragment
         _fragment.OnDelete += slot =>
             userInterface.SendMessage(new CartridgeUiMessage(new LandgrabDeleteSaveMessage { SlotName = slot }));
 
-        _fragment.OnAbandon += () =>
-            userInterface.SendMessage(new CartridgeUiMessage(new LandgrabAbandonMessage()));
+        _fragment.OnAbandon += () => userInterface.SendMessage(new CartridgeUiMessage(new LandgrabAbandonMessage()));
 
         _fragment.OnEngraveDisk += label =>
             userInterface.SendMessage(new CartridgeUiMessage(new LandgrabWriteDiskMessage { Label = label }));

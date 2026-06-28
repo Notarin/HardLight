@@ -15,15 +15,32 @@ namespace Content.Client.Outline;
 /// </summary>
 public sealed class TargetOutlineSystem : EntitySystem
 {
-    [Dependency] private readonly IEyeManager _eyeManager = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly IInputManager _inputManager = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly SharedInteractionSystem _interactionSystem = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
-    [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
+    [Dependency]
+    private readonly IEyeManager _eyeManager = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly EntityLookupSystem _lookup = default!;
+
+    [Dependency]
+    private readonly IInputManager _inputManager = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly SharedInteractionSystem _interactionSystem = default!;
+
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelistSystem = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transformSystem = default!;
 
     private bool _enabled = false;
 
@@ -98,7 +115,14 @@ public sealed class TargetOutlineSystem : EntitySystem
         RemoveHighlights();
     }
 
-    public void Enable(float range, bool checkObstructions, Func<EntityUid, bool>? predicate, EntityWhitelist? whitelist, EntityWhitelist? blacklist, CancellableEntityEventArgs? validationEvent)
+    public void Enable(
+        float range,
+        bool checkObstructions,
+        Func<EntityUid, bool>? predicate,
+        EntityWhitelist? whitelist,
+        EntityWhitelist? blacklist,
+        CancellableEntityEventArgs? validationEvent
+    )
     {
         Range = range;
         CheckObstruction = checkObstructions;
@@ -132,7 +156,11 @@ public sealed class TargetOutlineSystem : EntitySystem
         // TODO: Duplicated in SpriteSystem and DragDropSystem. Should probably be cached somewhere for a frame?
         var mousePos = _eyeManager.PixelToMap(_inputManager.MouseScreenPosition).Position;
         var bounds = new Box2(mousePos - LookupVector, mousePos + LookupVector);
-        var pvsEntities = _lookup.GetEntitiesIntersecting(_eyeManager.CurrentEye.Position.MapId, bounds, LookupFlags.Approximate | LookupFlags.Static);
+        var pvsEntities = _lookup.GetEntitiesIntersecting(
+            _eyeManager.CurrentEye.Position.MapId,
+            bounds,
+            LookupFlags.Approximate | LookupFlags.Static
+        );
         var spriteQuery = GetEntityQuery<SpriteComponent>();
 
         foreach (var entity in pvsEntities)
@@ -151,14 +179,17 @@ public sealed class TargetOutlineSystem : EntitySystem
             if (valid && ValidationEvent != null)
             {
                 ValidationEvent.Uncancel();
-                RaiseLocalEvent(entity, (object) ValidationEvent, broadcast: false);
+                RaiseLocalEvent(entity, (object)ValidationEvent, broadcast: false);
                 valid = !ValidationEvent.Cancelled;
             }
 
             if (!valid)
             {
                 // was this previously valid?
-                if (_highlightedSprites.Remove(sprite) && (sprite.PostShader == _shaderTargetValid || sprite.PostShader == _shaderTargetInvalid))
+                if (
+                    _highlightedSprites.Remove(sprite)
+                    && (sprite.PostShader == _shaderTargetValid || sprite.PostShader == _shaderTargetInvalid)
+                )
                 {
                     sprite.PostShader = null;
                     sprite.RenderOrder = 0;
@@ -177,9 +208,11 @@ public sealed class TargetOutlineSystem : EntitySystem
                 valid = (origin - target).LengthSquared() <= Range;
             }
 
-            if (sprite.PostShader != null &&
-                sprite.PostShader != _shaderTargetValid &&
-                sprite.PostShader != _shaderTargetInvalid)
+            if (
+                sprite.PostShader != null
+                && sprite.PostShader != _shaderTargetValid
+                && sprite.PostShader != _shaderTargetInvalid
+            )
                 return;
 
             // highlight depending on whether its in or out of range

@@ -32,18 +32,18 @@
   - type: Sprite
     sprite: Objects/Specific/Research/anomalylocator.rsi
     layers:
-      - state: icon
-      - state: screen
-        shader: unshaded
-        visible: false
-        map: ["enum.ToggleVisuals.Layer"]
+    - state: icon
+    - state: screen
+      shader: unshaded
+      visible: false
+      map: ["enum.ToggleVisuals.Layer"]
   - type: Appearance
   - type: GenericVisualizer
     visuals:
       enum.ToggleVisuals.Toggled:
         enum.ToggleVisuals.Layer:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
   - type: ItemToggle
   - type: ProximityBeeper
   - type: ProximityDetector
@@ -63,7 +63,7 @@
 
 - type: entity
   id: AnomalyLocator
-  parent: [ AnomalyLocatorUnpowered, PowerCellSlotSmallItem ]
+  parent: [AnomalyLocatorUnpowered, PowerCellSlotSmallItem]
   suffix: Powered
   components:
   - type: PowerCellDraw
@@ -97,7 +97,7 @@
     range: 40
 - type: entity
   id: AnomalyLocatorWide
-  parent: [ AnomalyLocatorWideUnpowered, PowerCellSlotSmallItem ]
+  parent: [AnomalyLocatorWideUnpowered, PowerCellSlotSmallItem]
   suffix: Powered
   components:
   - type: PowerCellDraw
@@ -144,7 +144,7 @@
     unanchorOnHit: true
     whitelist: # Frontier
       components: # Frontier
-        - Anomaly # Frontier
+      - Anomaly # Frontier
   - type: ItemSlots
     slots:
       core_slot:

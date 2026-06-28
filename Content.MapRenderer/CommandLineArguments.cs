@@ -82,7 +82,8 @@ public sealed class CommandLineArguments
 
     public static void PrintHelp()
     {
-        Console.WriteLine(@"Content.MapRenderer <options> [map names]
+        Console.WriteLine(
+            @"Content.MapRenderer <options> [map names]
 Options:
     --format <png|webp>
         Specifies the format the map images will be exported as.
@@ -97,20 +98,20 @@ Options:
         This option tells the map renderer that you supplied a list of map file names instead of their ids.
         Example: Content.MapRenderer -f box.yml bagel.yml
     -h / --help
-        Displays this help text");
+        Displays this help text"
+        );
     }
 }
 
 public sealed class CommandLineArgumentException : Exception
 {
-    public CommandLineArgumentException(string? message) : base(message)
-    {
-    }
+    public CommandLineArgumentException(string? message)
+        : base(message) { }
 }
 
 [SuppressMessage("ReSharper", "InconsistentNaming")]
 public enum OutputFormat
 {
     png,
-    webp
+    webp,
 }

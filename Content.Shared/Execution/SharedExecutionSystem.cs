@@ -5,16 +5,16 @@ using Content.Shared.Damage;
 using Content.Shared.Database;
 using Content.Shared.DoAfter;
 using Content.Shared.IdentityManagement;
+using Content.Shared.Interaction.Events;
+using Content.Shared.Mind;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Popups;
 using Content.Shared.Verbs;
 using Content.Shared.Weapons.Melee;
 using Content.Shared.Weapons.Melee.Events;
-using Content.Shared.Interaction.Events;
-using Content.Shared.Mind;
-using Robust.Shared.Player;
 using Robust.Shared.Audio.Systems;
+using Robust.Shared.Player;
 
 namespace Content.Shared.Execution;
 
@@ -23,15 +23,32 @@ namespace Content.Shared.Execution;
 /// </summary>
 public sealed class SharedExecutionSystem : EntitySystem
 {
-    [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedSuicideSystem _suicide = default!;
-    [Dependency] private readonly SharedCombatModeSystem _combat = default!;
-    [Dependency] private readonly SharedExecutionSystem _execution = default!;
-    [Dependency] private readonly SharedMeleeWeaponSystem _melee = default!;
+    [Dependency]
+    private readonly ActionBlockerSystem _actionBlocker = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfter = default!;
+
+    [Dependency]
+    private readonly MobStateSystem _mobState = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly SharedSuicideSystem _suicide = default!;
+
+    [Dependency]
+    private readonly SharedCombatModeSystem _combat = default!;
+
+    [Dependency]
+    private readonly SharedExecutionSystem _execution = default!;
+
+    [Dependency]
+    private readonly SharedMeleeWeaponSystem _melee = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -67,7 +84,12 @@ public sealed class SharedExecutionSystem : EntitySystem
         args.Verbs.Add(verb);
     }
 
-    private void TryStartExecutionDoAfter(EntityUid weapon, EntityUid victim, EntityUid attacker, ExecutionComponent comp)
+    private void TryStartExecutionDoAfter(
+        EntityUid weapon,
+        EntityUid victim,
+        EntityUid attacker,
+        ExecutionComponent comp
+    )
     {
         if (!CanBeExecuted(victim, attacker))
             return;
@@ -83,16 +105,22 @@ public sealed class SharedExecutionSystem : EntitySystem
             ShowExecutionExternalPopup(comp.ExternalMeleeExecutionMessage, attacker, victim, weapon);
         }
 
-        var doAfter =
-            new DoAfterArgs(EntityManager, attacker, comp.DoAfterDuration, new ExecutionDoAfterEvent(), weapon, target: victim, used: weapon)
-            {
-                BreakOnMove = true,
-                BreakOnDamage = true,
-                NeedHand = true
-            };
+        var doAfter = new DoAfterArgs(
+            EntityManager,
+            attacker,
+            comp.DoAfterDuration,
+            new ExecutionDoAfterEvent(),
+            weapon,
+            target: victim,
+            used: weapon
+        )
+        {
+            BreakOnMove = true,
+            BreakOnDamage = true,
+            NeedHand = true,
+        };
 
         _doAfter.TryStartDoAfter(doAfter);
-
     }
 
     public bool CanBeExecuted(EntityUid victim, EntityUid attacker)
@@ -151,37 +179,58 @@ public sealed class SharedExecutionSystem : EntitySystem
         args.Handled = true;
     }
 
-    private void ShowExecutionInternalPopup(string locString, EntityUid attacker, EntityUid victim, EntityUid weapon, bool predict = true)
+    private void ShowExecutionInternalPopup(
+        string locString,
+        EntityUid attacker,
+        EntityUid victim,
+        EntityUid weapon,
+        bool predict = true
+    )
     {
         if (predict)
         {
             _popup.PopupClient(
-               Loc.GetString(locString, ("attacker", Identity.Entity(attacker, EntityManager)), ("victim", Identity.Entity(victim, EntityManager)), ("weapon", weapon)),
-               attacker,
-               attacker,
-               PopupType.MediumCaution
-               );
+                Loc.GetString(
+                    locString,
+                    ("attacker", Identity.Entity(attacker, EntityManager)),
+                    ("victim", Identity.Entity(victim, EntityManager)),
+                    ("weapon", weapon)
+                ),
+                attacker,
+                attacker,
+                PopupType.MediumCaution
+            );
         }
         else
         {
             _popup.PopupEntity(
-               Loc.GetString(locString, ("attacker", Identity.Entity(attacker, EntityManager)), ("victim", Identity.Entity(victim, EntityManager)), ("weapon", weapon)),
-               attacker,
-               attacker,
-               PopupType.MediumCaution
-               );
+                Loc.GetString(
+                    locString,
+                    ("attacker", Identity.Entity(attacker, EntityManager)),
+                    ("victim", Identity.Entity(victim, EntityManager)),
+                    ("weapon", weapon)
+                ),
+                attacker,
+                attacker,
+                PopupType.MediumCaution
+            );
         }
     }
 
     private void ShowExecutionExternalPopup(string locString, EntityUid attacker, EntityUid victim, EntityUid weapon)
     {
         _popup.PopupEntity(
-            Loc.GetString(locString, ("attacker", Identity.Entity(attacker, EntityManager)), ("victim", Identity.Entity(victim, EntityManager)), ("weapon", weapon)),
+            Loc.GetString(
+                locString,
+                ("attacker", Identity.Entity(attacker, EntityManager)),
+                ("victim", Identity.Entity(victim, EntityManager)),
+                ("weapon", weapon)
+            ),
             attacker,
             Filter.PvsExcept(attacker),
             true,
             PopupType.MediumCaution
-            );
+        );
     }
 
     private void OnExecutionDoAfter(Entity<ExecutionComponent> entity, ref ExecutionDoAfterEvent args)

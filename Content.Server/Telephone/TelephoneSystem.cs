@@ -1,3 +1,5 @@
+using System.Linq;
+using Content.Server._Starlight.Language; // Starlight
 using Content.Server.Access.Systems;
 using Content.Server.Administration.Logs;
 using Content.Server.Chat.Systems;
@@ -10,35 +12,54 @@ using Content.Shared.Database;
 using Content.Shared.Labels.Components;
 using Content.Shared.Mind.Components;
 using Content.Shared.Power;
-using Content.Shared.Silicons.StationAi;
 using Content.Shared.Silicons.Borgs.Components;
+using Content.Shared.Silicons.StationAi;
 using Content.Shared.Speech;
 using Content.Shared.Telephone;
 using Robust.Server.GameObjects;
 using Robust.Shared.Audio.Systems;
-using Robust.Shared.Timing;
-using Robust.Shared.Utility;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Replays;
-using System.Linq;
-using Content.Server._Starlight.Language; // Starlight
+using Robust.Shared.Timing;
+using Robust.Shared.Utility;
 
 namespace Content.Server.Telephone;
 
 public sealed class TelephoneSystem : SharedTelephoneSystem
 {
-    [Dependency] private readonly AppearanceSystem _appearanceSystem = default!;
-    [Dependency] private readonly InteractionSystem _interaction = default!;
-    [Dependency] private readonly IdCardSystem _idCardSystem = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly ChatSystem _chat = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly IReplayRecordingManager _replay = default!;
-    [Dependency] private readonly LanguageSystem _language = default!; // Starlight
+    [Dependency]
+    private readonly AppearanceSystem _appearanceSystem = default!;
+
+    [Dependency]
+    private readonly InteractionSystem _interaction = default!;
+
+    [Dependency]
+    private readonly IdCardSystem _idCardSystem = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly ChatSystem _chat = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototype = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly IAdminLogManager _adminLogger = default!;
+
+    [Dependency]
+    private readonly IReplayRecordingManager _replay = default!;
+
+    [Dependency]
+    private readonly LanguageSystem _language = default!; // Starlight
 
     // Has set used to prevent telephone feedback loops
     private HashSet<(EntityUid, string, Entity<TelephoneComponent>)> _recentChatMessages = new();
@@ -69,10 +90,12 @@ public sealed class TelephoneSystem : SharedTelephoneSystem
 
     private void OnAttemptListen(Entity<TelephoneComponent> entity, ref ListenAttemptEvent args)
     {
-        if (!IsTelephonePowered(entity) ||
-            !IsTelephoneEngaged(entity) ||
-            entity.Comp.Muted ||
-            !_interaction.InRangeUnobstructed(args.Source, entity.Owner, 0))
+        if (
+            !IsTelephonePowered(entity)
+            || !IsTelephoneEngaged(entity)
+            || entity.Comp.Muted
+            || !_interaction.InRangeUnobstructed(args.Source, entity.Owner, 0)
+        )
         {
             args.Cancel();
         }
@@ -100,8 +123,7 @@ public sealed class TelephoneSystem : SharedTelephoneSystem
         if (entity == args.TelephoneSource)
             return;
 
-        if (!IsTelephonePowered(entity) ||
-            !IsSourceConnectedToReceiver(args.TelephoneSource, entity))
+        if (!IsTelephonePowered(entity) || !IsSourceConnectedToReceiver(args.TelephoneSource, entity))
             return;
 
         var nameEv = new TransformSpeakerNameEvent(args.MessageSource, Name(args.MessageSource));
@@ -110,14 +132,28 @@ public sealed class TelephoneSystem : SharedTelephoneSystem
         // Determine if speech should be relayed via the telephone itself or a designated speaker
         var speaker = entity.Comp.Speaker != null ? entity.Comp.Speaker.Value.Owner : entity.Owner;
 
-        var name = Loc.GetString("chat-telephone-name-relay",
+        var name = Loc.GetString(
+            "chat-telephone-name-relay",
             ("originalName", nameEv.VoiceName),
-            ("speaker", Name(speaker)));
+            ("speaker", Name(speaker))
+        );
 
-        var range = args.TelephoneSource.Comp.LinkedTelephones.Count > 1 ? ChatTransmitRange.HideChat : ChatTransmitRange.GhostRangeLimitNoAdminCheck; // Frontier: GhostRangeLimit<GhostRangeLimitNoAdminCheck
-        var volume = entity.Comp.SpeakerVolume == TelephoneVolume.Speak ? InGameICChatType.Speak : InGameICChatType.Whisper;
+        var range =
+            args.TelephoneSource.Comp.LinkedTelephones.Count > 1
+                ? ChatTransmitRange.HideChat
+                : ChatTransmitRange.GhostRangeLimitNoAdminCheck; // Frontier: GhostRangeLimit<GhostRangeLimitNoAdminCheck
+        var volume =
+            entity.Comp.SpeakerVolume == TelephoneVolume.Speak ? InGameICChatType.Speak : InGameICChatType.Whisper;
 
-        _chat.TrySendInGameICMessage(speaker, args.Message, volume, range, nameOverride: name, checkRadioPrefix: false, languageOverride: args.Language); // Starlight
+        _chat.TrySendInGameICMessage(
+            speaker,
+            args.Message,
+            volume,
+            range,
+            nameOverride: name,
+            checkRadioPrefix: false,
+            languageOverride: args.Language
+        ); // Starlight
     }
 
     #endregion
@@ -135,8 +171,7 @@ public sealed class TelephoneSystem : SharedTelephoneSystem
             {
                 foreach (var receiver in telephone.LinkedTelephones)
                 {
-                    if (!IsSourceInRangeOfReceiver(entity, receiver) &&
-                        !IsSourceInRangeOfReceiver(receiver, entity))
+                    if (!IsSourceInRangeOfReceiver(entity, receiver) && !IsSourceInRangeOfReceiver(receiver, entity))
                     {
                         EndTelephoneCall(entity, receiver);
                     }
@@ -149,9 +184,7 @@ public sealed class TelephoneSystem : SharedTelephoneSystem
                 case TelephoneState.Ringing:
                     if (_timing.CurTime > telephone.StateStartTime + TimeSpan.FromSeconds(telephone.RingingTimeout))
                         EndTelephoneCalls(entity);
-
-                    else if (telephone.RingTone != null &&
-                        _timing.CurTime > telephone.NextRingToneTime)
+                    else if (telephone.RingTone != null && _timing.CurTime > telephone.NextRingToneTime)
                     {
                         _audio.PlayPvs(telephone.RingTone, uid);
                         telephone.NextRingToneTime = _timing.CurTime + TimeSpan.FromSeconds(telephone.RingInterval);
@@ -178,7 +211,12 @@ public sealed class TelephoneSystem : SharedTelephoneSystem
         _recentChatMessages.Clear();
     }
 
-    public void BroadcastCallToTelephones(Entity<TelephoneComponent> source, HashSet<Entity<TelephoneComponent>> receivers, EntityUid user, TelephoneCallOptions? options = null)
+    public void BroadcastCallToTelephones(
+        Entity<TelephoneComponent> source,
+        HashSet<Entity<TelephoneComponent>> receivers,
+        EntityUid user,
+        TelephoneCallOptions? options = null
+    )
     {
         if (IsTelephoneEngaged(source))
             return;
@@ -191,7 +229,12 @@ public sealed class TelephoneSystem : SharedTelephoneSystem
             EndTelephoneCalls(source);
     }
 
-    public void CallTelephone(Entity<TelephoneComponent> source, Entity<TelephoneComponent> receiver, EntityUid user, TelephoneCallOptions? options = null)
+    public void CallTelephone(
+        Entity<TelephoneComponent> source,
+        Entity<TelephoneComponent> receiver,
+        EntityUid user,
+        TelephoneCallOptions? options = null
+    )
     {
         if (IsTelephoneEngaged(source))
             return;
@@ -200,14 +243,17 @@ public sealed class TelephoneSystem : SharedTelephoneSystem
             EndTelephoneCalls(source);
     }
 
-    private bool TryCallTelephone(Entity<TelephoneComponent> source, Entity<TelephoneComponent> receiver, EntityUid user, TelephoneCallOptions? options = null)
+    private bool TryCallTelephone(
+        Entity<TelephoneComponent> source,
+        Entity<TelephoneComponent> receiver,
+        EntityUid user,
+        TelephoneCallOptions? options = null
+    )
     {
         if (!IsSourceAbleToReachReceiver(source, receiver) && options?.IgnoreRange != true)
             return false;
 
-        if (IsTelephoneEngaged(receiver) &&
-            options?.ForceConnect != true &&
-            options?.ForceJoin != true)
+        if (IsTelephoneEngaged(receiver) && options?.ForceConnect != true && options?.ForceJoin != true)
             return false;
 
         var evCallAttempt = new TelephoneCallAttemptEvent(source, receiver, user);
@@ -235,8 +281,10 @@ public sealed class TelephoneSystem : SharedTelephoneSystem
         receiver.Comp.Muted = options?.MuteReceiver == true;
 
         // Try to open a line of communication immediately
-        if (options?.ForceConnect == true ||
-            (options?.ForceJoin == true && receiver.Comp.CurrentState == TelephoneState.InCall))
+        if (
+            options?.ForceConnect == true
+            || (options?.ForceJoin == true && receiver.Comp.CurrentState == TelephoneState.InCall)
+        )
         {
             CommenceTelephoneCall(source, receiver);
             return true;
@@ -330,7 +378,12 @@ public sealed class TelephoneSystem : SharedTelephoneSystem
         SetTelephoneMicrophoneState(entity, false);
     }
 
-    private void SendTelephoneMessage(EntityUid messageSource, string message, Entity<TelephoneComponent> source, bool escapeMarkup = true)
+    private void SendTelephoneMessage(
+        EntityUid messageSource,
+        string message,
+        Entity<TelephoneComponent> source,
+        bool escapeMarkup = true
+    )
     {
         // This method assumes that you've already checked that this
         // telephone is able to transmit messages and that it can
@@ -348,24 +401,19 @@ public sealed class TelephoneSystem : SharedTelephoneSystem
         else
             speech = _chat.GetSpeechVerb(messageSource, message);
 
-        var content = escapeMarkup
-            ? FormattedMessage.EscapeText(message)
-            : message;
+        var content = escapeMarkup ? FormattedMessage.EscapeText(message) : message;
 
-        var wrappedMessage = Loc.GetString(speech.Bold ? "chat-telephone-message-wrap-bold" : "chat-telephone-message-wrap",
+        var wrappedMessage = Loc.GetString(
+            speech.Bold ? "chat-telephone-message-wrap-bold" : "chat-telephone-message-wrap",
             ("color", Color.White),
             ("fontType", speech.FontId),
             ("fontSize", speech.FontSize),
             ("verb", Loc.GetString(_random.Pick(speech.SpeechVerbStrings))),
             ("name", name),
-            ("message", content));
+            ("message", content)
+        );
 
-        var chat = new ChatMessage(
-            ChatChannel.Local,
-            message,
-            wrappedMessage,
-            NetEntity.Invalid,
-            null);
+        var chat = new ChatMessage(ChatChannel.Local, message, wrappedMessage, NetEntity.Invalid, null);
 
         var chatMsg = new MsgChatMessage { Message = chat };
 
@@ -373,7 +421,13 @@ public sealed class TelephoneSystem : SharedTelephoneSystem
         RaiseLocalEvent(source, ref evSentMessage);
         source.Comp.StateStartTime = _timing.CurTime;
 
-        var evReceivedMessage = new TelephoneMessageReceivedEvent(message, chatMsg, messageSource, source, _language.GetLanguage(messageSource)); // Starlight
+        var evReceivedMessage = new TelephoneMessageReceivedEvent(
+            message,
+            chatMsg,
+            messageSource,
+            source,
+            _language.GetLanguage(messageSource)
+        ); // Starlight
 
         foreach (var receiver in source.Comp.LinkedTelephones)
         {
@@ -382,9 +436,17 @@ public sealed class TelephoneSystem : SharedTelephoneSystem
         }
 
         if (name != Name(messageSource))
-            _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Telephone message from {ToPrettyString(messageSource):user} as {name} on {source}: {message}");
+            _adminLogger.Add(
+                LogType.Chat,
+                LogImpact.Low,
+                $"Telephone message from {ToPrettyString(messageSource):user} as {name} on {source}: {message}"
+            );
         else
-            _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Telephone message from {ToPrettyString(messageSource):user} on {source}: {message}");
+            _adminLogger.Add(
+                LogType.Chat,
+                LogImpact.Low,
+                $"Telephone message from {ToPrettyString(messageSource):user} on {source}: {message}"
+            );
 
         _replay.RecordServerMessage(chat);
     }
@@ -444,10 +506,12 @@ public sealed class TelephoneSystem : SharedTelephoneSystem
 
     public bool IsSourceAbleToReachReceiver(Entity<TelephoneComponent> source, Entity<TelephoneComponent> receiver)
     {
-        if (source == receiver ||
-            !IsTelephonePowered(source) ||
-            !IsTelephonePowered(receiver) ||
-            !IsSourceInRangeOfReceiver(source, receiver))
+        if (
+            source == receiver
+            || !IsTelephonePowered(source)
+            || !IsTelephonePowered(receiver)
+            || !IsSourceInRangeOfReceiver(source, receiver)
+        )
         {
             return false;
         }
@@ -465,9 +529,11 @@ public sealed class TelephoneSystem : SharedTelephoneSystem
         var receiverXform = Transform(receiver);
 
         // Check if we should ignore a device thats on the same grid
-        if (source.Comp.IgnoreTelephonesOnSameGrid &&
-            source.Comp.TransmissionRange != TelephoneRange.Grid &&
-            receiverXform.GridUid == sourceXform.GridUid)
+        if (
+            source.Comp.IgnoreTelephonesOnSameGrid
+            && source.Comp.TransmissionRange != TelephoneRange.Grid
+            && receiverXform.GridUid == sourceXform.GridUid
+        )
             return false;
 
         switch (source.Comp.TransmissionRange)

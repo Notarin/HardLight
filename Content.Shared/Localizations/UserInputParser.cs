@@ -14,14 +14,8 @@ public static class UserInputParser
 {
     private static readonly NumberFormatInfo[] StandardDecimalNumberFormats = new[]
     {
-        new NumberFormatInfo()
-        {
-            NumberDecimalSeparator = "."
-        },
-        new NumberFormatInfo()
-        {
-            NumberDecimalSeparator = ","
-        }
+        new NumberFormatInfo() { NumberDecimalSeparator = "." },
+        new NumberFormatInfo() { NumberDecimalSeparator = "," },
     };
 
     public static bool TryFloat(ReadOnlySpan<char> text, out float result)

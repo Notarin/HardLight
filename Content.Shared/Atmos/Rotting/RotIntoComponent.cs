@@ -14,7 +14,10 @@ public sealed partial class RotIntoComponent : Component
     /// <summary>
     /// Entity to rot into.
     /// </summary>
-    [DataField("entity", required: true, customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>)), ViewVariables(VVAccess.ReadWrite)]
+    [
+        DataField("entity", required: true, customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>)),
+        ViewVariables(VVAccess.ReadWrite)
+    ]
     public string Entity = string.Empty;
 
     /// <summary>

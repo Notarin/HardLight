@@ -4,7 +4,7 @@
   antagonist: true
   setPreference: true # Frontier: true<false
   objective: roles-antag-syndicate-agent-objective
-  guides: [ Traitors ] # Frontier: removed, irrelevant
+  guides: [Traitors] # Frontier: removed, irrelevant
   requirements:
   - !type:OverallPlaytimeRequirement
     time: 3600 # 1h
@@ -15,7 +15,7 @@
   antagonist: true
   setPreference: true # Frontier: true<false
   objective: roles-antag-syndicate-agent-sleeper-objective
-  guides: [ Traitors ] # Frontier: removed, irrelevant
+  guides: [Traitors] # Frontier: removed, irrelevant
   requirements:
   - !type:OverallPlaytimeRequirement
     time: 3600 # 1h
@@ -56,7 +56,7 @@
   equipment:
     pocket1: NFWeaponPistolViper # Frontier: WeaponPistolViper<NFWeaponPistolViper
   inhand:
-    - MedkitCombatFilled
+  - MedkitCombatFilled
 
 - type: startingGear
   id: SyndicateReinforcementSpy
@@ -72,7 +72,7 @@
   equipment:
     pocket1: NFWeaponPistolViper # Frontier: WeaponPistolViper<NFWeaponPistolViper
   inhand:
-    - ToolboxSyndicateFilled
+  - ToolboxSyndicateFilled
   storage:
     back:
     - SyndicateJawsOfLife

@@ -14,7 +14,8 @@ namespace Content.Server.GhostKick;
 
 public sealed class GhostKickManager
 {
-    [Dependency] private readonly IServerNetManager _netManager = default!;
+    [Dependency]
+    private readonly IServerNetManager _netManager = default!;
 
     public void Initialize()
     {
@@ -23,24 +24,30 @@ public sealed class GhostKickManager
 
     public void DoDisconnect(INetChannel channel, string reason)
     {
-        Timer.Spawn(TimeSpan.FromMilliseconds(100), () =>
-        {
-            if (!channel.IsConnected)
-                return;
-
-            // We do this so the client can set net.fakeloss 1 before getting ghosted.
-            // This avoids it spamming messages at the server that cause warnings due to unconnected client.
-            channel.SendMessage(new MsgGhostKick());
-
-            Timer.Spawn(TimeSpan.FromMilliseconds(100), () =>
+        Timer.Spawn(
+            TimeSpan.FromMilliseconds(100),
+            () =>
             {
                 if (!channel.IsConnected)
                     return;
 
-                // Actually just remove the client entirely.
-                channel.Disconnect(reason, false);
-            });
-        });
+                // We do this so the client can set net.fakeloss 1 before getting ghosted.
+                // This avoids it spamming messages at the server that cause warnings due to unconnected client.
+                channel.SendMessage(new MsgGhostKick());
+
+                Timer.Spawn(
+                    TimeSpan.FromMilliseconds(100),
+                    () =>
+                    {
+                        if (!channel.IsConnected)
+                            return;
+
+                        // Actually just remove the client entirely.
+                        channel.Disconnect(reason, false);
+                    }
+                );
+            }
+        );
     }
 }
 

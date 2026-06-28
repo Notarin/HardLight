@@ -10,31 +10,43 @@ namespace Content.Server.Cybernetics
 {
     public sealed class BluespaceShuntSystem : EntitySystem
     {
+        [Dependency]
+        private readonly EventSchedulerSystem _eventScheduler = default!;
 
-        [Dependency] private readonly EventSchedulerSystem _eventScheduler = default!;
+        [Dependency]
+        private readonly SharedActionsSystem _actions = default!;
 
-        [Dependency] private readonly SharedActionsSystem _actions = default!;
-        [Dependency] private readonly PopupSystem _popup = default!;
+        [Dependency]
+        private readonly PopupSystem _popup = default!;
 
-        [Dependency] private readonly IGameTiming _timing = default!;
+        [Dependency]
+        private readonly IGameTiming _timing = default!;
+
         public override void Initialize()
         {
             base.Initialize();
             SubscribeLocalEvent<BluespaceShuntComponent, BluespaceShuntUsedEvent>(OnBluespaceShuntUsed);
             SubscribeLocalEvent<BluespaceShuntComponent, BluespaceShuntCooldownEndEvent>(OnCooldownEnd);
 
-
             SubscribeLocalEvent<BluespaceShuntComponent, ComponentStartup>(OnStartup);
             SubscribeLocalEvent<BluespaceShuntComponent, ComponentShutdown>(OnShutdown);
         }
 
-        private void OnBluespaceShuntUsed(EntityUid uid, BluespaceShuntComponent component, ref BluespaceShuntUsedEvent args)
+        private void OnBluespaceShuntUsed(
+            EntityUid uid,
+            BluespaceShuntComponent component,
+            ref BluespaceShuntUsedEvent args
+        )
         {
             var ev = new BluespaceShuntCooldownEndEvent(component);
             _eventScheduler.ScheduleEvent(uid, ref ev, _timing.CurTime + TimeSpan.FromSeconds(component.CooldownTime));
         }
 
-        private void OnCooldownEnd(EntityUid uid, BluespaceShuntComponent component, BluespaceShuntCooldownEndEvent args)
+        private void OnCooldownEnd(
+            EntityUid uid,
+            BluespaceShuntComponent component,
+            BluespaceShuntCooldownEndEvent args
+        )
         {
             component.OnCooldown = false;
             Dirty(uid, component);

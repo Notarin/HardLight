@@ -1,7 +1,7 @@
 - type: font
   id: Default
   path: /Fonts/NotoSans/NotoSans-Regular.ttf
-  
+
 - type: font
   id: DefaultItalic
   path: /Fonts/NotoSans/NotoSans-Italic.ttf

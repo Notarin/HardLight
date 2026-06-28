@@ -1,7 +1,7 @@
 - type: entity
   name: rat king
   id: MobRatKing
-  parent: [ SimpleMobBase, MobCombat ]
+  parent: [SimpleMobBase, MobCombat]
   description: He's da rat. He make da roolz.
   components:
   # Starlight-start: Languages
@@ -16,8 +16,8 @@
   - type: ThermalVision # Starlight
   - type: CombatMode
   - type: MovementSpeedModifier
-    baseWalkSpeed : 3.00
-    baseSprintSpeed : 5.00
+    baseWalkSpeed: 3.00
+    baseSprintSpeed: 5.00
   - type: InputMover
   - type: MobMover
   - type: HTN
@@ -36,7 +36,7 @@
     layers:
     - map: ["enum.DamageStateVisualLayers.Base"]
       state: regalrat
-    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+    - map: ["enum.DamageStateVisualLayers.BaseUnshaded"]
       state: eyes
       shader: unshaded
   - type: Physics
@@ -44,8 +44,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.3
         density: 230
         mask:
@@ -156,7 +155,7 @@
     layers:
     - map: ["enum.DamageStateVisualLayers.Base"]
       state: regalrat
-    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded"]
+    - map: ["enum.DamageStateVisualLayers.BaseUnshaded"]
       state: eyes
       shader: unshaded
   - type: MobState
@@ -178,16 +177,16 @@
     speedModifierThresholds:
       200: 0.7
       250: 0.5
-  # - type: GuideHelp # Frontier: guidebook removed
-  #   guides: # Frontier: guidebook removed
-  #   - MinorAntagonists # Frontier: guidebook removed
+      # - type: GuideHelp # Frontier: guidebook removed
+      #   guides: # Frontier: guidebook removed
+      #   - MinorAntagonists # Frontier: guidebook removed
 
 - type: entity
   name: rat servant
   id: MobRatServant
-  parent: [ SimpleMobBase, MobCombat ]
+  parent: [SimpleMobBase, MobCombat]
   description: He's da mini rat. He don't make da roolz.
-#  categories: [ HideSpawnMenu ] #Must be configured to a King or the AI breaks.
+  #  categories: [ HideSpawnMenu ] #Must be configured to a King or the AI breaks.
   components:
   # Starlight-start: Languages
   - type: LanguageKnowledge
@@ -201,20 +200,17 @@
     freeHandsRequired: 1
   - type: CombatMode
   - type: MovementSpeedModifier
-    baseWalkSpeed : 3.5
-    baseSprintSpeed : 3.5
+    baseWalkSpeed: 3.5
+    baseSprintSpeed: 3.5
   - type: InputMover
   - type: MobMover
   - type: HTN
     rootTask:
       task: RatServantCompound
     blackboard:
-      IdleRange: !type:Single
-        3.5
-      FollowCloseRange: !type:Single
-        2.0
-      FollowRange: !type:Single
-        3.0
+      IdleRange: !type:Single 3.5
+      FollowCloseRange: !type:Single 2.0
+      FollowRange: !type:Single 3.0
   - type: Reactive
     groups:
       Flammable: [Touch]
@@ -228,7 +224,7 @@
     layers:
     - map: ["enum.DamageStateVisualLayers.Base", "movement"]
       state: rat
-    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded"]
+    - map: ["enum.DamageStateVisualLayers.BaseUnshaded"]
       state: eyes
       shader: unshaded
 
@@ -244,8 +240,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.2
         density: 30 #Bulky by mouse standards...
         mask:
@@ -329,7 +324,6 @@
     sprite: Mobs/Effects/onfire.rsi
     normalState: Mouse_burning
 
-
 - type: weightedRandomEntity
   id: RatKingLoot
   weights: # DeltaV: Rebalanced for Rodentia rummaging because we don't have Rat King
@@ -375,8 +369,7 @@
     iconOn:
       sprite: Interface/Actions/actions_rat_king.rsi
       state: stay
-    event:
-      !type:RatKingOrderActionEvent
+    event: !type:RatKingOrderActionEvent
       type: Stay
     priority: 5
 
@@ -393,8 +386,7 @@
     iconOn:
       sprite: Interface/Actions/actions_rat_king.rsi
       state: follow
-    event:
-      !type:RatKingOrderActionEvent
+    event: !type:RatKingOrderActionEvent
       type: Follow
     priority: 6
 
@@ -411,8 +403,7 @@
     iconOn:
       sprite: Interface/Actions/actions_rat_king.rsi
       state: attack
-    event:
-      !type:RatKingOrderActionEvent
+    event: !type:RatKingOrderActionEvent
       type: CheeseEm
     priority: 7
 
@@ -429,7 +420,6 @@
     iconOn:
       sprite: Interface/Actions/actions_rat_king.rsi
       state: loose
-    event:
-      !type:RatKingOrderActionEvent
+    event: !type:RatKingOrderActionEvent
       type: Loose
     priority: 8

@@ -15,26 +15,24 @@ namespace Content.Server.Database.Migrations.Sqlite
                 table: "admin",
                 type: "INTEGER",
                 nullable: false,
-                defaultValue: false);
+                defaultValue: false
+            );
 
             migrationBuilder.AddColumn<bool>(
                 name: "suspended",
                 table: "admin",
                 type: "INTEGER",
                 nullable: false,
-                defaultValue: false);
+                defaultValue: false
+            );
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "deadminned",
-                table: "admin");
+            migrationBuilder.DropColumn(name: "deadminned", table: "admin");
 
-            migrationBuilder.DropColumn(
-                name: "suspended",
-                table: "admin");
+            migrationBuilder.DropColumn(name: "suspended", table: "admin");
         }
     }
 }

@@ -12,9 +12,14 @@ namespace Content.Server._Mono.Radiation;
 /// </summary>
 public sealed class ChainRadiationSystem : EntitySystem
 {
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly ExplosionSystem _explosion = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency]
+    private readonly EntityLookupSystem _lookup = default!;
+
+    [Dependency]
+    private readonly ExplosionSystem _explosion = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
 
     public override void Initialize()
     {
@@ -25,7 +30,11 @@ public sealed class ChainRadiationSystem : EntitySystem
 
     private void OnUpdate(RadiationSystemUpdatedEvent args)
     {
-        var query = EntityQueryEnumerator<ChainRadiationComponent, RadiationReceiverComponent, RadiationSourceComponent>();
+        var query = EntityQueryEnumerator<
+            ChainRadiationComponent,
+            RadiationReceiverComponent,
+            RadiationSourceComponent
+        >();
         while (query.MoveNext(out var uid, out var chain, out var receiver, out var source))
         {
             source.Intensity = chain.BaseIntensity * (1f + receiver.CurrentRadiation * chain.Coefficient);
@@ -34,7 +43,9 @@ public sealed class ChainRadiationSystem : EntitySystem
             if (source.Intensity > chain.ExplosionThreshold)
             {
                 var coord = Transform(uid).Coordinates;
-                foreach (var other in _lookup.GetEntitiesInRange<ChainRadiationComponent>(coord, chain.ChainExplosionRadius))
+                foreach (
+                    var other in _lookup.GetEntitiesInRange<ChainRadiationComponent>(coord, chain.ChainExplosionRadius)
+                )
                 {
                     // teleport them to us for combined explosion
                     _transform.SetCoordinates(other, coord);
@@ -57,7 +68,8 @@ public sealed class ChainRadiationSystem : EntitySystem
             ent.Comp.ExplosionType,
             ent.Comp.TotalIntensity,
             ent.Comp.IntensitySlope,
-            ent.Comp.MaxIntensity);
+            ent.Comp.MaxIntensity
+        );
 
         QueueDel(ent.Owner);
     }

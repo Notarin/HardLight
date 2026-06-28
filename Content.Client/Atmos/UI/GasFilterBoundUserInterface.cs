@@ -32,9 +32,8 @@ namespace Content.Client.Atmos.UI
         [ViewVariables]
         private GasFilterWindow? _window;
 
-        public GasFilterBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-        {
-        }
+        public GasFilterBoundUserInterface(EntityUid owner, Enum uiKey)
+            : base(owner, uiKey) { }
 
         protected override void Open()
         {
@@ -53,7 +52,8 @@ namespace Content.Client.Atmos.UI
 
         private void OnToggleStatusButtonPressed()
         {
-            if (_window is null) return;
+            if (_window is null)
+                return;
             SendMessage(new GasFilterToggleStatusMessage(_window.FilterStatus));
         }
 
@@ -70,6 +70,7 @@ namespace Content.Client.Atmos.UI
         {
             SendMessage(new GasFilterChangeGasesMessage(gases));
         }
+
         // Funky Station - Change of state in UI broadcasts hashset of gases
         protected override void UpdateState(BoundUserInterfaceState state)
         {
@@ -88,7 +89,8 @@ namespace Content.Client.Atmos.UI
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
-            if (!disposing) return;
+            if (!disposing)
+                return;
             _window?.Dispose();
         }
     }

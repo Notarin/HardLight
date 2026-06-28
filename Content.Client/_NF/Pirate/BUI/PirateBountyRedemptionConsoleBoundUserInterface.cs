@@ -10,7 +10,8 @@ public sealed class PirateBountyRedemptionConsoleBoundUserInterface : BoundUserI
     [ViewVariables]
     private PirateBountyRedemptionMenu? _menu;
 
-    public PirateBountyRedemptionConsoleBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey) {}
+    public PirateBountyRedemptionConsoleBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {

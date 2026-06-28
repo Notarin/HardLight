@@ -55,8 +55,7 @@
     fixtures:
       fix1:
         density: 30
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.35,-0.2,0.25,0.1"
         mask:
         - ItemMask
@@ -85,13 +84,13 @@
   name: speso
   unit: materials-unit-bill
   stackEntity: SpaceCash
-  icon: { sprite: /Textures/_NF/Objects/Economy/cash.rsi, state: cash }
+  icon: {sprite: /Textures/_NF/Objects/Economy/cash.rsi, state: cash}
   price: 1
 
 - type: stack
   id: Credit
   name: stack-credit
-  icon: { sprite: /Textures/_NF/Objects/Economy/cash.rsi, state: cash }
+  icon: {sprite: /Textures/_NF/Objects/Economy/cash.rsi, state: cash}
   spawn: SpaceCash
 
 - type: entity

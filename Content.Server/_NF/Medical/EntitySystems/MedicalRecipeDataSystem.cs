@@ -15,9 +15,14 @@ namespace Content.Server._NF.Medical.EntitySystems;
 
 public sealed class MedicalRecipeDataSystem : SharedMedicalGuideDataSystem
 {
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IPrototypeManager _protoMan = default!;
-    [Dependency] private readonly IComponentFactory _componentFactory = default!;
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _protoMan = default!;
+
+    [Dependency]
+    private readonly IComponentFactory _componentFactory = default!;
 
     private Dictionary<string, List<MedicalRecipeData>> _sources = new();
 
@@ -31,9 +36,7 @@ public sealed class MedicalRecipeDataSystem : SharedMedicalGuideDataSystem
 
     private void OnPrototypesReloaded(PrototypesReloadedEventArgs args)
     {
-        if (!args.WasModified<EntityPrototype>()
-            && !args.WasModified<FoodRecipePrototype>()
-        )
+        if (!args.WasModified<EntityPrototype>() && !args.WasModified<FoodRecipePrototype>())
             return;
 
         ReloadRecipes();

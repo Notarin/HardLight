@@ -18,11 +18,20 @@ namespace Content.Client.Overlays;
 /// </summary>
 public sealed partial class StencilOverlay : Overlay
 {
-    [Dependency] private readonly IClyde _clyde = default!;
-    [Dependency] private readonly IEntityManager _entManager = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly IPrototypeManager _protoManager = default!;
+    [Dependency]
+    private readonly IClyde _clyde = default!;
+
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IMapManager _mapManager = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _protoManager = default!;
     private readonly ParallaxSystem _parallax;
     private readonly SharedTransformSystem _transform;
     private readonly SharedMapSystem _map;
@@ -38,7 +47,13 @@ public sealed partial class StencilOverlay : Overlay
     private static readonly ProtoId<ShaderPrototype> StencilMaskId = "StencilMask";
     private static readonly ProtoId<ShaderPrototype> StencilDrawId = "StencilDraw";
 
-    public StencilOverlay(ParallaxSystem parallax, SharedTransformSystem transform, SharedMapSystem map, SpriteSystem sprite, WeatherSystem weather)
+    public StencilOverlay(
+        ParallaxSystem parallax,
+        SharedTransformSystem transform,
+        SharedMapSystem map,
+        SpriteSystem sprite,
+        WeatherSystem weather
+    )
     {
         ZIndex = ParallaxSystem.ParallaxZIndex + 1;
         _parallax = parallax;
@@ -55,12 +70,16 @@ public sealed partial class StencilOverlay : Overlay
         var mapUid = _mapManager.GetMapEntityId(args.MapId);
         var invMatrix = args.Viewport.GetWorldToLocalMatrix();
 
-       var res = _resources.GetForViewport(args.Viewport, static _ => new CachedResources());
+        var res = _resources.GetForViewport(args.Viewport, static _ => new CachedResources());
 
         if (res.Blep?.Texture.Size != args.Viewport.Size)
         {
             res.Blep?.Dispose();
-            res.Blep = _clyde.CreateRenderTarget(args.Viewport.Size, new RenderTargetFormatParameters(RenderTargetColorFormat.Rgba8Srgb), name: "weather-stencil");
+            res.Blep = _clyde.CreateRenderTarget(
+                args.Viewport.Size,
+                new RenderTargetFormatParameters(RenderTargetColorFormat.Rgba8Srgb),
+                name: "weather-stencil"
+            );
         }
 
         if (_entManager.TryGetComponent<WeatherComponent>(mapUid, out var comp))

@@ -7,7 +7,6 @@ namespace Content.Shared._Shitmed.Medical.Surgery.Steps;
 [Prototype("SurgerySteps")]
 public sealed partial class SurgeryStepComponent : Component
 {
-
     [DataField]
     public ComponentRegistry? Tool;
 

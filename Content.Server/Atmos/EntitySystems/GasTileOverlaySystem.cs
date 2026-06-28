@@ -29,13 +29,26 @@ namespace Content.Server.Atmos.EntitySystems
     [UsedImplicitly]
     public sealed class GasTileOverlaySystem : SharedGasTileOverlaySystem
     {
-        [Robust.Shared.IoC.Dependency] private readonly IGameTiming _gameTiming = default!;
-        [Robust.Shared.IoC.Dependency] private readonly IPlayerManager _playerManager = default!;
-        [Robust.Shared.IoC.Dependency] private readonly IMapManager _mapManager = default!;
-        [Robust.Shared.IoC.Dependency] private readonly IConfigurationManager _confMan = default!;
-        [Robust.Shared.IoC.Dependency] private readonly IParallelManager _parMan = default!;
-        [Robust.Shared.IoC.Dependency] private readonly AtmosphereSystem _atmosphereSystem = default!;
-        [Robust.Shared.IoC.Dependency] private readonly ChunkingSystem _chunkingSys = default!;
+        [Robust.Shared.IoC.Dependency]
+        private readonly IGameTiming _gameTiming = default!;
+
+        [Robust.Shared.IoC.Dependency]
+        private readonly IPlayerManager _playerManager = default!;
+
+        [Robust.Shared.IoC.Dependency]
+        private readonly IMapManager _mapManager = default!;
+
+        [Robust.Shared.IoC.Dependency]
+        private readonly IConfigurationManager _confMan = default!;
+
+        [Robust.Shared.IoC.Dependency]
+        private readonly IParallelManager _parMan = default!;
+
+        [Robust.Shared.IoC.Dependency]
+        private readonly AtmosphereSystem _atmosphereSystem = default!;
+
+        [Robust.Shared.IoC.Dependency]
+        private readonly ChunkingSystem _chunkingSys = default!;
 
         /// <summary>
         /// Per-tick cache of sessions.
@@ -46,12 +59,13 @@ namespace Content.Server.Atmos.EntitySystems
         private readonly Dictionary<ICommonSession, Dictionary<NetEntity, HashSet<Vector2i>>> _lastSentChunks = new();
 
         // Oh look its more duplicated decal system code!
-        private ObjectPool<HashSet<Vector2i>> _chunkIndexPool =
-            new DefaultObjectPool<HashSet<Vector2i>>(
-                new DefaultPooledObjectPolicy<HashSet<Vector2i>>(), 64);
-        private ObjectPool<Dictionary<NetEntity, HashSet<Vector2i>>> _chunkViewerPool =
-            new DefaultObjectPool<Dictionary<NetEntity, HashSet<Vector2i>>>(
-                new DefaultPooledObjectPolicy<Dictionary<NetEntity, HashSet<Vector2i>>>(), 64);
+        private ObjectPool<HashSet<Vector2i>> _chunkIndexPool = new DefaultObjectPool<HashSet<Vector2i>>(
+            new DefaultPooledObjectPolicy<HashSet<Vector2i>>(),
+            64
+        );
+        private ObjectPool<Dictionary<NetEntity, HashSet<Vector2i>>> _chunkViewerPool = new DefaultObjectPool<
+            Dictionary<NetEntity, HashSet<Vector2i>>
+        >(new DefaultPooledObjectPolicy<Dictionary<NetEntity, HashSet<Vector2i>>>(), 64);
 
         private bool _doSessionUpdate;
 
@@ -136,6 +150,7 @@ namespace Content.Server.Atmos.EntitySystems
         }
 
         private void UpdateTickRate(float value) => _updateInterval = value > 0.0f ? 1 / value : float.MaxValue;
+
         private void UpdateThresholds(int value) => _thresholds = value;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -167,10 +182,15 @@ namespace Content.Server.Atmos.EntitySystems
 
         private byte GetOpacity(float moles, float molesVisible, float molesVisibleMax)
         {
-            return (byte) (ContentHelpers.RoundToLevels(
-                MathHelper.Clamp01((moles - molesVisible) /
-                                   (molesVisibleMax - molesVisible)) * 255, byte.MaxValue,
-                _thresholds) * 255 / (_thresholds - 1));
+            return (byte)(
+                ContentHelpers.RoundToLevels(
+                    MathHelper.Clamp01((moles - molesVisible) / (molesVisibleMax - molesVisible)) * 255,
+                    byte.MaxValue,
+                    _thresholds
+                )
+                * 255
+                / (_thresholds - 1)
+            );
         }
 
         public GasOverlayData GetOverlayData(GasMixture? mixture)
@@ -189,10 +209,17 @@ namespace Content.Server.Atmos.EntitySystems
                     continue;
                 }
 
-                opacity = (byte) (ContentHelpers.RoundToLevels(
-                    MathHelper.Clamp01((moles - gas.GasMolesVisible) /
-                                       (gas.GasMolesVisibleMax - gas.GasMolesVisible)) * 255, byte.MaxValue,
-                    _thresholds) * 255 / (_thresholds - 1));
+                opacity = (byte)(
+                    ContentHelpers.RoundToLevels(
+                        MathHelper.Clamp01(
+                            (moles - gas.GasMolesVisible) / (gas.GasMolesVisibleMax - gas.GasMolesVisible)
+                        ) * 255,
+                        byte.MaxValue,
+                        _thresholds
+                    )
+                    * 255
+                    / (_thresholds - 1)
+                );
             }
 
             return data;
@@ -226,7 +253,7 @@ namespace Content.Server.Atmos.EntitySystems
                 oldData = new GasOverlayData(tile.Hotspot.State, oldData.Opacity);
             }
 
-            if (tile is {Air: not null, NoGridTile: false})
+            if (tile is { Air: not null, NoGridTile: false })
             {
                 for (var i = 0; i < VisibleGasId.Length; i++)
                 {
@@ -388,7 +415,13 @@ namespace Content.Server.Atmos.EntitySystems
             public void Execute(int index)
             {
                 var playerSession = Sessions[index];
-                var chunksInRange = ChunkingSys.GetChunksForSession(playerSession, ChunkSize, ChunkIndexPool, ChunkViewerPool, ViewEnlargement);
+                var chunksInRange = ChunkingSys.GetChunksForSession(
+                    playerSession,
+                    ChunkSize,
+                    ChunkIndexPool,
+                    ChunkViewerPool,
+                    ViewEnlargement
+                );
                 var previouslySent = LastSentChunks[playerSession];
 
                 var ev = new GasOverlayUpdateEvent();
@@ -429,7 +462,10 @@ namespace Content.Server.Atmos.EntitySystems
                 foreach (var (netGrid, gridChunks) in chunksInRange)
                 {
                     // Not all grids have atmospheres.
-                    if (!EntManager.TryGetEntity(netGrid, out var grid) || !EntManager.TryGetComponent(grid, out GasTileOverlayComponent? overlay))
+                    if (
+                        !EntManager.TryGetEntity(netGrid, out var grid)
+                        || !EntManager.TryGetComponent(grid, out GasTileOverlayComponent? overlay)
+                    )
                         continue;
 
                     List<GasOverlayChunk> dataToSend = new();

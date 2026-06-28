@@ -1,7 +1,7 @@
 - type: entity
   parent: BaseStructure
   id: MedicalPod
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   name: emergency medical pod
   description: A pod used for preservation of high value corpses. Something awful happened here.
   components:
@@ -9,7 +9,7 @@
     noRot: true
   - type: Anchorable
   - type: Icon
-    sprite:  _NF/Structures/Storage/emergency_pod.rsi
+    sprite: _NF/Structures/Storage/emergency_pod.rsi
     state: icon
   - type: Sprite
     noRot: true
@@ -33,8 +33,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.4,-0.2,0.4,0.2"
         density: 400 # Heavy, same density as high value trading crate
         mask:
@@ -51,12 +50,12 @@
       volume: 200
       temperature: 263.15
       moles:
-        - 0 # oxygen
-        - 0 # nitrogen
-        - 0
-        - 0
-        - 0
-        - 10 # water vapor
+      - 0 # oxygen
+      - 0 # nitrogen
+      - 0
+      - 0
+      - 0
+      - 10 # water vapor
     whitelist: # Frontier - whitelist
       components:
       - MedicalBounty
@@ -66,8 +65,7 @@
     damageModifierSet: Metallic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 200 # Should be relatively tanky given its weight
       behaviors:
       - !type:DoActsBehavior
@@ -84,11 +82,11 @@
     visuals:
       enum.StorageVisuals.HasContents:
         occupied:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
         healthanalyzer:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
   - type: ContainerContainer
     containers:
       entity_storage: !type:Container

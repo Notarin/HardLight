@@ -10,7 +10,8 @@ namespace Content.Server.Atmos.Commands
     [AdminCommand(AdminFlags.Debug)]
     public sealed class SetTemperatureCommand : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _entities = default!;
+        [Dependency]
+        private readonly IEntityManager _entities = default!;
 
         public string Command => "settemp";
         public string Description => "Sets a tile's temperature (in kelvin).";
@@ -21,11 +22,13 @@ namespace Content.Server.Atmos.Commands
             if (args.Length < 4)
                 return;
 
-            if (!int.TryParse(args[0], out var x)
+            if (
+                !int.TryParse(args[0], out var x)
                 || !int.TryParse(args[1], out var y)
                 || !NetEntity.TryParse(args[2], out var gridIdNet)
                 || !_entities.TryGetEntity(gridIdNet, out var gridId)
-                || !float.TryParse(args[3], out var temperature))
+                || !float.TryParse(args[3], out var temperature)
+            )
             {
                 return;
             }

@@ -30,15 +30,18 @@ namespace Content.Client.UserInterface.Systems.Ghost.Controls.Roles
                     return;
                 }
 
-                _windowRules = new GhostRoleRulesWindow(info.Rules, _ =>
-                {
-                    SendMessage(new RequestGhostRoleMessage(info.Identifier));
+                _windowRules = new GhostRoleRulesWindow(
+                    info.Rules,
+                    _ =>
+                    {
+                        SendMessage(new RequestGhostRoleMessage(info.Identifier));
 
-                    // if raffle role, close rules window on request, otherwise do
-                    // old behavior of waiting for the server to close it
-                    if (info.Kind != GhostRoleKind.FirstComeFirstServe)
-                        _windowRules?.Close();
-                });
+                        // if raffle role, close rules window on request, otherwise do
+                        // old behavior of waiting for the server to close it
+                        if (info.Kind != GhostRoleKind.FirstComeFirstServe)
+                            _windowRules?.Close();
+                    }
+                );
                 _windowRulesId = info.Identifier;
                 _windowRules.OnClose += () =>
                 {
@@ -94,8 +97,9 @@ namespace Content.Client.UserInterface.Systems.Ghost.Controls.Roles
 
             // TODO: role.Requirements value doesn't work at all as an equality key, this must be fixed
             // Grouping roles
-            var groupedRoles = ghostState.GhostRoles.GroupBy(
-                role => (role.Name, role.Description, role.Requirements, role.Prototype)); // Frontier: add Prototype
+            var groupedRoles = ghostState.GhostRoles.GroupBy(role =>
+                (role.Name, role.Description, role.Requirements, role.Prototype)
+            ); // Frontier: add Prototype
 
             // Add a new entry for each role group
             foreach (var group in groupedRoles)
@@ -103,15 +107,14 @@ namespace Content.Client.UserInterface.Systems.Ghost.Controls.Roles
                 var name = group.Key.Name;
                 var description = group.Key.Description;
 
-                var hasAccess = requirementsManager.CheckRoleRequirements(
-                    group.Key.Requirements,
-                    null,
-                    out var reason);
+                var hasAccess = requirementsManager.CheckRoleRequirements(group.Key.Requirements, null, out var reason);
                 // Frontier: check ghost role whitelist
                 // To be blocked, we need both a prototype (for an ID to whitelist against) and a missing whitelist entry
-                if (hasAccess
+                if (
+                    hasAccess
                     && prototypeManager.TryIndex(group.Key.Prototype, out var ghostRolePrototype)
-                    && !requirementsManager.IsAllowed(ghostRolePrototype, out reason))
+                    && !requirementsManager.IsAllowed(ghostRolePrototype, out reason)
+                )
                 {
                     hasAccess = false;
                 }

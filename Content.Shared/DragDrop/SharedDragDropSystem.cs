@@ -5,8 +5,11 @@ namespace Content.Shared.DragDrop;
 
 public abstract class SharedDragDropSystem : EntitySystem
 {
-    [Dependency] private readonly ActionBlockerSystem _actionBlockerSystem = default!;
-    [Dependency] private readonly SharedInteractionSystem _interaction = default!;
+    [Dependency]
+    private readonly ActionBlockerSystem _actionBlockerSystem = default!;
+
+    [Dependency]
+    private readonly SharedInteractionSystem _interaction = default!;
 
     public override void Initialize()
     {
@@ -29,8 +32,10 @@ public abstract class SharedDragDropSystem : EntitySystem
 
         // must be in range of both the target and the object they are drag / dropping
         // Client also does this check but ya know we gotta validate it.
-        if (!_interaction.InRangeUnobstructed(user.Value, dragged, popup: true)
-            || !_interaction.InRangeUnobstructed(user.Value, target, popup: true))
+        if (
+            !_interaction.InRangeUnobstructed(user.Value, dragged, popup: true)
+            || !_interaction.InRangeUnobstructed(user.Value, target, popup: true)
+        )
         {
             return;
         }

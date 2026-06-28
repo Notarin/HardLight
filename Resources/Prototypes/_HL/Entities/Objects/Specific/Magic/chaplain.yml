@@ -40,6 +40,6 @@
 - type: stack
   id: MinorBlessing
   name: stack-blessing
-#  icon: { sprite: _NF/Objects/Misc/stock_parts.rsi, state: adv_capacitor }
+  #  icon: { sprite: _NF/Objects/Misc/stock_parts.rsi, state: adv_capacitor }
   spawn: MinorBlessing
   maxCount: 10

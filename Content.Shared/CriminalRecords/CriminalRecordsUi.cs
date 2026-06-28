@@ -7,7 +7,7 @@ namespace Content.Shared.CriminalRecords;
 [Serializable, NetSerializable]
 public enum CriminalRecordsConsoleKey : byte
 {
-    Key
+    Key,
 }
 
 /// <summary>
@@ -50,11 +50,11 @@ public sealed class CriminalRecordsConsoleState : BoundUserInterfaceState
     /// <summary>
     /// Default state for opening the console
     /// </summary>
-    public CriminalRecordsConsoleState() : this(null, null)
-    {
-    }
+    public CriminalRecordsConsoleState()
+        : this(null, null) { }
 
-    public bool IsEmpty() => SelectedKey == null && StationRecord == null && CriminalRecord == null && RecordListing == null;
+    public bool IsEmpty() =>
+        SelectedKey == null && StationRecord == null && CriminalRecord == null && RecordListing == null;
 }
 
 /// <summary>
@@ -107,13 +107,12 @@ public sealed class CriminalRecordDeleteHistory : BoundUserInterfaceMessage
 /// </summary>
 ///
 [Serializable, NetSerializable]
-
 public sealed class CriminalRecordSetStatusFilter : BoundUserInterfaceMessage
 {
     public readonly SecurityStatus FilterStatus;
+
     public CriminalRecordSetStatusFilter(SecurityStatus newFilterStatus)
     {
         FilterStatus = newFilterStatus;
     }
 }
-

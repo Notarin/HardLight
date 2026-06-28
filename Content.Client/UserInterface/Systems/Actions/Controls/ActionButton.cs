@@ -72,37 +72,33 @@ public sealed class ActionButton : Control, IEntityControl
         _controller = controller;
 
         MouseFilter = MouseFilterMode.Pass;
-        Button = new TextureRect
-        {
-            Name = "Button",
-            TextureScale = new Vector2(2, 2)
-        };
+        Button = new TextureRect { Name = "Button", TextureScale = new Vector2(2, 2) };
         HighlightRect = new PanelContainer
         {
-            StyleClasses = {StyleNano.StyleClassHandSlotHighlight},
+            StyleClasses = { StyleNano.StyleClassHandSlotHighlight },
             MinSize = new Vector2(32, 32),
-            Visible = false
+            Visible = false,
         };
         _bigActionIcon = new TextureRect
         {
             HorizontalExpand = true,
             VerticalExpand = true,
             Stretch = StretchMode.Scale,
-            Visible = false
+            Visible = false,
         };
         _smallActionIcon = new TextureRect
         {
             HorizontalAlignment = HAlignment.Right,
             VerticalAlignment = VAlignment.Bottom,
             Stretch = StretchMode.Scale,
-            Visible = false
+            Visible = false,
         };
         Label = new Label
         {
             Name = "Label",
             HorizontalAlignment = HAlignment.Left,
             VerticalAlignment = VAlignment.Top,
-            Margin = new Thickness(5, 0, 0, 0)
+            Margin = new Thickness(5, 0, 0, 0),
         };
         _bigItemSpriteView = new SpriteView
         {
@@ -128,21 +124,11 @@ public sealed class ActionButton : Control, IEntityControl
             Orientation = LayoutOrientation.Horizontal,
             HorizontalExpand = true,
             VerticalExpand = true,
-            MinSize = new Vector2(64, 64)
+            MinSize = new Vector2(64, 64),
         };
-        paddingBoxItemIcon.AddChild(new Control()
-        {
-            MinSize = new Vector2(32, 32),
-        });
-        paddingBoxItemIcon.AddChild(new Control
-        {
-            Children =
-            {
-                _smallActionIcon,
-                _smallItemSpriteView
-            }
-        });
-        Cooldown = new CooldownGraphic {Visible = false};
+        paddingBoxItemIcon.AddChild(new Control() { MinSize = new Vector2(32, 32) });
+        paddingBoxItemIcon.AddChild(new Control { Children = { _smallActionIcon, _smallItemSpriteView } });
+        Cooldown = new CooldownGraphic { Visible = false };
 
         AddChild(Button);
         AddChild(_bigActionIcon);
@@ -204,11 +190,15 @@ public sealed class ActionButton : Control, IEntityControl
         if (_entities.TryGetComponent(ActionId, out LimitedChargesComponent? actionCharges))
         {
             var charges = _sharedChargesSys.GetCurrentCharges((ActionId.Value, actionCharges, null));
-            chargesText = FormattedMessage.FromMarkupPermissive(Loc.GetString($"Charges: {charges.ToString()}/{actionCharges.MaxCharges}"));
+            chargesText = FormattedMessage.FromMarkupPermissive(
+                Loc.GetString($"Charges: {charges.ToString()}/{actionCharges.MaxCharges}")
+            );
 
             if (_entities.TryGetComponent(ActionId, out AutoRechargeComponent? autoRecharge))
             {
-                var chargeTimeRemaining = _sharedChargesSys.GetNextRechargeTime((ActionId.Value, actionCharges, autoRecharge));
+                var chargeTimeRemaining = _sharedChargesSys.GetNextRechargeTime(
+                    (ActionId.Value, actionCharges, autoRecharge)
+                );
                 chargesText.AddText(Loc.GetString($"{Environment.NewLine}Time Til Recharge: {chargeTimeRemaining}"));
             }
         }
@@ -223,8 +213,7 @@ public sealed class ActionButton : Control, IEntityControl
 
     private void UpdateItemIcon()
     {
-        if (_action is not {EntityIcon: { } entity} ||
-            !_entities.HasComponent<SpriteComponent>(entity))
+        if (_action is not { EntityIcon: { } entity } || !_entities.HasComponent<SpriteComponent>(entity))
         {
             _bigItemSpriteView.Visible = false;
             _bigItemSpriteView.SetEntity(null);
@@ -319,8 +308,7 @@ public sealed class ActionButton : Control, IEntityControl
     public void UpdateBackground()
     {
         _controller ??= UserInterfaceManager.GetUIController<ActionUIController>();
-        if (_action != null ||
-            _controller.IsDragging && GetPositionInParent() == Parent?.ChildCount - 1)
+        if (_action != null || _controller.IsDragging && GetPositionInParent() == Parent?.ChildCount - 1)
         {
             Button.Texture = _buttonBackgroundTexture;
         }
@@ -404,7 +392,7 @@ public sealed class ActionButton : Control, IEntityControl
     public void Depress(GUIBoundKeyEventArgs args, bool depress)
     {
         // action can still be toggled if it's allowed to stay selected
-        if (_action is not {Enabled: true})
+        if (_action is not { Enabled: true })
             return;
 
         _depressed = depress;
@@ -442,9 +430,11 @@ public sealed class ActionButton : Control, IEntityControl
         if (_action.Toggled || _controller.SelectingTargetFor == ActionId)
         {
             // when there's a toggle sprite, we're showing that sprite instead of highlighting this slot
-            SetOnlyStylePseudoClass(_action.IconOn != null
-                ? ContainerButton.StylePseudoClassNormal
-                : ContainerButton.StylePseudoClassPressed);
+            SetOnlyStylePseudoClass(
+                _action.IconOn != null
+                    ? ContainerButton.StylePseudoClassNormal
+                    : ContainerButton.StylePseudoClassPressed
+            );
             return;
         }
 

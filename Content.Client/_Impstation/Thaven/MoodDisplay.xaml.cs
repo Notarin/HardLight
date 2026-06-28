@@ -19,7 +19,6 @@ namespace Content.Client._Impstation.Thaven;
 [GenerateTypedNameReferences]
 public sealed partial class MoodDisplay : Control
 {
-
     private string GetSharedString()
     {
         return $"[italic][font size=10][color=gray]{Loc.GetString("moods-ui-shared-mood")}[/color][/font][/italic]";

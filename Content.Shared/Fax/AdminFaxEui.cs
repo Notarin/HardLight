@@ -32,9 +32,7 @@ public sealed class AdminFaxEntry
 public static class AdminFaxEuiMsg
 {
     [Serializable, NetSerializable]
-    public sealed class Close : EuiMessageBase
-    {
-    }
+    public sealed class Close : EuiMessageBase { }
 
     [Serializable, NetSerializable]
     public sealed class Follow : EuiMessageBase
@@ -59,7 +57,16 @@ public static class AdminFaxEuiMsg
         public bool Locked { get; }
         public bool StampProtected { get; } // Frontier
 
-        public Send(NetEntity target, string title, string from, string content, string stamp, Color stampColor, bool locked, bool stampProtected) // Frontier: stampProtected
+        public Send(
+            NetEntity target,
+            string title,
+            string from,
+            string content,
+            string stamp,
+            Color stampColor,
+            bool locked,
+            bool stampProtected
+        ) // Frontier: stampProtected
         {
             Target = target;
             Title = title;

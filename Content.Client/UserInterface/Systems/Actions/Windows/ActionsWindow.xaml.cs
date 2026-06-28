@@ -19,10 +19,9 @@ public sealed partial class ActionsWindow : DefaultWindow
     {
         RobustXamlLoader.Load(this);
 
-        SearchContainer.AddChild(FilterButton = new MultiselectOptionButton<Filters>
-        {
-            Label = Loc.GetString("ui-actionmenu-filter-button")
-        });
+        SearchContainer.AddChild(
+            FilterButton = new MultiselectOptionButton<Filters> { Label = Loc.GetString("ui-actionmenu-filter-button") }
+        );
 
         foreach (var filter in Enum.GetValues<Filters>())
         {
@@ -36,6 +35,6 @@ public sealed partial class ActionsWindow : DefaultWindow
         Item,
         Innate,
         Instant,
-        Targeted
+        Targeted,
     }
 }

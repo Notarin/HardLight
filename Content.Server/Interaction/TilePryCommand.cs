@@ -11,7 +11,8 @@ namespace Content.Server.Interaction;
 [AdminCommand(AdminFlags.Debug)]
 public sealed class TilePryCommand : IConsoleCommand
 {
-    [Dependency] private readonly IEntityManager _entities = default!;
+    [Dependency]
+    private readonly IEntityManager _entities = default!;
 
     public string Command => "tilepry";
     public string Description => "Pries up all tiles in a radius around the user.";
@@ -62,7 +63,8 @@ public sealed class TilePryCommand : IConsoleCommand
                 var coordinates = mapSystem.GridTileToLocal(playerGrid.Value, mapGrid, tile.GridIndices);
                 var tileDef = (ContentTileDefinition)tileDefinitionManager[tile.Tile.TypeId];
 
-                if (!tileDef.CanCrowbar) continue;
+                if (!tileDef.CanCrowbar)
+                    continue;
 
                 var plating = tileDefinitionManager["Plating"];
                 mapSystem.SetTile(playerGrid.Value, mapGrid, coordinates, new Tile(plating.TileId));

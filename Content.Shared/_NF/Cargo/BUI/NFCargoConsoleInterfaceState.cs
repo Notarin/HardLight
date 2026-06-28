@@ -8,7 +8,8 @@ public sealed class NFCargoConsoleInterfaceState(
     int count,
     int capacity,
     int balance,
-    List<NFCargoOrderData> orders) : BoundUserInterfaceState
+    List<NFCargoOrderData> orders
+) : BoundUserInterfaceState
 {
     public string Name = name;
     public int Count = count;

@@ -7,10 +7,10 @@
   components:
   - type: StorageFill
     contents:
-      - id: NFWeaponRifleAssaultGestio
-        amount: 2
-      - id: Magazine762x39mmLowCapacityFMJ
-        amount: 6
+    - id: NFWeaponRifleAssaultGestio
+      amount: 2
+    - id: Magazine762x39mmLowCapacityFMJ
+      amount: 6
 
 # Contraband (unregistered) weaponry crates for expeditions
 - type: entity
@@ -20,14 +20,14 @@
   - CrateFirearmsSecure
   name: SMG crate
   description: Contains two high-powered, SMGs with four mags. Requires Armory access to open. Unregistered.
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: StorageFill
     contents:
-      - id: NFWeaponSubMachineGunWt550Expedition
-        amount: 2
-      - id: Magazine46x30mmSubMachineGunTopMountedFMJ
-        amount: 4
+    - id: NFWeaponSubMachineGunWt550Expedition
+      amount: 2
+    - id: Magazine46x30mmSubMachineGunTopMountedFMJ
+      amount: 4
 
 - type: entity
   id: CrateArmoryShotgunExpedition
@@ -36,14 +36,14 @@
   - CrateFirearmsSecure
   name: shotgun crate
   description: For when the enemy absolutely needs to be replaced with lead. Contains two Enforcer Combat Shotguns, and some standard shotgun shells. Requires Armory access to open. Unregistered.
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: StorageFill
     contents:
-      - id: NFWeaponShotgunEnforcerExpedition
-        amount: 2
-      - id: AmmoBox12_gaugeBuckshot
-        amount: 3
+    - id: NFWeaponShotgunEnforcerExpedition
+      amount: 2
+    - id: AmmoBox12_gaugeBuckshot
+      amount: 3
 
 - type: entity
   id: CrateArmoryLaserExpedition
@@ -52,12 +52,12 @@
   - CrateFirearmsSecure
   name: lasers crate
   description: Contains three standard-issue laser carbines. Requires Armory access to open. Unregistered.
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: StorageFill
     contents:
-      - id: NFWeaponEnergyRifleCarbineExpedition
-        amount: 3
+    - id: NFWeaponEnergyRifleCarbineExpedition
+      amount: 3
 
 - type: entity
   id: CrateArmoryEnergyGunExpedition
@@ -66,12 +66,12 @@
   - CrateFirearmsSecure
   name: energy guns crate
   description: Contains three energy guns. Requires Armory access to open. Unregistered.
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: StorageFill
     contents:
-      - id: NFWeaponEnergySubMachineGunDeltaVExpedition
-        amount: 3
+    - id: NFWeaponEnergySubMachineGunDeltaVExpedition
+      amount: 3
 
 - type: entity
   id: CrateArmoryPistolsExpedition
@@ -80,7 +80,7 @@
   - CrateFirearmsSecure
   name: pistols crate
   description: Contains two standard NT pistols with four mags. Requires Armory access to open. Unregistered.
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: StorageFill
     contents:
@@ -96,14 +96,14 @@
   - CrateFirearmsSecure
   name: gestio rifle crate
   description: Contains two old prototype, burst-fire rifles with six low capacity mags. Requires Armory access to open. Unregistered.
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: StorageFill
     contents:
-      - id: NFWeaponRifleAssaultGestioExpedition
-        amount: 2
-      - id: Magazine762x39mmLowCapacityFMJ
-        amount: 6
+    - id: NFWeaponRifleAssaultGestioExpedition
+      amount: 2
+    - id: Magazine762x39mmLowCapacityFMJ
+      amount: 6
 
 - type: entity
   id: CrateArmoryRifleNovaliteC1Expedition
@@ -112,14 +112,14 @@
   - CrateFirearmsSecure
   name: novalite rifle crate
   description: Contains two civilian grade rifles with six low capacity clips. Requires Armory access to open. Unregistered.
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: StorageFill
     contents:
-      - id: NFWeaponRifleAssaultNovaliteC1Expedition
-        amount: 2
-      - id: NFMagazineClipRifle20
-        amount: 6
+    - id: NFWeaponRifleAssaultNovaliteC1Expedition
+      amount: 2
+    - id: NFMagazineClipRifle20
+      amount: 6
 
 # Ammo crates
 ## 556x45mm
@@ -300,7 +300,7 @@
   - CrateAmmoSecureMercenary
   - StorageFillAmmoAmmoBox12_gaugeBuckshotgun
   id: CrateAmmoAmmoBox12_gaugeBuckshotgun
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
 
 - type: entity
   parent:

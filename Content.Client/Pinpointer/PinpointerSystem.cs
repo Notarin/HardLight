@@ -6,8 +6,11 @@ namespace Content.Client.Pinpointer;
 
 public sealed class PinpointerSystem : SharedPinpointerSystem
 {
-    [Dependency] private readonly IEyeManager _eyeManager = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly IEyeManager _eyeManager = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     public override void Update(float frameTime)
     {

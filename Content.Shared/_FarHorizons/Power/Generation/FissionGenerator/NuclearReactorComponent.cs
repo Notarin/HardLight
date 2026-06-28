@@ -4,18 +4,17 @@
 //
 // SPDX-License-Identifier: CC-BY-NC-SA-3.0
 
-
-using Robust.Shared.GameStates;
-using Robust.Shared.Audio;
-using Content.Shared.Containers.ItemSlots;
-using Content.Shared.Atmos;
-using Robust.Shared.Prototypes;
-using Content.Shared.Materials;
-using Content.Shared.DeviceLinking;
-using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
-using Robust.Shared.Serialization;
-using Robust.Shared.Timing;
 using System.Numerics;
+using Content.Shared.Atmos;
+using Content.Shared.Containers.ItemSlots;
+using Content.Shared.DeviceLinking;
+using Content.Shared.Materials;
+using Robust.Shared.Audio;
+using Robust.Shared.GameStates;
+using Robust.Shared.Prototypes;
+using Robust.Shared.Serialization;
+using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
+using Robust.Shared.Timing;
 
 namespace Content.Shared._FarHorizons.Power.Generation.FissionGenerator;
 
@@ -196,8 +195,10 @@ public sealed partial class NuclearReactorComponent : Component
 
     [ViewVariables]
     public EntityUid? AlarmAudioHighThermal;
+
     [ViewVariables]
     public EntityUid? AlarmAudioHighTemp;
+
     [ViewVariables]
     public EntityUid? AlarmAudioHighRads;
 
@@ -248,7 +249,7 @@ public sealed partial class NuclearReactorComponent : Component
     /// [3] Offset of the center along the y axis
     /// </remarks>
     [DataField]
-    public int[] Gridbounds = [ 18, 15, 0, 5 ];
+    public int[] Gridbounds = [18, 15, 0, 5];
 
     #region Pipe Connections
     /// <summary>
@@ -341,14 +342,19 @@ public sealed partial class NuclearReactorComponent : Component
     #region Debug
     [ViewVariables(VVAccess.ReadOnly)]
     public int NeutronCount = 0;
+
     [ViewVariables(VVAccess.ReadOnly)]
     public int MeltedParts = 0;
+
     [ViewVariables(VVAccess.ReadOnly)]
     public int DetectedControlRods = 0;
+
     [ViewVariables(VVAccess.ReadOnly)]
     public float TotalNRads = 0;
+
     [ViewVariables(VVAccess.ReadOnly)]
     public float TotalRads = 0;
+
     [ViewVariables(VVAccess.ReadOnly)]
     public float TotalSpent = 0;
     #endregion

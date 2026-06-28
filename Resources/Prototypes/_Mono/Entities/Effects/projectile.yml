@@ -22,14 +22,13 @@
   name: ionised lightning
   id: LightningEMP
   parent: BaseLightning
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Lightning
     canArc: true
     spawnOnHit: InstantEffectEMP
   - type: PointLight
     color: "#80C0FF"
-
 
 #example usage: add this to projectile parenting from BaseBulletTrigger
 # - type: LightningOnTrigger

@@ -12,10 +12,8 @@ public sealed class IntercomBoundUserInterface : BoundUserInterface
     [ViewVariables]
     private IntercomMenu? _menu;
 
-    public IntercomBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-
-    }
+    public IntercomBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {

@@ -6,6 +6,7 @@ namespace Content.Server.DeviceNetwork.Components.Devices
     [Access(typeof(ApcNetSwitchSystem))]
     public sealed partial class ApcNetSwitchComponent : Component
     {
-        [ViewVariables] public bool State;
+        [ViewVariables]
+        public bool State;
     }
 }

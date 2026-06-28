@@ -33,5 +33,3 @@ public sealed partial class PlateletFactoriesComponent : Component
     [AutoPausedField]
     public TimeSpan NextUpdate = TimeSpan.Zero;
 }
-
-

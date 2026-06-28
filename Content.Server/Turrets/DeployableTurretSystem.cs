@@ -24,13 +24,26 @@ namespace Content.Server.Turrets;
 
 public sealed partial class DeployableTurretSystem : SharedDeployableTurretSystem
 {
-    [Dependency] private readonly HTNSystem _htn = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly DeviceNetworkSystem _deviceNetwork = default!;
-    [Dependency] private readonly BatteryWeaponFireModesSystem _fireModes = default!;
-    [Dependency] private readonly TurretTargetSettingsSystem _turretTargetingSettings = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly HTNSystem _htn = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly DeviceNetworkSystem _deviceNetwork = default!;
+
+    [Dependency]
+    private readonly BatteryWeaponFireModesSystem _fireModes = default!;
+
+    [Dependency]
+    private readonly TurretTargetSettingsSystem _turretTargetingSettings = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     public override void Initialize()
     {
@@ -80,8 +93,10 @@ public sealed partial class DeployableTurretSystem : SharedDeployableTurretSyste
             return;
 
         // Received a command to change armament state
-        if (command == DeployableTurretControllerSystem.CmdSetArmamemtState &&
-            args.Data.TryGetValue(command, out int? armamentState))
+        if (
+            command == DeployableTurretControllerSystem.CmdSetArmamemtState
+            && args.Data.TryGetValue(command, out int? armamentState)
+        )
         {
             if (TryComp<BatteryWeaponFireModesComponent>(ent, out var batteryWeaponFireModes))
                 _fireModes.TrySetFireMode(ent, batteryWeaponFireModes, armamentState.Value);
@@ -91,9 +106,11 @@ public sealed partial class DeployableTurretSystem : SharedDeployableTurretSyste
         }
 
         // Received a command to change access exemptions
-        if (command == DeployableTurretControllerSystem.CmdSetAccessExemptions &&
-            args.Data.TryGetValue(command, out HashSet<ProtoId<AccessLevelPrototype>>? accessExemptions) &&
-            TryComp<TurretTargetSettingsComponent>(ent, out var turretTargetSettings))
+        if (
+            command == DeployableTurretControllerSystem.CmdSetAccessExemptions
+            && args.Data.TryGetValue(command, out HashSet<ProtoId<AccessLevelPrototype>>? accessExemptions)
+            && TryComp<TurretTargetSettingsComponent>(ent, out var turretTargetSettings)
+        )
         {
             _turretTargetingSettings.SyncAccessLevelExemptions((ent, turretTargetSettings), accessExemptions);
             return;
@@ -135,7 +152,7 @@ public sealed partial class DeployableTurretSystem : SharedDeployableTurretSyste
         var payload = new NetworkPayload
         {
             [DeviceNetworkConstants.Command] = DeviceNetworkConstants.CmdUpdatedState,
-            [DeviceNetworkConstants.CmdUpdatedState] = GetTurretState(ent)
+            [DeviceNetworkConstants.CmdUpdatedState] = GetTurretState(ent),
         };
 
         _deviceNetwork.QueuePacket(ent, null, payload, device: device);
@@ -161,7 +178,11 @@ public sealed partial class DeployableTurretSystem : SharedDeployableTurretSyste
             _htn.SetHTNEnabled((ent, htn), ent.Comp.Enabled, planCooldown);
 
         // Play audio
-        _audio.PlayPvs(ent.Comp.Enabled ? ent.Comp.DeploymentSound : ent.Comp.RetractionSound, ent, new AudioParams { Volume = -10f });
+        _audio.PlayPvs(
+            ent.Comp.Enabled ? ent.Comp.DeploymentSound : ent.Comp.RetractionSound,
+            ent,
+            new AudioParams { Volume = -10f }
+        );
     }
 
     private void UpdateAmmoStatus(Entity<DeployableTurretComponent> ent)
@@ -170,7 +191,11 @@ public sealed partial class DeployableTurretSystem : SharedDeployableTurretSyste
             SetState(ent, false);
     }
 
-    private DeployableTurretState GetTurretState(Entity<DeployableTurretComponent> ent, DestructibleComponent? destructable = null, HTNComponent? htn = null)
+    private DeployableTurretState GetTurretState(
+        Entity<DeployableTurretComponent> ent,
+        DestructibleComponent? destructable = null,
+        HTNComponent? htn = null
+    )
     {
         Resolve(ent, ref destructable, ref htn);
 

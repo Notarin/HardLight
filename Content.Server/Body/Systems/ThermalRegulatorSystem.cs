@@ -8,9 +8,14 @@ namespace Content.Server.Body.Systems;
 
 public sealed class ThermalRegulatorSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly TemperatureSystem _tempSys = default!;
-    [Dependency] private readonly ActionBlockerSystem _actionBlockerSys = default!;
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
+
+    [Dependency]
+    private readonly TemperatureSystem _tempSys = default!;
+
+    [Dependency]
+    private readonly ActionBlockerSystem _actionBlockerSys = default!;
 
     public override void Initialize()
     {
@@ -83,14 +88,24 @@ public sealed class ThermalRegulatorSystem : EntitySystem
             if (!_actionBlockerSys.CanSweat(ent))
                 return;
 
-            _tempSys.ChangeHeat(ent, -Math.Min(targetHeat, ent.Comp1.SweatHeatRegulation), ignoreHeatResistance: true, ent);
+            _tempSys.ChangeHeat(
+                ent,
+                -Math.Min(targetHeat, ent.Comp1.SweatHeatRegulation),
+                ignoreHeatResistance: true,
+                ent
+            );
         }
         else
         {
             if (!_actionBlockerSys.CanShiver(ent))
                 return;
 
-            _tempSys.ChangeHeat(ent, Math.Min(targetHeat, ent.Comp1.ShiveringHeatRegulation), ignoreHeatResistance: true, ent);
+            _tempSys.ChangeHeat(
+                ent,
+                Math.Min(targetHeat, ent.Comp1.ShiveringHeatRegulation),
+                ignoreHeatResistance: true,
+                ent
+            );
         }
     }
 }

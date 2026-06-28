@@ -1,23 +1,24 @@
+using System.Diagnostics.CodeAnalysis;
 using Content.Server.Administration.Logs;
 using Content.Server.GameTicking;
+using Content.Server.Ghost;
+using Content.Shared._NF.CCVar;
+using Content.Shared._NF.CryoSleep.Events;
 using Content.Shared.Bed.Sleep;
 using Content.Shared.Database;
+using Content.Shared.GameTicking;
 using Content.Shared.Ghost;
 using Content.Shared.Mind;
-using Content.Shared._NF.CCVar;
-using Content.Shared.GameTicking;
 using Content.Shared.Players;
 using Robust.Shared.Configuration;
 using Robust.Shared.Network;
-using Content.Shared._NF.CryoSleep.Events;
-using System.Diagnostics.CodeAnalysis;
-using Content.Server.Ghost;
 
 namespace Content.Server._NF.CryoSleep;
 
 public sealed partial class CryoSleepSystem
 {
-    [Dependency] private readonly IConfigurationManager _configurationManager = default!;
+    [Dependency]
+    private readonly IConfigurationManager _configurationManager = default!;
 
     private void InitReturning()
     {
@@ -29,9 +30,10 @@ public sealed partial class CryoSleepSystem
     {
         var entity = session.SenderSession.GetMind();
 
-        var result = entity == null || !TryComp<MindComponent>(entity, out var mind)
-            ? ReturnToBodyStatus.NotAGhost
-            : TryReturnToBody(mind);
+        var result =
+            entity == null || !TryComp<MindComponent>(entity, out var mind)
+                ? ReturnToBodyStatus.NotAGhost
+                : TryReturnToBody(mind);
 
         var msg = new WakeupRequestMessage.Response(result);
         RaiseNetworkEvent(msg, session.SenderSession);
@@ -111,16 +113,20 @@ public sealed partial class CryoSleepSystem
         var pausedMap = _cryostorage.GetPausedMap(); // HardLight
 
         // If the user's a ghost, let them know their body's been removed.
-        if (_mind.TryGetMind(id, out _, out var mindComp)
-            && TryComp<GhostComponent>(mindComp.CurrentEntity, out var ghost))
+        if (
+            _mind.TryGetMind(id, out _, out var mindComp)
+            && TryComp<GhostComponent>(mindComp.CurrentEntity, out var ghost)
+        )
         {
             _ghost.SetCanReturnFromCryo(ghost, false);
         }
 
-        if (body != null
+        if (
+            body != null
             && pausedMap != null // HardLight
             && TryComp<TransformComponent>(body.Value.Body, out var bodyXform)
-            && bodyXform.MapUid == pausedMap) // HardLight
+            && bodyXform.MapUid == pausedMap
+        ) // HardLight
         {
             QueueDel(body.Value.Body);
         }
@@ -131,7 +137,11 @@ public sealed partial class CryoSleepSystem
         return _storedBodies.ContainsKey(id);
     }
 
-    public bool TryGetSleepingBody(NetUserId userId, [NotNullWhen(true)] out EntityUid? body, [NotNullWhen(true)] out EntityUid? pod)
+    public bool TryGetSleepingBody(
+        NetUserId userId,
+        [NotNullWhen(true)] out EntityUid? body,
+        [NotNullWhen(true)] out EntityUid? pod
+    )
     {
         if (_storedBodies.TryGetValue(userId, out var storedBody) && storedBody != null)
         {

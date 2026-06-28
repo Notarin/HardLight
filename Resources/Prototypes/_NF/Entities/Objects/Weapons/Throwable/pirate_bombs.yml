@@ -15,8 +15,7 @@
     damageContainer: Inorganic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 50 # Probably thick cast iron, should be a bit beefy
       behaviors:
       - !type:TriggerBehavior

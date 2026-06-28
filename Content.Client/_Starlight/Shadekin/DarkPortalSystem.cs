@@ -22,7 +22,11 @@ public sealed class DarkPortalSystem : EntitySystem
 
         // TODO: Check if we have the Nullspace Suit?
 
-        if (TryComp<PullableComponent>(args.Subject, out var pullablea) && pullablea.BeingPulled && HasComp<BrighteyeComponent>(pullablea.Puller))
+        if (
+            TryComp<PullableComponent>(args.Subject, out var pullablea)
+            && pullablea.BeingPulled
+            && HasComp<BrighteyeComponent>(pullablea.Puller)
+        )
             return;
 
         if (TryComp<ThrownItemComponent>(args.Subject, out var thrown) && HasComp<BrighteyeComponent>(thrown.Thrower))

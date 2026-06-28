@@ -1,5 +1,5 @@
-using Content.Shared.Revolutionary.Components;
 using Content.Shared.Revolutionary;
+using Content.Shared.Revolutionary.Components;
 using Content.Shared.StatusIcon.Components;
 using Robust.Shared.Prototypes;
 
@@ -10,7 +10,8 @@ namespace Content.Client.Revolutionary;
 /// </summary>
 public sealed class RevolutionarySystem : SharedRevolutionarySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototype = default!;
 
     public override void Initialize()
     {

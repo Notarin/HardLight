@@ -1,9 +1,9 @@
-using Robust.Client.Graphics;
-using Robust.Client.UserInterface.Controls;
-using Content.Shared._Goobstation.Research;
-using Content.Shared.Research.Prototypes;
 using System.Linq;
 using System.Numerics;
+using Content.Shared._Goobstation.Research;
+using Content.Shared.Research.Prototypes;
+using Robust.Client.Graphics;
+using Robust.Client.UserInterface.Controls;
 
 namespace Content.Client._Goobstation.Research.UI;
 
@@ -12,10 +12,7 @@ namespace Content.Client._Goobstation.Research.UI;
 /// </summary>
 public sealed partial class ResearchesContainerPanel : LayoutContainer
 {
-    public ResearchesContainerPanel()
-    {
-
-    }
+    public ResearchesContainerPanel() { }
 
     protected override void Draw(DrawingHandleScreen handle)
     {
@@ -36,18 +33,28 @@ public sealed partial class ResearchesContainerPanel : LayoutContainer
             if (dependentItem.Prototype.TechnologyPrerequisites.Count <= 0)
                 continue;
 
-            var prerequisiteItems = Children.Where(x => x is FancyResearchConsoleItem second &&
-                dependentItem.Prototype.TechnologyPrerequisites.Contains(second.Prototype.ID))
-                .Cast<FancyResearchConsoleItem>().ToList();
+            var prerequisiteItems = Children
+                .Where(x =>
+                    x is FancyResearchConsoleItem second
+                    && dependentItem.Prototype.TechnologyPrerequisites.Contains(second.Prototype.ID)
+                )
+                .Cast<FancyResearchConsoleItem>()
+                .ToList();
 
             // Special handling for Tree line type - draw all prerequisites as a unified tree
-            if (dependentItem.Prototype.PrerequisiteLineType == PrerequisiteLineType.Tree && prerequisiteItems.Count > 1)
+            if (
+                dependentItem.Prototype.PrerequisiteLineType == PrerequisiteLineType.Tree
+                && prerequisiteItems.Count > 1
+            )
             {
                 var lineColor = GetRefinedConnectionColor(prerequisiteItems.First(), dependentItem);
                 DrawTreeConnections(handle, prerequisiteItems, dependentItem, lineColor);
             }
             // Special handling for Spread line type - draw with anti-overlap logic
-            else if (dependentItem.Prototype.PrerequisiteLineType == PrerequisiteLineType.Spread && prerequisiteItems.Count > 1)
+            else if (
+                dependentItem.Prototype.PrerequisiteLineType == PrerequisiteLineType.Spread
+                && prerequisiteItems.Count > 1
+            )
             {
                 var lineColor = GetRefinedConnectionColor(prerequisiteItems.First(), dependentItem);
                 DrawSpreadConnections(handle, prerequisiteItems, dependentItem, lineColor);
@@ -58,13 +65,14 @@ public sealed partial class ResearchesContainerPanel : LayoutContainer
                 foreach (var prerequisiteItem in prerequisiteItems)
                 {
                     // Calculate connection points - use side connections for Spread type, center for others
-                    Vector2 startCoords, endCoords;
+                    Vector2 startCoords,
+                        endCoords;
 
                     if (dependentItem.Prototype.PrerequisiteLineType == PrerequisiteLineType.Spread)
                     {
                         // For now, let's try using the same direction for both to see if that fixes the visual issue
-                        startCoords = GetTechSideConnection(prerequisiteItem, dependentItem);  // Exit point from prerequisite
-                        endCoords = GetTechSideConnection(dependentItem, prerequisiteItem);    // Entry point to dependent
+                        startCoords = GetTechSideConnection(prerequisiteItem, dependentItem); // Exit point from prerequisite
+                        endCoords = GetTechSideConnection(dependentItem, prerequisiteItem); // Entry point to dependent
                     }
                     else
                     {
@@ -76,7 +84,13 @@ public sealed partial class ResearchesContainerPanel : LayoutContainer
                     var lineColor = GetRefinedConnectionColor(prerequisiteItem, dependentItem);
 
                     // Draw connection based on the dependent tech's line type configuration
-                    DrawConfigurableConnection(handle, startCoords, endCoords, lineColor, dependentItem.Prototype.PrerequisiteLineType);
+                    DrawConfigurableConnection(
+                        handle,
+                        startCoords,
+                        endCoords,
+                        lineColor,
+                        dependentItem.Prototype.PrerequisiteLineType
+                    );
                 }
             }
         }
@@ -85,7 +99,12 @@ public sealed partial class ResearchesContainerPanel : LayoutContainer
     /// <summary>
     /// Draw tree-style connections where multiple prerequisites branch into a single trunk
     /// </summary>
-    private void DrawTreeConnections(DrawingHandleScreen handle, List<FancyResearchConsoleItem> prerequisites, FancyResearchConsoleItem dependent, Color color)
+    private void DrawTreeConnections(
+        DrawingHandleScreen handle,
+        List<FancyResearchConsoleItem> prerequisites,
+        FancyResearchConsoleItem dependent,
+        Color color
+    )
     {
         if (prerequisites.Count == 0)
             return;
@@ -136,7 +155,12 @@ public sealed partial class ResearchesContainerPanel : LayoutContainer
     /// <summary>
     /// Draw spread connections for multiple prerequisites with intelligent anti-overlap routing
     /// </summary>
-    private void DrawSpreadConnections(DrawingHandleScreen handle, List<FancyResearchConsoleItem> prerequisites, FancyResearchConsoleItem dependent, Color color)
+    private void DrawSpreadConnections(
+        DrawingHandleScreen handle,
+        List<FancyResearchConsoleItem> prerequisites,
+        FancyResearchConsoleItem dependent,
+        Color color
+    )
     {
         if (prerequisites.Count == 0)
             return;
@@ -151,22 +175,27 @@ public sealed partial class ResearchesContainerPanel : LayoutContainer
         }
 
         // Multiple prerequisites - spread them out intelligently to avoid overlaps
-        var prerequisiteConnections = prerequisites.Select(prereq => new
-        {
-            Item = prereq,
-            StartCoord = GetTechSideConnection(prereq, dependent),      // Exit from prerequisite
-            EndCoord = GetTechSideConnection(dependent, prereq)         // Entry to dependent
-        }).ToList();
+        var prerequisiteConnections = prerequisites
+            .Select(prereq => new
+            {
+                Item = prereq,
+                StartCoord = GetTechSideConnection(prereq, dependent), // Exit from prerequisite
+                EndCoord = GetTechSideConnection(dependent, prereq), // Entry to dependent
+            })
+            .ToList();
 
         // Sort prerequisites by angle relative to the dependent tech
         var sortedPrereqs = prerequisiteConnections
-            .Select((conn, index) => new
-            {
-                StartCoord = conn.StartCoord,
-                EndCoord = conn.EndCoord,
-                Item = conn.Item,
-                Angle = Math.Atan2(conn.StartCoord.Y - conn.EndCoord.Y, conn.StartCoord.X - conn.EndCoord.X)
-            })
+            .Select(
+                (conn, index) =>
+                    new
+                    {
+                        StartCoord = conn.StartCoord,
+                        EndCoord = conn.EndCoord,
+                        Item = conn.Item,
+                        Angle = Math.Atan2(conn.StartCoord.Y - conn.EndCoord.Y, conn.StartCoord.X - conn.EndCoord.X),
+                    }
+            )
             .OrderBy(p => p.Angle)
             .ToList();
 
@@ -176,14 +205,28 @@ public sealed partial class ResearchesContainerPanel : LayoutContainer
             var prereq = sortedPrereqs[i];
             var spreadIndex = i - (sortedPrereqs.Count - 1) / 2.0f; // Center the spread around 0
 
-            DrawSpreadConnectionWithIndex(handle, prereq.StartCoord, prereq.EndCoord, color, spreadIndex, sortedPrereqs.Count);
+            DrawSpreadConnectionWithIndex(
+                handle,
+                prereq.StartCoord,
+                prereq.EndCoord,
+                color,
+                spreadIndex,
+                sortedPrereqs.Count
+            );
         }
     }
 
     /// <summary>
     /// Draw an individual spread connection with angled routing at midpoint for anti-overlap
     /// </summary>
-    private void DrawSpreadConnectionWithIndex(DrawingHandleScreen handle, Vector2 start, Vector2 end, Color color, float spreadIndex, int totalConnections)
+    private void DrawSpreadConnectionWithIndex(
+        DrawingHandleScreen handle,
+        Vector2 start,
+        Vector2 end,
+        Color color,
+        float spreadIndex,
+        int totalConnections
+    )
     {
         const float baseOffset = 20f; // Base offset for separation
         const float indexMultiplier = 10f; // Additional offset per connection index
@@ -249,12 +292,7 @@ public sealed partial class ResearchesContainerPanel : LayoutContainer
         const float size = 2.5f;
 
         // Draw a simple small square instead of complex shapes
-        var rect = new UIBox2(
-            position.X - size,
-            position.Y - size,
-            position.X + size,
-            position.Y + size
-        );
+        var rect = new UIBox2(position.X - size, position.Y - size, position.X + size, position.Y + size);
 
         handle.DrawRect(rect, color);
     }
@@ -338,7 +376,13 @@ public sealed partial class ResearchesContainerPanel : LayoutContainer
     /// <summary>
     /// Draw connection based on the configured line type
     /// </summary>
-    private void DrawConfigurableConnection(DrawingHandleScreen handle, Vector2 start, Vector2 end, Color color, PrerequisiteLineType lineType)
+    private void DrawConfigurableConnection(
+        DrawingHandleScreen handle,
+        Vector2 start,
+        Vector2 end,
+        Color color,
+        PrerequisiteLineType lineType
+    )
     {
         var delta = end - start;
         var distance = delta.Length();
@@ -375,7 +419,13 @@ public sealed partial class ResearchesContainerPanel : LayoutContainer
     /// <summary>
     /// Draw L-shaped connection (default clean style)
     /// </summary>
-    private void DrawLShapeConnection(DrawingHandleScreen handle, Vector2 start, Vector2 end, Vector2 delta, Color color)
+    private void DrawLShapeConnection(
+        DrawingHandleScreen handle,
+        Vector2 start,
+        Vector2 end,
+        Vector2 delta,
+        Color color
+    )
     {
         const float straightLineThreshold = 15f;
         const float directDiagonalThreshold = 120f;
@@ -431,7 +481,13 @@ public sealed partial class ResearchesContainerPanel : LayoutContainer
     /// <summary>
     /// Draw spread connection that uses angled routing at midpoint to avoid tech boxes
     /// </summary>
-    private void DrawSpreadConnection(DrawingHandleScreen handle, Vector2 start, Vector2 end, Vector2 delta, Color color)
+    private void DrawSpreadConnection(
+        DrawingHandleScreen handle,
+        Vector2 start,
+        Vector2 end,
+        Vector2 delta,
+        Color color
+    )
     {
         const float straightLineThreshold = 15f;
 

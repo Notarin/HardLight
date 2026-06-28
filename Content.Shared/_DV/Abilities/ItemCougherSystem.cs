@@ -13,13 +13,26 @@ namespace Content.Shared._DV.Abilities;
 
 public sealed class ItemCougherSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly InventorySystem _inventory = default!;
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedChargesSystem _charges = default!; // Frontier: FIXME - update this to whatever delta does.
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly INetManager _net = default!;
+
+    [Dependency]
+    private readonly InventorySystem _inventory = default!;
+
+    [Dependency]
+    private readonly SharedActionsSystem _actions = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly SharedChargesSystem _charges = default!; // Frontier: FIXME - update this to whatever delta does.
 
     private EntityQuery<ItemCougherComponent> _query;
 
@@ -64,9 +77,11 @@ public sealed class ItemCougherSystem : EntitySystem
 
     private void OnCoughItemAction(Entity<ItemCougherComponent> ent, ref CoughItemActionEvent args)
     {
-        if (_inventory.TryGetSlotEntity(ent, "mask", out var maskUid) &&
-            TryComp<MaskComponent>(maskUid, out var mask) &&
-            !mask.IsToggled)
+        if (
+            _inventory.TryGetSlotEntity(ent, "mask", out var maskUid)
+            && TryComp<MaskComponent>(maskUid, out var mask)
+            && !mask.IsToggled
+        )
         {
             _popup.PopupClient(Loc.GetString("item-cougher-mask", ("mask", maskUid)), ent, ent);
             return;

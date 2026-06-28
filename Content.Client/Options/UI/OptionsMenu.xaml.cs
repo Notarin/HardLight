@@ -8,7 +8,8 @@ namespace Content.Client.Options.UI
     [GenerateTypedNameReferences]
     public sealed partial class OptionsMenu : DefaultWindow
     {
-        [Dependency] private readonly IClientAdminManager _adminManager = default!;
+        [Dependency]
+        private readonly IClientAdminManager _adminManager = default!;
 
         public OptionsMenu()
         {

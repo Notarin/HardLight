@@ -9,7 +9,8 @@ namespace Content.Shared.Damage
 {
     public sealed class SlowOnDamageSystem : EntitySystem
     {
-        [Dependency] private readonly MovementSpeedModifierSystem _movementSpeedModifierSystem = default!;
+        [Dependency]
+        private readonly MovementSpeedModifierSystem _movementSpeedModifierSystem = default!;
 
         public override void Initialize()
         {
@@ -18,7 +19,10 @@ namespace Content.Shared.Damage
             SubscribeLocalEvent<SlowOnDamageComponent, DamageChangedEvent>(OnDamageChanged);
             SubscribeLocalEvent<SlowOnDamageComponent, RefreshMovementSpeedModifiersEvent>(OnRefreshMovespeed);
 
-            SubscribeLocalEvent<ClothingSlowOnDamageModifierComponent, InventoryRelayedEvent<ModifySlowOnDamageSpeedEvent>>(OnModifySpeed);
+            SubscribeLocalEvent<
+                ClothingSlowOnDamageModifierComponent,
+                InventoryRelayedEvent<ModifySlowOnDamageSpeedEvent>
+            >(OnModifySpeed);
             SubscribeLocalEvent<ClothingSlowOnDamageModifierComponent, ExaminedEvent>(OnExamined);
             SubscribeLocalEvent<ClothingSlowOnDamageModifierComponent, ClothingGotEquippedEvent>(OnGotEquipped);
             SubscribeLocalEvent<ClothingSlowOnDamageModifierComponent, ClothingGotUnequippedEvent>(OnGotUnequipped);
@@ -28,7 +32,11 @@ namespace Content.Shared.Damage
             SubscribeLocalEvent<IgnoreSlowOnDamageComponent, ModifySlowOnDamageSpeedEvent>(OnIgnoreModifySpeed);
         }
 
-        private void OnRefreshMovespeed(EntityUid uid, SlowOnDamageComponent component, RefreshMovementSpeedModifiersEvent args)
+        private void OnRefreshMovespeed(
+            EntityUid uid,
+            SlowOnDamageComponent component,
+            RefreshMovementSpeedModifiersEvent args
+        )
         {
             if (!EntityManager.TryGetComponent<DamageableComponent>(uid, out var damage))
                 return;
@@ -63,7 +71,10 @@ namespace Content.Shared.Damage
             _movementSpeedModifierSystem.RefreshMovementSpeedModifiers(uid);
         }
 
-        private void OnModifySpeed(Entity<ClothingSlowOnDamageModifierComponent> ent, ref InventoryRelayedEvent<ModifySlowOnDamageSpeedEvent> args)
+        private void OnModifySpeed(
+            Entity<ClothingSlowOnDamageModifierComponent> ent,
+            ref InventoryRelayedEvent<ModifySlowOnDamageSpeedEvent> args
+        )
         {
             var dif = 1 - args.Args.Speed;
             if (dif <= 0)
@@ -84,7 +95,10 @@ namespace Content.Shared.Damage
             _movementSpeedModifierSystem.RefreshMovementSpeedModifiers(args.Wearer);
         }
 
-        private void OnGotUnequipped(Entity<ClothingSlowOnDamageModifierComponent> ent, ref ClothingGotUnequippedEvent args)
+        private void OnGotUnequipped(
+            Entity<ClothingSlowOnDamageModifierComponent> ent,
+            ref ClothingGotUnequippedEvent args
+        )
         {
             _movementSpeedModifierSystem.RefreshMovementSpeedModifiers(args.Wearer);
         }

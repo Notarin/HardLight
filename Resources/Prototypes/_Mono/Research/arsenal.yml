@@ -40,7 +40,7 @@
   technologyPrerequisites:
   - BasicParts
   position: 2, 1
-  
+
 - type: technology
   id: AdvancedMeleeCombatOptions
   name: research-technology-advanced-melee-combat-options

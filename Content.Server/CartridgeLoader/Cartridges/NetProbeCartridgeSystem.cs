@@ -11,10 +11,17 @@ namespace Content.Server.CartridgeLoader.Cartridges;
 
 public sealed class NetProbeCartridgeSystem : EntitySystem
 {
-    [Dependency] private readonly CartridgeLoaderSystem? _cartridgeLoaderSystem = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedAudioSystem _audioSystem = default!;
+    [Dependency]
+    private readonly CartridgeLoaderSystem? _cartridgeLoaderSystem = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audioSystem = default!;
 
     public override void Initialize()
     {
@@ -52,7 +59,6 @@ public sealed class NetProbeCartridgeSystem : EntitySystem
         var audioParams = AudioParams.Default.WithVolume(-2f).WithPitchScale((float)_random.Next(12, 21) / 10);
         _audioSystem.PlayEntity(component.SoundScan, args.InteractEvent.User, target, audioParams);
         _popupSystem.PopupCursor(Loc.GetString("net-probe-scan", ("device", target)), args.InteractEvent.User);
-
 
         //Limit the amount of saved probe results to 9
         //This is hardcoded because the UI doesn't support a dynamic number of results

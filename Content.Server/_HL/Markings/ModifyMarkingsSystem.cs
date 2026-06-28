@@ -1,20 +1,29 @@
+using Content.Shared._HL.Markings;
 using Content.Shared.Humanoid;
 using Content.Shared.Humanoid.Markings;
-using Content.Shared._HL.Markings;
-using Content.Shared.Popups;
-using Robust.Shared.Player;
-using Robust.Shared.Audio.Systems;
 using Content.Shared.IdentityManagement;
+using Content.Shared.Popups;
+using Robust.Shared.Audio.Systems;
+using Robust.Shared.Player;
 
 namespace Content.Server._HL.Markings;
 
 public sealed class ModifyMarkingsSystem : SharedModifyMarkingsSystem
 {
-    [Dependency] private readonly IEntityManager _entMan = default!;
-    [Dependency] private readonly MarkingManager _markingManager = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedHumanoidAppearanceSystem _humanoid = default!;
+    [Dependency]
+    private readonly IEntityManager _entMan = default!;
+
+    [Dependency]
+    private readonly MarkingManager _markingManager = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly SharedHumanoidAppearanceSystem _humanoid = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -50,7 +59,8 @@ public sealed class ModifyMarkingsSystem : SharedModifyMarkingsSystem
             var selfPopup = Loc.GetString(
                 "marking-toggle-self",
                 ("marking-name", localizedName),
-                ("verb", isVisible ? marking.TakeOffVerb : marking.PutOnVerb));
+                ("verb", isVisible ? marking.TakeOffVerb : marking.PutOnVerb)
+            );
             _popupSystem.PopupClient(selfPopup, target, target, PopupType.Medium);
         }
         else
@@ -59,7 +69,8 @@ public sealed class ModifyMarkingsSystem : SharedModifyMarkingsSystem
             var userPopup = Loc.GetString(
                 "marking-toggle-other",
                 ("marking-name", localizedName),
-                ("verb", isVisible ? marking.TakeOffVerb : marking.PutOnVerb));
+                ("verb", isVisible ? marking.TakeOffVerb : marking.PutOnVerb)
+            );
             _popupSystem.PopupClient(userPopup, user, user, PopupType.Medium);
 
             // to the target
@@ -67,7 +78,8 @@ public sealed class ModifyMarkingsSystem : SharedModifyMarkingsSystem
                 "marking-toggle-by-other",
                 ("marking-name", localizedName),
                 ("verb", isVisible ? marking.TakeOffVerb2p : marking.PutOnVerb2p),
-                ("other", Identity.Entity(user, _entMan)));
+                ("other", Identity.Entity(user, _entMan))
+            );
             _popupSystem.PopupClient(targetPopup, target, target, PopupType.MediumCaution);
         }
 
@@ -75,5 +87,4 @@ public sealed class ModifyMarkingsSystem : SharedModifyMarkingsSystem
         if (mProt.MarkingCategory != MarkingCategories.Genital)
             _audio.PlayEntity(ent.Comp.Sound, Filter.Entities(user, target), target, false);
     }
-
 }

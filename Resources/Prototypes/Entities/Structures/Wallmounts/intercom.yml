@@ -35,7 +35,7 @@
   - type: WiresPanelSecurity
   - type: ContainerFill
     containers:
-      board: [ IntercomElectronics ]
+      board: [IntercomElectronics]
   - type: ContainerContainer
     containers:
       board: !type:Container
@@ -88,41 +88,39 @@
     damageModifierSet: StructuralMetallic
   - type: Destructible
     thresholds:
-      - trigger:
-          !type:DamageTrigger
-          damage: 200
-        behaviors:
-          - !type:DoActsBehavior
-            acts: [ "Destruction" ]
-      - trigger:
-          !type:DamageTrigger
-          damage: 100
-        behaviors:
-          - !type:DoActsBehavior
-            acts: [ "Destruction" ]
-          - !type:PlaySoundBehavior
-            sound:
-              collection: MetalGlassBreak
-              params:
-                volume: -4
+    - trigger: !type:DamageTrigger
+        damage: 200
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
+        damage: 100
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalGlassBreak
+          params:
+            volume: -4
   - type: GenericVisualizer
     visuals:
       enum.WiresVisualLayers.MaintenancePanel:
         enum.WiresVisualLayers.MaintenancePanel:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
       enum.PowerDeviceVisuals.Powered:
         enum.PowerDeviceVisualLayers.Powered:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
       enum.RadioDeviceVisuals.Broadcasting:
         enum.RadioDeviceVisualLayers.Broadcasting:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
       enum.RadioDeviceVisuals.Speaker:
         enum.RadioDeviceVisualLayers.Speaker:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
   placement:
     mode: SnapgridCenter
     snap:
@@ -143,14 +141,14 @@
     - state: build
     - state: panel
       visible: false
-      map: [ "wires" ]
+      map: ["wires"]
   - type: Appearance
   - type: GenericVisualizer
     visuals:
       enum.ConstructionVisuals.Layer:
         wires:
-          0: { visible: false }
-          1: { visible: true }
+          0: {visible: false}
+          1: {visible: true}
   - type: Construction
     graph: Intercom
     node: assembly
@@ -244,7 +242,7 @@
   parent: [BaseStructureIndestructible, BaseIntercomSecure] # Frontier - added BaseStructureIndestructible
   suffix: Command
   description: An intercom. It's been reinforced with metal.
-  categories: [ DoNotMap ] # Frontier
+  categories: [DoNotMap] # Frontier
   components:
   - type: ContainerFill
     containers:

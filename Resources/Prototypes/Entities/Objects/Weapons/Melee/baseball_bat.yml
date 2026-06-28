@@ -65,7 +65,7 @@
   parent: BaseBallBat
   id: WeaponMeleeKnockbackStick
   description: And then he spleefed all over.
-  categories: [ DoNotMap ]
+  categories: [DoNotMap]
   components:
   - type: MeleeThrowOnHit
   - type: MeleeWeapon

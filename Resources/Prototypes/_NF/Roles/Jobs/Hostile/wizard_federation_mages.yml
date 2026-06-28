@@ -9,7 +9,7 @@
     neck: ClothingNeckScarfStripedLightBlue
     outerClothing: ClothingOuterWizard
   inhand:
-    - WizardStaffMeleeBase
+  - WizardStaffMeleeBase
 
 - type: startingGear
   id: NPCWizardRedGear
@@ -21,7 +21,7 @@
     neck: ClothingNeckScarfStripedRed
     outerClothing: ClothingOuterWizardRed
   inhand:
-    - WizardStaffMeleeRed
+  - WizardStaffMeleeRed
 
 - type: startingGear
   id: NPCWizardVioletGear
@@ -33,7 +33,7 @@
     neck: ClothingNeckScarfStripedPurple
     outerClothing: ClothingOuterWizardViolet
   inhand:
-    - WizardStaffMeleeViolet
+  - WizardStaffMeleeViolet
 
 - type: startingGear
   id: NPCWizardSoapGear
@@ -46,8 +46,8 @@
     outerClothing: ClothingOuterClownPriest
     pocket1: BikeHorn
   inhand:
-#    - ToyHammer
-     - WizardStaffMeleeSoap
+  #    - ToyHammer
+  - WizardStaffMeleeSoap
 
 # Hardsuits
 - type: startingGear
@@ -60,7 +60,7 @@
     neck: ClothingNeckScarfStripedLightBlue
     outerClothing: ClothingOuterArmorMagusblue # Well, it's not a hardsuit but whatever
   inhand:
-    - WizardStaffMeleeBase
+  - WizardStaffMeleeBase
 
 - type: startingGear
   id: NPCWizardRedHardsuitGear
@@ -72,7 +72,7 @@
     neck: ClothingNeckScarfStripedRed
     outerClothing: ClothingOuterArmorMagusred # Well, it's not a hardsuit but whatever
   inhand:
-    - WizardStaffMeleeRed
+  - WizardStaffMeleeRed
 
 - type: startingGear
   id: NPCWizardVioletHardsuitGear
@@ -84,7 +84,7 @@
     neck: ClothingNeckScarfStripedPurple
     outerClothing: ClothingOuterHardsuitWizard
   inhand:
-    - WizardStaffMeleeViolet
+  - WizardStaffMeleeViolet
 
 - type: startingGear
   id: NPCWizardSoapHardsuitGear
@@ -97,7 +97,7 @@
     neck: ClothingNeckScarfStripedRed
     outerClothing: ClothingOuterHardsuitClown
   inhand:
-    - WizardStaffMeleeSoap
+  - WizardStaffMeleeSoap
 
 # Expedition enemies
 
@@ -108,7 +108,7 @@
     back: ClothingBackpackT1WizardLoot
     jumpsuit: ClothingUniformJumpsuitLoungewear
   inhand:
-    - ReinforcedShiv
+  - ReinforcedShiv
 
 - type: startingGear
   id: MobHumanoidWizardRangedT1
@@ -117,7 +117,7 @@
     back: ClothingBackpackT1WizardLoot
     outerClothing: ClothingOuterWizardRed
   inhand:
-    - WizardStaffMeleeRed
+  - WizardStaffMeleeRed
 
 - type: startingGear
   id: MobHumanoidWizardRangedT2
@@ -127,7 +127,7 @@
     back: ClothingBackpackT2WizardLoot
     outerClothing: ClothingOuterWizard
   inhand:
-    - WizardStaffMeleeBase
+  - WizardStaffMeleeBase
 
 - type: startingGear
   id: MobHumanoidWizardGearSupportT3
@@ -137,7 +137,7 @@
     back: ClothingBackpackT3WizardLoot
     outerClothing: ClothingOuterHoodieChaplain
   inhand:
-    - WizardStaffMeleeBase
+  - WizardStaffMeleeBase
 
 - type: startingGear
   id: MobHumanoidWizardGearMixedT3
@@ -147,7 +147,7 @@
     back: ClothingBackpackT3WizardLoot
     outerClothing: ClothingOuterArmorMagusblue
   inhand:
-    - WizardStaffMeleeBase
+  - WizardStaffMeleeBase
 
 - type: startingGear
   id: MobHumanoidWizardGearBoss
@@ -159,5 +159,5 @@
     neck: ClothingNeckScarfStripedPurple
     outerClothing: ClothingOuterHardsuitWizard
   inhand:
-    - Claymore
-    - WizardStaffMeleeViolet
+  - Claymore
+  - WizardStaffMeleeViolet

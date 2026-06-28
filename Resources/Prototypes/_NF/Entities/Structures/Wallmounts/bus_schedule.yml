@@ -15,7 +15,7 @@
     - state: body
     - state: top_greyscale
       color: "#aaaaaa"
-      map: [ "enum.PublicTransitVisualLayers.Livery" ]
+      map: ["enum.PublicTransitVisualLayers.Livery"]
   - type: BusSchedule
   - type: Appearance
   - type: PublicTransitVisuals

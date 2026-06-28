@@ -18,9 +18,14 @@ namespace Content.Client.Audio;
 // Part of ContentAudioSystem that is responsible for lobby music playing/stopping and round-end sound-effect.
 public sealed partial class ContentAudioSystem
 {
-    [Dependency] private readonly IBaseClient _client = default!;
-    [Dependency] private readonly ClientGameTicker _gameTicker = default!;
-    [Dependency] private readonly IResourceCache _resourceCache = default!;
+    [Dependency]
+    private readonly IBaseClient _client = default!;
+
+    [Dependency]
+    private readonly ClientGameTicker _gameTicker = default!;
+
+    [Dependency]
+    private readonly IResourceCache _resourceCache = default!;
 
     private readonly AudioParams _lobbySoundtrackParams = new(-5f, 1, 0, 0, 0, false, 0f);
     private readonly AudioParams _roundEndSoundEffectParams = new(-5f, 1, 0, 0, 0, false, 0f);
@@ -107,7 +112,8 @@ public sealed partial class ContentAudioSystem
         {
             _audio.SetVolume(
                 _lobbySoundtrackInfo.MusicStreamEntityUid,
-                _lobbySoundtrackParams.Volume + SharedAudioSystem.GainToVolume(_configManager.GetCVar(CCVars.LobbyMusicVolume))
+                _lobbySoundtrackParams.Volume
+                    + SharedAudioSystem.GainToVolume(_configManager.GetCVar(CCVars.LobbyMusicVolume))
             );
         }
     }
@@ -128,10 +134,7 @@ public sealed partial class ContentAudioSystem
     {
         var playlist = playlistChangedEvent.Playlist;
         //playlist is already playing, no need to restart it
-        if (_lobbySoundtrackInfo != null
-            && _lobbyPlaylist != null
-            && _lobbyPlaylist.SequenceEqual(playlist)
-           )
+        if (_lobbySoundtrackInfo != null && _lobbyPlaylist != null && _lobbyPlaylist.SequenceEqual(playlist))
         {
             return;
         }
@@ -182,13 +185,17 @@ public sealed partial class ContentAudioSystem
             soundtrackFilename,
             Filter.Local(),
             false,
-            _lobbySoundtrackParams.WithVolume(_lobbySoundtrackParams.Volume + SharedAudioSystem.GainToVolume(_configManager.GetCVar(CCVars.LobbyMusicVolume)))
+            _lobbySoundtrackParams.WithVolume(
+                _lobbySoundtrackParams.Volume
+                    + SharedAudioSystem.GainToVolume(_configManager.GetCVar(CCVars.LobbyMusicVolume))
+            )
         );
         if (playResult == null)
         {
             _sawmill.Warning(
                 $"Tried to play lobby soundtrack '{{Filename}}' using {nameof(SharedAudioSystem)}.{nameof(SharedAudioSystem.PlayGlobal)} but it returned default value of EntityUid!",
-                soundtrackFilename);
+                soundtrackFilename
+            );
             return;
         }
 
@@ -223,12 +230,17 @@ public sealed partial class ContentAudioSystem
             return;
         }
 
-        _lobbyRoundRestartAudioStream = _audio.PlayGlobal(
-            file,
-            Filter.Local(),
-            false,
-            _roundEndSoundEffectParams.WithVolume(_roundEndSoundEffectParams.Volume + SharedAudioSystem.GainToVolume(_configManager.GetCVar(CCVars.LobbyMusicVolume)))
-        )?.Entity;
+        _lobbyRoundRestartAudioStream = _audio
+            .PlayGlobal(
+                file,
+                Filter.Local(),
+                false,
+                _roundEndSoundEffectParams.WithVolume(
+                    _roundEndSoundEffectParams.Volume
+                        + SharedAudioSystem.GainToVolume(_configManager.GetCVar(CCVars.LobbyMusicVolume))
+                )
+            )
+            ?.Entity;
     }
 
     private void ShutdownLobbyMusic()
@@ -246,7 +258,7 @@ public sealed partial class ContentAudioSystem
             _lobbySoundtrackInfo != null
             && _timing.CurTime >= _lobbySoundtrackInfo.NextTrackOn
             && _lobbyPlaylist?.Length > 0
-            )
+        )
         {
             var nextSoundtrackFilename = GetNextSoundtrackFromPlaylist(_lobbySoundtrackInfo.Filename, _lobbyPlaylist);
             PlaySoundtrack(nextSoundtrackFilename);

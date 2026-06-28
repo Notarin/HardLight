@@ -10,12 +10,23 @@ namespace Content.Shared.Chemistry.EntitySystems;
 
 public sealed class RehydratableSystem : EntitySystem
 {
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solutions = default!;
-    [Dependency] private readonly SharedTransformSystem _xform = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
+    [Dependency]
+    private readonly INetManager _net = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly SharedSolutionContainerSystem _solutions = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _xform = default!;
+
+    [Dependency]
+    private readonly ISharedAdminLogManager _adminLogger = default!;
 
     public override void Initialize()
     {
@@ -27,7 +38,11 @@ public sealed class RehydratableSystem : EntitySystem
     private void OnSolutionChange(Entity<RehydratableComponent> ent, ref SolutionContainerChangedEvent args)
     {
         var quantity = _solutions.GetTotalPrototypeQuantity(ent, ent.Comp.CatalystPrototype);
-        _adminLogger.Add(LogType.Action, LogImpact.Medium, $"{ToPrettyString(ent.Owner)} was hydrated, now contains a solution of: {SharedSolutionContainerSystem.ToPrettyString(args.Solution)}.");
+        _adminLogger.Add(
+            LogType.Action,
+            LogImpact.Medium,
+            $"{ToPrettyString(ent.Owner)} was hydrated, now contains a solution of: {SharedSolutionContainerSystem.ToPrettyString(args.Solution)}."
+        );
         if (quantity != FixedPoint2.Zero && quantity >= ent.Comp.CatalystMinimum)
         {
             Expand(ent);
@@ -45,7 +60,11 @@ public sealed class RehydratableSystem : EntitySystem
         var randomMob = _random.Pick(comp.PossibleSpawns);
 
         var target = Spawn(randomMob, Transform(uid).Coordinates);
-        _adminLogger.Add(LogType.Action, LogImpact.Medium, $"{ToPrettyString(ent.Owner)} has been hydrated correctly and spawned: {ToPrettyString(target)}.");
+        _adminLogger.Add(
+            LogType.Action,
+            LogImpact.Medium,
+            $"{ToPrettyString(ent.Owner)} has been hydrated correctly and spawned: {ToPrettyString(target)}."
+        );
 
         _popup.PopupEntity(Loc.GetString("rehydratable-component-expands-message", ("owner", uid)), target);
 

@@ -159,28 +159,20 @@ entities:
       pos: 0.50006104,1.4869615
       parent: 1
     - type: Paper
-      content: >+
+      content: >
         [head=2][bold]Steps to flying:[/bold][/head]
-
 
         1. Locate power generation or storage. Some small crafts utilize P.A.C.M.A.N. brand generators.
 
-
         2. Ensure your generator is connected to the power network. Some small crafts utilize only a Medium Voltage (MV) network!
-
 
         3. Fuel and start your generator or power source.
 
-
         4. Wait for your shuttle to prime, and all services to come online.
-
 
         5. Use the Shuttle Console to locate your destination of choice. You may find further away destinations on the Map tab when scanning for objects.
 
-
         6. Attempt to avoid crashing you forgot to buy insurance.
-
-
 
 - proto: CableApcExtension
   entities:
@@ -522,4 +514,3 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 2.5,1.5
       parent: 1
-...

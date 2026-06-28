@@ -1,7 +1,7 @@
 using System.Linq;
 using Content.Server.Popups;
-using Content.Shared.Spider;
 using Content.Shared.Maps;
+using Content.Shared.Spider;
 using Robust.Server.GameObjects;
 using Robust.Shared.Map;
 
@@ -9,7 +9,8 @@ namespace Content.Server.Spider;
 
 public sealed class SpiderSystem : SharedSpiderSystem
 {
-    [Dependency] private readonly PopupSystem _popup = default!;
+    [Dependency]
+    private readonly PopupSystem _popup = default!;
 
     public override void Initialize()
     {
@@ -45,7 +46,7 @@ public sealed class SpiderSystem : SharedSpiderSystem
         // Spawn web in other directions
         for (var i = 0; i < 4; i++)
         {
-            var direction = (DirectionFlag) (1 << i);
+            var direction = (DirectionFlag)(1 << i);
             coords = transform.Coordinates.Offset(direction.AsDir().ToVec());
 
             if (!IsTileBlockedByWeb(coords))

@@ -15,18 +15,18 @@ jobs:
     if: github.event.review.state == 'approved' && github.event.pull_request.head.repo.full_name != github.repository
     runs-on: ubuntu-latest
     steps:
-      - name: Save PR context
-        run: |
-          mkdir -p ./pr
-          echo "$PR_NO" > ./pr/NR
-          echo "$LABEL" > ./pr/LABEL
+    - name: Save PR context
+      run: |
+        mkdir -p ./pr
+        echo "$PR_NO" > ./pr/NR
+        echo "$LABEL" > ./pr/LABEL
 
-      - name: Upload PR number
-        uses: actions/upload-artifact@v4
-        with:
-          name: pr-approval-${{ github.run_id }}
-          path: pr/
-          retention-days: 1
+    - name: Upload PR number
+      uses: actions/upload-artifact@v4
+      with:
+        name: pr-approval-${{ github.run_id }}
+        path: pr/
+        retention-days: 1
 
   # For PRs from local branches, we don't need to do all that shit
   branch-approval:
@@ -37,14 +37,14 @@ jobs:
       issues: write
       pull-requests: write
     steps:
-      - name: Add Label
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GH_REPO: ${{ github.repository }}
-        run: gh pr edit "$PR_NO" --add-label "$LABEL"
-      - name: Remove Old Label
-        continue-on-error: true
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GH_REPO: ${{ github.repository }}
-        run: gh pr edit "$PR_NO" --repo "${{ github.repository }}" --remove-label "$OLD_LABEL"
+    - name: Add Label
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GH_REPO: ${{ github.repository }}
+      run: gh pr edit "$PR_NO" --add-label "$LABEL"
+    - name: Remove Old Label
+      continue-on-error: true
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GH_REPO: ${{ github.repository }}
+      run: gh pr edit "$PR_NO" --repo "${{ github.repository }}" --remove-label "$OLD_LABEL"

@@ -22,14 +22,14 @@
   - type: BallisticAmmoProvider
     whitelist:
       tags:
-        - BulletFoam
+      - BulletFoam
     capacity: 40
     proto: BulletFoam # Frontier
   - type: Sprite
     sprite: Objects/Storage/boxes.rsi
     layers:
-      - state: boxwidetoy
-      - state: shelltoy
+    - state: boxwidetoy
+    - state: shelltoy
 
 - type: entity
   parent: BaseAmmoBox45_magnum
@@ -46,8 +46,8 @@
   - type: Sprite
     sprite: Objects/Weapons/Guns/Ammunition/Boxes/magnum.rsi # Frontier: add _NF prefix
     layers:
-      - state: capbase # Frontier: base<capbase
-        map: ["enum.GunVisualLayers.Base"]
-      - state: mag-cap-1
-        map: ["enum.GunVisualLayers.Mag"]
-      - state: capbase # Frontier
+    - state: capbase # Frontier: base<capbase
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-cap-1
+      map: ["enum.GunVisualLayers.Mag"]
+    - state: capbase # Frontier

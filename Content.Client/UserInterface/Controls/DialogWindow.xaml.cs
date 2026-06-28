@@ -59,7 +59,14 @@ public sealed partial class DialogWindow : FancyWindow
             var entry = entries[i];
 
             var box = new BoxContainer();
-            box.AddChild(new Label() { Text = entry.Prompt, HorizontalExpand = true, SizeFlagsStretchRatio = 0.5f });
+            box.AddChild(
+                new Label()
+                {
+                    Text = entry.Prompt,
+                    HorizontalExpand = true,
+                    SizeFlagsStretchRatio = 0.5f,
+                }
+            );
 
             var edit = new LineEdit() { HorizontalExpand = true };
 
@@ -69,7 +76,7 @@ public sealed partial class DialogWindow : FancyWindow
                 QuickDialogEntryType.Float => (VerifyFloat, "float"),
                 QuickDialogEntryType.ShortText => (VerifyShortText, "short-text"),
                 QuickDialogEntryType.LongText => (VerifyLongText, "long-text"),
-                _ => throw new ArgumentOutOfRangeException()
+                _ => throw new ArgumentOutOfRangeException(),
             };
             var (valid, name) = pair;
 
@@ -110,7 +117,7 @@ public sealed partial class DialogWindow : FancyWindow
     protected override void Opened()
     {
         base.Opened();
-        
+
         // Grab keyboard focus for the first dialog entry
         _promptLines[0].Item2.GrabKeyboardFocus();
     }

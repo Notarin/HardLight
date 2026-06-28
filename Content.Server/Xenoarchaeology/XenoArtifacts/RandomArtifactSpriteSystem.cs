@@ -9,10 +9,17 @@ namespace Content.Server.Xenoarchaeology.XenoArtifacts;
 
 public sealed class RandomArtifactSpriteSystem : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IGameTiming _time = default!;
-    [Dependency] private readonly AppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedItemSystem _item = default!;
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly IGameTiming _time = default!;
+
+    [Dependency]
+    private readonly AppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SharedItemSystem _item = default!;
 
     public override void Initialize()
     {

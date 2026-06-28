@@ -16,7 +16,7 @@
     - Common
     - Faction
     - Freelance
-  # HardLight end
+    # HardLight end
 
 - type: entity
   parent: ClothingHeadset
@@ -40,7 +40,7 @@
     - Security
     - Common
     - Faction
-  # HardLight end
+    # HardLight end
 
 - type: entity
   parent: ClothingHeadsetNfsdBrown

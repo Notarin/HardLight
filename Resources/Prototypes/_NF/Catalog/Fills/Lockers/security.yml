@@ -5,10 +5,10 @@
   components:
   - type: StorageFill
     contents:
-      - id: PinpointerUniversal
-      - id: HandHeldMassScanner
-      - id: WeaponGrapplingGun
-      - id: BoxZiptie
+    - id: PinpointerUniversal
+    - id: HandHeldMassScanner
+    - id: WeaponGrapplingGun
+    - id: BoxZiptie
 
 - type: entity
   id: LockerNfsdSilverDetectiveFilled
@@ -17,10 +17,10 @@
   components:
   - type: StorageFill
     contents:
-      - id: BoxForensicPad
-      - id: DrinkDetFlask
-      - id: BoxEvidenceMarkers
-      - id: HandLabeler
+    - id: BoxForensicPad
+    - id: DrinkDetFlask
+    - id: BoxEvidenceMarkers
+    - id: HandLabeler
   - type: AccessReader
     access: [["Detective"]]
 
@@ -30,8 +30,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: ClothingHeadHelmetBasic
-      - id: ClothingOuterArmorBasic
+    - id: ClothingHeadHelmetBasic
+    - id: ClothingOuterArmorBasic
 
 - type: entity
   id: NFClosetBombFilled
@@ -39,11 +39,11 @@
   components:
   - type: StorageFill
     contents:
-      - id: ClothingHeadHelmetBombSuit
-      - id: ClothingOuterSuitBomb
-      - id: Wirecutter
-      - id: Screwdriver
-      - id: Multitool
+    - id: ClothingHeadHelmetBombSuit
+    - id: ClothingOuterSuitBomb
+    - id: Wirecutter
+    - id: Screwdriver
+    - id: Multitool
 
 - type: entity
   parent: GunSafe

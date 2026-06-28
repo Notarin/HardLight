@@ -1,5 +1,5 @@
-using Content.Shared.HL.Silicons.Components;
 using Content.Shared.HL.Silicons;
+using Content.Shared.HL.Silicons.Components;
 using Content.Shared.Inventory;
 using Content.Shared.Silicons.Laws.Components;
 using Content.Shared.Verbs;
@@ -11,7 +11,8 @@ namespace Content.Client.HL.Silicons;
 
 public sealed class GovernorLawAccessVerbSystem : EntitySystem
 {
-    [Dependency] private readonly InventorySystem _inventory = default!;
+    [Dependency]
+    private readonly InventorySystem _inventory = default!;
 
     public override void Initialize()
     {
@@ -39,11 +40,15 @@ public sealed class GovernorLawAccessVerbSystem : EntitySystem
             return;
 
         // Keep this verb descriptor aligned with server-side GovernorLawAccessSystem so execution matches.
-        args.Verbs.Add(new AlternativeVerb
-        {
-            Text = Loc.GetString(GovernorLawAccessShared.ManageLawsLocKey),
-            Icon = new SpriteSpecifier.Rsi(GovernorLawAccessShared.ManageLawsIconRsiPath, GovernorLawAccessShared.ManageLawsIconState)
-        });
+        args.Verbs.Add(
+            new AlternativeVerb
+            {
+                Text = Loc.GetString(GovernorLawAccessShared.ManageLawsLocKey),
+                Icon = new SpriteSpecifier.Rsi(
+                    GovernorLawAccessShared.ManageLawsIconRsiPath,
+                    GovernorLawAccessShared.ManageLawsIconState
+                ),
+            }
+        );
     }
-
 }

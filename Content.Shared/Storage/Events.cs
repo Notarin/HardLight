@@ -9,9 +9,7 @@ public sealed partial class AreaPickupDoAfterEvent : DoAfterEvent
     [DataField("entities", required: true)]
     public IReadOnlyList<NetEntity> Entities = default!;
 
-    private AreaPickupDoAfterEvent()
-    {
-    }
+    private AreaPickupDoAfterEvent() { }
 
     public AreaPickupDoAfterEvent(List<NetEntity> entities)
     {

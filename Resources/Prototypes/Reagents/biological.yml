@@ -20,9 +20,9 @@
       - !type:SatiateThirst
         factor: 1.0
         conditions:
-          - !type:OrganType
-            type: Human
-            shouldHave: false
+        - !type:OrganType
+          type: Human
+          shouldHave: false
       - !type:SatiateHunger
         factor: 0.5
         conditions:
@@ -48,14 +48,14 @@
         amount: 0.1 # hardlight 0.3 -> 0.1
     Food:
       effects:
-        - !type:AdjustReagent
-          reagent: UncookedAnimalProteins
-          amount: 0.01 # Frontier - 0.1<0.01 | Floof has this at 0.125 for vampires but I guess we'll see if this has issues with 0.01 first for whatever reason
-          # Floofstation - prevent vampires from getting sick by drinking blood
-          conditions:
-          - !type:OrganType
-            type: Vampiric
-            shouldHave: false
+      - !type:AdjustReagent
+        reagent: UncookedAnimalProteins
+        amount: 0.01 # Frontier - 0.1<0.01 | Floof has this at 0.125 for vampires but I guess we'll see if this has issues with 0.01 first for whatever reason
+        # Floofstation - prevent vampires from getting sick by drinking blood
+        conditions:
+        - !type:OrganType
+          type: Vampiric
+          shouldHave: false
     Medicine:
       effects:
       - !type:HealthChange
@@ -67,8 +67,8 @@
             Brute: -3
             Burn: -1.25
   plantMetabolism:
-    - !type:PlantAdjustWater
-      amount: 0.5
+  - !type:PlantAdjustWater
+    amount: 0.5
   footstepSound:
     collection: FootstepBlood
     params:
@@ -96,13 +96,13 @@
   physicalDesc: reagent-physical-desc-viscous
   viscosity: 0.25
   tileReactions:
-    - !type:SpillTileReaction
-#  metabolisms: # Frontier
-#    Food: # Frontier
-#      # Delicious! # Frontier
-#      effects: # Frontier
-#      - !type:SatiateHunger # Frontier
-#        factor: 1 # Frontier
+  - !type:SpillTileReaction
+  #  metabolisms: # Frontier
+  #    Food: # Frontier
+  #      # Delicious! # Frontier
+  #      effects: # Frontier
+  #      - !type:SatiateHunger # Frontier
+  #        factor: 1 # Frontier
   footstepSound:
     collection: FootstepBlood
     params:
@@ -119,15 +119,15 @@
   physicalDesc: reagent-physical-desc-sticky
   viscosity: 0.10
   tileReactions:
-    - !type:SpillTileReaction
-#  metabolisms: # Frontier
-#    Food: # Frontier
-#      # Sweet! # Frontier
-#      effects: # Frontier
-#      - !type:SatiateHunger # Frontier
-#        factor: 1 # Frontier
-#      - !type:SatiateThirst # Frontier
-#        factor: 1 # Frontier
+  - !type:SpillTileReaction
+  #  metabolisms: # Frontier
+  #    Food: # Frontier
+  #      # Sweet! # Frontier
+  #      effects: # Frontier
+  #      - !type:SatiateHunger # Frontier
+  #        factor: 1 # Frontier
+  #      - !type:SatiateThirst # Frontier
+  #        factor: 1 # Frontier
   footstepSound:
     collection: FootstepBlood
     params:
@@ -160,9 +160,9 @@
       - !type:SatiateThirst
         factor: 1.0
         conditions:
-          - !type:OrganType
-            type: Human
-            shouldHave: false
+        - !type:OrganType
+          type: Human
+          shouldHave: false
       - !type:SatiateHunger
         factor: 0.5
         conditions:

@@ -6,7 +6,7 @@
   components:
   - type: Reactive
     groups:
-      Extinguish: [ Touch ]
+      Extinguish: [Touch]
   - type: ExtinguishableSetCollisionWake
   - type: Smokable
   - type: Sprite
@@ -38,8 +38,8 @@
       smokable:
         maxVol: 20
         reagents:
-          - ReagentId: Nicotine
-            Quantity: 10
+        - ReagentId: Nicotine
+          Quantity: 10
 
 - type: entity
   parent: BaseSmokable
@@ -57,7 +57,7 @@
       name: smoking-pipe-slot-component-slot-name-bowl
       whitelist:
         tags:
-          - Smokable
+        - Smokable
       insertSound:
         path: /Audio/Weapons/Guns/Empty/empty.ogg
       ejectSound:

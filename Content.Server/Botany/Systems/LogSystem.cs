@@ -11,10 +11,17 @@ namespace Content.Server.Botany.Systems;
 
 public sealed class LogSystem : EntitySystem
 {
-    [Dependency] private readonly SharedHandsSystem _handsSystem = default!;
-    [Dependency] private readonly SharedContainerSystem _containerSystem = default!;
-    [Dependency] private readonly RandomHelperSystem _randomHelper = default!;
-    [Dependency] private readonly StackSystem _stackSystem = default!;
+    [Dependency]
+    private readonly SharedHandsSystem _handsSystem = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _containerSystem = default!;
+
+    [Dependency]
+    private readonly RandomHelperSystem _randomHelper = default!;
+
+    [Dependency]
+    private readonly StackSystem _stackSystem = default!;
 
     public override void Initialize()
     {

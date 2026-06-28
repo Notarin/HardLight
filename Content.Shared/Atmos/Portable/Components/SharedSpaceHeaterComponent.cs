@@ -6,14 +6,12 @@ namespace Content.Shared.Atmos.Piping.Portable.Components;
 [NetSerializable]
 public enum SpaceHeaterUiKey
 {
-    Key
+    Key,
 }
 
 [Serializable]
 [NetSerializable]
-public sealed class SpaceHeaterToggleMessage : BoundUserInterfaceMessage
-{
-}
+public sealed class SpaceHeaterToggleMessage : BoundUserInterfaceMessage { }
 
 [Serializable]
 [NetSerializable]
@@ -62,7 +60,14 @@ public sealed class SpaceHeaterBoundUserInterfaceState : BoundUserInterfaceState
     public SpaceHeaterMode Mode { get; }
     public SpaceHeaterPowerLevel PowerLevel { get; }
 
-    public SpaceHeaterBoundUserInterfaceState(float minTemperature, float maxTemperature, float temperature, bool enabled, SpaceHeaterMode mode, SpaceHeaterPowerLevel powerLevel)
+    public SpaceHeaterBoundUserInterfaceState(
+        float minTemperature,
+        float maxTemperature,
+        float temperature,
+        bool enabled,
+        SpaceHeaterMode mode,
+        SpaceHeaterPowerLevel powerLevel
+    )
     {
         MinTemperature = minTemperature;
         MaxTemperature = maxTemperature;
@@ -78,7 +83,7 @@ public enum SpaceHeaterMode : byte
 {
     Auto,
     Heat,
-    Cool
+    Cool,
 }
 
 [Serializable, NetSerializable]
@@ -86,5 +91,5 @@ public enum SpaceHeaterPowerLevel : byte
 {
     Low,
     Medium,
-    High
+    High,
 }

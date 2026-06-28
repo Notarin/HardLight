@@ -20,7 +20,7 @@ namespace Content.Tests.Shared.Gamestates
             foreach (var compType in comps)
             {
                 // Any component should be able to be instantiated without DI injection.
-                _ = (IComponent) Activator.CreateInstance(compType);
+                _ = (IComponent)Activator.CreateInstance(compType);
             }
         }
 
@@ -53,15 +53,13 @@ namespace Content.Tests.Shared.Gamestates
         {
             protected override IEnumerable<string> TypePrefixes => Prefixes;
 
-            private static readonly string[] Prefixes = {
+            private static readonly string[] Prefixes =
+            {
                 "",
-
                 "Robust.Client.",
                 "Content.Client.",
-
                 "Robust.Shared.",
                 "Content.Shared.",
-
                 "Robust.Server.",
                 "Content.Server.",
             };

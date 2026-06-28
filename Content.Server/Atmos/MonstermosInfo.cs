@@ -46,16 +46,15 @@ namespace Content.Server.Atmos
                     AtmosDirection.West => TransferDirectionWest,
                     AtmosDirection.North => TransferDirectionNorth,
                     AtmosDirection.South => TransferDirectionSouth,
-                    _ => throw new ArgumentOutOfRangeException(nameof(direction))
+                    _ => throw new ArgumentOutOfRangeException(nameof(direction)),
                 };
-
             set
             {
                 switch (direction)
                 {
                     case AtmosDirection.East:
-                         TransferDirectionEast = value;
-                         break;
+                        TransferDirectionEast = value;
+                        break;
                     case AtmosDirection.West:
                         TransferDirectionWest = value;
                         break;
@@ -73,8 +72,8 @@ namespace Content.Server.Atmos
 
         public float this[int index]
         {
-            get => this[(AtmosDirection) (1 << index)];
-            set => this[(AtmosDirection) (1 << index)] = value;
+            get => this[(AtmosDirection)(1 << index)];
+            set => this[(AtmosDirection)(1 << index)] = value;
         }
     }
 }

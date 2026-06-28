@@ -24,7 +24,11 @@ public sealed class StickyVisualizerSystem : VisualizerSystem<StickyVisualizerCo
         ent.Comp.OriginalDrawDepth = sprite.DrawDepth;
     }
 
-    protected override void OnAppearanceChange(EntityUid uid, StickyVisualizerComponent comp, ref AppearanceChangeEvent args)
+    protected override void OnAppearanceChange(
+        EntityUid uid,
+        StickyVisualizerComponent comp,
+        ref AppearanceChangeEvent args
+    )
     {
         if (args.Sprite == null)
             return;

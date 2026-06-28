@@ -5,7 +5,7 @@
   name: mail-item-name-unaddressed
   components:
   - type: Item
-#    size: Normal # Frontier
+    #    size: Normal # Frontier
     storedRotation: -90
   - type: Mail
   - type: AccessReader
@@ -76,18 +76,16 @@
     damageContainer: Inorganic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 5
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Breakage" ]
-    - trigger:
-        !type:DamageTrigger
+        acts: ["Breakage"]
+    - trigger: !type:DamageTrigger
         damage: 40
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: Speech
   - type: DamageOnLand
     damage:
@@ -100,7 +98,7 @@
 # This empty parcel is allowed to exist and evade the tests for the admin
 # mailto command.
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailAdminFun
   suffix: adminfun

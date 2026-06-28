@@ -1,8 +1,9 @@
-using Robust.Shared.Audio;
 using Content.Shared.Damage;
 using Content.Shared.Popups;
+using Robust.Shared.Audio;
 
 namespace Content.Shared.Actions.Events;
+
 public sealed partial class PsionicHealOtherPowerActionEvent : EntityTargetActionEvent
 {
     [DataField]

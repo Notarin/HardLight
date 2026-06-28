@@ -45,7 +45,11 @@ public abstract class SharedAtmosMonitoringConsoleSystem : EntitySystem
             chunks.Add(origin, chunk.AtmosPipeData);
         }
 
-        args.State = new AtmosMonitoringConsoleDeltaState(chunks, component.AtmosDevices, new(component.AtmosPipeChunks.Keys));
+        args.State = new AtmosMonitoringConsoleDeltaState(
+            chunks,
+            component.AtmosDevices,
+            new(component.AtmosPipeChunks.Keys)
+        );
     }
 
     #region: System messages
@@ -53,8 +57,8 @@ public abstract class SharedAtmosMonitoringConsoleSystem : EntitySystem
     [Serializable, NetSerializable]
     protected sealed class AtmosMonitoringConsoleState(
         Dictionary<Vector2i, Dictionary<AtmosMonitoringConsoleSubnet, ulong>> chunks,
-        Dictionary<NetEntity, AtmosDeviceNavMapData> atmosDevices)
-        : ComponentState
+        Dictionary<NetEntity, AtmosDeviceNavMapData> atmosDevices
+    ) : ComponentState
     {
         public Dictionary<Vector2i, Dictionary<AtmosMonitoringConsoleSubnet, ulong>> Chunks = chunks;
         public Dictionary<NetEntity, AtmosDeviceNavMapData> AtmosDevices = atmosDevices;
@@ -64,8 +68,8 @@ public abstract class SharedAtmosMonitoringConsoleSystem : EntitySystem
     protected sealed class AtmosMonitoringConsoleDeltaState(
         Dictionary<Vector2i, Dictionary<AtmosMonitoringConsoleSubnet, ulong>> modifiedChunks,
         Dictionary<NetEntity, AtmosDeviceNavMapData> atmosDevices,
-        HashSet<Vector2i> allChunks)
-        : ComponentState, IComponentDeltaState<AtmosMonitoringConsoleState>
+        HashSet<Vector2i> allChunks
+    ) : ComponentState, IComponentDeltaState<AtmosMonitoringConsoleState>
     {
         public Dictionary<Vector2i, Dictionary<AtmosMonitoringConsoleSubnet, ulong>> ModifiedChunks = modifiedChunks;
         public Dictionary<NetEntity, AtmosDeviceNavMapData> AtmosDevices = atmosDevices;
@@ -102,7 +106,6 @@ public abstract class SharedAtmosMonitoringConsoleSystem : EntitySystem
 
                 if (ModifiedChunks.ContainsKey(index))
                     chunks[index] = new Dictionary<AtmosMonitoringConsoleSubnet, ulong>(ModifiedChunks[index]);
-
                 else
                     chunks[index] = new Dictionary<AtmosMonitoringConsoleSubnet, ulong>(state.Chunks[index]);
             }

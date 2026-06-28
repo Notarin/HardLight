@@ -17,9 +17,9 @@
     description: ghost-role-information-clippy-description
     rules: ghost-role-information-nonantagonist-rules
     prototype: CatClippy
-    mindRoles: [ MindRoleGhostRoleNeutral ]
+    mindRoles: [MindRoleGhostRoleNeutral]
   - type: Loadout
-    prototypes: [ MobClippyGear ]
+    prototypes: [MobClippyGear]
   - type: RandomMetadata
     nameSegments: null
   - type: AutoImplant
@@ -30,7 +30,7 @@
     spawned:
     - id: FoodMeatCat
       amount: 1
-#    - id: MaterialHideClippy
+      #    - id: MaterialHideClippy
   - type: IntrinsicRadioTransmitter
     channels:
     - Service
@@ -39,8 +39,8 @@
     - Service
   - type: NpcFactionMember
     factions:
-      - Cat
-      - PetsNT
+    - Cat
+    - PetsNT
   - type: ShowJobIcons
 
 - type: entity
@@ -68,9 +68,9 @@
     description: ghost-role-information-clarpy-description
     rules: ghost-role-information-clarpy-rules
     prototype: CatClarpy
-    mindRoles: [ MindRoleGhostRoleNFPirate ]
+    mindRoles: [MindRoleGhostRoleNFPirate]
   - type: Loadout
-    prototypes: [ MobClarpyGear ]
+    prototypes: [MobClarpyGear]
   - type: ReplacementAccent
     accent: pirateCat
   - type: RandomMetadata
@@ -117,9 +117,9 @@
     description: ghost-role-information-cappy-description
     rules: ghost-role-information-nonantagonist-rules
     prototype: CatCappy
-    mindRoles: [ MindRoleGhostRoleNeutral ]
+    mindRoles: [MindRoleGhostRoleNeutral]
   - type: Loadout
-    prototypes: [ MobCappyGear ]
+    prototypes: [MobCappyGear]
   - type: ReplacementAccent
     accent: nfsdCat
   - type: RandomMetadata
@@ -181,7 +181,7 @@
     name: ghost-role-information-elcapo-name
     description: ghost-role-information-elcapo-description
     rules: ghost-role-information-freeagent-rules
-    mindRoles: [ MindRoleGhostRoleFreeAgent ]
+    mindRoles: [MindRoleGhostRoleFreeAgent]
   - type: RandomMetadata
     nameSegments: [names_cat_elcapo]
   - type: AutoImplant
@@ -189,7 +189,7 @@
     - TrackingImplant
   - type: NpcFactionMember
     factions:
-      - Cat
+    - Cat
 
 - type: entity
   id: MobCatClugg
@@ -211,7 +211,7 @@
     name: ghost-role-information-clugg-name
     description: ghost-role-information-clugg-description
     rules: ghost-role-information-nonantagonist-rules
-    mindRoles: [ MindRoleGhostRoleNeutral ]
+    mindRoles: [MindRoleGhostRoleNeutral]
   - type: RandomMetadata
     nameSegments: null
   - type: NpcFactionMember
@@ -242,7 +242,7 @@
     name: ghost-role-information-mistake-name
     description: ghost-role-information-mistake-description
     rules: ghost-role-information-freeagent-rules
-    mindRoles: [ MindRoleGhostRoleFreeAgentHarmless ]
+    mindRoles: [MindRoleGhostRoleFreeAgentHarmless]
     prototype: CatMistake
   - type: ReplacementAccent
     accent: mistakeCat
@@ -257,8 +257,8 @@
     successChance: 0.0
     interactFailureString: petting-failure-mistake
   - type: MovementSpeedModifier
-    baseWalkSpeed : 6
-    baseSprintSpeed : 6
+    baseWalkSpeed: 6
+    baseSprintSpeed: 6
   - type: NFSalvageMobRestrictions
     despawnIfOffLinkedGrid: false
     addComponentsOnDeath: []
@@ -294,7 +294,7 @@
     layers:
     - map: ["enum.DamageStateVisualLayers.Base"]
       state: cultcat
-    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+    - map: ["enum.DamageStateVisualLayers.BaseUnshaded"]
       state: cultcat_unshaded
       shader: unshaded
   - type: DamageStateVisuals
@@ -312,10 +312,10 @@
     name: ghost-role-information-cult-cat-name
     description: ghost-role-information-cult-cat-description
     rules: ghost-role-information-cult-cat-rules
-    mindRoles: [ MindRoleGhostRoleFreeAgentHarmless ]
+    mindRoles: [MindRoleGhostRoleFreeAgentHarmless]
     prototype: CatBloodCult
   - type: RandomMetadata
-    nameSegments: [ NamesCatCult ]
+    nameSegments: [NamesCatCult]
   - type: AutoImplant
     implants:
     - RedLightImplant
@@ -335,7 +335,7 @@
   id: EldritchPushGun
   name: eldritch hand gun
   description: Shoots an eldritch hand.
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: RechargeBasicEntityAmmo
     rechargeCooldown: 300
@@ -355,10 +355,10 @@
   id: ActionEldritchPush
   name: "[color=yellow]Force Push[/color]"
   description: "Summon forth an eldritch hand. [color=yellow]5 minute cooldown.[/color]"
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: WorldTargetAction
-    icon: { sprite : _NF/Effects/bloodcultprojectiles.rsi, state: hand }
+    icon: {sprite: _NF/Effects/bloodcultprojectiles.rsi, state: hand}
     event: !type:ActionGunShootEvent
     priority: 2
     checkCanAccess: false
@@ -397,7 +397,7 @@
     - VimPilot
     - AnomalyHost
   - type: Loadout
-    prototypes: [ MobKoboldGear ]
+    prototypes: [MobKoboldGear]
   - type: Grammar
     attributes:
       proper: true

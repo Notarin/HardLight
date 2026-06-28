@@ -1,6 +1,6 @@
 - type: quickPhrase
   id: BaseCommandSubjectPhrase
-  parent: [ BaseSubjectPhrase, BaseCommandPhrase ]
+  parent: [BaseSubjectPhrase, BaseCommandPhrase]
   abstract: true
 
 - type: quickPhrase

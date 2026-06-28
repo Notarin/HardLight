@@ -9,7 +9,8 @@ namespace Content.Shared.Parallax.Biomes.Markers;
 [Prototype]
 public sealed partial class BiomeMarkerLayerPrototype : IBiomeMarkerLayer
 {
-    [IdDataField] public string ID { get; private set; } = default!;
+    [IdDataField]
+    public string ID { get; private set; } = default!;
 
     /// <summary>
     /// Checks for the relevant entity for the tile before spawning. Useful for substituting walls with ore veins for example.

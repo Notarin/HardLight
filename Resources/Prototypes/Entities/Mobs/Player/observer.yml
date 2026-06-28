@@ -21,8 +21,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.35
         density: 15
         layer:
@@ -37,7 +36,7 @@
   abstract: true
   name: observer
   description: Boo!
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: Mobs/Ghosts/ghost_human.rsi
@@ -150,7 +149,7 @@
   description: Toggle the visibility of other ghosts.
   components:
   - type: InstantAction
-    icon: { sprite: Mobs/Ghosts/ghost_human.rsi, state: icon }
+    icon: {sprite: Mobs/Ghosts/ghost_human.rsi, state: icon}
     clientExclusive: true
     checkCanInteract: false
     event: !type:ToggleGhostsActionEvent

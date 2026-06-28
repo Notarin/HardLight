@@ -446,7 +446,7 @@
   - WheelchairBound
   blacklist:
     components:
-      - BorgChassis
+    - BorgChassis
   components:
   - type: Amputee
     removeBodyPart: Leg
@@ -466,7 +466,7 @@
   - WheelchairBound
   blacklist:
     components:
-      - BorgChassis
+    - BorgChassis
   components:
   - type: Amputee
     removeBodyPart: Leg
@@ -486,7 +486,7 @@
   - WheelchairBound
   blacklist:
     components:
-      - BorgChassis
+    - BorgChassis
   components:
   - type: Amputee
     removeBodyPart: Leg

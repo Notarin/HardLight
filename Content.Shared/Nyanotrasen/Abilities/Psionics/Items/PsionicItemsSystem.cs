@@ -1,5 +1,5 @@
-using Content.Shared.Inventory.Events;
 using Content.Shared.Clothing.Components;
+using Content.Shared.Inventory.Events;
 using Content.Shared.Nyanotrasen.Abilities.Psionics;
 using Content.Shared.StatusEffect;
 
@@ -7,9 +7,15 @@ namespace Content.Shared.Abilities.Psionics
 {
     public sealed class PsionicItemsSystem : EntitySystem
     {
-        [Dependency] private readonly StatusEffectsSystem _statusEffects = default!;
-        [Dependency] private readonly IComponentFactory _componentFactory = default!;
-        [Dependency] private readonly SharedPsionicAbilitiesSystem _psiAbilities = default!;
+        [Dependency]
+        private readonly StatusEffectsSystem _statusEffects = default!;
+
+        [Dependency]
+        private readonly IComponentFactory _componentFactory = default!;
+
+        [Dependency]
+        private readonly SharedPsionicAbilitiesSystem _psiAbilities = default!;
+
         public override void Initialize()
         {
             base.Initialize();
@@ -18,6 +24,7 @@ namespace Content.Shared.Abilities.Psionics
             SubscribeLocalEvent<ClothingGrantPsionicPowerComponent, GotEquippedEvent>(OnGranterEquipped);
             SubscribeLocalEvent<ClothingGrantPsionicPowerComponent, GotUnequippedEvent>(OnGranterUnequipped);
         }
+
         private void OnTinfoilEquipped(EntityUid uid, TinfoilHatComponent component, GotEquippedEvent args)
         {
             // This only works on clothing
@@ -45,7 +52,11 @@ namespace Content.Shared.Abilities.Psionics
             _psiAbilities.SetPsionicsThroughEligibility(args.Equipee);
         }
 
-        private void OnGranterEquipped(EntityUid uid, ClothingGrantPsionicPowerComponent component, GotEquippedEvent args)
+        private void OnGranterEquipped(
+            EntityUid uid,
+            ClothingGrantPsionicPowerComponent component,
+            GotEquippedEvent args
+        )
         {
             // This only works on clothing
             if (!TryComp<ClothingComponent>(uid, out var clothing))
@@ -55,10 +66,10 @@ namespace Content.Shared.Abilities.Psionics
                 return;
             // does the user already has this power?
             var componentType = _componentFactory.GetRegistration(component.Power).Type;
-            if (EntityManager.HasComponent(args.Equipee, componentType)) return;
+            if (EntityManager.HasComponent(args.Equipee, componentType))
+                return;
 
-
-            var newComponent = (Component) _componentFactory.GetComponent(componentType);
+            var newComponent = (Component)_componentFactory.GetComponent(componentType);
             newComponent.Owner = args.Equipee;
 
             EntityManager.AddComponent(args.Equipee, newComponent);
@@ -66,7 +77,11 @@ namespace Content.Shared.Abilities.Psionics
             component.IsActive = true;
         }
 
-        private void OnGranterUnequipped(EntityUid uid, ClothingGrantPsionicPowerComponent component, GotUnequippedEvent args)
+        private void OnGranterUnequipped(
+            EntityUid uid,
+            ClothingGrantPsionicPowerComponent component,
+            GotUnequippedEvent args
+        )
         {
             if (!component.IsActive)
                 return;

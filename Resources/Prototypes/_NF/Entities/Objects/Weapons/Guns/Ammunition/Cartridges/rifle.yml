@@ -8,8 +8,8 @@
   components:
   - type: Tag
     tags:
-      - Cartridge
-      - NFCartridgeRifle10
+    - Cartridge
+    - NFCartridgeRifle10
 
 - type: entity
   id: NFBaseCartridgeRifle20
@@ -19,8 +19,8 @@
   components:
   - type: Tag
     tags:
-      - Cartridge
-      - NFCartridgeRifle20
+    - Cartridge
+    - NFCartridgeRifle20
 
 - type: entity
   id: NFBaseCartridgeRifle25
@@ -30,8 +30,8 @@
   components:
   - type: Tag
     tags:
-      - Cartridge
-      - NFCartridgeRifle25
+    - Cartridge
+    - NFCartridgeRifle25
 
 - type: entity
   id: NFBaseCartridgeRifle30
@@ -41,8 +41,8 @@
   components:
   - type: Tag
     tags:
-      - Cartridge
-      - NFCartridgeRifle30
+    - Cartridge
+    - NFCartridgeRifle30
 
 - type: entity
   id: NFBaseCartridgeRifle60
@@ -52,8 +52,8 @@
   components:
   - type: Tag
     tags:
-      - Cartridge
-      - NFCartridgeRifle60
+    - Cartridge
+    - NFCartridgeRifle60
 
 #region .10 rifle
 - type: entity
@@ -66,10 +66,10 @@
     deleteOnSpawn: true
   - type: Sprite
     layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
-      - state: tip
-        color: "#666666"
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      color: "#666666"
 
 - type: entity
   id: NFCartridgeRifle10Practice
@@ -81,10 +81,10 @@
     deleteOnSpawn: true
   - type: Sprite
     layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
-      - state: tip
-        color: "#dddddd"
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      color: "#dddddd"
 
 - type: entity
   id: NFCartridgeRifle10Rubber
@@ -96,10 +96,10 @@
     deleteOnSpawn: true
   - type: Sprite
     layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
-      - state: tip
-        color: "#00b0ff"
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      color: "#00b0ff"
 
 #region .20 rifle
 - type: entity
@@ -112,10 +112,10 @@
     deleteOnSpawn: true
   - type: Sprite
     layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
-      - state: tip
-        color: "#666666"
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      color: "#666666"
 
 - type: entity
   id: NFCartridgeRifle20Overpressure
@@ -127,10 +127,10 @@
     deleteOnSpawn: true
   - type: Sprite
     layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
-      - state: tip
-        color: "#ff8d00"
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      color: "#ff8d00"
 
 - type: entity
   id: NFCartridgeRifle20Incendiary
@@ -142,10 +142,10 @@
     deleteOnSpawn: true
   - type: Sprite
     layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
-      - state: tip
-        color: "#ff0000"
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      color: "#ff0000"
 
 - type: entity
   id: NFCartridgeRifle20Uranium
@@ -157,10 +157,10 @@
     deleteOnSpawn: true
   - type: Sprite
     layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
-      - state: tip
-        color: "#00ff00"
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      color: "#00ff00"
 
 - type: entity
   id: NFCartridgeRifle20Practice
@@ -172,10 +172,10 @@
     deleteOnSpawn: true
   - type: Sprite
     layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
-      - state: tip
-        color: "#dddddd"
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      color: "#dddddd"
 
 - type: entity
   id: NFCartridgeRifle20Rubber # CartridgeRifleRubber
@@ -187,10 +187,10 @@
     deleteOnSpawn: true
   - type: Sprite
     layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
-      - state: tip
-        color: "#00b0ff"
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      color: "#00b0ff"
 
 #region .25 rifle
 - type: entity
@@ -203,10 +203,10 @@
     deleteOnSpawn: true
   - type: Sprite
     layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
-      - state: tip
-        color: "#666666"
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      color: "#666666"
 
 - type: entity
   id: NFCartridgeRifle25Overpressure
@@ -218,10 +218,10 @@
     deleteOnSpawn: true
   - type: Sprite
     layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
-      - state: tip
-        color: "#ff8d00"
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      color: "#ff8d00"
 
 - type: entity
   id: NFCartridgeRifle25Incendiary
@@ -233,10 +233,10 @@
     deleteOnSpawn: true
   - type: Sprite
     layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
-      - state: tip
-        color: "#ff0000"
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      color: "#ff0000"
 
 - type: entity
   id: NFCartridgeRifle25Uranium
@@ -248,10 +248,10 @@
     deleteOnSpawn: true
   - type: Sprite
     layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
-      - state: tip
-        color: "#00ff00"
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      color: "#00ff00"
 
 - type: entity
   id: NFCartridgeRifle25Practice
@@ -263,10 +263,10 @@
     deleteOnSpawn: true
   - type: Sprite
     layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
-      - state: tip
-        color: "#dddddd"
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      color: "#dddddd"
 
 - type: entity
   id: NFCartridgeRifle25Rubber # CartridgeCaselessRifleRubber
@@ -277,10 +277,10 @@
     proto: NFBulletRifle25Rubber
   - type: Sprite
     layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
-      - state: tip
-        color: "#00b0ff"
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      color: "#00b0ff"
 
 #region .30 rifle
 - type: entity
@@ -292,10 +292,10 @@
     proto: NFBulletRifle30
   - type: Sprite
     layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
-      - state: tip
-        color: "#666666"
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      color: "#666666"
 
 - type: entity
   id: NFCartridgeRifle30Overpressure
@@ -306,10 +306,10 @@
     proto: NFBulletRifle30Overpressure
   - type: Sprite
     layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
-      - state: tip
-        color: "#ff8d00"
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      color: "#ff8d00"
 
 - type: entity
   id: NFCartridgeRifle30Incendiary
@@ -320,10 +320,10 @@
     proto: NFBulletRifle30Incendiary
   - type: Sprite
     layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
-      - state: tip
-        color: "#ff0000"
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      color: "#ff0000"
 
 - type: entity
   id: NFCartridgeRifle30Uranium
@@ -334,10 +334,10 @@
     proto: NFBulletRifle20Uranium
   - type: Sprite
     layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
-      - state: tip
-        color: "#00ff00"
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      color: "#00ff00"
 
 - type: entity
   id: NFCartridgeRifle30Practice
@@ -348,10 +348,10 @@
     proto: NFBulletRifle30Practice
   - type: Sprite
     layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
-      - state: tip
-        color: "#dddddd"
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      color: "#dddddd"
 
 - type: entity
   id: NFCartridgeRifle30Rubber # CartridgeLightRifleRubber
@@ -362,10 +362,10 @@
     proto: NFBulletRifle30Rubber
   - type: Sprite
     layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
-      - state: tip
-        color: "#00b0ff"
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      color: "#00b0ff"
 
 #region .60 rifle
 - type: entity
@@ -377,8 +377,8 @@
     proto: NFBulletRifle60
   - type: Sprite
     layers: # TODO: add tip
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
 
 - type: entity
   id: NFCartridgeRifle60Rubber
@@ -389,5 +389,5 @@
     proto: NFBulletRifle60Rubber
   - type: Sprite
     layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]

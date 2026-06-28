@@ -4,9 +4,7 @@ using Content.Shared.NodeContainer.NodeGroups;
 
 namespace Content.Server._Starlight.Plumbing.NodeGroups;
 
-public interface IPlumbingNet : INodeGroup
-{
-}
+public interface IPlumbingNet : INodeGroup { }
 
 [NodeGroup(NodeGroupID.Plumbing)]
 public sealed class PlumbingNet : BaseNodeGroup, IPlumbingNet

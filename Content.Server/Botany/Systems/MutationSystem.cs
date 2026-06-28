@@ -1,16 +1,19 @@
+using System.Linq;
 using Content.Shared.Atmos;
 using Content.Shared.EntityEffects;
 using Content.Shared.Random;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
-using System.Linq;
 
 namespace Content.Server.Botany;
 
 public sealed class MutationSystem : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _robustRandom = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+    [Dependency]
+    private readonly IRobustRandom _robustRandom = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
     private RandomPlantMutationListPrototype _randomMutations = default!;
 
     private static readonly ProtoId<RandomPlantMutationListPrototype> RandomPlantMutationsId = "RandomPlantMutations";
@@ -62,14 +65,18 @@ public sealed class MutationSystem : EntitySystem
 
                 if (category != null)
                 {
-                    seed.Mutations.RemoveAll(existing => PlantMutationCategories.GetCategory(existing.Name) == category.Value);
+                    seed.Mutations.RemoveAll(existing =>
+                        PlantMutationCategories.GetCategory(existing.Name) == category.Value
+                    );
 
                     if (mutation.Persists)
                         seed.Mutations.Add(mutation);
 
                     if (category == PlantMutationCategory.Subtypes && seed.Name != previousSubtypeName)
                     {
-                        seed.MutationCategoryStates.RemoveAll(state => state.Category == PlantMutationCategory.Subtypes);
+                        seed.MutationCategoryStates.RemoveAll(state =>
+                            state.Category == PlantMutationCategory.Subtypes
+                        );
                         restartMutationPass = true;
                         break;
                     }
@@ -86,7 +93,9 @@ public sealed class MutationSystem : EntitySystem
                 return;
         }
 
-        Log.Warning($"Random mutation subtype chain hit the safety cap for {plantHolder} while evaluating seed {seed.Name}.");
+        Log.Warning(
+            $"Random mutation subtype chain hit the safety cap for {plantHolder} while evaluating seed {seed.Name}."
+        );
     }
 
     /// <summary>
@@ -146,7 +155,8 @@ public sealed class MutationSystem : EntitySystem
         // For the list of mutation effects on both plants, use a 50% chance to pick each one.
         // Union all of the chosen mutations into one list, and pick ones with a Distinct (unique) name.
         result.MutationCategoryStates.Clear();
-        result.Mutations = result.Mutations.Where(m => Random(0.5f))
+        result.Mutations = result
+            .Mutations.Where(m => Random(0.5f))
             .Union(a.Mutations.Where(m => Random(0.5f)))
             .DistinctBy(PlantMutationCategories.GetIdentity)
             .ToList();
@@ -161,7 +171,10 @@ public sealed class MutationSystem : EntitySystem
         return result;
     }
 
-    private void CrossChemicals(ref Dictionary<string, SeedChemQuantity> val, Dictionary<string, SeedChemQuantity> other)
+    private void CrossChemicals(
+        ref Dictionary<string, SeedChemQuantity> val,
+        Dictionary<string, SeedChemQuantity> other
+    )
     {
         // Go through chemicals from the pollen in swab
         foreach (var otherChem in other)
@@ -230,6 +243,7 @@ public sealed class MutationSystem : EntitySystem
             }
         }
     }
+
     private void CrossFloat(ref float val, float other)
     {
         val = Random(0.5f) ? val : other;

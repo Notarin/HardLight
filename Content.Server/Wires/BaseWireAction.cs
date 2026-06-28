@@ -36,9 +36,7 @@ public abstract partial class BaseWireAction : IWireAction
             return new StatusLightData(Color, StatusLightState.Off, Loc.GetString(Name));
 
         var state = GetLightState(wire);
-        return state == null
-            ? null
-            : new StatusLightData(Color, state.Value, Loc.GetString(Name));
+        return state == null ? null : new StatusLightData(Color, state.Value, Loc.GetString(Name));
     }
 
     public virtual StatusLightState? GetLightState(Wire wire) => null;
@@ -59,8 +57,11 @@ public abstract partial class BaseWireAction : IWireAction
     }
 
     public virtual bool AddWire(Wire wire, int count) => count == 1;
+
     public virtual bool Cut(EntityUid user, Wire wire) => Log(user, wire, "cut");
+
     public virtual bool Mend(EntityUid user, Wire wire) => Log(user, wire, "mended");
+
     public virtual void Pulse(EntityUid user, Wire wire) => Log(user, wire, "pulsed");
 
     private bool Log(EntityUid user, Wire wire, string verb)
@@ -72,13 +73,15 @@ public abstract partial class BaseWireAction : IWireAction
         var action = GetType().Name;
 
         // logs something like "... mended red POWR wire (PowerWireAction) in ...."
-        _adminLogger.Add(LogType.WireHacking, LogImpact.Medium, $"{player} {verb} {color} {name} wire ({action}) in {owner}");
+        _adminLogger.Add(
+            LogType.WireHacking,
+            LogImpact.Medium,
+            $"{player} {verb} {color} {name} wire ({action}) in {owner}"
+        );
         return true;
     }
 
-    public virtual void Update(Wire wire)
-    {
-    }
+    public virtual void Update(Wire wire) { }
 
     /// <summary>
     ///     Utility function to check if this given entity is powered.

@@ -21,14 +21,12 @@ public sealed partial class AutomatedStorage : AutomationSlot
 
     public override bool Insert(EntityUid item)
     {
-        return base.Insert(item) &&
-            _storage.Insert(Owner, item, out _, storageComp: _comp);
+        return base.Insert(item) && _storage.Insert(Owner, item, out _, storageComp: _comp);
     }
 
     public override bool CanInsert(EntityUid item)
     {
-        return base.CanInsert(item) &&
-            _storage.CanInsert(Owner, item, out _, storageComp: _comp);
+        return base.CanInsert(item) && _storage.CanInsert(Owner, item, out _, storageComp: _comp);
     }
 
     public override EntityUid? GetItem(EntityUid? filter)

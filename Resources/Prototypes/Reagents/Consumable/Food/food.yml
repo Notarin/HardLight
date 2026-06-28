@@ -11,8 +11,8 @@
     Food:
       effects:
       - !type:SatiateHunger
-      - !type:HealthChange # HardLight: Makes nutriment remove toxins from the bloodstream for Synths
-        conditions:
+      - !type:HealthChange
+        conditions: # HardLight: Makes nutriment remove toxins from the bloodstream for Synths
         - !type:OrganType
           type: Synth
         damage:
@@ -25,8 +25,8 @@
         - !type:OrganType
           type: Synth
         amount: -0.075
-      - !type:ModifyBloodLevel # HardLight: Makes nutriment restore blood level for Synths
-        conditions:
+      - !type:ModifyBloodLevel
+        conditions: # HardLight: Makes nutriment restore blood level for Synths
         - !type:OrganType
           type: Synth
         amount: 1.25
@@ -54,13 +54,14 @@
           groups:
             Brute: -0.5
             Burn: -0.5
-      # Helps you stop bleeding to an extent.
       - !type:ModifyBleedAmount
+        # Helps you stop bleeding to an extent.
         amount: -0.25
-      - !type:SatiateHunger #Numbers are balanced with this in mind + it helps limit how much healing you can get from food
-      - !type:AdjustReagent # HardLight: Allows Synths to convert vitamin to nutriment
-        conditions:
+      - !type:SatiateHunger
+      - !type:AdjustReagent
+        conditions: #Numbers are balanced with this in mind + it helps limit how much healing you can get from food
         - !type:OrganType
+          # HardLight: Allows Synths to convert vitamin to nutriment
           type: Synth
         reagent: Nutriment
         amount: 0.57
@@ -91,8 +92,8 @@
       - !type:ModifyBloodLevel
         amount: 1 # weaker than iron but pretty good all things considered
       - !type:SatiateHunger
-      - !type:AdjustReagent # HardLight: Allows Synths to convert protein to nutriment
-        conditions:
+      - !type:AdjustReagent
+        conditions: # HardLight: Allows Synths to convert protein to nutriment
         - !type:OrganType
           type: Synth
         reagent: Nutriment
@@ -113,12 +114,12 @@
       effects:
       - !type:SatiateHunger
         conditions:
-        - !type:ReagentThreshold #Only satiates when eaten with nutriment
-          reagent: Nutriment
+        - !type:ReagentThreshold
+          reagent: Nutriment #Only satiates when eaten with nutriment
           min: 0.1
         factor: 1
-      - !type:AdjustReagent # HardLight: Allows Synths to convert sugar to nutriment
-        conditions:
+      - !type:AdjustReagent
+        conditions: # HardLight: Allows Synths to convert sugar to nutriment
         - !type:OrganType
           type: Synth
         reagent: Nutriment

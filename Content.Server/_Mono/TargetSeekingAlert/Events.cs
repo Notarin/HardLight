@@ -24,7 +24,6 @@ public readonly record struct TargetSeekerAlertActivatedEvent();
 [ByRefEvent]
 public readonly record struct TargetSeekerAlertDeactivatedEvent();
 
-
 /// <summary>
 /// Raised on an entity with <see cref="TargetSeekerAlertComponent"/> when the grid it's on gets targeted by a target-seeker, if the target-seeker's <see cref="TargetSeekingComponent.ExposesTracking"/> is true.
 /// Raised after <see cref="TargetSeekerAlertActivatedEvent"/>, in the case that both this and that are raised at the same time.
@@ -32,7 +31,10 @@ public readonly record struct TargetSeekerAlertDeactivatedEvent();
 /// <inheritdoc cref="EntityStartedBeingSeekedTargetEvent"/>
 /// <param name="Active">Whether the grid was already being targeted by a target-seeker.</param>
 [ByRefEvent]
-public readonly record struct TargetSeekerAlertStartedBeingTargetedEvent(Entity<TargetSeekingComponent, TransformComponent> Seeker, bool Active);
+public readonly record struct TargetSeekerAlertStartedBeingTargetedEvent(
+    Entity<TargetSeekingComponent, TransformComponent> Seeker,
+    bool Active
+);
 
 /// <summary>
 /// Raised on an entity with <see cref="TargetSeekerAlertComponent"/> when the grid it's on stops being targeted by any target-seekers.
@@ -42,4 +44,7 @@ public readonly record struct TargetSeekerAlertStartedBeingTargetedEvent(Entity<
 /// <inheritdoc cref="EntityStoppedBeingSeekedTargetEvent"/>
 /// <param name="Active">Whether the grid is still being targeted by atleast one target-seeker.</param>
 [ByRefEvent]
-public readonly record struct TargetSeekerAlertStoppedBeingTargetedEvent(Entity<TargetSeekingComponent, TransformComponent> Seeker, bool Active);
+public readonly record struct TargetSeekerAlertStoppedBeingTargetedEvent(
+    Entity<TargetSeekingComponent, TransformComponent> Seeker,
+    bool Active
+);

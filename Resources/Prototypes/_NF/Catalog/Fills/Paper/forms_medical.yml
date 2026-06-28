@@ -34,11 +34,11 @@
 - type: entity # Loosely based on form made by Scratchie (Nova Howe) for Formal Complaint
   id: PaperWrittenMedicalFormPatientInfo
   name: medical patient record
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   parent: Paper
   components:
   - type: Paper
-    content: |2
+    content: |
       [color=#40516e]◥[bold]ColComm[/bold]◣ [bold]Medical Contractor Standards[/bold][/color]
       [color=#40516e]‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾[/color]
       [head=2]Medical Patient Record[/head]
@@ -89,18 +89,16 @@
           [bullet/] Chemical, dosage: [form=3] u
           [bullet/] Chemical, dosage: [form=3] u
 
-
-
       [color=#AAAAAA]This Form is void without the signature and stamp of a medical specialist.[/color]
 
 - type: entity
   id: PaperWrittenMedicalFormPrescription
   name: medical prescription
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   parent: Paper
   components:
   - type: Paper
-    content: |2
+    content: |
       [color=#52B4E9]◥[bold]ColComm[/bold]◣ [bold]Medical Contractor Standards[/bold][/color]
       [color=#52B4E9]‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾[/color]
       [head=2]Medical Prescription[/head]
@@ -117,18 +115,16 @@
 
           [bold]WRITE ANY INSTRUCTIONS HERE.[/bold]
 
-
-
       [color=#AAAAAA]This Form is void without the signature and stamp of a medical specialist.[/color]
 
 - type: entity # Based on form made by Radiantflash (Lykaon Rahmer)
   id: PaperWrittenMedicalFormHealthInsurance
   name: health insurance contract
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   parent: Paper
   components:
   - type: Paper
-    content: |2
+    content: |
       [color=#2EA5E6]◥[bold]ColComm[/bold]◣ [bold]Medical Contractor Standards[/bold][/color]
       [color=#2EA5E6]‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾[/color]
       [head=2]Health Insurance Contract[/head]
@@ -152,17 +148,16 @@
       [head=3]Total Premium[/head]
           [bold]$XX,XXX[/bold]
 
-
       [color=#AAAAAA]This Form is void without the signatures of both Parties and the stamp of a medical specialist.[/color]
 
 - type: entity
   id: PaperWrittenMedicalFormServiceInvoice
   name: medical service invoice
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   parent: Paper
   components:
   - type: Paper
-    content: |2
+    content: |
       [color=#2EA5E6]◥[bold]ColComm[/bold]◣ [bold]Medical Contractor Standards[/bold][/color]
       [color=#2EA5E6]‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾[/color]
       [head=2]Medical Service Invoice[/head]
@@ -189,18 +184,16 @@
       ____________
       $[form=6] - Grand Total
 
-
-
       [color=#AAAAAA]This Form is void without the signature and stamp of a medical specialist.[/color]
 
 - type: entity
   id: PaperWrittenMedicalFormReceiptInvoice
   name: medical dispatch payment
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   parent: Paper
   components:
   - type: Paper
-    content: |2
+    content: |
       [color=#33ccff]◥[bold]ColComm[/bold]◣ [bold]Director of Care Payroll[/bold][/color]
       [color=#33ccff]‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾[/color]
       [head=2]Medical Dispatch Payment[/head]
@@ -225,11 +218,11 @@
 - type: entity
   id: PaperWrittenMedicalFormRelease
   name: medical release form
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   parent: Paper
   components:
   - type: Paper
-    content: |2
+    content: |
       [color=#33ccff]◥[bold]ColComm[/bold]◣ [bold]Director of Care Payroll[/bold][/color]
       [color=#33ccff]‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾[/color]
       [head=2]Medical Release Form[/head]
@@ -246,14 +239,8 @@
 
       [head=3]Services Provided[/head]
 
-
-
       [head=3]Notes[/head]
 
-
-
       [head=3]I, the undersigned, agree that the services listed above are accurate and consent to release.[/head]
-
-
 
       [color=#AAAAAA]This Form is only acknowledged with the signature and stamp of the Director of Care. This form does not constitute a contract. Compensation for services provided is at the discretion of the Director of Care.[/color]

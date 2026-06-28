@@ -111,8 +111,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.30
         density: 180
         mask:
@@ -148,7 +147,7 @@
     state: toms
 
 - type: entity
-  parent: [ BasePlaceableInstrumentRotatable, ConstructibleMachine]
+  parent: [BasePlaceableInstrumentRotatable, ConstructibleMachine]
   id: DawInstrument
   name: digital audio workstation
   description: Cutting edge music technology, straight from the 90s.

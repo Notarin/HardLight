@@ -10,8 +10,8 @@
   - type: Appearance
   - type: Reactive
     groups:
-      Flammable: [ Touch ]
-      Extinguish: [ Touch ]
+      Flammable: [Touch]
+      Extinguish: [Touch]
   - type: ExtinguishableSetCollisionWake
   - type: Flammable
     fireSpread: true
@@ -27,8 +27,7 @@
     damageModifierSet: Wood
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 15
       behaviors:
       - !type:SpawnEntitiesBehavior
@@ -37,7 +36,7 @@
             min: 1
             max: 1
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: Food
     solution: food
     delay: 7
@@ -258,10 +257,10 @@
   - type: CargoBountyLabel
   - type: StaticPrice
     price: 0
-  # - type: GuideHelp # Frontier: removed guidebook entries
-  #   guides: # Frontier: removed guidebook entries
-  #   - CargoBounties # Frontier: removed guidebook entries
-  #   - Cargo # Frontier: removed guidebook entries
+    # - type: GuideHelp # Frontier: removed guidebook entries
+    #   guides: # Frontier: removed guidebook entries
+    #   - CargoBounties # Frontier: removed guidebook entries
+    #   - Cargo # Frontier: removed guidebook entries
 
 - type: entity
   name: character sheet
@@ -274,15 +273,15 @@
     content: book-cnc-sheet
   - type: Sprite
     layers:
-      - state: paper
-        color: "#cccccc"
-      - state: paper_words
-        map: ["enum.PaperVisualLayers.Writing"]
-        color: "#cccccc" #aaaaaaaaaaaaaaaaaaaaaaa
-        visible: false
-      - state: paper_stamp-generic
-        map: ["enum.PaperVisualLayers.Stamp"]
-        visible: false
+    - state: paper
+      color: "#cccccc"
+    - state: paper_words
+      map: ["enum.PaperVisualLayers.Writing"]
+      color: "#cccccc" #aaaaaaaaaaaaaaaaaaaaaaa
+      visible: false
+    - state: paper_stamp-generic
+      map: ["enum.PaperVisualLayers.Stamp"]
+      visible: false
   - type: PaperVisuals
     backgroundImagePath: "/Textures/Interface/Paper/paper_background_default.svg.96dpi.png"
     contentImagePath: "/Textures/Interface/Paper/paper_content_lined.svg.96dpi.png"
@@ -294,7 +293,7 @@
 - type: entity
   parent: Paper
   id: PaperWritten
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     layers:
@@ -322,7 +321,7 @@
   id: TraitorCodePaper
   name: syndicate codeword
   description: A leaked codeword to possibly get in touch with the Syndicate.
-  categories: [ DoNotMap ]
+  categories: [DoNotMap]
   components:
   - type: TraitorCodePaper
 
@@ -376,7 +375,7 @@
         ejectSound: /Audio/Effects/packetrip.ogg
         whitelist:
           tags:
-            - Paper
+          - Paper
   - type: ActivatableUI
     key: enum.PaperUiKey.Key
     requiresComplex: false
@@ -406,11 +405,10 @@
     damageModifierSet: Wood
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 15
       behaviors:
       - !type:EmptyAllContainersBehaviour
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: StationAiWhitelist

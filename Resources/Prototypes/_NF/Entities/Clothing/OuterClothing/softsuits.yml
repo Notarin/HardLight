@@ -14,8 +14,8 @@
     # For immersion
     equipSound: /Audio/Mecha/mechmove03.ogg
     unequipSound: /Audio/Mecha/mechmove03.ogg
-#    equipDelay: 2 # HardLight: Remove equip delay in line with hardsuits
-#    unequipDelay: 2
+    #    equipDelay: 2 # HardLight: Remove equip delay in line with hardsuits
+    #    unequipDelay: 2
   - type: ContainerContainer
     containers:
       toggleable-clothing: !type:ContainerSlot
@@ -1237,7 +1237,7 @@
     - state: equipped-reinforced-points
       color: "#606275"
     - state: equipped-decals-02-boxer
-      map: [ "eva_decal_boxing" ]
+      map: ["eva_decal_boxing"]
     - state: equipped-breathing-gear
     - state: equipped-unshaded
       shader: unshaded
@@ -1250,7 +1250,7 @@
       - state: equipped-reinforced-points
         color: "#606275"
       - state: equipped-decals-02-boxer
-        map: [ "eva_decal_boxing" ]
+        map: ["eva_decal_boxing"]
       - state: equipped-breathing-gear
       - state: equipped-unshaded
         shader: unshaded
@@ -1517,18 +1517,18 @@
   - type: Sprite
     sprite: _NF/Clothing/OuterClothing/Suits/eva_color.rsi
     layers:
-      - state: equipped-base
-        color: "#283846"
-      - state: equipped-decals-01
-        color: "#e48545"
-      - state: equipped-reinforced-points
-        color: "#3e3e48"
-      - sprite: _NF/Clothing/OuterClothing/Armor/bulletproof_vest_procedural.rsi
-        state: decor_base_OuterClothing_armor_06
-        color: "#e48545"
-      - state: equipped-breathing-gear
-      - state: equipped-unshaded
-        shader: unshaded
+    - state: equipped-base
+      color: "#283846"
+    - state: equipped-decals-01
+      color: "#e48545"
+    - state: equipped-reinforced-points
+      color: "#3e3e48"
+    - sprite: _NF/Clothing/OuterClothing/Armor/bulletproof_vest_procedural.rsi
+      state: decor_base_OuterClothing_armor_06
+      color: "#e48545"
+    - state: equipped-breathing-gear
+    - state: equipped-unshaded
+      shader: unshaded
   - type: Item
     inhandVisuals:
       left:
@@ -1579,21 +1579,21 @@
   - type: Sprite
     sprite: _NF/Clothing/OuterClothing/Suits/eva_color.rsi
     layers:
-      - state: equipped-base
-        color: "#ffffff"
-      - state: equipped-decals-01
-        color: "#8f1717"
-      - state: equipped-reinforced-points
-        color: "#3e3e48"
-      - sprite: _NF/Clothing/OuterClothing/Armor/bulletproof_vest_procedural.rsi
-        state: decor_base_OuterClothing_armor_02
-        color: "#8f1717"
-      - state: equipped-breathing-gear
-      - state: equipped-unshaded
-        shader: unshaded
-      - sprite: _NF/Clothing/OuterClothing/Armor/bulletproof_vest_procedural.rsi
-        state: decor_base_OuterClothing_armor_05
-        color: "#8f1717"
+    - state: equipped-base
+      color: "#ffffff"
+    - state: equipped-decals-01
+      color: "#8f1717"
+    - state: equipped-reinforced-points
+      color: "#3e3e48"
+    - sprite: _NF/Clothing/OuterClothing/Armor/bulletproof_vest_procedural.rsi
+      state: decor_base_OuterClothing_armor_02
+      color: "#8f1717"
+    - state: equipped-breathing-gear
+    - state: equipped-unshaded
+      shader: unshaded
+    - sprite: _NF/Clothing/OuterClothing/Armor/bulletproof_vest_procedural.rsi
+      state: decor_base_OuterClothing_armor_05
+      color: "#8f1717"
   - type: Item
     inhandVisuals:
       left:

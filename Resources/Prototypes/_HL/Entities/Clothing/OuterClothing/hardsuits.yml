@@ -33,7 +33,7 @@
         Slash: 0.5
         Piercing: 0.5
         Heat: 0.5
-        Radiation: 0.25  # Enhanced radiation resistance
+        Radiation: 0.25 # Enhanced radiation resistance
         Caustic: 0.5
   - type: ToggleableClothing
     clothingPrototype: ClothingHeadHelmetHardsuitCybersunHL
@@ -94,12 +94,12 @@
   - type: Armor
     modifiers:
       coefficients:
-        Blunt: 0.375    # 25% better than 0.5
-        Slash: 0.375    # 25% better than 0.5
+        Blunt: 0.375 # 25% better than 0.5
+        Slash: 0.375 # 25% better than 0.5
         Piercing: 0.375 # 25% better than 0.5
-        Heat: 0.375     # 25% better than 0.5
+        Heat: 0.375 # 25% better than 0.5
         Radiation: 0.375 # 25% better than 0.5
-        Caustic: 0.375  # 25% better than 0.5
+        Caustic: 0.375 # 25% better than 0.5
   - type: ToggleableClothing
     clothingPrototype: ClothingHeadHelmetHardsuitSyndicateHighCommand
   - type: Tag
@@ -186,7 +186,6 @@
     walkModifier: 0.9
     sprintModifier: 0.75
 
-
 # Syndicate Navy Hardsuit
 - type: entity
   parent: [ClothingOuterHardsuitSyndie, BaseC3SyndicateContraband, ContrabandClothing]
@@ -231,7 +230,7 @@
 
 #Forged Hardsuit
 - type: entity
-  parent: ClothingOuterHardsuitBase 
+  parent: ClothingOuterHardsuitBase
   id: ClothingForgedHardsuit
   name: Forged Hardsuit
   description: A forged hardsuit with a built-in helmet. It's horribly slow and lacking mostly in thermal protection, but adorned with patchwork armor plating.
@@ -274,7 +273,7 @@
 - type: entity
   parent: NFClothingHeadHardsuitWithLightBaseNfsd
   id: ClothingHeadHelmetHardsuitColonialNavalInfantry
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   name: Colonial Navy M21 infantry hardsuit helmet
   description: A reinforced hardsuit helmet used by the Colonial Navy.
   components:
@@ -327,7 +326,7 @@
         Slash: 0.9
         Piercing: 0.9
         Heat: 0.9
-        Radiation: 0.45  # Enhanced radiation resistance
+        Radiation: 0.45 # Enhanced radiation resistance
         Caustic: 0.9
 
 # Dirizher Cartel Hardsuit Helmet (Unmarked)
@@ -380,12 +379,12 @@
   - type: Armor
     modifiers:
       coefficients:
-        Blunt: 0.675    # 25% better than 0.9
-        Slash: 0.675    # 25% better than 0.9
+        Blunt: 0.675 # 25% better than 0.9
+        Slash: 0.675 # 25% better than 0.9
         Piercing: 0.675 # 25% better than 0.9
-        Heat: 0.675     # 25% better than 0.9
+        Heat: 0.675 # 25% better than 0.9
         Radiation: 0.675 # 25% better than 0.9
-        Caustic: 0.675  # 25% better than 0.9
+        Caustic: 0.675 # 25% better than 0.9
   - type: Tag
     tags:
     - ClothMade
@@ -409,7 +408,7 @@
         Piercing: 0.9
         Heat: 0.9
         Radiation: 0.9
-        Caustic: 0.45  # Enhanced bio/caustic resistance
+        Caustic: 0.45 # Enhanced bio/caustic resistance
 
 # Ramzi Clique Hardsuit Helmet
 - type: entity
@@ -555,7 +554,6 @@
     slots:
     - Tail
 
-
 # Interdyne Crew Hardsuit Helmet
 - type: entity
   parent: [ClothingHeadHelmetHardsuitSyndieMedic, BaseC3SyndicateContraband, ContrabandClothing]
@@ -590,4 +588,4 @@
         Blunt: 0.85
         Slash: 0.85
         Piercing: 0.85
-        
+

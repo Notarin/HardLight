@@ -7,7 +7,15 @@ namespace Content.Shared.Medical.SuitSensor;
 [Serializable, NetSerializable]
 public sealed class SuitSensorStatus
 {
-    public SuitSensorStatus(NetEntity ownerUid, NetEntity suitSensorUid, string name, string job, string jobIcon, List<string> jobDepartments, string locationName) // Frontier: add locationName
+    public SuitSensorStatus(
+        NetEntity ownerUid,
+        NetEntity suitSensorUid,
+        string name,
+        string job,
+        string jobIcon,
+        List<string> jobDepartments,
+        string locationName
+    ) // Frontier: add locationName
     {
         OwnerUid = ownerUid;
         SuitSensorUid = suitSensorUid;
@@ -28,7 +36,8 @@ public sealed class SuitSensorStatus
     public bool IsAlive;
     public int? TotalDamage;
     public int? TotalDamageThreshold;
-    public float? DamagePercentage => TotalDamageThreshold == null || TotalDamage == null ? null : TotalDamage / (float) TotalDamageThreshold;
+    public float? DamagePercentage =>
+        TotalDamageThreshold == null || TotalDamage == null ? null : TotalDamage / (float)TotalDamageThreshold;
     public NetCoordinates? Coordinates;
     public string LocationName; // Frontier
 }
@@ -54,7 +63,7 @@ public enum SuitSensorMode : byte
     /// <summary>
     /// Sensor sends vitals status and GPS position
     /// </summary>
-    SensorCords = 3
+    SensorCords = 3,
 }
 
 public static class SuitSensorConstants

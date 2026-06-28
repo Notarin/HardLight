@@ -31,57 +31,57 @@
   id: ManawaRiteBannersGraph
   start: start
   graph:
-    - node: start
-      actions:
-        - !type:DestroyEntity {}
-      edges:
-        - to: BannerManawaRiteNode
-          completed:
-            - !type:SnapToGrid {}
-          steps:
-            - material: Steel
-              amount: 2
-              doAfter: 1
-            - material: Cloth
-              amount: 2
-              doAfter: 1
-        - to: FlagManawaRiteNode
-          completed:
-            - !type:SnapToGrid {}
-          steps:
-            - material: Steel
-              amount: 2
-              doAfter: 1
-            - material: Cloth
-              amount: 2
-              doAfter: 1
+  - node: start
+    actions:
+    - !type:DestroyEntity {}
+    edges:
+    - to: BannerManawaRiteNode
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: Steel
+        amount: 2
+        doAfter: 1
+      - material: Cloth
+        amount: 2
+        doAfter: 1
+    - to: FlagManawaRiteNode
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: Steel
+        amount: 2
+        doAfter: 1
+      - material: Cloth
+        amount: 2
+        doAfter: 1
 
-    - node: BannerManawaRiteNode
-      entity: BannerManawaRite
-      edges:
-        - to: start
-          completed:
-            - !type:SpawnPrototype
-              prototype: SheetSteel1
-              amount: 2
-            - !type:SpawnPrototype
-              prototype: MaterialCloth1
-              amount: 2
-          steps:
-            - tool: Screwing
-              doAfter: 1
+  - node: BannerManawaRiteNode
+    entity: BannerManawaRite
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 2
+      - !type:SpawnPrototype
+        prototype: MaterialCloth1
+        amount: 2
+      steps:
+      - tool: Screwing
+        doAfter: 1
 
-    - node: FlagManawaRiteNode
-      entity: FlagManawaRite
-      edges:
-        - to: start
-          completed:
-            - !type:SpawnPrototype
-              prototype: SheetSteel1
-              amount: 2
-            - !type:SpawnPrototype
-              prototype: MaterialCloth1
-              amount: 2
-          steps:
-            - tool: Screwing
-              doAfter: 1
+  - node: FlagManawaRiteNode
+    entity: FlagManawaRite
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 2
+      - !type:SpawnPrototype
+        prototype: MaterialCloth1
+        amount: 2
+      steps:
+      - tool: Screwing
+        doAfter: 1

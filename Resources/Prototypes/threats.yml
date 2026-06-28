@@ -10,19 +10,18 @@
   id: Dragon
   announcement: terror-dragon
   rule: DragonSpawn
-  
+
 - type: ninjaHackingThreat
   id: Kingrat
   announcement: terror-dragon
   rule: KingRatMigration
-  
+
 - type: ninjaHackingThreat
   id: Loneop
   announcement: terror-revenant
   rule: LoneOpsSpawn
 
-
 # - type: ninjaHackingThreat
-  # id: Revenant
-  # announcement: terror-revenant
-  # rule: RevenantSpawn
+# id: Revenant
+# announcement: terror-revenant
+# rule: RevenantSpawn

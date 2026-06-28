@@ -31,7 +31,6 @@ public sealed class EntityHealthBarOverlay : Overlay
     private readonly SpriteSystem _spriteSystem;
     private readonly ProgressColorSystem _progressColor;
 
-
     public override OverlaySpace Space => OverlaySpace.WorldSpaceBelowFOV;
     public HashSet<string> DamageContainers = new();
     public ProtoId<HealthIconPrototype>? StatusIcon;
@@ -59,33 +58,52 @@ public sealed class EntityHealthBarOverlay : Overlay
         var rotationMatrix = Matrix3Helpers.CreateRotation(-rotation);
         _prototype.TryIndex(StatusIcon, out var statusIcon);
 
-        var query = _entManager.AllEntityQueryEnumerator<MobThresholdsComponent, MobStateComponent, DamageableComponent, SpriteComponent>();
-        while (query.MoveNext(out var uid,
-            out var mobThresholdsComponent,
-            out var mobStateComponent,
-            out var damageableComponent,
-            out var spriteComponent))
+        var query = _entManager.AllEntityQueryEnumerator<
+            MobThresholdsComponent,
+            MobStateComponent,
+            DamageableComponent,
+            SpriteComponent
+        >();
+        while (
+            query.MoveNext(
+                out var uid,
+                out var mobThresholdsComponent,
+                out var mobStateComponent,
+                out var damageableComponent,
+                out var spriteComponent
+            )
+        )
         {
-            if (statusIcon != null && !_statusIconSystem.IsVisible((uid, _entManager.GetComponent<MetaDataComponent>(uid)), statusIcon))
+            if (
+                statusIcon != null
+                && !_statusIconSystem.IsVisible((uid, _entManager.GetComponent<MetaDataComponent>(uid)), statusIcon)
+            )
                 continue;
 
             // We want the stealth user to still be able to see his health bar himself
-            if (!xformQuery.TryGetComponent(uid, out var xform) ||
-                xform.MapID != args.MapId)
+            if (!xformQuery.TryGetComponent(uid, out var xform) || xform.MapID != args.MapId)
                 continue;
 
-            if (damageableComponent.DamageContainerID == null || !DamageContainers.Contains(damageableComponent.DamageContainerID))
+            if (
+                damageableComponent.DamageContainerID == null
+                || !DamageContainers.Contains(damageableComponent.DamageContainerID)
+            )
                 continue;
 
             // we use the status icon component bounds if specified otherwise use sprite
-            var bounds = _entManager.GetComponentOrNull<StatusIconComponent>(uid)?.Bounds ?? _spriteSystem.GetLocalBounds((uid, spriteComponent));
+            var bounds =
+                _entManager.GetComponentOrNull<StatusIconComponent>(uid)?.Bounds
+                ?? _spriteSystem.GetLocalBounds((uid, spriteComponent));
             var worldPos = _transform.GetWorldPosition(xform, xformQuery);
 
             if (!bounds.Translated(worldPos).Intersects(args.WorldAABB))
                 continue;
 
             // we are all progressing towards death every day
-            if (CalcProgress(uid, mobStateComponent, damageableComponent, mobThresholdsComponent) is not { } deathProgress)
+            if (
+                CalcProgress(uid, mobStateComponent, damageableComponent, mobThresholdsComponent)
+                is not { } deathProgress
+            )
                 continue;
 
             var worldPosition = _transform.GetWorldPosition(xform);
@@ -99,7 +117,10 @@ public sealed class EntityHealthBarOverlay : Overlay
             var yOffset = bounds.Height * EyeManager.PixelsPerMeter / 2 - 3f;
             var widthOfMob = bounds.Width * EyeManager.PixelsPerMeter;
 
-            var position = new Vector2(-widthOfMob / EyeManager.PixelsPerMeter / 2, yOffset / EyeManager.PixelsPerMeter);
+            var position = new Vector2(
+                -widthOfMob / EyeManager.PixelsPerMeter / 2,
+                yOffset / EyeManager.PixelsPerMeter
+            );
             var color = GetProgressColor(deathProgress.ratio, deathProgress.inCrit);
 
             // Hardcoded width of the progress bar because it doesn't match the texture.
@@ -108,15 +129,24 @@ public sealed class EntityHealthBarOverlay : Overlay
 
             var xProgress = (endX - startX) * deathProgress.ratio + startX;
 
-            var boxBackground = new Box2(new Vector2(startX, 0f) / EyeManager.PixelsPerMeter, new Vector2(endX, 3f) / EyeManager.PixelsPerMeter);
+            var boxBackground = new Box2(
+                new Vector2(startX, 0f) / EyeManager.PixelsPerMeter,
+                new Vector2(endX, 3f) / EyeManager.PixelsPerMeter
+            );
             boxBackground = boxBackground.Translated(position);
             handle.DrawRect(boxBackground, Black.WithAlpha(192));
 
-            var boxMain = new Box2(new Vector2(startX, 0f) / EyeManager.PixelsPerMeter, new Vector2(xProgress, 3f) / EyeManager.PixelsPerMeter);
+            var boxMain = new Box2(
+                new Vector2(startX, 0f) / EyeManager.PixelsPerMeter,
+                new Vector2(xProgress, 3f) / EyeManager.PixelsPerMeter
+            );
             boxMain = boxMain.Translated(position);
             handle.DrawRect(boxMain, color);
 
-            var pixelDarken = new Box2(new Vector2(startX, 2f) / EyeManager.PixelsPerMeter, new Vector2(xProgress, 3f) / EyeManager.PixelsPerMeter);
+            var pixelDarken = new Box2(
+                new Vector2(startX, 2f) / EyeManager.PixelsPerMeter,
+                new Vector2(xProgress, 3f) / EyeManager.PixelsPerMeter
+            );
             pixelDarken = pixelDarken.Translated(position);
             handle.DrawRect(pixelDarken, Black.WithAlpha(128));
         }
@@ -127,15 +157,22 @@ public sealed class EntityHealthBarOverlay : Overlay
     /// <summary>
     /// Returns a ratio between 0 and 1, and whether the entity is in crit.
     /// </summary>
-    private (float ratio, bool inCrit)? CalcProgress(EntityUid uid, MobStateComponent component, DamageableComponent dmg, MobThresholdsComponent thresholds)
+    private (float ratio, bool inCrit)? CalcProgress(
+        EntityUid uid,
+        MobStateComponent component,
+        DamageableComponent dmg,
+        MobThresholdsComponent thresholds
+    )
     {
         if (_mobStateSystem.IsAlive(uid, component))
         {
             if (dmg.HealthBarThreshold != null && dmg.TotalDamage < dmg.HealthBarThreshold)
                 return null;
 
-            if (!_mobThresholdSystem.TryGetThresholdForState(uid, MobState.Critical, out var threshold, thresholds) &&
-                !_mobThresholdSystem.TryGetThresholdForState(uid, MobState.Dead, out threshold, thresholds))
+            if (
+                !_mobThresholdSystem.TryGetThresholdForState(uid, MobState.Critical, out var threshold, thresholds)
+                && !_mobThresholdSystem.TryGetThresholdForState(uid, MobState.Dead, out threshold, thresholds)
+            )
                 return (1, false);
 
             var ratio = 1 - ((FixedPoint2)(dmg.TotalDamage / threshold)).Float();
@@ -144,8 +181,10 @@ public sealed class EntityHealthBarOverlay : Overlay
 
         if (_mobStateSystem.IsCritical(uid, component))
         {
-            if (!_mobThresholdSystem.TryGetThresholdForState(uid, MobState.Critical, out var critThreshold, thresholds) ||
-                !_mobThresholdSystem.TryGetThresholdForState(uid, MobState.Dead, out var deadThreshold, thresholds))
+            if (
+                !_mobThresholdSystem.TryGetThresholdForState(uid, MobState.Critical, out var critThreshold, thresholds)
+                || !_mobThresholdSystem.TryGetThresholdForState(uid, MobState.Dead, out var deadThreshold, thresholds)
+            )
             {
                 return (1, true);
             }

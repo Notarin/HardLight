@@ -1,7 +1,7 @@
 - type: entity
   name: basic slime
   id: BaseMobAdultSlimes
-  parent: [ SimpleMobBase, MobCombat ]
+  parent: [SimpleMobBase, MobCombat]
   abstract: true
   description: It looks so much like jelly. I wonder what it tastes like?
   components:
@@ -18,14 +18,13 @@
     drawdepth: Mobs
     sprite: Mobs/Aliens/slimes.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: blue_adult_slime
   - type: Carriable # DeltaV
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.30
         density: 80
         mask:
@@ -68,27 +67,25 @@
     bloodReagent: Slime
     bloodlossDamage:
       types:
-        Bloodloss:
-          0.5
+        Bloodloss: 0.5
     bloodlossHealDamage:
       types:
-        Bloodloss:
-          -0.25
+        Bloodloss: -0.25
   - type: Barotrauma
     damage:
       types:
         Blunt: 0.45
   - type: Reactive
     groups:
-      Flammable: [ Touch ]
-      Extinguish: [ Touch ]
+      Flammable: [Touch]
+      Extinguish: [Touch]
     reactions:
-    - reagents: [ Water, SpaceCleaner ]
-      methods: [ Touch ]
+    - reagents: [Water, SpaceCleaner]
+      methods: [Touch]
       effects:
       - !type:WashCreamPieReaction
-    - reagents: [ Water ]
-      methods: [ Touch ]
+    - reagents: [Water]
+      methods: [Touch]
       effects:
       - !type:HealthChange
         scaleByQuantity: true
@@ -97,7 +94,7 @@
             Heat: 0.15
       - !type:PopupMessage
         type: Local
-        messages: [ "slime-hurt-by-water-popup" ]
+        messages: ["slime-hurt-by-water-popup"]
         probability: 0.25
   - type: Body
     prototype: Slimes
@@ -197,7 +194,7 @@
   components:
   - type: Sprite
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: green_adult_slime
   - type: DamageStateVisuals
     states:
@@ -237,7 +234,7 @@
   components:
   - type: Sprite
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: yellow_adult_slime
   - type: DamageStateVisuals
     states:

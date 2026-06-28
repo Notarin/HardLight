@@ -5,8 +5,8 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
-using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype.List;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype.Dictionary;
+using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype.List;
 
 namespace Content.Shared.Singularity.Components;
 
@@ -16,9 +16,12 @@ public sealed partial class EmitterComponent : Component
     public CancellationTokenSource? TimerCancel;
 
     // whether the power switch is in "on"
-    [ViewVariables] public bool IsOn;
+    [ViewVariables]
+    public bool IsOn;
+
     // Whether the power switch is on AND the machine has enough power (so is actively firing)
-    [ViewVariables] public bool IsPowered;
+    [ViewVariables]
+    public bool IsPowered;
 
     /// <summary>
     /// counts the number of consecutive shots fired.
@@ -131,20 +134,23 @@ public sealed partial class EmitterComponent : Component
     /// <summary>
     /// Map of signal ports to entity prototype IDs of the entity that will be fired.
     /// </summary>
-    [DataField("setTypePorts", customTypeSerializer: typeof(PrototypeIdDictionarySerializer<string, SinkPortPrototype>))]
+    [DataField(
+        "setTypePorts",
+        customTypeSerializer: typeof(PrototypeIdDictionarySerializer<string, SinkPortPrototype>)
+    )]
     public Dictionary<string, string> SetTypePorts = new();
 }
 
 [NetSerializable, Serializable]
 public enum EmitterVisuals : byte
 {
-    VisualState
+    VisualState,
 }
 
 [Serializable, NetSerializable]
 public enum EmitterVisualLayers : byte
 {
-    Lights
+    Lights,
 }
 
 [NetSerializable, Serializable]
@@ -152,5 +158,5 @@ public enum EmitterVisualState
 {
     On,
     Underpowered,
-    Off
+    Off,
 }

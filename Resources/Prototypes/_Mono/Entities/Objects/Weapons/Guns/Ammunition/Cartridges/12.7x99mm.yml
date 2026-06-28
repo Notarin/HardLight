@@ -1,5 +1,5 @@
 - type: entity
-  parent: [ BaseCartridge, BaseC3PirateContraband ]
+  parent: [BaseCartridge, BaseC3PirateContraband]
   id: Cartridge127x99mm
   name: cartridge (127x99mm anti-material)
   components:
@@ -21,7 +21,7 @@
     price: 20
 
 - type: entity
-  parent: [ BaseCartridge, BaseC3PirateContraband ]
+  parent: [BaseCartridge, BaseC3PirateContraband]
   id: Cartridge127x99mmExplosive
   name: cartridge (127x99mm high-explosive)
   components:

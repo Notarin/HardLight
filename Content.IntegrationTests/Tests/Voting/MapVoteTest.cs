@@ -17,7 +17,8 @@ public sealed class MapVoteTest
     private const string TestMapIneligibleName = "MapVoteTestIneligible";
 
     [TestPrototypes]
-    private static readonly string TestMaps = @$"
+    private static readonly string TestMaps =
+        @$"
 - type: gameMap
   id: {TestMapIneligibleName}
   mapName: {TestMapIneligibleName}
@@ -60,10 +61,16 @@ public sealed class MapVoteTest
         await server.WaitAssertion(() =>
         {
             // Verify test maps exist
-            Assert.That(prototypeManager.HasIndex<GameMapPrototype>(TestMapEligibleName), Is.True,
-                $"Test map {TestMapEligibleName} should exist");
-            Assert.That(prototypeManager.HasIndex<GameMapPrototype>(TestMapIneligibleName), Is.True,
-                $"Test map {TestMapIneligibleName} should exist");
+            Assert.That(
+                prototypeManager.HasIndex<GameMapPrototype>(TestMapEligibleName),
+                Is.True,
+                $"Test map {TestMapEligibleName} should exist"
+            );
+            Assert.That(
+                prototypeManager.HasIndex<GameMapPrototype>(TestMapIneligibleName),
+                Is.True,
+                $"Test map {TestMapIneligibleName} should exist"
+            );
 
             // Clear any existing map selection
             gameMapManager.ClearSelectedMap();
@@ -72,26 +79,42 @@ public sealed class MapVoteTest
             // Test 1: Verify TrySelectMapIfEligible respects eligibility (this should work as before)
             var eligibleSelected = gameMapManager.TrySelectMapIfEligible(TestMapEligibleName);
             Assert.That(eligibleSelected, Is.True, "Eligible map should be selectable via TrySelectMapIfEligible");
-            Assert.That(gameMapManager.GetSelectedMap()?.ID, Is.EqualTo(TestMapEligibleName),
-                "Eligible map should be selected");
+            Assert.That(
+                gameMapManager.GetSelectedMap()?.ID,
+                Is.EqualTo(TestMapEligibleName),
+                "Eligible map should be selected"
+            );
 
             gameMapManager.ClearSelectedMap();
 
             // Test 2: Verify TrySelectMapIfEligible blocks ineligible maps (this should work as before)
             var ineligibleSelected = gameMapManager.TrySelectMapIfEligible(TestMapIneligibleName);
-            Assert.That(ineligibleSelected, Is.False, "Ineligible map should not be selectable via TrySelectMapIfEligible");
-            Assert.That(gameMapManager.GetSelectedMap(), Is.Null,
-                "Ineligible map should not be selected via TrySelectMapIfEligible");
+            Assert.That(
+                ineligibleSelected,
+                Is.False,
+                "Ineligible map should not be selectable via TrySelectMapIfEligible"
+            );
+            Assert.That(
+                gameMapManager.GetSelectedMap(),
+                Is.Null,
+                "Ineligible map should not be selected via TrySelectMapIfEligible"
+            );
 
             // Test 3: Verify SelectMap bypasses eligibility (this is what our fix uses for votes)
             gameMapManager.SelectMap(TestMapIneligibleName);
-            Assert.That(gameMapManager.GetSelectedMap()?.ID, Is.EqualTo(TestMapIneligibleName),
-                "Ineligible map should be selectable via SelectMap (democracy override)");
+            Assert.That(
+                gameMapManager.GetSelectedMap()?.ID,
+                Is.EqualTo(TestMapIneligibleName),
+                "Ineligible map should be selectable via SelectMap (democracy override)"
+            );
 
             // Test 4: Verify that even eligible maps work with SelectMap
             gameMapManager.SelectMap(TestMapEligibleName);
-            Assert.That(gameMapManager.GetSelectedMap()?.ID, Is.EqualTo(TestMapEligibleName),
-                "Eligible map should also work with SelectMap");
+            Assert.That(
+                gameMapManager.GetSelectedMap()?.ID,
+                Is.EqualTo(TestMapEligibleName),
+                "Eligible map should also work with SelectMap"
+            );
 
             gameMapManager.ClearSelectedMap();
         });
@@ -113,14 +136,23 @@ public sealed class MapVoteTest
         await server.WaitAssertion(() =>
         {
             // Test that valid maps exist
-            Assert.That(gameMapManager.CheckMapExists(TestMapEligibleName), Is.True,
-                $"Map {TestMapEligibleName} should exist");
-            Assert.That(gameMapManager.CheckMapExists(TestMapIneligibleName), Is.True,
-                $"Map {TestMapIneligibleName} should exist");
+            Assert.That(
+                gameMapManager.CheckMapExists(TestMapEligibleName),
+                Is.True,
+                $"Map {TestMapEligibleName} should exist"
+            );
+            Assert.That(
+                gameMapManager.CheckMapExists(TestMapIneligibleName),
+                Is.True,
+                $"Map {TestMapIneligibleName} should exist"
+            );
 
             // Test that invalid maps don't exist
-            Assert.That(gameMapManager.CheckMapExists("NonExistentMap123"), Is.False,
-                "Non-existent map should not exist");
+            Assert.That(
+                gameMapManager.CheckMapExists("NonExistentMap123"),
+                Is.False,
+                "Non-existent map should not exist"
+            );
         });
 
         await pair.CleanReturnAsync();
@@ -142,25 +174,25 @@ public sealed class MapVoteTest
         {
             // Clear any existing map selection
             gameMapManager.ClearSelectedMap();
-            Assert.That(gameMapManager.GetSelectedMap(), Is.Null,
-                "Map selection should be cleared");
+            Assert.That(gameMapManager.GetSelectedMap(), Is.Null, "Map selection should be cleared");
 
             // Test map selection - this should work regardless of DefaultMap state
             gameMapManager.SelectMap(TestMapEligibleName);
             var selectedMap = gameMapManager.GetSelectedMap();
-            Assert.That(selectedMap?.ID, Is.EqualTo(TestMapEligibleName),
-                "Selected map should be set correctly via SelectMap()");
+            Assert.That(
+                selectedMap?.ID,
+                Is.EqualTo(TestMapEligibleName),
+                "Selected map should be set correctly via SelectMap()"
+            );
 
             // Test another map selection
             gameMapManager.SelectMap(TestMapIneligibleName);
             selectedMap = gameMapManager.GetSelectedMap();
-            Assert.That(selectedMap?.ID, Is.EqualTo(TestMapIneligibleName),
-                "Selected map should be updated correctly");
+            Assert.That(selectedMap?.ID, Is.EqualTo(TestMapIneligibleName), "Selected map should be updated correctly");
 
             // Clear and verify
             gameMapManager.ClearSelectedMap();
-            Assert.That(gameMapManager.GetSelectedMap(), Is.Null,
-                "Map selection should be cleared again");
+            Assert.That(gameMapManager.GetSelectedMap(), Is.Null, "Map selection should be cleared again");
         });
 
         await pair.CleanReturnAsync();

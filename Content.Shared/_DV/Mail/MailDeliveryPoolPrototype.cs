@@ -8,7 +8,8 @@ namespace Content.Shared._DV.Mail;
 [Prototype("mailDeliveryPool")]
 public sealed partial class MailDeliveryPoolPrototype : IPrototype
 {
-    [IdDataField] public string ID { get; private set; } = default!;
+    [IdDataField]
+    public string ID { get; private set; } = default!;
 
     /// <summary>
     /// Mail that can be sent to everyone.

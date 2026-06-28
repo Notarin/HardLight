@@ -104,13 +104,13 @@
   name: scrapper combat gloves
   description: High-quality insulated gloves that provide protection while salvaging.
   components:
-    - type: Sprite
-      sprite: _Starlight/Clothing/Hands/Gloves/salvage.rsi
-    - type: Clothing
-      sprite: _Starlight/Clothing/Hands/Gloves/salvage.rsi
-    - type: Fiber
-      fiberMaterial: fibers-insulative
-      fiberColor: fibers-brown
+  - type: Sprite
+    sprite: _Starlight/Clothing/Hands/Gloves/salvage.rsi
+  - type: Clothing
+    sprite: _Starlight/Clothing/Hands/Gloves/salvage.rsi
+  - type: Fiber
+    fiberMaterial: fibers-insulative
+    fiberColor: fibers-brown
 
 - type: entity
   parent: ClothingHandsButcherable

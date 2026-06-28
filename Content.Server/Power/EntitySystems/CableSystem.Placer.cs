@@ -10,9 +10,14 @@ namespace Content.Server.Power.EntitySystems;
 
 public sealed partial class CableSystem
 {
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
+    [Dependency]
+    private readonly IAdminLogManager _adminLogger = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _map = default!;
 
     private void InitializeCablePlacer()
     {
@@ -38,7 +43,6 @@ public sealed partial class CableSystem
         if ((!component.OverTile && !tileDef.IsSubFloor) || !tileDef.Sturdy)
             return;
 
-
         foreach (var anchored in _map.GetAnchoredEntities((gridUid, grid), snapPos))
         {
             if (TryComp<CableComponent>(anchored, out var wire) && wire.CableType == component.BlockingCableType)
@@ -48,9 +52,15 @@ public sealed partial class CableSystem
         if (TryComp<StackComponent>(placer, out var stack) && !_stack.Use(placer, 1, stack))
             return;
 
-        var newCable = EntityManager.SpawnEntity(component.CablePrototypeId, _map.GridTileToLocal(gridUid, grid, snapPos));
-        _adminLogger.Add(LogType.Construction, LogImpact.Low,
-            $"{ToPrettyString(args.User):player} placed {ToPrettyString(newCable):cable} at {Transform(newCable).Coordinates}");
+        var newCable = EntityManager.SpawnEntity(
+            component.CablePrototypeId,
+            _map.GridTileToLocal(gridUid, grid, snapPos)
+        );
+        _adminLogger.Add(
+            LogType.Construction,
+            LogImpact.Low,
+            $"{ToPrettyString(args.User):player} placed {ToPrettyString(newCable):cable} at {Transform(newCable).Coordinates}"
+        );
         args.Handled = true;
     }
 }

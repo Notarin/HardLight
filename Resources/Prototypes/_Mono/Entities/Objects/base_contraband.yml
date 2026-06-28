@@ -5,7 +5,7 @@
   components:
   - type: Contraband
     severity: Class2Restricted
-    allowedDepartments: [ Security, Command, CentralCommand ] # HardLight: Removed PMC
+    allowedDepartments: [Security, Command, CentralCommand] # HardLight: Removed PMC
 
 - type: entity
   parent: BaseC3Contraband
@@ -59,7 +59,7 @@
   abstract: true
   components:
   - type: Contraband
-    allowedDepartments: [ Antag ]
+    allowedDepartments: [Antag]
 
 - type: entity
   parent: BaseFactionGearPDVT0
@@ -101,7 +101,7 @@
   abstract: true
   components:
   - type: Contraband
-    allowedDepartments: [ Security ]
+    allowedDepartments: [Security]
 
 - type: entity
   parent: BaseFactionGearTSFT0

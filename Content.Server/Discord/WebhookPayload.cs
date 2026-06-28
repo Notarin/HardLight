@@ -7,6 +7,7 @@ public struct WebhookPayload
 {
     [JsonPropertyName("UserID")] // Frontier, this is used to identify the players in the webhook
     public Guid? UserID { get; set; }
+
     /// <summary>
     ///     The message to send in the webhook. Maximum of 2000 characters.
     /// </summary>
@@ -25,7 +26,5 @@ public struct WebhookPayload
     [JsonPropertyName("allowed_mentions")]
     public WebhookMentions AllowedMentions { get; set; } = new();
 
-    public WebhookPayload()
-    {
-    }
+    public WebhookPayload() { }
 }

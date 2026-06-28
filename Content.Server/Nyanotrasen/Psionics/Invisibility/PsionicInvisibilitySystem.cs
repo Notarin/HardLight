@@ -1,19 +1,25 @@
-using Content.Shared.Abilities.Psionics;
 //using Content.Shared.Vehicle.Components;
 using Content.Server.Abilities.Psionics;
-using Content.Shared.Eye;
 using Content.Server.NPC.Systems;
-using Robust.Shared.Containers;
+using Content.Shared.Abilities.Psionics;
+using Content.Shared.Eye;
 using Robust.Server.GameObjects;
+using Robust.Shared.Containers;
 
 namespace Content.Server.Psionics
 {
     public sealed class PsionicInvisibilitySystem : EntitySystem
     {
-        [Dependency] private readonly VisibilitySystem _visibilitySystem = default!;
-        [Dependency] private readonly PsionicInvisibilityPowerSystem _invisSystem = default!;
+        [Dependency]
+        private readonly VisibilitySystem _visibilitySystem = default!;
+
+        [Dependency]
+        private readonly PsionicInvisibilityPowerSystem _invisSystem = default!;
+
         //[Dependency] private readonly NpcFactionSystem _npcFactonSystem = default!;
-        [Dependency] private readonly SharedEyeSystem _eye = default!;
+        [Dependency]
+        private readonly SharedEyeSystem _eye = default!;
+
         public override void Initialize()
         {
             base.Initialize();
@@ -84,20 +90,19 @@ namespace Content.Server.Psionics
         {
             var visibility = EntityManager.EnsureComponent<VisibilityComponent>(uid);
 
-            _visibilitySystem.AddLayer((uid, visibility), (int) VisibilityFlags.PsionicInvisibility, false);
-            _visibilitySystem.RemoveLayer((uid, visibility), (int) VisibilityFlags.Normal, false);
+            _visibilitySystem.AddLayer((uid, visibility), (int)VisibilityFlags.PsionicInvisibility, false);
+            _visibilitySystem.RemoveLayer((uid, visibility), (int)VisibilityFlags.Normal, false);
             _visibilitySystem.RefreshVisibility(uid);
 
             SetCanSeePsionicInvisiblity(uid, true);
         }
 
-
         private void OnInvisShutdown(EntityUid uid, PsionicallyInvisibleComponent component, ComponentShutdown args)
         {
             if (TryComp<VisibilityComponent>(uid, out var visibility))
             {
-                _visibilitySystem.RemoveLayer((uid, visibility), (int) VisibilityFlags.PsionicInvisibility, false);
-                _visibilitySystem.AddLayer((uid, visibility), (int) VisibilityFlags.Normal, false);
+                _visibilitySystem.RemoveLayer((uid, visibility), (int)VisibilityFlags.PsionicInvisibility, false);
+                _visibilitySystem.AddLayer((uid, visibility), (int)VisibilityFlags.Normal, false);
                 _visibilitySystem.RefreshVisibility(uid);
             }
             if (HasComp<PotentialPsionicComponent>(uid) && !HasComp<PsionicInsulationComponent>(uid))
@@ -111,12 +116,20 @@ namespace Content.Server.Psionics
 
             //SetCanSeePsionicInvisiblity(uid, true); //JJ Comment - Not allowed to modifies .yml on spawn any longer. See UninitializedSaveTest.
         } */
-        private void OnEntInserted(EntityUid uid, PsionicallyInvisibleComponent component, EntInsertedIntoContainerMessage args)
+        private void OnEntInserted(
+            EntityUid uid,
+            PsionicallyInvisibleComponent component,
+            EntInsertedIntoContainerMessage args
+        )
         {
             DirtyEntity(args.Entity);
         }
 
-        private void OnEntRemoved(EntityUid uid, PsionicallyInvisibleComponent component, EntRemovedFromContainerMessage args)
+        private void OnEntRemoved(
+            EntityUid uid,
+            PsionicallyInvisibleComponent component,
+            EntRemovedFromContainerMessage args
+        )
         {
             DirtyEntity(args.Entity);
         }
@@ -127,9 +140,10 @@ namespace Content.Server.Psionics
             {
                 if (EntityManager.TryGetComponent(uid, out EyeComponent? eye))
                 {
-                    _eye.SetVisibilityMask(uid, eye.VisibilityMask | (int) VisibilityFlags.PsionicInvisibility, eye);
+                    _eye.SetVisibilityMask(uid, eye.VisibilityMask | (int)VisibilityFlags.PsionicInvisibility, eye);
                 }
-            } else
+            }
+            else
             {
                 if (EntityManager.TryGetComponent(uid, out EyeComponent? eye))
                 {

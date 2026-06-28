@@ -25,15 +25,15 @@
   parent: DoubleEmergencyAirTank
   suffix: Filled
   components:
-    - type: GasTank
-      outputPressure: 101.3
-      air:
-        # 6 minutes due to output pressure
-        volume: 2.5
-        moles:
-          - 0.2256516955 # 22% oxygen
-          - 0.800378295 # 78% nitrogen
-        temperature: 293.15
+  - type: GasTank
+    outputPressure: 101.3
+    air:
+      # 6 minutes due to output pressure
+      volume: 2.5
+      moles:
+      - 0.2256516955 # 22% oxygen
+      - 0.800378295 # 78% nitrogen
+      temperature: 293.15
 
 - type: entity
   id: NFTankO2N2EqualFilled
@@ -51,15 +51,15 @@
       # only 7.8 minutes due to pressure
       volume: 5
       moles:
-        - 1.025689525 # 50% oxygen
-        - 1.025689525 # 50% nitrogen
-        - 0 # CO2
-        - 0 # plasma
-        - 0 # tritium
-        - 0 # water vapor
-        - 0 # ammonia
-        - 0 # N2O
-        # 2.051379050       total
+      - 1.025689525 # 50% oxygen
+      - 1.025689525 # 50% nitrogen
+      - 0 # CO2
+      - 0 # plasma
+      - 0 # tritium
+      - 0 # water vapor
+      - 0 # ammonia
+      - 0 # N2O
+      # 2.051379050       total
       temperature: 293.15
 
 - type: entity
@@ -67,12 +67,12 @@
   parent: DoubleEmergencyTankO2N2Equal
   suffix: Filled
   components:
-    - type: GasTank
-      outputPressure: 42.6
-      air:
-        # 3.9 minutes due to output pressure
-        volume: 2.5
-        moles:
-          - 0.5128447625 # 50% oxygen
-          - 0.5128447625 # 50% nitrogen
-        temperature: 293.15
+  - type: GasTank
+    outputPressure: 42.6
+    air:
+      # 3.9 minutes due to output pressure
+      volume: 2.5
+      moles:
+      - 0.5128447625 # 50% oxygen
+      - 0.5128447625 # 50% nitrogen
+      temperature: 293.15

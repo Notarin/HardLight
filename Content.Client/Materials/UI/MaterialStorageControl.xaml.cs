@@ -15,7 +15,8 @@ namespace Content.Client.Materials.UI;
 [GenerateTypedNameReferences]
 public sealed partial class MaterialStorageControl : ScrollContainer
 {
-    [Dependency] private readonly IEntityManager _entityManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entityManager = default!;
     private readonly MaterialStorageSystem _materialStorage;
 
     private EntityUid? _owner;
@@ -42,7 +43,10 @@ public sealed partial class MaterialStorageControl : ScrollContainer
         if (_owner == null)
             return;
 
-        if (_entityManager.Deleted(_owner) || !_entityManager.TryGetComponent<MaterialStorageComponent>(_owner, out var materialStorage))
+        if (
+            _entityManager.Deleted(_owner)
+            || !_entityManager.TryGetComponent<MaterialStorageComponent>(_owner, out var materialStorage)
+        )
         {
             _owner = null;
             return;
@@ -58,8 +62,7 @@ public sealed partial class MaterialStorageControl : ScrollContainer
         var extra = new List<string>();
         foreach (var (mat, amount) in mats)
         {
-            if (!_currentMaterials.ContainsKey(mat) ||
-                _currentMaterials[mat] == 0 && _currentMaterials[mat] != amount)
+            if (!_currentMaterials.ContainsKey(mat) || _currentMaterials[mat] == 0 && _currentMaterials[mat] != amount)
                 missing.Add(mat);
         }
         foreach (var (mat, amount) in _currentMaterials)
@@ -94,6 +97,7 @@ public sealed partial class MaterialStorageControl : ScrollContainer
 
         _currentMaterials = mats;
         NoMatsLabel.Visible = MaterialList.ChildCount == 1;
-        SiloLinkedLabel.Visible = _entityManager.TryGetComponent<OreSiloClientComponent>(_owner.Value, out var client) && client.Silo != null;
+        SiloLinkedLabel.Visible =
+            _entityManager.TryGetComponent<OreSiloClientComponent>(_owner.Value, out var client) && client.Silo != null;
     }
 }

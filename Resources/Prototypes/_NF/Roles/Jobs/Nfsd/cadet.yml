@@ -4,12 +4,12 @@
   description: job-description-cadet-nf
   playTimeTracker: JobSecurityCadetOld
   requirements:
-    - !type:OverallPlaytimeRequirement
-      time: 21600 # 6 hours
-    - !type:DepartmentTimeRequirement
-      department: Security
-      time: 64800 # 18 hours
-      inverted: true # Leave slots open for newer, less confident players.
+  - !type:OverallPlaytimeRequirement
+    time: 21600 # 6 hours
+  - !type:DepartmentTimeRequirement
+    department: Security
+    time: 64800 # 18 hours
+    inverted: true # Leave slots open for newer, less confident players.
   startingGear: CadetGear
   icon: JobIconCadetNF
   supervisors: job-supervisors-cadet
@@ -21,7 +21,7 @@
   - CadetNfsdAccess
   special:
   - !type:AddImplantSpecial
-    implants: [ MindShieldImplant, TrackingImplant ]
+    implants: [MindShieldImplant, TrackingImplant]
   - !type:GiveItemOnHolidaySpecial
     holiday: FrontierBirthday
     prototype: FrontierBirthdayGift

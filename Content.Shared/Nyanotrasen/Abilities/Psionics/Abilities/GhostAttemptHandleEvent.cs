@@ -3,7 +3,4 @@ using Robust.Shared.GameStates;
 
 namespace Content.Shared.Nyanotrasen.Abilities.Psionics.Abilities;
 
-public sealed partial class GhostAttemptHandleEvent : InstantActionEvent
-{
-
-}
+public sealed partial class GhostAttemptHandleEvent : InstantActionEvent { }

@@ -5,7 +5,7 @@
 # theyre designed not to be an atagonist, but rather a crew aligned companion
 - type: entity
   id: MobClownSpiderSteveBug
-  parent: [ SimpleMobBase, MobCombat ]
+  parent: [SimpleMobBase, MobCombat]
   name: Steve!
   description: A bug straight from the mines. Mascot of Steve Co.™  Isn't he just an adorable replacement for the clown?
   suffix: FoxS, Admin
@@ -125,8 +125,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.2
         density: 100
         mask:
@@ -194,7 +193,6 @@
           False: {visible: false}
           True: {visible: true}
 
-
 - type: entity
   id: CrateToyBoxSteveBug
   parent: CrateToyBox
@@ -204,9 +202,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: MobClownSpiderSteveBug
-      - id: PaperSteveBugDelivery
-
+    - id: MobClownSpiderSteveBug
+    - id: PaperSteveBugDelivery
 
 - type: entity
   id: PaperSteveBugDelivery
@@ -215,10 +212,8 @@
   description: A piece of white paper describing the contents of its box.
   suffix: FoxS, Admin
   components:
-    - type: Paper
-      content: "Steve the friendly clown-spider hails from the vibrant, jungle-covered planet of Zyphora, known for its diverse and peculiar fauna. Created by Dr. Nirou-Jol in ColComm's Xenobiology laboratories, he was designed as a cheerful mascot for the Steve Co brand, embodying a playful yet helpful spirit of service. Despite his small, canine-sized frame and clownish appearance—complete with bright colors and a tiny red nose—Steve is a biological marvel, delivered in a sturdy wooden box to various space stations. His communication is often telepathic due to his limited speech, but he's known for injecting small doses of omnizine via his bites, which slowly heals wounds, alongside dealing significant stamina damage to foes. As a science project and mascot, Steve combines his healing abilities with a playful, protective nature, making him a beloved yet formidable presence in his universe."
-
-
+  - type: Paper
+    content: "Steve the friendly clown-spider hails from the vibrant, jungle-covered planet of Zyphora, known for its diverse and peculiar fauna. Created by Dr. Nirou-Jol in ColComm's Xenobiology laboratories, he was designed as a cheerful mascot for the Steve Co brand, embodying a playful yet helpful spirit of service. Despite his small, canine-sized frame and clownish appearance—complete with bright colors and a tiny red nose—Steve is a biological marvel, delivered in a sturdy wooden box to various space stations. His communication is often telepathic due to his limited speech, but he's known for injecting small doses of omnizine via his bites, which slowly heals wounds, alongside dealing significant stamina damage to foes. As a science project and mascot, Steve combines his healing abilities with a playful, protective nature, making him a beloved yet formidable presence in his universe."
 
 - type: entity
   id: ActionSpiderWebSteveBug
@@ -230,7 +225,6 @@
     icon: Interface/Actions/web.png
     event: !type:SpiderWebActionEvent
     useDelay: 7
-
 
 - type: emoteSounds
   id: UnisexArachnidSteveBug
@@ -250,13 +244,13 @@
     MonkeyScreeches:
       collection: MonkeyScreeches
     # Weh:
-      # collection: Weh
+    # collection: Weh
     # Hew:
-      # collection: Hew
+    # collection: Hew
     # SteveBugWeh:
-      # collection: Weh
+    # collection: Weh
     # SteveBugHew:
-      # collection: Hew
+    # collection: Hew
     Honk:
       collection: BikeHorn
     Gasp:
@@ -293,34 +287,32 @@
     Squawk:
       collection: ResomiSquawk
 
-
-
-# - type: emote
-  # id: SteveBugWeh
-  # name: chat-emote-name-weh
-  # category: Vocal
-  # icon: Interface/Emotes/weh.png
-  # whitelist:
+    # - type: emote
+    # id: SteveBugWeh
+    # name: chat-emote-name-weh
+    # category: Vocal
+    # icon: Interface/Emotes/weh.png
+    # whitelist:
     # components:
     # - Vocal
-  # chatMessages: ["chat-emote-msg-weh"]
-  # chatTriggers:
-    # - weh
-    # - wehs
-    # - wehed
-    # - wehing
+# chatMessages: ["chat-emote-msg-weh"]
+# chatTriggers:
+# - weh
+# - wehs
+# - wehed
+# - wehing
 
 # - type: emote
-  # id: SteveBugHew
-  # name: chat-emote-name-hew
-  # category: Vocal
-  # icon: Interface/Emotes/hew.png
-  # whitelist:
-    # components:
-    # - Vocal
-  # chatMessages: ["chat-emote-msg-hew"]
-  # chatTriggers:
-    # - hew
-    # - hews
-    # - hewed
-    # - hewing
+# id: SteveBugHew
+# name: chat-emote-name-hew
+# category: Vocal
+# icon: Interface/Emotes/hew.png
+# whitelist:
+# components:
+# - Vocal
+# chatMessages: ["chat-emote-msg-hew"]
+# chatTriggers:
+# - hew
+# - hews
+# - hewed
+# - hewing

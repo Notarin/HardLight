@@ -2,25 +2,27 @@ using Content.Server.Administration.Logs;
 using Content.Server.Body.Components;
 using Content.Server.Body.Systems;
 using Content.Server.Chemistry.EntitySystems;
+using Content.Server.Electrocution;
 using Content.Server.Explosion.Components;
 using Content.Server.Flash;
-using Content.Server.Electrocution;
 using Content.Server.Pinpointer;
-using Content.Shared.Chemistry.EntitySystems;
-using Content.Shared.FixedPoint;
-using Content.Shared.Flash.Components;
 using Content.Server.Radio.EntitySystems;
+using Content.Server.Station.Systems;
+using Content.Shared.Body.Components; // Frontier: Gib organs
 using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.Components.SolutionManager;
+using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Database;
 using Content.Shared.Explosion.Components;
 using Content.Shared.Explosion.Components.OnTrigger;
+using Content.Shared.FixedPoint;
+using Content.Shared.Flash.Components;
+using Content.Shared.Humanoid;
 using Content.Shared.Implants.Components;
 using Content.Shared.Interaction;
 using Content.Shared.Interaction.Events;
 using Content.Shared.Inventory;
 using Content.Shared.Mobs;
-using Robust.Shared.Timing;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Payload.Components;
 using Content.Shared.Radio;
@@ -35,12 +37,10 @@ using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
 using Robust.Shared.Physics.Events;
 using Robust.Shared.Physics.Systems;
-using Content.Server.Station.Systems;
-using Content.Shared.Humanoid;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
+using Robust.Shared.Timing;
 using Robust.Shared.Utility;
-using Content.Shared.Body.Components; // Frontier: Gib organs
 
 namespace Content.Server.Explosion.EntitySystems
 {
@@ -74,25 +74,60 @@ namespace Content.Server.Explosion.EntitySystems
     [UsedImplicitly]
     public sealed partial class TriggerSystem : EntitySystem
     {
-        [Dependency] private readonly ExplosionSystem _explosions = default!;
-        [Dependency] private readonly FixtureSystem _fixtures = default!;
-        [Dependency] private readonly FlashSystem _flashSystem = default!;
-        [Dependency] private readonly SharedBroadphaseSystem _broadphase = default!;
-        [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-        [Dependency] private readonly SharedContainerSystem _container = default!;
-        [Dependency] private readonly BodySystem _body = default!;
-        [Dependency] private readonly SharedAudioSystem _audio = default!;
-        [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
+        [Dependency]
+        private readonly ExplosionSystem _explosions = default!;
+
+        [Dependency]
+        private readonly FixtureSystem _fixtures = default!;
+
+        [Dependency]
+        private readonly FlashSystem _flashSystem = default!;
+
+        [Dependency]
+        private readonly SharedBroadphaseSystem _broadphase = default!;
+
+        [Dependency]
+        private readonly IAdminLogManager _adminLogger = default!;
+
+        [Dependency]
+        private readonly SharedContainerSystem _container = default!;
+
+        [Dependency]
+        private readonly BodySystem _body = default!;
+
+        [Dependency]
+        private readonly SharedAudioSystem _audio = default!;
+
+        [Dependency]
+        private readonly SharedTransformSystem _transformSystem = default!;
+
         // [Dependency] private readonly NavMapSystem _navMap = default!; // Frontier
-        [Dependency] private readonly RadioSystem _radioSystem = default!;
-        [Dependency] private readonly IRobustRandom _random = default!;
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        [Dependency] private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
-        [Dependency] private readonly InventorySystem _inventory = default!;
-        [Dependency] private readonly ElectrocutionSystem _electrocution = default!;
-        [Dependency] private readonly EntityWhitelistSystem _whitelist = default!;
-        [Dependency] private readonly StationSystem _station = default!; // Frontier: medical insurance
-        [Dependency] private readonly BloodstreamSystem _bloodstream = default!; // used by InjectOnTrigger
+        [Dependency]
+        private readonly RadioSystem _radioSystem = default!;
+
+        [Dependency]
+        private readonly IRobustRandom _random = default!;
+
+        [Dependency]
+        private readonly IPrototypeManager _prototypeManager = default!;
+
+        [Dependency]
+        private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
+
+        [Dependency]
+        private readonly InventorySystem _inventory = default!;
+
+        [Dependency]
+        private readonly ElectrocutionSystem _electrocution = default!;
+
+        [Dependency]
+        private readonly EntityWhitelistSystem _whitelist = default!;
+
+        [Dependency]
+        private readonly StationSystem _station = default!; // Frontier: medical insurance
+
+        [Dependency]
+        private readonly BloodstreamSystem _bloodstream = default!; // used by InjectOnTrigger
 
         public override void Initialize()
         {
@@ -163,8 +198,14 @@ namespace Content.Server.Explosion.EntitySystems
                 return;
             }
 
-            _electrocution.TryDoElectrocution(containerEnt, null, shockOnTrigger.Comp.Damage, shockOnTrigger.Comp.Duration, true,
-                ignoreInsulation: shockOnTrigger.Comp.IgnoreInsulation);
+            _electrocution.TryDoElectrocution(
+                containerEnt,
+                null,
+                shockOnTrigger.Comp.Damage,
+                shockOnTrigger.Comp.Duration,
+                true,
+                ignoreInsulation: shockOnTrigger.Comp.IgnoreInsulation
+            );
             shockOnTrigger.Comp.NextTrigger = curTime + shockOnTrigger.Comp.Cooldown;
         }
 
@@ -187,7 +228,14 @@ namespace Content.Server.Explosion.EntitySystems
 
             // the source solution must exist on the clothing item; we need both the
             // entity reference (for SplitSolution) and the actual Solution struct.
-            if (!_solutionContainerSystem.TryGetSolution(inject.Owner, inject.Comp.Solution, out var solEntityEnt, out var solEntity))
+            if (
+                !_solutionContainerSystem.TryGetSolution(
+                    inject.Owner,
+                    inject.Comp.Solution,
+                    out var solEntityEnt,
+                    out var solEntity
+                )
+            )
                 return;
 
             // split off the requested volume.  If the solution was empty nothing happens.
@@ -230,7 +278,6 @@ namespace Content.Server.Explosion.EntitySystems
                 if (!coords.IsValid(EntityManager))
                     return;
                 Spawn(ent.Comp.Proto, coords);
-
             }
         }
 
@@ -243,7 +290,13 @@ namespace Content.Server.Explosion.EntitySystems
         private void HandleFlashTrigger(EntityUid uid, FlashOnTriggerComponent component, TriggerEvent args)
         {
             // TODO Make flash durations sane ffs.
-            _flashSystem.FlashArea(uid, args.User, component.Range, component.Duration * 1000f, probability: component.Probability);
+            _flashSystem.FlashArea(
+                uid,
+                args.User,
+                component.Range,
+                component.Duration * 1000f,
+                probability: component.Probability
+            );
             args.Handled = true;
         }
 
@@ -293,6 +346,7 @@ namespace Content.Server.Explosion.EntitySystems
                 _body.GibBody(ent, true);
             args.Handled = true;
         }
+
         // End Frontier
 
         // Frontier: custom function implementation
@@ -307,8 +361,8 @@ namespace Content.Server.Explosion.EntitySystems
             // Gets location of the implant
             var ownerXform = Transform(uid);
             var pos = ownerXform.MapPosition;
-            var x = (int) pos.X;
-            var y = (int) pos.Y;
+            var x = (int)pos.X;
+            var y = (int)pos.Y;
             var posText = $"({x}, {y})";
 
             // Frontier: Gets station location of the implant
@@ -323,8 +377,20 @@ namespace Content.Server.Explosion.EntitySystems
             if (TryComp<HumanoidAppearanceComponent>(implanted.ImplantedEntity, out var species))
                 speciesText = $" ({species!.Species})";
 
-            var critMessage = Loc.GetString(component.CritMessage, ("user", implanted.ImplantedEntity.Value), ("specie", speciesText), ("grid", stationText!), ("position", posText));
-            var deathMessage = Loc.GetString(component.DeathMessage, ("user", implanted.ImplantedEntity.Value), ("specie", speciesText), ("grid", stationText!), ("position", posText));
+            var critMessage = Loc.GetString(
+                component.CritMessage,
+                ("user", implanted.ImplantedEntity.Value),
+                ("specie", speciesText),
+                ("grid", stationText!),
+                ("position", posText)
+            );
+            var deathMessage = Loc.GetString(
+                component.DeathMessage,
+                ("user", implanted.ImplantedEntity.Value),
+                ("specie", speciesText),
+                ("grid", stationText!),
+                ("position", posText)
+            );
 
             if (!TryComp<MobStateComponent>(implanted.ImplantedEntity, out var mobstate))
                 return;
@@ -333,13 +399,24 @@ namespace Content.Server.Explosion.EntitySystems
             {
                 // Sends a message to the radio channel specified by the implant
                 if (mobstate.CurrentState == MobState.Critical)
-                    _radioSystem.SendRadioMessage(uid, critMessage, _prototypeManager.Index<RadioChannelPrototype>(component.RadioChannel), uid);
+                    _radioSystem.SendRadioMessage(
+                        uid,
+                        critMessage,
+                        _prototypeManager.Index<RadioChannelPrototype>(component.RadioChannel),
+                        uid
+                    );
                 if (mobstate.CurrentState == MobState.Dead)
-                    _radioSystem.SendRadioMessage(uid, deathMessage, _prototypeManager.Index<RadioChannelPrototype>(component.RadioChannel), uid);
+                    _radioSystem.SendRadioMessage(
+                        uid,
+                        deathMessage,
+                        _prototypeManager.Index<RadioChannelPrototype>(component.RadioChannel),
+                        uid
+                    );
             }
 
             args.Handled = true;
         }
+
         // End Frontier
 
         private void OnTriggerCollide(EntityUid uid, TriggerOnCollideComponent component, ref StartCollideEvent args)
@@ -389,7 +466,11 @@ namespace Content.Server.Explosion.EntitySystems
             args.Handled = Trigger(uid);
         }
 
-        private void OnStepTriggered(EntityUid uid, TriggerOnStepTriggerComponent component, ref StepTriggeredOffEvent args)
+        private void OnStepTriggered(
+            EntityUid uid,
+            TriggerOnStepTriggerComponent component,
+            ref StepTriggeredOffEvent args
+        )
         {
             Trigger(uid, args.Tripper);
         }
@@ -441,7 +522,14 @@ namespace Content.Server.Explosion.EntitySystems
             HandleTimerTrigger(ent, user, comp.Delay, comp.BeepInterval, comp.InitialBeepDelay, comp.BeepSound);
         }
 
-        public void HandleTimerTrigger(EntityUid uid, EntityUid? user, float delay, float beepInterval, float? initialBeepDelay, SoundSpecifier? beepSound)
+        public void HandleTimerTrigger(
+            EntityUid uid,
+            EntityUid? user,
+            float delay,
+            float beepInterval,
+            float? initialBeepDelay,
+            SoundSpecifier? beepSound
+        )
         {
             if (delay <= 0)
             {
@@ -456,35 +544,54 @@ namespace Content.Server.Explosion.EntitySystems
             if (user != null)
             {
                 // Check if entity is bomb/mod. grenade/etc
-                if (_container.TryGetContainer(uid, "payload", out BaseContainer? container) &&
-                    container.ContainedEntities.Count > 0 &&
-                    TryComp(container.ContainedEntities[0], out ChemicalPayloadComponent? chemicalPayloadComponent))
+                if (
+                    _container.TryGetContainer(uid, "payload", out BaseContainer? container)
+                    && container.ContainedEntities.Count > 0
+                    && TryComp(container.ContainedEntities[0], out ChemicalPayloadComponent? chemicalPayloadComponent)
+                )
                 {
                     // If a beaker is missing, the entity won't explode, so no reason to log it
-                    if (chemicalPayloadComponent?.BeakerSlotA.Item is not { } beakerA ||
-                        chemicalPayloadComponent?.BeakerSlotB.Item is not { } beakerB ||
-                        !TryComp(beakerA, out SolutionContainerManagerComponent? containerA) ||
-                        !TryComp(beakerB, out SolutionContainerManagerComponent? containerB) ||
-                        !TryComp(beakerA, out FitsInDispenserComponent? fitsA) ||
-                        !TryComp(beakerB, out FitsInDispenserComponent? fitsB) ||
-                        !_solutionContainerSystem.TryGetSolution((beakerA, containerA), fitsA.Solution, out _, out var solutionA) ||
-                        !_solutionContainerSystem.TryGetSolution((beakerB, containerB), fitsB.Solution, out _, out var solutionB))
+                    if (
+                        chemicalPayloadComponent?.BeakerSlotA.Item is not { } beakerA
+                        || chemicalPayloadComponent?.BeakerSlotB.Item is not { } beakerB
+                        || !TryComp(beakerA, out SolutionContainerManagerComponent? containerA)
+                        || !TryComp(beakerB, out SolutionContainerManagerComponent? containerB)
+                        || !TryComp(beakerA, out FitsInDispenserComponent? fitsA)
+                        || !TryComp(beakerB, out FitsInDispenserComponent? fitsB)
+                        || !_solutionContainerSystem.TryGetSolution(
+                            (beakerA, containerA),
+                            fitsA.Solution,
+                            out _,
+                            out var solutionA
+                        )
+                        || !_solutionContainerSystem.TryGetSolution(
+                            (beakerB, containerB),
+                            fitsB.Solution,
+                            out _,
+                            out var solutionB
+                        )
+                    )
                         return;
 
-                    _adminLogger.Add(LogType.Trigger,
-                        $"{ToPrettyString(user.Value):user} started a {delay} second timer trigger on entity {ToPrettyString(uid):timer}, which contains {SharedSolutionContainerSystem.ToPrettyString(solutionA)} in one beaker and {SharedSolutionContainerSystem.ToPrettyString(solutionB)} in the other.");
+                    _adminLogger.Add(
+                        LogType.Trigger,
+                        $"{ToPrettyString(user.Value):user} started a {delay} second timer trigger on entity {ToPrettyString(uid):timer}, which contains {SharedSolutionContainerSystem.ToPrettyString(solutionA)} in one beaker and {SharedSolutionContainerSystem.ToPrettyString(solutionB)} in the other."
+                    );
                 }
                 else
                 {
-                    _adminLogger.Add(LogType.Trigger,
-                        $"{ToPrettyString(user.Value):user} started a {delay} second timer trigger on entity {ToPrettyString(uid):timer}");
+                    _adminLogger.Add(
+                        LogType.Trigger,
+                        $"{ToPrettyString(user.Value):user} started a {delay} second timer trigger on entity {ToPrettyString(uid):timer}"
+                    );
                 }
-
             }
             else
             {
-                _adminLogger.Add(LogType.Trigger,
-                    $"{delay} second timer trigger started on entity {ToPrettyString(uid):timer}");
+                _adminLogger.Add(
+                    LogType.Trigger,
+                    $"{delay} second timer trigger started on entity {ToPrettyString(uid):timer}"
+                );
             }
 
             var active = AddComp<ActiveTimerTriggerComponent>(uid);

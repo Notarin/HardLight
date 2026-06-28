@@ -8,7 +8,7 @@
   - type: Sprite
     sprite: _NF/Objects/Storage/Cases/guncaselong.rsi
     layers:
-    - map: [ base ]
+    - map: [base]
       state: icon
     - state: unshaded
       shader: unshaded
@@ -16,8 +16,8 @@
     visuals:
       enum.StorageVisuals.Open:
         base:
-          True: { state: icon-open }
-          False: { state: icon }
+          True: {state: icon-open}
+          False: {state: icon}
   - type: Item
     sprite: _NF/Objects/Storage/Cases/guncaselong.rsi
     size: Large

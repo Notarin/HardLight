@@ -1,7 +1,7 @@
 - type: entity
   abstract: true
   id: StaticGeneratorBase
-  parent: [ BaseStructure ]
+  parent: [BaseStructure]
   components:
   # Basic properties
   - type: Animateable
@@ -23,8 +23,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.40,-0.40,0.40,0.40"
         density: 155
         mask:
@@ -54,14 +53,12 @@
 
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 2000
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 1000
       behaviors:
       - !type:PlaySoundBehavior
@@ -76,8 +73,8 @@
 
   # Core functionality
   - type: PortableGenerator
-    startSoundEmpty: { collection: GeneratorTugEmpty }
-    startSound: { collection: GeneratorTug }
+    startSoundEmpty: {collection: GeneratorTugEmpty}
+    startSound: {collection: GeneratorTug}
   - type: FuelGenerator
   - type: PowerSupplier
     supplyRate: 3000
@@ -126,11 +123,9 @@
   - type: NodeContainer
     examinable: true
     nodes:
-      output_hv:
-        !type:CableDeviceNode
+      output_hv: !type:CableDeviceNode
         nodeGroupID: HVPower
-      output_mv:
-        !type:CableDeviceNode
+      output_mv: !type:CableDeviceNode
         nodeGroupID: MVPower
         enabled: false
 
@@ -153,7 +148,7 @@
     noRot: false
     layers:
     - state: portgen0
-      map: [ "enum.GeneratorVisualLayers.Body" ]
+      map: ["enum.GeneratorVisualLayers.Body"]
   - type: Transform
     anchored: true
   - type: Physics
@@ -162,8 +157,8 @@
     visuals:
       enum.GeneratorVisuals.Running:
         enum.GeneratorVisualLayers.Body:
-          True: { state: portgen0on }
-          False: { state: portgen0 }
+          True: {state: portgen0on}
+          False: {state: portgen0}
   - type: FuelGenerator
     minTargetPower: 50000
     maxTargetPower: 160000
@@ -183,8 +178,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.45,-1.4,0.45,0.45"
         density: 1200
         mask:

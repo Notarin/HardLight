@@ -11,7 +11,10 @@ public sealed partial class BypassLockSystem
         SubscribeLocalEvent<BypassLockRequiresMobStateComponent, CheckBypassLockVerbRequirements>(OnGetVerb);
     }
 
-    private void OnForceOpenLockAttempt(Entity<BypassLockRequiresMobStateComponent> target, ref ForceOpenLockAttemptEvent args)
+    private void OnForceOpenLockAttempt(
+        Entity<BypassLockRequiresMobStateComponent> target,
+        ref ForceOpenLockAttemptEvent args
+    )
     {
         if (!TryComp<MobStateComponent>(target, out var mobState))
             return;
@@ -35,7 +38,10 @@ public sealed partial class BypassLockSystem
         {
             args.ShowVerb = true;
             args.Verb.Disabled = true;
-            args.Verb.Message = Loc.GetString("bypass-lock-disabled-wrong-tool", ("quality", args.ToolQuality.ToString().ToLower()));
+            args.Verb.Message = Loc.GetString(
+                "bypass-lock-disabled-wrong-tool",
+                ("quality", args.ToolQuality.ToString().ToLower())
+            );
         }
     }
 }

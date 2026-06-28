@@ -10,9 +10,8 @@ public sealed class NavMapBeaconBoundUserInterface : BoundUserInterface
     [ViewVariables]
     private NavMapBeaconWindow? _window;
 
-    public NavMapBeaconBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-    }
+    public NavMapBeaconBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {

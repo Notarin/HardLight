@@ -20,7 +20,7 @@ public sealed partial class DroppableBorgModuleComponent : Component
 
     /// <summary>
     /// Placeholder items to spawn in borg hands.
-    /// The ID 
+    /// The ID
     /// </summary>
     [DataField]
     public List<DroppableBorgItem> Placeholders = new();

@@ -1,5 +1,5 @@
 - type: entity
-  parent: [ ClothingHeadBase, BaseColcommContraband ]
+  parent: [ClothingHeadBase, BaseColcommContraband]
   id: ClothingHeadHatColcomcap
   name: directorate cap
   description: An extravagant, fancy Colonial Directorate cap.
@@ -58,10 +58,10 @@
   name: interdyne beret
   description: A beret in interdyne style.
   components:
-    - type: Sprite
-      sprite: _HL/Clothing/Head/interdyneberet.rsi
-    - type: Clothing
-      sprite: _HL/Clothing/Head/interdyneberet.rsi
+  - type: Sprite
+    sprite: _HL/Clothing/Head/interdyneberet.rsi
+  - type: Clothing
+    sprite: _HL/Clothing/Head/interdyneberet.rsi
 
 - type: entity
   parent: ClothingHeadHatBeret

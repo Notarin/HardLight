@@ -41,11 +41,7 @@ public sealed class BuiPredictionState
     {
         if (_gameTiming.IsFirstTimePredicted)
         {
-            var messageData = new MessageData
-            {
-                TickSent = _gameTiming.CurTick,
-                Message = message,
-            };
+            var messageData = new MessageData { TickSent = _gameTiming.CurTick, Message = message };
 
             _queuedMessages.Enqueue(messageData);
         }

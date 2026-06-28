@@ -13,7 +13,8 @@ namespace Content.IntegrationTests.Tests.Traits;
 public sealed class TraitTagMergeTest
 {
     [TestPrototypes]
-    private const string Prototypes = @"
+    private const string Prototypes =
+        @"
 - type: Tag
   id: TestCanPilot
 
@@ -65,7 +66,10 @@ public sealed class TraitTagMergeTest
             {
                 Assert.That(tagSystem.HasTag(entity, "TestCanPilot"), Is.True);
                 Assert.That(tagSystem.HasTag(entity, "TestSpiderCraft"), Is.True);
-                Assert.That(whitelistSystem.IsValid(new EntityWhitelist { Tags = new() { "TestSpiderCraft" } }, entity), Is.True);
+                Assert.That(
+                    whitelistSystem.IsValid(new EntityWhitelist { Tags = new() { "TestSpiderCraft" } }, entity),
+                    Is.True
+                );
             });
         });
 

@@ -40,35 +40,35 @@
     visuals:
       enum.StorageVisuals.Open:
         enum.StorageVisualLayers.Door:
-          True: { visible: false }
-          False: { visible: true }
+          True: {visible: false}
+          False: {visible: true}
       enum.FatExtractorVisuals.Processing:
         enum.StorageVisualLayers.Door:
-          True: { state: fat_door_on }
-          False: { state: fat_door_off }
+          True: {state: fat_door_on}
+          False: {state: fat_door_off}
         enum.FatExtractorVisualLayers.Smoke:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
         enum.FatExtractorVisualLayers.Stack:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
         enum.FatExtractorVisualLayers.Light:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
       enum.PowerDeviceVisuals.Powered:
         enum.FatExtractorVisualLayers.Light:
-          False: { visible: false }
+          False: {visible: false}
         enum.PowerDeviceVisualLayers.Powered:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
       enum.StorageVisuals.HasContents:
         enum.PowerDeviceVisualLayers.Powered:
-          True: { state: fat_yellow }
-          False: { state: fat_red }
+          True: {state: fat_yellow}
+          False: {state: fat_red}
       enum.WiresVisuals.MaintenancePanelState:
         enum.WiresVisualLayers.MaintenancePanel:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
   - type: Construction
     graph: Machine
     node: machine
@@ -78,14 +78,13 @@
     - entity_storage
   - type: EmptyOnMachineDeconstruct
     containers:
-     - entity_storage
+    - entity_storage
   - type: Damageable
     damageContainer: StructuralInorganic
     damageModifierSet: StructuralMetallicStrong
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:PlaySoundBehavior

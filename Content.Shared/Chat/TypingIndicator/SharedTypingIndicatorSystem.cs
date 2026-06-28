@@ -12,9 +12,14 @@ namespace Content.Shared.Chat.TypingIndicator;
 /// </summary>
 public abstract class SharedTypingIndicatorSystem : EntitySystem
 {
-    [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly ActionBlockerSystem _actionBlocker = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     /// <summary>
     ///     Default ID of <see cref="TypingIndicatorPrototype"/>
@@ -29,7 +34,9 @@ public abstract class SharedTypingIndicatorSystem : EntitySystem
 
         SubscribeLocalEvent<TypingIndicatorClothingComponent, ClothingGotEquippedEvent>(OnGotEquipped);
         SubscribeLocalEvent<TypingIndicatorClothingComponent, ClothingGotUnequippedEvent>(OnGotUnequipped);
-        SubscribeLocalEvent<TypingIndicatorClothingComponent, InventoryRelayedEvent<BeforeShowTypingIndicatorEvent>>(BeforeShow);
+        SubscribeLocalEvent<TypingIndicatorClothingComponent, InventoryRelayedEvent<BeforeShowTypingIndicatorEvent>>(
+            BeforeShow
+        );
 
         SubscribeAllEvent<TypingChangedEvent>(OnTypingChanged);
     }
@@ -58,7 +65,10 @@ public abstract class SharedTypingIndicatorSystem : EntitySystem
         entity.Comp.GotEquippedTime = null;
     }
 
-    private void BeforeShow(Entity<TypingIndicatorClothingComponent> entity, ref InventoryRelayedEvent<BeforeShowTypingIndicatorEvent> args)
+    private void BeforeShow(
+        Entity<TypingIndicatorClothingComponent> entity,
+        ref InventoryRelayedEvent<BeforeShowTypingIndicatorEvent> args
+    )
     {
         args.Args.TryUpdateTimeAndIndicator(entity.Comp.TypingIndicatorPrototype, entity.Comp.GotEquippedTime);
     }
@@ -84,7 +94,11 @@ public abstract class SharedTypingIndicatorSystem : EntitySystem
         SetTypingIndicatorState(uid.Value, ev.State);
     }
 
-    private void SetTypingIndicatorState(EntityUid uid, TypingIndicatorState state, AppearanceComponent? appearance = null)
+    private void SetTypingIndicatorState(
+        EntityUid uid,
+        TypingIndicatorState state,
+        AppearanceComponent? appearance = null
+    )
     {
         if (!Resolve(uid, ref appearance, false))
             return;

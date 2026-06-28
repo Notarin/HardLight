@@ -25,7 +25,8 @@ namespace Content.IntegrationTests.Tests.Minds;
 public sealed partial class MindTests
 {
     [TestPrototypes]
-    private const string Prototypes = @"
+    private const string Prototypes =
+        @"
 - type: entity
   id: MindTestEntityDamageable
   components:
@@ -204,11 +205,9 @@ public sealed partial class MindTests
     [Test]
     public async Task TestOwningPlayerCanBeChanged()
     {
-        await using var pair = await PoolManager.GetServerClient(new PoolSettings
-        {
-            Connected = true,
-            DummyTicker = false
-        });
+        await using var pair = await PoolManager.GetServerClient(
+            new PoolSettings { Connected = true, DummyTicker = false }
+        );
         var server = pair.Server;
 
         var entMan = server.ResolveDependency<IServerEntityManager>();
@@ -302,7 +301,7 @@ public sealed partial class MindTests
 
             var jobRole = "";
 
-            roleSystem.MindAddJobRole(mindId, jobPrototype:jobRole);
+            roleSystem.MindAddJobRole(mindId, jobPrototype: jobRole);
 
             Assert.Multiple(() =>
             {
@@ -334,7 +333,9 @@ public sealed partial class MindTests
     public async Task TestPlayerCanGhost()
     {
         // Client is needed to spawn session
-        await using var pair = await PoolManager.GetServerClient(new PoolSettings { Connected = true, DummyTicker = false });
+        await using var pair = await PoolManager.GetServerClient(
+            new PoolSettings { Connected = true, DummyTicker = false }
+        );
         var server = pair.Server;
 
         var entMan = server.ResolveDependency<IServerEntityManager>();
@@ -409,12 +410,14 @@ public sealed partial class MindTests
     [Test]
     public async Task TestGhostDoesNotInfiniteLoop()
     {
-        await using var pair = await PoolManager.GetServerClient(new PoolSettings
-        {
-            DummyTicker = false,
-            Connected = true,
-            Dirty = true
-        });
+        await using var pair = await PoolManager.GetServerClient(
+            new PoolSettings
+            {
+                DummyTicker = false,
+                Connected = true,
+                Dirty = true,
+            }
+        );
         var server = pair.Server;
 
         var entMan = server.ResolveDependency<IServerEntityManager>();

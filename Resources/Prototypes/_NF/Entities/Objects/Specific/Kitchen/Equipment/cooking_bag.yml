@@ -20,13 +20,13 @@
     areaInsert: true
     whitelist:
       components:
-        - Food
+      - Food
       tags:
-        - Ingredient
+      - Ingredient
     blacklist:
       components:
-        - BadFood
-        - Produce
-        - Seed
+      - BadFood
+      - Produce
+      - Seed
   - type: AntiRottingContainer
   - type: Dumpable

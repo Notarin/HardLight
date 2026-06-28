@@ -8,18 +8,21 @@ namespace Content.Shared.Nyanotrasen.Kitchen.Prototypes;
 [Prototype("crispinessLevelSet")]
 public sealed partial class CrispinessLevelSetPrototype : IPrototype
 {
-    [IdDataField] public string ID { get; private set; } = default!;
+    [IdDataField]
+    public string ID { get; private set; } = default!;
 
     /// <summary>
     /// Crispiness level strings. The index is the crispiness value used, starting with 0.
     /// Maximum crispiness is assumed by the size of the list.
     /// </summary>
-    [DataField(required: true)] public List<CrispinessTextSet> Levels = new();
+    [DataField(required: true)]
+    public List<CrispinessTextSet> Levels = new();
 
     /// <summary>
     /// Shader to use for crispiness settings.
     /// </summary>
-    [DataField(required: true)] public DeepFriedVisuals Visual { get; private set; } = default!;
+    [DataField(required: true)]
+    public DeepFriedVisuals Visual { get; private set; } = default!;
 }
 
 [DataDefinition, Serializable, NetSerializable]

@@ -1,23 +1,29 @@
 using Content.Shared.Movement.Components;
 using Content.Shared.Movement.Events;
 using Content.Shared.Slippery;
+using Content.Shared.StepTrigger.Components; // imp edit
+using Content.Shared.StepTrigger.Systems; // imp edit
 using Content.Shared.Whitelist;
+using Robust.Shared.Map.Components; // imp edit
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Events;
 using Robust.Shared.Physics.Systems;
-using Content.Shared.StepTrigger.Components; // imp edit
-using Content.Shared.StepTrigger.Systems; // imp edit
-using Robust.Shared.Map.Components; // imp edit
 
 namespace Content.Shared.Movement.Systems;
 
 public sealed class SpeedModifierContactsSystem : EntitySystem
 {
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly MovementSpeedModifierSystem _speedModifierSystem = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
+    [Dependency]
+    private readonly SharedPhysicsSystem _physics = default!;
 
-    [Dependency] private readonly SharedMapSystem _map = default!; // imp edit
+    [Dependency]
+    private readonly MovementSpeedModifierSystem _speedModifierSystem = default!;
+
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelistSystem = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _map = default!; // imp edit
 
     // TODO full-game-save
     // Either these need to be processed before a map is saved, or slowed/slowing entities need to update on init.
@@ -29,7 +35,9 @@ public sealed class SpeedModifierContactsSystem : EntitySystem
         base.Initialize();
         SubscribeLocalEvent<SpeedModifierContactsComponent, StartCollideEvent>(OnEntityEnter);
         SubscribeLocalEvent<SpeedModifierContactsComponent, EndCollideEvent>(OnEntityExit);
-        SubscribeLocalEvent<SpeedModifiedByContactComponent, RefreshMovementSpeedModifiersEvent>(OnRefreshMovementSpeedModifiers);
+        SubscribeLocalEvent<SpeedModifiedByContactComponent, RefreshMovementSpeedModifiersEvent>(
+            OnRefreshMovementSpeedModifiers
+        );
         SubscribeLocalEvent<SpeedModifierContactsComponent, ComponentShutdown>(OnShutdown);
 
         SubscribeLocalEvent<SpeedModifierContactsComponent, StepTriggeredOffEvent>(OnStepTriggered); // imp edit
@@ -62,7 +70,12 @@ public sealed class SpeedModifierContactsSystem : EntitySystem
         ChangeSpeedModifiers(uid, speed, speed, component);
     }
 
-    public void ChangeSpeedModifiers(EntityUid uid, float walkSpeed, float sprintSpeed, SpeedModifierContactsComponent? component = null)
+    public void ChangeSpeedModifiers(
+        EntityUid uid,
+        float walkSpeed,
+        float sprintSpeed,
+        SpeedModifierContactsComponent? component = null
+    )
     {
         if (!Resolve(uid, ref component))
             return;
@@ -82,7 +95,11 @@ public sealed class SpeedModifierContactsSystem : EntitySystem
         _toUpdate.UnionWith(_physics.GetContactingEntities(uid, phys));
     }
 
-    private void OnRefreshMovementSpeedModifiers(EntityUid uid, SpeedModifiedByContactComponent component, RefreshMovementSpeedModifiersEvent args)
+    private void OnRefreshMovementSpeedModifiers(
+        EntityUid uid,
+        SpeedModifiedByContactComponent component,
+        RefreshMovementSpeedModifiersEvent args
+    )
     {
         if (!EntityManager.TryGetComponent<PhysicsComponent>(uid, out var physicsComponent))
             return;
@@ -95,8 +112,10 @@ public sealed class SpeedModifierContactsSystem : EntitySystem
         foreach (var ent in _physics.GetContactingEntities(uid, physicsComponent))
         {
             // imp edit - StepTrigger and TryBlacklist checks
-            if (TryComp<StepTriggerComponent>(ent, out var stepTriggerComponent) &&
-                !TryBlacklist((ent, stepTriggerComponent)))
+            if (
+                TryComp<StepTriggerComponent>(ent, out var stepTriggerComponent)
+                && !TryBlacklist((ent, stepTriggerComponent))
+            )
                 continue;
             // Imp End
 
@@ -187,15 +206,17 @@ public sealed class SpeedModifierContactsSystem : EntitySystem
         AddModifiedEntity(args.Tripper);
     }
 
-    private static void OnStepTriggerAttempt(Entity<SpeedModifierContactsComponent> ent, ref StepTriggerAttemptEvent args)
+    private static void OnStepTriggerAttempt(
+        Entity<SpeedModifierContactsComponent> ent,
+        ref StepTriggerAttemptEvent args
+    )
     {
         args.Continue = true;
     }
 
     private bool TryBlacklist(Entity<StepTriggerComponent> ent)
     {
-        if (!ent.Comp.Active ||
-            ent.Comp.Colliding.Count == 0)
+        if (!ent.Comp.Active || ent.Comp.Colliding.Count == 0)
         {
             return true;
         }

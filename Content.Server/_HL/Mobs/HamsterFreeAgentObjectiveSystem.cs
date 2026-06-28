@@ -9,8 +9,11 @@ namespace Content.Server._HL.Mobs;
 /// </summary>
 public sealed class HamsterFreeAgentObjectiveSystem : EntitySystem
 {
-    [Dependency] private readonly SharedMindSystem _mind = default!;
-    [Dependency] private readonly TagSystem _tag = default!;
+    [Dependency]
+    private readonly SharedMindSystem _mind = default!;
+
+    [Dependency]
+    private readonly TagSystem _tag = default!;
 
     private const string HamsterTag = "Hamster";
     private const string FreeAgentRole = "FreeAgent";

@@ -114,8 +114,8 @@
       - tool: Prying
         doAfter: 5
 
-## Glass airlock
   - node: glassAirlock
+    ## Glass airlock
     entity: AirlockHeavyGlass
     doNotReplaceInheritingEntities: true
     actions:
@@ -154,8 +154,8 @@
         amount: 2
         doAfter: 2
 
-## Standard airlock
   - node: airlock
+    ## Standard airlock
     entity: AirlockHeavy
     doNotReplaceInheritingEntities: true
     actions:
@@ -194,8 +194,8 @@
         amount: 2
         doAfter: 2
 
-## High security door
   - node: highSecDoor
+    ## High security door
     actions:
     - !type:SetWiresPanelSecurity
       wiresAccessible: true
@@ -216,8 +216,8 @@
         amount: 2
         doAfter: 2
 
-## Medium security level door: a layer of steel plating protects the internal wiring
   - node: medSecurityUnfinished
+    ## Medium security level door: a layer of steel plating protects the internal wiring
     actions:
     - !type:SetWiresPanelSecurity
       examine: wires-panel-component-on-examine-security-level1
@@ -282,8 +282,8 @@
       - tool: Welding
         doAfter: 10
 
-## High security level door: a layer of plasteel plating protects the internal wiring
   - node: highSecurityUnfinished
+    ## High security level door: a layer of plasteel plating protects the internal wiring
     actions:
     - !type:SetWiresPanelSecurity
       examine: wires-panel-component-on-examine-security-level3
@@ -356,8 +356,8 @@
         amount: 2
         doAfter: 1
 
-## Max security level door: an electric grill is added
   - node: maxSecurity
+    ## Max security level door: an electric grill is added
     actions:
     - !type:SetWiresPanelSecurity
       examine: wires-panel-component-on-examine-security-level5
@@ -383,8 +383,8 @@
         amount: 2
         doAfter: 2
 
-## Super max security level door: an additional layer of plasteel is added
   - node: superMaxSecurityUnfinished
+    ## Super max security level door: an additional layer of plasteel is added
     actions:
     - !type:SetWiresPanelSecurity
       examine: wires-panel-component-on-examine-security-level6

@@ -12,7 +12,8 @@ namespace Content.Server.Damage.Systems;
 
 public sealed class ExaminableDamageSystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototype = default!;
 
     public override void Initialize()
     {
@@ -39,11 +40,15 @@ public sealed class ExaminableDamageSystem : EntitySystem
 
         var level = GetDamageLevel(uid, component);
         var msg = Loc.GetString(messages[level]);
-        args.PushMarkup(msg,-99);
+        args.PushMarkup(msg, -99);
     }
 
-    private int GetDamageLevel(EntityUid uid, ExaminableDamageComponent? component = null,
-        DamageableComponent? damageable = null, DestructibleComponent? destructible = null)
+    private int GetDamageLevel(
+        EntityUid uid,
+        ExaminableDamageComponent? component = null,
+        DamageableComponent? damageable = null,
+        DestructibleComponent? destructible = null
+    )
     {
         if (!Resolve(uid, ref component, ref damageable, ref destructible, logMissing: false))
             return 0;
@@ -55,14 +60,14 @@ public sealed class ExaminableDamageSystem : EntitySystem
         if (maxLevels <= 0)
             return 0;
 
-        var trigger = (DamageTrigger?) destructible.Thresholds
-            .LastOrDefault(threshold => threshold.Trigger is DamageTrigger)?.Trigger;
+        var trigger = (DamageTrigger?)
+            destructible.Thresholds.LastOrDefault(threshold => threshold.Trigger is DamageTrigger)?.Trigger;
         if (trigger == null)
             return 0;
 
         var damage = damageable.TotalDamage;
         var damageThreshold = trigger.Damage;
-        var fraction = damageThreshold == 0 ? 0f : (float) damage / damageThreshold;
+        var fraction = damageThreshold == 0 ? 0f : (float)damage / damageThreshold;
 
         var level = ContentHelpers.RoundToNearestLevels(fraction, 1, maxLevels);
         return level;

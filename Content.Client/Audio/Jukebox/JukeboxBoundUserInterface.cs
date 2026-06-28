@@ -8,12 +8,14 @@ namespace Content.Client.Audio.Jukebox;
 
 public sealed class JukeboxBoundUserInterface : BoundUserInterface
 {
-    [Dependency] private readonly IPrototypeManager _protoManager = default!;
+    [Dependency]
+    private readonly IPrototypeManager _protoManager = default!;
 
     [ViewVariables]
     private JukeboxMenu? _menu;
 
-    public JukeboxBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
+    public JukeboxBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey)
     {
         IoCManager.InjectDependencies(this);
     }
@@ -68,7 +70,7 @@ public sealed class JukeboxBoundUserInterface : BoundUserInterface
         if (_protoManager.TryIndex(jukebox.SelectedSongId, out var songProto))
         {
             var length = EntMan.System<AudioSystem>().GetAudioLength(songProto.Path.Path.ToString());
-            _menu.SetSelectedSong(songProto.Name, (float) length.TotalSeconds);
+            _menu.SetSelectedSong(songProto.Name, (float)length.TotalSeconds);
         }
         else
         {
@@ -96,8 +98,10 @@ public sealed class JukeboxBoundUserInterface : BoundUserInterface
         // so it will go BRRRRT
         // Using ping gets us close enough that it SHOULD, MOST OF THE TIME, fall within the 0.1 second tolerance
         // that's still on engine so our playback position never gets corrected.
-        if (EntMan.TryGetComponent(Owner, out JukeboxComponent? jukebox) &&
-            EntMan.TryGetComponent(jukebox.AudioStream, out AudioComponent? audioComp))
+        if (
+            EntMan.TryGetComponent(Owner, out JukeboxComponent? jukebox)
+            && EntMan.TryGetComponent(jukebox.AudioStream, out AudioComponent? audioComp)
+        )
         {
             audioComp.PlaybackPosition = time;
         }
@@ -113,4 +117,3 @@ public sealed class JukeboxBoundUserInterface : BoundUserInterface
     }
     // End Frontier
 }
-

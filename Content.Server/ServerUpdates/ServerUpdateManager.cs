@@ -20,13 +20,26 @@ namespace Content.Server.ServerUpdates;
 /// </remarks>
 public sealed class ServerUpdateManager : IPostInjectInit
 {
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly IWatchdogApi _watchdog = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IChatManager _chatManager = default!;
-    [Dependency] private readonly IBaseServer _server = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly ILogManager _logManager = default!;
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
+
+    [Dependency]
+    private readonly IWatchdogApi _watchdog = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly IChatManager _chatManager = default!;
+
+    [Dependency]
+    private readonly IBaseServer _server = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
+
+    [Dependency]
+    private readonly ILogManager _logManager = default!;
 
     private ISawmill _sawmill = default!;
 
@@ -45,7 +58,8 @@ public sealed class ServerUpdateManager : IPostInjectInit
         _cfg.OnValueChanged(
             CCVars.ServerUptimeRestartMinutes,
             minutes => _uptimeRestart = TimeSpan.FromMinutes(minutes),
-            true);
+            true
+        );
     }
 
     public void Update()

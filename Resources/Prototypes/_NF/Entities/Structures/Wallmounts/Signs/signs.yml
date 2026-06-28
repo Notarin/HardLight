@@ -4,8 +4,8 @@
   id: BaseSignDirectionalNF
   abstract: true
   components:
-    - type: Sprite
-      sprite: _NF/Structures/Wallmounts/signs.rsi
+  - type: Sprite
+    sprite: _NF/Structures/Wallmounts/signs.rsi
 
 - type: entity
   parent: BaseSignDirectionalNF
@@ -85,8 +85,8 @@
   id: NFBaseSign
   abstract: true
   components:
-    - type: Sprite
-      sprite: _NF/Structures/Wallmounts/signs.rsi
+  - type: Sprite
+    sprite: _NF/Structures/Wallmounts/signs.rsi
 
 - type: entity
   parent: NFBaseSign

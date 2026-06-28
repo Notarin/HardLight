@@ -36,24 +36,55 @@ namespace Content.Client.ContextMenu.UI
     ///     a list of entities near the mouse position, add them to the context menu grouped by prototypes, and remove
     ///     them from the menu as they move out of sight.
     /// </remarks>
-    public sealed partial class EntityMenuUIController : UIController, IOnStateEntered<GameplayState>, IOnStateExited<GameplayState>
+    public sealed partial class EntityMenuUIController
+        : UIController,
+            IOnStateEntered<GameplayState>,
+            IOnStateExited<GameplayState>
     {
-        [Dependency] private readonly IEntitySystemManager _systemManager = default!;
-        [Dependency] private readonly IEntityManager _entityManager = default!;
-        [Dependency] private readonly IPlayerManager _playerManager = default!;
-        [Dependency] private readonly IStateManager _stateManager = default!;
-        [Dependency] private readonly IInputManager _inputManager = default!;
-        [Dependency] private readonly IConfigurationManager _cfg = default!;
-        [Dependency] private readonly IGameTiming _gameTiming = default!;
-        [Dependency] private readonly IUserInterfaceManager _userInterfaceManager = default!;
-        [Dependency] private readonly IEyeManager _eyeManager = default!;
-        [Dependency] private readonly ContextMenuUIController _context = default!;
-        [Dependency] private readonly VerbMenuUIController _verb = default!;
+        [Dependency]
+        private readonly IEntitySystemManager _systemManager = default!;
 
-        [UISystemDependency] private readonly VerbSystem _verbSystem = default!;
-        [UISystemDependency] private readonly ExamineSystem _examineSystem = default!;
-        [UISystemDependency] private readonly TransformSystem _xform = default!;
-        [UISystemDependency] private readonly CombatModeSystem _combatMode = default!;
+        [Dependency]
+        private readonly IEntityManager _entityManager = default!;
+
+        [Dependency]
+        private readonly IPlayerManager _playerManager = default!;
+
+        [Dependency]
+        private readonly IStateManager _stateManager = default!;
+
+        [Dependency]
+        private readonly IInputManager _inputManager = default!;
+
+        [Dependency]
+        private readonly IConfigurationManager _cfg = default!;
+
+        [Dependency]
+        private readonly IGameTiming _gameTiming = default!;
+
+        [Dependency]
+        private readonly IUserInterfaceManager _userInterfaceManager = default!;
+
+        [Dependency]
+        private readonly IEyeManager _eyeManager = default!;
+
+        [Dependency]
+        private readonly ContextMenuUIController _context = default!;
+
+        [Dependency]
+        private readonly VerbMenuUIController _verb = default!;
+
+        [UISystemDependency]
+        private readonly VerbSystem _verbSystem = default!;
+
+        [UISystemDependency]
+        private readonly ExamineSystem _examineSystem = default!;
+
+        [UISystemDependency]
+        private readonly TransformSystem _xform = default!;
+
+        [UISystemDependency]
+        private readonly CombatModeSystem _combatMode = default!;
 
         private bool _updating;
 
@@ -71,8 +102,11 @@ namespace Content.Client.ContextMenu.UI
             _cfg.OnValueChanged(CCVars.EntityMenuGroupingType, OnGroupingChanged, true);
             _context.OnContextKeyEvent += OnKeyBindDown;
 
-            CommandBinds.Builder
-                .Bind(EngineKeyFunctions.UseSecondary,  new PointerInputCmdHandler(HandleOpenEntityMenu, outsidePrediction: true))
+            CommandBinds
+                .Builder.Bind(
+                    EngineKeyFunctions.UseSecondary,
+                    new PointerInputCmdHandler(HandleOpenEntityMenu, outsidePrediction: true)
+                )
                 .Register<EntityMenuUIController>();
         }
 
@@ -96,10 +130,14 @@ namespace Content.Client.ContextMenu.UI
 
             var entitySpriteStates = GroupEntities(entities);
             var orderedStates = entitySpriteStates.ToList();
-            orderedStates.Sort((x, y) => string.Compare(
-                Identity.Name(x.First(), _entityManager),
-                Identity.Name(y.First(), _entityManager),
-                StringComparison.CurrentCulture));
+            orderedStates.Sort(
+                (x, y) =>
+                    string.Compare(
+                        Identity.Name(x.First(), _entityManager),
+                        Identity.Name(y.First(), _entityManager),
+                        StringComparison.CurrentCulture
+                    )
+            );
             Elements.Clear();
             AddToUI(orderedStates);
 
@@ -129,22 +167,21 @@ namespace Content.Client.ContextMenu.UI
             }
 
             // do some other server-side interaction?
-            if (args.Function == EngineKeyFunctions.Use ||
-                args.Function == ContentKeyFunctions.ActivateItemInWorld ||
-                args.Function == ContentKeyFunctions.AltActivateItemInWorld ||
-                args.Function == ContentKeyFunctions.Point ||
-                args.Function == ContentKeyFunctions.TryPullObject ||
-                args.Function == ContentKeyFunctions.MovePulledObject)
+            if (
+                args.Function == EngineKeyFunctions.Use
+                || args.Function == ContentKeyFunctions.ActivateItemInWorld
+                || args.Function == ContentKeyFunctions.AltActivateItemInWorld
+                || args.Function == ContentKeyFunctions.Point
+                || args.Function == ContentKeyFunctions.TryPullObject
+                || args.Function == ContentKeyFunctions.MovePulledObject
+            )
             {
                 var inputSys = _systemManager.GetEntitySystem<InputSystem>();
 
                 var func = args.Function;
                 var funcId = _inputManager.NetworkBindMap.KeyFunctionID(func);
 
-                var message = new ClientFullInputCmdMessage(
-                    _gameTiming.CurTick,
-                    _gameTiming.TickFraction,
-                    funcId)
+                var message = new ClientFullInputCmdMessage(_gameTiming.CurTick, _gameTiming.TickFraction, funcId)
                 {
                     State = BoundKeyState.Down,
                     Coordinates = _entityManager.GetComponent<TransformComponent>(entity.Value).Coordinates,
@@ -171,7 +208,10 @@ namespace Content.Client.ContextMenu.UI
             if (_stateManager.CurrentState is not GameplayStateBase)
                 return false;
 
-            if (_combatMode.IsInCombatMode(args.Session?.AttachedEntity) && !CanOpenEntityMenuInCombat(args.Session?.AttachedEntity))
+            if (
+                _combatMode.IsInCombatMode(args.Session?.AttachedEntity)
+                && !CanOpenEntityMenuInCombat(args.Session?.AttachedEntity)
+            )
                 return false;
 
             var coords = _xform.ToMapCoordinates(args.Coordinates);
@@ -188,8 +228,8 @@ namespace Content.Client.ContextMenu.UI
                 return false;
 
             return EntityManager.HasComponent<StationAiTurretComponent>(entity.Value)
-                   || EntityManager.HasComponent<BorgBrainComponent>(entity.Value)
-                   || EntityManager.HasComponent<StationAiHeldComponent>(entity.Value);
+                || EntityManager.HasComponent<BorgBrainComponent>(entity.Value)
+                || EntityManager.HasComponent<StationAiHeldComponent>(entity.Value);
         }
 
         /// <summary>
@@ -203,8 +243,7 @@ namespace Content.Client.ContextMenu.UI
             if (!_context.RootMenu.Visible)
                 return;
 
-            if (_playerManager.LocalEntity is not { } player ||
-                !player.IsValid())
+            if (_playerManager.LocalEntity is not { } player || !player.IsValid())
                 return;
 
             // Do we need to do in-range unOccluded checks?
@@ -215,10 +254,7 @@ namespace Content.Client.ContextMenu.UI
                 visibility &= ~MenuVisibility.NoFov;
             }
 
-            var ev = new MenuVisibilityEvent()
-            {
-                Visibility = visibility,
-            };
+            var ev = new MenuVisibilityEvent() { Visibility = visibility };
 
             _entityManager.EventBus.RaiseLocalEvent(player, ref ev);
             visibility = ev.Visibility;
@@ -270,7 +306,6 @@ namespace Content.Client.ContextMenu.UI
                     AddEntityToMenu(group[0], _context.RootMenu);
                 }
             }
-
         }
 
         /// <summary>
@@ -319,7 +354,9 @@ namespace Content.Client.ContextMenu.UI
             // find the element associated with this entity
             if (!Elements.TryGetValue(entity, out var element))
             {
-                Logger.Error($"Attempted to remove unknown entity from the entity menu: {_entityManager.GetComponent<MetaDataComponent>(entity).EntityName} ({entity})");
+                Logger.Error(
+                    $"Attempted to remove unknown entity from the entity menu: {_entityManager.GetComponent<MetaDataComponent>(entity).EntityName} ({entity})"
+                );
                 return;
             }
 

@@ -46,18 +46,21 @@ namespace Content.Server.Speech.EntitySystems
                 var toInsert = new StringBuilder();
                 for (var i = s.Length - 1; i >= 0 && "?!‽".Contains(s[i]); i--)
                 {
-                    toInsert.Append(s[i] switch
-                    {
-                        '?' => '¿',
-                        '!' => '¡',
-                        '‽' => '⸘',
-                        _ => ' '
-                    });
+                    toInsert.Append(
+                        s[i] switch
+                        {
+                            '?' => '¿',
+                            '!' => '¡',
+                            '‽' => '⸘',
+                            _ => ' ',
+                        }
+                    );
                 }
                 if (toInsert.Length == 0)
                 {
                     msg.Append(s);
-                } else
+                }
+                else
                 {
                     msg.Append(s.Insert(s.Length - s.TrimStart().Length, toInsert.ToString()));
                 }

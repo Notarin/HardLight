@@ -21,35 +21,35 @@
   result: TradeGoodSugar
   completetime: 10
   materials:
-      Cloth: 1500
-      Plastic: 750
+    Cloth: 1500
+    Plastic: 750
 
 - type: latheRecipe
   id: CyberneticsCrateRecipe
   result: TradeGoodCybernetics
   completetime: 15
   materials:
-      Steel: 1000
-      Silver: 500
-      Plasteel: 1000
-      Gold: 500
+    Steel: 1000
+    Silver: 500
+    Plasteel: 1000
+    Gold: 500
 
 - type: latheRecipe
   id: FuelTankRecipe
   result: TradeGoodFuel
   completetime: 25
   materials:
-      Plasma: 6000
-      Uranium: 1500
-      Plasteel: 500
+    Plasma: 6000
+    Uranium: 1500
+    Plasteel: 500
 
 - type: latheRecipe
   id: FlourSackRecipe
   result: TradeGoodFlour
   completetime: 10
   materials:
-      Cloth: 750
-      Plastic: 250
+    Cloth: 750
+    Plastic: 250
 
 - type: latheRecipe
   id: GunPartsCrateRecipe
@@ -75,10 +75,10 @@
   result: TradeGoodMilitarySurplus
   completetime: 15
   materials:
-      Steel: 1500
-      Plasteel: 750
-      Cloth: 1000
-      Durathread: 1500
+    Steel: 1500
+    Plasteel: 750
+    Cloth: 1000
+    Durathread: 1500
 
 - type: latheRecipe
   id: OrganFreezerRecipe

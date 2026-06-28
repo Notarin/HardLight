@@ -1,26 +1,35 @@
 using System.Linq;
 using Content.Server._Funkystation.Genetics.Components;
+using Content.Server._Funkystation.Genetics.Mutations.Systems;
 using Content.Server.Popups;
 using Content.Shared._Funkystation.Genetics;
 using Content.Shared._Funkystation.Genetics.Prototypes;
 using Content.Shared.Damage;
 using Content.Shared.FixedPoint;
+using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
-using Content.Shared.Mobs;
-using Content.Server._Funkystation.Genetics.Mutations.Systems;
 
 namespace Content.Server._Funkystation.Genetics.Systems;
 
 public sealed partial class GeneticsSystem : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly GeneticShuffleSystem _shuffle = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private readonly GeneticShuffleSystem _shuffle = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     private const float MinSequenceRevealFraction = 0.45f;
     private const float MaxSequenceRevealFraction = 0.80f;
@@ -84,8 +93,10 @@ public sealed partial class GeneticsSystem : EntitySystem
             if (!(_random.NextFloat() < forced.Chance))
                 continue;
 
-            if (!_proto.TryIndex<GeneticMutationPrototype>(forced.Id, out var proto) ||
-                !CanEntityReceiveMutation(uid, proto))
+            if (
+                !_proto.TryIndex<GeneticMutationPrototype>(forced.Id, out var proto)
+                || !CanEntityReceiveMutation(uid, proto)
+            )
                 continue;
 
             var slot = _shuffle.GetOrAssignSlot(forced.Id);
@@ -158,7 +169,8 @@ public sealed partial class GeneticsSystem : EntitySystem
 
     private string? PickRandomAvailableMutation(EntityUid uid, GeneticsComponent component)
     {
-        var candidates = _proto.EnumeratePrototypes<GeneticMutationPrototype>()
+        var candidates = _proto
+            .EnumeratePrototypes<GeneticMutationPrototype>()
             .Where(p => CanEntityReceiveMutation(uid, p, true))
             .Where(p => !component.Mutations.Any(m => m.Id == p.ID))
             .Where(p => !IsConflictingWithExisting(component, p))
@@ -256,7 +268,10 @@ public sealed partial class GeneticsSystem : EntitySystem
         revealed[0] = true;
         revealed[length - 1] = true;
 
-        var revealCount = _random.Next((int) (length * MinSequenceRevealFraction), (int) (length * MaxSequenceRevealFraction) + 1);
+        var revealCount = _random.Next(
+            (int)(length * MinSequenceRevealFraction),
+            (int)(length * MaxSequenceRevealFraction) + 1
+        );
         var added = 2;
 
         while (added < revealCount)
@@ -282,9 +297,11 @@ public sealed partial class GeneticsSystem : EntitySystem
     {
         var slot = _shuffle.GetOrAssignSlot(mutationId);
 
-        if (slot == GeneticBlock.Invalid ||
-            component.Mutations.Any(m => m.Id == mutationId) ||
-            !_proto.TryIndex(mutationId, out GeneticMutationPrototype? proto))
+        if (
+            slot == GeneticBlock.Invalid
+            || component.Mutations.Any(m => m.Id == mutationId)
+            || !_proto.TryIndex(mutationId, out GeneticMutationPrototype? proto)
+        )
             return false;
 
         if (!CanEntityReceiveMutation(uid, proto, false))
@@ -338,7 +355,7 @@ public sealed partial class GeneticsSystem : EntitySystem
 
         component.Mutations.Remove(entry);
 
-       //Dirty(uid, component);
+        //Dirty(uid, component);
         return true;
     }
 
@@ -365,7 +382,7 @@ public sealed partial class GeneticsSystem : EntitySystem
         component.Mutations[index] = component.Mutations[index] with
         {
             Enabled = true,
-            RevealedSequence = component.Mutations[index].OriginalSequence
+            RevealedSequence = component.Mutations[index].OriginalSequence,
         };
 
         ApplyMutationComponents(uid, component, proto);
@@ -389,10 +406,7 @@ public sealed partial class GeneticsSystem : EntitySystem
             return false;
 
         var index = component.Mutations.FindIndex(m => m.Id == mutationId);
-        component.Mutations[index] = component.Mutations[index] with
-        {
-            Enabled = false
-        };
+        component.Mutations[index] = component.Mutations[index] with { Enabled = false };
 
         RemoveMutationComponents(uid, proto);
         return true;
@@ -415,13 +429,13 @@ public sealed partial class GeneticsSystem : EntitySystem
 
     private bool IsConflictingWithExisting(GeneticsComponent component, GeneticMutationPrototype proto)
     {
-        return proto.Conflicts.Any(conflictId =>
-            component.Mutations.Any(m => m.Id == conflictId));
+        return proto.Conflicts.Any(conflictId => component.Mutations.Any(m => m.Id == conflictId));
     }
 
     private void ModifyInstability(EntityUid uid, GeneticsComponent component, int delta)
     {
-        if (delta == 0) return;
+        if (delta == 0)
+            return;
 
         var old = component.GeneticInstability;
         component.GeneticInstability += delta;
@@ -510,7 +524,13 @@ public sealed partial class GeneticsSystem : EntitySystem
         return proto.Parents is { } parents && parents.Any(parent => IsPrototypeOrParentInList(parent, list));
     }
 
-    public bool TryModifyMutationSequence(EntityUid uid, GeneticsComponent component, string mutationId, int index, char newBase)
+    public bool TryModifyMutationSequence(
+        EntityUid uid,
+        GeneticsComponent component,
+        string mutationId,
+        int index,
+        char newBase
+    )
     {
         var entryIndex = component.Mutations.FindIndex(m => m.Id == mutationId);
         if (entryIndex == -1)
@@ -534,8 +554,14 @@ public sealed partial class GeneticsSystem : EntitySystem
         return true;
     }
 
-    private MutationEntry CreateMutationEntry(string mutationId, GeneticMutationPrototype proto, int block, string originalSequence,
-                                              string revealedSequence, bool enabled)
+    private MutationEntry CreateMutationEntry(
+        string mutationId,
+        GeneticMutationPrototype proto,
+        int block,
+        string originalSequence,
+        string revealedSequence,
+        bool enabled
+    )
     {
         return new MutationEntry(
             Block: block,
@@ -596,7 +622,7 @@ public sealed partial class GeneticsSystem : EntitySystem
                     genetics.Mutations[index] = newEntry with
                     {
                         RevealedSequence = preserved.RevealedSequence,
-                        Enabled = preserved.Enabled
+                        Enabled = preserved.Enabled,
                     };
                 }
             }

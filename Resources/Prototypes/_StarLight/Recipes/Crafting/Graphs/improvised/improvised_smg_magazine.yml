@@ -2,12 +2,12 @@
   id: Improvised9x19mmSMGMagazineGraph
   start: start
   graph:
-    - node: start
-      edges:
-        - to: shell
-          steps:
-            - material: Steel
-              amount: 8
-              doAfter: 6
-    - node: shell
-      entity: Magazine9x19mmSubMachineGunImprovised
+  - node: start
+    edges:
+    - to: shell
+      steps:
+      - material: Steel
+        amount: 8
+        doAfter: 6
+  - node: shell
+    entity: Magazine9x19mmSubMachineGunImprovised

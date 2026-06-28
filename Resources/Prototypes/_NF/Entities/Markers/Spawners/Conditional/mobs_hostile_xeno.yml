@@ -6,10 +6,10 @@
   components:
   - type: Sprite
     layers:
-      - state: red
-      - state: ai
-      - sprite: Mobs/Aliens/Xenos/burrower.rsi
-        state: running
+    - state: red
+    - state: ai
+    - sprite: Mobs/Aliens/Xenos/burrower.rsi
+      state: running
   - type: ConditionalSpawner
     prototypes:
     - NFMobXeno
@@ -22,10 +22,10 @@
   components:
   - type: Sprite
     layers:
-      - state: red
-      - state: ai
-      - sprite: Mobs/Aliens/Xenos/drone.rsi
-        state: running
+    - state: red
+    - state: ai
+    - sprite: Mobs/Aliens/Xenos/drone.rsi
+      state: running
   - type: ConditionalSpawner
     prototypes:
     - NFMobXenoDrone
@@ -38,10 +38,10 @@
   components:
   - type: Sprite
     layers:
-      - state: red
-      - state: ai
-      - sprite: Mobs/Aliens/Xenos/praetorian.rsi
-        state: running
+    - state: red
+    - state: ai
+    - sprite: Mobs/Aliens/Xenos/praetorian.rsi
+      state: running
   - type: ConditionalSpawner
     prototypes:
     - NFMobXenoPraetorian
@@ -54,10 +54,10 @@
   components:
   - type: Sprite
     layers:
-      - state: red
-      - state: ai
-      - sprite: Mobs/Aliens/Xenos/ravager.rsi
-        state: running
+    - state: red
+    - state: ai
+    - sprite: Mobs/Aliens/Xenos/ravager.rsi
+      state: running
   - type: ConditionalSpawner
     prototypes:
     - NFMobXenoRavager
@@ -70,10 +70,10 @@
   components:
   - type: Sprite
     layers:
-      - state: red
-      - state: ai
-      - sprite: Mobs/Aliens/Xenos/runner.rsi
-        state: running
+    - state: red
+    - state: ai
+    - sprite: Mobs/Aliens/Xenos/runner.rsi
+      state: running
   - type: ConditionalSpawner
     prototypes:
     - NFMobXenoRunner
@@ -86,10 +86,10 @@
   components:
   - type: Sprite
     layers:
-      - state: red
-      - state: ai
-      - sprite: Mobs/Aliens/Xenos/spitter.rsi
-        state: running
+    - state: red
+    - state: ai
+    - sprite: Mobs/Aliens/Xenos/spitter.rsi
+      state: running
   - type: ConditionalSpawner
     prototypes:
     - NFMobXenoSpitter
@@ -102,10 +102,10 @@
   components:
   - type: Sprite
     layers:
-      - state: red
-      - state: ai
-      - sprite: Mobs/Aliens/Xenos/queen.rsi
-        state: running
+    - state: red
+    - state: ai
+    - sprite: Mobs/Aliens/Xenos/queen.rsi
+      state: running
   - type: ConditionalSpawner
     prototypes:
     - NFMobXenoQueen

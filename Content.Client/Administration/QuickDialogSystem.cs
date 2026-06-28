@@ -22,16 +22,12 @@ public sealed class QuickDialogSystem : EntitySystem
 
         window.OnConfirmed += responses =>
         {
-            RaiseNetworkEvent(new QuickDialogResponseEvent(ev.DialogId,
-                responses,
-                QuickDialogButtonFlag.OkButton));
+            RaiseNetworkEvent(new QuickDialogResponseEvent(ev.DialogId, responses, QuickDialogButtonFlag.OkButton));
         };
 
         window.OnCancelled += () =>
         {
-            RaiseNetworkEvent(new QuickDialogResponseEvent(ev.DialogId,
-                new(),
-                QuickDialogButtonFlag.CancelButton));
+            RaiseNetworkEvent(new QuickDialogResponseEvent(ev.DialogId, new(), QuickDialogButtonFlag.CancelButton));
         };
     }
 }

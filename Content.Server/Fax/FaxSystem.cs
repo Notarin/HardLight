@@ -1,71 +1,111 @@
+using System.Collections.Generic; // Hardlight
+using System.Text; // Hardlight
 using Content.Server.Administration;
 using Content.Server.Administration.Managers;
 using Content.Server.Chat.Managers;
 using Content.Server.DeviceNetwork.Systems;
+using Content.Server.Discord; // Hardlight
 using Content.Server.Popups;
 using Content.Server.Power.Components;
 using Content.Server.Tools;
-using Content.Shared.UserInterface;
 using Content.Shared.Administration.Logs;
+using Content.Shared.CCVar; // Hardlight
 using Content.Shared.Containers.ItemSlots;
 using Content.Shared.Database;
 using Content.Shared.DeviceNetwork;
+using Content.Shared.DeviceNetwork.Components;
 using Content.Shared.DeviceNetwork.Events;
 using Content.Shared.Emag.Systems;
 using Content.Shared.Fax;
-using Content.Shared.Fax.Systems;
 using Content.Shared.Fax.Components;
+using Content.Shared.Fax.Systems;
 using Content.Shared.GameTicking;
 using Content.Shared.Interaction;
 using Content.Shared.Labels.Components;
 using Content.Shared.Labels.EntitySystems;
 using Content.Shared.Mobs.Components;
+using Content.Shared.NameModifier.Components;
 using Content.Shared.Paper;
+using Content.Shared.Power;
+using Content.Shared.Tag; // Frontier
+using Content.Shared.UserInterface;
 using Robust.Server.GameObjects;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
+using Robust.Shared.Configuration; // Hardlight
 using Robust.Shared.Containers;
 using Robust.Shared.Player;
-using Content.Shared.NameModifier.Components;
-using Content.Shared.Power;
-using Content.Shared.DeviceNetwork.Components;
-using Content.Shared.Tag; // Frontier
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
-using Robust.Shared.Configuration; // Hardlight
-using Content.Shared.CCVar; // Hardlight
-using Content.Server.Discord; // Hardlight
-using System.Collections.Generic; // Hardlight
-using System.Text; // Hardlight
 
 namespace Content.Server.Fax;
 
 public sealed class FaxSystem : EntitySystem
 {
-    [Dependency] private readonly IChatManager _chat = default!;
-    [Dependency] private readonly IAdminManager _adminManager = default!;
-    [Dependency] private readonly ItemSlotsSystem _itemSlotsSystem = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearanceSystem = default!;
-    [Dependency] private readonly SharedGameTicker _gameTicker = default!;
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
-    [Dependency] private readonly DeviceNetworkSystem _deviceNetworkSystem = default!;
-    [Dependency] private readonly PaperSystem _paperSystem = default!;
-    [Dependency] private readonly LabelSystem _labelSystem = default!;
-    [Dependency] private readonly SharedAudioSystem _audioSystem = default!;
-    [Dependency] private readonly ToolSystem _toolSystem = default!;
-    [Dependency] private readonly QuickDialogSystem _quickDialog = default!;
-    [Dependency] private readonly UserInterfaceSystem _userInterface = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly MetaDataSystem _metaData = default!;
-    [Dependency] private readonly IConfigurationManager _config = default!; // Hardlight
-    [Dependency] private readonly DiscordWebhook _discord = default!; // Hardlight
-    [Dependency] private readonly ILogManager _log = default!; // Hardlight
+    [Dependency]
+    private readonly IChatManager _chat = default!;
+
+    [Dependency]
+    private readonly IAdminManager _adminManager = default!;
+
+    [Dependency]
+    private readonly ItemSlotsSystem _itemSlotsSystem = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearanceSystem = default!;
+
+    [Dependency]
+    private readonly SharedGameTicker _gameTicker = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly DeviceNetworkSystem _deviceNetworkSystem = default!;
+
+    [Dependency]
+    private readonly PaperSystem _paperSystem = default!;
+
+    [Dependency]
+    private readonly LabelSystem _labelSystem = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audioSystem = default!;
+
+    [Dependency]
+    private readonly ToolSystem _toolSystem = default!;
+
+    [Dependency]
+    private readonly QuickDialogSystem _quickDialog = default!;
+
+    [Dependency]
+    private readonly UserInterfaceSystem _userInterface = default!;
+
+    [Dependency]
+    private readonly ISharedAdminLogManager _adminLogger = default!;
+
+    [Dependency]
+    private readonly MetaDataSystem _metaData = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _config = default!; // Hardlight
+
+    [Dependency]
+    private readonly DiscordWebhook _discord = default!; // Hardlight
+
+    [Dependency]
+    private readonly ILogManager _log = default!; // Hardlight
     private ISawmill _sawmill = default!; // Hardlight
     private WebhookData? _faxWebhookData; // Hardlight
 
-    [Dependency] private readonly FaxecuteSystem _faxecute = default!;
-    [Dependency] private readonly EmagSystem _emag = default!;
-    [Dependency] private readonly TagSystem _tag = default!; // Frontier
+    [Dependency]
+    private readonly FaxecuteSystem _faxecute = default!;
+
+    [Dependency]
+    private readonly EmagSystem _emag = default!;
+
+    [Dependency]
+    private readonly TagSystem _tag = default!; // Frontier
 
     private const string PaperSlotId = "Paper";
     private static readonly ProtoId<TagPrototype> NFPaperStampProtectedTag = "NFPaperStampProtected";
@@ -234,42 +274,48 @@ public sealed class FaxSystem : EntitySystem
 
     private void OnInteractUsing(EntityUid uid, FaxMachineComponent component, InteractUsingEvent args)
     {
-        if (args.Handled ||
-            !TryComp<ActorComponent>(args.User, out var actor) ||
-            !_toolSystem.HasQuality(args.Used, "Screwing")) // Screwing because Pulsing already used by device linking
+        if (
+            args.Handled
+            || !TryComp<ActorComponent>(args.User, out var actor)
+            || !_toolSystem.HasQuality(args.Used, "Screwing")
+        ) // Screwing because Pulsing already used by device linking
             return;
 
-        _quickDialog.OpenDialog(actor.PlayerSession,
+        _quickDialog.OpenDialog(
+            actor.PlayerSession,
             Loc.GetString("fax-machine-dialog-rename"),
             Loc.GetString("fax-machine-dialog-field-name"),
             (string newName) =>
-        {
-            if (component.FaxName == newName)
-                return;
-
-            if (newName.Length > 20)
             {
-                _popupSystem.PopupEntity(Loc.GetString("fax-machine-popup-name-long"), uid);
-                return;
+                if (component.FaxName == newName)
+                    return;
+
+                if (newName.Length > 20)
+                {
+                    _popupSystem.PopupEntity(Loc.GetString("fax-machine-popup-name-long"), uid);
+                    return;
+                }
+
+                if (component.KnownFaxes.ContainsValue(newName) && !_emag.CheckFlag(uid, EmagType.Interaction)) // Allow existing names if emagged for fun
+                {
+                    _popupSystem.PopupEntity(Loc.GetString("fax-machine-popup-name-exist"), uid);
+                    return;
+                }
+
+                _adminLogger.Add(
+                    LogType.Action,
+                    LogImpact.Low,
+                    $"{ToPrettyString(args.User):user} renamed {ToPrettyString(uid):tool} from \"{component.FaxName}\" to \"{newName}\""
+                );
+                component.FaxName = newName;
+                _popupSystem.PopupEntity(Loc.GetString("fax-machine-popup-name-set"), uid);
+                UpdateUserInterface(uid, component);
+
+                // if we changed our fax name manually
+                // it will loose sync with station name
+                component.UseStationName = false;
             }
-
-            if (component.KnownFaxes.ContainsValue(newName) && !_emag.CheckFlag(uid, EmagType.Interaction)) // Allow existing names if emagged for fun
-            {
-                _popupSystem.PopupEntity(Loc.GetString("fax-machine-popup-name-exist"), uid);
-                return;
-            }
-
-            _adminLogger.Add(LogType.Action,
-                LogImpact.Low,
-                $"{ToPrettyString(args.User):user} renamed {ToPrettyString(uid):tool} from \"{component.FaxName}\" to \"{newName}\"");
-            component.FaxName = newName;
-            _popupSystem.PopupEntity(Loc.GetString("fax-machine-popup-name-set"), uid);
-            UpdateUserInterface(uid, component);
-
-            // if we changed our fax name manually
-            // it will loose sync with station name
-            component.UseStationName = false;
-        });
+        );
 
         args.Handled = true;
     }
@@ -296,6 +342,7 @@ public sealed class FaxSystem : EntitySystem
 
         args.Handled = true;
     }
+
     // End Frontier: demag
 
     private void OnPacketReceived(EntityUid uid, FaxMachineComponent component, DeviceNetworkPacketEvent args)
@@ -308,15 +355,16 @@ public sealed class FaxSystem : EntitySystem
             switch (command)
             {
                 case FaxConstants.FaxPingCommand:
-                    var isForSyndie = _emag.CheckFlag(uid, EmagType.Interaction) &&
-                                      args.Data.ContainsKey(FaxConstants.FaxSyndicateData);
+                    var isForSyndie =
+                        _emag.CheckFlag(uid, EmagType.Interaction)
+                        && args.Data.ContainsKey(FaxConstants.FaxSyndicateData);
                     if (!isForSyndie && !component.ResponsePings)
                         return;
 
                     var payload = new NetworkPayload()
                     {
                         { DeviceNetworkConstants.Command, FaxConstants.FaxPongCommand },
-                        { FaxConstants.FaxNameData, component.FaxName }
+                        { FaxConstants.FaxNameData, component.FaxName },
                     };
                     _deviceNetworkSystem.QueuePacket(uid, args.SenderAddress, payload);
 
@@ -331,8 +379,10 @@ public sealed class FaxSystem : EntitySystem
 
                     break;
                 case FaxConstants.FaxPrintCommand:
-                    if (!args.Data.TryGetValue(FaxConstants.FaxPaperNameData, out string? name) ||
-                        !args.Data.TryGetValue(FaxConstants.FaxPaperContentData, out string? content))
+                    if (
+                        !args.Data.TryGetValue(FaxConstants.FaxPaperNameData, out string? name)
+                        || !args.Data.TryGetValue(FaxConstants.FaxPaperContentData, out string? content)
+                    )
                         return;
 
                     args.Data.TryGetValue(FaxConstants.FaxPaperLabelData, out string? label);
@@ -343,7 +393,17 @@ public sealed class FaxSystem : EntitySystem
                     args.Data.TryGetValue(FaxConstants.FaxPaperSenderFaxNameData, out string? senderFaxName);
                     args.Data.TryGetValue(FaxConstants.FaxPaperStampProtectedData, out bool? stampProtected); // Frontier
 
-                    var printout = new FaxPrintout(content, name, label, prototypeId, stampState, stampedBy, locked ?? false, senderFaxName, stampProtected ?? false); // Frontier: add stampProtected
+                    var printout = new FaxPrintout(
+                        content,
+                        name,
+                        label,
+                        prototypeId,
+                        stampState,
+                        stampedBy,
+                        locked ?? false,
+                        senderFaxName,
+                        stampProtected ?? false
+                    ); // Frontier: add stampProtected
                     Receive(uid, printout, args.SenderAddress);
 
                     break;
@@ -397,7 +457,6 @@ public sealed class FaxSystem : EntitySystem
         if (TryComp<FaxableObjectComponent>(component.PaperSlot.Item, out var faxable))
             component.InsertingState = faxable.InsertingState;
 
-
         if (component.InsertingTimeRemaining > 0)
         {
             _appearanceSystem.SetData(uid, FaxMachineVisuals.VisualState, FaxMachineVisualState.Inserting);
@@ -408,20 +467,27 @@ public sealed class FaxSystem : EntitySystem
         else
             _appearanceSystem.SetData(uid, FaxMachineVisuals.VisualState, FaxMachineVisualState.Normal);
     }
+
     private void UpdateUserInterface(EntityUid uid, FaxMachineComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
 
         var isPaperInserted = component.PaperSlot.Item != null;
-        var canSend = isPaperInserted &&
-                      component.DestinationFaxAddress != null &&
-                      component.SendTimeoutRemaining <= 0 &&
-                      component.InsertingTimeRemaining <= 0;
-        var canCopy = isPaperInserted &&
-                      component.SendTimeoutRemaining <= 0 &&
-                      component.InsertingTimeRemaining <= 0;
-        var state = new FaxUiState(component.FaxName, component.KnownFaxes, canSend, canCopy, isPaperInserted, component.DestinationFaxAddress);
+        var canSend =
+            isPaperInserted
+            && component.DestinationFaxAddress != null
+            && component.SendTimeoutRemaining <= 0
+            && component.InsertingTimeRemaining <= 0;
+        var canCopy = isPaperInserted && component.SendTimeoutRemaining <= 0 && component.InsertingTimeRemaining <= 0;
+        var state = new FaxUiState(
+            component.FaxName,
+            component.KnownFaxes,
+            canSend,
+            canCopy,
+            isPaperInserted,
+            component.DestinationFaxAddress
+        );
         _userInterface.SetUiState(uid, FaxUiKey.Key, state);
     }
 
@@ -451,10 +517,7 @@ public sealed class FaxSystem : EntitySystem
         component.DestinationFaxAddress = null;
         component.KnownFaxes.Clear();
 
-        var payload = new NetworkPayload()
-        {
-            { DeviceNetworkConstants.Command, FaxConstants.FaxPingCommand }
-        };
+        var payload = new NetworkPayload() { { DeviceNetworkConstants.Command, FaxConstants.FaxPingCommand } };
 
         if (_emag.CheckFlag(uid, EmagType.Interaction))
             payload.Add(FaxConstants.FaxSyndicateData, true);
@@ -480,11 +543,13 @@ public sealed class FaxSystem : EntitySystem
 
         // Unfortunately, since a paper entity does not yet exist, we have to emulate what LabelSystem will do.
         var nameWithLabel = (args.Label is { } label) ? $"{name} ({label})" : name;
-        _adminLogger.Add(LogType.Action,
+        _adminLogger.Add(
+            LogType.Action,
             LogImpact.Low,
-            $"{ToPrettyString(args.Actor):actor} " +
-            $"added print job to \"{component.FaxName}\" {ToPrettyString(uid):tool} " +
-            $"of {nameWithLabel}: {args.Content}");
+            $"{ToPrettyString(args.Actor):actor} "
+                + $"added print job to \"{component.FaxName}\" {ToPrettyString(uid):tool} "
+                + $"of {nameWithLabel}: {args.Content}"
+        );
     }
 
     /// <summary>
@@ -503,23 +568,26 @@ public sealed class FaxSystem : EntitySystem
         if (sendEntity == null)
             return;
 
-        if (!TryComp(sendEntity, out MetaDataComponent? metadata) ||
-            !TryComp<PaperComponent>(sendEntity, out var paper))
+        if (
+            !TryComp(sendEntity, out MetaDataComponent? metadata) || !TryComp<PaperComponent>(sendEntity, out var paper)
+        )
             return;
 
         TryComp<LabelComponent>(sendEntity, out var labelComponent);
         TryComp<NameModifierComponent>(sendEntity, out var nameMod);
 
         // TODO: See comment in 'Send()' about not being able to copy whole entities
-        var printout = new FaxPrintout(paper.Content,
-                                       nameMod?.BaseName ?? metadata.EntityName,
-                                       labelComponent?.CurrentLabel,
-                                       metadata.EntityPrototype?.ID ?? component.PrintPaperId,
-                                       paper.StampState,
-                                       paper.StampedBy,
-                                       paper.EditingDisabled,
-                                       null, // HardLight
-                                       _tag.HasTag(sendEntity.Value, NFPaperStampProtectedTag)); // Frontier: add stamp protection
+        var printout = new FaxPrintout(
+            paper.Content,
+            nameMod?.BaseName ?? metadata.EntityName,
+            labelComponent?.CurrentLabel,
+            metadata.EntityPrototype?.ID ?? component.PrintPaperId,
+            paper.StampState,
+            paper.StampedBy,
+            paper.EditingDisabled,
+            null, // HardLight
+            _tag.HasTag(sendEntity.Value, NFPaperStampProtectedTag)
+        ); // Frontier: add stamp protection
 
         component.PrintingQueue.Enqueue(printout);
         component.SendTimeoutRemaining += component.SendTimeout;
@@ -539,11 +607,13 @@ public sealed class FaxSystem : EntitySystem
         if (!args.Actor.IsValid()) // Goobstation - no log for automation
             return;
 
-        _adminLogger.Add(LogType.Action,
+        _adminLogger.Add(
+            LogType.Action,
             LogImpact.Low,
-            $"{ToPrettyString(args.Actor):actor} " +
-            $"added copy job to \"{component.FaxName}\" {ToPrettyString(uid):tool} " +
-            $"of {ToPrettyString(sendEntity):subject}: {printout.Content}");
+            $"{ToPrettyString(args.Actor):actor} "
+                + $"added copy job to \"{component.FaxName}\" {ToPrettyString(uid):tool} "
+                + $"of {ToPrettyString(sendEntity):subject}: {printout.Content}"
+        );
     }
 
     /// <summary>
@@ -568,8 +638,9 @@ public sealed class FaxSystem : EntitySystem
         if (!component.KnownFaxes.TryGetValue(component.DestinationFaxAddress, out var faxName))
             return;
 
-        if (!TryComp(sendEntity, out MetaDataComponent? metadata) ||
-           !TryComp<PaperComponent>(sendEntity, out var paper))
+        if (
+            !TryComp(sendEntity, out MetaDataComponent? metadata) || !TryComp<PaperComponent>(sendEntity, out var paper)
+        )
             return;
 
         TryComp<NameModifierComponent>(sendEntity, out var nameMod);
@@ -581,14 +652,15 @@ public sealed class FaxSystem : EntitySystem
         if (component.AddSenderInfo)
         {
             var faxMachineAddress = TryComp<DeviceNetworkComponent>(uid, out var deviceNetworkComponent)
-            ? deviceNetworkComponent.Address
-            : Loc.GetString("device-address-unknown");
+                ? deviceNetworkComponent.Address
+                : Loc.GetString("device-address-unknown");
 
             var time = _gameTicker.RoundDuration();
             var timeString = TimeSpan.FromSeconds(Math.Truncate(time.TotalSeconds)).ToString();
 
             content += "\n";
-            content += Loc.GetString(component.SenderInfo,
+            content += Loc.GetString(
+                component.SenderInfo,
                 ("sender_name", component.FaxName),
                 ("sender_addr", faxMachineAddress),
                 ("recipient_name", component.DestinationFaxName ?? Loc.GetString("fax-machine-popup-source-unknown")),
@@ -604,7 +676,10 @@ public sealed class FaxSystem : EntitySystem
             { FaxConstants.FaxPaperLabelData, labelComponent?.CurrentLabel },
             { FaxConstants.FaxPaperContentData, content },
             { FaxConstants.FaxPaperLockedData, paper.EditingDisabled },
-            { FaxConstants.FaxPaperSenderFaxNameData, component.FaxName ?? Loc.GetString("fax-machine-popup-source-unknown") },
+            {
+                FaxConstants.FaxPaperSenderFaxNameData,
+                component.FaxName ?? Loc.GetString("fax-machine-popup-source-unknown")
+            },
             { FaxConstants.FaxPaperStampProtectedData, _tag.HasTag(sendEntity.Value, NFPaperStampProtectedTag) }, // Frontier
         };
 
@@ -626,12 +701,14 @@ public sealed class FaxSystem : EntitySystem
         _deviceNetworkSystem.QueuePacket(uid, component.DestinationFaxAddress, payload);
 
         if (!args.Actor.IsValid()) // Goobstation - no log for automation
-        _adminLogger.Add(LogType.Action,
-            LogImpact.Low,
-            $"{ToPrettyString(args.Actor):actor} " +
-            $"sent fax from \"{component.FaxName}\" {ToPrettyString(uid):tool} " +
-            $"to \"{faxName}\" ({component.DestinationFaxAddress}) " +
-            $"of {ToPrettyString(sendEntity):subject}: {paper.Content}");
+            _adminLogger.Add(
+                LogType.Action,
+                LogImpact.Low,
+                $"{ToPrettyString(args.Actor):actor} "
+                    + $"sent fax from \"{component.FaxName}\" {ToPrettyString(uid):tool} "
+                    + $"to \"{faxName}\" ({component.DestinationFaxAddress}) "
+                    + $"of {ToPrettyString(sendEntity):subject}: {paper.Content}"
+            );
 
         component.SendTimeoutRemaining += component.SendTimeout;
 
@@ -651,7 +728,12 @@ public sealed class FaxSystem : EntitySystem
     ///     Accepts a new message and adds it to the queue to print
     ///     If has parameter "notifyAdmins" also output a special message to admin chat.
     /// </summary>
-    public void Receive(EntityUid uid, FaxPrintout printout, string? fromAddress = null, FaxMachineComponent? component = null)
+    public void Receive(
+        EntityUid uid,
+        FaxPrintout printout,
+        string? fromAddress = null,
+        FaxMachineComponent? component = null
+    )
     {
         if (!Resolve(uid, ref component))
             return;
@@ -709,11 +791,20 @@ public sealed class FaxSystem : EntitySystem
             _labelSystem.Label(printed, label);
         }
 
-        _adminLogger.Add(LogType.Action, LogImpact.Low, $"\"{component.FaxName}\" {ToPrettyString(uid):tool} printed {ToPrettyString(printed):subject}: {printout.Content}");
+        _adminLogger.Add(
+            LogType.Action,
+            LogImpact.Low,
+            $"\"{component.FaxName}\" {ToPrettyString(uid):tool} printed {ToPrettyString(printed):subject}: {printout.Content}"
+        );
     }
 
     // Hardlight start
-    private async void SendFaxDiscordWebhook(EntityUid uid, FaxMachineComponent component, FaxPrintout printout, string? fromAddress)
+    private async void SendFaxDiscordWebhook(
+        EntityUid uid,
+        FaxMachineComponent component,
+        FaxPrintout printout,
+        string? fromAddress
+    )
     {
         if (_faxWebhookData is not { } webhookData)
             return;
@@ -754,7 +845,9 @@ public sealed class FaxSystem : EntitySystem
             if (!request.IsSuccessStatusCode)
             {
                 var content = await request.Content.ReadAsStringAsync();
-                _sawmill.Error($"Error sending fax webhook message. Status code: {request.StatusCode}\nResponse: {content}");
+                _sawmill.Error(
+                    $"Error sending fax webhook message. Status code: {request.StatusCode}\nResponse: {content}"
+                );
             }
         }
         catch (Exception e)
@@ -777,12 +870,18 @@ public sealed class FaxSystem : EntitySystem
             _sawmill.Warning("Unable to retrieve Discord webhook data for fax notifications.");
         }
     }
+
     // Hardlight end
 
     private void NotifyAdmins(string faxName)
     {
         _chat.SendAdminAnnouncement(Loc.GetString("fax-machine-chat-notify", ("fax", faxName)));
-        _audioSystem.PlayGlobal("/Audio/Machines/high_tech_confirm.ogg", Filter.Empty().AddPlayers(_adminManager.ActiveAdmins), false, AudioParams.Default.WithVolume(-8f));
+        _audioSystem.PlayGlobal(
+            "/Audio/Machines/high_tech_confirm.ogg",
+            Filter.Empty().AddPlayers(_adminManager.ActiveAdmins),
+            false,
+            AudioParams.Default.WithVolume(-8f)
+        );
     }
 
     // Frontier: delete sensitive items on fax to prevent duplication

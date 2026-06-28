@@ -4,7 +4,7 @@
   id: CVWeaponTurretReaper
   name: Civilian Curio-1089 tachyon lance "Reaper"
   description: A terrifying weapon to have aimed at you, the Reaper is an ancient piece of pre-fracture tech capable of shattering the strongest of hulls within one or two blasts. now made for kids.
-  parent: [ BaseC2ContrabandUnredeemable, WeaponTurretReaper ]
+  parent: [BaseC2ContrabandUnredeemable, WeaponTurretReaper]
   components:
   - type: Sprite
     sprite: _HL/Objects/ShuttleWeapons/cvreaper.rsi
@@ -26,7 +26,7 @@
 - type: entity
   id: CVWeaponTurretHarbringer
   name: Civilian Curio-129 ion cannon "Harbringer"
-  parent: [ BaseC2ContrabandUnredeemable, WeaponTurretHarbringer ]
+  parent: [BaseC2ContrabandUnredeemable, WeaponTurretHarbringer]
   description: One of the most powerful EMP weapons in sector, its a sign of doom for its targets. Made for all ages!
   components:
   - type: Sprite
@@ -49,7 +49,7 @@
 - type: entity
   id: CVWeaponTurretKargil
   name: Civilian Kargil 203mm cannon
-  parent: [ BaseC2ContrabandUnredeemable, WeaponTurretKargil ]
+  parent: [BaseC2ContrabandUnredeemable, WeaponTurretKargil]
   description: A (totally legal) cruiser artillery cannon that launches devastating 203mm shells for long-range ship-to-ship combat. Can be remotely activated or linked up to a GCS.
   components:
   - type: Sprite
@@ -72,8 +72,8 @@
 - type: entity
   id: CVWeaponTurretType54
   name: Civilian Type-54C plasma autopulser
-  parent: [ BaseC2ContrabandUnredeemable, WeaponTurretType54 ]
-  description: A rapidly firing energy weapon, dealing a large amount of damage to its targets. Takes a long time to recharge. Feels like it could give a really mean tan. 
+  parent: [BaseC2ContrabandUnredeemable, WeaponTurretType54]
+  description: A rapidly firing energy weapon, dealing a large amount of damage to its targets. Takes a long time to recharge. Feels like it could give a really mean tan.
   components:
   - type: Sprite
     sprite: _HL/Objects/ShuttleWeapons/cvt54.rsi
@@ -95,8 +95,8 @@
 - type: entity
   id: CVWeaponTurretTovek
   name: Civilian ADMX-23 TOVEK Hybrid EMP Pod
-  parent: [ BaseC2ContrabandUnredeemable, WeaponTurretTovek ]
-  description: A hybrid EMP missile pod by Aetherion Dynamics. Fires EMPHE warheads to disable and weaken enemy ships at long range. Can be remotely activated or linked to a GCS. Says "intended for oral use only". 
+  parent: [BaseC2ContrabandUnredeemable, WeaponTurretTovek]
+  description: A hybrid EMP missile pod by Aetherion Dynamics. Fires EMPHE warheads to disable and weaken enemy ships at long range. Can be remotely activated or linked to a GCS. Says "intended for oral use only".
   components:
   - type: Sprite
     sprite: _HL/Objects/ShuttleWeapons/cvtovek.rsi
@@ -118,7 +118,7 @@
 - type: entity
   id: CVWeaponTurretSerpentMissile
   name: Civilian Serpent torpedo launcher
-  parent: [ BaseC2ContrabandUnredeemable, WeaponTurretSerpentMissile ]
+  parent: [BaseC2ContrabandUnredeemable, WeaponTurretSerpentMissile]
   description: A light torpedo launcher developed by the Syndicate during the corporate war, uses similar systems to the anaconda for self loading munitons. Additional lubrication required.
   components:
   - type: Sprite
@@ -142,8 +142,8 @@
 - type: entity
   id: CVWeaponTurretSunder
   name: Civilian Curio-1007 proton cannon "Sunder"
-  parent: [ BaseC2ContrabandUnredeemable, WeaponTurretSunder ]
-  description: A potent proton cannon from before the Fracture, known for melting holes through both inorganic and organic matter with ease. Batteries sold separately 
+  parent: [BaseC2ContrabandUnredeemable, WeaponTurretSunder]
+  description: A potent proton cannon from before the Fracture, known for melting holes through both inorganic and organic matter with ease. Batteries sold separately
   components:
   - type: Sprite
     sprite: _HL/Objects/ShuttleWeapons/cvsunder.rsi
@@ -161,12 +161,12 @@
       machine_parts: !type:Container
   - type: Machine
     board: CivSunderWeaponBoard
-    
+
 - type: entity
   id: AIWeaponTurretSunder
   name: Hostile Curio-1007 proton cannon "Sunder"
-  parent: [ WeaponTurretSunder ]
-  description: An AI controlled weapon, you're too close.  
+  parent: [WeaponTurretSunder]
+  description: An AI controlled weapon, you're too close.
   components:
   - type: NpcFactionMember
     factions:
@@ -202,16 +202,15 @@
     rootTask:
       task: MountedTurretCompound
     blackboard:
-      RotateSpeed: !type:Single
-        3.141
+      RotateSpeed: !type:Single 3.141
       SoundTargetInLOS: !type:SoundPathSpecifier
         path: /Audio/Effects/double_beep.ogg
 
 - type: entity
   id: AIWeaponTurretType35
   name: Hostile Type35
-  parent: [ WeaponTurretType35 ]
-  description: An AI controlled weapon, you're too close.  
+  parent: [WeaponTurretType35]
+  description: An AI controlled weapon, you're too close.
   components:
   - type: NpcFactionMember
     factions:
@@ -247,16 +246,15 @@
     rootTask:
       task: MountedTurretCompound
     blackboard:
-      RotateSpeed: !type:Single
-        3.141
+      RotateSpeed: !type:Single 3.141
       SoundTargetInLOS: !type:SoundPathSpecifier
         path: /Audio/Effects/double_beep.ogg
 
 - type: entity
   id: AIWeaponLaserTurretApollo
   name: Hostile Apollo
-  parent: [ WeaponLaserTurretApollo ]
-  description: An AI controlled weapon, you're too close.  
+  parent: [WeaponLaserTurretApollo]
+  description: An AI controlled weapon, you're too close.
   components:
   - type: NpcFactionMember
     factions:
@@ -289,16 +287,15 @@
     rootTask:
       task: MountedTurretCompound
     blackboard:
-      RotateSpeed: !type:Single
-        3.141
+      RotateSpeed: !type:Single 3.141
       SoundTargetInLOS: !type:SoundPathSpecifier
         path: /Audio/Effects/double_beep.ogg
 
 - type: entity
   id: AIWeaponLaserTurretFlayer
   name: Hostile Flayer
-  parent: [ WeaponLaserTurretFlayer ]
-  description: An AI controlled weapon, you're too close.  
+  parent: [WeaponLaserTurretFlayer]
+  description: An AI controlled weapon, you're too close.
   components:
   - type: NpcFactionMember
     factions:
@@ -334,16 +331,15 @@
     rootTask:
       task: MountedTurretCompound
     blackboard:
-      RotateSpeed: !type:Single
-        3.141
+      RotateSpeed: !type:Single 3.141
       SoundTargetInLOS: !type:SoundPathSpecifier
         path: /Audio/Effects/double_beep.ogg
-    
+
 - type: entity
   id: AIWeaponLaserTurretL1Phalanx
   name: Hostile phalanx
-  parent: [ WeaponLaserTurretL1Phalanx ]
-  description: An AI controlled weapon, you're too close.  
+  parent: [WeaponLaserTurretL1Phalanx]
+  description: An AI controlled weapon, you're too close.
   components:
   - type: NpcFactionMember
     factions:
@@ -379,16 +375,15 @@
     rootTask:
       task: MountedTurretCompound
     blackboard:
-      RotateSpeed: !type:Single
-        3.141
+      RotateSpeed: !type:Single 3.141
       SoundTargetInLOS: !type:SoundPathSpecifier
         path: /Audio/Effects/double_beep.ogg
 
 - type: entity
   id: AIWeaponTurretAdderScattercannon
   name: Hostile Adder
-  parent: [ WeaponTurretAdderScattercannon ]
-  description: An AI controlled weapon, you're too close.  
+  parent: [WeaponTurretAdderScattercannon]
+  description: An AI controlled weapon, you're too close.
   components:
   - type: NpcFactionMember
     factions:
@@ -424,16 +419,15 @@
     rootTask:
       task: MountedTurretCompound
     blackboard:
-      RotateSpeed: !type:Single
-        3.141
+      RotateSpeed: !type:Single 3.141
       SoundTargetInLOS: !type:SoundPathSpecifier
         path: /Audio/Effects/double_beep.ogg
-    
+
 - type: entity
   id: AIWeaponTurretCharonette
   name: Hostile massdriver
-  parent: [ WeaponTurretCharonette ]
-  description: An AI controlled weapon, you're too close.  
+  parent: [WeaponTurretCharonette]
+  description: An AI controlled weapon, you're too close.
   components:
   - type: NpcFactionMember
     factions:
@@ -469,16 +463,15 @@
     rootTask:
       task: MountedTurretCompound
     blackboard:
-      RotateSpeed: !type:Single
-        3.141
+      RotateSpeed: !type:Single 3.141
       SoundTargetInLOS: !type:SoundPathSpecifier
         path: /Audio/Effects/double_beep.ogg
-        
+
 - type: entity
   id: BeamPrism
   name: beam prism
   description: A crystal turret that absorbs incoming hitscan beams and redirects them along its current facing.
-  parent: [ BaseStructure, BaseC2ContrabandUnredeemable ]
+  parent: [BaseStructure, BaseC2ContrabandUnredeemable]
   components:
   - type: StaticPrice
     price: 5000
@@ -488,18 +481,16 @@
     damageModifierSet: StructuralMetallic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 4000
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 2000
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:PlaySoundBehavior
         sound:
           collection: MetalBreak
@@ -510,8 +501,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.25,-0.25,0.25,0.25"
         density: 800
         mask:
@@ -538,7 +528,7 @@
   - type: Appearance
   - type: Anchorable
     flags:
-      - Anchorable
+    - Anchorable
   - type: MouseRotator
     angleTolerance: 5
     rotationSpeed: 180
@@ -564,7 +554,7 @@
 - type: entity
   id: AIBeamPrism
   name: Hostile beam prism
-  parent: [ BeamPrism ]
+  parent: [BeamPrism]
   description: An AI controlled prism turret that rotates to direct incoming beams.
   components:
   - type: NpcFactionMember
@@ -577,16 +567,15 @@
     rootTask:
       task: MountedTurretCompound
     blackboard:
-      RotateSpeed: !type:Single
-        3.141
+      RotateSpeed: !type:Single 3.141
       SoundTargetInLOS: !type:SoundPathSpecifier
         path: /Audio/Effects/double_beep.ogg
 
 - type: entity
   id: AIWeaponTurretScythe
   name: Hostile energy thrower
-  parent: [ WeaponTurretScythe ]
-  description: An AI controlled weapon, you're too close.  
+  parent: [WeaponTurretScythe]
+  description: An AI controlled weapon, you're too close.
   components:
   - type: NpcFactionMember
     factions:
@@ -620,16 +609,15 @@
     rootTask:
       task: MountedTurretCompound
     blackboard:
-      RotateSpeed: !type:Single
-        3.141
+      RotateSpeed: !type:Single 3.141
       SoundTargetInLOS: !type:SoundPathSpecifier
         path: /Audio/Effects/double_beep.ogg
 
 - type: entity
   id: AIWeaponTurretShredder
   name: Hostile energy thrower
-  parent: [ WeaponLaserTurretFlayer ]
-  description: An AI controlled weapon, you're too close.  
+  parent: [WeaponLaserTurretFlayer]
+  description: An AI controlled weapon, you're too close.
   components:
   - type: NpcFactionMember
     factions:
@@ -665,13 +653,13 @@
     blackboard:
       SoundTargetInLOS: !type:SoundPathSpecifier
         path: /Audio/_HL/Freeallegiance/lturret.ogg
- 
+
 - type: entity
   parent: MobRogueSiliconGuardian
   id: MobXenoSiliconGuardian
   name: guardian unit
   description: An advanced security silicon, typically used to safeguard high-security areas such as vaults and server rooms. After being hacked, this unit carries out the AI's will.
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Gun
     fireRate: 2
@@ -690,19 +678,19 @@
   components:
   - type: Sprite
     layers:
-      - state: red
-      - state: ai
-      - sprite: _NF/Mobs/RogueSilicons/netguardian.rsi
-        state: netguardian
+    - state: red
+    - state: ai
+    - sprite: _NF/Mobs/RogueSilicons/netguardian.rsi
+      state: netguardian
   - type: ConditionalSpawner
     prototypes:
     - MobXenoSiliconGuardian
- 
+
 - type: entity
   id: AIWeaponTurretpointflayer
   name: Hostile energy thrower
-  parent: [ WeaponLaserTurretFlayer ]
-  description: An AI controlled weapon, you're too close.  
+  parent: [WeaponLaserTurretFlayer]
+  description: An AI controlled weapon, you're too close.
   components:
   - type: NpcFactionMember
     factions:
@@ -739,7 +727,7 @@
   id: CVWeaponTurretFang
   name: Civilian Fang heavy 100mm autocannon
   description: A heavy 100mm autocannon of syndicate design, created during the corporate war. Made for shattering the hulls of NT crusiers. Uses a self loading mechanism similar to the anaconda hangun. Now coming to a backyard near you!zzzzzzzzz
-  parent: [ BaseC2ContrabandUnredeemable, WeaponTurretFang ]
+  parent: [BaseC2ContrabandUnredeemable, WeaponTurretFang]
   components:
   - type: Sprite
     sprite: _HL/Objects/ShuttleWeapons/cvfang.rsi
@@ -762,7 +750,7 @@
   id: CVWeaponTurretType35
   name: Civilian Type-35 MARAUDER-type plasma cannon
   description: Launches magnetically contained balls of plasma at targets. Can be remotely activated, or linked up to a GCS. Hazardous if consumed.
-  parent: [ BaseC2ContrabandUnredeemable, WeaponTurretType35 ]
+  parent: [BaseC2ContrabandUnredeemable, WeaponTurretType35]
   components:
   - type: Sprite
     sprite: _HL/Objects/ShuttleWeapons/cvt35.rsi
@@ -785,7 +773,7 @@
   id: CVWeaponLaserTurretApollo
   name: Civilian L-20 Apollo Heavy Laser Cannon
   description: One of the Pantheon Collective's top weapons, the Apollo is aptly named for its beams heating surfaces to beyond the temperature of nearby stars. Bottom weapons unavailable for comment.
-  parent: [ BaseC2ContrabandUnredeemable, WeaponLaserTurretApollo ]
+  parent: [BaseC2ContrabandUnredeemable, WeaponLaserTurretApollo]
   components:
   - type: Sprite
     sprite: _HL/Objects/ShuttleWeapons/cvapollo.rsi
@@ -808,7 +796,7 @@
   id: CVWeaponTurretRAC30
   name: Civilian RAC-30 Draupnir Autocannon
   description: A more heavy duty rapid rife autocannon, firing a hail of rounds much like its namesake became a hail of spears. For outdoor use only.
-  parent: [ BaseC2ContrabandUnredeemable, WeaponTurretRAC30 ]
+  parent: [BaseC2ContrabandUnredeemable, WeaponTurretRAC30]
   components:
   - type: Sprite
     sprite: _HL/Objects/ShuttleWeapons/cvrac-30_draupnir.rsi
@@ -832,7 +820,7 @@
   id: CVWeaponTurretAK570
   name: Civilian AK570 90mm heavy autocannon
   description: A dual-barrel, heavy 90mm autocannon firing general-purpose APHE rounds, effective for sustained fire against medium targets. Can be remotely activated or linked up to a GCS. ribbed for your pleasure.zzzz
-  parent: [ BaseC2ContrabandUnredeemable, WeaponTurretAK570 ]
+  parent: [BaseC2ContrabandUnredeemable, WeaponTurretAK570]
   components:
   - type: Sprite
     sprite: _HL/Objects/ShuttleWeapons/cvartillery.rsi
@@ -855,7 +843,7 @@
   id: CVWeaponTurretDravon
   name: Civilian ADBP-7 DRAVON 57mm Autocannon
   description: A single-barrel autocannon made by Aetherion Dynamics. Medium artillery piece with high fire rate but relatively low impact, firing HEAT shells to damage ship armor and systems. Can be remotely activated or linked up to a GCS. please consult a doctor if an erection lasts longer than 4 hours.
-  parent: [ BaseC2ContrabandUnredeemable, WeaponTurretDravon ]
+  parent: [BaseC2ContrabandUnredeemable, WeaponTurretDravon]
   components:
   - type: Sprite
     sprite: _HL/Objects/ShuttleWeapons/cvdravon.rsi
@@ -878,7 +866,7 @@
   id: CVWeaponLaserTurretFlayer
   name: Civilian Curio-183 auto-coil "Flayer"
   description: A single-barrel autocannon made by Aetherion Dynamics. Medium artillery piece with high fire rate but relatively low impact, firing HEAT shells to damage ship armor and systems. Can be remotely activated or linked up to a GCS. please consult a doctor if an erection lasts longer than 4 hours.
-  parent: [ BaseC2ContrabandUnredeemable, WeaponLaserTurretFlayer ]
+  parent: [BaseC2ContrabandUnredeemable, WeaponLaserTurretFlayer]
   components:
   - type: Sprite
     sprite: _HL/Objects/ShuttleWeapons/cvflayer.rsi
@@ -901,7 +889,7 @@
   id: CVWeaponLaserTurretL1Phalanx
   name: Civilian L-1 Phalanx
   description: A light laser emplactment designed by the Pantheon Collective, used to shred threats of all types. Now in new berry blast flavor.
-  parent: [ BaseC2ContrabandUnredeemable, WeaponLaserTurretL1Phalanx ]
+  parent: [BaseC2ContrabandUnredeemable, WeaponLaserTurretL1Phalanx]
   components:
   - type: Sprite
     sprite: _HL/Objects/ShuttleWeapons/cvphalanx.rsi
@@ -924,7 +912,7 @@
   id: CVWeaponTurretL85Autocannon
   name: Civilian L85 20mm autocannon
   description: A light 20mm ballistic autocannon designed for rapid fire and suppressing smaller targets at close range. Cheap, light, and can be remotely activated or linked up to a GCS. Results may vary.
-  parent: [ BaseC2ContrabandUnredeemable, WeaponTurretL85Autocannon ]
+  parent: [BaseC2ContrabandUnredeemable, WeaponTurretL85Autocannon]
   components:
   - type: Sprite
     sprite: _HL/Objects/ShuttleWeapons/cv50cal.rsi
@@ -946,7 +934,7 @@
 - type: entity
   id: CVWeaponTurretM220
   name: Civilian M220 RUBICON EMP launcher
-  parent: [ BaseC2ContrabandUnredeemable, WeaponTurretM220 ]
+  parent: [BaseC2ContrabandUnredeemable, WeaponTurretM220]
   description: Launches EMP projectiles at ships, disabling systems with powerful electromagnetic pulses. Ideal for non-lethal engagements and can be remotely activated or linked to a GCS. shock your friends.
   components:
   - type: Sprite
@@ -970,7 +958,7 @@
   id: CVWeaponTurretVanyk
   name: Civilian ASM-302 pod
   description: An escort missile pod manufactured by Aetherion Dynamics. Launches guided missiles for basic ship-to-ship combat and area denial. Can be remotely activated or linked to a GCS.
-  parent: [ BaseC2ContrabandUnredeemable, WeaponTurretVanyk ]
+  parent: [BaseC2ContrabandUnredeemable, WeaponTurretVanyk]
   components:
   - type: Sprite
     sprite: _HL/Objects/ShuttleWeapons/cvvanyk.rsi
@@ -988,5 +976,4 @@
       machine_parts: !type:Container
   - type: Machine
     board: CivVanykWeaponBoard
-    
-    
+

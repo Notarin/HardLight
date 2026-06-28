@@ -17,17 +17,17 @@
   parent: BaseMobHuman
   id: MobSalvager
   components:
-    - type: NpcFactionMember
-      factions:
-        - Syndicate
-    - type: Loadout
-      prototypes:
-        - SalvageSpecialistGear
-    - type: InputMover
-    - type: MobMover
-    - type: HTN
-      rootTask:
-        task: SimpleHumanoidHostileCompound
+  - type: NpcFactionMember
+    factions:
+    - Syndicate
+  - type: Loadout
+    prototypes:
+    - SalvageSpecialistGear
+  - type: InputMover
+  - type: MobMover
+  - type: HTN
+    rootTask:
+      task: SimpleHumanoidHostileCompound
 
 - type: entity
   name: spirate
@@ -37,10 +37,10 @@
   components:
   - type: NpcFactionMember
     factions:
-      - Syndicate
+    - Syndicate
   - type: Loadout
     prototypes:
-      - PirateGear
+    - PirateGear
   - type: InputMover
   - type: MobMover
   - type: HTN
@@ -52,17 +52,17 @@
   parent: BaseMobHuman
   id: MobSyndicateFootsoldier
   components:
-    - type: NpcFactionMember
-      factions:
-        - Syndicate
-    - type: Loadout
-      prototypes:
-        - SyndicateFootsoldierGearRuin
-    - type: InputMover
-    - type: MobMover
-    - type: HTN
-      rootTask:
-        task: SimpleHumanoidHostileCompound
+  - type: NpcFactionMember
+    factions:
+    - Syndicate
+  - type: Loadout
+    prototypes:
+    - SyndicateFootsoldierGearRuin
+  - type: InputMover
+  - type: MobMover
+  - type: HTN
+    rootTask:
+      task: SimpleHumanoidHostileCompound
 
 - type: entity
   name: syndicate shuttle pilot
@@ -76,7 +76,7 @@
   id: SalvageHumanCorpse
   name: unidentified corpse
   description: I think they're dead.
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   components:
   - type: RandomHumanoidAppearance
     randomizeName: false

@@ -23,10 +23,9 @@
     Empress:
       stationProto: StandardFrontierSecurityVessel
       components:
-        - type: StationNameSetup
-          mapNameTemplate: 'Empress {1}'
-          nameGenerator:
-            !type:NanotrasenNameGenerator
-            prefixCreator: '14'
-        - type: StationJobs
-          availableJobs: {} # Removed the chef since we dont have a real loadout for it
+      - type: StationNameSetup
+        mapNameTemplate: 'Empress {1}'
+        nameGenerator: !type:NanotrasenNameGenerator
+          prefixCreator: '14'
+      - type: StationJobs
+        availableJobs: {} # Removed the chef since we dont have a real loadout for it

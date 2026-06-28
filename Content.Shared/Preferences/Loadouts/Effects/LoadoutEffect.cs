@@ -15,7 +15,8 @@ public abstract partial class LoadoutEffect
         RoleLoadout loadout,
         ICommonSession? session,
         IDependencyCollection collection,
-        [NotNullWhen(false)] out FormattedMessage? reason);
+        [NotNullWhen(false)] out FormattedMessage? reason
+    );
 
-    public virtual void Apply(RoleLoadout loadout) {}
+    public virtual void Apply(RoleLoadout loadout) { }
 }

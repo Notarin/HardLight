@@ -1,6 +1,6 @@
 using System.Numerics;
-using Content.Client.Parallax.Managers;
 using Content.Client.Parallax;
+using Content.Client.Parallax.Managers;
 using Robust.Shared.Maths;
 
 namespace Content.IntegrationTests
@@ -8,6 +8,7 @@ namespace Content.IntegrationTests
     public sealed class DummyParallaxManager : IParallaxManager
     {
         public Vector2 ParallaxAnchor { get; set; }
+
         public bool IsLoaded(string name)
         {
             return true;

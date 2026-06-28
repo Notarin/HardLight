@@ -29,17 +29,16 @@
   mapName: 'NT Comet'
   mapPath: /Maps/_NF/Shuttles/comet.yml
   minPlayers: 0
-  stations: 
+  stations:
     Comet:
       stationProto: StandardFrontierVessel
       components:
-        - type: StationNameSetup
-          mapNameTemplate: 'Comet {1}'
-          nameGenerator:
-            !type:NanotrasenNameGenerator
-            prefixCreator: '14'
-        - type: StationJobs
-          availableJobs:
-            ContractorInterview: [ 0, 0 ]
-            PilotInterview: [ 0, 0 ]
-            MercenaryInterview: [ 0, 0 ]
+      - type: StationNameSetup
+        mapNameTemplate: 'Comet {1}'
+        nameGenerator: !type:NanotrasenNameGenerator
+          prefixCreator: '14'
+      - type: StationJobs
+        availableJobs:
+          ContractorInterview: [0, 0]
+          PilotInterview: [0, 0]
+          MercenaryInterview: [0, 0]

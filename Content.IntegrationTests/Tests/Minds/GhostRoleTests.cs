@@ -43,15 +43,17 @@ public sealed class GhostRoleTests
     {
         var ghostCommand = adminGhost ? "aghost" : "ghost";
 
-        await using var pair = await PoolManager.GetServerClient(new PoolSettings
-        {
-            Dirty = true,
-            DummyTicker = false,
-            Connected = true,
-            Map = "Empty",
-            Fresh = true,
-            Destructive = true // HL: Round states mess with the test pair
-        });
+        await using var pair = await PoolManager.GetServerClient(
+            new PoolSettings
+            {
+                Dirty = true,
+                DummyTicker = false,
+                Connected = true,
+                Map = "Empty",
+                Fresh = true,
+                Destructive = true, // HL: Round states mess with the test pair
+            }
+        );
         var server = pair.Server;
         var client = pair.Client;
 

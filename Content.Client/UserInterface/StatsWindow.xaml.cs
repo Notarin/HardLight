@@ -23,10 +23,7 @@ namespace Content.Client.UserInterface
             for (var i = 0; i < headers.Count; i++)
             {
                 var item = headers[i];
-                Values.AddChild(new Label()
-                {
-                    Text = item,
-                });
+                Values.AddChild(new Label() { Text = item });
             }
 
             values.Sort((x, y) => string.Compare(x[0], y[0], StringComparison.CurrentCultureIgnoreCase));
@@ -37,10 +34,7 @@ namespace Content.Client.UserInterface
 
                 for (var j = 0; j < value.Length; j++)
                 {
-                    Values.AddChild(new Label()
-                    {
-                        Text = value[j],
-                    });
+                    Values.AddChild(new Label() { Text = value[j] });
                 }
             }
         }

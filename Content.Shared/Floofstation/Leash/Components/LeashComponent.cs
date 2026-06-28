@@ -35,7 +35,8 @@ public sealed partial class LeashComponent : Component
     ///     The time it takes for one entity to attach/detach the leash to/from another entity.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public TimeSpan AttachDelay = TimeSpan.FromSeconds(2f), DetachDelay = TimeSpan.FromSeconds(2f);
+    public TimeSpan AttachDelay = TimeSpan.FromSeconds(2f),
+        DetachDelay = TimeSpan.FromSeconds(2f);
 
     /// <summary>
     ///     The time it takes for the leashed entity to detach itself from this leash.

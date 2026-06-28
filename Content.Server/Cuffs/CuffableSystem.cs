@@ -25,11 +25,13 @@ namespace Content.Server.Cuffs
             HandcuffComponent? cuffs = null;
             if (component.CuffedHandCount > 0)
                 TryComp(component.LastAddedCuffs, out cuffs);
-            args.State = new CuffableComponentState(component.CuffedHandCount,
+            args.State = new CuffableComponentState(
+                component.CuffedHandCount,
                 component.CanStillInteract,
                 cuffs?.CuffedRSI,
                 $"{cuffs?.BodyIconState}-{component.CuffedHandCount}",
-                cuffs?.Color);
+                cuffs?.Color
+            );
             // the iconstate is formatted as blah-2, blah-4, blah-6, etc.
             // the number corresponds to how many hands are cuffed.
         }

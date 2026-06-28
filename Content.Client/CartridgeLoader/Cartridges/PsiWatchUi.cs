@@ -6,7 +6,6 @@ using Robust.Client.UserInterface;
 /// <summary>
 /// ADAPTED FROM SECWATCH - DELTAV
 /// </summary>
-
 namespace Content.Client.CartridgeLoader.Cartridges;
 
 public sealed partial class PsiWatchUi : UIFragment

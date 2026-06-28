@@ -1,5 +1,5 @@
 - type: entity
-  parent: [ ConstructibleMachine, BaseMachinePowered, BaseAutomatedMachine ]
+  parent: [ConstructibleMachine, BaseMachinePowered, BaseAutomatedMachine]
   id: StorageBin
   name: storage bin
   description: An electronically controlled storage bin intended for use with robotic arms.
@@ -12,14 +12,14 @@
     - state: powered
       shader: unshaded
       visible: false
-      map: [ "enum.StorageBinLayers.Powered" ]
+      map: ["enum.StorageBinLayers.Powered"]
   - type: Appearance
   - type: GenericVisualizer
     visuals:
       enum.PowerDeviceVisuals.Powered:
         enum.StorageBinLayers.Powered:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
   # Physics
   - type: Fixtures
     fixtures:

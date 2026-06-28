@@ -9,7 +9,8 @@ namespace Content.Shared._HL.Clothing.EntitySystems;
 /// </summary>
 public sealed class HLClothingWhitelistSystem : EntitySystem
 {
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!;
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelist = default!;
 
     public override void Initialize()
     {

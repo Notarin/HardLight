@@ -10,8 +10,11 @@ namespace Content.Client.Cuffs;
 
 public sealed class CuffableSystem : SharedCuffableSystem
 {
-    [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly ActionBlockerSystem _actionBlocker = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     public override void Initialize()
     {
@@ -61,7 +64,12 @@ public sealed class CuffableSystem : SharedCuffableSystem
         if (!Equals(component.CurrentRSI, cuffState.RSI) && cuffState.RSI != null) // we don't want to keep loading the same RSI
         {
             component.CurrentRSI = cuffState.RSI;
-            _sprite.LayerSetRsi((uid, sprite), _sprite.LayerMapGet((uid, sprite), HumanoidVisualLayers.Handcuffs), new ResPath(component.CurrentRSI), cuffState.IconState);
+            _sprite.LayerSetRsi(
+                (uid, sprite),
+                _sprite.LayerMapGet((uid, sprite), HumanoidVisualLayers.Handcuffs),
+                new ResPath(component.CurrentRSI),
+                cuffState.IconState
+            );
         }
         else
         {
@@ -69,4 +77,3 @@ public sealed class CuffableSystem : SharedCuffableSystem
         }
     }
 }
-

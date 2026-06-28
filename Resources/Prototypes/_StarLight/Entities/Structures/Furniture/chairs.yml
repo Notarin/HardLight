@@ -12,8 +12,7 @@
     damageModifierSet: Wood
   - type: Destructible
     thresholds:
-    - trigger: # Excess damage, don't spawn entities
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:PlaySoundBehavior
@@ -21,8 +20,7 @@
           collection: WoodDestroy
       - !type:DoActsBehavior
         acts: ["Destruction"]
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 25
       behaviors:
       - !type:DoActsBehavior
@@ -61,7 +59,7 @@
   - type: Sprite
     sprite: _Starlight/Structures/Furniture/Chairs/sleek_office_chair.rsi
     state: base
-# HL - add construction recipe
+    # HL - add construction recipe
   - type: Construction
     graph: Seats
     node: sleekOfficeChair

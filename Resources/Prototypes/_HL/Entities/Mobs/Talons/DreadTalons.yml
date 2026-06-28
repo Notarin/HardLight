@@ -3,11 +3,11 @@
   id: dreadtalonbase
   parent: [MobHumanoidHostileAIComplex, MobSpaceBasic]
   description: It looks friendly. Why don't you give it a hug?
-#  categories: [ HideSpawnMenu ] # Frontier
+  #  categories: [ HideSpawnMenu ] # Frontier
   components:
   - type: HTN
     rootTask:
-       task: SimpleHostileCompound
+      task: SimpleHostileCompound
     blackboard:
       NavClimb: true
       NavInteract: true
@@ -18,7 +18,7 @@
     sprite: _HL/Mobs/Aliens/dreadtalon.rsi
     scale: 0.7, 0.7
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: dreadtalon
   - type: CombatMode
     canDisarm: false
@@ -39,9 +39,9 @@
     proto: alien
   - type: Tag
     tags:
-      - CannotSuicide
-      - DoorBumpOpener
-      - FootstepSound
+    - CannotSuicide
+    - DoorBumpOpener
+    - FootstepSound
   - type: NoSlip
   - type: DamageStateVisuals
     states:
@@ -65,8 +65,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.25
         density: 1000
         mask:
@@ -89,7 +88,7 @@
   - type: Tool
     speedModifier: 5
     qualities:
-      - Prying
+    - Prying
   - type: Prying
     pryPowered: true
     force: true
@@ -138,7 +137,7 @@
     altDisarm: false
     angle: 0
     soundHit:
-     collection: AlienClaw
+      collection: AlienClaw
     animation: WeaponArcBite
     wideAnimation: WeaponArcClaw
     damage:
@@ -168,16 +167,16 @@
   id: BananaTalon
   parent: dreadtalonbase
   description: It looks friendly. Why don't you give it a hug?
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   components:
   - type: Sprite
     drawdepth: Mobs
     sprite: _HL/Mobs/Aliens/dreadtalon.rsi
     scale: 0.7, 0.7
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: bananatalon
-    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+    - map: ["enum.DamageStateVisualLayers.BaseUnshaded"]
       state: bananatalonglow
       shader: unshaded
   - type: ReplacementAccent
@@ -219,16 +218,16 @@
   id: BlueTalon
   parent: dreadtalonbase
   description: It looks friendly. Why don't you give it a hug?
-#  categories: [ HideSpawnMenu ] # Frontier
+  #  categories: [ HideSpawnMenu ] # Frontier
   components:
   - type: Sprite
     drawdepth: Mobs
     sprite: _HL/Mobs/Aliens/dreadtalon.rsi
     scale: 0.7, 0.7
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: Bluetalon
-    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+    - map: ["enum.DamageStateVisualLayers.BaseUnshaded"]
       state: bluetalonglow
       shader: unshaded
   - type: MobThresholds
@@ -251,16 +250,16 @@
   id: LavaTalon
   parent: dreadtalonbase
   description: It looks friendly. Why don't you give it a hug?
-#  categories: [ HideSpawnMenu ] # Frontier
+  #  categories: [ HideSpawnMenu ] # Frontier
   components:
   - type: Sprite
     drawdepth: Mobs
     sprite: _HL/Mobs/Aliens/dreadtalon.rsi
     scale: 0.7, 0.7
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: lavatalon
-    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+    - map: ["enum.DamageStateVisualLayers.BaseUnshaded"]
       state: lavatalonglow
       shader: unshaded
   - type: MeleeWeapon
@@ -284,16 +283,16 @@
   id: PlasmaTalon
   parent: dreadtalonbase
   description: It looks friendly. Why don't you give it a hug?
-#  categories: [ HideSpawnMenu ] # Frontier
+  #  categories: [ HideSpawnMenu ] # Frontier
   components:
   - type: Sprite
     drawdepth: Mobs
     sprite: _HL/Mobs/Aliens/dreadtalon.rsi
     scale: 0.7, 0.7
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: plastalon
-    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+    - map: ["enum.DamageStateVisualLayers.BaseUnshaded"]
       state: plastalonglow
       shader: unshaded
   - type: DamageStateVisuals
@@ -311,16 +310,16 @@
   id: GravTalon
   parent: dreadtalonbase
   description: It looks friendly. Why don't you give it a hug?
-#  categories: [ HideSpawnMenu ] # Frontier
+  #  categories: [ HideSpawnMenu ] # Frontier
   components:
   - type: Sprite
     drawdepth: Mobs
     sprite: _HL/Mobs/Aliens/dreadtalon.rsi
     scale: 0.7, 0.7
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: singutalon
-    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+    - map: ["enum.DamageStateVisualLayers.BaseUnshaded"]
       state: singutalonglow
       shader: unshaded
   - type: MeleeWeapon
@@ -349,16 +348,16 @@
   id: SuperTalon
   parent: dreadtalonbase
   description: It looks friendly. Why don't you give it a hug?
-#  categories: [ HideSpawnMenu ] # Frontier
+  #  categories: [ HideSpawnMenu ] # Frontier
   components:
   - type: Sprite
     drawdepth: Mobs
     sprite: _HL/Mobs/Aliens/dreadtalon.rsi
     scale: 0.7, 0.7
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: supertalon
-    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+    - map: ["enum.DamageStateVisualLayers.BaseUnshaded"]
       state: supertalonglow
       shader: unshaded
   - type: MeleeWeapon
@@ -386,16 +385,16 @@
   id: TriTalon
   parent: dreadtalonbase
   description: It looks friendly. Why don't you give it a hug?
-#  categories: [ HideSpawnMenu ] # Frontier
+  #  categories: [ HideSpawnMenu ] # Frontier
   components:
   - type: Sprite
     drawdepth: Mobs
     sprite: _HL/Mobs/Aliens/dreadtalon.rsi
     scale: 0.7, 0.7
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: tritalon
-    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+    - map: ["enum.DamageStateVisualLayers.BaseUnshaded"]
       state: tritalonglow
       shader: unshaded
   - type: DamageStateVisuals

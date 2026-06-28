@@ -39,7 +39,4 @@ public sealed partial class PartAssemblyComponent : Component
 /// <summary>
 /// Event raised when a valid part is inserted into the part assembly.
 /// </summary>
-public sealed class PartAssemblyPartInsertedEvent
-{
-
-}
+public sealed class PartAssemblyPartInsertedEvent { }

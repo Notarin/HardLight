@@ -23,10 +23,17 @@ namespace Content.Server.Storage.EntitySystems;
 
 public sealed class EntityStorageSystem : SharedEntityStorageSystem
 {
-    [Dependency] private readonly ConstructionSystem _construction = default!;
-    [Dependency] private readonly AtmosphereSystem _atmos = default!;
-    [Dependency] private readonly IMapManager _map = default!;
-    [Dependency] private readonly MapSystem _mapSystem = default!;
+    [Dependency]
+    private readonly ConstructionSystem _construction = default!;
+
+    [Dependency]
+    private readonly AtmosphereSystem _atmos = default!;
+
+    [Dependency]
+    private readonly IMapManager _map = default!;
+
+    [Dependency]
+    private readonly MapSystem _mapSystem = default!;
 
     public override void Initialize()
     {
@@ -36,7 +43,10 @@ public sealed class EntityStorageSystem : SharedEntityStorageSystem
         SubscribeLocalEvent<EntityStorageComponent, EntityUnpausedEvent>(OnEntityUnpausedEvent);
         SubscribeLocalEvent<EntityStorageComponent, ComponentInit>(OnComponentInit);
         SubscribeLocalEvent<EntityStorageComponent, ComponentStartup>(OnComponentStartup);
-        SubscribeLocalEvent<EntityStorageComponent, ActivateInWorldEvent>(OnInteract, after: new[] { typeof(LockSystem) });
+        SubscribeLocalEvent<EntityStorageComponent, ActivateInWorldEvent>(
+            OnInteract,
+            after: new[] { typeof(LockSystem) }
+        );
         SubscribeLocalEvent<EntityStorageComponent, LockToggleAttemptEvent>(OnLockToggleAttempt);
         SubscribeLocalEvent<EntityStorageComponent, DestructionEventArgs>(OnDestruction);
         SubscribeLocalEvent<EntityStorageComponent, GetVerbsEvent<InteractionVerb>>(AddToggleOpenVerb);
@@ -112,10 +122,13 @@ public sealed class EntityStorageSystem : SharedEntityStorageSystem
         if (!component.Airtight)
             return;
 
-        var serverComp = (EntityStorageComponent) component;
+        var serverComp = (EntityStorageComponent)component;
         var tile = GetOffsetTileRef(uid, serverComp);
 
-        if (tile != null && _atmos.GetTileMixture(tile.Value.GridUid, null, tile.Value.GridIndices, true) is {} environment)
+        if (
+            tile != null
+            && _atmos.GetTileMixture(tile.Value.GridUid, null, tile.Value.GridIndices, true) is { } environment
+        )
         {
             _atmos.Merge(serverComp.Air, environment.RemoveVolume(serverComp.Air.Volume));
         }
@@ -123,14 +136,17 @@ public sealed class EntityStorageSystem : SharedEntityStorageSystem
 
     public override void ReleaseGas(EntityUid uid, SharedEntityStorageComponent component)
     {
-        var serverComp = (EntityStorageComponent) component;
+        var serverComp = (EntityStorageComponent)component;
 
         if (!serverComp.Airtight)
             return;
 
         var tile = GetOffsetTileRef(uid, serverComp);
 
-        if (tile != null && _atmos.GetTileMixture(tile.Value.GridUid, null, tile.Value.GridIndices, true) is {} environment)
+        if (
+            tile != null
+            && _atmos.GetTileMixture(tile.Value.GridUid, null, tile.Value.GridIndices, true) is { } environment
+        )
         {
             _atmos.Merge(environment, serverComp.Air);
             serverComp.Air.Clear();
@@ -149,7 +165,11 @@ public sealed class EntityStorageSystem : SharedEntityStorageSystem
         return null;
     }
 
-    private void OnRemoved(EntityUid uid, InsideEntityStorageComponent component, EntGotRemovedFromContainerMessage args)
+    private void OnRemoved(
+        EntityUid uid,
+        InsideEntityStorageComponent component,
+        EntGotRemovedFromContainerMessage args
+    )
     {
         if (args.Container.Owner != component.Storage)
             return;
@@ -174,7 +194,11 @@ public sealed class EntityStorageSystem : SharedEntityStorageSystem
         }
     }
 
-    private void OnInsideExposed(EntityUid uid, InsideEntityStorageComponent component, ref AtmosExposedGetAirEvent args)
+    private void OnInsideExposed(
+        EntityUid uid,
+        InsideEntityStorageComponent component,
+        ref AtmosExposedGetAirEvent args
+    )
     {
         if (args.Handled)
             return;

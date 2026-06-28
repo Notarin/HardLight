@@ -12,11 +12,20 @@ namespace Content.Client.Eye;
 
 public sealed class EyeLerpingSystem : EntitySystem
 {
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly SharedEyeSystem _eye = default!;
-    [Dependency] private readonly SharedMoverController _mover = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
+
+    [Dependency]
+    private readonly SharedEyeSystem _eye = default!;
+
+    [Dependency]
+    private readonly SharedMoverController _mover = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
 
     // Convenience variable for for VV.
     [ViewVariables, UsedImplicitly]
@@ -121,7 +130,12 @@ public sealed class EyeLerpingSystem : EntitySystem
         }
     }
 
-    private Vector2 UpdateZoom(EntityUid uid, float frameTime, EyeComponent? eye = null, ContentEyeComponent? content = null)
+    private Vector2 UpdateZoom(
+        EntityUid uid,
+        float frameTime,
+        EyeComponent? eye = null,
+        ContentEyeComponent? content = null
+    )
     {
         if (!Resolve(uid, ref content, ref eye, false))
             return Vector2.One;
@@ -173,7 +187,7 @@ public sealed class EyeLerpingSystem : EntitySystem
 
     public override void FrameUpdate(float frameTime)
     {
-        var tickFraction = (float) _gameTiming.TickFraction / ushort.MaxValue;
+        var tickFraction = (float)_gameTiming.TickFraction / ushort.MaxValue;
         const double lerpMinimum = 0.00001;
         var query = AllEntityQuery<LerpingEyeComponent, EyeComponent, TransformComponent>();
 

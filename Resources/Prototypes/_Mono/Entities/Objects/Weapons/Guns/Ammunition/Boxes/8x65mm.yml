@@ -7,7 +7,7 @@
     mayTransfer: true
     whitelist:
       tags:
-        - Cartridge8x65mmSKR
+      - Cartridge8x65mmSKR
     proto: Cartridge8x65mmSKR
     capacity: 60
   - type: Item

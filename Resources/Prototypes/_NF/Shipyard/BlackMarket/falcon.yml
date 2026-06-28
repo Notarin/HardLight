@@ -27,11 +27,10 @@
     Falcon:
       stationProto: StandardFrontierAntagVessel
       components:
-        - type: StationNameSetup
-          mapNameTemplate: 'Kestrel {1}' # Very fake name
-          nameGenerator:
-            !type:NanotrasenNameGenerator
-            prefixCreator: '14'
-        - type: StationJobs
-          availableJobs:
-            NFPirate: [ 0, 0 ]
+      - type: StationNameSetup
+        mapNameTemplate: 'Kestrel {1}' # Very fake name
+        nameGenerator: !type:NanotrasenNameGenerator
+          prefixCreator: '14'
+      - type: StationJobs
+        availableJobs:
+          NFPirate: [0, 0]

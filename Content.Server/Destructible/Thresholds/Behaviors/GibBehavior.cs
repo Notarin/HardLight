@@ -9,9 +9,14 @@ namespace Content.Server.Destructible.Thresholds.Behaviors
     [DataDefinition]
     public sealed partial class GibBehavior : IThresholdBehavior
     {
-        [DataField] public GibType GibType = GibType.Gib; // Shitmed Change
-        [DataField] public GibContentsOption GibContents = GibContentsOption.Drop; // Shitmed Change
-        [DataField("recursive")] private bool _recursive = true;
+        [DataField]
+        public GibType GibType = GibType.Gib; // Shitmed Change
+
+        [DataField]
+        public GibContentsOption GibContents = GibContentsOption.Drop; // Shitmed Change
+
+        [DataField("recursive")]
+        private bool _recursive = true;
 
         public LogImpact Impact => LogImpact.Extreme;
 

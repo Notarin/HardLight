@@ -11,14 +11,13 @@ namespace Content.Server.Database.Migrations.Sqlite
                 table: "preference",
                 type: "text",
                 nullable: false,
-                defaultValue: "#ff0000");
+                defaultValue: "#ff0000"
+            );
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "admin_ooc_color",
-                table: "preference");
+            migrationBuilder.DropColumn(name: "admin_ooc_color", table: "preference");
         }
     }
 }

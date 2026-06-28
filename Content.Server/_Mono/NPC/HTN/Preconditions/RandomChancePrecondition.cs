@@ -14,7 +14,8 @@ namespace Content.Server._Mono.NPC.HTN.Preconditions;
 /// </summary>
 public sealed partial class RandomChancePrecondition : HTNPrecondition
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
 
     /// <summary>
     /// Probability in [0, 1] that this precondition is met on a given

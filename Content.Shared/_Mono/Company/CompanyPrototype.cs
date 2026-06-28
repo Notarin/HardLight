@@ -21,7 +21,6 @@ public sealed partial class CompanyPrototype : IPrototype
     [DataField("form", required: true)]
     public string Form { get; private set; } = default!;
 
-
     /// <summary>
     /// The name of the company.
     /// </summary>
@@ -33,7 +32,7 @@ public sealed partial class CompanyPrototype : IPrototype
     /// </summary>
     [DataField("color")]
     public Color Color { get; private set; } = Color.Yellow;
-    
+
     /// <summary>
     /// Whether this company should be disabled from selection in the UI.
     /// Companies with this set to true will still be assigned automatically through the job system,

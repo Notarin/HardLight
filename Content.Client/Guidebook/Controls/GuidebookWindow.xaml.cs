@@ -18,8 +18,11 @@ namespace Content.Client.Guidebook.Controls;
 [GenerateTypedNameReferences]
 public sealed partial class GuidebookWindow : FancyWindow, ILinkClickHandler, IAnchorClickHandler
 {
-    [Dependency] private readonly DocumentParsingManager _parsingMan = default!;
-    [Dependency] private readonly IResourceManager _resourceManager = default!;
+    [Dependency]
+    private readonly DocumentParsingManager _parsingMan = default!;
+
+    [Dependency]
+    private readonly IResourceManager _resourceManager = default!;
 
     private Dictionary<ProtoId<GuideEntryPrototype>, GuideEntry> _entries = new();
 
@@ -76,7 +79,7 @@ public sealed partial class GuidebookWindow : FancyWindow, ILinkClickHandler, IA
 
             UserInterfaceManager.DeferAction(() =>
             {
-                if (control.GetControlScrollPosition() is not {} position)
+                if (control.GetControlScrollPosition() is not { } position)
                     return;
 
                 Scroll.HScrollTarget = position.X;
@@ -151,7 +154,8 @@ public sealed partial class GuidebookWindow : FancyWindow, ILinkClickHandler, IA
         Dictionary<ProtoId<GuideEntryPrototype>, GuideEntry> entries,
         List<ProtoId<GuideEntryPrototype>>? rootEntries = null,
         ProtoId<GuideEntryPrototype>? forceRoot = null,
-        ProtoId<GuideEntryPrototype>? selected = null)
+        ProtoId<GuideEntryPrototype>? selected = null
+    )
     {
         _entries = entries;
         RepopulateTree(rootEntries, forceRoot);
@@ -203,8 +207,10 @@ public sealed partial class GuidebookWindow : FancyWindow, ILinkClickHandler, IA
             .ThenBy(rootEntry => Loc.GetString(rootEntry.Name));
     }
 
-    private void RepopulateTree(List<ProtoId<GuideEntryPrototype>>? roots = null,
-        ProtoId<GuideEntryPrototype>? forcedRoot = null)
+    private void RepopulateTree(
+        List<ProtoId<GuideEntryPrototype>>? roots = null,
+        ProtoId<GuideEntryPrototype>? forcedRoot = null
+    )
     {
         Tree.Clear();
 
@@ -219,9 +225,11 @@ public sealed partial class GuidebookWindow : FancyWindow, ILinkClickHandler, IA
         Tree.SetAllExpanded(true);
     }
 
-    private TreeItem? AddEntry(ProtoId<GuideEntryPrototype> id,
+    private TreeItem? AddEntry(
+        ProtoId<GuideEntryPrototype> id,
         TreeItem? parent,
-        HashSet<ProtoId<GuideEntryPrototype>> addedEntries)
+        HashSet<ProtoId<GuideEntryPrototype>> addedEntries
+    )
     {
         if (!_entries.TryGetValue(id, out var entry))
             return null;
@@ -266,7 +274,9 @@ public sealed partial class GuidebookWindow : FancyWindow, ILinkClickHandler, IA
         }
     }
 
-    private static (List<IPrototypeRepresentationControl>, List<IPrototypeLinkControl>) GetLinkableControlsAndLinks(Control parent)
+    private static (List<IPrototypeRepresentationControl>, List<IPrototypeLinkControl>) GetLinkableControlsAndLinks(
+        Control parent
+    )
     {
         List<IPrototypeRepresentationControl> linkableList = new();
         List<IPrototypeLinkControl> linkList = new();

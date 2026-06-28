@@ -11,7 +11,8 @@ namespace Content.Client.Administration.UI.Tabs
     [GenerateTypedNameReferences]
     public sealed partial class ServerTab : Control
     {
-        [Dependency] private readonly IConfigurationManager _config = default!;
+        [Dependency]
+        private readonly IConfigurationManager _config = default!;
 
         private static readonly (string Title, string Body, string Yes, string No)[] ShutdownSteps =
         {
@@ -64,11 +65,7 @@ namespace Content.Client.Administration.UI.Tabs
         {
             var (title, body, yes, no) = ShutdownSteps[step];
 
-            var window = new DefaultWindow
-            {
-                Title = title,
-                MinSize = new System.Numerics.Vector2(440, 10),
-            };
+            var window = new DefaultWindow { Title = title, MinSize = new System.Numerics.Vector2(440, 10) };
 
             var root = new BoxContainer
             {
@@ -77,11 +74,7 @@ namespace Content.Client.Administration.UI.Tabs
                 Margin = new Thickness(16),
             };
 
-            root.AddChild(new Label
-            {
-                Text = body,
-                ClipText = false,
-            });
+            root.AddChild(new Label { Text = body, ClipText = false });
 
             var buttons = new BoxContainer
             {
@@ -90,7 +83,7 @@ namespace Content.Client.Administration.UI.Tabs
             };
 
             var yesBtn = new Button { Text = yes, HorizontalExpand = true };
-            var noBtn  = new Button { Text = no,  HorizontalExpand = true };
+            var noBtn = new Button { Text = no, HorizontalExpand = true };
 
             var isFinal = step == ShutdownSteps.Length - 1;
 
@@ -128,24 +121,20 @@ namespace Content.Client.Administration.UI.Tabs
                 Margin = new Thickness(16),
             };
 
-            root.AddChild(new Label
-            {
-                Text = "Nanotrasen Safety Compliance Check\n\nTo proceed, type the exact phrase below:\n\n" + ShutdownCaptchaPhrase,
-                ClipText = false,
-            });
+            root.AddChild(
+                new Label
+                {
+                    Text =
+                        "Nanotrasen Safety Compliance Check\n\nTo proceed, type the exact phrase below:\n\n"
+                        + ShutdownCaptchaPhrase,
+                    ClipText = false,
+                }
+            );
 
-            var captchaInput = new LineEdit
-            {
-                PlaceHolder = "Type phrase exactly",
-                HorizontalExpand = true,
-            };
+            var captchaInput = new LineEdit { PlaceHolder = "Type phrase exactly", HorizontalExpand = true };
             root.AddChild(captchaInput);
 
-            var status = new Label
-            {
-                Text = "",
-                StyleClasses = { "LabelSubText" },
-            };
+            var status = new Label { Text = "", StyleClasses = { "LabelSubText" } };
             root.AddChild(status);
 
             var buttons = new BoxContainer
@@ -154,20 +143,16 @@ namespace Content.Client.Administration.UI.Tabs
                 SeparationOverride = 8,
             };
 
-            var verifyBtn = new Button
-            {
-                Text = "Verify CAPTCHA",
-                HorizontalExpand = true,
-            };
-            var cancelBtn = new Button
-            {
-                Text = "Cancel",
-                HorizontalExpand = true,
-            };
+            var verifyBtn = new Button { Text = "Verify CAPTCHA", HorizontalExpand = true };
+            var cancelBtn = new Button { Text = "Cancel", HorizontalExpand = true };
 
             verifyBtn.OnPressed += _ =>
             {
-                var pass = string.Equals(captchaInput.Text.Trim(), ShutdownCaptchaPhrase, System.StringComparison.OrdinalIgnoreCase);
+                var pass = string.Equals(
+                    captchaInput.Text.Trim(),
+                    ShutdownCaptchaPhrase,
+                    System.StringComparison.OrdinalIgnoreCase
+                );
                 if (!pass)
                 {
                     status.Text = "CAPTCHA failed. The clown union thanks you for trying.";
@@ -205,29 +190,26 @@ namespace Content.Client.Administration.UI.Tabs
                 Margin = new Thickness(16),
             };
 
-            root.AddChild(new Label
-            {
-                Text = "Run this in the server console to shut down:",
-            });
+            root.AddChild(new Label { Text = "Run this in the server console to shut down:" });
 
-            root.AddChild(new LineEdit
-            {
-                Text = cmd,
-                Editable = false,
-                HorizontalExpand = true,
-            });
+            root.AddChild(
+                new LineEdit
+                {
+                    Text = cmd,
+                    Editable = false,
+                    HorizontalExpand = true,
+                }
+            );
 
-            root.AddChild(new Label
-            {
-                Text = "We're not doing it for you. You know what you did.",
-                StyleClasses = { "LabelSubText" },
-            });
+            root.AddChild(
+                new Label
+                {
+                    Text = "We're not doing it for you. You know what you did.",
+                    StyleClasses = { "LabelSubText" },
+                }
+            );
 
-            var closeBtn = new Button
-            {
-                Text = "Close",
-                HorizontalAlignment = HAlignment.Right,
-            };
+            var closeBtn = new Button { Text = "Close", HorizontalAlignment = HAlignment.Right };
             closeBtn.OnPressed += _ => window.Close();
             root.AddChild(closeBtn);
 

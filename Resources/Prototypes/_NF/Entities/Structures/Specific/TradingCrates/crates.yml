@@ -27,8 +27,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.4,-0.4,0.4,0.29"
         density: 150 # Heavy
         mask:
@@ -71,8 +70,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.4,-0.4,0.4,0.29"
         density: 400 # Very heavy
         mask:
@@ -84,7 +82,7 @@
 - type: entity
   parent: CrateTradeBaseSecureContraband
   id: CrateTradeContrabandSecure1
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Icon
     sprite: _NF/Structures/Storage/Crates/contraband1_crate.rsi
@@ -113,7 +111,7 @@
 - type: entity
   parent: CrateTradeBaseSecureContraband
   id: CrateTradeContrabandSecure2
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Icon
     sprite: _NF/Structures/Storage/Crates/contraband2_crate.rsi
@@ -145,7 +143,7 @@
 - type: entity
   parent: CrateTradeBaseSecureContraband
   id: CrateTradeContrabandSecure3
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Icon
     sprite: _NF/Structures/Storage/Crates/contraband3_crate.rsi
@@ -178,7 +176,7 @@
   parent: CrateTradeBaseSecureContraband
   id: CrateTradeContrabandSecure4
   name: Donk Co. contraband crate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Icon
     sprite: _NF/Structures/Storage/Crates/donkco_crate.rsi
@@ -211,7 +209,7 @@
   parent: CrateTradeBaseSecureContraband
   id: CrateTradeContrabandSecure5
   name: Cybersun Industries contraband crate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Icon
     sprite: _NF/Structures/Storage/Crates/cybersun_crate.rsi

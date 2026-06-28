@@ -1,12 +1,12 @@
 - type: entity
   id: BaseMagazine45_magnum
   name: pistol magazine (.45 magnum FMJ)
-  parent: [ BaseItem, BaseC1Contraband, RecyclableItemSteelTiny ] # Frontier: BaseSecurityContraband<BaseC1Contraband, added RecyclableItemSteelTiny
+  parent: [BaseItem, BaseC1Contraband, RecyclableItemSteelTiny] # Frontier: BaseSecurityContraband<BaseC1Contraband, added RecyclableItemSteelTiny
   abstract: true
   components:
   - type: Tag
     tags:
-      - Magazine45_magnumPistolFMJ
+    - Magazine45_magnumPistolFMJ
   - type: Item
     size: Small
   - type: InteractionOutline
@@ -14,7 +14,7 @@
     mayTransfer: true
     whitelist:
       tags:
-        - Cartridge45_magnumFMJ
+      - Cartridge45_magnumFMJ
     capacity: 7
   - type: Sprite
     sprite: _Mono/Objects/Weapons/Guns/Ammunition/Magazine/45_magnum/45_magnum_pistol_mag.rsi
@@ -37,12 +37,12 @@
   components:
   - type: Tag
     tags:
-      - Magazine45_magnumSubMachineGunFMJ
+    - Magazine45_magnumSubMachineGunFMJ
   - type: BallisticAmmoProvider
     mayTransfer: true
     whitelist:
       tags:
-        - Cartridge45_magnumFMJ
+      - Cartridge45_magnumFMJ
     capacity: 25
   - type: Item
     size: Small

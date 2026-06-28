@@ -16,7 +16,10 @@ public sealed class KillTrackingSystem : EntitySystem
     public override void Initialize()
     {
         // Add damage to LifetimeDamage before MobStateChangedEvent gets raised
-        SubscribeLocalEvent<KillTrackerComponent, DamageChangedEvent>(OnDamageChanged, before: [ typeof(MobThresholdSystem) ]);
+        SubscribeLocalEvent<KillTrackerComponent, DamageChangedEvent>(
+            OnDamageChanged,
+            before: [typeof(MobThresholdSystem)]
+        );
         SubscribeLocalEvent<KillTrackerComponent, MobStateChangedEvent>(OnMobStateChanged);
     }
 
@@ -71,8 +74,10 @@ public sealed class KillTrackingSystem : EntitySystem
             killSource = killImpulse;
 
             // no assist is given to environmental kills
-            if (largestSource is not KillEnvironmentSource
-                && component.LifetimeDamage.TryGetValue(largestSource, out var largestDamage))
+            if (
+                largestSource is not KillEnvironmentSource
+                && component.LifetimeDamage.TryGetValue(largestSource, out var largestDamage)
+            )
             {
                 var killDamage = component.LifetimeDamage.GetValueOrDefault(killSource);
                 // you have to do at least twice as much damage as the killing source to get the assist.
@@ -85,11 +90,14 @@ public sealed class KillTrackingSystem : EntitySystem
         // - you caused your own death
         // - the kill source was the entity that died
         // - the entity that died had an assist on themselves
-        var suicide = args.Origin == uid ||
-                      killSource is KillNpcSource npc && npc.NpcEnt == uid ||
-                      killSource is KillPlayerSource player && player.PlayerId == CompOrNull<ActorComponent>(uid)?.PlayerSession.UserId ||
-                      assistSource is KillNpcSource assistNpc && assistNpc.NpcEnt == uid ||
-                      assistSource is KillPlayerSource assistPlayer && assistPlayer.PlayerId == CompOrNull<ActorComponent>(uid)?.PlayerSession.UserId;
+        var suicide =
+            args.Origin == uid
+            || killSource is KillNpcSource npc && npc.NpcEnt == uid
+            || killSource is KillPlayerSource player
+                && player.PlayerId == CompOrNull<ActorComponent>(uid)?.PlayerSession.UserId
+            || assistSource is KillNpcSource assistNpc && assistNpc.NpcEnt == uid
+            || assistSource is KillPlayerSource assistPlayer
+                && assistPlayer.PlayerId == CompOrNull<ActorComponent>(uid)?.PlayerSession.UserId;
 
         var ev = new KillReportedEvent(uid, killSource, assistSource, suicide);
         RaiseLocalEvent(uid, ref ev, true);

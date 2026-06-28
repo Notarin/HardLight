@@ -7,7 +7,8 @@ namespace Content.Server.DeviceLinking.Systems;
 
 public sealed class EdgeDetectorSystem : EntitySystem
 {
-    [Dependency] private readonly DeviceLinkSystem _deviceLink = default!;
+    [Dependency]
+    private readonly DeviceLinkSystem _deviceLink = default!;
 
     public override void Initialize()
     {
@@ -27,9 +28,11 @@ public sealed class EdgeDetectorSystem : EntitySystem
     {
         // only handle signals with edges
         var state = SignalState.Momentary;
-        if (args.Data == null ||
-            !args.Data.TryGetValue(DeviceNetworkConstants.LogicState, out state) ||
-            state == SignalState.Momentary)
+        if (
+            args.Data == null
+            || !args.Data.TryGetValue(DeviceNetworkConstants.LogicState, out state)
+            || state == SignalState.Momentary
+        )
             return;
 
         if (args.Port != comp.InputPort)

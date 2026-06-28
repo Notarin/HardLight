@@ -19,7 +19,7 @@
     sprite: _NF/Clothing/Ears/Headsets/pilot.rsi
 
 - type: entity
-  parent: [ ClothingHeadsetAlt, BaseC3ContrabandUnredeemable ]
+  parent: [ClothingHeadsetAlt, BaseC3ContrabandUnredeemable]
   id: ClothingHeadsetAltNfsdBrown
   name: ColSec over-ear headset # HardLight
   components:
@@ -66,7 +66,7 @@
   parent: [ClothingHeadsetAlt, BaseCommandContraband]
   id: ClothingHeadsetAltNfsdBrownCentcom
   name: sheriff over-ear headset # HardLight
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   # HardLight start: Replaced starting encryption keys with intrinsic radio channels.
   - type: ActiveRadio
@@ -102,7 +102,7 @@
 - type: entity
   parent: ClothingHeadsetAltNfsdBrownCentcom
   id: ClothingHeadsetAltNfsdGreenCentcom
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     sprite: _NF/Clothing/Ears/Headsets/nfsd_h_green.rsi
@@ -112,7 +112,7 @@
 - type: entity
   parent: ClothingHeadsetAltNfsdBrownCentcom
   id: ClothingHeadsetAltNfsdCreamandBrownCentcom
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     sprite: _NF/Clothing/Ears/Headsets/nfsd_h_cb.rsi

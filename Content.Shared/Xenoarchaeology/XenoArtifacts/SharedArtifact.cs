@@ -7,12 +7,10 @@ namespace Content.Shared.Xenoarchaeology.XenoArtifacts;
 public enum SharedArtifactsVisuals : byte
 {
     SpriteIndex,
-    IsActivated
+    IsActivated,
 }
 
 /// <summary>
 ///     Raised as an instant action event when a sentient artifact activates itself using an action.
 /// </summary>
-public sealed partial class ArtifactSelfActivateEvent : InstantActionEvent
-{
-}
+public sealed partial class ArtifactSelfActivateEvent : InstantActionEvent { }

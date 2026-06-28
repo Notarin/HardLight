@@ -10,9 +10,11 @@ namespace Content.Client.Overlays;
 /// This is a base system to make it easier to enable or disabling UI elements based on whether or not the player has
 /// some component, either on their controlled entity on some worn piece of equipment.
 /// </summary>
-public abstract class EquipmentHudSystem<T> : EntitySystem where T : IComponent
+public abstract class EquipmentHudSystem<T> : EntitySystem
+    where T : IComponent
 {
-    [Dependency] private readonly IPlayerManager _player = default!;
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
 
     [ViewVariables]
     protected bool IsActive;
@@ -33,8 +35,8 @@ public abstract class EquipmentHudSystem<T> : EntitySystem where T : IComponent
 
         SubscribeLocalEvent<T, RefreshEquipmentHudEvent<T>>(OnRefreshComponentHud);
         SubscribeLocalEvent<T, InventoryRelayedEvent<RefreshEquipmentHudEvent<T>>>(OnRefreshEquipmentHud);
-/*
-        SubscribeLocalEvent<RoundRestartCleanupEvent>(OnRoundRestart); */
+        /*
+                SubscribeLocalEvent<RoundRestartCleanupEvent>(OnRoundRestart); */
     }
 
     private void Update(RefreshEquipmentHudEvent<T> ev)
@@ -87,12 +89,15 @@ public abstract class EquipmentHudSystem<T> : EntitySystem where T : IComponent
         RefreshOverlay();
     }
 
-/*     private void OnRoundRestart(RoundRestartCleanupEvent args)
-    {
-        Deactivate();
-    } */
+    /*     private void OnRoundRestart(RoundRestartCleanupEvent args)
+        {
+            Deactivate();
+        } */
 
-    protected virtual void OnRefreshEquipmentHud(Entity<T> ent, ref InventoryRelayedEvent<RefreshEquipmentHudEvent<T>> args)
+    protected virtual void OnRefreshEquipmentHud(
+        Entity<T> ent,
+        ref InventoryRelayedEvent<RefreshEquipmentHudEvent<T>> args
+    )
     {
         OnRefreshComponentHud(ent, ref args.Args);
     }

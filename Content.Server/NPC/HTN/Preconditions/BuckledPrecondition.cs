@@ -9,7 +9,9 @@ public sealed partial class BuckledPrecondition : HTNPrecondition
 {
     private SharedBuckleSystem _buckle = default!;
 
-    [ViewVariables(VVAccess.ReadWrite)] [DataField("isBuckled")] public bool IsBuckled = true;
+    [ViewVariables(VVAccess.ReadWrite)]
+    [DataField("isBuckled")]
+    public bool IsBuckled = true;
 
     public override void Initialize(IEntitySystemManager sysManager)
     {
@@ -21,7 +23,6 @@ public sealed partial class BuckledPrecondition : HTNPrecondition
     {
         var owner = blackboard.GetValue<EntityUid>(NPCBlackboard.Owner);
 
-        return IsBuckled && _buckle.IsBuckled(owner) ||
-               !IsBuckled && !_buckle.IsBuckled(owner);
+        return IsBuckled && _buckle.IsBuckled(owner) || !IsBuckled && !_buckle.IsBuckled(owner);
     }
 }

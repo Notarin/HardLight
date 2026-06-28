@@ -48,7 +48,12 @@ public sealed class UnstickPlayerShipPreviewResponseMessage : EntityEventArgs
     public string? Error { get; }
     public string? ShipName { get; }
 
-    public UnstickPlayerShipPreviewResponseMessage(string ownerUserId, bool success, string? error = null, string? shipName = null)
+    public UnstickPlayerShipPreviewResponseMessage(
+        string ownerUserId,
+        bool success,
+        string? error = null,
+        string? shipName = null
+    )
     {
         OwnerUserId = ownerUserId;
         Success = success;
@@ -74,7 +79,13 @@ public sealed class UnstickPlayerShipResponseMessage : EntityEventArgs
     /// <summary>Target world position the ship was sent to (when <see cref="Success"/>).</summary>
     public Vector2 NewPosition { get; }
 
-    public UnstickPlayerShipResponseMessage(string ownerUserId, bool success, string? error = null, string? shipName = null, Vector2 newPosition = default)
+    public UnstickPlayerShipResponseMessage(
+        string ownerUserId,
+        bool success,
+        string? error = null,
+        string? shipName = null,
+        Vector2 newPosition = default
+    )
     {
         OwnerUserId = ownerUserId;
         Success = success;

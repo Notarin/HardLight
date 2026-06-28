@@ -1,6 +1,6 @@
 - type: entity
   id: WeaponMechSpecialMousetrapMortar
-  parent: [ BaseMechWeaponRange, SpecialMechEquipment ]
+  parent: [BaseMechWeaponRange, SpecialMechEquipment]
   suffix: Mech Weapon, Gun, Special, Mortar
   name: mousetrap mortar
   description: Mounted mousetrap launcher.
@@ -15,7 +15,7 @@
     fireRate: 0.5
     selectedMode: SemiAuto
     availableModes:
-      - SemiAuto
+    - SemiAuto
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/grenade_launcher.ogg
     soundEmpty:
@@ -28,7 +28,7 @@
 
 - type: entity
   id: WeaponMechSpecialBananaMortar
-  parent: [ BaseMechWeaponRange, SpecialMechEquipment ]
+  parent: [BaseMechWeaponRange, SpecialMechEquipment]
   suffix: Mech Weapon, Gun, Special, Mortar
   name: banana mortar
   description: Mounted banana peel launcher.
@@ -43,7 +43,7 @@
     fireRate: 0.5
     selectedMode: SemiAuto
     availableModes:
-      - SemiAuto
+    - SemiAuto
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/grenade_launcher.ogg
     soundEmpty:

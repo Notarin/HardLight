@@ -25,13 +25,15 @@ public sealed class TraitorRuleTest
     [Ignore("Traitor role selection isn't used on Frontier.")] // Frontier
     public async Task TestTraitorObjectives()
     {
-        await using var pair = await PoolManager.GetServerClient(new PoolSettings()
-        {
-            Dirty = true,
-            DummyTicker = false,
-            Connected = true,
-            InLobby = true,
-        });
+        await using var pair = await PoolManager.GetServerClient(
+            new PoolSettings()
+            {
+                Dirty = true,
+                DummyTicker = false,
+                Connected = true,
+                InLobby = true,
+            }
+        );
         var server = pair.Server;
         var client = pair.Client;
         var entMan = server.EntMan;
@@ -48,14 +50,20 @@ public sealed class TraitorRuleTest
         var maxDifficulty = 0f;
         await server.WaitAssertion(() =>
         {
-            Assert.That(protoMan.TryIndex<EntityPrototype>(TraitorGameRuleProtoId, out var gameRuleEnt),
-            $"Failed to lookup traitor game rule entity prototype with ID \"{TraitorGameRuleProtoId}\"!");
+            Assert.That(
+                protoMan.TryIndex<EntityPrototype>(TraitorGameRuleProtoId, out var gameRuleEnt),
+                $"Failed to lookup traitor game rule entity prototype with ID \"{TraitorGameRuleProtoId}\"!"
+            );
 
-            Assert.That(gameRuleEnt.TryGetComponent<GameRuleComponent>(out var gameRule, compFact),
-            $"Game rule entity {TraitorGameRuleProtoId} does not have a GameRuleComponent!");
+            Assert.That(
+                gameRuleEnt.TryGetComponent<GameRuleComponent>(out var gameRule, compFact),
+                $"Game rule entity {TraitorGameRuleProtoId} does not have a GameRuleComponent!"
+            );
 
-            Assert.That(gameRuleEnt.TryGetComponent<AntagRandomObjectivesComponent>(out var randomObjectives, compFact),
-            $"Game rule entity {TraitorGameRuleProtoId} does not have an AntagRandomObjectivesComponent!");
+            Assert.That(
+                gameRuleEnt.TryGetComponent<AntagRandomObjectivesComponent>(out var randomObjectives, compFact),
+                $"Game rule entity {TraitorGameRuleProtoId} does not have an AntagRandomObjectivesComponent!"
+            );
 
             minPlayers = gameRule.MinPlayers;
             maxDifficulty = randomObjectives.MaxDifficulty;
@@ -117,11 +125,12 @@ public sealed class TraitorRuleTest
         // Check total objective difficulty
         Assert.That(entMan.TryGetComponent<MindComponent>(mind, out var mindComp));
         var totalDifficulty = mindComp.Objectives.Sum(o => entMan.GetComponent<ObjectiveComponent>(o).Difficulty);
-        Assert.That(totalDifficulty, Is.AtMost(maxDifficulty),
-            $"MaxDifficulty exceeded! Objectives: {string.Join(", ", mindComp.Objectives.Select(o => FormatObjective(o, entMan)))}");
-        Assert.That(mindComp.Objectives, Is.Not.Empty,
-            $"No objectives assigned!");
-
+        Assert.That(
+            totalDifficulty,
+            Is.AtMost(maxDifficulty),
+            $"MaxDifficulty exceeded! Objectives: {string.Join(", ", mindComp.Objectives.Select(o => FormatObjective(o, entMan)))}"
+        );
+        Assert.That(mindComp.Objectives, Is.Not.Empty, $"No objectives assigned!");
 
         await pair.CleanReturnAsync();
     }

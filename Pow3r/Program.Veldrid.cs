@@ -13,7 +13,8 @@ namespace Pow3r
 {
     internal sealed unsafe partial class Program
     {
-        private const string VDVertexShader = @"
+        private const string VDVertexShader =
+            @"
 #version 460
 
 layout (location = 0) in vec2 Position;
@@ -44,7 +45,8 @@ void main()
     gl_Position = _ProjMtx * vec4(Position.xy,0,1);
 }";
 
-        private const string VDFragmentShader = @"
+        private const string VDFragmentShader =
+            @"
 #version 460
 
 layout (location = 0) in vec2 Frag_UV;
@@ -85,7 +87,7 @@ void main()
                 HasMainSwapchain = true,
                 SyncToVerticalBlank = _vsync,
                 PreferStandardClipSpaceYDirection = true,
-                SwapchainSrgbFormat = true
+                SwapchainSrgbFormat = true,
             };
 
             GLFW.GetFramebufferSize(_window.WindowPtr, out var w, out var h);
@@ -98,29 +100,31 @@ void main()
                 case VeldridRenderer.Vulkan:
                     _vdGfxDevice = GraphicsDevice.CreateVulkan(
                         options,
-                        VkSurfaceSource.CreateWin32((nint) hinstance, hwnd),
-                        (uint) w, (uint) h);
+                        VkSurfaceSource.CreateWin32((nint)hinstance, hwnd),
+                        (uint)w,
+                        (uint)h
+                    );
                     break;
                 case VeldridRenderer.D3D11:
-                    _vdGfxDevice = GraphicsDevice.CreateD3D11(options, hwnd, (uint) w, (uint) h);
+                    _vdGfxDevice = GraphicsDevice.CreateD3D11(options, hwnd, (uint)w, (uint)h);
                     break;
                 case VeldridRenderer.OpenGL:
                 {
                     var platInfo = new OpenGLPlatformInfo(
-                        (nint) _window.WindowPtr,
+                        (nint)_window.WindowPtr,
                         GLFW.GetProcAddress,
-                        ptr => GLFW.MakeContextCurrent((Window*) ptr),
-                        () => (nint) GLFW.GetCurrentContext(),
+                        ptr => GLFW.MakeContextCurrent((Window*)ptr),
+                        () => (nint)GLFW.GetCurrentContext(),
                         () => GLFW.MakeContextCurrent(null),
-                        ptr => GLFW.DestroyWindow((Window*) ptr),
+                        ptr => GLFW.DestroyWindow((Window*)ptr),
                         () => GLFW.SwapBuffers(_window.WindowPtr),
-                        vsync => GLFW.SwapInterval(vsync ? 1 : 0));
+                        vsync => GLFW.SwapInterval(vsync ? 1 : 0)
+                    );
 
-                    _vdGfxDevice = GraphicsDevice.CreateOpenGL(options, platInfo, (uint) w, (uint) h);
+                    _vdGfxDevice = GraphicsDevice.CreateOpenGL(options, platInfo, (uint)w, (uint)h);
                     break;
                 }
             }
-
 
             var factory = _vdGfxDevice.ResourceFactory;
 
@@ -128,44 +132,54 @@ void main()
             _vdCommandList.Name = "Honk";
 
             var vtxLayout = new VertexLayoutDescription(
-                new VertexElementDescription("Position", VertexElementFormat.Float2,
-                    VertexElementSemantic.TextureCoordinate),
+                new VertexElementDescription(
+                    "Position",
+                    VertexElementFormat.Float2,
+                    VertexElementSemantic.TextureCoordinate
+                ),
                 new VertexElementDescription("UV", VertexElementFormat.Float2, VertexElementSemantic.TextureCoordinate),
-                new VertexElementDescription("Color", VertexElementFormat.Byte4_Norm,
-                    VertexElementSemantic.TextureCoordinate));
+                new VertexElementDescription(
+                    "Color",
+                    VertexElementFormat.Byte4_Norm,
+                    VertexElementSemantic.TextureCoordinate
+                )
+            );
 
             var vtxShaderDesc = new ShaderDescription(
                 ShaderStages.Vertex,
                 Encoding.UTF8.GetBytes(VDVertexShader),
-                "main");
+                "main"
+            );
 
             var fragShaderDesc = new ShaderDescription(
                 ShaderStages.Fragment,
                 Encoding.UTF8.GetBytes(VDFragmentShader),
-                "main");
+                "main"
+            );
 
             _vdShaders = factory.CreateFromSpirv(vtxShaderDesc, fragShaderDesc);
 
             _vdShaders[0].Name = "VertexShader";
             _vdShaders[1].Name = "FragmentShader";
 
-            var layoutTexture = factory.CreateResourceLayout(new ResourceLayoutDescription(
-                new ResourceLayoutElementDescription(
-                    "Texture",
-                    ResourceKind.TextureReadOnly,
-                    ShaderStages.Fragment),
-                new ResourceLayoutElementDescription(
-                    "TextureSampler",
-                    ResourceKind.Sampler,
-                    ShaderStages.Fragment)));
+            var layoutTexture = factory.CreateResourceLayout(
+                new ResourceLayoutDescription(
+                    new ResourceLayoutElementDescription(
+                        "Texture",
+                        ResourceKind.TextureReadOnly,
+                        ShaderStages.Fragment
+                    ),
+                    new ResourceLayoutElementDescription("TextureSampler", ResourceKind.Sampler, ShaderStages.Fragment)
+                )
+            );
 
             layoutTexture.Name = "LayoutTexture";
 
-            var layoutProjMatrix = factory.CreateResourceLayout(new ResourceLayoutDescription(
-                new ResourceLayoutElementDescription(
-                    "ProjMtx",
-                    ResourceKind.UniformBuffer,
-                    ShaderStages.Vertex)));
+            var layoutProjMatrix = factory.CreateResourceLayout(
+                new ResourceLayoutDescription(
+                    new ResourceLayoutElementDescription("ProjMtx", ResourceKind.UniformBuffer, ShaderStages.Vertex)
+                )
+            );
 
             layoutProjMatrix.Name = "LayoutProjMatrix";
 
@@ -179,7 +193,8 @@ void main()
                         BlendFunction.Add,
                         BlendFactor.One,
                         BlendFactor.InverseSourceAlpha,
-                        BlendFunction.Add)
+                        BlendFunction.Add
+                    )
                 ),
                 DepthStencilStateDescription.Disabled,
                 new RasterizerStateDescription(
@@ -187,37 +202,40 @@ void main()
                     PolygonFillMode.Solid,
                     FrontFace.Clockwise,
                     depthClipEnabled: false,
-                    scissorTestEnabled: true),
+                    scissorTestEnabled: true
+                ),
                 PrimitiveTopology.TriangleList,
-                new ShaderSetDescription(new[] {vtxLayout}, _vdShaders),
-                new[] {layoutProjMatrix, layoutTexture},
-                new OutputDescription(
-                    null,
-                    new OutputAttachmentDescription(PixelFormat.B8_G8_R8_A8_UNorm_SRgb))
+                new ShaderSetDescription(new[] { vtxLayout }, _vdShaders),
+                new[] { layoutProjMatrix, layoutTexture },
+                new OutputDescription(null, new OutputAttachmentDescription(PixelFormat.B8_G8_R8_A8_UNorm_SRgb))
             );
 
             _vdPipeline = factory.CreateGraphicsPipeline(pipelineDesc);
             _vdPipeline.Name = "MainPipeline";
 
-            _vdProjMatrixUniformBuffer = factory.CreateBuffer(new BufferDescription(
-                (uint) sizeof(Matrix4x4),
-                BufferUsage.Dynamic | BufferUsage.UniformBuffer));
+            _vdProjMatrixUniformBuffer = factory.CreateBuffer(
+                new BufferDescription((uint)sizeof(Matrix4x4), BufferUsage.Dynamic | BufferUsage.UniformBuffer)
+            );
             _vdProjMatrixUniformBuffer.Name = "_vdProjMatrixUniformBuffer";
 
-            _vdSetProjMatrix = factory.CreateResourceSet(new ResourceSetDescription(
-                layoutProjMatrix,
-                _vdProjMatrixUniformBuffer));
+            _vdSetProjMatrix = factory.CreateResourceSet(
+                new ResourceSetDescription(layoutProjMatrix, _vdProjMatrixUniformBuffer)
+            );
             _vdSetProjMatrix.Name = "_vdSetProjMatrix";
             var io = ImGui.GetIO();
 
             io.Fonts.GetTexDataAsRGBA32(out byte* pixels, out var width, out var height, out _);
 
-            _vdTexture = factory.CreateTexture(TextureDescription.Texture2D(
-                (uint) width, (uint) height,
-                mipLevels: 1,
-                arrayLayers: 1,
-                PixelFormat.R8_G8_B8_A8_UNorm_SRgb,
-                TextureUsage.Sampled));
+            _vdTexture = factory.CreateTexture(
+                TextureDescription.Texture2D(
+                    (uint)width,
+                    (uint)height,
+                    mipLevels: 1,
+                    arrayLayers: 1,
+                    PixelFormat.R8_G8_B8_A8_UNorm_SRgb,
+                    TextureUsage.Sampled
+                )
+            );
 
             _vdTexture.Name = "MainTexture";
 
@@ -227,24 +245,28 @@ void main()
 
             _vdGfxDevice.UpdateTexture(
                 _vdTexture,
-                (IntPtr) pixels,
-                (uint) (width * height * 4),
-                x: 0, y: 0, z: 0,
-                (uint) width, (uint) height, depth: 1,
+                (IntPtr)pixels,
+                (uint)(width * height * 4),
+                x: 0,
+                y: 0,
+                z: 0,
+                (uint)width,
+                (uint)height,
+                depth: 1,
                 mipLevel: 0,
-                arrayLayer: 0);
+                arrayLayer: 0
+            );
 
-            _vdSetTexture = factory.CreateResourceSet(new ResourceSetDescription(
-                layoutTexture,
-                _vdTexture,
-                _vdSampler));
+            _vdSetTexture = factory.CreateResourceSet(
+                new ResourceSetDescription(layoutTexture, _vdTexture, _vdSampler)
+            );
 
             _vdSetTexture.Name = "SetTexture";
 
             io.Fonts.SetTexID(0);
             io.Fonts.ClearTexData();
 
-            _vdGfxDevice.ResizeMainWindow((uint) w, (uint) h);
+            _vdGfxDevice.ResizeMainWindow((uint)w, (uint)h);
             _vdGfxDevice.SwapBuffers();
         }
 
@@ -254,7 +276,7 @@ void main()
 
             if (_vdLastWidth != fbW && _vdLastHeight != fbH)
             {
-                _vdGfxDevice.ResizeMainWindow((uint) fbW, (uint) fbH);
+                _vdGfxDevice.ResizeMainWindow((uint)fbW, (uint)fbH);
                 _vdLastWidth = fbW;
                 _vdLastHeight = fbH;
             }
@@ -273,23 +295,23 @@ void main()
             ref var vtxBuf = ref fencedData.VertexBuffer;
             ref var idxBuf = ref fencedData.IndexBuffer;
 
-            var byteLenVtx = (uint) (sizeof(ImDrawVert) * drawData.TotalVtxCount);
+            var byteLenVtx = (uint)(sizeof(ImDrawVert) * drawData.TotalVtxCount);
             if (fencedData.VertexBuffer == null || vtxBuf.SizeInBytes < byteLenVtx)
             {
                 vtxBuf?.Dispose();
-                vtxBuf = factory.CreateBuffer(new BufferDescription(
-                    byteLenVtx,
-                    BufferUsage.VertexBuffer | BufferUsage.Dynamic));
+                vtxBuf = factory.CreateBuffer(
+                    new BufferDescription(byteLenVtx, BufferUsage.VertexBuffer | BufferUsage.Dynamic)
+                );
                 vtxBuf.Name = "_vdVtxBuffer";
             }
 
-            var byteLenIdx = (uint) (sizeof(ushort) * drawData.TotalIdxCount);
+            var byteLenIdx = (uint)(sizeof(ushort) * drawData.TotalIdxCount);
             if (idxBuf == null || idxBuf.SizeInBytes < byteLenIdx)
             {
                 idxBuf?.Dispose();
-                idxBuf = factory.CreateBuffer(new BufferDescription(
-                    byteLenIdx,
-                    BufferUsage.IndexBuffer | BufferUsage.Dynamic));
+                idxBuf = factory.CreateBuffer(
+                    new BufferDescription(byteLenIdx, BufferUsage.IndexBuffer | BufferUsage.Dynamic)
+                );
                 idxBuf.Name = "_vdIdxBuffer";
             }
 
@@ -320,8 +342,8 @@ void main()
             {
                 var drawList = drawData.CmdListsRange[n];
 
-                var drawVtx = new Span<ImDrawVert>((void*) drawList.VtxBuffer.Data, drawList.VtxBuffer.Size);
-                var drawIdx = new Span<ushort>((void*) drawList.IdxBuffer.Data, drawList.IdxBuffer.Size);
+                var drawVtx = new Span<ImDrawVert>((void*)drawList.VtxBuffer.Data, drawList.VtxBuffer.Size);
+                var drawIdx = new Span<ushort>((void*)drawList.IdxBuffer.Data, drawList.IdxBuffer.Size);
 
                 drawVtx.CopyTo(mappedVtxBuf[vtxOffset..]);
                 drawIdx.CopyTo(mappedIdxBuf[idxOffset..]);
@@ -338,17 +360,19 @@ void main()
 
                     _vdCommandList.SetScissorRect(
                         0,
-                        (uint) clipRect.X,
-                        (uint) clipRect.Y,
-                        (uint) (clipRect.Z - clipRect.X),
-                        (uint) (clipRect.W - clipRect.Y));
+                        (uint)clipRect.X,
+                        (uint)clipRect.Y,
+                        (uint)(clipRect.Z - clipRect.X),
+                        (uint)(clipRect.W - clipRect.Y)
+                    );
 
                     _vdCommandList.DrawIndexed(
                         cmd.ElemCount,
                         1,
-                        (uint) (cmd.IdxOffset + idxOffset),
-                        (int) (cmd.VtxOffset + vtxOffset),
-                        0);
+                        (uint)(cmd.IdxOffset + idxOffset),
+                        (int)(cmd.VtxOffset + vtxOffset),
+                        0
+                    );
                 }
 
                 vtxOffset += drawVtx.Length;
@@ -379,11 +403,12 @@ void main()
 
             Array.Resize(ref _fencedData, _fencedData.Length + 1);
             ref var slot = ref _fencedData[^1];
-            slot = new VdFencedDatum {Fence = _vdGfxDevice.ResourceFactory.CreateFence(false)};
+            slot = new VdFencedDatum { Fence = _vdGfxDevice.ResourceFactory.CreateFence(false) };
             return ref slot;
         }
 
-        private static Span<T> MappedToSpan<T>(MappedResourceView<T> mapped) where T : struct
+        private static Span<T> MappedToSpan<T>(MappedResourceView<T> mapped)
+            where T : struct
         {
             return MemoryMarshal.CreateSpan(ref mapped[0], mapped.Count);
         }
@@ -403,7 +428,7 @@ void main()
         {
             Vulkan,
             D3D11,
-            OpenGL
+            OpenGL,
         }
     }
 }

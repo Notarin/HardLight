@@ -27,9 +27,8 @@ public sealed class Dungeon
 
     public IReadOnlySet<Vector2i> AllTiles => _allTiles;
 
-    public Dungeon() : this(new List<DungeonRoom>())
-    {
-    }
+    public Dungeon()
+        : this(new List<DungeonRoom>()) { }
 
     public Dungeon(List<DungeonRoom> rooms)
     {

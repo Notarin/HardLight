@@ -6,22 +6,22 @@
   name: avali-stasis-action-enter-name
   description: avali-stasis-action-enter-description
   components:
-    - type: InstantAction
-      itemIconStyle: BigAction
-      icon:
-        sprite: _Starlight/Interface/Actions/actions_avali.rsi
-        state: heal
-      event: !type:PrepareStasisActionEvent
+  - type: InstantAction
+    itemIconStyle: BigAction
+    icon:
+      sprite: _Starlight/Interface/Actions/actions_avali.rsi
+      state: heal
+    event: !type:PrepareStasisActionEvent
 
 - type: entity
   id: ActionStasisExit
   name: avali-stasis-action-exit-name
   description: avali-stasis-action-exit-description
   components:
-    - type: InstantAction
-      itemIconStyle: BigAction
-      icon:
-        sprite: _Starlight/Interface/Actions/actions_avali.rsi
-        state: healoff
-      event: !type:ExitStasisActionEvent
+  - type: InstantAction
+    itemIconStyle: BigAction
+    icon:
+      sprite: _Starlight/Interface/Actions/actions_avali.rsi
+      state: healoff
+    event: !type:ExitStasisActionEvent
 

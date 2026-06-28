@@ -1,8 +1,8 @@
+using System.Numerics; // HardLight
 using Content.Shared.Actions;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
-using System.Numerics; // HardLight
 
 namespace Content.Shared._DV.Abilities;
 
@@ -57,7 +57,7 @@ public sealed partial class CrawlUnderObjectsComponent : Component
 [Serializable, NetSerializable]
 public enum SneakingVisuals : byte
 {
-    Sneaking
+    Sneaking,
 }
 
 public sealed partial class ToggleCrawlingStateEvent : InstantActionEvent;

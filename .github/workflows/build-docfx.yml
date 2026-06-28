@@ -2,12 +2,12 @@ name: Build & Publish Docfx
 
 on:
   schedule:
-    - cron: "0 0 * * 0"
+  - cron: "0 0 * * 0"
 
 jobs:
   docfx:
-   runs-on: ubuntu-latest
-   steps:
+    runs-on: ubuntu-latest
+    steps:
     - uses: actions/checkout@v4.2.2
     - name: Setup submodule
       run: |

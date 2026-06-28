@@ -18,7 +18,7 @@ public sealed class AddTests
     {
         AdminLogsEnabled = true,
         DummyTicker = false,
-        Connected = true
+        Connected = true,
     };
 
     [Test]
@@ -41,27 +41,27 @@ public sealed class AddTests
             sAdminLogSystem.Add(LogType.Unknown, $"{entity:Entity} test log: {guid}");
         });
 
-        await PoolManager.WaitUntil(server, async () =>
-        {
-            var logs = sAdminLogSystem.CurrentRoundJson(new LogFilter
+        await PoolManager.WaitUntil(
+            server,
+            async () =>
             {
-                Search = guid.ToString()
-            });
+                var logs = sAdminLogSystem.CurrentRoundJson(new LogFilter { Search = guid.ToString() });
 
-            await foreach (var json in logs)
-            {
-                var root = json.RootElement;
+                await foreach (var json in logs)
+                {
+                    var root = json.RootElement;
 
-                // camelCased automatically
-                Assert.That(root.TryGetProperty("entity", out _), Is.True);
+                    // camelCased automatically
+                    Assert.That(root.TryGetProperty("entity", out _), Is.True);
 
-                json.Dispose();
+                    json.Dispose();
 
-                return true;
+                    return true;
+                }
+
+                return false;
             }
-
-            return false;
-        });
+        );
 
         await pair.CleanReturnAsync();
     }
@@ -92,21 +92,21 @@ public sealed class AddTests
 
         SharedAdminLog log = default;
 
-        await PoolManager.WaitUntil(server, async () =>
-        {
-            var logs = await sAdminLogSystem.CurrentRoundLogs(new LogFilter
+        await PoolManager.WaitUntil(
+            server,
+            async () =>
             {
-                Search = guid.ToString()
-            });
+                var logs = await sAdminLogSystem.CurrentRoundLogs(new LogFilter { Search = guid.ToString() });
 
-            if (logs.Count == 0)
-            {
-                return false;
+                if (logs.Count == 0)
+                {
+                    return false;
+                }
+
+                log = logs.First();
+                return true;
             }
-
-            log = logs.First();
-            return true;
-        });
+        );
 
         var filter = new LogFilter
         {
@@ -153,11 +153,14 @@ public sealed class AddTests
             }
         });
 
-        await PoolManager.WaitUntil(server, async () =>
-        {
-            var messages = await sAdminLogSystem.CurrentRoundLogs();
-            return messages.Count >= amount;
-        });
+        await PoolManager.WaitUntil(
+            server,
+            async () =>
+            {
+                var messages = await sAdminLogSystem.CurrentRoundLogs();
+                return messages.Count >= amount;
+            }
+        );
 
         await pair.CleanReturnAsync();
     }
@@ -184,17 +187,20 @@ public sealed class AddTests
             });
         });
 
-        await PoolManager.WaitUntil(server, async () =>
-        {
-            var logs = await sAdminLogSystem.CurrentRoundLogs();
-            if (logs.Count == 0)
+        await PoolManager.WaitUntil(
+            server,
+            async () =>
             {
-                return false;
-            }
+                var logs = await sAdminLogSystem.CurrentRoundLogs();
+                if (logs.Count == 0)
+                {
+                    return false;
+                }
 
-            Assert.That(logs.First().Players, Does.Contain(playerGuid));
-            return true;
-        });
+                Assert.That(logs.First().Players, Does.Contain(playerGuid));
+                return true;
+            }
+        );
         await pair.CleanReturnAsync();
     }
 
@@ -205,7 +211,7 @@ public sealed class AddTests
         {
             Dirty = true,
             InLobby = true,
-            AdminLogsEnabled = true
+            AdminLogsEnabled = true,
         };
 
         await using var pair = await PoolManager.GetServerClient(setting);
@@ -231,21 +237,21 @@ public sealed class AddTests
 
         SharedAdminLog log = default;
 
-        await PoolManager.WaitUntil(server, async () =>
-        {
-            var logs = await sAdminLogSystem.CurrentRoundLogs(new LogFilter
+        await PoolManager.WaitUntil(
+            server,
+            async () =>
             {
-                Search = guid.ToString()
-            });
+                var logs = await sAdminLogSystem.CurrentRoundLogs(new LogFilter { Search = guid.ToString() });
 
-            if (logs.Count == 0)
-            {
-                return false;
+                if (logs.Count == 0)
+                {
+                    return false;
+                }
+
+                log = logs.First();
+                return true;
             }
-
-            log = logs.First();
-            return true;
-        });
+        );
 
         var filter = new LogFilter
         {
@@ -283,20 +289,20 @@ public sealed class AddTests
             sAdminLogSystem.Add(LogType.Unknown, $"{player} {player} test log: {guid}");
         });
 
-        await PoolManager.WaitUntil(server, async () =>
-        {
-            var logs = await sAdminLogSystem.CurrentRoundLogs(new LogFilter
+        await PoolManager.WaitUntil(
+            server,
+            async () =>
             {
-                Search = guid.ToString()
-            });
+                var logs = await sAdminLogSystem.CurrentRoundLogs(new LogFilter { Search = guid.ToString() });
 
-            if (logs.Count == 0)
-            {
-                return false;
+                if (logs.Count == 0)
+                {
+                    return false;
+                }
+
+                return true;
             }
-
-            return true;
-        });
+        );
 
         await pair.CleanReturnAsync();
         Assert.Pass();
@@ -321,20 +327,20 @@ public sealed class AddTests
             sAdminLogSystem.Add(LogType.Unknown, $"{player:first} {player:second} test log: {guid}");
         });
 
-        await PoolManager.WaitUntil(server, async () =>
-        {
-            var logs = await sAdminLogSystem.CurrentRoundLogs(new LogFilter
+        await PoolManager.WaitUntil(
+            server,
+            async () =>
             {
-                Search = guid.ToString()
-            });
+                var logs = await sAdminLogSystem.CurrentRoundLogs(new LogFilter { Search = guid.ToString() });
 
-            if (logs.Count == 0)
-            {
-                return false;
+                if (logs.Count == 0)
+                {
+                    return false;
+                }
+
+                return true;
             }
-
-            return true;
-        });
+        );
 
         await pair.CleanReturnAsync();
         Assert.Pass();

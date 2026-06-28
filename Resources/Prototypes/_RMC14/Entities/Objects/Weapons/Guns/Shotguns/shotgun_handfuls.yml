@@ -1,4 +1,4 @@
-﻿- type: entity
+- type: entity
   parent: CMShellShotgunBase
   id: CMShellShotgunBuckshot
   name: handful of buckshot shells
@@ -7,7 +7,7 @@
     sprite: _RMC14/Objects/Weapons/Guns/Ammunition/Handfuls/shotgun_handfuls.rsi
     layers:
     - state: buckshot_shell_1
-      map: [ "base" ]
+      map: ["base"]
   - type: CartridgeAmmo
     proto: CMPelletShotgunBuckshot
   - type: Stack
@@ -31,7 +31,7 @@
 - type: stack
   id: RMCShellShotgunBuckshot
   name: rmc-handful-buckshot-shells-name
-  icon: { sprite: /Textures/_RMC14/Objects/Weapons/Guns/Ammunition/Handfuls/shotgun_handfuls.rsi, state: buckshot_shell_1 }
+  icon: {sprite: /Textures/_RMC14/Objects/Weapons/Guns/Ammunition/Handfuls/shotgun_handfuls.rsi, state: buckshot_shell_1}
   spawn: CMShellShotgunBuckshot
   maxCount: 5
 
@@ -44,7 +44,7 @@
     sprite: _RMC14/Objects/Weapons/Guns/Ammunition/Handfuls/shotgun_handfuls.rsi
     layers:
     - state: breaching_shell_1
-      map: [ "base" ]
+      map: ["base"]
   - type: CartridgeAmmo
     proto: RMCPelletShotgunBreaching
   - type: Stack
@@ -69,7 +69,7 @@
 - type: stack
   id: RMCShellShotgunBreaching
   name: rmc-handful-breaching-shells-name
-  icon: { sprite: /Textures/_RMC14/Objects/Weapons/Guns/Ammunition/Handfuls/shotgun_handfuls.rsi, state: breaching_shell_1 }
+  icon: {sprite: /Textures/_RMC14/Objects/Weapons/Guns/Ammunition/Handfuls/shotgun_handfuls.rsi, state: breaching_shell_1}
   spawn: RMCShellShotgunBreaching
   maxCount: 6
 
@@ -82,7 +82,7 @@
     sprite: _RMC14/Objects/Weapons/Guns/Ammunition/Handfuls/shotgun_handfuls.rsi
     layers:
     - state: slug_shell_1
-      map: [ "base" ]
+      map: ["base"]
   - type: CartridgeAmmo
     proto: CMPelletShotgunSlug
   - type: Stack
@@ -106,7 +106,7 @@
 - type: stack
   id: RMCShellShotgunSlug
   name: rmc-handful-shotgun-slugs-name
-  icon: { sprite: /Textures/_RMC14/Objects/Weapons/Guns/Ammunition/Handfuls/shotgun_handfuls.rsi, state: slug_shell_1 }
+  icon: {sprite: /Textures/_RMC14/Objects/Weapons/Guns/Ammunition/Handfuls/shotgun_handfuls.rsi, state: slug_shell_1}
   spawn: CMShellShotgunSlugs
   maxCount: 5
 
@@ -119,7 +119,7 @@
     sprite: _RMC14/Objects/Weapons/Guns/Ammunition/Handfuls/shotgun_handfuls.rsi
     layers:
     - state: incendiary_slug_1
-      map: [ "base" ]
+      map: ["base"]
   - type: CartridgeAmmo
     proto: CMPelletShotgunIncendiary
   - type: Stack
@@ -143,7 +143,7 @@
 - type: stack
   id: RMCShellShotgunIncendiary
   name: rmc-handful-incendiary-slugs-name
-  icon: { sprite: /Textures/_RMC14/Objects/Weapons/Guns/Ammunition/Handfuls/shotgun_handfuls.rsi, state: incendiary_slug_1 }
+  icon: {sprite: /Textures/_RMC14/Objects/Weapons/Guns/Ammunition/Handfuls/shotgun_handfuls.rsi, state: incendiary_slug_1}
   spawn: CMShellShotgunIncendiary
   maxCount: 5
 
@@ -156,7 +156,7 @@
     sprite: _RMC14/Objects/Weapons/Guns/Ammunition/Handfuls/shotgun_handfuls.rsi
     layers:
     - state: beanbag_slug_1
-      map: [ "base" ]
+      map: ["base"]
   - type: CartridgeAmmo
     proto: CMPelletShotgunBeanbag
   - type: Stack
@@ -180,7 +180,7 @@
 - type: stack
   id: RMCShellShotgunBeanbag
   name: rmc-handful-beanbag-slugs-name
-  icon: { sprite: /Textures/_RMC14/Objects/Weapons/Guns/Ammunition/Handfuls/shotgun_handfuls.rsi, state: beanbag_slug_1 }
+  icon: {sprite: /Textures/_RMC14/Objects/Weapons/Guns/Ammunition/Handfuls/shotgun_handfuls.rsi, state: beanbag_slug_1}
   spawn: CMShellShotgunBeanbag
   maxCount: 5
 
@@ -193,7 +193,7 @@
     sprite: _RMC14/Objects/Weapons/Guns/Ammunition/Handfuls/shotgun_handfuls.rsi
     layers:
     - state: flechette_shell_1
-      map: [ "base" ]
+      map: ["base"]
   - type: CartridgeAmmo
     proto: CMPelletShotgunFlechette
   - type: Stack
@@ -217,7 +217,7 @@
 - type: stack
   id: RMCShellShotgunFlechette
   name: rmc-handful-flechette-shells-name
-  icon: { sprite: /Textures/_RMC14/Objects/Weapons/Guns/Ammunition/Handfuls/shotgun_handfuls.rsi, state: flechette_shell_1 }
+  icon: {sprite: /Textures/_RMC14/Objects/Weapons/Guns/Ammunition/Handfuls/shotgun_handfuls.rsi, state: flechette_shell_1}
   spawn: CMShellShotgunFlechette
   maxCount: 5
 
@@ -230,7 +230,7 @@
     sprite: _RMC14/Objects/Weapons/Guns/Ammunition/Handfuls/shotgun_handfuls.rsi
     layers:
     - state: incen_buckshot_1
-      map: [ "base" ]
+      map: ["base"]
   - type: CartridgeAmmo
     proto: CMPelletShotgunIncendiaryBuckshot
   - type: Stack
@@ -254,7 +254,7 @@
 - type: stack
   id: RMCShellShotgunIncendiaryBuckshot
   name: rmc-handful-incendiary-buckshot-shells-name
-  icon: { sprite: /Textures/_RMC14/Objects/Weapons/Guns/Ammunition/Handfuls/shotgun_handfuls.rsi, state: incen_buckshot_1 }
+  icon: {sprite: /Textures/_RMC14/Objects/Weapons/Guns/Ammunition/Handfuls/shotgun_handfuls.rsi, state: incen_buckshot_1}
   spawn: CMShellShotgunIncendiaryBuckshot
   maxCount: 5
 

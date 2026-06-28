@@ -1,22 +1,29 @@
-using Content.Shared.Body.Components;
-using Content.Shared.Body.Part;
-using Content.Shared.Body.Systems;
-using Robust.Shared.Containers;
-using Robust.Shared.Prototypes;
 using System.Linq;
 using System.Numerics;
 using Content.Shared._Mono.Traits.Physical;
-using Robust.Shared.Map;
+using Content.Shared.Body.Components;
+using Content.Shared.Body.Part;
+using Content.Shared.Body.Systems;
 using Content.Shared.Standing;
+using Robust.Shared.Containers;
+using Robust.Shared.Map;
+using Robust.Shared.Prototypes;
 
 namespace Content.Server._Mono.Traits.Physical;
 
 public sealed class BionicLegsSystem : EntitySystem
 {
-    [Dependency] private readonly SharedBodySystem _bodySystem = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly SharedContainerSystem _containerSystem = default!;
-    [Dependency] private readonly StandingStateSystem _standing = default!;
+    [Dependency]
+    private readonly SharedBodySystem _bodySystem = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _containerSystem = default!;
+
+    [Dependency]
+    private readonly StandingStateSystem _standing = default!;
 
     public override void Initialize()
     {
@@ -45,7 +52,10 @@ public sealed class BionicLegsSystem : EntitySystem
 
         var leftLegSlotId = SharedBodySystem.GetPartSlotContainerId("left leg");
 
-        if (_containerSystem.TryGetContainer(torso, leftLegSlotId, out var leftLegContainer) && leftLegContainer.ContainedEntities.Count > 0)
+        if (
+            _containerSystem.TryGetContainer(torso, leftLegSlotId, out var leftLegContainer)
+            && leftLegContainer.ContainedEntities.Count > 0
+        )
         {
             foreach (var leftLeg in leftLegContainer.ContainedEntities.ToArray())
             {
@@ -56,7 +66,10 @@ public sealed class BionicLegsSystem : EntitySystem
 
         var rightLegSlotId = SharedBodySystem.GetPartSlotContainerId("right leg");
 
-        if (_containerSystem.TryGetContainer(torso, rightLegSlotId, out var rightLegContainer) && rightLegContainer.ContainedEntities.Count > 0)
+        if (
+            _containerSystem.TryGetContainer(torso, rightLegSlotId, out var rightLegContainer)
+            && rightLegContainer.ContainedEntities.Count > 0
+        )
         {
             foreach (var rightLeg in rightLegContainer.ContainedEntities.ToArray())
             {
@@ -127,5 +140,3 @@ public sealed class BionicLegsSystem : EntitySystem
         }
     }
 }
-
-

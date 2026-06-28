@@ -45,7 +45,7 @@
   id: OrganAnimalLungs
   parent: BaseAnimalOrgan
   name: lungs
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     layers:
@@ -58,7 +58,7 @@
     removeEmpty: true
     solutionOnBody: false
     solution: "Lung"
-    metabolizerTypes: [ Animal ]
+    metabolizerTypes: [Animal]
     groups:
     - id: Gas
       rateModifier: 100.0
@@ -80,7 +80,7 @@
   id: OrganAnimalStomach
   parent: BaseAnimalOrgan
   name: stomach
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     state: stomach
@@ -98,7 +98,7 @@
   - type: Stomach
   - type: Metabolizer
     maxReagents: 3
-    metabolizerTypes: [ Animal ]
+    metabolizerTypes: [Animal]
     groups:
     - id: Food
     - id: Drink
@@ -110,7 +110,7 @@
   id: OrganMouseStomach
   parent: OrganAnimalStomach
   name: stomach
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: SolutionContainerManager
     solutions:
@@ -124,7 +124,7 @@
   id: OrganAnimalLiver
   parent: BaseAnimalOrgan
   name: liver
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     state: liver
@@ -132,7 +132,7 @@
     slotId: liver # Shitmed
   - type: Metabolizer
     maxReagents: 1
-    metabolizerTypes: [ Animal ]
+    metabolizerTypes: [Animal]
     groups:
     - id: Alcohol
       rateModifier: 0.1
@@ -150,7 +150,7 @@
   id: OrganAnimalHeart
   parent: BaseAnimalOrgan
   name: heart
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     state: heart-on
@@ -158,7 +158,7 @@
     slotId: heart # Shitmed
   - type: Metabolizer
     maxReagents: 2
-    metabolizerTypes: [ Animal ]
+    metabolizerTypes: [Animal]
     groups:
     - id: Medicine
     - id: Cryogenic # Frontier
@@ -178,7 +178,7 @@
   id: OrganAnimalKidneys
   parent: BaseAnimalOrgan
   name: kidneys
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     layers:
@@ -188,7 +188,7 @@
     slotId: kidneys # Shitmed
   - type: Metabolizer
     maxReagents: 5
-    metabolizerTypes: [ Animal ]
+    metabolizerTypes: [Animal]
     removeEmpty: true
   - type: Item
     size: Small

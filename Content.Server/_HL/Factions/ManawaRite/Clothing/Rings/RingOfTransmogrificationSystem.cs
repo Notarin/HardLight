@@ -9,9 +9,13 @@ namespace Content.Server._HL.Factions.ManawaRite.Clothing.Rings;
 
 public sealed class RingOfTransmogrificationSystem : EntitySystem
 {
-    private static readonly VerbCategory AppearanceCategory =
-        new("Appearance", "/Textures/Interface/VerbIcons/group.svg.192dpi.png");
-    [Dependency] private readonly JitteringSystem _jitter = default!;
+    private static readonly VerbCategory AppearanceCategory = new(
+        "Appearance",
+        "/Textures/Interface/VerbIcons/group.svg.192dpi.png"
+    );
+
+    [Dependency]
+    private readonly JitteringSystem _jitter = default!;
 
     public override void Initialize()
     {
@@ -43,15 +47,19 @@ public sealed class RingOfTransmogrificationSystem : EntitySystem
         {
             var captured = effect;
             var isCurrent = comp.SelectedEffect == effect;
-            args.Verbs.Add(new Verb
-            {
-                Text = EffectLabel(effect),
-                Category = AppearanceCategory,
-                Act = () => SetEffect(uid, comp, captured),
-                Disabled = isCurrent,
-                Priority = isCurrent ? 1 : 0,
-                Icon = new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/VerbIcons/rejuvenate.svg.192dpi.png")),
-            });
+            args.Verbs.Add(
+                new Verb
+                {
+                    Text = EffectLabel(effect),
+                    Category = AppearanceCategory,
+                    Act = () => SetEffect(uid, comp, captured),
+                    Disabled = isCurrent,
+                    Priority = isCurrent ? 1 : 0,
+                    Icon = new SpriteSpecifier.Texture(
+                        new ResPath("/Textures/Interface/VerbIcons/rejuvenate.svg.192dpi.png")
+                    ),
+                }
+            );
         }
     }
 
@@ -93,25 +101,26 @@ public sealed class RingOfTransmogrificationSystem : EntitySystem
         }
     }
 
-    private static string EffectLabel(TransmogrificationEffect effect) => effect switch
-    {
-        TransmogrificationEffect.None             => "No effect",
-        TransmogrificationEffect.AnomalyFire      => "Anomaly: fire",
-        TransmogrificationEffect.AnomalyShadow    => "Anomaly: shadow",
-        TransmogrificationEffect.AnomalyFlora     => "Anomaly: flora",
-        TransmogrificationEffect.AnomalyFrost     => "Anomaly: frost",
-        TransmogrificationEffect.AnomalyBluespace   => "Anomaly: bluespace",
-        TransmogrificationEffect.AnomalyElectricity => "Anomaly: electricity",
-        TransmogrificationEffect.AnomalyGravity     => "Anomaly: gravity",
-        TransmogrificationEffect.AnomalyRock        => "Anomaly: rock",
-        TransmogrificationEffect.AnomalyFlesh       => "Anomaly: flesh",
-        TransmogrificationEffect.AnomalyTech        => "Anomaly: tech",
-        TransmogrificationEffect.Jitter             => "Jitter",
-        TransmogrificationEffect.Halo             => "Halo",
-        TransmogrificationEffect.RunicBelt        => "Runic belt",
-        TransmogrificationEffect.DraconicWings    => "Draconic wings",
-        TransmogrificationEffect.CyanFireflies    => "Cyan fireflies",
-        TransmogrificationEffect.WatchingEyes     => "Watching eyes",
-        _                                          => effect.ToString(),
-    };
+    private static string EffectLabel(TransmogrificationEffect effect) =>
+        effect switch
+        {
+            TransmogrificationEffect.None => "No effect",
+            TransmogrificationEffect.AnomalyFire => "Anomaly: fire",
+            TransmogrificationEffect.AnomalyShadow => "Anomaly: shadow",
+            TransmogrificationEffect.AnomalyFlora => "Anomaly: flora",
+            TransmogrificationEffect.AnomalyFrost => "Anomaly: frost",
+            TransmogrificationEffect.AnomalyBluespace => "Anomaly: bluespace",
+            TransmogrificationEffect.AnomalyElectricity => "Anomaly: electricity",
+            TransmogrificationEffect.AnomalyGravity => "Anomaly: gravity",
+            TransmogrificationEffect.AnomalyRock => "Anomaly: rock",
+            TransmogrificationEffect.AnomalyFlesh => "Anomaly: flesh",
+            TransmogrificationEffect.AnomalyTech => "Anomaly: tech",
+            TransmogrificationEffect.Jitter => "Jitter",
+            TransmogrificationEffect.Halo => "Halo",
+            TransmogrificationEffect.RunicBelt => "Runic belt",
+            TransmogrificationEffect.DraconicWings => "Draconic wings",
+            TransmogrificationEffect.CyanFireflies => "Cyan fireflies",
+            TransmogrificationEffect.WatchingEyes => "Watching eyes",
+            _ => effect.ToString(),
+        };
 }

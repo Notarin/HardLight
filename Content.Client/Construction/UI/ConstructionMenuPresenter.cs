@@ -22,12 +22,23 @@ namespace Content.Client.Construction.UI
     /// </summary>
     internal sealed class ConstructionMenuPresenter : IDisposable
     {
-        [Dependency] private readonly EntityManager _entManager = default!;
-        [Dependency] private readonly IEntitySystemManager _systemManager = default!;
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        [Dependency] private readonly IPlacementManager _placementManager = default!;
-        [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
-        [Dependency] private readonly IPlayerManager _playerManager = default!;
+        [Dependency]
+        private readonly EntityManager _entManager = default!;
+
+        [Dependency]
+        private readonly IEntitySystemManager _systemManager = default!;
+
+        [Dependency]
+        private readonly IPrototypeManager _prototypeManager = default!;
+
+        [Dependency]
+        private readonly IPlacementManager _placementManager = default!;
+
+        [Dependency]
+        private readonly IUserInterfaceManager _uiManager = default!;
+
+        [Dependency]
+        private readonly IPlayerManager _playerManager = default!;
         private readonly SpriteSystem _spriteSystem;
 
         private readonly IConstructionMenuView _constructionView;
@@ -98,8 +109,8 @@ namespace Content.Client.Construction.UI
 
             _placementManager.PlacementChanged += OnPlacementChanged;
 
-            _constructionView.OnClose +=
-                () => _uiManager.GetActiveUIWidget<GameTopMenuBar>().CraftingButton.Pressed = false;
+            _constructionView.OnClose += () =>
+                _uiManager.GetActiveUIWidget<GameTopMenuBar>().CraftingButton.Pressed = false;
             _constructionView.ClearAllGhosts += (_, _) => _constructionSystem?.ClearAllGhosts();
             _constructionView.PopulateRecipes += OnViewPopulateRecipes;
             _constructionView.RecipeSelected += OnViewRecipeSelected;
@@ -201,15 +212,14 @@ namespace Content.Client.Construction.UI
             }
         }
 
-        private void PopulateGrid(GridContainer recipesGrid,
-            IEnumerable<ConstructionMenu.ConstructionMenuListData> actualRecipes)
+        private void PopulateGrid(
+            GridContainer recipesGrid,
+            IEnumerable<ConstructionMenu.ConstructionMenuListData> actualRecipes
+        )
         {
             foreach (var recipe in actualRecipes)
             {
-                var protoView = new EntityPrototypeView()
-                {
-                    Scale = new Vector2(1.2f),
-                };
+                var protoView = new EntityPrototypeView() { Scale = new Vector2(1.2f) };
                 protoView.SetPrototype(recipe.TargetPrototype);
 
                 var itemButton = new ContainerButton()
@@ -231,9 +241,11 @@ namespace Content.Client.Construction.UI
                 {
                     SelectGridButton(itemButton, buttonToggledEventArgs.Pressed);
 
-                    if (buttonToggledEventArgs.Pressed &&
-                        _selected != null &&
-                        _recipeButtons.TryGetValue(_selected.Name!, out var oldButton))
+                    if (
+                        buttonToggledEventArgs.Pressed
+                        && _selected != null
+                        && _recipeButtons.TryGetValue(_selected.Name!, out var oldButton)
+                    )
                     {
                         oldButton.Pressed = false;
                         SelectGridButton(oldButton, false);
@@ -263,28 +275,38 @@ namespace Content.Client.Construction.UI
                 if (recipe.Hide)
                     continue;
 
-                if (_playerManager.LocalSession == null
+                if (
+                    _playerManager.LocalSession == null
                     || _playerManager.LocalEntity == null
-                    || _whitelistSystem.IsWhitelistFail(recipe.EntityWhitelist, _playerManager.LocalEntity.Value))
+                    || _whitelistSystem.IsWhitelistFail(recipe.EntityWhitelist, _playerManager.LocalEntity.Value)
+                )
                     continue;
 
-                if (!string.IsNullOrEmpty(search) && (recipe.Name is { } name &&
-                                                      !name.Contains(search.Trim(),
-                                                          StringComparison.InvariantCultureIgnoreCase)))
+                if (
+                    !string.IsNullOrEmpty(search)
+                    && (
+                        recipe.Name is { } name
+                        && !name.Contains(search.Trim(), StringComparison.InvariantCultureIgnoreCase)
+                    )
+                )
                     continue;
 
                 if (!isEmptyCategory)
                 {
-                    if ((category != FavoriteCatName || !_favoritedRecipes.Contains(recipe)) &&
-                        recipe.Category != category)
+                    if (
+                        (category != FavoriteCatName || !_favoritedRecipes.Contains(recipe))
+                        && recipe.Category != category
+                    )
                         continue;
                 }
 
                 if (!_constructionSystem!.TryGetRecipePrototype(recipe.ID, out var targetProtoId))
                 {
-                    Logger.Error("Cannot find the target prototype in the recipe cache with the id \"{0}\" of {1}.",
+                    Logger.Error(
+                        "Cannot find the target prototype in the recipe cache with the id \"{0}\" of {1}.",
                         recipe.ID,
-                        nameof(ConstructionPrototype));
+                        nameof(ConstructionPrototype)
+                    );
                     continue;
                 }
 
@@ -295,7 +317,8 @@ namespace Content.Client.Construction.UI
             }
 
             recipes.Sort(
-                (a, b) => string.Compare(a.Prototype.Name, b.Prototype.Name, StringComparison.InvariantCulture));
+                (a, b) => string.Compare(a.Prototype.Name, b.Prototype.Name, StringComparison.InvariantCulture)
+            );
 
             return recipes;
         }
@@ -376,7 +399,8 @@ namespace Content.Client.Construction.UI
                 prototype.Description!,
                 proto,
                 prototype.Type != ConstructionType.Item,
-                !_favoritedRecipes.Contains(prototype));
+                !_favoritedRecipes.Contains(prototype)
+            );
 
             var stepList = _constructionView.RecipeStepList;
             GenerateStepList(prototype, stepList);
@@ -389,15 +413,18 @@ namespace Content.Client.Construction.UI
 
             foreach (var entry in guide.Entries)
             {
-                var text = entry.Arguments != null
-                    ? Loc.GetString(entry.Localization, entry.Arguments)
-                    : Loc.GetString(entry.Localization);
+                var text =
+                    entry.Arguments != null
+                        ? Loc.GetString(entry.Localization, entry.Arguments)
+                        : Loc.GetString(entry.Localization);
 
                 if (entry.EntryNumber is { } number)
                 {
-                    text = Loc.GetString("construction-presenter-step-wrapper",
+                    text = Loc.GetString(
+                        "construction-presenter-step-wrapper",
                         ("step-number", number),
-                        ("text", text));
+                        ("text", text)
+                    );
                 }
 
                 // The padding needs to be applied regardless of text length... (See PadLeft documentation)
@@ -429,12 +456,10 @@ namespace Content.Client.Construction.UI
                     return;
                 }
 
-                _placementManager.BeginPlacing(new PlacementInformation
-                    {
-                        IsTile = false,
-                        PlacementOption = _selected.PlacementMode
-                    },
-                    new ConstructionPlacementHijack(_constructionSystem, _selected));
+                _placementManager.BeginPlacing(
+                    new PlacementInformation { IsTile = false, PlacementOption = _selected.PlacementMode },
+                    new ConstructionPlacementHijack(_constructionSystem, _selected)
+                );
 
                 UpdateGhostPlacement();
             }
@@ -457,12 +482,10 @@ namespace Content.Client.Construction.UI
 
             var constructSystem = _systemManager.GetEntitySystem<ConstructionSystem>();
 
-            _placementManager.BeginPlacing(new PlacementInformation()
-                {
-                    IsTile = false,
-                    PlacementOption = _selected.PlacementMode,
-                },
-                new ConstructionPlacementHijack(constructSystem, _selected));
+            _placementManager.BeginPlacing(
+                new PlacementInformation() { IsTile = false, PlacementOption = _selected.PlacementMode },
+                new ConstructionPlacementHijack(constructSystem, _selected)
+            );
 
             _constructionView.BuildButtonPressed = true;
         }
@@ -489,8 +512,10 @@ namespace Content.Client.Construction.UI
 
             if (_selectedCategory == FavoriteCatName)
             {
-                OnViewPopulateRecipes(_constructionView,
-                    _favoritedRecipes.Count > 0 ? (string.Empty, FavoriteCatName) : (string.Empty, string.Empty));
+                OnViewPopulateRecipes(
+                    _constructionView,
+                    _favoritedRecipes.Count > 0 ? (string.Empty, FavoriteCatName) : (string.Empty, string.Empty)
+                );
             }
 
             PopulateInfo(_selected);
@@ -566,8 +591,7 @@ namespace Content.Client.Construction.UI
                 if (IsAtFront)
                 {
                     WindowOpen = false;
-                    _uiManager.GetActiveUIWidget<GameTopMenuBar>()
-                        .CraftingButton.SetClickPressed(false); // This does not call CraftingButtonToggled
+                    _uiManager.GetActiveUIWidget<GameTopMenuBar>().CraftingButton.SetClickPressed(false); // This does not call CraftingButtonToggled
                 }
                 else
                     _constructionView.MoveToFront();
@@ -575,8 +599,7 @@ namespace Content.Client.Construction.UI
             else
             {
                 WindowOpen = true;
-                _uiManager.GetActiveUIWidget<GameTopMenuBar>()
-                    .CraftingButton.SetClickPressed(true); // This does not call CraftingButtonToggled
+                _uiManager.GetActiveUIWidget<GameTopMenuBar>().CraftingButton.SetClickPressed(true); // This does not call CraftingButtonToggled
             }
         }
 

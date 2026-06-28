@@ -11,13 +11,26 @@ namespace Content.Client.Standing;
 
 public sealed class LayingDownSystem : SharedLayingDownSystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IEyeManager _eyeManager = default!;
-    [Dependency] private readonly StandingStateSystem _standing = default!;
-    [Dependency] private readonly AnimationPlayerSystem _animation = default!;
-    [Dependency] private readonly SharedBuckleSystem _buckle = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!; // HardLight
-    [Dependency] private readonly SharedTransformSystem _xform = default!; // HardLight
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IEyeManager _eyeManager = default!;
+
+    [Dependency]
+    private readonly StandingStateSystem _standing = default!;
+
+    [Dependency]
+    private readonly AnimationPlayerSystem _animation = default!;
+
+    [Dependency]
+    private readonly SharedBuckleSystem _buckle = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!; // HardLight
+
+    [Dependency]
+    private readonly SharedTransformSystem _xform = default!; // HardLight
 
     public override void Initialize()
     {
@@ -38,12 +51,13 @@ public sealed class LayingDownSystem : SharedLayingDownSystem
                 continue;
 
             // HardLight start
-            var squeezeDepthOverride = TryComp<DrawDepthVisualizerComponent>(uid, out var drawDepth)
-                && drawDepth.OriginalDrawDepth != null;
+            var squeezeDepthOverride =
+                TryComp<DrawDepthVisualizerComponent>(uid, out var drawDepth) && drawDepth.OriginalDrawDepth != null;
 
-            var drawDepthTarget = (standing.CurrentState is StandingState.Lying && layingDown.IsCrawlingUnder || squeezeDepthOverride)
-                ? layingDown.CrawlingUnderDrawDepth
-                : layingDown.NormalDrawDepth;
+            var drawDepthTarget =
+                (standing.CurrentState is StandingState.Lying && layingDown.IsCrawlingUnder || squeezeDepthOverride)
+                    ? layingDown.CrawlingUnderDrawDepth
+                    : layingDown.NormalDrawDepth;
 
             if (sprite.DrawDepth == drawDepthTarget)
                 continue;
@@ -57,17 +71,23 @@ public sealed class LayingDownSystem : SharedLayingDownSystem
 
     private void OnMovementInput(EntityUid uid, LayingDownComponent component, MoveEvent args)
     {
-        if (!_timing.IsFirstTimePredicted
+        if (
+            !_timing.IsFirstTimePredicted
             || !_standing.IsDown(uid)
             || _buckle.IsBuckled(uid)
             || _animation.HasRunningAnimation(uid, "rotate")
             // || !TryComp<TransformComponent>(uid, out var transform) // HardLight
             || !TryComp<SpriteComponent>(uid, out var sprite)
-            || !TryComp<RotationVisualsComponent>(uid, out var rotationVisuals))
+            || !TryComp<RotationVisualsComponent>(uid, out var rotationVisuals)
+        )
             return;
 
         var rotation = _eyeManager.CurrentEye.Rotation + _xform.GetWorldRotation(Transform(uid));
-        var targetRotation = rotation.GetDir() is Direction.SouthEast or Direction.East or Direction.NorthEast or Direction.North
+        var targetRotation = rotation.GetDir()
+            is Direction.SouthEast
+                or Direction.East
+                or Direction.NorthEast
+                or Direction.North
             ? Angle.FromDegrees(270)
             : Angle.FromDegrees(90);
 
@@ -90,7 +110,11 @@ public sealed class LayingDownSystem : SharedLayingDownSystem
             return;
 
         var rotation = _eyeManager.CurrentEye.Rotation + _xform.GetWorldRotation(Transform(uid));
-        var targetRotation = rotation.GetDir() is Direction.SouthEast or Direction.East or Direction.NorthEast or Direction.North
+        var targetRotation = rotation.GetDir()
+            is Direction.SouthEast
+                or Direction.East
+                or Direction.NorthEast
+                or Direction.North
             ? Angle.FromDegrees(270)
             : Angle.FromDegrees(90);
 

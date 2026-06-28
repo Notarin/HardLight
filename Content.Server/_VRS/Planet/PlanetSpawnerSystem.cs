@@ -6,16 +6,14 @@ using Content.Server.Parallax;
 using Content.Server.Procedural;
 using Content.Server.Shuttles.Components;
 using Content.Server.Shuttles.Events;
+using Content.Shared._VRS.Planet;
 using Content.Shared.Mind.Components;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Parallax.Biomes;
 using Content.Shared.Physics;
 using Content.Shared.Procedural;
-using Robust.Shared.Physics;
-using Robust.Shared.Physics.Components;
 using Content.Shared.Shuttles.Components;
-using Content.Shared._VRS.Planet;
 using Robust.Server.GameObjects;
 using Robust.Server.Player;
 using Robust.Shared.GameObjects;
@@ -24,6 +22,8 @@ using Robust.Shared.Log;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Maths;
+using Robust.Shared.Physics;
+using Robust.Shared.Physics.Components;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
@@ -38,18 +38,41 @@ namespace Content.Server._VRS.Planet;
 /// </summary>
 public sealed class PlanetSpawnerSystem : EntitySystem
 {
-    [Dependency] private readonly BiomeSystem _biome = default!;
-    [Dependency] private readonly DungeonSystem _dungeon = default!;
-    [Dependency] private readonly ChatSystem _chat = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly MetaDataSystem _meta = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IPlayerManager _players = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
+    [Dependency]
+    private readonly BiomeSystem _biome = default!;
+
+    [Dependency]
+    private readonly DungeonSystem _dungeon = default!;
+
+    [Dependency]
+    private readonly ChatSystem _chat = default!;
+
+    [Dependency]
+    private readonly EntityLookupSystem _lookup = default!;
+
+    [Dependency]
+    private readonly MetaDataSystem _meta = default!;
+
+    [Dependency]
+    private readonly MobStateSystem _mobState = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _map = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _players = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
 
     /// <summary>
     /// Beacon prototype spawned at each dungeon center so the shuttle console
@@ -74,7 +97,8 @@ public sealed class PlanetSpawnerSystem : EntitySystem
             string rewardBriefcaseProto,
             int minGrunts,
             int maxGrunts,
-            float weight) // Added weight parameter
+            float weight
+        ) // Added weight parameter
         {
             DifficultyName = difficultyName;
             GruntProto = gruntProto;
@@ -161,10 +185,7 @@ public sealed class PlanetSpawnerSystem : EntitySystem
     /// (including "no clear candidate found") — the periodic Update roll will
     /// continue to attempt placements as biome chunks load.
     /// </summary>
-    private void TrySpawnFtlArrivalDungeon(
-        Entity<PlanetSpawnerComponent> ent,
-        EntityUid arrivingEnt,
-        MapId mapId)
+    private void TrySpawnFtlArrivalDungeon(Entity<PlanetSpawnerComponent> ent, EntityUid arrivingEnt, MapId mapId)
     {
         // Only player shuttles trigger the spawn — ignore mobs / debris / contract
         // beacon FTLs / etc. The ShuttleComponent + non-biome filter mirrors the
@@ -205,7 +226,8 @@ public sealed class PlanetSpawnerSystem : EntitySystem
 
             var snappedTile = new Vector2i(
                 (int)MathF.Round(candidate.X / CandidateStride) * CandidateStride,
-                (int)MathF.Round(candidate.Y / CandidateStride) * CandidateStride);
+                (int)MathF.Round(candidate.Y / CandidateStride) * CandidateStride
+            );
 
             var configId = _random.Pick(ent.Comp.DungeonConfigs);
             if (!_proto.TryIndex(configId, out var config))
@@ -227,16 +249,19 @@ public sealed class PlanetSpawnerSystem : EntitySystem
             Dirty(ent.Owner, registry);
 
             ent.Comp.NextFtlSpawn = now + ent.Comp.FtlSpawnCooldown;
-            _sawmill.Info($"Spawned FTL-arrival dungeon '{configId}' at ({snappedTile.X}, {snappedTile.Y}) on {ToPrettyString(ent.Owner)} for arriving shuttle {ToPrettyString(arrivingEnt)}.");
+            _sawmill.Info(
+                $"Spawned FTL-arrival dungeon '{configId}' at ({snappedTile.X}, {snappedTile.Y}) on {ToPrettyString(ent.Owner)} for arriving shuttle {ToPrettyString(arrivingEnt)}."
+            );
             return;
         }
     }
 
     private void OnMapInit(Entity<PlanetSpawnerComponent> ent, ref MapInitEvent args)
     {
-        var contractStatusInterval = ent.Comp.ContractStatusCheckInterval <= TimeSpan.Zero
-            ? TimeSpan.FromSeconds(1)
-            : ent.Comp.ContractStatusCheckInterval;
+        var contractStatusInterval =
+            ent.Comp.ContractStatusCheckInterval <= TimeSpan.Zero
+                ? TimeSpan.FromSeconds(1)
+                : ent.Comp.ContractStatusCheckInterval;
 
         EnsureMarkerLayers(ent);
         // Dungeons are now spawned lazily on FTL arrival (see OnFtlCompleted) and
@@ -289,7 +314,9 @@ public sealed class PlanetSpawnerSystem : EntitySystem
         {
             if (!_proto.HasIndex(layerId))
             {
-                _sawmill.Warning($"PlanetSpawner on {ToPrettyString(ent.Owner)} references missing marker layer '{layerId}'.");
+                _sawmill.Warning(
+                    $"PlanetSpawner on {ToPrettyString(ent.Owner)} references missing marker layer '{layerId}'."
+                );
                 continue;
             }
             // BiomeComponent.MarkerLayers is access-restricted; rely on the
@@ -322,9 +349,10 @@ public sealed class PlanetSpawnerSystem : EntitySystem
                 spawner.NextRampSpawn = now + TimeSpan.FromSeconds(GetRampInterval(spawner, now));
             }
 
-            var contractStatusInterval = spawner.ContractStatusCheckInterval <= TimeSpan.Zero
-                ? TimeSpan.FromSeconds(1)
-                : spawner.ContractStatusCheckInterval;
+            var contractStatusInterval =
+                spawner.ContractStatusCheckInterval <= TimeSpan.Zero
+                    ? TimeSpan.FromSeconds(1)
+                    : spawner.ContractStatusCheckInterval;
 
             if (spawner.NextContractStatusCheck == TimeSpan.Zero)
                 spawner.NextContractStatusCheck = now + contractStatusInterval;
@@ -338,8 +366,10 @@ public sealed class PlanetSpawnerSystem : EntitySystem
             {
                 spawner.NextContractRoll = now + spawner.ContractRollInterval;
 
-                if (spawner.ActiveContracts.Count < spawner.MaxActiveContracts &&
-                    _random.NextFloat() <= spawner.ContractSpawnChancePerRoll)
+                if (
+                    spawner.ActiveContracts.Count < spawner.MaxActiveContracts
+                    && _random.NextFloat() <= spawner.ContractSpawnChancePerRoll
+                )
                 {
                     TrySpawnCombatContract((uid, spawner));
                 }
@@ -383,9 +413,10 @@ public sealed class PlanetSpawnerSystem : EntitySystem
             if (contract.Members.Count > 0)
                 continue;
 
-            var dropCoords = contract.Boss != null && Exists(contract.Boss.Value)
-                ? Transform(contract.Boss.Value).Coordinates
-                : new EntityCoordinates(ent.Owner, contract.Center);
+            var dropCoords =
+                contract.Boss != null && Exists(contract.Boss.Value)
+                    ? Transform(contract.Boss.Value).Coordinates
+                    : new EntityCoordinates(ent.Owner, contract.Center);
 
             if (!string.IsNullOrWhiteSpace(contract.RewardBriefcaseProto))
                 Spawn(contract.RewardBriefcaseProto, dropCoords);
@@ -400,7 +431,9 @@ public sealed class PlanetSpawnerSystem : EntitySystem
                 Loc.GetString(
                     "vrs-planet-contract-complete-announcement",
                     ("name", contract.Name),
-                    ("difficulty", contract.DifficultyName)));
+                    ("difficulty", contract.DifficultyName)
+                )
+            );
 
             ent.Comp.ActiveContracts.RemoveAt(i);
         }
@@ -408,9 +441,11 @@ public sealed class PlanetSpawnerSystem : EntitySystem
 
     private void TrySpawnCombatContract(Entity<PlanetSpawnerComponent> ent)
     {
-        if (!TryComp<BiomeComponent>(ent.Owner, out var biome) ||
-            !TryComp<MapGridComponent>(ent.Owner, out var grid) ||
-            !TryComp<TransformComponent>(ent.Owner, out var xform))
+        if (
+            !TryComp<BiomeComponent>(ent.Owner, out var biome)
+            || !TryComp<MapGridComponent>(ent.Owner, out var grid)
+            || !TryComp<TransformComponent>(ent.Owner, out var xform)
+        )
         {
             return;
         }
@@ -442,7 +477,9 @@ public sealed class PlanetSpawnerSystem : EntitySystem
             }
             else
             {
-                _sawmill.Warning($"PlanetSpawner missing dungeon config '{configId}' (contract). Falling back to hunt event.");
+                _sawmill.Warning(
+                    $"PlanetSpawner missing dungeon config '{configId}' (contract). Falling back to hunt event."
+                );
                 isDungeon = false;
                 contractType = "Hunt";
                 contractName = $"{template.DifficultyName} {contractType} Contract";
@@ -462,18 +499,20 @@ public sealed class PlanetSpawnerSystem : EntitySystem
         var bossUid = Spawn(template.BossProto, new EntityCoordinates(ent.Owner, center));
         members.Add(bossUid);
 
-        ent.Comp.ActiveContracts.Add(new PlanetCombatContract
-        {
-            Name = contractName,
-            DifficultyName = template.DifficultyName,
-            IsDungeonContract = isDungeon,
-            Center = center,
-            RewardBriefcaseProto = template.RewardBriefcaseProto,
-            Beacon = beacon,
-            Boss = bossUid,
-            Members = members,
-            DungeonCenter = dungeonCenter,
-        });
+        ent.Comp.ActiveContracts.Add(
+            new PlanetCombatContract
+            {
+                Name = contractName,
+                DifficultyName = template.DifficultyName,
+                IsDungeonContract = isDungeon,
+                Center = center,
+                RewardBriefcaseProto = template.RewardBriefcaseProto,
+                Beacon = beacon,
+                Boss = bossUid,
+                Members = members,
+                DungeonCenter = dungeonCenter,
+            }
+        );
 
         _chat.DispatchGlobalAnnouncement(
             Loc.GetString(
@@ -481,14 +520,17 @@ public sealed class PlanetSpawnerSystem : EntitySystem
                 ("name", contractName),
                 ("difficulty", template.DifficultyName),
                 ("type", contractType),
-                ("landing", (int)MathF.Round(ent.Comp.ContractFtlLandingRadius))));
+                ("landing", (int)MathF.Round(ent.Comp.ContractFtlLandingRadius))
+            )
+        );
     }
 
     private bool TryFindContractCenter(
         Entity<PlanetSpawnerComponent> ent,
         BiomeComponent biome,
         MapId mapId,
-        out Vector2i centerTile)
+        out Vector2i centerTile
+    )
     {
         centerTile = default;
 
@@ -521,7 +563,8 @@ public sealed class PlanetSpawnerSystem : EntitySystem
 
             centerTile = new Vector2i(
                 (int)MathF.Round(worldPos.X / CandidateStride) * CandidateStride,
-                (int)MathF.Round(worldPos.Y / CandidateStride) * CandidateStride);
+                (int)MathF.Round(worldPos.Y / CandidateStride) * CandidateStride
+            );
             return true;
         }
 
@@ -552,30 +595,34 @@ public sealed class PlanetSpawnerSystem : EntitySystem
         int count,
         List<EntityUid> members,
         MapGridComponent grid,
-        BiomeComponent biome)
+        BiomeComponent biome
+    )
     {
         const int maxAttemptsPerSlot = 8;
 
         for (var i = 0; i < count; i++)
         {
-            Timer.Spawn(i * 100, () => // Stagger spawns by 100ms each
-            {
-                for (var attempt = 0; attempt < maxAttemptsPerSlot; attempt++)
+            Timer.Spawn(
+                i * 100,
+                () => // Stagger spawns by 100ms each
                 {
-                    var angle = _random.NextFloat() * MathF.Tau;
-                    var dist = _random.NextFloat(ent.Comp.ContractMobInnerRadius, ent.Comp.ContractMobOuterRadius);
-                    var offset = new Vector2(MathF.Cos(angle) * dist, MathF.Sin(angle) * dist);
-                    var localPos = center + offset;
-                    var tileIndices = new Vector2i((int)MathF.Floor(localPos.X), (int)MathF.Floor(localPos.Y));
+                    for (var attempt = 0; attempt < maxAttemptsPerSlot; attempt++)
+                    {
+                        var angle = _random.NextFloat() * MathF.Tau;
+                        var dist = _random.NextFloat(ent.Comp.ContractMobInnerRadius, ent.Comp.ContractMobOuterRadius);
+                        var offset = new Vector2(MathF.Cos(angle) * dist, MathF.Sin(angle) * dist);
+                        var localPos = center + offset;
+                        var tileIndices = new Vector2i((int)MathF.Floor(localPos.X), (int)MathF.Floor(localPos.Y));
 
-                    if (IsTileBlockedForMob(ent.Owner, grid, biome, tileIndices))
-                        continue;
+                        if (IsTileBlockedForMob(ent.Owner, grid, biome, tileIndices))
+                            continue;
 
-                    var spawned = Spawn(mobProto, new EntityCoordinates(ent.Owner, localPos));
-                    members.Add(spawned);
-                    break;
+                        var spawned = Spawn(mobProto, new EntityCoordinates(ent.Owner, localPos));
+                        members.Add(spawned);
+                        break;
+                    }
                 }
-            });
+            );
         }
     }
 
@@ -654,7 +701,8 @@ public sealed class PlanetSpawnerSystem : EntitySystem
             // sub-tile-different positions on the same chunk roll-after-roll.
             var snappedTile = new Vector2i(
                 (int)MathF.Round(worldPos.X / CandidateStride) * CandidateStride,
-                (int)MathF.Round(worldPos.Y / CandidateStride) * CandidateStride);
+                (int)MathF.Round(worldPos.Y / CandidateStride) * CandidateStride
+            );
 
             var configId = _random.Pick(ent.Comp.DungeonConfigs);
             if (!_proto.TryIndex(configId, out var config))
@@ -683,7 +731,9 @@ public sealed class PlanetSpawnerSystem : EntitySystem
             registry.Dungeons.Add(new DungeonMarker(new Vector2(snappedTile.X, snappedTile.Y), configId.Id));
             Dirty(ent.Owner, registry);
 
-            _sawmill.Info($"Spawned planet dungeon '{configId}' at ({snappedTile.X}, {snappedTile.Y}) on {ToPrettyString(ent.Owner)}.");
+            _sawmill.Info(
+                $"Spawned planet dungeon '{configId}' at ({snappedTile.X}, {snappedTile.Y}) on {ToPrettyString(ent.Owner)}."
+            );
             return; // one per roll
         }
     }
@@ -897,8 +947,8 @@ public sealed class PlanetSpawnerSystem : EntitySystem
         var dist = _random.NextFloat(ent.Comp.RampMinSpawnDistance, ent.Comp.RampSpawnRadius);
         var spawnWorld = anchorPos + new Vector2(MathF.Cos(angle) * dist, MathF.Sin(angle) * dist);
 
-        var groupCap = ent.Comp.RampStartGroup
-            + (int)MathF.Round(ent.Comp.RampMaxExtraGroup * GetRampProgress(ent.Comp, now));
+        var groupCap =
+            ent.Comp.RampStartGroup + (int)MathF.Round(ent.Comp.RampMaxExtraGroup * GetRampProgress(ent.Comp, now));
         var groupSize = _random.Next(ent.Comp.RampStartGroup, Math.Max(ent.Comp.RampStartGroup + 1, groupCap + 1));
 
         var mobProto = _random.Pick(ent.Comp.RampingMobs);
@@ -932,8 +982,12 @@ public sealed class PlanetSpawnerSystem : EntitySystem
     /// shuttles currently on the planet map. Operates on a pre-collected
     /// snapshot so the same lists are reused across all candidates in a roll.
     /// </summary>
-    private static bool IsCandidatePositionClear(Vector2 worldPos, PlanetSpawnerComponent spawner,
-        List<Vector2> plotPositions, List<Vector2> shuttlePositions)
+    private static bool IsCandidatePositionClear(
+        Vector2 worldPos,
+        PlanetSpawnerComponent spawner,
+        List<Vector2> plotPositions,
+        List<Vector2> shuttlePositions
+    )
     {
         // Dungeon-vs-dungeon spacing.
         var dungeonDistSq = spawner.MinDistBetweenDungeons * spawner.MinDistBetweenDungeons;

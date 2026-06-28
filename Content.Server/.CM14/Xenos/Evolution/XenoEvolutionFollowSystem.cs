@@ -7,7 +7,8 @@ namespace Content.Server.CM14.Xenos.Evolution;
 
 public sealed class XenoEvolutionFollowSystem : EntitySystem
 {
-    [Dependency] private readonly NPCSystem _npc = default!;
+    [Dependency]
+    private readonly NPCSystem _npc = default!;
 
     public override void Initialize()
     {

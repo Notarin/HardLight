@@ -42,16 +42,16 @@ public sealed partial class ArtifactAnalyzerComponent : Component
     [ViewVariables(VVAccess.ReadWrite)]
     public int? LastAnalyzerPointValue;
     #endregion
-    
+
     // Machine Part Properties for upgrades
     [DataField("machinePartExtractRatio", customTypeSerializer: typeof(PrototypeIdSerializer<MachinePartPrototype>))]
     public string MachinePartExtractRatio = "Manipulator";
-    
+
     [DataField]
     public float ExtractRatio = 1.0f;
-    
+
     [DataField]
     public float PartRatingExtractRatioMultiplier = 1.5f;
-    
+
     public float OriginalLoad { get; set; } = 0; // Frontier
 }

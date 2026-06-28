@@ -6,5 +6,5 @@ namespace Content.Shared.CM14.Xenos.Rest;
 public enum XenoRestState : byte
 {
     NotResting,
-    Resting
+    Resting,
 }

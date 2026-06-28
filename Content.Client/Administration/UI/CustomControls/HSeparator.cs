@@ -31,7 +31,8 @@ public sealed class HSeparator : Control
         Initialize();
     }
 
-    public HSeparator() : this(DefaultSeparatorColor) { }
+    public HSeparator()
+        : this(DefaultSeparatorColor) { }
 
     private void Initialize()
     {
@@ -41,8 +42,8 @@ public sealed class HSeparator : Control
             {
                 BackgroundColor = SeparatorColor,
                 ContentMarginBottomOverride = 2,
-                ContentMarginLeftOverride = 2
-            }
+                ContentMarginLeftOverride = 2,
+            },
         };
         AddChild(_panelContainer);
     }

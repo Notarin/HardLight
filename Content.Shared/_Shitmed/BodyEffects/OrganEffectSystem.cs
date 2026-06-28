@@ -1,20 +1,26 @@
 // We keep this clone of the other system since I don't know yet if I'll need organ specific functions in the future.
 // will delete or refactor as time goes on.
+using System.Linq;
 using Content.Shared._Shitmed.Body.Organ;
 using Content.Shared.Body.Organ;
+using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.Manager;
 using Robust.Shared.Timing;
-using System.Linq;
-using Robust.Shared.Network;
-
 
 namespace Content.Shared._Shitmed.BodyEffects;
+
 public partial class OrganEffectSystem : EntitySystem
 {
-    [Dependency] private readonly ISerializationManager _serManager = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly INetManager _net = default!;
+    [Dependency]
+    private readonly ISerializationManager _serManager = default!;
+
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
+
+    [Dependency]
+    private readonly INetManager _net = default!;
+
     public override void Initialize()
     {
         base.Initialize();
@@ -43,8 +49,7 @@ public partial class OrganEffectSystem : EntitySystem
         }
     }
 
-    private void OnOrganComponentsModify(Entity<OrganComponent> organEnt,
-        ref OrganComponentsModifyEvent ev)
+    private void OnOrganComponentsModify(Entity<OrganComponent> organEnt, ref OrganComponentsModifyEvent ev)
     {
         if (!_net.IsServer) // TODO: Kill this once I figure out whats breaking the Diagnostic Cybernetics.
             return;
@@ -66,10 +71,12 @@ public partial class OrganEffectSystem : EntitySystem
         }
     }
 
-    private void AddComponents(EntityUid body,
+    private void AddComponents(
+        EntityUid body,
         EntityUid part,
         ComponentRegistry reg,
-        OrganEffectComponent? effectComp = null)
+        OrganEffectComponent? effectComp = null
+    )
     {
         if (!Resolve(part, ref effectComp, logMissing: false))
             return;
@@ -80,7 +87,7 @@ public partial class OrganEffectSystem : EntitySystem
             if (HasComp(body, compType))
                 continue;
 
-            var newComp = (Component) _serManager.CreateCopy(comp.Component, notNullableOverride: true);
+            var newComp = (Component)_serManager.CreateCopy(comp.Component, notNullableOverride: true);
             newComp.Owner = body;
             EntityManager.AddComponent(body, newComp, true);
             effectComp.Active[key] = comp;
@@ -92,10 +99,12 @@ public partial class OrganEffectSystem : EntitySystem
         }
     }
 
-    private void RemoveComponents(EntityUid body,
+    private void RemoveComponents(
+        EntityUid body,
         EntityUid part,
         ComponentRegistry reg,
-        OrganEffectComponent? effectComp = null)
+        OrganEffectComponent? effectComp = null
+    )
     {
         if (!Resolve(part, ref effectComp, logMissing: false))
             return;

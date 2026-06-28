@@ -15,6 +15,7 @@ public struct MachinePartState
 {
     public MachinePartComponent Part;
     public StackComponent? Stack;
+
     // If item is a stack, return the count in the stack, otherwise it's a singular, non-stackable part
     public int Quantity()
     {
@@ -24,7 +25,8 @@ public struct MachinePartState
 
 public sealed partial class ConstructionSystem
 {
-    [Dependency] ExamineSystemShared _examineSystem = default!;
+    [Dependency]
+    ExamineSystemShared _examineSystem = default!;
 
     private void InitializeMachineUpgrades()
     {
@@ -41,7 +43,7 @@ public sealed partial class ConstructionSystem
         if (markup.IsEmpty)
             return; // Not upgradable.
 
-        if(!FormattedMessage.TryFromMarkup(markup.ToMarkup().TrimEnd('\n'), out markup)) // Cursed workaround to https://github.com/space-wizards/RobustToolbox/issues/3371
+        if (!FormattedMessage.TryFromMarkup(markup.ToMarkup().TrimEnd('\n'), out markup)) // Cursed workaround to https://github.com/space-wizards/RobustToolbox/issues/3371
         {
             markup = FormattedMessage.Empty; // Frontier: attempt sane error handling
         }
@@ -55,7 +57,7 @@ public sealed partial class ConstructionSystem
             Text = Loc.GetString("machine-upgrade-examinable-verb-text"),
             Message = Loc.GetString("machine-upgrade-examinable-verb-message"),
             Category = VerbCategory.Examine,
-            Icon = new SpriteSpecifier.Texture(new ("/Textures/Interface/VerbIcons/pickup.svg.192dpi.png"))
+            Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/pickup.svg.192dpi.png")),
         };
 
         args.Verbs.Add(verb);
@@ -119,13 +121,14 @@ public sealed partial class ConstructionSystem
     public void RefreshParts(EntityUid uid, MachineComponent component)
     {
         var parts = GetAllParts(component);
-        EntityManager.EventBus.RaiseLocalEvent(uid, new RefreshPartsEvent
-        {
-            Parts = parts,
-            PartRatings = GetPartsRatings(parts),
-        }, true);
+        EntityManager.EventBus.RaiseLocalEvent(
+            uid,
+            new RefreshPartsEvent { Parts = parts, PartRatings = GetPartsRatings(parts) },
+            true
+        );
     }
 }
+
 public sealed class RefreshPartsEvent : EntityEventArgs
 {
     public IReadOnlyList<MachinePartState> Parts = new List<MachinePartState>(); // Frontier: MachinePartComponent<MachinePartState
@@ -171,6 +174,9 @@ public sealed class UpgradeExamineEvent : EntityEventArgs
             > 0 => "machine-upgrade-increased-by-amount",
         };
         var upgraded = Loc.GetString(upgradedLocId);
-        this._message.TryAddMarkup(Loc.GetString(locId, ("upgraded", upgraded), ("difference", difference)) + '\n', out _); // Frontier: AddMarkup<TryAddMarkup
+        this._message.TryAddMarkup(
+            Loc.GetString(locId, ("upgraded", upgraded), ("difference", difference)) + '\n',
+            out _
+        ); // Frontier: AddMarkup<TryAddMarkup
     }
 }

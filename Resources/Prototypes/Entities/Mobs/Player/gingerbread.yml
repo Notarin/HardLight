@@ -4,18 +4,18 @@
   parent: BaseMobGingerbread
   id: MobGingerbread
   components:
-    - type: Respirator
-      damage:
-        types:
-          Asphyxiation: 0.5
-      damageRecovery:
-        types:
-          Asphyxiation: -1.0
+  - type: Respirator
+    damage:
+      types:
+        Asphyxiation: 0.5
+    damageRecovery:
+      types:
+        Asphyxiation: -1.0
 
 - type: entity
   name: gingerbread man
   id: MobGingerbreadAI
-  parent: [ MobGingerbread, MobCombat]
+  parent: [MobGingerbread, MobCombat]
   components:
   - type: GhostRole
     name: ghost-role-information-gingerbread-name
@@ -30,4 +30,4 @@
   - type: HTN
     rootTask:
       task: SimpleHostileCompound
-  
+

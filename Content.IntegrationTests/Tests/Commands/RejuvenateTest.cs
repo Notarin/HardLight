@@ -16,7 +16,8 @@ namespace Content.IntegrationTests.Tests.Commands
     public sealed class RejuvenateTest
     {
         [TestPrototypes]
-        private const string Prototypes = @"
+        private const string Prototypes =
+            @"
 - type: entity
   name: DamageableDummy
   id: DamageableDummy
@@ -64,7 +65,10 @@ namespace Content.IntegrationTests.Tests.Commands
                 });
 
                 // Kill the entity
-                DamageSpecifier damage = new(prototypeManager.Index<DamageGroupPrototype>(ToxinId), FixedPoint2.New(10000000));
+                DamageSpecifier damage = new(
+                    prototypeManager.Index<DamageGroupPrototype>(ToxinId),
+                    FixedPoint2.New(10000000)
+                );
 
                 damSystem.TryChangeDamage(human, damage, true);
 

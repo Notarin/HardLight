@@ -71,11 +71,11 @@
     visuals:
       enum.StorageVisuals.Open:
         decal1:
-          True: { visible: false }
-          False: { visible: true }
+          True: {visible: false}
+          False: {visible: true}
         decal2:
-          True: { visible: false }
-          False: { visible: true }
+          True: {visible: false}
+          False: {visible: true}
   - type: Sprite
     layers:
     - state: secure
@@ -83,7 +83,7 @@
     - state: secure_door
       map: ["enum.StorageVisualLayers.Door"]
     - state: door-decal-engi-01
-      map: [ decal1 ]
+      map: [decal1]
       color: "#ad8c27"
     - state: welded
       visible: false
@@ -237,7 +237,7 @@
   parent: LockerScientist
   components:
   - type: AccessReader
-    access: [ ]
+    access: []
 
 - type: entity
   id: ClosetFscEva

@@ -31,8 +31,8 @@
     pocket2: DoubleEmergencyTankO2N2EqualFilled
   storage:
     back:
-#    - SecBreachingHammer
-#    - NFWeaponLauncherMail
+    #    - SecBreachingHammer
+    #    - NFWeaponLauncherMail
     - RubberStampCentcom
     - BoxFolderColCom
 
@@ -52,7 +52,7 @@
     pocket2: DoubleEmergencyTankO2N2EqualFilled
   storage:
     back:
-#    - SecBreachingHammer
-#    - NFWeaponLauncherMail
+    #    - SecBreachingHammer
+    #    - NFWeaponLauncherMail
     - RubberStampCentcom
     - BoxFolderColCom

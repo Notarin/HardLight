@@ -28,7 +28,6 @@
   - type: PirateBountyItem # Frontier
     id: BoozeDispenser # Frontier
 
-
 - type: entity
   id: BoozeDispenserEmpty
   suffix: Empty

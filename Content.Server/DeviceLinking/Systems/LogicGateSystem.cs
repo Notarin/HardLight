@@ -14,12 +14,23 @@ namespace Content.Server.DeviceLinking.Systems;
 
 public sealed class LogicGateSystem : EntitySystem
 {
-    [Dependency] private readonly DeviceLinkSystem _deviceLink = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedToolSystem _tool = default!;
-    [Dependency] private readonly UseDelaySystem _useDelay = default!;
+    [Dependency]
+    private readonly DeviceLinkSystem _deviceLink = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly SharedToolSystem _tool = default!;
+
+    [Dependency]
+    private readonly UseDelaySystem _useDelay = default!;
 
     private readonly int GateCount = Enum.GetValues(typeof(LogicGate)).Length;
 
@@ -73,14 +84,13 @@ public sealed class LogicGateSystem : EntitySystem
             return;
 
         // no sound spamming
-        if (TryComp<UseDelayComponent>(uid, out var useDelay)
-            && !_useDelay.TryResetDelay((uid, useDelay), true))
+        if (TryComp<UseDelayComponent>(uid, out var useDelay) && !_useDelay.TryResetDelay((uid, useDelay), true))
             return;
 
         // cycle through possible gates
-        var gate = (int) comp.Gate;
+        var gate = (int)comp.Gate;
         gate = ++gate % GateCount;
-        comp.Gate = (LogicGate) gate;
+        comp.Gate = (LogicGate)gate;
 
         // since gate changed the output probably has too, update it
         UpdateOutput(uid, comp);

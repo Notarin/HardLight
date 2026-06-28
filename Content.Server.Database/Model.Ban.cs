@@ -17,36 +17,37 @@ internal static class ModelBan
 {
     public static void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Ban>()
+        modelBuilder
+            .Entity<Ban>()
             .HasOne(b => b.CreatedBy)
             .WithMany(pl => pl.AdminServerBansCreated)
             .HasForeignKey(b => b.BanningAdmin)
             .HasPrincipalKey(pl => pl.UserId)
             .OnDelete(DeleteBehavior.SetNull);
 
-        modelBuilder.Entity<Ban>()
+        modelBuilder
+            .Entity<Ban>()
             .HasOne(b => b.LastEditedBy)
             .WithMany(pl => pl.AdminServerBansLastEdited)
             .HasForeignKey(b => b.LastEditedById)
             .HasPrincipalKey(pl => pl.UserId)
             .OnDelete(DeleteBehavior.SetNull);
 
-        modelBuilder.Entity<BanPlayer>()
-            .HasIndex(bp => new { bp.UserId, bp.BanId })
+        modelBuilder.Entity<BanPlayer>().HasIndex(bp => new { bp.UserId, bp.BanId }).IsUnique();
+
+        modelBuilder.Entity<BanHwid>().OwnsOne(bp => bp.HWId).Property(hwid => hwid.Hwid).HasColumnName("hwid");
+
+        modelBuilder
+            .Entity<BanRole>()
+            .HasIndex(bp => new
+            {
+                bp.RoleType,
+                bp.RoleId,
+                bp.BanId,
+            })
             .IsUnique();
 
-        modelBuilder.Entity<BanHwid>()
-            .OwnsOne(bp => bp.HWId)
-            .Property(hwid => hwid.Hwid)
-            .HasColumnName("hwid");
-
-        modelBuilder.Entity<BanRole>()
-            .HasIndex(bp => new { bp.RoleType, bp.RoleId, bp.BanId })
-            .IsUnique();
-
-        modelBuilder.Entity<BanRound>()
-            .HasIndex(bp => new { bp.RoundId, bp.BanId })
-            .IsUnique();
+        modelBuilder.Entity<BanRound>().HasIndex(bp => new { bp.RoundId, bp.BanId }).IsUnique();
 
         // Following indices have to be made manually by migration, due to limitations in EF Core:
         // https://github.com/dotnet/efcore/issues/11336
@@ -65,8 +66,11 @@ internal static class ModelBan
         //     .HasMethod("gist")
         //     .HasOperators("inet_ops");
 
-        modelBuilder.Entity<Ban>()
-            .ToTable(t => t.HasCheckConstraint("NoExemptOnRoleBan", $"type = {(int)BanType.Server} OR exempt_flags = 0"));
+        modelBuilder
+            .Entity<Ban>()
+            .ToTable(t =>
+                t.HasCheckConstraint("NoExemptOnRoleBan", $"type = {(int)BanType.Server} OR exempt_flags = 0")
+            );
     }
 }
 

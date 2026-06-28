@@ -93,7 +93,6 @@ namespace Content.Client.UserInterface.Controls
             return finalSize;
         }
 
-
         protected override void Draw(DrawingHandleScreen handle)
         {
             UIBox2 centerBox = PixelSizeBox;
@@ -109,8 +108,10 @@ namespace Content.Client.UserInterface.Controls
             if (HasBottomEdge)
             {
                 centerBox += (0, 0, 0, -((padSize + EdgeSize) * UIScale));
-                handle.DrawRect(new UIBox2(0, centerBox.Bottom, PixelWidth, PixelHeight - padSize * UIScale),
-                    EdgeColor);
+                handle.DrawRect(
+                    new UIBox2(0, centerBox.Bottom, PixelWidth, PixelHeight - padSize * UIScale),
+                    EdgeColor
+                );
             }
 
             GetActualStyleBox()?.Draw(handle, centerBox, UIScale);

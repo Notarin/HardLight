@@ -35,14 +35,7 @@ public sealed partial class FultonComponent : Component
     public TimeSpan FultonDuration = TimeSpan.FromSeconds(45);
 
     [ViewVariables(VVAccess.ReadWrite), DataField("whitelist"), AutoNetworkedField]
-    public EntityWhitelist? Whitelist = new()
-    {
-        Components = new[]
-        {
-            "Item",
-            "Anchorable"
-        }
-    };
+    public EntityWhitelist? Whitelist = new() { Components = new[] { "Item", "Anchorable" } };
 
     /// <summary>
     /// Sound that gets played when fulton is applied.

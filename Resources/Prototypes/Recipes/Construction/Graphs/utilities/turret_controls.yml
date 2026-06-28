@@ -67,7 +67,7 @@
         doAfter: 2
 
   - node: finish
-    entity: !type:BoardNodeEntity { container: board }
+    entity: !type:BoardNodeEntity {container: board}
     actions:
     - !type:AddContainer
       container: board

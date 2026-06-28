@@ -1,36 +1,53 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using Content.Shared._NF.Trade;
 using Content.Shared.Access.Components;
 using Content.Shared.DeviceLinking.Events;
 using Content.Shared.Emag.Systems;
+using Content.Shared.GameTicking;
 using Content.Shared.Hands.EntitySystems;
+using Content.Shared.IdentityManagement;
 using Content.Shared.Inventory;
 using Content.Shared.NameIdentifier;
 using Content.Shared.PDA;
 using Content.Shared.StationRecords;
-using Robust.Shared.Containers;
-using Robust.Shared.GameStates;
-using Content.Shared.GameTicking;
-using Content.Shared.IdentityManagement;
 using Content.Shared.Tag;
 using Robust.Shared.Collections;
+using Robust.Shared.Containers;
+using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
-using Content.Shared._NF.Trade;
 
 namespace Content.Shared.Access.Systems;
 
 public sealed class AccessReaderSystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly InventorySystem _inventorySystem = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly EmagSystem _emag = default!;
-    [Dependency] private readonly TagSystem _tag = default!;
-    [Dependency] private readonly SharedGameTicker _gameTicker = default!;
-    [Dependency] private readonly SharedHandsSystem _handsSystem = default!;
-    [Dependency] private readonly SharedContainerSystem _containerSystem = default!;
-    [Dependency] private readonly SharedStationRecordsSystem _recordsSystem = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototype = default!;
+
+    [Dependency]
+    private readonly InventorySystem _inventorySystem = default!;
+
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
+
+    [Dependency]
+    private readonly EmagSystem _emag = default!;
+
+    [Dependency]
+    private readonly TagSystem _tag = default!;
+
+    [Dependency]
+    private readonly SharedGameTicker _gameTicker = default!;
+
+    [Dependency]
+    private readonly SharedHandsSystem _handsSystem = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _containerSystem = default!;
+
+    [Dependency]
+    private readonly SharedStationRecordsSystem _recordsSystem = default!;
 
     private static readonly ProtoId<TagPrototype> PreventAccessLoggingTag = "PreventAccessLogging";
 
@@ -47,8 +64,14 @@ public sealed class AccessReaderSystem : EntitySystem
 
     private void OnGetState(EntityUid uid, AccessReaderComponent component, ref ComponentGetState args)
     {
-        args.State = new AccessReaderComponentState(component.Enabled, component.DenyTags, component.AccessLists,
-            _recordsSystem.Convert(component.AccessKeys), component.AccessLog, component.AccessLogLimit);
+        args.State = new AccessReaderComponentState(
+            component.Enabled,
+            component.DenyTags,
+            component.AccessLists,
+            _recordsSystem.Convert(component.AccessKeys),
+            component.AccessLog,
+            component.AccessLogLimit
+        );
     }
 
     private void OnHandleState(EntityUid uid, AccessReaderComponent component, ref ComponentHandleState args)
@@ -163,7 +186,8 @@ public sealed class AccessReaderSystem : EntitySystem
         ICollection<ProtoId<AccessLevelPrototype>> access,
         ICollection<StationRecordKey> stationKeys,
         EntityUid target,
-        AccessReaderComponent reader)
+        AccessReaderComponent reader
+    )
     {
         if (!reader.Enabled)
             return true;
@@ -191,11 +215,15 @@ public sealed class AccessReaderSystem : EntitySystem
         return false;
     }
 
-    private bool IsAllowedInternal(ICollection<ProtoId<AccessLevelPrototype>> access, ICollection<StationRecordKey> stationKeys, AccessReaderComponent reader)
+    private bool IsAllowedInternal(
+        ICollection<ProtoId<AccessLevelPrototype>> access,
+        ICollection<StationRecordKey> stationKeys,
+        AccessReaderComponent reader
+    )
     {
         return !reader.Enabled
-               || AreAccessTagsAllowed(access, reader)
-               || AreStationRecordKeysAllowed(stationKeys, reader);
+            || AreAccessTagsAllowed(access, reader)
+            || AreStationRecordKeysAllowed(stationKeys, reader);
     }
 
     /// <summary>
@@ -203,7 +231,10 @@ public sealed class AccessReaderSystem : EntitySystem
     /// </summary>
     /// <param name="accessTags">A list of access tags</param>
     /// <param name="reader">An access reader to check against</param>
-    public bool AreAccessTagsAllowed(ICollection<ProtoId<AccessLevelPrototype>> accessTags, AccessReaderComponent reader)
+    public bool AreAccessTagsAllowed(
+        ICollection<ProtoId<AccessLevelPrototype>> accessTags,
+        AccessReaderComponent reader
+    )
     {
         if (reader.DenyTags.Overlaps(accessTags))
         {
@@ -248,10 +279,7 @@ public sealed class AccessReaderSystem : EntitySystem
     {
         FindAccessItemsInventory(uid, out var items);
 
-        var ev = new GetAdditionalAccessEvent
-        {
-            Entities = items
-        };
+        var ev = new GetAdditionalAccessEvent { Entities = items };
         RaiseLocalEvent(uid, ref ev);
 
         foreach (var item in new ValueList<EntityUid>(items))
@@ -279,7 +307,7 @@ public sealed class AccessReaderSystem : EntitySystem
             FindAccessTagsItem(ent, ref tags, ref owned);
         }
 
-        return (ICollection<ProtoId<AccessLevelPrototype>>?) tags ?? Array.Empty<ProtoId<AccessLevelPrototype>>();
+        return (ICollection<ProtoId<AccessLevelPrototype>>?)tags ?? Array.Empty<ProtoId<AccessLevelPrototype>>();
     }
 
     /// <summary>
@@ -288,7 +316,11 @@ public sealed class AccessReaderSystem : EntitySystem
     /// <param name="uid">The entity that is being searched.</param>
     /// <param name="recordKeys"></param>
     /// <param name="items">All of the items to search for access. If none are passed in, <see cref="FindPotentialAccessItems"/> will be used.</param>
-    public bool FindStationRecordKeys(EntityUid uid, out ICollection<StationRecordKey> recordKeys, HashSet<EntityUid>? items = null)
+    public bool FindStationRecordKeys(
+        EntityUid uid,
+        out ICollection<StationRecordKey> recordKeys,
+        HashSet<EntityUid>? items = null
+    )
     {
         recordKeys = new HashSet<StationRecordKey>();
 
@@ -335,12 +367,16 @@ public sealed class AccessReaderSystem : EntitySystem
         }
     }
 
-    public void SetAccesses(EntityUid uid, AccessReaderComponent component, List<ProtoId<AccessLevelPrototype>> accesses)
+    public void SetAccesses(
+        EntityUid uid,
+        AccessReaderComponent component,
+        List<ProtoId<AccessLevelPrototype>> accesses
+    )
     {
         component.AccessLists.Clear();
         foreach (var access in accesses)
         {
-            component.AccessLists.Add(new HashSet<ProtoId<AccessLevelPrototype>>(){access});
+            component.AccessLists.Add(new HashSet<ProtoId<AccessLevelPrototype>>() { access });
         }
         Dirty(uid, component);
         RaiseLocalEvent(uid, new AccessReaderConfigurationChangedEvent());
@@ -389,8 +425,7 @@ public sealed class AccessReaderSystem : EntitySystem
             return true;
         }
 
-        if (TryComp<PdaComponent>(uid, out var pda) &&
-            pda.ContainedId is { Valid: true } id)
+        if (TryComp<PdaComponent>(uid, out var pda) && pda.ContainedId is { Valid: true } id)
         {
             if (TryComp<StationRecordKeyStorageComponent>(id, out var pdastorage) && pdastorage.Key != null)
             {

@@ -7,7 +7,7 @@
   components:
   - type: Sprite
     layers:
-      - state: box_security
+    - state: box_security
 
 - type: entity
   name: box of explosive grenades
@@ -17,8 +17,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: ExGrenadeNfsd
-        amount: 4
+    - id: ExGrenadeNfsd
+      amount: 4
 
 - type: entity
   name: box of incendiary grenades
@@ -28,8 +28,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: GrenadeIncendiaryNfsd
-        amount: 4
+    - id: GrenadeIncendiaryNfsd
+      amount: 4
 
 - type: entity
   name: box of shrapnel grenades
@@ -39,8 +39,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: GrenadeShrapnelNfsd
-        amount: 4
+    - id: GrenadeShrapnelNfsd
+      amount: 4
 
 - type: entity
   name: box of smoke grenades
@@ -50,8 +50,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: SmokeGrenade
-        amount: 4
+    - id: SmokeGrenade
+      amount: 4
 
 - type: entity
   name: box of tear gas grenades
@@ -61,8 +61,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: TearGasGrenade
-        amount: 4
+    - id: TearGasGrenade
+      amount: 4
 
 - type: entity
   name: box of EMP grenades
@@ -72,8 +72,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: EmpGrenadeNfsd
-        amount: 4
+    - id: EmpGrenadeNfsd
+      amount: 4
 
 - type: entity
   name: box of flashbang grenades
@@ -83,8 +83,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: GrenadeFlashBang
-        amount: 4
+    - id: GrenadeFlashBang
+      amount: 4
 
 - type: entity
   name: box of stinger grenades
@@ -94,8 +94,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: GrenadeStinger
-        amount: 4
+    - id: GrenadeStinger
+      amount: 4
 
 ## plastic explosives
 - type: entity
@@ -106,8 +106,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: BreachingCharge
-        amount: 4
+    - id: BreachingCharge
+      amount: 4
 
 - type: entity
   name: EMP projectiles box
@@ -117,5 +117,5 @@
   components:
   - type: StorageFill
     contents:
-      - id: NFGrenadeEMP
-        amount: 4
+    - id: NFGrenadeEMP
+      amount: 4

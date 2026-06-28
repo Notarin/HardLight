@@ -29,7 +29,8 @@ public sealed partial class GuideMedicalSource : BoxContainer, ISearchableContro
         _sprites = IoCManager.Resolve<IEntitySystemManager>().GetEntitySystem<SpriteSystem>();
     }
 
-    public GuideMedicalSource(EntityPrototype result, MedicalRecipeData entry, IPrototypeManager protoMan) : this(protoMan)
+    public GuideMedicalSource(EntityPrototype result, MedicalRecipeData entry, IPrototypeManager protoMan)
+        : this(protoMan)
     {
         GenerateControl(entry);
 
@@ -44,11 +45,15 @@ public sealed partial class GuideMedicalSource : BoxContainer, ISearchableContro
             return;
         }
 
-        var combinedSolids = recipe.IngredientsSolids
-            .Select(it => _protoMan.TryIndex<EntityPrototype>(it.Key, out var proto) ? FormatIngredient(proto, it.Value) : "")
+        var combinedSolids = recipe
+            .IngredientsSolids.Select(it =>
+                _protoMan.TryIndex<EntityPrototype>(it.Key, out var proto) ? FormatIngredient(proto, it.Value) : ""
+            )
             .Where(it => it.Length > 0);
-        var combinedLiquids = recipe.IngredientsReagents
-            .Select(it => _protoMan.TryIndex<ReagentPrototype>(it.Key, out var proto) ? FormatIngredient(proto, it.Value) : "")
+        var combinedLiquids = recipe
+            .IngredientsReagents.Select(it =>
+                _protoMan.TryIndex<ReagentPrototype>(it.Key, out var proto) ? FormatIngredient(proto, it.Value) : ""
+            )
             .Where(it => it.Length > 0);
 
         var combinedIngredients = string.Join("\n", combinedLiquids.Union(combinedSolids));
@@ -57,10 +62,17 @@ public sealed partial class GuideMedicalSource : BoxContainer, ISearchableContro
         var recipeType = (MicrowaveRecipeType)recipe.RecipeType;
         TextureRect processingTexture;
         processingTexture = new TextureRect();
-        processingTexture.Texture = GetRsiTexture("/Textures/_NF/Structures/Machines/medical_assembler.rsi", "mediwave-base");
+        processingTexture.Texture = GetRsiTexture(
+            "/Textures/_NF/Structures/Machines/medical_assembler.rsi",
+            "mediwave-base"
+        );
         ProcessingTextures.AddChild(processingTexture);
 
-        ProcessingLabel.Text = Loc.GetString("guidebook-food-processing-cooking", ("processingTypes", Loc.GetString("guidebook-food-processing-type-medical-assembler")), ("time", recipe.CookTime));
+        ProcessingLabel.Text = Loc.GetString(
+            "guidebook-food-processing-cooking",
+            ("processingTypes", Loc.GetString("guidebook-food-processing-type-medical-assembler")),
+            ("time", recipe.CookTime)
+        );
     }
 
     private Texture GetRsiTexture(string path, string state)
@@ -70,7 +82,11 @@ public sealed partial class GuideMedicalSource : BoxContainer, ISearchableContro
 
     private void GenerateOutputs(EntityPrototype result, MedicalRecipeData entry)
     {
-        OutputsLabel.Text = Loc.GetString("guidebook-food-output", ("name", result.Name), ("number", entry.OutputCount));
+        OutputsLabel.Text = Loc.GetString(
+            "guidebook-food-output",
+            ("name", result.Name),
+            ("number", entry.OutputCount)
+        );
         OutputsTexture.Texture = _sprites.Frame0(result);
     }
 

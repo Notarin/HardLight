@@ -1,7 +1,7 @@
 - type: entity
   name: repair ghost
   id: RepairGhost
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Transform
     gridTraversal: false

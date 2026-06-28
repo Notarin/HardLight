@@ -1,6 +1,6 @@
-using Robust.Client.UserInterface;
 using Content.Client.UserInterface.Fragments;
 using Content.Shared._NF.Bank.BUI;
+using Robust.Client.UserInterface;
 
 namespace Content.Client._NF.CartridgeLoader.Cartridges;
 

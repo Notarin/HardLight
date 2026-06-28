@@ -6,6 +6,5 @@
   beginMonth: July
   endDay: 3
   endMonth: July
-  greet:
-    !type:Custom
+  greet: !type:Custom
     text: holiday-custom-frontier-birthday

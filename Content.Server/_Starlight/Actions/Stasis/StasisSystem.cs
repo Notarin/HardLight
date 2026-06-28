@@ -1,22 +1,27 @@
 using System.Linq;
 using Content.Server.Body.Components;
 using Content.Server.Body.Systems;
+using Content.Shared._Starlight.Actions.Stasis;
 using Content.Shared.Actions;
 using Content.Shared.Damage;
-using Robust.Shared.Timing;
 using Content.Shared.FixedPoint;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
-using Content.Shared._Starlight.Actions.Stasis;
 using Robust.Shared.Player;
+using Robust.Shared.Timing;
 
 namespace Content.Server._Starlight.Actions.Stasis;
 
 public sealed class StasisSystem : SharedStasisSystem
 {
-    [Dependency] private readonly DamageableSystem _damageableSystem = default!;
-    [Dependency] private readonly BloodstreamSystem _bloodstreamSystem = default!;
-    [Dependency] private readonly SharedActionsSystem _actionsSystem = default!;
+    [Dependency]
+    private readonly DamageableSystem _damageableSystem = default!;
+
+    [Dependency]
+    private readonly BloodstreamSystem _bloodstreamSystem = default!;
+
+    [Dependency]
+    private readonly SharedActionsSystem _actionsSystem = default!;
 
     public override void Initialize()
     {
@@ -52,8 +57,7 @@ public sealed class StasisSystem : SharedStasisSystem
         _actionsSystem.RemoveAction(uid, comp.ExitStasisActionEntity);
     }
 
-    protected override void OnPrepareStasisStart(EntityUid uid, StasisComponent comp,
-        PrepareStasisActionEvent args)
+    protected override void OnPrepareStasisStart(EntityUid uid, StasisComponent comp, PrepareStasisActionEvent args)
     {
         Dirty(uid, comp);
 
@@ -61,27 +65,34 @@ public sealed class StasisSystem : SharedStasisSystem
 
         _actionsSystem.RemoveAction(uid, comp.EnterStasisActionEntity);
         _actionsSystem.AddAction(uid, ref comp.ExitStasisActionEntity, comp.ExitStasisAction);
-        _actionsSystem.SetCooldown(comp.ExitStasisActionEntity,
-            TimeSpan.FromSeconds(comp.StasisEnterEffectLifetime + 1));
+        _actionsSystem.SetCooldown(
+            comp.ExitStasisActionEntity,
+            TimeSpan.FromSeconds(comp.StasisEnterEffectLifetime + 1)
+        );
 
         // Send animation event to all clients
-        var ev = new StasisAnimationEvent(GetNetEntity(uid), GetNetCoordinates(Transform(uid).Coordinates),
-            StasisAnimationType.Prepare);
+        var ev = new StasisAnimationEvent(
+            GetNetEntity(uid),
+            GetNetCoordinates(Transform(uid).Coordinates),
+            StasisAnimationType.Prepare
+        );
         RaiseNetworkEvent(ev, Filter.Pvs(uid, entityManager: EntityManager));
 
         // Schedule the enter stasis event after delay
-        Timer.Spawn(TimeSpan.FromSeconds(comp.StasisEnterEffectLifetime), () =>
-        {
-            if (!TryComp<StasisComponent>(uid, out var stasisComp))
-                return;
+        Timer.Spawn(
+            TimeSpan.FromSeconds(comp.StasisEnterEffectLifetime),
+            () =>
+            {
+                if (!TryComp<StasisComponent>(uid, out var stasisComp))
+                    return;
 
-            var enterEv = new EnterStasisActionEvent();
-            RaiseLocalEvent(uid, enterEv);
-        });
+                var enterEv = new EnterStasisActionEvent();
+                RaiseLocalEvent(uid, enterEv);
+            }
+        );
     }
 
-    protected override void OnEnterStasisStart(EntityUid uid, StasisComponent comp,
-        EnterStasisActionEvent args)
+    protected override void OnEnterStasisStart(EntityUid uid, StasisComponent comp, EnterStasisActionEvent args)
     {
         comp.IsInStasis = true;
         comp.IsVisible = false; // Entity becomes invisible when entering stasis to better show the effect
@@ -95,8 +106,11 @@ public sealed class StasisSystem : SharedStasisSystem
         }
 
         // Send animation event to all clients
-        var ev = new StasisAnimationEvent(GetNetEntity(uid), GetNetCoordinates(Transform(uid).Coordinates),
-            StasisAnimationType.Enter);
+        var ev = new StasisAnimationEvent(
+            GetNetEntity(uid),
+            GetNetCoordinates(Transform(uid).Coordinates),
+            StasisAnimationType.Enter
+        );
         RaiseNetworkEvent(ev, Filter.Pvs(uid, entityManager: EntityManager));
     }
 
@@ -114,8 +128,11 @@ public sealed class StasisSystem : SharedStasisSystem
         RemComp<StasisFrozenComponent>(uid);
 
         // Send animation event to all clients
-        var ev = new StasisAnimationEvent(GetNetEntity(uid), GetNetCoordinates(Transform(uid).Coordinates),
-            StasisAnimationType.Exit);
+        var ev = new StasisAnimationEvent(
+            GetNetEntity(uid),
+            GetNetCoordinates(Transform(uid).Coordinates),
+            StasisAnimationType.Exit
+        );
         RaiseNetworkEvent(ev, Filter.Pvs(uid, entityManager: EntityManager));
     }
 
@@ -146,8 +163,12 @@ public sealed class StasisSystem : SharedStasisSystem
         }
     }
 
-    private void ApplyResistance(EntityUid uid, DamageChangedEvent args, StasisComponent comp,
-        StasisHealingValues healingValues)
+    private void ApplyResistance(
+        EntityUid uid,
+        DamageChangedEvent args,
+        StasisComponent comp,
+        StasisHealingValues healingValues
+    )
     {
         // Skip if this is healing or if the damage change is from our own healing
         if (!args.DamageIncreased || args.DamageDelta == null || args.Origin == uid)
@@ -172,8 +193,12 @@ public sealed class StasisSystem : SharedStasisSystem
         _damageableSystem.TryChangeDamage(uid, damageToApply, true, origin: uid);
     }
 
-    private void OnStasisUpdate(EntityUid uid, StasisComponent comp, FrameEventArgs args,
-        StasisHealingValues healingValues)
+    private void OnStasisUpdate(
+        EntityUid uid,
+        StasisComponent comp,
+        FrameEventArgs args,
+        StasisHealingValues healingValues
+    )
     {
         if (!comp.IsInStasis)
             return;
@@ -182,8 +207,7 @@ public sealed class StasisSystem : SharedStasisSystem
         var healAmount = new DamageSpecifier();
         healAmount.DamageDict.Add("Blunt", FixedPoint2.New(healingValues.BluntHeal * args.DeltaSeconds * -1));
         healAmount.DamageDict.Add("Slash", FixedPoint2.New(healingValues.SlashHeal * args.DeltaSeconds * -1));
-        healAmount.DamageDict.Add("Piercing",
-            FixedPoint2.New(healingValues.PiercingHeal * args.DeltaSeconds * -1));
+        healAmount.DamageDict.Add("Piercing", FixedPoint2.New(healingValues.PiercingHeal * args.DeltaSeconds * -1));
         healAmount.DamageDict.Add("Heat", FixedPoint2.New(healingValues.HeatHeal * args.DeltaSeconds * -1));
         healAmount.DamageDict.Add("Cold", FixedPoint2.New(healingValues.ColdHeal * args.DeltaSeconds * -1));
 
@@ -195,8 +219,11 @@ public sealed class StasisSystem : SharedStasisSystem
         // Heal bleeding
         if (TryComp<BloodstreamComponent>(uid, out var bloodstream) && bloodstream.BleedAmount > 0)
         {
-            _bloodstreamSystem.TryModifyBleedAmount(uid, -healingValues.BleedHeal * (float)args.DeltaSeconds,
-                bloodstream);
+            _bloodstreamSystem.TryModifyBleedAmount(
+                uid,
+                -healingValues.BleedHeal * (float)args.DeltaSeconds,
+                bloodstream
+            );
         }
     }
 
@@ -207,13 +234,24 @@ public sealed class StasisSystem : SharedStasisSystem
     {
         return state switch
         {
-            MobState.Alive => new StasisHealingValues(comp.StasisBluntHealPerSecond, comp.StasisSlashingHealPerSecond,
-                comp.StasisPiercingHealPerSecond, comp.StasisHeatHealPerSecond, comp.StasisColdHealPerSecond,
-                comp.StasisBleedHealPerSecond, comp.StasisAdditionalDamageResistance),
-            MobState.Critical => new StasisHealingValues(comp.StasisInCritBluntHealPerSecond,
-                comp.StasisInCritSlashingHealPerSecond, comp.StasisInCritPiercingHealPerSecond,
-                comp.StasisInCritHeatHealPerSecond, comp.StasisInCritColdHealPerSecond,
-                comp.StasisInCritBleedHealPerSecond, comp.StasisInCritAdditionalDamageResistance),
+            MobState.Alive => new StasisHealingValues(
+                comp.StasisBluntHealPerSecond,
+                comp.StasisSlashingHealPerSecond,
+                comp.StasisPiercingHealPerSecond,
+                comp.StasisHeatHealPerSecond,
+                comp.StasisColdHealPerSecond,
+                comp.StasisBleedHealPerSecond,
+                comp.StasisAdditionalDamageResistance
+            ),
+            MobState.Critical => new StasisHealingValues(
+                comp.StasisInCritBluntHealPerSecond,
+                comp.StasisInCritSlashingHealPerSecond,
+                comp.StasisInCritPiercingHealPerSecond,
+                comp.StasisInCritHeatHealPerSecond,
+                comp.StasisInCritColdHealPerSecond,
+                comp.StasisInCritBleedHealPerSecond,
+                comp.StasisInCritAdditionalDamageResistance
+            ),
             MobState.Invalid => new StasisHealingValues(0, 0, 0, 0, 0, 0, 0),
             MobState.Dead => new StasisHealingValues(0, 0, 0, 0, 0, 0, 0),
             _ => new StasisHealingValues(0, 0, 0, 0, 0, 0, 0),
@@ -231,7 +269,8 @@ sealed class StasisHealingValues(
     float heatHeal,
     float coldHeal,
     float bleedHeal,
-    float additionalDamageResistance)
+    float additionalDamageResistance
+)
 {
     public float BluntHeal { get; private set; } = bluntHeal;
     public float SlashHeal { get; private set; } = slashHeal;

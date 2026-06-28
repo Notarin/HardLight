@@ -27,9 +27,16 @@ public sealed class TakeAmmoEvent : EntityEventArgs
     /// Does this event represent an intent to fire, or to safely remove ammo from an entity?
     /// </summary>
     public bool WillBeFired;
+
     // End Frontierull;
 
-    public TakeAmmoEvent(int shots, List<(EntityUid? Entity, IShootable Shootable)> ammo, EntityCoordinates coordinates, EntityUid? user, bool willBeFired = false) // Frontier: add willBeFired
+    public TakeAmmoEvent(
+        int shots,
+        List<(EntityUid? Entity, IShootable Shootable)> ammo,
+        EntityCoordinates coordinates,
+        EntityUid? user,
+        bool willBeFired = false
+    ) // Frontier: add willBeFired
     {
         Shots = shots;
         Ammo = ammo;

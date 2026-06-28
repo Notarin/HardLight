@@ -1,4 +1,4 @@
-﻿- type: entity
+- type: entity
   abstract: true
   parent: BaseItem
   id: RingBaseHL
@@ -6,7 +6,7 @@
   - type: Sprite
     state: icon
   - type: Clothing
-    slots: [ gloves, neck , accessory, accessoryalt]
+    slots: [gloves, neck, accessory, accessoryalt]
   - type: Appearance
   - type: Item
     size: Tiny
@@ -15,7 +15,6 @@
     - Ring
   - type: Construction
     node: ring
-
 
 - type: entity
   parent: BaseItem
@@ -31,7 +30,6 @@
   - type: Construction
     graph: ScrapRingLVImprovisedCraftingGraph
     node: unfinished
-
 
 - type: entity
   parent: BaseItem

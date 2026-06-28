@@ -14,10 +14,17 @@ namespace Content.Server.GameTicking.Commands
     [AnyCommand]
     sealed class JoinGameCommand : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _entManager = default!;
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        [Dependency] private readonly IAdminManager _adminManager = default!;
-        [Dependency] private readonly IConfigurationManager _cfg = default!;
+        [Dependency]
+        private readonly IEntityManager _entManager = default!;
+
+        [Dependency]
+        private readonly IPrototypeManager _prototypeManager = default!;
+
+        [Dependency]
+        private readonly IAdminManager _adminManager = default!;
+
+        [Dependency]
+        private readonly IConfigurationManager _cfg = default!;
 
         public string Command => "joingame";
         public string Description => "";
@@ -27,6 +34,7 @@ namespace Content.Server.GameTicking.Commands
         {
             IoCManager.InjectDependencies(this);
         }
+
         public void Execute(IConsoleShell shell, string argStr, string[] args)
         {
             if (args.Length != 2)
@@ -45,7 +53,10 @@ namespace Content.Server.GameTicking.Commands
             var ticker = _entManager.System<GameTicker>();
             var stationJobs = _entManager.System<StationJobsSystem>();
 
-            if (ticker.PlayerGameStatuses.TryGetValue(player.UserId, out var status) && status == PlayerGameStatus.JoinedGame)
+            if (
+                ticker.PlayerGameStatuses.TryGetValue(player.UserId, out var status)
+                && status == PlayerGameStatus.JoinedGame
+            )
             {
                 Logger.InfoS("security", $"{player.Name} ({player.UserId}) attempted to latejoin while in-game.");
                 shell.WriteError($"{player.Name} is not in the lobby.   This incident will be reported.");
@@ -70,13 +81,19 @@ namespace Content.Server.GameTicking.Commands
                 var station = _entManager.GetEntity(new NetEntity(sid));
                 var jobPrototype = _prototypeManager.Index<JobPrototype>(id);
 
-                if (station == EntityUid.Invalid || !_entManager.TryGetComponent<StationJobsComponent>(station, out var stationJobsComp))
+                if (
+                    station == EntityUid.Invalid
+                    || !_entManager.TryGetComponent<StationJobsComponent>(station, out var stationJobsComp)
+                )
                 {
                     shell.WriteError("Invalid station selection.");
                     return;
                 }
 
-                if (stationJobs.TryGetJobSlot(station, jobPrototype, out var slots, stationJobsComp) == false || slots == 0)
+                if (
+                    stationJobs.TryGetJobSlot(station, jobPrototype, out var slots, stationJobsComp) == false
+                    || slots == 0
+                )
                 {
                     shell.WriteLine($"{jobPrototype.LocalizedName} has no available slots.");
                     return;

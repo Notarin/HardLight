@@ -1,16 +1,16 @@
+using System.Linq;
+using System.Text;
 using Content.Server.Administration.Notes;
 using Content.Server.Database;
 using Content.Server.Discord;
 using Content.Shared.CCVar;
 using Robust.Server;
 using Robust.Server.Player;
-using Robust.Shared.Enums;
 using Robust.Shared.Configuration;
+using Robust.Shared.Enums;
 using Robust.Shared.Network;
 using Robust.Shared.Player;
 using Robust.Shared.Timing;
-using System.Linq;
-using System.Text;
 
 namespace Content.Server.Administration.Managers;
 
@@ -20,12 +20,23 @@ namespace Content.Server.Administration.Managers;
 /// </summary>
 public sealed class WatchlistWebhookManager : IWatchlistWebhookManager
 {
-    [Dependency] private readonly IAdminNotesManager _adminNotes = default!;
-    [Dependency] private readonly IBaseServer _baseServer = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly DiscordWebhook _discord = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
+    [Dependency]
+    private readonly IAdminNotesManager _adminNotes = default!;
+
+    [Dependency]
+    private readonly IBaseServer _baseServer = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
+
+    [Dependency]
+    private readonly DiscordWebhook _discord = default!;
+
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
 
     private ISawmill _sawmill = default!;
 
@@ -108,9 +119,13 @@ public sealed class WatchlistWebhookManager : IWatchlistWebhookManager
 
             var webhookIdentifier = webhookData.Value.ToIdentifier();
 
-            var messageBuilder = new StringBuilder(Loc.GetString("discord-watchlist-connection-header",
+            var messageBuilder = new StringBuilder(
+                Loc.GetString(
+                    "discord-watchlist-connection-header",
                     ("players", watchlistConnections.Count),
-                    ("serverName", _baseServer.ServerName)));
+                    ("serverName", _baseServer.ServerName)
+                )
+            );
 
             foreach (var connection in watchlistConnections)
             {
@@ -118,11 +133,15 @@ public sealed class WatchlistWebhookManager : IWatchlistWebhookManager
 
                 var watchlist = connection.Watchlists.First();
                 var expiry = watchlist.ExpirationTime?.ToUnixTimeSeconds();
-                messageBuilder.Append(Loc.GetString("discord-watchlist-connection-entry",
-                    ("playerName", connection.PlayerName),
-                    ("message", watchlist.Message),
-                    ("expiry", expiry ?? 0),
-                    ("otherWatchlists", connection.Watchlists.Count - 1)));
+                messageBuilder.Append(
+                    Loc.GetString(
+                        "discord-watchlist-connection-entry",
+                        ("playerName", connection.PlayerName),
+                        ("message", watchlist.Message),
+                        ("expiry", expiry ?? 0),
+                        ("otherWatchlists", connection.Watchlists.Count - 1)
+                    )
+                );
             }
 
             var payload = new WebhookPayload { Content = messageBuilder.ToString() };

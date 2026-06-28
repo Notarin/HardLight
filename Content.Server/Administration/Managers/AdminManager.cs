@@ -19,30 +19,46 @@ using Robust.Shared.Toolshed;
 using Robust.Shared.Toolshed.Errors;
 using Robust.Shared.Utility;
 
-
 namespace Content.Server.Administration.Managers
 {
     public sealed partial class AdminManager : IAdminManager, IPostInjectInit, IConGroupControllerImplementation
     {
-        [Dependency] private readonly IPlayerManager _playerManager = default!;
-        [Dependency] private readonly IServerDbManager _dbManager = default!;
-        [Dependency] private readonly IConfigurationManager _cfg = default!;
-        [Dependency] private readonly IServerNetManager _netMgr = default!;
-        [Dependency] private readonly IConGroupController _conGroup = default!;
-        [Dependency] private readonly IResourceManager _res = default!;
-        [Dependency] private readonly IServerConsoleHost _consoleHost = default!;
-        [Dependency] private readonly IChatManager _chat = default!;
-        [Dependency] private readonly ToolshedManager _toolshed = default!;
-        [Dependency] private readonly ILogManager _logManager = default!;
+        [Dependency]
+        private readonly IPlayerManager _playerManager = default!;
+
+        [Dependency]
+        private readonly IServerDbManager _dbManager = default!;
+
+        [Dependency]
+        private readonly IConfigurationManager _cfg = default!;
+
+        [Dependency]
+        private readonly IServerNetManager _netMgr = default!;
+
+        [Dependency]
+        private readonly IConGroupController _conGroup = default!;
+
+        [Dependency]
+        private readonly IResourceManager _res = default!;
+
+        [Dependency]
+        private readonly IServerConsoleHost _consoleHost = default!;
+
+        [Dependency]
+        private readonly IChatManager _chat = default!;
+
+        [Dependency]
+        private readonly ToolshedManager _toolshed = default!;
+
+        [Dependency]
+        private readonly ILogManager _logManager = default!;
 
         private readonly Dictionary<ICommonSession, AdminReg> _admins = new();
         private readonly HashSet<NetUserId> _promotedPlayers = new();
 
         public event Action<AdminPermsChangedEventArgs>? OnPermsChanged;
 
-        public IEnumerable<ICommonSession> ActiveAdmins => _admins
-            .Where(p => p.Value.Data.Active)
-            .Select(p => p.Key);
+        public IEnumerable<ICommonSession> ActiveAdmins => _admins.Where(p => p.Value.Data.Active).Select(p => p.Key);
 
         public IEnumerable<ICommonSession> AllAdmins => _admins.Select(p => p.Key);
 
@@ -86,7 +102,9 @@ namespace Content.Server.Administration.Managers
                 return;
             }
 
-            _chat.SendAdminAnnouncement(Loc.GetString("admin-manager-self-de-admin-message", ("exAdminName", session.Name)));
+            _chat.SendAdminAnnouncement(
+                Loc.GetString("admin-manager-self-de-admin-message", ("exAdminName", session.Name))
+            );
             _chat.DispatchServerMessage(session, Loc.GetString("admin-manager-became-normal-player-message"));
 
             UpdateDatabaseDeadminnedState(session, true);
@@ -127,8 +145,14 @@ namespace Content.Server.Administration.Managers
             reg.Data.Stealth = true;
 
             _chat.DispatchServerMessage(session, Loc.GetString("admin-manager-stealthed-message"));
-            _chat.SendAdminAnnouncement(Loc.GetString("admin-manager-self-de-admin-message", ("exAdminName", session.Name)), AdminFlags.Stealth);
-            _chat.SendAdminAnnouncement(Loc.GetString("admin-manager-self-enable-stealth", ("stealthAdminName", session.Name)), flagWhitelist: AdminFlags.Stealth);
+            _chat.SendAdminAnnouncement(
+                Loc.GetString("admin-manager-self-de-admin-message", ("exAdminName", session.Name)),
+                AdminFlags.Stealth
+            );
+            _chat.SendAdminAnnouncement(
+                Loc.GetString("admin-manager-self-enable-stealth", ("stealthAdminName", session.Name)),
+                flagWhitelist: AdminFlags.Stealth
+            );
         }
 
         public void UnStealth(ICommonSession session)
@@ -146,8 +170,14 @@ namespace Content.Server.Administration.Managers
             reg.Data.Stealth = false;
 
             _chat.DispatchServerMessage(session, Loc.GetString("admin-manager-unstealthed-message"));
-            _chat.SendAdminAnnouncement(Loc.GetString("admin-manager-self-re-admin-message", ("newAdminName", session.Name)), flagBlacklist: AdminFlags.Stealth);
-            _chat.SendAdminAnnouncement(Loc.GetString("admin-manager-self-disable-stealth", ("exStealthAdminName", session.Name)), flagWhitelist: AdminFlags.Stealth);
+            _chat.SendAdminAnnouncement(
+                Loc.GetString("admin-manager-self-re-admin-message", ("newAdminName", session.Name)),
+                flagBlacklist: AdminFlags.Stealth
+            );
+            _chat.SendAdminAnnouncement(
+                Loc.GetString("admin-manager-self-disable-stealth", ("exStealthAdminName", session.Name)),
+                flagWhitelist: AdminFlags.Stealth
+            );
         }
 
         public void ReAdmin(ICommonSession session)
@@ -169,13 +199,17 @@ namespace Content.Server.Administration.Managers
 
             if (!reg.Data.Stealth)
             {
-                _chat.SendAdminAnnouncement(Loc.GetString("admin-manager-self-re-admin-message", ("newAdminName", session.Name)));
+                _chat.SendAdminAnnouncement(
+                    Loc.GetString("admin-manager-self-re-admin-message", ("newAdminName", session.Name))
+                );
             }
             else
             {
                 _chat.DispatchServerMessage(session, Loc.GetString("admin-manager-stealthed-message"));
-                _chat.SendAdminAnnouncement(Loc.GetString("admin-manager-self-re-admin-message",
-                    ("newAdminName", session.Name)), flagWhitelist: AdminFlags.Stealth);
+                _chat.SendAdminAnnouncement(
+                    Loc.GetString("admin-manager-self-re-admin-message", ("newAdminName", session.Name)),
+                    flagWhitelist: AdminFlags.Stealth
+                );
             }
 
             SendPermsChangedEvent(session);
@@ -206,11 +240,7 @@ namespace Content.Server.Administration.Managers
                 if (curAdmin == null)
                 {
                     // Now an admin.
-                    var reg = new AdminReg(player, aData)
-                    {
-                        IsSpecialLogin = special,
-                        RankId = rankId
-                    };
+                    var reg = new AdminReg(player, aData) { IsSpecialLogin = special, RankId = rankId };
                     _admins.Add(player, reg);
                     _chat.DispatchServerMessage(player, Loc.GetString("admin-manager-became-admin-message"));
                 }
@@ -225,7 +255,10 @@ namespace Content.Server.Administration.Managers
                     {
                         aData.Active = true;
 
-                        _chat.DispatchServerMessage(player, Loc.GetString("admin-manager-admin-permissions-updated-message"));
+                        _chat.DispatchServerMessage(
+                            player,
+                            Loc.GetString("admin-manager-admin-permissions-updated-message")
+                        );
                     }
                 }
 
@@ -332,9 +365,11 @@ namespace Content.Server.Administration.Managers
             {
                 msg.Admin = adminData.Data;
 
-                commands.AddRange(_commandPermissions.AdminCommands
-                    .Where(p => p.Value.Any(f => adminData.Data.HasFlag(f)))
-                    .Select(p => p.Key));
+                commands.AddRange(
+                    _commandPermissions
+                        .AdminCommands.Where(p => p.Value.Any(f => adminData.Data.HasFlag(f)))
+                        .Select(p => p.Key)
+                );
             }
 
             msg.AvailableCommands = commands.ToArray();
@@ -355,18 +390,20 @@ namespace Content.Server.Administration.Managers
             }
             else if (e.NewStatus == SessionStatus.Disconnected)
             {
-                if (_admins.Remove(e.Session, out var reg ) && _cfg.GetCVar(CCVars.AdminAnnounceLogout))
+                if (_admins.Remove(e.Session, out var reg) && _cfg.GetCVar(CCVars.AdminAnnounceLogout))
                 {
                     if (reg.Data.Stealth)
                     {
-                        _chat.SendAdminAnnouncement(Loc.GetString("admin-manager-admin-logout-message",
-                            ("name", e.Session.Name)), flagWhitelist: AdminFlags.Stealth);
-
+                        _chat.SendAdminAnnouncement(
+                            Loc.GetString("admin-manager-admin-logout-message", ("name", e.Session.Name)),
+                            flagWhitelist: AdminFlags.Stealth
+                        );
                     }
                     else
                     {
-                        _chat.SendAdminAnnouncement(Loc.GetString("admin-manager-admin-logout-message",
-                            ("name", e.Session.Name)));
+                        _chat.SendAdminAnnouncement(
+                            Loc.GetString("admin-manager-admin-logout-message", ("name", e.Session.Name))
+                        );
                     }
                 }
             }
@@ -382,11 +419,7 @@ namespace Content.Server.Administration.Managers
             }
 
             var (dat, rankId, specialLogin) = adminDat.Value;
-            var reg = new AdminReg(session, dat)
-            {
-                IsSpecialLogin = specialLogin,
-                RankId = rankId
-            };
+            var reg = new AdminReg(session, dat) { IsSpecialLogin = specialLogin, RankId = rankId };
 
             _admins.Add(session, reg);
 
@@ -399,15 +432,17 @@ namespace Content.Server.Administration.Managers
                 {
                     if (reg.Data.Stealth)
                     {
-
                         _chat.DispatchServerMessage(session, Loc.GetString("admin-manager-stealthed-message"));
-                        _chat.SendAdminAnnouncement(Loc.GetString("admin-manager-admin-login-message",
-                            ("name", session.Name)), flagWhitelist: AdminFlags.Stealth);
+                        _chat.SendAdminAnnouncement(
+                            Loc.GetString("admin-manager-admin-login-message", ("name", session.Name)),
+                            flagWhitelist: AdminFlags.Stealth
+                        );
                     }
                     else
                     {
-                        _chat.SendAdminAnnouncement(Loc.GetString("admin-manager-admin-login-message",
-                            ("name", session.Name)));
+                        _chat.SendAdminAnnouncement(
+                            Loc.GetString("admin-manager-admin-login-message", ("name", session.Name))
+                        );
                     }
                 }
 
@@ -430,9 +465,10 @@ namespace Content.Server.Administration.Managers
 
         private async Task<(AdminData dat, int? rankId, bool specialLogin)?> LoadAdminDataCore(ICommonSession session)
         {
-            var promoteHost = IsLocal(session) && _cfg.GetCVar(CCVars.ConsoleLoginLocal)
-                              || _promotedPlayers.Contains(session.UserId)
-                              || session.Name == _cfg.GetCVar(CCVars.ConsoleLoginHostUser);
+            var promoteHost =
+                IsLocal(session) && _cfg.GetCVar(CCVars.ConsoleLoginLocal)
+                || _promotedPlayers.Contains(session.UserId)
+                || session.Name == _cfg.GetCVar(CCVars.ConsoleLoginHostUser);
 
             if (promoteHost)
             {
@@ -481,13 +517,9 @@ namespace Content.Server.Administration.Managers
                     }
                 }
 
-                var data = new AdminData
-                {
-                    Flags = flags,
-                    Active = !dbData.Deadminned,
-                };
+                var data = new AdminData { Flags = flags, Active = !dbData.Deadminned };
 
-                if (dbData.Title != null  && _cfg.GetCVar(CCVars.AdminUseCustomNamesAdminRank))
+                if (dbData.Title != null && _cfg.GetCVar(CCVars.AdminUseCustomNamesAdminRank))
                 {
                     data.Title = dbData.Title;
                 }
@@ -687,14 +719,15 @@ public record struct CommandPermissionsUnassignedError(CommandSpec Command) : IC
 {
     public FormattedMessage DescribeInner()
     {
-        return FormattedMessage.FromMarkupOrThrow($"The command {Command.FullName()} is missing permission flags and cannot be executed.");
+        return FormattedMessage.FromMarkupOrThrow(
+            $"The command {Command.FullName()} is missing permission flags and cannot be executed."
+        );
     }
 
     public string? Expression { get; set; }
     public Vector2i? IssueSpan { get; set; }
     public StackTrace? Trace { get; set; }
 }
-
 
 public record struct NoPermissionError(CommandSpec Command) : IConError
 {

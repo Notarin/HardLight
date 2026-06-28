@@ -72,7 +72,6 @@
   - type: UseDelay
     delay: 1
 
-
 - type: entity
   name: halberd
   parent: UnholyHalberd

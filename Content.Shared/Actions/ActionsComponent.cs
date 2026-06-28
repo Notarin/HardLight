@@ -12,7 +12,8 @@ public sealed partial class ActionsComponent : Component
     /// List of actions currently granted to this entity.
     /// On the client, this may contain a mixture of client-side and networked entities.
     /// </summary>
-    [DataField] public HashSet<EntityUid> Actions = new();
+    [DataField]
+    public HashSet<EntityUid> Actions = new();
 }
 
 [Serializable, NetSerializable]
@@ -44,5 +45,5 @@ public enum ItemActionIconStyle : byte
     /// <summary>
     /// BigAction but no item icon will be shown in the corner.
     /// </summary>
-    NoItem
+    NoItem,
 }

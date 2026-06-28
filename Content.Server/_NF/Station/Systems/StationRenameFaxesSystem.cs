@@ -6,7 +6,8 @@ namespace Content.Server.Station.Systems;
 
 public sealed class StationRenameFaxesSystem : EntitySystem
 {
-    [Dependency] private readonly StationSystem _stationSystem = default!;
+    [Dependency]
+    private readonly StationSystem _stationSystem = default!;
 
     public override void Initialize()
     {

@@ -18,41 +18,33 @@
   components:
   - type: SectorBank
     accounts:
-      Engineering:
-        !type:SectorBankAccountInfo
+      Engineering: !type:SectorBankAccountInfo
         balance: 8000
         increasePerSecond: 40 # 72K per hour, about enough for minimum wage for the default NFSD size
-      Science:
-        !type:SectorBankAccountInfo
+      Science: !type:SectorBankAccountInfo
         balance: 8000
         increasePerSecond: 12 # 21.6K per hour, a bit over for the DOC MOM's wage.
-      Service:
-        !type:SectorBankAccountInfo
+      Service: !type:SectorBankAccountInfo
         balance: 8000
         increasePerSecond: 32 # TODO: move to ~65K per hour (~18/s), about enough for minimum wage for Frontier employees
-      Security:
-        !type:SectorBankAccountInfo
+      Security: !type:SectorBankAccountInfo
         balance: 8000
         increasePerSecond: 60 # 72K per hour, about enough for minimum wage for the default NFSD size
-      Cargo:
-        !type:SectorBankAccountInfo
+      Cargo: !type:SectorBankAccountInfo
         balance: 8000
         increasePerSecond: 12 # 21.6K per hour, a bit over for the DOC MOM's wage.
-      Frontier:
-        !type:SectorBankAccountInfo
+      Frontier: !type:SectorBankAccountInfo
         balance: 8000
         increasePerSecond: 36 # TODO: move to ~65K per hour (~18/s), about enough for minimum wage for Frontier employees
-      Nfsd:
-        !type:SectorBankAccountInfo
+      Nfsd: !type:SectorBankAccountInfo
         balance: 8000
         increasePerSecond: 60 # 72K per hour, about enough for minimum wage for the default ColSec size
-      Medical:
-        !type:SectorBankAccountInfo
+      Medical: !type:SectorBankAccountInfo
         balance: 8000
         increasePerSecond: 12 # 21.6K per hour, a bit over for the DOC MOM's wage.
 
- # A global source of character records (DNA, fingerprints, criminal records, etc.)
 - type: sectorService
+  # A global source of character records (DNA, fingerprints, criminal records, etc.)
   id: SectorRecords
   components:
   - type: StationRecords

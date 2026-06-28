@@ -9,7 +9,7 @@
   physicalDesc: reagent-physical-desc-inky
   reactiveEffects:
     Acidic:
-      methods: [ Touch ]
+      methods: [Touch]
       effects:
       - !type:HealthChange
         scaleByQuantity: true
@@ -23,18 +23,18 @@
           min: 160.15
         amount: -30000
     Extinguish:
-      methods: [ Touch ]
+      methods: [Touch]
       effects:
-      - !type:ExtinguishReaction # cold
-  metabolisms:
+      - !type:ExtinguishReaction
+  metabolisms: # cold
     Poison:
-      metabolismRate : 0.45
+      metabolismRate: 0.45
       effects:
       - !type:HealthChange
         damage:
           types:
-             Cold: 3 # slightly nips directly, other cold damage comes from the temp change
-             Heat: -3 # ghetto burn chem. i don't think anyone would use this intentionally but it's funny
+            Cold: 3 # slightly nips directly, other cold damage comes from the temp change
+            Heat: -3 # ghetto burn chem. i don't think anyone would use this intentionally but it's funny
       - !type:PopupMessage
         conditions:
         - !type:ReagentThreshold
@@ -42,7 +42,7 @@
           max: 35
         type: Local
         visualType: LargeCaution
-        messages: [ "fresium-effect-freeze-insides"]
+        messages: ["fresium-effect-freeze-insides"]
         probability: 0.05
       - !type:PopupMessage
         conditions:
@@ -51,7 +51,7 @@
           max: 35
         type: Local
         visualType: LargeCaution
-        messages: [ "fresium-effect-slow"]
+        messages: ["fresium-effect-slow"]
         probability: 0.2
       - !type:AdjustTemperature
         conditions:
@@ -79,7 +79,7 @@
           min: 40
         type: Local
         visualType: LargeCaution
-        messages: [ "fresium-effect-frozen"]
+        messages: ["fresium-effect-frozen"]
         probability: 0.4
   footstepSound:
     collection: FootstepBlood

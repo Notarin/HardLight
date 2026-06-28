@@ -18,7 +18,10 @@ public sealed partial class BountyContractUiFragmentListEntry : Control
         BountyName.Text = contract.Name;
 
         // vessel
-        if (string.IsNullOrEmpty(contract.Vessel) || contract.Vessel == Loc.GetString("bounty-contracts-ui-create-vessel-unknown"))
+        if (
+            string.IsNullOrEmpty(contract.Vessel)
+            || contract.Vessel == Loc.GetString("bounty-contracts-ui-create-vessel-unknown")
+        )
             BountyVessel.Visible = false;
         else
             BountyVessel.Text = Loc.GetString("bounty-contracts-ui-list-vessel", ("vessel", contract.Vessel));
@@ -47,7 +50,7 @@ public sealed partial class BountyContractUiFragmentListEntry : Control
         var meta = SharedBountyContractSystem.CategoriesMeta[contract.Category];
         BountyPanel.ModulateSelfOverride = meta.UiColor;
 
-        var category = Loc.GetString("bounty-contracts-ui-list-category", ("category", Loc.GetString(meta.Name))); 
+        var category = Loc.GetString("bounty-contracts-ui-list-category", ("category", Loc.GetString(meta.Name)));
         BountyCategory.Text = category;
     }
 }

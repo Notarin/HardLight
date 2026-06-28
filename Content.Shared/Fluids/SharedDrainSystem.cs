@@ -6,9 +6,7 @@ namespace Content.Shared.Fluids;
 public abstract partial class SharedDrainSystem : EntitySystem
 {
     [Serializable, NetSerializable]
-    public sealed partial class DrainDoAfterEvent : SimpleDoAfterEvent
-    {
-    }
+    public sealed partial class DrainDoAfterEvent : SimpleDoAfterEvent { }
 }
 
 // Start Frontier: portable pump visual state
@@ -17,6 +15,6 @@ public enum AdvDrainVisualState : byte
 {
     IsRunning,
     IsDraining,
-    IsVoiding
+    IsVoiding,
 }
 // End Frontier

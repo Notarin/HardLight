@@ -21,7 +21,7 @@ namespace Content.Shared.Containers;
 [RegisterComponent]
 public sealed partial class ContainerFillComponent : Component
 {
-    [DataField("containers", customTypeSerializer:typeof(ContainerFillSerializer))]
+    [DataField("containers", customTypeSerializer: typeof(ContainerFillSerializer))]
     public Dictionary<string, List<string>> Containers = new();
 
     /// <summary>
@@ -43,15 +43,17 @@ public sealed class ContainerFillSerializer : ITypeValidator<Dictionary<string, 
         ISerializationManager serializationManager,
         MappingDataNode node,
         IDependencyCollection dependencies,
-        ISerializationContext? context = null)
+        ISerializationContext? context = null
+    )
     {
         var mapping = new Dictionary<ValidationNode, ValidationNode>();
 
         foreach (var (key, val) in node.Children)
         {
-            var listVal = (val is SequenceDataNode seq)
-                ? ListSerializer.Validate(serializationManager, seq, dependencies, context)
-                : new ErrorNode(val, "ContainerFillComponent prototypes must be a sequence/list");
+            var listVal =
+                (val is SequenceDataNode seq)
+                    ? ListSerializer.Validate(serializationManager, seq, dependencies, context)
+                    : new ErrorNode(val, "ContainerFillComponent prototypes must be a sequence/list");
 
             mapping.Add(new ValidatedValueNode(node.GetKeyNode(key)), listVal);
         }

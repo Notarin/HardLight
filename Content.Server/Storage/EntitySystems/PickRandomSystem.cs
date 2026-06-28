@@ -13,10 +13,17 @@ namespace Content.Server.Storage.EntitySystems;
 // TODO: move this to shared for verb prediction if/when storage is in shared
 public sealed class PickRandomSystem : EntitySystem
 {
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly SharedHandsSystem _hands = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelistSystem = default!;
 
     public override void Initialize()
     {
@@ -32,25 +39,31 @@ public sealed class PickRandomSystem : EntitySystem
 
         var user = args.User;
 
-        var enabled = storage.Container.ContainedEntities.Any(item => _whitelistSystem.IsWhitelistPassOrNull(comp.Whitelist, item));
+        var enabled = storage.Container.ContainedEntities.Any(item =>
+            _whitelistSystem.IsWhitelistPassOrNull(comp.Whitelist, item)
+        );
 
         // alt-click / alt-z to pick an item
-        args.Verbs.Add(new AlternativeVerb
-        {
-            Act = () =>
+        args.Verbs.Add(
+            new AlternativeVerb
             {
-                TryPick(uid, comp, storage, user);
-            },
-            Impact = LogImpact.Low,
-            Text = Loc.GetString(comp.VerbText),
-            Disabled = !enabled,
-            Message = enabled ? null : Loc.GetString(comp.EmptyText, ("storage", uid))
-        });
+                Act = () =>
+                {
+                    TryPick(uid, comp, storage, user);
+                },
+                Impact = LogImpact.Low,
+                Text = Loc.GetString(comp.VerbText),
+                Disabled = !enabled,
+                Message = enabled ? null : Loc.GetString(comp.EmptyText, ("storage", uid)),
+            }
+        );
     }
 
     private void TryPick(EntityUid uid, PickRandomComponent comp, StorageComponent storage, EntityUid user)
     {
-        var entities = storage.Container.ContainedEntities.Where(item => _whitelistSystem.IsWhitelistPassOrNull(comp.Whitelist, item)).ToArray();
+        var entities = storage
+            .Container.ContainedEntities.Where(item => _whitelistSystem.IsWhitelistPassOrNull(comp.Whitelist, item))
+            .ToArray();
 
         if (!entities.Any())
             return;

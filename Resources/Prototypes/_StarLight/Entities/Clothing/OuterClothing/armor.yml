@@ -21,7 +21,7 @@
     size: Normal
 
 - type: entity
-  parent: [ ClothingOuterArmorBasic, BaseC2Contraband ]
+  parent: [ClothingOuterArmorBasic, BaseC2Contraband]
   id: ClothingOuterArmorAbductor
   name: agent vest
   components:
@@ -51,7 +51,7 @@
               Piercing: 0.85
               Radiation: 0.85
               Caustic: 0.25
-          # HardLight: removed staminaModifier (field no longer exists in ArmorComponent)
+              # HardLight: removed staminaModifier (field no longer exists in ArmorComponent)
         - type: ExplosionResistance
           damageCoefficient: 0.85
 
@@ -71,7 +71,7 @@
               Piercing: 0.5
               Radiation: 0.5
               Caustic: 0.1
-          # HardLight: removed staminaModifier (field no longer exists in ArmorComponent)
+              # HardLight: removed staminaModifier (field no longer exists in ArmorComponent)
         - type: ExplosionResistance
           damageCoefficient: 0.5
 
@@ -141,7 +141,7 @@
     sprite: _Starlight/Clothing/OuterClothing/Armor/makeshift.rsi
   - type: Clothing
     sprite: _Starlight/Clothing/OuterClothing/Armor/makeshift.rsi
-  - type: Armor 
+  - type: Armor
     modifiers:
       coefficients:
         Blunt: 0.90
@@ -167,7 +167,7 @@
     sprite: _Starlight/Clothing/OuterClothing/Armor/improvised.rsi
   - type: Clothing
     sprite: _Starlight/Clothing/OuterClothing/Armor/improvised.rsi
-  - type: Armor 
+  - type: Armor
     modifiers:
       coefficients:
         Blunt: 0.85
@@ -245,12 +245,12 @@
         Heat: 0.3
         Radiation: 0.5
         Caustic: 0.5
-    # HardLight: removed staminaModifier and ingoreKnockdown (fields no longer exist in ArmorComponent)
+        # HardLight: removed staminaModifier and ingoreKnockdown (fields no longer exist in ArmorComponent)
   - type: ExplosionResistance
     damageCoefficient: 0.5
   - type: FireProtection
     reduction: 0.85
-    
+
 - type: entity
   parent: [ClothingOuterArmorBase, BaseCentcommContraband]
   id: ClothingOuterVestNTCC

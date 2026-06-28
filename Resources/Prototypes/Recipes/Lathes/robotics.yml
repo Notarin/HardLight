@@ -100,10 +100,10 @@
   parent: BaseBorgLimbRecipe
   id: TorsoBorg
   result: TorsoBorg
-# Hardlight start - quadborgs need these TODO make quadborgs switchable and remove these
- # Engineer
-
+  # Hardlight start - quadborgs need these TODO make quadborgs switchable and remove these
 - type: latheRecipe
+  # Engineer
+
   parent: BaseBorgLimbRecipe
   id: LeftLegBorgEngineer
   result: LeftLegBorgEngineer
@@ -415,7 +415,7 @@
 - type: latheRecipe
   id: BorgModuleStun
   result: BorgModuleStun
-#  category: Weapons
+  #  category: Weapons
   completetime: 5
   materials:
     Steel: 700
@@ -425,7 +425,7 @@
 - type: latheRecipe
   id: BorgModuleKill
   result: BorgModuleKill
-#  category: Weapons
+  #  category: Weapons
   completetime: 5
   materials:
     Steel: 1500
@@ -435,7 +435,7 @@
 - type: latheRecipe
   id: BorgModuleInvestigation
   result: BorgModuleInvestigation
-#  category: Weapons
+  #  category: Weapons
   completetime: 5
   materials:
     Steel: 1500

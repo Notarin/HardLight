@@ -1,7 +1,7 @@
-﻿using Content.Shared.SensorMonitoring;
+﻿using Content.Shared.DeviceNetwork.Components;
+using Content.Shared.SensorMonitoring;
 using Robust.Shared.Collections;
 using ConsoleUIState = Content.Shared.SensorMonitoring.SensorMonitoringConsoleBoundInterfaceState;
-using Content.Shared.DeviceNetwork.Components;
 using IncrementalUIState = Content.Shared.SensorMonitoring.SensorMonitoringIncrementalUpdate;
 
 namespace Content.Server.SensorMonitoring;
@@ -10,11 +10,14 @@ public sealed partial class SensorMonitoringConsoleSystem
 {
     private void InitUI()
     {
-        Subs.BuiEvents<SensorMonitoringConsoleComponent>(SensorMonitoringConsoleUiKey.Key, subs =>
-        {
-            subs.Event<BoundUIOpenedEvent>(ConsoleUIOpened);
-            subs.Event<BoundUIClosedEvent>(ConsoleUIClosed);
-        });
+        Subs.BuiEvents<SensorMonitoringConsoleComponent>(
+            SensorMonitoringConsoleUiKey.Key,
+            subs =>
+            {
+                subs.Event<BoundUIOpenedEvent>(ConsoleUIOpened);
+                subs.Event<BoundUIClosedEvent>(ConsoleUIClosed);
+            }
+        );
     }
 
     private void UpdateConsoleUI(EntityUid uid, SensorMonitoringConsoleComponent comp)
@@ -58,30 +61,30 @@ public sealed partial class SensorMonitoringConsoleSystem
 
                 foreach (var (streamName, stream) in data.Streams)
                 {
-                    streams.Add(new ConsoleUIState.SensorStream
-                    {
-                        NetId = stream.NetId,
-                        Name = streamName,
-                        Unit = stream.Unit,
-                        Samples = stream.Samples.ToArray()
-                    });
+                    streams.Add(
+                        new ConsoleUIState.SensorStream
+                        {
+                            NetId = stream.NetId,
+                            Name = streamName,
+                            Unit = stream.Unit,
+                            Samples = stream.Samples.ToArray(),
+                        }
+                    );
                 }
 
-                sensors.Add(new ConsoleUIState.SensorData
-                {
-                    NetId = data.NetId,
-                    Name = name,
-                    Address = address,
-                    DeviceType = data.DeviceType,
-                    Streams = streams.ToArray()
-                });
+                sensors.Add(
+                    new ConsoleUIState.SensorData
+                    {
+                        NetId = data.NetId,
+                        Name = name,
+                        Address = address,
+                        DeviceType = data.DeviceType,
+                        Streams = streams.ToArray(),
+                    }
+                );
             }
 
-            return new ConsoleUIState
-            {
-                RetentionTime = comp.RetentionTime,
-                Sensors = sensors.ToArray()
-            };
+            return new ConsoleUIState { RetentionTime = comp.RetentionTime, Sensors = sensors.ToArray() };
         }
 
         SensorMonitoringIncrementalUpdate CalculateIncrementalUpdate()
@@ -103,12 +106,14 @@ public sealed partial class SensorMonitoringConsoleSystem
                             samples.Add(new SensorSample(sampleTime - comp.LastUIUpdate, value));
                     }
 
-                    streams.Add(new IncrementalUIState.SensorStream
-                    {
-                        NetId = stream.NetId,
-                        Unit = stream.Unit,
-                        Samples = samples.ToArray()
-                    });
+                    streams.Add(
+                        new IncrementalUIState.SensorStream
+                        {
+                            NetId = stream.NetId,
+                            Unit = stream.Unit,
+                            Samples = samples.ToArray(),
+                        }
+                    );
                 }
 
                 sensors.Add(new IncrementalUIState.SensorData { NetId = data.NetId, Streams = streams.ToArray() });
@@ -123,10 +128,7 @@ public sealed partial class SensorMonitoringConsoleSystem
         }
     }
 
-    private void ConsoleUIOpened(
-        EntityUid uid,
-        SensorMonitoringConsoleComponent component,
-        BoundUIOpenedEvent args)
+    private void ConsoleUIOpened(EntityUid uid, SensorMonitoringConsoleComponent component, BoundUIOpenedEvent args)
     {
         if (!args.UiKey.Equals(SensorMonitoringConsoleUiKey.Key))
             return;
@@ -142,7 +144,8 @@ public sealed partial class SensorMonitoringConsoleSystem
     private static void ConsoleUIClosed(
         EntityUid uid,
         SensorMonitoringConsoleComponent component,
-        BoundUIClosedEvent args)
+        BoundUIClosedEvent args
+    )
     {
         if (!args.UiKey.Equals(SensorMonitoringConsoleUiKey.Key))
             return;

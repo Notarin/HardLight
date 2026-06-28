@@ -8952,23 +8952,7 @@ entities:
           priority: 0
           component: ClothingSpeedModifier
         - message: >-
-            It provides the following protection:
-
-            - [color=yellow]Blunt[/color] damage reduced by [color=lightblue]40%[/color].
-
-            - [color=yellow]Slash[/color] damage reduced by [color=lightblue]50%[/color].
-
-            - [color=yellow]Piercing[/color] damage reduced by [color=lightblue]50%[/color].
-
-            - [color=yellow]Radiation[/color] damage reduced by [color=lightblue]50%[/color].
-
-            - [color=yellow]Caustic[/color] damage reduced by [color=lightblue]40%[/color].
-
-            - [color=yellow]Heat[/color] damage reduced by [color=lightblue]40%[/color].
-
-            - [color=aqua]Stamina[/color] damage reduced by [color=lightblue]60%[/color].
-
-            - [color=orange]Explosion[/color] damage reduced by [color=lightblue]40%[/color].
+            It provides the following protection: #magic___^_^___line - [color=yellow]Blunt[/color] damage reduced by [color=lightblue]40%[/color]. #magic___^_^___line - [color=yellow]Slash[/color] damage reduced by [color=lightblue]50%[/color]. #magic___^_^___line - [color=yellow]Piercing[/color] damage reduced by [color=lightblue]50%[/color]. #magic___^_^___line - [color=yellow]Radiation[/color] damage reduced by [color=lightblue]50%[/color]. #magic___^_^___line - [color=yellow]Caustic[/color] damage reduced by [color=lightblue]40%[/color]. #magic___^_^___line - [color=yellow]Heat[/color] damage reduced by [color=lightblue]40%[/color]. #magic___^_^___line - [color=aqua]Stamina[/color] damage reduced by [color=lightblue]60%[/color]. #magic___^_^___line - [color=orange]Explosion[/color] damage reduced by [color=lightblue]40%[/color].
           priority: 0
           component: Armor
         title: null
@@ -22923,4 +22907,3 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -1.5,40.5
       parent: 1
-...

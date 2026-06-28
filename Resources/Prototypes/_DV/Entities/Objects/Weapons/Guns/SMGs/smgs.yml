@@ -35,7 +35,7 @@
         priority: 2
         whitelist:
           tags:
-            - Magazine45_ACPSubMachineGunFMJ
+          - Magazine45_ACPSubMachineGunFMJ
         whitelistFailPopup: gun-magazine-whitelist-fail
       gun_chamber:
         name: Chamber
@@ -43,7 +43,7 @@
         priority: 1
         whitelist:
           tags:
-            - Cartridge45_ACPFMJ
+          - Cartridge45_ACPFMJ
   - type: MagazineVisuals
     magState: mag
     steps: 1

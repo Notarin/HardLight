@@ -8,7 +8,8 @@ internal static class EFCoreExtensions
 {
     public static IQueryable<TEntity> ApplyIncludes<TEntity>(
         this IQueryable<TEntity> query,
-        IEnumerable<Expression<Func<TEntity, object>>> properties)
+        IEnumerable<Expression<Func<TEntity, object>>> properties
+    )
         where TEntity : class
     {
         var q = query;
@@ -23,7 +24,8 @@ internal static class EFCoreExtensions
     public static IQueryable<TEntity> ApplyIncludes<TEntity, TDerived>(
         this IQueryable<TEntity> query,
         IEnumerable<Expression<Func<TDerived, object>>> properties,
-        Expression<Func<TEntity, TDerived>> getDerived)
+        Expression<Func<TEntity, TDerived>> getDerived
+    )
         where TEntity : class
         where TDerived : class
     {

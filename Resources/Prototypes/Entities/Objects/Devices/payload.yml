@@ -12,12 +12,11 @@
     damageContainer: Inorganic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 50
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
 
 - type: entity
   name: explosive payload
@@ -36,18 +35,16 @@
   - type: ExplodeOnTrigger
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTypeTrigger
+    - trigger: !type:DamageTypeTrigger
         damageType: Heat
         damage: 25
       behaviors:
       - !type:ExplodeBehavior
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 50
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
 
 - type: entity
   name: chemical payload
@@ -73,10 +70,10 @@
     visuals:
       enum.ChemicalPayloadVisuals.Slots:
         base:
-          None: { state: payload-empty }
-          Left: { state: payload-chemical-left }
-          Right: { state: payload-chemical-right }
-          Both: { state: payload-chemical-armed }
+          None: {state: payload-empty}
+          Left: {state: payload-chemical-left}
+          Right: {state: payload-chemical-right}
+          Both: {state: payload-chemical-armed}
   - type: ItemSlots
   - type: ContainerContainer
     containers:
@@ -91,12 +88,12 @@
   id: FlashPayload
   description: A single-use flash payload.
   components:
-    - type: Sprite
-      sprite: Objects/Devices/payload.rsi
-      state: payload-flash-armed
-    - type: DeleteOnTrigger
-    - type: FlashOnTrigger
-      range: 6
-    - type: EmitSoundOnTrigger
-      sound:
-        path: "/Audio/Effects/flash_bang.ogg"
+  - type: Sprite
+    sprite: Objects/Devices/payload.rsi
+    state: payload-flash-armed
+  - type: DeleteOnTrigger
+  - type: FlashOnTrigger
+    range: 6
+  - type: EmitSoundOnTrigger
+    sound:
+      path: "/Audio/Effects/flash_bang.ogg"

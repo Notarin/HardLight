@@ -10,9 +10,8 @@ namespace Content.Client.Construction.UI
         [ViewVariables]
         private FlatpackCreatorMenu? _menu;
 
-        public FlatpackCreatorBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-        {
-        }
+        public FlatpackCreatorBoundUserInterface(EntityUid owner, Enum uiKey)
+            : base(owner, uiKey) { }
 
         protected override void Open()
         {

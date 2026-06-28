@@ -14,7 +14,7 @@
         priority: 2
         whitelist:
           tags:
-            - Magazine75Bolt
+          - Magazine75Bolt
         whitelistFailPopup: gun-magazine-whitelist-fail
       gun_chamber:
         name: Chamber
@@ -22,7 +22,7 @@
         priority: 1
         whitelist:
           tags:
-            - Boltcart
+          - Boltcart
   - type: Sprite
     sprite: _Beestation/Objects/Weapons/Guns/Bolters/bolter.rsi
     layers:
@@ -32,8 +32,8 @@
     fireRate: 3
     selectedMode: FullAuto
     availableModes:
-      - SemiAuto
-      - FullAuto
+    - SemiAuto
+    - FullAuto
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/boltshot3.ogg
   - type: Clothing
@@ -60,7 +60,7 @@
         priority: 2
         whitelist:
           tags:
-            - Magazine75Bolt
+          - Magazine75Bolt
         whitelistFailPopup: gun-magazine-whitelist-fail
       gun_chamber:
         name: Chamber
@@ -68,7 +68,7 @@
         priority: 1
         whitelist:
           tags:
-            - Boltcart
+          - Boltcart
   - type: Sprite
     sprite: _Beestation/Objects/Weapons/Guns/Bolters/bolter.rsi
     layers:
@@ -78,7 +78,7 @@
     fireRate: 3
     selectedMode: SemiAuto
     availableModes:
-      - SemiAuto
+    - SemiAuto
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/boltshot2.ogg
   - type: Clothing

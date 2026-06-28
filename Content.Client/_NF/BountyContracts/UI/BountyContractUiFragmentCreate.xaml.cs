@@ -11,7 +11,8 @@ namespace Content.Client._NF.BountyContracts.UI;
 [GenerateTypedNameReferences]
 public sealed partial class BountyContractUiFragmentCreate : Control
 {
-    [Dependency] IPrototypeManager _proto = default!;
+    [Dependency]
+    IPrototypeManager _proto = default!;
     public event Action<BountyContractRequest>? OnCreatePressed;
     public event Action? OnCancelPressed;
 
@@ -230,11 +231,7 @@ public sealed partial class BountyContractUiFragmentCreate : Control
         }
         else
         {
-            info = new BountyContractTargetInfo
-            {
-                Name = NameEdit.Text,
-                DNA = null
-            };
+            info = new BountyContractTargetInfo { Name = NameEdit.Text, DNA = null };
         }
 
         return info;
@@ -285,7 +282,7 @@ public sealed partial class BountyContractUiFragmentCreate : Control
             DNA = GetTargetDna(),
             Vessel = GetVessel(),
             Description = Rope.Collapse(DescriptionEdit.TextRope),
-            Reward = GetReward() ?? 0
+            Reward = GetReward() ?? 0,
         };
         return info;
     }

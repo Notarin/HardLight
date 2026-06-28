@@ -1,4 +1,4 @@
-- type: damageModifierSet 
+- type: damageModifierSet
   id: Tajaran
   coefficients:
     Blunt: 1.15

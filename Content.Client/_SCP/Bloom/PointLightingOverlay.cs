@@ -21,15 +21,21 @@ public sealed class PointLightingOverlay : Overlay
     public bool Enabled;
     public float Strength = 0.5f;
 
-    public PointLightingOverlay(IPrototypeManager prototypeManager, SpriteSystem spriteSystem, ProtoId<ShaderPrototype> shader)
+    public PointLightingOverlay(
+        IPrototypeManager prototypeManager,
+        SpriteSystem spriteSystem,
+        ProtoId<ShaderPrototype> shader
+    )
     {
         _shader = prototypeManager.Index(shader).InstanceUnique();
-        ZIndex = (int) DrawDepth.Effects + 1;
+        ZIndex = (int)DrawDepth.Effects + 1;
 
         _pointTexture = spriteSystem.Frame0(BloomOverlayVisualsComponent.Point);
 
-        var xOffset = BloomOverlayVisualsComponent.PointOffset.X - (_pointTexture.Width / 2f) / EyeManager.PixelsPerMeter;
-        var yOffset = BloomOverlayVisualsComponent.PointOffset.Y - (_pointTexture.Height / 2f) / EyeManager.PixelsPerMeter;
+        var xOffset =
+            BloomOverlayVisualsComponent.PointOffset.X - (_pointTexture.Width / 2f) / EyeManager.PixelsPerMeter;
+        var yOffset =
+            BloomOverlayVisualsComponent.PointOffset.Y - (_pointTexture.Height / 2f) / EyeManager.PixelsPerMeter;
         _pointOffset = new Vector2(xOffset, yOffset);
     }
 

@@ -1,5 +1,5 @@
 - type: entity
-  parent: [ BaseXenoborgChassis, BaseXenoborgTransponder ]
+  parent: [BaseXenoborgChassis, BaseXenoborgTransponder]
   id: XenoborgEngi
   name: engi xenoborg
   suffix: with brain
@@ -60,7 +60,7 @@
         startingItem: PowerCellHigh
 
 - type: entity
-  parent: [ BaseXenoborgChassis, BaseXenoborgTransponder ]
+  parent: [BaseXenoborgChassis, BaseXenoborgTransponder]
   id: XenoborgHeavy
   name: heavy xenoborg
   suffix: with brain
@@ -96,8 +96,8 @@
       - BorgModuleSyndicate
       - BorgModuleSyndicateAssault
   - type: MovementSpeedModifier # slower
-    baseWalkSpeed : 1.2
-    baseSprintSpeed : 2.2
+    baseWalkSpeed: 1.2
+    baseSprintSpeed: 2.2
   - type: FlashImmunity
   - type: MobThresholds # tankier
     thresholds:
@@ -112,8 +112,7 @@
     allowRevives: true
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 190
       behaviors:
       - !type:PlaySoundBehavior
@@ -121,8 +120,7 @@
           path: /Audio/Machines/warning_buzzer_xenoborg.ogg
           params:
             volume: 5
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 750
       behaviors:
       - !type:PlaySoundBehavior
@@ -139,7 +137,7 @@
         - borg_module
         - cell_slot
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: ContainerFill
     containers:
       borg_brain:
@@ -156,7 +154,7 @@
         startingItem: PowerCellHigh
 
 - type: entity
-  parent: [ BaseXenoborgChassis, BaseXenoborgTransponder ]
+  parent: [BaseXenoborgChassis, BaseXenoborgTransponder]
   id: XenoborgScout
   name: scout xenoborg
   suffix: with brain
@@ -172,15 +170,15 @@
   - type: Sprite
     sprite: Mobs/Silicon/Chassis/xeno_scout.rsi
     layers:
-      - state: borg
-      - state: borg_e
-        map: ["enum.BorgVisualLayers.Light"]
-        shader: unshaded
-        visible: false
-      - state: borg_l
-        shader: unshaded
-        map: ["light"]
-        visible: false
+    - state: borg
+    - state: borg_e
+      map: ["enum.BorgVisualLayers.Light"]
+      shader: unshaded
+      visible: false
+    - state: borg_l
+      shader: unshaded
+      map: ["light"]
+      visible: false
   - type: FootstepModifier # it flies instead of walking
     footstepSoundCollection:
       collection: FootstepHoverXenoborg
@@ -198,8 +196,8 @@
       - BorgModuleSyndicateAssault
       - XenoborgModuleScout
   - type: MovementSpeedModifier # faster
-    baseWalkSpeed : 3
-    baseSprintSpeed : 6
+    baseWalkSpeed: 3
+    baseSprintSpeed: 6
   - type: ContainerFill
     containers:
       borg_brain:
@@ -216,7 +214,7 @@
         startingItem: PowerCellHigh
 
 - type: entity
-  parent: [ BaseXenoborgChassis, BaseXenoborgTransponder ]
+  parent: [BaseXenoborgChassis, BaseXenoborgTransponder]
   id: XenoborgStealth
   name: stealth xenoborg
   suffix: with brain
@@ -232,15 +230,15 @@
   - type: Sprite
     sprite: Mobs/Silicon/Chassis/xeno_stealth.rsi
     layers:
-      - state: borg
-      - state: borg_e
-        map: ["enum.BorgVisualLayers.Light"]
-        shader: unshaded
-        visible: false
-      - state: borg_l
-        shader: unshaded
-        map: ["light"]
-        visible: false
+    - state: borg
+    - state: borg_e
+      map: ["enum.BorgVisualLayers.Light"]
+      shader: unshaded
+      visible: false
+    - state: borg_l
+      shader: unshaded
+      map: ["light"]
+      visible: false
   - type: FootstepModifier # it flies instead of walking
     footstepSoundCollection:
       collection: FootstepHoverXenoborg
@@ -274,7 +272,6 @@
       cell_slot:
         name: power-cell-slot-component-slot-name-default
         startingItem: PowerCellHigh
-
 
 # xenoborgs empty
 - type: entity

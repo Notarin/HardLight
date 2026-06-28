@@ -17,9 +17,14 @@ namespace Content.Client.Administration.UI.ManageSolutions
     [GenerateTypedNameReferences]
     public sealed partial class EditSolutionsWindow : DefaultWindow
     {
-        [Dependency] private readonly IClientConsoleHost _consoleHost = default!;
-        [Dependency] private readonly IEntityManager _entityManager = default!;
-        [Dependency] private readonly IClientGameTiming _timing = default!;
+        [Dependency]
+        private readonly IClientConsoleHost _consoleHost = default!;
+
+        [Dependency]
+        private readonly IEntityManager _entityManager = default!;
+
+        [Dependency]
+        private readonly IClientGameTiming _timing = default!;
 
         private NetEntity _target = NetEntity.Invalid;
         private string? _selectedSolution;
@@ -65,8 +70,10 @@ namespace Content.Client.Administration.UI.ManageSolutions
             if (_selectedSolution == null || _solutions == null)
                 return;
 
-            if (!_solutions.TryGetValue(_selectedSolution, out var solutionId) ||
-                !_entityManager.TryGetComponent(solutionId, out SolutionComponent? solutionComp))
+            if (
+                !_solutions.TryGetValue(_selectedSolution, out var solutionId)
+                || !_entityManager.TryGetComponent(solutionId, out SolutionComponent? solutionComp)
+            )
                 return;
 
             var solution = solutionComp.Solution;
@@ -90,9 +97,11 @@ namespace Content.Client.Administration.UI.ManageSolutions
             var volumeLabel = new Label();
             volumeLabel.HorizontalExpand = true;
             volumeLabel.Margin = new Thickness(0, 4);
-            volumeLabel.Text = Loc.GetString("admin-solutions-window-volume-label",
+            volumeLabel.Text = Loc.GetString(
+                "admin-solutions-window-volume-label",
                 ("currentVolume", solution.Volume),
-                ("maxVolume", solution.MaxVolume));
+                ("maxVolume", solution.MaxVolume)
+            );
 
             var capacityBox = new BoxContainer();
             capacityBox.Orientation = BoxContainer.LayoutOrientation.Horizontal;
@@ -107,7 +116,7 @@ namespace Content.Client.Administration.UI.ManageSolutions
             var capacitySpin = new FloatSpinBox(1, 2);
             capacitySpin.HorizontalExpand = true;
             capacitySpin.Margin = new Thickness(0, 1);
-            capacitySpin.Value = (float) solution.MaxVolume;
+            capacitySpin.Value = (float)solution.MaxVolume;
             capacitySpin.OnValueChanged += SetCapacity;
 
             capacityBox.AddChild(capacityLabel);
@@ -129,12 +138,18 @@ namespace Content.Client.Administration.UI.ManageSolutions
             var specificHeatLabel = new Label();
             specificHeatLabel.HorizontalExpand = true;
             specificHeatLabel.Margin = new Thickness(0, 1);
-            specificHeatLabel.Text = Loc.GetString("admin-solutions-window-specific-heat-label", ("specificHeat", heatCap.ToString("G3")));
+            specificHeatLabel.Text = Loc.GetString(
+                "admin-solutions-window-specific-heat-label",
+                ("specificHeat", heatCap.ToString("G3"))
+            );
 
             var heatCapacityLabel = new Label();
             heatCapacityLabel.HorizontalExpand = true;
             heatCapacityLabel.Margin = new Thickness(0, 1);
-            heatCapacityLabel.Text = Loc.GetString("admin-solutions-window-heat-capacity-label", ("heatCapacity", (heatCap/solution.Volume.Float()).ToString("G3")));
+            heatCapacityLabel.Text = Loc.GetString(
+                "admin-solutions-window-heat-capacity-label",
+                ("heatCapacity", (heatCap / solution.Volume.Float()).ToString("G3"))
+            );
 
             // Temperature entry:
             var temperatureBox = new BoxContainer();
@@ -194,7 +209,7 @@ namespace Content.Client.Administration.UI.ManageSolutions
             spin.OnValueChanged += (args) => SetReagent(args, reagentQuantity.Reagent.Prototype);
             spin.HorizontalExpand = true;
 
-            box.AddChild(new Label() { Text = reagentQuantity.Reagent.Prototype , HorizontalExpand = true});
+            box.AddChild(new Label() { Text = reagentQuantity.Reagent.Prototype, HorizontalExpand = true });
             box.AddChild(spin);
 
             ReagentList.AddChild(box);
@@ -205,9 +220,12 @@ namespace Content.Client.Administration.UI.ManageSolutions
         /// </summary>
         private void SetReagent(FloatSpinBox.FloatSpinBoxEventArgs args, string prototype)
         {
-            if (_solutions == null || _selectedSolution == null ||
-                !_solutions.TryGetValue(_selectedSolution, out var solutionId) ||
-                !_entityManager.TryGetComponent(solutionId, out SolutionComponent? solutionComp))
+            if (
+                _solutions == null
+                || _selectedSolution == null
+                || !_solutions.TryGetValue(_selectedSolution, out var solutionId)
+                || !_entityManager.TryGetComponent(solutionId, out SolutionComponent? solutionComp)
+            )
                 return;
 
             var solution = solutionComp.Solution;
@@ -277,7 +295,7 @@ namespace Content.Client.Administration.UI.ManageSolutions
         private void SolutionSelected(OptionButton.ItemSelectedEventArgs args)
         {
             SolutionOption.SelectId(args.Id);
-            _selectedSolution = (string?) SolutionOption.SelectedMetadata;
+            _selectedSolution = (string?)SolutionOption.SelectedMetadata;
             _addReagentWindow?.UpdateSolution(_selectedSolution);
             UpdateReagents();
         }
@@ -330,7 +348,7 @@ namespace Content.Client.Administration.UI.ManageSolutions
             }
 
             SolutionOption.Select(selectedIndex);
-            _selectedSolution = (string?) SolutionOption.SelectedMetadata;
+            _selectedSolution = (string?)SolutionOption.SelectedMetadata;
         }
 
         protected override void FrameUpdate(FrameEventArgs args)

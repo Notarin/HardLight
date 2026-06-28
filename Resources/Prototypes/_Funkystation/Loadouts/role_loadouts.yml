@@ -16,21 +16,21 @@
 - type: roleLoadout
   id: JobGeneticist
   groups:
-    - MedicalDoctorHead # Hardlight
-    - GeneticistJumpsuit
-    - GeneticistOuterClothing
-    - GeneticistBackpack
-    - GeneticistGloves
-    - GeneticistShoes
+  - MedicalDoctorHead # Hardlight
+  - GeneticistJumpsuit
+  - GeneticistOuterClothing
+  - GeneticistBackpack
+  - GeneticistGloves
+  - GeneticistShoes
   # HardLight start: Add departmental NF-style loadouts
-    - ContractorForcedOuterClothing
-    - ContractorFace
-    - ContractorGlasses
-    - ContractorBoxSurvival
-    - ContractorWallet
-    - ContractorImplanter
-    - ContractorBackpackItems
-    - ContractorHandItems
-    - NFSpeciesSpecific
+  - ContractorForcedOuterClothing
+  - ContractorFace
+  - ContractorGlasses
+  - ContractorBoxSurvival
+  - ContractorWallet
+  - ContractorImplanter
+  - ContractorBackpackItems
+  - ContractorHandItems
+  - NFSpeciesSpecific
   # HardLight end
 

@@ -8,9 +8,14 @@ namespace Content.Client.SubFloor;
 
 public sealed class SubFloorHideSystem : SharedSubFloorHideSystem
 {
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
-    [Dependency] private readonly IUserInterfaceManager _ui = default!;
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
+
+    [Dependency]
+    private readonly IUserInterfaceManager _ui = default!;
 
     private bool _showAll;
 
@@ -20,14 +25,12 @@ public sealed class SubFloorHideSystem : SharedSubFloorHideSystem
         get => _showAll;
         set
         {
-            if (_showAll == value) return;
+            if (_showAll == value)
+                return;
             _showAll = value;
             _ui.GetUIController<SandboxUIController>().SetToggleSubfloors(value);
 
-            var ev = new ShowSubfloorRequestEvent()
-            {
-                Value = value,
-            };
+            var ev = new ShowSubfloorRequestEvent() { Value = value };
             RaiseNetworkEvent(ev);
         }
     }

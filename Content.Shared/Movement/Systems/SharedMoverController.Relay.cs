@@ -13,7 +13,10 @@ public abstract partial class SharedMoverController
         SubscribeLocalEvent<RelayInputMoverComponent, AfterAutoHandleStateEvent>(OnAfterRelayState);
     }
 
-    private void OnAfterRelayTargetState(Entity<MovementRelayTargetComponent> entity, ref AfterAutoHandleStateEvent args)
+    private void OnAfterRelayTargetState(
+        Entity<MovementRelayTargetComponent> entity,
+        ref AfterAutoHandleStateEvent args
+    )
     {
         PhysicsSystem.UpdateIsPredicted(entity.Owner);
     }
@@ -74,7 +77,10 @@ public abstract partial class SharedMoverController
         if (Timing.ApplyingState)
             return;
 
-        if (TryComp(entity.Comp.RelayEntity, out MovementRelayTargetComponent? target) && target.LifeStage <= ComponentLifeStage.Running)
+        if (
+            TryComp(entity.Comp.RelayEntity, out MovementRelayTargetComponent? target)
+            && target.LifeStage <= ComponentLifeStage.Running
+        )
             RemComp(entity.Comp.RelayEntity, target);
 
         _blocker.UpdateCanMove(entity.Owner);
@@ -88,7 +94,10 @@ public abstract partial class SharedMoverController
         if (Timing.ApplyingState)
             return;
 
-        if (TryComp(entity.Comp.Source, out RelayInputMoverComponent? relay) && relay.LifeStage <= ComponentLifeStage.Running)
+        if (
+            TryComp(entity.Comp.Source, out RelayInputMoverComponent? relay)
+            && relay.LifeStage <= ComponentLifeStage.Running
+        )
             RemComp(entity.Comp.Source, relay);
     }
 }

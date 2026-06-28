@@ -1,3 +1,5 @@
+using System.Threading;
+using System.Threading.Tasks;
 using Content.Server.NPC;
 using Content.Server.NPC.HTN;
 using Content.Server.NPC.HTN.PrimitiveTasks;
@@ -5,8 +7,6 @@ using Content.Server.Power.Components;
 using Content.Server.Power.EntitySystems;
 using Content.Shared.Construction.Components;
 using Robust.Shared.Map;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Content.Server._Mono.NPC.HTN.Operators;
 
@@ -15,7 +15,8 @@ namespace Content.Server._Mono.NPC.HTN.Operators;
 /// </summary>
 public sealed partial class ShipFireGunsOperator : HTNOperator, IHtnConditionalShutdown
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
     private PowerReceiverSystem _power = default!;
     private ShipTargetingSystem _targeting = default!;
 
@@ -102,18 +103,17 @@ public sealed partial class ShipFireGunsOperator : HTNOperator, IHtnConditionalS
         _targeting = sysManager.GetEntitySystem<ShipTargetingSystem>();
     }
 
-    public override async Task<(bool Valid, Dictionary<string, object>? Effects)> Plan(NPCBlackboard blackboard,
-        CancellationToken cancelToken)
+    public override async Task<(bool Valid, Dictionary<string, object>? Effects)> Plan(
+        NPCBlackboard blackboard,
+        CancellationToken cancelToken
+    )
     {
         if (!blackboard.TryGetValue<EntityCoordinates>(TargetKey, out var targetCoordinates, _entManager))
         {
             return (false, null);
         }
 
-        return (true, new Dictionary<string, object>()
-        {
-            {NPCBlackboard.OwnerCoordinates, targetCoordinates}
-        });
+        return (true, new Dictionary<string, object>() { { NPCBlackboard.OwnerCoordinates, targetCoordinates } });
     }
 
     public override void Startup(NPCBlackboard blackboard)
@@ -144,13 +144,16 @@ public sealed partial class ShipFireGunsOperator : HTNOperator, IHtnConditionalS
     {
         var owner = blackboard.GetValue<EntityUid>(NPCBlackboard.Owner);
 
-        if (!blackboard.TryGetValue<EntityCoordinates>(TargetKey, out var target, _entManager)
+        if (
+            !blackboard.TryGetValue<EntityCoordinates>(TargetKey, out var target, _entManager)
             || !_entManager.TryGetComponent<TransformComponent>(owner, out var xform)
             // also fail if we're anchorable but are unanchored and require to be anchored
             || RequireAnchored
-                && _entManager.TryGetComponent<AnchorableComponent>(owner, out var anchorable) && !xform.Anchored
+                && _entManager.TryGetComponent<AnchorableComponent>(owner, out var anchorable)
+                && !xform.Anchored
             || RequirePowered
-                && _entManager.TryGetComponent<ApcPowerReceiverComponent>(owner, out var receiver) && !_power.IsPowered(owner, receiver)
+                && _entManager.TryGetComponent<ApcPowerReceiverComponent>(owner, out var receiver)
+                && !_power.IsPowered(owner, receiver)
         )
             return HTNOperatorStatus.Failed;
 
@@ -159,7 +162,11 @@ public sealed partial class ShipFireGunsOperator : HTNOperator, IHtnConditionalS
         if (comp == null)
             return HTNOperatorStatus.Finished;
 
-        if (target.EntityId == EntityUid.Invalid || !xform.Coordinates.TryDistance(_entManager, target, out var distance) || distance > MaxTargetingRange)
+        if (
+            target.EntityId == EntityUid.Invalid
+            || !xform.Coordinates.TryDistance(_entManager, target, out var distance)
+            || distance > MaxTargetingRange
+        )
             return HTNOperatorStatus.Finished;
 
         if (ShutdownState == HTNPlanState.PlanFinished)

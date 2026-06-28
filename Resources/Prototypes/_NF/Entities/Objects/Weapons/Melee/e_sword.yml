@@ -6,7 +6,7 @@
   components:
   - type: EnergySword
     colorOptions:
-      - "#d4ffbf"
+    - "#d4ffbf"
     blockHacking: true
 
 - type: entity
@@ -22,20 +22,20 @@
     - 1,1,1,2
   - type: ItemToggleMeleeWeapon
     activatedDamage:
-        types: # Slightly less total damage than wielded crusher glaive has
-          Heat: 6
-          Piercing: 2
-          Structural: 40 # +10 damage compared to crusher glaive
+      types: # Slightly less total damage than wielded crusher glaive has
+        Heat: 6
+        Piercing: 2
+        Structural: 40 # +10 damage compared to crusher glaive
     deactivatedSecret: true
   - type: Sprite
     sprite: _NF/Objects/Weapons/Melee/energy_pickaxe.rsi
     layers:
-      - state: e-pickaxe
-      - state: e-pickaxe-blade
-        color: "#e95151"
-        visible: false
-        shader: unshaded
-        map: [ "blade" ]
+    - state: e-pickaxe
+    - state: e-pickaxe-blade
+      color: "#e95151"
+      visible: false
+      shader: unshaded
+      map: ["blade"]
   - type: Item
     sprite: _NF/Objects/Weapons/Melee/energy_pickaxe.rsi
     storedRotation: -45

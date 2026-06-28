@@ -1,9 +1,9 @@
+using System.Numerics;
 using Content.Shared.Emag.Systems;
 using Content.Shared.Physics;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Physics;
-using System.Numerics;
 
 namespace Content.Shared.Maps;
 
@@ -12,11 +12,17 @@ namespace Content.Shared.Maps;
 /// </summary>
 public sealed class TurfSystem : EntitySystem
 {
+    [Dependency]
+    private readonly IMapManager _mapManager = default!;
 
-    [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly EntityLookupSystem _entityLookup = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
+    [Dependency]
+    private readonly EntityLookupSystem _entityLookup = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _mapSystem = default!;
 
     /// <summary>
     /// Attempts to get the turf at or under some given coordinates or null if no such turf exists.
@@ -38,12 +44,11 @@ public sealed class TurfSystem : EntitySystem
         return tile;
     }
 
-
     /// <summary>
     ///     Returns true if a given tile is blocked by physics-enabled entities.
     /// </summary>
-    public bool IsTileBlocked(TileRef turf, CollisionGroup mask, float minIntersectionArea = 0.1f)
-        => IsTileBlocked(turf.GridUid, turf.GridIndices, mask, minIntersectionArea: minIntersectionArea);
+    public bool IsTileBlocked(TileRef turf, CollisionGroup mask, float minIntersectionArea = 0.1f) =>
+        IsTileBlocked(turf.GridUid, turf.GridIndices, mask, minIntersectionArea: minIntersectionArea);
 
     /// <summary>
     ///     Returns true if a given tile is blocked by physics-enabled entities.
@@ -54,12 +59,14 @@ public sealed class TurfSystem : EntitySystem
     /// <param name="grid">Grid component</param>
     /// <param name="gridXform">Grid's transform</param>
     /// <param name="minIntersectionArea">Minimum area that must be covered for a tile to be considered blocked</param>
-    public bool IsTileBlocked(EntityUid gridUid,
+    public bool IsTileBlocked(
+        EntityUid gridUid,
         Vector2i indices,
         CollisionGroup mask,
         MapGridComponent? grid = null,
         TransformComponent? gridXform = null,
-        float minIntersectionArea = 0.1f)
+        float minIntersectionArea = 0.1f
+    )
     {
         if (!Resolve(gridUid, ref grid, ref gridXform))
             return false;
@@ -78,7 +85,13 @@ public sealed class TurfSystem : EntitySystem
 
         var intersectionArea = 0f;
         var fixtureQuery = GetEntityQuery<FixturesComponent>();
-        foreach (var ent in _entityLookup.GetEntitiesIntersecting(gridUid, worldBox, LookupFlags.Dynamic | LookupFlags.Static))
+        foreach (
+            var ent in _entityLookup.GetEntitiesIntersecting(
+                gridUid,
+                worldBox,
+                LookupFlags.Dynamic | LookupFlags.Static
+            )
+        )
         {
             if (!fixtureQuery.TryGetComponent(ent, out var fixtures))
                 continue;
@@ -88,14 +101,14 @@ public sealed class TurfSystem : EntitySystem
             rot -= gridRot;
             pos = (-gridRot).RotateVec(pos - gridPos);
 
-            var xform = new Transform(pos, (float) rot.Theta);
+            var xform = new Transform(pos, (float)rot.Theta);
 
             foreach (var fixture in fixtures.Fixtures.Values)
             {
                 if (!fixture.Hard)
                     continue;
 
-                if ((fixture.CollisionLayer & (int) mask) == 0)
+                if ((fixture.CollisionLayer & (int)mask) == 0)
                     continue;
 
                 for (var i = 0; i < fixture.Shape.ChildCount; i++)

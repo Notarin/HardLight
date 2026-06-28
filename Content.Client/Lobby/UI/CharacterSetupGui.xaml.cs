@@ -21,11 +21,20 @@ namespace Content.Client.Lobby.UI
     [GenerateTypedNameReferences]
     public sealed partial class CharacterSetupGui : Control
     {
-        [Dependency] private readonly IClientPreferencesManager _preferencesManager = default!;
-        [Dependency] private readonly IEntityManager _entManager = default!;
-        [Dependency] private readonly IPrototypeManager _protomanager = default!;
-        [Dependency] private readonly IResourceCache _resourceCache = default!;
-        [Dependency] private readonly IConfigurationManager _cfg = default!;
+        [Dependency]
+        private readonly IClientPreferencesManager _preferencesManager = default!;
+
+        [Dependency]
+        private readonly IEntityManager _entManager = default!;
+
+        [Dependency]
+        private readonly IPrototypeManager _protomanager = default!;
+
+        [Dependency]
+        private readonly IResourceCache _resourceCache = default!;
+
+        [Dependency]
+        private readonly IConfigurationManager _cfg = default!;
 
         private readonly Button _createNewCharacterButton;
 
@@ -38,11 +47,7 @@ namespace Content.Client.Lobby.UI
             IoCManager.InjectDependencies(this);
 
             var panelTex = _resourceCache.GetTexture("/Textures/Interface/Nano/button.svg.96dpi.png");
-            var back = new StyleBoxTexture
-            {
-                Texture = panelTex,
-                Modulate = new Color(37, 37, 42)
-            };
+            var back = new StyleBoxTexture { Texture = panelTex, Modulate = new Color(37, 37, 42) };
             back.SetPatchMargin(StyleBox.Margin.All, 10);
 
             BackgroundPanel.PanelOverride = back;
@@ -111,9 +116,10 @@ namespace Content.Client.Lobby.UI
                 return;
             }
 
-            _createNewCharacterButton.ToolTip =
-                Loc.GetString("character-setup-gui-create-new-character-button-tooltip",
-                    ("maxCharacters", _preferencesManager.Settings!.MaxCharacterSlots));
+            _createNewCharacterButton.ToolTip = Loc.GetString(
+                "character-setup-gui-create-new-character-button-tooltip",
+                ("maxCharacters", _preferencesManager.Settings!.MaxCharacterSlots)
+            );
 
             var selectedSlot = _preferencesManager.Preferences?.SelectedCharacterIndex;
 
@@ -128,11 +134,13 @@ namespace Content.Client.Lobby.UI
                 CharacterPickerButton characterPickerButton;
                 try
                 {
-                    characterPickerButton = new CharacterPickerButton(_entManager,
+                    characterPickerButton = new CharacterPickerButton(
+                        _entManager,
                         _protomanager,
                         characterButtonsGroup,
                         character,
-                        slot == selectedSlot);
+                        slot == selectedSlot
+                    );
                 }
                 catch (Exception e)
                 {

@@ -36,9 +36,8 @@
   speciesRestriction: [Skrell, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Avali, Shadekin, ProtoSlimePerson]
   coloring:
     default:
-      type:
-        !type:EyeColoring
-          negative: false
+      type: !type:EyeColoring
+        negative: false
   sprites:
   - sprite: _Impstation/Mobs/Customization/slime_parts.rsi
     state: eyeglow
@@ -72,9 +71,8 @@
   followSkinColor: false
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#F8F8F8"
+      type: !type:SimpleColoring
+        color: "#F8F8F8"
   sprites:
   - sprite: _Impstation/Mobs/Customization/slime_parts.rsi
     state: bonehead
@@ -87,9 +85,8 @@
   followSkinColor: false
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#F8F8F8"
+      type: !type:SimpleColoring
+        color: "#F8F8F8"
   sprites:
   - sprite: _Impstation/Mobs/Customization/slime_parts.rsi
     state: bonechest
@@ -102,9 +99,8 @@
   followSkinColor: false
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#F8F8F8"
+      type: !type:SimpleColoring
+        color: "#F8F8F8"
   sprites:
   - sprite: _Impstation/Mobs/Customization/slime_parts.rsi
     state: bonearmleft
@@ -117,9 +113,8 @@
   followSkinColor: false
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#F8F8F8"
+      type: !type:SimpleColoring
+        color: "#F8F8F8"
   sprites:
   - sprite: _Impstation/Mobs/Customization/slime_parts.rsi
     state: bonearmright
@@ -132,9 +127,8 @@
   followSkinColor: false
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#F8F8F8"
+      type: !type:SimpleColoring
+        color: "#F8F8F8"
   sprites:
   - sprite: _Impstation/Mobs/Customization/slime_parts.rsi
     state: bonefootleft
@@ -143,13 +137,12 @@
   id: SlimeBonefootright
   bodyPart: RFoot
   markingCategory: Legs
-  speciesRestriction: [Skrell, DThaven,warf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, ProtoSlimePerson]
+  speciesRestriction: [Skrell, DThaven, warf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, ProtoSlimePerson]
   followSkinColor: false
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#F8F8F8"
+      type: !type:SimpleColoring
+        color: "#F8F8F8"
   sprites:
   - sprite: _Impstation/Mobs/Customization/slime_parts.rsi
     state: bonefootright
@@ -162,9 +155,8 @@
   followSkinColor: false
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#F8F8F8"
+      type: !type:SimpleColoring
+        color: "#F8F8F8"
   sprites:
   - sprite: _Impstation/Mobs/Customization/slime_parts.rsi
     state: bonehandleft
@@ -177,9 +169,8 @@
   followSkinColor: false
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#F8F8F8"
+      type: !type:SimpleColoring
+        color: "#F8F8F8"
   sprites:
   - sprite: _Impstation/Mobs/Customization/slime_parts.rsi
     state: bonehandright
@@ -192,9 +183,8 @@
   followSkinColor: false
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#F8F8F8"
+      type: !type:SimpleColoring
+        color: "#F8F8F8"
   sprites:
   - sprite: _Impstation/Mobs/Customization/slime_parts.rsi
     state: bonelegleft
@@ -207,9 +197,8 @@
   followSkinColor: false
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#F8F8F8"
+      type: !type:SimpleColoring
+        color: "#F8F8F8"
   sprites:
   - sprite: _Impstation/Mobs/Customization/slime_parts.rsi
     state: bonelegright

@@ -1,11 +1,10 @@
-using Content.Shared.TextScreen;
-using Content.Server.Screens.Components;
 using Content.Server.DeviceNetwork.Components;
 using Content.Server.DeviceNetwork.Systems;
+using Content.Server.Screens.Components;
 using Content.Shared.DeviceNetwork.Components;
 using Content.Shared.DeviceNetwork.Events;
+using Content.Shared.TextScreen;
 using Robust.Shared.Timing;
-
 
 namespace Content.Server.Screens.Systems;
 
@@ -14,8 +13,11 @@ namespace Content.Server.Screens.Systems;
 /// </summary>
 public sealed class ScreenSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearanceSystem = default!;
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearanceSystem = default!;
 
     public override void Initialize()
     {
@@ -45,19 +47,22 @@ public sealed class ScreenSystem : EntitySystem
     {
         // don't allow text updates if there's an active timer
         // (and just check here so the server doesn't have to track them)
-        if (_appearanceSystem.TryGetData(uid, TextScreenVisuals.TargetTime, out TimeSpan target)
-            && target > _gameTiming.CurTime)
+        if (
+            _appearanceSystem.TryGetData(uid, TextScreenVisuals.TargetTime, out TimeSpan target)
+            && target > _gameTiming.CurTime
+        )
             return;
 
         var screenMap = Transform(uid).MapUid;
         var argsMap = Transform(args.Sender).MapUid;
 
-        if (screenMap != null
+        if (
+            screenMap != null
             && argsMap != null
             && screenMap == argsMap
             && args.Data.TryGetValue(ScreenMasks.Text, out string? text)
             && text != null
-            )
+        )
         {
             _appearanceSystem.SetData(uid, TextScreenVisuals.DefaultText, text);
             _appearanceSystem.SetData(uid, TextScreenVisuals.ScreenText, text);
@@ -125,18 +130,21 @@ public sealed class ScreenSystem : EntitySystem
     {
         // don't allow text updates if there's an active timer
         // (and just check here so the server doesn't have to track them)
-        if (_appearanceSystem.TryGetData(uid, TextScreenVisuals.TargetTime, out TimeSpan target)
-            && target > _gameTiming.CurTime)
+        if (
+            _appearanceSystem.TryGetData(uid, TextScreenVisuals.TargetTime, out TimeSpan target)
+            && target > _gameTiming.CurTime
+        )
             return;
 
         var screenGrid = Transform(uid).GridUid;
 
-        if (screenGrid != null
+        if (
+            screenGrid != null
             && args.Data.TryGetValue(ScreenMasks.LocalGrid, out EntityUid? targetGridUid)
             && targetGridUid == screenGrid // targetGridUid implicitly not null
             && args.Data.TryGetValue(ScreenMasks.Text, out string? text)
             && text != null
-            )
+        )
         {
             _appearanceSystem.SetData(uid, TextScreenVisuals.DefaultText, text);
             _appearanceSystem.SetData(uid, TextScreenVisuals.ScreenText, text);

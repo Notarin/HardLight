@@ -6,8 +6,11 @@ namespace Content.Server.Speech;
 
 public sealed partial class EmotesMenuSystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly ChatSystem _chat = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly ChatSystem _chat = default!;
 
     public override void Initialize()
     {

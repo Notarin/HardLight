@@ -9,8 +9,11 @@ namespace Content.Shared.FingerprintReader;
 // TODO: This has a lot of overlap with the AccessReaderSystem, maybe merge them in the future?
 public sealed class FingerprintReaderSystem : EntitySystem
 {
-    [Dependency] private readonly InventorySystem _inventory = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency]
+    private readonly InventorySystem _inventory = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
 
     /// <summary>
     /// Checks if the given user has fingerprint access to the target entity.
@@ -36,8 +39,11 @@ public sealed class FingerprintReaderSystem : EntitySystem
         }
 
         // Check fingerprint match
-        if (!TryComp<FingerprintComponent>(user, out var fingerprint) || fingerprint.Fingerprint == null ||
-            !target.Comp.AllowedFingerprints.Contains(fingerprint.Fingerprint))
+        if (
+            !TryComp<FingerprintComponent>(user, out var fingerprint)
+            || fingerprint.Fingerprint == null
+            || !target.Comp.AllowedFingerprints.Contains(fingerprint.Fingerprint)
+        )
         {
             if (target.Comp.FailPopup != null && showPopup)
                 _popup.PopupClient(Loc.GetString(target.Comp.FailPopup), target, user);

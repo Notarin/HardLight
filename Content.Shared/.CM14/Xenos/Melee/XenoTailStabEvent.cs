@@ -2,6 +2,4 @@
 
 namespace Content.Shared.CM14.Xenos.Melee;
 
-public sealed partial class XenoTailStabEvent : WorldTargetActionEvent
-{
-}
+public sealed partial class XenoTailStabEvent : WorldTargetActionEvent { }

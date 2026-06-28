@@ -43,18 +43,23 @@ public sealed partial class PlumbingSmartDispenserWindow : DefaultWindow
             chart.Clear();
             chart.SetEntry(
                 entry.ReagentId,
-                Loc.GetString("plumbing-smart-dispenser-reagent-entry",
+                Loc.GetString(
+                    "plumbing-smart-dispenser-reagent-entry",
                     ("reagent", entry.LocalizedName),
-                    ("amount", entry.Quantity)),
+                    ("amount", entry.Quantity)
+                ),
                 entry.Quantity.Float(),
                 entry.Color,
-                tooltip: $"{entry.LocalizedName}: {entry.Quantity}u / {state.MaxPerReagent}u");
+                tooltip: $"{entry.LocalizedName}: {entry.Quantity}u / {state.MaxPerReagent}u"
+            );
 
             ReagentList.AddChild(chart);
         }
 
-        StatusLabel.Text = Loc.GetString("plumbing-smart-dispenser-total",
+        StatusLabel.Text = Loc.GetString(
+            "plumbing-smart-dispenser-total",
             ("total", totalVolume),
-            ("count", state.Entries.Count));
+            ("count", state.Entries.Count)
+        );
     }
 }

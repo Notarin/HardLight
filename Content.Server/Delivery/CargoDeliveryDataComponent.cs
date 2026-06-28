@@ -26,7 +26,6 @@ public sealed partial class CargoDeliveryDataComponent : Component
     [DataField]
     public TimeSpan MaxDeliveryCooldown = TimeSpan.FromMinutes(7);
 
-
     /// <summary>
     /// The ratio at which deliveries will spawn, based on the amount of people in the crew manifest.
     /// 1 delivery per X players.

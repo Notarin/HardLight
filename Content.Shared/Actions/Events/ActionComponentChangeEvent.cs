@@ -15,10 +15,7 @@ public partial class ActionComponentChangeEvent : InstantActionEvent
 /// <summary>
 /// Similar to <see cref="ActionComponentChangeEvent"/> except raises an event to attempt to relay it.
 /// </summary>
-public sealed partial class RelayedActionComponentChangeEvent : ActionComponentChangeEvent
-{
-
-}
+public sealed partial class RelayedActionComponentChangeEvent : ActionComponentChangeEvent { }
 
 [ByRefEvent]
 public record struct AttemptRelayActionComponentChangeEvent

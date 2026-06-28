@@ -1,19 +1,20 @@
 ﻿using Content.Server._NF.CrateMachine;
 using Content.Server._NF.Market.Components;
 using Content.Server._NF.Market.Extensions;
+using Content.Shared._NF.Bank.Components;
+using Content.Shared._NF.CrateMachine.Components;
 using Content.Shared._NF.Market;
 using Content.Shared._NF.Market.Components;
 using Content.Shared._NF.Market.Events;
-using Content.Shared._NF.Bank.Components;
 using Robust.Shared.Audio;
 using Robust.Shared.Player;
-using Content.Shared._NF.CrateMachine.Components;
 
 namespace Content.Server._NF.Market.Systems;
 
 public sealed partial class MarketSystem
 {
-    [Dependency] private readonly CrateMachineSystem _crateMachine = default!;
+    [Dependency]
+    private readonly CrateMachineSystem _crateMachine = default!;
 
     private void InitializeCrateMachine()
     {
@@ -21,9 +22,11 @@ public sealed partial class MarketSystem
         SubscribeLocalEvent<CrateMachineComponent, CrateMachineOpenedEvent>(OnCrateMachineOpened);
     }
 
-    private void OnMarketConsolePurchaseCrateMessage(EntityUid consoleUid,
+    private void OnMarketConsolePurchaseCrateMessage(
+        EntityUid consoleUid,
         MarketConsoleComponent component,
-        ref MarketPurchaseMessage args)
+        ref MarketPurchaseMessage args
+    )
     {
         var marketMod = 1f;
         if (TryComp<MarketModifierComponent>(consoleUid, out var marketModComponent))
@@ -31,9 +34,17 @@ public sealed partial class MarketSystem
             marketMod = marketModComponent.Mod;
         }
 
-        if (!_crateMachine.FindNearestUnoccupied(consoleUid, component.MaxCrateMachineDistance, out var machineUid) || !_entityManager.TryGetComponent<CrateMachineComponent> (machineUid, out var comp))
+        if (
+            !_crateMachine.FindNearestUnoccupied(consoleUid, component.MaxCrateMachineDistance, out var machineUid)
+            || !_entityManager.TryGetComponent<CrateMachineComponent>(machineUid, out var comp)
+        )
         {
-            _popup.PopupEntity(Loc.GetString("market-no-crate-machine-available"), consoleUid, Filter.PvsExcept(consoleUid), true);
+            _popup.PopupEntity(
+                Loc.GetString("market-no-crate-machine-available"),
+                consoleUid,
+                Filter.PvsExcept(consoleUid),
+                true
+            );
             _audio.PlayPredicted(component.ErrorSound, consoleUid, null, AudioParams.Default.WithMaxDistance(5f));
 
             return;
@@ -41,12 +52,14 @@ public sealed partial class MarketSystem
         OnPurchaseCrateMessage(machineUid.Value, consoleUid, comp, component, marketMod, args);
     }
 
-    private void OnPurchaseCrateMessage(EntityUid crateMachineUid,
+    private void OnPurchaseCrateMessage(
+        EntityUid crateMachineUid,
         EntityUid consoleUid,
         CrateMachineComponent component,
         MarketConsoleComponent consoleComponent,
         float marketMod,
-        MarketPurchaseMessage args)
+        MarketPurchaseMessage args
+    )
     {
         if (args.Actor is not { Valid: true } player)
             return;
@@ -57,13 +70,15 @@ public sealed partial class MarketSystem
         TrySpawnCrate(crateMachineUid, player, consoleUid, component, consoleComponent, marketMod, bankAccount);
     }
 
-    private void TrySpawnCrate(EntityUid crateMachineUid,
+    private void TrySpawnCrate(
+        EntityUid crateMachineUid,
         EntityUid player,
         EntityUid consoleUid,
         CrateMachineComponent component,
         MarketConsoleComponent consoleComponent,
         float marketMod,
-        BankAccountComponent playerBank)
+        BankAccountComponent playerBank
+    )
     {
         if (!TryComp<MarketItemSpawnerComponent>(crateMachineUid, out var itemSpawner))
             return;
@@ -76,7 +91,12 @@ public sealed partial class MarketSystem
         if (!_bankSystem.TryBankWithdraw(player, cartBalance))
         {
             _popup.PopupEntity(Loc.GetString("market-insufficient-funds"), consoleUid, player);
-            _audio.PlayPredicted(consoleComponent.ErrorSound, consoleUid, null, AudioParams.Default.WithMaxDistance(5f));
+            _audio.PlayPredicted(
+                consoleComponent.ErrorSound,
+                consoleUid,
+                null,
+                AudioParams.Default.WithMaxDistance(5f)
+            );
             return;
         }
         _audio.PlayPredicted(consoleComponent.SuccessSound, consoleUid, null, AudioParams.Default.WithMaxDistance(5f));

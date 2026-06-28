@@ -10,9 +10,14 @@ namespace Content.Client.Stealth;
 
 public sealed class StealthSystem : SharedStealthSystem
 {
-    [Dependency] private readonly IPrototypeManager _protoMan = default!;
-    [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly IPrototypeManager _protoMan = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transformSystem = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     private static readonly ProtoId<ShaderPrototype> StealthShaderId = "Stealth";
     private ShaderInstance _shader = default!;
@@ -37,7 +42,12 @@ public sealed class StealthSystem : SharedStealthSystem
         SetShader(uid, value, component);
     }
 
-    private void SetShader(EntityUid uid, bool enabled, StealthComponent? component = null, SpriteComponent? sprite = null)
+    private void SetShader(
+        EntityUid uid,
+        bool enabled,
+        StealthComponent? component = null,
+        SpriteComponent? sprite = null
+    )
     {
         if (!Resolve(uid, ref component, ref sprite, false))
             return;

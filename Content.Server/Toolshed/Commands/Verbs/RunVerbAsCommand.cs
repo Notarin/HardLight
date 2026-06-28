@@ -15,11 +15,11 @@ public sealed class RunVerbAsCommand : ToolshedCommand
 
     [CommandImplementation]
     public IEnumerable<NetEntity> RunVerbAs(
-            IInvocationContext ctx,
-            [PipedArgument] IEnumerable<NetEntity> input,
-            EntityUid runner,
-            string verb
-        )
+        IInvocationContext ctx,
+        [PipedArgument] IEnumerable<NetEntity> input,
+        EntityUid runner,
+        string verb
+    )
     {
         _verb ??= GetSys<SharedVerbSystem>();
         verb = verb.ToLowerInvariant();

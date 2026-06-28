@@ -5,9 +5,7 @@ namespace Content.Shared.CartridgeLoader.Cartridges;
 /// <summary>
 ///     Base UI message for NanoTask interactions
 /// </summary>
-public interface INanoTaskUiMessagePayload
-{
-}
+public interface INanoTaskUiMessagePayload { }
 
 /// <summary>
 ///     Dispatched when a new task is created
@@ -84,6 +82,7 @@ public sealed partial class NanoTaskPrintTask : INanoTaskUiMessagePayload
 public sealed class NanoTaskUiMessageEvent : CartridgeMessageEvent
 {
     public readonly INanoTaskUiMessagePayload Payload;
+
     public NanoTaskUiMessageEvent(INanoTaskUiMessagePayload payload)
     {
         Payload = payload;

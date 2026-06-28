@@ -9,11 +9,17 @@ namespace Content.Server.Explosion.EntitySystems;
 
 public sealed class ProjectileGrenadeSystem : EntitySystem
 {
-    [Dependency] private readonly GunSystem _gun = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly TransformSystem _transformSystem = default!;
+    [Dependency]
+    private readonly GunSystem _gun = default!;
 
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly TransformSystem _transformSystem = default!;
 
     public override void Initialize()
     {
@@ -88,7 +94,11 @@ public sealed class ProjectileGrenadeSystem : EntitySystem
     /// <summary>
     /// Spawns one instance of the fill prototype or contained entity at the coordinate indicated
     /// </summary>
-    private bool TrySpawnContents(MapCoordinates spawnCoordinates, ProjectileGrenadeComponent component, out EntityUid contentUid)
+    private bool TrySpawnContents(
+        MapCoordinates spawnCoordinates,
+        ProjectileGrenadeComponent component,
+        out EntityUid contentUid
+    )
     {
         contentUid = default;
 

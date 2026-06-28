@@ -408,7 +408,7 @@
   - LoadoutCoolCoyoteClothesWhitesun
   - LoadoutCoolCoyoteClothesYellowwshort
   - LoadoutCoolCoyoteClothesGearHarness
-#_CS End
+  #_CS End
   fallbacks:
   - ContractorClothingUniformJumpsuitColorGrey
   - ContractorClothingUniformJumpskirtColorGrey
@@ -592,10 +592,9 @@
   - ContractorWetFloorSign
   - ContractorClothingOuterCoatExpensive
   - ContractorClothingOuterCoatSpaceAsshole
- #_HL START
+  #_HL START
   - ContractorClothingOuterCoatBomberCrop
 # HL END
-
 
 - type: loadoutGroup
   id: ContractorBelt
@@ -1055,7 +1054,7 @@
   - ContractorMysterySpaceBladeBox
   - ContractorHoloGraffitiProjector # Punkish (might be annoying)
   - ContractorCrayonMagic
-    # Bureaucracy
+  # Bureaucracy
   - ContractorBoxFolderMedicalDoctor
   - ContractorBrbSign
   - ContractorHandLabeler
@@ -1069,9 +1068,9 @@
   - ContractorRubberStampTrader
   - ContractorRubberStampClown
   - ContractorRubberStampMime
-    # Misc
+  # Misc
   - ContractorClothingHeadHatHairflower
-    # Posters
+  # Posters
   - ContractorNFPosterCorporate
   - ContractorNFPosterContraband
   # Hardlight start

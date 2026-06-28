@@ -11,12 +11,16 @@ namespace Content.Client.Chemistry.EntitySystems;
 /// <seealso cref="SolutionStatusControl"/>
 public sealed class SolutionItemStatusSystem : EntitySystem
 {
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
+    [Dependency]
+    private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
 
     public override void Initialize()
     {
         base.Initialize();
-        Subs.ItemStatus<SolutionItemStatusComponent>(
-            entity => new SolutionStatusControl(entity, EntityManager, _solutionContainerSystem));
+        Subs.ItemStatus<SolutionItemStatusComponent>(entity => new SolutionStatusControl(
+            entity,
+            EntityManager,
+            _solutionContainerSystem
+        ));
     }
 }

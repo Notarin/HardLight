@@ -9,17 +9,17 @@
   - type: MobMover
   - type: StatusEffects
     allowed:
-      - Stun
-      - KnockedDown
-      - SlowedDown
-      - Stutter
-      - Electrocution
-      - ForcedSleep
-      - TemporaryBlindness
-      - Pacified
-      - StaminaModifier
-      - Drowsiness
-      - Adrenaline
+    - Stun
+    - KnockedDown
+    - SlowedDown
+    - Stutter
+    - Electrocution
+    - ForcedSleep
+    - TemporaryBlindness
+    - Pacified
+    - StaminaModifier
+    - Drowsiness
+    - Adrenaline
   - type: Temperature
     heatDamageThreshold: 360
     coldDamageThreshold: 0
@@ -27,10 +27,10 @@
     specificHeat: 42
     coldDamage:
       types:
-        Cold : 0.1 #per second, scales with temperature & other constants
+        Cold: 0.1 #per second, scales with temperature & other constants
     heatDamage:
       types:
-        Heat : 0.1 #per second, scales with temperature & other constants
+        Heat: 0.1 #per second, scales with temperature & other constants
   - type: Bloodstream
     bloodMaxVolume: 150
   - type: MobPrice

@@ -37,13 +37,7 @@ public sealed partial class StunProviderComponent : Component
     /// Damage dealt when stunning someone
     /// </summary>
     [DataField]
-    public DamageSpecifier StunDamage = new()
-    {
-        DamageDict = new()
-        {
-            { "Shock", 5 }
-        }
-    };
+    public DamageSpecifier StunDamage = new() { DamageDict = new() { { "Shock", 5 } } };
 
     /// <summary>
     /// Time that someone is stunned for, stacks if done multiple times.

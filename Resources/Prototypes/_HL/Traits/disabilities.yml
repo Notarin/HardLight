@@ -5,11 +5,11 @@
   category: Physical
   cost: -2
   mutuallyExclusiveTraits:
-    - UltraVisionNoBypass
-    - UltraVision
-    - DogVision
+  - UltraVisionNoBypass
+  - UltraVision
+  - DogVision
   components:
-    - type: DogVisionNoBypass
+  - type: DogVisionNoBypass
 
 - type: trait
   id: UltraVisionNoBypass
@@ -18,8 +18,8 @@
   category: Physical
   cost: -2
   mutuallyExclusiveTraits:
-    - DogVisionNoBypass
-    - UltraVision
-    - DogVision
+  - DogVisionNoBypass
+  - UltraVision
+  - DogVision
   components:
-    - type: UltraVisionNoBypass
+  - type: UltraVisionNoBypass

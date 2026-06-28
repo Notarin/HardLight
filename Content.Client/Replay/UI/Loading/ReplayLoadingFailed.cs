@@ -12,8 +12,11 @@ namespace Content.Client.Replay.UI.Loading;
 /// <seealso cref="ContentReplayPlaybackManager"/>
 public sealed class ReplayLoadingFailed : State
 {
-    [Dependency] private readonly IStylesheetManager _stylesheetManager = default!;
-    [Dependency] private readonly IUserInterfaceManager _userInterface = default!;
+    [Dependency]
+    private readonly IStylesheetManager _stylesheetManager = default!;
+
+    [Dependency]
+    private readonly IUserInterfaceManager _userInterface = default!;
 
     private ReplayLoadingFailedControl? _control;
 

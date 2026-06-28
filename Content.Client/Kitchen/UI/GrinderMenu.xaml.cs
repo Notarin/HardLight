@@ -12,8 +12,11 @@ namespace Content.Client.Kitchen.UI
     [GenerateTypedNameReferences]
     public sealed partial class GrinderMenu : FancyWindow
     {
-        [Dependency] private readonly IEntityManager _entityManager = default!;
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+        [Dependency]
+        private readonly IEntityManager _entityManager = default!;
+
+        [Dependency]
+        private readonly IPrototypeManager _prototypeManager = default!;
 
         private readonly Dictionary<int, EntityUid> _chamberVisualContents = new();
 
@@ -63,7 +66,11 @@ namespace Content.Client.Kitchen.UI
             }
 
             // TODO move this to a component state and ensure the net ids.
-            RefreshContentsDisplay(state.ReagentQuantities, _entityManager.GetEntityArray(state.ChamberContents), state.HasBeakerIn);
+            RefreshContentsDisplay(
+                state.ReagentQuantities,
+                _entityManager.GetEntityArray(state.ChamberContents),
+                state.HasBeakerIn
+            );
         }
 
         public void HandleMessage(BoundUserInterfaceMessage message)
@@ -72,9 +79,11 @@ namespace Content.Client.Kitchen.UI
             {
                 case ReagentGrinderWorkStartedMessage workStarted:
                     GrindButton.Disabled = true;
-                    GrindButton.Modulate = workStarted.GrinderProgram == GrinderProgram.Grind ? Color.Green : Color.White;
+                    GrindButton.Modulate =
+                        workStarted.GrinderProgram == GrinderProgram.Grind ? Color.Green : Color.White;
                     JuiceButton.Disabled = true;
-                    JuiceButton.Modulate = workStarted.GrinderProgram == GrinderProgram.Juice ? Color.Green : Color.White;
+                    JuiceButton.Modulate =
+                        workStarted.GrinderProgram == GrinderProgram.Juice ? Color.Green : Color.White;
                     BeakerContentBox.EjectButton.Disabled = true;
                     ChamberContentBox.EjectButton.Disabled = true;
                     break;
@@ -89,7 +98,11 @@ namespace Content.Client.Kitchen.UI
             }
         }
 
-        private void RefreshContentsDisplay(IList<ReagentQuantity>? reagents, IReadOnlyList<EntityUid> containedSolids, bool isBeakerAttached)
+        private void RefreshContentsDisplay(
+            IList<ReagentQuantity>? reagents,
+            IReadOnlyList<EntityUid> containedSolids,
+            bool isBeakerAttached
+        )
         {
             //Refresh chamber contents
             _chamberVisualContents.Clear();
@@ -104,7 +117,10 @@ namespace Content.Client.Kitchen.UI
 
                 var texture = _entityManager.GetComponent<SpriteComponent>(entity).Icon?.Default;
 
-                var solidItem = ChamberContentBox.BoxContents.AddItem(_entityManager.GetComponent<MetaDataComponent>(entity).EntityName, texture);
+                var solidItem = ChamberContentBox.BoxContents.AddItem(
+                    _entityManager.GetComponent<MetaDataComponent>(entity).EntityName,
+                    texture
+                );
                 var solidIndex = ChamberContentBox.BoxContents.IndexOf(solidItem);
                 _chamberVisualContents.Add(solidIndex, entity);
             }

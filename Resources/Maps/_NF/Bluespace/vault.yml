@@ -5297,9 +5297,7 @@ entities:
         - ClothingSpeedModifier
         entries:
         - message: >-
-            It provides the following protection:
-
-            - [color=orange]Explosion[/color] damage [color=white]to contents[/color] reduced by [color=lightblue]10%[/color].
+            It provides the following protection: #magic___^_^___line - [color=orange]Explosion[/color] damage [color=white]to contents[/color] reduced by [color=lightblue]10%[/color].
           priority: 0
           component: Armor
         title: null
@@ -9110,4 +9108,3 @@ entities:
     - type: Transform
       pos: 3.5,-16.5
       parent: 1
-...

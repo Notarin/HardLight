@@ -53,7 +53,7 @@
 
 # Engineering
 - type: latheRecipe
-  parent: [ BaseCircuitboardRecipe, BaseEngineeringComputerRecipeCategory ]
+  parent: [BaseCircuitboardRecipe, BaseEngineeringComputerRecipeCategory]
   id: SolarControlComputerCircuitboard
   result: SolarControlComputerCircuitboard
 
@@ -61,45 +61,45 @@
 
 # Science
 - type: latheRecipe
-  parent: [ BaseGoldCircuitboardRecipe, BaseResearchComputerRecipeCategory ]
+  parent: [BaseGoldCircuitboardRecipe, BaseResearchComputerRecipeCategory]
   id: AnalysisComputerCircuitboard
   result: AnalysisComputerCircuitboard
 
 - type: latheRecipe
-  parent: [ BaseGoldCircuitboardRecipe, BaseResearchComputerRecipeCategory ]
+  parent: [BaseGoldCircuitboardRecipe, BaseResearchComputerRecipeCategory]
   id: TechDiskComputerCircuitboard
   result: TechDiskComputerCircuitboard
 
 # Cameras
 - type: latheRecipe
-  parent: [ BaseCircuitboardRecipe, BaseSecurityComputerRecipeCategory ]
+  parent: [BaseCircuitboardRecipe, BaseSecurityComputerRecipeCategory]
   id: SurveillanceCameraMonitorCircuitboard
   result: SurveillanceCameraMonitorCircuitboard
 
 - type: latheRecipe
-  parent: [ BaseCircuitboardRecipe, BaseServiceComputerRecipeCategory ]
+  parent: [BaseCircuitboardRecipe, BaseServiceComputerRecipeCategory]
   id: SurveillanceWirelessCameraMonitorCircuitboard
   result: SurveillanceWirelessCameraMonitorCircuitboard
 
 # Service
 - type: latheRecipe
-  parent: [ BaseCircuitboardRecipe, BaseServiceComputerRecipeCategory ]
+  parent: [BaseCircuitboardRecipe, BaseServiceComputerRecipeCategory]
   id: MassMediaCircuitboard
   result: ComputerMassMediaCircuitboard
 
 # Shuttle
 - type: latheRecipe
-  parent: [ BaseGoldCircuitboardRecipe, BaseSupplyComputerRecipeCategory ]
+  parent: [BaseGoldCircuitboardRecipe, BaseSupplyComputerRecipeCategory]
   id: ShuttleConsoleCircuitboard
   result: ShuttleConsoleCircuitboard
 
 - type: latheRecipe
-  parent: [ BaseCircuitboardRecipe, BaseSupplyComputerRecipeCategory ]
+  parent: [BaseCircuitboardRecipe, BaseSupplyComputerRecipeCategory]
   id: RadarConsoleCircuitboard
   result: RadarConsoleCircuitboard
 
 # Civilian
 - type: latheRecipe
-  parent: [ BaseCircuitboardRecipe, BaseGeneralComputerRecipeCategory ]
+  parent: [BaseCircuitboardRecipe, BaseGeneralComputerRecipeCategory]
   id: ComputerTelevisionCircuitboard
   result: ComputerTelevisionCircuitboard

@@ -7,16 +7,16 @@
   dummyPrototype: BorgChassisGeneric
   # Visuals
   layerData:
-    - state: borg
-      map: [ "enum.BorgVisualLayers.Body", "movement" ]
-    - state: borg_e
-      map: [ "enum.BorgVisualLayers.Light" ]
-      shader: unshaded
-      visible: false
-    - state: borg_l
-      shader: unshaded
-      map: [ "light","enum.BorgVisualLayers.LightStatus" ]
-      visible: false
+  - state: borg
+    map: ["enum.BorgVisualLayers.Body", "movement"]
+  - state: borg_e
+    map: ["enum.BorgVisualLayers.Light"]
+    shader: unshaded
+    visible: false
+  - state: borg_l
+    shader: unshaded
+    map: ["light", "enum.BorgVisualLayers.LightStatus"]
+    visible: false
 
   spriteBodyState: borg
   spriteHasMindState: borg_e
@@ -25,7 +25,6 @@
 
   footstepCollection:
     collection: FootstepBorg
-
 
 # mining (salvage)
 - type: borgSubtype
@@ -36,16 +35,16 @@
   dummyPrototype: BorgChassisMining
   # Visuals
   layerData:
-    - state: borg
-      map: [ "enum.BorgVisualLayers.Body", "movement" ]
-    - state: borg_e
-      map: [ "enum.BorgVisualLayers.Light" ]
-      shader: unshaded
-      visible: false
-    - state: borg_l
-      shader: unshaded
-      map: [ "light","enum.BorgVisualLayers.LightStatus" ]
-      visible: false
+  - state: borg
+    map: ["enum.BorgVisualLayers.Body", "movement"]
+  - state: borg_e
+    map: ["enum.BorgVisualLayers.Light"]
+    shader: unshaded
+    visible: false
+  - state: borg_l
+    shader: unshaded
+    map: ["light", "enum.BorgVisualLayers.LightStatus"]
+    visible: false
 
   spriteBodyState: borg
   spriteHasMindState: borg_e
@@ -64,16 +63,16 @@
   dummyPrototype: BorgChassisEngineer
   # Visuals
   layerData:
-    - state: borg
-      map: [ "enum.BorgVisualLayers.Body", "movement" ]
-    - state: borg_e
-      map: [ "enum.BorgVisualLayers.Light" ]
-      shader: unshaded
-      visible: false
-    - state: borg_l
-      shader: unshaded
-      map: [ "light","enum.BorgVisualLayers.LightStatus" ]
-      visible: false
+  - state: borg
+    map: ["enum.BorgVisualLayers.Body", "movement"]
+  - state: borg_e
+    map: ["enum.BorgVisualLayers.Light"]
+    shader: unshaded
+    visible: false
+  - state: borg_l
+    shader: unshaded
+    map: ["light", "enum.BorgVisualLayers.LightStatus"]
+    visible: false
 
   spriteBodyState: borg
   spriteHasMindState: borg_e
@@ -92,16 +91,16 @@
   dummyPrototype: BorgChassisJanitor
   # Visuals
   layerData:
-    - state: borg
-      map: [ "enum.BorgVisualLayers.Body", "movement" ]
-    - state: borg_e
-      map: [ "enum.BorgVisualLayers.Light" ]
-      shader: unshaded
-      visible: false
-    - state: borg_l
-      shader: unshaded
-      map: [ "light","enum.BorgVisualLayers.LightStatus" ]
-      visible: false
+  - state: borg
+    map: ["enum.BorgVisualLayers.Body", "movement"]
+  - state: borg_e
+    map: ["enum.BorgVisualLayers.Light"]
+    shader: unshaded
+    visible: false
+  - state: borg_l
+    shader: unshaded
+    map: ["light", "enum.BorgVisualLayers.LightStatus"]
+    visible: false
 
   spriteBodyState: borg
   spriteHasMindState: borg_e
@@ -120,16 +119,16 @@
   dummyPrototype: BorgChassisMedical
   # Visuals
   layerData:
-    - state: borg
-      map: [ "enum.BorgVisualLayers.Body", "movement" ]
-    - state: borg_e
-      map: [ "enum.BorgVisualLayers.Light" ]
-      shader: unshaded
-      visible: false
-    - state: borg_l
-      shader: unshaded
-      map: [ "light","enum.BorgVisualLayers.LightStatus" ]
-      visible: false
+  - state: borg
+    map: ["enum.BorgVisualLayers.Body", "movement"]
+  - state: borg_e
+    map: ["enum.BorgVisualLayers.Light"]
+    shader: unshaded
+    visible: false
+  - state: borg_l
+    shader: unshaded
+    map: ["light", "enum.BorgVisualLayers.LightStatus"]
+    visible: false
 
   spriteBodyState: borg
   spriteHasMindState: borg_e
@@ -148,16 +147,16 @@
   dummyPrototype: BorgChassisService
   # Visuals
   layerData:
-    - state: borg
-      map: [ "enum.BorgVisualLayers.Body", "movement" ]
-    - state: borg_e
-      map: [ "enum.BorgVisualLayers.Light" ]
-      shader: unshaded
-      visible: false
-    - state: borg_l
-      shader: unshaded
-      map: [ "light","enum.BorgVisualLayers.LightStatus" ]
-      visible: false
+  - state: borg
+    map: ["enum.BorgVisualLayers.Body", "movement"]
+  - state: borg_e
+    map: ["enum.BorgVisualLayers.Light"]
+    shader: unshaded
+    visible: false
+  - state: borg_l
+    shader: unshaded
+    map: ["light", "enum.BorgVisualLayers.LightStatus"]
+    visible: false
 
   spriteBodyState: borg
   spriteHasMindState: borg_e

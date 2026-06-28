@@ -10,11 +10,20 @@ namespace Content.Server.Lube;
 
 public sealed class LubedSystem : EntitySystem
 {
-    [Dependency] private readonly ThrowingSystem _throwing = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly NameModifierSystem _nameMod = default!;
+    [Dependency]
+    private readonly ThrowingSystem _throwing = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly NameModifierSystem _nameMod = default!;
 
     public override void Initialize()
     {
@@ -44,7 +53,12 @@ public sealed class LubedSystem : EntitySystem
         _transform.SetCoordinates(uid, Transform(user).Coordinates);
         _transform.AttachToGridOrMap(uid);
         _throwing.TryThrow(uid, _random.NextVector2(), baseThrowSpeed: component.SlipStrength);
-        _popup.PopupEntity(Loc.GetString("lube-slip", ("target", Identity.Entity(uid, EntityManager))), user, user, PopupType.MediumCaution);
+        _popup.PopupEntity(
+            Loc.GetString("lube-slip", ("target", Identity.Entity(uid, EntityManager))),
+            user,
+            user,
+            PopupType.MediumCaution
+        );
     }
 
     private void OnRefreshNameModifiers(Entity<LubedComponent> entity, ref RefreshNameModifiersEvent args)

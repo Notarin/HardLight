@@ -1,5 +1,5 @@
 - type: entity
-  parent: [BaseStructure, StructureWheeled ]
+  parent: [BaseStructure, StructureWheeled]
   id: ScuttleDeviceWyvern
   name: antimatter annihilation assembly
   description: Uses the power of antimatter to completely scuttle a ship. Will sell for more if unlocked.
@@ -21,23 +21,22 @@
     visuals:
       enum.NukeVisuals.Deployed:
         enum.NukeVisualLayers.Base:
-          False: { state: nuclearbomb_base }
-          True:  { state: nuclearbomb_deployed }
+          False: {state: nuclearbomb_base}
+          True: {state: nuclearbomb_deployed}
         enum.NukeVisualLayers.Unlit:
-          True:  { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
       enum.NukeVisuals.State:
         enum.NukeVisualLayers.Unlit:
-          Idle:        { state: nuclearbomb_deployed_unlit }
-          Armed:       { state: nuclearbomb_timing }
-          YoureFucked: { state: nuclearbomb_exploding }
+          Idle: {state: nuclearbomb_deployed_unlit}
+          Armed: {state: nuclearbomb_timing}
+          YoureFucked: {state: nuclearbomb_exploding}
   - type: Physics
     bodyType: Static
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.45
         density: 255 # Has "bluespace technology" to make it lighter, whatever that means. Don't mind the fact that this is lighter then a high capacity fuel tank.
         mask:
@@ -81,7 +80,6 @@
   - type: StaticPrice
     price: 200000 # antimatter is worth a lot
   - type: FTLSmashImmune
-
 
 - type: entity
   parent: ScuttleDeviceWyvern

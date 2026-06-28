@@ -1,222 +1,222 @@
 # region Fuel
 - type: entity
-  parent: [ LockerWallColorFuelPlasma, StorageFillMaterialsFuelPlasma ]
+  parent: [LockerWallColorFuelPlasma, StorageFillMaterialsFuelPlasma]
   id: LockerWallMaterialsFuelPlasmaFilled
   suffix: Filled, Plasma
 
 - type: entity
-  parent: [ LockerWallColorUranium, StorageFillMaterialsFuelUranium ]
+  parent: [LockerWallColorUranium, StorageFillMaterialsFuelUranium]
   id: LockerWallMaterialsFuelUraniumFilled
   suffix: Filled, Uranium
 
 - type: entity
-  parent: [ LockerWallColorFuelPlasma, StorageFillMaterialsFuelPlasma2 ]
+  parent: [LockerWallColorFuelPlasma, StorageFillMaterialsFuelPlasma2]
   id: LockerWallMaterialsFuelPlasmaFilled2
   suffix: Filled, Plasma (x2 Generators)
 
 - type: entity
-  parent: [ LockerWallColorUranium, StorageFillMaterialsFuelUranium2 ]
+  parent: [LockerWallColorUranium, StorageFillMaterialsFuelUranium2]
   id: LockerWallMaterialsFuelUraniumFilled2
   suffix: Filled, Uranium (x2 Generators)
 
 - type: entity
-  parent: [ LockerWallColorBananium, StorageFillMaterialsFuelBananium ]
+  parent: [LockerWallColorBananium, StorageFillMaterialsFuelBananium]
   id: LockerWallMaterialsFuelBananiumFilled
   suffix: Filled, Bananium
 
 - type: entity
-  parent: [ LockerWallColorBananium, StorageFillMaterialsFuelBananium2 ]
+  parent: [LockerWallColorBananium, StorageFillMaterialsFuelBananium2]
   id: LockerWallMaterialsFuelBananiumFilled2
   suffix: Filled, Bananium (x2 Generators)
 
 - type: entity
-  parent: [ LockerWallColorAme, StorageFillMaterialsFuelAmeJar ]
+  parent: [LockerWallColorAme, StorageFillMaterialsFuelAmeJar]
   id: LockerWallMaterialsFuelAmeJarFilled
   suffix: Filled, AME Jar (x2), AME Controller
 
 - type: entity
-  parent: [ LockerWallColorWelding, StorageFillMaterialsFuelWelding ]
+  parent: [LockerWallColorWelding, StorageFillMaterialsFuelWelding]
   id: LockerWallMaterialsFuelWeldingFilled
   suffix: Filled, Welding Fuel (x2)
 # endregion Fuel
 
 # region Materials
 - type: entity
-  parent: [ LockerWallColorMaterials, StorageFillMaterialsBasic ]
+  parent: [LockerWallColorMaterials, StorageFillMaterialsBasic]
   id: LockerWallMaterialsBasicFilled
   suffix: Filled, Basic Materials (full)
 
 - type: entity
-  parent: [ LockerWallColorMaterials, StorageFillMaterialsBasic10 ]
+  parent: [LockerWallColorMaterials, StorageFillMaterialsBasic10]
   id: LockerWallMaterialsBasic10Filled
   suffix: Filled, Basic Materials (10)
 # endregion Materials
 
 # region Softsuits
 - type: entity
-  parent: [ LockerWallEVAColorGeneric, StorageFillEVASuitGoblin ]
+  parent: [LockerWallEVAColorGeneric, StorageFillEVASuitGoblin]
   id: LockerWallEVAColorGoblinFilled
   name: goblin EVA locker
   suffix: Filled
 
 - type: entity
-  parent: [ LockerWallEVAColorContractor, StorageFillEVASuitContractor ]
+  parent: [LockerWallEVAColorContractor, StorageFillEVASuitContractor]
   id: LockerWallEVAColorContractorFilled
   suffix: Filled
 
 - type: entity
-  parent: [ LockerWallEVAColorPilot, StorageFillEVASuitPilot ]
+  parent: [LockerWallEVAColorPilot, StorageFillEVASuitPilot]
   id: LockerWallEVAColorPilotFilled
   suffix: Filled
 
 - type: entity
-  parent: [ LockerWallEVAColorSr, StorageFillEVASuitSr ]
+  parent: [LockerWallEVAColorSr, StorageFillEVASuitSr]
   id: LockerWallEVAColorSrFilled
   suffix: Filled
 
 - type: entity
-  parent: [ LockerWallEVAColorStc, StorageFillEVASuitSr ]
+  parent: [LockerWallEVAColorStc, StorageFillEVASuitSr]
   id: LockerWallEVAColorStcFilled
   suffix: Filled
 
 - type: entity
-  parent: [ LockerWallEVAColorCaptain, StorageFillEVASuitCaptain ]
+  parent: [LockerWallEVAColorCaptain, StorageFillEVASuitCaptain]
   id: LockerWallEVAColorCaptainFilled
   suffix: Filled
 
 - type: entity
-  parent: [ LockerWallEVAColorEngineer, StorageFillEVASuitEngineer ]
+  parent: [LockerWallEVAColorEngineer, StorageFillEVASuitEngineer]
   id: LockerWallEVAColorEngineerFilled
   suffix: Filled
 
 - type: entity
-  parent: [ LockerWallEVAColorAtmosTech, StorageFillEVASuitAtmosTech ]
+  parent: [LockerWallEVAColorAtmosTech, StorageFillEVASuitAtmosTech]
   id: LockerWallEVAColorAtmosTechFilled
   suffix: Filled
 
 - type: entity
-  parent: [ LockerWallEVAColorCargo, StorageFillEVASuitCargo ]
+  parent: [LockerWallEVAColorCargo, StorageFillEVASuitCargo]
   id: LockerWallEVAColorCargoFilled
   suffix: Filled
 
 - type: entity
-  parent: [ LockerWallEVAColorSalvage, StorageFillEVASuitSalvage ]
+  parent: [LockerWallEVAColorSalvage, StorageFillEVASuitSalvage]
   id: LockerWallEVAColorSalvageFilled
   suffix: Filled
 
 - type: entity
-  parent: [ LockerWallEVAColorMedical, StorageFillEVASuitMedic ]
+  parent: [LockerWallEVAColorMedical, StorageFillEVASuitMedic]
   id: LockerWallEVAColorMedicalFilled
   suffix: Filled
 
 - type: entity
-  parent: [ LockerWallEVAColorMedical, StorageFillEVASuitParamedic ]
+  parent: [LockerWallEVAColorMedical, StorageFillEVASuitParamedic]
   id: LockerWallEVAColorParamedicFilled
   name: paramedic voidsuit wall locker
   suffix: Filled
 
 - type: entity
-  parent: [ LockerWallEVAColorScientist, StorageFillEVASuitScientist ]
+  parent: [LockerWallEVAColorScientist, StorageFillEVASuitScientist]
   id: LockerWallEVAColorScientistFilled
   suffix: Filled
 
 - type: entity
-  parent: [ LockerWallEVAColorJanitor, StorageFillEVASuitJanitor ]
+  parent: [LockerWallEVAColorJanitor, StorageFillEVASuitJanitor]
   id: LockerWallEVAColorJanitorFilled
   suffix: Filled
 
 - type: entity
-  parent: [ LockerWallEVAColorServiceWorker, StorageFillEVASuitServiceWorker ]
+  parent: [LockerWallEVAColorServiceWorker, StorageFillEVASuitServiceWorker]
   id: LockerWallEVAColorServiceWorkerFilled
   suffix: Filled
 
 - type: entity
-  parent: [ LockerWallEVAColorChaplain, StorageFillEVASuitChaplain ]
+  parent: [LockerWallEVAColorChaplain, StorageFillEVASuitChaplain]
   id: LockerWallEVAColorChaplainFilled
   suffix: Filled
 
 - type: entity
-  parent: [ LockerWallEVAColorGeneric, StorageFillEVASuitBoxerRed ]
+  parent: [LockerWallEVAColorGeneric, StorageFillEVASuitBoxerRed]
   id: LockerWallEVAColorBoxerRedFilled
   name: boxer EVA locker
   suffix: Filled, Red
 
 - type: entity
-  parent: [ LockerWallEVAColorGeneric, StorageFillEVASuitBoxerGreen ]
+  parent: [LockerWallEVAColorGeneric, StorageFillEVASuitBoxerGreen]
   id: LockerWallEVAColorBoxerGreenFilled
   name: boxer EVA locker
   suffix: Filled, Green
 
 - type: entity
-  parent: [ LockerWallEVAColorGeneric, StorageFillEVASuitBoxerBlue ]
+  parent: [LockerWallEVAColorGeneric, StorageFillEVASuitBoxerBlue]
   id: LockerWallEVAColorBoxerBlueFilled
   name: boxer EVA locker
   suffix: Filled, Blue
 
 - type: entity
-  parent: [ LockerWallEVAColorGeneric, StorageFillEVASuitBoxerYellow ]
+  parent: [LockerWallEVAColorGeneric, StorageFillEVASuitBoxerYellow]
   id: LockerWallEVAColorBoxerYellowFilled
   name: boxer EVA locker
   suffix: Filled, Yellow
 
 - type: entity
-  parent: [ LockerWallEVAColorGeneric, StorageFillEVASuitBoxerRandom ]
+  parent: [LockerWallEVAColorGeneric, StorageFillEVASuitBoxerRandom]
   id: LockerWallEVAColorBoxerRandomFilled
   name: boxer EVA locker
   suffix: Filled, Random
 
 - type: entity
-  parent: [ LockerWallEVAColorHydroponics, StorageFillEVASuitHydro ]
+  parent: [LockerWallEVAColorHydroponics, StorageFillEVASuitHydro]
   id: LockerWallEVAColorHydroponicsFilled
   suffix: Filled
 
 - type: entity
-  parent: [ LockerWallEVAColorMail, StorageFillEVASuitMail ]
+  parent: [LockerWallEVAColorMail, StorageFillEVASuitMail]
   id: LockerWallEVAColorMailFilled
   suffix: Filled
 
 - type: entity
-  parent: [ LockerWallEVAColorMercenary, StorageFillEVASuitMercenary ]
+  parent: [LockerWallEVAColorMercenary, StorageFillEVASuitMercenary]
   id: LockerWallEVAColorMercenaryFilled
   suffix: Filled
 
 - type: entity
-  parent: [ LockerWallEVAColorPrivateSec, StorageFillEVASuitPrivateSec ]
+  parent: [LockerWallEVAColorPrivateSec, StorageFillEVASuitPrivateSec]
   id: LockerWallEVAColorPrivateSecFilled
   suffix: Filled
 
 - type: entity
-  parent: [ LockerWallEVAColorNfsd, StorageFillEVASuitNfsd ]
+  parent: [LockerWallEVAColorNfsd, StorageFillEVASuitNfsd]
   id: LockerWallEVAColorNfsdFilled
   suffix: Filled
 
 - type: entity
-  parent: [ LockerWallEVAColorEmergency, StorageFillEVASuitEmergency ]
+  parent: [LockerWallEVAColorEmergency, StorageFillEVASuitEmergency]
   id: LockerWallEVAColorEmergencyFilled
   suffix: Frontier, Filled
 
 - type: entity
-  parent: [ LockerWallEVAColorLvhi, StorageFillEVASuitLvhi ]
+  parent: [LockerWallEVAColorLvhi, StorageFillEVASuitLvhi]
   id: LockerWallEVAColorLvhiFilled
   suffix: Frontier, Filled
 
 - type: entity
-  parent: [ LockerWallEVAColorFsb, StorageFillEVASuitFsb ]
+  parent: [LockerWallEVAColorFsb, StorageFillEVASuitFsb]
   id: LockerWallEVAColorFsbFilled
   suffix: Frontier, Filled
 
 - type: entity
-  parent: [ LockerWallEVAColorFsb ]
+  parent: [LockerWallEVAColorFsb]
   id: LockerWallEVAColorFsbEmpty
   suffix: Frontier, Empty
 
 - type: entity
-  parent: [ LockerWallEVAColorFsc, StorageFillEVASuitFsc ]
+  parent: [LockerWallEVAColorFsc, StorageFillEVASuitFsc]
   id: LockerWallEVAColorFscFilled
   suffix: Frontier, Filled
 
 - type: entity
-  parent: [ LockerWallEVAColorFsc ]
+  parent: [LockerWallEVAColorFsc]
   id: LockerWallEVAColorFscEmpty
   suffix: Frontier, Empty
 
@@ -224,49 +224,49 @@
 
 # region Emergency
 - type: entity
-  parent: [ ClosetWallN2, StorageFillN2Random ]
+  parent: [ClosetWallN2, StorageFillN2Random]
   id: ClosetWallN2FilledRandom
   suffix: Filled, Random
 
 - type: entity
-  parent: [ ClosetWallO2N2, StorageFillO2N2Random ]
+  parent: [ClosetWallO2N2, StorageFillO2N2Random]
   id: ClosetWallO2N2FilledRandom
   suffix: Filled, Random
 
 - type: entity
-  parent: [ ClosetWallN2, StorageFillN2 ]
+  parent: [ClosetWallN2, StorageFillN2]
   id: ClosetWallN2Filled
   suffix: Filled
 
 - type: entity
-  parent: [ ClosetWallO2N2, StorageFillO2N2 ]
+  parent: [ClosetWallO2N2, StorageFillO2N2]
   id: ClosetWallO2N2Filled
   suffix: Filled
 
 - type: entity
-  parent: [ ClosetWallEmergency, StorageFillO2 ]
+  parent: [ClosetWallEmergency, StorageFillO2]
   id: ClosetWallO2Filled
   suffix: Filled
 # endregion
 
 # region Safety gear
 - type: entity
-  parent: [ LockerWallColorL1Fire, StorageFillL1FireSuit ]
+  parent: [LockerWallColorL1Fire, StorageFillL1FireSuit]
   id: LockerWallColorL1FireFilled
   suffix: Frontier, Filled
 
 - type: entity
-  parent: [ LockerWallColorL2Radiation, StorageFillL2RadiationSuit ]
+  parent: [LockerWallColorL2Radiation, StorageFillL2RadiationSuit]
   id: LockerWallColorL2RadiationFilled
   suffix: Frontier, Filled
 
 - type: entity
-  parent: [ LockerWallColorL3Biohazard, StorageFillL3BiohazardSuit ]
+  parent: [LockerWallColorL3Biohazard, StorageFillL3BiohazardSuit]
   id: LockerWallColorL3BiohazardFilled
   suffix: Frontier, Filled
 
 - type: entity
-  parent: [ LockerWallColorL4Bomb, StorageFillL4BombSuit ]
+  parent: [LockerWallColorL4Bomb, StorageFillL4BombSuit]
   id: LockerWallColorL4BombFilled
   suffix: Frontier, Filled
 # endregion

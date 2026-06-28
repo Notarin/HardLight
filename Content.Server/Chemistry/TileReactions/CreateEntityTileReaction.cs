@@ -1,3 +1,4 @@
+using System.Numerics;
 using Content.Shared.Chemistry.Reaction;
 using Content.Shared.Chemistry.Reagent;
 using Content.Shared.FixedPoint;
@@ -7,7 +8,6 @@ using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
-using System.Numerics;
 
 namespace Content.Server.Chemistry.TileReactions;
 
@@ -35,11 +35,13 @@ public sealed partial class CreateEntityTileReaction : ITileReaction
     [DataField]
     public float RandomOffsetMax = 0.0f;
 
-    public FixedPoint2 TileReact(TileRef tile,
+    public FixedPoint2 TileReact(
+        TileRef tile,
         ReagentPrototype reagent,
         FixedPoint2 reactVolume,
         IEntityManager entityManager,
-        List<ReagentData>? data)
+        List<ReagentData>? data
+    )
     {
         if (reactVolume >= Usage)
         {

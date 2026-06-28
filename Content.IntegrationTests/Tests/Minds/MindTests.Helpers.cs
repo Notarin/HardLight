@@ -28,12 +28,14 @@ public sealed partial class MindTests
     /// </remarks>
     private static async Task<TestPair> SetupPair(bool dirty = false)
     {
-        var pair = await PoolManager.GetServerClient(new PoolSettings
-        {
-            DummyTicker = false,
-            Connected = true,
-            Dirty = dirty
-        });
+        var pair = await PoolManager.GetServerClient(
+            new PoolSettings
+            {
+                DummyTicker = false,
+                Connected = true,
+                Dirty = dirty,
+            }
+        );
 
         var entMan = pair.Server.ResolveDependency<IServerEntityManager>();
         var playerMan = pair.Server.ResolveDependency<IPlayerManager>();
@@ -58,9 +60,16 @@ public sealed partial class MindTests
         {
             Assert.That(player.ContentData()?.Mind, Is.EqualTo(mindId));
             Assert.That(player.AttachedEntity, Is.EqualTo(entity));
-            Assert.That(player.AttachedEntity, Is.EqualTo(mind.CurrentEntity), "Player is not attached to the mind's current entity.");
+            Assert.That(
+                player.AttachedEntity,
+                Is.EqualTo(mind.CurrentEntity),
+                "Player is not attached to the mind's current entity."
+            );
             Assert.That(entMan.EntityExists(mind.OwnedEntity), "The mind's current entity does not exist");
-            Assert.That(mind.VisitingEntity == null || entMan.EntityExists(mind.VisitingEntity), "The minds visited entity does not exist.");
+            Assert.That(
+                mind.VisitingEntity == null || entMan.EntityExists(mind.VisitingEntity),
+                "The minds visited entity does not exist."
+            );
         });
         return pair;
     }
@@ -92,7 +101,6 @@ public sealed partial class MindTests
             mindSys.TransferTo(mindId, ghostUid);
             if (oldUid != null)
                 entMan.DeleteEntity(oldUid.Value);
-
         });
 
         await pair.RunTicksSync(5);
@@ -132,9 +140,16 @@ public sealed partial class MindTests
         {
             Assert.That(player.UserId, Is.EqualTo(mind.UserId), "Player UserId does not match mind UserId");
             Assert.That(entMan.System<MindSystem>().GetMind(player.UserId), Is.EqualTo(mindId));
-            Assert.That(player.AttachedEntity, Is.EqualTo(mind.CurrentEntity), "Player is not attached to the mind's current entity.");
+            Assert.That(
+                player.AttachedEntity,
+                Is.EqualTo(mind.CurrentEntity),
+                "Player is not attached to the mind's current entity."
+            );
             Assert.That(entMan.EntityExists(mind.OwnedEntity), "The mind's current entity does not exist");
-            Assert.That(mind.VisitingEntity == null || entMan.EntityExists(mind.VisitingEntity), "The minds visited entity does not exist.");
+            Assert.That(
+                mind.VisitingEntity == null || entMan.EntityExists(mind.VisitingEntity),
+                "The minds visited entity does not exist."
+            );
             Assert.That(entMan.TryGetComponent(mind.CurrentEntity, out actor));
         });
         Assert.That(actor.PlayerSession.UserId, Is.EqualTo(mind.UserId));

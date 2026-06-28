@@ -10,7 +10,7 @@
     stateDoorOpen: cabinet_open
     stateDoorClosed: cabinet_door
   - type: AccessReader
-#    access: [["Bar"]] # Frontier
+    #    access: [["Bar"]] # Frontier
   - type: EntityStorage
     closeSound:
       path: /Audio/Effects/woodenclosetclose.ogg
@@ -168,7 +168,7 @@
     stateDoorOpen: eng_open
     stateDoorClosed: eng_evac_door
   - type: AccessReader
-    access: [ [ "Engineering" ] ]
+    access: [["Engineering"]]
 
 # Freezer
 - type: entity
@@ -259,7 +259,6 @@
   - type: AccessReader
 #    access: [ [ "Medical" ] ] # Frontier
 
-
 # Chemical
 - type: entity
   id: LockerChemistry
@@ -306,7 +305,7 @@
   id: LockerScientist
   parent: [IdLockableBaseResearch, LockerBase] # Floof - added id lock parent
   name: scientist's locker
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   components:
   - type: Appearance
   - type: EntityStorageVisuals
@@ -314,7 +313,7 @@
     stateDoorOpen: science_open
     stateDoorClosed: science_door
   - type: AccessReader
-    access: [ [ "Research" ] ]
+    access: [["Research"]]
 
 # HoS
 - type: entity
@@ -544,24 +543,24 @@
   parent: LockerSyndicatePersonal
   description: Advanced locker technology.
   components:
-    - type: ArrivalsBlacklist
-    - type: BluespaceLocker
-      minBluespaceLinks: 1
-      behaviorProperties:
-        delay: 1
-        actOnOpen: false
-        bluespaceEffectOnInit: true
-        bluespaceEffectOnTeleportSource: true
-        bluespaceEffectOnTeleportTarget: true
-        destroyAfterUses: 1
-        destroyAfterUsesMinItemsToCountUse: 1
-        destroyType: Delete
-      autoLinksUseProperties: true
-      autoLinkProperties:
-        actOnOpen: false
-        actOnClose: false
-        destroyAfterUses: 2
-        destroyType: DeleteComponent
+  - type: ArrivalsBlacklist
+  - type: BluespaceLocker
+    minBluespaceLinks: 1
+    behaviorProperties:
+      delay: 1
+      actOnOpen: false
+      bluespaceEffectOnInit: true
+      bluespaceEffectOnTeleportSource: true
+      bluespaceEffectOnTeleportTarget: true
+      destroyAfterUses: 1
+      destroyAfterUsesMinItemsToCountUse: 1
+      destroyType: Delete
+    autoLinksUseProperties: true
+    autoLinkProperties:
+      actOnOpen: false
+      actOnClose: false
+      destroyAfterUses: 2
+      destroyType: DeleteComponent
 
 # Clown
 - type: entity
@@ -571,7 +570,7 @@
   components:
   - type: Appearance
   - type: AccessReader
-#    access: [["Theatre"]] # Frontier
+    #    access: [["Theatre"]] # Frontier
   - type: EntityStorageVisuals
     stateBaseClosed: clown
     stateDoorOpen: clown_open
@@ -585,7 +584,7 @@
   components:
   - type: Appearance
   - type: AccessReader
-#    access: [["Theatre"]] # Frontier
+    #    access: [["Theatre"]] # Frontier
   - type: EntityStorageVisuals
     stateBaseClosed: mime
     stateDoorOpen: mime_open
@@ -599,7 +598,7 @@
   components:
   - type: Appearance
   - type: AccessReader
-#    access: [["Command"]]
+    #    access: [["Command"]]
     access: [["HeadOfPersonnel"]] # Frontier
   - type: EntityStorageVisuals
     stateBaseClosed: hop

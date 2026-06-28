@@ -13,11 +13,9 @@ public sealed class EuiManagerTest
         // Even though we are using the server EUI here, we actually want to see if the client EUIManager crashes
         for (var i = 0; i < 2; i++)
         {
-            await using var pair = await PoolManager.GetServerClient(new PoolSettings
-            {
-                Connected = true,
-                Dirty = true
-            });
+            await using var pair = await PoolManager.GetServerClient(
+                new PoolSettings { Connected = true, Dirty = true }
+            );
             var server = pair.Server;
 
             var sPlayerManager = server.ResolveDependency<IPlayerManager>();

@@ -129652,9 +129652,7 @@ entities:
 
         Official Nanotrasen Memo:
 
-
         In order to transport resources to the supply distribution center consult the logistics officer to set up a portal between stations. They have been given a handheld teleportation device.
-
 
         -CentComm Logistics Administration
   - uid: 25574
@@ -129667,9 +129665,7 @@ entities:
 
         Official Nanotrasen Memo:
 
-
         In order to transport resources to the supply distribution center consult the logistics officer to set up a portal between stations. They have been given a handheld teleportation device.
-
 
         -CentComm Logistics Administration
   - uid: 25758
@@ -129681,18 +129677,13 @@ entities:
       content: >-
         Engineering Work Order: #34671
 
-
         Details: Fix faulty vacuum seals
-
 
         Observations: Seals were cracked and missing in some corners. Atmos technicians were circumventing the air chamber as a quick fix negating the potential for hull breach mitigation.
 
-
         Work Completed: Replaced faulty or missing seals and repressurized. Vacuum tested and works as intended now.
 
-
         Assigned Technician: Araston DePlois
-
 
         Additional Notes: Bypassing the air chamber should no longer be necessary and should only be done under certain circumstances as extra pressure in the chamber is intended to help mitigate instances of significant spacings.
 - proto: PaperBin
@@ -180210,4 +180201,3 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -0.6065011,-35.103004
       parent: 1
-...

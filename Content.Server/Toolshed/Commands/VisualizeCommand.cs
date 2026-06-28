@@ -12,13 +12,11 @@ namespace Content.Server.Toolshed.Commands;
 [ToolshedCommand, AdminCommand(AdminFlags.VarEdit)]
 public sealed class VisualizeCommand : ToolshedCommand
 {
-    [Dependency] private readonly EuiManager _euiManager = default!;
+    [Dependency]
+    private readonly EuiManager _euiManager = default!;
 
     [CommandImplementation]
-    public void VisualizeEntities(
-            IInvocationContext ctx,
-            [PipedArgument] IEnumerable<EntityUid> input
-        )
+    public void VisualizeEntities(IInvocationContext ctx, [PipedArgument] IEnumerable<EntityUid> input)
     {
         if (ctx.Session is null)
         {
@@ -26,13 +24,12 @@ public sealed class VisualizeCommand : ToolshedCommand
             return;
         }
 
-        var ui = new ToolshedVisualizeEui(
-            input.Select(e => (EntName(e), EntityManager.GetNetEntity(e))).ToArray()
-        );
+        var ui = new ToolshedVisualizeEui(input.Select(e => (EntName(e), EntityManager.GetNetEntity(e))).ToArray());
         _euiManager.OpenEui(ui, ctx.Session);
         _euiManager.QueueStateUpdate(ui);
     }
 }
+
 internal sealed class ToolshedVisualizeEui : BaseEui
 {
     private readonly (string name, NetEntity entity)[] _entities;
@@ -47,4 +44,3 @@ internal sealed class ToolshedVisualizeEui : BaseEui
         return new ToolshedVisualizeEuiState(_entities);
     }
 }
-

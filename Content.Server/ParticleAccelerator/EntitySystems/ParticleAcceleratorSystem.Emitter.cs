@@ -9,7 +9,11 @@ namespace Content.Server.ParticleAccelerator.EntitySystems;
 
 public sealed partial class ParticleAcceleratorSystem
 {
-    private void FireEmitter(EntityUid uid, ParticleAcceleratorPowerState strength, ParticleAcceleratorEmitterComponent? emitter = null)
+    private void FireEmitter(
+        EntityUid uid,
+        ParticleAcceleratorPowerState strength,
+        ParticleAcceleratorEmitterComponent? emitter = null
+    )
     {
         if (!Resolve(uid, ref emitter))
             return;
@@ -17,7 +21,9 @@ public sealed partial class ParticleAcceleratorSystem
         var xformQuery = GetEntityQuery<TransformComponent>();
         if (!xformQuery.TryGetComponent(uid, out var xform))
         {
-            Log.Error("ParticleAccelerator attempted to emit a particle without (having) a transform from which to base its initial position and orientation.");
+            Log.Error(
+                "ParticleAccelerator attempted to emit a particle without (having) a transform from which to base its initial position and orientation."
+            );
             return;
         }
 
@@ -44,15 +50,16 @@ public sealed partial class ParticleAcceleratorSystem
         if (TryComp<SinguloFoodComponent>(emitted, out var food))
         {
             // TODO: Unhardcode this.
-            food.Energy = strength switch
-            {
-                ParticleAcceleratorPowerState.Standby => 0,
-                ParticleAcceleratorPowerState.Level0 => 1,
-                ParticleAcceleratorPowerState.Level1 => 2,
-                ParticleAcceleratorPowerState.Level2 => 3,
-                ParticleAcceleratorPowerState.Level3 => 6,
-                _ => 0,
-            } * 10;
+            food.Energy =
+                strength switch
+                {
+                    ParticleAcceleratorPowerState.Standby => 0,
+                    ParticleAcceleratorPowerState.Level0 => 1,
+                    ParticleAcceleratorPowerState.Level1 => 2,
+                    ParticleAcceleratorPowerState.Level2 => 3,
+                    ParticleAcceleratorPowerState.Level3 => 6,
+                    _ => 0,
+                } * 10;
         }
 
         if (TryComp<ParticleProjectileComponent>(emitted, out var particle))

@@ -8,10 +8,12 @@ namespace Content.Server.Damage.Commands
     [AdminCommand(AdminFlags.Fun)]
     public sealed class GodModeCommand : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _entManager = default!;
+        [Dependency]
+        private readonly IEntityManager _entManager = default!;
 
         public string Command => "godmode";
-        public string Description => "Makes your entity or another invulnerable to almost anything. May have irreversible changes.";
+        public string Description =>
+            "Makes your entity or another invulnerable to almost anything. May have irreversible changes.";
         public string Help => $"Usage: {Command} / {Command} <entityUid>";
 
         public void Execute(IConsoleShell shell, string argStr, string[] args)
@@ -61,9 +63,11 @@ namespace Content.Server.Damage.Commands
 
             var name = _entManager.GetComponent<MetaDataComponent>(entity).EntityName;
 
-            shell.WriteLine(enabled
-                ? $"Enabled godmode for entity {name} with id {entity}"
-                : $"Disabled godmode for entity {name} with id {entity}");
+            shell.WriteLine(
+                enabled
+                    ? $"Enabled godmode for entity {name} with id {entity}"
+                    : $"Disabled godmode for entity {name} with id {entity}"
+            );
         }
     }
 }

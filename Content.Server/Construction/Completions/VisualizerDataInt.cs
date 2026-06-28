@@ -10,8 +10,11 @@ namespace Content.Server.Construction.Completions
     [DataDefinition]
     public sealed partial class VisualizerDataInt : IGraphAction
     {
-        [DataField("key")] public string Key { get; private set; } = string.Empty;
-        [DataField("data")] public int Data { get; private set; } = 0;
+        [DataField("key")]
+        public string Key { get; private set; } = string.Empty;
+
+        [DataField("data")]
+        public int Data { get; private set; } = 0;
 
         public void PerformAction(EntityUid uid, EntityUid? userUid, IEntityManager entityManager)
         {

@@ -11,7 +11,7 @@
     sprite: Clothing/Neck/Medals/bronzeheart.rsi
   - type: Tag
     tags:
-      - Medal
+    - Medal
 
 - type: entity
   parent: ClothingNeckBase
@@ -27,7 +27,7 @@
     stealGroup: ClothingNeckGoldmedal
   - type: Tag
     tags:
-      - Medal
+    - Medal
 
 - type: entity
   parent: ClothingNeckBase
@@ -41,7 +41,7 @@
     sprite: Clothing/Neck/Medals/cargomedal.rsi
   - type: Tag
     tags:
-      - Medal
+    - Medal
 
 - type: entity
   parent: ClothingNeckBase
@@ -55,7 +55,7 @@
     sprite: Clothing/Neck/Medals/engineermedal.rsi
   - type: Tag
     tags:
-      - Medal
+    - Medal
 
 - type: entity
   parent: ClothingNeckBase
@@ -69,7 +69,7 @@
     sprite: Clothing/Neck/Medals/medicalmedal.rsi
   - type: Tag
     tags:
-      - Medal
+    - Medal
 
 - type: entity
   parent: ClothingNeckBase
@@ -83,7 +83,7 @@
     sprite: Clothing/Neck/Medals/sciencemedal.rsi
   - type: Tag
     tags:
-      - Medal
+    - Medal
 
 - type: entity
   parent: ClothingNeckBase
@@ -97,7 +97,7 @@
     sprite: Clothing/Neck/Medals/securitymedal.rsi
   - type: Tag
     tags:
-      - Medal
+    - Medal
 
 - type: entity
   parent: ClothingNeckBase
@@ -113,4 +113,4 @@
     stealGroup: ClothingNeckClownmedal
   - type: Tag
     tags:
-      - Medal
+    - Medal

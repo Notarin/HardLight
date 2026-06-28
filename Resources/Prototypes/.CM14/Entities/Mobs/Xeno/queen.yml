@@ -1,8 +1,8 @@
-﻿- type: entity # TODO CM14 description
+- type: entity # TODO CM14 description
   parent: CMXenoDeveloped
   id: CMXenoQueen
   name: Queen
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   description: The most vital member of the hive.
   components:
   - type: Sprite

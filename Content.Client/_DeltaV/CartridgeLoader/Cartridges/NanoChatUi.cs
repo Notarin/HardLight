@@ -1,6 +1,6 @@
 using Content.Client.UserInterface.Fragments;
-using Content.Shared.CartridgeLoader;
 using Content.Shared._DeltaV.CartridgeLoader.Cartridges;
+using Content.Shared.CartridgeLoader;
 using Robust.Client.UserInterface;
 
 namespace Content.Client._DeltaV.CartridgeLoader.Cartridges;
@@ -30,11 +30,13 @@ public sealed partial class NanoChatUi : UIFragment
             _fragment?.UpdateState(cast);
     }
 
-    private static void SendNanoChatUiMessage(NanoChatUiMessageType type,
+    private static void SendNanoChatUiMessage(
+        NanoChatUiMessageType type,
         uint? number,
         string? content,
         string? job,
-        BoundUserInterface userInterface)
+        BoundUserInterface userInterface
+    )
     {
         var nanoChatMessage = new NanoChatUiMessageEvent(type, number, content, job);
         var message = new CartridgeUiMessage(nanoChatMessage);

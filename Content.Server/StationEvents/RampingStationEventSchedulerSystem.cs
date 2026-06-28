@@ -8,31 +8,48 @@ namespace Content.Server.StationEvents;
 
 public sealed class RampingStationEventSchedulerSystem : GameRuleSystem<RampingStationEventSchedulerComponent>
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly EventManagerSystem _event = default!;
-    [Dependency] private readonly GameTicker _gameTicker = default!;
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly EventManagerSystem _event = default!;
+
+    [Dependency]
+    private readonly GameTicker _gameTicker = default!;
 
     /// <summary>
     /// Returns the ChaosModifier which increases as round time increases to a point.
     /// </summary>
     public float GetChaosModifier(EntityUid uid, RampingStationEventSchedulerComponent component)
     {
-        var roundTime = (float) _gameTicker.RoundDuration().TotalSeconds;
+        var roundTime = (float)_gameTicker.RoundDuration().TotalSeconds;
         if (roundTime > component.EndTime)
             return component.MaxChaos;
 
         return component.MaxChaos / component.EndTime * roundTime + component.StartingChaos;
     }
 
-    protected override void Started(EntityUid uid, RampingStationEventSchedulerComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
+    protected override void Started(
+        EntityUid uid,
+        RampingStationEventSchedulerComponent component,
+        GameRuleComponent gameRule,
+        GameRuleStartedEvent args
+    )
     {
         base.Started(uid, component, gameRule, args);
 
         // Worlds shittiest probability distribution
         // Got a complaint? Send them to
-        component.MaxChaos = _random.NextFloat(component.AverageChaos - component.AverageChaos / 4, component.AverageChaos + component.AverageChaos / 4);
+        component.MaxChaos = _random.NextFloat(
+            component.AverageChaos - component.AverageChaos / 4,
+            component.AverageChaos + component.AverageChaos / 4
+        );
         // This is in minutes, so *60 for seconds (for the chaos calc)
-        component.EndTime = _random.NextFloat(component.AverageEndTime - component.AverageEndTime / 4, component.AverageEndTime + component.AverageEndTime / 4) * 60f;
+        component.EndTime =
+            _random.NextFloat(
+                component.AverageEndTime - component.AverageEndTime / 4,
+                component.AverageEndTime + component.AverageEndTime / 4
+            ) * 60f;
         component.StartingChaos = component.MaxChaos / 10;
 
         PickNextEventTime(uid, component);

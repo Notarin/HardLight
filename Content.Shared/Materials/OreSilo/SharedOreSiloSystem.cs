@@ -6,9 +6,14 @@ namespace Content.Shared.Materials.OreSilo;
 
 public abstract class SharedOreSiloSystem : EntitySystem
 {
-    [Dependency] private readonly SharedMaterialStorageSystem _materialStorage = default!;
-    [Dependency] private readonly SharedPowerReceiverSystem _powerReceiver = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency]
+    private readonly SharedMaterialStorageSystem _materialStorage = default!;
+
+    [Dependency]
+    private readonly SharedPowerReceiverSystem _powerReceiver = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
 
     private EntityQuery<OreSiloClientComponent> _clientQuery;
 
@@ -18,12 +23,13 @@ public abstract class SharedOreSiloSystem : EntitySystem
         SubscribeLocalEvent<OreSiloComponent, ToggleOreSiloClientMessage>(OnToggleOreSiloClient);
         SubscribeLocalEvent<OreSiloComponent, ComponentShutdown>(OnSiloShutdown);
         SubscribeLocalEvent<OreSiloComponent, MapInitEvent>(OnSiloMapInit);
-        Subs.BuiEvents<OreSiloComponent>(OreSiloUiKey.Key,
+        Subs.BuiEvents<OreSiloComponent>(
+            OreSiloUiKey.Key,
             subs =>
-        {
-            subs.Event<BoundUIOpenedEvent>(OnBoundUIOpened);
-        });
-
+            {
+                subs.Event<BoundUIOpenedEvent>(OnBoundUIOpened);
+            }
+        );
 
         SubscribeLocalEvent<OreSiloClientComponent, GetStoredMaterialsEvent>(OnGetStoredMaterials);
         SubscribeLocalEvent<OreSiloClientComponent, ConsumeStoredMaterialsEvent>(OnConsumeStoredMaterials);
@@ -156,10 +162,7 @@ public abstract class SharedOreSiloSystem : EntitySystem
         }
     }
 
-    protected virtual void UpdateOreSiloUi(Entity<OreSiloComponent> ent)
-    {
-
-    }
+    protected virtual void UpdateOreSiloUi(Entity<OreSiloComponent> ent) { }
 
     private void OnGetStoredMaterials(Entity<OreSiloClientComponent> ent, ref GetStoredMaterialsEvent args)
     {
@@ -228,7 +231,7 @@ public abstract class SharedOreSiloSystem : EntitySystem
 
         var clientGrid = _transform.GetGrid(client);
         var siloGrid = _transform.GetGrid(silo.Owner);
-        
+
         // Both must have a valid grid and be on the same grid
         if (clientGrid == null || siloGrid == null || clientGrid != siloGrid)
             return false;

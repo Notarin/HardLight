@@ -1,6 +1,6 @@
 - type: entity
   id: WeaponMechDebugBallistic
-  parent: [ BaseMechWeaponRange, DebugMechEquipment ] # Debug equipment does have all whitelist tags.
+  parent: [BaseMechWeaponRange, DebugMechEquipment] # Debug equipment does have all whitelist tags.
   suffix: Mech Weapon, DEBUG, Ballistic
   name: debug bang
   components:
@@ -19,7 +19,7 @@
     fireRate: 5
     selectedMode: FullAuto
     availableModes:
-      - FullAuto
+    - FullAuto
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/lmg.ogg
     soundEmpty:
@@ -38,7 +38,7 @@
   id: WeaponMechDebugLaser
   name: debug pow
   suffix: Mech Weapon, DEBUG, Laser
-  parent: [ BaseMechWeaponRange, DebugMechEquipment ]
+  parent: [BaseMechWeaponRange, DebugMechEquipment]
   description: A weapon using light amplified by the stimulated emission of radiation.
   components:
   - type: Sprite
@@ -60,7 +60,7 @@
     fireRate: 2
     selectedMode: FullAuto
     availableModes:
-      - FullAuto
+    - FullAuto
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/laser.ogg
   - type: AmmoCounter
@@ -70,21 +70,21 @@
   name: debug tew
   description: A self-defense weapon that exhausts organic targets, weakening them until they collapse.
   suffix: Mech Weapon, DEBUG, Disabler
-  parent: [ BaseMechWeaponRange, DebugMechEquipment ]
+  parent: [BaseMechWeaponRange, DebugMechEquipment]
   components:
   - type: Sprite
     sprite: Objects/Weapons/Guns/Battery/disabler.rsi
     layers:
-      - state: base
-        map: ["enum.GunVisualLayers.Base"]
-      - state: mag-unshaded-0
-        map: ["enum.GunVisualLayers.MagUnshaded"]
-        shader: unshaded
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-unshaded-0
+      map: ["enum.GunVisualLayers.MagUnshaded"]
+      shader: unshaded
   - type: Gun
     fireRate: 1
     selectedMode: SemiAuto
     availableModes:
-      - SemiAuto
+    - SemiAuto
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/taser2.ogg
   - type: ProjectileBatteryAmmoProvider

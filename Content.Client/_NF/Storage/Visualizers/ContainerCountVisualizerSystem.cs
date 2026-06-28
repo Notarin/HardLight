@@ -5,7 +5,11 @@ namespace Content.Client._NF.Storage.Visualizers;
 
 public sealed class ContainerCountVisualizerSystem : VisualizerSystem<ContainerCountVisualizerComponent>
 {
-    protected override void OnAppearanceChange(EntityUid uid, ContainerCountVisualizerComponent component, ref AppearanceChangeEvent args)
+    protected override void OnAppearanceChange(
+        EntityUid uid,
+        ContainerCountVisualizerComponent component,
+        ref AppearanceChangeEvent args
+    )
     {
         if (args.Sprite == null)
             return;

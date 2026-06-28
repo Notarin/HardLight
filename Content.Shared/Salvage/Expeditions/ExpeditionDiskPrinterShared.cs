@@ -5,7 +5,7 @@ namespace Content.Shared.Salvage.Expeditions;
 [Serializable, NetSerializable]
 public enum ExpeditionDiskPrinterUiKey : byte
 {
-    Key
+    Key,
 }
 
 [Serializable, NetSerializable]

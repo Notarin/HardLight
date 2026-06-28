@@ -14,7 +14,7 @@
   id: Herzyn
   name: C.C.S Herzyn
   description: A sector combat vessel meant to dish out heavy hits and tank them in turn.
-  price: 373500  # HL: Rebalancing ship prices to 5% more than sell price (or using the MinPriceMarkup field)
+  price: 373500 # HL: Rebalancing ship prices to 5% more than sell price (or using the MinPriceMarkup field)
   category: Large
   group: Security
   access: Security
@@ -34,10 +34,9 @@
     Herzyn:
       stationProto: StandardFrontierSecurityVessel
       components:
-        - type: StationNameSetup
-          mapNameTemplate: 'Herzyn {1}'
-          nameGenerator:
-            !type:NanotrasenNameGenerator
-            prefixCreator: '14'
-        - type: StationJobs
-          availableJobs: {}
+      - type: StationNameSetup
+        mapNameTemplate: 'Herzyn {1}'
+        nameGenerator: !type:NanotrasenNameGenerator
+          prefixCreator: '14'
+      - type: StationJobs
+        availableJobs: {}

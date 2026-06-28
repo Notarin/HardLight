@@ -49,6 +49,7 @@ public sealed class SensorMonitoringIncrementalUpdate : BoundUserInterfaceMessag
     {
         public int NetId;
         public SensorUnit Unit;
+
         // Note: these samples have their time values relative to RelTime.
         // This improves effectiveness of integer compression in NetSerializer.
         public SensorSample[] Samples = Array.Empty<SensorSample>();
@@ -58,7 +59,7 @@ public sealed class SensorMonitoringIncrementalUpdate : BoundUserInterfaceMessag
 [Serializable, NetSerializable]
 public enum SensorMonitoringConsoleUiKey
 {
-    Key
+    Key,
 }
 
 [Serializable, NetSerializable]
@@ -84,7 +85,7 @@ public enum SensorUnit : byte
     /// <summary>
     /// A value in the range 0-1.
     /// </summary>
-    /* L + */ Ratio,
+    /* L + */Ratio,
 
     /// <summary>
     /// Power in Watts (W).
@@ -94,7 +95,7 @@ public enum SensorUnit : byte
     /// <summary>
     /// Energy in Joules (J).
     /// </summary>
-    EnergyJ
+    EnergyJ,
 }
 
 [Serializable, NetSerializable]

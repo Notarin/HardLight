@@ -1,20 +1,29 @@
 ﻿using Content.Shared.CM14.Marines;
-using Robust.Shared.Audio.Systems;
 using Content.Shared.DoAfter;
 using Content.Shared.DragDrop;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Popups;
+using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
 
 namespace Content.Shared.CM14.Xenos.Devour;
 
 public sealed class XenoDevourSystem : EntitySystem
 {
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfter = default!;
+
+    [Dependency]
+    private readonly MobStateSystem _mobState = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
 
     public override void Initialize()
     {
@@ -29,18 +38,18 @@ public sealed class XenoDevourSystem : EntitySystem
 
     private void OnXenoCanDropTarget(Entity<XenoComponent> ent, ref CanDropTargetEvent args)
     {
-        args.CanDrop |= args.User == ent.Owner &&
-                        HasComp<MarineComponent>(args.Dragged);
+        args.CanDrop |= args.User == ent.Owner && HasComp<MarineComponent>(args.Dragged);
 
         args.Handled = true;
     }
 
     private void OnMarineCanDropDragged(Entity<MarineComponent> ent, ref CanDropDraggedEvent args)
     {
-        args.CanDrop |= args.Target == args.User &&
-                        HasComp<XenoComponent>(args.User) &&
-                        HasComp<MarineComponent>(args.Target) &&
-                        !_mobState.IsDead(args.Target);
+        args.CanDrop |=
+            args.Target == args.User
+            && HasComp<XenoComponent>(args.User)
+            && HasComp<MarineComponent>(args.Target)
+            && !_mobState.IsDead(args.Target);
 
         if (args.CanDrop)
             args.Handled = true;
@@ -76,8 +85,10 @@ public sealed class XenoDevourSystem : EntitySystem
 
     private void OnXenoRegurgitate(Entity<XenoComponent> ent, ref XenoRegurgitateActionEvent args)
     {
-        if (!_container.TryGetContainer(ent, ent.Comp.DevourContainerId, out var container) ||
-            container.ContainedEntities.Count == 0)
+        if (
+            !_container.TryGetContainer(ent, ent.Comp.DevourContainerId, out var container)
+            || container.ContainedEntities.Count == 0
+        )
         {
             _popup.PopupClient(Loc.GetString("cm-xeno-none-devoured"), ent, ent);
             return;
@@ -91,7 +102,7 @@ public sealed class XenoDevourSystem : EntitySystem
     {
         var doAfter = new DoAfterArgs(EntityManager, xeno, delay, new XenoDevourDoAfterEvent(), xeno, target)
         {
-            BreakOnMove = true
+            BreakOnMove = true,
         };
 
         _doAfter.TryStartDoAfter(doAfter);

@@ -3,7 +3,4 @@
 namespace Content.Server.StationEvents.Components;
 
 [RegisterComponent, Access(typeof(KudzuGrowthRule))]
-public sealed partial class KudzuGrowthRuleComponent : Component
-{
-
-}
+public sealed partial class KudzuGrowthRuleComponent : Component { }

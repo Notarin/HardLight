@@ -9,7 +9,7 @@
     state: icon
   - type: Tag
     tags:
-      - Payload
+    - Payload
   - type: Item
     sprite: Objects/Misc/skub.rsi
   - type: EmitSoundOnUse

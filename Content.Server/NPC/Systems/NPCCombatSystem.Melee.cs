@@ -56,7 +56,13 @@ public sealed partial class NPCCombatSystem
         }
     }
 
-    private void Attack(EntityUid uid, NPCMeleeCombatComponent component, TimeSpan curTime, EntityQuery<PhysicsComponent> physicsQuery, EntityQuery<TransformComponent> xformQuery)
+    private void Attack(
+        EntityUid uid,
+        NPCMeleeCombatComponent component,
+        TimeSpan curTime,
+        EntityQuery<PhysicsComponent> physicsQuery,
+        EntityQuery<TransformComponent> xformQuery
+    )
     {
         component.Status = CombatStatus.Normal;
 
@@ -66,8 +72,10 @@ public sealed partial class NPCCombatSystem
             return;
         }
 
-        if (!xformQuery.TryGetComponent(uid, out var xform) ||
-            !xformQuery.TryGetComponent(component.Target, out var targetXform))
+        if (
+            !xformQuery.TryGetComponent(uid, out var xform)
+            || !xformQuery.TryGetComponent(component.Target, out var targetXform)
+        )
         {
             component.Status = CombatStatus.TargetUnreachable;
             return;
@@ -85,8 +93,7 @@ public sealed partial class NPCCombatSystem
             return;
         }
 
-        if (TryComp<NPCSteeringComponent>(uid, out var steering) &&
-            steering.Status == SteeringStatus.NoPath)
+        if (TryComp<NPCSteeringComponent>(uid, out var steering) && steering.Status == SteeringStatus.NoPath)
         {
             component.Status = CombatStatus.TargetUnreachable;
             return;
@@ -104,11 +111,18 @@ public sealed partial class NPCCombatSystem
         if (weapon.NextAttack > curTime || !Enabled)
             return;
 
-        if (_random.Prob(component.MissChance) &&
-            physicsQuery.TryGetComponent(component.Target, out var targetPhysics) &&
-            targetPhysics.LinearVelocity.LengthSquared() != 0f)
+        if (
+            _random.Prob(component.MissChance)
+            && physicsQuery.TryGetComponent(component.Target, out var targetPhysics)
+            && targetPhysics.LinearVelocity.LengthSquared() != 0f
+        )
         {
-            _melee.AttemptLightAttackMiss(uid, weaponUid, weapon, targetXform.Coordinates.Offset(_random.NextVector2(0.5f)));
+            _melee.AttemptLightAttackMiss(
+                uid,
+                weaponUid,
+                weapon,
+                targetXform.Coordinates.Offset(_random.NextVector2(0.5f))
+            );
         }
         else
         {

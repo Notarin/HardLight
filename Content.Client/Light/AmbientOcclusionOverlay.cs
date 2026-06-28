@@ -19,16 +19,28 @@ public sealed class AmbientOcclusionOverlay : Overlay
     private static readonly ProtoId<ShaderPrototype> UnshadedShader = "unshaded";
     private static readonly ProtoId<ShaderPrototype> StencilMaskShader = "StencilMask";
     private static readonly ProtoId<ShaderPrototype> StencilEqualDrawShader = "StencilEqualDraw";
-    [Dependency] private readonly IClyde _clyde = default!;
-    [Dependency] private readonly IConfigurationManager _cfgManager = default!;
-    [Dependency] private readonly IEntityManager _entManager = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly ITileDefinitionManager _tileDefManager = default!;
+
+    [Dependency]
+    private readonly IClyde _clyde = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _cfgManager = default!;
+
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
+
+    [Dependency]
+    private readonly IMapManager _mapManager = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private readonly ITileDefinitionManager _tileDefManager = default!;
 
     public override OverlaySpace Space => OverlaySpace.WorldSpaceBelowEntities;
 
-    private readonly OverlayResourceCache<CachedResources> _resources = new ();
+    private readonly OverlayResourceCache<CachedResources> _resources = new();
 
     public AmbientOcclusionOverlay()
     {
@@ -57,7 +69,7 @@ public sealed class AmbientOcclusionOverlay : Overlay
         var distance = _cfgManager.GetCVar(CCVars.AmbientOcclusionDistance);
         // var color = Color.Red;
         var target = viewport.RenderTarget;
-        var lightScale = target.Size / (Vector2) viewport.Size;
+        var lightScale = target.Size / (Vector2)viewport.Size;
         var scale = viewport.RenderScale / (Vector2.One / lightScale);
         var maps = _entManager.System<SharedMapSystem>();
         var lookups = _entManager.System<EntityLookupSystem>();
@@ -70,23 +82,36 @@ public sealed class AmbientOcclusionOverlay : Overlay
         if (res.AOTarget?.Texture.Size != target.Size)
         {
             res.AOTarget?.Dispose();
-            res.AOTarget = _clyde.CreateRenderTarget(target.Size, new RenderTargetFormatParameters(RenderTargetColorFormat.Rgba8Srgb), name: "ambient-occlusion-target");
+            res.AOTarget = _clyde.CreateRenderTarget(
+                target.Size,
+                new RenderTargetFormatParameters(RenderTargetColorFormat.Rgba8Srgb),
+                name: "ambient-occlusion-target"
+            );
         }
 
         if (res.AOBlurBuffer?.Texture.Size != target.Size)
         {
             res.AOBlurBuffer?.Dispose();
-            res.AOBlurBuffer = _clyde.CreateRenderTarget(target.Size, new RenderTargetFormatParameters(RenderTargetColorFormat.Rgba8Srgb), name: "ambient-occlusion-blur-target");
+            res.AOBlurBuffer = _clyde.CreateRenderTarget(
+                target.Size,
+                new RenderTargetFormatParameters(RenderTargetColorFormat.Rgba8Srgb),
+                name: "ambient-occlusion-blur-target"
+            );
         }
 
         if (res.AOStencilTarget?.Texture.Size != target.Size)
         {
             res.AOStencilTarget?.Dispose();
-            res.AOStencilTarget = _clyde.CreateRenderTarget(target.Size, new RenderTargetFormatParameters(RenderTargetColorFormat.Rgba8Srgb), name: "ambient-occlusion-stencil-target");
+            res.AOStencilTarget = _clyde.CreateRenderTarget(
+                target.Size,
+                new RenderTargetFormatParameters(RenderTargetColorFormat.Rgba8Srgb),
+                name: "ambient-occlusion-stencil-target"
+            );
         }
 
         // Draw the texture data to the texture.
-        args.WorldHandle.RenderInRenderTarget(res.AOTarget,
+        args.WorldHandle.RenderInRenderTarget(
+            res.AOTarget,
             () =>
             {
                 worldHandle.UseShader(_proto.Index(UnshadedShader).Instance());
@@ -103,13 +128,16 @@ public sealed class AmbientOcclusionOverlay : Overlay
                     var occluderBox = entry.Component.BoundingBox;
                     worldHandle.DrawRect(occluderBox.Enlarged(distance / EyeManager.PixelsPerMeter), Color.White); // HardLight: Box2.UnitCentered<occluderBox
                 }
-            }, Color.Transparent);
+            },
+            Color.Transparent
+        );
 
         _clyde.BlurRenderTarget(viewport, res.AOTarget, res.AOBlurBuffer, viewport.Eye!, 14f);
 
         // Need to do stencilling after blur as it will nuke it.
         // Draw stencil for the grid so we don't draw in space.
-        args.WorldHandle.RenderInRenderTarget(res.AOStencilTarget,
+        args.WorldHandle.RenderInRenderTarget(
+            res.AOStencilTarget,
             () =>
             {
                 // Don't want lighting affecting it.
@@ -130,8 +158,9 @@ public sealed class AmbientOcclusionOverlay : Overlay
                         worldHandle.DrawRect(bounds, Color.White);
                     }
                 }
-
-            }, Color.Transparent);
+            },
+            Color.Transparent
+        );
 
         // Draw the stencil texture to depth buffer.
         worldHandle.UseShader(_proto.Index(StencilMaskShader).Instance());

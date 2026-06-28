@@ -1,6 +1,6 @@
+using Content.Shared._Starlight.Language; // Starlight
 using Content.Shared.Chat;
 using Content.Shared.Radio;
-using Content.Shared._Starlight.Language; // Starlight
 
 namespace Content.Server.Radio;
 
@@ -17,7 +17,7 @@ public readonly record struct RadioReceiveEvent(
     LanguagePrototype Language,
     EntityUid RadioSource,
     List<EntityUid> Receivers
-    ); // Starlight
+); // Starlight
 
 [ByRefEvent]
 public readonly record struct HeadsetRadioReceiveRelayEvent(RadioReceiveEvent RelayedEvent);
@@ -26,7 +26,11 @@ public readonly record struct HeadsetRadioReceiveRelayEvent(RadioReceiveEvent Re
 /// Use this event to cancel sending message per receiver
 /// </summary>
 [ByRefEvent]
-public record struct RadioReceiveAttemptEvent(RadioChannelPrototype Channel, EntityUid RadioSource, EntityUid RadioReceiver)
+public record struct RadioReceiveAttemptEvent(
+    RadioChannelPrototype Channel,
+    EntityUid RadioSource,
+    EntityUid RadioReceiver
+)
 {
     public readonly RadioChannelPrototype Channel = Channel;
     public readonly EntityUid RadioSource = RadioSource;

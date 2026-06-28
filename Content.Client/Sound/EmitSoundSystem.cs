@@ -2,7 +2,4 @@
 
 namespace Content.Client.Sound;
 
-public sealed class EmitSoundSystem : SharedEmitSoundSystem
-{
-
-}
+public sealed class EmitSoundSystem : SharedEmitSoundSystem { }

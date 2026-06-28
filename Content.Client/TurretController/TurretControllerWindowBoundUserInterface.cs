@@ -5,7 +5,8 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Client.TurretController;
 
-public sealed class TurretControllerWindowBoundUserInterface(EntityUid owner, Enum uiKey) : BoundUserInterface(owner, uiKey)
+public sealed class TurretControllerWindowBoundUserInterface(EntityUid owner, Enum uiKey)
+    : BoundUserInterface(owner, uiKey)
 {
     [ViewVariables]
     private TurretControllerWindow? _window;

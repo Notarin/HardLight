@@ -29,7 +29,12 @@ public sealed partial class NFIsHumanoid : EntityEffectCondition
     {
         if (args is EntityEffectReagentArgs)
         {
-            if (!args.EntityManager.TryGetComponent<HumanoidAppearanceComponent>(args.TargetEntity, out var humanoidAppearance))
+            if (
+                !args.EntityManager.TryGetComponent<HumanoidAppearanceComponent>(
+                    args.TargetEntity,
+                    out var humanoidAppearance
+                )
+            )
                 return false;
 
             if (Whitelist != null && Whitelist.Contains(humanoidAppearance.Species) != Inverse)
@@ -51,8 +56,17 @@ public sealed partial class NFIsHumanoid : EntityEffectCondition
         }
         else
         {
-            var message = Inverse ? "reagent-effect-condition-guidebook-species-type-blacklist" : "reagent-effect-condition-guidebook-species-type-whitelist";
-            var localizedSpecies = Whitelist.Select(p => Loc.GetString("reagent-effect-condition-guidebook-species-type-species", ("species", Loc.GetString(prototype.Index(p).Name)))).ToList();
+            var message = Inverse
+                ? "reagent-effect-condition-guidebook-species-type-blacklist"
+                : "reagent-effect-condition-guidebook-species-type-whitelist";
+            var localizedSpecies = Whitelist
+                .Select(p =>
+                    Loc.GetString(
+                        "reagent-effect-condition-guidebook-species-type-species",
+                        ("species", Loc.GetString(prototype.Index(p).Name))
+                    )
+                )
+                .ToList();
             var list = ContentLocalizationManager.FormatListToOr(localizedSpecies);
             return Loc.GetString(message, ("species", list));
         }

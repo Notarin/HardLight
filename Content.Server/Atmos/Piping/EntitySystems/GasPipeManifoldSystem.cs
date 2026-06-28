@@ -1,16 +1,17 @@
+using System.Linq;
 using Content.Server.Atmos.EntitySystems;
 using Content.Server.Atmos.Piping.Components;
 using Content.Server.NodeContainer.EntitySystems;
 using Content.Server.NodeContainer.Nodes;
 using Content.Shared.Atmos;
 using Content.Shared.NodeContainer;
-using System.Linq;
 
 namespace Content.Server.Atmos.Piping.EntitySystems;
 
 public sealed partial class GasPipeManifoldSystem : EntitySystem
 {
-    [Dependency] private readonly NodeContainerSystem _nodeContainer = default!;
+    [Dependency]
+    private readonly NodeContainerSystem _nodeContainer = default!;
 
     public override void Initialize()
     {

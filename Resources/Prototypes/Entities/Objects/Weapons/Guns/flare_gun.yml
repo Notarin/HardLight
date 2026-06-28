@@ -7,8 +7,8 @@
   - type: Sprite
     sprite: Objects/Weapons/Guns/Shotguns/flaregun.rsi
     layers:
-      - state: base
-        map: ["enum.GunVisualLayers.Base"]
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
   - type: Item
     size: Small
     sprite: Objects/Weapons/Guns/Shotguns/flaregun.rsi
@@ -20,8 +20,8 @@
         priority: 1
         whitelist:
           tags: ## TODO: Add a risk of the gun blowing up if using non-light shotgun shells, and then re-enable them.
-            ## - ShellShotgun12_gauge
-            - ShellShotgun12_gaugeLight
+          ## - ShellShotgun12_gauge
+          - ShellShotgun12_gaugeLight
   - type: ContainerContainer
     containers:
       gun_chamber: !type:ContainerSlot
@@ -43,12 +43,11 @@
     fireRate: 8
     selectedMode: SemiAuto
     availableModes:
-      - SemiAuto
+    - SemiAuto
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/flaregun.ogg
   - type: StaticPrice # Frontier
     price: 150 # Frontier
-
 
 - type: entity
   # abstract: true # Frontier: use NF variant
@@ -60,8 +59,8 @@
   - type: Sprite
     sprite: Objects/Weapons/Guns/Shotguns/flaregun_security.rsi
     layers:
-      - state: base
-        map: ["enum.GunVisualLayers.Base"]
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
   - type: Item
     size: Small
     sprite: Objects/Weapons/Guns/Shotguns/flaregun_security.rsi
@@ -72,7 +71,7 @@
         priority: 1
         whitelist:
           tags:
-            - ShellShotgun12_gauge
+          - ShellShotgun12_gauge
   - type: Tag
     tags:
     - Sidearm

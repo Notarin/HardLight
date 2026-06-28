@@ -6,8 +6,7 @@ namespace Content.Shared.Abilities.Psionics
     [RegisterComponent]
     public sealed partial class MindSwapPowerComponent : Component
     {
-        [DataField("mindSwapActionId",
-        customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
+        [DataField("mindSwapActionId", customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
         public string? MindSwapActionId = "ActionMindSwap";
 
         [DataField("mindSwapActionEntity")]

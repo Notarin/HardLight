@@ -7,6 +7,4 @@ namespace Content.Server.Roles;
 ///     Added to mind role entities to tag that they are a space dragon.
 /// </summary>
 [RegisterComponent, Access(typeof(DragonSystem))]
-public sealed partial class DragonRoleComponent : BaseMindRoleComponent
-{
-}
+public sealed partial class DragonRoleComponent : BaseMindRoleComponent { }

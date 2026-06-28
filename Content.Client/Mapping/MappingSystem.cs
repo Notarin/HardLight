@@ -11,19 +11,24 @@ namespace Content.Client.Mapping;
 
 public sealed partial class MappingSystem : EntitySystem
 {
-    [Dependency] private readonly IPlacementManager _placementMan = default!;
-    [Dependency] private readonly ITileDefinitionManager _tileMan = default!;
-    [Dependency] private readonly MetaDataSystem _metaData = default!;
+    [Dependency]
+    private readonly IPlacementManager _placementMan = default!;
+
+    [Dependency]
+    private readonly ITileDefinitionManager _tileMan = default!;
+
+    [Dependency]
+    private readonly MetaDataSystem _metaData = default!;
 
     /// <summary>
     ///     The icon to use for space tiles.
     /// </summary>
-    private readonly SpriteSpecifier _spaceIcon = new Texture(new ("Tiles/cropped_parallax.png"));
+    private readonly SpriteSpecifier _spaceIcon = new Texture(new("Tiles/cropped_parallax.png"));
 
     /// <summary>
     ///     The icon to use for entity-eraser.
     /// </summary>
-    private readonly SpriteSpecifier _deleteIcon = new Texture(new ("Interface/VerbIcons/delete.svg.192dpi.png"));
+    private readonly SpriteSpecifier _deleteIcon = new Texture(new("Interface/VerbIcons/delete.svg.192dpi.png"));
 
     public override void Initialize()
     {
@@ -75,16 +80,14 @@ public sealed partial class MappingSystem : EntitySystem
             if (tileDef is not ContentTileDefinition contentTileDef)
                 return;
 
-            var tileIcon = contentTileDef.MapAtmosphere
-                ? _spaceIcon
-                : new Texture(contentTileDef.Sprite!.Value);
+            var tileIcon = contentTileDef.MapAtmosphere ? _spaceIcon : new Texture(contentTileDef.Sprite!.Value);
 
             action = new InstantActionComponent
             {
                 ClientExclusive = true,
                 CheckCanInteract = false,
                 Event = actionEvent,
-                Icon = tileIcon
+                Icon = tileIcon,
             };
 
             name = Loc.GetString(tileDef.Name);
@@ -131,13 +134,15 @@ public sealed partial class MappingSystem : EntitySystem
 
         args.Handled = true;
 
-        _placementMan.BeginPlacing(new()
-        {
-            EntityType = args.EntityType,
-            IsTile = args.TileId != null,
-            TileType = args.TileId != null ? _tileMan[args.TileId].TileId : (ushort) 0,
-            PlacementOption = args.PlacementOption,
-        });
+        _placementMan.BeginPlacing(
+            new()
+            {
+                EntityType = args.EntityType,
+                IsTile = args.TileId != null,
+                TileType = args.TileId != null ? _tileMan[args.TileId].TileId : (ushort)0,
+                PlacementOption = args.PlacementOption,
+            }
+        );
 
         if (_placementMan.Eraser != args.Eraser)
             _placementMan.ToggleEraser();

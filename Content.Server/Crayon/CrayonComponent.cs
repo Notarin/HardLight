@@ -8,7 +8,8 @@ namespace Content.Server.Crayon
     [RegisterComponent]
     public sealed partial class CrayonComponent : SharedCrayonComponent
     {
-        [DataField("useSound")] public SoundSpecifier? UseSound;
+        [DataField("useSound")]
+        public SoundSpecifier? UseSound;
 
         [ViewVariables(VVAccess.ReadWrite)]
         [DataField("selectableColor")]

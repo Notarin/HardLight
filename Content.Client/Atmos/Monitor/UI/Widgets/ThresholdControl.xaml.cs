@@ -30,7 +30,13 @@ public sealed partial class ThresholdControl : BoxContainer
     // i have played myself by making threshold values nullable to
     // indicate validity/disabled status, with several layers of side effect
     // dependent on the other three values when you change one :HECK:
-    public ThresholdControl(string name, AtmosAlarmThreshold threshold, AtmosMonitorThresholdType type, Gas? gas = null, float modifier = 1)
+    public ThresholdControl(
+        string name,
+        AtmosAlarmThreshold threshold,
+        AtmosMonitorThresholdType type,
+        Gas? gas = null,
+        float modifier = 1
+    )
     {
         RobustXamlLoader.Load(this);
 
@@ -42,7 +48,11 @@ public sealed partial class ThresholdControl : BoxContainer
 
         // i miss rust macros
 
-        _upperBoundControl = new ThresholdBoundControl(LabelForBound("upper-bound"), _threshold.UpperBound.Value, modifier);
+        _upperBoundControl = new ThresholdBoundControl(
+            LabelForBound("upper-bound"),
+            _threshold.UpperBound.Value,
+            modifier
+        );
         _upperBoundControl.OnBoundChanged += (value) =>
         {
             _threshold.SetLimit(AtmosMonitorLimitType.UpperDanger, value);
@@ -57,7 +67,11 @@ public sealed partial class ThresholdControl : BoxContainer
         };
         _dangerBounds.AddChild(_upperBoundControl);
 
-        _lowerBoundControl = new ThresholdBoundControl(LabelForBound("lower-bound"), _threshold.LowerBound.Value, modifier);
+        _lowerBoundControl = new ThresholdBoundControl(
+            LabelForBound("lower-bound"),
+            _threshold.LowerBound.Value,
+            modifier
+        );
         _lowerBoundControl.OnBoundChanged += value =>
         {
             _threshold.SetLimit(AtmosMonitorLimitType.LowerDanger, value);
@@ -72,7 +86,11 @@ public sealed partial class ThresholdControl : BoxContainer
         };
         _dangerBounds.AddChild(_lowerBoundControl);
 
-        _upperWarningBoundControl = new ThresholdBoundControl(LabelForBound("upper-warning-bound"), _threshold.UpperWarningBound.Value, modifier);
+        _upperWarningBoundControl = new ThresholdBoundControl(
+            LabelForBound("upper-warning-bound"),
+            _threshold.UpperWarningBound.Value,
+            modifier
+        );
         _upperWarningBoundControl.OnBoundChanged += value =>
         {
             _threshold.SetLimit(AtmosMonitorLimitType.UpperWarning, value);
@@ -87,7 +105,11 @@ public sealed partial class ThresholdControl : BoxContainer
         };
         _warningBounds.AddChild(_upperWarningBoundControl);
 
-        _lowerWarningBoundControl = new ThresholdBoundControl(LabelForBound("lower-warning-bound"), _threshold.LowerWarningBound.Value, modifier);
+        _lowerWarningBoundControl = new ThresholdBoundControl(
+            LabelForBound("lower-warning-bound"),
+            _threshold.LowerWarningBound.Value,
+            modifier
+        );
         _lowerWarningBoundControl.OnBoundChanged += value =>
         {
             _threshold.SetLimit(AtmosMonitorLimitType.LowerWarning, value);

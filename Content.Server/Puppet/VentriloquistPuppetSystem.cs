@@ -1,19 +1,22 @@
 using Content.Server.Ghost.Roles.Components;
 using Content.Server.Popups;
-using Content.Shared.Interaction.Events;
-using Content.Shared.Puppet;
 using Content.Server.Speech.Muting;
 using Content.Shared.CombatMode;
 using Content.Shared.Hands;
-using Robust.Shared.Random;
+using Content.Shared.Interaction.Events;
+using Content.Shared.Puppet;
 using Content.Shared.Speech.Muting;
+using Robust.Shared.Random;
 
 namespace Content.Server.Puppet
 {
     public sealed class VentriloquistPuppetSystem : SharedVentriloquistPuppetSystem
     {
-        [Dependency] private readonly PopupSystem _popupSystem = default!;
-        [Dependency] private readonly IRobustRandom _random = default!;
+        [Dependency]
+        private readonly PopupSystem _popupSystem = default!;
+
+        [Dependency]
+        private readonly IRobustRandom _random = default!;
 
         public override void Initialize()
         {
@@ -81,7 +84,11 @@ namespace Content.Server.Puppet
         /// <summary>
         /// When unequipped from a hand slot the dummy is muted again.
         /// </summary>
-        private void OnUnequippedHand(EntityUid uid, VentriloquistPuppetComponent component, GotUnequippedHandEvent args)
+        private void OnUnequippedHand(
+            EntityUid uid,
+            VentriloquistPuppetComponent component,
+            GotUnequippedHandEvent args
+        )
         {
             if (HasComp<MutedComponent>(uid))
                 return;
@@ -104,4 +111,3 @@ namespace Content.Server.Puppet
         }
     }
 }
-

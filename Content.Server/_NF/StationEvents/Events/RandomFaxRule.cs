@@ -1,22 +1,35 @@
-using Content.Server.Station.Components;
-using Content.Server.StationEvents.Components;
-using Content.Shared.GameTicking.Components;
-using Content.Shared.Fax.Components;
 using Content.Server.Fax;
+using Content.Server.Station.Components;
 using Content.Server.Station.Systems;
+using Content.Server.StationEvents.Components;
+using Content.Shared.Fax.Components;
+using Content.Shared.GameTicking.Components;
 using Robust.Shared.Random;
 
 namespace Content.Server.StationEvents.Events;
 
 public sealed class RandomFaxRule : StationEventSystem<RandomFaxRuleComponent>
 {
-    [Dependency] private readonly IEntityManager _entMan = default!;
-    [Dependency] private readonly FaxSystem _faxSystem = default!;
-    [Dependency] private readonly StationSystem _stationSystem = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency]
+    private readonly IEntityManager _entMan = default!;
+
+    [Dependency]
+    private readonly FaxSystem _faxSystem = default!;
+
+    [Dependency]
+    private readonly StationSystem _stationSystem = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
 
     private const int MaxRetries = 10;
-    protected override void Added(EntityUid uid, RandomFaxRuleComponent component, GameRuleComponent gameRule, GameRuleAddedEvent args)
+
+    protected override void Added(
+        EntityUid uid,
+        RandomFaxRuleComponent component,
+        GameRuleComponent gameRule,
+        GameRuleAddedEvent args
+    )
     {
         base.Added(uid, component, gameRule, args);
 
@@ -37,7 +50,12 @@ public sealed class RandomFaxRule : StationEventSystem<RandomFaxRuleComponent>
         }
     }
 
-    protected override void Started(EntityUid uid, RandomFaxRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
+    protected override void Started(
+        EntityUid uid,
+        RandomFaxRuleComponent component,
+        GameRuleComponent gameRule,
+        GameRuleStartedEvent args
+    )
     {
         base.Started(uid, component, gameRule, args);
 
@@ -116,7 +134,7 @@ public sealed class RandomFaxRule : StationEventSystem<RandomFaxRuleComponent>
                     stampedBy: recipientPrintout.StampedBy,
                     locked: recipientPrintout.Locked,
                     stampProtected: recipientPrintout.StampProtected
-                    );
+                );
                 _faxSystem.Receive(faxUid, printout, recipientAddress, faxComp);
                 break;
             }

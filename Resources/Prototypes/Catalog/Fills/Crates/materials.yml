@@ -6,8 +6,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: SheetGlass
-        amount: 3
+    - id: SheetGlass
+      amount: 3
 
 - type: entity
   id: CrateMaterialSteel
@@ -17,8 +17,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: SheetSteel
-        amount: 3
+    - id: SheetSteel
+      amount: 3
 
 - type: entity
   id: CrateMaterialTextiles
@@ -28,9 +28,9 @@
   components:
   - type: StorageFill
     contents:
-      - id: MaterialCloth
-        amount: 2
-      - id: MaterialDurathread
+    - id: MaterialCloth
+      amount: 2
+    - id: MaterialDurathread
 
 - type: entity
   id: CrateMaterialPlastic
@@ -40,8 +40,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: SheetPlastic
-        amount: 3
+    - id: SheetPlastic
+      amount: 3
 
 - type: entity
   id: CrateMaterialWood
@@ -51,7 +51,7 @@
   components:
   - type: StorageFill
     contents:
-      - id: MaterialWoodPlank
+    - id: MaterialWoodPlank
 
 - type: entity
   id: CrateMaterialBrass
@@ -61,8 +61,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: SheetBrass
-        amount: 3
+    - id: SheetBrass
+      amount: 3
 
 - type: entity
   id: CrateMaterialPlasteel
@@ -72,7 +72,7 @@
   components:
   - type: StorageFill
     contents:
-      - id: SheetPlasteel
+    - id: SheetPlasteel
 
 - type: entity
   id: CrateMaterialPlasma
@@ -82,7 +82,7 @@
   components:
   - type: StorageFill
     contents:
-      - id: SheetPlasma
+    - id: SheetPlasma
 
 - type: entity
   id: CrateMaterialCardboard
@@ -92,8 +92,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: MaterialCardboard
-        amount: 2
+    - id: MaterialCardboard
+      amount: 2
 
 - type: entity
   id: CrateMaterialPaper
@@ -103,8 +103,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: SheetPaper
-        amount: 3
+    - id: SheetPaper
+      amount: 3
 
 - type: entity
   id: CrateMaterialUranium
@@ -114,34 +114,34 @@
   components:
   - type: StorageFill
     contents:
-      - id: SheetUranium
-        amount: 3
+    - id: SheetUranium
+      amount: 3
 
 - type: entityTable
   id: RandomMaterialCrateTable
   table: !type:GroupSelector
     children:
-    - !type:GroupSelector # regular materials, 10
-      weight: 35
+    - !type:GroupSelector
+      weight: 35 # regular materials, 10
       children:
       - id: SheetGlass10
       - id: SheetSteel10
       - id: SheetPlastic10
-    - !type:GroupSelector # regular materials, stack
-      weight: 30
+    - !type:GroupSelector
+      weight: 30 # regular materials, stack
       children:
       - id: SheetGlass
       - id: SheetSteel
       - id: SheetPlastic
-    - !type:GroupSelector # secondary materials, stack
-      weight: 30
+    - !type:GroupSelector
+      weight: 30 # secondary materials, stack
       children:
       - id: MaterialCloth
       - id: SheetPlasteel
       - id: MaterialWoodPlank
       - id: PartRodMetal
-    - !type:GroupSelector # tertiary materials, singles
-      weight: 5
+    - !type:GroupSelector
+      weight: 5 # tertiary materials, singles
       children:
       - id: SheetPlasma1
       - id: SheetUranium1

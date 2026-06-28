@@ -27,4 +27,3 @@ public sealed partial class StethoscopeComponent : Component
 
     public EntityUid? ActionEntity;
 }
-

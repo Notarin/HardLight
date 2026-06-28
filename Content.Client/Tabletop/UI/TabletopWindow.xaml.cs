@@ -30,9 +30,8 @@ namespace Content.Client.Tabletop.UI
                 eye.Rotation = eye.Rotation.Opposite();
 
                 // Flip alignmento of the button
-                FlipButton.HorizontalAlignment = FlipButton.HorizontalAlignment == HAlignment.Right
-                    ? HAlignment.Left
-                    : HAlignment.Right;
+                FlipButton.HorizontalAlignment =
+                    FlipButton.HorizontalAlignment == HAlignment.Right ? HAlignment.Left : HAlignment.Right;
             }
         }
     }

@@ -13,22 +13,17 @@ public sealed class ReactionJsonGenerator
     {
         var prototype = IoCManager.Resolve<IPrototypeManager>();
 
-        var reactions =
-            prototype
-                .EnumeratePrototypes<ReactionPrototype>()
-                .Select(x => new ReactionEntry(x))
-                .ToDictionary(x => x.Id, x => x);
+        var reactions = prototype
+            .EnumeratePrototypes<ReactionPrototype>()
+            .Select(x => new ReactionEntry(x))
+            .ToDictionary(x => x.Id, x => x);
 
         var serializeOptions = new JsonSerializerOptions
         {
             WriteIndented = true,
-            Converters =
-            {
-                new UniversalJsonConverter<EntityEffect>(),
-            }
+            Converters = { new UniversalJsonConverter<EntityEffect>() },
         };
 
         file.Write(JsonSerializer.Serialize(reactions, serializeOptions));
     }
 }
-

@@ -1,12 +1,13 @@
-using Content.Shared.GameTicking;
 using Content.Shared._DV.CCVars;
+using Content.Shared.GameTicking;
 using Robust.Shared.Configuration;
 
 namespace Content.Client._DV.RoundEnd;
 
 public sealed class NoEorgPopupSystem : EntitySystem
 {
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
 
     private NoEorgPopup? _window;
 

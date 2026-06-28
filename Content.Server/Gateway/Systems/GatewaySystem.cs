@@ -1,12 +1,12 @@
 using Content.Server.Gateway.Components;
-using Content.Shared.Gateway.Components;
 using Content.Server.Station.Systems;
-using Content.Shared.UserInterface;
 using Content.Shared.Access.Systems;
 using Content.Shared.Gateway;
+using Content.Shared.Gateway.Components;
 using Content.Shared.Popups;
 using Content.Shared.Teleportation.Components;
 using Content.Shared.Teleportation.Systems;
+using Content.Shared.UserInterface;
 using Content.Shared.Verbs;
 using Robust.Server.GameObjects;
 using Robust.Shared.Audio;
@@ -19,15 +19,32 @@ namespace Content.Server.Gateway.Systems;
 
 public sealed class GatewaySystem : EntitySystem
 {
-    [Dependency] private readonly AccessReaderSystem _accessReader = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly LinkedEntitySystem _linkedEntity = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly MetaDataSystem _metadata = default!;
-    [Dependency] private readonly StationSystem _stations = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
+    [Dependency]
+    private readonly AccessReaderSystem _accessReader = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly LinkedEntitySystem _linkedEntity = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly MetaDataSystem _metadata = default!;
+
+    [Dependency]
+    private readonly StationSystem _stations = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly UserInterfaceSystem _ui = default!;
 
     public override void Initialize()
     {
@@ -94,9 +111,13 @@ public sealed class GatewaySystem : EntitySystem
         // - Our station's unlock timer (if we have a station)
         // - If our map is a generated destination then use the generator that made it
 
-        if (TryComp(_stations.GetOwningStation(uid), out GatewayGeneratorComponent? generatorComp) ||
-            (TryComp(xform.MapUid, out GatewayGeneratorDestinationComponent? generatorDestination) &&
-             TryComp(generatorDestination.Generator, out generatorComp)))
+        if (
+            TryComp(_stations.GetOwningStation(uid), out GatewayGeneratorComponent? generatorComp)
+            || (
+                TryComp(xform.MapUid, out GatewayGeneratorDestinationComponent? generatorDestination)
+                && TryComp(generatorDestination.Generator, out generatorComp)
+            )
+        )
         {
             nextUnlock = generatorComp.NextUnlock;
             unlockTime = generatorComp.UnlockCooldown;
@@ -123,33 +144,41 @@ public sealed class GatewaySystem : EntitySystem
                     continue;
             }
 
-            Log.Debug($"Gateway {ToPrettyString(uid)} found destination {ToPrettyString(destUid)} - IsDockingArm: {isDockingArm}, HasDockingArmComp: {HasComp<DockingArmDestinationComponent>(destUid)}, DestName: {destMeta.EntityName}");
+            Log.Debug(
+                $"Gateway {ToPrettyString(uid)} found destination {ToPrettyString(destUid)} - IsDockingArm: {isDockingArm}, HasDockingArmComp: {HasComp<DockingArmDestinationComponent>(destUid)}, DestName: {destMeta.EntityName}"
+            );
 
-            destinations.Add(new GatewayDestinationData()
-            {
-                Entity = GetNetEntity(destUid),
-                // Fallback to grid's ID if applicable.
-                Name = dest.Name.IsEmpty && destXform.GridUid != null &&
-                       !TerminatingOrDeleted(destXform.GridUid.Value) &&
-                       TryComp<MetaDataComponent>(destXform.GridUid.Value, out var gridMeta)
-                    ? FormattedMessage.FromUnformatted(gridMeta.EntityName)
-                    : dest.Name,
-                Portal = HasComp<PortalComponent>(destUid),
-                // If NextUnlock < CurTime it's unlocked, however
-                // we'll always send the client if it's locked
-                // It can just infer unlock times locally and not have to worry about it here.
-                Locked = gatewayDestination != null && gatewayDestination.Locked,
-                IsDockingArm = isDockingArm
-            });
+            destinations.Add(
+                new GatewayDestinationData()
+                {
+                    Entity = GetNetEntity(destUid),
+                    // Fallback to grid's ID if applicable.
+                    Name =
+                        dest.Name.IsEmpty
+                        && destXform.GridUid != null
+                        && !TerminatingOrDeleted(destXform.GridUid.Value)
+                        && TryComp<MetaDataComponent>(destXform.GridUid.Value, out var gridMeta)
+                            ? FormattedMessage.FromUnformatted(gridMeta.EntityName)
+                            : dest.Name,
+                    Portal = HasComp<PortalComponent>(destUid),
+                    // If NextUnlock < CurTime it's unlocked, however
+                    // we'll always send the client if it's locked
+                    // It can just infer unlock times locally and not have to worry about it here.
+                    Locked = gatewayDestination != null && gatewayDestination.Locked,
+                    IsDockingArm = isDockingArm,
+                }
+            );
         }
 
         _linkedEntity.GetLink(uid, out var current);
         NetEntity? currentNet = null;
 
-        if (current is { } currentUid &&
-            !TerminatingOrDeleted(currentUid) &&
-            TryComp<MetaDataComponent>(currentUid, out var currentMeta) &&
-            currentMeta.EntityLifeStage < EntityLifeStage.Terminating)
+        if (
+            current is { } currentUid
+            && !TerminatingOrDeleted(currentUid)
+            && TryComp<MetaDataComponent>(currentUid, out var currentMeta)
+            && currentMeta.EntityLifeStage < EntityLifeStage.Terminating
+        )
         {
             currentNet = GetNetEntity(currentUid, currentMeta);
         }
@@ -173,8 +202,7 @@ public sealed class GatewaySystem : EntitySystem
 
     private void OnOpenPortal(EntityUid uid, GatewayComponent comp, GatewayOpenPortalMessage args)
     {
-        if (GetNetEntity(uid) == args.Destination ||
-            !comp.Enabled || !comp.Interactable)
+        if (GetNetEntity(uid) == args.Destination || !comp.Enabled || !comp.Interactable)
         {
             return;
         }
@@ -188,9 +216,11 @@ public sealed class GatewaySystem : EntitySystem
         var desto = GetEntity(args.Destination);
 
         // If it's already open / not enabled / we're not ready DENY.
-        if (!TryComp<GatewayComponent>(desto, out var dest) ||
-            !dest.Enabled ||
-            _timing.CurTime < _metadata.GetPauseTime(uid) + comp.NextReady)
+        if (
+            !TryComp<GatewayComponent>(desto, out var dest)
+            || !dest.Enabled
+            || _timing.CurTime < _metadata.GetPauseTime(uid) + comp.NextReady
+        )
         {
             return;
         }
@@ -202,8 +232,7 @@ public sealed class GatewaySystem : EntitySystem
 
     private void OnSpawnDockingArm(EntityUid uid, GatewayComponent comp, GatewaySpawnDockingArmMessage args)
     {
-        if (GetNetEntity(uid) == args.Destination ||
-            !comp.Enabled || !comp.Interactable)
+        if (GetNetEntity(uid) == args.Destination || !comp.Enabled || !comp.Interactable)
         {
             return;
         }
@@ -222,8 +251,7 @@ public sealed class GatewaySystem : EntitySystem
         }
 
         // Verify it's a valid docking arm destination
-        if (!TryComp<GatewayComponent>(desto, out var dest) ||
-            !dest.Enabled)
+        if (!TryComp<GatewayComponent>(desto, out var dest) || !dest.Enabled)
         {
             return;
         }
@@ -231,7 +259,9 @@ public sealed class GatewaySystem : EntitySystem
         // Check if it has a DockingArmDestinationComponent
         if (!TryComp<DockingArmDestinationComponent>(desto, out var dockingArmDest))
         {
-            Log.Warning($"Gateway spawn docking arm: {ToPrettyString(desto)} does not have DockingArmDestinationComponent");
+            Log.Warning(
+                $"Gateway spawn docking arm: {ToPrettyString(desto)} does not have DockingArmDestinationComponent"
+            );
             return;
         }
 
@@ -265,7 +295,13 @@ public sealed class GatewaySystem : EntitySystem
         UpdateAllGateways();
     }
 
-    private void OpenPortal(EntityUid uid, GatewayComponent comp, EntityUid dest, GatewayComponent destComp, TransformComponent? destXform = null)
+    private void OpenPortal(
+        EntityUid uid,
+        GatewayComponent comp,
+        EntityUid dest,
+        GatewayComponent destComp,
+        TransformComponent? destXform = null
+    )
     {
         if (!Resolve(dest, ref destXform) || destXform.MapUid == null)
             return;
@@ -380,7 +416,11 @@ public sealed class GatewaySystem : EntitySystem
         return true;
     }
 
-    public void SetDestinationName(EntityUid gatewayUid, FormattedMessage gatewayName, GatewayComponent? gatewayComp = null)
+    public void SetDestinationName(
+        EntityUid gatewayUid,
+        FormattedMessage gatewayName,
+        GatewayComponent? gatewayComp = null
+    )
     {
         if (!Resolve(gatewayUid, ref gatewayComp))
             return;

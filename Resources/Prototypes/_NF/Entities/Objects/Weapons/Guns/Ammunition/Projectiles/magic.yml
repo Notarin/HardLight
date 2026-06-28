@@ -2,7 +2,7 @@
   parent: BaseBulletTrigger
   id: BulletFireBolt
   name: fire bolt
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -22,7 +22,7 @@
   parent: BaseBulletTrigger
   id: BulletMagicBolt
   name: magic bolt
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -41,7 +41,7 @@
   parent: BaseBulletTrigger
   id: BulletBloodCultDarkBolt
   name: blood bolt
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -76,7 +76,7 @@
   parent: BaseBullet
   id: BulletEldritchHand
   name: eldritch hand
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: StaminaDamageOnCollide
     damage: 100
@@ -95,7 +95,7 @@
 - type: entity
   id: ProjectileIcicleLowDamage
   parent: ProjectileIcicle
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:

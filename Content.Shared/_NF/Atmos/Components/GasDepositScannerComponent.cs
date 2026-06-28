@@ -30,6 +30,7 @@ public sealed partial class GasDepositScannerComponent : Component
         public GasEntry[] Gases;
         public NetEntity DepositUid;
         public string? Error;
+
         public GasDepositScannerUserMessage(GasEntry[] gases, NetEntity depositUid, string? error = null)
         {
             Gases = gases;
@@ -44,7 +45,7 @@ public sealed partial class GasDepositScannerComponent : Component
         Small,
         Medium,
         Large,
-        Enormous
+        Enormous,
     }
 
     /// <summary>
@@ -58,10 +59,7 @@ public sealed partial class GasDepositScannerComponent : Component
     }
 
     [Serializable, NetSerializable]
-    public sealed class GasDepositScannerDisableMessage : BoundUserInterfaceMessage
-    {
-
-    }
+    public sealed class GasDepositScannerDisableMessage : BoundUserInterfaceMessage { }
 }
 
 [Serializable, NetSerializable]
@@ -69,4 +67,3 @@ public enum GasDepositScannerVisuals : byte
 {
     Enabled,
 }
-

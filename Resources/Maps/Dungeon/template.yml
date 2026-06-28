@@ -78,4 +78,3 @@ entities:
     - type: GridTree
 
     - type: GridPathfinding
-...

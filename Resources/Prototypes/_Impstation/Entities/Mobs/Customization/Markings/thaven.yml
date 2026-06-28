@@ -60,9 +60,8 @@
   followSkinColor: false
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: _Impstation/Mobs/Customization/thaven/thaven.rsi
     state: piercings
@@ -76,9 +75,8 @@
   followSkinColor: false
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: _Impstation/Mobs/Customization/thaven/thaven.rsi
     state: piercings2
@@ -90,8 +88,7 @@
   speciesRestriction: [Thaven, ProtoThaven]
   coloring:
     default:
-      type:
-        !type:TattooColoring
+      type: !type:TattooColoring
       fallbackColor: "#666666"
   sprites:
   - sprite: _Impstation/Mobs/Customization/thaven/thaven.rsi
@@ -104,8 +101,7 @@
   speciesRestriction: [Thaven, ProtoThaven]
   coloring:
     default:
-      type:
-        !type:TattooColoring
+      type: !type:TattooColoring
       fallbackColor: "#666666"
   sprites:
   - sprite: _Impstation/Mobs/Customization/thaven/thaven.rsi
@@ -118,8 +114,7 @@
   speciesRestriction: [Thaven, ProtoThaven]
   coloring:
     default:
-      type:
-        !type:TattooColoring
+      type: !type:TattooColoring
       fallbackColor: "#666666"
   sprites:
   - sprite: _Impstation/Mobs/Customization/thaven/thaven.rsi
@@ -132,9 +127,8 @@
   speciesRestriction: [Thaven, ProtoThaven]
   coloring:
     default:
-      type:
-        !type:EyeColoring
-          negative: false
+      type: !type:EyeColoring
+        negative: false
   sprites:
   - sprite: _Impstation/Mobs/Customization/thaven/thaven.rsi
     state: reyeglow
@@ -147,9 +141,8 @@
   speciesRestriction: [Thaven, ProtoThaven]
   coloring:
     default:
-      type:
-        !type:EyeColoring
-          negative: false
+      type: !type:EyeColoring
+        negative: false
   sprites:
   - sprite: _Impstation/Mobs/Customization/thaven/thaven.rsi
     state: leyeglow
@@ -159,7 +152,7 @@
   id: ThavenTailEel
   bodyPart: Tail
   markingCategory: Tail
-  speciesRestriction: [ Thaven, ProtoThaven ]
+  speciesRestriction: [Thaven, ProtoThaven]
   forcedColoring: false
   followSkinColor: true
   sprites:
@@ -172,12 +165,11 @@
   id: ThavenTailEelOverlay
   bodyPart: Tail
   markingCategory: Overlay
-  speciesRestriction: [ Thaven, ProtoThaven ]
+  speciesRestriction: [Thaven, ProtoThaven]
   coloring:
     default:
-      type:
-        !type:EyeColoring
-          negative: false
+      type: !type:EyeColoring
+        negative: false
   sprites:
   - sprite: _Impstation/Mobs/Customization/thaven/thaven.rsi
     state: taileel3
@@ -187,7 +179,7 @@
   id: ThavenTailNurse
   bodyPart: Tail
   markingCategory: Tail
-  speciesRestriction: [ Thaven, ProtoThaven ]
+  speciesRestriction: [Thaven, ProtoThaven]
   forcedColoring: false
   followSkinColor: true
   sprites:
@@ -200,7 +192,7 @@
   id: ThavenTailStub
   bodyPart: Tail
   markingCategory: Tail
-  speciesRestriction: [ Thaven, ProtoThaven ]
+  speciesRestriction: [Thaven, ProtoThaven]
   forcedColoring: false
   followSkinColor: true
   sprites:
@@ -215,7 +207,7 @@
   id: ThavenArmFinsSmallRight
   bodyPart: RArm
   markingCategory: Arms
-  speciesRestriction: [ Thaven, ProtoThaven ]
+  speciesRestriction: [Thaven, ProtoThaven]
   forcedColoring: false
   followSkinColor: true
   sprites:
@@ -226,7 +218,7 @@
   id: ThavenArmFinsSmallLeft
   bodyPart: LArm
   markingCategory: Arms
-  speciesRestriction: [ Thaven, ProtoThaven ]
+  speciesRestriction: [Thaven, ProtoThaven]
   forcedColoring: false
   followSkinColor: true
   sprites:
@@ -237,7 +229,7 @@
   id: ThavenArmFinsBigRight
   bodyPart: RArm
   markingCategory: Arms
-  speciesRestriction: [ Thaven, ProtoThaven ]
+  speciesRestriction: [Thaven, ProtoThaven]
   forcedColoring: false
   followSkinColor: true
   sprites:
@@ -248,7 +240,7 @@
   id: ThavenArmFinsBigLeft
   bodyPart: LArm
   markingCategory: Arms
-  speciesRestriction: [ Thaven, ProtoThaven ]
+  speciesRestriction: [Thaven, ProtoThaven]
   forcedColoring: false
   followSkinColor: true
   sprites:
@@ -259,7 +251,7 @@
   id: ThavenLegFinsSmallRight
   bodyPart: LLeg
   markingCategory: Legs
-  speciesRestriction: [ Thaven, ProtoThaven ]
+  speciesRestriction: [Thaven, ProtoThaven]
   forcedColoring: false
   followSkinColor: true
   sprites:
@@ -270,7 +262,7 @@
   id: ThavenLegFinsSmallLeft
   bodyPart: RLeg
   markingCategory: Legs
-  speciesRestriction: [ Thaven, ProtoThaven ]
+  speciesRestriction: [Thaven, ProtoThaven]
   forcedColoring: false
   followSkinColor: true
   sprites:
@@ -281,7 +273,7 @@
   id: ThavenBackFin
   bodyPart: Chest
   markingCategory: Chest
-  speciesRestriction: [ Thaven, ProtoThaven ]
+  speciesRestriction: [Thaven, ProtoThaven]
   forcedColoring: false
   followSkinColor: true
   sprites:
@@ -292,7 +284,7 @@
   id: ThavenTailCarpish
   bodyPart: Tail
   markingCategory: Tail
-  speciesRestriction: [ Thaven, ProtoThaven ]
+  speciesRestriction: [Thaven, ProtoThaven]
   forcedColoring: false
   followSkinColor: true
   sprites:
@@ -303,7 +295,7 @@
   id: ThavenTailDraconicLong
   bodyPart: Tail
   markingCategory: Tail
-  speciesRestriction: [ Thaven, ProtoThaven ]
+  speciesRestriction: [Thaven, ProtoThaven]
   forcedColoring: false
   followSkinColor: true
   sprites:
@@ -314,18 +306,18 @@
   id: ThavenTailFish
   bodyPart: Tail
   markingCategory: Tail
-  speciesRestriction: [ Thaven, ProtoThaven ]
+  speciesRestriction: [Thaven, ProtoThaven]
   forcedColoring: false
   followSkinColor: true
   sprites:
   - sprite: _Impstation/Mobs/Customization/thaven/thaven.rsi
     state: fishtail
-    
+
 - type: marking
   id: ThavenHeadFinsFairy
   bodyPart: HeadSide
   markingCategory: HeadSide
-  speciesRestriction: [ Thaven, ProtoThaven ]
+  speciesRestriction: [Thaven, ProtoThaven]
   forcedColoring: false
   followSkinColor: true
   sprites:
@@ -336,7 +328,7 @@
   id: ThavenHeadAnglerStem
   bodyPart: HeadTop
   markingCategory: HeadTop
-  speciesRestriction: [ Thaven, ProtoThaven ]
+  speciesRestriction: [Thaven, ProtoThaven]
   forcedColoring: false
   followSkinColor: true
   sprites:
@@ -347,7 +339,7 @@
   id: ThavenHeadAnglerBulb
   bodyPart: HeadTop
   markingCategory: Overlay
-  speciesRestriction: [ Thaven, ProtoThaven ]
+  speciesRestriction: [Thaven, ProtoThaven]
   forcedColoring: false
   followSkinColor: true
   sprites:

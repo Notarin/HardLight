@@ -13,32 +13,31 @@
     receiveFrequencyId: BasicDevice
   - type: DeviceLinkSink
     ports:
-      - CloningPodReceiver
+    - CloningPodReceiver
   - type: Sprite
     sprite: Structures/Machines/cloning.rsi
     snapCardinals: true
     layers:
-      - state: pod_0
-        map: ["base"]
+    - state: pod_0
+      map: ["base"]
   - type: Physics
     bodyType: Static
   - type: Construction
     graph: Machine
     node: machine
     containers:
-     - machine_board
-     - machine_parts
-     - clonepod-bodyContainer
+    - machine_board
+    - machine_parts
+    - clonepod-bodyContainer
   - type: EmptyOnMachineDeconstruct
     containers:
-      - clonepod-bodyContainer
+    - clonepod-bodyContainer
   - type: Damageable
     damageContainer: StructuralInorganic
     damageModifierSet: StrongMetallic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:PlaySoundBehavior
@@ -61,10 +60,10 @@
     visuals:
       enum.CloningPodVisuals.Status:
         base:
-          Cloning: { state: pod_1 }
-          NoMind: { state: pod_e }
-          Gore: { state: pod_g }
-          Idle: { state: pod_0 }
+          Cloning: {state: pod_1}
+          NoMind: {state: pod_e}
+          Gore: {state: pod_g}
+          Idle: {state: pod_0}
   - type: Climbable
   - type: StaticPrice
     price: 1000

@@ -14,7 +14,7 @@
     intersectRatio: 0.1
     blacklist:
       tags:
-        - Catwalk
+      - Catwalk
   - type: TileEntityEffect
     effects:
     - !type:FlammableReaction
@@ -29,8 +29,8 @@
     sprite: Tiles/Planet/lava.rsi
     drawdepth: BelowFloor
     layers:
-      - state: lava
-        shader: unshaded
+    - state: lava
+      shader: unshaded
   - type: Icon
     sprite: Tiles/Planet/lava.rsi
     state: full
@@ -44,15 +44,14 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.5,-0.5,0.5,0.5"
         layer:
-          - SlipLayer
+        - SlipLayer
         mask:
-          - ItemMask
+        - ItemMask
         density: 1000
         hard: false
   - type: Tag
     tags:
-      - HideContextMenu
+    - HideContextMenu

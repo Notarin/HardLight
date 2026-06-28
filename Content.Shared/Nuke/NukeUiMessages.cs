@@ -8,9 +8,7 @@ namespace Content.Shared.Nuke
     }
 
     [Serializable, NetSerializable]
-    public sealed class NukeAnchorMessage : BoundUserInterfaceMessage
-    {
-    }
+    public sealed class NukeAnchorMessage : BoundUserInterfaceMessage { }
 
     [Serializable, NetSerializable]
     public sealed class NukeKeypadMessage : BoundUserInterfaceMessage
@@ -24,17 +22,11 @@ namespace Content.Shared.Nuke
     }
 
     [Serializable, NetSerializable]
-    public sealed class NukeKeypadClearMessage : BoundUserInterfaceMessage
-    {
-    }
+    public sealed class NukeKeypadClearMessage : BoundUserInterfaceMessage { }
 
     [Serializable, NetSerializable]
-    public sealed class NukeKeypadEnterMessage : BoundUserInterfaceMessage
-    {
-    }
+    public sealed class NukeKeypadEnterMessage : BoundUserInterfaceMessage { }
 
     [Serializable, NetSerializable]
-    public sealed class NukeArmedMessage : BoundUserInterfaceMessage
-    {
-    }
+    public sealed class NukeArmedMessage : BoundUserInterfaceMessage { }
 }

@@ -20,7 +20,7 @@
       map: ["foldedLayer"]
       visible: true
     - state: icon_mask
-      map: [ "unfoldedLayer" ]
+      map: ["unfoldedLayer"]
       visible: false
   - type: HideLayerClothing # needed since head bandana inherits from mask bandana
     slots: []

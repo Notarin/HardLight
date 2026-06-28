@@ -6,10 +6,14 @@ namespace Content.Shared.Silicons.Bots;
 
 public sealed class FillbotSystem : EntitySystem
 {
-    [Dependency] private readonly IEntityManager _entityManager = default!;
-    [Dependency] private readonly SharedDeviceLinkSystem _deviceLink = default!;
+    [Dependency]
+    private readonly IEntityManager _entityManager = default!;
 
-    [Dependency] private SharedHandsSystem _sharedHandsSystem = default!;
+    [Dependency]
+    private readonly SharedDeviceLinkSystem _deviceLink = default!;
+
+    [Dependency]
+    private SharedHandsSystem _sharedHandsSystem = default!;
 
     public override void Initialize()
     {

@@ -1,12 +1,12 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using Content.Shared._NF.Roles.Components; // HardLight
+using Content.Shared.Mind; // HardLight
 using Content.Shared.Players;
 using Content.Shared.Players.PlayTimeTracking;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
-using Content.Shared._NF.Roles.Components; // HardLight
-using Content.Shared.Mind; // HardLight
 
 namespace Content.Shared.Roles.Jobs;
 
@@ -15,9 +15,14 @@ namespace Content.Shared.Roles.Jobs;
 /// </summary>
 public abstract class SharedJobSystem : EntitySystem
 {
-    [Dependency] private readonly SharedPlayerSystem _playerSystem = default!;
-    [Dependency] private readonly IPrototypeManager _prototypes = default!;
-    [Dependency] private readonly SharedRoleSystem _roles = default!;
+    [Dependency]
+    private readonly SharedPlayerSystem _playerSystem = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypes = default!;
+
+    [Dependency]
+    private readonly SharedRoleSystem _roles = default!;
 
     private readonly Dictionary<string, string> _inverseTrackerLookup = new();
 
@@ -83,7 +88,10 @@ public abstract class SharedJobSystem : EntitySystem
     /// For example, with CE it will return Engineering but with captain it will
     /// not return anything, since Command is not a primary department.
     /// </summary>
-    public bool TryGetPrimaryDepartment(string jobProto, [NotNullWhen(true)] out DepartmentPrototype? departmentPrototype)
+    public bool TryGetPrimaryDepartment(
+        string jobProto,
+        [NotNullWhen(true)] out DepartmentPrototype? departmentPrototype
+    )
     {
         // not sorting it since there should only be 1 primary department for a job.
         // this is enforced by the job tests.
@@ -115,9 +123,7 @@ public abstract class SharedJobSystem : EntitySystem
         return role.Value.Comp1.JobPrototype == prototypeId;
     }
 
-    public bool MindTryGetJob(
-        [NotNullWhen(true)] EntityUid? mindId,
-        [NotNullWhen(true)] out JobPrototype? prototype)
+    public bool MindTryGetJob([NotNullWhen(true)] EntityUid? mindId, [NotNullWhen(true)] out JobPrototype? prototype)
     {
         prototype = null;
         MindTryGetJobId(mindId, out var protoId);
@@ -125,9 +131,7 @@ public abstract class SharedJobSystem : EntitySystem
         return _prototypes.TryIndex(protoId, out prototype) || prototype is not null;
     }
 
-    public bool MindTryGetJobId(
-        [NotNullWhen(true)] EntityUid? mindId,
-        out ProtoId<JobPrototype>? job)
+    public bool MindTryGetJobId([NotNullWhen(true)] EntityUid? mindId, out ProtoId<JobPrototype>? job)
     {
         job = null;
 
@@ -139,11 +143,13 @@ public abstract class SharedJobSystem : EntitySystem
 
         // HardLight start: If the mind doesn't have a JobRoleComponent,
         // attempt to get the job from the JobTrackingComponent on the mind's current entity.
-        if (job == null
+        if (
+            job == null
             && TryComp<MindComponent>(mindId.Value, out var mind)
             && mind.CurrentEntity is { } currentEntity
             && TryComp<JobTrackingComponent>(currentEntity, out var tracking)
-            && tracking.Job is { } trackedJob)
+            && tracking.Job is { } trackedJob
+        )
         {
             job = trackedJob;
         }

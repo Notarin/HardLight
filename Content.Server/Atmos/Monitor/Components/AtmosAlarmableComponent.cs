@@ -4,6 +4,7 @@ using Robust.Shared.Audio;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype.Set;
 
 namespace Content.Server.Atmos.Monitor.Components;
+
 // AtmosAlarmables are entities that can be alarmed
 // by a linked AtmosMonitor (alarmer?) if a threshold
 // is passed in some way. The intended use is to
@@ -31,9 +32,11 @@ public sealed partial class AtmosAlarmableComponent : Component
     [ViewVariables]
     public readonly Dictionary<string, AtmosAlarmType> NetworkAlarmStates = new();
 
-    [ViewVariables] public AtmosAlarmType LastAlarmState = AtmosAlarmType.Invalid;
+    [ViewVariables]
+    public AtmosAlarmType LastAlarmState = AtmosAlarmType.Invalid;
 
-    [ViewVariables] public bool IgnoreAlarms { get; set; } = false;
+    [ViewVariables]
+    public bool IgnoreAlarms { get; set; } = false;
 
     [DataField("alarmSound")]
     public SoundSpecifier AlarmSound { get; set; } = new SoundPathSpecifier("/Audio/Machines/alarm.ogg");

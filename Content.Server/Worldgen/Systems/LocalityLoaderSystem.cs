@@ -1,8 +1,8 @@
+using Content.Server._NF.Salvage; // Frontier
+using Content.Server._NF.Worldgen.Components.Debris; // Frontier
+using Content.Server.StationEvents.Events; // Frontier
 using Content.Server.Worldgen.Components;
 using Robust.Server.GameObjects;
-using Content.Server._NF.Worldgen.Components.Debris; // Frontier
-using Content.Server._NF.Salvage; // Frontier
-using Content.Server.StationEvents.Events; // Frontier
 
 namespace Content.Server.Worldgen.Systems;
 
@@ -11,14 +11,18 @@ namespace Content.Server.Worldgen.Systems;
 /// </summary>
 public sealed class LocalityLoaderSystem : BaseWorldSystem
 {
-    [Dependency] private readonly TransformSystem _xformSys = default!;
-    [Dependency] private readonly LinkedLifecycleGridSystem _linkedLifecycleGrid = default!; // Frontier
+    [Dependency]
+    private readonly TransformSystem _xformSys = default!;
+
+    [Dependency]
+    private readonly LinkedLifecycleGridSystem _linkedLifecycleGrid = default!; // Frontier
 
     // Frontier: space debris destruction
     public override void Initialize()
     {
         SubscribeLocalEvent<SpaceDebrisComponent, EntityTerminatingEvent>(OnDebrisDespawn);
     }
+
     // End Frontier: space debris destruction
 
     /// <inheritdoc />
@@ -53,7 +57,10 @@ public sealed class LocalityLoaderSystem : BaseWorldSystem
                         if (!xformQuery.TryGetComponent(loader, out var loaderXform))
                             continue;
 
-                        if ((_xformSys.GetWorldPosition(loaderXform) - _xformSys.GetWorldPosition(xform)).Length() > loadable.LoadingDistance)
+                        if (
+                            (_xformSys.GetWorldPosition(loaderXform) - _xformSys.GetWorldPosition(xform)).Length()
+                            > loadable.LoadingDistance
+                        )
                             continue;
 
                         RaiseLocalEvent(uid, new LocalStructureLoadedEvent());

@@ -2,7 +2,7 @@
   id: WeaponEnergyTurretControlPanelFrame
   name: sentry turret control panel assembly
   description: An incomplete wall-mounted assembly for a sentry turret control panel.
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     noRot: false
@@ -15,8 +15,7 @@
     damageModifierSet: StructuralMetallic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 200
       behaviors:
       - !type:PlaySoundBehavior
@@ -27,7 +26,7 @@
       - !type:ChangeConstructionNodeBehavior
         node: machineFrame
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: Transform
     anchored: true
   - type: WallMount
@@ -70,17 +69,17 @@
     visuals:
       enum.WiresVisualLayers.MaintenancePanel:
         enum.WiresVisualLayers.MaintenancePanel:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
       enum.PowerDeviceVisuals.Powered:
         enum.PowerDeviceVisualLayers.Powered:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
       enum.TurretControllerVisuals.ControlPanel:
         enum.PowerDeviceVisualLayers.Powered:
-          -1: { state: safe }
-          0: { state: stun }
-          1: { state: lethal }
+          -1: {state: safe}
+          0: {state: stun}
+          1: {state: lethal}
   - type: StationAiWhitelist
   - type: DeployableTurretController
     accessGroups:
@@ -170,7 +169,7 @@
     usesApcPower: true
   - type: ContainerFill
     containers:
-      board:  # Hardlight change
+      board: # Hardlight change
       - WeaponEnergyTurretSecurityControlPanelElectronics
       - WeaponEnergyTurretAIControlPanelElectronics
       - WeaponEnergyTurretCommandControlPanelElectronics

@@ -16,9 +16,15 @@ namespace Content.Goobstation.Shared.Containers.ExtendedContainer;
 
 public sealed partial class ExtendedContainerSystem : EntitySystem
 {
-    [Dependency] private readonly SharedContainerSystem _containers = default!;
-    [Dependency] private readonly SharedAudioSystem _audioSystem = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistsystem = default!;
+    [Dependency]
+    private readonly SharedContainerSystem _containers = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audioSystem = default!;
+
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelistsystem = default!;
+
     /// <inheritdoc/>
     public override void Initialize()
     {
@@ -27,7 +33,9 @@ public sealed partial class ExtendedContainerSystem : EntitySystem
         SubscribeLocalEvent<ExtendedContainerComponent, ComponentInit>(OnComponentInit);
         SubscribeLocalEvent<ExtendedContainerComponent, BreakageEventArgs>(OnBreak);
         SubscribeLocalEvent<ExtendedContainerComponent, DestructionEventArgs>(OnBreak);
-        SubscribeLocalEvent<ExtendedContainerComponent, ContainerIsInsertingAttemptEvent>(OnContainerIsInsertingAttempt);
+        SubscribeLocalEvent<ExtendedContainerComponent, ContainerIsInsertingAttemptEvent>(
+            OnContainerIsInsertingAttempt
+        );
         SubscribeLocalEvent<ExtendedContainerComponent, ContainerIsRemovingAttemptEvent>(OnContainerIsRemovingAttempt);
     }
 
@@ -56,7 +64,11 @@ public sealed partial class ExtendedContainerSystem : EntitySystem
     /// <summary>
     /// Cancel removal from the container if the removed entity is not part of the whitelist then play a sound
     /// </summary>
-    private void OnContainerIsRemovingAttempt(EntityUid uid, ExtendedContainerComponent component, ContainerIsRemovingAttemptEvent args)
+    private void OnContainerIsRemovingAttempt(
+        EntityUid uid,
+        ExtendedContainerComponent component,
+        ContainerIsRemovingAttemptEvent args
+    )
     {
         if (args.Container.ID != component.ContainerName)
             return;
@@ -76,16 +88,21 @@ public sealed partial class ExtendedContainerSystem : EntitySystem
     /// Cancel insertion into the container if the inserting entity does not pass the whitelist
     /// or the container is full, play a sound if successful
     /// </summary>
-    private void OnContainerIsInsertingAttempt(EntityUid uid, ExtendedContainerComponent component, ContainerIsInsertingAttemptEvent args)
+    private void OnContainerIsInsertingAttempt(
+        EntityUid uid,
+        ExtendedContainerComponent component,
+        ContainerIsInsertingAttemptEvent args
+    )
     {
         if (args.Container.ID != component.ContainerName)
             return;
 
         var isContainerFull = component.Content?.ContainedEntities.Count >= component.Capacity;
 
-        if (isContainerFull ||
-            component.InsertWhitelist != null &&
-            _whitelistsystem.IsValid(component.InsertWhitelist, args.EntityUid))
+        if (
+            isContainerFull
+            || component.InsertWhitelist != null && _whitelistsystem.IsValid(component.InsertWhitelist, args.EntityUid)
+        )
         {
             args.Cancel();
             return;

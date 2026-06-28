@@ -10,7 +10,9 @@ public partial class SharedStaminaSystem
     private void InitializeResistance()
     {
         SubscribeLocalEvent<StaminaResistanceComponent, BeforeStaminaDamageEvent>(OnGetResistance);
-        SubscribeLocalEvent<StaminaResistanceComponent, InventoryRelayedEvent<BeforeStaminaDamageEvent>>(RelayedResistance);
+        SubscribeLocalEvent<StaminaResistanceComponent, InventoryRelayedEvent<BeforeStaminaDamageEvent>>(
+            RelayedResistance
+        );
         SubscribeLocalEvent<StaminaResistanceComponent, ArmorExamineEvent>(OnArmorExamine);
     }
 
@@ -19,7 +21,10 @@ public partial class SharedStaminaSystem
         args.Value *= ent.Comp.DamageCoefficient;
     }
 
-    private void RelayedResistance(Entity<StaminaResistanceComponent> ent, ref InventoryRelayedEvent<BeforeStaminaDamageEvent> args)
+    private void RelayedResistance(
+        Entity<StaminaResistanceComponent> ent,
+        ref InventoryRelayedEvent<BeforeStaminaDamageEvent> args
+    )
     {
         if (ent.Comp.Worn)
             OnGetResistance(ent, ref args.Args);

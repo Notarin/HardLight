@@ -12,24 +12,38 @@ using Robust.Client.State;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controllers;
 using Robust.Shared.Configuration;
-using static Robust.Client.UserInterface.Controls.BaseButton;
 using Robust.Shared.Input.Binding;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
+using static Robust.Client.UserInterface.Controls.BaseButton;
 
 namespace Content.Client.UserInterface.Systems.Guidebook;
 
-public sealed class GuidebookUIController : UIController, IOnStateEntered<LobbyState>, IOnStateEntered<GameplayState>, IOnStateExited<LobbyState>, IOnStateExited<GameplayState>, IOnSystemChanged<GuidebookSystem>
+public sealed class GuidebookUIController
+    : UIController,
+        IOnStateEntered<LobbyState>,
+        IOnStateEntered<GameplayState>,
+        IOnStateExited<LobbyState>,
+        IOnStateExited<GameplayState>,
+        IOnSystemChanged<GuidebookSystem>
 {
-    [UISystemDependency] private readonly GuidebookSystem _guidebookSystem = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IConfigurationManager _configuration = default!;
-    [Dependency] private readonly JobRequirementsManager _jobRequirements = default!;
+    [UISystemDependency]
+    private readonly GuidebookSystem _guidebookSystem = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _configuration = default!;
+
+    [Dependency]
+    private readonly JobRequirementsManager _jobRequirements = default!;
 
     private const int PlaytimeOpenGuidebook = 180; // Frontier 60<180
 
     private GuidebookWindow? _guideWindow;
-    private MenuButton? GuidebookButton => UIManager.GetActiveUIWidgetOrNull<MenuBar.Widgets.GameTopMenuBar>()?.GuidebookButton;
+    private MenuButton? GuidebookButton =>
+        UIManager.GetActiveUIWidgetOrNull<MenuBar.Widgets.GameTopMenuBar>()?.GuidebookButton;
     private ProtoId<GuideEntryPrototype>? _lastEntry;
 
     public void OnStateEntered(LobbyState state)
@@ -51,8 +65,10 @@ public sealed class GuidebookUIController : UIController, IOnStateEntered<LobbyS
         _guideWindow.OnClose += OnWindowClosed;
         _guideWindow.OnOpen += OnWindowOpen;
 
-        if (state is LobbyState &&
-            _jobRequirements.FetchOverallPlaytime() < TimeSpan.FromMinutes(PlaytimeOpenGuidebook))
+        if (
+            state is LobbyState
+            && _jobRequirements.FetchOverallPlaytime() < TimeSpan.FromMinutes(PlaytimeOpenGuidebook)
+        )
         {
             OpenGuidebook();
             _guideWindow.RecenterWindow(new(0.5f, 0.5f));
@@ -60,9 +76,8 @@ public sealed class GuidebookUIController : UIController, IOnStateEntered<LobbyS
         }
 
         // setup keybinding
-        CommandBinds.Builder
-            .Bind(ContentKeyFunctions.OpenGuidebook,
-                InputCmdHandler.FromDelegate(_ => ToggleGuidebook()))
+        CommandBinds
+            .Builder.Bind(ContentKeyFunctions.OpenGuidebook, InputCmdHandler.FromDelegate(_ => ToggleGuidebook()))
             .Register<GuidebookUIController>();
     }
 
@@ -172,7 +187,8 @@ public sealed class GuidebookUIController : UIController, IOnStateEntered<LobbyS
         List<ProtoId<GuideEntryPrototype>>? rootEntries = null,
         ProtoId<GuideEntryPrototype>? forceRoot = null,
         bool includeChildren = true,
-        ProtoId<GuideEntryPrototype>? selected = null)
+        ProtoId<GuideEntryPrototype>? selected = null
+    )
     {
         if (_guideWindow == null)
             return;
@@ -182,8 +198,9 @@ public sealed class GuidebookUIController : UIController, IOnStateEntered<LobbyS
 
         if (guides == null)
         {
-            guides = _prototypeManager.EnumeratePrototypes<GuideEntryPrototype>()
-                .ToDictionary(x => new ProtoId<GuideEntryPrototype>(x.ID), x => (GuideEntry) x);
+            guides = _prototypeManager
+                .EnumeratePrototypes<GuideEntryPrototype>()
+                .ToDictionary(x => new ProtoId<GuideEntryPrototype>(x.ID), x => (GuideEntry)x);
         }
         else if (includeChildren)
         {
@@ -220,7 +237,8 @@ public sealed class GuidebookUIController : UIController, IOnStateEntered<LobbyS
         List<ProtoId<GuideEntryPrototype>>? rootEntries = null,
         ProtoId<GuideEntryPrototype>? forceRoot = null,
         bool includeChildren = true,
-        ProtoId<GuideEntryPrototype>? selected = null)
+        ProtoId<GuideEntryPrototype>? selected = null
+    )
     {
         Dictionary<ProtoId<GuideEntryPrototype>, GuideEntry> guides = new();
         foreach (var guideId in guideList)
@@ -257,7 +275,9 @@ public sealed class GuidebookUIController : UIController, IOnStateEntered<LobbyS
 
             if (!_prototypeManager.TryIndex(childId, out var child))
             {
-                Logger.Error($"Encountered unknown guide prototype: {childId} as a child of {guide.Id}. If the child is not a prototype, it must be directly provided.");
+                Logger.Error(
+                    $"Encountered unknown guide prototype: {childId} as a child of {guide.Id}. If the child is not a prototype, it must be directly provided."
+                );
                 continue;
             }
 

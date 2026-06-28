@@ -1,11 +1,11 @@
+using System.Linq;
+using System.Threading.Tasks;
 using Content.Server.Administration.Managers;
+using Content.Server.Database;
 using Content.Server.EUI;
 using Content.Shared.Administration.Notes;
 using Content.Shared.Database;
 using Content.Shared.Eui;
-using System.Linq;
-using System.Threading.Tasks;
-using Content.Server.Database;
 using Robust.Shared.Network;
 using static Content.Shared.Administration.Notes.AdminNoteEuiMsg;
 
@@ -13,9 +13,14 @@ namespace Content.Server.Administration.Notes;
 
 public sealed class AdminNotesEui : BaseEui
 {
-    [Dependency] private readonly IAdminManager _admins = default!;
-    [Dependency] private readonly IAdminNotesManager _notesMan = default!;
-    [Dependency] private readonly IPlayerLocator _locator = default!;
+    [Dependency]
+    private readonly IAdminManager _admins = default!;
+
+    [Dependency]
+    private readonly IAdminNotesManager _notesMan = default!;
+
+    [Dependency]
+    private readonly IPlayerLocator _locator = default!;
 
     public AdminNotesEui()
     {
@@ -65,50 +70,66 @@ public sealed class AdminNotesEui : BaseEui
         switch (msg)
         {
             case CreateNoteRequest request:
+            {
+                if (!_notesMan.CanCreate(Player))
                 {
-                    if (!_notesMan.CanCreate(Player))
-                    {
-                        break;
-                    }
-
-                    if (string.IsNullOrWhiteSpace(request.Message))
-                    {
-                        break;
-                    }
-
-                    if (request.ExpiryTime is not null && request.ExpiryTime <= DateTime.UtcNow)
-                    {
-                        break;
-                    }
-
-                    await _notesMan.AddAdminRemark(Player, NotedPlayer, request.NoteType, request.Message, request.NoteSeverity, request.Secret, request.ExpiryTime);
                     break;
                 }
+
+                if (string.IsNullOrWhiteSpace(request.Message))
+                {
+                    break;
+                }
+
+                if (request.ExpiryTime is not null && request.ExpiryTime <= DateTime.UtcNow)
+                {
+                    break;
+                }
+
+                await _notesMan.AddAdminRemark(
+                    Player,
+                    NotedPlayer,
+                    request.NoteType,
+                    request.Message,
+                    request.NoteSeverity,
+                    request.Secret,
+                    request.ExpiryTime
+                );
+                break;
+            }
             case DeleteNoteRequest request:
+            {
+                if (!_notesMan.CanDelete(Player))
                 {
-                    if (!_notesMan.CanDelete(Player))
-                    {
-                        break;
-                    }
-
-                    await _notesMan.DeleteAdminRemark(request.Id, request.Type, Player);
                     break;
                 }
+
+                await _notesMan.DeleteAdminRemark(request.Id, request.Type, Player);
+                break;
+            }
             case EditNoteRequest request:
+            {
+                if (!_notesMan.CanEdit(Player))
                 {
-                    if (!_notesMan.CanEdit(Player))
-                    {
-                        break;
-                    }
-
-                    if (string.IsNullOrWhiteSpace(request.Message))
-                    {
-                        break;
-                    }
-
-                    await _notesMan.ModifyAdminRemark(request.Id, request.Type, Player, request.Message, request.NoteSeverity, request.Secret, request.ExpiryTime);
                     break;
                 }
+
+                if (string.IsNullOrWhiteSpace(request.Message))
+                {
+                    break;
+                }
+
+                await _notesMan.ModifyAdminRemark(
+                    request.Id,
+                    request.Type,
+                    Player,
+                    request.Message,
+                    request.NoteSeverity,
+                    request.Secret,
+                    request.ExpiryTime
+                );
+                break;
+            }
         }
     }
 
@@ -138,12 +159,12 @@ public sealed class AdminNotesEui : BaseEui
 
     private async Task LoadFromDb()
     {
-        var locatedPlayer = await _locator.LookupIdAsync((NetUserId) NotedPlayer);
+        var locatedPlayer = await _locator.LookupIdAsync((NetUserId)NotedPlayer);
         NotedPlayerName = locatedPlayer?.Username ?? string.Empty;
         HasConnectedBefore = locatedPlayer?.LastAddress is not null;
-        Notes = (from note in await _notesMan.GetAllAdminRemarks(NotedPlayer)
-                 select note.ToShared())
-            .ToDictionary(sharedNote => (sharedNote.Id, sharedNote.NoteType));
+        Notes = (from note in await _notesMan.GetAllAdminRemarks(NotedPlayer) select note.ToShared()).ToDictionary(
+            sharedNote => (sharedNote.Id, sharedNote.NoteType)
+        );
         StateDirty();
     }
 

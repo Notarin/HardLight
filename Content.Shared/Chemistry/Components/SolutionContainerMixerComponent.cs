@@ -27,7 +27,11 @@ public sealed partial class SolutionContainerMixerComponent : Component
     [DataField, ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
     public TimeSpan MixDuration;
 
-    [DataField(customTypeSerializer: typeof(TimeOffsetSerializer)), ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
+    [
+        DataField(customTypeSerializer: typeof(TimeOffsetSerializer)),
+        ViewVariables(VVAccess.ReadWrite),
+        AutoNetworkedField
+    ]
     public TimeSpan MixTimeEnd;
 
     [DataField, AutoNetworkedField]
@@ -40,5 +44,5 @@ public sealed partial class SolutionContainerMixerComponent : Component
 [Serializable, NetSerializable]
 public enum SolutionContainerMixerVisuals : byte
 {
-    Mixing
+    Mixing,
 }

@@ -22,18 +22,31 @@ namespace Content.Client.Guidebook;
 /// </summary>
 public sealed class GuidebookSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly VerbSystem _verbSystem = default!;
-    [Dependency] private readonly RgbLightControllerSystem _rgbLightControllerSystem = default!;
-    [Dependency] private readonly SharedPointLightSystem _pointLightSystem = default!;
-    [Dependency] private readonly TagSystem _tags = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
-    public event Action<List<ProtoId<GuideEntryPrototype>>,
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly VerbSystem _verbSystem = default!;
+
+    [Dependency]
+    private readonly RgbLightControllerSystem _rgbLightControllerSystem = default!;
+
+    [Dependency]
+    private readonly SharedPointLightSystem _pointLightSystem = default!;
+
+    [Dependency]
+    private readonly TagSystem _tags = default!;
+
+    public event Action<
+        List<ProtoId<GuideEntryPrototype>>,
         List<ProtoId<GuideEntryPrototype>>?,
         ProtoId<GuideEntryPrototype>?,
         bool,
-        ProtoId<GuideEntryPrototype>?>? OnGuidebookOpen;
+        ProtoId<GuideEntryPrototype>?
+    >? OnGuidebookOpen;
 
     public const string GuideEmbedTag = "GuideEmbeded";
 
@@ -46,9 +59,12 @@ public sealed class GuidebookSystem : EntitySystem
         SubscribeLocalEvent<GuideHelpComponent, ActivateInWorldEvent>(OnInteract);
 
         SubscribeLocalEvent<GuidebookControlsTestComponent, InteractHandEvent>(OnGuidebookControlsTestInteractHand);
-        SubscribeLocalEvent<GuidebookControlsTestComponent, ActivateInWorldEvent>(OnGuidebookControlsTestActivateInWorld);
+        SubscribeLocalEvent<GuidebookControlsTestComponent, ActivateInWorldEvent>(
+            OnGuidebookControlsTestActivateInWorld
+        );
         SubscribeLocalEvent<GuidebookControlsTestComponent, GetVerbsEvent<AlternativeVerb>>(
-            OnGuidebookControlsTestGetAlternateVerbs);
+            OnGuidebookControlsTestGetAlternateVerbs
+        );
     }
 
     /// <summary>
@@ -73,14 +89,23 @@ public sealed class GuidebookSystem : EntitySystem
         if (component.Guides.Count == 0 || _tags.HasTag(uid, GuideEmbedTag))
             return;
 
-        args.Verbs.Add(new()
-        {
-            Text = Loc.GetString("guide-help-verb"),
-            Icon = new SpriteSpecifier.Texture(new ("/Textures/Interface/VerbIcons/information.svg.192dpi.png")),
-            Act = () => OnGuidebookOpen?.Invoke(component.Guides, null, null, component.IncludeChildren, component.Guides[0]),
-            ClientExclusive = true,
-            CloseMenu = true
-        });
+        args.Verbs.Add(
+            new()
+            {
+                Text = Loc.GetString("guide-help-verb"),
+                Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/information.svg.192dpi.png")),
+                Act = () =>
+                    OnGuidebookOpen?.Invoke(
+                        component.Guides,
+                        null,
+                        null,
+                        component.IncludeChildren,
+                        component.Guides[0]
+                    ),
+                ClientExclusive = true,
+                CloseMenu = true,
+            }
+        );
     }
 
     public void OpenHelp(List<ProtoId<GuideEntryPrototype>> guides)
@@ -100,48 +125,64 @@ public sealed class GuidebookSystem : EntitySystem
         args.Handled = true;
     }
 
-    private void OnGuidebookControlsTestGetAlternateVerbs(EntityUid uid, GuidebookControlsTestComponent component, GetVerbsEvent<AlternativeVerb> args)
+    private void OnGuidebookControlsTestGetAlternateVerbs(
+        EntityUid uid,
+        GuidebookControlsTestComponent component,
+        GetVerbsEvent<AlternativeVerb> args
+    )
     {
-        args.Verbs.Add(new AlternativeVerb()
-        {
-            Act = () =>
+        args.Verbs.Add(
+            new AlternativeVerb()
             {
-                if (Transform(uid).LocalRotation != Angle.Zero)
-                    Transform(uid).LocalRotation -= Angle.FromDegrees(90);
-            },
-            Text = Loc.GetString("guidebook-monkey-unspin"),
-            Priority = -9999,
-        });
-
-        args.Verbs.Add(new AlternativeVerb()
-        {
-            Act = () =>
-            {
-                EnsureComp<PointLightComponent>(uid); // RGB demands this.
-                _pointLightSystem.SetEnabled(uid, false);
-                var rgb = EnsureComp<RgbLightControllerComponent>(uid);
-
-                var sprite = EnsureComp<SpriteComponent>(uid);
-                var layers = new List<int>();
-
-                for (var i = 0; i < sprite.AllLayers.Count(); i++)
+                Act = () =>
                 {
-                    layers.Add(i);
-                }
+                    if (Transform(uid).LocalRotation != Angle.Zero)
+                        Transform(uid).LocalRotation -= Angle.FromDegrees(90);
+                },
+                Text = Loc.GetString("guidebook-monkey-unspin"),
+                Priority = -9999,
+            }
+        );
 
-                _rgbLightControllerSystem.SetLayers(uid, layers, rgb);
-            },
-            Text = Loc.GetString("guidebook-monkey-disco"),
-            Priority = -9998,
-        });
+        args.Verbs.Add(
+            new AlternativeVerb()
+            {
+                Act = () =>
+                {
+                    EnsureComp<PointLightComponent>(uid); // RGB demands this.
+                    _pointLightSystem.SetEnabled(uid, false);
+                    var rgb = EnsureComp<RgbLightControllerComponent>(uid);
+
+                    var sprite = EnsureComp<SpriteComponent>(uid);
+                    var layers = new List<int>();
+
+                    for (var i = 0; i < sprite.AllLayers.Count(); i++)
+                    {
+                        layers.Add(i);
+                    }
+
+                    _rgbLightControllerSystem.SetLayers(uid, layers, rgb);
+                },
+                Text = Loc.GetString("guidebook-monkey-disco"),
+                Priority = -9998,
+            }
+        );
     }
 
-    private void OnGuidebookControlsTestActivateInWorld(EntityUid uid, GuidebookControlsTestComponent component, ActivateInWorldEvent args)
+    private void OnGuidebookControlsTestActivateInWorld(
+        EntityUid uid,
+        GuidebookControlsTestComponent component,
+        ActivateInWorldEvent args
+    )
     {
         Transform(uid).LocalRotation += Angle.FromDegrees(90);
     }
 
-    private void OnGuidebookControlsTestInteractHand(EntityUid uid, GuidebookControlsTestComponent component, InteractHandEvent args)
+    private void OnGuidebookControlsTestInteractHand(
+        EntityUid uid,
+        GuidebookControlsTestComponent component,
+        InteractHandEvent args
+    )
     {
         if (!TryComp<SpeechComponent>(uid, out var speech) || speech.SpeechSounds is null)
             return;

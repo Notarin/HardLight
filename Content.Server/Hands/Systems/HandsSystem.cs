@@ -2,10 +2,10 @@ using System.Numerics;
 using Content.Server.Inventory;
 using Content.Server.Stack;
 using Content.Server.Stunnable;
+using Content.Shared._Shitmed.Body.Events; // Shitmed Change
 using Content.Shared.ActionBlocker;
 using Content.Shared.Body.Part;
 using Content.Shared.Body.Systems; // Shitmed Change
-using Content.Shared._Shitmed.Body.Events; // Shitmed Change
 using Content.Shared.CombatMode;
 using Content.Shared.Damage.Systems;
 using Content.Shared.Explosion;
@@ -31,20 +31,41 @@ namespace Content.Server.Hands.Systems
 {
     public sealed class HandsSystem : SharedHandsSystem
     {
-        [Dependency] private readonly IGameTiming _timing = default!;
-        [Dependency] private readonly IRobustRandom _random = default!;
-        [Dependency] private readonly StackSystem _stackSystem = default!;
-        [Dependency] private readonly VirtualItemSystem _virtualItemSystem = default!;
-        [Dependency] private readonly ActionBlockerSystem _actionBlockerSystem = default!;
-        [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
-        [Dependency] private readonly PullingSystem _pullingSystem = default!;
-        [Dependency] private readonly ThrowingSystem _throwingSystem = default!;
-        [Dependency] private readonly SharedBodySystem _bodySystem = default!; // Shitmed Change
+        [Dependency]
+        private readonly IGameTiming _timing = default!;
+
+        [Dependency]
+        private readonly IRobustRandom _random = default!;
+
+        [Dependency]
+        private readonly StackSystem _stackSystem = default!;
+
+        [Dependency]
+        private readonly VirtualItemSystem _virtualItemSystem = default!;
+
+        [Dependency]
+        private readonly ActionBlockerSystem _actionBlockerSystem = default!;
+
+        [Dependency]
+        private readonly SharedTransformSystem _transformSystem = default!;
+
+        [Dependency]
+        private readonly PullingSystem _pullingSystem = default!;
+
+        [Dependency]
+        private readonly ThrowingSystem _throwingSystem = default!;
+
+        [Dependency]
+        private readonly SharedBodySystem _bodySystem = default!; // Shitmed Change
+
         public override void Initialize()
         {
             base.Initialize();
 
-            SubscribeLocalEvent<HandsComponent, DisarmedEvent>(OnDisarmed, before: new[] { typeof(SharedStaminaSystem) });
+            SubscribeLocalEvent<HandsComponent, DisarmedEvent>(
+                OnDisarmed,
+                before: new[] { typeof(SharedStaminaSystem) }
+            );
 
             SubscribeLocalEvent<HandsComponent, PullStartedMessage>(HandlePullStarted);
             SubscribeLocalEvent<HandsComponent, PullStoppedMessage>(HandlePullStopped);
@@ -58,8 +79,8 @@ namespace Content.Server.Hands.Systems
             SubscribeLocalEvent<HandsComponent, BodyPartEnabledEvent>(HandleBodyPartEnabled); // Shitmed Change
             SubscribeLocalEvent<HandsComponent, BodyPartDisabledEvent>(HandleBodyPartDisabled); // Shitmed Change
 
-            CommandBinds.Builder
-                .Bind(ContentKeyFunctions.ThrowItemInHand, new PointerInputCmdHandler(HandleThrowItem))
+            CommandBinds
+                .Builder.Bind(ContentKeyFunctions.ThrowItemInHand, new PointerInputCmdHandler(HandleThrowItem))
                 .Register<HandsSystem>();
         }
 
@@ -74,7 +95,6 @@ namespace Content.Server.Hands.Systems
         {
             args.State = new HandsComponentState(hands);
         }
-
 
         private void OnExploded(Entity<HandsComponent> ent, ref BeforeExplodeEvent args)
         {
@@ -97,10 +117,11 @@ namespace Content.Server.Hands.Systems
             if (TryComp(uid, out PullerComponent? puller) && TryComp(puller.Pulling, out PullableComponent? pullable))
                 _pullingSystem.TryStopPull(puller.Pulling.Value, pullable, ignoreGrab: true); // Goobstation: Added check for grab
 
-            var offsetRandomCoordinates = _transformSystem.GetMoverCoordinates(args.Target).Offset(_random.NextVector2(1f, 1.5f));
+            var offsetRandomCoordinates = _transformSystem
+                .GetMoverCoordinates(args.Target)
+                .Offset(_random.NextVector2(1f, 1.5f));
             if (!ThrowHeldItem(args.Target, offsetRandomCoordinates))
                 return;
-
 
             args.Handled = true; // no shove/stun.
         }
@@ -108,8 +129,7 @@ namespace Content.Server.Hands.Systems
         // Shitmed Change Start
         private void TryAddHand(EntityUid uid, HandsComponent component, Entity<BodyPartComponent> part, string slot)
         {
-            if (part.Comp is null
-                || part.Comp.PartType != BodyPartType.Hand)
+            if (part.Comp is null || part.Comp.PartType != BodyPartType.Hand)
                 return;
 
             // If this annoys you, which it should.
@@ -119,12 +139,14 @@ namespace Content.Server.Hands.Systems
                 BodyPartSymmetry.None => HandLocation.Middle,
                 BodyPartSymmetry.Left => HandLocation.Left,
                 BodyPartSymmetry.Right => HandLocation.Right,
-                _ => throw new ArgumentOutOfRangeException(nameof(part.Comp.Symmetry))
+                _ => throw new ArgumentOutOfRangeException(nameof(part.Comp.Symmetry)),
             };
 
-            if (part.Comp.Enabled
+            if (
+                part.Comp.Enabled
                 && _bodySystem.TryGetParentBodyPart(part, out var _, out var parentPartComp)
-                && parentPartComp.Enabled)
+                && parentPartComp.Enabled
+            )
                 AddHand(uid, slot, location);
         }
 
@@ -135,20 +157,22 @@ namespace Content.Server.Hands.Systems
 
         private void HandleBodyPartRemoved(EntityUid uid, HandsComponent component, ref BodyPartRemovedEvent args)
         {
-            if (args.Part.Comp is null
-                || args.Part.Comp.PartType != BodyPartType.Hand)
+            if (args.Part.Comp is null || args.Part.Comp.PartType != BodyPartType.Hand)
                 return;
             RemoveHand(uid, args.Slot);
         }
 
         private void HandleBodyPartEnabled(EntityUid uid, HandsComponent component, ref BodyPartEnabledEvent args) =>
-            TryAddHand(uid, component, args.Part, SharedBodySystem.GetPartSlotContainerId(args.Part.Comp.ParentSlot?.Id ?? string.Empty));
+            TryAddHand(
+                uid,
+                component,
+                args.Part,
+                SharedBodySystem.GetPartSlotContainerId(args.Part.Comp.ParentSlot?.Id ?? string.Empty)
+            );
 
         private void HandleBodyPartDisabled(EntityUid uid, HandsComponent component, ref BodyPartDisabledEvent args)
         {
-            if (TerminatingOrDeleted(uid)
-                || args.Part.Comp is null
-                || args.Part.Comp.PartType != BodyPartType.Hand)
+            if (TerminatingOrDeleted(uid) || args.Part.Comp is null || args.Part.Comp.PartType != BodyPartType.Hand)
                 return;
 
             RemoveHand(uid, SharedBodySystem.GetPartSlotContainerId(args.Part.Comp.ParentSlot?.Id ?? string.Empty));
@@ -181,9 +205,11 @@ namespace Content.Server.Hands.Systems
             // and clear it.
             foreach (var hand in component.Hands.Values)
             {
-                if (hand.HeldEntity == null
+                if (
+                    hand.HeldEntity == null
                     || !TryComp(hand.HeldEntity, out VirtualItemComponent? virtualItem)
-                    || virtualItem.BlockingEntity != args.PulledUid)
+                    || virtualItem.BlockingEntity != args.PulledUid
+                )
                 {
                     continue;
                 }
@@ -224,17 +250,20 @@ namespace Content.Server.Hands.Systems
         /// </summary>
         public bool ThrowHeldItem(EntityUid player, EntityCoordinates coordinates, float minDistance = 0.1f)
         {
-            if (ContainerSystem.IsEntityInContainer(player) ||
-                !TryComp(player, out HandsComponent? hands) ||
-                hands.ActiveHandEntity is not { } throwEnt ||
-                !_actionBlockerSystem.CanThrow(player, throwEnt))
+            if (
+                ContainerSystem.IsEntityInContainer(player)
+                || !TryComp(player, out HandsComponent? hands)
+                || hands.ActiveHandEntity is not { } throwEnt
+                || !_actionBlockerSystem.CanThrow(player, throwEnt)
+            )
                 return false;
 
             if (!coordinates.IsValid(EntityManager))
                 return false;
 
-           // Goobstation start: Added throwing for grabbed mobs, mnoved direction.
-            var direction = _transformSystem.ToMapCoordinates(coordinates).Position - _transformSystem.GetWorldPosition(player);
+            // Goobstation start: Added throwing for grabbed mobs, mnoved direction.
+            var direction =
+                _transformSystem.ToMapCoordinates(coordinates).Position - _transformSystem.GetWorldPosition(player);
 
             if (TryComp<VirtualItemComponent>(throwEnt, out var virt))
             {
@@ -250,9 +279,18 @@ namespace Content.Server.Hands.Systems
                 return false;
             hands.NextThrowTime = _timing.CurTime + hands.ThrowCooldown;
 
-            if (EntityManager.TryGetComponent(throwEnt, out StackComponent? stack) && stack.Count > 1 && stack.ThrowIndividually)
+            if (
+                EntityManager.TryGetComponent(throwEnt, out StackComponent? stack)
+                && stack.Count > 1
+                && stack.ThrowIndividually
+            )
             {
-                var splitStack = _stackSystem.Split(throwEnt, 1, EntityManager.GetComponent<TransformComponent>(player).Coordinates, stack);
+                var splitStack = _stackSystem.Split(
+                    throwEnt,
+                    1,
+                    EntityManager.GetComponent<TransformComponent>(player).Coordinates,
+                    stack
+                );
 
                 if (splitStack is not { Valid: true })
                     return false;
@@ -287,7 +325,13 @@ namespace Content.Server.Hands.Systems
             if (IsHolding(player, throwEnt, out _, hands) && !TryDrop(player, throwEnt, handsComp: hands))
                 return false;
 
-            _throwingSystem.TryThrow(ev.ItemUid, ev.Direction, ev.ThrowSpeed, ev.PlayerUid, compensateFriction: !HasComp<LandAtCursorComponent>(ev.ItemUid));
+            _throwingSystem.TryThrow(
+                ev.ItemUid,
+                ev.Direction,
+                ev.ThrowSpeed,
+                ev.PlayerUid,
+                compensateFriction: !HasComp<LandAtCursorComponent>(ev.ItemUid)
+            );
 
             return true;
         }

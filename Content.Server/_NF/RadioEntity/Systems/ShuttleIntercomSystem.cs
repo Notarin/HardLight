@@ -1,11 +1,11 @@
 using Content.Server._NF.Radio;
-using Content.Shared.Radio.Components;
-using Robust.Server.GameObjects;
-using Content.Shared.Verbs;
-using Robust.Shared.Player;
-using Content.Shared.Radio;
-using Content.Server.Station.Systems;
 using Content.Server.Station.Components;
+using Content.Server.Station.Systems;
+using Content.Shared.Radio;
+using Content.Shared.Radio.Components;
+using Content.Shared.Verbs;
+using Robust.Server.GameObjects;
+using Robust.Shared.Player;
 
 namespace Content.Server.Radio.EntitySystems;
 
@@ -14,8 +14,11 @@ namespace Content.Server.Radio.EntitySystems;
 /// </summary>
 public sealed partial class ShuttleIntercomSystem : EntitySystem
 {
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
-    [Dependency] private readonly StationSystem _station = default!;
+    [Dependency]
+    private readonly UserInterfaceSystem _ui = default!;
+
+    [Dependency]
+    private readonly StationSystem _station = default!;
 
     public override void Initialize()
     {
@@ -24,7 +27,11 @@ public sealed partial class ShuttleIntercomSystem : EntitySystem
         SubscribeLocalEvent<ShuttleIntercomComponent, RadioTransformMessageEvent>(OnRadioTransformMessage);
     }
 
-    private void OnAlternativeVerb(EntityUid uid, ShuttleIntercomComponent component, GetVerbsEvent<AlternativeVerb> args)
+    private void OnAlternativeVerb(
+        EntityUid uid,
+        ShuttleIntercomComponent component,
+        GetVerbsEvent<AlternativeVerb> args
+    )
     {
         if (!args.CanAccess || !args.CanInteract)
             return;
@@ -32,7 +39,7 @@ public sealed partial class ShuttleIntercomSystem : EntitySystem
         var openUiVerb = new AlternativeVerb
         {
             Act = () => ToggleUi(uid, component, args.User),
-            Text = Loc.GetString("intercom-verb")
+            Text = Loc.GetString("intercom-verb"),
         };
         args.Verbs.Add(openUiVerb);
     }
@@ -48,7 +55,11 @@ public sealed partial class ShuttleIntercomSystem : EntitySystem
         _ui.TryToggleUi(uid, IntercomUiKey.Key, actor.PlayerSession);
     }
 
-    private void OnRadioTransformMessage(EntityUid uid, ShuttleIntercomComponent component, ref RadioTransformMessageEvent args)
+    private void OnRadioTransformMessage(
+        EntityUid uid,
+        ShuttleIntercomComponent component,
+        ref RadioTransformMessageEvent args
+    )
     {
         // Not appending name, nothing to do.
         if (!component.AppendName)

@@ -13,13 +13,13 @@
       effects:
       - !type:SatiateThirst
         factor: 0.25 # HardLight: 1.5<0.25
-      - !type:HealthChange # HardLight
-        damage:
+      - !type:HealthChange
+        damage: # HardLight
           types:
             Poison: 0.25
         conditions:
-        - !type:OrganType # HardLight
-          type: Synth
+        - !type:OrganType
+          type: Synth # HardLight
           shouldHave: false
   footstepSound:
     collection: FootstepBlood

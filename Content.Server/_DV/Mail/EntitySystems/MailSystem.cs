@@ -1,85 +1,128 @@
-using Content.Server.Access.Systems;
-using Content.Server.Damage.Components;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Threading;
 using Content.Server._DV.Cargo.Components;
 using Content.Server._DV.Cargo.Systems;
 using Content.Server._DV.Mail.Components;
+using Content.Server._NF.Bank; // Frontier
+using Content.Server._NF.Mail.Components; // Frontier
+using Content.Server._NF.SectorServices; // Frontier
+using Content.Server.Access.Systems;
+using Content.Server.Damage.Components;
+using Content.Server.Destructible;
+using Content.Server.Destructible.Thresholds;
 using Content.Server.Destructible.Thresholds.Behaviors;
 using Content.Server.Destructible.Thresholds.Triggers;
-using Content.Server.Destructible.Thresholds;
-using Content.Server.Destructible;
+using Content.Server.Ghost.Roles.Components;
 using Content.Server.Mind;
 using Content.Server.Popups;
+using Content.Server.Power.EntitySystems; // Frontier
 using Content.Server.Spawners.EntitySystems;
+using Content.Server.Station.Components; // Frontier
 using Content.Server.Station.Systems;
+using Content.Shared._DV.Mail;
+using Content.Shared._NF.Bank.BUI; // Frontier
+using Content.Shared._NF.Bank.Components; // Frontier
+using Content.Shared.Access;
 using Content.Shared.Access.Components;
 using Content.Shared.Access.Systems;
-using Content.Shared.Access;
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Damage;
-using Content.Shared._DV.Mail;
 using Content.Shared.Destructible;
 using Content.Shared.Emag.Components;
 using Content.Shared.Emag.Systems;
 using Content.Shared.Examine;
 using Content.Shared.Fluids.Components;
+using Content.Shared.Ghost;
 using Content.Shared.Hands.EntitySystems;
-using Content.Shared.Interaction.Events;
 using Content.Shared.Interaction;
+using Content.Shared.Interaction.Events;
 using Content.Shared.Nutrition.Components;
 using Content.Shared.Nutrition.EntitySystems;
 using Content.Shared.PDA;
 using Content.Shared.Roles;
+using Content.Shared.SSDIndicator; // Frontier
 using Content.Shared.Storage;
 using Content.Shared.Tag;
-using Robust.Shared.Audio.Systems;
+using Robust.Server.Player; // Frontier
 using Robust.Shared.Audio;
+using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
+using Robust.Shared.Enums; // Frontier
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Threading;
 using Timer = Robust.Shared.Timing.Timer;
-using Content.Server._NF.Bank; // Frontier
-using Content.Server._NF.SectorServices; // Frontier
-using Content.Server.Station.Components; // Frontier
-using Robust.Shared.Enums; // Frontier
-using Content.Shared._NF.Bank.Components; // Frontier
-using Content.Shared._NF.Bank.BUI; // Frontier
-using Content.Shared.SSDIndicator; // Frontier
-using Content.Server.Power.EntitySystems; // Frontier
-using Content.Server._NF.Mail.Components; // Frontier
-using Robust.Server.Player; // Frontier
-using Content.Shared.Ghost;
-using Content.Server.Ghost.Roles.Components;
 
 namespace Content.Server._DV.Mail.EntitySystems
 {
     public sealed class MailSystem : EntitySystem
     {
-        [Dependency] private readonly AccessReaderSystem _accessSystem = default!;
-        [Dependency] private readonly DamageableSystem _damageableSystem = default!;
-        [Dependency] private readonly EntityLookupSystem _lookup = default!;
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        [Dependency] private readonly IRobustRandom _random = default!;
-        [Dependency] private readonly IdCardSystem _idCardSystem = default!;
-        [Dependency] private readonly MetaDataSystem _metaDataSystem = default!;
+        [Dependency]
+        private readonly AccessReaderSystem _accessSystem = default!;
+
+        [Dependency]
+        private readonly DamageableSystem _damageableSystem = default!;
+
+        [Dependency]
+        private readonly EntityLookupSystem _lookup = default!;
+
+        [Dependency]
+        private readonly IPrototypeManager _prototypeManager = default!;
+
+        [Dependency]
+        private readonly IRobustRandom _random = default!;
+
+        [Dependency]
+        private readonly IdCardSystem _idCardSystem = default!;
+
+        [Dependency]
+        private readonly MetaDataSystem _metaDataSystem = default!;
+
         // [Dependency] private readonly MindSystem _mindSystem = default!; // Frontier: warning suppression
-        [Dependency] private readonly OpenableSystem _openable = default!;
-        [Dependency] private readonly PopupSystem _popupSystem = default!;
-        [Dependency] private readonly SharedAppearanceSystem _appearanceSystem = default!;
-        [Dependency] private readonly SharedAudioSystem _audioSystem = default!;
-        [Dependency] private readonly SharedContainerSystem _containerSystem = default!;
-        [Dependency] private readonly SharedHandsSystem _handsSystem = default!;
-        [Dependency] private readonly SharedSolutionContainerSystem _solution = default!;
-        [Dependency] private readonly StationSystem _stationSystem = default!;
-        [Dependency] private readonly TagSystem _tagSystem = default!;
-        [Dependency] private readonly LogisticStatsSystem _logisticsStatsSystem = default!;
-        [Dependency] private readonly EmagSystem _emag = default!;
-        [Dependency] private readonly SectorServiceSystem _sectorService = default!; // Frontier
-        [Dependency] private readonly BankSystem _bank = default!; // Frontier
-        [Dependency] private readonly PowerReceiverSystem _powerReceiver = default!; // Frontier
-        [Dependency] private readonly IPlayerManager _player = default!; // Frontier
+        [Dependency]
+        private readonly OpenableSystem _openable = default!;
+
+        [Dependency]
+        private readonly PopupSystem _popupSystem = default!;
+
+        [Dependency]
+        private readonly SharedAppearanceSystem _appearanceSystem = default!;
+
+        [Dependency]
+        private readonly SharedAudioSystem _audioSystem = default!;
+
+        [Dependency]
+        private readonly SharedContainerSystem _containerSystem = default!;
+
+        [Dependency]
+        private readonly SharedHandsSystem _handsSystem = default!;
+
+        [Dependency]
+        private readonly SharedSolutionContainerSystem _solution = default!;
+
+        [Dependency]
+        private readonly StationSystem _stationSystem = default!;
+
+        [Dependency]
+        private readonly TagSystem _tagSystem = default!;
+
+        [Dependency]
+        private readonly LogisticStatsSystem _logisticsStatsSystem = default!;
+
+        [Dependency]
+        private readonly EmagSystem _emag = default!;
+
+        [Dependency]
+        private readonly SectorServiceSystem _sectorService = default!; // Frontier
+
+        [Dependency]
+        private readonly BankSystem _bank = default!; // Frontier
+
+        [Dependency]
+        private readonly PowerReceiverSystem _powerReceiver = default!; // Frontier
+
+        [Dependency]
+        private readonly IPlayerManager _player = default!; // Frontier
 
         private ISawmill _sawmill = default!;
         private static readonly ProtoId<TagPrototype> MailTag = "Mail"; // Frontier
@@ -126,8 +169,7 @@ namespace Content.Server._DV.Mail.EntitySystems
         /// </summary>
         private void OnSpawnPlayer(PlayerSpawningEvent args)
         {
-            if (args.SpawnResult == null ||
-                args.Job == null)
+            if (args.SpawnResult == null || args.Job == null)
             {
                 return;
             }
@@ -208,7 +250,9 @@ namespace Content.Server._DV.Mail.EntitySystems
 
             if (!_emag.CheckFlag(uid, EmagType.Interaction))
             {
-                if (idCard.FullName != component.Recipient /*|| idCard.LocalizedJobTitle != component.RecipientJob*/)  // Frontier - Only match the name
+                if (
+                    idCard.FullName != component.Recipient /*|| idCard.LocalizedJobTitle != component.RecipientJob*/
+                ) // Frontier - Only match the name
                 {
                     _popupSystem.PopupEntity(Loc.GetString("mail-recipient-mismatch-name"), uid, args.User);
                     return;
@@ -225,11 +269,12 @@ namespace Content.Server._DV.Mail.EntitySystems
             if (component.IsProfitable) // Frontier: update only when profitable, run after unlocking mail
             {
                 // DeltaV - Add earnings to logistic stats
-                ExecuteForEachLogisticsStats((logisticStats) =>
-                {
-                    _logisticsStatsSystem.AddOpenedMailEarnings(logisticStats,
-                        component.Bounty);
-                });
+                ExecuteForEachLogisticsStats(
+                    (logisticStats) =>
+                    {
+                        _logisticsStatsSystem.AddOpenedMailEarnings(logisticStats, component.Bounty);
+                    }
+                );
             }
 
             if (!component.IsProfitable)
@@ -238,7 +283,11 @@ namespace Content.Server._DV.Mail.EntitySystems
                 return;
             }
 
-            _popupSystem.PopupEntity(Loc.GetString("mail-unlocked-reward", ("bounty", component.Bounty)), uid, args.User); // Frontier - Remove the mention of station income
+            _popupSystem.PopupEntity(
+                Loc.GetString("mail-unlocked-reward", ("bounty", component.Bounty)),
+                uid,
+                args.User
+            ); // Frontier - Remove the mention of station income
             component.IsProfitable = false;
 
             _bank.TrySectorDeposit(SectorBankAccount.Frontier, component.Bounty, LedgerEntryType.MailDelivered);
@@ -254,18 +303,23 @@ namespace Content.Server._DV.Mail.EntitySystems
                 return;
             }
 
-            args.PushMarkup(Loc.GetString(mailEntityStrings.DescClose,
-                ("name", component.Recipient),
-                ("job", component.RecipientJob),
-                ("station", component.RecipientStation))); // Frontier: add station
+            args.PushMarkup(
+                Loc.GetString(
+                    mailEntityStrings.DescClose,
+                    ("name", component.Recipient),
+                    ("job", component.RecipientJob),
+                    ("station", component.RecipientStation)
+                )
+            ); // Frontier: add station
 
             if (component.IsFragile)
                 args.PushMarkup(Loc.GetString("mail-desc-fragile"));
 
             if (component.IsPriority)
-                args.PushMarkup(Loc.GetString(component.IsProfitable ? "mail-desc-priority" : "mail-desc-priority-inactive"));
+                args.PushMarkup(
+                    Loc.GetString(component.IsProfitable ? "mail-desc-priority" : "mail-desc-priority-inactive")
+                );
         }
-
 
         /// <summary>
         /// Penalize a station for a failed delivery.
@@ -306,11 +360,15 @@ namespace Content.Server._DV.Mail.EntitySystems
                     PenalizeStationFailedDelivery(uid, component, "mail-penalty-lock");
 
                     component.IsLocked = false; // Frontier: do not count this package as unopened.
-                    ExecuteForEachLogisticsStats((logisticStats) =>
-                    {
-                        _logisticsStatsSystem.AddDamagedMailLosses(logisticStats, // Frontier:consider mail as damaged, not tampered
-                            component.Penalty);
-                    });
+                    ExecuteForEachLogisticsStats(
+                        (logisticStats) =>
+                        {
+                            _logisticsStatsSystem.AddDamagedMailLosses(
+                                logisticStats, // Frontier:consider mail as damaged, not tampered
+                                component.Penalty
+                            );
+                        }
+                    );
                 }
             }
 
@@ -343,11 +401,12 @@ namespace Content.Server._DV.Mail.EntitySystems
             if (component.IsFragile || !component.IsProfitable) // Frontier: update only when profitable
                 return;
             // DeltaV - Broken mail recorded to logistic stats
-            ExecuteForEachLogisticsStats((logisticStats) => // Frontier: no station
-            {
-                _logisticsStatsSystem.AddDamagedMailLosses(logisticStats,
-                    component.Penalty);
-            });
+            ExecuteForEachLogisticsStats(
+                (logisticStats) => // Frontier: no station
+                {
+                    _logisticsStatsSystem.AddDamagedMailLosses(logisticStats, component.Penalty);
+                }
+            );
 
             PenalizeStationFailedDelivery(uid, component, "mail-penalty-fragile");
         }
@@ -370,11 +429,12 @@ namespace Content.Server._DV.Mail.EntitySystems
                 PenalizeStationFailedDelivery(uid, component, "mail-penalty-lock");
 
                 // DeltaV - Tampered mail recorded to logistic stats
-                ExecuteForEachLogisticsStats((logisticStats) =>
-                {
-                    _logisticsStatsSystem.AddTamperedMailLosses(logisticStats,
-                        component.Penalty);
-                });
+                ExecuteForEachLogisticsStats(
+                    (logisticStats) =>
+                    {
+                        _logisticsStatsSystem.AddTamperedMailLosses(logisticStats, component.Penalty);
+                    }
+                );
             }
             // End Frontier
 
@@ -395,15 +455,19 @@ namespace Content.Server._DV.Mail.EntitySystems
                 return true;
 
             // It can be spilled easily and has something to spill.
-            if (HasComp<SpillableComponent>(uid)
+            if (
+                HasComp<SpillableComponent>(uid)
                 && TryComp<OpenableComponent>(uid, out var openable)
                 && !_openable.IsClosed(uid, null, openable)
-                && _solution.PercentFull(uid) > 0)
+                && _solution.PercentFull(uid) > 0
+            )
                 return true;
 
             // It might be made of non-reinforced glass.
-            if (TryComp<DamageableComponent>(uid, out var damageableComponent)
-                && damageableComponent.DamageModifierSetId == "Glass")
+            if (
+                TryComp<DamageableComponent>(uid, out var damageableComponent)
+                && damageableComponent.DamageModifierSetId == "Glass"
+            )
                 return true;
 
             // Fallback: It breaks or is destroyed in less than a damage
@@ -437,10 +501,9 @@ namespace Content.Server._DV.Mail.EntitySystems
 
             foreach (var department in departments)
             {
-                var foundJob = department.Roles
-                    .Any(role =>
-                        _prototypeManager.TryIndex(role, out var jobPrototype)
-                        && jobPrototype.LocalizedName == jobTitle);
+                var foundJob = department.Roles.Any(role =>
+                    _prototypeManager.TryIndex(role, out var jobPrototype) && jobPrototype.LocalizedName == jobTitle
+                );
 
                 if (!foundJob)
                     continue;
@@ -472,11 +535,17 @@ namespace Content.Server._DV.Mail.EntitySystems
             var mailComp = EnsureComp<MailComponent>(uid);
 
             var container = _containerSystem.EnsureContainer<Container>(uid, "contents");
-            foreach (var entity in EntitySpawnCollection.GetSpawns(mailComp.Contents, _random).Select(item => EntityManager.SpawnEntity(item, Transform(uid).Coordinates)))
+            foreach (
+                var entity in EntitySpawnCollection
+                    .GetSpawns(mailComp.Contents, _random)
+                    .Select(item => EntityManager.SpawnEntity(item, Transform(uid).Coordinates))
+            )
             {
                 if (!_containerSystem.Insert(entity, container))
                 {
-                    _sawmill.Error($"Can't insert {ToPrettyString(entity)} into new mail delivery {ToPrettyString(uid)}! Deleting it.");
+                    _sawmill.Error(
+                        $"Can't insert {ToPrettyString(entity)} into new mail delivery {ToPrettyString(uid)}! Deleting it."
+                    );
                     QueueDel(entity);
                 }
                 else if (!mailComp.IsFragile && IsEntityFragile(entity, component.FragileDamageThreshold))
@@ -521,7 +590,8 @@ namespace Content.Server._DV.Mail.EntitySystems
 
                 mailComp.PriorityCancelToken = new CancellationTokenSource();
 
-                Timer.Spawn((int)component.PriorityDuration.TotalMilliseconds,
+                Timer.Spawn(
+                    (int)component.PriorityDuration.TotalMilliseconds,
                     () =>
                     {
                         if (!mailComp.IsProfitable) // Frontier: only penalize and adjust stats if profitable
@@ -530,20 +600,26 @@ namespace Content.Server._DV.Mail.EntitySystems
                         PenalizeStationFailedDelivery(uid, mailComp, "mail-penalty-expired"); // Frontier: penalize first
 
                         // DeltaV - Expired mail recorded to logistic stats
-                        ExecuteForEachLogisticsStats((logisticStats) =>
-                        {
-                            _logisticsStatsSystem.AddExpiredMailLosses(logisticStats,
-                                mailComp.Penalty);
-                        });
+                        ExecuteForEachLogisticsStats(
+                            (logisticStats) =>
+                            {
+                                _logisticsStatsSystem.AddExpiredMailLosses(logisticStats, mailComp.Penalty);
+                            }
+                        );
                     },
-                    mailComp.PriorityCancelToken.Token);
+                    mailComp.PriorityCancelToken.Token
+                );
             }
 
             _appearanceSystem.SetData(uid, MailVisuals.JobIcon, recipient.JobIcon);
 
-            _metaDataSystem.SetEntityName(uid,
-                Loc.GetString(mailEntityStrings.NameAddressed, // Frontier: move constant to MailEntityString
-                ("recipient", recipient.Name)));
+            _metaDataSystem.SetEntityName(
+                uid,
+                Loc.GetString(
+                    mailEntityStrings.NameAddressed, // Frontier: move constant to MailEntityString
+                    ("recipient", recipient.Name)
+                )
+            );
 
             var accessReader = EnsureComp<AccessReaderComponent>(uid);
             // Frontier: TODO - should this be removed for Frontier?
@@ -582,7 +658,11 @@ namespace Content.Server._DV.Mail.EntitySystems
         /// <summary>
         /// Try to match a mail receiver to a mail teleporter.
         /// </summary>
-        public bool TryGetMailTeleporterForReceiver(EntityUid receiverUid, [NotNullWhen(true)] out MailTeleporterComponent? teleporterComponent, [NotNullWhen(true)] out EntityUid? teleporterUid)
+        public bool TryGetMailTeleporterForReceiver(
+            EntityUid receiverUid,
+            [NotNullWhen(true)] out MailTeleporterComponent? teleporterComponent,
+            [NotNullWhen(true)] out EntityUid? teleporterUid
+        )
         {
             var query = EntityQueryEnumerator<MailTeleporterComponent>();
             //var receiverStation = _stationSystem.GetOwningStation(receiverUid); // Frontier: skip station checks
@@ -609,20 +689,27 @@ namespace Content.Server._DV.Mail.EntitySystems
         /// <summary>
         /// Try to construct a recipient struct for a mail parcel based on a receiver.
         /// </summary>
-        public bool TryGetMailRecipientForReceiver(EntityUid receiverUid, [NotNullWhen(true)] out MailRecipient? recipient)
+        public bool TryGetMailRecipientForReceiver(
+            EntityUid receiverUid,
+            [NotNullWhen(true)] out MailRecipient? recipient
+        )
         {
             recipient = null; // Frontier
-            if (_idCardSystem.TryFindIdCard(receiverUid, out var idCard)
+            if (
+                _idCardSystem.TryFindIdCard(receiverUid, out var idCard)
                 && TryComp<AccessComponent>(idCard.Owner, out var access)
-                && idCard.Comp.FullName != null)
+                && idCard.Comp.FullName != null
+            )
             {
                 // Frontier: get name of station recipient is on, check recipient isn't SSD
                 string stationName;
-                if (_stationSystem.GetOwningStation(receiverUid) is { Valid: true } station
+                if (
+                    _stationSystem.GetOwningStation(receiverUid) is { Valid: true } station
                     && TryComp<StationDataComponent>(station, out var stationData)
                     && _stationSystem.GetLargestGrid(stationData) is { Valid: true } stationGrid
                     && TryName(stationGrid, out var gridName)
-                    && gridName != null)
+                    && gridName != null
+                )
                 {
                     stationName = gridName;
                 }
@@ -632,8 +719,10 @@ namespace Content.Server._DV.Mail.EntitySystems
                 }
 
                 // Mail recipients requires a connected player
-                if (!_player.TryGetSessionByEntity(receiverUid, out var session)
-                    || session.State.Status != SessionStatus.InGame)
+                if (
+                    !_player.TryGetSessionByEntity(receiverUid, out var session)
+                    || session.State.Status != SessionStatus.InGame
+                )
                     return false;
 
                 // Antagonists (pirates and the like) don't get mail.
@@ -650,7 +739,8 @@ namespace Content.Server._DV.Mail.EntitySystems
                     idCard.Comp.JobIcon,
                     accessTags,
                     true, // Frontier: all recipients can receive priority mail
-                    stationName); // Frontier: add stationName
+                    stationName
+                ); // Frontier: add stationName
 
                 return true;
             }
@@ -713,8 +803,10 @@ namespace Content.Server._DV.Mail.EntitySystems
             var teleporterQuery = EntityQueryEnumerator<MailTeleporterComponent>();
             while (teleporterQuery.MoveNext(out var uid, out var mailTeleporter))
             {
-                if (_powerReceiver.IsPowered(uid)
-                    && GetUndeliveredParcelCount(uid) < mailTeleporter.MaximumUndeliveredParcels)
+                if (
+                    _powerReceiver.IsPowered(uid)
+                    && GetUndeliveredParcelCount(uid) < mailTeleporter.MaximumUndeliveredParcels
+                )
                 {
                     validTeleporters.Add(new MailTeleporterSpawnData((uid, mailTeleporter)));
                 }
@@ -741,15 +833,18 @@ namespace Content.Server._DV.Mail.EntitySystems
                 return;
             }
 
-            var deliveryCount = component.MinimumDeliveriesPerTeleport + candidateList.Count / component.CandidatesPerDelivery;
+            var deliveryCount =
+                component.MinimumDeliveriesPerTeleport + candidateList.Count / component.CandidatesPerDelivery;
 
             for (var i = 0; i < deliveryCount; i++)
             {
                 var candidate = _random.Pick(candidateList);
                 var possibleParcels = new Dictionary<string, float>(pool.Everyone);
 
-                if (TryMatchJobTitleToPrototype(candidate.Job, out var jobPrototype)
-                    && pool.Jobs.TryGetValue(jobPrototype.ID, out var jobParcels))
+                if (
+                    TryMatchJobTitleToPrototype(candidate.Job, out var jobPrototype)
+                    && pool.Jobs.TryGetValue(jobPrototype.ID, out var jobParcels)
+                )
                 {
                     possibleParcels = possibleParcels
                         .Concat(jobParcels)
@@ -757,8 +852,10 @@ namespace Content.Server._DV.Mail.EntitySystems
                         .ToDictionary(pair => pair.Key, pair => pair.First().Value);
                 }
 
-                if (TryMatchJobTitleToDepartment(candidate.Job, out var department)
-                    && pool.Departments.TryGetValue(department, out var departmentParcels))
+                if (
+                    TryMatchJobTitleToDepartment(candidate.Job, out var department)
+                    && pool.Departments.TryGetValue(department, out var departmentParcels)
+                )
                 {
                     possibleParcels = possibleParcels
                         .Concat(departmentParcels)
@@ -781,7 +878,9 @@ namespace Content.Server._DV.Mail.EntitySystems
 
                 if (chosenParcel == null)
                 {
-                    _sawmill.Error($"MailSystem wasn't able to find a deliverable parcel for {candidate.Name}, {candidate.Job}!");
+                    _sawmill.Error(
+                        $"MailSystem wasn't able to find a deliverable parcel for {candidate.Name}, {candidate.Job}!"
+                    );
                     return;
                 }
 
@@ -805,6 +904,7 @@ namespace Content.Server._DV.Mail.EntitySystems
                     _audioSystem.PlayPvs(validTeleporters[i].Entity.Comp.TeleportSound, validTeleporters[i].Entity);
             }
         }
+
         // End Frontier: sector-wide mail
 
         private void OpenMail(EntityUid uid, MailComponent? component = null, EntityUid? user = null)
@@ -862,7 +962,8 @@ namespace Content.Server._DV.Mail.EntitySystems
         string jobIcon,
         HashSet<ProtoId<AccessLevelPrototype>> accessTags,
         bool mayReceivePriorityMail,
-        string ship) // Frontier: add ship
+        string ship
+    ) // Frontier: add ship
     {
         public readonly string Name = name;
         public readonly string Job = job;

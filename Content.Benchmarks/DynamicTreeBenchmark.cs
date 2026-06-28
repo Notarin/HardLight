@@ -11,21 +11,21 @@ namespace Content.Benchmarks
     {
         private static readonly Box2[] Aabbs1 =
         {
-            ((Box2) default).Enlarged(1), //2x2 square
-            ((Box2) default).Enlarged(2), //4x4 square
+            ((Box2)default).Enlarged(1), //2x2 square
+            ((Box2)default).Enlarged(2), //4x4 square
             new(-3, 3, -3, 3), // point off to the bottom left
             new(-3, -3, -3, -3), // point off to the top left
             new(3, 3, 3, 3), // point off to the bottom right
             new(3, -3, 3, -3), // point off to the top right
-            ((Box2) default).Enlarged(1), //2x2 square
-            ((Box2) default).Enlarged(2), //4x4 square
-            ((Box2) default).Enlarged(1), //2x2 square
-            ((Box2) default).Enlarged(2), //4x4 square
-            ((Box2) default).Enlarged(1), //2x2 square
-            ((Box2) default).Enlarged(2), //4x4 square
-            ((Box2) default).Enlarged(1), //2x2 square
-            ((Box2) default).Enlarged(2), //4x4 square
-            ((Box2) default).Enlarged(3), //6x6 square
+            ((Box2)default).Enlarged(1), //2x2 square
+            ((Box2)default).Enlarged(2), //4x4 square
+            ((Box2)default).Enlarged(1), //2x2 square
+            ((Box2)default).Enlarged(2), //4x4 square
+            ((Box2)default).Enlarged(1), //2x2 square
+            ((Box2)default).Enlarged(2), //4x4 square
+            ((Box2)default).Enlarged(1), //2x2 square
+            ((Box2)default).Enlarged(2), //4x4 square
+            ((Box2)default).Enlarged(3), //6x6 square
             new(-3, 3, -3, 3), // point off to the bottom left
             new(-3, -3, -3, -3), // point off to the top left
             new(3, 3, 3, 3), // point off to the bottom right
@@ -59,10 +59,7 @@ namespace Content.Benchmarks
         [Benchmark]
         public void BenchQ()
         {
-            foreach (var _ in _tree.QueryAabb(new Box2(-1, -1, 1, 1), true))
-            {
-
-            }
+            foreach (var _ in _tree.QueryAabb(new Box2(-1, -1, 1, 1), true)) { }
         }
     }
 }

@@ -6,7 +6,7 @@
   - type: BallisticAmmoProvider
     whitelist:
       tags:
-        - BulletBB
+      - BulletBB
     proto: BulletRGBB
   - type: StaticPrice
     price: 2500 # 25k in the vendor for a meme item

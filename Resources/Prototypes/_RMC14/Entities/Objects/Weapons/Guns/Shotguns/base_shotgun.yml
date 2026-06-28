@@ -1,6 +1,6 @@
-﻿- type: entity
+- type: entity
   abstract: true
-  parent: [ BaseItem, CMBaseWeaponGun, RMCBaseAttachableHolder, BaseC3ExpeditionContraband ]
+  parent: [BaseItem, CMBaseWeaponGun, RMCBaseAttachableHolder, BaseC3ExpeditionContraband]
   id: RMCBaseWeaponShotgun
   components:
   - type: Item
@@ -19,10 +19,10 @@
   - type: WieldDelay
     baseDelay: 0.6
   # - type: WieldableSpeedModifiers
-    # base: 0.666
-    # light: 0.921
-    # medium: 0.865
-    # heavy: 0.865
+  # base: 0.666
+  # light: 0.921
+  # medium: 0.865
+  # heavy: 0.865
   - type: AmmoCounter
   - type: Gun
     selectedMode: SemiAuto
@@ -32,7 +32,7 @@
       path: /Audio/_RMC14/Weapons/Guns/Gunshots/gun_shotgun.ogg
     soundEmpty:
       path: /Audio/Weapons/Guns/Empty/empty.ogg
-  # - type: RMCSelectiveFire
+      # - type: RMCSelectiveFire
     # baseFireModes:
     # - SemiAuto
     # recoilWielded: 2
@@ -54,29 +54,29 @@
     containers:
       ballistic-ammo: !type:Container
         ents: []
-  # - type: RMCAmmoEject
+        # - type: RMCAmmoEject
     # containerID: ballistic-ammo
     # ejectSound: /Audio/_RMC14/Weapons/Guns/Reload/m42a2.ogg
   - type: StaticPrice
     price: 500
   # - type: RMCNameItemOnVend
-    # item: PrimaryGun
+  # item: PrimaryGun
   - type: Tag
     tags:
     - RMCWeaponShotgun
-  # - type: RMCFireGroup
+    # - type: RMCFireGroup
     # group: Shotgun
     # delay: 4
-  # - type: GunDualWielding
+    # - type: GunDualWielding
     # weaponGroup: Shotgun
-  # - type: GunPointBlank
-  # - type: RMCWeaponAccuracy
+    # - type: GunPointBlank
+    # - type: RMCWeaponAccuracy
     # accuracyMultiplier: 1.15
     # accuracyMultiplierUnwielded: 0.95
-  # - type: WieldedCrosshair
+    # - type: WieldedCrosshair
     # rsi:
-      # sprite: _RMC14/Interface/MousePointer/shotgun_mouse.rsi
-      # state: all
+    # sprite: _RMC14/Interface/MousePointer/shotgun_mouse.rsi
+    # state: all
 
 - type: entity
   abstract: true
@@ -87,7 +87,7 @@
     sprite: Objects/Weapons/Guns/Shotguns/db_shotgun.rsi
     layers:
     - state: base
-      map: [ "enum.GunVisualLayers.Base" ]
+      map: ["enum.GunVisualLayers.Base"]
   - type: BallisticAmmoProvider
     cycleable: true
     capacity: 2
@@ -96,8 +96,8 @@
       path: /Audio/_RMC14/Weapons/Guns/Reload/grenade_insert.ogg
       params:
         volume: -2
-  # - type: UniqueAction
-  # - type: BreechLoaded
+        # - type: UniqueAction
+        # - type: BreechLoaded
     # needOpenClose: false
 
 - type: entity

@@ -9,17 +9,17 @@
     layers:
     - sprite: _RMC14/Objects/Weapons/Guns/Pistols/m43.rsi
       state: base
-      map: [ "enum.GunVisualLayers.Base" ]
+      map: ["enum.GunVisualLayers.Base"]
     - sprite: _RMC14/Objects/Weapons/Guns/Pistols/m43.rsi
       state: mag-0
-      map: [ "enum.GunVisualLayers.Mag" ]
+      map: ["enum.GunVisualLayers.Mag"]
   - type: Clothing
     sprite: _RMC14/Objects/Weapons/Guns/Pistols/m43.rsi
   # - type: RMCSelectiveFire
-    # scatterWielded: 6
-    # scatterUnwielded: 6
-    # baseFireRate: 10
-    # burstScatterMult: 3
+  # scatterWielded: 6
+  # scatterUnwielded: 6
+  # baseFireRate: 10
+  # burstScatterMult: 3
   - type: MagazineAmmoProvider
     autoEject: false
     soundAutoEject: null
@@ -42,24 +42,24 @@
         whitelist:
           tags:
           - RMCMagazinePistolD18
-  # - type: AttachableHolder
-    # slots:
-      # rmc-aslot-barrel:
+          # - type: AttachableHolder
+        # slots:
+        # rmc-aslot-barrel:
         # whitelist:
-          # tags:
-          # - RMCAttachmentSuppressor
-      # rmc-aslot-rail:
-        # whitelist:
-          # tags:
-          # - RMCAttachmentRailFlashlight
-          # - RMCAttachmentS5RedDotSight
-          # - RMCAttachmentS6ReflexSight
-  # - type: AttachableHolderVisuals
-    # offsets:
-      # rmc-aslot-barrel: 0.620, 0.05
-      # rmc-aslot-rail: -0.03, 0.09
-
+        # tags:
+        # - RMCAttachmentSuppressor
 - type: entity
+  # rmc-aslot-rail:
+  # whitelist:
+  # tags:
+  # - RMCAttachmentRailFlashlight
+  # - RMCAttachmentS5RedDotSight
+  # - RMCAttachmentS6ReflexSight
+  # - type: AttachableHolderVisuals
+  # offsets:
+  # rmc-aslot-barrel: 0.620, 0.05
+  # rmc-aslot-rail: -0.03, 0.09
+
   parent: CMBaseMagazinePistol
   id: RMCMagazinePistolD18
   name: D18 magazine (9mm)
@@ -88,9 +88,9 @@
 
 - type: Tag
   id: RMCMagazinePistolD18
-      
+
 - type: Tag # For stuff like the D18 and Holdout Pistol
   id: Holdout
-  
+
 - type: Tag
   id: RMCWeaponPistolD18

@@ -57,7 +57,13 @@ public sealed class CuffableComponentState : ComponentState
     public readonly string? IconState;
     public readonly Color? Color;
 
-    public CuffableComponentState(int numHandsCuffed, bool canStillInteract, string? rsiPath, string? iconState, Color? color)
+    public CuffableComponentState(
+        int numHandsCuffed,
+        bool canStillInteract,
+        string? rsiPath,
+        string? iconState,
+        Color? color
+    )
     {
         NumHandsCuffed = numHandsCuffed;
         CanStillInteract = canStillInteract;
@@ -69,4 +75,3 @@ public sealed class CuffableComponentState : ComponentState
 
 [ByRefEvent]
 public readonly record struct CuffedStateChangeEvent;
-

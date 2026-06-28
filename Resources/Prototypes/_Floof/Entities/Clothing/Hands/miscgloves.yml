@@ -87,7 +87,7 @@
     fiberMaterial: fibers-synthetic
     fiberColor: fibers-dyed
   - type: FingerprintMask
-  
+
 - type: entity
   parent: ClothingHandsBase
   id: ClothingHandsPrideInter
@@ -176,4 +176,4 @@
   - type: Fiber
     fiberMaterial: fibers-synthetic
     fiberColor: fibers-dyed
-  - type: FingerprintMask    
+  - type: FingerprintMask

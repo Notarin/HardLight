@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Content.Shared.Actions;
 using Content.Shared.Coordinates;
 using Content.Shared.Damage;
@@ -13,7 +14,6 @@ using Robust.Shared.Containers;
 using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.Manager;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Content.Shared.Polymorph.Systems;
 
@@ -23,23 +23,47 @@ namespace Content.Shared.Polymorph.Systems;
 /// </summary>
 public abstract class SharedChameleonProjectorSystem : EntitySystem
 {
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!;
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly ISerializationManager _serMan = default!;
-    [Dependency] private readonly MetaDataSystem _meta = default!;
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedTransformSystem _xform = default!;
+    [Dependency]
+    private readonly DamageableSystem _damageable = default!;
+
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelist = default!;
+
+    [Dependency]
+    private readonly INetManager _net = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private readonly ISerializationManager _serMan = default!;
+
+    [Dependency]
+    private readonly MetaDataSystem _meta = default!;
+
+    [Dependency]
+    private readonly SharedActionsSystem _actions = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _xform = default!;
 
     public override void Initialize()
     {
         base.Initialize();
 
-        SubscribeLocalEvent<ChameleonDisguiseComponent, InteractHandEvent>(OnDisguiseInteractHand, before: [typeof(SharedItemSystem)]);
+        SubscribeLocalEvent<ChameleonDisguiseComponent, InteractHandEvent>(
+            OnDisguiseInteractHand,
+            before: [typeof(SharedItemSystem)]
+        );
         SubscribeLocalEvent<ChameleonDisguiseComponent, DamageChangedEvent>(OnDisguiseDamaged);
         SubscribeLocalEvent<ChameleonDisguiseComponent, InsertIntoEntityStorageAttemptEvent>(OnDisguiseInsertAttempt);
         SubscribeLocalEvent<ChameleonDisguiseComponent, ComponentShutdown>(OnDisguiseShutdown);
@@ -66,11 +90,14 @@ public abstract class SharedChameleonProjectorSystem : EntitySystem
     private void OnDisguiseDamaged(Entity<ChameleonDisguiseComponent> ent, ref DamageChangedEvent args)
     {
         // this mirrors damage 1:1
-        if (args.DamageDelta is {} damage)
+        if (args.DamageDelta is { } damage)
             _damageable.TryChangeDamage(ent.Comp.User, damage);
     }
 
-    private void OnDisguiseInsertAttempt(Entity<ChameleonDisguiseComponent> ent, ref InsertIntoEntityStorageAttemptEvent args)
+    private void OnDisguiseInsertAttempt(
+        Entity<ChameleonDisguiseComponent> ent,
+        ref InsertIntoEntityStorageAttemptEvent args
+    )
     {
         // stay parented to the user, not the storage
         args.Cancelled = true;
@@ -86,7 +113,10 @@ public abstract class SharedChameleonProjectorSystem : EntitySystem
 
     #region Disguised player
 
-    private void OnDisguisedInserted(Entity<ChameleonDisguisedComponent> ent, ref EntGotInsertedIntoContainerMessage args)
+    private void OnDisguisedInserted(
+        Entity<ChameleonDisguisedComponent> ent,
+        ref EntGotInsertedIntoContainerMessage args
+    )
     {
         // prevent player going into locker/mech/etc while disguised
         TryReveal((ent, ent));
@@ -98,7 +128,7 @@ public abstract class SharedChameleonProjectorSystem : EntitySystem
 
     private void OnInteract(Entity<ChameleonProjectorComponent> ent, ref AfterInteractEvent args)
     {
-        if (args.Handled || !args.CanReach || args.Target is not {} target)
+        if (args.Handled || !args.CanReach || args.Target is not { } target)
             return;
 
         args.Handled = true;
@@ -112,14 +142,16 @@ public abstract class SharedChameleonProjectorSystem : EntitySystem
 
         var user = args.User;
         var target = args.Target;
-        args.Verbs.Add(new UtilityVerb()
-        {
-            Act = () =>
+        args.Verbs.Add(
+            new UtilityVerb()
             {
-                TryDisguise(ent, user, target);
-            },
-            Text = Loc.GetString("chameleon-projector-set-disguise")
-        });
+                Act = () =>
+                {
+                    TryDisguise(ent, user, target);
+                },
+                Text = Loc.GetString("chameleon-projector-set-disguise"),
+            }
+        );
     }
 
     public bool TryDisguise(Entity<ChameleonProjectorComponent> ent, EntityUid user, EntityUid target)
@@ -143,7 +175,7 @@ public abstract class SharedChameleonProjectorSystem : EntitySystem
 
     private void OnToggleNoRot(Entity<ChameleonProjectorComponent> ent, ref DisguiseToggleNoRotEvent args)
     {
-        if (ent.Comp.Disguised is not {} uid)
+        if (ent.Comp.Disguised is not { } uid)
             return;
 
         var xform = Transform(uid);
@@ -154,7 +186,7 @@ public abstract class SharedChameleonProjectorSystem : EntitySystem
 
     private void OnToggleAnchored(Entity<ChameleonProjectorComponent> ent, ref DisguiseToggleAnchoredEvent args)
     {
-        if (ent.Comp.Disguised is not {} uid)
+        if (ent.Comp.Disguised is not { } uid)
             return;
 
         var xform = Transform(uid);
@@ -190,8 +222,7 @@ public abstract class SharedChameleonProjectorSystem : EntitySystem
     /// </summary>
     public bool IsInvalid(ChameleonProjectorComponent comp, EntityUid target)
     {
-        return _whitelist.IsWhitelistFail(comp.Whitelist, target)
-            || _whitelist.IsBlacklistPass(comp.Blacklist, target);
+        return _whitelist.IsWhitelistFail(comp.Whitelist, target) || _whitelist.IsBlacklistPass(comp.Blacklist, target);
     }
 
     /// <summary>
@@ -246,8 +277,10 @@ public abstract class SharedChameleonProjectorSystem : EntitySystem
         if (!Resolve(ent, ref ent.Comp, false))
             return false;
 
-        if (TryComp<ChameleonDisguiseComponent>(ent.Comp.Disguise, out var disguise)
-            && TryComp<ChameleonProjectorComponent>(disguise.Projector, out var proj))
+        if (
+            TryComp<ChameleonDisguiseComponent>(ent.Comp.Disguise, out var disguise)
+            && TryComp<ChameleonProjectorComponent>(disguise.Projector, out var proj)
+        )
         {
             proj.Disguised = null;
         }
@@ -266,7 +299,7 @@ public abstract class SharedChameleonProjectorSystem : EntitySystem
     /// </summary>
     public void RevealProjector(Entity<ChameleonProjectorComponent> ent)
     {
-        if (ent.Comp.Disguised is {} user)
+        if (ent.Comp.Disguised is { } user)
             TryReveal(user);
     }
 
@@ -278,7 +311,8 @@ public abstract class SharedChameleonProjectorSystem : EntitySystem
     /// <remarks>
     /// This would probably be a good thing to add to engine in the future.
     /// </remarks>
-    protected bool CopyComp<T>(Entity<ChameleonDisguiseComponent> ent) where T: Component, new()
+    protected bool CopyComp<T>(Entity<ChameleonDisguiseComponent> ent)
+        where T : Component, new()
     {
         if (!GetSrcComp<T>(ent.Comp, out var src))
             return true;
@@ -294,7 +328,8 @@ public abstract class SharedChameleonProjectorSystem : EntitySystem
     /// <summary>
     /// Try to get a single component from the source entity/prototype.
     /// </summary>
-    private bool GetSrcComp<T>(ChameleonDisguiseComponent comp, [NotNullWhen(true)] out T? src) where T : Component, new()
+    private bool GetSrcComp<T>(ChameleonDisguiseComponent comp, [NotNullWhen(true)] out T? src)
+        where T : Component, new()
     {
         if (TryComp(comp.SourceEntity, out src))
             return true;
@@ -312,13 +347,9 @@ public abstract class SharedChameleonProjectorSystem : EntitySystem
 /// <summary>
 /// Action event for toggling transform NoRot on a disguise.
 /// </summary>
-public sealed partial class DisguiseToggleNoRotEvent : InstantActionEvent
-{
-}
+public sealed partial class DisguiseToggleNoRotEvent : InstantActionEvent { }
 
 /// <summary>
 /// Action event for toggling transform Anchored on a disguise.
 /// </summary>
-public sealed partial class DisguiseToggleAnchoredEvent : InstantActionEvent
-{
-}
+public sealed partial class DisguiseToggleAnchoredEvent : InstantActionEvent { }

@@ -46,23 +46,21 @@ namespace Content.Client.Stylesheets
 
         protected StyleBase(IResourceCache resCache)
         {
-            var notoSans12 = resCache.GetFont
-            (
-                new []
+            var notoSans12 = resCache.GetFont(
+                new[]
                 {
                     "/Fonts/NotoSans/NotoSans-Regular.ttf",
                     "/Fonts/NotoSans/NotoSansSymbols-Regular.ttf",
-                    "/Fonts/NotoSans/NotoSansSymbols2-Regular.ttf"
+                    "/Fonts/NotoSans/NotoSansSymbols2-Regular.ttf",
                 },
                 12
             );
-            var notoSans12Italic = resCache.GetFont
-            (
-                new []
+            var notoSans12Italic = resCache.GetFont(
+                new[]
                 {
                     "/Fonts/NotoSans/NotoSans-Italic.ttf",
                     "/Fonts/NotoSans/NotoSansSymbols-Regular.ttf",
-                    "/Fonts/NotoSans/NotoSansSymbols2-Regular.ttf"
+                    "/Fonts/NotoSans/NotoSansSymbols2-Regular.ttf",
                 },
                 12
             );
@@ -70,10 +68,7 @@ namespace Content.Client.Stylesheets
 
             // Button styles.
             var buttonTex = resCache.GetTexture("/Textures/Interface/Nano/button.svg.96dpi.png");
-            BaseButton = new StyleBoxTexture
-            {
-                Texture = buttonTex,
-            };
+            BaseButton = new StyleBoxTexture { Texture = buttonTex };
             BaseButton.SetPatchMargin(StyleBox.Margin.All, 10);
             BaseButton.SetPadding(StyleBox.Margin.All, 1);
             BaseButton.SetContentMarginOverride(StyleBox.Margin.Vertical, 2);
@@ -113,10 +108,7 @@ namespace Content.Client.Stylesheets
             BaseButtonSquare.SetPadding(StyleBox.Margin.Right, 2);
             BaseButtonSquare.SetPadding(StyleBox.Margin.Left, 1);
 
-            BaseAngleRect = new StyleBoxTexture
-            {
-                Texture = buttonTex,
-            };
+            BaseAngleRect = new StyleBoxTexture { Texture = buttonTex };
             BaseAngleRect.SetPatchMargin(StyleBox.Margin.All, 10);
 
             AngleBorderRect = new StyleBoxTexture
@@ -127,124 +119,110 @@ namespace Content.Client.Stylesheets
 
             var vScrollBarGrabberNormal = new StyleBoxFlat
             {
-                BackgroundColor = Color.Gray.WithAlpha(0.35f), ContentMarginLeftOverride = DefaultGrabberSize,
-                ContentMarginTopOverride = DefaultGrabberSize
+                BackgroundColor = Color.Gray.WithAlpha(0.35f),
+                ContentMarginLeftOverride = DefaultGrabberSize,
+                ContentMarginTopOverride = DefaultGrabberSize,
             };
             var vScrollBarGrabberHover = new StyleBoxFlat
             {
-                BackgroundColor = new Color(140, 140, 140).WithAlpha(0.35f), ContentMarginLeftOverride = DefaultGrabberSize,
-                ContentMarginTopOverride = DefaultGrabberSize
+                BackgroundColor = new Color(140, 140, 140).WithAlpha(0.35f),
+                ContentMarginLeftOverride = DefaultGrabberSize,
+                ContentMarginTopOverride = DefaultGrabberSize,
             };
             var vScrollBarGrabberGrabbed = new StyleBoxFlat
             {
-                BackgroundColor = new Color(160, 160, 160).WithAlpha(0.35f), ContentMarginLeftOverride = DefaultGrabberSize,
-                ContentMarginTopOverride = DefaultGrabberSize
+                BackgroundColor = new Color(160, 160, 160).WithAlpha(0.35f),
+                ContentMarginLeftOverride = DefaultGrabberSize,
+                ContentMarginTopOverride = DefaultGrabberSize,
             };
 
             var hScrollBarGrabberNormal = new StyleBoxFlat
             {
-                BackgroundColor = Color.Gray.WithAlpha(0.35f), ContentMarginTopOverride = DefaultGrabberSize
+                BackgroundColor = Color.Gray.WithAlpha(0.35f),
+                ContentMarginTopOverride = DefaultGrabberSize,
             };
             var hScrollBarGrabberHover = new StyleBoxFlat
             {
-                BackgroundColor = new Color(140, 140, 140).WithAlpha(0.35f), ContentMarginTopOverride = DefaultGrabberSize
+                BackgroundColor = new Color(140, 140, 140).WithAlpha(0.35f),
+                ContentMarginTopOverride = DefaultGrabberSize,
             };
             var hScrollBarGrabberGrabbed = new StyleBoxFlat
             {
-                BackgroundColor = new Color(160, 160, 160).WithAlpha(0.35f), ContentMarginTopOverride = DefaultGrabberSize
+                BackgroundColor = new Color(160, 160, 160).WithAlpha(0.35f),
+                ContentMarginTopOverride = DefaultGrabberSize,
             };
-
 
             BaseRules = new[]
             {
                 // Default font.
                 new StyleRule(
                     new SelectorElement(null, null, null, null),
-                    new[]
-                    {
-                        new StyleProperty("font", notoSans12),
-                    }),
-
+                    new[] { new StyleProperty("font", notoSans12) }
+                ),
                 // Default font.
                 new StyleRule(
-                    new SelectorElement(null, new[] {StyleClassItalic}, null, null),
-                    new[]
-                    {
-                        new StyleProperty("font", notoSans12Italic),
-                    }),
-
+                    new SelectorElement(null, new[] { StyleClassItalic }, null, null),
+                    new[] { new StyleProperty("font", notoSans12Italic) }
+                ),
                 // Window close button base texture.
                 new StyleRule(
-                    new SelectorElement(typeof(TextureButton), new[] {DefaultWindow.StyleClassWindowCloseButton}, null,
-                        null),
+                    new SelectorElement(
+                        typeof(TextureButton),
+                        new[] { DefaultWindow.StyleClassWindowCloseButton },
+                        null,
+                        null
+                    ),
                     new[]
                     {
                         new StyleProperty(TextureButton.StylePropertyTexture, textureCloseButton),
                         new StyleProperty(Control.StylePropertyModulateSelf, StyleNano.NanoGold),
-                    }),
+                    }
+                ),
                 // Window close button hover.
                 new StyleRule(
-                    new SelectorElement(typeof(TextureButton), new[] {DefaultWindow.StyleClassWindowCloseButton}, null,
-                        new[] {TextureButton.StylePseudoClassHover}),
-                    new[]
-                    {
-                        new StyleProperty(Control.StylePropertyModulateSelf, Color.FromHex("#7F3636")),
-                    }),
+                    new SelectorElement(
+                        typeof(TextureButton),
+                        new[] { DefaultWindow.StyleClassWindowCloseButton },
+                        null,
+                        new[] { TextureButton.StylePseudoClassHover }
+                    ),
+                    new[] { new StyleProperty(Control.StylePropertyModulateSelf, Color.FromHex("#7F3636")) }
+                ),
                 // Window close button pressed.
                 new StyleRule(
-                    new SelectorElement(typeof(TextureButton), new[] {DefaultWindow.StyleClassWindowCloseButton}, null,
-                        new[] {TextureButton.StylePseudoClassPressed}),
-                    new[]
-                    {
-                        new StyleProperty(Control.StylePropertyModulateSelf, Color.FromHex("#753131")),
-                    }),
-
+                    new SelectorElement(
+                        typeof(TextureButton),
+                        new[] { DefaultWindow.StyleClassWindowCloseButton },
+                        null,
+                        new[] { TextureButton.StylePseudoClassPressed }
+                    ),
+                    new[] { new StyleProperty(Control.StylePropertyModulateSelf, Color.FromHex("#753131")) }
+                ),
                 // Scroll bars
-                new StyleRule(new SelectorElement(typeof(VScrollBar), null, null, null),
-                    new[]
-                    {
-                        new StyleProperty(ScrollBar.StylePropertyGrabber,
-                            vScrollBarGrabberNormal),
-                    }),
-
                 new StyleRule(
-                    new SelectorElement(typeof(VScrollBar), null, null, new[] {ScrollBar.StylePseudoClassHover}),
-                    new[]
-                    {
-                        new StyleProperty(ScrollBar.StylePropertyGrabber,
-                            vScrollBarGrabberHover),
-                    }),
-
+                    new SelectorElement(typeof(VScrollBar), null, null, null),
+                    new[] { new StyleProperty(ScrollBar.StylePropertyGrabber, vScrollBarGrabberNormal) }
+                ),
                 new StyleRule(
-                    new SelectorElement(typeof(VScrollBar), null, null, new[] {ScrollBar.StylePseudoClassGrabbed}),
-                    new[]
-                    {
-                        new StyleProperty(ScrollBar.StylePropertyGrabber,
-                            vScrollBarGrabberGrabbed),
-                    }),
-
-                new StyleRule(new SelectorElement(typeof(HScrollBar), null, null, null),
-                    new[]
-                    {
-                        new StyleProperty(ScrollBar.StylePropertyGrabber,
-                            hScrollBarGrabberNormal),
-                    }),
-
+                    new SelectorElement(typeof(VScrollBar), null, null, new[] { ScrollBar.StylePseudoClassHover }),
+                    new[] { new StyleProperty(ScrollBar.StylePropertyGrabber, vScrollBarGrabberHover) }
+                ),
                 new StyleRule(
-                    new SelectorElement(typeof(HScrollBar), null, null, new[] {ScrollBar.StylePseudoClassHover}),
-                    new[]
-                    {
-                        new StyleProperty(ScrollBar.StylePropertyGrabber,
-                            hScrollBarGrabberHover),
-                    }),
-
+                    new SelectorElement(typeof(VScrollBar), null, null, new[] { ScrollBar.StylePseudoClassGrabbed }),
+                    new[] { new StyleProperty(ScrollBar.StylePropertyGrabber, vScrollBarGrabberGrabbed) }
+                ),
                 new StyleRule(
-                    new SelectorElement(typeof(HScrollBar), null, null, new[] {ScrollBar.StylePseudoClassGrabbed}),
-                    new[]
-                    {
-                        new StyleProperty(ScrollBar.StylePropertyGrabber,
-                            hScrollBarGrabberGrabbed),
-                    }),
+                    new SelectorElement(typeof(HScrollBar), null, null, null),
+                    new[] { new StyleProperty(ScrollBar.StylePropertyGrabber, hScrollBarGrabberNormal) }
+                ),
+                new StyleRule(
+                    new SelectorElement(typeof(HScrollBar), null, null, new[] { ScrollBar.StylePseudoClassHover }),
+                    new[] { new StyleProperty(ScrollBar.StylePropertyGrabber, hScrollBarGrabberHover) }
+                ),
+                new StyleRule(
+                    new SelectorElement(typeof(HScrollBar), null, null, new[] { ScrollBar.StylePseudoClassGrabbed }),
+                    new[] { new StyleProperty(ScrollBar.StylePropertyGrabber, hScrollBarGrabberGrabbed) }
+                ),
             };
         }
     }

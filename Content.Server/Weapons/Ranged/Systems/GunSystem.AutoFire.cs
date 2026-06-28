@@ -1,18 +1,20 @@
-using Content.Shared.Damage;
-using Content.Shared.Weapons.Ranged.Components;
-using Robust.Shared.Map;
+using Content.Server.Popups; // Frontier
 using Content.Server.Power.Components; // Frontier
 using Content.Server.Power.EntitySystems; // Frontier
-using Content.Shared.Interaction; // Frontier
+using Content.Shared.Damage;
 using Content.Shared.Examine; // Frontier
-using Content.Server.Popups; // Frontier
+using Content.Shared.Interaction; // Frontier
 using Content.Shared.Power; // Frontier
+using Content.Shared.Weapons.Ranged.Components;
+using Robust.Shared.Map;
 
 namespace Content.Server.Weapons.Ranged.Systems;
 
 public sealed partial class GunSystem
 {
-    [Dependency] public PopupSystem _popup = default!; // Frontier
+    [Dependency]
+    public PopupSystem _popup = default!; // Frontier
+
     public override void Update(float frameTime)
     {
         base.Update(frameTime);
@@ -40,7 +42,12 @@ public sealed partial class GunSystem
             {
                 var parent = TransformSystem.GetParentUid(uid);
                 if (HasComp<DamageableComponent>(parent))
-                    AttemptShoot(parent, uid, gun, gun.ShootCoordinates ?? new EntityCoordinates(uid, gun.DefaultDirection));
+                    AttemptShoot(
+                        parent,
+                        uid,
+                        gun,
+                        gun.ShootCoordinates ?? new EntityCoordinates(uid, gun.DefaultDirection)
+                    );
                 else
                     AttemptShoot(uid, gun);
             }

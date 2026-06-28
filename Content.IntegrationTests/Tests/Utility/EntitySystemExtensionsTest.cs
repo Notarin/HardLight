@@ -13,7 +13,8 @@ namespace Content.IntegrationTests.Tests.Utility
         private const string BlockerDummyId = "BlockerDummy";
 
         [TestPrototypes]
-        private const string Prototypes = $@"
+        private const string Prototypes =
+            $@"
 - type: entity
   id: {BlockerDummyId}
   name: {BlockerDummyId}
@@ -44,20 +45,39 @@ namespace Content.IntegrationTests.Tests.Utility
 
             await server.WaitAssertion(() =>
             {
-
                 // Nothing blocking it, only entity is the grid
                 Assert.Multiple(() =>
                 {
-                    Assert.That(sEntityManager.SpawnIfUnobstructed(null, entityCoordinates, CollisionGroup.Impassable), Is.Not.Null);
-                    Assert.That(sEntityManager.TrySpawnIfUnobstructed(null, entityCoordinates, CollisionGroup.Impassable, out var entity));
+                    Assert.That(
+                        sEntityManager.SpawnIfUnobstructed(null, entityCoordinates, CollisionGroup.Impassable),
+                        Is.Not.Null
+                    );
+                    Assert.That(
+                        sEntityManager.TrySpawnIfUnobstructed(
+                            null,
+                            entityCoordinates,
+                            CollisionGroup.Impassable,
+                            out var entity
+                        )
+                    );
                     Assert.That(entity, Is.Not.Null);
                 });
 
                 // Nothing blocking it, only entity is the grid
                 Assert.Multiple(() =>
                 {
-                    Assert.That(sEntityManager.SpawnIfUnobstructed(null, mapCoordinates, CollisionGroup.Impassable), Is.Not.Null);
-                    Assert.That(sEntityManager.TrySpawnIfUnobstructed(null, mapCoordinates, CollisionGroup.Impassable, out var entity));
+                    Assert.That(
+                        sEntityManager.SpawnIfUnobstructed(null, mapCoordinates, CollisionGroup.Impassable),
+                        Is.Not.Null
+                    );
+                    Assert.That(
+                        sEntityManager.TrySpawnIfUnobstructed(
+                            null,
+                            mapCoordinates,
+                            CollisionGroup.Impassable,
+                            out var entity
+                        )
+                    );
                     Assert.That(entity, Is.Not.Null);
                 });
 
@@ -68,30 +88,72 @@ namespace Content.IntegrationTests.Tests.Utility
                 // Cannot spawn something with an Impassable layer
                 Assert.Multiple(() =>
                 {
-                    Assert.That(sEntityManager.SpawnIfUnobstructed(null, entityCoordinates, CollisionGroup.Impassable), Is.Null);
-                    Assert.That(sEntityManager.TrySpawnIfUnobstructed(null, entityCoordinates, CollisionGroup.Impassable, out var entity), Is.False);
+                    Assert.That(
+                        sEntityManager.SpawnIfUnobstructed(null, entityCoordinates, CollisionGroup.Impassable),
+                        Is.Null
+                    );
+                    Assert.That(
+                        sEntityManager.TrySpawnIfUnobstructed(
+                            null,
+                            entityCoordinates,
+                            CollisionGroup.Impassable,
+                            out var entity
+                        ),
+                        Is.False
+                    );
                     Assert.That(entity, Is.Null);
                 });
 
                 Assert.Multiple(() =>
                 {
-                    Assert.That(sEntityManager.SpawnIfUnobstructed(null, mapCoordinates, CollisionGroup.Impassable), Is.Null);
-                    Assert.That(sEntityManager.TrySpawnIfUnobstructed(null, mapCoordinates, CollisionGroup.Impassable, out var entity), Is.False);
+                    Assert.That(
+                        sEntityManager.SpawnIfUnobstructed(null, mapCoordinates, CollisionGroup.Impassable),
+                        Is.Null
+                    );
+                    Assert.That(
+                        sEntityManager.TrySpawnIfUnobstructed(
+                            null,
+                            mapCoordinates,
+                            CollisionGroup.Impassable,
+                            out var entity
+                        ),
+                        Is.False
+                    );
                     Assert.That(entity, Is.Null);
                 });
 
                 // Other layers are fine
                 Assert.Multiple(() =>
                 {
-                    Assert.That(sEntityManager.SpawnIfUnobstructed(null, entityCoordinates, CollisionGroup.MidImpassable), Is.Not.Null);
-                    Assert.That(sEntityManager.TrySpawnIfUnobstructed(null, entityCoordinates, CollisionGroup.MidImpassable, out var entity));
+                    Assert.That(
+                        sEntityManager.SpawnIfUnobstructed(null, entityCoordinates, CollisionGroup.MidImpassable),
+                        Is.Not.Null
+                    );
+                    Assert.That(
+                        sEntityManager.TrySpawnIfUnobstructed(
+                            null,
+                            entityCoordinates,
+                            CollisionGroup.MidImpassable,
+                            out var entity
+                        )
+                    );
                     Assert.That(entity, Is.Not.Null);
                 });
 
                 Assert.Multiple(() =>
                 {
-                    Assert.That(sEntityManager.SpawnIfUnobstructed(null, mapCoordinates, CollisionGroup.MidImpassable), Is.Not.Null);
-                    Assert.That(sEntityManager.TrySpawnIfUnobstructed(null, mapCoordinates, CollisionGroup.MidImpassable, out var entity));
+                    Assert.That(
+                        sEntityManager.SpawnIfUnobstructed(null, mapCoordinates, CollisionGroup.MidImpassable),
+                        Is.Not.Null
+                    );
+                    Assert.That(
+                        sEntityManager.TrySpawnIfUnobstructed(
+                            null,
+                            mapCoordinates,
+                            CollisionGroup.MidImpassable,
+                            out var entity
+                        )
+                    );
                     Assert.That(entity, Is.Not.Null);
                 });
             });

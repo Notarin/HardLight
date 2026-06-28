@@ -1,6 +1,6 @@
 - type: entity
   abstract: true
-  parent: [ Clothing, AllowSuitStorageClothing, RecyclableItemClothDurable ] # Frontier: added AllowSuitStorageClothing and RecyclableItemClothDurable
+  parent: [Clothing, AllowSuitStorageClothing, RecyclableItemClothDurable] # Frontier: added AllowSuitStorageClothing and RecyclableItemClothDurable
   id: ClothingOuterBase
   components:
   - type: Clothing
@@ -63,7 +63,7 @@
   - type: Sprite
     layers:
     - state: icon
-      map: [ "unfoldedLayer" ]
+      map: ["unfoldedLayer"]
     - state: icon-open
       map: ["foldedLayer"]
       visible: false
@@ -83,7 +83,7 @@
   - type: Sprite
     layers:
     - state: icon
-      map: [ "unfoldedLayer" ]
+      map: ["unfoldedLayer"]
       visible: false
     - state: icon-open
       map: ["foldedLayer"]

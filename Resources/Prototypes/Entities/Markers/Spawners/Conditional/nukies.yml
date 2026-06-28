@@ -2,7 +2,7 @@
   id: SpawnPointNukies
   parent: MarkerBase
   name: nukies
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   components:
   - type: SpawnPoint
   - type: Sprite

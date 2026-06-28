@@ -23,18 +23,29 @@ namespace Content.Shared.Strip;
 
 public abstract class SharedStrippableSystem : EntitySystem
 {
-    [Dependency] private readonly SharedInteractionSystem _interactionSystem = default!;
+    [Dependency]
+    private readonly SharedInteractionSystem _interactionSystem = default!;
 
-    [Dependency] private readonly SharedUserInterfaceSystem _ui = default!;
+    [Dependency]
+    private readonly SharedUserInterfaceSystem _ui = default!;
 
-    [Dependency] private readonly InventorySystem _inventorySystem = default!;
+    [Dependency]
+    private readonly InventorySystem _inventorySystem = default!;
 
-    [Dependency] private readonly SharedCuffableSystem _cuffableSystem = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
-    [Dependency] private readonly SharedHandsSystem _handsSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
+    [Dependency]
+    private readonly SharedCuffableSystem _cuffableSystem = default!;
 
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfterSystem = default!;
+
+    [Dependency]
+    private readonly SharedHandsSystem _handsSystem = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly ISharedAdminLogManager _adminLogger = default!;
 
     public override void Initialize()
     {
@@ -89,8 +100,7 @@ public abstract class SharedStrippableSystem : EntitySystem
 
     private void OnStripButtonPressed(Entity<StrippableComponent> strippable, ref StrippingSlotButtonPressed args)
     {
-        if (args.Actor is not { Valid: true } user ||
-            !TryComp<HandsComponent>(user, out var userHands))
+        if (args.Actor is not { Valid: true } user || !TryComp<HandsComponent>(user, out var userHands))
             return;
 
         if (args.IsHand)
@@ -114,11 +124,14 @@ public abstract class SharedStrippableSystem : EntitySystem
         Entity<HandsComponent?> user,
         Entity<HandsComponent?> target,
         string handId,
-        StrippableComponent? targetStrippable)
+        StrippableComponent? targetStrippable
+    )
     {
-        if (!Resolve(user, ref user.Comp) ||
-            !Resolve(target, ref target.Comp) ||
-            !Resolve(target, ref targetStrippable))
+        if (
+            !Resolve(user, ref user.Comp)
+            || !Resolve(target, ref target.Comp)
+            || !Resolve(target, ref targetStrippable)
+        )
             return;
 
         if (!target.Comp.CanBeStripped)
@@ -128,9 +141,11 @@ public abstract class SharedStrippableSystem : EntitySystem
             return;
 
         // Is the target a handcuff?
-        if (TryComp<VirtualItemComponent>(handSlot.HeldEntity, out var virtualItem) &&
-            TryComp<CuffableComponent>(target.Owner, out var cuffable) &&
-            _cuffableSystem.GetAllCuffs(cuffable).Contains(virtualItem.BlockingEntity))
+        if (
+            TryComp<VirtualItemComponent>(handSlot.HeldEntity, out var virtualItem)
+            && TryComp<CuffableComponent>(target.Owner, out var cuffable)
+            && _cuffableSystem.GetAllCuffs(cuffable).Contains(virtualItem.BlockingEntity)
+        )
         {
             _cuffableSystem.TryUncuff(target.Owner, user, virtualItem.BlockingEntity, cuffable);
             return;
@@ -145,11 +160,7 @@ public abstract class SharedStrippableSystem : EntitySystem
     /// <summary>
     ///     Checks whether the item is in a user's active hand and whether it can be inserted into the inventory slot.
     /// </summary>
-    private bool CanStripInsertInventory(
-        Entity<HandsComponent?> user,
-        EntityUid target,
-        EntityUid held,
-        string slot)
+    private bool CanStripInsertInventory(Entity<HandsComponent?> user, EntityUid target, EntityUid held, string slot)
     {
         if (!Resolve(user, ref user.Comp))
             return false;
@@ -173,13 +184,17 @@ public abstract class SharedStrippableSystem : EntitySystem
 
         if (_inventorySystem.TryGetSlotEntity(target, slot, out _))
         {
-            _popupSystem.PopupCursor(Loc.GetString("strippable-component-item-slot-occupied", ("owner", targetIdentity)));
+            _popupSystem.PopupCursor(
+                Loc.GetString("strippable-component-item-slot-occupied", ("owner", targetIdentity))
+            );
             return false;
         }
 
         if (!_inventorySystem.CanEquip(user, target, held, slot, out _))
         {
-            _popupSystem.PopupCursor(Loc.GetString("strippable-component-cannot-equip-message", ("owner", targetIdentity)));
+            _popupSystem.PopupCursor(
+                Loc.GetString("strippable-component-cannot-equip-message", ("owner", targetIdentity))
+            );
             return false;
         }
 
@@ -189,11 +204,7 @@ public abstract class SharedStrippableSystem : EntitySystem
     /// <summary>
     ///     Begins a DoAfter to insert the item in the user's active hand into the inventory slot.
     /// </summary>
-    private void StartStripInsertInventory(
-        Entity<HandsComponent?> user,
-        EntityUid target,
-        EntityUid held,
-        string slot)
+    private void StartStripInsertInventory(Entity<HandsComponent?> user, EntityUid target, EntityUid held, string slot)
     {
         if (!Resolve(user, ref user.Comp))
             return;
@@ -203,29 +214,49 @@ public abstract class SharedStrippableSystem : EntitySystem
 
         if (!_inventorySystem.TryGetSlot(target, slot, out var slotDef))
         {
-            Log.Error($"{ToPrettyString(user)} attempted to place an item in a non-existent inventory slot ({slot}) on {ToPrettyString(target)}");
+            Log.Error(
+                $"{ToPrettyString(user)} attempted to place an item in a non-existent inventory slot ({slot}) on {ToPrettyString(target)}"
+            );
             return;
         }
 
         var (time, stealth) = GetStripTimeModifiers(user, target, held, slotDef.StripTime);
 
         if (!stealth)
-            _popupSystem.PopupEntity(Loc.GetString("strippable-component-alert-owner-insert",
-                                                        ("user", Identity.Entity(user, EntityManager)),
-                                                        ("item", user.Comp.ActiveHandEntity!.Value)),
-                                                        target, target, PopupType.Large);
+            _popupSystem.PopupEntity(
+                Loc.GetString(
+                    "strippable-component-alert-owner-insert",
+                    ("user", Identity.Entity(user, EntityManager)),
+                    ("item", user.Comp.ActiveHandEntity!.Value)
+                ),
+                target,
+                target,
+                PopupType.Large
+            );
 
         var prefix = stealth ? "stealthily " : "";
-        _adminLogger.Add(LogType.Stripping, LogImpact.Low, $"{ToPrettyString(user):actor} is trying to {prefix}place the item {ToPrettyString(held):item} in {ToPrettyString(target):target}'s {slot} slot");
+        _adminLogger.Add(
+            LogType.Stripping,
+            LogImpact.Low,
+            $"{ToPrettyString(user):actor} is trying to {prefix}place the item {ToPrettyString(held):item} in {ToPrettyString(target):target}'s {slot} slot"
+        );
 
-        var doAfterArgs = new DoAfterArgs(EntityManager, user, time, new StrippableDoAfterEvent(true, true, slot), user, target, held)
+        var doAfterArgs = new DoAfterArgs(
+            EntityManager,
+            user,
+            time,
+            new StrippableDoAfterEvent(true, true, slot),
+            user,
+            target,
+            held
+        )
         {
             //Hidden = stealth,
             AttemptFrequency = AttemptFrequency.EveryTick,
             BreakOnDamage = true,
             BreakOnMove = true,
             NeedHand = true,
-            DuplicateCondition = DuplicateConditions.SameTool
+            DuplicateCondition = DuplicateConditions.SameTool,
         };
 
         _doAfterSystem.TryStartDoAfter(doAfterArgs);
@@ -234,11 +265,7 @@ public abstract class SharedStrippableSystem : EntitySystem
     /// <summary>
     ///     Inserts the item in the user's active hand into the inventory slot.
     /// </summary>
-    private void StripInsertInventory(
-        Entity<HandsComponent?> user,
-        EntityUid target,
-        EntityUid held,
-        string slot)
+    private void StripInsertInventory(Entity<HandsComponent?> user, EntityUid target, EntityUid held, string slot)
     {
         if (!Resolve(user, ref user.Comp))
             return;
@@ -250,21 +277,26 @@ public abstract class SharedStrippableSystem : EntitySystem
             return;
 
         _inventorySystem.TryEquip(user, target, held, slot, triggerHandContact: true);
-        _adminLogger.Add(LogType.Stripping, LogImpact.Medium, $"{ToPrettyString(user):actor} has placed the item {ToPrettyString(held):item} in {ToPrettyString(target):target}'s {slot} slot");
+        _adminLogger.Add(
+            LogType.Stripping,
+            LogImpact.Medium,
+            $"{ToPrettyString(user):actor} has placed the item {ToPrettyString(held):item} in {ToPrettyString(target):target}'s {slot} slot"
+        );
     }
 
     /// <summary>
     ///     Checks whether the item can be removed from the target's inventory.
     /// </summary>
-    private bool CanStripRemoveInventory(
-        EntityUid user,
-        EntityUid target,
-        EntityUid item,
-        string slot)
+    private bool CanStripRemoveInventory(EntityUid user, EntityUid target, EntityUid item, string slot)
     {
         if (!_inventorySystem.TryGetSlotEntity(target, slot, out var slotItem))
         {
-            _popupSystem.PopupCursor(Loc.GetString("strippable-component-item-slot-free-message", ("owner", Identity.Entity(target, EntityManager))));
+            _popupSystem.PopupCursor(
+                Loc.GetString(
+                    "strippable-component-item-slot-free-message",
+                    ("owner", Identity.Entity(target, EntityManager))
+                )
+            );
             return false;
         }
 
@@ -283,18 +315,16 @@ public abstract class SharedStrippableSystem : EntitySystem
     /// <summary>
     ///     Begins a DoAfter to remove the item from the target's inventory and insert it in the user's active hand.
     /// </summary>
-    private void StartStripRemoveInventory(
-        EntityUid user,
-        EntityUid target,
-        EntityUid item,
-        string slot)
+    private void StartStripRemoveInventory(EntityUid user, EntityUid target, EntityUid item, string slot)
     {
         if (!CanStripRemoveInventory(user, target, item, slot))
             return;
 
         if (!_inventorySystem.TryGetSlot(target, slot, out var slotDef))
         {
-            Log.Error($"{ToPrettyString(user)} attempted to take an item from a non-existent inventory slot ({slot}) on {ToPrettyString(target)}");
+            Log.Error(
+                $"{ToPrettyString(user)} attempted to take an item from a non-existent inventory slot ({slot}) on {ToPrettyString(target)}"
+            );
             return;
         }
 
@@ -303,20 +333,43 @@ public abstract class SharedStrippableSystem : EntitySystem
         if (!stealth)
         {
             if (IsStripHidden(slotDef, user))
-                _popupSystem.PopupEntity(Loc.GetString("strippable-component-alert-owner-hidden", ("slot", slot)), target, target, PopupType.Large);
+                _popupSystem.PopupEntity(
+                    Loc.GetString("strippable-component-alert-owner-hidden", ("slot", slot)),
+                    target,
+                    target,
+                    PopupType.Large
+                );
             else
-                _popupSystem.PopupEntity(Loc.GetString("strippable-component-alert-owner",
-                                                            ("user", Identity.Entity(user, EntityManager)),
-                                                            ("item", item)),
-                                                            target, target, PopupType.Large);
+                _popupSystem.PopupEntity(
+                    Loc.GetString(
+                        "strippable-component-alert-owner",
+                        ("user", Identity.Entity(user, EntityManager)),
+                        ("item", item)
+                    ),
+                    target,
+                    target,
+                    PopupType.Large
+                );
         }
 
         var prefix = stealth ? "stealthily " : "";
-        _adminLogger.Add(LogType.Stripping, LogImpact.Low, $"{ToPrettyString(user):actor} is trying to {prefix}strip the item {ToPrettyString(item):item} from {ToPrettyString(target):target}'s {slot} slot");
+        _adminLogger.Add(
+            LogType.Stripping,
+            LogImpact.Low,
+            $"{ToPrettyString(user):actor} is trying to {prefix}strip the item {ToPrettyString(item):item} from {ToPrettyString(target):target}'s {slot} slot"
+        );
 
         _interactionSystem.DoContactInteraction(user, item);
 
-        var doAfterArgs = new DoAfterArgs(EntityManager, user, time, new StrippableDoAfterEvent(false, true, slot), user, target, item)
+        var doAfterArgs = new DoAfterArgs(
+            EntityManager,
+            user,
+            time,
+            new StrippableDoAfterEvent(false, true, slot),
+            user,
+            target,
+            item
+        )
         {
             //Hidden = stealth,
             AttemptFrequency = AttemptFrequency.EveryTick,
@@ -324,7 +377,7 @@ public abstract class SharedStrippableSystem : EntitySystem
             BreakOnMove = true,
             NeedHand = true,
             BreakOnHandChange = false, // Allow simultaneously removing multiple items.
-            DuplicateCondition = DuplicateConditions.SameTool
+            DuplicateCondition = DuplicateConditions.SameTool,
         };
 
         _doAfterSystem.TryStartDoAfter(doAfterArgs);
@@ -333,12 +386,7 @@ public abstract class SharedStrippableSystem : EntitySystem
     /// <summary>
     ///     Removes the item from the target's inventory and inserts it in the user's active hand.
     /// </summary>
-    private void StripRemoveInventory(
-        EntityUid user,
-        EntityUid target,
-        EntityUid item,
-        string slot,
-        bool stealth)
+    private void StripRemoveInventory(EntityUid user, EntityUid target, EntityUid item, string slot, bool stealth)
     {
         if (!CanStripRemoveInventory(user, target, item, slot))
             return;
@@ -349,7 +397,11 @@ public abstract class SharedStrippableSystem : EntitySystem
         RaiseLocalEvent(item, new DroppedEvent(user), true); // Gas tank internals etc.
 
         _handsSystem.PickupOrDrop(user, item, animateUser: stealth, animate: !stealth);
-        _adminLogger.Add(LogType.Stripping, LogImpact.High, $"{ToPrettyString(user):actor} has stripped the item {ToPrettyString(item):item} from {ToPrettyString(target):target}'s {slot} slot");
+        _adminLogger.Add(
+            LogType.Stripping,
+            LogImpact.High,
+            $"{ToPrettyString(user):actor} has stripped the item {ToPrettyString(item):item} from {ToPrettyString(target):target}'s {slot} slot"
+        );
     }
 
     /// <summary>
@@ -359,10 +411,10 @@ public abstract class SharedStrippableSystem : EntitySystem
         Entity<HandsComponent?> user,
         Entity<HandsComponent?> target,
         EntityUid held,
-        string handName)
+        string handName
+    )
     {
-        if (!Resolve(user, ref user.Comp) ||
-            !Resolve(target, ref target.Comp))
+        if (!Resolve(user, ref user.Comp) || !Resolve(target, ref target.Comp))
             return false;
 
         if (!target.Comp.CanBeStripped)
@@ -383,10 +435,23 @@ public abstract class SharedStrippableSystem : EntitySystem
             return false;
         }
 
-        if (!_handsSystem.TryGetHand(target, handName, out var handSlot, target.Comp) ||
-            !_handsSystem.CanPickupToHand(target, user.Comp.ActiveHandEntity.Value, handSlot, checkActionBlocker: false, target.Comp))
+        if (
+            !_handsSystem.TryGetHand(target, handName, out var handSlot, target.Comp)
+            || !_handsSystem.CanPickupToHand(
+                target,
+                user.Comp.ActiveHandEntity.Value,
+                handSlot,
+                checkActionBlocker: false,
+                target.Comp
+            )
+        )
         {
-            _popupSystem.PopupCursor(Loc.GetString("strippable-component-cannot-put-message", ("owner", Identity.Entity(target, EntityManager))));
+            _popupSystem.PopupCursor(
+                Loc.GetString(
+                    "strippable-component-cannot-put-message",
+                    ("owner", Identity.Entity(target, EntityManager))
+                )
+            );
             return false;
         }
 
@@ -401,11 +466,14 @@ public abstract class SharedStrippableSystem : EntitySystem
         Entity<HandsComponent?> target,
         EntityUid held,
         string handName,
-        StrippableComponent? targetStrippable = null)
+        StrippableComponent? targetStrippable = null
+    )
     {
-        if (!Resolve(user, ref user.Comp) ||
-            !Resolve(target, ref target.Comp) ||
-            !Resolve(target, ref targetStrippable))
+        if (
+            !Resolve(user, ref user.Comp)
+            || !Resolve(target, ref target.Comp)
+            || !Resolve(target, ref targetStrippable)
+        )
             return;
 
         if (!CanStripInsertHand(user, target, held, handName))
@@ -414,22 +482,40 @@ public abstract class SharedStrippableSystem : EntitySystem
         var (time, stealth) = GetStripTimeModifiers(user, target, null, targetStrippable.HandStripDelay);
 
         if (!stealth)
-            _popupSystem.PopupEntity(Loc.GetString("strippable-component-alert-owner-insert-hand",
-                                                        ("user", Identity.Entity(user, EntityManager)),
-                                                        ("item", user.Comp.ActiveHandEntity!.Value)),
-                                                        target, target, PopupType.Large);
+            _popupSystem.PopupEntity(
+                Loc.GetString(
+                    "strippable-component-alert-owner-insert-hand",
+                    ("user", Identity.Entity(user, EntityManager)),
+                    ("item", user.Comp.ActiveHandEntity!.Value)
+                ),
+                target,
+                target,
+                PopupType.Large
+            );
 
         var prefix = stealth ? "stealthily " : "";
-        _adminLogger.Add(LogType.Stripping, LogImpact.Low, $"{ToPrettyString(user):actor} is trying to {prefix}place the item {ToPrettyString(held):item} in {ToPrettyString(target):target}'s hands");
+        _adminLogger.Add(
+            LogType.Stripping,
+            LogImpact.Low,
+            $"{ToPrettyString(user):actor} is trying to {prefix}place the item {ToPrettyString(held):item} in {ToPrettyString(target):target}'s hands"
+        );
 
-        var doAfterArgs = new DoAfterArgs(EntityManager, user, time, new StrippableDoAfterEvent(true, false, handName), user, target, held)
+        var doAfterArgs = new DoAfterArgs(
+            EntityManager,
+            user,
+            time,
+            new StrippableDoAfterEvent(true, false, handName),
+            user,
+            target,
+            held
+        )
         {
             //Hidden = stealth,
             AttemptFrequency = AttemptFrequency.EveryTick,
             BreakOnDamage = true,
             BreakOnMove = true,
             NeedHand = true,
-            DuplicateCondition = DuplicateConditions.SameTool
+            DuplicateCondition = DuplicateConditions.SameTool,
         };
 
         _doAfterSystem.TryStartDoAfter(doAfterArgs);
@@ -443,18 +529,30 @@ public abstract class SharedStrippableSystem : EntitySystem
         Entity<HandsComponent?> target,
         EntityUid held,
         string handName,
-        bool stealth)
+        bool stealth
+    )
     {
-        if (!Resolve(user, ref user.Comp) ||
-            !Resolve(target, ref target.Comp))
+        if (!Resolve(user, ref user.Comp) || !Resolve(target, ref target.Comp))
             return;
 
         if (!CanStripInsertHand(user, target, held, handName))
             return;
 
         _handsSystem.TryDrop(user, checkActionBlocker: false, handsComp: user.Comp);
-        _handsSystem.TryPickup(target, held, handName, checkActionBlocker: false, animateUser: stealth, animate: !stealth, handsComp: target.Comp);
-        _adminLogger.Add(LogType.Stripping, LogImpact.Medium, $"{ToPrettyString(user):actor} has placed the item {ToPrettyString(held):item} in {ToPrettyString(target):target}'s hands");
+        _handsSystem.TryPickup(
+            target,
+            held,
+            handName,
+            checkActionBlocker: false,
+            animateUser: stealth,
+            animate: !stealth,
+            handsComp: target.Comp
+        );
+        _adminLogger.Add(
+            LogType.Stripping,
+            LogImpact.Medium,
+            $"{ToPrettyString(user):actor} has placed the item {ToPrettyString(held):item} in {ToPrettyString(target):target}'s hands"
+        );
 
         // Hand update will trigger strippable update.
     }
@@ -462,11 +560,7 @@ public abstract class SharedStrippableSystem : EntitySystem
     /// <summary>
     ///     Checks whether the item is in the target's hand and whether it can be dropped.
     /// </summary>
-    private bool CanStripRemoveHand(
-        EntityUid user,
-        Entity<HandsComponent?> target,
-        EntityUid item,
-        string handName)
+    private bool CanStripRemoveHand(EntityUid user, Entity<HandsComponent?> target, EntityUid item, string handName)
     {
         if (!Resolve(target, ref target.Comp))
             return false;
@@ -476,7 +570,12 @@ public abstract class SharedStrippableSystem : EntitySystem
 
         if (!_handsSystem.TryGetHand(target, handName, out var handSlot, target.Comp))
         {
-            _popupSystem.PopupCursor(Loc.GetString("strippable-component-item-slot-free-message", ("owner", Identity.Entity(target, EntityManager))));
+            _popupSystem.PopupCursor(
+                Loc.GetString(
+                    "strippable-component-item-slot-free-message",
+                    ("owner", Identity.Entity(target, EntityManager))
+                )
+            );
             return false;
         }
 
@@ -491,7 +590,12 @@ public abstract class SharedStrippableSystem : EntitySystem
 
         if (!_handsSystem.CanDropHeld(target, handSlot, false))
         {
-            _popupSystem.PopupCursor(Loc.GetString("strippable-component-cannot-drop-message", ("owner", Identity.Entity(target, EntityManager))));
+            _popupSystem.PopupCursor(
+                Loc.GetString(
+                    "strippable-component-cannot-drop-message",
+                    ("owner", Identity.Entity(target, EntityManager))
+                )
+            );
             return false;
         }
 
@@ -506,11 +610,14 @@ public abstract class SharedStrippableSystem : EntitySystem
         Entity<HandsComponent?> target,
         EntityUid item,
         string handName,
-        StrippableComponent? targetStrippable = null)
+        StrippableComponent? targetStrippable = null
+    )
     {
-        if (!Resolve(user, ref user.Comp) ||
-            !Resolve(target, ref target.Comp) ||
-            !Resolve(target, ref targetStrippable))
+        if (
+            !Resolve(user, ref user.Comp)
+            || !Resolve(target, ref target.Comp)
+            || !Resolve(target, ref targetStrippable)
+        )
             return;
 
         if (!CanStripRemoveHand(user, target, item, handName))
@@ -519,17 +626,34 @@ public abstract class SharedStrippableSystem : EntitySystem
         var (time, stealth) = GetStripTimeModifiers(user, target, null, targetStrippable.HandStripDelay);
 
         if (!stealth)
-            _popupSystem.PopupEntity(Loc.GetString("strippable-component-alert-owner",
-                                                        ("user", Identity.Entity(user, EntityManager)),
-                                                        ("item", item)),
-                                                        target, target);
+            _popupSystem.PopupEntity(
+                Loc.GetString(
+                    "strippable-component-alert-owner",
+                    ("user", Identity.Entity(user, EntityManager)),
+                    ("item", item)
+                ),
+                target,
+                target
+            );
 
         var prefix = stealth ? "stealthily " : "";
-        _adminLogger.Add(LogType.Stripping, LogImpact.Low, $"{ToPrettyString(user):actor} is trying to {prefix}strip the item {ToPrettyString(item):item} from {ToPrettyString(target):target}'s hands");
+        _adminLogger.Add(
+            LogType.Stripping,
+            LogImpact.Low,
+            $"{ToPrettyString(user):actor} is trying to {prefix}strip the item {ToPrettyString(item):item} from {ToPrettyString(target):target}'s hands"
+        );
 
         _interactionSystem.DoContactInteraction(user, item);
 
-        var doAfterArgs = new DoAfterArgs(EntityManager, user, time, new StrippableDoAfterEvent(false, false, handName), user, target, item)
+        var doAfterArgs = new DoAfterArgs(
+            EntityManager,
+            user,
+            time,
+            new StrippableDoAfterEvent(false, false, handName),
+            user,
+            target,
+            item
+        )
         {
             //Hidden = stealth,
             AttemptFrequency = AttemptFrequency.EveryTick,
@@ -537,7 +661,7 @@ public abstract class SharedStrippableSystem : EntitySystem
             BreakOnMove = true,
             NeedHand = true,
             BreakOnHandChange = false, // Allow simultaneously removing multiple items.
-            DuplicateCondition = DuplicateConditions.SameTool
+            DuplicateCondition = DuplicateConditions.SameTool,
         };
 
         _doAfterSystem.TryStartDoAfter(doAfterArgs);
@@ -551,10 +675,10 @@ public abstract class SharedStrippableSystem : EntitySystem
         Entity<HandsComponent?> target,
         EntityUid item,
         string handName,
-        bool stealth)
+        bool stealth
+    )
     {
-        if (!Resolve(user, ref user.Comp) ||
-            !Resolve(target, ref target.Comp))
+        if (!Resolve(user, ref user.Comp) || !Resolve(target, ref target.Comp))
             return;
 
         if (!CanStripRemoveHand(user, target, item, handName))
@@ -562,12 +686,19 @@ public abstract class SharedStrippableSystem : EntitySystem
 
         _handsSystem.TryDrop(target, item, checkActionBlocker: false, handsComp: target.Comp);
         _handsSystem.PickupOrDrop(user, item, animateUser: stealth, animate: !stealth, handsComp: user.Comp);
-        _adminLogger.Add(LogType.Stripping, LogImpact.High, $"{ToPrettyString(user):actor} has stripped the item {ToPrettyString(item):item} from {ToPrettyString(target):target}'s hands");
+        _adminLogger.Add(
+            LogType.Stripping,
+            LogImpact.High,
+            $"{ToPrettyString(user):actor} has stripped the item {ToPrettyString(item):item} from {ToPrettyString(target):target}'s hands"
+        );
 
         // Hand update will trigger strippable update.
     }
 
-    private void OnStrippableDoAfterRunning(Entity<HandsComponent> entity, ref DoAfterAttemptEvent<StrippableDoAfterEvent> ev)
+    private void OnStrippableDoAfterRunning(
+        Entity<HandsComponent> entity,
+        ref DoAfterAttemptEvent<StrippableDoAfterEvent> ev
+    )
     {
         var args = ev.DoAfter.Args;
 
@@ -578,15 +709,38 @@ public abstract class SharedStrippableSystem : EntitySystem
 
         if (ev.Event.InventoryOrHand)
         {
-            if ( ev.Event.InsertOrRemove && !CanStripInsertInventory((entity.Owner, entity.Comp), args.Target.Value, args.Used.Value, ev.Event.SlotOrHandName) ||
-                !ev.Event.InsertOrRemove && !CanStripRemoveInventory(entity.Owner, args.Target.Value, args.Used.Value, ev.Event.SlotOrHandName))
-                    ev.Cancel();
+            if (
+                ev.Event.InsertOrRemove
+                    && !CanStripInsertInventory(
+                        (entity.Owner, entity.Comp),
+                        args.Target.Value,
+                        args.Used.Value,
+                        ev.Event.SlotOrHandName
+                    )
+                || !ev.Event.InsertOrRemove
+                    && !CanStripRemoveInventory(
+                        entity.Owner,
+                        args.Target.Value,
+                        args.Used.Value,
+                        ev.Event.SlotOrHandName
+                    )
+            )
+                ev.Cancel();
         }
         else
         {
-            if ( ev.Event.InsertOrRemove && !CanStripInsertHand((entity.Owner, entity.Comp), args.Target.Value, args.Used.Value, ev.Event.SlotOrHandName) ||
-                !ev.Event.InsertOrRemove && !CanStripRemoveHand(entity.Owner, args.Target.Value, args.Used.Value, ev.Event.SlotOrHandName))
-                    ev.Cancel();
+            if (
+                ev.Event.InsertOrRemove
+                    && !CanStripInsertHand(
+                        (entity.Owner, entity.Comp),
+                        args.Target.Value,
+                        args.Used.Value,
+                        ev.Event.SlotOrHandName
+                    )
+                || !ev.Event.InsertOrRemove
+                    && !CanStripRemoveHand(entity.Owner, args.Target.Value, args.Used.Value, ev.Event.SlotOrHandName)
+            )
+                ev.Cancel();
         }
     }
 
@@ -610,9 +764,21 @@ public abstract class SharedStrippableSystem : EntitySystem
         else
         {
             if (ev.InsertOrRemove)
-                StripInsertHand((entity.Owner, entity.Comp), ev.Target.Value, ev.Used.Value, ev.SlotOrHandName, ev.Args.Hidden);
+                StripInsertHand(
+                    (entity.Owner, entity.Comp),
+                    ev.Target.Value,
+                    ev.Used.Value,
+                    ev.SlotOrHandName,
+                    ev.Args.Hidden
+                );
             else
-                StripRemoveHand((entity.Owner, entity.Comp), ev.Target.Value, ev.Used.Value, ev.SlotOrHandName, ev.Args.Hidden);
+                StripRemoveHand(
+                    (entity.Owner, entity.Comp),
+                    ev.Target.Value,
+                    ev.Used.Value,
+                    ev.SlotOrHandName,
+                    ev.Args.Hidden
+                );
         }
     }
 
@@ -628,7 +794,12 @@ public abstract class SharedStrippableSystem : EntitySystem
     /// <summary>
     /// Modify the strip time via events. Raised directed at the item being stripped, the player stripping someone and the player being stripped.
     /// </summary>
-    public (TimeSpan Time, bool Stealth) GetStripTimeModifiers(EntityUid user, EntityUid targetPlayer, EntityUid? targetItem, TimeSpan initialTime)
+    public (TimeSpan Time, bool Stealth) GetStripTimeModifiers(
+        EntityUid user,
+        EntityUid targetPlayer,
+        EntityUid? targetItem,
+        TimeSpan initialTime
+    )
     {
         var itemEv = new BeforeItemStrippedEvent(initialTime, false);
         if (targetItem != null)
@@ -664,19 +835,19 @@ public abstract class SharedStrippableSystem : EntitySystem
 
     private void OnCanDropOn(EntityUid uid, StrippingComponent component, ref CanDropTargetEvent args)
     {
-        var val = uid == args.User &&
-                  HasComp<StrippableComponent>(args.Dragged) &&
-                  HasComp<HandsComponent>(args.User) &&
-                  HasComp<StrippingComponent>(args.User);
+        var val =
+            uid == args.User
+            && HasComp<StrippableComponent>(args.Dragged)
+            && HasComp<HandsComponent>(args.User)
+            && HasComp<StrippingComponent>(args.User);
         args.Handled |= val;
         args.CanDrop |= val;
     }
 
     private void OnCanDrop(EntityUid uid, StrippableComponent component, ref CanDropDraggedEvent args)
     {
-        args.CanDrop |= args.Target == args.User &&
-                        HasComp<StrippingComponent>(args.User) &&
-                        HasComp<HandsComponent>(args.User);
+        args.CanDrop |=
+            args.Target == args.User && HasComp<StrippingComponent>(args.User) && HasComp<HandsComponent>(args.User);
 
         if (args.CanDrop)
             args.Handled = true;

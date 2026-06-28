@@ -15,7 +15,8 @@ public sealed class MarketConsoleBoundUserInterface : BoundUserInterface
     [ViewVariables]
     public int BankBalance { get; private set; }
 
-    public MarketConsoleBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey) { }
+    public MarketConsoleBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {

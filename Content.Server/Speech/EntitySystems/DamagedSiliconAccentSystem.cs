@@ -1,25 +1,33 @@
 ﻿using System.Text;
 using Content.Server.Destructible;
 using Content.Server.PowerCell;
-using Content.Shared.Speech.Components;
+using Content.Shared.Damage;
 using Content.Shared.Damage.Components;
 using Content.Shared.FixedPoint;
 using Content.Shared.Speech;
+using Content.Shared.Speech.Components;
 using Robust.Shared.Random;
-using Content.Shared.Damage;
 
 namespace Content.Server.Speech.EntitySystems;
 
 public sealed class DamagedSiliconAccentSystem : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly PowerCellSystem _powerCell = default!;
-    [Dependency] private readonly DestructibleSystem _destructibleSystem = default!;
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly PowerCellSystem _powerCell = default!;
+
+    [Dependency]
+    private readonly DestructibleSystem _destructibleSystem = default!;
 
     public override void Initialize()
     {
         base.Initialize();
-        SubscribeLocalEvent<DamagedSiliconAccentComponent, AccentGetEvent>(OnAccent, after: [typeof(ReplacementAccentSystem)]);
+        SubscribeLocalEvent<DamagedSiliconAccentComponent, AccentGetEvent>(
+            OnAccent,
+            after: [typeof(ReplacementAccentSystem)]
+        );
     }
 
     private void OnAccent(Entity<DamagedSiliconAccentComponent> ent, ref AccentGetEvent args)
@@ -86,9 +94,10 @@ public sealed class DamagedSiliconAccentSystem : EntitySystem
             }
 
             // use an x^2 interpolation to increase the drop probability until we hit idxMax
-            var probToDrop = idx >= idxMax
-                ? maxDropProb
-                : (float)Math.Pow(((double)idx - idxMin) / (idxMax - idxMin), 2.0) * maxDropProb;
+            var probToDrop =
+                idx >= idxMax
+                    ? maxDropProb
+                    : (float)Math.Pow(((double)idx - idxMin) / (idxMax - idxMin), 2.0) * maxDropProb;
             // Ensure we're in the range for Prob()
             probToDrop = Math.Clamp(probToDrop, 0.0f, 1.0f);
 

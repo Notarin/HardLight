@@ -46,8 +46,11 @@ namespace Content.Server.Administration.Commands;
 [AdminCommand(AdminFlags.Admin)]
 public sealed class DzlolCommand : LocalizedCommands
 {
-    [Dependency] private readonly IEntityManager _entities = default!;
-    [Dependency] private readonly ISharedPlayerManager _playerManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entities = default!;
+
+    [Dependency]
+    private readonly ISharedPlayerManager _playerManager = default!;
 
     public override string Command => "dzlol";
     public override string Description => "Fully reverses zombie transformation on the target player.";
@@ -60,7 +63,10 @@ public sealed class DzlolCommand : LocalizedCommands
         if (args.Length == 1)
         {
             var names = _playerManager.Sessions.OrderBy(c => c.Name).Select(c => c.Name).ToArray();
-            return CompletionResult.FromHintOptions(names, LocalizationManager.GetString("shell-argument-username-hint"));
+            return CompletionResult.FromHintOptions(
+                names,
+                LocalizationManager.GetString("shell-argument-username-hint")
+            );
         }
 
         return CompletionResult.Empty;
@@ -147,9 +153,11 @@ public sealed class DzlolCommand : LocalizedCommands
         RestorePrototypeComponent(uid, proto, "Puller");
         RestorePrototypeComponent(uid, proto, "Pacified");
         RestorePrototypeComponent(uid, proto, "Prying");
-        if (proto?.Components.TryGetValue("NpcFactionMember", out var factionEntry) == true
+        if (
+            proto?.Components.TryGetValue("NpcFactionMember", out var factionEntry) == true
             && factionEntry.Component is NpcFactionMemberComponent protoFaction
-            && protoFaction.Factions.Count > 0)
+            && protoFaction.Factions.Count > 0
+        )
         {
             factionSystem.AddFactions(uid, protoFaction.Factions);
         }
@@ -161,8 +169,10 @@ public sealed class DzlolCommand : LocalizedCommands
 
         // --- Damage modifier set (was forced to "Zombie") ---
         var damageableSystem = _entities.System<DamageableSystem>();
-        if (proto?.Components.TryGetValue("Damageable", out var damageableEntry) == true
-            && damageableEntry.Component is DamageableComponent protoDamageable)
+        if (
+            proto?.Components.TryGetValue("Damageable", out var damageableEntry) == true
+            && damageableEntry.Component is DamageableComponent protoDamageable
+        )
         {
             damageableSystem.SetDamageModifierSetId(uid, protoDamageable.DamageModifierSetId);
         }
@@ -173,8 +183,10 @@ public sealed class DzlolCommand : LocalizedCommands
 
         // --- Blood loss threshold (was clamped to 0) ---
         var bloodstreamSystem = _entities.System<BloodstreamSystem>();
-        if (proto?.Components.TryGetValue("Bloodstream", out var bloodstreamEntry) == true
-            && bloodstreamEntry.Component is BloodstreamComponent protoBloodstream)
+        if (
+            proto?.Components.TryGetValue("Bloodstream", out var bloodstreamEntry) == true
+            && bloodstreamEntry.Component is BloodstreamComponent protoBloodstream
+        )
         {
             bloodstreamSystem.SetBloodLossThreshold(uid, protoBloodstream.BloodlossThreshold);
         }
@@ -185,7 +197,7 @@ public sealed class DzlolCommand : LocalizedCommands
 
         // --- Melee weapon component (was mutated and sometimes added) ---
         if (proto?.Components.TryGetValue("MeleeWeapon", out var meleeEntry) == true)
-            ((EntityManager) _entities).AddComponent(uid, meleeEntry, overwrite: true);
+            ((EntityManager)_entities).AddComponent(uid, meleeEntry, overwrite: true);
         else
             _entities.RemoveComponent<MeleeWeaponComponent>(uid);
 
@@ -197,18 +209,22 @@ public sealed class DzlolCommand : LocalizedCommands
         if (proto != null)
         {
             // Restore temperature cold-damage resistance clamped to 0 by zombification.
-            if (proto.Components.TryGetValue("Temperature", out var tempEntry)
+            if (
+                proto.Components.TryGetValue("Temperature", out var tempEntry)
                 && tempEntry.Component is TemperatureComponent protoTemp
-                && _entities.TryGetComponent<TemperatureComponent>(uid, out var tempComp))
+                && _entities.TryGetComponent<TemperatureComponent>(uid, out var tempComp)
+            )
             {
                 tempComp.ColdDamage = protoTemp.ColdDamage;
                 _entities.Dirty(uid, tempComp);
             }
 
             // Restore HandsComponent (was fully removed during zombification).
-            if (!_entities.HasComponent<HandsComponent>(uid)
+            if (
+                !_entities.HasComponent<HandsComponent>(uid)
                 && proto.Components.TryGetValue("Hands", out var handsEntry)
-                && handsEntry.Component is HandsComponent protoHands)
+                && handsEntry.Component is HandsComponent protoHands
+            )
             {
                 var handsSystem = _entities.System<SharedHandsSystem>();
                 var handsComp = _entities.EnsureComponent<HandsComponent>(uid);
@@ -234,6 +250,6 @@ public sealed class DzlolCommand : LocalizedCommands
     private void RestorePrototypeComponent(EntityUid uid, EntityPrototype? proto, string componentName)
     {
         if (proto?.Components.TryGetValue(componentName, out var entry) == true)
-            ((EntityManager) _entities).AddComponent(uid, entry, overwrite: true);
+            ((EntityManager)_entities).AddComponent(uid, entry, overwrite: true);
     }
 }

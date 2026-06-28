@@ -16,7 +16,13 @@ public abstract class SharedGeneticAnalyzerSystem : EntitySystem
         Dirty(uid, comp);
     }
 
-    public void SetScanResults(EntityUid uid, string patientName, int instability, List<MutationEntry> mutations, GeneticAnalyzerComponent? comp = null)
+    public void SetScanResults(
+        EntityUid uid,
+        string patientName,
+        int instability,
+        List<MutationEntry> mutations,
+        GeneticAnalyzerComponent? comp = null
+    )
     {
         if (!Resolve(uid, ref comp))
             return;

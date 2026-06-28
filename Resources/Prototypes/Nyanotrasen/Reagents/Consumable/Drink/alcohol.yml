@@ -130,8 +130,8 @@
       - !type:AdjustReagent
         reagent: Ethanol
         amount: 0.0625
-      - !type:Emote #It's very funny
-        emote: Laugh
+      - !type:Emote
+        emote: Laugh #It's very funny
         probability: 0.15
 
 - type: reagent

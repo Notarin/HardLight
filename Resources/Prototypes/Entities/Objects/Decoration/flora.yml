@@ -13,8 +13,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.4
         density: 1000
         layer:
@@ -26,12 +25,11 @@
     damageModifierSet: Metallic
   - type: Destructible
     thresholds:
-      - trigger:
-          !type:DamageTrigger
-          damage: 200
-        behaviors:
-          - !type:DoActsBehavior
-            acts: [ "Destruction" ]
+    - trigger: !type:DamageTrigger
+        damage: 200
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
 
 - type: entity
   id: BaseTree
@@ -50,8 +48,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.35,-0.4,0.35,0.4"
         density: 1000
         layer:
@@ -67,14 +64,12 @@
           variation: 0.05
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 400
       behaviors:
-        - !type:DoActsBehavior
-          acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 50
       behaviors:
       - !type:PlaySoundBehavior
@@ -84,7 +79,7 @@
             volume: 5
             variation: 0.05
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:SpawnEntitiesBehavior
         spawn:
           Log:
@@ -102,8 +97,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.1,-0.3,0.1,0.3"
         density: 4000
         layer:
@@ -120,8 +114,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.18,-0.35,0.18,0.35"
         density: 2000
         layer:
@@ -138,8 +131,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.1,-0.35,0.1,0.35"
         density: 3500
         layer:
@@ -168,15 +160,14 @@
   components:
   - type: Destructible
     thresholds:
-      - trigger:
-          !type:DamageTrigger
-          damage: 5
-        behaviors:
-          - !type:DoActsBehavior
-            acts: [ "Destruction" ]
-          - !type:PlaySoundBehavior
-            sound:
-              collection: GlassBreak
+    - trigger: !type:DamageTrigger
+        damage: 5
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound:
+          collection: GlassBreak
   - type: Sprite
     sprite: Objects/Decoration/Flora/flora_stalagmite.rsi
     layers:
@@ -311,25 +302,24 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.5,0,0.5,0.75"
         density: 4500
         layer:
         - WallLayer
   - type: LimitedItemGiver
     spawnEntries:
-      - id: PresentRandom
-        orGroup: present
-      - id: PresentRandomCash # buy your own.
-        prob: 0.1
-        orGroup: present
-      - id: PresentRandomCoal # naughty
-        prob: 0.05
-        orGroup: present
+    - id: PresentRandom
+      orGroup: present
+    - id: PresentRandomCash # buy your own.
+      prob: 0.1
+      orGroup: present
+    - id: PresentRandomCoal # naughty
+      prob: 0.05
+      orGroup: present
       # - id: PresentRandomUnsafe
-        # prob: 0.5
-        # orGroup: present
+      # prob: 0.5
+      # orGroup: present
       # - id: PresentRandomInsane # Frontier: Disable insane gifts
       #   prob: 0.2
       #   orGroup: present
@@ -345,14 +335,14 @@
   components:
   - type: LimitedItemGiver
     spawnEntries:
-      - id: PresentRandom
-        orGroup: present
+    - id: PresentRandom
+      orGroup: present
       # - id: PresentRandomUnsafe
-        # prob: 0.5
-        # orGroup: present
+      # prob: 0.5
+      # orGroup: present
       # - id: PresentRandomInsane
-        # prob: 0.2
-        # orGroup: present
+      # prob: 0.2
+      # orGroup: present
 
 - type: entity
   parent: BaseTreeConifer
@@ -397,14 +387,12 @@
         tree06: ""
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 400
       behaviors:
-        - !type:DoActsBehavior
-          acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 25
       behaviors:
       - !type:PlaySoundBehavior
@@ -414,7 +402,7 @@
             volume: 5
             variation: 0.05
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:SpawnEntitiesBehavior
         spawn:
           Log:

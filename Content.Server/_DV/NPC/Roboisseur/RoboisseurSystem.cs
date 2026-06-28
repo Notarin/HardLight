@@ -1,36 +1,43 @@
-using Content.Shared.Interaction;
-using Content.Shared.Mobs.Components;
 using Content.Server.Chat.Systems;
-using Robust.Shared.Prototypes;
-using Robust.Shared.Random;
-using Content.Shared.Random.Helpers;
-using Content.Shared.Kitchen;
-using Robust.Server.GameObjects;
 using Content.Server.Materials;
 using Content.Shared.Chat;
+using Content.Shared.Interaction;
+using Content.Shared.Kitchen;
+using Content.Shared.Mobs.Components;
+using Content.Shared.Random.Helpers;
+using Robust.Server.GameObjects;
 using Robust.Shared.Player;
+using Robust.Shared.Prototypes;
+using Robust.Shared.Random;
 using Robust.Shared.Timing;
 
 namespace Content.Server.Roboisseur.Roboisseur
 {
     public sealed partial class RoboisseurSystem : EntitySystem
     {
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        [Dependency] private readonly IRobustRandom _random = default!;
-        [Dependency] private readonly ChatSystem _chat = default!;
-        [Dependency] private readonly MaterialStorageSystem _material = default!;
-        [Dependency] private readonly IGameTiming _timing = default!;
+        [Dependency]
+        private readonly IPrototypeManager _prototypeManager = default!;
+
+        [Dependency]
+        private readonly IRobustRandom _random = default!;
+
+        [Dependency]
+        private readonly ChatSystem _chat = default!;
+
+        [Dependency]
+        private readonly MaterialStorageSystem _material = default!;
+
+        [Dependency]
+        private readonly IGameTiming _timing = default!;
 
         public override void Initialize()
         {
             base.Initialize();
 
-
             SubscribeLocalEvent<RoboisseurComponent, ComponentInit>(OnInit);
             SubscribeLocalEvent<RoboisseurComponent, InteractHandEvent>(OnInteractHand);
             SubscribeLocalEvent<RoboisseurComponent, InteractUsingEvent>(OnInteractUsing);
         }
-
 
         private void OnInit(EntityUid uid, RoboisseurComponent component, ComponentInit args)
         {
@@ -45,7 +52,7 @@ namespace Content.Server.Roboisseur.Roboisseur
             int rewardToDispense = r.Next(100, 350) + 5000 * tier;
 
             _material.SpawnMultipleFromMaterial(rewardToDispense, "Credit", Transform(uid).Coordinates);
-            if(tier > 1)
+            if (tier > 1)
             {
                 while (tier != 0)
                 {
@@ -66,17 +73,22 @@ namespace Content.Server.Roboisseur.Roboisseur
 
             component.StateTime = _timing.CurTime + component.StateCD;
 
-            string message = Loc.GetString(_random.Pick(component.DemandMessages), ("item", component.DesiredPrototype.Name));
+            string message = Loc.GetString(
+                _random.Pick(component.DemandMessages),
+                ("item", component.DesiredPrototype.Name)
+            );
             if (CheckTier(component.DesiredPrototype.ID, component) > 1)
-                message = Loc.GetString(_random.Pick(component.DemandMessagesTier2), ("item", component.DesiredPrototype.Name));
+                message = Loc.GetString(
+                    _random.Pick(component.DemandMessagesTier2),
+                    ("item", component.DesiredPrototype.Name)
+                );
 
             _chat.TrySendInGameICMessage(component.Owner, message, InGameICChatType.Speak, true);
         }
 
         private void OnInteractUsing(EntityUid uid, RoboisseurComponent component, InteractUsingEvent args)
         {
-            if (HasComp<MobStateComponent>(args.Used) ||
-                MetaData(args.Used)?.EntityPrototype == null)
+            if (HasComp<MobStateComponent>(args.Used) || MetaData(args.Used)?.EntityPrototype == null)
                 return;
 
             var validItem = CheckValidity(MetaData(args.Used).EntityName, component.DesiredPrototype);
@@ -84,7 +96,12 @@ namespace Content.Server.Roboisseur.Roboisseur
 
             if (!validItem)
             {
-                _chat.TrySendInGameICMessage(uid, Loc.GetString(_random.Pick(component.RejectMessages)), InGameICChatType.Speak, true);
+                _chat.TrySendInGameICMessage(
+                    uid,
+                    Loc.GetString(_random.Pick(component.RejectMessages)),
+                    InGameICChatType.Speak,
+                    true
+                );
                 return;
             }
 
@@ -143,7 +160,6 @@ namespace Content.Server.Roboisseur.Roboisseur
 
         public List<string> GetAllProtos(RoboisseurComponent component)
         {
-
             var allRecipes = _prototypeManager.EnumeratePrototypes<FoodRecipePrototype>();
             var allProtos = new List<String>();
 
@@ -159,6 +175,6 @@ namespace Content.Server.Roboisseur.Roboisseur
 
     public enum RobossieurVisualLayers : byte
     {
-        Angry
+        Angry,
     }
 }

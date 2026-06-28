@@ -110,13 +110,13 @@
   name: chaplain's jumpsuit
   description: It's a black jumpsuit, often worn by religious folk.
   components:
-    - type: Sprite
-      sprite: Clothing/Uniforms/Jumpsuit/chaplain.rsi
-    - type: Clothing
-      sprite: Clothing/Uniforms/Jumpsuit/chaplain.rsi
+  - type: Sprite
+    sprite: Clothing/Uniforms/Jumpsuit/chaplain.rsi
+  - type: Clothing
+    sprite: Clothing/Uniforms/Jumpsuit/chaplain.rsi
 
 - type: entity
-  parent: [ ClothingUniformBase, BaseColcommContraband ]
+  parent: [ClothingUniformBase, BaseColcommContraband]
   id: ClothingUniformJumpsuitCentcomAgent
   name: ColComm agent's jumpsuit
   description: A suit worn by ColComm's legal team. Smells of burnt coffee.
@@ -127,7 +127,7 @@
     sprite: Clothing/Uniforms/Jumpsuit/centcom_agent.rsi
 
 - type: entity
-  parent: [ ClothingUniformBase, BaseColcommContraband ]
+  parent: [ClothingUniformBase, BaseColcommContraband]
   id: ClothingUniformJumpsuitCentcomOfficial
   name: ColComm official's jumpsuit
   description: It's a jumpsuit worn by ColComm's officials.
@@ -138,7 +138,7 @@
     sprite: Clothing/Uniforms/Jumpsuit/centcom_official.rsi
 
 - type: entity
-  parent: [ ClothingUniformBase, BaseColcommContraband ]
+  parent: [ClothingUniformBase, BaseColcommContraband]
   id: ClothingUniformJumpsuitCentcomOfficer
   name: ColComm officer's jumpsuit
   description: It's a jumpsuit worn by ColComm Officers.
@@ -243,7 +243,7 @@
     sprite: Clothing/Uniforms/Jumpsuit/jester2.rsi
 
 - type: entity
-  parent: [ClothingUniformBase, ClothingUniformFoldableBase]  # Frontier: remove BaseCommandContraband
+  parent: [ClothingUniformBase, ClothingUniformFoldableBase] # Frontier: remove BaseCommandContraband
   id: ClothingUniformJumpsuitCMO
   name: chief medical officer's jumpsuit
   description: It's a jumpsuit worn by those with the experience to be Chief Medical Officer. It provides minor biological protection.
@@ -268,10 +268,10 @@
   name: detective hard-worn suit # Frontier - Added detective to name
   description: Someone who wears this means business.
   components:
-    - type: Sprite
-      sprite: Clothing/Uniforms/Jumpsuit/detective.rsi
-    - type: Clothing
-      sprite: Clothing/Uniforms/Jumpsuit/detective.rsi
+  - type: Sprite
+    sprite: Clothing/Uniforms/Jumpsuit/detective.rsi
+  - type: Clothing
+    sprite: Clothing/Uniforms/Jumpsuit/detective.rsi
 
 - type: entity
   parent: ClothingUniformBase
@@ -279,10 +279,10 @@
   name: detective noir suit # Frontier - Added detective to name
   description: A hard-boiled private investigator's grey suit, complete with tie clip.
   components:
-    - type: Sprite
-      sprite: Clothing/Uniforms/Jumpsuit/detective_grey.rsi
-    - type: Clothing
-      sprite: Clothing/Uniforms/Jumpsuit/detective_grey.rsi
+  - type: Sprite
+    sprite: Clothing/Uniforms/Jumpsuit/detective_grey.rsi
+  - type: Clothing
+    sprite: Clothing/Uniforms/Jumpsuit/detective_grey.rsi
 
 - type: entity
   parent: [ClothingUniformBase, ClothingUniformFoldableBase]
@@ -379,7 +379,7 @@
     sprite: Clothing/Uniforms/Jumpsuit/hos_parade.rsi
 
 - type: entity
-  parent: [ ClothingUniformBase, BaseCommandContraband ]
+  parent: [ClothingUniformBase, BaseCommandContraband]
   id: ClothingUniformJumpsuitCommandGeneric
   name: command jumpsuit
   description: A generic Command-colored jumpsuit not associated with any particular department.
@@ -431,7 +431,7 @@
   parent: ClothingUniformBase
   id: ClothingUniformJumpsuitMime
   name: mime suit
-  description: ...
+  description: '...'
   components:
   - type: Sprite
     sprite: Clothing/Uniforms/Jumpsuit/mime.rsi
@@ -516,10 +516,10 @@
   name: quartermaster's turtleneck # Frontier: not plural
   description: A sharp turtleneck made for the hardy work environment of supply.
   components:
-    - type: Sprite
-      sprite: Clothing/Uniforms/Jumpsuit/qmturtle.rsi
-    - type: Clothing
-      sprite: Clothing/Uniforms/Jumpsuit/qmturtle.rsi
+  - type: Sprite
+    sprite: Clothing/Uniforms/Jumpsuit/qmturtle.rsi
+  - type: Clothing
+    sprite: Clothing/Uniforms/Jumpsuit/qmturtle.rsi
 
 - type: entity
   parent: ClothingUniformBase # Frontier: remove BaseCommandContraband
@@ -527,10 +527,10 @@
   name: quartermaster's formal suit # Frontier: not plural
   description: Inspired by the quartermasters of military's past, the perfect outfit for supplying a formal occasion.
   components:
-    - type: Sprite
-      sprite: Clothing/Uniforms/Jumpsuit/qmformal.rsi
-    - type: Clothing
-      sprite: Clothing/Uniforms/Jumpsuit/qmformal.rsi
+  - type: Sprite
+    sprite: Clothing/Uniforms/Jumpsuit/qmformal.rsi
+  - type: Clothing
+    sprite: Clothing/Uniforms/Jumpsuit/qmformal.rsi
 
 - type: entity
   parent: ClothingUniformBase # Frontier: remove BaseCommandContraband
@@ -732,10 +732,10 @@
   name: good lawyer's suit
   description: A tacky suit perfect for a CRIMINAL lawyer!
   components:
-    - type: Sprite
-      sprite: Clothing/Uniforms/Jumpsuit/lawyergood.rsi
-    - type: Clothing
-      sprite: Clothing/Uniforms/Jumpsuit/lawyergood.rsi
+  - type: Sprite
+    sprite: Clothing/Uniforms/Jumpsuit/lawyergood.rsi
+  - type: Clothing
+    sprite: Clothing/Uniforms/Jumpsuit/lawyergood.rsi
 
 - type: entity
   parent: [UnsensoredClothingUniformBase, BaseC3SyndicateContraband, ContrabandClothing] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband, added ContrabandClothing as parent
@@ -831,17 +831,17 @@
   name: tacticool jumpsuit
   description: Uniform for subpar operative LARPers performing tactical insulated glove theft in deep space.
   components:
-    - type: Sprite
-      sprite: Clothing/Uniforms/Jumpsuit/tacticool.rsi
-    - type: Clothing
-      sprite: Clothing/Uniforms/Jumpsuit/tacticool.rsi
-    # Too cool for sensors to be on
-    - type: SuitSensor
-      randomMode: false
-      mode: SensorOff
+  - type: Sprite
+    sprite: Clothing/Uniforms/Jumpsuit/tacticool.rsi
+  - type: Clothing
+    sprite: Clothing/Uniforms/Jumpsuit/tacticool.rsi
+  # Too cool for sensors to be on
+  - type: SuitSensor
+    randomMode: false
+    mode: SensorOff
 
 - type: entity
-  parent: [ ClothingUniformBase ]
+  parent: [ClothingUniformBase]
   id: ClothingUniformJumpsuitMercenary
   name: mercenary jumpsuit
   description: Clothing for real mercenaries who have gone through fire, water and the jungle of planets flooded with dangerous monsters or targets for which a reward has been assigned.
@@ -930,10 +930,10 @@
   name: dark monastic robe
   description: It's a dark robe, often worn by religious folk.
   components:
-    - type: Sprite
-      sprite: Clothing/Uniforms/Jumpsuit/monastic_robe_dark.rsi
-    - type: Clothing
-      sprite: Clothing/Uniforms/Jumpsuit/monastic_robe_dark.rsi
+  - type: Sprite
+    sprite: Clothing/Uniforms/Jumpsuit/monastic_robe_dark.rsi
+  - type: Clothing
+    sprite: Clothing/Uniforms/Jumpsuit/monastic_robe_dark.rsi
 
 - type: entity
   parent: ClothingUniformBase
@@ -941,10 +941,10 @@
   name: light monastic robe
   description: It's a light robe, often worn by religious folk.
   components:
-    - type: Sprite
-      sprite: Clothing/Uniforms/Jumpsuit/monastic_robe_light.rsi
-    - type: Clothing
-      sprite: Clothing/Uniforms/Jumpsuit/monastic_robe_light.rsi
+  - type: Sprite
+    sprite: Clothing/Uniforms/Jumpsuit/monastic_robe_light.rsi
+  - type: Clothing
+    sprite: Clothing/Uniforms/Jumpsuit/monastic_robe_light.rsi
 
 - type: entity
   parent: ClothingUniformBase
@@ -958,7 +958,7 @@
     sprite: Clothing/Uniforms/Jumpsuit/musician.rsi
 
 - type: entity
-  parent: [ BaseColcommContraband, ClothingUniformBase ]
+  parent: [BaseColcommContraband, ClothingUniformBase]
   id: ClothingUniformJumpsuitERTChaplain
   name: ERT chaplain uniform
   description: A special suit made for Colonial Command's elite chaplain corps.
@@ -969,7 +969,7 @@
     sprite: Clothing/Uniforms/Jumpsuit/ert_chaplain.rsi
 
 - type: entity
-  parent: [ BaseColcommContraband, ClothingUniformBase ]
+  parent: [BaseColcommContraband, ClothingUniformBase]
   id: ClothingUniformJumpsuitERTEngineer
   name: ERT engineering uniform
   description: A special suit made for the elite engineers under ColComm.
@@ -980,7 +980,7 @@
     sprite: Clothing/Uniforms/Jumpsuit/ert_engineer.rsi
 
 - type: entity
-  parent: [ BaseColcommContraband, ClothingUniformBase ]
+  parent: [BaseColcommContraband, ClothingUniformBase]
   id: ClothingUniformJumpsuitERTJanitor
   name: ERT janitorial uniform
   description: A special suit made for the elite janitors under ColComm.
@@ -991,7 +991,7 @@
     sprite: Clothing/Uniforms/Jumpsuit/ert_janitor.rsi
 
 - type: entity
-  parent: [ BaseColcommContraband, ClothingUniformBase ]
+  parent: [BaseColcommContraband, ClothingUniformBase]
   id: ClothingUniformJumpsuitERTLeader
   name: ERT leader uniform
   description: A special suit made for the best of the elites under ColComm.
@@ -1002,7 +1002,7 @@
     sprite: Clothing/Uniforms/Jumpsuit/ert_leader.rsi
 
 - type: entity
-  parent: [ BaseColcommContraband, ClothingUniformBase ]
+  parent: [BaseColcommContraband, ClothingUniformBase]
   id: ClothingUniformJumpsuitERTMedic
   name: ERT medical uniform
   description: A special suit made for the elite medics under ColComm.
@@ -1013,7 +1013,7 @@
     sprite: Clothing/Uniforms/Jumpsuit/ert_medic.rsi
 
 - type: entity
-  parent: [ BaseColcommContraband, ClothingUniformBase ]
+  parent: [BaseColcommContraband, ClothingUniformBase]
   id: ClothingUniformJumpsuitERTSecurity
   name: ERT security uniform
   description: A special suit made for the elite security under ColComm.
@@ -1135,10 +1135,10 @@
   name: flannel jumpsuit
   description: Smells like someones been grillin'.
   components:
-    - type: Sprite
-      sprite: Clothing/Uniforms/Jumpsuit/flannel.rsi
-    - type: Clothing
-      sprite: Clothing/Uniforms/Jumpsuit/flannel.rsi
+  - type: Sprite
+    sprite: Clothing/Uniforms/Jumpsuit/flannel.rsi
+  - type: Clothing
+    sprite: Clothing/Uniforms/Jumpsuit/flannel.rsi
 
 - type: entity
   parent: ClothingUniformBase
@@ -1201,9 +1201,9 @@
       amount: 8
   - type: FlavorProfile
     flavors:
-      - cobwebs
+    - cobwebs
     ignoreReagents:
-      - Fiber
+    - Fiber
   - type: SolutionContainerManager
     solutions: # 24 (3 (fiber count of web) * 8 (to craft)) + 6 (magical crafting bonus)
       food:
@@ -1368,13 +1368,12 @@
   - type: Clothing
     sprite: Clothing/Uniforms/Jumpsuit/familiar_garbs.rsi
 
-
-- type: entity 
+- type: entity
   parent: ClothingUniformBase
   id: ClothingUniformJumpsuitCybersunFormal
   name: Cybersun Corporate Officewear
   description: A set of clean formal dresswear emblazoned in the colors of Cybersun R&D.
-  components: 
+  components:
   - type: Sprite
     sprite: _HL/Clothing/Uniforms/cybersunformalsuit.rsi
   - type: Clothing

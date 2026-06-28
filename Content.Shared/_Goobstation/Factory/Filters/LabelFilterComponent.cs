@@ -28,7 +28,7 @@ public sealed partial class LabelFilterComponent : Component
 [Serializable, NetSerializable]
 public enum LabelFilterUiKey : byte
 {
-    Key
+    Key,
 }
 
 [Serializable, NetSerializable]

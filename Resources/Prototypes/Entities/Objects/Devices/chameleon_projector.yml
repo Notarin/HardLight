@@ -12,7 +12,7 @@
       components:
       - Anchorable
       - Item
-      tags: 
+      tags:
       - Bot # for funny bot moments
     blacklist:
       components: # TODO: This blacklist should be cut down by a lot once Chameleon Projector code is less buggy. See #40510
@@ -28,7 +28,7 @@
     disguiseProto: ChameleonDisguise
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: ChameleonDisguise
   name: Urist McKleiner
   components:

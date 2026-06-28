@@ -151,7 +151,7 @@ public static class ShipSaveYamlSanitizer
         "ClothingNullHarness",
         "ClothingNullSpaceTeleporter",
         "GrenadeDePhase",
-        "BluespaceFlasherFlatpack"
+        "BluespaceFlasherFlatpack",
     };
 
     // Entity-level exclusion by component signature.
@@ -243,7 +243,11 @@ public static class ShipSaveYamlSanitizer
 
                     if (FilteredPrototypes.Contains(protoId))
                     {
-                        if (entMap.TryGet("uid", out ValueDataNode? removedUidNode) && removedUidNode != null && !removedUidNode.IsNull)
+                        if (
+                            entMap.TryGet("uid", out ValueDataNode? removedUidNode)
+                            && removedUidNode != null
+                            && !removedUidNode.IsNull
+                        )
                             removedEntityUids.Add(removedUidNode.Value);
 
                         entitiesSeq.RemoveAt(i);
@@ -260,8 +264,10 @@ public static class ShipSaveYamlSanitizer
                             if (!proto.Components.ContainsKey(componentName))
                                 continue;
 
-                            if (ComponentExclusionExceptions.TryGetValue(componentName, out var exceptionComponent)
-                                && proto.Components.ContainsKey(exceptionComponent))
+                            if (
+                                ComponentExclusionExceptions.TryGetValue(componentName, out var exceptionComponent)
+                                && proto.Components.ContainsKey(exceptionComponent)
+                            )
                                 continue;
 
                             dropByPrototypeComponent = true;
@@ -284,7 +290,11 @@ public static class ShipSaveYamlSanitizer
 
                 if (!entMap.TryGet("components", out SequenceDataNode? comps) || comps == null)
                 {
-                    if (entMap.TryGet("uid", out ValueDataNode? removedUidNode) && removedUidNode != null && !removedUidNode.IsNull)
+                    if (
+                        entMap.TryGet("uid", out ValueDataNode? removedUidNode)
+                        && removedUidNode != null
+                        && !removedUidNode.IsNull
+                    )
                         removedEntityUids.Add(removedUidNode.Value);
 
                     entitiesSeq.RemoveAt(i);
@@ -294,7 +304,11 @@ public static class ShipSaveYamlSanitizer
 
                 if (HasActionEntityComponentNode(comps))
                 {
-                    if (entMap.TryGet("uid", out ValueDataNode? removedUidNode) && removedUidNode != null && !removedUidNode.IsNull)
+                    if (
+                        entMap.TryGet("uid", out ValueDataNode? removedUidNode)
+                        && removedUidNode != null
+                        && !removedUidNode.IsNull
+                    )
                         removedEntityUids.Add(removedUidNode.Value);
 
                     entitiesSeq.RemoveAt(i);
@@ -303,10 +317,15 @@ public static class ShipSaveYamlSanitizer
                 }
 
                 // Remove implanters containing blocked implant entities.
-                var isImplanter = entityProto?.Components.ContainsKey("Implanter") == true || HasComponentNode(comps, "Implanter");
+                var isImplanter =
+                    entityProto?.Components.ContainsKey("Implanter") == true || HasComponentNode(comps, "Implanter");
                 if (isImplanter && HasBlockedContainedImplant(entMap, blockedContainedImplantEntityUids))
                 {
-                    if (entMap.TryGet("uid", out ValueDataNode? removedUidNode) && removedUidNode != null && !removedUidNode.IsNull)
+                    if (
+                        entMap.TryGet("uid", out ValueDataNode? removedUidNode)
+                        && removedUidNode != null
+                        && !removedUidNode.IsNull
+                    )
                         removedEntityUids.Add(removedUidNode.Value);
 
                     entitiesSeq.RemoveAt(i);
@@ -326,9 +345,13 @@ public static class ShipSaveYamlSanitizer
                     if (!FilteredEntityByComponentTypes.Contains(t.Value))
                         continue;
 
-                    if (ComponentExclusionExceptions.TryGetValue(t.Value, out var exceptionComponent)
-                        && (HasComponentNode(comps, exceptionComponent)
-                            || entityProto?.Components.ContainsKey(exceptionComponent) == true))
+                    if (
+                        ComponentExclusionExceptions.TryGetValue(t.Value, out var exceptionComponent)
+                        && (
+                            HasComponentNode(comps, exceptionComponent)
+                            || entityProto?.Components.ContainsKey(exceptionComponent) == true
+                        )
+                    )
                         continue;
 
                     dropByComponent = true;
@@ -337,7 +360,11 @@ public static class ShipSaveYamlSanitizer
 
                 if (dropByComponent)
                 {
-                    if (entMap.TryGet("uid", out ValueDataNode? removedUidNode) && removedUidNode != null && !removedUidNode.IsNull)
+                    if (
+                        entMap.TryGet("uid", out ValueDataNode? removedUidNode)
+                        && removedUidNode != null
+                        && !removedUidNode.IsNull
+                    )
                         removedEntityUids.Add(removedUidNode.Value);
 
                     entitiesSeq.RemoveAt(i);
@@ -347,7 +374,11 @@ public static class ShipSaveYamlSanitizer
 
                 if (dropByPrototypeComponent)
                 {
-                    if (entMap.TryGet("uid", out ValueDataNode? removedUidNode) && removedUidNode != null && !removedUidNode.IsNull)
+                    if (
+                        entMap.TryGet("uid", out ValueDataNode? removedUidNode)
+                        && removedUidNode != null
+                        && !removedUidNode.IsNull
+                    )
                         removedEntityUids.Add(removedUidNode.Value);
 
                     entitiesSeq.RemoveAt(i);
@@ -362,7 +393,12 @@ public static class ShipSaveYamlSanitizer
 
                 foreach (var c in compsNotNull)
                 {
-                    if (c is MappingDataNode cm && cm.TryGet("type", out ValueDataNode? t) && t != null && t.Value == "MapGrid")
+                    if (
+                        c is MappingDataNode cm
+                        && cm.TryGet("type", out ValueDataNode? t)
+                        && t != null
+                        && t.Value == "MapGrid"
+                    )
                     {
                         hasMapGrid = true;
                         break;
@@ -543,11 +579,13 @@ public static class ShipSaveYamlSanitizer
 
                     if (typeName == "Solution")
                     {
-                        if (compMap.TryGetValue("solution", out var solutionNode)
+                        if (
+                            compMap.TryGetValue("solution", out var solutionNode)
                             && solutionNode is MappingDataNode solutionMap
                             && solutionMap.TryGetValue("name", out var nameNode)
                             && nameNode is ValueDataNode nameValue
-                            && nameValue.Value == "buffer")
+                            && nameValue.Value == "buffer"
+                        )
                         {
                             solutionMap["canReact"] = new ValueDataNode("false");
                         }
@@ -566,16 +604,16 @@ public static class ShipSaveYamlSanitizer
                 // If SprayPainted exists without Appearance, synthesize Appearance so paint style persists in saves.
                 if (paintStylePrototype != null && !HasComponentNode(newComps, "Appearance"))
                 {
-                    var appearanceComp = new MappingDataNode
-                    {
-                        ["type"] = new ValueDataNode("Appearance")
-                    };
+                    var appearanceComp = new MappingDataNode { ["type"] = new ValueDataNode("Appearance") };
 
                     ApplyPaintStyleToAppearance(appearanceComp, paintStylePrototype);
                     newComps.Add(appearanceComp);
                 }
 
-                if ((removedFromPrototype != null && removedFromPrototype.Count > 0) || (protoMissing != null && protoMissing.Count > 0))
+                if (
+                    (removedFromPrototype != null && removedFromPrototype.Count > 0)
+                    || (protoMissing != null && protoMissing.Count > 0)
+                )
                 {
                     var existingMissing = new HashSet<string>(StringComparer.Ordinal);
                     if (entMap.TryGet("missingComponents", out SequenceDataNode? missingNode) && missingNode != null)
@@ -622,7 +660,11 @@ public static class ShipSaveYamlSanitizer
                 }
                 else
                 {
-                    if (entMap.TryGet("uid", out ValueDataNode? removedUidNode) && removedUidNode != null && !removedUidNode.IsNull)
+                    if (
+                        entMap.TryGet("uid", out ValueDataNode? removedUidNode)
+                        && removedUidNode != null
+                        && !removedUidNode.IsNull
+                    )
                         removedEntityUids.Add(removedUidNode.Value);
 
                     entitiesSeq.RemoveAt(i);
@@ -678,7 +720,11 @@ public static class ShipSaveYamlSanitizer
             if (compNode is not MappingDataNode compMap)
                 continue;
 
-            if (!compMap.TryGet("type", out ValueDataNode? typeNode) || typeNode == null || typeNode.Value != "SprayPainted")
+            if (
+                !compMap.TryGet("type", out ValueDataNode? typeNode)
+                || typeNode == null
+                || typeNode.Value != "SprayPainted"
+            )
                 continue;
 
             if (!compMap.TryGet("paintedPrototype", out ValueDataNode? styleNode) || styleNode == null)
@@ -766,8 +812,10 @@ public static class ShipSaveYamlSanitizer
 
         foreach (var (key, _) in compMap)
         {
-            if (key.EndsWith("ActionEntity", StringComparison.OrdinalIgnoreCase)
-                || key.EndsWith("ActionEntities", StringComparison.OrdinalIgnoreCase))
+            if (
+                key.EndsWith("ActionEntity", StringComparison.OrdinalIgnoreCase)
+                || key.EndsWith("ActionEntities", StringComparison.OrdinalIgnoreCase)
+            )
             {
                 removeKeys.Add(key);
             }
@@ -793,9 +841,7 @@ public static class ShipSaveYamlSanitizer
                 continue;
 
             var protoIsBlockedImplant = false;
-            if (protoMap.TryGet("proto", out ValueDataNode? protoIdNode)
-                && protoIdNode != null
-                && !protoIdNode.IsNull)
+            if (protoMap.TryGet("proto", out ValueDataNode? protoIdNode) && protoIdNode != null && !protoIdNode.IsNull)
             {
                 protoIsBlockedImplant = BlockedContainedImplantPrototypes.Contains(protoIdNode.Value);
             }
@@ -816,7 +862,10 @@ public static class ShipSaveYamlSanitizer
         return blockedImplantUids;
     }
 
-    private static bool HasBlockedContainedImplant(MappingDataNode entMap, HashSet<string> blockedContainedImplantEntityUids)
+    private static bool HasBlockedContainedImplant(
+        MappingDataNode entMap,
+        HashSet<string> blockedContainedImplantEntityUids
+    )
     {
         if (blockedContainedImplantEntityUids.Count == 0)
             return false;
@@ -829,7 +878,11 @@ public static class ShipSaveYamlSanitizer
             if (compNode is not MappingDataNode compMap)
                 continue;
 
-            if (!compMap.TryGet("type", out ValueDataNode? typeNode) || typeNode == null || typeNode.Value != "ContainerContainer")
+            if (
+                !compMap.TryGet("type", out ValueDataNode? typeNode)
+                || typeNode == null
+                || typeNode.Value != "ContainerContainer"
+            )
                 continue;
 
             if (!compMap.TryGet("containers", out MappingDataNode? containersMap) || containersMap == null)
@@ -838,7 +891,12 @@ public static class ShipSaveYamlSanitizer
             if (!containersMap.TryGet("implanter_slot", out MappingDataNode? slotMap) || slotMap == null)
                 continue;
 
-            if (slotMap.TryGet("ent", out ValueDataNode? entNode) && entNode != null && !entNode.IsNull && blockedContainedImplantEntityUids.Contains(entNode.Value))
+            if (
+                slotMap.TryGet("ent", out ValueDataNode? entNode)
+                && entNode != null
+                && !entNode.IsNull
+                && blockedContainedImplantEntityUids.Contains(entNode.Value)
+            )
                 return true;
 
             if (!slotMap.TryGet("ents", out SequenceDataNode? entsNode) || entsNode == null)
@@ -860,7 +918,8 @@ public static class ShipSaveYamlSanitizer
     private static void PruneContainerReferencesToRemovedEntities(
         SequenceDataNode protoSeq,
         HashSet<string> removedEntityUids,
-        HashSet<string> declaredEntityUids)
+        HashSet<string> declaredEntityUids
+    )
     {
         // A reference is stale if it points at an entity we explicitly removed during
         // sanitation, OR at an entity that was never declared in this save at all.
@@ -917,7 +976,11 @@ public static class ShipSaveYamlSanitizer
                                 }
                             }
 
-                            if (containerMap.TryGet("ent", out ValueDataNode? entNode) && entNode != null && !entNode.IsNull)
+                            if (
+                                containerMap.TryGet("ent", out ValueDataNode? entNode)
+                                && entNode != null
+                                && !entNode.IsNull
+                            )
                             {
                                 if (IsStale(entNode.Value))
                                     containerMap["ent"] = ValueDataNode.Null();
@@ -927,7 +990,11 @@ public static class ShipSaveYamlSanitizer
                         continue;
                     }
 
-                    if (componentType == "Storage" && compMap.TryGet("storedItems", out MappingDataNode? storedItemsMap) && storedItemsMap != null)
+                    if (
+                        componentType == "Storage"
+                        && compMap.TryGet("storedItems", out MappingDataNode? storedItemsMap)
+                        && storedItemsMap != null
+                    )
                     {
                         var removeKeys = new List<string>();
                         foreach (var (itemUid, _) in storedItemsMap)

@@ -11,8 +11,11 @@ namespace Content.Shared._NF.Clothing.EntitySystems;
 
 public sealed class EmitsSoundOnMoveSystem : EntitySystem
 {
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedGravitySystem _gravity = default!;
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedGravitySystem _gravity = default!;
 
     private EntityQuery<InputMoverComponent> _moverQuery;
     private EntityQuery<PhysicsComponent> _physicsQuery;
@@ -52,8 +55,7 @@ public sealed class EmitsSoundOnMoveSystem : EntitySystem
 
     private void UpdateSound(EntityUid uid, EmitsSoundOnMoveComponent component)
     {
-        if (!_xformQuery.TryGetComponent(uid, out var xform) ||
-            !_physicsQuery.TryGetComponent(uid, out var physics))
+        if (!_xformQuery.TryGetComponent(uid, out var xform) || !_physicsQuery.TryGetComponent(uid, out var physics))
             return;
 
         // Space does not transmit sound
@@ -65,17 +67,22 @@ public sealed class EmitsSoundOnMoveSystem : EntitySystem
 
         var parent = xform.ParentUid;
 
-        var isWorn = parent is { Valid: true } &&
-                     _clothingQuery.TryGetComponent(uid, out var clothing)
-                     && clothing.InSlot != null
-                     && component.IsSlotValid;
+        var isWorn =
+            parent is { Valid: true }
+            && _clothingQuery.TryGetComponent(uid, out var clothing)
+            && clothing.InSlot != null
+            && component.IsSlotValid;
         // If this entity is worn by another entity, use that entity's coordinates
         var coordinates = isWorn ? Transform(parent).Coordinates : xform.Coordinates;
-        var distanceNeeded = (isWorn && _moverQuery.TryGetComponent(parent, out var mover) && mover.Sprinting)
-            ? 1.5f // The parent is a mob that is currently sprinting
-            : 2f; // The parent is not a mob or is not sprinting
+        var distanceNeeded =
+            (isWorn && _moverQuery.TryGetComponent(parent, out var mover) && mover.Sprinting)
+                ? 1.5f // The parent is a mob that is currently sprinting
+                : 2f; // The parent is not a mob or is not sprinting
 
-        if (!coordinates.TryDistance(EntityManager, component.LastPosition, out var distance) || distance > distanceNeeded)
+        if (
+            !coordinates.TryDistance(EntityManager, component.LastPosition, out var distance)
+            || distance > distanceNeeded
+        )
             component.SoundDistance = distanceNeeded;
         else
             component.SoundDistance += distance;
@@ -86,9 +93,7 @@ public sealed class EmitsSoundOnMoveSystem : EntitySystem
         component.SoundDistance -= distanceNeeded;
 
         var sound = component.SoundCollection;
-        var audioParams = sound.Params
-            .WithVolume(sound.Params.Volume)
-            .WithVariation(sound.Params.Variation ?? 0f);
+        var audioParams = sound.Params.WithVolume(sound.Params.Volume).WithVariation(sound.Params.Variation ?? 0f);
 
         _audio.PlayPredicted(sound, uid, uid, audioParams);
     }

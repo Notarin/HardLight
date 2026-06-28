@@ -3,17 +3,17 @@
 - type: entity
   id: NFBaseMagazineRifle30
   name: magazine (.30 rifle)
-  parent: [ BaseC1Contraband, RecyclableItemSteelTiny, BaseMagazineLightRifle ]
+  parent: [BaseC1Contraband, RecyclableItemSteelTiny, BaseMagazineLightRifle]
   abstract: true
   components:
   - type: Tag
     tags:
-      - NFMagazineRifle30 # TODO: make it make sense, change the tags
+    - NFMagazineRifle30 # TODO: make it make sense, change the tags
   - type: BallisticAmmoProvider
     mayTransfer: true
     whitelist:
       tags:
-        - NFCartridgeRifle30
+      - NFCartridgeRifle30
     proto: NFCartridgeRifle30
     capacity: 30
   - type: Sprite
@@ -36,7 +36,7 @@
   components:
   - type: Tag
     tags:
-      - NFMagazineLowCapacityRifle30
+    - NFMagazineLowCapacityRifle30
   - type: Item
     size: Tiny
   - type: BallisticAmmoProvider
@@ -59,7 +59,7 @@
   components:
   - type: Tag
     tags:
-      - NFMagazineBoxRifle30
+    - NFMagazineBoxRifle30
   - type: BallisticAmmoProvider
     proto: NFCartridgeRifle30
     capacity: 100

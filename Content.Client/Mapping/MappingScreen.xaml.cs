@@ -18,7 +18,8 @@ namespace Content.Client.Mapping;
 [GenerateTypedNameReferences]
 public sealed partial class MappingScreen : InGameScreen
 {
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototype = default!;
 
     public DecalPlacementSystem DecalSystem = default!;
 
@@ -54,10 +55,7 @@ public sealed partial class MappingScreen : InGameScreen
         ScreenContainer.OnSplitResizeFinished += () =>
             OnChatResized?.Invoke(new Vector2(ScreenContainer.SplitFraction, 0));
 
-        var rotationSpinBox = new FloatSpinBox(90.0f, 0)
-        {
-            HorizontalExpand = true
-        };
+        var rotationSpinBox = new FloatSpinBox(90.0f, 0) { HorizontalExpand = true };
         DecalSpinBoxContainer.AddChild(rotationSpinBox);
 
         DecalColorPicker.OnColorChanged += OnDecalColorPicked;
@@ -129,7 +127,7 @@ public sealed partial class MappingScreen : InGameScreen
             _picker.OpenToLeft();
             _picker.PaletteList.OnItemSelected += args =>
             {
-                var color = ((Color?) args.ItemList.GetSelected().First().Metadata)!.Value;
+                var color = ((Color?)args.ItemList.GetSelected().First().Metadata)!.Value;
                 OnDecalColorPicked(color);
             };
 
@@ -176,8 +174,7 @@ public sealed partial class MappingScreen : InGameScreen
     {
         foreach (var control in Prototypes.Children)
         {
-            if (control is not MappingSpawnButton button ||
-                button.Prototype?.Prototype is not DecalPrototype)
+            if (control is not MappingSpawnButton button || button.Prototype?.Prototype is not DecalPrototype)
             {
                 continue;
             }

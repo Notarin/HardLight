@@ -8,8 +8,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: AmePartFlatpack
-        amount: 9
+    - id: AmePartFlatpack
+      amount: 9
 
 - type: entity
   id: CrateEngineeringAMEJar
@@ -19,8 +19,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: AmeJar
-        amount: 3
+    - id: AmeJar
+      amount: 3
 
 - type: entity
   id: CrateEngineeringAMEControl
@@ -30,7 +30,7 @@
   components:
   - type: StorageFill
     contents:
-      - id: AmeControllerUnanchoredFlatpack # Frontier - AmeControllerUnanchored to AmeControllerUnanchoredFlatpack
+    - id: AmeControllerUnanchoredFlatpack # Frontier - AmeControllerUnanchored to AmeControllerUnanchoredFlatpack
 
 # Singularity
 
@@ -42,7 +42,7 @@
   components:
   - type: StorageFill
     contents:
-      - id: EmitterFlatpack
+    - id: EmitterFlatpack
 
 - type: entity
   id: CrateEngineeringSingularityCollector
@@ -52,8 +52,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: RadiationCollectorFlatpack
-      - id: PlasmaTankFilled
+    - id: RadiationCollectorFlatpack
+    - id: PlasmaTankFilled
 
 - type: entity
   id: CrateEngineeringSingularityContainment
@@ -63,7 +63,7 @@
   components:
   - type: StorageFill
     contents:
-      - id: ContainmentFieldGeneratorFlatpack
+    - id: ContainmentFieldGeneratorFlatpack
 
 - type: entity
   id: CrateEngineeringSingularityGenerator
@@ -73,7 +73,7 @@
   components:
   - type: StorageFill
     contents:
-      - id: SingularityGeneratorFlatpack
+    - id: SingularityGeneratorFlatpack
 
 # Particle Accelerator
 
@@ -85,13 +85,13 @@
   components:
   - type: StorageFill
     contents:
-      - id: MachineParticleAcceleratorEndCapCircuitboard
-      - id: MachineParticleAcceleratorEmitterStarboardCircuitboard
-      - id: MachineParticleAcceleratorEmitterForeCircuitboard
-      - id: MachineParticleAcceleratorEmitterPortCircuitboard
-      - id: MachineParticleAcceleratorFuelChamberCircuitboard
-      - id: MachineParticleAcceleratorPowerBoxCircuitboard
-      - id: ParticleAcceleratorComputerCircuitboard
+    - id: MachineParticleAcceleratorEndCapCircuitboard
+    - id: MachineParticleAcceleratorEmitterStarboardCircuitboard
+    - id: MachineParticleAcceleratorEmitterForeCircuitboard
+    - id: MachineParticleAcceleratorEmitterPortCircuitboard
+    - id: MachineParticleAcceleratorFuelChamberCircuitboard
+    - id: MachineParticleAcceleratorPowerBoxCircuitboard
+    - id: ParticleAcceleratorComputerCircuitboard
 
 # Non-functional for some reason
 
@@ -109,12 +109,12 @@
 - type: entity
   id: CrateEngineeringGenerator
   parent: CrateEngineering
-  name:  generator crate
+  name: generator crate
   suffix: DEBUG
   components:
   - type: StorageFill
     contents:
-      - id: DebugGenerator # TODO change to flatpack
+    - id: DebugGenerator # TODO change to flatpack
 
 - type: entity
   id: CrateEngineeringSolar
@@ -124,10 +124,10 @@
   components:
   - type: StorageFill
     contents:
-      - id: SolarAssemblyFlatpack
-        amount: 10
-      - id: SheetGlass10
-        amount: 2
+    - id: SolarAssemblyFlatpack
+      amount: 10
+    - id: SheetGlass10
+      amount: 2
 
 - type: entity
   id: CrateEngineeringShuttle
@@ -137,10 +137,10 @@
   components:
   - type: StorageFill
     contents:
-      - id: WallmountSubstationElectronics
-#      - id: WallmountGeneratorAPUElectronics # Frontier
-      - id: HandheldGPSBasic
-      - id: InflatableDoorStack1
+    - id: WallmountSubstationElectronics
+      #      - id: WallmountGeneratorAPUElectronics # Frontier
+    - id: HandheldGPSBasic
+    - id: InflatableDoorStack1
 
 - type: entity
   id: CrateEngineeringTeslaGenerator
@@ -150,7 +150,7 @@
   components:
   - type: StorageFill
     contents:
-      - id: TeslaGeneratorFlatpack
+    - id: TeslaGeneratorFlatpack
 
 - type: entity
   id: CrateEngineeringTeslaCoil
@@ -160,7 +160,7 @@
   components:
   - type: StorageFill
     contents:
-      - id: TeslaCoilFlatpack
+    - id: TeslaCoilFlatpack
 
 - type: entity
   id: CrateEngineeringTeslaGroundingRod
@@ -170,4 +170,4 @@
   components:
   - type: StorageFill
     contents:
-      - id: TeslaGroundingRodFlatpack
+    - id: TeslaGroundingRodFlatpack

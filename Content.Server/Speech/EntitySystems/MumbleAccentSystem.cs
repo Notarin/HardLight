@@ -7,7 +7,8 @@ namespace Content.Server.Speech.EntitySystems;
 
 public sealed class MumbleAccentSystem : EntitySystem
 {
-    [Dependency] private readonly ReplacementAccentSystem _replacement = default!;
+    [Dependency]
+    private readonly ReplacementAccentSystem _replacement = default!;
 
     public override void Initialize()
     {

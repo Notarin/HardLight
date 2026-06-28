@@ -25,13 +25,21 @@ public sealed partial class MechAssemblyComponent : Component
     /// stored as a tag and a bool tracking whether or not
     /// they're present.
     /// </summary>
-    [DataField("requiredParts", required: true, customTypeSerializer: typeof(PrototypeIdDictionarySerializer<bool, TagPrototype>))]
+    [DataField(
+        "requiredParts",
+        required: true,
+        customTypeSerializer: typeof(PrototypeIdDictionarySerializer<bool, TagPrototype>)
+    )]
     public Dictionary<string, bool> RequiredParts = new();
 
     /// <summary>
     /// The prototype spawned when the assembly is finished
     /// </summary>
-    [DataField("finishedPrototype", required: true, customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
+    [DataField(
+        "finishedPrototype",
+        required: true,
+        customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>)
+    )]
     public string FinishedPrototype = default!;
 
     /// <summary>

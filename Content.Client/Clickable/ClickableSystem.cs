@@ -12,9 +12,14 @@ namespace Content.Client.Clickable;
 /// </summary>
 public sealed class ClickableSystem : EntitySystem
 {
-    [Dependency] private readonly IClickMapManager _clickMapManager = default!;
-    [Dependency] private readonly SharedTransformSystem _transforms = default!;
-    [Dependency] private readonly SpriteSystem _sprites = default!;
+    [Dependency]
+    private readonly IClickMapManager _clickMapManager = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transforms = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprites = default!;
 
     private EntityQuery<ClickableComponent> _clickableQuery;
     private EntityQuery<TransformComponent> _xformQuery;
@@ -37,7 +42,15 @@ public sealed class ClickableSystem : EntitySystem
     /// The draw depth for the sprite that captured the click.
     /// </param>
     /// <returns>True if the click worked, false otherwise.</returns>
-    public bool CheckClick(Entity<ClickableComponent?, SpriteComponent, TransformComponent?, FadingSpriteComponent?> entity, Vector2 worldPos, IEye eye, bool excludeFaded, out int drawDepth, out uint renderOrder, out float bottom)
+    public bool CheckClick(
+        Entity<ClickableComponent?, SpriteComponent, TransformComponent?, FadingSpriteComponent?> entity,
+        Vector2 worldPos,
+        IEye eye,
+        bool excludeFaded,
+        out int drawDepth,
+        out uint renderOrder,
+        out float bottom
+    )
     {
         if (!_clickableQuery.Resolve(entity.Owner, ref entity.Comp1, false))
         {
@@ -88,7 +101,10 @@ public sealed class ClickableSystem : EntitySystem
         var cardinalSnapping = sprite.SnapCardinals ? relativeRotation.GetCardinalDir().ToAngle() : Angle.Zero;
 
         // First we get `localPos`, the clicked location in the sprite-coordinate frame.
-        var entityXform = Matrix3Helpers.CreateInverseTransform(spritePos, sprite.NoRotation ? -eye.Rotation : spriteRot - cardinalSnapping);
+        var entityXform = Matrix3Helpers.CreateInverseTransform(
+            spritePos,
+            sprite.NoRotation ? -eye.Rotation : spriteRot - cardinalSnapping
+        );
         var localPos = Vector2.Transform(Vector2.Transform(worldPos, entityXform), invSpriteMatrix);
 
         // Check explicitly defined click-able bounds
@@ -107,7 +123,9 @@ public sealed class ClickableSystem : EntitySystem
             if (layer.Texture != null)
             {
                 // Convert to image coordinates
-                var imagePos = (Vector2i)(localPos * EyeManager.PixelsPerMeter * new Vector2(1, -1) + layer.Texture.Size / 2f);
+                var imagePos = (Vector2i)(
+                    localPos * EyeManager.PixelsPerMeter * new Vector2(1, -1) + layer.Texture.Size / 2f
+                );
 
                 if (_clickMapManager.IsOccluding(layer.Texture, imagePos))
                     return true;
@@ -125,7 +143,9 @@ public sealed class ClickableSystem : EntitySystem
             var layerLocal = Vector2.Transform(localPos, inverseMatrix);
 
             // Convert to image coordinates
-            var layerImagePos = (Vector2i)(layerLocal * EyeManager.PixelsPerMeter * new Vector2(1, -1) + rsiState.Size / 2f);
+            var layerImagePos = (Vector2i)(
+                layerLocal * EyeManager.PixelsPerMeter * new Vector2(1, -1) + rsiState.Size / 2f
+            );
 
             // Next, to get the right click map we need the "direction" of this layer that is actually being used to draw the sprite on the screen.
             // This **can** differ from the dir defined before, but can also just be the same.
@@ -143,7 +163,11 @@ public sealed class ClickableSystem : EntitySystem
         return false;
     }
 
-    public bool CheckDirBound(Entity<ClickableComponent, SpriteComponent> entity, Angle relativeRotation, Vector2 localPos)
+    public bool CheckDirBound(
+        Entity<ClickableComponent, SpriteComponent> entity,
+        Angle relativeRotation,
+        Vector2 localPos
+    )
     {
         var clickable = entity.Comp1;
         var sprite = entity.Comp2;
@@ -156,9 +180,7 @@ public sealed class ClickableSystem : EntitySystem
         // This would be the orientation of a 4-directional sprite.
         var direction = relativeRotation.GetCardinalDir();
 
-        var modLocalPos = sprite.NoRotation
-            ? localPos
-            : direction.ToAngle().RotateVec(localPos);
+        var modLocalPos = sprite.NoRotation ? localPos : direction.ToAngle().RotateVec(localPos);
 
         // First, check the bounding box that is valid for all orientations
         if (clickable.Bounds.All.Contains(modLocalPos))
@@ -171,7 +193,7 @@ public sealed class ClickableSystem : EntitySystem
             Direction.North => clickable.Bounds.North,
             Direction.South => clickable.Bounds.South,
             Direction.West => clickable.Bounds.West,
-            _ => throw new InvalidOperationException()
+            _ => throw new InvalidOperationException(),
         };
 
         return boundsForDir.Contains(modLocalPos);

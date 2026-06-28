@@ -4,7 +4,4 @@ using Robust.Shared.Serialization;
 namespace Content.Shared.FloofStation.Traits.Events;
 
 [Serializable, NetSerializable]
-public sealed partial class PissingDoAfterEvent : SimpleDoAfterEvent
-{
-}
-
+public sealed partial class PissingDoAfterEvent : SimpleDoAfterEvent { }

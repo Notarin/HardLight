@@ -5,8 +5,8 @@
   playTimeTracker: JobLawyer
   setPreference: true
   requirements:
-    - !type:OverallPlaytimeRequirement
-      time: 9000 # 2.5 hrs
+  - !type:OverallPlaytimeRequirement
+    time: 9000 # 2.5 hrs
   weight: 10 # HardLight
   startingGear: LawyerGear
   icon: "JobIconLawyer"
@@ -28,7 +28,7 @@
     id: LawyerPDA
     ears: ClothingHeadsetSecurity
   inhand:
-    - BriefcaseBrownFilled
+  - BriefcaseBrownFilled
   storage:
     back:
     - RubberStampLawyer

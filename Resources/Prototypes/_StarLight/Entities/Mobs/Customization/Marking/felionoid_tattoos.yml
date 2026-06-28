@@ -5,8 +5,7 @@
   speciesRestriction: [Felionoid]
   coloring:
     default:
-      type:
-        !type:TattooColoring
+      type: !type:TattooColoring
       fallbackColor: "#666666"
   sprites:
   - sprite: _Starlight/Mobs/Customization/felionoid_tattoos.rsi
@@ -19,8 +18,7 @@
   speciesRestriction: [Felionoid]
   coloring:
     default:
-      type:
-        !type:TattooColoring
+      type: !type:TattooColoring
       fallbackColor: "#666666"
   sprites:
   - sprite: _Starlight/Mobs/Customization/felionoid_tattoos.rsi
@@ -33,8 +31,7 @@
   speciesRestriction: [Felionoid]
   coloring:
     default:
-      type:
-        !type:TattooColoring
+      type: !type:TattooColoring
       fallbackColor: "#666666"
   sprites:
   - sprite: _Starlight/Mobs/Customization/felionoid_tattoos.rsi
@@ -47,8 +44,7 @@
   speciesRestriction: [Felionoid]
   coloring:
     default:
-      type:
-        !type:TattooColoring
+      type: !type:TattooColoring
       fallbackColor: "#666666"
   sprites:
   - sprite: _Starlight/Mobs/Customization/felionoid_tattoos.rsi

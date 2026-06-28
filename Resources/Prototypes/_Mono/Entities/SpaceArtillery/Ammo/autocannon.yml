@@ -4,7 +4,7 @@
   id: 20mmBulletBase
   parent: BaseBullet
   abstract: true
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -62,7 +62,7 @@
   id: 57mmBulletArmorPiercing
   name: 57mm AP bullet
   parent: 20mmBulletBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -83,7 +83,7 @@
   id: 20mmBulletArmorPiercing
   name: 20mm AP bullet
   parent: 20mmBulletBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:

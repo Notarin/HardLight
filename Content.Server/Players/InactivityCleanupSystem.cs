@@ -16,10 +16,17 @@ namespace Content.Server.Players;
 /// </summary>
 public sealed class InactivityCleanupSystem : EntitySystem
 {
-    [Dependency] private readonly IAfkManager _afkManager = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly MindSystem _mindSystem = default!;
+    [Dependency]
+    private readonly IAfkManager _afkManager = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly MindSystem _mindSystem = default!;
 
     private readonly Dictionary<NetUserId, TimeSpan> _afkSince = new();
     private readonly Dictionary<NetUserId, TimeSpan> _offlineSince = new();
@@ -73,7 +80,6 @@ public sealed class InactivityCleanupSystem : EntitySystem
         _afkSince.Remove(userId);
     }
 
-
     public override void Update(float frameTime)
     {
         base.Update(frameTime);
@@ -98,7 +104,10 @@ public sealed class InactivityCleanupSystem : EntitySystem
                 continue;
             }
 
-            if (!_playerManager.TryGetSessionById(userId, out var session) || session.Status == SessionStatus.Disconnected)
+            if (
+                !_playerManager.TryGetSessionById(userId, out var session)
+                || session.Status == SessionStatus.Disconnected
+            )
                 continue;
 
             if (_afkSince.TryGetValue(userId, out var afkAt))
@@ -131,7 +140,9 @@ public sealed class InactivityCleanupSystem : EntitySystem
         if (HasComp<GhostComponent>(target.Value))
             return;
 
-        Log.Info($"Inactivity cleanup: deleting {ToPrettyString(target.Value)} for mind {ToPrettyString(mindId)} due to {reason}.");
+        Log.Info(
+            $"Inactivity cleanup: deleting {ToPrettyString(target.Value)} for mind {ToPrettyString(mindId)} due to {reason}."
+        );
         QueueDel(target.Value);
     }
 }

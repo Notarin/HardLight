@@ -11,19 +11,18 @@
     size: Normal
   - type: Tag
     tags:
-      - DroneUsable
-      - RawMaterial
-      - NoPaint
+    - DroneUsable
+    - RawMaterial
+    - NoPaint
   - type: Damageable
     damageContainer: Inorganic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
 
 - type: entity
   parent: MaterialBase
@@ -95,7 +94,7 @@
   - type: ConstructionMaterials # Frontier
   - type: Healing
     damageContainers:
-      - Biological
+    - Biological
     damage:
       types:
         Slash: -0.5
@@ -147,11 +146,11 @@
           Quantity: 5
   - type: Tag
     tags:
-      - ClothMade
-      - DroneUsable
-      - Gauze
-      - RawMaterial
-      - TiderAnvilParts
+    - ClothMade
+    - DroneUsable
+    - Gauze
+    - RawMaterial
+    - TiderAnvilParts
   - type: Construction
     graph: WebObjects # not sure if I should either keep this here or just make another prototype. Will keep it here just in case.
     node: cloth
@@ -216,9 +215,9 @@
           Quantity: 5
   - type: Tag
     tags:
-      - ClothMade
-      - DroneUsable
-      - RawMaterial
+    - ClothMade
+    - DroneUsable
+    - RawMaterial
   - type: Item
     heldPrefix: durathread
 
@@ -334,9 +333,9 @@
   - type: Sprite
     sprite: Objects/Materials/materials.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: bearpelt
-    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+    - map: ["enum.DamageStateVisualLayers.BaseUnshaded"]
       state: bearpelt_glow
       shader: unshaded
   - type: Item
@@ -346,7 +345,7 @@
     sprite: Clothing/Head/Misc/hides.rsi
     equippedPrefix: bear
     slots:
-      - HEAD
+    - HEAD
   - type: PointLight
     radius: 1.2
     energy: 1.5
@@ -455,9 +454,9 @@
         Quantity: 3
   - type: Tag
     tags:
-      - DroneUsable
-      - ClothMade
-      - RawMaterial
+    - DroneUsable
+    - ClothMade
+    - RawMaterial
   - type: Item
     heldPrefix: cotton
   - type: MothFood # Frontier
@@ -511,8 +510,8 @@
         Quantity: 3
   - type: Tag
     tags:
-      - ClothMade
-      - RawMaterial
+    - ClothMade
+    - RawMaterial
   - type: Item
     heldPrefix: pyrotton
   - type: MothFood # Frontier
@@ -548,11 +547,11 @@
     count: 10
     baseLayer: base
     layerStates:
-      - bananium
-      - bananium_1
+    - bananium
+    - bananium_1
   - type: FlavorProfile
     flavors:
-      - banana
+    - banana
   - type: Food
     trash:
     - TrashBananiumPeel
@@ -611,9 +610,9 @@
     requiresSpecialDigestion: true
   - type: FlavorProfile
     flavors:
-      - cobwebs
+    - cobwebs
     ignoreReagents:
-      - Fiber
+    - Fiber
   - type: Extractable
     juiceSolution:
       reagents:
@@ -628,9 +627,9 @@
           Quantity: 3
   - type: Tag
     tags:
-      - ClothMade
-      - DroneUsable
-      - RawMaterial
+    - ClothMade
+    - DroneUsable
+    - RawMaterial
   - type: Item
     sprite: Objects/Materials/silk.rsi
     heldPrefix: silk
@@ -662,7 +661,7 @@
     sprite: Objects/Materials/Mob/carptooth.rsi
     layers:
     - state: tooth
-      map: [ "base" ]
+      map: ["base"]
   - type: Item
     sprite: Objects/Materials/Mob/carptooth.rsi
     size: Normal
@@ -690,7 +689,7 @@
     count: 1
 
 - type: entity
-  parent: [ MaterialBase, BaseKnife ]
+  parent: [MaterialBase, BaseKnife]
   id: MaterialToothSharkminnow
   name: sharkminnow tooth
   description: Looks sharp. Sharp enough to poke someone's eye out. Holy fuck it's big.
@@ -700,7 +699,7 @@
     sprite: Objects/Materials/Mob/sharktooth.rsi
     layers:
     - state: tooth
-      map: [ "base" ]
+      map: ["base"]
   - type: Item
     sprite: Objects/Materials/Mob/sharktooth.rsi
     size: Normal
@@ -802,7 +801,7 @@
     sprite: Objects/Materials/hide.rsi
     layers:
     - state: goliath_hide
-      map: [ "base" ]
+      map: ["base"]
   - type: StaticPrice
     price: 0
   - type: StackPrice

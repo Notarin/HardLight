@@ -7,8 +7,11 @@ namespace Content.Client.DisplacementMap;
 
 public sealed class DisplacementMapSystem : EntitySystem
 {
-    [Dependency] private readonly ISerializationManager _serialization = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly ISerializationManager _serialization = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     /// <summary>
     /// Attempting to apply a displacement map to a specific layer of SpriteComponent
@@ -19,11 +22,13 @@ public sealed class DisplacementMapSystem : EntitySystem
     /// <param name="key">Unique layer key, which will determine which layer to apply displacement map to</param>
     /// <param name="displacementKey">The key of the new displacement map layer added by this function.</param>
     /// <returns></returns>
-    public bool TryAddDisplacement(DisplacementData data,
+    public bool TryAddDisplacement(
+        DisplacementData data,
         Entity<SpriteComponent> sprite,
         int index,
         object key,
-        out string displacementKey)
+        out string displacementKey
+    )
     {
         displacementKey = $"{key}-displacement";
 
@@ -61,7 +66,8 @@ public sealed class DisplacementMapSystem : EntitySystem
             if (actualRSI.Size.X != actualRSI.Size.Y)
             {
                 Log.Warning(
-                    $"DISPLACEMENT: {displacementKey} has a resolution that is not 1:1, things can look crooked");
+                    $"DISPLACEMENT: {displacementKey} has a resolution that is not 1:1, things can look crooked"
+                );
             }
 
             var layerSize = actualRSI.Size.X;
@@ -80,11 +86,13 @@ public sealed class DisplacementMapSystem : EntitySystem
 
     /// <inheritdoc cref="TryAddDisplacement"/>
     [Obsolete("Use the Entity<SpriteComponent> overload")]
-    public bool TryAddDisplacement(DisplacementData data,
+    public bool TryAddDisplacement(
+        DisplacementData data,
         SpriteComponent sprite,
         int index,
         object key,
-        out string displacementKey)
+        out string displacementKey
+    )
     {
         return TryAddDisplacement(data, (sprite.Owner, sprite), index, key, out displacementKey);
     }

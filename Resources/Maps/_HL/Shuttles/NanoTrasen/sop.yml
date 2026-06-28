@@ -13412,9 +13412,7 @@ entities:
         - ClothingSpeedModifier
         entries:
         - message: >-
-            It provides the following protection:
-
-            - [color=orange]Explosion[/color] damage [color=white]to contents[/color] reduced by [color=lightblue]10%[/color].
+            It provides the following protection: #magic___^_^___line - [color=orange]Explosion[/color] damage [color=white]to contents[/color] reduced by [color=lightblue]10%[/color].
           priority: 0
           component: Armor
         - message: This decreases your running speed by [color=yellow]10%[/color].
@@ -30315,12 +30313,10 @@ entities:
         stampType: RubberStamp
         stampedColor: '#2A61BEFF'
         stampedName: Nanotrasen Fleet Command
-      content: >+
+      content: >
         Weekly Movie Budget only permits one popcorn per seat per week. Please only consume popcorn during Nanotrasen Approved Viewing Sessions.
 
-
         We are looking into raising budget to include a full popcorn machine.
-
 
       editingDisabled: True
     - type: Tag
@@ -39041,4 +39037,3 @@ entities:
     - type: Transform
       pos: 11.37603,-53.92392
       parent: 1
-...

@@ -1,5 +1,5 @@
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseBullet
   id: Bullet127x99mm
   name: bullet (127x99mm anti-material)
@@ -14,7 +14,7 @@
   id: Bullet127x99mmImprovised
   name: bullet (12.7x99mm improvised)
   parent: BaseBullet
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -24,7 +24,7 @@
         Structural: 340
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseBulletTrigger
   id: Bullet127x99mmExplosive
   name: bullet (127x99mm high-explosive)

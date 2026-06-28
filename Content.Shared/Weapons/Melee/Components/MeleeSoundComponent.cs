@@ -14,20 +14,25 @@ public sealed partial class MeleeSoundComponent : Component
     /// Specified sounds to apply when the entity takes damage with the specified group.
     /// Will fallback to defaults if none specified.
     /// </summary>
-    [DataField("soundGroups",
-        customTypeSerializer: typeof(PrototypeIdDictionarySerializer<SoundSpecifier, DamageGroupPrototype>))]
+    [DataField(
+        "soundGroups",
+        customTypeSerializer: typeof(PrototypeIdDictionarySerializer<SoundSpecifier, DamageGroupPrototype>)
+    )]
     public Dictionary<string, SoundSpecifier>? SoundGroups;
 
     /// <summary>
     /// Specified sounds to apply when the entity takes damage with the specified type.
     /// Will fallback to defaults if none specified.
     /// </summary>
-    [DataField("soundTypes",
-        customTypeSerializer: typeof(PrototypeIdDictionarySerializer<SoundSpecifier, DamageTypePrototype>))]
+    [DataField(
+        "soundTypes",
+        customTypeSerializer: typeof(PrototypeIdDictionarySerializer<SoundSpecifier, DamageTypePrototype>)
+    )]
     public Dictionary<string, SoundSpecifier>? SoundTypes;
 
     /// <summary>
     /// Sound that plays if no damage is done.
     /// </summary>
-    [DataField("noDamageSound")] public SoundSpecifier? NoDamageSound;
+    [DataField("noDamageSound")]
+    public SoundSpecifier? NoDamageSound;
 }

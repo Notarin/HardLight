@@ -42,12 +42,16 @@ namespace Content.Server.Shuttles.Components
 
         [DataField, ViewVariables(VVAccess.ReadWrite)]
         public InertiaDampeningMode DampeningMode = InertiaDampeningMode.Dampen;
+
         // End Frontier
 
         /// <summary>
         /// Tracks cooldown between expedition disk activations on this console.
         /// </summary>
-        [ViewVariables(VVAccess.ReadWrite), DataField("expeditionCooldownEnd", customTypeSerializer: typeof(TimeOffsetSerializer))]
+        [
+            ViewVariables(VVAccess.ReadWrite),
+            DataField("expeditionCooldownEnd", customTypeSerializer: typeof(TimeOffsetSerializer))
+        ]
         [AutoPausedField]
         public TimeSpan ExpeditionCooldownEnd = TimeSpan.Zero;
 

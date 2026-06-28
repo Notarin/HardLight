@@ -1,16 +1,19 @@
+using Content.Shared.Examine;
 using Content.Shared.IdentityManagement;
+using Content.Shared.Interaction;
 using Content.Shared.Tools.Components;
 using Content.Shared.Tools.Systems;
-using Content.Shared.Interaction;
-using Content.Shared.Examine;
 using Content.Shared.Verbs;
 
 namespace Content.Shared.Tools.EntitySystems;
 
 public sealed class ToolOpenableSystem : EntitySystem
 {
-    [Dependency] private readonly SharedToolSystem _tool = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+    [Dependency]
+    private readonly SharedToolSystem _tool = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
 
     public override void Initialize()
     {
@@ -43,7 +46,9 @@ public sealed class ToolOpenableSystem : EntitySystem
     /// <returns> Returns false if you can't interact with the openable thing with the given item. </returns>
     private bool TryOpenClose(Entity<ToolOpenableComponent> entity, EntityUid? toolToToggle, EntityUid user)
     {
-        var neededToolQuantity = entity.Comp.IsOpen ? entity.Comp.CloseToolQualityNeeded : entity.Comp.OpenToolQualityNeeded;
+        var neededToolQuantity = entity.Comp.IsOpen
+            ? entity.Comp.CloseToolQualityNeeded
+            : entity.Comp.OpenToolQualityNeeded;
         var time = entity.Comp.IsOpen ? entity.Comp.CloseTime : entity.Comp.OpenTime;
         var evt = new ToolOpenableDoAfterEventToggleOpen();
 
@@ -54,7 +59,10 @@ public sealed class ToolOpenableSystem : EntitySystem
         return _tool.UseTool(toolToToggle.Value, user, entity, time, neededToolQuantity, evt);
     }
 
-    private void OnOpenableStateToggled(Entity<ToolOpenableComponent> entity, ref ToolOpenableDoAfterEventToggleOpen args)
+    private void OnOpenableStateToggled(
+        Entity<ToolOpenableComponent> entity,
+        ref ToolOpenableDoAfterEventToggleOpen args
+    )
     {
         if (args.Cancelled)
             return;
@@ -91,7 +99,11 @@ public sealed class ToolOpenableSystem : EntitySystem
 
     private void UpdateAppearance(Entity<ToolOpenableComponent> entity)
     {
-        _appearance.SetData(entity, ToolOpenableVisuals.ToolOpenableVisualState, entity.Comp.IsOpen ? ToolOpenableVisualState.Open : ToolOpenableVisualState.Closed);
+        _appearance.SetData(
+            entity,
+            ToolOpenableVisuals.ToolOpenableVisualState,
+            entity.Comp.IsOpen ? ToolOpenableVisualState.Open : ToolOpenableVisualState.Closed
+        );
     }
 
     #endregion
@@ -122,10 +134,7 @@ public sealed class ToolOpenableSystem : EntitySystem
         var item = args.Using;
         var name = GetName(entity);
 
-        var toggleVerb = new InteractionVerb
-        {
-            IconEntity = GetNetEntity(item)
-        };
+        var toggleVerb = new InteractionVerb { IconEntity = GetNetEntity(item) };
 
         if (entity.Comp.IsOpen)
         {
@@ -133,8 +142,7 @@ public sealed class ToolOpenableSystem : EntitySystem
             var neededQual = entity.Comp.CloseToolQualityNeeded;
 
             // If neededQual is null you don't need a tool to open / close.
-            if (neededQual != null &&
-                (item == null || !_tool.HasQuality(item.Value, neededQual)))
+            if (neededQual != null && (item == null || !_tool.HasQuality(item.Value, neededQual)))
             {
                 toggleVerb.Disabled = true;
                 toggleVerb.Message = Loc.GetString("tool-openable-component-verb-cant-close", ("name", name));

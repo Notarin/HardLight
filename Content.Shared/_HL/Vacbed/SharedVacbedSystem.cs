@@ -13,10 +13,17 @@ namespace Content.Shared._HL.Vacbed;
 
 public abstract partial class SharedVacbedSystem : EntitySystem
 {
-    [Dependency] private readonly SharedContainerSystem _containerSystem = default!;
-    [Dependency] private readonly StandingStateSystem _standingStateSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearanceSystem = default!;
+    [Dependency]
+    private readonly SharedContainerSystem _containerSystem = default!;
+
+    [Dependency]
+    private readonly StandingStateSystem _standingStateSystem = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearanceSystem = default!;
 
     public override void Initialize()
     {
@@ -35,7 +42,11 @@ public abstract partial class SharedVacbedSystem : EntitySystem
         args.Handled = true;
     }
 
-    protected void UpdateAppearance(EntityUid uid, VacbedComponent? vacbed = null, AppearanceComponent? appearance = null)
+    protected void UpdateAppearance(
+        EntityUid uid,
+        VacbedComponent? vacbed = null,
+        AppearanceComponent? appearance = null
+    )
     {
         if (!Resolve(uid, ref vacbed))
             return;
@@ -43,7 +54,12 @@ public abstract partial class SharedVacbedSystem : EntitySystem
         if (!Resolve(uid, ref appearance))
             return;
 
-        _appearanceSystem.SetData(uid, VacbedComponent.VacbedVisuals.ContainsEntity, vacbed.BodyContainer.ContainedEntity == null, appearance);
+        _appearanceSystem.SetData(
+            uid,
+            VacbedComponent.VacbedVisuals.ContainsEntity,
+            vacbed.BodyContainer.ContainedEntity == null,
+            appearance
+        );
     }
 
     protected void OnComponentInit(EntityUid uid, VacbedComponent vacbedComponent, ComponentInit args)
@@ -106,25 +122,29 @@ public abstract partial class SharedVacbedSystem : EntitySystem
         return contained;
     }
 
-    protected void AddAlternativeVerbs(EntityUid uid, VacbedComponent vacbedComponent, GetVerbsEvent<AlternativeVerb> args)
+    protected void AddAlternativeVerbs(
+        EntityUid uid,
+        VacbedComponent vacbedComponent,
+        GetVerbsEvent<AlternativeVerb> args
+    )
     {
         if (!args.CanAccess || !args.CanInteract || args.User == vacbedComponent.BodyContainer.ContainedEntity)
             return;
 
-        if(vacbedComponent.BodyContainer.ContainedEntity != null)
+        if (vacbedComponent.BodyContainer.ContainedEntity != null)
         {
-            args.Verbs.Add(new AlternativeVerb
-            {
-                Text = "Eject", //todo loc string
-                Category = VerbCategory.Eject,
-                Priority = 1,
-                Act = () => TryEjectBody(uid, args.User, vacbedComponent)
-            });
+            args.Verbs.Add(
+                new AlternativeVerb
+                {
+                    Text = "Eject", //todo loc string
+                    Category = VerbCategory.Eject,
+                    Priority = 1,
+                    Act = () => TryEjectBody(uid, args.User, vacbedComponent),
+                }
+            );
         }
     }
 
     [Serializable, NetSerializable]
-    public sealed partial class VacbedDragFinished : SimpleDoAfterEvent
-    {
-    }
+    public sealed partial class VacbedDragFinished : SimpleDoAfterEvent { }
 }

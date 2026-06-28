@@ -10,7 +10,8 @@ namespace Content.IntegrationTests.Tests
     public sealed class HumanInventoryUniformSlotsTest
     {
         [TestPrototypes]
-        private const string Prototypes = @"
+        private const string Prototypes =
+            @"
 - type: entity
   name: HumanUniformDummy
   id: HumanUniformDummy
@@ -52,6 +53,7 @@ namespace Content.IntegrationTests.Tests
   - type: Item
     size: Huge
 ";
+
         [Test]
         public async Task Test()
         {
@@ -78,7 +80,6 @@ namespace Content.IntegrationTests.Tests
                 idCard = entityMan.SpawnEntity("IDCardDummy", coordinates);
                 pocketItem = entityMan.SpawnEntity("FlashlightDummy", coordinates);
                 var tooBigItem = entityMan.SpawnEntity("ToolboxDummy", coordinates);
-
 
                 Assert.Multiple(() =>
                 {

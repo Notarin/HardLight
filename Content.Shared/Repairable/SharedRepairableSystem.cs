@@ -13,8 +13,5 @@ namespace Content.Shared.Repairable;
 public abstract partial class SharedRepairableSystem : EntitySystem
 {
     [Serializable, NetSerializable]
-    public sealed partial class RepairFinishedEvent : SimpleDoAfterEvent
-    {
-    }
+    public sealed partial class RepairFinishedEvent : SimpleDoAfterEvent { }
 }
-

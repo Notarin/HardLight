@@ -37,7 +37,8 @@ public sealed class DirectionIcon : TextureRect
         SetOnlyStyleClass(StyleClassDirectionIconUnknown);
     }
 
-    public DirectionIcon(bool snap = true, float minDistance = 0.1f) : this()
+    public DirectionIcon(bool snap = true, float minDistance = 0.1f)
+        : this()
     {
         _snap = snap;
         _minDistance = minDistance;

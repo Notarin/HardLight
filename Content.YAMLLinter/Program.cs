@@ -1,24 +1,25 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using System.IO;
 using Content.IntegrationTests;
+using NUnit.Framework.Api;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Reflection;
 using Robust.Shared.Serialization.Markdown.Validation;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 using Robust.UnitTesting;
-using NUnit.Framework.Api;
 
 namespace Content.YAMLLinter
 {
     internal static class Program
     {
         private static readonly List<string> LogBuffer = new();
-        private static string ResultsPath => Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "yaml_lint_results.txt");
+        private static string ResultsPath =>
+            Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "yaml_lint_results.txt");
 
         private static void Out(string message)
         {
@@ -67,7 +68,9 @@ namespace Content.YAMLLinter
             {
                 foreach (var errorNode in errorHashset)
                 {
-                    Out($"::error file={file},line={errorNode.Node.Start.Line},col={errorNode.Node.Start.Column}::{file}({errorNode.Node.Start.Line},{errorNode.Node.Start.Column})  {errorNode.ErrorReason}");
+                    Out(
+                        $"::error file={file},line={errorNode.Node.Start.Line},col={errorNode.Node.Start.Column}::{file}({errorNode.Node.Start.Line},{errorNode.Node.Start.Column})  {errorNode.ErrorReason}"
+                    );
                 }
             }
 
@@ -82,8 +85,11 @@ namespace Content.YAMLLinter
             return -1;
         }
 
-        private static async Task<(Dictionary<string, HashSet<ErrorNode>> YamlErrors, List<string> FieldErrors, Assembly[] Assemblies)>
-            ValidateClient()
+        private static async Task<(
+            Dictionary<string, HashSet<ErrorNode>> YamlErrors,
+            List<string> FieldErrors,
+            Assembly[] Assemblies
+        )> ValidateClient()
         {
             await using var pair = await PoolManager.GetServerClient();
             var result = await ValidateInstance(pair.Client);
@@ -91,8 +97,11 @@ namespace Content.YAMLLinter
             return result;
         }
 
-        private static async Task<(Dictionary<string, HashSet<ErrorNode>> YamlErrors, List<string> FieldErrors, Assembly[] Assemblies)>
-            ValidateServer()
+        private static async Task<(
+            Dictionary<string, HashSet<ErrorNode>> YamlErrors,
+            List<string> FieldErrors,
+            Assembly[] Assemblies
+        )> ValidateServer()
         {
             await using var pair = await PoolManager.GetServerClient();
             var result = await ValidateInstance(pair.Server);
@@ -101,7 +110,8 @@ namespace Content.YAMLLinter
         }
 
         private static async Task<(Dictionary<string, HashSet<ErrorNode>>, List<string>, Assembly[])> ValidateInstance(
-            RobustIntegrationTest.IntegrationInstance instance)
+            RobustIntegrationTest.IntegrationInstance instance
+        )
         {
             var protoMan = instance.ResolveDependency<IPrototypeManager>();
             var refl = instance.ResolveDependency<IReflectionManager>();
@@ -138,8 +148,10 @@ namespace Content.YAMLLinter
             return (yamlErrors, fieldErrors, assemblies);
         }
 
-        public static async Task<(Dictionary<string, HashSet<ErrorNode>> YamlErrors, List<string> FieldErrors)>
-            RunValidation()
+        public static async Task<(
+            Dictionary<string, HashSet<ErrorNode>> YamlErrors,
+            List<string> FieldErrors
+        )> RunValidation()
         {
             var serverTask = ValidateServer();
             var clientTask = ValidateClient();
@@ -166,7 +178,10 @@ namespace Content.YAMLLinter
                 // Include any errors that relate to server-only types
                 foreach (var errorNode in val)
                 {
-                    if (errorNode is FieldNotFoundErrorNode fieldNotFoundNode && !clientTypes.Contains(fieldNotFoundNode.FieldType.Name))
+                    if (
+                        errorNode is FieldNotFoundErrorNode fieldNotFoundNode
+                        && !clientTypes.Contains(fieldNotFoundNode.FieldType.Name)
+                    )
                     {
                         newErrors.Add(errorNode);
                     }
@@ -191,7 +206,10 @@ namespace Content.YAMLLinter
                 // Include any errors that relate to client-only types
                 foreach (var errorNode in val)
                 {
-                    if (errorNode is FieldNotFoundErrorNode fieldNotFoundNode && !serverTypes.Contains(fieldNotFoundNode.FieldType.Name))
+                    if (
+                        errorNode is FieldNotFoundErrorNode fieldNotFoundNode
+                        && !serverTypes.Contains(fieldNotFoundNode.FieldType.Name)
+                    )
                     {
                         newErrors.Add(errorNode);
                     }
@@ -199,10 +217,7 @@ namespace Content.YAMLLinter
             }
 
             // Finally, combine the prototype ID field errors.
-            var fieldErrors = serverFieldErrors
-                .Concat(clientFieldErrors)
-                .Distinct()
-                .ToList();
+            var fieldErrors = serverFieldErrors.Concat(clientFieldErrors).Distinct().ToList();
 
             return (yamlErrors, fieldErrors);
         }

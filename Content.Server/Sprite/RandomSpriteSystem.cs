@@ -7,10 +7,13 @@ using Robust.Shared.Random;
 
 namespace Content.Server.Sprite;
 
-public sealed class RandomSpriteSystem: SharedRandomSpriteSystem
+public sealed class RandomSpriteSystem : SharedRandomSpriteSystem
 {
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototype = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
 
     public override void Initialize()
     {
@@ -69,7 +72,9 @@ public sealed class RandomSpriteSystem: SharedRandomSpriteSystem
                     // End Frontier
                     else
                     {
-                        color = _random.Pick(_prototype.Index<ColorPalettePrototype>(selectedState.Value).Colors.Values);
+                        color = _random.Pick(
+                            _prototype.Index<ColorPalettePrototype>(selectedState.Value).Colors.Values
+                        );
                         previousColor = color;
                     }
                 }
@@ -83,9 +88,6 @@ public sealed class RandomSpriteSystem: SharedRandomSpriteSystem
 
     private void OnGetState(EntityUid uid, RandomSpriteComponent component, ref ComponentGetState args)
     {
-        args.State = new RandomSpriteColorComponentState()
-        {
-            Selected = component.Selected,
-        };
+        args.State = new RandomSpriteColorComponentState() { Selected = component.Selected };
     }
 }

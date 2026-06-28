@@ -10,7 +10,8 @@ public sealed partial class DragonRiftComponent : SharedDragonRiftComponent
     /// <summary>
     /// Dragon that spawned this rift.
     /// </summary>
-    [DataField("dragon")] public EntityUid? Dragon;
+    [DataField("dragon")]
+    public EntityUid? Dragon;
 
     /// <summary>
     /// How long the rift has been active.
@@ -21,7 +22,8 @@ public sealed partial class DragonRiftComponent : SharedDragonRiftComponent
     /// <summary>
     /// The maximum amount we can accumulate before becoming impervious.
     /// </summary>
-    [ViewVariables(VVAccess.ReadWrite), DataField("maxAccumuluator")] public float MaxAccumulator = 300f;
+    [ViewVariables(VVAccess.ReadWrite), DataField("maxAccumuluator")]
+    public float MaxAccumulator = 300f;
 
     /// <summary>
     /// Accumulation of the spawn timer.
@@ -35,6 +37,9 @@ public sealed partial class DragonRiftComponent : SharedDragonRiftComponent
     [ViewVariables(VVAccess.ReadWrite), DataField("spawnCooldown")]
     public float SpawnCooldown = 30f;
 
-    [ViewVariables(VVAccess.ReadWrite), DataField("spawnPrototype", customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
+    [
+        ViewVariables(VVAccess.ReadWrite),
+        DataField("spawnPrototype", customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))
+    ]
     public string SpawnPrototype = "MobCarpDragon";
 }

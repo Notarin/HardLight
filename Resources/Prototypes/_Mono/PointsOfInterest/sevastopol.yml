@@ -6,7 +6,7 @@
   name: 'Sevastopol Data Storage Center'
   minimumDistance: 3500
   maximumDistance: 7500
-  spawnGamePreset: [ NFAdventure, NFPirate ]
+  spawnGamePreset: [NFAdventure, NFPirate]
   spawnGroup: Required
   gridPath: /Maps/_Mono/POI/sevastopol.yml
   addComponents:
@@ -22,7 +22,7 @@
     Sevastopol:
       stationProto: RecordsFrontierOutpostCargo
       components:
-        - type: StationNameSetup
-          mapNameTemplate: 'Sevastopol Data Storage Center'
-        - type: StationDeadDrop
-          maxDeadDrops: 6
+      - type: StationNameSetup
+        mapNameTemplate: 'Sevastopol Data Storage Center'
+      - type: StationDeadDrop
+        maxDeadDrops: 6

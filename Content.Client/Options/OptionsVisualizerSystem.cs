@@ -17,9 +17,14 @@ public sealed class OptionsVisualizerSystem : EntitySystem
         (OptionVisualizerOptions.Arachnophobia, CCVars.AccessibilityArachnophobia), // Starlight
     };
 
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IReflectionManager _reflection = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
+
+    [Dependency]
+    private readonly IReflectionManager _reflection = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     private OptionVisualizerOptions _currentOptions;
 
@@ -104,4 +109,3 @@ public sealed class OptionsVisualizerSystem : EntitySystem
         }
     }
 }
-

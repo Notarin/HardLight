@@ -14,8 +14,8 @@
   parent: ShipyardRCD
   suffix: Empty
   components:
-    - type: LimitedCharges
-      lastCharges: -1
+  - type: LimitedCharges
+    lastCharges: -1
 
 - type: entity
   name: shipyard compressed matter
@@ -59,7 +59,7 @@
     - suitStorage
   - type: Tool
     qualities:
-      - Axing
+    - Axing
   - type: ToolTileCompatible
   - type: UseDelay
     delay: 1
@@ -121,58 +121,58 @@
     - Pickaxe
   - type: Tool
     qualities:
-      - Digging
+    - Digging
     speedModifier: 0.4
     useSound:
       path: /Audio/Items/shovel_dig.ogg
   - type: MultipleTool
     statusShowBehavior: true
     entries:
-      - behavior: Digging
-        sprite:
-          sprite: _NF/Objects/Tools/cm-shovel.rsi
-          state: icon
-        useSound:
-          path: /Audio/Items/shovel_dig.ogg
-        changeSound:
-          path: /Audio/Items/shovel_dig.ogg
-      - behavior: Screwing
-        sprite:
-          sprite: _NF/Objects/Tools/cm-shovel.rsi
-          state: icon
-        useSound:
-          path: /Audio/Items/screwdriver.ogg
-        changeSound:
-          path: /Audio/Items/shovel_dig.ogg
-      - behavior: Anchoring
-        sprite:
-          sprite: _NF/Objects/Tools/cm-shovel.rsi
-          state: icon
-        useSound:
-          path: /Audio/Items/ratchet.ogg
-        changeSound:
-          path: /Audio/Items/shovel_dig.ogg
-      - behavior: 
-        - Prying
-        - Axing
-        sprite:
-          sprite: _NF/Objects/Tools/cm-shovel.rsi
-          state: icon
-        useSound:
-          path: /Audio/Items/crowbar.ogg
-        changeSound:
-          path: /Audio/Items/shovel_dig.ogg
-      - behavior: 
-        - Cutting
-        - Slicing
-        - Sawing
-        sprite:
-          sprite: _NF/Objects/Tools/cm-shovel.rsi
-          state: icon
-        useSound:
-          path: /Audio/Items/wirecutter.ogg
-        changeSound:
-          path: /Audio/Items/shovel_dig.ogg
+    - behavior: Digging
+      sprite:
+        sprite: _NF/Objects/Tools/cm-shovel.rsi
+        state: icon
+      useSound:
+        path: /Audio/Items/shovel_dig.ogg
+      changeSound:
+        path: /Audio/Items/shovel_dig.ogg
+    - behavior: Screwing
+      sprite:
+        sprite: _NF/Objects/Tools/cm-shovel.rsi
+        state: icon
+      useSound:
+        path: /Audio/Items/screwdriver.ogg
+      changeSound:
+        path: /Audio/Items/shovel_dig.ogg
+    - behavior: Anchoring
+      sprite:
+        sprite: _NF/Objects/Tools/cm-shovel.rsi
+        state: icon
+      useSound:
+        path: /Audio/Items/ratchet.ogg
+      changeSound:
+        path: /Audio/Items/shovel_dig.ogg
+    - behavior:
+      - Prying
+      - Axing
+      sprite:
+        sprite: _NF/Objects/Tools/cm-shovel.rsi
+        state: icon
+      useSound:
+        path: /Audio/Items/crowbar.ogg
+      changeSound:
+        path: /Audio/Items/shovel_dig.ogg
+    - behavior:
+      - Cutting
+      - Slicing
+      - Sawing
+      sprite:
+        sprite: _NF/Objects/Tools/cm-shovel.rsi
+        state: icon
+      useSound:
+        path: /Audio/Items/wirecutter.ogg
+      changeSound:
+        path: /Audio/Items/shovel_dig.ogg
   - type: ThrowingAngle
     angle: 45
   - type: DamageOtherOnHit
@@ -183,4 +183,4 @@
   - type: BalloonPopper
   - type: Utensil
     types:
-      - Knife
+    - Knife

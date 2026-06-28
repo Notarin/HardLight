@@ -67,13 +67,11 @@
   - type: ToggleableClothing
     clothingPrototype: ClothingHeadEVAHelmetHLSec
 
-
-
 - type: entity
   parent: ClothingHeadEVAHelmetWithLightBase
   id: ClothingHeadEVAHelmetHLSec
   name: station security EVA helmet
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     sprite: _NF/Clothing/Head/Helmets/eva_color.rsi

@@ -30,19 +30,44 @@ namespace Content.Server._Mono.ScuttleDevice;
 // VRS: Ported from Triad_Sector — self-destruct device for pirate ship scuttling.
 public sealed class ScuttleDeviceSystem : EntitySystem
 {
-    [Dependency] private readonly AppearanceSystem _appearance = default!;
-    [Dependency] private readonly ChatSystem _chatSystem = default!;
-    [Dependency] private readonly ExplosionSystem _explosions = default!;
-    [Dependency] private readonly LockSystem _lock = default!;
-    [Dependency] private readonly NavMapSystem _navMap = default!;
-    [Dependency] private readonly PointLightSystem _pointLight = default!;
-    [Dependency] private readonly PopupSystem _popups = default!;
-    [Dependency] private readonly ServerGlobalSoundSystem _sound = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
-    [Dependency] private readonly SharedShuttleSystem _shuttles = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency]
+    private readonly AppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly ChatSystem _chatSystem = default!;
+
+    [Dependency]
+    private readonly ExplosionSystem _explosions = default!;
+
+    [Dependency]
+    private readonly LockSystem _lock = default!;
+
+    [Dependency]
+    private readonly NavMapSystem _navMap = default!;
+
+    [Dependency]
+    private readonly PointLightSystem _pointLight = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popups = default!;
+
+    [Dependency]
+    private readonly ServerGlobalSoundSystem _sound = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfter = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _map = default!;
+
+    [Dependency]
+    private readonly SharedShuttleSystem _shuttles = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
 
     private TimeSpan NukeSongBuffer = TimeSpan.FromSeconds(1.5);
 
@@ -81,19 +106,23 @@ public sealed class ScuttleDeviceSystem : EntitySystem
         var user = args.User;
 
         if (ent.Comp.Armed)
-            args.Verbs.Add(new AlternativeVerb()
-            {
-                Act = () => DisarmBombDoafter(ent, user),
-                Text = Loc.GetString("scuttle-device-verb-disarm"),
-                Priority = 10,
-            });
+            args.Verbs.Add(
+                new AlternativeVerb()
+                {
+                    Act = () => DisarmBombDoafter(ent, user),
+                    Text = Loc.GetString("scuttle-device-verb-disarm"),
+                    Priority = 10,
+                }
+            );
         else if (!_lock.IsLocked(ent.Owner))
-            args.Verbs.Add(new AlternativeVerb()
-            {
-                Act = () => ArmBombDoafter(ent, user),
-                Text = Loc.GetString("scuttle-device-verb-arm"),
-                Priority = 10,
-            });
+            args.Verbs.Add(
+                new AlternativeVerb()
+                {
+                    Act = () => ArmBombDoafter(ent, user),
+                    Text = Loc.GetString("scuttle-device-verb-arm"),
+                    Priority = 10,
+                }
+            );
     }
 
     private void OnDisarmDoAfter(Entity<ScuttleDeviceComponent> ent, ref ScuttleDisarmDoAfterEvent args)
@@ -172,7 +201,12 @@ public sealed class ScuttleDeviceSystem : EntitySystem
             return;
         }
 
-        if (ent.Comp.DoMusic && ent.Comp.RemainingTime <= ent.Comp.NukeSongLength + ent.Comp.AlertSoundTime + NukeSongBuffer && !ent.Comp.PlayedNukeSong && !ResolvedSoundSpecifier.IsNullOrEmpty(ent.Comp.SelectedNukeSong))
+        if (
+            ent.Comp.DoMusic
+            && ent.Comp.RemainingTime <= ent.Comp.NukeSongLength + ent.Comp.AlertSoundTime + NukeSongBuffer
+            && !ent.Comp.PlayedNukeSong
+            && !ResolvedSoundSpecifier.IsNullOrEmpty(ent.Comp.SelectedNukeSong)
+        )
         {
             _sound.DispatchStationEventMusic(ent, ent.Comp.SelectedNukeSong, StationEventMusicType.Nuke);
             ent.Comp.PlayedNukeSong = true;
@@ -180,7 +214,7 @@ public sealed class ScuttleDeviceSystem : EntitySystem
 
         if (ent.Comp.RemainingTime <= ent.Comp.AlertSoundTime && !ent.Comp.PlayedAlertSound)
         {
-            _sound.PlayGlobalOnStation(ent, _audio.ResolveSound(ent.Comp.AlertSound), new AudioParams{Volume = -5f});
+            _sound.PlayGlobalOnStation(ent, _audio.ResolveSound(ent.Comp.AlertSound), new AudioParams { Volume = -5f });
             _sound.StopStationEventMusic(ent, StationEventMusicType.Nuke);
             ent.Comp.PlayedAlertSound = true;
         }
@@ -204,12 +238,19 @@ public sealed class ScuttleDeviceSystem : EntitySystem
         var grid = nukeXform.GridUid;
         var name = grid == null ? "Space" : _shuttles.GetIFFLabel(grid.Value) ?? "Space";
 
-        var announcement = Loc.GetString("scuttle-device-announcement-armed",
-            ("time", (int) ent.Comp.RemainingTime.TotalSeconds),
-            ("location", name));
+        var announcement = Loc.GetString(
+            "scuttle-device-announcement-armed",
+            ("time", (int)ent.Comp.RemainingTime.TotalSeconds),
+            ("location", name)
+        );
         var sender = Loc.GetString(ent.Comp.AnnounceSender);
-        _chatSystem.DispatchFilteredAnnouncement(Filter.Local().AddInRange(_transform.GetMapCoordinates(ent, nukeXform), ent.Comp.AnnounceRadius),
-                                                announcement, sender: sender, playSound: false, colorOverride: Color.Red);
+        _chatSystem.DispatchFilteredAnnouncement(
+            Filter.Local().AddInRange(_transform.GetMapCoordinates(ent, nukeXform), ent.Comp.AnnounceRadius),
+            announcement,
+            sender: sender,
+            playSound: false,
+            colorOverride: Color.Red
+        );
 
         _sound.PlayGlobalOnStation(ent, _audio.ResolveSound(ent.Comp.ActivateSound));
         _sound.PlayGlobalOnStation(ent, _audio.ResolveSound(ent.Comp.ArmSound));
@@ -242,17 +283,22 @@ public sealed class ScuttleDeviceSystem : EntitySystem
         var grid = nukeXform.GridUid;
         var name = grid == null ? "Space" : _shuttles.GetIFFLabel(grid.Value) ?? "Space";
 
-        var announcement = Loc.GetString("scuttle-device-announcement-unarmed",
-            ("location", name));
+        var announcement = Loc.GetString("scuttle-device-announcement-unarmed", ("location", name));
         var sender = Loc.GetString("scuttle-device-announcement-sender");
-        _chatSystem.DispatchFilteredAnnouncement(Filter.Local().AddInRange(_transform.GetMapCoordinates(ent, nukeXform), ent.Comp.AnnounceRadius),
-                                                announcement, sender: sender, playSound: false);
+        _chatSystem.DispatchFilteredAnnouncement(
+            Filter.Local().AddInRange(_transform.GetMapCoordinates(ent, nukeXform), ent.Comp.AnnounceRadius),
+            announcement,
+            sender: sender,
+            playSound: false
+        );
 
         ent.Comp.PlayedNukeSong = false;
         _sound.PlayGlobalOnStation(ent, _audio.ResolveSound(ent.Comp.DisarmSound));
         _sound.StopStationEventMusic(ent, StationEventMusicType.Nuke);
 
-        ent.Comp.RemainingTime = TimeSpan.FromSeconds(Math.Max(ent.Comp.RemainingTime.TotalSeconds, ent.Comp.MinimumTime.TotalSeconds));
+        ent.Comp.RemainingTime = TimeSpan.FromSeconds(
+            Math.Max(ent.Comp.RemainingTime.TotalSeconds, ent.Comp.MinimumTime.TotalSeconds)
+        );
 
         ent.Comp.PlayedAlertSound = false;
         ent.Comp.AlertAudioStream = _audio.Stop(ent.Comp.AlertAudioStream);
@@ -276,7 +322,14 @@ public sealed class ScuttleDeviceSystem : EntitySystem
 
     private void ArmBombDoafter(Entity<ScuttleDeviceComponent> ent, EntityUid user)
     {
-        var doAfter = new DoAfterArgs(EntityManager, user, ent.Comp.ArmDoafterLength, new ScuttleArmDoAfterEvent(), ent, target: ent)
+        var doAfter = new DoAfterArgs(
+            EntityManager,
+            user,
+            ent.Comp.ArmDoafterLength,
+            new ScuttleArmDoAfterEvent(),
+            ent,
+            target: ent
+        )
         {
             BreakOnDamage = true,
             BreakOnMove = true,
@@ -291,7 +344,14 @@ public sealed class ScuttleDeviceSystem : EntitySystem
 
     private void DisarmBombDoafter(Entity<ScuttleDeviceComponent> ent, EntityUid user)
     {
-        var doAfter = new DoAfterArgs(EntityManager, user, ent.Comp.DisarmDoafterLength, new ScuttleDisarmDoAfterEvent(), ent, target: ent)
+        var doAfter = new DoAfterArgs(
+            EntityManager,
+            user,
+            ent.Comp.DisarmDoafterLength,
+            new ScuttleDisarmDoAfterEvent(),
+            ent,
+            target: ent
+        )
         {
             BreakOnDamage = true,
             BreakOnMove = true,

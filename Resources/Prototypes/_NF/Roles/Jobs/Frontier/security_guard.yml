@@ -4,8 +4,8 @@
   description: job-description-security-guard
   playTimeTracker: JobSecurityGuard
   requirements:
-    - !type:OverallPlaytimeRequirement
-      time: 36000 # Frontier - 10 hrs
+  - !type:OverallPlaytimeRequirement
+    time: 36000 # Frontier - 10 hrs
   startingGear: SecurityGuardGear
   alwaysUseSpawner: true
   setPreference: false # Frontier
@@ -25,7 +25,7 @@
   - Frontier
   special:
   - !type:AddImplantSpecial
-    implants: [ MindShieldImplant, TrackingImplant ]
+    implants: [MindShieldImplant, TrackingImplant]
   - !type:GiveItemOnHolidaySpecial
     holiday: FrontierBirthday
     prototype: FrontierBirthdayGift

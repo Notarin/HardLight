@@ -11,8 +11,7 @@
     sprite: _NF/Structures/Furniture/chairs.rsi
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 25
       behaviors:
       - !type:DoActsBehavior

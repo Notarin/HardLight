@@ -36,8 +36,9 @@ public sealed partial class PlayerListEntry : BoxContainer
 
     private void Update(PlayerInfo info, Func<PlayerInfo, string, string>? overrideText)
     {
-        PlayerEntryLabel.Text = overrideText?.Invoke(info, $"{info.CharacterName} ({info.Username})") ??
-                                $"{info.CharacterName} ({info.Username})";
+        PlayerEntryLabel.Text =
+            overrideText?.Invoke(info, $"{info.CharacterName} ({info.Username})")
+            ?? $"{info.CharacterName} ({info.Username})";
 
         UpdatePinButtonTexture(info.IsPinned);
     }

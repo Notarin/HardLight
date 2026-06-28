@@ -7,8 +7,12 @@ namespace Content.Server.Xenoarchaeology.XenoArtifacts.Effects.Systems;
 
 public sealed class RandomInstrumentArtifactSystem : EntitySystem
 {
-    [Dependency] private readonly InstrumentSystem _instrument = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency]
+    private readonly InstrumentSystem _instrument = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
     /// <inheritdoc/>
     public override void Initialize()
     {
@@ -18,6 +22,6 @@ public sealed class RandomInstrumentArtifactSystem : EntitySystem
     private void OnStartup(EntityUid uid, RandomInstrumentArtifactComponent component, ComponentStartup args)
     {
         var instrument = EnsureComp<InstrumentComponent>(uid);
-        _instrument.SetInstrumentProgram(uid, instrument, (byte) _random.Next(0, 127), 0);
+        _instrument.SetInstrumentProgram(uid, instrument, (byte)_random.Next(0, 127), 0);
     }
 }

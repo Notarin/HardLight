@@ -3,8 +3,7 @@
   icon: LanguageIconTerrum
   speech:
     color: "#a3d4eb"
-  obfuscation:
-    !type:SyllableObfuscation
+  obfuscation: !type:SyllableObfuscation
     minSyllables: 1
     maxSyllables: 2
     replacement:

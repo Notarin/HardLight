@@ -1,8 +1,8 @@
 using Content.Server.Cargo.Systems;
+using Content.Shared.Cargo.Components;
 using Content.Shared.CartridgeLoader;
 using Content.Shared.CartridgeLoader.Cartridges;
 using Content.Shared.Timing;
-using Content.Shared.Cargo.Components;
 
 namespace Content.Server.CartridgeLoader.Cartridges;
 
@@ -11,8 +11,11 @@ namespace Content.Server.CartridgeLoader.Cartridges;
 /// </summary>
 public sealed class AppraisalCartridgeSystem : EntitySystem
 {
-    [Dependency] private readonly CartridgeLoaderSystem? _cartridgeLoaderSystem = default!;
-    [Dependency] private readonly PricingSystem _pricingSystem = default!;
+    [Dependency]
+    private readonly CartridgeLoaderSystem? _cartridgeLoaderSystem = default!;
+
+    [Dependency]
+    private readonly PricingSystem _pricingSystem = default!;
 
     public override void Initialize()
     {
@@ -71,10 +74,7 @@ public sealed class AppraisalCartridgeSystem : EntitySystem
         if (component.AppraisedItems.Count >= component.MaxSavedItems)
             component.AppraisedItems.RemoveAt(0);
 
-        var item = new AppraisedItem(
-            Name(target.Value),
-            price.ToString("0.00")
-        );
+        var item = new AppraisedItem(Name(target.Value), price.ToString("0.00"));
 
         component.AppraisedItems.Add(item);
         UpdateUiState(uid, args.Loader, component);

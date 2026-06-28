@@ -12,8 +12,11 @@ namespace Content.Server.GameTicking.Rules;
 /// </summary>
 public sealed class RuleGridsSystem : GameRuleSystem<RuleGridsComponent>
 {
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelist = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
 
     public override void Initialize()
     {
@@ -43,7 +46,9 @@ public sealed class RuleGridsSystem : GameRuleSystem<RuleGridsComponent>
         var (uid, comp) = ent;
         if (comp.Map != null && args.Map != comp.Map)
         {
-            Log.Warning($"{ToPrettyString(uid):rule} loaded grids on multiple maps {comp.Map} and {args.Map}, the second will be ignored.");
+            Log.Warning(
+                $"{ToPrettyString(uid):rule} loaded grids on multiple maps {comp.Map} and {args.Map}, the second will be ignored."
+            );
             return;
         }
 
@@ -59,7 +64,7 @@ public sealed class RuleGridsSystem : GameRuleSystem<RuleGridsComponent>
             if (xform.MapID != ent.Comp.Map)
                 continue;
 
-            if (xform.GridUid is not {} grid || !ent.Comp.MapGrids.Contains(grid))
+            if (xform.GridUid is not { } grid || !ent.Comp.MapGrids.Contains(grid))
                 continue;
 
             if (_whitelist.IsWhitelistFail(ent.Comp.SpawnerWhitelist, uid))
@@ -67,7 +72,13 @@ public sealed class RuleGridsSystem : GameRuleSystem<RuleGridsComponent>
 
             if (TryComp<GridSpawnPointWhitelistComponent>(uid, out var gridSpawnPointWhitelistComponent))
             {
-                if (!_whitelist.CheckBoth(args.Entity, gridSpawnPointWhitelistComponent.Blacklist, gridSpawnPointWhitelistComponent.Whitelist))
+                if (
+                    !_whitelist.CheckBoth(
+                        args.Entity,
+                        gridSpawnPointWhitelistComponent.Blacklist,
+                        gridSpawnPointWhitelistComponent.Whitelist
+                    )
+                )
                     continue;
             }
 

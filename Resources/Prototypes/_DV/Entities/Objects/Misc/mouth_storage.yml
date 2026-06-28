@@ -2,7 +2,7 @@
   id: CheekStorage
   name: cheek storage
   description: The cheeks of an animal, capable of storing small objects.
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Storage
     clickInsert: false
@@ -17,7 +17,7 @@
   - type: ContainerContainer
     containers:
       storagebase: !type:Container
-        ents: [ ]
+        ents: []
   - type: UserInterface
     interfaces:
       enum.StorageUiKey.Key:

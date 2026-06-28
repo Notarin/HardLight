@@ -14,10 +14,10 @@
   - type: StaminaDamageOnHit
     damage: 50
   # - type: MeleeRequiresSkill
-    # skills:
-      # RMCSkillPolice: 1
+  # skills:
+  # RMCSkillPolice: 1
   # - type: StunOnHit
-    # whitelist:
-      # components:
-      # - Marine
+  # whitelist:
+  # components:
+  # - Marine
 

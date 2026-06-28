@@ -11,10 +11,17 @@ namespace Content.Server.NPC.Systems;
 
 public sealed partial class NPCImprintingOnSpawnBehaviourSystem : SharedNPCImprintingOnSpawnBehaviourSystem
 {
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly NPCSystem _npc = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
+    [Dependency]
+    private readonly EntityLookupSystem _lookup = default!;
+
+    [Dependency]
+    private readonly NPCSystem _npc = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelistSystem = default!;
 
     public override void Initialize()
     {
@@ -42,7 +49,11 @@ public sealed partial class NPCImprintingOnSpawnBehaviourSystem : SharedNPCImpri
         }
     }
 
-    public void AddImprintingTarget(EntityUid entity, EntityUid friend, NPCImprintingOnSpawnBehaviourComponent component)
+    public void AddImprintingTarget(
+        EntityUid entity,
+        EntityUid friend,
+        NPCImprintingOnSpawnBehaviourComponent component
+    )
     {
         component.Friends.Add(friend);
         var exception = EnsureComp<FactionExceptionComponent>(entity);

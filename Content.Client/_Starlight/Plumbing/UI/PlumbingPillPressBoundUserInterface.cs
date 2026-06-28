@@ -9,9 +9,8 @@ public sealed class PlumbingPillPressBoundUserInterface : BoundUserInterface
 {
     private PlumbingPillPressWindow? _window;
 
-    public PlumbingPillPressBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-    }
+    public PlumbingPillPressBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {
@@ -19,23 +18,17 @@ public sealed class PlumbingPillPressBoundUserInterface : BoundUserInterface
 
         _window = this.CreateWindow<PlumbingPillPressWindow>();
 
-        _window.OnToggle += enabled =>
-            SendMessage(new PlumbingPillPressToggleMessage(enabled));
+        _window.OnToggle += enabled => SendMessage(new PlumbingPillPressToggleMessage(enabled));
 
-        _window.OnSetDosage += dosage =>
-            SendMessage(new PlumbingPillPressSetDosageMessage(dosage));
+        _window.OnSetDosage += dosage => SendMessage(new PlumbingPillPressSetDosageMessage(dosage));
 
-        _window.OnSetLabel += label =>
-            SendMessage(new PlumbingPillPressSetLabelMessage(label));
+        _window.OnSetLabel += label => SendMessage(new PlumbingPillPressSetLabelMessage(label));
 
-        _window.OnSetOutputMode += mode =>
-            SendMessage(new PlumbingPillPressSetOutputModeMessage(mode));
+        _window.OnSetOutputMode += mode => SendMessage(new PlumbingPillPressSetOutputModeMessage(mode));
 
-        _window.OnSetPillType += pillType =>
-            SendMessage(new PlumbingPillPressSetPillTypeMessage(pillType));
+        _window.OnSetPillType += pillType => SendMessage(new PlumbingPillPressSetPillTypeMessage(pillType));
 
-        _window.OnSetMixing += mixingEnabled =>
-            SendMessage(new PlumbingPillPressSetMixingMessage(mixingEnabled));
+        _window.OnSetMixing += mixingEnabled => SendMessage(new PlumbingPillPressSetMixingMessage(mixingEnabled));
 
         _window.OnSetInletRatio += (inlet, ratio) =>
             SendMessage(new PlumbingPillPressSetInletRatioMessage(inlet, ratio));

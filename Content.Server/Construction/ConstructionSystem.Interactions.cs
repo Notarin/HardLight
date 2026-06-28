@@ -23,9 +23,12 @@ namespace Content.Server.Construction
 {
     public sealed partial class ConstructionSystem
     {
-        [Dependency] private readonly IAdminLogManager _adminLogger = default!;
+        [Dependency]
+        private readonly IAdminLogManager _adminLogger = default!;
+
 #if EXCEPTION_TOLERANCE
-        [Dependency] private readonly IRuntimeLog _runtimeLog = default!;
+        [Dependency]
+        private readonly IRuntimeLog _runtimeLog = default!;
 #endif
 
         private readonly Queue<EntityUid> _constructionUpdateQueue = new();
@@ -36,9 +39,11 @@ namespace Content.Server.Construction
             SubscribeLocalEvent<ConstructionComponent, ConstructionInteractDoAfterEvent>(EnqueueEvent);
 
             // Event handling. Add your subscriptions here! Just make sure they're all handled by EnqueueEvent.
-            SubscribeLocalEvent<ConstructionComponent, InteractUsingEvent>(EnqueueEvent,
-                new []{typeof(AnchorableSystem), typeof(PryingSystem), typeof(WeldableSystem)},
-                new []{typeof(EncryptionKeySystem)});
+            SubscribeLocalEvent<ConstructionComponent, InteractUsingEvent>(
+                EnqueueEvent,
+                new[] { typeof(AnchorableSystem), typeof(PryingSystem), typeof(WeldableSystem) },
+                new[] { typeof(EncryptionKeySystem) }
+            );
             SubscribeLocalEvent<ConstructionComponent, OnTemperatureChangeEvent>(EnqueueEvent);
             SubscribeLocalEvent<ConstructionComponent, PartAssemblyPartInsertedEvent>(EnqueueEvent);
         }
@@ -50,7 +55,12 @@ namespace Content.Server.Construction
         /// <remarks>When <see cref="validation"/> is true, this method will simply return whether the interaction
         ///          would be handled by the entity or not. It essentially becomes a pure method that modifies nothing.</remarks>
         /// <returns>The result of this interaction with the entity.</returns>
-        private HandleResult HandleEvent(EntityUid uid, object ev, bool validation, ConstructionComponent? construction = null)
+        private HandleResult HandleEvent(
+            EntityUid uid,
+            object ev,
+            bool validation,
+            ConstructionComponent? construction = null
+        )
         {
             // VRS: NoDeconstructComponent prevents deconstruction on protected POI infrastructure.
             if (HasComp<Content.Shared._Mono.NoDeconstruct.NoDeconstructComponent>(uid))
@@ -60,13 +70,13 @@ namespace Content.Server.Construction
                 return HandleResult.False;
 
             // If the state machine is in an invalid state (not on a valid node) we can't do anything, ever.
-            if (GetCurrentNode(uid, construction) is not {} node)
+            if (GetCurrentNode(uid, construction) is not { } node)
             {
                 return HandleResult.False;
             }
 
             // If we're currently in an edge, we'll let the edge handle or validate the interaction.
-            if (GetCurrentEdge(uid, construction) is {} edge)
+            if (GetCurrentEdge(uid, construction) is { } edge)
             {
                 var result = HandleEdge(uid, ev, edge, validation, construction);
 
@@ -89,7 +99,13 @@ namespace Content.Server.Construction
         /// <remarks>When <see cref="validation"/> is true, this method will simply return whether the interaction
         ///          would be handled by the entity or not. It essentially becomes a pure method that modifies nothing.</remarks>
         /// <returns>The result of this interaction with the entity.</returns>
-        private HandleResult HandleNode(EntityUid uid, object ev, ConstructionGraphNode node, bool validation, ConstructionComponent? construction = null)
+        private HandleResult HandleNode(
+            EntityUid uid,
+            object ev,
+            ConstructionGraphNode node,
+            bool validation,
+            ConstructionComponent? construction = null
+        )
         {
             if (!Resolve(uid, ref construction))
                 return HandleResult.False;
@@ -140,7 +156,13 @@ namespace Content.Server.Construction
         /// <remarks>When <see cref="validation"/> is true, this method will simply return whether the interaction
         ///          would be handled by the entity or not. It essentially becomes a pure method that modifies nothing.</remarks>
         /// <returns>The result of this interaction with the entity.</returns>
-        private HandleResult HandleEdge(EntityUid uid, object ev, ConstructionGraphEdge edge, bool validation, ConstructionComponent? construction = null)
+        private HandleResult HandleEdge(
+            EntityUid uid,
+            object ev,
+            ConstructionGraphEdge edge,
+            bool validation,
+            ConstructionComponent? construction = null
+        )
         {
             if (!Resolve(uid, ref construction))
                 return HandleResult.False;
@@ -149,7 +171,9 @@ namespace Content.Server.Construction
 
             if (step == null)
             {
-                Log.Warning($"Called {nameof(HandleEdge)} on entity {ToPrettyString(uid)} but the current state is not valid for that!");
+                Log.Warning(
+                    $"Called {nameof(HandleEdge)} on entity {ToPrettyString(uid)} but the current state is not valid for that!"
+                );
                 return HandleResult.False;
             }
 
@@ -195,7 +219,14 @@ namespace Content.Server.Construction
         /// <remarks>When <see cref="validation"/> is true, this method will simply return whether the interaction
         ///          would be handled by the entity or not. It essentially becomes a pure method that modifies nothing.</remarks>
         /// <returns>The result of this interaction with the entity.</returns>
-        private HandleResult HandleStep(EntityUid uid, object ev, ConstructionGraphStep step, bool validation, out EntityUid? user, ConstructionComponent? construction = null)
+        private HandleResult HandleStep(
+            EntityUid uid,
+            object ev,
+            ConstructionGraphStep step,
+            bool validation,
+            out EntityUid? user,
+            ConstructionComponent? construction = null
+        )
         {
             user = null;
             if (!Resolve(uid, ref construction))
@@ -225,7 +256,14 @@ namespace Content.Server.Construction
         /// <remarks>When <see cref="validation"/> is true, this method will simply return whether the interaction
         ///          would be handled by the entity or not. It essentially becomes a pure method that modifies nothing.</remarks>
         /// <returns>The result of this interaction with the entity.</returns>
-        private HandleResult HandleInteraction(EntityUid uid, object ev, ConstructionGraphStep step, bool validation, out EntityUid? user, ConstructionComponent? construction = null)
+        private HandleResult HandleInteraction(
+            EntityUid uid,
+            object ev,
+            ConstructionGraphStep step,
+            bool validation,
+            out EntityUid? user,
+            ConstructionComponent? construction = null
+        )
         {
             user = null;
             if (!Resolve(uid, ref construction))
@@ -244,7 +282,8 @@ namespace Content.Server.Construction
                     interactDoAfter.User,
                     interactDoAfter.Used!.Value,
                     uid,
-                    GetCoordinates(interactDoAfter.ClickLocation));
+                    GetCoordinates(interactDoAfter.ClickLocation)
+                );
 
                 doAfterState = DoAfterState.Completed;
             }
@@ -275,7 +314,7 @@ namespace Content.Server.Construction
 
                     // Since many things inherit this step, we delegate the "is this entity valid?" logic to them.
                     // While this is very OOP and I find it icky, I must admit that it simplifies the code here a lot.
-                    if(!insertStep.EntityValid(insert, EntityManager, _factory))
+                    if (!insertStep.EntityValid(insert, EntityManager, _factory))
                         return HandleResult.False;
 
                     // If we're only testing whether this step would be handled by the given event, then we're done.
@@ -287,14 +326,22 @@ namespace Content.Server.Construction
                     {
                         var doAfterEv = new ConstructionInteractDoAfterEvent(EntityManager, interactUsing);
 
-                        var doAfterEventArgs = new DoAfterArgs(EntityManager, interactUsing.User, step.DoAfter, doAfterEv, uid, uid, interactUsing.Used)
+                        var doAfterEventArgs = new DoAfterArgs(
+                            EntityManager,
+                            interactUsing.User,
+                            step.DoAfter,
+                            doAfterEv,
+                            uid,
+                            uid,
+                            interactUsing.Used
+                        )
                         {
                             BreakOnDamage = false,
                             BreakOnMove = true,
                             NeedHand = true,
                         };
 
-                        var started  = _doAfterSystem.TryStartDoAfter(doAfterEventArgs);
+                        var started = _doAfterSystem.TryStartDoAfter(doAfterEventArgs);
 
                         if (!started)
                             return HandleResult.False;
@@ -313,7 +360,14 @@ namespace Content.Server.Construction
                     // we split the stack in two and insert the split stack.
                     if (insertStep is MaterialConstructionGraphStep materialInsertStep)
                     {
-                        if (_stackSystem.Split(insert, materialInsertStep.Amount, Transform(interactUsing.User).Coordinates) is not {} stack)
+                        if (
+                            _stackSystem.Split(
+                                insert,
+                                materialInsertStep.Amount,
+                                Transform(interactUsing.User).Coordinates
+                            )
+                            is not { } stack
+                        )
                             return HandleResult.False;
 
                         insert = stack;
@@ -362,17 +416,18 @@ namespace Content.Server.Construction
 
                     // If we're handling an event after its DoAfter finished...
                     if (doAfterState == DoAfterState.Completed)
-                        return  HandleResult.True;
+                        return HandleResult.True;
 
-                    var result  = _toolSystem.UseTool(
+                    var result = _toolSystem.UseTool(
                         interactUsing.Used,
                         interactUsing.User,
                         uid,
                         TimeSpan.FromSeconds(toolInsertStep.DoAfter),
-                        new [] { toolInsertStep.Tool },
+                        new[] { toolInsertStep.Tool },
                         new ConstructionInteractDoAfterEvent(EntityManager, interactUsing),
                         out var doAfter,
-                        toolInsertStep.Fuel);
+                        toolInsertStep.Fuel
+                    );
 
                     return result && doAfter != null ? HandleResult.DoAfter : HandleResult.False;
                 }
@@ -404,8 +459,16 @@ namespace Content.Server.Construction
                         return HandleResult.False;
                     }
 
-                    if ((!temperatureChangeStep.MinTemperature.HasValue || temp >= temperatureChangeStep.MinTemperature.Value) &&
-                        (!temperatureChangeStep.MaxTemperature.HasValue || temp <= temperatureChangeStep.MaxTemperature.Value))
+                    if (
+                        (
+                            !temperatureChangeStep.MinTemperature.HasValue
+                            || temp >= temperatureChangeStep.MinTemperature.Value
+                        )
+                        && (
+                            !temperatureChangeStep.MaxTemperature.HasValue
+                            || temp <= temperatureChangeStep.MaxTemperature.Value
+                        )
+                    )
                     {
                         return HandleResult.True;
                     }
@@ -427,8 +490,10 @@ namespace Content.Server.Construction
                 // --- CONSTRUCTION STEP EVENT HANDLING FINISH ---
 
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(step),
-                        "You need to code your ConstructionGraphStep behavior by adding a case to the switch.");
+                    throw new ArgumentOutOfRangeException(
+                        nameof(step),
+                        "You need to code your ConstructionGraphStep behavior by adding a case to the switch."
+                    );
             }
 
             // If the handlers were not able to handle this event, return...
@@ -515,10 +580,12 @@ namespace Content.Server.Construction
                 {
                     if (construction.Deleted)
                     {
-                        Log.Error($"Construction component was deleted while still processing interactions." +
-                                  $"Entity {ToPrettyString(uid)}, graph: {construction.Graph}, " +
-                                  $"Next: {interaction.GetType().Name}, " +
-                                  $"Remaining Queue: {string.Join(", ", construction.InteractionQueue.Select(x => x.GetType().Name))}");
+                        Log.Error(
+                            $"Construction component was deleted while still processing interactions."
+                                + $"Entity {ToPrettyString(uid)}, graph: {construction.Graph}, "
+                                + $"Next: {interaction.GetType().Name}, "
+                                + $"Remaining Queue: {string.Join(", ", construction.InteractionQueue.Select(x => x.GetType().Name))}"
+                        );
                         break;
                     }
 
@@ -529,7 +596,9 @@ namespace Content.Server.Construction
                 }
                 catch (Exception e)
                 {
-                    Log.Error($"Caught exception while processing construction queue. Entity {ToPrettyString(uid)}, graph: {construction.Graph}");
+                    Log.Error(
+                        $"Caught exception while processing construction queue. Entity {ToPrettyString(uid)}, graph: {construction.Graph}"
+                    );
                     _runtimeLog.LogException(e, $"{nameof(ConstructionSystem)}.{nameof(UpdateInteractions)}");
                     Del(uid);
                 }
@@ -595,7 +664,7 @@ namespace Content.Server.Construction
             ///     If Completed, this is the second (and last) time we're seeing this event, and
             ///     the doAfter that was called the first time successfully completed. Handle completion logic now.
             /// </summary>
-            Completed
+            Completed,
         }
     }
 
@@ -626,7 +695,7 @@ namespace Content.Server.Construction
         DoAfter,
     }
 
-    #endregion
+        #endregion
 
     public sealed class OnConstructionTemperatureEvent : HandledEntityEventArgs
     {

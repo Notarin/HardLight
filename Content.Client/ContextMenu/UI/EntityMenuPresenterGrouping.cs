@@ -1,6 +1,6 @@
+using System.Linq;
 using Content.Shared.IdentityManagement;
 using Robust.Client.GameObjects;
-using System.Linq;
 
 namespace Content.Client.ContextMenu.UI
 {
@@ -8,6 +8,7 @@ namespace Content.Client.ContextMenu.UI
     {
         public const int GroupingTypesCount = 2;
         private int GroupingContextMenuType { get; set; }
+
         public void OnGroupingChanged(int obj)
         {
             _context.Close();
@@ -23,7 +24,9 @@ namespace Content.Client.ContextMenu.UI
             }
             else
             {
-                var newEntities = entities.GroupBy(e => e, new PrototypeAndStatesContextMenuComparer(depth, _entityManager)).ToList();
+                var newEntities = entities
+                    .GroupBy(e => e, new PrototypeAndStatesContextMenuComparer(depth, _entityManager))
+                    .ToList();
                 return newEntities.Select(grp => grp.ToList()).ToList();
             }
         }
@@ -32,7 +35,9 @@ namespace Content.Client.ContextMenu.UI
         {
             private static readonly List<Func<EntityUid, EntityUid, IEntityManager, bool>> EqualsList = new()
             {
-                (a, b, entMan) => entMan.GetComponent<MetaDataComponent>(a).EntityPrototype!.ID == entMan.GetComponent<MetaDataComponent>(b).EntityPrototype!.ID,
+                (a, b, entMan) =>
+                    entMan.GetComponent<MetaDataComponent>(a).EntityPrototype!.ID
+                    == entMan.GetComponent<MetaDataComponent>(b).EntityPrototype!.ID,
                 (a, b, entMan) =>
                 {
                     entMan.TryGetComponent(a, out SpriteComponent? spriteA);
@@ -49,11 +54,19 @@ namespace Content.Client.ContextMenu.UI
             };
             private static readonly List<Func<EntityUid, IEntityManager, int>> GetHashCodeList = new()
             {
-                (e, entMan) => EqualityComparer<string>.Default.GetHashCode(entMan.GetComponent<MetaDataComponent>(e).EntityPrototype!.ID),
+                (e, entMan) =>
+                    EqualityComparer<string>.Default.GetHashCode(
+                        entMan.GetComponent<MetaDataComponent>(e).EntityPrototype!.ID
+                    ),
                 (e, entMan) =>
                 {
                     var hash = 0;
-                    foreach (var element in entMan.GetComponent<SpriteComponent>(e).AllLayers.Where(obj => obj.Visible).Select(s => s.RsiState.Name))
+                    foreach (
+                        var element in entMan
+                            .GetComponent<SpriteComponent>(e)
+                            .AllLayers.Where(obj => obj.Visible)
+                            .Select(s => s.RsiState.Name)
+                    )
                     {
                         hash ^= EqualityComparer<string>.Default.GetHashCode(element!);
                     }
@@ -65,6 +78,7 @@ namespace Content.Client.ContextMenu.UI
 
             private readonly int _depth;
             private readonly IEntityManager _entMan;
+
             public PrototypeAndStatesContextMenuComparer(int step = 0, IEntityManager? entMan = null)
             {
                 IoCManager.Resolve(ref entMan);

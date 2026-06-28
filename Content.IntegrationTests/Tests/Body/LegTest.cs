@@ -14,7 +14,8 @@ namespace Content.IntegrationTests.Tests.Body
     public sealed class LegTest
     {
         [TestPrototypes]
-        private const string Prototypes = @"
+        private const string Prototypes =
+            @"
 - type: entity
   name: HumanBodyAndAppearanceDummy
   id: HumanBodyAndAppearanceDummy
@@ -45,8 +46,10 @@ namespace Content.IntegrationTests.Tests.Body
             {
                 BodyComponent body = null;
 
-                human = entityManager.SpawnEntity("HumanBodyAndAppearanceDummy",
-                    new MapCoordinates(Vector2.Zero, map.MapId));
+                human = entityManager.SpawnEntity(
+                    "HumanBodyAndAppearanceDummy",
+                    new MapCoordinates(Vector2.Zero, map.MapId)
+                );
 
                 Assert.Multiple(() =>
                 {
@@ -54,7 +57,9 @@ namespace Content.IntegrationTests.Tests.Body
                     Assert.That(entityManager.TryGetComponent(human, out appearance));
                 });
 
-                Assert.That(!appearanceSystem.TryGetData(human, RotationVisuals.RotationState, out RotationState _, appearance));
+                Assert.That(
+                    !appearanceSystem.TryGetData(human, RotationVisuals.RotationState, out RotationState _, appearance)
+                );
 
                 var bodySystem = entityManager.System<BodySystem>();
                 var legs = bodySystem.GetBodyChildrenOfType(human, BodyPartType.Leg, body);
@@ -69,7 +74,14 @@ namespace Content.IntegrationTests.Tests.Body
             {
 #pragma warning disable NUnit2045
                 // Interdependent assertions.
-                Assert.That(appearanceSystem.TryGetData(human, RotationVisuals.RotationState, out RotationState state, appearance));
+                Assert.That(
+                    appearanceSystem.TryGetData(
+                        human,
+                        RotationVisuals.RotationState,
+                        out RotationState state,
+                        appearance
+                    )
+                );
                 Assert.That(state, Is.EqualTo(RotationState.Horizontal));
 #pragma warning restore NUnit2045
             });

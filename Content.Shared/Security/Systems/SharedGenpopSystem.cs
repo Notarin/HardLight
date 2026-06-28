@@ -14,15 +14,29 @@ namespace Content.Shared.Security.Systems;
 
 public abstract class SharedGenpopSystem : EntitySystem
 {
-    [Dependency] protected readonly IGameTiming Timing = default!;
-    [Dependency] private readonly AccessReaderSystem _accessReader = default!;
-    [Dependency] private readonly SharedEntityStorageSystem _entityStorage = default!;
-    [Dependency] protected readonly SharedIdCardSystem IdCard = default!;
-    [Dependency] private readonly LockSystem _lock = default!;
-    [Dependency] protected readonly MetaDataSystem MetaDataSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedUserInterfaceSystem _userInterface = default!;
+    [Dependency]
+    protected readonly IGameTiming Timing = default!;
 
+    [Dependency]
+    private readonly AccessReaderSystem _accessReader = default!;
+
+    [Dependency]
+    private readonly SharedEntityStorageSystem _entityStorage = default!;
+
+    [Dependency]
+    protected readonly SharedIdCardSystem IdCard = default!;
+
+    [Dependency]
+    private readonly LockSystem _lock = default!;
+
+    [Dependency]
+    protected readonly MetaDataSystem MetaDataSystem = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly SharedUserInterfaceSystem _userInterface = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -38,9 +52,13 @@ public abstract class SharedGenpopSystem : EntitySystem
     private void OnIdConfigured(Entity<GenpopLockerComponent> ent, ref GenpopLockerIdConfiguredMessage args)
     {
         // validation.
-        if (string.IsNullOrWhiteSpace(args.Name) || args.Name.Length > IdCardConsoleComponent.MaxFullNameLength ||
-            args.Sentence < 0 ||
-            string.IsNullOrWhiteSpace(args.Crime) || args.Crime.Length > GenpopLockerComponent.MaxCrimeLength)
+        if (
+            string.IsNullOrWhiteSpace(args.Name)
+            || args.Name.Length > IdCardConsoleComponent.MaxFullNameLength
+            || args.Sentence < 0
+            || string.IsNullOrWhiteSpace(args.Crime)
+            || args.Crime.Length > GenpopLockerComponent.MaxCrimeLength
+        )
         {
             return;
         }
@@ -104,8 +122,7 @@ public abstract class SharedGenpopSystem : EntitySystem
             return;
         }
 
-        if (!TryComp<ExpireIdCardComponent>(ent.Comp.LinkedId.Value, out var expireIdCard) ||
-            !expireIdCard.Expired)
+        if (!TryComp<ExpireIdCardComponent>(ent.Comp.LinkedId.Value, out var expireIdCard) || !expireIdCard.Expired)
         {
             if (!args.Silent)
                 _popup.PopupClient(Loc.GetString("genpop-prisoner-id-popup-not-served"), ent, args.User);
@@ -130,37 +147,43 @@ public abstract class SharedGenpopSystem : EntitySystem
         if (!args.CanAccess || !args.CanComplexInteract || !args.CanInteract)
             return;
 
-        if (!TryComp<ExpireIdCardComponent>(ent.Comp.LinkedId, out var expire) ||
-            !TryComp<GenpopIdCardComponent>(ent.Comp.LinkedId, out var genpopId))
+        if (
+            !TryComp<ExpireIdCardComponent>(ent.Comp.LinkedId, out var expire)
+            || !TryComp<GenpopIdCardComponent>(ent.Comp.LinkedId, out var genpopId)
+        )
             return;
 
         var user = args.User;
         var hasAccess = _accessReader.IsAllowed(args.User, ent);
-        args.Verbs.Add(new Verb // End sentence early.
-        {
-            Act = () =>
+        args.Verbs.Add(
+            new Verb // End sentence early.
             {
-                IdCard.ExpireId((ent.Comp.LinkedId.Value, expire));
-            },
-            Priority = 13,
-            Text = Loc.GetString("genpop-locker-action-end-early"),
-            Impact = LogImpact.Medium,
-            DoContactInteraction = true,
-            Disabled = !hasAccess,
-        });
+                Act = () =>
+                {
+                    IdCard.ExpireId((ent.Comp.LinkedId.Value, expire));
+                },
+                Priority = 13,
+                Text = Loc.GetString("genpop-locker-action-end-early"),
+                Impact = LogImpact.Medium,
+                DoContactInteraction = true,
+                Disabled = !hasAccess,
+            }
+        );
 
-        args.Verbs.Add(new Verb // Cancel Sentence.
-        {
-            Act = () =>
+        args.Verbs.Add(
+            new Verb // Cancel Sentence.
             {
-                CancelIdCard(ent, user);
-            },
-            Priority = 12,
-            Text = Loc.GetString("genpop-locker-action-clear-id"),
-            Impact = LogImpact.Medium,
-            DoContactInteraction = true,
-            Disabled = !hasAccess,
-        });
+                Act = () =>
+                {
+                    CancelIdCard(ent, user);
+                },
+                Priority = 12,
+                Text = Loc.GetString("genpop-locker-action-clear-id"),
+                Impact = LogImpact.Medium,
+                DoContactInteraction = true,
+                Disabled = !hasAccess,
+            }
+        );
 
         var servedTime = 1 - (expire.ExpireTime - Timing.CurTime).TotalSeconds / genpopId.SentenceDuration.TotalSeconds;
 
@@ -168,18 +191,23 @@ public abstract class SharedGenpopSystem : EntitySystem
         if (expire.Expired)
             return;
 
-        args.Verbs.Add(new Verb // Reset Sentence.
-        {
-            Act = () =>
+        args.Verbs.Add(
+            new Verb // Reset Sentence.
             {
-                IdCard.SetExpireTime((ent.Comp.LinkedId.Value, expire), Timing.CurTime + genpopId.SentenceDuration);
-            },
-            Priority = 11,
-            Text = Loc.GetString("genpop-locker-action-reset-sentence", ("percent", Math.Clamp(servedTime, 0, 1) * 100)),
-            Impact = LogImpact.Medium,
-            DoContactInteraction = true,
-            Disabled = !hasAccess,
-        });
+                Act = () =>
+                {
+                    IdCard.SetExpireTime((ent.Comp.LinkedId.Value, expire), Timing.CurTime + genpopId.SentenceDuration);
+                },
+                Priority = 11,
+                Text = Loc.GetString(
+                    "genpop-locker-action-reset-sentence",
+                    ("percent", Math.Clamp(servedTime, 0, 1) * 100)
+                ),
+                Impact = LogImpact.Medium,
+                DoContactInteraction = true,
+                Disabled = !hasAccess,
+            }
+        );
     }
 
     private void CancelIdCard(Entity<GenpopLockerComponent> ent, EntityUid? user = null)
@@ -209,32 +237,31 @@ public abstract class SharedGenpopSystem : EntitySystem
 
         if (expireIdCard.Permanent)
         {
-            args.PushText(Loc.GetString("genpop-prisoner-id-examine-wait-perm",
-                ("crime", ent.Comp.Crime)));
+            args.PushText(Loc.GetString("genpop-prisoner-id-examine-wait-perm", ("crime", ent.Comp.Crime)));
         }
         else
         {
             if (expireIdCard.Expired)
             {
-                args.PushText(Loc.GetString("genpop-prisoner-id-examine-served",
-                    ("crime", ent.Comp.Crime)));
+                args.PushText(Loc.GetString("genpop-prisoner-id-examine-served", ("crime", ent.Comp.Crime)));
             }
             else
             {
                 var sentence = ent.Comp.SentenceDuration;
                 var served = ent.Comp.SentenceDuration - (expireIdCard.ExpireTime - Timing.CurTime);
 
-                args.PushText(Loc.GetString("genpop-prisoner-id-examine-wait",
-                    ("minutes", served.Minutes),
-                    ("seconds", served.Seconds),
-                    ("sentence", sentence.TotalMinutes),
-                    ("crime", ent.Comp.Crime)));
+                args.PushText(
+                    Loc.GetString(
+                        "genpop-prisoner-id-examine-wait",
+                        ("minutes", served.Minutes),
+                        ("seconds", served.Seconds),
+                        ("sentence", sentence.TotalMinutes),
+                        ("crime", ent.Comp.Crime)
+                    )
+                );
             }
         }
     }
 
-    protected virtual void CreateId(Entity<GenpopLockerComponent> ent, string name, float sentence, string crime)
-    {
-
-    }
+    protected virtual void CreateId(Entity<GenpopLockerComponent> ent, string name, float sentence, string crime) { }
 }

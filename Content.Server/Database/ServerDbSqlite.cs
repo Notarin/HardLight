@@ -38,7 +38,8 @@ namespace Content.Server.Database
             IConfigurationManager cfg,
             bool synchronous,
             ISawmill opsLog,
-            IPrototypeManager prototypeManager)
+            IPrototypeManager prototypeManager
+        )
             : base(opsLog, prototypeManager)
         {
             _options = options;
@@ -72,8 +73,8 @@ namespace Content.Server.Database
         {
             await using var db = await GetDbImpl();
 
-            var ban = await db.SqliteDbContext.Ban
-                .ApplyIncludes(GetBanDefIncludes())
+            var ban = await db
+                .SqliteDbContext.Ban.ApplyIncludes(GetBanDefIncludes())
                 .Where(p => p.Id == id)
                 .AsSplitQuery()
                 .SingleOrDefaultAsync();
@@ -86,11 +87,14 @@ namespace Content.Server.Database
             NetUserId? userId,
             ImmutableArray<byte>? hwId,
             ImmutableArray<ImmutableArray<byte>>? modernHWIds,
-            BanType type)
+            BanType type
+        )
         {
             await using var db = await GetDbImpl();
 
-            return (await GetBanQueryAsync(db, address, userId, hwId, modernHWIds, includeUnbanned: false, type)).FirstOrDefault();
+            return (
+                await GetBanQueryAsync(db, address, userId, hwId, modernHWIds, includeUnbanned: false, type)
+            ).FirstOrDefault();
         }
 
         public override async Task<List<BanDef>> GetBansAsync(
@@ -99,7 +103,8 @@ namespace Content.Server.Database
             ImmutableArray<byte>? hwId,
             ImmutableArray<ImmutableArray<byte>>? modernHWIds,
             bool includeUnbanned,
-            BanType type)
+            BanType type
+        )
         {
             await using var db = await GetDbImpl();
 
@@ -113,7 +118,8 @@ namespace Content.Server.Database
             ImmutableArray<byte>? hwId,
             ImmutableArray<ImmutableArray<byte>>? modernHWIds,
             bool includeUnbanned,
-            BanType type)
+            BanType type
+        )
         {
             var exempt = await GetBanExemptionCore(db, userId);
 
@@ -133,21 +139,22 @@ namespace Content.Server.Database
                 IsNewPlayer = newPlayer,
             };
 
-            return queryBans
-                .Select(ConvertBan)
-                .Where(b => BanMatcher.BanMatches(b!, playerInfo))!;
+            return queryBans.Select(ConvertBan).Where(b => BanMatcher.BanMatches(b!, playerInfo))!;
         }
 
-        private static async Task<List<Ban>> GetAllBans(SqliteServerDbContext db,
+        private static async Task<List<Ban>> GetAllBans(
+            SqliteServerDbContext db,
             bool includeUnbanned,
             ServerBanExemptFlags? exemptFlags,
-            BanType type)
+            BanType type
+        )
         {
             var query = db.Ban.Where(b => b.Type == type).ApplyIncludes(GetBanDefIncludes(type));
             if (!includeUnbanned)
             {
                 query = query.Where(p =>
-                    p.Unban == null && (p.ExpirationTime == null || p.ExpirationTime.Value > DateTime.UtcNow));
+                    p.Unban == null && (p.ExpirationTime == null || p.ExpirationTime.Value > DateTime.UtcNow)
+                );
             }
 
             if (exemptFlags is { } exempt)
@@ -169,25 +176,23 @@ namespace Content.Server.Database
             var banEntity = new Ban
             {
                 Type = ban.Type,
-                Addresses = [..ban.Addresses.Select(ba => new BanAddress { Address = ba.ToNpgsqlInet() })],
-                Hwids = [..ban.HWIds.Select(bh => new BanHwid { HWId = bh })],
+                Addresses = [.. ban.Addresses.Select(ba => new BanAddress { Address = ba.ToNpgsqlInet() })],
+                Hwids = [.. ban.HWIds.Select(bh => new BanHwid { HWId = bh })],
                 Reason = ban.Reason,
                 Severity = ban.Severity,
                 BanningAdmin = ban.BanningAdmin?.UserId,
                 BanTime = ban.BanTime.UtcDateTime,
                 ExpirationTime = ban.ExpirationTime?.UtcDateTime,
-                Rounds = [..ban.RoundIds.Select(bri => new BanRound { RoundId = bri })],
+                Rounds = [.. ban.RoundIds.Select(bri => new BanRound { RoundId = bri })],
                 PlaytimeAtNote = ban.PlaytimeAtNote,
-                Players = [..ban.UserIds.Select(bp => new BanPlayer { UserId = bp.UserId })],
+                Players = [.. ban.UserIds.Select(bp => new BanPlayer { UserId = bp.UserId })],
                 ExemptFlags = ban.ExemptFlags,
-                Roles = ban.Roles == null
-                    ? []
-                    : ban.Roles.Value.Select(brd => new BanRole
-                        {
-                            RoleType = brd.RoleType,
-                            RoleId = brd.RoleId
-                        })
-                        .ToList(),
+                Roles =
+                    ban.Roles == null
+                        ? []
+                        : ban
+                            .Roles.Value.Select(brd => new BanRole { RoleType = brd.RoleType, RoleId = brd.RoleId })
+                            .ToList(),
             };
             db.SqliteDbContext.Ban.Add(banEntity);
 
@@ -199,12 +204,14 @@ namespace Content.Server.Database
         {
             await using var db = await GetDbImpl();
 
-            db.SqliteDbContext.Unban.Add(new Unban
-            {
-                BanId = unban.BanId,
-                UnbanningAdmin = unban.UnbanningAdmin?.UserId,
-                UnbanTime = unban.UnbanTime.UtcDateTime
-            });
+            db.SqliteDbContext.Unban.Add(
+                new Unban
+                {
+                    BanId = unban.BanId,
+                    UnbanningAdmin = unban.UnbanningAdmin?.UserId,
+                    UnbanTime = unban.UnbanTime.UtcDateTime,
+                }
+            );
 
             await db.SqliteDbContext.SaveChangesAsync();
         }
@@ -229,26 +236,27 @@ namespace Content.Server.Database
             ImmutableArray<BanRoleDef>? roles = null;
             if (ban.Type == BanType.Role)
             {
-                roles = [..ban.Roles!.Select(br => new BanRoleDef(br.RoleType, br.RoleId))];
+                roles = [.. ban.Roles!.Select(br => new BanRoleDef(br.RoleType, br.RoleId))];
             }
 
             return new BanDef(
                 ban.Id,
                 ban.Type,
-                [..ban.Players!.Select(bp => new NetUserId(bp.UserId))],
-                [..ban.Addresses!.Select(ba => ba.Address.ToTuple())],
-                [..ban.Hwids!.Select(bh => bh.HWId)],
+                [.. ban.Players!.Select(bp => new NetUserId(bp.UserId))],
+                [.. ban.Addresses!.Select(ba => ba.Address.ToTuple())],
+                [.. ban.Hwids!.Select(bh => bh.HWId)],
                 // SQLite apparently always reads DateTime as unspecified, but we always write as UTC.
                 DateTime.SpecifyKind(ban.BanTime, DateTimeKind.Utc),
                 ban.ExpirationTime == null ? null : DateTime.SpecifyKind(ban.ExpirationTime.Value, DateTimeKind.Utc),
-                [..ban.Rounds!.Select(r => r.RoundId)],
+                [.. ban.Rounds!.Select(r => r.RoundId)],
                 ban.PlaytimeAtNote,
                 ban.Reason,
                 ban.Severity,
                 aUid,
                 unban,
                 ban.ExemptFlags,
-                roles);
+                roles
+            );
         }
 
         private static UnbanDef? ConvertUnban(Unban? unban)
@@ -268,7 +276,8 @@ namespace Content.Server.Database
                 unban.Id,
                 aUid,
                 // SQLite apparently always reads DateTime as unspecified, but we always write as UTC.
-                DateTime.SpecifyKind(unban.UnbanTime, DateTimeKind.Utc));
+                DateTime.SpecifyKind(unban.UnbanTime, DateTimeKind.Utc)
+            );
         }
 
         public override async Task<int> AddConnectionLogAsync(
@@ -278,7 +287,8 @@ namespace Content.Server.Database
             ImmutableTypedHwid? hwId,
             float trust,
             ConnectionDenyReason? denied,
-            int serverId)
+            int serverId
+        )
         {
             await using var db = await GetDbImpl();
 
@@ -302,14 +312,20 @@ namespace Content.Server.Database
         }
 
         public override async Task<((Admin, string? lastUserName)[] admins, AdminRank[])> GetAllAdminAndRanksAsync(
-            CancellationToken cancel)
+            CancellationToken cancel
+        )
         {
             await using var db = await GetDbImpl(cancel);
 
-            var admins = await db.SqliteDbContext.Admin
-                .Include(a => a.Flags)
-                .GroupJoin(db.SqliteDbContext.Player, a => a.UserId, p => p.UserId, (a, grouping) => new {a, grouping})
-                .SelectMany(t => t.grouping.DefaultIfEmpty(), (t, p) => new {t.a, p!.LastSeenUserName})
+            var admins = await db
+                .SqliteDbContext.Admin.Include(a => a.Flags)
+                .GroupJoin(
+                    db.SqliteDbContext.Player,
+                    a => a.UserId,
+                    p => p.UserId,
+                    (a, grouping) => new { a, grouping }
+                )
+                .SelectMany(t => t.grouping.DefaultIfEmpty(), (t, p) => new { t.a, p!.LastSeenUserName })
                 .ToArrayAsync(cancel);
 
             var adminRanks = await db.DbContext.AdminRank.Include(a => a.Flags).ToArrayAsync(cancel);
@@ -341,6 +357,7 @@ namespace Content.Server.Database
 
             return await base.AddAdminNote(note);
         }
+
         public override async Task<int> AddAdminWatchlist(AdminWatchlist watchlist)
         {
             await using (var db = await GetDb())
@@ -387,7 +404,8 @@ namespace Content.Server.Database
 
         private async Task<DbGuardImpl> GetDbImpl(
             CancellationToken cancel = default,
-            [CallerMemberName] string? name = null)
+            [CallerMemberName] string? name = null
+        )
         {
             LogDbOp(name);
             await _dbReadyTask;
@@ -403,7 +421,8 @@ namespace Content.Server.Database
 
         protected override async Task<DbGuard> GetDb(
             CancellationToken cancel = default,
-            [CallerMemberName] string? name = null)
+            [CallerMemberName] string? name = null
+        )
         {
             return await GetDbImpl(cancel, name).ConfigureAwait(false);
         }
@@ -455,13 +474,15 @@ namespace Content.Server.Database
                         if (Thread.CurrentThread == _holdingThread)
                         {
                             throw new InvalidOperationException(
-                                "Multiple database requests from same thread on synchronous database!");
+                                "Multiple database requests from same thread on synchronous database!"
+                            );
                         }
 
                         throw new InvalidOperationException(
-                            $"Different threads trying to access the database at once! " +
-                            $"Holding thread: {DiagThread(_holdingThread)}, " +
-                            $"current thread: {DiagThread(Thread.CurrentThread)}");
+                            $"Different threads trying to access the database at once! "
+                                + $"Holding thread: {DiagThread(_holdingThread)}, "
+                                + $"current thread: {DiagThread(Thread.CurrentThread)}"
+                        );
                     }
 
                     _holdingThread = Thread.CurrentThread;

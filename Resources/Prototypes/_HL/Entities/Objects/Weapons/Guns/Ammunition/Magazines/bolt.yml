@@ -5,13 +5,13 @@
   components:
   - type: Tag
     tags:
-      - Magazine75Bolt
+    - Magazine75Bolt
   - type: BallisticAmmoProvider
     proto: CartridgeBoltBase
     mayTransfer: true
     whitelist:
       tags:
-        - Boltcart
+      - Boltcart
     capacity: 20
   - type: Item
     size: Small

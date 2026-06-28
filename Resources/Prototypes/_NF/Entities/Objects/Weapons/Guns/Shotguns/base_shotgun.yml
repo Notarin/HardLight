@@ -1,13 +1,13 @@
 #region frame
 - type: entity
   id: NFBaseWeaponFrameShotgun
-  parent: [ NFBaseWeaponEncumbrancePistol, NFBaseItemWeaponGun ]
+  parent: [NFBaseWeaponEncumbrancePistol, NFBaseItemWeaponGun]
   abstract: true
   components:
   - type: Sprite
     layers:
     - state: icon
-      map: [ "enum.GunVisualLayers.Base" ]
+      map: ["enum.GunVisualLayers.Base"]
   - type: Gun
     projectileSpeed: 20
     minAngle: 7.4
@@ -29,7 +29,7 @@
 
 - type: entity
   id: NFBaseWeaponFrameShotgunWieldable
-  parent: [ NFBaseWeaponEncumbranceRifle, NFBaseWeaponFrameShotgun ]
+  parent: [NFBaseWeaponEncumbranceRifle, NFBaseWeaponFrameShotgun]
   abstract: true
   components:
   - type: Wieldable
@@ -92,9 +92,9 @@
   - type: Sprite # janky here, but mag is optional and tied with chamber
     layers:
     - state: icon
-      map: [ "enum.GunVisualLayers.Base" ]
+      map: ["enum.GunVisualLayers.Base"]
     - state: mag-0
-      map: [ "enum.GunVisualLayers.Mag" ]
+      map: ["enum.GunVisualLayers.Mag"]
   - type: Gun
     examineCaliber: gun-examine-caliber-50
     soundGunshot:

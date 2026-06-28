@@ -12,4 +12,3 @@ public sealed partial class PredictedProjectileClientComponent : Component
     [DataField]
     public EntityCoordinates? Coordinates;
 }
-

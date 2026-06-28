@@ -102,7 +102,7 @@ namespace Content.Server.Atmos
 
         GasMixture IGasMixtureHolder.Air
         {
-            get => Air ?? new GasMixture(Atmospherics.CellVolume){ Temperature = Temperature };
+            get => Air ?? new GasMixture(Atmospherics.CellVolume) { Temperature = Temperature };
             set => Air = value;
         }
 
@@ -135,7 +135,13 @@ namespace Content.Server.Atmos
         /// </summary>
         public AtmosphereSystem.AirtightData AirtightData;
 
-        public TileAtmosphere(EntityUid gridIndex, Vector2i gridIndices, GasMixture? mixture = null, bool immutable = false, bool space = false)
+        public TileAtmosphere(
+            EntityUid gridIndex,
+            Vector2i gridIndices,
+            GasMixture? mixture = null,
+            bool immutable = false,
+            bool space = false
+        )
         {
             GridIndex = gridIndex;
             GridIndices = gridIndices;
@@ -143,7 +149,7 @@ namespace Content.Server.Atmos
             AirArchived = Air != null ? Air.Clone() : null;
             Space = space;
 
-            if(immutable)
+            if (immutable)
                 Air?.MarkImmutable();
         }
 
@@ -158,8 +164,6 @@ namespace Content.Server.Atmos
             AirArchived = Air != null ? Air.Clone() : null;
         }
 
-        public TileAtmosphere()
-        {
-        }
+        public TileAtmosphere() { }
     }
 }

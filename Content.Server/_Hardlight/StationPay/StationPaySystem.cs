@@ -21,12 +21,23 @@ namespace Content.Server._Hardlight.StationPay;
 [UsedImplicitly]
 public sealed class StationPaySystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly GameTicker _gameTicker = default!;
-    [Dependency] private readonly BankSystem _bank = default!;
-    [Dependency] private readonly IChatManager _chat = default!;
-    [Dependency] private readonly ISharedPlayerManager _player = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly GameTicker _gameTicker = default!;
+
+    [Dependency]
+    private readonly BankSystem _bank = default!;
+
+    [Dependency]
+    private readonly IChatManager _chat = default!;
+
+    [Dependency]
+    private readonly ISharedPlayerManager _player = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
 
     public int PayoutDelay { get; private set; }
 
@@ -114,12 +125,11 @@ public sealed class StationPaySystem : EntitySystem
 
     private bool GetJobForEntity(
         [NotNullWhen(true)] EntityUid? uid,
-        [NotNullWhen(true)] out ProtoId<JobPrototype>? jobPrototype)
+        [NotNullWhen(true)] out ProtoId<JobPrototype>? jobPrototype
+    )
     {
         jobPrototype = null;
-        if (TryComp<JobTrackingComponent>(uid, out var jtc)
-            && jtc.Job is {} job
-            && _jobPayoutRates.ContainsKey(job))
+        if (TryComp<JobTrackingComponent>(uid, out var jtc) && jtc.Job is { } job && _jobPayoutRates.ContainsKey(job))
         {
             jobPrototype = job;
         }
@@ -131,10 +141,11 @@ public sealed class StationPaySystem : EntitySystem
     {
         var uid = args.Mind.OwnedEntity;
 
-        if (uid == null
+        if (
+            uid == null
             || !TryComp<BankAccountComponent>(uid, out _)
             || !GetJobForEntity(uid, out _) // HardLight: out var job<out _
-           )
+        )
         {
             //Log.Debug($"[stationpay] Character {args.Mind.CharacterName} joined but was not valid for station pay");
             return;
@@ -155,9 +166,11 @@ public sealed class StationPaySystem : EntitySystem
             if (!TryComp<MindComponent>(mindContainer.Mind.Value, out var mind))
                 continue;
 
-            if (!_player.TryGetSessionById(mind.UserId, out var session)
+            if (
+                !_player.TryGetSessionById(mind.UserId, out var session)
                 || session.Status != SessionStatus.InGame
-                || session.AttachedEntity != uid)
+                || session.AttachedEntity != uid
+            )
                 continue;
 
             if (!GetJobForEntity(uid, out _))
@@ -196,12 +209,14 @@ public sealed class StationPaySystem : EntitySystem
     private void OnAnyMindAdded(MindAddedMessage args)
     {
         var uid = args.Container.Owner;
-        if (!HasComp<JobTrackingComponent>(uid)
+        if (
+            !HasComp<JobTrackingComponent>(uid)
             || !HasComp<BankAccountComponent>(uid)
             || !GetJobForEntity(uid, out _)
             || !_player.TryGetSessionById(args.Mind.Comp.UserId, out var session)
             || session.Status != SessionStatus.InGame
-            || session.AttachedEntity != uid)
+            || session.AttachedEntity != uid
+        )
         {
             return;
         }
@@ -236,8 +251,7 @@ public sealed class StationPaySystem : EntitySystem
         // Don't deposit if there's no in-game session attached to this body. Returning false here
         // (instead of true) leaves the schedule unadvanced so the missed interval is retried once
         // the player is back in-game, rather than silently dropped.
-        if (!_player.TryGetSessionByEntity(uid, out var session)
-            || session.Status != SessionStatus.InGame)
+        if (!_player.TryGetSessionByEntity(uid, out var session) || session.Status != SessionStatus.InGame)
         {
             return false;
         }
@@ -249,21 +263,26 @@ public sealed class StationPaySystem : EntitySystem
         if (_bank.TryBankDeposit(uid, amount))
         {
             var job = _prototypeManager.Index<JobPrototype>(jobId);
-            var message = Loc.GetString("stationpay-notify-payment",
+            var message = Loc.GetString(
+                "stationpay-notify-payment",
                 ("pay", amount),
                 ("time", secondsWorked / 60),
                 ("job", job.LocalizedName)
             );
-            var wrappedMessage = Loc.GetString("pda-notification-message",
+            var wrappedMessage = Loc.GetString(
+                "pda-notification-message",
                 ("header", Loc.GetString("stationpay-notify-pda-header")),
-                ("message", message));
+                ("message", message)
+            );
 
-            _chat.ChatMessageToOne(ChatChannel.Notifications,
+            _chat.ChatMessageToOne(
+                ChatChannel.Notifications,
                 message,
                 wrappedMessage,
                 EntityUid.Invalid,
                 false,
-                session.Channel);
+                session.Channel
+            );
 
             return true;
         }

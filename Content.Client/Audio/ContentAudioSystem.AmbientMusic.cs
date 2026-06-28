@@ -23,14 +23,29 @@ namespace Content.Client.Audio;
 
 public sealed partial class ContentAudioSystem
 {
-    [Dependency] private readonly IConfigurationManager _configManager = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IStateManager _state = default!;
-    [Dependency] private readonly RulesSystem _rules = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency]
+    private readonly IConfigurationManager _configManager = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly IStateManager _state = default!;
+
+    [Dependency]
+    private readonly RulesSystem _rules = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
 
     private readonly TimeSpan _minAmbienceTime = TimeSpan.FromSeconds(30);
     private readonly TimeSpan _maxAmbienceTime = TimeSpan.FromSeconds(60);
@@ -168,7 +183,11 @@ public sealed partial class ContentAudioSystem
         {
             var player = _player.LocalSession?.AttachedEntity;
 
-            if (player == null || _musicProto == null || !_rules.IsTrue(player.Value, _proto.Index<RulesPrototype>(_musicProto.Rules)))
+            if (
+                player == null
+                || _musicProto == null
+                || !_rules.IsTrue(player.Value, _proto.Index<RulesPrototype>(_musicProto.Rules))
+            )
             {
                 FadeOut(_ambientMusicStream, duration: AmbientMusicFadeTime);
                 _musicProto = null;
@@ -211,7 +230,8 @@ public sealed partial class ContentAudioSystem
             track.ToString(),
             Filter.Local(),
             false,
-            AudioParams.Default.WithVolume(_musicProto.Sound.Params.Volume + _volumeSlider));
+            AudioParams.Default.WithVolume(_musicProto.Sound.Params.Volume + _volumeSlider)
+        );
 
         _ambientMusicStream = strim?.Entity;
 

@@ -4,7 +4,7 @@
   id: ShipMissileASM19
   name: MPSSM ASM-19 man-portable anti-ship missile
   parent: BaseBulletTrigger
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -55,7 +55,7 @@
   id: RocketMk248
   name: MPSSM Mk.248 HEAT rocket
   parent: BaseBulletTrigger
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:

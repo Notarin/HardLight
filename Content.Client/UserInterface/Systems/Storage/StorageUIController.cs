@@ -36,12 +36,23 @@ public sealed class StorageUIController : UIController, IOnSystemChanged<Storage
      * - StorageSystem handles any sim stuff around open windows.
      */
 
-    [Dependency] private readonly IConfigurationManager _configuration = default!;
-    [Dependency] private readonly IInputManager _input = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly CloseRecentWindowUIController _closeRecentWindowUIController = default!;
-    [UISystemDependency] private readonly StorageSystem _storage = default!;
-    [UISystemDependency] private readonly UserInterfaceSystem _ui = default!;
+    [Dependency]
+    private readonly IConfigurationManager _configuration = default!;
+
+    [Dependency]
+    private readonly IInputManager _input = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
+
+    [Dependency]
+    private readonly CloseRecentWindowUIController _closeRecentWindowUIController = default!;
+
+    [UISystemDependency]
+    private readonly StorageSystem _storage = default!;
+
+    [UISystemDependency]
+    private readonly UserInterfaceSystem _ui = default!;
 
     private readonly DragDropHelper<ItemGridPiece> _menuDragHelper;
 
@@ -155,8 +166,14 @@ public sealed class StorageUIController : UIController, IOnSystemChanged<Storage
         else
         {
             // Open at parent position if it's open.
-            if (_ui.TryGetOpenUi<StorageBoundUserInterface>(EntityManager.GetComponent<TransformComponent>(sBui.Owner).ParentUid,
-                    StorageComponent.StorageUiKey.Key, out var bui) && bui.Position != null)
+            if (
+                _ui.TryGetOpenUi<StorageBoundUserInterface>(
+                    EntityManager.GetComponent<TransformComponent>(sBui.Owner).ParentUid,
+                    StorageComponent.StorageUiKey.Key,
+                    out var bui
+                )
+                && bui.Position != null
+            )
             {
                 window.Open(bui.Position.Value);
             }
@@ -204,22 +221,32 @@ public sealed class StorageUIController : UIController, IOnSystemChanged<Storage
         if (binding.BaseKey != keyEvent.Key)
             return;
 
-        if (keyEvent.Shift &&
-            !(binding.Mod1 == Keyboard.Key.Shift ||
-              binding.Mod2 == Keyboard.Key.Shift ||
-              binding.Mod3 == Keyboard.Key.Shift))
+        if (
+            keyEvent.Shift
+            && !(
+                binding.Mod1 == Keyboard.Key.Shift
+                || binding.Mod2 == Keyboard.Key.Shift
+                || binding.Mod3 == Keyboard.Key.Shift
+            )
+        )
             return;
 
-        if (keyEvent.Alt &&
-            !(binding.Mod1 == Keyboard.Key.Alt ||
-              binding.Mod2 == Keyboard.Key.Alt ||
-              binding.Mod3 == Keyboard.Key.Alt))
+        if (
+            keyEvent.Alt
+            && !(
+                binding.Mod1 == Keyboard.Key.Alt || binding.Mod2 == Keyboard.Key.Alt || binding.Mod3 == Keyboard.Key.Alt
+            )
+        )
             return;
 
-        if (keyEvent.Control &&
-            !(binding.Mod1 == Keyboard.Key.Control ||
-              binding.Mod2 == Keyboard.Key.Control ||
-              binding.Mod3 == Keyboard.Key.Control))
+        if (
+            keyEvent.Control
+            && !(
+                binding.Mod1 == Keyboard.Key.Control
+                || binding.Mod2 == Keyboard.Key.Control
+                || binding.Mod3 == Keyboard.Key.Control
+            )
+        )
             return;
 
         if (!IsDragging && EntityManager.System<HandsSystem>().GetActiveHandEntity() == null)
@@ -249,12 +276,15 @@ public sealed class StorageUIController : UIController, IOnSystemChanged<Storage
         }
         else if (args.Function == ContentKeyFunctions.SaveItemLocation)
         {
-            if (window.StorageEntity is not {} storage)
+            if (window.StorageEntity is not { } storage)
                 return;
 
-            EntityManager.RaisePredictiveEvent(new StorageSaveItemLocationEvent(
-                EntityManager.GetNetEntity(control.Entity),
-                EntityManager.GetNetEntity(storage)));
+            EntityManager.RaisePredictiveEvent(
+                new StorageSaveItemLocationEvent(
+                    EntityManager.GetNetEntity(control.Entity),
+                    EntityManager.GetNetEntity(storage)
+                )
+            );
             args.Handle();
         }
         else if (args.Function == ContentKeyFunctions.ExamineEntity)
@@ -270,12 +300,15 @@ public sealed class StorageUIController : UIController, IOnSystemChanged<Storage
         else if (args.Function == ContentKeyFunctions.ActivateItemInWorld)
         {
             EntityManager.RaisePredictiveEvent(
-                new InteractInventorySlotEvent(EntityManager.GetNetEntity(control.Entity), altInteract: false));
+                new InteractInventorySlotEvent(EntityManager.GetNetEntity(control.Entity), altInteract: false)
+            );
             args.Handle();
         }
         else if (args.Function == ContentKeyFunctions.AltActivateItemInWorld)
         {
-            EntityManager.RaisePredictiveEvent(new InteractInventorySlotEvent(EntityManager.GetNetEntity(control.Entity), altInteract: true));
+            EntityManager.RaisePredictiveEvent(
+                new InteractInventorySlotEvent(EntityManager.GetNetEntity(control.Entity), altInteract: true)
+            );
             args.Handle();
         }
 
@@ -325,10 +358,13 @@ public sealed class StorageUIController : UIController, IOnSystemChanged<Storage
                 }
                 else
                 {
-                    EntityManager.RaisePredictiveEvent(new StorageSetItemLocationEvent(
-                        EntityManager.GetNetEntity(draggingGhost.Entity),
-                        EntityManager.GetNetEntity(sourceStorage),
-                        newLocation));
+                    EntityManager.RaisePredictiveEvent(
+                        new StorageSetItemLocationEvent(
+                            EntityManager.GetNetEntity(draggingGhost.Entity),
+                            EntityManager.GetNetEntity(sourceStorage),
+                            newLocation
+                        )
+                    );
 
                     window.Reclaim(newLocation, control);
                 }
@@ -340,16 +376,22 @@ public sealed class StorageUIController : UIController, IOnSystemChanged<Storage
                 var newLocation = new ItemStorageLocation(DraggingRotation, position);
 
                 // Check it fits and we can move to hand (no free transfers).
-                if (_storage.ItemFitsInGridLocation(
+                if (
+                    _storage.ItemFitsInGridLocation(
                         (dragEnt, null),
                         (targetStorage.StorageEntity.Value, null),
-                        newLocation))
+                        newLocation
+                    )
+                )
                 {
                     // Can drop and move.
-                    EntityManager.RaisePredictiveEvent(new StorageTransferItemEvent(
-                        EntityManager.GetNetEntity(dragEnt),
-                        EntityManager.GetNetEntity(targetStorage.StorageEntity.Value),
-                        newLocation));
+                    EntityManager.RaisePredictiveEvent(
+                        new StorageTransferItemEvent(
+                            EntityManager.GetNetEntity(dragEnt),
+                            EntityManager.GetNetEntity(targetStorage.StorageEntity.Value),
+                            newLocation
+                        )
+                    );
 
                     targetStorage.Reclaim(newLocation, control);
                     DraggingRotation = Angle.Zero;
@@ -366,9 +408,12 @@ public sealed class StorageUIController : UIController, IOnSystemChanged<Storage
         // If we just clicked, then take it out of the bag.
         else
         {
-            EntityManager.RaisePredictiveEvent(new StorageInteractWithItemEvent(
-                EntityManager.GetNetEntity(control.Entity),
-                EntityManager.GetNetEntity(sourceStorage)));
+            EntityManager.RaisePredictiveEvent(
+                new StorageInteractWithItemEvent(
+                    EntityManager.GetNetEntity(control.Entity),
+                    EntityManager.GetNetEntity(sourceStorage)
+                )
+            );
         }
 
         _menuDragHelper.EndDrag();
@@ -396,9 +441,11 @@ public sealed class StorageUIController : UIController, IOnSystemChanged<Storage
         var player = _player.LocalEntity;
 
         // If the attached storage is closed then stop dragging
-        if (player == null ||
-            !_storage.TryGetStorageLocation(DraggingGhost.Entity, out var container, out _, out _) ||
-            !_ui.IsUiOpen(container.Owner, StorageComponent.StorageUiKey.Key, player.Value))
+        if (
+            player == null
+            || !_storage.TryGetStorageLocation(DraggingGhost.Entity, out var container, out _, out _)
+            || !_ui.IsUiOpen(container.Owner, StorageComponent.StorageUiKey.Key, player.Value)
+        )
         {
             DraggingGhost.Orphan();
             return false;
@@ -416,10 +463,11 @@ public sealed class StorageUIController : UIController, IOnSystemChanged<Storage
         var offset = ItemGridPiece.GetCenterOffset(
             (DraggingGhost.Entity, null),
             new ItemStorageLocation(DraggingRotation, Vector2i.Zero),
-            EntityManager);
+            EntityManager
+        );
 
         // I don't know why it divides the position by 2. Hope this helps! -emo
-        LayoutContainer.SetPosition(DraggingGhost, UIManager.MousePositionScaled.Position / 2 - offset );
+        LayoutContainer.SetPosition(DraggingGhost, UIManager.MousePositionScaled.Position / 2 - offset);
     }
 
     private void OnMenuEndDrag()

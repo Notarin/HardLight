@@ -1,24 +1,35 @@
+using Content.Shared._NF.Clothing.Components;
+using Content.Shared.Alert;
+using Content.Shared.Clothing;
+using Content.Shared.Clothing.EntitySystems;
 using Content.Shared.Gravity;
 using Content.Shared.Inventory;
-using Content.Shared.Item.ItemToggle.Components;
-using Content.Shared.Alert;
 using Content.Shared.Item;
 using Content.Shared.Item.ItemToggle;
+using Content.Shared.Item.ItemToggle.Components;
 using Robust.Shared.Containers;
-using Content.Shared.Clothing.EntitySystems;
-using Content.Shared._NF.Clothing.Components;
-using Content.Shared.Clothing;
 
 namespace Content.Shared._NF.Clothing.EntitySystems;
 
 public sealed class SharedNFMoonBootsSystem : EntitySystem
 {
-    [Dependency] private readonly AlertsSystem _alerts = default!;
-    [Dependency] private readonly ClothingSystem _clothing = default!;
-    [Dependency] private readonly InventorySystem _inventory = default!;
-    [Dependency] private readonly ItemToggleSystem _toggle = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SharedItemSystem _item = default!;
+    [Dependency]
+    private readonly AlertsSystem _alerts = default!;
+
+    [Dependency]
+    private readonly ClothingSystem _clothing = default!;
+
+    [Dependency]
+    private readonly InventorySystem _inventory = default!;
+
+    [Dependency]
+    private readonly ItemToggleSystem _toggle = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly SharedItemSystem _item = default!;
 
     public override void Initialize()
     {
@@ -35,9 +46,11 @@ public sealed class SharedNFMoonBootsSystem : EntitySystem
     {
         var (uid, comp) = ent;
         // only works if being worn in the correct slot
-        if (_container.TryGetContainingContainer((uid, null, null), out var container) &&
-            _inventory.TryGetSlotEntity(container.Owner, comp.Slot, out var worn)
-            && uid == worn)
+        if (
+            _container.TryGetContainingContainer((uid, null, null), out var container)
+            && _inventory.TryGetSlotEntity(container.Owner, comp.Slot, out var worn)
+            && uid == worn
+        )
         {
             UpdateMoonbootEffects(container.Owner, ent, args.Activated);
         }

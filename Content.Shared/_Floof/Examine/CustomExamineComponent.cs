@@ -1,9 +1,7 @@
 using Robust.Shared.GameStates;
 using Robust.Shared.Serialization;
 
-
 namespace Content.Shared._Floof.Examine;
-
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState(true)]
 public sealed partial class CustomExamineComponent : Component
@@ -19,7 +17,7 @@ public sealed partial class CustomExamineComponent : Component
         VisibilityRange = 20,
         ExpireTime = TimeSpan.Zero,
         RequiresConsent = false,
-        LastUpdate = TimeSpan.Zero
+        LastUpdate = TimeSpan.Zero,
     };
 
     [DataField, AutoNetworkedField]
@@ -29,7 +27,7 @@ public sealed partial class CustomExamineComponent : Component
         VisibilityRange = 2,
         ExpireTime = TimeSpan.Zero,
         RequiresConsent = false,
-        LastUpdate = TimeSpan.Zero
+        LastUpdate = TimeSpan.Zero,
     };
 }
 

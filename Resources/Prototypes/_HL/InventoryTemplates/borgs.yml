@@ -14,7 +14,7 @@
     displayName: Neck
     whitelist:
       tags:
-        - BorgWearable
+      - BorgWearable
   - name: id
     slotTexture: id
     slotFlags: IDCARD
@@ -32,7 +32,7 @@
     offset: 0, 0
     whitelist:
       tags:
-        - BorgWearable
+      - BorgWearable
 
 - type: inventoryTemplate
   id: borgnorm
@@ -54,9 +54,7 @@
     offset: 0, 0
     whitelist:
       tags:
-        - BorgWearable
-
-
+      - BorgWearable
 
 - type: inventoryTemplate
   id: borgShortHL
@@ -78,9 +76,7 @@
     offset: 0, 0
     whitelist:
       tags:
-        - BorgWearable
-
-
+      - BorgWearable
 
 - type: inventoryTemplate
   id: borgTallHL
@@ -102,9 +98,7 @@
     offset: 0, 0
     whitelist:
       tags:
-        - BorgWearable
-
-
+      - BorgWearable
 
 - type: inventoryTemplate
   id: borgDutchHL
@@ -126,4 +120,4 @@
     offset: 0, 0
     whitelist:
       tags:
-        - BorgWearable
+      - BorgWearable

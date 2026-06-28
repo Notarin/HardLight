@@ -16,11 +16,20 @@ namespace Content.Goobstation.Shared.Weapons.RequiresDualWield;
 
 public sealed class RequiresDualWieldSystem : EntitySystem
 {
-    [Dependency] private readonly SharedHandsSystem _handsSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedGunSystem _gun = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
+    [Dependency]
+    private readonly SharedHandsSystem _handsSystem = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly SharedGunSystem _gun = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelistSystem = default!;
 
     public override void Initialize()
     {
@@ -55,7 +64,7 @@ public sealed class RequiresDualWieldSystem : EntitySystem
 
             if (HasComp<MultishotComponent>(held))
             {
-                if (CheckGun(held,component.Whitelist))
+                if (CheckGun(held, component.Whitelist))
                     continue;
             }
 

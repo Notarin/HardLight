@@ -8,7 +8,8 @@ namespace Content.Server.GameTicking.Rules;
 
 public sealed class MaxTimeRestartRuleSystem : GameRuleSystem<MaxTimeRestartRuleComponent>
 {
-    [Dependency] private readonly IChatManager _chatManager = default!;
+    [Dependency]
+    private readonly IChatManager _chatManager = default!;
 
     public override void Initialize()
     {
@@ -17,15 +18,25 @@ public sealed class MaxTimeRestartRuleSystem : GameRuleSystem<MaxTimeRestartRule
         SubscribeLocalEvent<GameRunLevelChangedEvent>(RunLevelChanged);
     }
 
-    protected override void Started(EntityUid uid, MaxTimeRestartRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
+    protected override void Started(
+        EntityUid uid,
+        MaxTimeRestartRuleComponent component,
+        GameRuleComponent gameRule,
+        GameRuleStartedEvent args
+    )
     {
         base.Started(uid, component, gameRule, args);
 
-        if(GameTicker.RunLevel == GameRunLevel.InRound)
+        if (GameTicker.RunLevel == GameRunLevel.InRound)
             RestartTimer(component);
     }
 
-    protected override void Ended(EntityUid uid, MaxTimeRestartRuleComponent component, GameRuleComponent gameRule, GameRuleEndedEvent args)
+    protected override void Ended(
+        EntityUid uid,
+        MaxTimeRestartRuleComponent component,
+        GameRuleComponent gameRule,
+        GameRuleEndedEvent args
+    )
     {
         base.Ended(uid, component, gameRule, args);
 
@@ -49,7 +60,9 @@ public sealed class MaxTimeRestartRuleSystem : GameRuleSystem<MaxTimeRestartRule
     {
         GameTicker.EndRound(Loc.GetString("rule-time-has-run-out"));
 
-        _chatManager.DispatchServerAnnouncement(Loc.GetString("rule-restarting-in-seconds",("seconds", (int) component.RoundEndDelay.TotalSeconds)));
+        _chatManager.DispatchServerAnnouncement(
+            Loc.GetString("rule-restarting-in-seconds", ("seconds", (int)component.RoundEndDelay.TotalSeconds))
+        );
 
         // TODO FULL GAME SAVE
         Timer.Spawn(component.RoundEndDelay, () => GameTicker.RestartRound());

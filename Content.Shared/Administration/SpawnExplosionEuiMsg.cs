@@ -1,8 +1,8 @@
 using Content.Shared.Eui;
-using Robust.Shared.Serialization;
-using Robust.Shared.Map;
 using Content.Shared.Explosion;
 using Content.Shared.Explosion.Components;
+using Robust.Shared.Map;
+using Robust.Shared.Serialization;
 
 namespace Content.Shared.Administration;
 
@@ -20,7 +20,13 @@ public static class SpawnExplosionEuiMsg
         public readonly float IntensitySlope;
         public readonly float MaxIntensity;
 
-        public PreviewRequest(MapCoordinates epicenter, string typeId, float totalIntensity, float intensitySlope, float maxIntensity)
+        public PreviewRequest(
+            MapCoordinates epicenter,
+            string typeId,
+            float totalIntensity,
+            float intensitySlope,
+            float maxIntensity
+        )
         {
             Epicenter = epicenter;
             TypeId = typeId;

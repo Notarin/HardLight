@@ -20,7 +20,8 @@ namespace Content.Client.Crayon.UI
     [GenerateTypedNameReferences]
     public sealed partial class CrayonWindow : DefaultWindow
     {
-        [Dependency] private readonly IEntitySystemManager _entitySystem = default!;
+        [Dependency]
+        private readonly IEntitySystemManager _entitySystem = default!;
         private readonly SpriteSystem _spriteSystem = default!;
 
         private Dictionary<string, List<(string Name, Texture Texture)>>? _decals;
@@ -63,7 +64,12 @@ namespace Content.Client.Crayon.UI
             var first = (comma == -1 ? filter : filter[..comma]).Trim();
 
             var names = _decals.Keys.ToList();
-            names.Sort((a, b) => a == "random" ? 1 : b == "random" ? -1 : a.CompareTo(b));
+            names.Sort(
+                (a, b) =>
+                    a == "random" ? 1
+                    : b == "random" ? -1
+                    : a.CompareTo(b)
+            );
 
             if (_autoSelected != null && first != _autoSelected && _allDecals.Contains(first))
             {
@@ -75,21 +81,16 @@ namespace Content.Client.Crayon.UI
             foreach (var categoryName in names)
             {
                 var locName = Loc.GetString("crayon-category-" + categoryName);
-                var category = _decals[categoryName].Where(d => locName.Contains(first) || d.Name.Contains(first)).ToList();
+                var category = _decals[categoryName]
+                    .Where(d => locName.Contains(first) || d.Name.Contains(first))
+                    .ToList();
 
                 if (category.Count == 0)
                     continue;
 
-                var label = new Label
-                {
-                    Text = locName
-                };
+                var label = new Label { Text = locName };
 
-                var grid = new GridContainer
-                {
-                    Columns = 6,
-                    Margin = new Thickness(0, 0, 0, 16)
-                };
+                var grid = new GridContainer { Columns = 6, Margin = new Thickness(0, 0, 0, 16) };
 
                 Grids.AddChild(label);
                 Grids.AddChild(grid);
@@ -102,7 +103,7 @@ namespace Content.Client.Crayon.UI
                         Name = name,
                         ToolTip = name,
                         Modulate = _color,
-                        Scale = new System.Numerics.Vector2(2, 2)
+                        Scale = new System.Numerics.Vector2(2, 2),
                     };
                     button.OnPressed += ButtonOnPressed;
 
@@ -110,14 +111,8 @@ namespace Content.Client.Crayon.UI
                     {
                         var panelContainer = new PanelContainer()
                         {
-                            PanelOverride = new StyleBoxFlat()
-                            {
-                                BackgroundColor = StyleNano.ButtonColorDefault,
-                            },
-                            Children =
-                            {
-                                button,
-                            },
+                            PanelOverride = new StyleBoxFlat() { BackgroundColor = StyleNano.ButtonColorDefault },
+                            Children = { button },
                         };
                         grid.AddChild(panelContainer);
                     }
@@ -137,7 +132,8 @@ namespace Content.Client.Crayon.UI
 
         private void ButtonOnPressed(ButtonEventArgs obj)
         {
-            if (obj.Button.Name == null) return;
+            if (obj.Button.Name == null)
+                return;
 
             _selected = obj.Button.Name;
             _autoSelected = null;

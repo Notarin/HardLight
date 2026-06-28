@@ -11,10 +11,17 @@ namespace Content.Server.IgnitionSource;
 /// </summary>
 public sealed class IgniteOnTriggerSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedIgnitionSourceSystem _source = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly UseDelaySystem _useDelay = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly SharedIgnitionSourceSystem _source = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly UseDelaySystem _useDelay = default!;
 
     public override void Initialize()
     {

@@ -1,7 +1,7 @@
 # Base
 - type: entity
   id: ShieldGeneratorBase
-  parent: [ BaseMachinePowered, ConstructibleMachine ] #HL
+  parent: [BaseMachinePowered, ConstructibleMachine] #HL
   name: Shield Generator
   abstract: true
   components:
@@ -26,8 +26,8 @@
     visuals:
       enum.PowerDeviceVisuals.Powered:
         enum.PowerDeviceVisualLayers.Powered:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
     snapCardinals: true
   - type: Physics
     bodyType: Static
@@ -35,8 +35,7 @@
     noRot: true
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 1500
       behaviors:
       - !type:DoActsBehavior
@@ -51,8 +50,7 @@
           - 0 # carbon dioxide
           - 6 # plasma
           temperature: 752.48
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 1000
       behaviors:
       - !type:SpawnEntitiesBehavior
@@ -92,21 +90,21 @@
     unpoweredBonus: 4 # Base is 6
     shieldColor: "#FF3333"
     powerUpSound: !type:SoundPathSpecifier
-        path: "/Audio/Effects/teleport_arrival.ogg"
-        params:
-          pitch: 0.5
+      path: "/Audio/Effects/teleport_arrival.ogg"
+      params:
+        pitch: 0.5
     powerDownSound: !type:SoundPathSpecifier
-        path: "/Audio/Effects/teleport_departure.ogg"
-        params:
-          pitch: 0.5
- # - type: Machine
+      path: "/Audio/Effects/teleport_departure.ogg"
+      params:
+        pitch: 0.5
+        # - type: Machine
     # board removed: machine board prototype not available
   - type: Construction
     graph: Machine
     node: machine
     # machine board/parts containers removed due to missing machine board prototypes
   #- type: ContainerContainer
-    # containers removed due to missing machine board prototypes
+  # containers removed due to missing machine board prototypes
   - type: PirateBountyItem
     id: ShipShield
 
@@ -144,8 +142,7 @@
     - Unanchorable
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 1500
       behaviors:
       - !type:DoActsBehavior
@@ -160,8 +157,7 @@
           - 0 # carbon dioxide
           - 6 # plasma
           temperature: 752.48
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 500
       behaviors:
       - !type:SpawnEntitiesBehavior
@@ -184,11 +180,11 @@
     radius: 2
     energy: 1.5
     color: "#FF9933"
-  # - type: ContainerContainer #HL start
+    # - type: ContainerContainer #HL start
     # containers:
-      # machine_board: !type:Container
-      # machine_parts: !type:Container
-  #- type: Machine
+    # machine_board: !type:Container
+    # machine_parts: !type:Container
+    #- type: Machine
     #board: CapitalShieldBoard #HL end
 
 # TSF capital shield - inbetween POI and MS-500, meant for flyssa
@@ -221,8 +217,7 @@
       color: "#FF0A70"
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 1500
       behaviors:
       - !type:DoActsBehavior
@@ -237,8 +232,7 @@
           - 0 # carbon dioxide
           - 6 # plasma
           temperature: 752.48
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 500
       behaviors:
       - !type:SpawnEntitiesBehavior
@@ -318,8 +312,7 @@
       color: "#9933FF"
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 1500
       behaviors:
       - !type:DoActsBehavior
@@ -334,8 +327,7 @@
           - 0 # carbon dioxide
           - 6 # plasma
           temperature: 752.48
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 750
       behaviors:
       - !type:SpawnEntitiesBehavior
@@ -358,14 +350,14 @@
     radius: 2
     energy: 1.5
     color: "#9933FF"
- # - type: Machine
+    # - type: Machine
     # board removed: machine board prototype not available
   - type: Construction
     graph: Machine
     node: machine
     # machine board/parts containers removed due to missing machine board prototypes
   #- type: ContainerContainer
-    # containers removed due to missing machine board prototypes
+  # containers removed due to missing machine board prototypes
   - type: PirateBountyItem
     id: ShipShield
   - type: ContainerContainer #HL start
@@ -404,8 +396,7 @@
       color: "#3399FF"
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 1500
       behaviors:
       - !type:DoActsBehavior
@@ -420,8 +411,7 @@
           - 0 # carbon dioxide
           - 6 # plasma
           temperature: 752.48
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 500
       behaviors:
       - !type:SpawnEntitiesBehavior
@@ -445,13 +435,13 @@
     energy: 1.5
     color: "#3399FF"
   #- type: Machine
-    # board removed: machine board prototype not available
+  # board removed: machine board prototype not available
   - type: Construction
     graph: Machine
     node: machine
     # machine board/parts containers removed due to missing machine board prototypes
   #- type: ContainerContainer
-    # containers removed due to missing machine board prototypes
+  # containers removed due to missing machine board prototypes
   - type: PirateBountyItem
     id: ShipShield
   - type: ContainerContainer #HL start

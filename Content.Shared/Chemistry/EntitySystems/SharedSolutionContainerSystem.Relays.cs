@@ -32,12 +32,16 @@ public record struct SolutionContainerOverflowEvent(EntityUid SolutionEnt, Solut
 {
     /// <summary>The entity which contains the solution that has overflowed.</summary>
     public readonly EntityUid SolutionEnt = SolutionEnt;
+
     /// <summary>The solution that has overflowed.</summary>
     public readonly Solution SolutionHolder = SolutionHolder;
+
     /// <summary>The reagents that have overflowed the solution.</summary>
     public readonly Solution Overflow = Overflow;
+
     /// <summary>The volume by which the solution has overflowed.</summary>
     public readonly FixedPoint2 OverflowVol = Overflow.Volume;
+
     /// <summary>Whether some subscriber has taken care of the effects of the overflow.</summary>
     public bool Handled = false;
 }
@@ -65,7 +69,11 @@ public record struct SolutionRelayEvent<TEvent>(TEvent Event, EntityUid Containe
 /// <param name="SolutionEnt">The solution entity that the event is being relayed to.</param>
 /// <param name="Name">The name of the solution entity that the event is being relayed to.</param>
 [ByRefEvent]
-public record struct SolutionContainerRelayEvent<TEvent>(TEvent Event, Entity<SolutionComponent> SolutionEnt, string Name)
+public record struct SolutionContainerRelayEvent<TEvent>(
+    TEvent Event,
+    Entity<SolutionComponent> SolutionEnt,
+    string Name
+)
 {
     public readonly Entity<SolutionComponent> SolutionEnt = SolutionEnt;
     public readonly string Name = Name;
@@ -101,23 +109,24 @@ public abstract partial class SharedSolutionContainerSystem
     {
         var solution = args.Solution.Comp.Solution;
         var overflow = solution.SplitSolution(args.Overflow);
-        var relayEv = new SolutionContainerOverflowEvent(entity.Owner, solution, overflow)
-        {
-            Handled = args.Handled,
-        };
+        var relayEv = new SolutionContainerOverflowEvent(entity.Owner, solution, overflow) { Handled = args.Handled };
 
         RaiseLocalEvent(entity.Comp.Container, ref relayEv);
         args.Handled = relayEv.Handled;
     }
 
     // Starlight-start: relay solution changes from beakers to parent dispenser
-    private void OnFitsInDispenserSolutionChanged(Entity<FitsInDispenserComponent> entity, ref SolutionContainerChangedEvent args)
+    private void OnFitsInDispenserSolutionChanged(
+        Entity<FitsInDispenserComponent> entity,
+        ref SolutionContainerChangedEvent args
+    )
     {
         if (ContainerSystem.TryGetContainingContainer(entity.Owner, out var container))
         {
             RaiseLocalEvent(container.Owner, ref args);
         }
     }
+
     // Starlight-end
 
     #region Relay Event Handlers
@@ -135,7 +144,11 @@ public abstract partial class SharedSolutionContainerSystem
         @event = relayEvent.Event;
     }
 
-    private void RelaySolutionContainerEvent<TEvent>(EntityUid uid, SolutionContainerManagerComponent comp, TEvent @event)
+    private void RelaySolutionContainerEvent<TEvent>(
+        EntityUid uid,
+        SolutionContainerManagerComponent comp,
+        TEvent @event
+    )
     {
         foreach (var (name, soln) in EnumerateSolutions((uid, comp)))
         {
@@ -144,7 +157,10 @@ public abstract partial class SharedSolutionContainerSystem
         }
     }
 
-    private void RelaySolutionContainerEvent<TEvent>(Entity<SolutionContainerManagerComponent> entity, ref TEvent @event)
+    private void RelaySolutionContainerEvent<TEvent>(
+        Entity<SolutionContainerManagerComponent> entity,
+        ref TEvent @event
+    )
     {
         foreach (var (name, soln) in EnumerateSolutions((entity.Owner, entity.Comp)))
         {

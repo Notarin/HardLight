@@ -24,11 +24,11 @@
     canEditLabel: false
   - type: DeviceLinkSource
     ports:
-      - Start
-      - Timer
+    - Start
+    - Timer
   - type: DeviceLinkSink
     ports:
-      - Trigger
+    - Trigger
   - type: ActivatableUI
     key: enum.SignalTimerUiKey.Key
   - type: UserInterface
@@ -52,7 +52,7 @@
       board: !type:Container
   - type: ContainerFill
     containers:
-      board: [ SignalTimerElectronics ]
+      board: [SignalTimerElectronics]
 
 - type: entity
   id: ScreenTimer
@@ -80,7 +80,7 @@
     - board
   - type: ContainerFill
     containers:
-      board: [ ScreenTimerElectronics ]
+      board: [ScreenTimerElectronics]
 
 - type: entity
   id: BrigTimer
@@ -97,12 +97,12 @@
     - board
   - type: ContainerFill
     containers:
-      board: [ BrigTimerElectronics ]
+      board: [BrigTimerElectronics]
 
 # Construction Frame
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: TimerFrame
   name: timer frame
   description: A construction frame for a timer.

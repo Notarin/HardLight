@@ -12,6 +12,7 @@ public sealed partial class BountyContractUiFragmentList : Control
     public event Action? OnRefreshButtonPressed;
     public event Action? OnToggleNotificationPressed;
     public event Action<BountyContract>? OnRemoveButtonPressed;
+
     public BountyContractUiFragmentList()
     {
         RobustXamlLoader.Load(this);
@@ -47,6 +48,8 @@ public sealed partial class BountyContractUiFragmentList : Control
 
     public void SetNotificationsEnabled(bool notificationsEnabled)
     {
-        NotificationSwitch.Text = Loc.GetString(notificationsEnabled ? "news-read-ui-notification-on" : "news-read-ui-notification-off");
+        NotificationSwitch.Text = Loc.GetString(
+            notificationsEnabled ? "news-read-ui-notification-on" : "news-read-ui-notification-off"
+        );
     }
 }

@@ -9,8 +9,8 @@ using Content.Shared.Examine;
 using Content.Shared.Interaction;
 using Content.Shared.Popups;
 using Content.Shared.Power;
-using Robust.Shared.Audio.Systems;
 using Content.Shared.Verbs;
+using Robust.Shared.Audio.Systems;
 using Robust.Shared.Timing;
 
 namespace Content.Server.Anomaly;
@@ -20,14 +20,29 @@ namespace Content.Server.Anomaly;
 /// </summary>
 public sealed partial class AnomalySynchronizerSystem : EntitySystem
 {
-    [Dependency] private readonly AnomalySystem _anomaly = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly EntityLookupSystem _entityLookup = default!;
-    [Dependency] private readonly DeviceLinkSystem _signal = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly PowerReceiverSystem _power = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly AnomalySystem _anomaly = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly EntityLookupSystem _entityLookup = default!;
+
+    [Dependency]
+    private readonly DeviceLinkSystem _signal = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly PowerReceiverSystem _power = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     public override void Initialize()
     {
@@ -60,10 +75,12 @@ public sealed partial class AnomalySynchronizerSystem : EntitySystem
                 continue;
             sync.NextCheckTime += sync.CheckFrequency;
 
-            if (!EntityManager.EntityExists(anomalyUid)
+            if (
+                !EntityManager.EntityExists(anomalyUid)
                 || EntityManager.IsQueuedForDeletion(anomalyUid)
                 || TerminatingOrDeleted(anomalyUid)
-                || !TryComp<TransformComponent>(anomalyUid, out var anomalyXform))
+                || !TryComp<TransformComponent>(anomalyUid, out var anomalyXform)
+            )
             {
                 DisconnectFromAnomaly((uid, sync), anomalyUid);
                 continue;
@@ -91,7 +108,11 @@ public sealed partial class AnomalySynchronizerSystem : EntitySystem
         if (!_power.IsPowered(ent))
         {
             if (user is not null)
-                _popup.PopupEntity(Loc.GetString("base-computer-ui-component-not-powered", ("machine", ent)), ent, user.Value);
+                _popup.PopupEntity(
+                    Loc.GetString("base-computer-ui-component-not-powered", ("machine", ent)),
+                    ent,
+                    user.Value
+                );
 
             return false;
         }
@@ -124,24 +145,35 @@ public sealed partial class AnomalySynchronizerSystem : EntitySystem
 
     private void OnExamined(Entity<AnomalySynchronizerComponent> ent, ref ExaminedEvent args)
     {
-        args.PushMarkup(Loc.GetString(ent.Comp.ConnectedAnomaly.HasValue ? "anomaly-sync-examine-connected" : "anomaly-sync-examine-not-connected"));
+        args.PushMarkup(
+            Loc.GetString(
+                ent.Comp.ConnectedAnomaly.HasValue
+                    ? "anomaly-sync-examine-connected"
+                    : "anomaly-sync-examine-not-connected"
+            )
+        );
     }
 
-    private void OnGetInteractionVerbs(Entity<AnomalySynchronizerComponent> ent, ref GetVerbsEvent<InteractionVerb> args)
+    private void OnGetInteractionVerbs(
+        Entity<AnomalySynchronizerComponent> ent,
+        ref GetVerbsEvent<InteractionVerb> args
+    )
     {
         if (!args.CanAccess || !args.CanInteract || args.Hands is null || ent.Comp.ConnectedAnomaly.HasValue)
             return;
 
         var user = args.User;
-        args.Verbs.Add(new()
-        {
-            Act = () =>
+        args.Verbs.Add(
+            new()
             {
-                TryAttachNearbyAnomaly(ent, user);
-            },
-            Message = Loc.GetString("anomaly-sync-connect-verb-message", ("machine", ent)),
-            Text = Loc.GetString("anomaly-sync-connect-verb-text"),
-        });
+                Act = () =>
+                {
+                    TryAttachNearbyAnomaly(ent, user);
+                },
+                Message = Loc.GetString("anomaly-sync-connect-verb-message", ("machine", ent)),
+                Text = Loc.GetString("anomaly-sync-connect-verb-text"),
+            }
+        );
     }
 
     private void OnInteractHand(Entity<AnomalySynchronizerComponent> ent, ref InteractHandEvent args)
@@ -154,11 +186,13 @@ public sealed partial class AnomalySynchronizerSystem : EntitySystem
         if (ent.Comp.ConnectedAnomaly == anomaly)
             return;
 
-        if (!EntityManager.EntityExists(anomaly)
+        if (
+            !EntityManager.EntityExists(anomaly)
             || EntityManager.IsQueuedForDeletion(anomaly)
             || TerminatingOrDeleted(anomaly)
             || !HasComp<TransformComponent>(ent)
-            || !HasComp<TransformComponent>(anomaly))
+            || !HasComp<TransformComponent>(anomaly)
+        )
         {
             return;
         }

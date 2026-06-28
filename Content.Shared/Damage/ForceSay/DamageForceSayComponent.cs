@@ -43,11 +43,7 @@ public sealed partial class DamageForceSayComponent : Component
     ///     A list of damage group types that are considered when checking <see cref="DamageThreshold"/>.
     /// </summary>
     [DataField]
-    public HashSet<ProtoId<DamageGroupPrototype>>? ValidDamageGroups = new()
-    {
-        "Brute",
-        "Burn",
-    };
+    public HashSet<ProtoId<DamageGroupPrototype>>? ValidDamageGroups = new() { "Brute", "Burn" };
 
     /// <summary>
     ///     The time enforced between force says to avoid spam.

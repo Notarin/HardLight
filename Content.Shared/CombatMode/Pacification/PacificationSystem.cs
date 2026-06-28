@@ -13,11 +13,20 @@ namespace Content.Shared.CombatMode.Pacification;
 
 public sealed class PacificationSystem : EntitySystem
 {
-    [Dependency] private readonly AlertsSystem _alertsSystem = default!;
-    [Dependency] private readonly SharedActionsSystem _actionsSystem = default!;
-    [Dependency] private readonly SharedCombatModeSystem _combatSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly AlertsSystem _alertsSystem = default!;
+
+    [Dependency]
+    private readonly SharedActionsSystem _actionsSystem = default!;
+
+    [Dependency]
+    private readonly SharedCombatModeSystem _combatSystem = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     public override void Initialize()
     {
@@ -50,8 +59,7 @@ public sealed class PacificationSystem : EntitySystem
     {
         // Popup logic.
         // Cooldown is needed because the input events for melee/shooting etc. will fire continuously
-        if (target == user.Comp.LastAttackedEntity
-            && !(_timing.CurTime > user.Comp.NextPopupTime))
+        if (target == user.Comp.LastAttackedEntity && !(_timing.CurTime > user.Comp.NextPopupTime))
             return;
 
         var targetName = Identity.Entity(target, EntityManager);
@@ -146,13 +154,15 @@ public sealed class PacificationSystem : EntitySystem
         _popup.PopupEntity(Loc.GetString(cannotThrowMessage, ("projectile", itemName)), ent, ent);
     }
 
-    private void OnPacifiedDangerousAttack(Entity<PacifismDangerousAttackComponent> ent, ref AttemptPacifiedAttackEvent args)
+    private void OnPacifiedDangerousAttack(
+        Entity<PacifismDangerousAttackComponent> ent,
+        ref AttemptPacifiedAttackEvent args
+    )
     {
         args.Cancelled = true;
         args.Reason = "pacified-cannot-harm-indirect";
     }
 }
-
 
 /// <summary>
 /// Raised when a Pacified entity attempts to throw something.
@@ -164,7 +174,7 @@ public struct AttemptPacifiedThrowEvent
     public EntityUid ItemUid;
     public EntityUid PlayerUid;
 
-    public AttemptPacifiedThrowEvent(EntityUid itemUid,  EntityUid playerUid)
+    public AttemptPacifiedThrowEvent(EntityUid itemUid, EntityUid playerUid)
     {
         ItemUid = itemUid;
         PlayerUid = playerUid;
@@ -192,4 +202,8 @@ public struct AttemptPacifiedThrowEvent
 ///     <see cref="Reason"/> should be a loc string, if there needs to be special text for why the user isn't able to attack this.
 /// </summary>
 [ByRefEvent]
-public record struct AttemptPacifiedAttackEvent(EntityUid User, bool Cancelled = false, string Reason = "pacified-cannot-harm-directly");
+public record struct AttemptPacifiedAttackEvent(
+    EntityUid User,
+    bool Cancelled = false,
+    string Reason = "pacified-cannot-harm-directly"
+);

@@ -17,11 +17,9 @@ namespace Content.IntegrationTests.Tests.Commands
         [TestCase(false)]
         public async Task RestartRoundAfterStart(bool lobbyEnabled)
         {
-            await using var pair = await PoolManager.GetServerClient(new PoolSettings
-            {
-                DummyTicker = false,
-                Dirty = true
-            });
+            await using var pair = await PoolManager.GetServerClient(
+                new PoolSettings { DummyTicker = false, Dirty = true }
+            );
             var server = pair.Server;
 
             var configManager = server.ResolveDependency<IConfigurationManager>();

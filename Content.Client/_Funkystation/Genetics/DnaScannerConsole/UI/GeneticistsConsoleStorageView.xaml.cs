@@ -81,7 +81,7 @@ public sealed partial class GeneticistsConsoleStorageView : Control
                 Text = mut.Name,
                 HorizontalExpand = true,
                 Margin = new Thickness(0, 0, 0, 4),
-                StyleClasses = { "ButtonSmall", "ButtonSquare" }
+                StyleClasses = { "ButtonSmall", "ButtonSquare" },
             };
 
             button.OnPressed += _ =>
@@ -102,7 +102,11 @@ public sealed partial class GeneticistsConsoleStorageView : Control
 
             BoxContainer targetContainer;
 
-            if (ParentWindow is not null && ParentWindow.ResearchOriginal.TryGetValue(mut.Id, out var original) && original > 0)
+            if (
+                ParentWindow is not null
+                && ParentWindow.ResearchOriginal.TryGetValue(mut.Id, out var original)
+                && original > 0
+            )
             {
                 var remaining = ParentWindow.ResearchRemaining.TryGetValue(mut.Id, out var rem) ? rem : original;
 
@@ -157,9 +161,7 @@ public sealed partial class GeneticistsConsoleStorageView : Control
             ? (mutation.Description ?? "No description.")
             : "Undiscovered mutation.";
 
-        StorageInfoInstabilityLabel.Text = isDiscovered
-            ? mutation.Instability.ToString()
-            : "Unknown";
+        StorageInfoInstabilityLabel.Text = isDiscovered ? mutation.Instability.ToString() : "Unknown";
 
         UpdateConflictsDisplay(mutation);
         RefreshResearchLabel();
@@ -169,7 +171,11 @@ public sealed partial class GeneticistsConsoleStorageView : Control
     {
         var isDiscovered = ParentWindow?.DiscoveredMutationIds?.Contains(mutation.Id) ?? false;
 
-        if (!isDiscovered || mutation.Conflicts is not { Count: > 0 } conflicts || ParentWindow?.DiscoveredMutationIds is null)
+        if (
+            !isDiscovered
+            || mutation.Conflicts is not { Count: > 0 } conflicts
+            || ParentWindow?.DiscoveredMutationIds is null
+        )
         {
             StorageConflictsLabelContainer.Visible = false;
             return;
@@ -182,8 +188,7 @@ public sealed partial class GeneticistsConsoleStorageView : Control
             if (!ParentWindow.DiscoveredMutationIds.Contains(conflictId))
                 continue;
 
-            if (IoCManager.Resolve<IPrototypeManager>()
-                .TryIndex<GeneticMutationPrototype>(conflictId, out var proto))
+            if (IoCManager.Resolve<IPrototypeManager>().TryIndex<GeneticMutationPrototype>(conflictId, out var proto))
             {
                 knownNames.Add(proto.Name);
             }
@@ -216,7 +221,11 @@ public sealed partial class GeneticistsConsoleStorageView : Control
             return;
         }
 
-        if (!IoCManager.Resolve<IPrototypeManager>().TryIndex<GeneticMutationPrototype>(_selectedMutationId, out var proto))
+        if (
+            !IoCManager
+                .Resolve<IPrototypeManager>()
+                .TryIndex<GeneticMutationPrototype>(_selectedMutationId, out var proto)
+        )
         {
             StorageInfoResearchLabel.Text = "Unknown";
             return;
@@ -232,7 +241,11 @@ public sealed partial class GeneticistsConsoleStorageView : Control
 
         int completed = 0;
 
-        if (ParentWindow is not null && ParentWindow.ResearchOriginal.TryGetValue(_selectedMutationId, out var original) && original > 0)
+        if (
+            ParentWindow is not null
+            && ParentWindow.ResearchOriginal.TryGetValue(_selectedMutationId, out var original)
+            && original > 0
+        )
         {
             int remaining = ParentWindow.ResearchRemaining.TryGetValue(_selectedMutationId, out var rem)
                 ? Math.Max(0, rem)
@@ -257,7 +270,10 @@ public sealed partial class GeneticistsConsoleStorageView : Control
         }
 
         bool isResearched = false;
-        if (ParentWindow is not null && ParentWindow.ResearchOriginal.TryGetValue(_selectedMutationId!, out var original))
+        if (
+            ParentWindow is not null
+            && ParentWindow.ResearchOriginal.TryGetValue(_selectedMutationId!, out var original)
+        )
         {
             if (original <= 0)
                 isResearched = true;
@@ -278,9 +294,15 @@ public sealed partial class GeneticistsConsoleStorageView : Control
         bool showResearch = false;
         string researchText = Loc.GetString("dna-scanner-research-mutation");
 
-        if (ParentWindow is not null && ParentWindow.ResearchOriginal.TryGetValue(_selectedMutationId!, out var orig) && orig > 0)
+        if (
+            ParentWindow is not null
+            && ParentWindow.ResearchOriginal.TryGetValue(_selectedMutationId!, out var orig)
+            && orig > 0
+        )
         {
-            var rem = ParentWindow.ResearchRemaining.TryGetValue(_selectedMutationId!, out var r) ? Math.Max(0, r) : orig;
+            var rem = ParentWindow.ResearchRemaining.TryGetValue(_selectedMutationId!, out var r)
+                ? Math.Max(0, r)
+                : orig;
             if (rem > 0)
             {
                 showResearch = true;
@@ -316,7 +338,11 @@ public sealed partial class GeneticistsConsoleStorageView : Control
         }
     }
 
-    public void UpdateResearchData(Dictionary<string, int> remaining, Dictionary<string, int> original, HashSet<string> activeIds)
+    public void UpdateResearchData(
+        Dictionary<string, int> remaining,
+        Dictionary<string, int> original,
+        HashSet<string> activeIds
+    )
     {
         if (ParentWindow == null)
             return;

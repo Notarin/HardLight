@@ -9,7 +9,8 @@ namespace Content.Server.NPC.HTN.Preconditions;
 /// </summary>
 public sealed partial class HungryPrecondition : HTNPrecondition
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
 
     [DataField(required: true)]
     public HungerThreshold MinHungerState = HungerThreshold.Starving;
@@ -21,6 +22,8 @@ public sealed partial class HungryPrecondition : HTNPrecondition
             return false;
         }
 
-        return _entManager.TryGetComponent<HungerComponent>(owner, out var hunger) ? hunger.CurrentThreshold <= MinHungerState : false;
+        return _entManager.TryGetComponent<HungerComponent>(owner, out var hunger)
+            ? hunger.CurrentThreshold <= MinHungerState
+            : false;
     }
 }

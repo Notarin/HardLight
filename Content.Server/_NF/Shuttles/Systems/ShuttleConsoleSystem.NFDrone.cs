@@ -1,7 +1,7 @@
 using Content.Server.Shuttles.Components;
 using Content.Server.Shuttles.Events;
-using Content.Shared.UserInterface;
 using Content.Shared.Shuttles.Components;
+using Content.Shared.UserInterface;
 
 namespace Content.Server.Shuttles.Systems;
 
@@ -11,10 +11,13 @@ public sealed partial class ShuttleConsoleSystem
     {
         SubscribeLocalEvent<NFDroneConsoleComponent, ConsoleShuttleEvent>(OnNFCargoGetConsole);
         SubscribeLocalEvent<NFDroneConsoleComponent, AfterActivatableUIOpenEvent>(OnNFDronePilotConsoleOpen);
-        Subs.BuiEvents<NFDroneConsoleComponent>(ShuttleConsoleUiKey.Key, subs =>
-        {
-            subs.Event<BoundUIClosedEvent>(OnNFDronePilotConsoleClose);
-        });
+        Subs.BuiEvents<NFDroneConsoleComponent>(
+            ShuttleConsoleUiKey.Key,
+            subs =>
+            {
+                subs.Event<BoundUIClosedEvent>(OnNFDronePilotConsoleClose);
+            }
+        );
     }
 
     /// <summary>
@@ -22,16 +25,17 @@ public sealed partial class ShuttleConsoleSystem
     /// </summary>
     public EntityUid? GetNFDroneConsole(EntityUid consoleUid)
     {
-        var getShuttleEv = new ConsoleShuttleEvent
-        {
-            Console = consoleUid,
-        };
+        var getShuttleEv = new ConsoleShuttleEvent { Console = consoleUid };
 
         RaiseLocalEvent(consoleUid, ref getShuttleEv);
         return getShuttleEv.Console;
     }
 
-    private void OnNFDronePilotConsoleOpen(EntityUid uid, NFDroneConsoleComponent component, AfterActivatableUIOpenEvent args)
+    private void OnNFDronePilotConsoleOpen(
+        EntityUid uid,
+        NFDroneConsoleComponent component,
+        AfterActivatableUIOpenEvent args
+    )
     {
         component.Entity = GetNFShuttleConsole(uid);
     }

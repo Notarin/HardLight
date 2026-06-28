@@ -11,7 +11,8 @@ namespace Content.Shared.GridPreloader.Prototypes;
 [Prototype]
 public sealed partial class PreloadedGridPrototype : IPrototype
 {
-    [IdDataField] public string ID { get; private set; } = string.Empty;
+    [IdDataField]
+    public string ID { get; private set; } = string.Empty;
 
     [DataField(required: true)]
     public ResPath Path;

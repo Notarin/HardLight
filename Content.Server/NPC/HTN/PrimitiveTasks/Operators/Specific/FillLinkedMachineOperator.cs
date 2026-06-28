@@ -7,12 +7,12 @@ using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Materials;
 using Content.Shared.Silicons.Bots;
 
-
 namespace Content.Server.NPC.HTN.PrimitiveTasks.Operators.Specific;
 
 public sealed partial class FillLinkedMachineOperator : HTNOperator
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
     private SharedMaterialStorageSystem _sharedMaterialStorage = default!;
     private SharedDisposalUnitSystem _sharedDisposalUnitSystem = default!;
     private SharedHandsSystem _sharedHandsSystem = default!;
@@ -41,13 +41,16 @@ public sealed partial class FillLinkedMachineOperator : HTNOperator
     {
         var owner = blackboard.GetValue<EntityUid>(NPCBlackboard.Owner);
 
-        if (!blackboard.TryGetValue<EntityUid>(TargetKey, out var target, _entManager) || _entManager.Deleted(target)
+        if (
+            !blackboard.TryGetValue<EntityUid>(TargetKey, out var target, _entManager)
+            || _entManager.Deleted(target)
             || !_entManager.TryGetComponent(owner, out FillbotComponent? fillbot)
             || !_entManager.HasComponent<HandsComponent>(owner)
             || !_entManager.TryGetComponent(owner, out DeviceLinkSourceComponent? fillbotlinks)
             || fillbotlinks.LinkedPorts.Count != 1
             || fillbot.LinkedSinkEntity == null
-            || _entManager.Deleted(fillbot.LinkedSinkEntity))
+            || _entManager.Deleted(fillbot.LinkedSinkEntity)
+        )
             return HTNOperatorStatus.Failed;
 
         _entManager.TryGetComponent(fillbot.LinkedSinkEntity, out MaterialStorageComponent? linkedStorage);
@@ -61,10 +64,11 @@ public sealed partial class FillLinkedMachineOperator : HTNOperator
             return HTNOperatorStatus.Failed;
         }
 
-        if (linkedStorage is not null
-            && _sharedMaterialStorage.TryInsertMaterialEntity(owner, heldItem.Value, fillbot.LinkedSinkEntity!.Value))
+        if (
+            linkedStorage is not null
+            && _sharedMaterialStorage.TryInsertMaterialEntity(owner, heldItem.Value, fillbot.LinkedSinkEntity!.Value)
+        )
             return HTNOperatorStatus.Finished;
-
         else if (disposalUnit is not null)
         {
             _sharedDisposalUnitSystem.DoInsertDisposalUnit(fillbot.LinkedSinkEntity!.Value, heldItem.Value, owner);

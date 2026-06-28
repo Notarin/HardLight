@@ -9,7 +9,8 @@ namespace Content.Client.UserInterface.Systems.Ghost.Controls.Roles;
 [GenerateTypedNameReferences]
 public sealed partial class GhostRoleEntryButtons : BoxContainer
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
     private readonly GhostRoleKind _ghostRoleKind;
     private readonly uint _playerCount;
     private readonly TimeSpan _raffleEndTime = TimeSpan.MinValue;
@@ -37,15 +38,15 @@ public sealed partial class GhostRoleEntryButtons : BoxContainer
             GhostRoleKind.RaffleReady => "ghost-roles-window-join-raffle-button",
             GhostRoleKind.RaffleInProgress => "ghost-roles-window-raffle-in-progress-button",
             GhostRoleKind.RaffleJoined => "ghost-roles-window-leave-raffle-button",
-            _ => throw new ArgumentOutOfRangeException(nameof(_ghostRoleKind),
-                $"Unknown {nameof(GhostRoleKind)} '{_ghostRoleKind}'")
+            _ => throw new ArgumentOutOfRangeException(
+                nameof(_ghostRoleKind),
+                $"Unknown {nameof(GhostRoleKind)} '{_ghostRoleKind}'"
+            ),
         };
 
         if (IsActiveRaffle(_ghostRoleKind))
         {
-            var timeLeft = _timing.CurTime <= _raffleEndTime
-                ? _raffleEndTime - _timing.CurTime
-                : TimeSpan.Zero;
+            var timeLeft = _timing.CurTime <= _raffleEndTime ? _raffleEndTime - _timing.CurTime : TimeSpan.Zero;
 
             var timeString = $"{timeLeft.Minutes:0}:{timeLeft.Seconds:00}";
             RequestButton.Text = Loc.GetString(messageId, ("time", timeString), ("players", _playerCount));

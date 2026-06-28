@@ -1,43 +1,61 @@
-using Content.Shared.Abilities.Psionics;
-using Content.Shared.StatusEffect;
-using Content.Shared.Chat; // For InGameICChatType
-using Content.Shared.Mobs;
-using Content.Shared.Psionics.Glimmer;
-using Content.Shared.Weapons.Melee.Events;
-using Content.Shared.Damage.Events;
-using Content.Shared.IdentityManagement;
-using Content.Shared.CCVar;
 using Content.Server.Abilities.Psionics;
 using Content.Server.Chat.Systems;
 using Content.Server.Electrocution;
 using Content.Server.NPC.Components;
 using Content.Server.NPC.Systems;
+using Content.Shared.Abilities.Psionics;
+using Content.Shared.CCVar;
+using Content.Shared.Chat; // For InGameICChatType
+using Content.Shared.Damage.Events;
+using Content.Shared.IdentityManagement;
+using Content.Shared.Mobs;
+using Content.Shared.Psionics.Glimmer;
+using Content.Shared.StatusEffect;
+using Content.Shared.Weapons.Melee.Events;
 using Robust.Shared.Audio;
-using Robust.Shared.Player;
-using Robust.Shared.Configuration;
-using Robust.Shared.Random;
 using Robust.Shared.Audio.Systems;
+using Robust.Shared.Configuration;
+using Robust.Shared.Player;
+using Robust.Shared.Random;
 
 namespace Content.Server.Psionics
 {
     public sealed class PsionicsSystem : EntitySystem
     {
-        [Dependency] private readonly IRobustRandom _random = default!;
-        [Dependency] private readonly PsionicAbilitiesSystem _psionicAbilitiesSystem = default!;
-        [Dependency] private readonly StatusEffectsSystem _statusEffects = default!;
-        [Dependency] private readonly ElectrocutionSystem _electrocutionSystem = default!;
-        [Dependency] private readonly MindSwapPowerSystem _mindSwapPowerSystem = default!;
-        [Dependency] private readonly GlimmerSystem _glimmerSystem = default!;
-        [Dependency] private readonly ChatSystem _chat = default!;
+        [Dependency]
+        private readonly IRobustRandom _random = default!;
+
+        [Dependency]
+        private readonly PsionicAbilitiesSystem _psionicAbilitiesSystem = default!;
+
+        [Dependency]
+        private readonly StatusEffectsSystem _statusEffects = default!;
+
+        [Dependency]
+        private readonly ElectrocutionSystem _electrocutionSystem = default!;
+
+        [Dependency]
+        private readonly MindSwapPowerSystem _mindSwapPowerSystem = default!;
+
+        [Dependency]
+        private readonly GlimmerSystem _glimmerSystem = default!;
+
+        [Dependency]
+        private readonly ChatSystem _chat = default!;
+
         //[Dependency] private readonly NpcFactionSystem _npcFactonSystem = default!;
-        [Dependency] private readonly IConfigurationManager _cfg = default!;
-        [Dependency] private readonly SharedAudioSystem _audioSystem = default!;
+        [Dependency]
+        private readonly IConfigurationManager _cfg = default!;
+
+        [Dependency]
+        private readonly SharedAudioSystem _audioSystem = default!;
 
         /// <summary>
         /// Unfortunately, since spawning as a normal role and anything else is so different,
         /// this is the only way to unify them, for now at least.
         /// </summary>
         Queue<(PotentialPsionicComponent component, EntityUid uid)> _rollers = new();
+
         public override void Update(float frameTime)
         {
             base.Update(frameTime);
@@ -47,6 +65,7 @@ namespace Content.Server.Psionics
             }
             _rollers.Clear();
         }
+
         public override void Initialize()
         {
             base.Initialize();
@@ -77,7 +96,13 @@ namespace Content.Server.Psionics
                     _audioSystem.PlayPvs("/Audio/Effects/lightburn.ogg", entity);
                     args.ModifiersList.Add(component.Modifiers);
                     if (_random.Prob(component.DisableChance))
-                        _statusEffects.TryAddStatusEffect(entity, "PsionicsDisabled", TimeSpan.FromSeconds(10), true, "PsionicsDisabled");
+                        _statusEffects.TryAddStatusEffect(
+                            entity,
+                            "PsionicsDisabled",
+                            TimeSpan.FromSeconds(10),
+                            true,
+                            "PsionicsDisabled"
+                        );
                 }
 
                 if (TryComp<MindSwappedComponent>(entity, out var swapped))
@@ -86,7 +111,12 @@ namespace Content.Server.Psionics
                     return;
                 }
 
-                if (component.Punish && HasComp<PotentialPsionicComponent>(entity) && !HasComp<PsionicComponent>(entity) && _random.Prob(0.5f))
+                if (
+                    component.Punish
+                    && HasComp<PotentialPsionicComponent>(entity)
+                    && !HasComp<PsionicComponent>(entity)
+                    && _random.Prob(0.5f)
+                )
                     _electrocutionSystem.TryDoElectrocution(args.User, null, 20, TimeSpan.FromSeconds(5), false);
             }
         }
@@ -148,11 +178,15 @@ namespace Content.Server.Psionics
             if (!bonus)
                 return;
 
-
             args.FlatModifier += component.PsychicStaminaDamage;
         }
 
-        public void RollPsionics(EntityUid uid, PotentialPsionicComponent component, bool applyGlimmer = true, float multiplier = 1f)
+        public void RollPsionics(
+            EntityUid uid,
+            PotentialPsionicComponent component,
+            bool applyGlimmer = true,
+            float multiplier = 1f
+        )
         {
             if (HasComp<PsionicComponent>(uid))
                 return;

@@ -6,8 +6,10 @@ public interface IChatSanitizationManager
 {
     public void Initialize();
 
-    public bool TrySanitizeEmoteShorthands(string input,
+    public bool TrySanitizeEmoteShorthands(
+        string input,
         EntityUid speaker,
         out string sanitized,
-        [NotNullWhen(true)] out string? emote);
+        [NotNullWhen(true)] out string? emote
+    );
 }

@@ -6,8 +6,11 @@ namespace Content.Shared.Timing;
 
 public sealed class UseDelaySystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly MetaDataSystem _metadata = default!;
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
+
+    [Dependency]
+    private readonly MetaDataSystem _metadata = default!;
 
     private const string DefaultId = "default";
 
@@ -37,10 +40,7 @@ public sealed class UseDelaySystem : EntitySystem
 
     private void OnDelayGetState(Entity<UseDelayComponent> ent, ref ComponentGetState args)
     {
-        args.State = new UseDelayComponentState()
-        {
-            Delays = ent.Comp.Delays
-        };
+        args.State = new UseDelayComponentState() { Delays = ent.Comp.Delays };
     }
 
     private void OnMapInit(Entity<UseDelayComponent> ent, ref MapInitEvent args)
@@ -118,7 +118,11 @@ public sealed class UseDelaySystem : EntitySystem
     /// <param name="info"></param>
     /// <param name="id"></param>
     /// <returns></returns>
-    public bool TryGetDelayInfo(Entity<UseDelayComponent?> ent, [NotNullWhen(true)] out UseDelayInfo? info, string id = DefaultId)
+    public bool TryGetDelayInfo(
+        Entity<UseDelayComponent?> ent,
+        [NotNullWhen(true)] out UseDelayInfo? info,
+        string id = DefaultId
+    )
     {
         if (!Resolve(ent.Owner, ref ent.Comp, false))
         {
@@ -166,7 +170,12 @@ public sealed class UseDelaySystem : EntitySystem
         return true;
     }
 
-    public bool TryResetDelay(EntityUid uid, bool checkDelayed = false, UseDelayComponent? component = null, string id = DefaultId)
+    public bool TryResetDelay(
+        EntityUid uid,
+        bool checkDelayed = false,
+        UseDelayComponent? component = null,
+        string id = DefaultId
+    )
     {
         if (!Resolve(uid, ref component, false))
             return false;

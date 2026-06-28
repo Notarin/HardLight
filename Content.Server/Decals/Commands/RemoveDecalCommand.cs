@@ -8,11 +8,13 @@ namespace Content.Server.Decals.Commands
     [AdminCommand(AdminFlags.Mapping)]
     public sealed class RemoveDecalCommand : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _entManager = default!;
+        [Dependency]
+        private readonly IEntityManager _entManager = default!;
 
         public string Command => "rmdecal";
         public string Description => "removes a decal";
         public string Help => $"{Command} <uid> <gridId>";
+
         public void Execute(IConsoleShell shell, string argStr, string[] args)
         {
             if (args.Length != 2)
@@ -27,9 +29,11 @@ namespace Content.Server.Decals.Commands
                 return;
             }
 
-            if (!NetEntity.TryParse(args[1], out var rawGridIdNet) ||
-                !_entManager.TryGetEntity(rawGridIdNet, out var rawGridId) ||
-                !_entManager.HasComponent<MapGridComponent>(rawGridId))
+            if (
+                !NetEntity.TryParse(args[1], out var rawGridIdNet)
+                || !_entManager.TryGetEntity(rawGridIdNet, out var rawGridId)
+                || !_entManager.HasComponent<MapGridComponent>(rawGridId)
+            )
             {
                 shell.WriteError("Failed parsing gridId.");
                 return;

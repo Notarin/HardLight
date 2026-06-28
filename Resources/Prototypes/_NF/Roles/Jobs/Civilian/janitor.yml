@@ -4,8 +4,8 @@
   description: job-description-janitor
   playTimeTracker: JobJanitorOld
   requirements:
-    - !type:OverallPlaytimeRequirement
-      time: 10800
+  - !type:OverallPlaytimeRequirement
+    time: 10800
   startingGear: NFJanitorGear
   setPreference: false # Frontier
   alwaysUseSpawner: true
@@ -25,7 +25,7 @@
     holiday: GarbageDay
     prototype: NFWeaponRevolverInspector
   - !type:AddImplantSpecial
-    implants: [ MindShieldImplant ]
+    implants: [MindShieldImplant]
   - !type:GiveItemOnHolidaySpecial
     holiday: FrontierBirthday
     prototype: FrontierBirthdayGift

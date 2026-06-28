@@ -17,8 +17,11 @@ namespace Content.Client.Changelog;
 [GenerateTypedNameReferences]
 public sealed partial class ChangelogTab : Control
 {
-    [Dependency] private readonly ChangelogManager _changelog = default!;
-    [Dependency] private readonly IResourceCache _resourceCache = default!;
+    [Dependency]
+    private readonly ChangelogManager _changelog = default!;
+
+    [Dependency]
+    private readonly IResourceCache _resourceCache = default!;
 
     public bool AdminOnly;
 
@@ -30,12 +33,9 @@ public sealed partial class ChangelogTab : Control
 
     public void PopulateChangelog(ChangelogManager.Changelog changelog)
     {
-        var byDay = changelog.Entries
-            .GroupBy(e => e.Time.ToLocalTime().Date)
-            .OrderByDescending(c => c.Key);
+        var byDay = changelog.Entries.GroupBy(e => e.Time.ToLocalTime().Date).OrderByDescending(c => c.Key);
 
-        var hasRead = changelog.Name != MainChangelogName ||
-                      _changelog.MaxId <= _changelog.LastReadId;
+        var hasRead = changelog.Name != MainChangelogName || _changelog.MaxId <= _changelog.LastReadId;
 
         foreach (var dayEntries in byDay)
         {
@@ -55,12 +55,14 @@ public sealed partial class ChangelogTab : Control
             else
                 dayNice = day.ToShortDateString();
 
-            ChangelogBody.AddChild(new Label
-            {
-                Text = dayNice,
-                StyleClasses = { StyleBase.StyleClassLabelHeading },
-                Margin = new Thickness(4, 6, 0, 0)
-            });
+            ChangelogBody.AddChild(
+                new Label
+                {
+                    Text = dayNice,
+                    StyleClasses = { StyleBase.StyleClassLabelHeading },
+                    Margin = new Thickness(4, 6, 0, 0),
+                }
+            );
 
             var first = true;
 
@@ -77,13 +79,9 @@ public sealed partial class ChangelogTab : Control
                 {
                     hasRead = true;
 
-                    var upArrow =
-                        _resourceCache.GetTexture("/Textures/Interface/Changelog/up_arrow.svg.192dpi.png");
+                    var upArrow = _resourceCache.GetTexture("/Textures/Interface/Changelog/up_arrow.svg.192dpi.png");
 
-                    var readDivider = new BoxContainer
-                    {
-                        Orientation = LayoutOrientation.Vertical
-                    };
+                    var readDivider = new BoxContainer { Orientation = LayoutOrientation.Vertical };
 
                     var hBox = new BoxContainer
                     {
@@ -97,7 +95,7 @@ public sealed partial class ChangelogTab : Control
                                 ModulateSelfOverride = Color.FromHex("#888"),
                                 TextureScale = new Vector2(0.5f, 0.5f),
                                 Margin = new Thickness(4, 3),
-                                VerticalAlignment = VAlignment.Bottom
+                                VerticalAlignment = VAlignment.Bottom,
                             },
                             new Label
                             {
@@ -111,9 +109,9 @@ public sealed partial class ChangelogTab : Control
                                 ModulateSelfOverride = Color.FromHex("#888"),
                                 TextureScale = new Vector2(0.5f, 0.5f),
                                 Margin = new Thickness(4, 3),
-                                VerticalAlignment = VAlignment.Bottom
-                            }
-                        }
+                                VerticalAlignment = VAlignment.Bottom,
+                            },
+                        },
                     };
 
                     readDivider.AddChild(hBox);
@@ -126,28 +124,26 @@ public sealed partial class ChangelogTab : Control
 
                 first = false;
 
-                var authorLabel = new RichTextLabel
-                {
-                    Margin = new Thickness(6, 0, 0, 0),
-                };
+                var authorLabel = new RichTextLabel { Margin = new Thickness(6, 0, 0, 0) };
                 authorLabel.SetMessage(
-                    FormattedMessage.FromMarkupOrThrow(Loc.GetString("changelog-author-changed", ("author", FormattedMessage.EscapeText(author)))));
+                    FormattedMessage.FromMarkupOrThrow(
+                        Loc.GetString("changelog-author-changed", ("author", FormattedMessage.EscapeText(author)))
+                    )
+                );
                 ChangelogBody.AddChild(authorLabel);
 
                 foreach (var change in groupedEntry.SelectMany(c => c.Changes))
                 {
                     var text = new RichTextLabel();
                     text.SetMessage(FormattedMessage.FromUnformatted(change.Message));
-                    ChangelogBody.AddChild(new BoxContainer
-                    {
-                        Orientation = LayoutOrientation.Horizontal,
-                        Margin = new Thickness(14, 1, 10, 2),
-                        Children =
+                    ChangelogBody.AddChild(
+                        new BoxContainer
                         {
-                            GetIcon(change.Type),
-                            text
+                            Orientation = LayoutOrientation.Horizontal,
+                            Margin = new Thickness(14, 1, 10, 2),
+                            Children = { GetIcon(change.Type), text },
                         }
-                    });
+                    );
                 }
             }
         }
@@ -161,7 +157,7 @@ public sealed partial class ChangelogTab : Control
             ChangelogLineType.Remove => ("minus.svg.192dpi.png", "#D16E6E"),
             ChangelogLineType.Fix => ("bug.svg.192dpi.png", "#D1BA6E"),
             ChangelogLineType.Tweak => ("wrench.svg.192dpi.png", "#6E96D1"),
-            _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
+            _ => throw new ArgumentOutOfRangeException(nameof(type), type, null),
         };
 
         return new TextureRect
@@ -170,7 +166,7 @@ public sealed partial class ChangelogTab : Control
             VerticalAlignment = VAlignment.Top,
             TextureScale = new Vector2(0.5f, 0.5f),
             Margin = new Thickness(2, 4, 6, 2),
-            ModulateSelfOverride = Color.FromHex(color)
+            ModulateSelfOverride = Color.FromHex(color),
         };
     }
 }

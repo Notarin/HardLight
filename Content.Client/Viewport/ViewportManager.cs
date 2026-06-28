@@ -10,7 +10,8 @@ namespace Content.Client.Viewport
     // ReSharper disable once ClassNeverInstantiated.Global
     public sealed class ViewportManager
     {
-        [Dependency] private readonly IConfigurationManager _cfg = default!;
+        [Dependency]
+        private readonly IConfigurationManager _cfg = default!;
 
         private readonly List<MainViewport> _viewports = new();
 

@@ -13,9 +13,8 @@ namespace Content.Client.Disposal.Tube
         [ViewVariables]
         private DisposalTaggerWindow? _window;
 
-        public DisposalTaggerBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-        {
-        }
+        public DisposalTaggerBoundUserInterface(EntityUid owner, Enum uiKey)
+            : base(owner, uiKey) { }
 
         protected override void Open()
         {

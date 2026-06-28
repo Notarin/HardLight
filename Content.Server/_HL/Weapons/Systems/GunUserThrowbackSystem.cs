@@ -10,8 +10,11 @@ namespace Content.Server._HL.Weapons.Systems;
 
 public sealed class GunUserThrowbackSystem : EntitySystem
 {
-    [Dependency] private readonly StunSystem _stun = default!;
-    [Dependency] private readonly ThrownItemSystem _thrownItems = default!;
+    [Dependency]
+    private readonly StunSystem _stun = default!;
+
+    [Dependency]
+    private readonly ThrownItemSystem _thrownItems = default!;
 
     public override void Initialize()
     {

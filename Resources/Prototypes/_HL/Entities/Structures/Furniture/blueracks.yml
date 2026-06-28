@@ -87,7 +87,7 @@
 
 - type: entity
   id: StructureGunRackBluespaceWallmounted
-  parent: [ BaseStructureWallmount, StructureGunRackBluespace ]
+  parent: [BaseStructureWallmount, StructureGunRackBluespace]
   suffix: Empty, Wallmount
   components:
   - type: Sprite
@@ -188,7 +188,7 @@
 
 - type: entity
   id: StructureMeleeWeaponRackBluespaceWallmounted
-  parent: [ BaseStructureWallmount, StructureMeleeWeaponRackBluespace ]
+  parent: [BaseStructureWallmount, StructureMeleeWeaponRackBluespace]
   suffix: Empty, Wallmount
   components:
   - type: Sprite
@@ -216,8 +216,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.10,-0.10,0.10,0.10"
         density: 500
         mask:
@@ -286,7 +285,7 @@
 
 - type: entity
   id: StructurePistolRackBluespaceWallmounted
-  parent: [ BaseStructureWallmount, StructurePistolRackBluespace ]
+  parent: [BaseStructureWallmount, StructurePistolRackBluespace]
   suffix: Empty, Wallmount
   components:
   - type: Sprite
@@ -296,7 +295,7 @@
   - type: Construction
     graph: WeaponRackBluespaceConstructionGraph
     node: PistolRackBluespaceWallmountedNode
-    
+
 # Suit storage
 - type: entity
   id: StructureStorageUnitBluespace
@@ -329,8 +328,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.25,-0.48,0.25,0.48"
         density: 350
         mask:

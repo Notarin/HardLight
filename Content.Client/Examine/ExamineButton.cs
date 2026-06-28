@@ -51,11 +51,7 @@ public sealed class ExamineButton : ContainerButton
             return tooltip;
         };
 
-        Icon = new TextureRect
-        {
-            SetWidth = ElementWidth,
-            SetHeight = ElementHeight
-        };
+        Icon = new TextureRect { SetWidth = ElementWidth, SetHeight = ElementHeight };
 
         if (verb.Icon != null)
         {

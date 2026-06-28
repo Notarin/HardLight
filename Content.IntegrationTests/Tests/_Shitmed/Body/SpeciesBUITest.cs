@@ -11,7 +11,8 @@ namespace Content.IntegrationTests.Tests._Shitmed.Body;
 public sealed class SpeciesBUiTest
 {
     [TestPrototypes]
-    private const string Prototypes = @"
+    private const string Prototypes =
+        @"
 - type: entity
   name: BaseMobSpeciesTest
   id: BaseMobSpeciesTest
@@ -20,17 +21,14 @@ public sealed class SpeciesBUiTest
 
     private Dictionary<Enum, InterfaceData> GetInterfaces(UserInterfaceComponent comp) =>
         (Dictionary<Enum, InterfaceData>)
-            typeof(UserInterfaceComponent).GetField("Interfaces", BindingFlags.NonPublic | BindingFlags.Instance)!
-            .GetValue(comp);
+            typeof(UserInterfaceComponent)
+                .GetField("Interfaces", BindingFlags.NonPublic | BindingFlags.Instance)!
+                .GetValue(comp);
 
     [Test]
     public async Task AllSpeciesHaveBaseBUiTest()
     {
-        await using var pair = await PoolManager.GetServerClient(new PoolSettings
-        {
-            Dirty = true,
-            Connected = false
-        });
+        await using var pair = await PoolManager.GetServerClient(new PoolSettings { Dirty = true, Connected = false });
 
         var server = pair.Server;
         var proto = server.ResolveDependency<IPrototypeManager>();
@@ -54,7 +52,11 @@ public sealed class SpeciesBUiTest
                 var states = GetInterfaces(bUiBase);
                 foreach (var key in baseKeys)
                 {
-                    Assert.That(states.ContainsKey(key), Is.True, $"Species {species.ID} has not UserInterface of type enum.{key.GetType().Name}");
+                    Assert.That(
+                        states.ContainsKey(key),
+                        Is.True,
+                        $"Species {species.ID} has not UserInterface of type enum.{key.GetType().Name}"
+                    );
                 }
             }
         });

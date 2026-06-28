@@ -13,10 +13,17 @@ namespace Content.Server.Players.RateLimiting;
 
 public sealed class PlayerRateLimitManager : SharedPlayerRateLimitManager
 {
-    [Dependency] private readonly IAdminLogManager _adminLog = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
+    [Dependency]
+    private readonly IAdminLogManager _adminLog = default!;
+
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
 
     private readonly Dictionary<string, RegistrationData> _registrations = new();
     private readonly Dictionary<ICommonSession, Dictionary<string, RateLimitDatum>> _rateLimitData = new();
@@ -46,7 +53,7 @@ public sealed class PlayerRateLimitManager : SharedPlayerRateLimitManager
 
         // Breached rate limits, inform admins if configured.
         // Negative delays can be used to disable admin announcements.
-        if (registration.AdminAnnounceDelay is {TotalSeconds: >= 0} cvarAnnounceDelay)
+        if (registration.AdminAnnounceDelay is { TotalSeconds: >= 0 } cvarAnnounceDelay)
         {
             if (datum.NextAdminAnnounce < time)
             {
@@ -61,7 +68,8 @@ public sealed class PlayerRateLimitManager : SharedPlayerRateLimitManager
             _adminLog.Add(
                 registration.Registration.AdminLogType,
                 LogImpact.Medium,
-                $"Player {player} breached '{key}' rate limit ");
+                $"Player {player} breached '{key}' rate limit "
+            );
 
             datum.Announced = true;
         }
@@ -74,32 +82,29 @@ public sealed class PlayerRateLimitManager : SharedPlayerRateLimitManager
         if (_registrations.ContainsKey(key))
             throw new InvalidOperationException($"Key already registered: {key}");
 
-        var data = new RegistrationData
-        {
-            Registration = registration,
-        };
+        var data = new RegistrationData { Registration = registration };
 
         if ((registration.AdminAnnounceAction == null) != (registration.CVarAdminAnnounceDelay == null))
         {
             throw new ArgumentException(
-                $"Must set either both {nameof(registration.AdminAnnounceAction)} and {nameof(registration.CVarAdminAnnounceDelay)} or neither");
+                $"Must set either both {nameof(registration.AdminAnnounceAction)} and {nameof(registration.CVarAdminAnnounceDelay)} or neither"
+            );
         }
 
-        _cfg.OnValueChanged(
-            registration.CVarLimitCount,
-            i => data.LimitCount = i,
-            invokeImmediately: true);
+        _cfg.OnValueChanged(registration.CVarLimitCount, i => data.LimitCount = i, invokeImmediately: true);
         _cfg.OnValueChanged(
             registration.CVarLimitPeriodLength,
             i => data.LimitPeriod = TimeSpan.FromSeconds(i),
-            invokeImmediately: true);
+            invokeImmediately: true
+        );
 
         if (registration.CVarAdminAnnounceDelay != null)
         {
             _cfg.OnValueChanged(
                 registration.CVarAdminAnnounceDelay,
                 i => data.AdminAnnounceDelay = TimeSpan.FromSeconds(i),
-                invokeImmediately: true);
+                invokeImmediately: true
+            );
         }
 
         _registrations.Add(key, data);

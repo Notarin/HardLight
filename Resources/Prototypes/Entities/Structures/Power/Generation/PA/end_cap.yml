@@ -8,7 +8,7 @@
     sprite: Structures/Power/Generation/PA/end_cap.rsi
     layers:
     - state: completed
-      map: [ "enum.ParticleAcceleratorVisualLayers.Base" ]
+      map: ["enum.ParticleAcceleratorVisualLayers.Base"]
   - type: ParticleAcceleratorEndCap
   - type: Construction
     graph: ParticleAcceleratorEndCap

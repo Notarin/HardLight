@@ -11,7 +11,8 @@ namespace Content.IntegrationTests.Tests.Gravity
     public sealed class WeightlessStatusTests
     {
         [TestPrototypes]
-        private const string Prototypes = @"
+        private const string Prototypes =
+            @"
 - type: entity
   name: HumanWeightlessDummy
   id: HumanWeightlessDummy
@@ -35,6 +36,7 @@ namespace Content.IntegrationTests.Tests.Gravity
     needsPower: false
   - type: UserInterface
 ";
+
         [Test]
         public async Task WeightlessStatusTest()
         {
@@ -64,7 +66,10 @@ namespace Content.IntegrationTests.Tests.Gravity
                 // No gravity without a gravity generator
                 Assert.That(alertsSystem.IsShowingAlert(human, weightlessAlert));
 
-                generatorUid = entityManager.SpawnEntity("WeightlessGravityGeneratorDummy", entityManager.GetComponent<TransformComponent>(human).Coordinates);
+                generatorUid = entityManager.SpawnEntity(
+                    "WeightlessGravityGeneratorDummy",
+                    entityManager.GetComponent<TransformComponent>(human).Coordinates
+                );
             });
 
             // Let WeightlessSystem and GravitySystem tick

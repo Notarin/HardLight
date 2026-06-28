@@ -18,8 +18,9 @@ namespace Content.Shared.Construction.Conditions
 
             var result = false;
 
-
-            foreach (var entity in lookupSys.GetEntitiesIntersecting(location, LookupFlags.Approximate | LookupFlags.Static))
+            foreach (
+                var entity in lookupSys.GetEntitiesIntersecting(location, LookupFlags.Approximate | LookupFlags.Static)
+            )
             {
                 if (IoCManager.Resolve<IEntityManager>().HasComponent<SharedCanBuildWindowOnTopComponent>(entity))
                     result = true;
@@ -35,7 +36,7 @@ namespace Content.Shared.Construction.Conditions
         {
             return new ConstructionGuideEntry
             {
-                Localization = "construction-guide-condition-empty-or-window-valid-in-tile"
+                Localization = "construction-guide-condition-empty-or-window-valid-in-tile",
             };
         }
     }

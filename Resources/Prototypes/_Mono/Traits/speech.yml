@@ -7,4 +7,4 @@
   category: SpeechTraits
   cost: 1
   components:
-    - type: BoganAccent
+  - type: BoganAccent

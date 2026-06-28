@@ -3,12 +3,11 @@
   bodyPart: HeadTop
   markingCategory: HeadTop
   forcedColoring: true
-  speciesRestriction: [Skrell, Thaven,Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, ProtoMoth]
+  speciesRestriction: [Skrell, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: _NF/Clothing/Uniforms/Jumpsuit/military.rsi
     state: mask_null # using an existing empty sprite

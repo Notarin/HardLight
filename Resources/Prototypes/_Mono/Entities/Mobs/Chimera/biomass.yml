@@ -11,8 +11,7 @@
   - type: MeleeSound
     soundGroups:
       Brute:
-        path:
-          "/Audio/Weapons/slash.ogg"
+        path: "/Audio/Weapons/slash.ogg"
   - type: Sprite
     sprite: _Mono/Objects/Misc/fleshkudzu.rsi
     state: kudzu_11
@@ -24,20 +23,18 @@
       fix1:
         hard: false
         density: 7
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.5,-0.5,0.5,0.5"
         layer:
         - MidImpassable
   - type: Damageable
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 30
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: TrayScanReveal
   - type: Kudzu
     growthTickChance: 0.2

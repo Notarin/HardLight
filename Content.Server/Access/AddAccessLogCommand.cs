@@ -16,17 +16,26 @@ public sealed class AddAccessLogCommand : ToolshedCommand
 
         var accessLogCount = accessReader.AccessLog.Count;
         if (accessLogCount >= accessReader.AccessLogLimit)
-            ctx.WriteLine($"WARNING: Surpassing the limit of the log by {accessLogCount - accessReader.AccessLogLimit+1} entries!");
+            ctx.WriteLine(
+                $"WARNING: Surpassing the limit of the log by {accessLogCount - accessReader.AccessLogLimit + 1} entries!"
+            );
 
         var accessTime = TimeSpan.FromSeconds(seconds);
         accessReader.AccessLog.Enqueue(new AccessRecord(accessTime, accessor));
-        ctx.WriteLine($"Successfully added access log to {input} with this information inside:\n " +
-                      $"Time of access: {accessTime}\n " +
-                      $"Accessed by: {accessor}");
+        ctx.WriteLine(
+            $"Successfully added access log to {input} with this information inside:\n "
+                + $"Time of access: {accessTime}\n "
+                + $"Accessed by: {accessor}"
+        );
     }
 
     [CommandImplementation]
-    public void AddAccessLogPiped(IInvocationContext ctx, [PipedArgument] EntityUid input, float seconds, string accessor)
+    public void AddAccessLogPiped(
+        IInvocationContext ctx,
+        [PipedArgument] EntityUid input,
+        float seconds,
+        string accessor
+    )
     {
         AddAccessLog(ctx, input, seconds, accessor);
     }

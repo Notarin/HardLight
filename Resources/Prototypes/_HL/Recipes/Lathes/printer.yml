@@ -204,7 +204,6 @@
 
 # Misc
 
-
 - type: latheRecipe
   id: PaperWrittenFrontierEmploymentRecipe
   result: PaperWrittenFrontierEmployment

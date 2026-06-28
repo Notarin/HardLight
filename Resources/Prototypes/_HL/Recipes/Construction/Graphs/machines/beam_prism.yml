@@ -2,17 +2,17 @@
   id: BeamPrism
   start: start
   graph:
-    - node: start
-      edges:
-        - to: BeamPrism
-          steps:
-            - material: Steel
-              amount: 10
-              doAfter: 5
-            - material: Diamond
-              amount: 2
-            - material: PlasmaGlass
-              amount: 3
+  - node: start
+    edges:
+    - to: BeamPrism
+      steps:
+      - material: Steel
+        amount: 10
+        doAfter: 5
+      - material: Diamond
+        amount: 2
+      - material: PlasmaGlass
+        amount: 3
 
-    - node: BeamPrism
-      entity: BeamPrism
+  - node: BeamPrism
+    entity: BeamPrism

@@ -31,6 +31,6 @@
     McHobo:
       stationProto: DeadDropRecordsFrontierOutpost
       components:
-        - type: StationNameSetup
-          mapNameTemplate: "Derelict McCargo"
-        - type: BindToStationVariationPassExemption
+      - type: StationNameSetup
+        mapNameTemplate: "Derelict McCargo"
+      - type: BindToStationVariationPassExemption

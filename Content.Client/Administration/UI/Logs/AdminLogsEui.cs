@@ -13,8 +13,11 @@ namespace Content.Client.Administration.UI.Logs;
 [UsedImplicitly]
 public sealed class AdminLogsEui : BaseEui
 {
-    [Dependency] private readonly IClyde _clyde = default!;
-    [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
+    [Dependency]
+    private readonly IClyde _clyde = default!;
+
+    [Dependency]
+    private readonly IUserInterfaceManager _uiManager = default!;
 
     public AdminLogsEui()
     {
@@ -62,7 +65,8 @@ public sealed class AdminLogsEui : BaseEui
             LogsControl.SelectedPlayers.ToArray(),
             null,
             LogsControl.IncludeNonPlayerLogs,
-            DateOrder.Descending);
+            DateOrder.Descending
+        );
 
         SendMessage(request);
     }
@@ -83,14 +87,16 @@ public sealed class AdminLogsEui : BaseEui
 
         var monitor = _clyde.EnumerateMonitors().First();
 
-        ClydeWindow = _clyde.CreateWindow(new WindowCreateParameters
-        {
-            Maximized = false,
-            Title = "Admin Logs",
-            Monitor = monitor,
-            Width = 1100,
-            Height = 400
-        });
+        ClydeWindow = _clyde.CreateWindow(
+            new WindowCreateParameters
+            {
+                Maximized = false,
+                Title = "Admin Logs",
+                Monitor = monitor,
+                Width = 1100,
+                Height = 400,
+            }
+        );
 
         LogsControl.Orphan();
         LogsWindow.Dispose();
@@ -108,7 +114,7 @@ public sealed class AdminLogsEui : BaseEui
 
     public override void HandleState(EuiStateBase state)
     {
-        var s = (AdminLogsEuiState) state;
+        var s = (AdminLogsEuiState)state;
 
         if (s.IsLoading)
         {

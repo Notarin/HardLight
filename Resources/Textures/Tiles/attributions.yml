@@ -16,12 +16,12 @@
   copyright: "Modified by github user @Flareguy from plating.png, using damaged plating sprites from /tg/station at commit https://github.com/tgstation/tgstation/blob/6665eec76c98a4f3f89bebcd10b34b47dcc0b8ae/icons/turf/floors.dmi"
   source: "https://github.com/space-wizards/space-station-14/pull/21711"
 
-- files: [ "asteroid_red.png", "asteroid_tile.png", "elevator_shaft.png", "freezer.png", "foammetal.png", "green_circuit.png", "lino.png", "mono.png", "rock_vault.png", "showroom.png"]
+- files: ["asteroid_red.png", "asteroid_tile.png", "elevator_shaft.png", "freezer.png", "foammetal.png", "green_circuit.png", "lino.png", "mono.png", "rock_vault.png", "showroom.png"]
   license: "CC-BY-SA-3.0"
   copyright: "vgstation13 at roughly commit e4d3ea7f69d21c3667be12b114fa935c4640cb05, asteroid_red and asteroid_tile taken from commit /vg/station at commit 02b9f6894af4419c9f7e699a22c402b086d8067e."
   source: "https://github.com/vgstation-coders/vgstation13"
 
-- files: [ "asteroid.png", "asteroid_dug.png", "asteroid0.png"]
+- files: ["asteroid.png", "asteroid_dug.png", "asteroid0.png"]
   license: "CC-BY-SA-3.0"
   copyright: "Taken from /tg/station at commit 6665eec76c98a4f3f89bebcd10b34b47dcc0b8ae."
   source: "https://github.com/tgstation/tgstation/"
@@ -56,7 +56,7 @@
   copyright: "Created by github user @notquitehadouken."
   source: "https://github.com/space-wizards/space-station-14/pull/17948"
 
-- files: [ "bar.png", "lime.png", "blue.png", "kitchen.png", "laundry.png", "mime.png", "steel.png", "steel_dirty.png", "steel_diagonal.png", "steel_mini.png", "steel_offset.png", "steel_pavement.png", "white.png", "white_diagonal.png", "white_mini.png", "white_offset.png", "white_pavement.png", "dark.png", "dark_diagonal.png", "dark_mini.png", "dark_offset.png", "dark_pavement.png", "hydro.png", "plastic.png", "dark_plastic.png", "white_plastic.png", "cafeteria.png", "checker_dark.png", "clown.png" ]
+- files: ["bar.png", "lime.png", "blue.png", "kitchen.png", "laundry.png", "mime.png", "steel.png", "steel_dirty.png", "steel_diagonal.png", "steel_mini.png", "steel_offset.png", "steel_pavement.png", "white.png", "white_diagonal.png", "white_mini.png", "white_offset.png", "white_pavement.png", "dark.png", "dark_diagonal.png", "dark_mini.png", "dark_offset.png", "dark_pavement.png", "hydro.png", "plastic.png", "dark_plastic.png", "white_plastic.png", "cafeteria.png", "checker_dark.png", "clown.png"]
   license: "CC-BY-SA-3.0"
   copyright: "Created by github user @Flareguy, original, unedited base tiles modified from /tg/station at commit 6665eec76c98a4f3f89bebcd10b34b47dcc0b8ae and github user @moonheart08"
   source: "https://github.com/space-wizards/space-station-14/"
@@ -141,12 +141,12 @@
   copyright: "Created by SlamBamActionman (github) for space-station-14."
   source: "https://github.com/space-wizards/space-station-14/"
 
-- files: [ "xeno_steel.png", "xeno_steel_corner.png" ]
+- files: ["xeno_steel.png", "xeno_steel_corner.png"]
   license: "CC-BY-SA-3.0"
   copyright: "Created by Kezu for space-station-14, edited by SlamBamActionman (github)."
   source: "https://github.com/space-wizards/space-station-14/"
 
-- files: [ "xeno_maint.png" ]
+- files: ["xeno_maint.png"]
   license: "CC-BY-SA-3.0"
   copyright: "Created by obscenelytinyshark for space-station-14."
   source: "https://github.com/space-wizards/space-station-14/"

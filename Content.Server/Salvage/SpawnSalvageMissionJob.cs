@@ -3,15 +3,20 @@ using System.Linq;
 using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
+using Content.Server._NF.Salvage.Expeditions; // Frontier
+using Content.Server._NF.Salvage.Expeditions.Structure; // Frontier
 using Content.Server.Atmos;
 using Content.Server.Atmos.Components;
 using Content.Server.Atmos.EntitySystems;
-using Robust.Shared.CPUJob.JobQueues;
 using Content.Server.Ghost.Roles.Components;
 using Content.Server.Parallax;
 using Content.Server.Procedural;
 using Content.Server.Salvage.Expeditions;
 using Content.Server.Salvage.Expeditions.Structure;
+using Content.Server.Shuttles.Components;
+using Content.Server.Shuttles.Systems;
+using Content.Server.Station.Components; // Frontier
+using Content.Server.Station.Systems; // Frontier
 using Content.Shared.Atmos;
 using Content.Shared.Construction.EntitySystems;
 using Content.Shared.Dataset;
@@ -27,18 +32,13 @@ using Content.Shared.Salvage.Expeditions.Modifiers;
 using Content.Shared.Shuttles.Components;
 using Content.Shared.Storage;
 using Robust.Shared.Collections;
+using Robust.Shared.CPUJob.JobQueues;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
-using Content.Server.Shuttles.Components;
-using Content.Server._NF.Salvage.Expeditions; // Frontier
-using Content.Server.Station.Components; // Frontier
-using Content.Server.Station.Systems; // Frontier
-using Content.Server.Shuttles.Systems;
-using Content.Server._NF.Salvage.Expeditions.Structure; // Frontier
 
 namespace Content.Server.Salvage;
 
@@ -69,6 +69,7 @@ public sealed class SpawnSalvageMissionJob : Job<bool>
 #pragma warning restore IDE1006
     private static readonly ProtoId<SalvageDifficultyPrototype> FallbackDifficulty = "NFModerate";
     private static readonly ProtoId<LocalizedDatasetPrototype> PlanetNamesId = "NamesBorer";
+
     // End Frontier
 
     public SpawnSalvageMissionJob(
@@ -89,7 +90,9 @@ public sealed class SpawnSalvageMissionJob : Job<bool>
         EntityUid? console, // HARDLIGHT: Console that initiated this mission
         EntityUid? coordinatesDisk,
         SalvageMissionParams missionParams,
-        CancellationToken cancellation = default) : base(maxTime, cancellation)
+        CancellationToken cancellation = default
+    )
+        : base(maxTime, cancellation)
     {
         _entManager = entManager;
         _timing = timing;
@@ -129,8 +132,28 @@ public sealed class SpawnSalvageMissionJob : Job<bool>
         SalvageSystem salvageSystem,
         EntityUid station,
         SalvageMissionParams missionParams,
-        CancellationToken cancellation = default)
-        : this(maxTime, entManager, timing, logManager, protoManager, anchorable, biome, dungeon, metaData, map, stationSystem, shuttleSystem, salvageSystem, station, null, null, missionParams, cancellation)
+        CancellationToken cancellation = default
+    )
+        : this(
+            maxTime,
+            entManager,
+            timing,
+            logManager,
+            protoManager,
+            anchorable,
+            biome,
+            dungeon,
+            metaData,
+            map,
+            stationSystem,
+            shuttleSystem,
+            salvageSystem,
+            station,
+            null,
+            null,
+            missionParams,
+            cancellation
+        )
     {
         // Intentionally empty
     }
@@ -163,7 +186,9 @@ public sealed class SpawnSalvageMissionJob : Job<bool>
             }
             else
             {
-                _sawmill.Warning($"Cannot raise ExpeditionSpawnCompleteEvent: Station entity {Station} no longer exists (likely due to round persistence)");
+                _sawmill.Warning(
+                    $"Cannot raise ExpeditionSpawnCompleteEvent: Station entity {Station} no longer exists (likely due to round persistence)"
+                );
 
                 // For round persistence, notify all consoles - they will filter based on their station
                 var consoleQuery = _entManager.AllEntityQueryEnumerator<SalvageExpeditionConsoleComponent>();
@@ -196,15 +221,18 @@ public sealed class SpawnSalvageMissionJob : Job<bool>
         MetaDataComponent? metadata = null;
         var grid = _entManager.EnsureComponent<MapGridComponent>(mapUid);
         var random = new Random(_missionParams.Seed);
-    // HARDLIGHT: Make expedition destination globally FTL-accessible without requiring disks or beacons.
-    // Previously this required a coordinates disk and was beacon-limited which prevented ad-hoc rescue / support.
-    var destComp = _entManager.AddComponent<FTLDestinationComponent>(mapUid);
-    destComp.BeaconsOnly = false; // Allow direct FTL targeting anywhere on the expedition map.
-    destComp.RequireCoordinateDisk = CoordinatesDisk.HasValue; // Disk missions require a coordinates disk.
-    destComp.Enabled = true; // Keep enabled for entire expedition so multiple ships can jump in.
+        // HARDLIGHT: Make expedition destination globally FTL-accessible without requiring disks or beacons.
+        // Previously this required a coordinates disk and was beacon-limited which prevented ad-hoc rescue / support.
+        var destComp = _entManager.AddComponent<FTLDestinationComponent>(mapUid);
+        destComp.BeaconsOnly = false; // Allow direct FTL targeting anywhere on the expedition map.
+        destComp.RequireCoordinateDisk = CoordinatesDisk.HasValue; // Disk missions require a coordinates disk.
+        destComp.Enabled = true; // Keep enabled for entire expedition so multiple ships can jump in.
         _metaData.SetEntityName(
             mapUid,
-            _entManager.System<SharedSalvageSystem>().GetFTLName(_prototypeManager.Index(PlanetNamesId), _missionParams.Seed));
+            _entManager
+                .System<SharedSalvageSystem>()
+                .GetFTLName(_prototypeManager.Index(PlanetNamesId), _missionParams.Seed)
+        );
         _entManager.AddComponent<FTLBeaconComponent>(mapUid);
 
         // Saving the mission mapUid to a CD is made optional, in case one is somehow made in a process without a CD entity
@@ -222,7 +250,8 @@ public sealed class SpawnSalvageMissionJob : Job<bool>
             difficultyProto = _prototypeManager.Index<SalvageDifficultyPrototype>(FallbackDifficulty);
         // End Frontier
 
-        var mission = _entManager.System<SharedSalvageSystem>()
+        var mission = _entManager
+            .System<SharedSalvageSystem>()
             .GetMission(_missionParams.MissionType, difficultyProto, _missionParams.Seed); // Frontier: add MissionType
 
         var missionBiome = _prototypeManager.Index<SalvageBiomeModPrototype>(mission.Biome);
@@ -231,7 +260,11 @@ public sealed class SpawnSalvageMissionJob : Job<bool>
         {
             var biome = _entManager.AddComponent<BiomeComponent>(mapUid);
             var biomeSystem = _entManager.System<BiomeSystem>();
-            biomeSystem.SetTemplate(mapUid, biome, _prototypeManager.Index<BiomeTemplatePrototype>(missionBiome.BiomePrototype));
+            biomeSystem.SetTemplate(
+                mapUid,
+                biome,
+                _prototypeManager.Index<BiomeTemplatePrototype>(missionBiome.BiomePrototype)
+            );
             biomeSystem.SetSeed(mapUid, biome, mission.Seed);
             _entManager.Dirty(mapUid, biome);
 
@@ -247,7 +280,9 @@ public sealed class SpawnSalvageMissionJob : Job<bool>
             air.Gases.CopyTo(moles, 0);
             var atmos = _entManager.EnsureComponent<MapAtmosphereComponent>(mapUid);
             _entManager.System<AtmosphereSystem>().SetMapSpace(mapUid, air.Space, atmos);
-            _entManager.System<AtmosphereSystem>().SetMapGasMixture(mapUid, new GasMixture(moles, mission.Temperature), atmos);
+            _entManager
+                .System<AtmosphereSystem>()
+                .SetMapGasMixture(mapUid, new GasMixture(moles, mission.Temperature), atmos);
 
             if (mission.Color != null)
             {
@@ -279,8 +314,16 @@ public sealed class SpawnSalvageMissionJob : Job<bool>
         dungeonOffset = dungeonRotation.RotateVec(dungeonOffset);
         var dungeonMod = _prototypeManager.Index<SalvageDungeonModPrototype>(mission.Dungeon);
         var dungeonConfig = _prototypeManager.Index(dungeonMod.Proto);
-        var dungeons = await WaitAsyncTask(_dungeon.GenerateDungeonAsync(dungeonConfig, dungeonMod.Proto, mapUid, grid, (Vector2i)dungeonOffset, // Frontier: add dungeonMod.Proto
-            _missionParams.Seed));
+        var dungeons = await WaitAsyncTask(
+            _dungeon.GenerateDungeonAsync(
+                dungeonConfig,
+                dungeonMod.Proto,
+                mapUid,
+                grid,
+                (Vector2i)dungeonOffset, // Frontier: add dungeonMod.Proto
+                _missionParams.Seed
+            )
+        );
 
         var dungeon = dungeons.First();
 
@@ -318,19 +361,25 @@ public sealed class SpawnSalvageMissionJob : Job<bool>
             if (_entManager.HasComponent<MapGridComponent>(Station))
             {
                 shuttleUid = Station;
-                _sawmill.Info($"Using Station entity {Station} as shuttle grid for mission generation (round persistence mode)");
+                _sawmill.Info(
+                    $"Using Station entity {Station} as shuttle grid for mission generation (round persistence mode)"
+                );
             }
             else
             {
-                _sawmill.Warning($"Station {Station} has no StationDataComponent and is not a grid - proceeding without shuttle bounds");
+                _sawmill.Warning(
+                    $"Station {Station} has no StationDataComponent and is not a grid - proceeding without shuttle bounds"
+                );
             }
         }
 
         // Get ship bounding box relative to largest grid coords
         Box2 shuttleBox = new Box2();
 
-        if (shuttleUid is { Valid: true } vesselUid &&
-            _entManager.TryGetComponent<MapGridComponent>(vesselUid, out var gridComp))
+        if (
+            shuttleUid is { Valid: true } vesselUid
+            && _entManager.TryGetComponent<MapGridComponent>(vesselUid, out var gridComp)
+        )
         {
             shuttleBox = gridComp.LocalAABB;
         }
@@ -477,7 +526,14 @@ public sealed class SpawnSalvageMissionJob : Job<bool>
             }
             else
             {
-                _shuttle.FTLToCoordinates(shuttleUid.Value, shuttle, new EntityCoordinates(mapUid, coords), 0f, 5.5f, _salvage.TravelTime);
+                _shuttle.FTLToCoordinates(
+                    shuttleUid.Value,
+                    shuttle,
+                    new EntityCoordinates(mapUid, coords),
+                    0f,
+                    5.5f,
+                    _salvage.TravelTime
+                );
             }
         }
         // End Frontier
@@ -485,7 +541,12 @@ public sealed class SpawnSalvageMissionJob : Job<bool>
         return true;
     }
 
-    private async Task SpawnRandomEntry(Entity<MapGridComponent> grid, IBudgetEntry entry, Dungeon dungeon, Random random)
+    private async Task SpawnRandomEntry(
+        Entity<MapGridComponent> grid,
+        IBudgetEntry entry,
+        Dungeon dungeon,
+        Random random
+    )
     {
         await SuspendIfOutOfTime();
 
@@ -503,8 +564,14 @@ public sealed class SpawnSalvageMissionJob : Job<bool>
             {
                 var tile = availableTiles.RemoveSwap(random.Next(availableTiles.Count));
 
-                if (!_anchorable.TileFree(grid, tile, (int)CollisionGroup.MachineLayer,
-                        (int)CollisionGroup.MachineLayer))
+                if (
+                    !_anchorable.TileFree(
+                        grid,
+                        tile,
+                        (int)CollisionGroup.MachineLayer,
+                        (int)CollisionGroup.MachineLayer
+                    )
+                )
                 {
                     continue;
                 }
@@ -539,7 +606,13 @@ public sealed class SpawnSalvageMissionJob : Job<bool>
                     {
                         if (_entManager.TryGetComponent<BiomeComponent>(gridUid, out var biome))
                         {
-                            _biome.AddTemplate(gridUid, biome, "Loot", _prototypeManager.Index<BiomeTemplatePrototype>(biomeLoot.Prototype), i);
+                            _biome.AddTemplate(
+                                gridUid,
+                                biome,
+                                "Loot",
+                                _prototypeManager.Index<BiomeTemplatePrototype>(biomeLoot.Prototype),
+                                i
+                            );
                         }
                     }
                     break;
@@ -548,11 +621,7 @@ public sealed class SpawnSalvageMissionJob : Job<bool>
     }
 
     // Frontier: mission-specific setup functions
-    private async Task SetupStructure(
-        SalvageMission mission,
-        Dungeon dungeon,
-        MapGridComponent grid,
-        Random random)
+    private async Task SetupStructure(SalvageMission mission, Dungeon dungeon, MapGridComponent grid, Random random)
     {
         await SuspendIfOutOfTime();
 
@@ -576,8 +645,14 @@ public sealed class SpawnSalvageMissionJob : Job<bool>
             {
                 var tile = availableTiles.RemoveSwap(random.Next(availableTiles.Count));
 
-                if (!_anchorable.TileFree(grid, tile, (int)CollisionGroup.MachineLayer,
-                        (int)CollisionGroup.MachineLayer))
+                if (
+                    !_anchorable.TileFree(
+                        grid,
+                        tile,
+                        (int)CollisionGroup.MachineLayer,
+                        (int)CollisionGroup.MachineLayer
+                    )
+                )
                 {
                     continue;
                 }
@@ -590,11 +665,7 @@ public sealed class SpawnSalvageMissionJob : Job<bool>
         }
     }
 
-    private async Task SetupElimination(
-        SalvageMission mission,
-        Dungeon dungeon,
-        MapGridComponent grid,
-        Random random)
+    private async Task SetupElimination(SalvageMission mission, Dungeon dungeon, MapGridComponent grid, Random random)
     {
         await SuspendIfOutOfTime();
 
@@ -617,8 +688,14 @@ public sealed class SpawnSalvageMissionJob : Job<bool>
             {
                 var tile = availableTiles.RemoveSwap(random.Next(availableTiles.Count));
 
-                if (!_anchorable.TileFree(grid, tile, (int)CollisionGroup.MachineLayer,
-                        (int)CollisionGroup.MachineLayer))
+                if (
+                    !_anchorable.TileFree(
+                        grid,
+                        tile,
+                        (int)CollisionGroup.MachineLayer,
+                        (int)CollisionGroup.MachineLayer
+                    )
+                )
                 {
                     continue;
                 }

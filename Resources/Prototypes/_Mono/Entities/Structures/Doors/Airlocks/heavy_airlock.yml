@@ -25,14 +25,13 @@
     fx: EffectRCDDeconstruct8
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 1000 # Inbetween highsec and normal
       behaviors:
       - !type:DoActsBehavior
         acts: ["Destruction"]
-      # TODO this should go to the broken node first
       - !type:PlaySoundBehavior
+        # TODO this should go to the broken node first
         sound:
           collection: MetalSlam
   - type: Paintable
@@ -74,14 +73,13 @@
     fx: EffectRCDDeconstruct8
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 2000 # Equal to T2 wall
       behaviors:
       - !type:DoActsBehavior
         acts: ["Destruction"]
-      # TODO this should go to the broken node first
       - !type:PlaySoundBehavior
+        # TODO this should go to the broken node first
         sound:
           collection: MetalSlam
   - type: Paintable

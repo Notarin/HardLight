@@ -1,16 +1,19 @@
-using Robust.Client.Graphics;
-using Robust.Client.ResourceManagement;
-using Robust.Shared.Map;
 using Content.Client.Pinpointer.UI;
 using Content.Client.Resources;
 using Content.Shared.SurveillanceCamera.Components;
+using Robust.Client.Graphics;
+using Robust.Client.ResourceManagement;
+using Robust.Shared.Map;
 
 namespace Content.Client.SurveillanceCamera.UI;
 
 public sealed class SurveillanceCameraNavMapControl : NavMapControl
 {
-    [Dependency] private readonly IEntityManager _entityManager = default!;
-    [Dependency] private readonly IResourceCache _resourceCache = default!;
+    [Dependency]
+    private readonly IEntityManager _entityManager = default!;
+
+    [Dependency]
+    private readonly IResourceCache _resourceCache = default!;
 
     private static readonly Color CameraActiveColor = Color.FromHex("#FF00FF");
     private static readonly Color CameraInactiveColor = Color.FromHex("#a09f9fff");
@@ -24,12 +27,15 @@ public sealed class SurveillanceCameraNavMapControl : NavMapControl
 
     private string _activeCameraAddress = string.Empty;
     private HashSet<string> _availableSubnets = new();
-    private (Dictionary<NetEntity, CameraMarker> Cameras, string ActiveAddress, HashSet<string> AvailableSubnets) _lastState;
+    private (
+        Dictionary<NetEntity, CameraMarker> Cameras,
+        string ActiveAddress,
+        HashSet<string> AvailableSubnets
+    ) _lastState;
 
     public bool EnableCameraSelection { get; set; }
 
     public event Action<NetEntity>? CameraSelected;
-
 
     public SurveillanceCameraNavMapControl()
     {
@@ -118,13 +124,7 @@ public sealed class SurveillanceCameraNavMapControl : NavMapControl
                 texture = _inactiveTexture;
             }
 
-            TrackedEntities[netEntity] = new NavMapBlip(
-                coords,
-                texture,
-                color,
-                false,
-                EnableCameraSelection
-            );
+            TrackedEntities[netEntity] = new NavMapBlip(coords, texture, color, false, EnableCameraSelection);
         }
     }
 }

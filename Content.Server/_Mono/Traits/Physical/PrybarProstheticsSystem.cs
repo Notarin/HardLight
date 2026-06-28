@@ -1,12 +1,12 @@
+using System.Linq;
+using System.Numerics;
+using Content.Shared._Mono.Traits.Physical;
 using Content.Shared.Body.Components;
 using Content.Shared.Body.Part;
 using Content.Shared.Body.Systems;
 using Robust.Shared.Containers;
-using Robust.Shared.Prototypes;
-using System.Linq;
-using System.Numerics;
-using Content.Shared._Mono.Traits.Physical;
 using Robust.Shared.Map;
+using Robust.Shared.Prototypes;
 
 namespace Content.Server._Mono.Traits.Physical;
 
@@ -15,9 +15,14 @@ namespace Content.Server._Mono.Traits.Physical;
 /// </summary>
 public sealed class PrybarProstheticsSystem : EntitySystem
 {
-    [Dependency] private readonly SharedBodySystem _bodySystem = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly SharedContainerSystem _containerSystem = default!;
+    [Dependency]
+    private readonly SharedBodySystem _bodySystem = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _containerSystem = default!;
 
     public override void Initialize()
     {
@@ -51,7 +56,10 @@ public sealed class PrybarProstheticsSystem : EntitySystem
 
         var leftArmSlotId = SharedBodySystem.GetPartSlotContainerId("left arm");
 
-        if (_containerSystem.TryGetContainer(torso, leftArmSlotId, out var leftArmContainer) && leftArmContainer.ContainedEntities.Count > 0)
+        if (
+            _containerSystem.TryGetContainer(torso, leftArmSlotId, out var leftArmContainer)
+            && leftArmContainer.ContainedEntities.Count > 0
+        )
         {
             foreach (var leftArm in leftArmContainer.ContainedEntities.ToArray())
             {
@@ -64,7 +72,10 @@ public sealed class PrybarProstheticsSystem : EntitySystem
 
         var rightArmSlotId = SharedBodySystem.GetPartSlotContainerId("right arm");
 
-        if (_containerSystem.TryGetContainer(torso, rightArmSlotId, out var rightArmContainer) && rightArmContainer.ContainedEntities.Count > 0)
+        if (
+            _containerSystem.TryGetContainer(torso, rightArmSlotId, out var rightArmContainer)
+            && rightArmContainer.ContainedEntities.Count > 0
+        )
         {
             foreach (var rightArm in rightArmContainer.ContainedEntities.ToArray())
             {

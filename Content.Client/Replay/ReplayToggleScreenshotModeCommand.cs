@@ -9,8 +9,11 @@ namespace Content.Client.Replay;
 
 public sealed class ReplayToggleScreenshotModeCommand : BaseReplayCommand
 {
-    [Dependency] private readonly IUserInterfaceManager _userInterfaceManager = default!;
-    [Dependency] private readonly ContentReplayPlaybackManager _replayManager = default!;
+    [Dependency]
+    private readonly IUserInterfaceManager _userInterfaceManager = default!;
+
+    [Dependency]
+    private readonly ContentReplayPlaybackManager _replayManager = default!;
 
     public override string Command => "replay_toggle_screenshot_mode";
 

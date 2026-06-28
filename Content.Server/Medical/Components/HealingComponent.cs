@@ -35,7 +35,10 @@ namespace Content.Server.Medical.Components
         ///     HealingComponent this filters what damage container type this component should work on. If null,
         ///     all damage container types are supported.
         /// </remarks>
-        [DataField("damageContainers", customTypeSerializer: typeof(PrototypeIdListSerializer<DamageContainerPrototype>))]
+        [DataField(
+            "damageContainers",
+            customTypeSerializer: typeof(PrototypeIdListSerializer<DamageContainerPrototype>)
+        )]
         public List<string>? DamageContainers;
 
         /// <summary>

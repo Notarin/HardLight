@@ -28,7 +28,9 @@ public sealed partial class BuildMech : IGraphAction
     {
         if (!entityManager.TryGetComponent(uid, out ContainerManagerComponent? containerManager))
         {
-            Logger.Warning($"Mech construct entity {uid} did not have a container manager! Aborting build mech action.");
+            Logger.Warning(
+                $"Mech construct entity {uid} did not have a container manager! Aborting build mech action."
+            );
             return;
         }
 
@@ -37,20 +39,26 @@ public sealed partial class BuildMech : IGraphAction
 
         if (!containerSystem.TryGetContainer(uid, Container, out var container, containerManager))
         {
-            Logger.Warning($"Mech construct entity {uid} did not have the specified '{Container}' container! Aborting build mech action.");
+            Logger.Warning(
+                $"Mech construct entity {uid} did not have the specified '{Container}' container! Aborting build mech action."
+            );
             return;
         }
 
         if (container.ContainedEntities.Count != 1)
         {
-            Logger.Warning($"Mech construct entity {uid} did not have exactly one item in the specified '{Container}' container! Aborting build mech action.");
+            Logger.Warning(
+                $"Mech construct entity {uid} did not have exactly one item in the specified '{Container}' container! Aborting build mech action."
+            );
         }
 
         var cell = container.ContainedEntities[0];
 
         if (!entityManager.TryGetComponent<BatteryComponent>(cell, out var batteryComponent))
         {
-            Logger.Warning($"Mech construct entity {uid} had an invalid entity in container \"{Container}\"! Aborting build mech action.");
+            Logger.Warning(
+                $"Mech construct entity {uid} had an invalid entity in container \"{Container}\"! Aborting build mech action."
+            );
             return;
         }
 
@@ -59,7 +67,10 @@ public sealed partial class BuildMech : IGraphAction
         var transform = entityManager.GetComponent<TransformComponent>(uid);
         var mech = entityManager.SpawnEntity(MechPrototype, transform.Coordinates);
 
-        if (entityManager.TryGetComponent<MechComponent>(mech, out var mechComp) && mechComp.BatterySlot.ContainedEntity == null)
+        if (
+            entityManager.TryGetComponent<MechComponent>(mech, out var mechComp)
+            && mechComp.BatterySlot.ContainedEntity == null
+        )
         {
             mechSys.InsertBattery(mech, cell, mechComp, batteryComponent);
             containerSystem.Insert(cell, mechComp.BatterySlot);
@@ -71,4 +82,3 @@ public sealed partial class BuildMech : IGraphAction
         entityManager.QueueDeleteEntity(uid);
     }
 }
-

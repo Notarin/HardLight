@@ -1,23 +1,27 @@
 using Content.Shared.Buckle.Components;
 using Content.Shared.Interaction;
-using Content.Shared.Verbs;
 using Content.Shared.Plunger.Components;
+using Content.Shared.Toilet.Components;
+using Content.Shared.Verbs;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
-using Content.Shared.Toilet.Components;
 
 namespace Content.Shared.Toilet.Systems
 {
     /// <summary>
     /// Handles sprite changes for both toilet seat up and down as well as for lid open and closed. Handles interactions with hidden stash
     /// </summary>
-
     public abstract class SharedToiletSystem : EntitySystem
     {
-        [Dependency] private readonly IRobustRandom _random = default!;
-        [Dependency] private readonly SharedAudioSystem _audio = default!;
-        [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+        [Dependency]
+        private readonly IRobustRandom _random = default!;
+
+        [Dependency]
+        private readonly SharedAudioSystem _audio = default!;
+
+        [Dependency]
+        private readonly SharedAppearanceSystem _appearance = default!;
 
         public override void Initialize()
         {
@@ -55,22 +59,21 @@ namespace Content.Shared.Toilet.Systems
             if (!args.CanInteract || !args.CanAccess || !CanToggle(uid) || args.Hands == null)
                 return;
 
-            AlternativeVerb toggleVerb = new()
-            {
-                Act = () => ToggleToiletSeat(uid, args.User, component)
-            };
+            AlternativeVerb toggleVerb = new() { Act = () => ToggleToiletSeat(uid, args.User, component) };
 
             if (component.ToggleSeat)
             {
                 toggleVerb.Text = Loc.GetString("toilet-seat-close");
-                toggleVerb.Icon =
-                    new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/VerbIcons/close.svg.192dpi.png"));
+                toggleVerb.Icon = new SpriteSpecifier.Texture(
+                    new ResPath("/Textures/Interface/VerbIcons/close.svg.192dpi.png")
+                );
             }
             else
             {
                 toggleVerb.Text = Loc.GetString("toilet-seat-open");
-                toggleVerb.Icon =
-                    new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/VerbIcons/open.svg.192dpi.png"));
+                toggleVerb.Icon = new SpriteSpecifier.Texture(
+                    new ResPath("/Textures/Interface/VerbIcons/open.svg.192dpi.png")
+                );
             }
             args.Verbs.Add(toggleVerb);
         }
@@ -84,7 +87,12 @@ namespace Content.Shared.Toilet.Systems
             ToggleToiletSeat(uid, args.User, comp);
         }
 
-        public void ToggleToiletSeat(EntityUid uid, EntityUid? user = null, ToiletComponent? component = null, MetaDataComponent? meta = null)
+        public void ToggleToiletSeat(
+            EntityUid uid,
+            EntityUid? user = null,
+            ToiletComponent? component = null,
+            MetaDataComponent? meta = null
+        )
         {
             if (!Resolve(uid, ref component))
                 return;
@@ -101,7 +109,11 @@ namespace Content.Shared.Toilet.Systems
             if (!Resolve(uid, ref component))
                 return;
 
-            _appearance.SetData(uid, ToiletVisuals.SeatVisualState, component.ToggleSeat ? SeatVisualState.SeatUp : SeatVisualState.SeatDown);
+            _appearance.SetData(
+                uid,
+                ToiletVisuals.SeatVisualState,
+                component.ToggleSeat ? SeatVisualState.SeatUp : SeatVisualState.SeatDown
+            );
         }
     }
 }

@@ -11,17 +11,28 @@ namespace Content.Server.Spawners.EntitySystems;
 
 public sealed class ContainerSpawnPointSystem : EntitySystem
 {
-    [Dependency] private readonly ContainerSystem _container = default!;
-    [Dependency] private readonly GameTicker _gameTicker = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly StationSystem _station = default!;
-    [Dependency] private readonly StationSpawningSystem _stationSpawning = default!;
+    [Dependency]
+    private readonly ContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly GameTicker _gameTicker = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly StationSystem _station = default!;
+
+    [Dependency]
+    private readonly StationSpawningSystem _stationSpawning = default!;
 
     public override void Initialize()
     {
         base.Initialize();
-        SubscribeLocalEvent<PlayerSpawningEvent>(HandlePlayerSpawning, before: new []{ typeof(SpawnPointSystem) });
+        SubscribeLocalEvent<PlayerSpawningEvent>(HandlePlayerSpawning, before: new[] { typeof(SpawnPointSystem) });
     }
 
     public void HandlePlayerSpawning(PlayerSpawningEvent args)
@@ -36,14 +47,18 @@ public sealed class ContainerSpawnPointSystem : EntitySystem
         var hasCustomJobEntity = _proto.TryIndex(args.Job, out var jobProto) && jobProto.JobEntity != null;
 
         // If it's just a spawn pref check if it's for cryo (silly).
-        if (args.HumanoidCharacterProfile?.SpawnPriority != SpawnPriorityPreference.Cryosleep &&
-            !hasCustomJobEntity)
+        if (args.HumanoidCharacterProfile?.SpawnPriority != SpawnPriorityPreference.Cryosleep && !hasCustomJobEntity)
         {
             return;
         }
 
-        var query = EntityQueryEnumerator<ContainerSpawnPointComponent, ContainerManagerComponent, TransformComponent>();
-        var possibleContainers = new List<Entity<ContainerSpawnPointComponent, ContainerManagerComponent, TransformComponent>>();
+        var query = EntityQueryEnumerator<
+            ContainerSpawnPointComponent,
+            ContainerManagerComponent,
+            TransformComponent
+        >();
+        var possibleContainers =
+            new List<Entity<ContainerSpawnPointComponent, ContainerManagerComponent, TransformComponent>>();
 
         while (query.MoveNext(out var uid, out var spawnPoint, out var container, out var xform))
         {
@@ -67,9 +82,11 @@ public sealed class ContainerSpawnPointSystem : EntitySystem
                 possibleContainers.Add((uid, spawnPoint, container, xform));
             }
 
-            if (_gameTicker.RunLevel != GameRunLevel.InRound &&
-                spawnPoint.SpawnType == SpawnPointType.Job &&
-                (args.Job == null || spawnPoint.Job == args.Job))
+            if (
+                _gameTicker.RunLevel != GameRunLevel.InRound
+                && spawnPoint.SpawnType == SpawnPointType.Job
+                && (args.Job == null || spawnPoint.Job == args.Job)
+            )
             {
                 possibleContainers.Add((uid, spawnPoint, container, xform));
             }
@@ -85,7 +102,14 @@ public sealed class ContainerSpawnPointSystem : EntitySystem
         BaseContainer? targetContainer = null;
         foreach (var containerCandidate in possibleContainers)
         {
-            if (!_container.TryGetContainer(containerCandidate.Owner, containerCandidate.Comp1.ContainerId, out var resolvedContainer, containerCandidate.Comp2))
+            if (
+                !_container.TryGetContainer(
+                    containerCandidate.Owner,
+                    containerCandidate.Comp1.ContainerId,
+                    out var resolvedContainer,
+                    containerCandidate.Comp2
+                )
+            )
                 continue;
 
             // Avoid spawning and charging paid loadouts unless a cryo slot is actually available.
@@ -108,7 +132,8 @@ public sealed class ContainerSpawnPointSystem : EntitySystem
             args.Job,
             args.HumanoidCharacterProfile,
             args.Station,
-            session: args.Session); // Frontier
+            session: args.Session
+        ); // Frontier
 
         if (_container.Insert(args.SpawnResult.Value, targetContainer, containerXform: selectedContainer.Value.Comp3)) // HardLight
         {

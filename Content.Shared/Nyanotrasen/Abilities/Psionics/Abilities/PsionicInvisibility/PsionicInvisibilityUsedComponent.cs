@@ -7,8 +7,11 @@ namespace Content.Shared.Abilities.Psionics
     public sealed partial class PsionicInvisibilityUsedComponent : Component
     {
         public static readonly EntProtoId PsionicInvisibilityUsedActionPrototype = "ActionPsionicInvisibilityUsed";
-        [DataField("psionicInvisibilityUsedActionId",
-        customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
+
+        [DataField(
+            "psionicInvisibilityUsedActionId",
+            customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>)
+        )]
         public string? PsionicInvisibilityUsedActionId = "ActionPsionicInvisibilityUsed";
 
         [DataField("psionicInvisibilityUsedActionEntity")]

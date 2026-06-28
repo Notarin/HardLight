@@ -22,18 +22,41 @@ namespace Content.Server.Anomaly.Effects;
 
 public sealed class InnerBodyAnomalySystem : SharedInnerBodyAnomalySystem
 {
-    [Dependency] private readonly IAdminLogManager _adminLog = default!;
-    [Dependency] private readonly AnomalySystem _anomaly = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly BodySystem _body = default!;
-    [Dependency] private readonly IChatManager _chat = default!;
-    [Dependency] private readonly ISharedPlayerManager _player = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!;
-    [Dependency] private readonly JitteringSystem _jitter = default!;
-    [Dependency] private readonly MindSystem _mind = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly StunSystem _stun = default!;
+    [Dependency]
+    private readonly IAdminLogManager _adminLog = default!;
+
+    [Dependency]
+    private readonly AnomalySystem _anomaly = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly BodySystem _body = default!;
+
+    [Dependency]
+    private readonly IChatManager _chat = default!;
+
+    [Dependency]
+    private readonly ISharedPlayerManager _player = default!;
+
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelist = default!;
+
+    [Dependency]
+    private readonly JitteringSystem _jitter = default!;
+
+    [Dependency]
+    private readonly MindSystem _mind = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private readonly StunSystem _stun = default!;
 
     private readonly Color _messageColor = Color.FromSrgb(new Color(201, 22, 94));
 
@@ -102,23 +125,27 @@ public sealed class InnerBodyAnomalySystem : SharedInnerBodyAnomalySystem
         if (ent.Comp.StartSound is not null)
             _audio.PlayPvs(ent.Comp.StartSound, ent);
 
-        if (ent.Comp.StartMessage is not null &&
-            _mind.TryGetMind(ent, out _, out var mindComponent) &&
-            _player.TryGetSessionById(mindComponent.UserId, out var session))
+        if (
+            ent.Comp.StartMessage is not null
+            && _mind.TryGetMind(ent, out _, out var mindComponent)
+            && _player.TryGetSessionById(mindComponent.UserId, out var session)
+        )
         {
             var message = Loc.GetString(ent.Comp.StartMessage);
             var wrappedMessage = Loc.GetString("chat-manager-server-wrap-message", ("message", message));
-            _chat.ChatMessageToOne(ChatChannel.Server,
+            _chat.ChatMessageToOne(
+                ChatChannel.Server,
                 message,
                 wrappedMessage,
                 default,
                 false,
                 session.Channel,
-                _messageColor);
+                _messageColor
+            );
 
             _popup.PopupEntity(message, ent, ent, PopupType.MediumCaution);
 
-            _adminLog.Add(LogType.Anomaly,LogImpact.Medium,$"{ToPrettyString(ent)} became anomaly host.");
+            _adminLog.Add(LogType.Anomaly, LogImpact.Medium, $"{ToPrettyString(ent)} became anomaly host.");
         }
         Dirty(ent);
     }
@@ -139,8 +166,10 @@ public sealed class InnerBodyAnomalySystem : SharedInnerBodyAnomalySystem
 
     private void OnSeverityChanged(Entity<InnerBodyAnomalyComponent> ent, ref AnomalySeverityChangedEvent args)
     {
-        if (!_mind.TryGetMind(ent, out _, out var mindComponent) ||
-            !_player.TryGetSessionById(mindComponent.UserId, out var session))
+        if (
+            !_mind.TryGetMind(ent, out _, out var mindComponent)
+            || !_player.TryGetSessionById(mindComponent.UserId, out var session)
+        )
             return;
 
         var message = string.Empty;
@@ -170,13 +199,15 @@ public sealed class InnerBodyAnomalySystem : SharedInnerBodyAnomalySystem
             return;
 
         var wrappedMessage = Loc.GetString("chat-manager-server-wrap-message", ("message", message));
-        _chat.ChatMessageToOne(ChatChannel.Server,
+        _chat.ChatMessageToOne(
+            ChatChannel.Server,
             message,
             wrappedMessage,
             default,
             false,
             session.Channel,
-            _messageColor);
+            _messageColor
+        );
 
         _popup.PopupEntity(message, ent, ent, PopupType.MediumCaution);
     }
@@ -215,24 +246,31 @@ public sealed class InnerBodyAnomalySystem : SharedInnerBodyAnomalySystem
 
         _stun.TryParalyze(ent, TimeSpan.FromSeconds(ent.Comp.StunDuration), true);
 
-        if (ent.Comp.EndMessage is not null &&
-            _mind.TryGetMind(ent, out _, out var mindComponent) &&
-            _player.TryGetSessionById(mindComponent.UserId, out var session))
+        if (
+            ent.Comp.EndMessage is not null
+            && _mind.TryGetMind(ent, out _, out var mindComponent)
+            && _player.TryGetSessionById(mindComponent.UserId, out var session)
+        )
         {
             var message = Loc.GetString(ent.Comp.EndMessage);
             var wrappedMessage = Loc.GetString("chat-manager-server-wrap-message", ("message", message));
-            _chat.ChatMessageToOne(ChatChannel.Server,
+            _chat.ChatMessageToOne(
+                ChatChannel.Server,
                 message,
                 wrappedMessage,
                 default,
                 false,
                 session.Channel,
-                _messageColor);
-
+                _messageColor
+            );
 
             _popup.PopupEntity(message, ent, ent, PopupType.MediumCaution);
 
-            _adminLog.Add(LogType.Anomaly, LogImpact.Medium,$"{ToPrettyString(ent)} is no longer a host for the anomaly.");
+            _adminLog.Add(
+                LogType.Anomaly,
+                LogImpact.Medium,
+                $"{ToPrettyString(ent)} is no longer a host for the anomaly."
+            );
         }
 
         ent.Comp.Injected = false;

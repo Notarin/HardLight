@@ -9,16 +9,16 @@
     sprite: Effects/optionsvisualizertest.rsi
     layers:
     - state: none
-      map: [ "layer" ]
+      map: ["layer"]
   - type: OptionsVisualizer
     visuals:
       layer:
       - options: Default
-        data: { state: none }
+        data: {state: none}
       - options: Test
-        data: { state: test }
+        data: {state: test}
       - options: ReducedMotion
-        data: { state: motion }
+        data: {state: motion}
       - options: [Test, ReducedMotion]
-        data: { state: both }
+        data: {state: both}
 

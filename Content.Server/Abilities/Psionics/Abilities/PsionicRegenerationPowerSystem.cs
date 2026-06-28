@@ -1,33 +1,45 @@
-using Robust.Shared.Audio;
-using Robust.Shared.Player;
 using Content.Server.Body.Components;
 using Content.Server.Body.Systems;
 using Content.Server.DoAfter;
 using Content.Shared.Abilities.Psionics;
-using Content.Shared.Nyanotrasen.Abilities.Psionics;
+using Content.Shared.Actions.Events;
 using Content.Shared.Chemistry.Components;
 using Content.Shared.DoAfter;
+using Content.Shared.Examine;
 using Content.Shared.FixedPoint;
+using Content.Shared.Nyanotrasen.Abilities.Psionics;
 using Content.Shared.Popups;
 using Content.Shared.Psionics.Events;
-using Content.Shared.Examine;
-using static Content.Shared.Examine.ExamineSystemShared;
-using Robust.Shared.Timing;
-using Content.Shared.Actions.Events;
 using Robust.Server.Audio;
+using Robust.Shared.Audio;
+using Robust.Shared.Player;
+using Robust.Shared.Timing;
+using static Content.Shared.Examine.ExamineSystemShared;
 
 namespace Content.Server.Abilities.Psionics
 {
     public sealed class PsionicRegenerationPowerSystem : EntitySystem
     {
-        [Dependency] private readonly BloodstreamSystem _bloodstreamSystem = default!;
-        [Dependency] private readonly AudioSystem _audioSystem = default!;
-        [Dependency] private readonly DoAfterSystem _doAfterSystem = default!;
-        [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-        [Dependency] private readonly SharedPsionicAbilitiesSystem _psionics = default!;
-        [Dependency] private readonly IGameTiming _gameTiming = default!;
-        [Dependency] private readonly ExamineSystemShared _examine = default!;
+        [Dependency]
+        private readonly BloodstreamSystem _bloodstreamSystem = default!;
 
+        [Dependency]
+        private readonly AudioSystem _audioSystem = default!;
+
+        [Dependency]
+        private readonly DoAfterSystem _doAfterSystem = default!;
+
+        [Dependency]
+        private readonly SharedPopupSystem _popupSystem = default!;
+
+        [Dependency]
+        private readonly SharedPsionicAbilitiesSystem _psionics = default!;
+
+        [Dependency]
+        private readonly IGameTiming _gameTiming = default!;
+
+        [Dependency]
+        private readonly ExamineSystemShared _examine = default!;
 
         public override void Initialize()
         {
@@ -38,8 +50,11 @@ namespace Content.Server.Abilities.Psionics
             SubscribeLocalEvent<PsionicRegenerationPowerComponent, PsionicRegenerationDoAfterEvent>(OnDoAfter);
         }
 
-
-        private void OnPowerUsed(EntityUid uid, PsionicRegenerationPowerComponent component, PsionicRegenerationPowerActionEvent args)
+        private void OnPowerUsed(
+            EntityUid uid,
+            PsionicRegenerationPowerComponent component,
+            PsionicRegenerationPowerActionEvent args
+        )
         {
             if (!_psionics.OnAttemptPowerUse(args.Performer, "psionic regeneration"))
                 return;
@@ -51,14 +66,22 @@ namespace Content.Server.Abilities.Psionics
 
             component.DoAfter = doAfterId;
 
-            _popupSystem.PopupEntity(Loc.GetString("psionic-regeneration-begin", ("entity", uid)),
+            _popupSystem.PopupEntity(
+                Loc.GetString("psionic-regeneration-begin", ("entity", uid)),
                 uid,
                 // TODO: Use LoS-based Filter when one is available.
-                Filter.Pvs(uid).RemoveWhereAttachedEntity(entity => !_examine.InRangeUnOccluded(uid, entity, ExamineRange, null)),
+                Filter
+                    .Pvs(uid)
+                    .RemoveWhereAttachedEntity(entity => !_examine.InRangeUnOccluded(uid, entity, ExamineRange, null)),
                 true,
-                PopupType.Medium);
+                PopupType.Medium
+            );
 
-            _audioSystem.PlayPvs(component.SoundUse, component.Owner, AudioParams.Default.WithVolume(8f).WithMaxDistance(1.5f).WithRolloffFactor(3.5f));
+            _audioSystem.PlayPvs(
+                component.SoundUse,
+                component.Owner,
+                AudioParams.Default.WithVolume(8f).WithMaxDistance(1.5f).WithRolloffFactor(3.5f)
+            );
             _psionics.LogPowerUsed(uid, "psionic regeneration");
             args.Handled = true;
         }
@@ -74,7 +97,11 @@ namespace Content.Server.Abilities.Psionics
             args.Handled = true;
         }
 
-        private void OnDoAfter(EntityUid uid, PsionicRegenerationPowerComponent component, PsionicRegenerationDoAfterEvent args)
+        private void OnDoAfter(
+            EntityUid uid,
+            PsionicRegenerationPowerComponent component,
+            PsionicRegenerationDoAfterEvent args
+        )
         {
             component.DoAfter = null;
 
@@ -85,12 +112,17 @@ namespace Content.Server.Abilities.Psionics
             // small doses of the reagent, so we wait until either the action
             // is cancelled (by being dispelled) or complete to give the
             // appropriate dose. A timestamp delta is used to accomplish this.
-            var percentageComplete = Math.Min(1f, (_gameTiming.CurTime - args.StartedAt).TotalSeconds / component.UseDelay);
+            var percentageComplete = Math.Min(
+                1f,
+                (_gameTiming.CurTime - args.StartedAt).TotalSeconds / component.UseDelay
+            );
 
             var solution = new Solution();
-            solution.AddReagent("PsionicRegenerationEssence", FixedPoint2.New(component.EssenceAmount * percentageComplete));
+            solution.AddReagent(
+                "PsionicRegenerationEssence",
+                FixedPoint2.New(component.EssenceAmount * percentageComplete)
+            );
             _bloodstreamSystem.TryAddToChemicals(uid, solution, stream);
         }
     }
 }
-

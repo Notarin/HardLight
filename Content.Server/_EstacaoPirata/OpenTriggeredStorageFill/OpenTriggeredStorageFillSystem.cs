@@ -16,10 +16,14 @@ namespace Content.Server._EstacaoPirata.OpenTriggeredStorageFill;
 /// </summary>
 public sealed class OpenTriggeredStorageFillSystem : EntitySystem
 {
+    [Dependency]
+    private readonly SharedStorageSystem _storage = default!;
 
-    [Dependency] private readonly SharedStorageSystem _storage = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
+    [Dependency]
+    private readonly PopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototype = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -43,8 +47,7 @@ public sealed class OpenTriggeredStorageFillSystem : EntitySystem
         var spawnItems = EntitySpawnCollection.GetSpawns(comp.Contents);
         foreach (var item in spawnItems)
         {
-            DebugTools.Assert(!_prototype.Index<EntityPrototype>(item)
-                .HasComponent(typeof(RandomSpawnerComponent)));
+            DebugTools.Assert(!_prototype.Index<EntityPrototype>(item).HasComponent(typeof(RandomSpawnerComponent)));
             var ent = Spawn(item, coordinates);
 
             if (!TryComp<ItemComponent>(ent, out var itemComp))

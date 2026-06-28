@@ -6,6 +6,4 @@ namespace Content.Server._Mono.Cleanup;
 /// Marker component that opts an entity out of _Mono cleanup systems.
 /// </summary>
 [RegisterComponent]
-public sealed partial class CleanupImmuneComponent : Component
-{
-}
+public sealed partial class CleanupImmuneComponent : Component { }

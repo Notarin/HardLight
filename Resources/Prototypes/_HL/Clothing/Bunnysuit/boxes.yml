@@ -16,7 +16,7 @@
     - 0,0,3,2
     whitelist:
       tags:
-        - Bunnysuit
+      - Bunnysuit
   - type: PhysicalComposition
     materialComposition:
       Cardboard: 100

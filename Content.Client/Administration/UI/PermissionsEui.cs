@@ -24,13 +24,13 @@ namespace Content.Client.Administration.UI
     {
         private const int NoRank = -1;
 
-        [Dependency] private readonly IClientAdminManager _adminManager = default!;
+        [Dependency]
+        private readonly IClientAdminManager _adminManager = default!;
 
         private readonly Menu _menu;
         private readonly List<DefaultWindow> _subWindows = new();
 
-        private Dictionary<int, PermissionsEuiState.AdminRankData> _ranks =
-            new();
+        private Dictionary<int, PermissionsEuiState.AdminRankData> _ranks = new();
 
         public PermissionsEui()
         {
@@ -70,7 +70,6 @@ namespace Content.Client.Administration.UI
             OpenRankEditWindow(null);
         }
 
-
         private void OnEditPressed(PermissionsEuiState.AdminData admin)
         {
             OpenEditWindow(admin);
@@ -89,7 +88,6 @@ namespace Content.Client.Administration.UI
 
             _subWindows.Add(window);
         }
-
 
         private void OpenRankEditWindow(KeyValuePair<int, PermissionsEuiState.AdminRankData>? rank)
         {
@@ -134,34 +132,37 @@ namespace Content.Client.Administration.UI
 
             if (popup.SourceData is { } src)
             {
-                SendMessage(new UpdateAdmin
-                {
-                    UserId = src.UserId,
-                    Title = title,
-                    PosFlags = pos,
-                    NegFlags = neg,
-                    RankId = rank,
-                    Suspended = suspended,
-                });
+                SendMessage(
+                    new UpdateAdmin
+                    {
+                        UserId = src.UserId,
+                        Title = title,
+                        PosFlags = pos,
+                        NegFlags = neg,
+                        RankId = rank,
+                        Suspended = suspended,
+                    }
+                );
             }
             else
             {
                 DebugTools.AssertNotNull(popup.NameEdit);
 
-                SendMessage(new AddAdmin
-                {
-                    UserNameOrId = popup.NameEdit!.Text,
-                    Title = title,
-                    PosFlags = pos,
-                    NegFlags = neg,
-                    RankId = rank,
-                    Suspended = suspended,
-                });
+                SendMessage(
+                    new AddAdmin
+                    {
+                        UserNameOrId = popup.NameEdit!.Text,
+                        Title = title,
+                        PosFlags = pos,
+                        NegFlags = neg,
+                        RankId = rank,
+                        Suspended = suspended,
+                    }
+                );
             }
 
             popup.Close();
         }
-
 
         private void SaveAdminRankPressed(EditAdminRankWindow popup)
         {
@@ -170,20 +171,18 @@ namespace Content.Client.Administration.UI
 
             if (popup.SourceId is { } src)
             {
-                SendMessage(new UpdateAdminRank
-                {
-                    Id = src,
-                    Flags = flags,
-                    Name = name,
-                });
+                SendMessage(
+                    new UpdateAdminRank
+                    {
+                        Id = src,
+                        Flags = flags,
+                        Name = name,
+                    }
+                );
             }
             else
             {
-                SendMessage(new AddAdminRank
-                {
-                    Flags = flags,
-                    Name = name
-                });
+                SendMessage(new AddAdminRank { Flags = flags, Name = name });
             }
 
             popup.Close();
@@ -196,7 +195,7 @@ namespace Content.Client.Administration.UI
 
         public override void HandleState(EuiStateBase state)
         {
-            var s = (PermissionsEuiState) state;
+            var s = (PermissionsEuiState)state;
 
             if (s.IsLoading)
             {
@@ -213,7 +212,12 @@ namespace Content.Client.Administration.UI
 
                 al.AddChild(new Label { Text = name });
 
-                var titleControl = new Label { Text = admin.Title ?? Loc.GetString("permissions-eui-edit-admin-title-control-text").ToLowerInvariant() };
+                var titleControl = new Label
+                {
+                    Text =
+                        admin.Title
+                        ?? Loc.GetString("permissions-eui-edit-admin-title-control-text").ToLowerInvariant(),
+                };
                 if (admin.Title == null) // none
                 {
                     titleControl.StyleClasses.Add(StyleBase.StyleClassItalic);
@@ -247,12 +251,14 @@ namespace Content.Client.Administration.UI
 
                 var flagsText = AdminFlagsHelper.PosNegFlagsText(admin.PosFlags, admin.NegFlags);
 
-                al.AddChild(new Label
-                {
-                    Text = flagsText,
-                    HorizontalExpand = true,
-                    HorizontalAlignment = Control.HAlignment.Center,
-                });
+                al.AddChild(
+                    new Label
+                    {
+                        Text = flagsText,
+                        HorizontalExpand = true,
+                        HorizontalAlignment = Control.HAlignment.Center,
+                    }
+                );
 
                 var editButton = new Button { Text = Loc.GetString("permissions-eui-edit-title-button") };
                 editButton.OnPressed += _ => OnEditPressed(admin);
@@ -261,7 +267,9 @@ namespace Content.Client.Administration.UI
                 if (!_adminManager.HasFlag(combinedFlags))
                 {
                     editButton.Disabled = true;
-                    editButton.ToolTip = Loc.GetString("permissions-eui-do-not-have-required-flags-to-edit-admin-tooltip");
+                    editButton.ToolTip = Loc.GetString(
+                        "permissions-eui-do-not-have-required-flags-to-edit-admin-tooltip"
+                    );
                 }
             }
 
@@ -271,12 +279,14 @@ namespace Content.Client.Administration.UI
                 var rank = kv.Value;
                 var flagsText = string.Join(' ', AdminFlagsHelper.FlagsToNames(rank.Flags).Select(f => $"+{f}"));
                 _menu.AdminRanksList.AddChild(new Label { Text = rank.Name });
-                _menu.AdminRanksList.AddChild(new Label
-                {
-                    Text = flagsText,
-                    HorizontalExpand = true,
-                    HorizontalAlignment = Control.HAlignment.Center,
-                });
+                _menu.AdminRanksList.AddChild(
+                    new Label
+                    {
+                        Text = flagsText,
+                        HorizontalExpand = true,
+                        HorizontalAlignment = Control.HAlignment.Center,
+                    }
+                );
                 var editButton = new Button { Text = Loc.GetString("permissions-eui-edit-admin-rank-button") };
                 editButton.OnPressed += _ => OnEditRankPressed(kv);
                 _menu.AdminRanksList.AddChild(editButton);
@@ -284,7 +294,9 @@ namespace Content.Client.Administration.UI
                 if (!_adminManager.HasFlag(rank.Flags))
                 {
                     editButton.Disabled = true;
-                    editButton.ToolTip = Loc.GetString("permissions-eui-do-not-have-required-flags-to-edit-rank-tooltip");
+                    editButton.ToolTip = Loc.GetString(
+                        "permissions-eui-do-not-have-required-flags-to-edit-rank-tooltip"
+                    );
                 }
             }
         }
@@ -312,20 +324,24 @@ namespace Content.Client.Administration.UI
                 AddAdminButton = new Button
                 {
                     Text = Loc.GetString("permissions-eui-menu-add-admin-button"),
-                    HorizontalAlignment = HAlignment.Right
+                    HorizontalAlignment = HAlignment.Right,
                 };
 
                 AddAdminRankButton = new Button
                 {
                     Text = Loc.GetString("permissions-eui-menu-add-admin-rank-button"),
-                    HorizontalAlignment = HAlignment.Right
+                    HorizontalAlignment = HAlignment.Right,
                 };
 
                 AdminsList = new GridContainer { Columns = 5, VerticalExpand = true };
                 var adminVBox = new BoxContainer
                 {
                     Orientation = LayoutOrientation.Vertical,
-                    Children = { new ScrollContainer() { VerticalExpand = true, Children = { AdminsList } }, AddAdminButton },
+                    Children =
+                    {
+                        new ScrollContainer() { VerticalExpand = true, Children = { AdminsList } },
+                        AddAdminButton,
+                    },
                 };
                 TabContainer.SetTabTitle(adminVBox, Loc.GetString("permissions-eui-menu-admins-tab-title"));
 
@@ -333,7 +349,11 @@ namespace Content.Client.Administration.UI
                 var rankVBox = new BoxContainer
                 {
                     Orientation = LayoutOrientation.Vertical,
-                    Children = { new ScrollContainer() { VerticalExpand = true, Children = { AdminRanksList } }, AddAdminRankButton }
+                    Children =
+                    {
+                        new ScrollContainer() { VerticalExpand = true, Children = { AdminRanksList } },
+                        AddAdminRankButton,
+                    },
                 };
                 TabContainer.SetTabTitle(rankVBox, Loc.GetString("permissions-eui-menu-admin-ranks-tab-title"));
 
@@ -356,8 +376,7 @@ namespace Content.Client.Administration.UI
             public readonly Button? RemoveButton;
             public readonly CheckBox SuspendedCheckbox;
 
-            public readonly Dictionary<AdminFlags, (Button inherit, Button sub, Button plus)> FlagButtons
-                = new();
+            public readonly Dictionary<AdminFlags, (Button inherit, Button sub, Button plus)> FlagButtons = new();
 
             public EditAdminWindow(PermissionsEui ui, PermissionsEuiState.AdminData? data)
             {
@@ -369,8 +388,7 @@ namespace Content.Client.Administration.UI
                 if (data is { } dat)
                 {
                     var name = dat.UserName ?? dat.UserId.ToString();
-                    Title = Loc.GetString("permissions-eui-edit-admin-window-edit-admin-label",
-                                          ("admin", name));
+                    Title = Loc.GetString("permissions-eui-edit-admin-window-edit-admin-label", ("admin", name));
 
                     nameControl = new Label { Text = name };
                 }
@@ -378,12 +396,22 @@ namespace Content.Client.Administration.UI
                 {
                     Title = Loc.GetString("permissions-eui-menu-add-admin-button");
 
-                    nameControl = NameEdit = new LineEdit { PlaceHolder = Loc.GetString("permissions-eui-edit-admin-window-name-edit-placeholder") };
+                    nameControl = NameEdit = new LineEdit
+                    {
+                        PlaceHolder = Loc.GetString("permissions-eui-edit-admin-window-name-edit-placeholder"),
+                    };
                 }
 
-                TitleEdit = new LineEdit { PlaceHolder = Loc.GetString("permissions-eui-edit-admin-window-title-edit-placeholder") };
+                TitleEdit = new LineEdit
+                {
+                    PlaceHolder = Loc.GetString("permissions-eui-edit-admin-window-title-edit-placeholder"),
+                };
                 RankButton = new OptionButton();
-                SaveButton = new Button { Text = Loc.GetString("permissions-eui-edit-admin-window-save-button"), HorizontalAlignment = HAlignment.Right };
+                SaveButton = new Button
+                {
+                    Text = Loc.GetString("permissions-eui-edit-admin-window-save-button"),
+                    HorizontalAlignment = HAlignment.Right,
+                };
 
                 SuspendedCheckbox = new CheckBox
                 {
@@ -404,7 +432,7 @@ namespace Content.Client.Administration.UI
                 {
                     Columns = 4,
                     HSeparationOverride = 0,
-                    VSeparationOverride = 0
+                    VSeparationOverride = 0,
                 };
 
                 foreach (var flag in AdminFlagsHelper.AllFlags)
@@ -428,14 +456,14 @@ namespace Content.Client.Administration.UI
                         Text = "-",
                         StyleClasses = { StyleBase.ButtonOpenBoth },
                         Disabled = disable,
-                        Group = group
+                        Group = group,
                     };
                     var plus = new Button
                     {
                         Text = "+",
                         StyleClasses = { StyleBase.ButtonOpenLeft },
                         Disabled = disable,
-                        Group = group
+                        Group = group,
                     };
 
                     if (data is { } d)
@@ -466,49 +494,45 @@ namespace Content.Client.Administration.UI
                     FlagButtons.Add(flag, (inherit, sub, plus));
                 }
 
-                var bottomButtons = new BoxContainer
-                {
-                    Orientation = LayoutOrientation.Horizontal
-                };
+                var bottomButtons = new BoxContainer { Orientation = LayoutOrientation.Horizontal };
                 if (data != null)
                 {
                     // show remove button.
-                    RemoveButton = new Button { Text = Loc.GetString("permissions-eui-edit-admin-window-remove-flag-button") };
+                    RemoveButton = new Button
+                    {
+                        Text = Loc.GetString("permissions-eui-edit-admin-window-remove-flag-button"),
+                    };
                     bottomButtons.AddChild(RemoveButton);
                 }
 
                 bottomButtons.AddChild(SaveButton);
 
-                Contents.AddChild(new BoxContainer
-                {
-                    Orientation = LayoutOrientation.Vertical,
-                    Children =
+                Contents.AddChild(
+                    new BoxContainer
                     {
-                        new BoxContainer
+                        Orientation = LayoutOrientation.Vertical,
+                        Children =
                         {
-                            Orientation = LayoutOrientation.Horizontal,
-                            SeparationOverride = 2,
-                            Children =
+                            new BoxContainer
                             {
-                                new BoxContainer
+                                Orientation = LayoutOrientation.Horizontal,
+                                SeparationOverride = 2,
+                                Children =
                                 {
-                                    Orientation = LayoutOrientation.Vertical,
-                                    HorizontalExpand = true,
-                                    Children =
+                                    new BoxContainer
                                     {
-                                        nameControl,
-                                        TitleEdit,
-                                        RankButton,
-                                        SuspendedCheckbox,
-                                    }
+                                        Orientation = LayoutOrientation.Vertical,
+                                        HorizontalExpand = true,
+                                        Children = { nameControl, TitleEdit, RankButton, SuspendedCheckbox },
+                                    },
+                                    permGrid,
                                 },
-                                permGrid
+                                VerticalExpand = true,
                             },
-                            VerticalExpand = true
+                            bottomButtons,
                         },
-                        bottomButtons
                     }
-                });
+                );
             }
 
             private void RankSelected(OptionButton.ItemSelectedEventArgs obj)
@@ -565,10 +589,7 @@ namespace Content.Client.Administration.UI
                     HorizontalAlignment = HAlignment.Right,
                     HorizontalExpand = true,
                 };
-                var flagsBox = new BoxContainer
-                {
-                    Orientation = LayoutOrientation.Vertical
-                };
+                var flagsBox = new BoxContainer { Orientation = LayoutOrientation.Vertical };
 
                 foreach (var flag in AdminFlagsHelper.AllFlags)
                 {
@@ -577,11 +598,7 @@ namespace Content.Client.Administration.UI
                     var disable = !ui._adminManager.HasFlag(flag);
                     var flagName = flag.ToString().ToUpper();
 
-                    var checkBox = new CheckBox
-                    {
-                        Disabled = disable,
-                        Text = flagName
-                    };
+                    var checkBox = new CheckBox { Disabled = disable, Text = flagName };
 
                     if (data != null && (data.Value.Value.Flags & flag) != 0)
                     {
@@ -592,10 +609,7 @@ namespace Content.Client.Administration.UI
                     flagsBox.AddChild(checkBox);
                 }
 
-                var bottomButtons = new BoxContainer
-                {
-                    Orientation = LayoutOrientation.Horizontal
-                };
+                var bottomButtons = new BoxContainer { Orientation = LayoutOrientation.Horizontal };
                 if (data != null)
                 {
                     // show remove button.
@@ -605,16 +619,13 @@ namespace Content.Client.Administration.UI
 
                 bottomButtons.AddChild(SaveButton);
 
-                Contents.AddChild(new BoxContainer
-                {
-                    Orientation = LayoutOrientation.Vertical,
-                    Children =
+                Contents.AddChild(
+                    new BoxContainer
                     {
-                        NameEdit,
-                        flagsBox,
-                        bottomButtons
+                        Orientation = LayoutOrientation.Vertical,
+                        Children = { NameEdit, flagsBox, bottomButtons },
                     }
-                });
+                );
             }
 
             public AdminFlags CollectSetFlags()

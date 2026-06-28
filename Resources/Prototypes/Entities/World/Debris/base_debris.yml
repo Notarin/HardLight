@@ -2,9 +2,9 @@
   id: BaseDebris
   abstract: true
   components:
-    - type: OwnedDebris
-    - type: LocalityLoader
-    - type: ForceAnchor
+  - type: OwnedDebris
+  - type: LocalityLoader
+  - type: ForceAnchor
     #- type: TimedDespawn # Frontier
-     # lifetime: 7200 # Frontier
-    #- type: WorldLoader
+# lifetime: 7200 # Frontier
+#- type: WorldLoader

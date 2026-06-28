@@ -14,9 +14,14 @@ namespace Content.Server._HL.Traits.Physical;
 /// </summary>
 public sealed class ShadekinRegenerationSystem : EntitySystem
 {
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly DamageableSystem _damageable = default!;
+
+    [Dependency]
+    private readonly MobStateSystem _mobState = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     public override void Update(float frameTime)
     {
@@ -47,7 +52,7 @@ public sealed class ShadekinRegenerationSystem : EntitySystem
                 if (!damageable.Damage.DamageDict.TryGetValue(healType, out var existing) || existing <= 0)
                     continue;
 
-                healSpec.DamageDict[healType] = FixedPoint2.New(-Math.Min((float) existing, amountPerTick));
+                healSpec.DamageDict[healType] = FixedPoint2.New(-Math.Min((float)existing, amountPerTick));
             }
 
             if (healSpec.DamageDict.Count == 0)

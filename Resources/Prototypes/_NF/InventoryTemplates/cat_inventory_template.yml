@@ -10,7 +10,7 @@
     displayName: Head
     whitelist:
       components:
-        - CatWearable
+      - CatWearable
 
   - name: mask
     slotTexture: mask
@@ -20,9 +20,9 @@
     displayName: Mask
     whitelist:
       tags:
-        - PetWearable
+      - PetWearable
       components:
-        - CatWearable
+      - CatWearable
 
   - name: suitstorage
     slotTexture: suit_storage
@@ -34,7 +34,7 @@
     displayName: Suit Storage
     whitelist:
       components:
-        - GasTank
+      - GasTank
 
   - name: belt
     slotTexture: belt
@@ -46,7 +46,7 @@
     displayName: Belt
     whitelist:
       components:
-        - CatWearable
+      - CatWearable
 
   - name: outerClothing
     slotTexture: suit
@@ -57,7 +57,7 @@
     displayName: Suit
     whitelist:
       components:
-        - CatWearable
+      - CatWearable
 
   - name: id
     slotTexture: id

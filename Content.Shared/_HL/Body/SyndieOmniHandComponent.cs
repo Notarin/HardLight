@@ -23,10 +23,7 @@ namespace Content.Shared.Cybernetics
         public EntityUid? Action;
 
         public Dictionary<string, EntityUid?> Equipment = new();
-
     }
 }
-public sealed partial class SyndieOmniHandToggledEvent : InstantActionEvent
-{
 
-}
+public sealed partial class SyndieOmniHandToggledEvent : InstantActionEvent { }

@@ -55,6 +55,7 @@ public partial record struct TeleportPoint
 {
     [DataField]
     public string Location;
+
     [DataField]
     public NetEntity TelePoint;
 

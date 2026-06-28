@@ -1,20 +1,28 @@
 ﻿using Content.Shared.Item.ItemToggle;
-﻿using Content.Shared.Item.ItemToggle.Components;
+using Content.Shared.Item.ItemToggle.Components;
 using Content.Shared.ProximityDetection.Components;
 using Content.Shared.Tag;
 using Robust.Shared.Network;
 
 namespace Content.Shared.ProximityDetection.Systems;
 
-
 //This handles generic proximity detector logic
 public sealed class ProximityDetectionSystem : EntitySystem
 {
-    [Dependency] private readonly EntityLookupSystem _entityLookup = default!;
-    [Dependency] private readonly ItemToggleSystem _toggle = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly TagSystem _tagSystem = default!;
-    [Dependency] private readonly INetManager _net = default!;
+    [Dependency]
+    private readonly EntityLookupSystem _entityLookup = default!;
+
+    [Dependency]
+    private readonly ItemToggleSystem _toggle = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly TagSystem _tagSystem = default!;
+
+    [Dependency]
+    private readonly INetManager _net = default!;
 
     //update is only run on the server
 
@@ -30,7 +38,9 @@ public sealed class ProximityDetectionSystem : EntitySystem
     {
         if (component.Criteria.RequireAll)
             return;
-        Log.Debug("DetectorComponent only supports requireAll = false for tags. All components are required for a match!");
+        Log.Debug(
+            "DetectorComponent only supports requireAll = false for tags. All components are required for a match!"
+        );
     }
 
     public override void Update(float frameTime)
@@ -90,7 +100,7 @@ public sealed class ProximityDetectionSystem : EntitySystem
         Dirty(uid, comp);
     }
 
-    private void RunUpdate_Internal(EntityUid owner,ProximityDetectorComponent detector)
+    private void RunUpdate_Internal(EntityUid owner, ProximityDetectorComponent detector)
     {
         if (!_net.IsServer) //only run detection checks on the server!
             return;
@@ -106,13 +116,21 @@ public sealed class ProximityDetectionSystem : EntitySystem
 
         if (detector.Criteria.Components == null)
         {
-            Log.Error($"ProximityDetectorComponent on {ToPrettyString(owner)} must use at least 1 component as a filter in criteria!");
-            throw new ArgumentException($"ProximityDetectorComponent on {ToPrettyString(owner)} must use at least 1 component as a filter in criteria!");
+            Log.Error(
+                $"ProximityDetectorComponent on {ToPrettyString(owner)} must use at least 1 component as a filter in criteria!"
+            );
+            throw new ArgumentException(
+                $"ProximityDetectorComponent on {ToPrettyString(owner)} must use at least 1 component as a filter in criteria!"
+            );
         }
         var firstCompType = EntityManager.ComponentFactory.GetRegistration(detector.Criteria.Components[0]).Type;
-        var foundEnts = _entityLookup.GetEntitiesInRange(firstCompType,_transform.GetMapCoordinates(owner, xform), detector.Range.Float());
+        var foundEnts = _entityLookup.GetEntitiesInRange(
+            firstCompType,
+            _transform.GetMapCoordinates(owner, xform),
+            detector.Range.Float()
+        );
 
-        var tagSearchEnabled = detector.Criteria.Tags is {Count: > 0};
+        var tagSearchEnabled = detector.Criteria.Tags is { Count: > 0 };
 
         CheckForAllComponentsPresent(detector, ref foundEnts, tagSearchEnabled);
 
@@ -124,11 +142,19 @@ public sealed class ProximityDetectionSystem : EntitySystem
 
         foreach (var ent in foundEnts)
         {
-            if (tagSearchEnabled && ent.Comp is TagComponent tags && (detector.Criteria.RequireAll
-                    ? _tagSystem.HasAllTags(tags, detector.Criteria.Tags!)
-                    : _tagSystem.HasAnyTag(tags, detector.Criteria.Tags!)))
+            if (
+                tagSearchEnabled
+                && ent.Comp is TagComponent tags
+                && (
+                    detector.Criteria.RequireAll
+                        ? _tagSystem.HasAllTags(tags, detector.Criteria.Tags!)
+                        : _tagSystem.HasAnyTag(tags, detector.Criteria.Tags!)
+                )
+            )
                 continue;
-            var distance = (_transform.GetWorldPosition(xform, xformQuery) - _transform.GetWorldPosition(ent, xformQuery)).Length();
+            var distance = (
+                _transform.GetWorldPosition(xform, xformQuery) - _transform.GetWorldPosition(ent, xformQuery)
+            ).Length();
             if (CheckDetectConditions(ent, distance, owner, detector))
             {
                 detections.Add((ent, distance));
@@ -137,7 +163,11 @@ public sealed class ProximityDetectionSystem : EntitySystem
         UpdateTargetFromClosest(owner, detector, detections);
     }
 
-    private void CheckForAllComponentsPresent(ProximityDetectorComponent detector, ref HashSet<Entity<IComponent>> foundEnts, bool tagSearchEnabled)
+    private void CheckForAllComponentsPresent(
+        ProximityDetectorComponent detector,
+        ref HashSet<Entity<IComponent>> foundEnts,
+        bool tagSearchEnabled
+    )
     {
         var validEnts = new HashSet<Entity<IComponent>>(foundEnts.Count);
         for (var i = 1; i < detector.Criteria.Components!.Length; i++)
@@ -166,15 +196,23 @@ public sealed class ProximityDetectionSystem : EntitySystem
         }
     }
 
-
-    private bool CheckDetectConditions(EntityUid targetEntity, float dist, EntityUid owner, ProximityDetectorComponent detector)
+    private bool CheckDetectConditions(
+        EntityUid targetEntity,
+        float dist,
+        EntityUid owner,
+        ProximityDetectorComponent detector
+    )
     {
         var detectAttempt = new ProximityDetectionAttemptEvent(false, dist, (owner, detector));
         RaiseLocalEvent(targetEntity, ref detectAttempt);
         return !detectAttempt.Cancel;
     }
 
-    private void UpdateTargetFromClosest(EntityUid owner, ProximityDetectorComponent detector, List<(EntityUid TargetEnt, float Distance)> detections)
+    private void UpdateTargetFromClosest(
+        EntityUid owner,
+        ProximityDetectorComponent detector,
+        List<(EntityUid TargetEnt, float Distance)> detections
+    )
     {
         if (detections.Count == 0)
         {
@@ -183,7 +221,7 @@ public sealed class ProximityDetectionSystem : EntitySystem
         }
         var closestDistance = detections[0].Distance;
         EntityUid closestEnt = default!;
-        foreach (var (ent,dist) in detections)
+        foreach (var (ent, dist) in detections)
         {
             if (dist >= closestDistance)
                 continue;

@@ -19,6 +19,6 @@ public sealed class DungeonAtlasTemplateDespawnSystem : EntitySystem
     private void OnInit(Entity<DungeonAtlasTemplateComponent> ent, ref ComponentInit args)
     {
         var despawn = EnsureComp<TimedDespawnComponent>(ent);
-        despawn.Lifetime = (float) DespawnDelay.TotalSeconds;
+        despawn.Lifetime = (float)DespawnDelay.TotalSeconds;
     }
 }

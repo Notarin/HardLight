@@ -8,9 +8,9 @@
   components:
   - type: Sprite
     layers:
-      - state: red
-      - sprite: Objects/Specific/Research/anomalyscanner.rsi
-        state: icon
+    - state: red
+    - sprite: Objects/Specific/Research/anomalyscanner.rsi
+      state: icon
   - type: RandomSpawner
     rarePrototypes:
     - AnomalyScanner
@@ -37,8 +37,8 @@
   id: ScienceMajorTable
   table: !type:GroupSelector
     children:
-    # Common Group
     - !type:GroupSelector
+      # Common Group
       weight: 90
       children:
       - id: AnomalyScanner
@@ -66,8 +66,8 @@
       - id: MatterBinStockPart
       - id: CapacitorStockPart
       - id: MicroManipulatorStockPart
-    # Rare Group
     - !type:GroupSelector
+      # Rare Group
       weight: 10
       children:
       - id: ClothingBeltUtilityFilled

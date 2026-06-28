@@ -17,8 +17,7 @@ public sealed partial class DeepFryerSystem
         var deepFryers = EntityManager.EntityQueryEnumerator<DeepFryerComponent>();
         while (deepFryers.MoveNext(out var uid, out var component))
         {
-            if (_gameTimingSystem.CurTime < component.NextFryTime ||
-                !_powerReceiverSystem.IsPowered(uid))
+            if (_gameTimingSystem.CurTime < component.NextFryTime || !_powerReceiverSystem.IsPowered(uid))
             {
                 continue;
             }
@@ -51,25 +50,28 @@ public sealed partial class DeepFryerSystem
 
                         foreach (var effect in component.UnsafeOilVolumeEffects)
                         {
-                            effect.Effect(new EntityEffectReagentArgs(uid,
+                            effect.Effect(
+                                new EntityEffectReagentArgs(
+                                    uid,
                                     EntityManager,
                                     null,
                                     component.Solution,
                                     reagent.Quantity,
                                     proto!,
                                     null,
-                                    1f));
+                                    1f
+                                )
+                            );
                         }
-
                     }
 
                     component.Solution.RemoveAllSolution();
 
                     _popupSystem.PopupEntity(
-                        Loc.GetString("deep-fryer-oil-volume-low",
-                            ("deepFryer", uid)),
+                        Loc.GetString("deep-fryer-oil-volume-low", ("deepFryer", uid)),
                         uid,
-                        PopupType.SmallCaution);
+                        PopupType.SmallCaution
+                    );
 
                     continue;
                 }
@@ -85,11 +87,11 @@ public sealed partial class DeepFryerSystem
             if (GetOilPurity(uid, component) < component.FryingOilThreshold)
             {
                 _popupSystem.PopupEntity(
-                    Loc.GetString("deep-fryer-oil-purity-low",
-                        ("deepFryer", uid)),
+                    Loc.GetString("deep-fryer-oil-purity-low", ("deepFryer", uid)),
                     uid,
                     Filter.Pvs(uid, PvsWarningRange),
-                    true);
+                    true
+                );
                 continue;
             }
 
@@ -121,5 +123,4 @@ public sealed partial class DeepFryerSystem
     {
         component.NextFryTime = _gameTimingSystem.CurTime + component.FryInterval;
     }
-
 }

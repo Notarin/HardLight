@@ -18,12 +18,23 @@ namespace Content.Server.Mapping;
 /// </summary>
 public sealed class MappingSystem : EntitySystem
 {
-    [Dependency] private readonly IConsoleHost _conHost = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
-    [Dependency] private readonly IResourceManager _resMan = default!;
-    [Dependency] private readonly MapLoaderSystem _loader = default!;
+    [Dependency]
+    private readonly IConsoleHost _conHost = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _map = default!;
+
+    [Dependency]
+    private readonly IResourceManager _resMan = default!;
+
+    [Dependency]
+    private readonly MapLoaderSystem _loader = default!;
 
     // Not a comp because I don't want to deal with this getting saved onto maps ever
     /// <summary>
@@ -38,10 +49,12 @@ public sealed class MappingSystem : EntitySystem
     {
         base.Initialize();
 
-        _conHost.RegisterCommand("toggleautosave",
+        _conHost.RegisterCommand(
+            "toggleautosave",
             "Toggles autosaving for a map.",
             "autosave <map> <path if enabling>",
-            ToggleAutosaveCommand);
+            ToggleAutosaveCommand
+        );
 
         Subs.CVar(_cfg, CCVars.AutosaveEnabled, SetAutosaveEnabled, true);
     }
@@ -60,20 +73,23 @@ public sealed class MappingSystem : EntitySystem
         if (!_autosaveEnabled)
             return;
 
-        foreach (var (uid, (time, name))in _currentlyAutosaving)
+        foreach (var (uid, (time, name)) in _currentlyAutosaving)
         {
             if (_timing.RealTime <= time)
                 continue;
 
             if (LifeStage(uid) >= EntityLifeStage.MapInitialized)
             {
-                Log.Warning($"Can't autosave entity {uid}; it doesn't exist, or is initialized. Removing from autosave.");
+                Log.Warning(
+                    $"Can't autosave entity {uid}; it doesn't exist, or is initialized. Removing from autosave."
+                );
                 _currentlyAutosaving.Remove(uid);
                 continue;
             }
 
             _currentlyAutosaving[uid] = (CalculateNextTime(), name);
-            var saveDir = Path.Combine(_cfg.GetCVar(CCVars.AutosaveDirectory), name).Replace(Path.DirectorySeparatorChar, '/');
+            var saveDir = Path.Combine(_cfg.GetCVar(CCVars.AutosaveDirectory), name)
+                .Replace(Path.DirectorySeparatorChar, '/');
             _resMan.UserData.CreateDir(new ResPath(saveDir).ToRootedPath());
 
             var path = new ResPath(Path.Combine(saveDir, $"{DateTime.Now:yyyy-M-dd_HH.mm.ss}-AUTO.yml"));
@@ -104,7 +120,7 @@ public sealed class MappingSystem : EntitySystem
             ToggleAutosave(uid.Value, path);
     }
 
-    public void ToggleAutosave(EntityUid uid, string? path=null)
+    public void ToggleAutosave(EntityUid uid, string? path = null)
     {
         if (!_autosaveEnabled)
             return;

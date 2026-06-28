@@ -51,7 +51,6 @@
   products:
     Calmafluxine: 3
 
-
 - type: reaction
   id: Tranquinase
   reactants:

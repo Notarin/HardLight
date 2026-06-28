@@ -22,17 +22,38 @@ namespace Content.Shared.Clothing.EntitySystems;
 
 public sealed class ToggleableClothingSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly INetManager _netMan = default!;
-    [Dependency] private readonly SharedContainerSystem _containerSystem = default!;
-    [Dependency] private readonly SharedActionsSystem _actionsSystem = default!;
-    [Dependency] private readonly ActionContainerSystem _actionContainer = default!;
-    [Dependency] private readonly InventorySystem _inventorySystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly SharedStrippableSystem _strippable = default!;
-    [Dependency] private readonly SharedHumanoidAppearanceSystem _humanoidSystem = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly INetManager _netMan = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _containerSystem = default!;
+
+    [Dependency]
+    private readonly SharedActionsSystem _actionsSystem = default!;
+
+    [Dependency]
+    private readonly ActionContainerSystem _actionContainer = default!;
+
+    [Dependency]
+    private readonly InventorySystem _inventorySystem = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfter = default!;
+
+    [Dependency]
+    private readonly SharedStrippableSystem _strippable = default!;
+
+    [Dependency]
+    private readonly SharedHumanoidAppearanceSystem _humanoidSystem = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
 
     public override void Initialize()
     {
@@ -52,7 +73,9 @@ public sealed class ToggleableClothingSystem : EntitySystem
         SubscribeLocalEvent<AttachedClothingComponent, ComponentRemove>(OnRemoveAttached);
         SubscribeLocalEvent<AttachedClothingComponent, BeingUnequippedAttemptEvent>(OnAttachedUnequipAttempt);
 
-        SubscribeLocalEvent<ToggleableClothingComponent, InventoryRelayedEvent<GetVerbsEvent<EquipmentVerb>>>(GetRelayedVerbs);
+        SubscribeLocalEvent<ToggleableClothingComponent, InventoryRelayedEvent<GetVerbsEvent<EquipmentVerb>>>(
+            GetRelayedVerbs
+        );
         SubscribeLocalEvent<ToggleableClothingComponent, GetVerbsEvent<EquipmentVerb>>(OnGetVerbs);
         SubscribeLocalEvent<AttachedClothingComponent, GetVerbsEvent<EquipmentVerb>>(OnGetAttachedStripVerbsEvent);
         SubscribeLocalEvent<ToggleableClothingComponent, ToggleClothingDoAfterEvent>(OnDoAfterComplete);
@@ -74,7 +97,8 @@ public sealed class ToggleableClothingSystem : EntitySystem
             component.ContainerId,
             clothingUid,
             component.StripDelay,
-            component.VerbText);
+            component.VerbText
+        );
     }
 
     private void OnHandleState(EntityUid uid, ToggleableClothingComponent component, ref ComponentHandleState args)
@@ -83,18 +107,18 @@ public sealed class ToggleableClothingSystem : EntitySystem
             return;
 
         component.Action = state.Action;
-        component.ActionEntity = state.ActionEntity is { } actionEntity && TryGetEntity(actionEntity, out var actionUid)
-            ? actionUid
-            : null;
+        component.ActionEntity =
+            state.ActionEntity is { } actionEntity && TryGetEntity(actionEntity, out var actionUid) ? actionUid : null;
         component.MarkingPrototype = state.MarkingPrototype;
         component.ClothingPrototype = state.ClothingPrototype;
         component.MarkingsVisible = state.MarkingsVisible;
         component.Slot = state.Slot;
         component.RequiredFlags = state.RequiredFlags;
         component.ContainerId = state.ContainerId;
-        component.ClothingUid = state.ClothingUid is { } clothingEntity && TryGetEntity(clothingEntity, out var clothingUid)
-            ? clothingUid
-            : null;
+        component.ClothingUid =
+            state.ClothingUid is { } clothingEntity && TryGetEntity(clothingEntity, out var clothingUid)
+                ? clothingUid
+                : null;
         component.StripDelay = state.StripDelay;
         component.VerbText = state.VerbText;
     }
@@ -129,7 +153,12 @@ public sealed class ToggleableClothingSystem : EntitySystem
     /// <summary>
     ///     Toggles the visibility of all markings on a specific body part.
     /// </summary>
-    private void ToggleMarkingsOnBodyPart(EntityUid target, HumanoidAppearanceComponent humanoid, HumanoidVisualLayers bodyPart, bool visible)
+    private void ToggleMarkingsOnBodyPart(
+        EntityUid target,
+        HumanoidAppearanceComponent humanoid,
+        HumanoidVisualLayers bodyPart,
+        bool visible
+    )
     {
         // Get the corresponding marking category for this body part
         var category = MarkingCategoriesConversion.FromHumanoidVisualLayers(bodyPart);
@@ -150,16 +179,26 @@ public sealed class ToggleableClothingSystem : EntitySystem
     private HumanoidVisualLayers? GetBodyPartFromSlotFlags(SlotFlags slotFlags)
     {
         // Map slot flags to their corresponding visual layers/body parts
-        if ((slotFlags & SlotFlags.HEAD) != 0) return HumanoidVisualLayers.Head;
-        if ((slotFlags & SlotFlags.EYES) != 0) return HumanoidVisualLayers.Head;
-        if ((slotFlags & SlotFlags.EARS) != 0) return HumanoidVisualLayers.Head;
-        if ((slotFlags & SlotFlags.MASK) != 0) return HumanoidVisualLayers.Head;
-        if ((slotFlags & SlotFlags.NECK) != 0) return HumanoidVisualLayers.Head;
-        if ((slotFlags & SlotFlags.INNERCLOTHING) != 0) return HumanoidVisualLayers.Chest;
-        if ((slotFlags & SlotFlags.OUTERCLOTHING) != 0) return HumanoidVisualLayers.Chest;
-        if ((slotFlags & SlotFlags.GLOVES) != 0) return HumanoidVisualLayers.LHand; // Could also be RHand, Arms
-        if ((slotFlags & SlotFlags.FEET) != 0) return HumanoidVisualLayers.LFoot; // Could also be RFoot, Legs
-        if ((slotFlags & SlotFlags.BELT) != 0) return HumanoidVisualLayers.Chest; // Belts are worn around waist/chest area
+        if ((slotFlags & SlotFlags.HEAD) != 0)
+            return HumanoidVisualLayers.Head;
+        if ((slotFlags & SlotFlags.EYES) != 0)
+            return HumanoidVisualLayers.Head;
+        if ((slotFlags & SlotFlags.EARS) != 0)
+            return HumanoidVisualLayers.Head;
+        if ((slotFlags & SlotFlags.MASK) != 0)
+            return HumanoidVisualLayers.Head;
+        if ((slotFlags & SlotFlags.NECK) != 0)
+            return HumanoidVisualLayers.Head;
+        if ((slotFlags & SlotFlags.INNERCLOTHING) != 0)
+            return HumanoidVisualLayers.Chest;
+        if ((slotFlags & SlotFlags.OUTERCLOTHING) != 0)
+            return HumanoidVisualLayers.Chest;
+        if ((slotFlags & SlotFlags.GLOVES) != 0)
+            return HumanoidVisualLayers.LHand; // Could also be RHand, Arms
+        if ((slotFlags & SlotFlags.FEET) != 0)
+            return HumanoidVisualLayers.LFoot; // Could also be RFoot, Legs
+        if ((slotFlags & SlotFlags.BELT) != 0)
+            return HumanoidVisualLayers.Chest; // Belts are worn around waist/chest area
 
         return null; // Unknown or unsupported slot
     }
@@ -170,34 +209,59 @@ public sealed class ToggleableClothingSystem : EntitySystem
     private string GetSlotNameFromFlags(SlotFlags slotFlags)
     {
         // Return the first matching slot name (most clothing only uses one slot)
-        if ((slotFlags & SlotFlags.HEAD) != 0) return "head";
-        if ((slotFlags & SlotFlags.EYES) != 0) return "eyes";
-        if ((slotFlags & SlotFlags.EARS) != 0) return "ears";
-        if ((slotFlags & SlotFlags.MASK) != 0) return "mask";
-        if ((slotFlags & SlotFlags.NECK) != 0) return "neck";
-        if ((slotFlags & SlotFlags.INNERCLOTHING) != 0) return "jumpsuit";
-        if ((slotFlags & SlotFlags.OUTERCLOTHING) != 0) return "outerClothing";
-        if ((slotFlags & SlotFlags.GLOVES) != 0) return "gloves";
-        if ((slotFlags & SlotFlags.FEET) != 0) return "shoes";
-        if ((slotFlags & SlotFlags.BELT) != 0) return "belt";
-        if ((slotFlags & SlotFlags.BACK) != 0) return "back";
-        if ((slotFlags & SlotFlags.IDCARD) != 0) return "id";
-        if ((slotFlags & SlotFlags.POCKET) != 0) return "pocket";
-        if ((slotFlags & SlotFlags.SUITSTORAGE) != 0) return "suitstorage";
-        if ((slotFlags & SlotFlags.WALLET) != 0) return "wallet";
+        if ((slotFlags & SlotFlags.HEAD) != 0)
+            return "head";
+        if ((slotFlags & SlotFlags.EYES) != 0)
+            return "eyes";
+        if ((slotFlags & SlotFlags.EARS) != 0)
+            return "ears";
+        if ((slotFlags & SlotFlags.MASK) != 0)
+            return "mask";
+        if ((slotFlags & SlotFlags.NECK) != 0)
+            return "neck";
+        if ((slotFlags & SlotFlags.INNERCLOTHING) != 0)
+            return "jumpsuit";
+        if ((slotFlags & SlotFlags.OUTERCLOTHING) != 0)
+            return "outerClothing";
+        if ((slotFlags & SlotFlags.GLOVES) != 0)
+            return "gloves";
+        if ((slotFlags & SlotFlags.FEET) != 0)
+            return "shoes";
+        if ((slotFlags & SlotFlags.BELT) != 0)
+            return "belt";
+        if ((slotFlags & SlotFlags.BACK) != 0)
+            return "back";
+        if ((slotFlags & SlotFlags.IDCARD) != 0)
+            return "id";
+        if ((slotFlags & SlotFlags.POCKET) != 0)
+            return "pocket";
+        if ((slotFlags & SlotFlags.SUITSTORAGE) != 0)
+            return "suitstorage";
+        if ((slotFlags & SlotFlags.WALLET) != 0)
+            return "wallet";
 
         // Default fallback
         return "head";
     }
 
-    private void GetRelayedVerbs(EntityUid uid, ToggleableClothingComponent component, InventoryRelayedEvent<GetVerbsEvent<EquipmentVerb>> args)
+    private void GetRelayedVerbs(
+        EntityUid uid,
+        ToggleableClothingComponent component,
+        InventoryRelayedEvent<GetVerbsEvent<EquipmentVerb>> args
+    )
     {
         OnGetVerbs(uid, component, args.Args);
     }
 
     private void OnGetVerbs(EntityUid uid, ToggleableClothingComponent component, GetVerbsEvent<EquipmentVerb> args)
     {
-        if (!args.CanAccess || !args.CanInteract || args.Hands == null || component.ClothingUid == null || component.Container == null)
+        if (
+            !args.CanAccess
+            || !args.CanInteract
+            || args.Hands == null
+            || component.ClothingUid == null
+            || component.Container == null
+        )
             return;
 
         var text = component.VerbText ?? (component.ActionEntity == null ? null : Name(component.ActionEntity.Value));
@@ -252,18 +316,30 @@ public sealed class ToggleableClothingSystem : EntitySystem
 
         if (!stealth)
         {
-            var popup = Loc.GetString("strippable-component-alert-owner-interact", ("user", Identity.Entity(user, EntityManager)), ("item", item));
+            var popup = Loc.GetString(
+                "strippable-component-alert-owner-interact",
+                ("user", Identity.Entity(user, EntityManager)),
+                ("item", item)
+            );
             _popupSystem.PopupEntity(popup, wearer, wearer, PopupType.Large);
         }
     }
 
-    private void OnGetAttachedStripVerbsEvent(EntityUid uid, AttachedClothingComponent component, GetVerbsEvent<EquipmentVerb> args)
+    private void OnGetAttachedStripVerbsEvent(
+        EntityUid uid,
+        AttachedClothingComponent component,
+        GetVerbsEvent<EquipmentVerb> args
+    )
     {
         // redirect to the attached entity.
         OnGetVerbs(component.AttachedUid, Comp<ToggleableClothingComponent>(component.AttachedUid), args);
     }
 
-    private void OnDoAfterComplete(EntityUid uid, ToggleableClothingComponent component, ToggleClothingDoAfterEvent args)
+    private void OnDoAfterComplete(
+        EntityUid uid,
+        ToggleableClothingComponent component,
+        ToggleClothingDoAfterEvent args
+    )
     {
         if (args.Cancelled)
             return;
@@ -276,8 +352,7 @@ public sealed class ToggleableClothingSystem : EntitySystem
         if (args.Handled)
             return;
 
-        if (!TryComp(component.AttachedUid, out ToggleableClothingComponent? toggleCom)
-            || toggleCom.Container == null)
+        if (!TryComp(component.AttachedUid, out ToggleableClothingComponent? toggleCom) || toggleCom.Container == null)
             return;
 
         if (!_inventorySystem.TryUnequip(Transform(uid).ParentUid, toggleCom.Slot, force: true))
@@ -316,7 +391,11 @@ public sealed class ToggleableClothingSystem : EntitySystem
             QueueDel(component.ClothingUid.Value);
     }
 
-    private void OnAttachedUnequipAttempt(EntityUid uid, AttachedClothingComponent component, BeingUnequippedAttemptEvent args)
+    private void OnAttachedUnequipAttempt(
+        EntityUid uid,
+        AttachedClothingComponent component,
+        BeingUnequippedAttemptEvent args
+    )
     {
         args.Cancel();
     }
@@ -362,10 +441,12 @@ public sealed class ToggleableClothingSystem : EntitySystem
         if (toggleComp.Container == null)
             return;
 
-        if (TerminatingOrDeleted(clothingUid)
+        if (
+            TerminatingOrDeleted(clothingUid)
             || EntityManager.IsQueuedForDeletion(clothingUid)
             || TerminatingOrDeleted(toggleComp.Container.Owner)
-            || EntityManager.IsQueuedForDeletion(toggleComp.Container.Owner))
+            || EntityManager.IsQueuedForDeletion(toggleComp.Container.Owner)
+        )
             return;
 
         // As unequipped gets called in the middle of container removal, we cannot call a container-insert without causing issues.
@@ -404,11 +485,20 @@ public sealed class ToggleableClothingSystem : EntitySystem
             _inventorySystem.TryUnequip(user, parent, component.Slot, force: true);
         else if (_inventorySystem.TryGetSlotEntity(parent, component.Slot, out var existing))
         {
-            _popupSystem.PopupClient(Loc.GetString("toggleable-clothing-remove-first", ("entity", existing)),
-                user, user);
+            _popupSystem.PopupClient(
+                Loc.GetString("toggleable-clothing-remove-first", ("entity", existing)),
+                user,
+                user
+            );
         }
         else
-            _inventorySystem.TryEquip(user, parent, component.ClothingUid.Value, component.Slot, triggerHandContact: true);
+            _inventorySystem.TryEquip(
+                user,
+                parent,
+                component.ClothingUid.Value,
+                component.Slot,
+                triggerHandContact: true
+            );
     }
 
     /// <summary>
@@ -416,7 +506,12 @@ public sealed class ToggleableClothingSystem : EntitySystem
     ///     only that marking is toggled. Otherwise, toggles all markings on the body part
     ///     that this clothing covers.
     /// </summary>
-    private void ToggleMarkings(EntityUid clothingItem, EntityUid user, EntityUid target, ToggleableClothingComponent component)
+    private void ToggleMarkings(
+        EntityUid clothingItem,
+        EntityUid user,
+        EntityUid target,
+        ToggleableClothingComponent component
+    )
     {
         if (!TryComp<HumanoidAppearanceComponent>(target, out var humanoid))
         {
@@ -537,13 +632,19 @@ public sealed class ToggleableClothingSystem : EntitySystem
             {
                 component.ClothingUid = ent;
 
-                DebugTools.Assert(TryComp(component.ClothingUid, out AttachedClothingComponent? existingAttached), "Toggleable clothing is missing an attached component");
+                DebugTools.Assert(
+                    TryComp(component.ClothingUid, out AttachedClothingComponent? existingAttached),
+                    "Toggleable clothing is missing an attached component"
+                );
                 DebugTools.Assert(existingAttached?.AttachedUid == uid, "Toggleable clothing uid mismatch");
             }
             else if (component.ClothingUid != null && Exists(component.ClothingUid.Value))
             {
                 DebugTools.Assert(Exists(component.ClothingUid), "Toggleable clothing is missing expected entity.");
-                DebugTools.Assert(TryComp(component.ClothingUid, out AttachedClothingComponent? comp), "Toggleable clothing is missing an attached component");
+                DebugTools.Assert(
+                    TryComp(component.ClothingUid, out AttachedClothingComponent? comp),
+                    "Toggleable clothing is missing an attached component"
+                );
                 DebugTools.Assert(comp?.AttachedUid == uid, "Toggleable clothing uid mismatch");
             }
             else
@@ -572,11 +673,7 @@ public sealed class ToggleableClothingSystem : EntitySystem
     }
 }
 
-public sealed partial class ToggleClothingEvent : InstantActionEvent
-{
-}
+public sealed partial class ToggleClothingEvent : InstantActionEvent { }
 
 [Serializable, NetSerializable]
-public sealed partial class ToggleClothingDoAfterEvent : SimpleDoAfterEvent
-{
-}
+public sealed partial class ToggleClothingDoAfterEvent : SimpleDoAfterEvent { }

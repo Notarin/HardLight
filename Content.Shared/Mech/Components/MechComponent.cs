@@ -147,12 +147,16 @@ public sealed partial class MechComponent : Component
     #region Action Prototypes
     [DataField]
     public EntProtoId MechCycleAction = "ActionMechCycleEquipment";
+
     [DataField]
-    public EntProtoId ToggleAction = "ActionToggleLight"; //Goobstation Mech Lights toggle action 
+    public EntProtoId ToggleAction = "ActionToggleLight"; //Goobstation Mech Lights toggle action
+
     [DataField]
     public EntProtoId MechUiAction = "ActionMechOpenUI";
+
     [DataField]
     public EntProtoId MechEjectAction = "ActionMechEject";
+
     [DataField]
     public EntProtoId MechRadarUiAction = "ActionRadarUiButton";
     #endregion
@@ -160,17 +164,28 @@ public sealed partial class MechComponent : Component
     #region Visualizer States
     [DataField]
     public string? BaseState;
+
     [DataField]
     public string? OpenState;
+
     [DataField]
     public string? BrokenState;
     #endregion
 
-    [DataField] public EntityUid? MechCycleActionEntity;
-    [DataField] public EntityUid? MechUiActionEntity;
-    [DataField] public EntityUid? MechEjectActionEntity;
-    [DataField, AutoNetworkedField] public EntityUid? ToggleActionEntity; //Goobstation Mech Lights toggle action
-    [DataField] public EntityUid? MechRadarUiActionEntity;
+    [DataField]
+    public EntityUid? MechCycleActionEntity;
+
+    [DataField]
+    public EntityUid? MechUiActionEntity;
+
+    [DataField]
+    public EntityUid? MechEjectActionEntity;
+
+    [DataField, AutoNetworkedField]
+    public EntityUid? ToggleActionEntity; //Goobstation Mech Lights toggle action
+
+    [DataField]
+    public EntityUid? MechRadarUiActionEntity;
 
     /// <summary>
     /// Frontier: whether or not the equipment in the mech can be removed.

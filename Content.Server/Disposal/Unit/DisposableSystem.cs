@@ -15,16 +15,35 @@ namespace Content.Server.Disposal.Unit
 {
     public sealed class DisposableSystem : EntitySystem
     {
-        [Dependency] private readonly ThrowingSystem _throwing = default!;
-        [Dependency] private readonly AtmosphereSystem _atmosphereSystem = default!;
-        [Dependency] private readonly DamageableSystem _damageable = default!;
-        [Dependency] private readonly DisposalUnitSystem _disposalUnitSystem = default!;
-        [Dependency] private readonly DisposalTubeSystem _disposalTubeSystem = default!;
-        [Dependency] private readonly SharedAudioSystem _audio = default!;
-        [Dependency] private readonly SharedContainerSystem _containerSystem = default!;
-        [Dependency] private readonly SharedMapSystem _maps = default!;
-        [Dependency] private readonly SharedPhysicsSystem _physicsSystem = default!;
-        [Dependency] private readonly SharedTransformSystem _xformSystem = default!;
+        [Dependency]
+        private readonly ThrowingSystem _throwing = default!;
+
+        [Dependency]
+        private readonly AtmosphereSystem _atmosphereSystem = default!;
+
+        [Dependency]
+        private readonly DamageableSystem _damageable = default!;
+
+        [Dependency]
+        private readonly DisposalUnitSystem _disposalUnitSystem = default!;
+
+        [Dependency]
+        private readonly DisposalTubeSystem _disposalTubeSystem = default!;
+
+        [Dependency]
+        private readonly SharedAudioSystem _audio = default!;
+
+        [Dependency]
+        private readonly SharedContainerSystem _containerSystem = default!;
+
+        [Dependency]
+        private readonly SharedMapSystem _maps = default!;
+
+        [Dependency]
+        private readonly SharedPhysicsSystem _physicsSystem = default!;
+
+        [Dependency]
+        private readonly SharedTransformSystem _xformSystem = default!;
 
         private EntityQuery<DisposalTubeComponent> _disposalTubeQuery;
         private EntityQuery<DisposalUnitComponent> _disposalUnitQuery;
@@ -76,11 +95,14 @@ namespace Content.Server.Disposal.Unit
                 return false;
             }
 
-            return HasComp<ItemComponent>(toInsert) ||
-                   HasComp<BodyComponent>(toInsert);
+            return HasComp<ItemComponent>(toInsert) || HasComp<BodyComponent>(toInsert);
         }
 
-        public void ExitDisposals(EntityUid uid, DisposalHolderComponent? holder = null, TransformComponent? holderTransform = null)
+        public void ExitDisposals(
+            EntityUid uid,
+            DisposalHolderComponent? holder = null,
+            TransformComponent? holderTransform = null
+        )
         {
             if (Terminating(uid))
                 return;
@@ -134,7 +156,10 @@ namespace Content.Server.Disposal.Unit
                 else
                 {
                     _xformSystem.AttachToGridOrMap(entity, xform);
-                    var direction = holder.CurrentDirection == Direction.Invalid ? holder.PreviousDirection : holder.CurrentDirection;
+                    var direction =
+                        holder.CurrentDirection == Direction.Invalid
+                            ? holder.PreviousDirection
+                            : holder.CurrentDirection;
 
                     if (direction != Direction.Invalid && _xformQuery.TryGetComponent(gridUid, out var gridXform))
                     {
@@ -160,7 +185,14 @@ namespace Content.Server.Disposal.Unit
         }
 
         // Note: This function will cause an ExitDisposals on any failure that does not make an ExitDisposals impossible.
-        public bool EnterTube(EntityUid holderUid, EntityUid toUid, DisposalHolderComponent? holder = null, TransformComponent? holderTransform = null, DisposalTubeComponent? to = null, TransformComponent? toTransform = null)
+        public bool EnterTube(
+            EntityUid holderUid,
+            EntityUid toUid,
+            DisposalHolderComponent? holder = null,
+            TransformComponent? holderTransform = null,
+            DisposalTubeComponent? to = null,
+            TransformComponent? toTransform = null
+        )
         {
             if (!Resolve(holderUid, ref holder, ref holderTransform))
                 return false;
@@ -258,13 +290,21 @@ namespace Content.Server.Disposal.Unit
                     var newPosition = destination * progress;
 
                     // This is some supreme shit code.
-                    _xformSystem.SetCoordinates(uid, _xformSystem.WithEntityId(origin.Offset(newPosition), currentTube));
+                    _xformSystem.SetCoordinates(
+                        uid,
+                        _xformSystem.WithEntityId(origin.Offset(newPosition), currentTube)
+                    );
                     continue;
                 }
 
                 // Past this point, we are performing inter-tube transfer!
                 // Remove current tube content
-                _containerSystem.Remove(uid, _disposalTubeQuery.GetComponent(currentTube).Contents, reparent: false, force: true);
+                _containerSystem.Remove(
+                    uid,
+                    _disposalTubeQuery.GetComponent(currentTube).Contents,
+                    reparent: false,
+                    force: true
+                );
 
                 // Find next tube
                 var nextTube = _disposalTubeSystem.NextTubeFor(currentTube, holder.CurrentDirection);
@@ -283,4 +323,3 @@ namespace Content.Server.Disposal.Unit
         }
     }
 }
-

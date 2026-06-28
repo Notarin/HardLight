@@ -11,9 +11,14 @@ namespace Content.Server._Funkystation.Genetics.Mutations.Systems;
 
 public sealed class MutationInstabilityPolymorphSystem : EntitySystem
 {
-    [Dependency] private readonly PolymorphSystem _polymorph = default!;
-    [Dependency] private readonly GeneticsSystem _genetics = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
+    [Dependency]
+    private readonly PolymorphSystem _polymorph = default!;
+
+    [Dependency]
+    private readonly GeneticsSystem _genetics = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
 
     public override void Initialize()
     {
@@ -41,8 +46,9 @@ public sealed class MutationInstabilityPolymorphSystem : EntitySystem
 
             if (_proto.TryIndex<GeneticMutationPrototype>(entry.Id, out var proto))
             {
-                bool addsPolymorphTrigger = proto.Components.Values
-                    .Any(c => c.Component is MutationInstabilityPolymorphComponent);
+                bool addsPolymorphTrigger = proto.Components.Values.Any(c =>
+                    c.Component is MutationInstabilityPolymorphComponent
+                );
 
                 if (addsPolymorphTrigger)
                     continue;

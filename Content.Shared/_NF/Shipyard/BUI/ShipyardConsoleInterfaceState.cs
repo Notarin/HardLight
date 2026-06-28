@@ -1,5 +1,5 @@
-using Robust.Shared.Serialization;
 using Content.Shared.UserInterface;
+using Robust.Shared.Serialization;
 
 // Suppress naming style rule for the _NF namespace prefix (project convention)
 #pragma warning disable IDE1006
@@ -33,7 +33,8 @@ public sealed class ShipyardConsoleInterfaceState : BoundUserInterfaceState
         (List<string> available, List<string> unavailable) shipyardPrototypes,
         string shipyardName,
         bool freeListings,
-        float sellRate)
+        float sellRate
+    )
     {
         Balance = balance;
         AccessGranted = accessGranted;
@@ -46,5 +47,4 @@ public sealed class ShipyardConsoleInterfaceState : BoundUserInterfaceState
         FreeListings = freeListings;
         SellRate = sellRate;
     }
-
 }

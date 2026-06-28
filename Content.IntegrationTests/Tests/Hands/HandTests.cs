@@ -13,7 +13,8 @@ namespace Content.IntegrationTests.Tests.Hands;
 public sealed class HandTests
 {
     [TestPrototypes]
-    private const string Prototypes = @"
+    private const string Prototypes =
+        @"
 - type: entity
   id: TestPickUpThenDropInContainerTestBox
   name: box
@@ -24,15 +25,12 @@ public sealed class HandTests
       entity_storage: !type:Container
 ";
 
-
     [Test]
     public async Task TestPickupDrop()
     {
-        await using var pair = await PoolManager.GetServerClient(new PoolSettings
-        {
-            Connected = true,
-            DummyTicker = false
-        });
+        await using var pair = await PoolManager.GetServerClient(
+            new PoolSettings { Connected = true, DummyTicker = false }
+        );
         var server = pair.Server;
 
         var entMan = server.ResolveDependency<IEntityManager>();
@@ -75,11 +73,9 @@ public sealed class HandTests
     [Test]
     public async Task TestPickUpThenDropInContainer()
     {
-        await using var pair = await PoolManager.GetServerClient(new PoolSettings
-        {
-            Connected = true,
-            DummyTicker = false
-        });
+        await using var pair = await PoolManager.GetServerClient(
+            new PoolSettings { Connected = true, DummyTicker = false }
+        );
         var server = pair.Server;
         var map = await pair.CreateTestMap();
         await pair.RunTicksSync(5);
@@ -97,7 +93,9 @@ public sealed class HandTests
         HandsComponent hands = default!;
 
         // spawn the elusive box and crowbar at the coordinates
-        await server.WaitPost(() => box = server.EntMan.SpawnEntity("TestPickUpThenDropInContainerTestBox", map.GridCoords));
+        await server.WaitPost(() =>
+            box = server.EntMan.SpawnEntity("TestPickUpThenDropInContainerTestBox", map.GridCoords)
+        );
         await server.WaitPost(() => item = server.EntMan.SpawnEntity("Crowbar", map.GridCoords));
         // place the player at the exact same coordinates and have them grab the crowbar
         await server.WaitPost(() =>

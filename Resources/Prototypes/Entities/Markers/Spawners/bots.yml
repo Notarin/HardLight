@@ -5,12 +5,12 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - sprite: Mobs/Silicon/Bots/medibot.rsi
-        state: medibot
+    - state: green
+    - sprite: Mobs/Silicon/Bots/medibot.rsi
+      state: medibot
   - type: ConditionalSpawner
     prototypes:
-      - MobMedibot
+    - MobMedibot
 
 - type: entity
   name: cleanbot spawner
@@ -19,12 +19,12 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - sprite: Mobs/Silicon/Bots/cleanbot.rsi
-        state: cleanbot
+    - state: green
+    - sprite: Mobs/Silicon/Bots/cleanbot.rsi
+      state: cleanbot
   - type: ConditionalSpawner
     prototypes:
-      - MobCleanBot
+    - MobCleanBot
 
 - type: entity
   name: plantbot spawner
@@ -33,9 +33,9 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - sprite: Mobs/Silicon/Bots/plantbot.rsi
-        state: plantbot
+    - state: green
+    - sprite: Mobs/Silicon/Bots/plantbot.rsi
+      state: plantbot
   - type: ConditionalSpawner
     prototypes:
-      - MobPlantbot
+    - MobPlantbot

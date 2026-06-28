@@ -5,7 +5,8 @@ namespace Content.Shared.Light.EntitySystems;
 
 public abstract class SharedSunShadowSystem : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
 
     public override void Initialize()
     {

@@ -12,9 +12,14 @@ namespace Content.Server.Explosion.EntitySystems;
 /// </summary>
 public sealed partial class ReleaseGasOnTriggerSystem : SharedReleaseGasOnTriggerSystem
 {
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly AtmosphereSystem _atmosphereSystem = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly AtmosphereSystem _atmosphereSystem = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     public override void Initialize()
     {
@@ -59,8 +64,7 @@ public sealed partial class ReleaseGasOnTriggerSystem : SharedReleaseGasOnTrigge
             _atmosphereSystem.Merge(environment, giverGasMix);
             comp.NextReleaseTime += comp.ReleaseInterval;
 
-            if (comp.PressureLimit != 0 && environment.Pressure >= comp.PressureLimit ||
-                comp.Air.TotalMoles <= 0)
+            if (comp.PressureLimit != 0 && environment.Pressure >= comp.PressureLimit || comp.Air.TotalMoles <= 0)
             {
                 UpdateAppearance(uid, false);
                 RemCompDeferred<ReleaseGasOnTriggerComponent>(uid);

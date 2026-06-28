@@ -1,7 +1,7 @@
 #region base
 - type: entity
   id: NFBaseWeaponFramePka
-  parent: [ NFBaseWeaponEncumbranceSubMachineGun, NFBaseItemWeaponGun ]
+  parent: [NFBaseWeaponEncumbranceSubMachineGun, NFBaseItemWeaponGun]
   name: proto-kinetic accelerator
   description: Fires low-damage kinetic bolts at a short range.
   abstract: true
@@ -18,7 +18,7 @@
     - state: animation-icon
       visible: false
       shader: unshaded
-      map: [ "empty-icon" ]
+      map: ["empty-icon"]
   - type: Gun
     projectileSpeed: 20
     minAngle: 34.4
@@ -33,8 +33,8 @@
     visuals:
       enum.AmmoVisuals.HasAmmo:
         empty-icon:
-          True: { visible: False }
-          False: { visible: True }
+          True: {visible: False}
+          False: {visible: True}
   - type: UseDelay
     delay: 1
   - type: StaticPrice
@@ -52,7 +52,7 @@
 #region manufacturer
 - type: entity
   id: NFBaseWeaponFramePkaNanotrasen
-  parent: [ NFBaseWeaponFramePka ]
+  parent: [NFBaseWeaponFramePka]
   abstract: true
   components:
   # Effective range ~8 tiles on wield
@@ -70,7 +70,7 @@
 
 - type: entity
   id: NFBaseWeaponFramePkaCustomMod
-  parent: [ NFBaseWeaponFramePka ]
+  parent: [NFBaseWeaponFramePka]
   abstract: true
   components:
   - type: Gun
@@ -136,7 +136,7 @@
 #region WizDen
 - type: entity
   id: NFWeaponPkaCannon
-  parent: [ NFBaseWeaponEncumbranceRifle, NFBaseWeaponFramePkaNanotrasen, NFBaseWeaponPkaChamberKineticHigh ]
+  parent: [NFBaseWeaponEncumbranceRifle, NFBaseWeaponFramePkaNanotrasen, NFBaseWeaponPkaChamberKineticHigh]
   name: proto-kinetic accelerator cannon
   description: Fires high-damage kinetic bolts at a short range, strong enough to destroy hard rocks.
   components:
@@ -150,7 +150,7 @@
 #region Frontier
 - type: entity
   id: NFWeaponPka
-  parent: [ NFBaseWeaponFramePkaNanotrasen, NFBaseWeaponPkaChamberKineticMedium ]
+  parent: [NFBaseWeaponFramePkaNanotrasen, NFBaseWeaponPkaChamberKineticMedium]
   components:
   - type: Sprite
     sprite: _NF/Objects/Weapons/Guns/Basic/kinetic_accelerator.rsi
@@ -168,7 +168,7 @@
 
 - type: entity
   id: NFWeaponPkaSawn
-  parent: [ NFBaseWeaponEncumbrancePistol, NFBaseWeaponFramePkaCustomMod, NFBaseWeaponPkaChamberKineticLow ]
+  parent: [NFBaseWeaponEncumbrancePistol, NFBaseWeaponFramePkaCustomMod, NFBaseWeaponPkaChamberKineticLow]
   name: sawn-off proto-kinetic accelerator
   description: Boundaries and rules are meant to be broken; otherwise, there will be no progress, but this thing here is a good argument against that statement.
   components:

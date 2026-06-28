@@ -65515,9 +65515,7 @@ entities:
         - ClothingSpeedModifier
         entries:
         - message: >-
-            It provides the following protection:
-
-            - [color=orange]Explosion[/color] damage [color=white]to contents[/color] reduced by [color=lightblue]10%[/color].
+            It provides the following protection: #magic___^_^___line - [color=orange]Explosion[/color] damage [color=white]to contents[/color] reduced by [color=lightblue]10%[/color].
           priority: 0
           component: Armor
         - message: This decreases your running speed by [color=yellow]10%[/color].
@@ -109966,7 +109964,6 @@ entities:
 
         You might needa hard reset 'em by wrenchin' 'em up and then back down.
 
-
         This one is [italic]REALLY[/italic] important if ya gonna do a telsa, so make sure to fix it before ya turn the damn thing on.
       editingDisabled: True
     - type: ContainerContainer
@@ -145595,4 +145592,3 @@ entities:
     - type: Transform
       pos: -26.609678,7.5555515
       parent: 2
-...

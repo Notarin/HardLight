@@ -29,11 +29,11 @@
     doNotCull: true
   - type: WorldGenDistanceCarver
     distanceThresholds:
-      # Dead zone
-      - maxDistance: 500
-        prob: 0.0
-      - maxDistance: 1000
-        prob: 0.3
+    # Dead zone
+    - maxDistance: 500
+      prob: 0.0
+    - maxDistance: 1000
+      prob: 0.3
 
 - type: gameMap
   id: Trade
@@ -44,9 +44,9 @@
     Trade:
       stationProto: MarketFrontierOutpost
       components:
-        - type: StationNameSetup
-          mapNameTemplate: 'Trade Outpost'
-        - type: StationDeadDrop
-          maxDeadDrops: 3 # Many here, it's huge.
-        - type: TradeCrateDestination
-          destinationProto: Trade
+      - type: StationNameSetup
+        mapNameTemplate: 'Trade Outpost'
+      - type: StationDeadDrop
+        maxDeadDrops: 3 # Many here, it's huge.
+      - type: TradeCrateDestination
+        destinationProto: Trade

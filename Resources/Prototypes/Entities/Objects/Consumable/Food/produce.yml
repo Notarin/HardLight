@@ -97,7 +97,7 @@
           Quantity: 10
   - type: SpawnItemsOnUse
     items:
-      - id: FoodMeatWheat
+    - id: FoodMeatWheat
     sound:
       path: /Audio/Voice/Slime/slime_squish.ogg
   - type: Produce
@@ -171,7 +171,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - peas
+    - peas
   - type: SolutionContainerManager
     solutions:
       food:
@@ -285,7 +285,7 @@
   name: death nettle
   description: This nettle's out for blood.
   id: DeathNettle
-  parent: [ProduceBase, BaseC1Contraband ] # Frontier: BaseMajorContraband<BaseC1Contraband
+  parent: [ProduceBase, BaseC1Contraband] # Frontier: BaseMajorContraband<BaseC1Contraband
   components:
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/death_nettle.rsi
@@ -332,8 +332,7 @@
     damageContainer: Inorganic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 25
       behaviors:
       - !type:PlaySoundBehavior
@@ -342,7 +341,7 @@
           params:
             volume: -5
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: DamageOnHit
     damage:
       types:
@@ -356,7 +355,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - banana
+    - banana
   - type: Food
     trash:
     - TrashBananaPeel
@@ -397,8 +396,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - banana
-      - nothing
+    - banana
+    - nothing
   - type: Food
     trash:
     - TrashMimanaPeel
@@ -453,15 +452,13 @@
   - type: Fixtures
     fixtures:
       slips:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.2,-0.2,0.2,0.2"
         hard: false
         layer:
         - SlipLayer
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.2,-0.2,0.2,0.2"
         density: 30
         mask:
@@ -544,7 +541,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - carrot
+    - carrot
   - type: Tag
     tags:
     - Carrot
@@ -586,7 +583,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - cabbage
+    - cabbage
   - type: SolutionContainerManager
     solutions:
       food:
@@ -618,7 +615,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - garlic
+    - garlic
   - type: SolutionContainerManager
     solutions:
       food:
@@ -650,7 +647,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - sour
+    - sour
   - type: SolutionContainerManager
     solutions:
       food:
@@ -688,7 +685,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - lemoon
+    - lemoon
   - type: SolutionContainerManager
     solutions:
       food:
@@ -725,7 +722,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - sour
+    - sour
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/lime.rsi
   - type: Item
@@ -754,7 +751,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - orange
+    - orange
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/orange.rsi
   - type: Item
@@ -782,7 +779,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - truenature
+    - truenature
   - type: SolutionContainerManager
     solutions:
       food:
@@ -825,7 +822,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - pineapple
+    - pineapple
   - type: SolutionContainerManager
     solutions:
       food:
@@ -863,7 +860,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - potatoes
+    - potatoes
   - type: SolutionContainerManager
     solutions:
       food:
@@ -896,7 +893,6 @@
       Burger: Potato
       Taco: Potato
 
-
 - type: entity
   name: tomato
   parent: [FoodProduceBase, ItemHeftyBase]
@@ -905,7 +901,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - tomato
+    - tomato
   - type: SolutionContainerManager
     solutions:
       food:
@@ -938,8 +934,7 @@
         Blunt: 1
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 1
       behaviors:
       - !type:PlaySoundBehavior
@@ -948,7 +943,7 @@
       - !type:SpillBehavior
         solution: food
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: Tag
     tags:
     - Fruit
@@ -990,8 +985,7 @@
         Quantity: 10
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 1
       behaviors:
       - !type:PlaySoundBehavior
@@ -1000,7 +994,7 @@
       - !type:SpillBehavior
         solution: food
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: Tag
     tags:
     - Fruit
@@ -1039,8 +1033,7 @@
         Quantity: 10
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 1
       behaviors:
       - !type:PlaySoundBehavior
@@ -1049,7 +1042,7 @@
       - !type:SpillBehavior
         solution: food
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: Tag
     tags:
     - Fruit # Fuck you they're a fruit
@@ -1068,7 +1061,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - eggplant
+    - eggplant
   - type: SolutionContainerManager
     solutions:
       food:
@@ -1097,7 +1090,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - apple
+    - apple
   - type: SolutionContainerManager
     solutions:
       food:
@@ -1132,8 +1125,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - apple
-      - metallic
+    - apple
+    - metallic
   - type: SolutionContainerManager
     solutions:
       food:
@@ -1174,7 +1167,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - chocolate
+    - chocolate
   - type: SolutionContainerManager
     solutions:
       food:
@@ -1192,7 +1185,7 @@
     seedId: cocoa
   - type: SpawnItemsOnUse
     items:
-      - id: FoodCocoaBeans
+    - id: FoodCocoaBeans
     sound:
       path: /Audio/Effects/packetrip.ogg
   - type: Tag
@@ -1207,7 +1200,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - corn
+    - corn
   - type: Food
     trash:
     - FoodCornTrash
@@ -1253,7 +1246,7 @@
     size: Tiny
   - type: Tag
     tags:
-      - Trash
+    - Trash
   - type: SolutionContainerManager
     solutions:
       food:
@@ -1270,7 +1263,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - onion
+    - onion
   - type: SolutionContainerManager
     solutions:
       food:
@@ -1303,7 +1296,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - onion
+    - onion
   - type: SolutionContainerManager
     solutions:
       food:
@@ -1387,7 +1380,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - pineapple
+    - pineapple
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/pineapple.rsi
   - type: Extractable
@@ -1412,7 +1405,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - onion
+    - onion
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/onion.rsi
   - type: SolutionContainerManager
@@ -1443,7 +1436,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - onion
+    - onion
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/onion_red.rsi
   - type: SolutionContainerManager
@@ -1474,18 +1467,18 @@
   components:
   - type: FlavorProfile
     flavors:
-      - spicy
+    - spicy
   - type: SolutionContainerManager
     solutions:
       food:
         maxVol: 250
         reagents:
-          - ReagentId: Nutriment
-            Quantity: 4
-          - ReagentId: CapsaicinOil
-            Quantity: 10
-          - ReagentId: Vitamin
-            Quantity: 4
+        - ReagentId: Nutriment
+          Quantity: 4
+        - ReagentId: CapsaicinOil
+          Quantity: 10
+        - ReagentId: Vitamin
+          Quantity: 4
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/chili.rsi
   - type: Item
@@ -1509,19 +1502,19 @@
   components:
   - type: FlavorProfile
     flavors:
-      - spicy
-      - cold
+    - spicy
+    - cold
   - type: SolutionContainerManager
     solutions:
       food:
         maxVol: 250
         reagents:
-          - ReagentId: Nutriment
-            Quantity: 4
-          - ReagentId: FrostOil
-            Quantity: 10
-          - ReagentId: Vitamin
-            Quantity: 4
+        - ReagentId: Nutriment
+          Quantity: 4
+        - ReagentId: FrostOil
+          Quantity: 10
+        - ReagentId: Vitamin
+          Quantity: 4
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/chilly.rsi
   - type: Item
@@ -1542,7 +1535,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - medicine
+    - medicine
   - type: SolutionContainerManager
     solutions:
       food:
@@ -1579,7 +1572,7 @@
     quickEquip: false
   - type: FlavorProfile
     flavors:
-      - medicine
+    - medicine
   - type: SolutionContainerManager
     solutions:
       food:
@@ -1611,7 +1604,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - medicine
+    - medicine
   - type: SolutionContainerManager
     solutions:
       food:
@@ -1643,8 +1636,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - mushroom
-      - medicine
+    - mushroom
+    - medicine
   - type: SolutionContainerManager
     solutions:
       food:
@@ -1678,8 +1671,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - leafy
-      - medicine
+    - leafy
+    - medicine
   - type: SolutionContainerManager
     solutions:
       food:
@@ -1723,8 +1716,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - leafy
-      - medicine
+    - leafy
+    - medicine
   - type: SolutionContainerManager
     solutions:
       food:
@@ -1766,7 +1759,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - medicine
+    - medicine
   - type: SolutionContainerManager
     solutions:
       food:
@@ -1803,7 +1796,7 @@
     heldPrefix: produce
   - type: FlavorProfile
     flavors:
-      - sharp
+    - sharp
   - type: SolutionContainerManager
     solutions:
       food:
@@ -1824,8 +1817,7 @@
     - id: SheetGlass1
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 10
       behaviors:
       - !type:PlaySoundBehavior
@@ -1839,7 +1831,7 @@
             min: 1
             max: 1
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: DamageOnHit
     damage:
       types:
@@ -1850,7 +1842,7 @@
       types:
         Slash: 15
     soundHit:
-        path: /Audio/Weapons/bladeslice.ogg
+      path: /Audio/Weapons/bladeslice.ogg
   - type: Tag
     tags:
     - Galaxythistle
@@ -1870,7 +1862,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - mushroom
+    - mushroom
   - type: SolutionContainerManager
     solutions:
       food:
@@ -1899,20 +1891,20 @@
 
 - type: entity
   name: gatfruit
-  parent: [ FoodProduceBase, BaseC3SyndicateContrabandNoValue ] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContrabandUnredeemable
+  parent: [FoodProduceBase, BaseC3SyndicateContrabandNoValue] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContrabandUnredeemable
   id: FoodGatfruit
   description: A delicious, gun-shaped fruit with a thick wooden stem.
   components:
   - type: FlavorProfile
     flavors:
-      - gunpowder
+    - gunpowder
   - type: SolutionContainerManager
     solutions:
       food:
         maxVol: 250
         reagents:
-#        - ReagentId: Nutriment # Frontier
-#          Quantity: 5 # Frontier
+        #        - ReagentId: Nutriment # Frontier
+        #          Quantity: 5 # Frontier
         - ReagentId: Sulfur
           Quantity: 10 # Frontier: 5<10
   - type: Sprite
@@ -1921,7 +1913,7 @@
     seedId: gatfruit
   - type: Food
     trash:
-    - NFWeaponRevolverRitland45Anom  # Hardlight: A Ritland with no FUCvalue
+    - NFWeaponRevolverRitland45Anom # Hardlight: A Ritland with no FUCvalue
   - type: Tag
     tags:
     - Fruit # It's in the name
@@ -1938,14 +1930,14 @@
   components:
   - type: FlavorProfile
     flavors:
-      - plastic
+    - plastic
   - type: SolutionContainerManager
     solutions:
       food:
         maxVol: 250
         reagents:
-#        - ReagentId: Nutriment # Frontier
-#          Quantity: 5 # Frontier
+        #        - ReagentId: Nutriment # Frontier
+        #          Quantity: 5 # Frontier
         - ReagentId: Sulfur
           Quantity: 10 # Frontier: 5<10
   - type: Sprite
@@ -2035,7 +2027,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - violets
+    - violets
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/spacemans_trumpet.rsi
   - type: Item
@@ -2104,7 +2096,7 @@
     heldPrefix: produce
   - type: FlavorProfile
     flavors:
-      - watermelon
+    - watermelon
   - type: SolutionContainerManager
     solutions:
       food:
@@ -2134,8 +2126,7 @@
         Blunt: 1
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 1
       behaviors:
       - !type:PlaySoundBehavior
@@ -2144,7 +2135,7 @@
       - !type:SpillBehavior
         solution: food
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: SliceableFood
     count: 5
     slice: FoodWatermelonSlice
@@ -2166,7 +2157,7 @@
     size: Tiny
   - type: FlavorProfile
     flavors:
-      - watermelon
+    - watermelon
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/watermelon.rsi
   - type: SolutionContainerManager
@@ -2206,8 +2197,8 @@
     heldPrefix: produce
   - type: FlavorProfile
     flavors:
-      - holy
-      - watermelon
+    - holy
+    - watermelon
   - type: SolutionContainerManager
     solutions:
       food:
@@ -2237,8 +2228,7 @@
         Blunt: 1
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 1
       behaviors:
       - !type:PlaySoundBehavior
@@ -2247,7 +2237,7 @@
       - !type:SpillBehavior
         solution: food
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: SliceableFood
     count: 5
     slice: FoodHolymelonSlice
@@ -2269,8 +2259,8 @@
     size: Tiny
   - type: FlavorProfile
     flavors:
-      - holy
-      - watermelon
+    - holy
+    - watermelon
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/holymelon.rsi
   - type: SolutionContainerManager
@@ -2307,7 +2297,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - grape
+    - grape
   - type: SolutionContainerManager
     solutions:
       food:
@@ -2340,7 +2330,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - berry
+    - berry
   - type: SolutionContainerManager
     solutions:
       food:
@@ -2377,7 +2367,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - bungo
+    - bungo
   - type: Food
     trash:
     - FoodBungoPit
@@ -2443,7 +2433,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - peas
+    - peas
   - type: SolutionContainerManager
     solutions:
       food:
@@ -2475,7 +2465,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - numbingtranquility
+    - numbingtranquility
   - type: SolutionContainerManager
     solutions:
       food:
@@ -2512,7 +2502,7 @@
     heldPrefix: produce
   - type: FlavorProfile
     flavors:
-      - pumpkin
+    - pumpkin
   - type: SolutionContainerManager
     solutions:
       food:
@@ -2530,8 +2520,7 @@
     damageContainer: Biological
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 16
       behaviors:
       - !type:PlaySoundBehavior
@@ -2540,7 +2529,7 @@
       - !type:SpillBehavior
         solution: food
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: Butcherable
     butcheringType: Knife
     spawned:
@@ -2562,7 +2551,7 @@
     heldPrefix: produce
   - type: FlavorProfile
     flavors:
-      - bluepumpkin
+    - bluepumpkin
   - type: SolutionContainerManager
     solutions:
       food:
@@ -2587,8 +2576,7 @@
     damageContainer: Biological
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 16
       behaviors:
       - !type:PlaySoundBehavior
@@ -2597,7 +2585,7 @@
       - !type:SpillBehavior
         solution: food
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: Tag
     tags:
     - Fruit
@@ -2612,7 +2600,7 @@
     sprite: Objects/Specific/Hydroponics/cotton.rsi
   - type: FlavorProfile
     flavors:
-      - cotton
+    - cotton
   - type: SolutionContainerManager
     solutions:
       food:
@@ -2641,7 +2629,7 @@
     sprite: Objects/Specific/Hydroponics/pyrotton.rsi
   - type: FlavorProfile
     flavors:
-      - pyrotton
+    - pyrotton
   - type: SolutionContainerManager
     solutions:
       food:
@@ -2672,7 +2660,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - cherry
+    - cherry
   - type: Food
     trash:
     - TrashCherryPit
@@ -2739,7 +2727,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - strange
+    - strange
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/anomaly_berry.rsi
     state: produce
@@ -2777,8 +2765,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - sweet
-      - spooky
+    - sweet
+    - spooky
   - type: SolutionContainerManager
     solutions:
       food:
@@ -2812,8 +2800,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - sweet
-      - spooky
+    - sweet
+    - spooky
   - type: Sprite
     sprite: Floof/Objects/Specific/Hydroponics/pomegranate.rsi
   - type: SolutionContainerManager
@@ -2887,21 +2875,19 @@
     damageContainer: Biological
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 1
       behaviors:
       - !type:SpillBehavior
         solution: food
       - !type:TriggerBehavior
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: InteractionOutline
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.20
           position: 0, 0.35
         density: 80

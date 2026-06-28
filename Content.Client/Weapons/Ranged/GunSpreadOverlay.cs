@@ -20,7 +20,15 @@ public sealed class GunSpreadOverlay : Overlay
     private readonly GunSystem _guns;
     private readonly SharedTransformSystem _transform;
 
-    public GunSpreadOverlay(IEntityManager entManager, IEyeManager eyeManager, IGameTiming timing, IInputManager input, IPlayerManager player, GunSystem system, SharedTransformSystem transform)
+    public GunSpreadOverlay(
+        IEntityManager entManager,
+        IEyeManager eyeManager,
+        IGameTiming timing,
+        IInputManager input,
+        IPlayerManager player,
+        GunSystem system,
+        SharedTransformSystem transform
+    )
     {
         _entManager = entManager;
         _eye = eyeManager;
@@ -37,8 +45,7 @@ public sealed class GunSpreadOverlay : Overlay
 
         var player = _player.LocalEntity;
 
-        if (player == null ||
-            !_entManager.TryGetComponent<TransformComponent>(player, out var xform))
+        if (player == null || !_entManager.TryGetComponent<TransformComponent>(player, out var xform))
         {
             return;
         }
@@ -61,8 +68,13 @@ public sealed class GunSpreadOverlay : Overlay
         var maxSpread = gun.MaxAngleModified;
         var minSpread = gun.MinAngleModified;
         var timeSinceLastFire = (_timing.CurTime - gun.NextFire).TotalSeconds;
-        var currentAngle = new Angle(MathHelper.Clamp(gun.CurrentAngle.Theta - gun.AngleDecayModified.Theta * timeSinceLastFire,
-            gun.MinAngleModified.Theta, gun.MaxAngleModified.Theta));
+        var currentAngle = new Angle(
+            MathHelper.Clamp(
+                gun.CurrentAngle.Theta - gun.AngleDecayModified.Theta * timeSinceLastFire,
+                gun.MinAngleModified.Theta,
+                gun.MaxAngleModified.Theta
+            )
+        );
         var direction = (mousePos.Position - mapPos.Position);
 
         worldHandle.DrawLine(mapPos.Position, mousePos.Position + direction, Color.Orange);

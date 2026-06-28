@@ -15,13 +15,26 @@ namespace Content.Server.GameTicking.Rules;
 
 public sealed class SurvivorRuleSystem : GameRuleSystem<SurvivorRuleComponent>
 {
-    [Dependency] private readonly RoleSystem _role = default!;
-    [Dependency] private readonly MindSystem _mind = default!;
-    [Dependency] private readonly AntagSelectionSystem _antag = default!;
-    [Dependency] private readonly TransformSystem _xform = default!;
-    [Dependency] private readonly EmergencyShuttleSystem _eShuttle = default!;
-    [Dependency] private readonly TagSystem _tag = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
+    [Dependency]
+    private readonly RoleSystem _role = default!;
+
+    [Dependency]
+    private readonly MindSystem _mind = default!;
+
+    [Dependency]
+    private readonly AntagSelectionSystem _antag = default!;
+
+    [Dependency]
+    private readonly TransformSystem _xform = default!;
+
+    [Dependency]
+    private readonly EmergencyShuttleSystem _eShuttle = default!;
+
+    [Dependency]
+    private readonly TagSystem _tag = default!;
+
+    [Dependency]
+    private readonly MobStateSystem _mobState = default!;
 
     private static readonly ProtoId<TagPrototype> InvalidForSurvivorAntagTag = "InvalidForSurvivorAntag";
 
@@ -33,7 +46,12 @@ public sealed class SurvivorRuleSystem : GameRuleSystem<SurvivorRuleComponent>
     }
 
     // TODO: Planned rework post wizard release when RandomGlobalSpawnSpell becomes a gamerule
-    protected override void Started(EntityUid uid, SurvivorRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
+    protected override void Started(
+        EntityUid uid,
+        SurvivorRuleComponent component,
+        GameRuleComponent gameRule,
+        GameRuleStartedEvent args
+    )
     {
         base.Started(uid, component, gameRule, args);
 
@@ -61,10 +79,12 @@ public sealed class SurvivorRuleSystem : GameRuleSystem<SurvivorRuleComponent>
         args.Append(Loc.GetString("survivor-role-greeting"));
     }
 
-    protected override void AppendRoundEndText(EntityUid uid,
+    protected override void AppendRoundEndText(
+        EntityUid uid,
         SurvivorRuleComponent component,
         GameRuleComponent gameRule,
-        ref RoundEndTextAppendEvent args)
+        ref RoundEndTextAppendEvent args
+    )
     {
         base.AppendRoundEndText(uid, component, gameRule, ref args);
 
@@ -93,7 +113,11 @@ public sealed class SurvivorRuleSystem : GameRuleSystem<SurvivorRuleComponent>
                 continue;
             }
 
-            if (eShuttle != null && eShuttle.Value.IsValid() && (Transform(eShuttle.Value).MapID == _xform.GetMapCoordinates(survivor).MapId))
+            if (
+                eShuttle != null
+                && eShuttle.Value.IsValid()
+                && (Transform(eShuttle.Value).MapID == _xform.GetMapCoordinates(survivor).MapId)
+            )
             {
                 aliveOnShuttle++;
                 continue;

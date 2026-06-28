@@ -3,18 +3,23 @@ using Content.Shared.Body.Components;
 using Content.Shared.Examine;
 using Content.Shared.Morgue;
 using Content.Shared.Morgue.Components;
-using Robust.Shared.Audio.Systems;
-using Robust.Shared.Player;
-using Robust.Shared.Containers;
 using Content.Shared.Storage.EntitySystems;
+using Robust.Shared.Audio.Systems;
+using Robust.Shared.Containers;
+using Robust.Shared.Player;
 
 namespace Content.Server.Morgue;
 
 public sealed class MorgueSystem : EntitySystem
 {
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
 
     public override void Initialize()
     {
@@ -38,7 +43,7 @@ public sealed class MorgueSystem : EntitySystem
             MorgueContents.HasSoul => "morgue-entity-storage-component-on-examine-details-body-has-soul",
             MorgueContents.HasContents => "morgue-entity-storage-component-on-examine-details-has-contents",
             MorgueContents.HasMob => "morgue-entity-storage-component-on-examine-details-body-has-no-soul",
-            _ => "morgue-entity-storage-component-on-examine-details-empty"
+            _ => "morgue-entity-storage-component-on-examine-details-empty",
         };
 
         args.PushMarkup(Loc.GetString(text));
@@ -47,7 +52,12 @@ public sealed class MorgueSystem : EntitySystem
     /// <summary>
     ///     Updates data periodically in case something died/got deleted in the morgue.
     /// </summary>
-    private void CheckContents(EntityUid uid, MorgueComponent? morgue = null, EntityStorageComponent? storage = null, AppearanceComponent? app = null)
+    private void CheckContents(
+        EntityUid uid,
+        MorgueComponent? morgue = null,
+        EntityStorageComponent? storage = null,
+        AppearanceComponent? app = null
+    )
     {
         if (!Resolve(uid, ref morgue, ref storage, ref app))
             return;
@@ -88,7 +98,12 @@ public sealed class MorgueSystem : EntitySystem
             }
         }
 
-        _appearance.SetData(uid, MorgueVisuals.Contents, hasMob ? MorgueContents.HasMob : MorgueContents.HasContents, app);
+        _appearance.SetData(
+            uid,
+            MorgueVisuals.Contents,
+            hasMob ? MorgueContents.HasMob : MorgueContents.HasContents,
+            app
+        );
     }
 
     /// <summary>
@@ -110,7 +125,11 @@ public sealed class MorgueSystem : EntitySystem
 
             comp.AccumulatedFrameTime -= comp.BeepTime;
 
-            if (comp.DoSoulBeep && _appearance.TryGetData<MorgueContents>(uid, MorgueVisuals.Contents, out var contents, appearance) && contents == MorgueContents.HasSoul)
+            if (
+                comp.DoSoulBeep
+                && _appearance.TryGetData<MorgueContents>(uid, MorgueVisuals.Contents, out var contents, appearance)
+                && contents == MorgueContents.HasSoul
+            )
             {
                 _audio.PlayPvs(comp.OccupantHasSoulAlarmSound, uid);
             }

@@ -1,19 +1,22 @@
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Net.Http.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Net.Http;
-using System.Net.Http.Json;
-using System.Net.Http.Headers;
 using Content.Shared.CCVar;
+using JetBrains.Annotations;
 using Robust.Shared.Configuration;
 using Robust.Shared.Log;
-using JetBrains.Annotations;
 
 namespace Content.Server._NF.Auth;
 
 public sealed class MiniAuthManager
 {
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly ILogManager _logManager = default!; // VRS: log auth failures instead of swallowing them
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
+
+    [Dependency]
+    private readonly ILogManager _logManager = default!; // VRS: log auth failures instead of swallowing them
 
     private readonly HttpClient _http = new();
     private ISawmill? _sawmill; // VRS
@@ -33,7 +36,10 @@ public sealed class MiniAuthManager
         // VRS: dispose the linked CTS and drop the pointless extra CancellationToken wrap.
         using var linkedToken = new CancellationTokenSource(TimeSpan.FromSeconds(10));
 
-        _http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("SS14Token", _cfg.GetCVar(CCVars.AdminApiToken));
+        _http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
+            "SS14Token",
+            _cfg.GetCVar(CCVars.AdminApiToken)
+        );
 
         //We need to do a try catch here because theres essentially no way to guarantee our json response is proper.
         //Throughout all of this, we want it to fail to deny, not fail to allow, so if any step of our auth goes wrong,
@@ -53,7 +59,9 @@ public sealed class MiniAuthManager
         }
         catch (Exception e) // VRS: log instead of silently swallowing
         {
-            (_sawmill ??= _logManager.GetSawmill("auth.mini")).Warning($"IsPlayerConnected({address}, {player}) failed: {e.Message}");
+            (_sawmill ??= _logManager.GetSawmill("auth.mini")).Warning(
+                $"IsPlayerConnected({address}, {player}) failed: {e.Message}"
+            );
         }
         return connected;
     }

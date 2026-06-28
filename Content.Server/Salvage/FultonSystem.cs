@@ -1,9 +1,9 @@
 using System.Numerics;
-using Content.Shared.Salvage.Fulton;
+using Content.Server.Radio.EntitySystems;
+using Content.Shared._HL.Rescue.Rescue;
 using Content.Shared._NF.Implants.Components;
 using Content.Shared.Implants.Components;
-using Content.Shared._HL.Rescue.Rescue;
-using Content.Server.Radio.EntitySystems;
+using Content.Shared.Salvage.Fulton;
 using Robust.Shared.Containers;
 using Robust.Shared.Map;
 using Robust.Shared.Random;
@@ -15,7 +15,8 @@ namespace Content.Server.Salvage;
 /// </summary>
 public sealed class FultonSystem : SharedFultonSystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
 
     public override void Initialize()
     {
@@ -63,25 +64,31 @@ public sealed class FultonSystem : SharedFultonSystem
             return;
         }
 
-        if (!Deleted(component.Beacon) &&
-            TryComp(component.Beacon, out TransformComponent? beaconXform) &&
-            !Container.IsEntityOrParentInContainer(component.Beacon.Value, xform: beaconXform) &&
-            CanFulton(uid))
+        if (
+            !Deleted(component.Beacon)
+            && TryComp(component.Beacon, out TransformComponent? beaconXform)
+            && !Container.IsEntityOrParentInContainer(component.Beacon.Value, xform: beaconXform)
+            && CanFulton(uid)
+        )
         {
             var metadata = MetaData(uid);
             var oldCoords = xform.Coordinates;
             var offset = _random.NextVector2(1.5f);
-            var localPos = Vector2.Transform(
+            var localPos =
+                Vector2.Transform(
                     TransformSystem.GetWorldPosition(beaconXform),
-                    TransformSystem.GetInvWorldMatrix(beaconXform.ParentUid)) + offset;
+                    TransformSystem.GetInvWorldMatrix(beaconXform.ParentUid)
+                ) + offset;
 
             TransformSystem.SetCoordinates(uid, new EntityCoordinates(beaconXform.ParentUid, localPos));
 
-            RaiseNetworkEvent(new FultonAnimationMessage()
-            {
-                Entity = GetNetEntity(uid, metadata),
-                Coordinates = GetNetCoordinates(oldCoords),
-            });
+            RaiseNetworkEvent(
+                new FultonAnimationMessage()
+                {
+                    Entity = GetNetEntity(uid, metadata),
+                    Coordinates = GetNetCoordinates(oldCoords),
+                }
+            );
         }
 
         Audio.PlayPvs(component.Sound, uid);

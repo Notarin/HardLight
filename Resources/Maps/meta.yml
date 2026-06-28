@@ -67542,9 +67542,7 @@ entities:
         - ClothingSpeedModifier
         entries:
         - message: >-
-            It provides the following protection:
-
-            - [color=orange]Explosion[/color] damage [color=white]to contents[/color] reduced by [color=lightblue]10%[/color].
+            It provides the following protection: #magic___^_^___line - [color=orange]Explosion[/color] damage [color=white]to contents[/color] reduced by [color=lightblue]10%[/color].
           priority: 0
           component: Armor
         - message: This decreases your running speed by [color=yellow]10%[/color].
@@ -67709,9 +67707,7 @@ entities:
         - ClothingSpeedModifier
         entries:
         - message: >-
-            It provides the following protection:
-
-            - [color=yellow]Heat[/color] damage reduced by [color=lightblue]5%[/color].
+            It provides the following protection: #magic___^_^___line - [color=yellow]Heat[/color] damage reduced by [color=lightblue]5%[/color].
           priority: 0
           component: Armor
         title: null
@@ -67730,9 +67726,7 @@ entities:
         - ClothingSpeedModifier
         entries:
         - message: >-
-            It provides the following protection:
-
-            - [color=yellow]Heat[/color] damage reduced by [color=lightblue]5%[/color].
+            It provides the following protection: #magic___^_^___line - [color=yellow]Heat[/color] damage reduced by [color=lightblue]5%[/color].
           priority: 0
           component: Armor
         title: null
@@ -134006,7 +134000,6 @@ entities:
 
         By Devin Foster
 
-
         Materials List:
 
         5 Meat (cannot be human, dwarf, slime, or diona)
@@ -134060,7 +134053,6 @@ entities:
         Tider Alchemy: Making A DIY Plasma Fire
 
         By Devin Foster
-
 
         Materials List:
 
@@ -134247,9 +134239,7 @@ entities:
 
         This form is to place orders for items or resources you require. Please make sure to be detailed and specific.
 
-
         For multiple different orders please fill out multiple forms.
-
 
         Your Name:   [color=#002AAF]Sample Person[/color]
                        ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
@@ -134257,8 +134247,6 @@ entities:
                        ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
         Reason (please be detailed):
             [color=#002AAF]Sample Reason[/color]
-
-
 
         \[  ]Request delivery
 
@@ -134287,9 +134275,7 @@ entities:
 
         This form is to place orders for items or resources you require. Please make sure to be detailed and specific.
 
-
         For multiple different orders please fill out multiple forms.
-
 
         Your Name:   [color=#002AAF]Sample Person[/color]
                        ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
@@ -134297,8 +134283,6 @@ entities:
                        ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
         Reason (please be detailed):
             [color=#002AAF]Sample Reason[/color]
-
-
 
         \[  ]Request delivery
 
@@ -134327,9 +134311,7 @@ entities:
 
         This form is to place orders for items or resources you require. Please make sure to be detailed and specific.
 
-
         For multiple different orders please fill out multiple forms.
-
 
         Your Name:   [color=#002AAF]Sample Person[/color]
                        ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
@@ -134337,8 +134319,6 @@ entities:
                        ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
         Reason (please be detailed):
             [color=#002AAF]Sample Reason[/color]
-
-
 
         \[  ]Request delivery
 
@@ -134367,9 +134347,7 @@ entities:
 
         This form is to place orders for items or resources you require. Please make sure to be detailed and specific.
 
-
         For multiple different orders please fill out multiple forms.
-
 
         Your Name:   [color=#002AAF]Sample Person[/color]
                        ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
@@ -134377,8 +134355,6 @@ entities:
                        ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
         Reason (please be detailed):
             [color=#002AAF]Sample Reason[/color]
-
-
 
         \[  ]Request delivery
 
@@ -134407,9 +134383,7 @@ entities:
 
         This form is to place orders for items or resources you require. Please make sure to be detailed and specific.
 
-
         For multiple different orders please fill out multiple forms.
-
 
         Your Name:   [color=#002AAF]Sample Person[/color]
                        ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
@@ -134417,8 +134391,6 @@ entities:
                        ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
         Reason (please be detailed):
             [color=#002AAF]Sample Reason[/color]
-
-
 
         \[  ]Request delivery
 
@@ -134447,9 +134419,7 @@ entities:
 
         This form is to place orders for items or resources you require. Please make sure to be detailed and specific.
 
-
         For multiple different orders please fill out multiple forms.
-
 
         Your Name:   [color=#002AAF]Sample Person[/color]
                        ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
@@ -134457,8 +134427,6 @@ entities:
                        ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
         Reason (please be detailed):
             [color=#002AAF]Sample Reason[/color]
-
-
 
         \[  ]Request delivery
 
@@ -134487,9 +134455,7 @@ entities:
 
         This form is to place orders for items or resources you require. Please make sure to be detailed and specific.
 
-
         For multiple different orders please fill out multiple forms.
-
 
         Your Name:   [color=#002AAF]Sample Person[/color]
                        ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
@@ -134497,8 +134463,6 @@ entities:
                        ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
         Reason (please be detailed):
             [color=#002AAF]Sample Reason[/color]
-
-
 
         \[  ]Request delivery
 
@@ -134527,9 +134491,7 @@ entities:
 
         This form is to place orders for items or resources you require. Please make sure to be detailed and specific.
 
-
         For multiple different orders please fill out multiple forms.
-
 
         Your Name:   [color=#002AAF]Sample Person[/color]
                        ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
@@ -134537,8 +134499,6 @@ entities:
                        ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
         Reason (please be detailed):
             [color=#002AAF]Sample Reason[/color]
-
-
 
         \[  ]Request delivery
 
@@ -134567,9 +134527,7 @@ entities:
 
         This form is to place orders for items or resources you require. Please make sure to be detailed and specific.
 
-
         For multiple different orders please fill out multiple forms.
-
 
         Your Name:   [color=#002AAF]Sample Person[/color]
                        ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
@@ -134577,8 +134535,6 @@ entities:
                        ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
         Reason (please be detailed):
             [color=#002AAF]Sample Reason[/color]
-
-
 
         \[  ]Request delivery
 
@@ -134607,9 +134563,7 @@ entities:
 
         This form is to place orders for items or resources you require. Please make sure to be detailed and specific.
 
-
         For multiple different orders please fill out multiple forms.
-
 
         Your Name:   [color=#002AAF]Sample Person[/color]
                        ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
@@ -134617,8 +134571,6 @@ entities:
                        ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
         Reason (please be detailed):
             [color=#002AAF]Sample Reason[/color]
-
-
 
         \[  ]Request delivery
 
@@ -134659,7 +134611,6 @@ entities:
 
         Draw my Stun Baton on the last terrified Operative, he dies from spacing waiting for the paramedic to arrive becuase I took his suit off immediately after cuffing him.
 
-
         Just as Colonial Command Intended.
     - type: Physics
       canCollide: False
@@ -134697,9 +134648,7 @@ entities:
 
         This form is to place orders for items or resources you require. Please make sure to be detailed and specific.
 
-
         For multiple different orders please fill out multiple forms.
-
 
         Your Name:   [color=#002AAF]Sample Person[/color]
                        ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
@@ -134707,8 +134656,6 @@ entities:
                        ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
         Reason (please be detailed):
             [color=#002AAF]Sample Reason[/color]
-
-
 
         \[  ]Request delivery
 
@@ -134737,9 +134684,7 @@ entities:
 
         This form is to place orders for items or resources you require. Please make sure to be detailed and specific.
 
-
         For multiple different orders please fill out multiple forms.
-
 
         Your Name:   [color=#002AAF]Sample Person[/color]
                        ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
@@ -134747,8 +134692,6 @@ entities:
                        ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
         Reason (please be detailed):
             [color=#002AAF]Sample Reason[/color]
-
-
 
         \[  ]Request delivery
 
@@ -134777,9 +134720,7 @@ entities:
 
         This form is to place orders for items or resources you require. Please make sure to be detailed and specific.
 
-
         For multiple different orders please fill out multiple forms.
-
 
         Your Name:   [color=#002AAF]Sample Person[/color]
                        ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
@@ -134787,8 +134728,6 @@ entities:
                        ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
         Reason (please be detailed):
             [color=#002AAF]Sample Reason[/color]
-
-
 
         \[  ]Request delivery
 
@@ -134817,9 +134756,7 @@ entities:
 
         This form is to place orders for items or resources you require. Please make sure to be detailed and specific.
 
-
         For multiple different orders please fill out multiple forms.
-
 
         Your Name:   [color=#002AAF]Sample Person[/color]
                        ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
@@ -134827,8 +134764,6 @@ entities:
                        ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
         Reason (please be detailed):
             [color=#002AAF]Sample Reason[/color]
-
-
 
         \[  ]Request delivery
 
@@ -134857,9 +134792,7 @@ entities:
 
         This form is to place orders for items or resources you require. Please make sure to be detailed and specific.
 
-
         For multiple different orders please fill out multiple forms.
-
 
         Your Name:   [color=#002AAF]Sample Person[/color]
                        ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
@@ -134867,8 +134800,6 @@ entities:
                        ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
         Reason (please be detailed):
             [color=#002AAF]Sample Reason[/color]
-
-
 
         \[  ]Request delivery
 
@@ -134897,9 +134828,7 @@ entities:
 
         This form is to place orders for items or resources you require. Please make sure to be detailed and specific.
 
-
         For multiple different orders please fill out multiple forms.
-
 
         Your Name:   [color=#002AAF]Sample Person[/color]
                        ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
@@ -134907,8 +134836,6 @@ entities:
                        ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
         Reason (please be detailed):
             [color=#002AAF]Sample Reason[/color]
-
-
 
         \[  ]Request delivery
 
@@ -134937,9 +134864,7 @@ entities:
 
         This form is to place orders for items or resources you require. Please make sure to be detailed and specific.
 
-
         For multiple different orders please fill out multiple forms.
-
 
         Your Name:   [color=#002AAF]Sample Person[/color]
                        ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
@@ -134947,8 +134872,6 @@ entities:
                        ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
         Reason (please be detailed):
             [color=#002AAF]Sample Reason[/color]
-
-
 
         \[  ]Request delivery
 
@@ -134977,9 +134900,7 @@ entities:
 
         This form is to place orders for items or resources you require. Please make sure to be detailed and specific.
 
-
         For multiple different orders please fill out multiple forms.
-
 
         Your Name:   [color=#002AAF]Sample Person[/color]
                        ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
@@ -134987,8 +134908,6 @@ entities:
                        ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
         Reason (please be detailed):
             [color=#002AAF]Sample Reason[/color]
-
-
 
         \[  ]Request delivery
 
@@ -135017,9 +134936,7 @@ entities:
 
         This form is to place orders for items or resources you require. Please make sure to be detailed and specific.
 
-
         For multiple different orders please fill out multiple forms.
-
 
         Your Name:   [color=#002AAF]Sample Person[/color]
                        ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
@@ -135027,8 +134944,6 @@ entities:
                        ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
         Reason (please be detailed):
             [color=#002AAF]Sample Reason[/color]
-
-
 
         \[  ]Request delivery
 
@@ -135057,9 +134972,7 @@ entities:
 
         This form is to place orders for items or resources you require. Please make sure to be detailed and specific.
 
-
         For multiple different orders please fill out multiple forms.
-
 
         Your Name:   [color=#002AAF]Sample Person[/color]
                        ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
@@ -135067,8 +134980,6 @@ entities:
                        ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
         Reason (please be detailed):
             [color=#002AAF]Sample Reason[/color]
-
-
 
         \[  ]Request delivery
 
@@ -185922,4 +185833,3 @@ entities:
     - type: Transform
       pos: 9.543752,24.372679
       parent: 5350
-...

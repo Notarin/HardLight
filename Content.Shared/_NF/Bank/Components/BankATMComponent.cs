@@ -7,10 +7,12 @@ using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototy
 namespace Content.Shared._NF.Bank.Components;
 
 [RegisterComponent, NetworkedComponent]
-
 public sealed partial class BankATMComponent : Component
 {
-    [ViewVariables(VVAccess.ReadWrite), DataField("cashType", customTypeSerializer: typeof(PrototypeIdSerializer<StackPrototype>))]
+    [
+        ViewVariables(VVAccess.ReadWrite),
+        DataField("cashType", customTypeSerializer: typeof(PrototypeIdSerializer<StackPrototype>))
+    ]
     public string CashType = "Credit";
 
     public static string CashSlotId = "bank-ATM-cashSlot";
@@ -23,10 +25,8 @@ public sealed partial class BankATMComponent : Component
     public ItemSlot CashSlot = new();
 
     [DataField]
-    public SoundSpecifier ErrorSound =
-        new SoundPathSpecifier("/Audio/Effects/Cargo/buzz_sigh.ogg");
+    public SoundSpecifier ErrorSound = new SoundPathSpecifier("/Audio/Effects/Cargo/buzz_sigh.ogg");
 
     [DataField]
-    public SoundSpecifier ConfirmSound =
-        new SoundPathSpecifier("/Audio/Effects/Cargo/ping.ogg");
+    public SoundSpecifier ConfirmSound = new SoundPathSpecifier("/Audio/Effects/Cargo/ping.ogg");
 }

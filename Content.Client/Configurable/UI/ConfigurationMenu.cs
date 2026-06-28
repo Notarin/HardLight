@@ -32,7 +32,7 @@ namespace Content.Client.Configurable.UI
             {
                 Orientation = LayoutOrientation.Vertical,
                 VerticalExpand = true,
-                HorizontalExpand = true
+                HorizontalExpand = true,
             };
 
             Column = new BoxContainer
@@ -46,14 +46,14 @@ namespace Content.Client.Configurable.UI
             {
                 Orientation = LayoutOrientation.Horizontal,
                 SeparationOverride = 16,
-                HorizontalExpand = true
+                HorizontalExpand = true,
             };
 
             var confirmButton = new Button
             {
                 Text = Loc.GetString("configuration-menu-confirm"),
                 HorizontalAlignment = HAlignment.Center,
-                VerticalAlignment = VAlignment.Center
+                VerticalAlignment = VAlignment.Center,
             };
 
             confirmButton.OnButtonUp += OnConfirm;
@@ -62,7 +62,7 @@ namespace Content.Client.Configurable.UI
             {
                 VerticalExpand = true,
                 HorizontalExpand = true,
-                ModulateSelfOverride = Color.FromHex("#202320")
+                ModulateSelfOverride = Color.FromHex("#202320"),
             };
 
             outerColumn.AddChild(Column);
@@ -83,7 +83,10 @@ namespace Content.Client.Configurable.UI
             return Validation?.IsMatch(value) != false;
         }
 
-        private Dictionary<string, string> GenerateDictionary(IEnumerable<(string name, LineEdit input)> inputs, string propertyName)
+        private Dictionary<string, string> GenerateDictionary(
+            IEnumerable<(string name, LineEdit input)> inputs,
+            string propertyName
+        )
         {
             var dictionary = new Dictionary<string, string>();
 
@@ -95,7 +98,8 @@ namespace Content.Client.Configurable.UI
             return dictionary;
         }
 
-        public static void CopyProperties<T>(T from, T to) where T : Control
+        public static void CopyProperties<T>(T from, T to)
+            where T : Control
         {
             foreach (var property in from.AllAttachedProperties)
             {

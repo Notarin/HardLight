@@ -23,14 +23,16 @@ public sealed class PlayerSpawnCompleteEvent : EntityEventArgs
     // Ex. If this is the 27th person to join, this will be 27.
     public int JoinOrder { get; }
 
-    public PlayerSpawnCompleteEvent(EntityUid mob,
+    public PlayerSpawnCompleteEvent(
+        EntityUid mob,
         ICommonSession player,
         string? jobId,
         bool lateJoin,
         bool silent,
         int joinOrder,
         EntityUid station,
-        HumanoidCharacterProfile profile)
+        HumanoidCharacterProfile profile
+    )
     {
         Mob = mob;
         Player = player;

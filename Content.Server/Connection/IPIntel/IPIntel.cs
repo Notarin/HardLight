@@ -23,12 +23,14 @@ public sealed class IPIntel
 
     private readonly ISawmill _sawmill;
 
-    public IPIntel(IIPIntelApi api,
+    public IPIntel(
+        IIPIntelApi api,
         IServerDbManager db,
         IConfigurationManager cfg,
         ILogManager logManager,
         IChatManager chatManager,
-        IGameTiming gameTiming)
+        IGameTiming gameTiming
+    )
     {
         _api = api;
         _db = db;
@@ -100,7 +102,9 @@ public sealed class IPIntel
         // Helps with saving your limited request limit.
         if (_exemptPlaytime != TimeSpan.Zero)
         {
-            var overallTime = ( await _db.GetPlayTimes(e.UserId)).Find(p => p.Tracker == PlayTimeTrackingShared.TrackerOverall);
+            var overallTime = (await _db.GetPlayTimes(e.UserId)).Find(p =>
+                p.Tracker == PlayTimeTrackingShared.TrackerOverall
+            );
             if (overallTime != null && overallTime.TimeSpent >= _exemptPlaytime)
             {
                 return (false, string.Empty);
@@ -113,7 +117,9 @@ public sealed class IPIntel
         // Is this a local ip address?
         if (IsAddressReservedIpv4(ip) || IsAddressReservedIpv6(ip))
         {
-            _sawmill.Warning($"{e.UserName} joined using a local address. Do you need IPIntel? Or is something terribly misconfigured on your server? Trusting this connection.");
+            _sawmill.Warning(
+                $"{e.UserName} joined using a local address. Do you need IPIntel? Or is something terribly misconfigured on your server? Trusting this connection."
+            );
             return (false, string.Empty);
         }
 
@@ -134,7 +140,9 @@ public sealed class IPIntel
         // Ensure our contact email is good to use.
         if (string.IsNullOrEmpty(_contactEmail) || !_contactEmail.Contains('@') || !_contactEmail.Contains('.'))
         {
-            _sawmill.Error("IPIntel is enabled, but contact email is empty or not a valid email, treating this connection like an unknown IPIntel response.");
+            _sawmill.Error(
+                "IPIntel is enabled, but contact email is empty or not a valid email, treating this connection like an unknown IPIntel response."
+            );
             return _rejectUnknown ? (true, Loc.GetString("generic-misconfigured")) : (false, string.Empty);
         }
 
@@ -171,7 +179,9 @@ public sealed class IPIntel
 
         if (request.StatusCode == HttpStatusCode.TooManyRequests)
         {
-            _sawmill.Warning($"We hit the IPIntel request limit at some point. (Current limit count: Minute: {_minute.CurrentRequests} Day: {_day.CurrentRequests})");
+            _sawmill.Warning(
+                $"We hit the IPIntel request limit at some point. (Current limit count: Minute: {_minute.CurrentRequests} Day: {_day.CurrentRequests})"
+            );
             CalculateSuddenRatelimit();
             return new IPIntelResult(0, IPIntelResultCode.RateLimited);
         }
@@ -192,7 +202,9 @@ public sealed class IPIntel
         else
         {
             // Oh boy, we don't know this error.
-            _sawmill.Error($"IPIntel returned {response} (Status code: {request.StatusCode})... we don't know what this error code is. Please make an issue in upstream!");
+            _sawmill.Error(
+                $"IPIntel returned {response} (Status code: {request.StatusCode})... we don't know what this error code is. Please make an issue in upstream!"
+            );
         }
 
         return new IPIntelResult(0, IPIntelResultCode.Errored);
@@ -213,7 +225,8 @@ public sealed class IPIntel
     {
         ["-1"] = "Invalid/No input.",
         ["-2"] = "Invalid IP address.",
-        ["-3"] = "Unroutable address / private address given to the api. Make an issue in upstream as it should have been handled.",
+        ["-3"] =
+            "Unroutable address / private address given to the api. Make an issue in upstream as it should have been handled.",
         ["-4"] = "Unable to reach IPIntel database. Perhaps it's down?",
         ["-5"] = "Server's IP/Contact may have been banned, go to getipintel.net and make contact to be unbanned.",
         ["-6"] = "You did not provide any contact information with your query or the contact information is invalid.",
@@ -257,9 +270,9 @@ public sealed class IPIntel
 
         if (_alertAdminWarn != 0f && _alertAdminWarn < score && !decisionIsReject)
         {
-            _chatManager.SendAdminAlert(Loc.GetString("admin-alert-ipintel-warning",
-                ("player", username),
-                ("percent", score)));
+            _chatManager.SendAdminAlert(
+                Loc.GetString("admin-alert-ipintel-warning", ("player", username), ("percent", score))
+            );
         }
 
         if (!decisionIsReject)
@@ -267,9 +280,9 @@ public sealed class IPIntel
 
         if (_alertAdminReject)
         {
-            _chatManager.SendAdminAlert(Loc.GetString("admin-alert-ipintel-blocked",
-                ("player", username),
-                ("percent", score)));
+            _chatManager.SendAdminAlert(
+                Loc.GetString("admin-alert-ipintel-blocked", ("player", username), ("percent", score))
+            );
         }
 
         return _rejectBad ? (true, Loc.GetString("ipintel-suspicious")) : (false, string.Empty);
@@ -295,24 +308,24 @@ public sealed class IPIntel
     private static readonly (int ip, int mask)[] ReservedRangesIpv4 =
     [
         // @formatter:off
-		(Ipv4(0,   0,   0,   0), 8 ), // RFC1122 "This host on this network"
-		(Ipv4(10,  0,   0,   0), 8 ), // RFC1918 Private-Use
-		(Ipv4(100, 64,  0,   0), 10), // RFC6598 Shared Address Space
-		(Ipv4(127, 0,   0,   0), 8 ), // RFC1122 Loopback
-		(Ipv4(169, 254, 0,   0), 16), // RFC3927 Link-Local
-		(Ipv4(172, 16,  0,   0), 12), // RFC1918 Private-Use
-		(Ipv4(192, 0,   0,   0), 24), // RFC6890 IETF Protocol Assignments
-		(Ipv4(192, 0,   2,   0), 24), // RFC5737 Documentation (TEST-NET-1)
-		(Ipv4(192, 31,  196, 0), 24), // RFC7535 AS112-v4
-		(Ipv4(192, 52,  193, 0), 24), // RFC7450 AMT
-		(Ipv4(192, 88,  99,  0), 24), // RFC7526 6to4 Relay Anycast
-		(Ipv4(192, 168, 0,   0), 16), // RFC1918 Private-Use
-		(Ipv4(192, 175, 48,  0), 24), // RFC7534 Direct Delegation AS112 Service
-		(Ipv4(198, 18,  0,   0), 15), // RFC2544 Benchmarking
-		(Ipv4(198, 51,  100, 0), 24), // RFC5737 Documentation (TEST-NET-2)
-		(Ipv4(203, 0,   113, 0), 24), // RFC5737 Documentation (TEST-NET-3)
-		(Ipv4(224, 0,   0,   0), 4 ), // RFC1112 Multicast
-		(Ipv4(240, 0,   0,   0), 4 ), // RFC1112 Reserved for Future Use + RFC919 Limited Broadcast
+        (Ipv4(0, 0, 0, 0), 8), // RFC1122 "This host on this network"
+        (Ipv4(10, 0, 0, 0), 8), // RFC1918 Private-Use
+        (Ipv4(100, 64, 0, 0), 10), // RFC6598 Shared Address Space
+        (Ipv4(127, 0, 0, 0), 8), // RFC1122 Loopback
+        (Ipv4(169, 254, 0, 0), 16), // RFC3927 Link-Local
+        (Ipv4(172, 16, 0, 0), 12), // RFC1918 Private-Use
+        (Ipv4(192, 0, 0, 0), 24), // RFC6890 IETF Protocol Assignments
+        (Ipv4(192, 0, 2, 0), 24), // RFC5737 Documentation (TEST-NET-1)
+        (Ipv4(192, 31, 196, 0), 24), // RFC7535 AS112-v4
+        (Ipv4(192, 52, 193, 0), 24), // RFC7450 AMT
+        (Ipv4(192, 88, 99, 0), 24), // RFC7526 6to4 Relay Anycast
+        (Ipv4(192, 168, 0, 0), 16), // RFC1918 Private-Use
+        (Ipv4(192, 175, 48, 0), 24), // RFC7534 Direct Delegation AS112 Service
+        (Ipv4(198, 18, 0, 0), 15), // RFC2544 Benchmarking
+        (Ipv4(198, 51, 100, 0), 24), // RFC5737 Documentation (TEST-NET-2)
+        (Ipv4(203, 0, 113, 0), 24), // RFC5737 Documentation (TEST-NET-3)
+        (Ipv4(224, 0, 0, 0), 4), // RFC1112 Multicast
+        (Ipv4(240, 0, 0, 0), 4), // RFC1112 Reserved for Future Use + RFC919 Limited Broadcast
         // @formatter:on
     ];
 
@@ -369,7 +382,7 @@ public sealed class IPIntel
         foreach (var (reservedIp, maskBits) in ReservedRangesIpv6)
         {
             var mask = UInt128.MaxValue << (128 - maskBits);
-            if (((UInt128) ipBits & mask ) == (reservedIp & mask))
+            if (((UInt128)ipBits & mask) == (reservedIp & mask))
                 return true;
         }
 

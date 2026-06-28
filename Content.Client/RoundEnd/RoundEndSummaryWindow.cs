@@ -14,8 +14,14 @@ namespace Content.Client.RoundEnd
         private readonly IEntityManager _entityManager;
         public int RoundId;
 
-        public RoundEndSummaryWindow(string gm, string roundEnd, TimeSpan roundTimeSpan, int roundId,
-            RoundEndMessageEvent.RoundEndPlayerInfo[] info, IEntityManager entityManager)
+        public RoundEndSummaryWindow(
+            string gm,
+            string roundEnd,
+            TimeSpan roundTimeSpan,
+            int roundId,
+            RoundEndMessageEvent.RoundEndPlayerInfo[] info,
+            IEntityManager entityManager
+        )
         {
             _entityManager = entityManager;
 
@@ -40,39 +46,49 @@ namespace Content.Client.RoundEnd
             MoveToFront();
         }
 
-        private BoxContainer MakeRoundEndSummaryTab(string gamemode, string roundEnd, TimeSpan roundDuration, int roundId)
+        private BoxContainer MakeRoundEndSummaryTab(
+            string gamemode,
+            string roundEnd,
+            TimeSpan roundDuration,
+            int roundId
+        )
         {
             var roundEndSummaryTab = new BoxContainer
             {
                 Orientation = LayoutOrientation.Vertical,
-                Name = Loc.GetString("round-end-summary-window-round-end-summary-tab-title")
+                Name = Loc.GetString("round-end-summary-window-round-end-summary-tab-title"),
             };
 
             var roundEndSummaryContainerScrollbox = new ScrollContainer
             {
                 VerticalExpand = true,
-                Margin = new Thickness(10)
+                Margin = new Thickness(10),
             };
-            var roundEndSummaryContainer = new BoxContainer
-            {
-                Orientation = LayoutOrientation.Vertical
-            };
+            var roundEndSummaryContainer = new BoxContainer { Orientation = LayoutOrientation.Vertical };
 
             //Gamemode Name
             var gamemodeLabel = new RichTextLabel();
             var gamemodeMessage = new FormattedMessage();
-            gamemodeMessage.AddMarkupOrThrow(Loc.GetString("round-end-summary-window-round-id-label", ("roundId", roundId)));
+            gamemodeMessage.AddMarkupOrThrow(
+                Loc.GetString("round-end-summary-window-round-id-label", ("roundId", roundId))
+            );
             gamemodeMessage.AddText(" ");
-            gamemodeMessage.AddMarkupOrThrow(Loc.GetString("round-end-summary-window-gamemode-name-label", ("gamemode", gamemode)));
+            gamemodeMessage.AddMarkupOrThrow(
+                Loc.GetString("round-end-summary-window-gamemode-name-label", ("gamemode", gamemode))
+            );
             gamemodeLabel.SetMessage(gamemodeMessage);
             roundEndSummaryContainer.AddChild(gamemodeLabel);
 
             //Duration
             var roundTimeLabel = new RichTextLabel();
-            roundTimeLabel.SetMarkup(Loc.GetString("round-end-summary-window-duration-label",
-                                                   ("hours", roundDuration.Hours),
-                                                   ("minutes", roundDuration.Minutes),
-                                                   ("seconds", roundDuration.Seconds)));
+            roundTimeLabel.SetMarkup(
+                Loc.GetString(
+                    "round-end-summary-window-duration-label",
+                    ("hours", roundDuration.Hours),
+                    ("minutes", roundDuration.Minutes),
+                    ("seconds", roundDuration.Seconds)
+                )
+            );
             roundEndSummaryContainer.AddChild(roundTimeLabel);
 
             //Round end text
@@ -94,18 +110,15 @@ namespace Content.Client.RoundEnd
             var playerManifestTab = new BoxContainer
             {
                 Orientation = LayoutOrientation.Vertical,
-                Name = Loc.GetString("round-end-summary-window-player-manifest-tab-title")
+                Name = Loc.GetString("round-end-summary-window-player-manifest-tab-title"),
             };
 
             var playerInfoContainerScrollbox = new ScrollContainer
             {
                 VerticalExpand = true,
-                Margin = new Thickness(10)
+                Margin = new Thickness(10),
             };
-            var playerInfoContainer = new BoxContainer
-            {
-                Orientation = LayoutOrientation.Vertical
-            };
+            var playerInfoContainer = new BoxContainer { Orientation = LayoutOrientation.Vertical };
 
             //Put observers at the bottom of the list. Put antags on top.
             var sortedPlayersInfo = playersInfo.OrderBy(p => p.Observer).ThenBy(p => !p.Antag);
@@ -113,26 +126,21 @@ namespace Content.Client.RoundEnd
             //Create labels for each player info.
             foreach (var playerInfo in sortedPlayersInfo)
             {
-                var hBox = new BoxContainer
-                {
-                    Orientation = LayoutOrientation.Horizontal,
-                };
+                var hBox = new BoxContainer { Orientation = LayoutOrientation.Horizontal };
 
-                var playerInfoText = new RichTextLabel
-                {
-                    VerticalAlignment = VAlignment.Center,
-                    VerticalExpand = true,
-                };
+                var playerInfoText = new RichTextLabel { VerticalAlignment = VAlignment.Center, VerticalExpand = true };
 
                 if (playerInfo.PlayerNetEntity != null)
                 {
-                    hBox.AddChild(new SpriteView(playerInfo.PlayerNetEntity.Value, _entityManager)
+                    hBox.AddChild(
+                        new SpriteView(playerInfo.PlayerNetEntity.Value, _entityManager)
                         {
                             OverrideDirection = Direction.South,
                             VerticalAlignment = VAlignment.Center,
                             SetSize = new Vector2(32, 32),
                             VerticalExpand = true,
-                        });
+                        }
+                    );
                 }
 
                 if (playerInfo.PlayerICName != null)
@@ -140,9 +148,12 @@ namespace Content.Client.RoundEnd
                     if (playerInfo.Observer)
                     {
                         playerInfoText.SetMarkup(
-                            Loc.GetString("round-end-summary-window-player-info-if-observer-text",
-                                          ("playerOOCName", playerInfo.PlayerOOCName),
-                                          ("playerICName", playerInfo.PlayerICName)));
+                            Loc.GetString(
+                                "round-end-summary-window-player-info-if-observer-text",
+                                ("playerOOCName", playerInfo.PlayerOOCName),
+                                ("playerICName", playerInfo.PlayerICName)
+                            )
+                        );
                     }
                     else
                     {
@@ -150,11 +161,14 @@ namespace Content.Client.RoundEnd
                         //For example: their antag goals and if they completed them sucessfully.
                         var icNameColor = playerInfo.Antag ? "red" : "white";
                         playerInfoText.SetMarkup(
-                            Loc.GetString("round-end-summary-window-player-info-if-not-observer-text",
+                            Loc.GetString(
+                                "round-end-summary-window-player-info-if-not-observer-text",
                                 ("playerOOCName", playerInfo.PlayerOOCName),
                                 ("icNameColor", icNameColor),
                                 ("playerICName", playerInfo.PlayerICName),
-                                ("playerRole", Loc.GetString(playerInfo.Role))));
+                                ("playerRole", Loc.GetString(playerInfo.Role))
+                            )
+                        );
                     }
                 }
                 hBox.AddChild(playerInfoText);
@@ -167,5 +181,4 @@ namespace Content.Client.RoundEnd
             return playerManifestTab;
         }
     }
-
 }

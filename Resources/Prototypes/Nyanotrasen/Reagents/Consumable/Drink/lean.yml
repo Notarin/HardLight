@@ -23,7 +23,7 @@
           min: 25
         damage:
           types:
-           Caustic: 0.5
+            Caustic: 0.5
       - !type:Electrocute
         conditions:
         - !type:ReagentThreshold
@@ -33,6 +33,6 @@
       effects:
       - !type:ChemVomit
         conditions:
-          - !type:ReagentThreshold
-            min: 60
+        - !type:ReagentThreshold
+          min: 60
         probability: 0.2

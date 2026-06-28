@@ -11,8 +11,11 @@ namespace Content.Client.Humanoid;
 [GenerateTypedNameReferences]
 public sealed partial class SingleMarkingPicker : BoxContainer
 {
-    [Dependency] private readonly MarkingManager _markingManager = default!;
-    [Dependency] private readonly IEntityManager _entityManager = default!;
+    [Dependency]
+    private readonly MarkingManager _markingManager = default!;
+
+    [Dependency]
+    private readonly IEntityManager _entityManager = default!;
 
     private readonly SpriteSystem _sprite;
 
@@ -22,6 +25,7 @@ public sealed partial class SingleMarkingPicker : BoxContainer
     ///     and the selected marking's ID.
     /// </summary>
     public Action<(int slot, string id)>? OnMarkingSelect;
+
     /// <summary>
     ///     What happens if a slot is removed.
     ///     This will send the 'slot' (marking index).
@@ -71,7 +75,7 @@ public sealed partial class SingleMarkingPicker : BoxContainer
 
             foreach (var item in MarkingList)
             {
-                item.Selected = (string) item.Metadata! == _markings[_slot].MarkingId;
+                item.Selected = (string)item.Metadata! == _markings[_slot].MarkingId;
             }
 
             _ignoreItemSelected = false;
@@ -154,9 +158,11 @@ public sealed partial class SingleMarkingPicker : BoxContainer
         //starlight start
         Glowing.OnToggled += args =>
         {
-            if (_markings == null
-            || _markings.Count == 0
-            || !_markingManager.TryGetMarking(_markings[Slot], out var proto))
+            if (
+                _markings == null
+                || _markings.Count == 0
+                || !_markingManager.TryGetMarking(_markings[Slot], out var proto)
+            )
             {
                 return;
             }
@@ -204,10 +210,12 @@ public sealed partial class SingleMarkingPicker : BoxContainer
 
         MarkingList.Clear();
 
-        var sortedMarkings = _markingPrototypeCache.Where(m =>
-            m.Key.ToLower().Contains(filter.ToLower()) ||
-            GetMarkingName(m.Value).ToLower().Contains(filter.ToLower())
-        ).OrderBy(p => Loc.GetString($"marking-{p.Key}"));
+        var sortedMarkings = _markingPrototypeCache
+            .Where(m =>
+                m.Key.ToLower().Contains(filter.ToLower())
+                || GetMarkingName(m.Value).ToLower().Contains(filter.ToLower())
+            )
+            .OrderBy(p => Loc.GetString($"marking-{p.Key}"));
 
         foreach (var (id, marking) in sortedMarkings)
         {
@@ -225,9 +233,7 @@ public sealed partial class SingleMarkingPicker : BoxContainer
 
     private void PopulateColors()
     {
-        if (_markings == null
-            || _markings.Count == 0
-            || !_markingManager.TryGetMarking(_markings[Slot], out var proto))
+        if (_markings == null || _markings.Count == 0 || !_markingManager.TryGetMarking(_markings[Slot], out var proto))
         {
             return;
         }
@@ -244,10 +250,7 @@ public sealed partial class SingleMarkingPicker : BoxContainer
 
         for (var i = 0; i < marking.MarkingColors.Count; i++)
         {
-            var selector = new ColorSelectorSliders
-            {
-                HorizontalExpand = true
-            };
+            var selector = new ColorSelectorSliders { HorizontalExpand = true };
             selector.Color = marking.MarkingColors[i];
 
             var colorIndex = i;
@@ -270,7 +273,7 @@ public sealed partial class SingleMarkingPicker : BoxContainer
             return;
         }
 
-        var id = (string) MarkingList[args.ItemIndex].Metadata!;
+        var id = (string)MarkingList[args.ItemIndex].Metadata!;
         if (!_markingManager.Markings.TryGetValue(id, out var proto))
         {
             throw new ArgumentException("Attempted to select non-existent marking.");
@@ -297,7 +300,7 @@ public sealed partial class SingleMarkingPicker : BoxContainer
         Search.Visible = Slot >= 0;
         AddButton.HorizontalExpand = Slot < 0;
         RemoveButton.HorizontalExpand = Slot < 0;
-        AddButton.Disabled = PointsLeft == 0 && _totalPoints > -1 ;
+        AddButton.Disabled = PointsLeft == 0 && _totalPoints > -1;
         RemoveButton.Disabled = PointsUsed == 0;
         SlotSelector.Clear();
 

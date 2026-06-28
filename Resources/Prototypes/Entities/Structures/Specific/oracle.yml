@@ -10,26 +10,26 @@
     offset: "0.0,0.5"
     sprite: DeltaV/Structures/Decoration/statues.rsi
     layers:
-      - state: oracle-0
-      - map: ["enum.SolutionContainerLayers.Fill"]
-        state: oracle-0
+    - state: oracle-0
+    - map: ["enum.SolutionContainerLayers.Fill"]
+      state: oracle-0
   - type: Speech
     speechSounds: Tenor
   - type: Actions
   - type: Psionic
     removable: false
     assayFeedback:
-      - oracle-feedback
+    - oracle-feedback
     psychognomicDescriptors:
-      - p-descriptor-old
-      - p-descriptor-demiurgic
-      - p-descriptor-mysterious
-      - p-descriptor-emanative
+    - p-descriptor-old
+    - p-descriptor-demiurgic
+    - p-descriptor-mysterious
+    - p-descriptor-emanative
   - type: InnatePsionicPowers
     powersToAdd:
-      - XenoglossyPower
-      - TelepathyPower
-      - NoosphericZapPower
+    - XenoglossyPower
+    - TelepathyPower
+    - NoosphericZapPower
   - type: SolutionContainerManager
     solutions:
       fountain:
@@ -60,7 +60,6 @@
     rewardEntities:
     - OracleRewardDisks
     - OracleRewardCrystals
-
 
 - type: weightedRandomEntity
   id: OracleRewardDisks

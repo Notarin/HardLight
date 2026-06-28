@@ -14,11 +14,22 @@ public sealed partial class DungeonJob
     /// <summary>
     /// <see cref="WormCorridorDunGen"/>
     /// </summary>
-    private async Task PostGen(WormCorridorDunGen gen, DungeonData data, Dungeon dungeon, HashSet<Vector2i> reservedTiles, Random random)
+    private async Task PostGen(
+        WormCorridorDunGen gen,
+        DungeonData data,
+        Dungeon dungeon,
+        HashSet<Vector2i> reservedTiles,
+        Random random
+    )
     {
-        if (!data.Tiles.TryGetValue(DungeonDataKey.FallbackTile, out var tileProto) || !_prototype.TryIndex(tileProto, out var tileDef))
+        if (
+            !data.Tiles.TryGetValue(DungeonDataKey.FallbackTile, out var tileProto)
+            || !_prototype.TryIndex(tileProto, out var tileDef)
+        )
         {
-            _sawmill.Error($"Tried to run {nameof(WormCorridorDunGen)} without any dungeon data set which is unsupported");
+            _sawmill.Error(
+                $"Tried to run {nameof(WormCorridorDunGen)} without any dungeon data set which is unsupported"
+            );
             return;
         }
 
@@ -63,8 +74,7 @@ public sealed partial class DungeonJob
                 var roundedPos = position.Floored();
 
                 // Check if the tile doesn't overlap something it shouldn't
-                if (dungeon.RoomTiles.Contains(roundedPos) ||
-                    dungeon.RoomExteriorTiles.Contains(roundedPos))
+                if (dungeon.RoomTiles.Contains(roundedPos) || dungeon.RoomExteriorTiles.Contains(roundedPos))
                 {
                     continue;
                 }
@@ -150,8 +160,7 @@ public sealed partial class DungeonJob
                             var neighbor = node + new Vector2i(x, y);
 
                             // Exclude room tiles.
-                            if (dungeon.RoomTiles.Contains(neighbor) ||
-                                dungeon.RoomExteriorTiles.Contains(neighbor))
+                            if (dungeon.RoomTiles.Contains(neighbor) || dungeon.RoomExteriorTiles.Contains(neighbor))
                             {
                                 continue;
                             }

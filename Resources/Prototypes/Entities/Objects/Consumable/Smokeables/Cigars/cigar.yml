@@ -12,11 +12,11 @@
     state: unlit-icon
   - type: Tag
     tags:
-      - Cigar
-      - Trash
+    - Cigar
+    - Trash
   - type: Clothing
     sprite: Objects/Consumable/Smokeables/Cigars/cigar.rsi
-    slots: [ mask ]
+    slots: [mask]
     equippedPrefix: unlit
   - type: Item
     size: Tiny
@@ -38,9 +38,9 @@
         maxVol: 20
   - type: Tag
     tags:
-      - Cigar
-      - Trash
-      - Burnt
+    - Cigar
+    - Trash
+    - Burnt
 
 - type: entity
   id: CigarGold
@@ -53,7 +53,7 @@
     state: unlit-icon
   - type: Clothing
     sprite: Objects/Consumable/Smokeables/Cigars/cigar-gold.rsi
-    slots: [ mask ]
+    slots: [mask]
     equippedPrefix: unlit
   - type: Item
     size: Tiny

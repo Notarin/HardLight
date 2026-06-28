@@ -4,11 +4,11 @@
   description: job-description-nf-pirate
   playTimeTracker: JobPirate
   requirements:
-    - !type:OverallPlaytimeRequirement
-      time: 86400 # 24 hours
-    - !type:DepartmentTimeRequirement
-      department: Security
-      time: 10800 # 3 hrs
+  - !type:OverallPlaytimeRequirement
+    time: 86400 # 24 hours
+  - !type:DepartmentTimeRequirement
+    department: Security
+    time: 10800 # 3 hrs
   startingGear: NFPirateGear
   alwaysUseSpawner: true
   hideConsoleVisibility: true
@@ -29,9 +29,9 @@
     - type: SpecialSectorStationRecord # must be given on spawn
       recordGeneration: FalseRecord
   - !type:AddImplantSpecial
-    implants: [ FreelanceTrackingImplant ]
-  - !type:GiveItemOnHolidaySpecial # Even pirates get a piece of cake.
-    holiday: FrontierBirthday
+    implants: [FreelanceTrackingImplant]
+  - !type:GiveItemOnHolidaySpecial
+    holiday: FrontierBirthday # Even pirates get a piece of cake.
     prototype: FrontierBirthdayGift
 
 - type: startingGear

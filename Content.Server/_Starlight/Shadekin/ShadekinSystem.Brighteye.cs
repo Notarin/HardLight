@@ -1,8 +1,8 @@
+using Content.Shared._Starlight.NullSpace;
 using Content.Shared._Starlight.Shadekin;
+using Content.Shared.Eye;
 using Content.Shared.Humanoid;
 using Content.Shared.Zombies;
-using Content.Shared.Eye;
-using Content.Shared._Starlight.NullSpace;
 
 namespace Content.Server._Starlight.Shadekin;
 

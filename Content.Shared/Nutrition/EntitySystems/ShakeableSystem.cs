@@ -11,10 +11,17 @@ namespace Content.Shared.Nutrition.EntitySystems;
 
 public sealed partial class ShakeableSystem : EntitySystem
 {
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfter = default!;
+
+    [Dependency]
+    private readonly SharedHandsSystem _hands = default!;
 
     public override void Initialize()
     {
@@ -35,7 +42,7 @@ public sealed partial class ShakeableSystem : EntitySystem
         var shakeVerb = new Verb()
         {
             Text = Loc.GetString(component.ShakeVerbText),
-            Act = () => TryStartShake((args.Target, component), args.User)
+            Act = () => TryStartShake((args.Target, component), args.User),
         };
         args.Verbs.Add(shakeVerb);
     }
@@ -61,13 +68,15 @@ public sealed partial class ShakeableSystem : EntitySystem
         if (!CanShake(entity, user))
             return false;
 
-        var doAfterArgs = new DoAfterArgs(EntityManager,
+        var doAfterArgs = new DoAfterArgs(
+            EntityManager,
             user,
             entity.Comp.ShakeDuration,
             new ShakeDoAfterEvent(),
             eventTarget: entity,
             target: user,
-            used: entity)
+            used: entity
+        )
         {
             NeedHand = true,
             BreakOnDamage = true,
@@ -84,8 +93,16 @@ public sealed partial class ShakeableSystem : EntitySystem
         var userName = Identity.Entity(user, EntityManager);
         var shakeableName = Identity.Entity(entity, EntityManager);
 
-        var selfMessage = Loc.GetString(entity.Comp.ShakePopupMessageSelf, ("user", userName), ("shakeable", shakeableName));
-        var othersMessage = Loc.GetString(entity.Comp.ShakePopupMessageOthers, ("user", userName), ("shakeable", shakeableName));
+        var selfMessage = Loc.GetString(
+            entity.Comp.ShakePopupMessageSelf,
+            ("user", userName),
+            ("shakeable", shakeableName)
+        );
+        var othersMessage = Loc.GetString(
+            entity.Comp.ShakePopupMessageOthers,
+            ("user", userName),
+            ("shakeable", shakeableName)
+        );
         _popup.PopupPredicted(selfMessage, othersMessage, user, user);
 
         _audio.PlayPredicted(entity.Comp.ShakeSound, entity, user);
@@ -111,7 +128,6 @@ public sealed partial class ShakeableSystem : EntitySystem
 
         return true;
     }
-
 
     /// <summary>
     /// Is it possible for the given user to shake the entity?
@@ -150,6 +166,4 @@ public record struct AttemptShakeEvent()
 }
 
 [Serializable, NetSerializable]
-public sealed partial class ShakeDoAfterEvent : SimpleDoAfterEvent
-{
-}
+public sealed partial class ShakeDoAfterEvent : SimpleDoAfterEvent { }

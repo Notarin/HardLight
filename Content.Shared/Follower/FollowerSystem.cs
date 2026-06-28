@@ -25,13 +25,26 @@ namespace Content.Shared.Follower;
 
 public sealed class FollowerSystem : EntitySystem
 {
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly TagSystem _tagSystem = default!;
-    [Dependency] private readonly SharedContainerSystem _containerSystem = default!;
-    [Dependency] private readonly SharedJointSystem _jointSystem = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physicsSystem = default!;
-    [Dependency] private readonly INetManager _netMan = default!;
-    [Dependency] private readonly ISharedAdminManager _adminManager = default!;
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly TagSystem _tagSystem = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _containerSystem = default!;
+
+    [Dependency]
+    private readonly SharedJointSystem _jointSystem = default!;
+
+    [Dependency]
+    private readonly SharedPhysicsSystem _physicsSystem = default!;
+
+    [Dependency]
+    private readonly INetManager _netMan = default!;
+
+    [Dependency]
+    private readonly ISharedAdminManager _adminManager = default!;
 
     private static readonly ProtoId<TagPrototype> ForceableFollowTag = "ForceableFollow";
 
@@ -60,8 +73,10 @@ public sealed class FollowerSystem : EntitySystem
         // Clientside VV stay losing
         var playerEnt = args.Player?.AttachedEntity;
 
-        if (playerEnt == null ||
-            !ent.Comp.Following.Contains(playerEnt.Value) && !HasComp<GhostComponent>(playerEnt.Value))
+        if (
+            playerEnt == null
+            || !ent.Comp.Following.Contains(playerEnt.Value) && !HasComp<GhostComponent>(playerEnt.Value)
+        )
         {
             args.Cancelled = true;
         }
@@ -104,7 +119,7 @@ public sealed class FollowerSystem : EntitySystem
                 Act = () => StartFollowingEntity(ev.User, ev.Target),
                 Impact = LogImpact.Low,
                 Text = Loc.GetString("verb-follow-text"),
-                Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/open.svg.192dpi.png"))
+                Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/open.svg.192dpi.png")),
             };
             ev.Verbs.Add(verb);
         }
@@ -120,7 +135,7 @@ public sealed class FollowerSystem : EntitySystem
                 Act = () => StartFollowingEntity(ev.Target, ev.User),
                 Impact = LogImpact.Low,
                 Text = Loc.GetString("verb-follow-me-text"),
-                Icon = new SpriteSpecifier.Texture(new ("/Textures/Interface/VerbIcons/close.svg.192dpi.png")),
+                Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/close.svg.192dpi.png")),
             };
 
             ev.Verbs.Add(verb);
@@ -140,7 +155,7 @@ public sealed class FollowerSystem : EntitySystem
 
     private void OnGotEquippedHand(EntityUid uid, FollowerComponent component, GotEquippedHandEvent args)
     {
-        StopFollowingEntity(uid, component.Following, deparent:false);
+        StopFollowingEntity(uid, component.Following, deparent: false);
     }
 
     private void OnFollowerTerminating(EntityUid uid, FollowerComponent component, ref EntityTerminatingEvent args)
@@ -177,7 +192,13 @@ public sealed class FollowerSystem : EntitySystem
     /// <param name="entity">The entity to be followed</param>
     public void StartFollowingEntity(EntityUid follower, EntityUid entity)
     {
-        if (!follower.IsValid() || !entity.IsValid() || follower == entity || Deleted(follower) || TerminatingOrDeleted(entity))
+        if (
+            !follower.IsValid()
+            || !entity.IsValid()
+            || follower == entity
+            || Deleted(follower)
+            || TerminatingOrDeleted(entity)
+        )
             return;
 
         if (!TryComp(entity, out TransformComponent? targetXform))
@@ -222,7 +243,12 @@ public sealed class FollowerSystem : EntitySystem
         // If we didn't get to parent's container.
         if (xform.ParentUid != Transform(xform.ParentUid).ParentUid)
         {
-            _transform.SetCoordinates(follower, xform, new EntityCoordinates(entity, Vector2.Zero), rotation: Angle.Zero);
+            _transform.SetCoordinates(
+                follower,
+                xform,
+                new EntityCoordinates(entity, Vector2.Zero),
+                rotation: Angle.Zero
+            );
         }
 
         _physicsSystem.SetLinearVelocity(follower, Vector2.Zero);
@@ -242,7 +268,13 @@ public sealed class FollowerSystem : EntitySystem
     ///     Forces an entity to stop following another entity, if it is doing so.
     /// </summary>
     /// <param name="deparent">Should the entity deparent itself</param>
-    public void StopFollowingEntity(EntityUid uid, EntityUid target, FollowedComponent? followed = null, bool deparent = true, bool removeComp = true)
+    public void StopFollowingEntity(
+        EntityUid uid,
+        EntityUid target,
+        FollowedComponent? followed = null,
+        bool deparent = true,
+        bool removeComp = true
+    )
     {
         if (!Resolve(target, ref followed, false))
             return;
@@ -288,15 +320,16 @@ public sealed class FollowerSystem : EntitySystem
             return;
         }
 
-        Log.Warning($"A follower has been detached to null-space and will be deleted. Follower: {ToPrettyString(uid)}. Followed: {ToPrettyString(target)}");
+        Log.Warning(
+            $"A follower has been detached to null-space and will be deleted. Follower: {ToPrettyString(uid)}. Followed: {ToPrettyString(target)}"
+        );
         QueueDel(uid);
     }
 
     /// <summary>
     ///     Forces all of an entity's followers to stop following it.
     /// </summary>
-    public void StopAllFollowers(EntityUid uid,
-        FollowedComponent? followed=null)
+    public void StopAllFollowers(EntityUid uid, FollowedComponent? followed = null)
     {
         if (!Resolve(uid, ref followed))
             return;
@@ -360,9 +393,8 @@ public abstract class FollowEvent : EntityEventArgs
 /// </summary>
 public sealed class StartedFollowingEntityEvent : FollowEvent
 {
-    public StartedFollowingEntityEvent(EntityUid following, EntityUid follower) : base(following, follower)
-    {
-    }
+    public StartedFollowingEntityEvent(EntityUid following, EntityUid follower)
+        : base(following, follower) { }
 }
 
 /// <summary>
@@ -370,9 +402,8 @@ public sealed class StartedFollowingEntityEvent : FollowEvent
 /// </summary>
 public sealed class StoppedFollowingEntityEvent : FollowEvent
 {
-    public StoppedFollowingEntityEvent(EntityUid following, EntityUid follower) : base(following, follower)
-    {
-    }
+    public StoppedFollowingEntityEvent(EntityUid following, EntityUid follower)
+        : base(following, follower) { }
 }
 
 /// <summary>
@@ -380,9 +411,8 @@ public sealed class StoppedFollowingEntityEvent : FollowEvent
 /// </summary>
 public sealed class EntityStartedFollowingEvent : FollowEvent
 {
-    public EntityStartedFollowingEvent(EntityUid following, EntityUid follower) : base(following, follower)
-    {
-    }
+    public EntityStartedFollowingEvent(EntityUid following, EntityUid follower)
+        : base(following, follower) { }
 }
 
 /// <summary>
@@ -390,7 +420,6 @@ public sealed class EntityStartedFollowingEvent : FollowEvent
 /// </summary>
 public sealed class EntityStoppedFollowingEvent : FollowEvent
 {
-    public EntityStoppedFollowingEvent(EntityUid following, EntityUid follower) : base(following, follower)
-    {
-    }
+    public EntityStoppedFollowingEvent(EntityUid following, EntityUid follower)
+        : base(following, follower) { }
 }

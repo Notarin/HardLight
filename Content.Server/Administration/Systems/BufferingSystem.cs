@@ -8,7 +8,8 @@ namespace Content.Server.Administration.Systems;
 
 public sealed class BufferingSystem : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
 
     public override void Update(float frameTime)
     {
@@ -23,7 +24,10 @@ public sealed class BufferingSystem : EntitySystem
 
                 Del(buffering.BufferingIcon.Value);
                 RemComp<AdminFrozenComponent>(uid);
-                buffering.TimeTilNextBuffer = _random.NextFloat(buffering.MinimumTimeTilNextBuffer, buffering.MaximumTimeTilNextBuffer);
+                buffering.TimeTilNextBuffer = _random.NextFloat(
+                    buffering.MinimumTimeTilNextBuffer,
+                    buffering.MaximumTimeTilNextBuffer
+                );
                 buffering.BufferingIcon = null;
             }
             else

@@ -12,7 +12,7 @@
   - type: Tool
     speedModifier: 1.5
     qualities:
-      - Prying
+    - Prying
   - type: Prying
     pryPowered: true
     force: true
@@ -44,7 +44,7 @@
     altDisarm: false
     angle: 0
     soundHit:
-     collection: AlienClaw
+      collection: AlienClaw
     animation: WeaponArcBite
     damage:
       types:
@@ -90,7 +90,7 @@
     drawdepth: Mobs
     sprite: _HL/Lizard/lizard.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: lizardheadclosed
       scale: 0.6, 0.6
       color: "#3363ac"
@@ -98,8 +98,7 @@
   - type: Fixtures
     fixtures: # TODO: This needs a second fixture just for mob collisions.
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.35
         density: 10000 #Density is not final, adjust accordingly if the number of tail segments is reduced or increased
         restitution: 0.0
@@ -131,7 +130,7 @@
     drawdepth: Mobs
     sprite: _HL/Lizard/lizard.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: lizardheadopen
       scale: 0.6, 0.6
       color: "#3363ac"
@@ -149,7 +148,7 @@
     drawdepth: Mobs
     sprite: _HL/Lizard/lizard.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: lizardheadclosed
       scale: 0.8, 0.8
       color: "#14fc00"
@@ -168,7 +167,7 @@
     altDisarm: false
     angle: 0
     soundHit:
-     collection: AlienClaw
+      collection: AlienClaw
     animation: WeaponArcBite
     damage:
       types:
@@ -204,7 +203,7 @@
     drawdepth: Mobs
     sprite: _HL/Lizard/lizard.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: lizardheadopen
       scale: 0.8, 0.8
       color: "#14fc00"
@@ -222,7 +221,7 @@
     drawdepth: Mobs
     sprite: _HL/Lizard/lizard.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: lizardheadclosed
       scale: 0.8, 0.8
       color: "#fc14a8"
@@ -241,7 +240,7 @@
     altDisarm: false
     angle: 0
     soundHit:
-     collection: AlienClaw
+      collection: AlienClaw
     animation: WeaponArcBite
     damage:
       types:
@@ -277,7 +276,7 @@
     drawdepth: Mobs
     sprite: _HL/Lizard/lizard.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: lizardheadopen
       scale: 0.8, 0.8
       color: "#fc14a8"
@@ -295,7 +294,7 @@
     drawdepth: Mobs
     sprite: _HL/Lizard/lizard.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: lizardheadclosed
       scale: 0.9, 0.9
       color: "#fcfcfc"
@@ -314,7 +313,7 @@
     altDisarm: false
     angle: 0
     soundHit:
-     collection: AlienClaw
+      collection: AlienClaw
     animation: WeaponArcBite
     damage:
       types:
@@ -356,7 +355,7 @@
     drawdepth: Mobs
     sprite: _HL/Lizard/lizard.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: lizardheadopen
       scale: 0.9, 0.9
       color: "#fcfcfc"
@@ -374,7 +373,7 @@
     drawdepth: Mobs
     sprite: _HL/Lizard/lizard.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: lizardheadclosed
       scale: 0.8, 0.8
       color: "#16a59c"
@@ -395,7 +394,7 @@
     altDisarm: false
     angle: 0
     soundHit:
-     collection: AlienClaw
+      collection: AlienClaw
     animation: WeaponArcBite
     damage:
       types:
@@ -431,7 +430,7 @@
     drawdepth: Mobs
     sprite: _HL/Lizard/lizard.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: lizardheadopen
       scale: 0.9, 0.9
       color: "#16a59c"
@@ -449,7 +448,7 @@
     drawdepth: Mobs
     sprite: _HL/Lizard/lizard.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: lizardheadclosed
       scale: 1.2, 1.2
       color: "#d30f0f"
@@ -468,7 +467,7 @@
     altDisarm: false
     angle: 0
     soundHit:
-     collection: AlienClaw
+      collection: AlienClaw
     animation: WeaponArcBite
     damage:
       types:
@@ -504,7 +503,7 @@
     drawdepth: Mobs
     sprite: _HL/Lizard/lizard.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: lizardheadopen
       scale: 1.2, 1.2
       color: "#d30f0f"
@@ -522,7 +521,7 @@
     drawdepth: Mobs
     sprite: _HL/Lizard/lizard.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: lizardheadclosed
       scale: 1.5, 1.5
       color: "#5432a8"
@@ -541,7 +540,7 @@
     altDisarm: false
     angle: 0
     soundHit:
-     collection: AlienClaw
+      collection: AlienClaw
     animation: WeaponArcBite
     damage:
       types:
@@ -577,71 +576,71 @@
     drawdepth: Mobs
     sprite: _HL/Lizard/lizard.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: lizardheadopen
       scale: 1.5, 1.5
       color: "#5432a8"
       shader: unshaded
 
-# - type: entity
-  # id: RedRainLizardBody
-  # parent: HL_LizardBody
-  # name: Red Rain Lizard Body
-  # categories: [ HideSpawnMenu ]
-  # components:
-  # - type: Sprite
+    # - type: entity
+    # id: RedRainLizardBody
+    # parent: HL_LizardBody
+    # name: Red Rain Lizard Body
+    # categories: [ HideSpawnMenu ]
+    # components:
+    # - type: Sprite
     # sprite: _HL/Lizard/lizard.rsi
     # scale: 1.2, 1.2
     # layers:
     # - map: [ "enum.DamageStateVisualLayers.Base" ]
-      # state: segment
+    # state: segment
     # - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
-      # state: fronttassle
-      # color: "#d30f0f"
-      # shader: unshaded
-  # - type: TrailFollower
-    # delay: 2
-    # smoothFactor: 0.30
-    # rotationOffsetDeg: -90
+    # state: fronttassle
+    # color: "#d30f0f"
+    # shader: unshaded
+# - type: TrailFollower
+# delay: 2
+# smoothFactor: 0.30
+# rotationOffsetDeg: -90
 
 # - type: entity
-  # id: RedRainLizardBody2
-  # parent: HL_LizardBody2
-  # name: Red Rain Lizard Ass
-  # categories: [ HideSpawnMenu ]
-  # components:
-  # - type: Sprite
-    # sprite: _HL/Lizard/lizard.rsi
-    # scale: 1.2, 1.2
-    # layers:
-    # - map: [ "enum.DamageStateVisualLayers.Base" ]
-      # state: segment
-    # - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
-      # state: backtassle
-      # color: "#d30f0f"
-      # shader: unshaded
-  # - type: TrailFollower
-    # delay: 8
-    # smoothFactor: 0.70
-    # rotationOffsetDeg: -90
+# id: RedRainLizardBody2
+# parent: HL_LizardBody2
+# name: Red Rain Lizard Ass
+# categories: [ HideSpawnMenu ]
+# components:
+# - type: Sprite
+# sprite: _HL/Lizard/lizard.rsi
+# scale: 1.2, 1.2
+# layers:
+# - map: [ "enum.DamageStateVisualLayers.Base" ]
+# state: segment
+# - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+# state: backtassle
+# color: "#d30f0f"
+# shader: unshaded
+# - type: TrailFollower
+# delay: 8
+# smoothFactor: 0.70
+# rotationOffsetDeg: -90
 
 # - type: entity
-  # id: RedRainLizardTail
-  # parent: HL_LizardTailTip
-  # name: Red Rain Lizard Tail
-  # categories: [ HideSpawnMenu ]
-  # components:
-  # - type: Sprite
-    # sprite: _HL/Lizard/lizard.rsi
-    # scale: 1.2, 1.2
-    # layers:
-    # - map: [ "enum.DamageStateVisualLayers.Base" ]
-      # state: tip
-    # - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
-      # state: tailtassle
-      # color: "#d30f0f"
-      # shader: unshaded
-  # - type: TrailFollower
-    # delay: 8
-    # smoothFactor: 0.70
-    # rotationOffsetDeg: -90
+# id: RedRainLizardTail
+# parent: HL_LizardTailTip
+# name: Red Rain Lizard Tail
+# categories: [ HideSpawnMenu ]
+# components:
+# - type: Sprite
+# sprite: _HL/Lizard/lizard.rsi
+# scale: 1.2, 1.2
+# layers:
+# - map: [ "enum.DamageStateVisualLayers.Base" ]
+# state: tip
+# - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+# state: tailtassle
+# color: "#d30f0f"
+# shader: unshaded
+# - type: TrailFollower
+# delay: 8
+# smoothFactor: 0.70
+# rotationOffsetDeg: -90

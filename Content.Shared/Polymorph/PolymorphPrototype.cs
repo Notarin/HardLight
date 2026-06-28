@@ -24,7 +24,6 @@ public sealed partial class PolymorphPrototype : IPrototype, IInheritingPrototyp
 
     [DataField(required: true, serverOnly: true)]
     public PolymorphConfiguration Configuration = new();
-
 }
 
 /// <summary>
@@ -142,12 +141,8 @@ public sealed partial record PolymorphConfiguration
     /// The exact names of components to copy over when this polymorph is applied.
     /// </summary>
     [DataField(serverOnly: true)]
-    public HashSet<string> CopiedComponents = new()
-    {
-        "LanguageKnowledge",
-        "LanguageSpeaker",
-        "Grammar"
-    };
+    public HashSet<string> CopiedComponents = new() { "LanguageKnowledge", "LanguageSpeaker", "Grammar" };
+
     // Starlight end
 
     /// <summary>

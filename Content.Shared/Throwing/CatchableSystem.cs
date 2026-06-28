@@ -15,13 +15,26 @@ namespace Content.Shared.Throwing;
 
 public sealed partial class CatchableSystem : EntitySystem
 {
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly ThrownItemSystem _thrown = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!;
+    [Dependency]
+    private readonly INetManager _net = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedHandsSystem _hands = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly ThrownItemSystem _thrown = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelist = default!;
 
     private EntityQuery<HandsComponent> _handsQuery;
     private EntityQuery<CombatModeComponent> _combatModeQuery;
@@ -42,7 +55,10 @@ public sealed partial class CatchableSystem : EntitySystem
             return; // don't do anything for walls etc
 
         // Is the catcher in combat mode if required?
-        if (ent.Comp.RequireCombatMode && (!_combatModeQuery.TryComp(args.Target, out var combatModeComp) || !combatModeComp.IsInCombatMode))
+        if (
+            ent.Comp.RequireCombatMode
+            && (!_combatModeQuery.TryComp(args.Target, out var combatModeComp) || !combatModeComp.IsInCombatMode)
+        )
             return;
 
         // Is the catcher able to catch this item?
@@ -76,8 +92,16 @@ public sealed partial class CatchableSystem : EntitySystem
         if (_net.IsClient)
             return;
 
-        var selfMessage = Loc.GetString("catchable-component-success-self", ("item", ent.Owner), ("catcher", Identity.Entity(args.Target, EntityManager)));
-        var othersMessage = Loc.GetString("catchable-component-success-others", ("item", ent.Owner), ("catcher", Identity.Entity(args.Target, EntityManager)));
+        var selfMessage = Loc.GetString(
+            "catchable-component-success-self",
+            ("item", ent.Owner),
+            ("catcher", Identity.Entity(args.Target, EntityManager))
+        );
+        var othersMessage = Loc.GetString(
+            "catchable-component-success-others",
+            ("item", ent.Owner),
+            ("catcher", Identity.Entity(args.Target, EntityManager))
+        );
         _popup.PopupEntity(selfMessage, args.Target, args.Target);
         _popup.PopupEntity(othersMessage, args.Target, Filter.PvsExcept(args.Target), true);
         _audio.PlayPvs(ent.Comp.CatchSuccessSound, args.Target);

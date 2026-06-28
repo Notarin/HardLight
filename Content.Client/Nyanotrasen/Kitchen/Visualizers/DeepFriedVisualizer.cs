@@ -10,7 +10,8 @@ namespace Content.Client.Kitchen.Visualizers;
 
 public sealed class DeepFriedVisualizerSystem : VisualizerSystem<DeepFriedComponent>
 {
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
 
     private const string FriedShader = "Crispy";
     private const string SpectralShader = "Spectral";
@@ -23,7 +24,11 @@ public sealed class DeepFriedVisualizerSystem : VisualizerSystem<DeepFriedCompon
         SubscribeLocalEvent<DeepFriedComponent, EquipmentVisualsUpdatedEvent>(OnEquipmentVisualsUpdated);
     }
 
-    protected override void OnAppearanceChange(EntityUid uid, DeepFriedComponent component, ref AppearanceChangeEvent args)
+    protected override void OnAppearanceChange(
+        EntityUid uid,
+        DeepFriedComponent component,
+        ref AppearanceChangeEvent args
+    )
     {
         if (args.Sprite == null)
             return;
@@ -63,7 +68,11 @@ public sealed class DeepFriedVisualizerSystem : VisualizerSystem<DeepFriedCompon
         }
     }
 
-    private void OnEquipmentVisualsUpdated(EntityUid uid, DeepFriedComponent component, EquipmentVisualsUpdatedEvent args)
+    private void OnEquipmentVisualsUpdated(
+        EntityUid uid,
+        DeepFriedComponent component,
+        EquipmentVisualsUpdatedEvent args
+    )
     {
         if (args.RevealedLayers.Count == 0)
         {
@@ -101,4 +110,3 @@ public sealed class DeepFriedVisualizerSystem : VisualizerSystem<DeepFriedCompon
         return shader;
     }
 }
-

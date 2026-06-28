@@ -55,10 +55,7 @@ namespace Content.Server.Power.Components
         public bool Recalculate;
 
         [ViewVariables]
-        public PowerState.Load NetworkLoad { get; } = new PowerState.Load
-        {
-            DesiredPower = 5
-        };
+        public PowerState.Load NetworkLoad { get; } = new PowerState.Load { DesiredPower = 5 };
 
         public float PowerReceived => NetworkLoad.ReceivingPower;
     }

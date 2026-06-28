@@ -5,6 +5,4 @@ namespace Content.Shared._Mono.Weapons;
 /// If client-side behavior is desired later, implement it in a client system.
 /// </summary>
 [RegisterComponent]
-public sealed partial class WieldedCrosshairComponent : Component
-{
-}
+public sealed partial class WieldedCrosshairComponent : Component { }

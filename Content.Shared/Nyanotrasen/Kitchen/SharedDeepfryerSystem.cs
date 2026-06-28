@@ -1,5 +1,3 @@
 ﻿namespace Content.Shared.Nyanotrasen.Kitchen;
 
-public abstract class SharedDeepfryerSystem : EntitySystem
-{
-}
+public abstract class SharedDeepfryerSystem : EntitySystem { }

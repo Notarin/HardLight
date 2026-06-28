@@ -12,8 +12,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.45,-0.45,0.45,0.45"
         density: 190
         mask:
@@ -38,9 +37,9 @@
   - type: Sprite
     layers:
     - state: completed
-      map: [ "enum.ParticleAcceleratorVisualLayers.Base" ]
+      map: ["enum.ParticleAcceleratorVisualLayers.Base"]
     - state: unlitp
-      map: [ "enum.ParticleAcceleratorVisualLayers.Unlit" ]
+      map: ["enum.ParticleAcceleratorVisualLayers.Unlit"]
       shader: unshaded
       visible: false
   - type: ParticleAcceleratorPartVisuals
@@ -56,13 +55,13 @@
   - type: Sprite
     layers:
     - state: unwired
-      map: [ "enum.ConstructionVisuals.Layer" ]
+      map: ["enum.ConstructionVisuals.Layer"]
   - type: GenericVisualizer
     visuals:
       enum.ConstructionVisuals.Key:
         enum.ConstructionVisuals.Layer:
-          start: { state: unwired}
-          wired: { state: wired}
+          start: {state: unwired}
+          wired: {state: wired}
   - type: Construction
     node: start
     defaultTarget: completed

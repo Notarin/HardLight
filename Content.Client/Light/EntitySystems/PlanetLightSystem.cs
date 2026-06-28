@@ -6,8 +6,11 @@ namespace Content.Client.Light.EntitySystems;
 
 public sealed class PlanetLightSystem : EntitySystem
 {
-    [Dependency] private readonly IConfigurationManager _cfgManager = default!;
-    [Dependency] private readonly IOverlayManager _overlayMan = default!;
+    [Dependency]
+    private readonly IConfigurationManager _cfgManager = default!;
+
+    [Dependency]
+    private readonly IOverlayManager _overlayMan = default!;
 
     /// <summary>
     /// Enables / disables the ambient occlusion overlay.
@@ -41,10 +44,14 @@ public sealed class PlanetLightSystem : EntitySystem
 
         SubscribeLocalEvent<GetClearColorEvent>(OnClearColor);
 
-        _cfgManager.OnValueChanged(CCVars.AmbientOcclusion, val =>
-        {
-            AmbientOcclusion = val;
-        }, true);
+        _cfgManager.OnValueChanged(
+            CCVars.AmbientOcclusion,
+            val =>
+            {
+                AmbientOcclusion = val;
+            },
+            true
+        );
 
         _overlayMan.AddOverlay(new BeforeLightTargetOverlay());
         _overlayMan.AddOverlay(new RoofOverlay(EntityManager));

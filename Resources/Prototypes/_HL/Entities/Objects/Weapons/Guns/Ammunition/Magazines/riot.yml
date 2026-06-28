@@ -5,13 +5,13 @@
   components:
   - type: Tag
     tags:
-      - MagazineRiotGun
+    - MagazineRiotGun
   - type: BallisticAmmoProvider
     proto: GrenadeRiotGunBase
     mayTransfer: true
     whitelist:
       tags:
-        - GrenadeRiotGun
+      - GrenadeRiotGun
     capacity: 6
   - type: Item
     size: Small

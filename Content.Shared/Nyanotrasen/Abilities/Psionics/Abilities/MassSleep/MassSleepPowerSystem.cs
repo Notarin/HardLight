@@ -1,19 +1,24 @@
 using Content.Shared.Actions;
+using Content.Shared.Actions.Events;
 using Content.Shared.Bed.Sleep;
-using Content.Shared.Magic.Events;
+using Content.Shared.Bed.Sleep;
 using Content.Shared.Damage;
+using Content.Shared.Magic.Events;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Nyanotrasen.Abilities.Psionics;
-using Content.Shared.Bed.Sleep;
-using Content.Shared.Actions.Events;
 
 namespace Content.Shared.Abilities.Psionics
 {
     public sealed class MassSleepPowerSystem : EntitySystem
     {
-        [Dependency] private readonly EntityLookupSystem _lookup = default!;
-        [Dependency] private readonly SharedPsionicAbilitiesSystem _psionics = default!;
-        [Dependency] private readonly SleepingSystem _sleeping = default!;
+        [Dependency]
+        private readonly EntityLookupSystem _lookup = default!;
+
+        [Dependency]
+        private readonly SharedPsionicAbilitiesSystem _psionics = default!;
+
+        [Dependency]
+        private readonly SleepingSystem _sleeping = default!;
 
         public override void Initialize()
         {
@@ -30,7 +35,10 @@ namespace Content.Shared.Abilities.Psionics
             {
                 if (HasComp<MobStateComponent>(entity) && entity != uid && !HasComp<PsionicInsulationComponent>(entity))
                 {
-                    if (TryComp<DamageableComponent>(entity, out var damageable) && damageable.DamageContainerID == "Biological")
+                    if (
+                        TryComp<DamageableComponent>(entity, out var damageable)
+                        && damageable.DamageContainerID == "Biological"
+                    )
                         _sleeping.TrySleeping(entity);
                 }
             }

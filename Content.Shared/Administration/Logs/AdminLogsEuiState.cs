@@ -69,7 +69,8 @@ public static class AdminLogsEuiMsg
             Guid[]? anyPlayers,
             Guid[]? allPlayers,
             bool includeNonPlayers,
-            DateOrder dateOrder)
+            DateOrder dateOrder
+        )
         {
             RoundId = roundId;
             Search = search;
@@ -98,7 +99,5 @@ public static class AdminLogsEuiMsg
     }
 
     [Serializable, NetSerializable]
-    public sealed class NextLogsRequest : EuiMessageBase
-    {
-    }
+    public sealed class NextLogsRequest : EuiMessageBase { }
 }

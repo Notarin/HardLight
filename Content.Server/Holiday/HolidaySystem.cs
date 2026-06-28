@@ -11,10 +11,17 @@ namespace Content.Server.Holiday
 {
     public sealed class HolidaySystem : EntitySystem
     {
-        [Dependency] private readonly IConfigurationManager _configManager = default!;
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        [Dependency] private readonly IChatManager _chatManager = default!;
-        [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+        [Dependency]
+        private readonly IConfigurationManager _configManager = default!;
+
+        [Dependency]
+        private readonly IPrototypeManager _prototypeManager = default!;
+
+        [Dependency]
+        private readonly IChatManager _chatManager = default!;
+
+        [Dependency]
+        private readonly SharedAppearanceSystem _appearance = default!;
 
         [ViewVariables]
         private readonly List<HolidayPrototype> _currentHolidays = new();
@@ -91,7 +98,8 @@ namespace Content.Server.Holiday
 
         private void OnRunLevelChanged(GameRunLevelChangedEvent eventArgs)
         {
-            if (!_enabled) return;
+            if (!_enabled)
+                return;
 
             switch (eventArgs.New)
             {

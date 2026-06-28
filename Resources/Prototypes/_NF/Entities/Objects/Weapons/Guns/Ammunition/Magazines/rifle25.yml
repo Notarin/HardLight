@@ -5,7 +5,7 @@
   components:
   - type: Tag
     tags:
-      - HLMagazinePistolCaselessRifle
+    - HLMagazinePistolCaselessRifle
   - type: BallisticAmmoProvider
     proto: NFCartridgeRifle25
     capacity: 10
@@ -29,7 +29,7 @@
   components:
   - type: Tag
     tags:
-      - HLMagazineCaselessRifle
+    - HLMagazineCaselessRifle
   - type: BallisticAmmoProvider
     proto: NFCartridgeRifle25
   - type: Sprite
@@ -47,7 +47,7 @@
   components:
   - type: Tag
     tags:
-      - HLMagazineCaselessRifle
+    - HLMagazineCaselessRifle
   - type: BallisticAmmoProvider
     proto: NFCartridgeRifle25
     capacity: 20

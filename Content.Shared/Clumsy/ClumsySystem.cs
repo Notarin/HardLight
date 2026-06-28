@@ -21,13 +21,26 @@ namespace Content.Shared.Clumsy;
 
 public sealed class ClumsySystem : EntitySystem
 {
-    [Dependency] private readonly SharedStunSystem _stun = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly INetManager _net = default!;
+    [Dependency]
+    private readonly SharedStunSystem _stun = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly DamageableSystem _damageable = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
+
+    [Dependency]
+    private readonly INetManager _net = default!;
 
     public override void Initialize()
     {
@@ -75,7 +88,6 @@ public sealed class ClumsySystem : EntitySystem
 
         args.DefibTarget = args.EntityUsingDefib;
         _audio.PlayPvs(ent.Comp.ClumsySound, ent);
-
     }
 
     private void OnCatchAttempt(Entity<ClumsyComponent> ent, ref CatchAttemptEvent args)
@@ -102,8 +114,16 @@ public sealed class ClumsySystem : EntitySystem
         if (_net.IsClient)
             return;
 
-        var selfMessage = Loc.GetString(ent.Comp.CatchingFailedMessageSelf, ("item", ent.Owner), ("catcher", Identity.Entity(ent.Owner, EntityManager)));
-        var othersMessage = Loc.GetString(ent.Comp.CatchingFailedMessageOthers, ("item", ent.Owner), ("catcher", Identity.Entity(ent.Owner, EntityManager)));
+        var selfMessage = Loc.GetString(
+            ent.Comp.CatchingFailedMessageSelf,
+            ("item", ent.Owner),
+            ("catcher", Identity.Entity(ent.Owner, EntityManager))
+        );
+        var othersMessage = Loc.GetString(
+            ent.Comp.CatchingFailedMessageOthers,
+            ("item", ent.Owner),
+            ("catcher", Identity.Entity(ent.Owner, EntityManager))
+        );
         _popup.PopupEntity(selfMessage, ent.Owner, ent.Owner);
         _popup.PopupEntity(othersMessage, ent.Owner, Filter.PvsExcept(ent.Owner), true);
         _audio.PlayPvs(ent.Comp.ClumsySound, ent);
@@ -165,21 +185,29 @@ public sealed class ClumsySystem : EntitySystem
             // You are slamming yourself onto the table.
             _popup.PopupPredicted(
                 Loc.GetString(ent.Comp.VaulingFailedMessageSelf, ("bonkable", args.BeingClimbedOn)),
-                Loc.GetString(ent.Comp.VaulingFailedMessageOthers, ("victim", gettingPutOnTableName), ("bonkable", args.BeingClimbedOn)),
+                Loc.GetString(
+                    ent.Comp.VaulingFailedMessageOthers,
+                    ("victim", gettingPutOnTableName),
+                    ("bonkable", args.BeingClimbedOn)
+                ),
                 ent,
-                ent);
+                ent
+            );
         }
         else
         {
             // Someone else slamed you onto the table.
             // This is only run in server so you need to use popup entity.
             _popup.PopupPredicted(
-                Loc.GetString(ent.Comp.VaulingFailedMessageForced,
+                Loc.GetString(
+                    ent.Comp.VaulingFailedMessageForced,
                     ("bonker", puttingOnTableName),
                     ("victim", gettingPutOnTableName),
-                    ("bonkable", args.BeingClimbedOn)),
+                    ("bonkable", args.BeingClimbedOn)
+                ),
                 ent,
-                null);
+                null
+            );
         }
 
         args.Cancel();

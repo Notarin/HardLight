@@ -3,7 +3,7 @@
   id: ActionToggleLeaking
   name: Toggle leaking
   description: Start or stop leaking nectar of love.
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: InstantAction
     useDelay: 1

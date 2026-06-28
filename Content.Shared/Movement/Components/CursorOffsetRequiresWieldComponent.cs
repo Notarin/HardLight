@@ -7,7 +7,4 @@ namespace Content.Shared.Movement.Components;
 /// Indicates that this item requires wielding for the cursor offset effect to be active.
 /// </summary>
 [RegisterComponent, NetworkedComponent, Access(typeof(SharedWieldableSystem))]
-public sealed partial class CursorOffsetRequiresWieldComponent : Component
-{
-
-}
+public sealed partial class CursorOffsetRequiresWieldComponent : Component { }

@@ -1,17 +1,16 @@
-﻿- type: entity
+- type: entity
   parent: RMCBaseWeaponSniperRifle
   id: CMM96SSniperRifle
   name: M96S scoped rifle
-  description: "A heavy sniper rifle manufactured by Aegis Armaments. It has a scope system and fires armor penetrating rounds out of a 15-round magazine.
-    'Peace Through Superior Firepower'"
+  description: "A heavy sniper rifle manufactured by Aegis Armaments. It has a scope system and fires armor penetrating rounds out of a 15-round magazine. 'Peace Through Superior Firepower'"
   components:
   - type: Sprite
     sprite: _RMC14/Objects/Weapons/Guns/Snipers/m96s/desert.rsi
     layers:
     - state: bolt-open
-      map: [ "enum.GunVisualLayers.Base" ]
+      map: ["enum.GunVisualLayers.Base"]
     - state: mag-0
-      map: [ "enum.GunVisualLayers.Mag" ]
+      map: ["enum.GunVisualLayers.Mag"]
     - sprite: _RMC14/Objects/Weapons/Guns/Attachments/barrel.rsi
       state: sniperbarrel
       offset: 0.715, 0.025
@@ -40,11 +39,11 @@
     maxOffset: 10
     pvsIncrease: 1
   # - type: RMCSelectiveFire
-    # recoilWielded: 1
-    # scatterWielded: 0
-    # baseFireRate: 0.667
+  # recoilWielded: 1
+  # scatterWielded: 0
+  # baseFireRate: 0.667
   # - type: RMCWeaponAccuracy
-    # accuracyMultiplier: 3
+  # accuracyMultiplier: 3
   - type: WieldDelay
     baseDelay: 2
   - type: ItemSlots
@@ -57,8 +56,8 @@
         whitelist:
           tags:
           - CMMagazineSniperM96S
-  # - type: GunUserWhitelist
-    # whitelist:
+          # - type: GunUserWhitelist
+      # whitelist:
       # components:
       # - SniperWhitelist
   - type: GunDamageModifier
@@ -66,32 +65,32 @@
   - type: GunRequiresWield
   - type: Corrodible
     isCorrodible: false
-  # - type: GunIFF
+    # - type: GunIFF
     # enabled: true
-  # - type: RMCNameItemOnVend
+    # - type: RMCNameItemOnVend
     # item: PrimaryGun
-  # - type: AttachableHolder
+    # - type: AttachableHolder
     # slots:
-      # rmc-aslot-rail:
-        # locked: true
-        # startingAttachable: RMCM96SIntegratedScope
-        # whitelist:
-          # tags:
-          # - RMCM96SIntegratedScope
-      # rmc-aslot-underbarrel:
-        # whitelist:
-          # tags:
-          # - RMCAttachmentBipod
-  # - type: AttachableHolderVisuals
+    # rmc-aslot-rail:
+    # locked: true
+    # startingAttachable: RMCM96SIntegratedScope
+    # whitelist:
+    # tags:
+    # - RMCM96SIntegratedScope
+    # rmc-aslot-underbarrel:
+    # whitelist:
+    # tags:
+    # - RMCAttachmentBipod
+    # - type: AttachableHolderVisuals
     # offsets:
-      # rmc-aslot-underbarrel: 0.21875, -0.343
-  # - type: ItemCamouflage
+    # rmc-aslot-underbarrel: 0.21875, -0.343
+    # - type: ItemCamouflage
     # camouflageVariations:
-      # Jungle:  _RMC14/Objects/Weapons/Guns/Snipers/m96s/jungle.rsi
-      # Desert:  _RMC14/Objects/Weapons/Guns/Snipers/m96s/desert.rsi
-      # Snow:  _RMC14/Objects/Weapons/Guns/Snipers/m96s/snow.rsi
-      # Classic:  _RMC14/Objects/Weapons/Guns/Snipers/m96s/classic.rsi
-      # Urban:  _RMC14/Objects/Weapons/Guns/Snipers/m96s/urban.rsi
+    # Jungle:  _RMC14/Objects/Weapons/Guns/Snipers/m96s/jungle.rsi
+    # Desert:  _RMC14/Objects/Weapons/Guns/Snipers/m96s/desert.rsi
+    # Snow:  _RMC14/Objects/Weapons/Guns/Snipers/m96s/snow.rsi
+    # Classic:  _RMC14/Objects/Weapons/Guns/Snipers/m96s/classic.rsi
+    # Urban:  _RMC14/Objects/Weapons/Guns/Snipers/m96s/urban.rsi
 
 - type: entity
   parent: BaseMagazineRifle
@@ -234,7 +233,7 @@
   parent: RMCBaseBullet
   id: CMBulletSniper10x28mm
   name: bullet (10x28mm)
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _RMC14/Objects/Weapons/Guns/Ammunition/Projectiles/bullet_projectiles.rsi
@@ -245,34 +244,34 @@
     damage:
       types:
         Piercing: 55 # TODO RMC14 70 when aimed shot is in please someone help im dying
-  # - type: RMCProjectileDamageFalloff
-    # thresholds:
-    # - range: 32
+        # - type: RMCProjectileDamageFalloff
+      # thresholds:
+      # - range: 32
       # falloff: 9999
       # ignoreModifiers: true
-  # - type: CMArmorPiercing
-    # amount: 50
-  # - type: RMCProjectileAccuracy
-    # accuracy: 125
-    # thresholds:
-    # - range: 32
-      # falloff: 10
-    # - range: 4
-      # falloff: 10
-      # buildup: true
-
 - type: entity
+  # - type: CMArmorPiercing
+  # amount: 50
+  # - type: RMCProjectileAccuracy
+  # accuracy: 125
+  # thresholds:
+  # - range: 32
+  # falloff: 10
+  # - range: 4
+  # falloff: 10
+  # buildup: true
+
   parent: CMBulletSniper10x28mm
   id: CMBulletSniper10x28mmIncendiary
   name: bullet (10x28mm)
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
       types:
         Piercing: 50 # TODO RMC14 50 when aimed shot is in please someone help im dying
         Heat: 20 # TODO RMC14 10 when aimed shot is in please someone help im dying
-  # - type: CMArmorPiercing
+        # - type: CMArmorPiercing
     # amount: 20
   - type: IgniteOnProjectileHit
 
@@ -281,26 +280,26 @@
   parent: CMBulletSniper10x28mm
   id: CMBulletSniper10x28mmFlak
   name: bullet (10x28mm)
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
       types:
         Piercing: 55
-  # - type: CMArmorPiercing
+        # - type: CMArmorPiercing
     # amount: 0
 
 - type: entity
   parent: CMBulletSniper10x28mm
   id: CMBulletSniper10x99mmAntiMateriel
   name: bullet (10x99mm)
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
       types:
         Piercing: 75
-  # - type: CMArmorPiercing
+        # - type: CMArmorPiercing
     # amount: 50
 
 - type: Tag

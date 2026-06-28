@@ -83,10 +83,13 @@ public sealed partial class PathfindingSystem
             (_, currentNode) = request.Frontier.Take();
 
             // If we're inside the required distance OR we're at the end node.
-            if ((request.Distance > 0f &&
-                currentNode.Coordinates.TryDistance(EntityManager, request.End, out var distance) &&
-                distance <= request.Distance) ||
-                currentNode.Equals(endNode))
+            if (
+                (
+                    request.Distance > 0f
+                    && currentNode.Coordinates.TryDistance(EntityManager, request.End, out var distance)
+                    && distance <= request.Distance
+                ) || currentNode.Equals(endNode)
+            )
             {
                 arrived = true;
                 break;

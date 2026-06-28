@@ -7,8 +7,11 @@ namespace Content.Shared.DeviceLinking.Systems
 {
     public sealed class TwoWayLeverSystem : EntitySystem
     {
-        [Dependency] private readonly SharedDeviceLinkSystem _signalSystem = default!;
-        [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+        [Dependency]
+        private readonly SharedDeviceLinkSystem _signalSystem = default!;
+
+        [Dependency]
+        private readonly SharedAppearanceSystem _appearance = default!;
 
         const string _leftToggleImage = "rotate_ccw.svg.192dpi.png";
         const string _rightToggleImage = "rotate_cw.svg.192dpi.png";
@@ -36,7 +39,7 @@ namespace Content.Shared.DeviceLinking.Systems
                 TwoWayLeverState.Middle => component.NextSignalLeft ? TwoWayLeverState.Left : TwoWayLeverState.Right,
                 TwoWayLeverState.Right => TwoWayLeverState.Middle,
                 TwoWayLeverState.Left => TwoWayLeverState.Middle,
-                _ => throw new ArgumentOutOfRangeException()
+                _ => throw new ArgumentOutOfRangeException(),
             };
 
             StateChanged(uid, component);
@@ -44,7 +47,11 @@ namespace Content.Shared.DeviceLinking.Systems
             args.Handled = true;
         }
 
-        private void OnGetInteractionVerbs(EntityUid uid, TwoWayLeverComponent component, GetVerbsEvent<InteractionVerb> args)
+        private void OnGetInteractionVerbs(
+            EntityUid uid,
+            TwoWayLeverComponent component,
+            GetVerbsEvent<InteractionVerb> args
+        )
         {
             if (!args.CanAccess || !args.CanInteract || (args.Hands == null))
                 return;
@@ -58,14 +65,14 @@ namespace Content.Shared.DeviceLinking.Systems
                     {
                         TwoWayLeverState.Middle => TwoWayLeverState.Left,
                         TwoWayLeverState.Right => TwoWayLeverState.Middle,
-                        _ => throw new ArgumentOutOfRangeException()
+                        _ => throw new ArgumentOutOfRangeException(),
                     };
                     StateChanged(uid, component);
                 },
                 Category = VerbCategory.Lever,
                 Message = disabled ? Loc.GetString("two-way-lever-cant") : null,
                 Disabled = disabled,
-                Icon = new SpriteSpecifier.Texture(new ($"/Textures/Interface/VerbIcons/{_leftToggleImage}")),
+                Icon = new SpriteSpecifier.Texture(new($"/Textures/Interface/VerbIcons/{_leftToggleImage}")),
                 Text = Loc.GetString("two-way-lever-left"),
             };
 
@@ -80,14 +87,14 @@ namespace Content.Shared.DeviceLinking.Systems
                     {
                         TwoWayLeverState.Left => TwoWayLeverState.Middle,
                         TwoWayLeverState.Middle => TwoWayLeverState.Right,
-                        _ => throw new ArgumentOutOfRangeException()
+                        _ => throw new ArgumentOutOfRangeException(),
                     };
                     StateChanged(uid, component);
                 },
                 Category = VerbCategory.Lever,
                 Message = disabled ? Loc.GetString("two-way-lever-cant") : null,
                 Disabled = disabled,
-                Icon = new SpriteSpecifier.Texture(new ($"/Textures/Interface/VerbIcons/{_rightToggleImage}")),
+                Icon = new SpriteSpecifier.Texture(new($"/Textures/Interface/VerbIcons/{_rightToggleImage}")),
                 Text = Loc.GetString("two-way-lever-right"),
             };
 
@@ -107,7 +114,7 @@ namespace Content.Shared.DeviceLinking.Systems
                 TwoWayLeverState.Left => component.LeftPort,
                 TwoWayLeverState.Right => component.RightPort,
                 TwoWayLeverState.Middle => component.MiddlePort,
-                _ => throw new ArgumentOutOfRangeException()
+                _ => throw new ArgumentOutOfRangeException(),
             };
 
             Dirty(uid, component);

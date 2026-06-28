@@ -10,11 +10,13 @@ namespace Content.Server.GameTicking.Commands
     [AdminCommand(AdminFlags.Round)]
     public sealed class GoLobbyCommand : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _e = default!;
+        [Dependency]
+        private readonly IEntityManager _e = default!;
 
         public string Command => "golobby";
         public string Description => "Enables the lobby and restarts the round.";
         public string Help => $"Usage: {Command} / {Command} <preset>";
+
         public void Execute(IConsoleShell shell, string argStr, string[] args)
         {
             GamePresetPrototype? preset = null;
@@ -41,7 +43,9 @@ namespace Content.Server.GameTicking.Commands
                 ticker.SetGamePreset(preset);
             }
 
-            shell.WriteLine($"Enabling the lobby and restarting the round.{(preset == null ? "" : $"\nPreset set to {presetName}")}");
+            shell.WriteLine(
+                $"Enabling the lobby and restarting the round.{(preset == null ? "" : $"\nPreset set to {presetName}")}"
+            );
         }
     }
 }

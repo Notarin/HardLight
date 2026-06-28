@@ -7,12 +7,15 @@ namespace Content.Shared.UserInterface;
 /// </summary>
 public sealed class ActivatableUIRequiresAnchorSystem : EntitySystem
 {
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
 
     public override void Initialize()
     {
         base.Initialize();
-        SubscribeLocalEvent<ActivatableUIRequiresAnchorComponent, ActivatableUIOpenAttemptEvent>(OnActivatableUIOpenAttempt);
+        SubscribeLocalEvent<ActivatableUIRequiresAnchorComponent, ActivatableUIOpenAttemptEvent>(
+            OnActivatableUIOpenAttempt
+        );
         SubscribeLocalEvent<ActivatableUIRequiresAnchorComponent, BoundUserInterfaceCheckRangeEvent>(OnUICheck);
     }
 
@@ -27,7 +30,10 @@ public sealed class ActivatableUIRequiresAnchorSystem : EntitySystem
         }
     }
 
-    private void OnActivatableUIOpenAttempt(Entity<ActivatableUIRequiresAnchorComponent> ent, ref ActivatableUIOpenAttemptEvent args)
+    private void OnActivatableUIOpenAttempt(
+        Entity<ActivatableUIRequiresAnchorComponent> ent,
+        ref ActivatableUIOpenAttemptEvent args
+    )
     {
         if (args.Cancelled)
             return;

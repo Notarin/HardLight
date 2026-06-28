@@ -1,7 +1,7 @@
 using Content.Server.Anomaly.Components;
-using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Anomaly.Components;
 using Content.Shared.Chemistry.Components;
+using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Sprite;
 using Robust.Server.GameObjects;
 using Robust.Shared.Audio.Systems;
@@ -11,7 +11,6 @@ using Robust.Shared.Random;
 namespace Content.Server.Anomaly.Effects;
 
 /// <see cref="ReagentProducerAnomalyComponent"/>
-
 public sealed class ReagentProducerAnomalySystem : EntitySystem
 {
     //The idea is to divide substances into several categories.
@@ -28,11 +27,20 @@ public sealed class ReagentProducerAnomalySystem : EntitySystem
     //Useful:
     //Those reagents that the players are hunting for. Very low percentage of loss.
 
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainer = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly PointLightSystem _light = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency]
+    private readonly SharedSolutionContainerSystem _solutionContainer = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly PointLightSystem _light = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
 
     public const string FallbackReagent = "Water";
 
@@ -68,12 +76,21 @@ public sealed class ReagentProducerAnomalySystem : EntitySystem
             if (component.AccumulatedFrametime < component.UpdateInterval)
                 continue;
 
-            if (!_solutionContainer.ResolveSolution(uid, component.SolutionName, ref component.Solution, out var producerSolution))
+            if (
+                !_solutionContainer.ResolveSolution(
+                    uid,
+                    component.SolutionName,
+                    ref component.Solution,
+                    out var producerSolution
+                )
+            )
                 continue;
 
             Solution newSol = new();
-            var reagentProducingAmount = anomaly.Stability * component.MaxReagentProducing * component.AccumulatedFrametime;
-            if (anomaly.Severity >= 0.97) reagentProducingAmount *= component.SupercriticalReagentProducingModifier;
+            var reagentProducingAmount =
+                anomaly.Stability * component.MaxReagentProducing * component.AccumulatedFrametime;
+            if (anomaly.Severity >= 0.97)
+                reagentProducingAmount *= component.SupercriticalReagentProducingModifier;
 
             newSol.AddReagent(component.ProducingReagent, reagentProducingAmount);
             _solutionContainer.TryAddSolution(component.Solution.Value, newSol); // TODO - the container is not fully filled.
@@ -120,9 +137,17 @@ public sealed class ReagentProducerAnomalySystem : EntitySystem
     private string GetRandomReagentType(Entity<ReagentProducerAnomalyComponent> entity, float severity)
     {
         //Category Weight Randomization
-        var currentWeightDangerous = MathHelper.Lerp(entity.Comp.WeightSpreadDangerous.X, entity.Comp.WeightSpreadDangerous.Y, severity);
+        var currentWeightDangerous = MathHelper.Lerp(
+            entity.Comp.WeightSpreadDangerous.X,
+            entity.Comp.WeightSpreadDangerous.Y,
+            severity
+        );
         var currentWeightFun = MathHelper.Lerp(entity.Comp.WeightSpreadFun.X, entity.Comp.WeightSpreadFun.Y, severity);
-        var currentWeightUseful = MathHelper.Lerp(entity.Comp.WeightSpreadUseful.X, entity.Comp.WeightSpreadUseful.Y, severity);
+        var currentWeightUseful = MathHelper.Lerp(
+            entity.Comp.WeightSpreadUseful.X,
+            entity.Comp.WeightSpreadUseful.Y,
+            severity
+        );
 
         var sumWeight = currentWeightDangerous + currentWeightFun + currentWeightUseful;
         var rnd = _random.NextFloat(0f, sumWeight);
@@ -132,14 +157,16 @@ public sealed class ReagentProducerAnomalySystem : EntitySystem
             var reagent = _random.Pick(entity.Comp.DangerousChemicals);
             return reagent;
         }
-        else rnd -= currentWeightDangerous;
+        else
+            rnd -= currentWeightDangerous;
         //Fun
         if (rnd <= currentWeightFun && entity.Comp.FunChemicals.Count > 0)
         {
             var reagent = _random.Pick(entity.Comp.FunChemicals);
             return reagent;
         }
-        else rnd -= currentWeightFun;
+        else
+            rnd -= currentWeightFun;
         //Useful
         if (rnd <= currentWeightUseful && entity.Comp.UsefulChemicals.Count > 0)
         {

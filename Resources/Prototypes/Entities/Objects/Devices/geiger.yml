@@ -7,11 +7,11 @@
   - type: Sprite
     sprite: Objects/Tools/geiger.rsi
     layers:
-      - state: geiger_base
-      - state: geiger_on_idle
-        map: ["enum.GeigerLayers.Screen"]
-        shader: unshaded
-        visible: false
+    - state: geiger_base
+    - state: geiger_on_idle
+      map: ["enum.GeigerLayers.Screen"]
+      shader: unshaded
+      visible: false
   - type: Item
     sprite: Objects/Tools/geiger.rsi
   - type: Geiger
@@ -23,8 +23,8 @@
     visuals:
       enum.GeigerVisuals.IsEnabled:
         GeigerLayers.Screen:
-          True: { visible: True }
-          False: { visible: False }
+          True: {visible: True}
+          False: {visible: False}
       enum.GeigerVisuals.DangerLevel:
         GeigerLayers.Screen:
           None: {state: geiger_on_idle}

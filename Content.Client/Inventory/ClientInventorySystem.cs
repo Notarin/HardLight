@@ -1,11 +1,11 @@
 using Content.Client.Clothing;
 using Content.Client.Examine;
 using Content.Client.Verbs.UI;
+using Content.Shared._Shitmed.Targeting.Events; // Shitmed
 using Content.Shared.Interaction;
 using Content.Shared.Inventory;
 using Content.Shared.Inventory.Events;
 using Content.Shared.Storage;
-using Content.Shared._Shitmed.Targeting.Events; // Shitmed
 using JetBrains.Annotations;
 using Robust.Client.Player;
 using Robust.Client.UserInterface;
@@ -18,11 +18,17 @@ namespace Content.Client.Inventory
     [UsedImplicitly]
     public sealed class ClientInventorySystem : InventorySystem
     {
-        [Dependency] private readonly IPlayerManager _playerManager = default!;
-        [Dependency] private readonly IUserInterfaceManager _ui = default!;
+        [Dependency]
+        private readonly IPlayerManager _playerManager = default!;
 
-        [Dependency] private readonly ClientClothingSystem _clothingVisualsSystem = default!;
-        [Dependency] private readonly ExamineSystem _examine = default!;
+        [Dependency]
+        private readonly IUserInterfaceManager _ui = default!;
+
+        [Dependency]
+        private readonly ClientClothingSystem _clothingVisualsSystem = default!;
+
+        [Dependency]
+        private readonly ExamineSystem _examine = default!;
 
         public Action<SlotData>? EntitySlotUpdate = null;
         public Action<SlotData>? OnSlotAdded = null;
@@ -43,10 +49,12 @@ namespace Content.Client.Inventory
 
             SubscribeLocalEvent<InventoryComponent, ComponentShutdown>(OnShutdown);
 
-            SubscribeLocalEvent<InventorySlotsComponent, DidEquipEvent>((_, comp, args) =>
-                _equipEventsQueue.Enqueue((comp, args)));
-            SubscribeLocalEvent<InventorySlotsComponent, DidUnequipEvent>((_, comp, args) =>
-                _equipEventsQueue.Enqueue((comp, args)));
+            SubscribeLocalEvent<InventorySlotsComponent, DidEquipEvent>(
+                (_, comp, args) => _equipEventsQueue.Enqueue((comp, args))
+            );
+            SubscribeLocalEvent<InventorySlotsComponent, DidUnequipEvent>(
+                (_, comp, args) => _equipEventsQueue.Enqueue((comp, args))
+            );
         }
 
         public override void Update(float frameTime)
@@ -85,8 +93,12 @@ namespace Content.Client.Inventory
             UpdateSlot(args.Equipee, component, args.Slot);
             if (args.Equipee != _playerManager.LocalEntity)
                 return;
-            var update = new SlotSpriteUpdate(args.Equipment, args.SlotGroup, args.Slot,
-                HasComp<StorageComponent>(args.Equipment));
+            var update = new SlotSpriteUpdate(
+                args.Equipment,
+                args.SlotGroup,
+                args.Slot,
+                HasComp<StorageComponent>(args.Equipment)
+            );
             OnSpriteUpdate?.Invoke(update);
         }
 
@@ -163,8 +175,13 @@ namespace Content.Client.Inventory
                 EntitySlotUpdate?.Invoke(newData);
         }
 
-        public void UpdateSlot(EntityUid owner, InventorySlotsComponent component, string slotName,
-            bool? blocked = null, bool? highlight = null)
+        public void UpdateSlot(
+            EntityUid owner,
+            InventorySlotsComponent component,
+            string slotName,
+            bool? blocked = null,
+            bool? highlight = null
+        )
         {
             var oldData = component.SlotData[slotName];
             var newHighlight = oldData.Highlighted;
@@ -176,8 +193,11 @@ namespace Content.Client.Inventory
             if (highlight != null)
                 newHighlight = highlight.Value;
 
-            var newData = component.SlotData[slotName] =
-                new SlotData(component.SlotData[slotName], newHighlight, newBlocked);
+            var newData = component.SlotData[slotName] = new SlotData(
+                component.SlotData[slotName],
+                newHighlight,
+                newBlocked
+            );
             if (owner == _playerManager.LocalEntity)
                 EntitySlotUpdate?.Invoke(newData);
         }
@@ -225,7 +245,8 @@ namespace Content.Client.Inventory
                 return;
 
             EntityManager.RaisePredictiveEvent(
-                new InteractInventorySlotEvent(GetNetEntity(item.Value), altInteract: false));
+                new InteractInventorySlotEvent(GetNetEntity(item.Value), altInteract: false)
+            );
         }
 
         public void UIInventoryAltActivateItem(string slot, EntityUid uid)
@@ -233,7 +254,9 @@ namespace Content.Client.Inventory
             if (!TryGetSlotEntity(uid, slot, out var item))
                 return;
 
-            EntityManager.RaisePredictiveEvent(new InteractInventorySlotEvent(GetNetEntity(item.Value), altInteract: true));
+            EntityManager.RaisePredictiveEvent(
+                new InteractInventorySlotEvent(GetNetEntity(item.Value), altInteract: true)
+            );
         }
 
         protected override void UpdateInventoryTemplate(Entity<InventoryComponent> ent)
@@ -268,8 +291,12 @@ namespace Content.Client.Inventory
             public string TextureName => "Slots/" + SlotDef.TextureName;
             public string FullTextureName => SlotDef.FullTextureName;
 
-            public SlotData(SlotDefinition slotDef, ContainerSlot? container = null, bool highlighted = false,
-                bool blocked = false)
+            public SlotData(
+                SlotDefinition slotDef,
+                ContainerSlot? container = null,
+                bool highlighted = false,
+                bool blocked = false
+            )
             {
                 SlotDef = slotDef;
                 Highlighted = highlighted;
@@ -296,11 +323,6 @@ namespace Content.Client.Inventory
             }
         }
 
-        public readonly record struct SlotSpriteUpdate(
-            EntityUid? Entity,
-            string Group,
-            string Name,
-            bool ShowStorage
-        );
+        public readonly record struct SlotSpriteUpdate(EntityUid? Entity, string Group, string Name, bool ShowStorage);
     }
 }

@@ -8,7 +8,7 @@
 
 - type: entity
   id: GuidebookPlumbingDuctStraight
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   name: fluid duct
   suffix: Straight, Guidebook
   components:
@@ -20,7 +20,7 @@
 
 - type: entity
   id: GuidebookPlumbingDuctBend
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   name: fluid duct
   suffix: Bend, Guidebook
   components:
@@ -32,7 +32,7 @@
 
 - type: entity
   id: GuidebookPlumbingDuctTJunction
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   name: fluid duct
   suffix: T-Junction, Guidebook
   components:
@@ -44,7 +44,7 @@
 
 - type: entity
   id: GuidebookPlumbingDuctFourway
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   name: fluid duct
   suffix: Fourway, Guidebook
   components:
@@ -56,7 +56,7 @@
 
 - type: entity
   id: GuidebookPlumbingDuctManifold
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   name: fluid manifold
   suffix: Guidebook
   components:

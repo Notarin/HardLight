@@ -8,7 +8,7 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsMercenary ]
+      board: [DoorElectronicsMercenary]
 
 - type: entity
   parent: WindoorSecure
@@ -17,7 +17,7 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsFrontier ]
+      board: [DoorElectronicsFrontier]
 
 - type: entity
   parent: WindoorSecure
@@ -26,7 +26,7 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsFrontierCommand ]
+      board: [DoorElectronicsFrontierCommand]
 
 - type: entity
   parent: WindoorSecure
@@ -35,7 +35,7 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsHeadOfSecurity ]
+      board: [DoorElectronicsHeadOfSecurity]
 
 - type: entity
   parent: WindoorSecure
@@ -44,4 +44,4 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsBrigmedic ]
+      board: [DoorElectronicsBrigmedic]

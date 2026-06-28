@@ -7,6 +7,4 @@ namespace Content.Shared.Traits.Assorted;
 /// Used for Wheelchair bound trait.
 /// </summary>
 [RegisterComponent, NetworkedComponent, Access(typeof(LegsParalyzedSystem))]
-public sealed partial class LegsParalyzedComponent : Component
-{
-}
+public sealed partial class LegsParalyzedComponent : Component { }

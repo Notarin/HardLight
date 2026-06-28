@@ -5,6 +5,4 @@ namespace Content.Server._NF.Smuggling.Components;
 ///     These should be generated dynamically from the current set of dead drops on spawn.
 /// </summary>
 [RegisterComponent]
-public sealed partial class DeadDropHintComponent : Component
-{
-}
+public sealed partial class DeadDropHintComponent : Component { }

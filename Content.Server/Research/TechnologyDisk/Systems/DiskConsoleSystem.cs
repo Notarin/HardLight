@@ -1,8 +1,8 @@
 using Content.Server.Research.Systems;
 using Content.Server.Research.TechnologyDisk.Components;
-using Content.Shared.UserInterface;
 using Content.Shared.Research;
 using Content.Shared.Research.Components;
+using Content.Shared.UserInterface;
 using Robust.Server.Audio;
 using Robust.Server.GameObjects;
 using Robust.Shared.Timing;
@@ -11,10 +11,17 @@ namespace Content.Server.Research.TechnologyDisk.Systems;
 
 public sealed class DiskConsoleSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly AudioSystem _audio = default!;
-    [Dependency] private readonly ResearchSystem _research = default!;
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly AudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly ResearchSystem _research = default!;
+
+    [Dependency]
+    private readonly UserInterfaceSystem _ui = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -86,12 +93,20 @@ public sealed class DiskConsoleSystem : EntitySystem
         UpdateUserInterface(uid, component);
     }
 
-    private void OnPointsChanged(EntityUid uid, DiskConsoleComponent component, ref ResearchServerPointsChangedEvent args)
+    private void OnPointsChanged(
+        EntityUid uid,
+        DiskConsoleComponent component,
+        ref ResearchServerPointsChangedEvent args
+    )
     {
         UpdateUserInterface(uid, component);
     }
 
-    private void OnRegistrationChanged(EntityUid uid, DiskConsoleComponent component, ref ResearchRegistrationChangedEvent args)
+    private void OnRegistrationChanged(
+        EntityUid uid,
+        DiskConsoleComponent component,
+        ref ResearchRegistrationChangedEvent args
+    )
     {
         UpdateUserInterface(uid, component);
     }
@@ -112,13 +127,24 @@ public sealed class DiskConsoleSystem : EntitySystem
             totalPoints = server.Points;
         }
 
-        var canPrint = !(TryComp<DiskConsolePrintingComponent>(uid, out var printing) && printing.FinishTime >= _timing.CurTime) &&
-                       totalPoints >= component.PricePerDisk;
+        var canPrint =
+            !(TryComp<DiskConsolePrintingComponent>(uid, out var printing) && printing.FinishTime >= _timing.CurTime)
+            && totalPoints >= component.PricePerDisk;
 
-        var canPrintRare = !(TryComp<DiskConsolePrintingComponent>(uid, out var printingRare) && printingRare.FinishTime >= _timing.CurTime) &&
-                       totalPoints >= component.PricePerRareDisk;
+        var canPrintRare =
+            !(
+                TryComp<DiskConsolePrintingComponent>(uid, out var printingRare)
+                && printingRare.FinishTime >= _timing.CurTime
+            )
+            && totalPoints >= component.PricePerRareDisk;
 
-        var state = new DiskConsoleBoundUserInterfaceState(totalPoints, component.PricePerDisk, component.PricePerRareDisk, canPrint, canPrintRare);
+        var state = new DiskConsoleBoundUserInterfaceState(
+            totalPoints,
+            component.PricePerDisk,
+            component.PricePerRareDisk,
+            canPrint,
+            canPrintRare
+        );
         _ui.SetUiState(uid, DiskConsoleUiKey.Key, state);
     }
 

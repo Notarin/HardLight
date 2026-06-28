@@ -21,22 +21,23 @@ namespace Content.Client.Actions.UI
         /// </summary>
         public (TimeSpan Start, TimeSpan End)? Cooldown { get; set; }
 
-        public ActionAlertTooltip(FormattedMessage name, FormattedMessage? desc, string? requires = null, FormattedMessage? charges = null)
+        public ActionAlertTooltip(
+            FormattedMessage name,
+            FormattedMessage? desc,
+            string? requires = null,
+            FormattedMessage? charges = null
+        )
         {
             _gameTiming = IoCManager.Resolve<IGameTiming>();
 
             SetOnlyStyleClass(StyleNano.StyleClassTooltipPanel);
 
             BoxContainer vbox;
-            AddChild(vbox = new BoxContainer
-            {
-                Orientation = LayoutOrientation.Vertical,
-                RectClipContent = true
-            });
+            AddChild(vbox = new BoxContainer { Orientation = LayoutOrientation.Vertical, RectClipContent = true });
             var nameLabel = new RichTextLabel
             {
                 MaxWidth = TooltipTextMaxWidth,
-                StyleClasses = {StyleNano.StyleClassTooltipActionTitle}
+                StyleClasses = { StyleNano.StyleClassTooltipActionTitle },
             };
             nameLabel.SetMessage(name);
             vbox.AddChild(nameLabel);
@@ -46,7 +47,7 @@ namespace Content.Client.Actions.UI
                 var description = new RichTextLabel
                 {
                     MaxWidth = TooltipTextMaxWidth,
-                    StyleClasses = {StyleNano.StyleClassTooltipActionDescription}
+                    StyleClasses = { StyleNano.StyleClassTooltipActionDescription },
                 };
                 description.SetMessage(desc);
                 vbox.AddChild(description);
@@ -57,25 +58,27 @@ namespace Content.Client.Actions.UI
                 var chargesLabel = new RichTextLabel
                 {
                     MaxWidth = TooltipTextMaxWidth,
-                    StyleClasses = { StyleNano.StyleClassTooltipActionCharges }
+                    StyleClasses = { StyleNano.StyleClassTooltipActionCharges },
                 };
                 chargesLabel.SetMessage(charges);
                 vbox.AddChild(chargesLabel);
             }
 
-            vbox.AddChild(_cooldownLabel = new RichTextLabel
-            {
-                MaxWidth = TooltipTextMaxWidth,
-                StyleClasses = {StyleNano.StyleClassTooltipActionCooldown},
-                Visible = false
-            });
+            vbox.AddChild(
+                _cooldownLabel = new RichTextLabel
+                {
+                    MaxWidth = TooltipTextMaxWidth,
+                    StyleClasses = { StyleNano.StyleClassTooltipActionCooldown },
+                    Visible = false,
+                }
+            );
 
             if (!string.IsNullOrWhiteSpace(requires))
             {
                 var requiresLabel = new RichTextLabel
                 {
                     MaxWidth = TooltipTextMaxWidth,
-                    StyleClasses = {StyleNano.StyleClassTooltipActionRequirements}
+                    StyleClasses = { StyleNano.StyleClassTooltipActionRequirements },
                 };
 
                 if (!FormattedMessage.TryFromMarkup("[color=#635c5c]" + requires + "[/color]", out var markup))
@@ -101,7 +104,16 @@ namespace Content.Client.Actions.UI
             {
                 var duration = Cooldown.Value.End - Cooldown.Value.Start;
 
-                if (!FormattedMessage.TryFromMarkup(Loc.GetString("ui-actionslot-duration", ("duration", (int)duration.TotalSeconds), ("timeLeft", (int)timeLeft.TotalSeconds + 1)), out var markup))
+                if (
+                    !FormattedMessage.TryFromMarkup(
+                        Loc.GetString(
+                            "ui-actionslot-duration",
+                            ("duration", (int)duration.TotalSeconds),
+                            ("timeLeft", (int)timeLeft.TotalSeconds + 1)
+                        ),
+                        out var markup
+                    )
+                )
                     return;
 
                 _cooldownLabel.SetMessage(markup);

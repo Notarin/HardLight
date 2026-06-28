@@ -8,8 +8,11 @@ namespace Content.Shared.CriminalRecords.Systems;
 
 public abstract class SharedCriminalRecordsHackerSystem : EntitySystem
 {
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly SharedNinjaGlovesSystem _gloves = default!;
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfter = default!;
+
+    [Dependency]
+    private readonly SharedNinjaGlovesSystem _gloves = default!;
 
     public override void Initialize()
     {
@@ -27,11 +30,19 @@ public abstract class SharedCriminalRecordsHackerSystem : EntitySystem
         if (!HasComp<CriminalRecordsConsoleComponent>(target))
             return;
 
-        var doAfterArgs = new DoAfterArgs(EntityManager, ent, ent.Comp.Delay, new CriminalRecordsHackDoAfterEvent(), target: target, used: ent, eventTarget: ent)
+        var doAfterArgs = new DoAfterArgs(
+            EntityManager,
+            ent,
+            ent.Comp.Delay,
+            new CriminalRecordsHackDoAfterEvent(),
+            target: target,
+            used: ent,
+            eventTarget: ent
+        )
         {
             BreakOnDamage = true,
             BreakOnMove = true,
-            MovementThreshold = 0.5f
+            MovementThreshold = 0.5f,
         };
 
         _doAfter.TryStartDoAfter(doAfterArgs);
@@ -43,6 +54,4 @@ public abstract class SharedCriminalRecordsHackerSystem : EntitySystem
 /// Raised on the user when the doafter completes.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed partial class CriminalRecordsHackDoAfterEvent : SimpleDoAfterEvent
-{
-}
+public sealed partial class CriminalRecordsHackDoAfterEvent : SimpleDoAfterEvent { }

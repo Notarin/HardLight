@@ -53,7 +53,8 @@ public sealed class PlumbingPillPressBoundUserInterfaceState : BoundUserInterfac
         float inletRatioEast,
         float inletRatioWest,
         FixedPoint2 stagingEastVolume,
-        FixedPoint2 stagingWestVolume)
+        FixedPoint2 stagingWestVolume
+    )
     {
         BufferVolume = bufferVolume;
         Dosage = dosage;

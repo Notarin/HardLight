@@ -14,7 +14,11 @@ public sealed class LizardSegmentsSystem : EntitySystem
     {
         var xform = Transform(ent.Owner);
 
-        if (string.IsNullOrEmpty(ent.Comp.BodyPrototype) || string.IsNullOrEmpty(ent.Comp.Body2Prototype) || string.IsNullOrEmpty(ent.Comp.TailPrototype))
+        if (
+            string.IsNullOrEmpty(ent.Comp.BodyPrototype)
+            || string.IsNullOrEmpty(ent.Comp.Body2Prototype)
+            || string.IsNullOrEmpty(ent.Comp.TailPrototype)
+        )
         {
             return;
         }

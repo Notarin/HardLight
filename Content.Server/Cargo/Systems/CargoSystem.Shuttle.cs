@@ -28,7 +28,14 @@ public sealed partial class CargoSystem
         SubscribeLocalEvent<CargoPalletConsoleComponent, CargoPalletAppraiseMessage>(OnPalletAppraise);
         SubscribeLocalEvent<CargoPalletConsoleComponent, BoundUIOpenedEvent>(OnPalletUIOpen);
 
-        _cfg.OnValueChanged(CCVars.LockboxCutEnabled, (enabled) => { _lockboxCutEnabled = enabled; }, true);
+        _cfg.OnValueChanged(
+            CCVars.LockboxCutEnabled,
+            (enabled) =>
+            {
+                _lockboxCutEnabled = enabled;
+            },
+            true
+        );
     }
 
     #region Console
@@ -36,16 +43,16 @@ public sealed partial class CargoSystem
     {
         if (Transform(uid).GridUid is not { } gridUid)
         {
-            _uiSystem.SetUiState(uid,
-                CargoPalletConsoleUiKey.Sale,
-                new CargoPalletConsoleInterfaceState(0, 0, false));
+            _uiSystem.SetUiState(uid, CargoPalletConsoleUiKey.Sale, new CargoPalletConsoleInterfaceState(0, 0, false));
             return;
         }
         GetPalletGoods(gridUid, out var toSell, out var goods);
         var totalAmount = goods.Sum(t => t.Item3);
-        _uiSystem.SetUiState(uid,
+        _uiSystem.SetUiState(
+            uid,
             CargoPalletConsoleUiKey.Sale,
-            new CargoPalletConsoleInterfaceState((int) totalAmount, toSell.Count, true));
+            new CargoPalletConsoleInterfaceState((int)totalAmount, toSell.Count, true)
+        );
     }
 
     private void OnPalletUIOpen(EntityUid uid, CargoPalletConsoleComponent component, BoundUIOpenedEvent args)
@@ -60,7 +67,6 @@ public sealed partial class CargoSystem
     /// I dont want it to explode if cargo uses a conveyor to move 8000 pineapple slices or whatever, they are
     /// known for their entity spam i wouldnt put it past them
     /// </summary>
-
     private void OnPalletAppraise(EntityUid uid, CargoPalletConsoleComponent component, CargoPalletAppraiseMessage args)
     {
         UpdatePalletConsoleInterface(uid);
@@ -80,7 +86,10 @@ public sealed partial class CargoSystem
     #region Shuttle
     /// GetCargoPallets(gridUid, BuySellType.Sell) to return only Sell pads
     /// GetCargoPallets(gridUid, BuySellType.Buy) to return only Buy pads
-    private List<(EntityUid Entity, CargoPalletComponent Component, TransformComponent PalletXform)> GetCargoPallets(EntityUid gridUid, BuySellType requestType = BuySellType.All)
+    private List<(EntityUid Entity, CargoPalletComponent Component, TransformComponent PalletXform)> GetCargoPallets(
+        EntityUid gridUid,
+        BuySellType requestType = BuySellType.All
+    )
     {
         _pads.Clear();
 
@@ -88,8 +97,7 @@ public sealed partial class CargoSystem
 
         while (query.MoveNext(out var uid, out var comp, out var compXform))
         {
-            if (compXform.ParentUid != gridUid ||
-                !compXform.Anchored)
+            if (compXform.ParentUid != gridUid || !compXform.Anchored)
             {
                 continue;
             }
@@ -100,15 +108,15 @@ public sealed partial class CargoSystem
             }
 
             _pads.Add((uid, comp, compXform));
-
         }
 
         return _pads;
     }
 
-    private List<(EntityUid Entity, CargoPalletComponent Component, TransformComponent Transform)>
-        GetFreeCargoPallets(EntityUid gridUid,
-            List<(EntityUid Entity, CargoPalletComponent Component, TransformComponent Transform)> pallets)
+    private List<(EntityUid Entity, CargoPalletComponent Component, TransformComponent Transform)> GetFreeCargoPallets(
+        EntityUid gridUid,
+        List<(EntityUid Entity, CargoPalletComponent Component, TransformComponent Transform)> pallets
+    )
     {
         _setEnts.Clear();
 
@@ -116,7 +124,11 @@ public sealed partial class CargoSystem
 
         foreach (var pallet in pallets)
         {
-            var aabb = _lookup.GetAABBNoContainer(pallet.Entity, pallet.Transform.LocalPosition, pallet.Transform.LocalRotation);
+            var aabb = _lookup.GetAABBNoContainer(
+                pallet.Entity,
+                pallet.Transform.LocalPosition,
+                pallet.Transform.LocalRotation
+            );
 
             if (_lookup.AnyLocalEntitiesIntersecting(gridUid, aabb, LookupFlags.Dynamic))
                 continue;
@@ -149,7 +161,11 @@ public sealed partial class CargoSystem
         return true;
     }
 
-    private void GetPalletGoods(EntityUid gridUid, out HashSet<EntityUid> toSell,  out HashSet<(EntityUid, OverrideSellComponent?, double)> goods)
+    private void GetPalletGoods(
+        EntityUid gridUid,
+        out HashSet<EntityUid> toSell,
+        out HashSet<(EntityUid, OverrideSellComponent?, double)> goods
+    )
     {
         goods = new HashSet<(EntityUid, OverrideSellComponent?, double)>();
         toSell = new HashSet<EntityUid>();
@@ -159,10 +175,7 @@ public sealed partial class CargoSystem
             // Containers should already get the sell price of their children so can skip those.
             _setEnts.Clear();
 
-            _lookup.GetEntitiesIntersecting(
-                palletUid,
-                _setEnts,
-                LookupFlags.Dynamic | LookupFlags.Sundries);
+            _lookup.GetEntitiesIntersecting(palletUid, _setEnts, LookupFlags.Dynamic | LookupFlags.Sundries);
 
             foreach (var ent in _setEnts)
             {
@@ -170,9 +183,10 @@ public sealed partial class CargoSystem
                 // - anything already being sold
                 // - anything anchored (e.g. light fixtures)
                 // - anything blacklisted (e.g. players).
-                if (toSell.Contains(ent) ||
-                    _xformQuery.TryGetComponent(ent, out var xform) &&
-                    (xform.Anchored || !CanSell(ent, xform)))
+                if (
+                    toSell.Contains(ent)
+                    || _xformQuery.TryGetComponent(ent, out var xform) && (xform.Anchored || !CanSell(ent, xform))
+                )
                 {
                     continue;
                 }
@@ -216,17 +230,17 @@ public sealed partial class CargoSystem
     {
         var xform = Transform(uid);
 
-        if (_station.GetOwningStation(uid) is not { } station ||
-            !TryComp<StationBankAccountComponent>(station, out var bankAccount))
+        if (
+            _station.GetOwningStation(uid) is not { } station
+            || !TryComp<StationBankAccountComponent>(station, out var bankAccount)
+        )
         {
             return;
         }
 
         if (xform.GridUid is not { } gridUid)
         {
-            _uiSystem.SetUiState(uid,
-                CargoPalletConsoleUiKey.Sale,
-                new CargoPalletConsoleInterfaceState(0, 0, false));
+            _uiSystem.SetUiState(uid, CargoPalletConsoleUiKey.Sale, new CargoPalletConsoleInterfaceState(0, 0, false));
             return;
         }
 
@@ -251,7 +265,7 @@ public sealed partial class CargoSystem
                 distribution = baseDistribution;
             }
 
-            UpdateBankAccount((station, bankAccount), (int) Math.Round(value), distribution, false);
+            UpdateBankAccount((station, bankAccount), (int)Math.Round(value), distribution, false);
         }
 
         Dirty(station, bankAccount);

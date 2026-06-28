@@ -45,11 +45,7 @@ public sealed partial class ThavenMoodUi : FancyWindow
             if (string.IsNullOrWhiteSpace(moodText))
                 continue;
 
-            var mood = new ThavenMood()
-            {
-                MoodName = moodControl.ThavenMoodTitle.Text,
-                MoodDesc = moodText,
-            };
+            var mood = new ThavenMood() { MoodName = moodControl.ThavenMoodTitle.Text, MoodDesc = moodText };
 
             newMoods.Add(mood);
         }

@@ -16,7 +16,6 @@ namespace Content.Shared.Toilet.Components
         [DataField, AutoNetworkedField]
         public bool ToggleSeat;
 
-
         /// <summary>
         /// Sound to play when toggling toilet seat.
         /// </summary>
@@ -42,7 +41,6 @@ namespace Content.Shared.Toilet.Components
     public enum SeatVisualState : byte
     {
         SeatUp,
-        SeatDown
+        SeatDown,
     }
 }
-

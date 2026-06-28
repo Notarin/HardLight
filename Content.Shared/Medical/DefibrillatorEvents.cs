@@ -26,7 +26,8 @@ public abstract class BeforeDefibrillatorZapsEvent : CancellableEntityEventArgs,
 /// </summary>
 public sealed class SelfBeforeDefibrillatorZapsEvent : BeforeDefibrillatorZapsEvent
 {
-    public SelfBeforeDefibrillatorZapsEvent(EntityUid entityUsingDefib, EntityUid defib, EntityUid defibtarget) : base(entityUsingDefib, defib, defibtarget) { }
+    public SelfBeforeDefibrillatorZapsEvent(EntityUid entityUsingDefib, EntityUid defib, EntityUid defibtarget)
+        : base(entityUsingDefib, defib, defibtarget) { }
 }
 
 /// <summary>
@@ -35,7 +36,8 @@ public sealed class SelfBeforeDefibrillatorZapsEvent : BeforeDefibrillatorZapsEv
 /// </summary>
 public sealed class TargetBeforeDefibrillatorZapsEvent : BeforeDefibrillatorZapsEvent
 {
-    public TargetBeforeDefibrillatorZapsEvent(EntityUid entityUsingDefib, EntityUid defib, EntityUid defibtarget) : base(entityUsingDefib, defib, defibtarget) { }
+    public TargetBeforeDefibrillatorZapsEvent(EntityUid entityUsingDefib, EntityUid defib, EntityUid defibtarget)
+        : base(entityUsingDefib, defib, defibtarget) { }
 }
 
 //HL START

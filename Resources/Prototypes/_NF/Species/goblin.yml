@@ -53,11 +53,11 @@
     HeadTop:
       points: 1
       required: true
-      defaultMarkings: [ GoblinEarsBasic ]
+      defaultMarkings: [GoblinEarsBasic]
     Snout:
       points: 2
       required: false
-#      defaultMarkings: [ GoblinNoseBasic ]
+      #      defaultMarkings: [ GoblinNoseBasic ]
     UndergarmentTop:
       points: 3
       required: false

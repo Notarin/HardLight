@@ -16,7 +16,7 @@ public enum MobState : byte
     Invalid = 0,
     Alive = 1,
     Critical = 2,
-    Dead = 3
+    Dead = 3,
 }
 
 /// <summary>
@@ -32,7 +32,8 @@ public record struct MobStateChangedEvent(
     MobStateComponent Component,
     MobState OldMobState,
     MobState NewMobState,
-    EntityUid? Origin = null);
+    EntityUid? Origin = null
+);
 
 public static class A
 {
@@ -43,5 +44,5 @@ public static class A
 [Serializable, NetSerializable]
 public enum MobStateVisuals : byte
 {
-    State
+    State,
 }

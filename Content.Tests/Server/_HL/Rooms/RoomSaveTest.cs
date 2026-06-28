@@ -46,11 +46,7 @@ public sealed class RoomSaveTest
     [Test]
     public void DoubleValueSurvivesYamlRoundTrip()
     {
-        var original = new Dictionary<string, object>
-        {
-            ["water"] = 5.5,
-            ["ethanol"] = 12.0,
-        };
+        var original = new Dictionary<string, object> { ["water"] = 5.5, ["ethanol"] = 12.0 };
 
         var yaml = Serializer.Serialize(original);
         var restored = Deserializer.Deserialize<Dictionary<string, object>>(yaml);
@@ -63,13 +59,16 @@ public sealed class RoomSaveTest
         var ok = waterObj switch
         {
             double d => Math.Abs(d - 5.5) < 0.001,
-            string s => double.TryParse(s, System.Globalization.NumberStyles.Float,
-                System.Globalization.CultureInfo.InvariantCulture, out var parsed)
+            string s => double.TryParse(
+                s,
+                System.Globalization.NumberStyles.Float,
+                System.Globalization.CultureInfo.InvariantCulture,
+                out var parsed
+            )
                 && Math.Abs(parsed - 5.5) < 0.001,
-            _ => false
+            _ => false,
         };
-        Assert.That(ok, Is.True,
-            $"Expected ~5.5 after round-trip, got '{waterObj}' ({waterObj?.GetType().Name})");
+        Assert.That(ok, Is.True, $"Expected ~5.5 after round-trip, got '{waterObj}' ({waterObj?.GetType().Name})");
     }
 
     [Test]
@@ -88,9 +87,12 @@ public sealed class RoomSaveTest
         var qty = restored!["qty"];
         // Cannot be used as a numeric value — it comes back as Dictionary<object,object>
         var isUsable = qty is double or float or int or long or string;
-        Assert.That(isUsable, Is.False,
-            "A struct with no public fields round-trips to a dict, not a scalar — " +
-            "this is why FixedPoint2 must be cast to double before storage.");
+        Assert.That(
+            isUsable,
+            Is.False,
+            "A struct with no public fields round-trips to a dict, not a scalar — "
+                + "this is why FixedPoint2 must be cast to double before storage."
+        );
     }
 
     private struct EmptyStruct { }
@@ -155,10 +157,8 @@ public sealed class RoomSaveTest
         return value switch
         {
             Dictionary<string, object> d => d,
-            Dictionary<object, object> od => od.ToDictionary(
-                kv => kv.Key?.ToString() ?? string.Empty,
-                kv => kv.Value),
-            _ => null
+            Dictionary<object, object> od => od.ToDictionary(kv => kv.Key?.ToString() ?? string.Empty, kv => kv.Value),
+            _ => null,
         };
     }
 
@@ -177,12 +177,8 @@ public sealed class RoomSaveTest
                 ["Volume"] = 30.0,
                 ["MaxVolume"] = 100.0,
                 ["Temperature"] = 293.15f,
-                ["Reagents"] = new Dictionary<string, object>
-                {
-                    ["Water"] = 20.0,
-                    ["Ethanol"] = 10.0,
-                }
-            }
+                ["Reagents"] = new Dictionary<string, object> { ["Water"] = 20.0, ["Ethanol"] = 10.0 },
+            },
         };
 
         // Round-trip through YamlDotNet (as ComponentData.Properties would be)
@@ -201,9 +197,14 @@ public sealed class RoomSaveTest
         var maxVolOk = maxVolObj switch
         {
             double d => d > 0,
-            string s => double.TryParse(s, System.Globalization.NumberStyles.Float,
-                System.Globalization.CultureInfo.InvariantCulture, out var v) && v > 0,
-            _ => false
+            string s => double.TryParse(
+                s,
+                System.Globalization.NumberStyles.Float,
+                System.Globalization.CultureInfo.InvariantCulture,
+                out var v
+            )
+                && v > 0,
+            _ => false,
         };
         Assert.That(maxVolOk, Is.True, $"MaxVolume '{maxVolObj}' should be parseable as a positive number");
 
@@ -217,9 +218,14 @@ public sealed class RoomSaveTest
         var waterOk = waterQty switch
         {
             double d => Math.Abs(d - 20.0) < 0.01,
-            string s => double.TryParse(s, System.Globalization.NumberStyles.Float,
-                System.Globalization.CultureInfo.InvariantCulture, out var v) && Math.Abs(v - 20.0) < 0.01,
-            _ => false
+            string s => double.TryParse(
+                s,
+                System.Globalization.NumberStyles.Float,
+                System.Globalization.CultureInfo.InvariantCulture,
+                out var v
+            )
+                && Math.Abs(v - 20.0) < 0.01,
+            _ => false,
         };
         Assert.That(waterOk, Is.True, $"Water qty '{waterQty}' should be ~20.0");
     }
@@ -231,71 +237,120 @@ public sealed class RoomSaveTest
     [Test]
     public void RoomSaveRules_FilteredPrototypesIsNonEmpty()
     {
-        Assert.That(RoomSaveRules.FilteredPrototypes, Is.Not.Empty,
-            "FilteredPrototypes should contain at least the ContainmentField prototype");
-        Assert.That(RoomSaveRules.FilteredPrototypes, Contains.Item("ContainmentField"),
-            "ContainmentField should be filtered from room saves");
+        Assert.That(
+            RoomSaveRules.FilteredPrototypes,
+            Is.Not.Empty,
+            "FilteredPrototypes should contain at least the ContainmentField prototype"
+        );
+        Assert.That(
+            RoomSaveRules.FilteredPrototypes,
+            Contains.Item("ContainmentField"),
+            "ContainmentField should be filtered from room saves"
+        );
     }
 
     [Test]
     public void RoomSaveRules_EntityExclusionContainsExpectedComponents()
     {
-        Assert.That(RoomSaveRules.EntityExclusionComponentNames, Contains.Item("GhostComponent"),
-            "Ghosts must be excluded from room saves");
-        Assert.That(RoomSaveRules.EntityExclusionComponentNames, Contains.Item("MobStateComponent"),
-            "Mobs must be excluded from room saves");
-        Assert.That(RoomSaveRules.EntityExclusionComponentNames, Contains.Item("HumanoidAppearanceComponent"),
-            "Player humanoids must be excluded from room saves");
+        Assert.That(
+            RoomSaveRules.EntityExclusionComponentNames,
+            Contains.Item("GhostComponent"),
+            "Ghosts must be excluded from room saves"
+        );
+        Assert.That(
+            RoomSaveRules.EntityExclusionComponentNames,
+            Contains.Item("MobStateComponent"),
+            "Mobs must be excluded from room saves"
+        );
+        Assert.That(
+            RoomSaveRules.EntityExclusionComponentNames,
+            Contains.Item("HumanoidAppearanceComponent"),
+            "Player humanoids must be excluded from room saves"
+        );
     }
 
     [Test]
     public void RoomSaveRules_FilteredComponentNamesDoesNotContainVendingMachine()
     {
         // Vendors SHOULD be saved in rooms (they're placed there intentionally).
-        Assert.That(RoomSaveRules.FilteredComponentNames, Does.Not.Contain("VendingMachineComponent"),
-            "VendingMachineComponent must NOT be in the room component filter — vendors must be saved");
+        Assert.That(
+            RoomSaveRules.FilteredComponentNames,
+            Does.Not.Contain("VendingMachineComponent"),
+            "VendingMachineComponent must NOT be in the room component filter — vendors must be saved"
+        );
     }
 
     [Test]
     public void RoomSaveRules_FilteredComponentNamesContainsRuntimeOnlyComponents()
     {
-        Assert.That(RoomSaveRules.FilteredComponentNames, Contains.Item("ActionsComponent"),
-            "ActionsComponent is runtime-only and must be filtered");
-        Assert.That(RoomSaveRules.FilteredComponentNames, Contains.Item("DockingComponent"),
-            "DockingComponent is ship-specific runtime state and must be filtered");
-        Assert.That(RoomSaveRules.FilteredComponentNames, Contains.Item("MindContainerComponent"),
-            "MindContainerComponent must be filtered to avoid serializing player state");
+        Assert.That(
+            RoomSaveRules.FilteredComponentNames,
+            Contains.Item("ActionsComponent"),
+            "ActionsComponent is runtime-only and must be filtered"
+        );
+        Assert.That(
+            RoomSaveRules.FilteredComponentNames,
+            Contains.Item("DockingComponent"),
+            "DockingComponent is ship-specific runtime state and must be filtered"
+        );
+        Assert.That(
+            RoomSaveRules.FilteredComponentNames,
+            Contains.Item("MindContainerComponent"),
+            "MindContainerComponent must be filtered to avoid serializing player state"
+        );
     }
 
     // ---------------------------------------------------------------------------
     // Component round-trip helpers (mirrors ShipSerializationSystem logic)
     // ---------------------------------------------------------------------------
 
-    private static Dictionary<string, object> MakePaintedProps(string colorHex, bool enabled, string shaderName = "Greyscale")
-        => new() { ["Color"] = colorHex, ["Enabled"] = enabled, ["ShaderName"] = shaderName };
+    private static Dictionary<string, object> MakePaintedProps(
+        string colorHex,
+        bool enabled,
+        string shaderName = "Greyscale"
+    ) =>
+        new()
+        {
+            ["Color"] = colorHex,
+            ["Enabled"] = enabled,
+            ["ShaderName"] = shaderName,
+        };
 
-    private static Dictionary<string, object> MakeLabelProps(string label)
-        => new() { ["CurrentLabel"] = label };
+    private static Dictionary<string, object> MakeLabelProps(string label) => new() { ["CurrentLabel"] = label };
 
-    private static Dictionary<string, object> MakePaperProps(string? content = null, string? stampState = null, bool editingDisabled = false, List<Dictionary<string, object>>? stamps = null)
+    private static Dictionary<string, object> MakePaperProps(
+        string? content = null,
+        string? stampState = null,
+        bool editingDisabled = false,
+        List<Dictionary<string, object>>? stamps = null
+    )
     {
         var props = new Dictionary<string, object>();
-        if (content != null) props["Content"] = content;
-        if (stampState != null) props["StampState"] = stampState;
-        if (editingDisabled) props["EditingDisabled"] = (object)true;
-        if (stamps != null && stamps.Count > 0) props["Stamps"] = stamps.Cast<object>().ToList();
+        if (content != null)
+            props["Content"] = content;
+        if (stampState != null)
+            props["StampState"] = stampState;
+        if (editingDisabled)
+            props["EditingDisabled"] = (object)true;
+        if (stamps != null && stamps.Count > 0)
+            props["Stamps"] = stamps.Cast<object>().ToList();
         return props;
     }
 
-    private static Dictionary<string, object> MakeRandomSpriteProps(Dictionary<string, (string State, string? ColorHex)> selected)
+    private static Dictionary<string, object> MakeRandomSpriteProps(
+        Dictionary<string, (string State, string? ColorHex)> selected
+    )
     {
         var inner = selected.ToDictionary(
             kv => kv.Key,
-            kv => (object)new Dictionary<string, object?>
-            {
-                ["State"] = kv.Value.State,
-                ["Color"] = (object?)kv.Value.ColorHex,
-            });
+            kv =>
+                (object)
+                    new Dictionary<string, object?>
+                    {
+                        ["State"] = kv.Value.State,
+                        ["Color"] = (object?)kv.Value.ColorHex,
+                    }
+        );
         return new Dictionary<string, object> { ["Selected"] = inner };
     }
 
@@ -360,8 +415,7 @@ public sealed class RoomSaveTest
         // Empty/null labels are skipped by SerializeLabelComponent (returns null).
         // Simulate: if CurrentLabel is empty string, Properties dict has no "CurrentLabel" key.
         var props = new Dictionary<string, object>();
-        Assert.That(props.ContainsKey("CurrentLabel"), Is.False,
-            "Empty label must not produce a CurrentLabel entry");
+        Assert.That(props.ContainsKey("CurrentLabel"), Is.False, "Empty label must not produce a CurrentLabel entry");
     }
 
     // ---------------------------------------------------------------------------
@@ -455,11 +509,13 @@ public sealed class RoomSaveTest
     [Test]
     public void RandomSpriteComponent_SelectedStatesSurviveRoundTrip()
     {
-        var props = MakeRandomSpriteProps(new Dictionary<string, (string State, string? ColorHex)>
-        {
-            ["enum.ArtifactsVisualLayers.Base"] = ("martianball3", null),
-            ["pouchFill1"] = ("fill-util1-3", "#FF8800FF"),
-        });
+        var props = MakeRandomSpriteProps(
+            new Dictionary<string, (string State, string? ColorHex)>
+            {
+                ["enum.ArtifactsVisualLayers.Base"] = ("martianball3", null),
+                ["pouchFill1"] = ("fill-util1-3", "#FF8800FF"),
+            }
+        );
         var yaml = Serializer.Serialize(props);
         var restored = Deserializer.Deserialize<Dictionary<string, object>>(yaml);
 
@@ -485,16 +541,19 @@ public sealed class RoomSaveTest
         // Selected.Count == 0 → SerializeRandomSpriteComponent returns null.
         // Simulate: empty dict → Properties is empty → removed by RemoveAll filter.
         var props = MakeRandomSpriteProps(new Dictionary<string, (string State, string? ColorHex)>());
-        Assert.That(props.TryGetValue("Selected", out var sel) && sel is Dictionary<string, object> d && d.Count == 0,
-            Is.True, "Empty Selected must produce an empty inner dict");
+        Assert.That(
+            props.TryGetValue("Selected", out var sel) && sel is Dictionary<string, object> d && d.Count == 0,
+            Is.True,
+            "Empty Selected must produce an empty inner dict"
+        );
     }
 
     // ---------------------------------------------------------------------------
     // ChameleonClothingComponent round-trip
     // ---------------------------------------------------------------------------
 
-    private static Dictionary<string, object> MakeChameleonProps(string selectedProtoId)
-        => new() { ["Default"] = selectedProtoId };
+    private static Dictionary<string, object> MakeChameleonProps(string selectedProtoId) =>
+        new() { ["Default"] = selectedProtoId };
 
     [Test]
     public void ChameleonClothing_DefaultPrototypeSurvivesRoundTrip()
@@ -504,8 +563,11 @@ public sealed class RoomSaveTest
         var restored = Deserializer.Deserialize<Dictionary<string, object>>(yaml);
 
         Assert.That(restored, Is.Not.Null);
-        Assert.That(restored!["Default"]?.ToString(), Is.EqualTo("ClothingHeadHelmetHardsuitSecurity"),
-            "Chameleon selected prototype ID must survive round-trip unchanged");
+        Assert.That(
+            restored!["Default"]?.ToString(),
+            Is.EqualTo("ClothingHeadHelmetHardsuitSecurity"),
+            "Chameleon selected prototype ID must survive round-trip unchanged"
+        );
     }
 
     [Test]
@@ -545,8 +607,11 @@ public sealed class RoomSaveTest
         //
         // This test verifies the sentinel value behaves as expected.
         var invalid = Robust.Shared.GameObjects.EntityUid.Invalid;
-        Assert.That(invalid.IsValid(), Is.False,
-            "EntityUid.Invalid must not be valid — the OnRemoveAttached guard relies on this");
+        Assert.That(
+            invalid.IsValid(),
+            Is.False,
+            "EntityUid.Invalid must not be valid — the OnRemoveAttached guard relies on this"
+        );
     }
 
     [Test]
@@ -556,9 +621,11 @@ public sealed class RoomSaveTest
         // AttachedUid would be in before assignment, confirming the sentinel doesn't
         // accidentally alias a real entity.
         var defaultUid = default(Robust.Shared.GameObjects.EntityUid);
-        Assert.That(defaultUid.IsValid(), Is.False,
-            "default EntityUid must not be valid");
-        Assert.That(defaultUid, Is.EqualTo(Robust.Shared.GameObjects.EntityUid.Invalid),
-            "default EntityUid must equal EntityUid.Invalid");
+        Assert.That(defaultUid.IsValid(), Is.False, "default EntityUid must not be valid");
+        Assert.That(
+            defaultUid,
+            Is.EqualTo(Robust.Shared.GameObjects.EntityUid.Invalid),
+            "default EntityUid must equal EntityUid.Invalid"
+        );
     }
 }

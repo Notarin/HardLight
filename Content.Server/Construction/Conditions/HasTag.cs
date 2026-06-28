@@ -1,9 +1,9 @@
 using Content.Shared.Construction;
-using JetBrains.Annotations;
 using Content.Shared.Doors.Components;
 using Content.Shared.Examine;
-using YamlDotNet.Core.Tokens;
 using Content.Shared.Tag;
+using JetBrains.Annotations;
+using YamlDotNet.Core.Tokens;
 
 namespace Content.Server.Construction.Conditions
 {
@@ -35,9 +35,7 @@ namespace Content.Server.Construction.Conditions
 
         public IEnumerable<ConstructionGuideEntry> GenerateGuideEntry()
         {
-            yield return new ConstructionGuideEntry()
-            {
-            };
+            yield return new ConstructionGuideEntry() { };
         }
     }
 }

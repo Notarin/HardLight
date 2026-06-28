@@ -16,7 +16,8 @@ public sealed class SolutionRoundingTest
     // * An assert with solution heat capacity calculations that I found a repro for while testing the above.
 
     [TestPrototypes]
-    private const string Prototypes = @"
+    private const string Prototypes =
+        @"
 - type: entity
   id: SolutionRoundingTestContainer
   components:
@@ -100,20 +101,24 @@ public sealed class SolutionRoundingTest
                 Assert.That(
                     solution.ContainsReagent("SolutionRoundingTestReagentA", null),
                     Is.False,
-                    "Solution should not contain reagent A");
+                    "Solution should not contain reagent A"
+                );
 
                 Assert.That(
                     solution.ContainsReagent("SolutionRoundingTestReagentB", null),
                     Is.False,
-                    "Solution should not contain reagent B");
+                    "Solution should not contain reagent B"
+                );
 
                 Assert.That(
                     solution![new ReagentId("SolutionRoundingTestReagentC", null)].Quantity,
-                    Is.EqualTo((FixedPoint2) 20));
+                    Is.EqualTo((FixedPoint2)20)
+                );
 
                 Assert.That(
                     solution![new ReagentId("SolutionRoundingTestReagentD", null)].Quantity,
-                    Is.EqualTo((FixedPoint2) 30));
+                    Is.EqualTo((FixedPoint2)30)
+                );
             });
         });
 

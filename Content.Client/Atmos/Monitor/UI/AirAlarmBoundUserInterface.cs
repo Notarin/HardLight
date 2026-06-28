@@ -9,9 +9,8 @@ public sealed class AirAlarmBoundUserInterface : BoundUserInterface
 {
     private AirAlarmWindow? _window;
 
-    public AirAlarmBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-    }
+    public AirAlarmBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {
@@ -21,7 +20,7 @@ public sealed class AirAlarmBoundUserInterface : BoundUserInterface
         _window.SetEntity(Owner);
 
         _window.AtmosDeviceDataChanged += OnDeviceDataChanged;
-		_window.AtmosDeviceDataCopied += OnDeviceDataCopied;
+        _window.AtmosDeviceDataCopied += OnDeviceDataCopied;
         _window.AtmosAlarmThresholdChanged += OnThresholdChanged;
         _window.AirAlarmModeChanged += OnAirAlarmModeChanged;
         _window.AutoModeChanged += OnAutoModeChanged;
@@ -38,7 +37,7 @@ public sealed class AirAlarmBoundUserInterface : BoundUserInterface
         SendMessage(new AirAlarmUpdateDeviceDataMessage(address, data));
     }
 
-	private void OnDeviceDataCopied(IAtmosDeviceData data)
+    private void OnDeviceDataCopied(IAtmosDeviceData data)
     {
         SendMessage(new AirAlarmCopyDeviceDataMessage(data));
     }
@@ -53,7 +52,12 @@ public sealed class AirAlarmBoundUserInterface : BoundUserInterface
         SendMessage(new AirAlarmUpdateAutoModeMessage(enabled));
     }
 
-    private void OnThresholdChanged(string address, AtmosMonitorThresholdType type, AtmosAlarmThreshold threshold, Gas? gas = null)
+    private void OnThresholdChanged(
+        string address,
+        AtmosMonitorThresholdType type,
+        AtmosAlarmThreshold threshold,
+        Gas? gas = null
+    )
     {
         SendMessage(new AirAlarmUpdateAlarmThresholdMessage(address, type, threshold, gas));
     }

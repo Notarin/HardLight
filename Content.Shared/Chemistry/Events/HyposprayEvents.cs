@@ -27,7 +27,8 @@ public abstract partial class BeforeHyposprayInjectsTargetEvent : CancellableEnt
 /// </summary>
 public sealed class SelfBeforeHyposprayInjectsEvent : BeforeHyposprayInjectsTargetEvent
 {
-    public SelfBeforeHyposprayInjectsEvent(EntityUid user, EntityUid hypospray, EntityUid target) : base(user, hypospray, target) { }
+    public SelfBeforeHyposprayInjectsEvent(EntityUid user, EntityUid hypospray, EntityUid target)
+        : base(user, hypospray, target) { }
 }
 
 /// <summary>
@@ -36,13 +37,12 @@ public sealed class SelfBeforeHyposprayInjectsEvent : BeforeHyposprayInjectsTarg
 /// </summary>
 public sealed class TargetBeforeHyposprayInjectsEvent : BeforeHyposprayInjectsTargetEvent
 {
-    public TargetBeforeHyposprayInjectsEvent(EntityUid user, EntityUid hypospray, EntityUid target) : base(user, hypospray, target) { }
+    public TargetBeforeHyposprayInjectsEvent(EntityUid user, EntityUid hypospray, EntityUid target)
+        : base(user, hypospray, target) { }
 }
 
 /// <summary>
 /// Raised on non-instant hyposprays when the do-after has finished.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed partial class HyposprayDoAfterEvent : SimpleDoAfterEvent
-{
-}
+public sealed partial class HyposprayDoAfterEvent : SimpleDoAfterEvent { }

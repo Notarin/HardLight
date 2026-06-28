@@ -1,16 +1,19 @@
+using System.Linq;
 using Content.Shared.Damage.Prototypes;
 using Content.Shared.Overlays;
 using Robust.Client.Player;
 using Robust.Shared.Console;
 using Robust.Shared.Prototypes;
-using System.Linq;
 
 namespace Content.Client.Commands;
 
 public sealed class ShowHealthBarsCommand : LocalizedCommands
 {
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IEntityManager _entityManager = default!;
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly IEntityManager _entityManager = default!;
 
     public override string Command => "showhealthbars";
 
@@ -38,12 +41,14 @@ public sealed class ShowHealthBarsCommand : LocalizedCommands
             {
                 DamageContainers = args.Select(arg => new ProtoId<DamageContainerPrototype>(arg)).ToList(),
                 HealthStatusIcon = null,
-                NetSyncEnabled = false
+                NetSyncEnabled = false,
             };
 
             _entityManager.AddComponent(playerEntity.Value, showHealthBarsComponent, true);
 
-            shell.WriteLine(LocalizationManager.GetString($"cmd-{Command}-notify-enabled", ("args", string.Join(", ", args))));
+            shell.WriteLine(
+                LocalizationManager.GetString($"cmd-{Command}-notify-enabled", ("args", string.Join(", ", args)))
+            );
             return;
         }
         else

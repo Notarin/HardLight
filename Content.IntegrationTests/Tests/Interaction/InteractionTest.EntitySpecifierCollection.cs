@@ -102,17 +102,17 @@ public abstract partial class InteractionTest
 
         public EntitySpecifierCollection Clone()
         {
-            return new EntitySpecifierCollection()
-            {
-                Entities = Entities.ShallowClone(),
-                Converted = Converted
-            };
+            return new EntitySpecifierCollection() { Entities = Entities.ShallowClone(), Converted = Converted };
         }
 
         /// <summary>
         /// Convert applicable entity prototypes into stack prototypes.
         /// </summary>
-        public async Task ConvertToStacks(IPrototypeManager protoMan, IComponentFactory factory, ServerIntegrationInstance server)
+        public async Task ConvertToStacks(
+            IPrototypeManager protoMan,
+            IComponentFactory factory,
+            ServerIntegrationInstance server
+        )
         {
             if (Converted)
                 return;
@@ -121,7 +121,6 @@ public abstract partial class InteractionTest
             List<(string, int)> toAdd = new();
             foreach (var (id, quantity) in Entities)
             {
-
                 if (protoMan.HasIndex<StackPrototype>(id))
                     continue;
 
@@ -160,9 +159,7 @@ public abstract partial class InteractionTest
 
     protected EntitySpecifierCollection ToEntityCollection(IEnumerable<EntityUid> entities)
     {
-        var collection = new EntitySpecifierCollection(entities
-            .Select(ToEntitySpecifier)
-            .OfType<EntitySpecifier>());
+        var collection = new EntitySpecifierCollection(entities.Select(ToEntitySpecifier).OfType<EntitySpecifier>());
         Assert.That(collection.Converted);
         return collection;
     }

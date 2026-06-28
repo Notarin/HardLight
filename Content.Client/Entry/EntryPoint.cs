@@ -1,4 +1,6 @@
 using Content.Client._Common.Consent; // Consent system
+using Content.Client._FS.DiscordAuth; // Floofstation
+using Content.Client._NF.Emp.Overlays; // Frontier
 using Content.Client.Administration.Managers;
 using Content.Client.Changelog;
 using Content.Client.Chat.Managers;
@@ -38,47 +40,112 @@ using Robust.Shared.ContentPack;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Replays;
 using Robust.Shared.Timing;
-using Content.Client._NF.Emp.Overlays; // Frontier
-using Content.Client._FS.DiscordAuth; // Floofstation
 
 namespace Content.Client.Entry
 {
     public sealed class EntryPoint : GameClient
     {
-        [Dependency] private readonly IClientConsentManager _clientConsentManager = default!; // Consent system
-        [Dependency] private readonly IBaseClient _baseClient = default!;
-        [Dependency] private readonly IGameController _gameController = default!;
-        [Dependency] private readonly IStateManager _stateManager = default!;
-        [Dependency] private readonly IComponentFactory _componentFactory = default!;
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        [Dependency] private readonly IClientAdminManager _adminManager = default!;
-        [Dependency] private readonly IParallaxManager _parallaxManager = default!;
-        [Dependency] private readonly IConfigurationManager _configManager = default!;
-        [Dependency] private readonly IStylesheetManager _stylesheetManager = default!;
-        [Dependency] private readonly IScreenshotHook _screenshotHook = default!;
-        [Dependency] private readonly FullscreenHook _fullscreenHook = default!;
-        [Dependency] private readonly ChangelogManager _changelogManager = default!;
-        [Dependency] private readonly ViewportManager _viewportManager = default!;
-        [Dependency] private readonly IUserInterfaceManager _userInterfaceManager = default!;
-        [Dependency] private readonly IInputManager _inputManager = default!;
-        [Dependency] private readonly IOverlayManager _overlayManager = default!;
-        [Dependency] private readonly IChatManager _chatManager = default!;
-        [Dependency] private readonly IClientPreferencesManager _clientPreferencesManager = default!;
-        [Dependency] private readonly EuiManager _euiManager = default!;
-        [Dependency] private readonly IVoteManager _voteManager = default!;
-        [Dependency] private readonly DocumentParsingManager _documentParsingManager = default!;
-        [Dependency] private readonly GhostKickManager _ghostKick = default!;
-        [Dependency] private readonly ExtendedDisconnectInformationManager _extendedDisconnectInformation = default!;
-        [Dependency] private readonly JobRequirementsManager _jobRequirements = default!;
-        [Dependency] private readonly ContentLocalizationManager _contentLoc = default!;
-        [Dependency] private readonly ContentReplayPlaybackManager _playbackMan = default!;
-        [Dependency] private readonly IResourceManager _resourceManager = default!;
-        [Dependency] private readonly IReplayLoadManager _replayLoad = default!;
-        [Dependency] private readonly ILogManager _logManager = default!;
-        [Dependency] private readonly DebugMonitorManager _debugMonitorManager = default!;
-        [Dependency] private readonly TitleWindowManager _titleWindowManager = default!;
-        [Dependency] private readonly DiscordAuthManager _discordAuth = default!; // Floofstation
-        [Dependency] private readonly IEntitySystemManager _entitySystemManager = default!;
+        [Dependency]
+        private readonly IClientConsentManager _clientConsentManager = default!; // Consent system
+
+        [Dependency]
+        private readonly IBaseClient _baseClient = default!;
+
+        [Dependency]
+        private readonly IGameController _gameController = default!;
+
+        [Dependency]
+        private readonly IStateManager _stateManager = default!;
+
+        [Dependency]
+        private readonly IComponentFactory _componentFactory = default!;
+
+        [Dependency]
+        private readonly IPrototypeManager _prototypeManager = default!;
+
+        [Dependency]
+        private readonly IClientAdminManager _adminManager = default!;
+
+        [Dependency]
+        private readonly IParallaxManager _parallaxManager = default!;
+
+        [Dependency]
+        private readonly IConfigurationManager _configManager = default!;
+
+        [Dependency]
+        private readonly IStylesheetManager _stylesheetManager = default!;
+
+        [Dependency]
+        private readonly IScreenshotHook _screenshotHook = default!;
+
+        [Dependency]
+        private readonly FullscreenHook _fullscreenHook = default!;
+
+        [Dependency]
+        private readonly ChangelogManager _changelogManager = default!;
+
+        [Dependency]
+        private readonly ViewportManager _viewportManager = default!;
+
+        [Dependency]
+        private readonly IUserInterfaceManager _userInterfaceManager = default!;
+
+        [Dependency]
+        private readonly IInputManager _inputManager = default!;
+
+        [Dependency]
+        private readonly IOverlayManager _overlayManager = default!;
+
+        [Dependency]
+        private readonly IChatManager _chatManager = default!;
+
+        [Dependency]
+        private readonly IClientPreferencesManager _clientPreferencesManager = default!;
+
+        [Dependency]
+        private readonly EuiManager _euiManager = default!;
+
+        [Dependency]
+        private readonly IVoteManager _voteManager = default!;
+
+        [Dependency]
+        private readonly DocumentParsingManager _documentParsingManager = default!;
+
+        [Dependency]
+        private readonly GhostKickManager _ghostKick = default!;
+
+        [Dependency]
+        private readonly ExtendedDisconnectInformationManager _extendedDisconnectInformation = default!;
+
+        [Dependency]
+        private readonly JobRequirementsManager _jobRequirements = default!;
+
+        [Dependency]
+        private readonly ContentLocalizationManager _contentLoc = default!;
+
+        [Dependency]
+        private readonly ContentReplayPlaybackManager _playbackMan = default!;
+
+        [Dependency]
+        private readonly IResourceManager _resourceManager = default!;
+
+        [Dependency]
+        private readonly IReplayLoadManager _replayLoad = default!;
+
+        [Dependency]
+        private readonly ILogManager _logManager = default!;
+
+        [Dependency]
+        private readonly DebugMonitorManager _debugMonitorManager = default!;
+
+        [Dependency]
+        private readonly TitleWindowManager _titleWindowManager = default!;
+
+        [Dependency]
+        private readonly DiscordAuthManager _discordAuth = default!; // Floofstation
+
+        [Dependency]
+        private readonly IEntitySystemManager _entitySystemManager = default!;
 
         public override void Init()
         {
@@ -86,7 +153,7 @@ namespace Content.Client.Entry
 
             foreach (var callback in TestingCallbacks)
             {
-                var cast = (ClientModuleTestingCallbacks) callback;
+                var cast = (ClientModuleTestingCallbacks)callback;
                 cast.ClientBeforeIoC?.Invoke();
             }
 
@@ -188,8 +255,9 @@ namespace Content.Client.Entry
             {
                 if (args.NewLevel == ClientRunLevel.Initialize)
                 {
-                    SwitchToDefaultState(args.OldLevel == ClientRunLevel.Connected ||
-                                         args.OldLevel == ClientRunLevel.InGame);
+                    SwitchToDefaultState(
+                        args.OldLevel == ClientRunLevel.Connected || args.OldLevel == ClientRunLevel.InGame
+                    );
                 }
             };
 
@@ -204,15 +272,19 @@ namespace Content.Client.Entry
             // Fire off into state dependent on launcher or not.
 
             // Check if we're loading a replay via content bundle!
-            if (_configManager.GetCVar(CVars.LaunchContentBundle)
+            if (
+                _configManager.GetCVar(CVars.LaunchContentBundle)
                 && _resourceManager.ContentFileExists(
-                    ReplayConstants.ReplayZipFolder.ToRootedPath() / ReplayConstants.FileMeta))
+                    ReplayConstants.ReplayZipFolder.ToRootedPath() / ReplayConstants.FileMeta
+                )
+            )
             {
                 _logManager.GetSawmill("entry").Info("Loading content bundle replay from VFS!");
 
                 var reader = new ReplayFileReaderResources(
                     _resourceManager,
-                    ReplayConstants.ReplayZipFolder.ToRootedPath());
+                    ReplayConstants.ReplayZipFolder.ToRootedPath()
+                );
 
                 _playbackMan.LastLoad = (null, ReplayConstants.ReplayZipFolder.ToRootedPath());
                 _replayLoad.LoadAndStartReplay(reader);
@@ -220,7 +292,7 @@ namespace Content.Client.Entry
             else if (_gameController.LaunchState.FromLauncher)
             {
                 _stateManager.RequestStateChange<LauncherConnecting>();
-                var state = (LauncherConnecting) _stateManager.CurrentState;
+                var state = (LauncherConnecting)_stateManager.CurrentState;
 
                 if (disconnected)
                 {

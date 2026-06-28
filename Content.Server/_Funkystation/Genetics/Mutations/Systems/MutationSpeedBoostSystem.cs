@@ -6,7 +6,8 @@ namespace Content.Server._Funkystation.Genetics.Mutations.Systems;
 [Access(typeof(MovementSpeedModifierSystem))]
 public sealed class MutationSpeedBoostSystem : EntitySystem
 {
-    [Dependency] private readonly MovementSpeedModifierSystem _moveSpeedSystem = default!;
+    [Dependency]
+    private readonly MovementSpeedModifierSystem _moveSpeedSystem = default!;
 
     public override void Initialize()
     {

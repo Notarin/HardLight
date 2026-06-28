@@ -35,8 +35,7 @@
   - type: NodeContainer
     examinable: true
     nodes:
-      input:
-        !type:CableDeviceNode
+      input: !type:CableDeviceNode
         nodeGroupID: HVPower
   - type: Transform
     anchored: true
@@ -44,8 +43,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "1.5,1.5,-1.5,0.25"
         density: 1500
         mask:
@@ -53,8 +51,7 @@
         layer:
         - MachineLayer
       fix2:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "1.5,0.25,0.6,-1.5"
         density: 1500
         mask:
@@ -62,8 +59,7 @@
         layer:
         - MachineLayer
       fix3:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-1.5,0.25,-0.6,-1.5"
         density: 1500
         mask:
@@ -72,8 +68,7 @@
         - MachineLayer
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 500000
       behaviors:
       - !type:DoActsBehavior

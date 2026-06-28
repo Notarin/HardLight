@@ -11,9 +11,9 @@
   description: flavor-complex-sublime
 
 # - type: flavor # Upstream
-  # id: holy
-  # flavorType: Complex
-  # description: flavor-complex-holy
+# id: holy
+# flavorType: Complex
+# description: flavor-complex-holy
 
 - type: flavor
   id: seeds

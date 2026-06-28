@@ -66,7 +66,6 @@ public sealed partial class PathfindingSystem
         }
     }
 
-
     private void OnGridPathShutdown(EntityUid uid, GridPathfindingComponent component, ComponentShutdown args)
     {
         foreach (var chunk in component.Chunks)
@@ -101,9 +100,11 @@ public sealed partial class PathfindingSystem
         {
             var pathfinding = new Entity<GridPathfindingComponent>(uid, comp);
             // TODO: Dump all this shit and just do it live it's probably fast enough.
-            if (comp.DirtyChunks.Count == 0 ||
-                curTime < comp.NextUpdate ||
-                !_gridQuery.TryGetComponent(uid, out var mapGridComp))
+            if (
+                comp.DirtyChunks.Count == 0
+                || curTime < comp.NextUpdate
+                || !_gridQuery.TryGetComponent(uid, out var mapGridComp)
+            )
             {
                 continue;
             }
@@ -144,10 +145,15 @@ public sealed partial class PathfindingSystem
             // This is for map <> grid pathfinding
 
             // Without parallel this is roughly 3x slower on my desktop.
-            Parallel.For(0, dirt.Length, options, i =>
-            {
-                BuildBreadcrumbs(dirt[i], (uid, mapGridComp));
-            });
+            Parallel.For(
+                0,
+                dirt.Length,
+                options,
+                i =>
+                {
+                    BuildBreadcrumbs(dirt[i], (uid, mapGridComp));
+                }
+            );
 
             const int division = 4;
 
@@ -163,19 +169,24 @@ public sealed partial class PathfindingSystem
             {
                 var it1 = it;
 
-                Parallel.For(0, dirt.Length, options, j =>
-                {
-                    var chunk = dirt[j];
-                    // Check if the chunk is safe on this iteration.
-                    var x = Math.Abs(chunk.Origin.X % 2);
-                    var y = Math.Abs(chunk.Origin.Y % 2);
-                    var index = x * 2 + y;
+                Parallel.For(
+                    0,
+                    dirt.Length,
+                    options,
+                    j =>
+                    {
+                        var chunk = dirt[j];
+                        // Check if the chunk is safe on this iteration.
+                        var x = Math.Abs(chunk.Origin.X % 2);
+                        var y = Math.Abs(chunk.Origin.Y % 2);
+                        var index = x * 2 + y;
 
-                    if (index != it1)
-                        return;
+                        if (index != it1)
+                            return;
 
-                    ClearOldPolys(chunk);
-                });
+                        ClearOldPolys(chunk);
+                    }
+                );
             }
 
             // TODO: You can probably skimp on some neighbor chunk caches
@@ -183,22 +194,27 @@ public sealed partial class PathfindingSystem
             {
                 var it1 = it;
 
-                Parallel.For(0, dirt.Length, options, j =>
-                {
-                    var chunk = dirt[j];
-                    // Check if the chunk is safe on this iteration.
-                    var x = Math.Abs(chunk.Origin.X % 2);
-                    var y = Math.Abs(chunk.Origin.Y % 2);
-                    var index = x * 2 + y;
+                Parallel.For(
+                    0,
+                    dirt.Length,
+                    options,
+                    j =>
+                    {
+                        var chunk = dirt[j];
+                        // Check if the chunk is safe on this iteration.
+                        var x = Math.Abs(chunk.Origin.X % 2);
+                        var y = Math.Abs(chunk.Origin.Y % 2);
+                        var index = x * 2 + y;
 
-                    if (index != it1)
-                        return;
+                        if (index != it1)
+                            return;
 
-                    BuildNavmesh(chunk, pathfinding);
+                        BuildNavmesh(chunk, pathfinding);
 #if DEBUG
-                    Interlocked.Increment(ref updateCount);
+                        Interlocked.Increment(ref updateCount);
 #endif
-                });
+                    }
+                );
             }
 
             // Handle portals at the end after having cleared their neighbors above.
@@ -232,8 +248,10 @@ public sealed partial class PathfindingSystem
             if (!fixture.Hard)
                 continue;
 
-            if ((fixture.CollisionMask & PathfindingCollisionLayer) != 0x0 ||
-                (fixture.CollisionLayer & PathfindingCollisionMask) != 0x0)
+            if (
+                (fixture.CollisionMask & PathfindingCollisionLayer) != 0x0
+                || (fixture.CollisionLayer & PathfindingCollisionMask) != 0x0
+            )
             {
                 return true;
             }
@@ -267,8 +285,7 @@ public sealed partial class PathfindingSystem
 
     private void OnBodyTypeChange(ref PhysicsBodyTypeChangedEvent ev)
     {
-        if (TryComp(ev.Entity, out TransformComponent? xform) &&
-            xform.GridUid != null)
+        if (TryComp(ev.Entity, out TransformComponent? xform) && xform.GridUid != null)
         {
             var aabb = _lookup.GetAABBNoContainer(ev.Entity, xform.Coordinates.Position, xform.LocalRotation);
             DirtyChunkArea(xform.GridUid.Value, aabb);
@@ -277,17 +294,20 @@ public sealed partial class PathfindingSystem
 
     private void OnMoveEvent(ref MoveEvent ev)
     {
-        if (!_fixturesQuery.TryGetComponent(ev.Sender, out var fixtures) ||
-            !IsBodyRelevant(fixtures) ||
-            _gridQuery.HasComponent(ev.Sender))
+        if (
+            !_fixturesQuery.TryGetComponent(ev.Sender, out var fixtures)
+            || !IsBodyRelevant(fixtures)
+            || _gridQuery.HasComponent(ev.Sender)
+        )
         {
             return;
         }
 
         var gridUid = ev.Component.GridUid;
-        var oldGridUid = ev.OldPosition.EntityId == ev.NewPosition.EntityId
-            ? gridUid
-            : _transform.GetGrid((ev.Entity.Owner, ev.Component));
+        var oldGridUid =
+            ev.OldPosition.EntityId == ev.NewPosition.EntityId
+                ? gridUid
+                : _transform.GetGrid((ev.Entity.Owner, ev.Component));
 
         if (oldGridUid != null && oldGridUid != gridUid)
         {
@@ -310,13 +330,19 @@ public sealed partial class PathfindingSystem
         if (!TryComp<MapGridComponent>(ev.EntityUid, out var mapGrid))
             return;
 
-        for (var x = Math.Floor(mapGrid.LocalAABB.Left); x <= Math.Ceiling(mapGrid.LocalAABB.Right + ChunkSize); x += ChunkSize)
+        for (
+            var x = Math.Floor(mapGrid.LocalAABB.Left);
+            x <= Math.Ceiling(mapGrid.LocalAABB.Right + ChunkSize);
+            x += ChunkSize
+        )
         {
-            for (var y = Math.Floor(mapGrid.LocalAABB.Bottom); y <= Math.Ceiling(mapGrid.LocalAABB.Top + ChunkSize); y += ChunkSize)
+            for (
+                var y = Math.Floor(mapGrid.LocalAABB.Bottom);
+                y <= Math.Ceiling(mapGrid.LocalAABB.Top + ChunkSize);
+                y += ChunkSize
+            )
             {
-                DirtyChunk(
-                    ev.EntityUid,
-                    mapGrid.GridTileToLocal(new Vector2i((int)x, (int)y)));
+                DirtyChunk(ev.EntityUid, mapGrid.GridTileToLocal(new Vector2i((int)x, (int)y)));
             }
         }
     }
@@ -362,7 +388,8 @@ public sealed partial class PathfindingSystem
         {
             var sampledPoint = new Vector2i(
                 (int)Math.Floor(corner.X / ChunkSize),
-                (int)Math.Floor(corner.Y / ChunkSize));
+                (int)Math.Floor(corner.Y / ChunkSize)
+            );
 
             chunks.Add(sampledPoint);
         }
@@ -378,34 +405,33 @@ public sealed partial class PathfindingSystem
         if (component.Chunks.TryGetValue(origin, out var chunk))
             return chunk;
 
-        chunk = new GridPathfindingChunk()
-        {
-            Origin = origin,
-        };
+        chunk = new GridPathfindingChunk() { Origin = origin };
 
         component.Chunks[origin] = chunk;
         return chunk;
     }
 
-    private bool TryGetChunk(Vector2i origin, GridPathfindingComponent component, [NotNullWhen(true)] out GridPathfindingChunk? chunk)
+    private bool TryGetChunk(
+        Vector2i origin,
+        GridPathfindingComponent component,
+        [NotNullWhen(true)] out GridPathfindingChunk? chunk
+    )
     {
         return component.Chunks.TryGetValue(origin, out chunk);
     }
 
     private byte GetIndex(int x, int y) => (byte)(x * ChunkSize + y);
 
-    private Vector2i GetOrigin(Vector2 localPos) => new(
-        (int)Math.Floor(localPos.X / ChunkSize),
-        (int)Math.Floor(localPos.Y / ChunkSize));
+    private Vector2i GetOrigin(Vector2 localPos) =>
+        new((int)Math.Floor(localPos.X / ChunkSize), (int)Math.Floor(localPos.Y / ChunkSize));
 
     private Vector2i GetOrigin(EntityCoordinates coordinates, EntityUid gridUid)
     {
         var localPos = Vector2.Transform(
             _transform.ToMapCoordinates(coordinates).Position,
-            _transform.GetInvWorldMatrix(gridUid));
-        return new Vector2i(
-            (int)Math.Floor(localPos.X / ChunkSize),
-            (int)Math.Floor(localPos.Y / ChunkSize));
+            _transform.GetInvWorldMatrix(gridUid)
+        );
+        return new Vector2i((int)Math.Floor(localPos.X / ChunkSize), (int)Math.Floor(localPos.Y / ChunkSize));
     }
 
     private void BuildBreadcrumbs(GridPathfindingChunk chunk, Entity<MapGridComponent> grid)
@@ -440,21 +466,25 @@ public sealed partial class PathfindingSystem
                 // var isBorder = x < 0 || y < 0 || x == ChunkSize - 1 || y == ChunkSize - 1;
 
                 tileEntities.Clear();
-                var available = _lookup.GetLocalEntitiesIntersecting(tile, flags: LookupFlags.Dynamic | LookupFlags.Static);
+                var available = _lookup.GetLocalEntitiesIntersecting(
+                    tile,
+                    flags: LookupFlags.Dynamic | LookupFlags.Static
+                );
 
                 foreach (var ent in available)
                 {
                     // Irrelevant for pathfinding
-                    if (!_fixturesQuery.TryGetComponent(ent, out var fixtures) ||
-                        !IsBodyRelevant(fixtures))
+                    if (!_fixturesQuery.TryGetComponent(ent, out var fixtures) || !IsBodyRelevant(fixtures))
                     {
                         continue;
                     }
 
                     var xform = _xformQuery.GetComponent(ent);
 
-                    if (xform.ParentUid != grid.Owner ||
-                        _maps.LocalToTile(grid.Owner, grid.Comp, xform.Coordinates) != tilePos)
+                    if (
+                        xform.ParentUid != grid.Owner
+                        || _maps.LocalToTile(grid.Owner, grid.Comp, xform.Coordinates) != tilePos
+                    )
                     {
                         continue;
                     }
@@ -472,7 +502,8 @@ public sealed partial class PathfindingSystem
                         // Subtile
                         var localPos = new Vector2(
                             StepOffset + gridOrigin.X + x + (float)subX / SubStep,
-                            StepOffset + gridOrigin.Y + y + (float)subY / SubStep);
+                            StepOffset + gridOrigin.Y + y + (float)subY / SubStep
+                        );
                         var collisionMask = 0x0;
                         var collisionLayer = 0x0;
                         var damage = 0f;
@@ -487,9 +518,11 @@ public sealed partial class PathfindingSystem
                             foreach (var fixture in fixtures.Fixtures.Values)
                             {
                                 // Don't need to re-do it.
-                                if (!fixture.Hard ||
-                                    (collisionMask & fixture.CollisionMask) == fixture.CollisionMask &&
-                                    (collisionLayer & fixture.CollisionLayer) == fixture.CollisionLayer)
+                                if (
+                                    !fixture.Hard
+                                    || (collisionMask & fixture.CollisionMask) == fixture.CollisionMask
+                                        && (collisionLayer & fixture.CollisionLayer) == fixture.CollisionLayer
+                                )
                                 {
                                     continue;
                                 }
@@ -505,13 +538,18 @@ public sealed partial class PathfindingSystem
                                     intersects = true;
                                 }
 
-                                if (!intersects ||
-                                    !_xformQuery.TryGetComponent(ent, out var xform))
+                                if (!intersects || !_xformQuery.TryGetComponent(ent, out var xform))
                                 {
                                     continue;
                                 }
 
-                                if (!_fixtures.TestPoint(fixture.Shape, new Transform(xform.LocalPosition, xform.LocalRotation), localPos))
+                                if (
+                                    !_fixtures.TestPoint(
+                                        fixture.Shape,
+                                        new Transform(xform.LocalPosition, xform.LocalRotation),
+                                        localPos
+                                    )
+                                )
                                 {
                                     continue;
                                 }
@@ -577,8 +615,7 @@ public sealed partial class PathfindingSystem
                     var nextY = (i + 1) % SubStep;
 
                     // End point
-                    if (iy == SubStep - 1 ||
-                        !points[x * SubStep + nextX, y * SubStep + nextY].Data.Equals(data))
+                    if (iy == SubStep - 1 || !points[x * SubStep + nextX, y * SubStep + nextY].Data.Equals(data))
                     {
                         tilePolys.Add(new Box2i(start, new Vector2i(ix, iy)));
 
@@ -608,10 +645,12 @@ public sealed partial class PathfindingSystem
                             var nextData = points[x * SubStep + nextPoly.Left, y * SubStep + nextPoly.Bottom].Data;
 
                             // Oh no, Combine
-                            if (poly.Bottom == nextPoly.Bottom &&
-                                poly.Top == nextPoly.Top &&
-                                poly.Right + 1 == nextPoly.Left &&
-                                data.Equals(nextData))
+                            if (
+                                poly.Bottom == nextPoly.Bottom
+                                && poly.Top == nextPoly.Top
+                                && poly.Right + 1 == nextPoly.Left
+                                && data.Equals(nextData)
+                            )
                             {
                                 tilePolys.RemoveAt(j);
                                 j--;
@@ -630,8 +669,10 @@ public sealed partial class PathfindingSystem
 
                 foreach (var poly in tilePolys)
                 {
-                    var box = new Box2((Vector2)poly.BottomLeft / SubStep + polyOffset,
-                        (Vector2)(poly.TopRight + Vector2i.One) / SubStep + polyOffset);
+                    var box = new Box2(
+                        (Vector2)poly.BottomLeft / SubStep + polyOffset,
+                        (Vector2)(poly.TopRight + Vector2i.One) / SubStep + polyOffset
+                    );
                     var polyData = points[x * SubStep + poly.Left, y * SubStep + poly.Bottom].Data;
 
                     tilePoly.Add(new PathPoly(grid, chunk.Origin, GetIndex(x, y), box, polyData)); // VRS: neighbors lazy-init (Triad #3853)

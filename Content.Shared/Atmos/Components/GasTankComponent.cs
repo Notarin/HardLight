@@ -18,11 +18,10 @@ public sealed partial class GasTankComponent : Component, IGasMixtureHolder
     public SoundSpecifier RuptureSound = new SoundPathSpecifier("/Audio/Effects/spray.ogg");
 
     [DataField]
-    public SoundSpecifier? ConnectSound =
-        new SoundPathSpecifier("/Audio/Effects/internals.ogg")
-        {
-            Params = AudioParams.Default.WithVolume(5f),
-        };
+    public SoundSpecifier? ConnectSound = new SoundPathSpecifier("/Audio/Effects/internals.ogg")
+    {
+        Params = AudioParams.Default.WithVolume(5f),
+    };
 
     [DataField]
     public SoundSpecifier? DisconnectSound;
@@ -112,9 +111,8 @@ public sealed partial class GasTankComponent : Component, IGasMixtureHolder
     public float ValveOutputRate = 100f;
 
     [DataField]
-    public SoundSpecifier ValveSound =
-        new SoundCollectionSpecifier("valveSqueak")
-        {
-            Params = AudioParams.Default.WithVolume(-5f),
-        };
+    public SoundSpecifier ValveSound = new SoundCollectionSpecifier("valveSqueak")
+    {
+        Params = AudioParams.Default.WithVolume(-5f),
+    };
 }

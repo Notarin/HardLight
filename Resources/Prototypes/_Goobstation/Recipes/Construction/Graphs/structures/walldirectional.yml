@@ -2,22 +2,22 @@
   id: WallDirectionalSolid # HardLight: WallDirectional<WallDirectionalSolid
   start: start
   graph:
-    - node: start
-      edges:
-        - to: wallDirectionalSolid # HardLight: wallDirectional<wallDirectionalSolid
-          steps:
-            - material: Steel
-              amount: 2
-              doAfter: 2
-    - node: wallDirectionalSolid # HardLight: wallDirectional<wallDirectionalSolid
-      entity: WallDirectionalSolid # HardLight: WallDirectional<WallDirectionalSolid
-      edges:
-        - to: start
-          completed:
-            - !type:SpawnPrototype
-              prototype: SheetSteel1
-              amount: 2
-            - !type:DeleteEntity {}
-          steps:
-            - tool: Welding
-              doAfter: 2
+  - node: start
+    edges:
+    - to: wallDirectionalSolid # HardLight: wallDirectional<wallDirectionalSolid
+      steps:
+      - material: Steel
+        amount: 2
+        doAfter: 2
+  - node: wallDirectionalSolid # HardLight: wallDirectional<wallDirectionalSolid
+    entity: WallDirectionalSolid # HardLight: WallDirectional<WallDirectionalSolid
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 2
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Welding
+        doAfter: 2

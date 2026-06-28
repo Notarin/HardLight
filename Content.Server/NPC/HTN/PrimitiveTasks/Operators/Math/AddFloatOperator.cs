@@ -9,7 +9,8 @@ namespace Content.Server.NPC.HTN.PrimitiveTasks.Operators.Math;
 /// </summary>
 public sealed partial class AddFloatOperator : HTNOperator
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
 
     [DataField(required: true), ViewVariables]
     public string TargetKey = string.Empty;
@@ -17,18 +18,14 @@ public sealed partial class AddFloatOperator : HTNOperator
     [DataField, ViewVariables(VVAccess.ReadWrite)]
     public float Amount;
 
-    public override async Task<(bool Valid, Dictionary<string, object>? Effects)> Plan(NPCBlackboard blackboard,
-        CancellationToken cancelToken)
+    public override async Task<(bool Valid, Dictionary<string, object>? Effects)> Plan(
+        NPCBlackboard blackboard,
+        CancellationToken cancelToken
+    )
     {
         if (!blackboard.TryGetValue<float>(TargetKey, out var value, _entManager))
             return (false, null);
 
-        return (
-            true,
-            new Dictionary<string, object>
-            {
-                { TargetKey, value + Amount }
-            }
-        );
+        return (true, new Dictionary<string, object> { { TargetKey, value + Amount } });
     }
 }

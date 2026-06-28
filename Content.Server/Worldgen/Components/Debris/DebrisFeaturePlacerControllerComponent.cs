@@ -15,29 +15,34 @@ public sealed partial class DebrisFeaturePlacerControllerComponent : Component
     /// <summary>
     ///     Whether or not to clip debris that would spawn at a location that has a density of zero.
     /// </summary>
-    [DataField("densityClip")] public bool DensityClip = true;
+    [DataField("densityClip")]
+    public bool DensityClip = true;
 
     /// <summary>
     ///     Whether or not entities are already spawned.
     /// </summary>
     public bool DoSpawns = true;
 
-    [DataField("ownedDebris")] public Dictionary<Vector2, EntityUid?> OwnedDebris = new();
+    [DataField("ownedDebris")]
+    public Dictionary<Vector2, EntityUid?> OwnedDebris = new();
 
     /// <summary>
     ///     The chance spawning a piece of debris will just be cancelled randomly.
     /// </summary>
-    [DataField("randomCancelChance")] public float RandomCancellationChance = 0.85f; // Mono 0.35f->0.85f
+    [DataField("randomCancelChance")]
+    public float RandomCancellationChance = 0.85f; // Mono 0.35f->0.85f
 
     /// <summary>
     ///     Radius in which there should be no objects for debris to spawn.
     /// </summary>
-    [DataField("safetyZoneRadius")] public float SafetyZoneRadius = 16.0f;
+    [DataField("safetyZoneRadius")]
+    public float SafetyZoneRadius = 16.0f;
 
     /// <summary>
     ///     Maximum number of debris entities that can be spawned per chunk. Null means no limit.
     /// </summary>
-    [DataField("maxDebrisCount")] public int? MaxDebrisCount = 18;
+    [DataField("maxDebrisCount")]
+    public int? MaxDebrisCount = 18;
 
     /// <summary>
     ///     The noise channel to use as a density controller.
@@ -45,4 +50,3 @@ public sealed partial class DebrisFeaturePlacerControllerComponent : Component
     [DataField("densityNoiseChannel", customTypeSerializer: typeof(PrototypeIdSerializer<NoiseChannelPrototype>))]
     public string DensityNoiseChannel { get; private set; } = default!;
 }
-

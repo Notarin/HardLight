@@ -4493,4 +4493,3 @@ entities:
     - type: Transform
       pos: -3.5,-4.5
       parent: 1
-...

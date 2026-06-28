@@ -21,7 +21,10 @@ public sealed partial class EmoteOnDamageComponent : Component
     /// A set of emotes that will be randomly picked from.
     /// <see cref="EmotePrototype"/>
     /// </summary>
-    [DataField("emotes", customTypeSerializer: typeof(PrototypeIdHashSetSerializer<EmotePrototype>)), ViewVariables(VVAccess.ReadWrite)]
+    [
+        DataField("emotes", customTypeSerializer: typeof(PrototypeIdHashSetSerializer<EmotePrototype>)),
+        ViewVariables(VVAccess.ReadWrite)
+    ]
     public HashSet<string> Emotes = new();
 
     /// <summary>

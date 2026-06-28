@@ -11,34 +11,34 @@
     - state: icon
     - state: icon-on
       visible: false
-      map: [ "enum.ToggleVisuals.Layer" ]
+      map: ["enum.ToggleVisuals.Layer"]
   - type: GenericVisualizer
     visuals:
       enum.ToggleVisuals.Toggled:
         enum.ToggleVisuals.Layer:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
   # End Frontier: layered sprite
   - type: Clothing
     sprite: Nyanotrasen/Clothing/Belt/mailbag.rsi
     quickEquip: false
     slots:
-        - belt
+    - belt
   - type: Item
     size: Large
   - type: Storage
     grid:
-      - 0,0,5,3
+    - 0,0,5,3
     quickInsert: true
     areaInsert: true
     whitelist:
       components:
-        - Mail
-        - Envelope
+      - Mail
+      - Envelope
       tags: # Frontier
-        - MailCapsule # Frontier
-        - Paper
-        - Book
+      - MailCapsule # Frontier
+      - Paper
+      - Book
   - type: MagnetPickup # Frontier
     magnetEnabled: false
     magnetCanBeEnabled: false

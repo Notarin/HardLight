@@ -12,8 +12,11 @@ namespace Content.Server.Body.Commands
     [AdminCommand(AdminFlags.Fun)]
     public sealed class RemoveHandCommand : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _entManager = default!;
-        [Dependency] private readonly IRobustRandom _random = default!;
+        [Dependency]
+        private readonly IEntityManager _entManager = default!;
+
+        [Dependency]
+        private readonly IRobustRandom _random = default!;
 
         public string Command => "removehand";
         public string Description => "Removes a hand from your entity.";
@@ -43,7 +46,9 @@ namespace Content.Server.Body.Commands
             }
 
             var bodySystem = _entManager.System<BodySystem>();
-            var hand = bodySystem.GetBodyChildrenOfType(player.AttachedEntity.Value, BodyPartType.Hand, body).FirstOrDefault();
+            var hand = bodySystem
+                .GetBodyChildrenOfType(player.AttachedEntity.Value, BodyPartType.Hand, body)
+                .FirstOrDefault();
 
             if (hand == default)
             {

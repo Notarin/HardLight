@@ -87,11 +87,11 @@
     visuals:
       enum.AmmoVisuals.HasAmmo:
         effect:
-          True: { visible: False }
-          False: { visible: True }
+          True: {visible: False}
+          False: {visible: True}
         base:
-          True: { visible: True }
-          False: { visible: False }
+          True: {visible: True}
+          False: {visible: False}
 
 - type: entity
   name: magical wand of instant death

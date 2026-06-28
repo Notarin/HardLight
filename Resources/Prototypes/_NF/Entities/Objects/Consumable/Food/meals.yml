@@ -31,8 +31,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.35
         density: 50
         mask:
@@ -46,11 +45,11 @@
     size: Ginormous
     heldPrefix: cat
   # - type: Clothing
-    # quickEquip: false
-    # sprite: Mobs/Pets/cat.rsi
-    # equippedPrefix: cat
-    # slots:
-    # - HEAD
+  # quickEquip: false
+  # sprite: Mobs/Pets/cat.rsi
+  # equippedPrefix: cat
+  # slots:
+  # - HEAD
   - type: GhostRole
     prob: 1
     name: ghost-role-information-crispy-name
@@ -63,8 +62,8 @@
     speechSounds: Cat
     speechVerb: SmallMob
   - type: MovementSpeedModifier
-    baseWalkSpeed : 3
-    baseSprintSpeed : 5
+    baseWalkSpeed: 3
+    baseSprintSpeed: 5
   - type: Tag
     tags:
     - VimPilot
@@ -98,7 +97,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - spooky
+    - spooky
   - type: DeepFried
     crispinessLevelSet: Spectral
     originalName: spooky
@@ -114,10 +113,10 @@
   components:
   - type: FlavorProfile
     flavors:
-      - egg
-      - fishy
-      - salty
-      - peppery
+    - egg
+    - fishy
+    - salty
+    - peppery
   - type: Sprite
     sprite: _NF/Objects/Consumable/Food/dragonomelette.rsi
     state: icon
@@ -144,8 +143,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - avocado
-      - bread
+    - avocado
+    - bread
   - type: Sprite
     sprite: _NF/Objects/Consumable/Food/Baked/bread.rsi
     state: avocadotoast
@@ -169,10 +168,10 @@
   components:
   - type: FlavorProfile
     flavors:
-      - avocado
-      - bread
-      - egg
-      - cheese
+    - avocado
+    - bread
+    - egg
+    - cheese
   - type: Sprite
     sprite: _NF/Objects/Consumable/Food/Baked/bread.rsi
     state: breakfastbagel
@@ -196,10 +195,10 @@
   components:
   - type: FlavorProfile
     flavors:
-      - avocado
-      - bread
-      - egg
-      - cheese
+    - avocado
+    - bread
+    - egg
+    - cheese
   - type: Sprite
     sprite: _NF/Objects/Consumable/Food/Baked/bread.rsi
     state: breakfastbagelpoppy
@@ -228,9 +227,9 @@
   components:
   - type: FlavorProfile
     flavors:
-      - cucumber
-      - bread
-      - mayonnaise
+    - cucumber
+    - bread
+    - mayonnaise
   - type: Sprite
     sprite: _NF/Objects/Consumable/Food/Baked/bread.rsi
     state: cucumbersandwich
@@ -257,8 +256,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - cheesy
-      - cucumber
+    - cheesy
+    - cucumber
   - type: Sprite
     sprite: _NF/Objects/Consumable/Food/bowl.rsi
     layers:
@@ -290,8 +289,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - avocado
-      - cucumber
+    - avocado
+    - cucumber
   - type: Sprite
     sprite: _NF/Objects/Consumable/Food/bowl.rsi
     layers:
@@ -323,9 +322,9 @@
   components:
   - type: FlavorProfile
     flavors:
-      - fruity
-      - alcohol
-      - pear
+    - fruity
+    - alcohol
+    - pear
   - type: Sprite
     sprite: _NF/Objects/Consumable/Food/bowl.rsi
     layers:
@@ -354,9 +353,9 @@
   components:
   - type: FlavorProfile
     flavors:
-      - chocolate
-      - pear
-      - creamy
+    - chocolate
+    - pear
+    - creamy
   - type: Sprite
     sprite: _NF/Objects/Consumable/Food/bowl.rsi
     layers:
@@ -387,8 +386,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - finenoodles
-      - richbroth
+    - finenoodles
+    - richbroth
   - type: Sprite
     sprite: _NF/Objects/Consumable/Food/bowl.rsi
     layers:
@@ -412,9 +411,9 @@
   components:
   - type: FlavorProfile
     flavors:
-      - finenoodles
-      - richbroth
-      - tangy
+    - finenoodles
+    - richbroth
+    - tangy
   - type: Sprite
     sprite: _NF/Objects/Consumable/Food/bowl.rsi
     layers:
@@ -445,8 +444,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - finenoodles
-      - richbroth
+    - finenoodles
+    - richbroth
   - type: Sprite
     sprite: _NF/Objects/Consumable/Food/bowl.rsi
     layers:
@@ -477,9 +476,9 @@
   components:
   - type: FlavorProfile
     flavors:
-      - finenoodles
-      - richbroth
-      - savory
+    - finenoodles
+    - richbroth
+    - savory
   - type: Sprite
     sprite: _NF/Objects/Consumable/Food/bowl.rsi
     layers:
@@ -511,9 +510,9 @@
   components:
   - type: FlavorProfile
     flavors:
-      - finenoodles
-      - tofu
-      - spicy
+    - finenoodles
+    - tofu
+    - spicy
   - type: Sprite
     sprite: _NF/Objects/Consumable/Food/bowl.rsi
     layers:
@@ -544,9 +543,9 @@
   components:
   - type: FlavorProfile
     flavors:
-      - finenoodles
-      - savory
-      - garlic
+    - finenoodles
+    - savory
+    - garlic
   - type: Sprite
     sprite: _NF/Objects/Consumable/Food/bowl.rsi
     layers:
@@ -580,7 +579,7 @@
     - NFHotdog
   - type: FlavorProfile
     flavors:
-      - meaty
+    - meaty
   - type: Sprite
     sprite: _NF/Objects/Consumable/Food/meat.rsi
     state: sausagecooked
@@ -608,8 +607,8 @@
     - Cooked
   - type: FlavorProfile
     flavors:
-      - meaty
-      - bread
+    - meaty
+    - bread
   - type: Sprite
     sprite: _NF/Objects/Consumable/Food/meat.rsi
     state: hotdog

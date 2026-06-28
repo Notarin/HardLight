@@ -11,9 +11,14 @@ namespace Content.Shared.Research.Systems;
 
 public abstract class SharedResearchSystem : EntitySystem
 {
-    [Dependency] protected readonly IPrototypeManager PrototypeManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedLatheSystem _lathe = default!;
+    [Dependency]
+    protected readonly IPrototypeManager PrototypeManager = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly SharedLatheSystem _lathe = default!;
 
     public override void Initialize()
     {
@@ -47,7 +52,10 @@ public abstract class SharedResearchSystem : EntitySystem
         Dirty(uid, component);
     }
 
-    public List<TechnologyPrototype> GetAvailableTechnologies(EntityUid uid, TechnologyDatabaseComponent? component = null)
+    public List<TechnologyPrototype> GetAvailableTechnologies(
+        EntityUid uid,
+        TechnologyDatabaseComponent? component = null
+    )
     {
         if (!Resolve(uid, ref component, false))
             return new List<TechnologyPrototype>();
@@ -63,7 +71,11 @@ public abstract class SharedResearchSystem : EntitySystem
         return availableTechnologies;
     }
 
-    public bool IsTechnologyAvailable(TechnologyDatabaseComponent component, TechnologyPrototype tech, Dictionary<string, int>? disciplineTiers = null)
+    public bool IsTechnologyAvailable(
+        TechnologyDatabaseComponent component,
+        TechnologyPrototype tech,
+        Dictionary<string, int>? disciplineTiers = null
+    )
     {
         disciplineTiers ??= GetDisciplineTiers(component);
 
@@ -96,7 +108,8 @@ public abstract class SharedResearchSystem : EntitySystem
     private bool CanContributeToDisciplineProgress(
         TechnologyPrototype technology,
         string disciplineId,
-        HashSet<string> visited)
+        HashSet<string> visited
+    )
     {
         if (technology.Hidden || technology.Discipline != disciplineId)
             return false;
@@ -107,9 +120,11 @@ public abstract class SharedResearchSystem : EntitySystem
         foreach (var prereqId in technology.TechnologyPrerequisites)
         {
             var prereq = PrototypeManager.Index<TechnologyPrototype>(prereqId);
-            if (prereq.Discipline != disciplineId ||
-                prereq.Tier > technology.Tier ||
-                !CanContributeToDisciplineProgress(prereq, disciplineId, visited))
+            if (
+                prereq.Discipline != disciplineId
+                || prereq.Tier > technology.Tier
+                || !CanContributeToDisciplineProgress(prereq, disciplineId, visited)
+            )
             {
                 visited.Remove(technology.ID);
                 return false;
@@ -138,8 +153,10 @@ public abstract class SharedResearchSystem : EntitySystem
 
     public int GetHighestDisciplineTier(TechnologyDatabaseComponent component, TechDisciplinePrototype techDiscipline)
     {
-        var allTech = PrototypeManager.EnumeratePrototypes<TechnologyPrototype>()
-            .Where(p => CanContributeToDisciplineProgress(p, techDiscipline.ID)).ToList();
+        var allTech = PrototypeManager
+            .EnumeratePrototypes<TechnologyPrototype>()
+            .Where(p => CanContributeToDisciplineProgress(p, techDiscipline.ID))
+            .ToList();
         var allUnlocked = new List<TechnologyPrototype>();
         foreach (var recipe in component.UnlockedTechnologies)
         {
@@ -162,13 +179,15 @@ public abstract class SharedResearchSystem : EntitySystem
             if (allTierTech.Count == 0)
                 break;
 
-            var percent = (float) unlockedTierTech.Count / allTierTech.Count;
+            var percent = (float)unlockedTierTech.Count / allTierTech.Count;
             if (percent < techDiscipline.TierPrerequisites[tier])
                 break;
 
-            if (tier >= techDiscipline.LockoutTier &&
-                component.MainDiscipline != null &&
-                techDiscipline.ID != component.MainDiscipline)
+            if (
+                tier >= techDiscipline.LockoutTier
+                && component.MainDiscipline != null
+                && techDiscipline.ID != component.MainDiscipline
+            )
                 break;
             tier++;
         }
@@ -181,14 +200,21 @@ public abstract class SharedResearchSystem : EntitySystem
         bool includeCost = true,
         bool includeTier = true,
         bool includePrereqs = false,
-        TechDisciplinePrototype? disciplinePrototype = null)
+        TechDisciplinePrototype? disciplinePrototype = null
+    )
     {
         var description = new FormattedMessage();
         if (includeTier)
         {
             disciplinePrototype ??= PrototypeManager.Index(technology.Discipline);
-            description.AddMarkupOrThrow(Loc.GetString("research-console-tier-discipline-info",
-                ("tier", technology.Tier), ("color", disciplinePrototype.Color), ("discipline", Loc.GetString(disciplinePrototype.Name))));
+            description.AddMarkupOrThrow(
+                Loc.GetString(
+                    "research-console-tier-discipline-info",
+                    ("tier", technology.Tier),
+                    ("color", disciplinePrototype.Color),
+                    ("discipline", Loc.GetString(disciplinePrototype.Name))
+                )
+            );
             description.PushNewline();
         }
 
@@ -205,8 +231,9 @@ public abstract class SharedResearchSystem : EntitySystem
             {
                 var techProto = PrototypeManager.Index(recipe);
                 description.PushNewline();
-                description.AddMarkupOrThrow(Loc.GetString("research-console-prereqs-list-entry",
-                    ("text", Loc.GetString(techProto.Name))));
+                description.AddMarkupOrThrow(
+                    Loc.GetString("research-console-prereqs-list-entry", ("text", Loc.GetString(techProto.Name)))
+                );
             }
             description.PushNewline();
         }
@@ -216,14 +243,19 @@ public abstract class SharedResearchSystem : EntitySystem
         {
             var recipeProto = PrototypeManager.Index(recipe);
             description.PushNewline();
-            description.AddMarkupOrThrow(Loc.GetString("research-console-unlocks-list-entry",
-                ("name", _lathe.GetRecipeName(recipeProto))));
+            description.AddMarkupOrThrow(
+                Loc.GetString("research-console-unlocks-list-entry", ("name", _lathe.GetRecipeName(recipeProto)))
+            );
         }
         foreach (var generic in technology.GenericUnlocks)
         {
             description.PushNewline();
-            description.AddMarkupOrThrow(Loc.GetString("research-console-unlocks-list-entry-generic",
-                ("text", Loc.GetString(generic.UnlockDescription))));
+            description.AddMarkupOrThrow(
+                Loc.GetString(
+                    "research-console-unlocks-list-entry-generic",
+                    ("text", Loc.GetString(generic.UnlockDescription))
+                )
+            );
         }
 
         return description;
@@ -233,7 +265,11 @@ public abstract class SharedResearchSystem : EntitySystem
     ///     Returns whether a technology is unlocked on this database or not.
     /// </summary>
     /// <returns>Whether it is unlocked or not</returns>
-    public bool IsTechnologyUnlocked(EntityUid uid, TechnologyPrototype technology, TechnologyDatabaseComponent? component = null)
+    public bool IsTechnologyUnlocked(
+        EntityUid uid,
+        TechnologyPrototype technology,
+        TechnologyDatabaseComponent? component = null
+    )
     {
         return Resolve(uid, ref component) && IsTechnologyUnlocked(uid, technology.ID, component);
     }
@@ -247,7 +283,11 @@ public abstract class SharedResearchSystem : EntitySystem
         return Resolve(uid, ref component, false) && component.UnlockedTechnologies.Contains(technologyId);
     }
 
-    public void TrySetMainDiscipline(TechnologyPrototype prototype, EntityUid uid, TechnologyDatabaseComponent? component = null)
+    public void TrySetMainDiscipline(
+        TechnologyPrototype prototype,
+        EntityUid uid,
+        TechnologyDatabaseComponent? component = null
+    )
     {
         return;
         // Frontier: allow unlocking all disciplines

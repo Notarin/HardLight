@@ -1,33 +1,44 @@
-using Content.Server.ParticleAccelerator.Components;
-using Content.Server.Power.Components;
-using Content.Shared.Database;
-using Content.Shared.Machines.Components;
-using Content.Shared.Singularity.Components;
-using Robust.Shared.Utility;
 using System.Diagnostics;
 using Content.Server.Administration.Managers;
+using Content.Server.ParticleAccelerator.Components;
+using Content.Server.Power.Components;
 using Content.Shared.CCVar;
+using Content.Shared.Database;
+using Content.Shared.Machines.Components;
+using Content.Shared.Machines.Events;
+using Content.Shared.ParticleAccelerator;
 using Content.Shared.Power;
+using Content.Shared.Singularity.Components;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Player;
-using Content.Shared.ParticleAccelerator;
-using Content.Shared.Machines.Events;
+using Robust.Shared.Utility;
 
 namespace Content.Server.ParticleAccelerator.EntitySystems;
 
 public sealed partial class ParticleAcceleratorSystem
 {
-    [Dependency] private readonly IAdminManager _adminManager = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency]
+    private readonly IAdminManager _adminManager = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
 
     private void InitializeControlBoxSystem()
     {
         SubscribeLocalEvent<ParticleAcceleratorControlBoxComponent, PowerChangedEvent>(OnControlBoxPowerChange);
-        SubscribeLocalEvent<ParticleAcceleratorControlBoxComponent, ParticleAcceleratorSetEnableMessage>(OnUISetEnableMessage);
-        SubscribeLocalEvent<ParticleAcceleratorControlBoxComponent, ParticleAcceleratorSetPowerStateMessage>(OnUISetPowerMessage);
-        SubscribeLocalEvent<ParticleAcceleratorControlBoxComponent, ParticleAcceleratorRescanPartsMessage>(OnUIRescanMessage);
-        SubscribeLocalEvent<ParticleAcceleratorControlBoxComponent, MultipartMachineAssemblyStateChanged>(OnMachineAssembledChanged);
+        SubscribeLocalEvent<ParticleAcceleratorControlBoxComponent, ParticleAcceleratorSetEnableMessage>(
+            OnUISetEnableMessage
+        );
+        SubscribeLocalEvent<ParticleAcceleratorControlBoxComponent, ParticleAcceleratorSetPowerStateMessage>(
+            OnUISetPowerMessage
+        );
+        SubscribeLocalEvent<ParticleAcceleratorControlBoxComponent, ParticleAcceleratorRescanPartsMessage>(
+            OnUIRescanMessage
+        );
+        SubscribeLocalEvent<ParticleAcceleratorControlBoxComponent, MultipartMachineAssemblyStateChanged>(
+            OnMachineAssembledChanged
+        );
     }
 
     public override void Update(float frameTime)
@@ -42,8 +53,10 @@ public sealed partial class ParticleAcceleratorSystem
     }
 
     [Conditional("DEBUG")]
-    private void EverythingIsWellToFire(ParticleAcceleratorControlBoxComponent controller,
-        Entity<MultipartMachineComponent> machine)
+    private void EverythingIsWellToFire(
+        ParticleAcceleratorControlBoxComponent controller,
+        Entity<MultipartMachineComponent> machine
+    )
     {
         DebugTools.Assert(controller.Powered);
         DebugTools.Assert(controller.SelectedStrength != ParticleAcceleratorPowerState.Standby);
@@ -82,13 +95,23 @@ public sealed partial class ParticleAcceleratorSystem
             return;
 
         if (user is { } player)
-            _adminLogger.Add(LogType.Action, LogImpact.Low, $"{ToPrettyString(player):player} has turned {ToPrettyString(uid)} on");
+            _adminLogger.Add(
+                LogType.Action,
+                LogImpact.Low,
+                $"{ToPrettyString(player):player} has turned {ToPrettyString(uid)} on"
+            );
 
         comp.Enabled = true;
         UpdatePowerDraw(uid, comp);
 
-        if (!TryComp<PowerConsumerComponent>(_multipartMachine.GetPartEntity(uid, AcceleratorParts.PowerBox), out var powerConsumer)
-            || powerConsumer.ReceivedPower >= powerConsumer.DrawRate * ParticleAcceleratorControlBoxComponent.RequiredPowerRatio)
+        if (
+            !TryComp<PowerConsumerComponent>(
+                _multipartMachine.GetPartEntity(uid, AcceleratorParts.PowerBox),
+                out var powerConsumer
+            )
+            || powerConsumer.ReceivedPower
+                >= powerConsumer.DrawRate * ParticleAcceleratorControlBoxComponent.RequiredPowerRatio
+        )
         {
             PowerOn(uid, comp);
         }
@@ -104,7 +127,11 @@ public sealed partial class ParticleAcceleratorSystem
             return;
 
         if (user is { } player)
-            _adminLogger.Add(LogType.Action, LogImpact.Low, $"{ToPrettyString(player):player} has turned {ToPrettyString(uid)} off");
+            _adminLogger.Add(
+                LogType.Action,
+                LogImpact.Low,
+                $"{ToPrettyString(player):player} has turned {ToPrettyString(uid)} off"
+            );
 
         comp.Enabled = false;
         SetStrength(uid, ParticleAcceleratorPowerState.Standby, user, comp);
@@ -145,18 +172,20 @@ public sealed partial class ParticleAcceleratorSystem
         UpdateUI(uid, comp);
     }
 
-    public void SetStrength(EntityUid uid, ParticleAcceleratorPowerState strength, EntityUid? user = null, ParticleAcceleratorControlBoxComponent? comp = null)
+    public void SetStrength(
+        EntityUid uid,
+        ParticleAcceleratorPowerState strength,
+        EntityUid? user = null,
+        ParticleAcceleratorControlBoxComponent? comp = null
+    )
     {
         if (!Resolve(uid, ref comp))
             return;
         if (comp.StrengthLocked)
             return;
 
-        strength = (ParticleAcceleratorPowerState) MathHelper.Clamp(
-            (int) strength,
-            (int) ParticleAcceleratorPowerState.Standby,
-            (int) comp.MaxStrength
-        );
+        strength = (ParticleAcceleratorPowerState)
+            MathHelper.Clamp((int)strength, (int)ParticleAcceleratorPowerState.Standby, (int)comp.MaxStrength);
 
         if (strength == comp.SelectedStrength)
             return;
@@ -167,30 +196,40 @@ public sealed partial class ParticleAcceleratorSystem
             {
                 ParticleAcceleratorPowerState.Standby => LogImpact.Low,
                 ParticleAcceleratorPowerState.Level0
-                    or ParticleAcceleratorPowerState.Level1
-                    or ParticleAcceleratorPowerState.Level2 => LogImpact.Medium,
+                or ParticleAcceleratorPowerState.Level1
+                or ParticleAcceleratorPowerState.Level2 => LogImpact.Medium,
                 ParticleAcceleratorPowerState.Level3 => LogImpact.Extreme,
                 _ => throw new IndexOutOfRangeException(nameof(strength)),
             };
 
-            _adminLogger.Add(LogType.Action, impact, $"{ToPrettyString(player):player} has set the strength of {ToPrettyString(uid)} to {strength}");
+            _adminLogger.Add(
+                LogType.Action,
+                impact,
+                $"{ToPrettyString(player):player} has set the strength of {ToPrettyString(uid)} to {strength}"
+            );
 
-
-            var alertMinPowerState = (ParticleAcceleratorPowerState)_cfg.GetCVar(CCVars.AdminAlertParticleAcceleratorMinPowerState);
+            var alertMinPowerState = (ParticleAcceleratorPowerState)
+                _cfg.GetCVar(CCVars.AdminAlertParticleAcceleratorMinPowerState);
             if (strength >= alertMinPowerState)
             {
                 var pos = Transform(uid);
                 if (_gameTiming.CurTime > comp.EffectCooldown)
                 {
-                    _chat.SendAdminAlert(player,
-                        Loc.GetString("particle-accelerator-admin-power-strength-warning",
-                        ("machine", ToPrettyString(uid)),
-                        ("powerState", GetPANumericalLevel(strength)),
-                        ("coordinates", pos.Coordinates)));
-                    _audio.PlayGlobal("/Audio/Misc/adminlarm.ogg",
+                    _chat.SendAdminAlert(
+                        player,
+                        Loc.GetString(
+                            "particle-accelerator-admin-power-strength-warning",
+                            ("machine", ToPrettyString(uid)),
+                            ("powerState", GetPANumericalLevel(strength)),
+                            ("coordinates", pos.Coordinates)
+                        )
+                    );
+                    _audio.PlayGlobal(
+                        "/Audio/Misc/adminlarm.ogg",
                         Filter.Empty().AddPlayers(_adminManager.ActiveAdmins),
                         false,
-                        AudioParams.Default.WithVolume(-8f));
+                        AudioParams.Default.WithVolume(-8f)
+                    );
                     comp.EffectCooldown = _gameTiming.CurTime + comp.CooldownDuration;
                 }
             }
@@ -234,12 +273,17 @@ public sealed partial class ParticleAcceleratorSystem
         if (!Resolve(uid, ref comp))
             return;
 
-        if (!TryComp<PowerConsumerComponent>(_multipartMachine.GetPartEntity(uid, AcceleratorParts.PowerBox), out var powerConsumer))
+        if (
+            !TryComp<PowerConsumerComponent>(
+                _multipartMachine.GetPartEntity(uid, AcceleratorParts.PowerBox),
+                out var powerConsumer
+            )
+        )
             return;
 
         var powerDraw = comp.BasePowerDraw;
         if (comp.Enabled)
-            powerDraw += comp.LevelPowerDraw * (int) comp.SelectedStrength;
+            powerDraw += comp.LevelPowerDraw * (int)comp.SelectedStrength;
 
         powerConsumer.DrawRate = powerDraw;
     }
@@ -255,7 +299,12 @@ public sealed partial class ParticleAcceleratorSystem
         var draw = 0f;
         var receive = 0f;
 
-        if (TryComp<PowerConsumerComponent>(_multipartMachine.GetPartEntity(uid, AcceleratorParts.PowerBox), out var powerConsumer))
+        if (
+            TryComp<PowerConsumerComponent>(
+                _multipartMachine.GetPartEntity(uid, AcceleratorParts.PowerBox),
+                out var powerConsumer
+            )
+        )
         {
             draw = powerConsumer.DrawRate;
             receive = powerConsumer.ReceivedPower;
@@ -286,7 +335,11 @@ public sealed partial class ParticleAcceleratorSystem
         _uiSystem.SetUiState(uid, ParticleAcceleratorControlBoxUiKey.Key, uiState);
     }
 
-    private void UpdateAppearance(EntityUid uid, ParticleAcceleratorControlBoxComponent? comp = null, AppearanceComponent? appearance = null)
+    private void UpdateAppearance(
+        EntityUid uid,
+        ParticleAcceleratorControlBoxComponent? comp = null,
+        AppearanceComponent? appearance = null
+    )
     {
         if (!Resolve(uid, ref comp))
             return;
@@ -296,7 +349,7 @@ public sealed partial class ParticleAcceleratorSystem
             ParticleAcceleratorVisuals.VisualState,
             TryComp<ApcPowerReceiverComponent>(uid, out var apcPower) && !apcPower.Powered
                 ? ParticleAcceleratorVisualState.Unpowered
-                : (ParticleAcceleratorVisualState) comp.SelectedStrength,
+                : (ParticleAcceleratorVisualState)comp.SelectedStrength,
             appearance
         );
     }
@@ -306,7 +359,9 @@ public sealed partial class ParticleAcceleratorSystem
         if (!Resolve(uid, ref controller))
             return;
 
-        var state = controller.Powered ? (ParticleAcceleratorVisualState) controller.SelectedStrength : ParticleAcceleratorVisualState.Unpowered;
+        var state = controller.Powered
+            ? (ParticleAcceleratorVisualState)controller.SelectedStrength
+            : ParticleAcceleratorVisualState.Unpowered;
 
         if (!TryComp<MultipartMachineComponent>(uid, out var machineComp))
             return;
@@ -332,7 +387,10 @@ public sealed partial class ParticleAcceleratorSystem
     /// </summary>
     /// <param name="ent">Multipart machine entity</param>
     /// <param name="args">Args for this event</param>
-    private void OnMachineAssembledChanged(Entity<ParticleAcceleratorControlBoxComponent> ent, ref MultipartMachineAssemblyStateChanged args)
+    private void OnMachineAssembledChanged(
+        Entity<ParticleAcceleratorControlBoxComponent> ent,
+        ref MultipartMachineAssemblyStateChanged args
+    )
     {
         if (args.IsAssembled)
         {
@@ -358,14 +416,22 @@ public sealed partial class ParticleAcceleratorSystem
                 if (key is AcceleratorParts.EndCap)
                     continue; // No endcap powerlevel-sprites
 
-                _appearanceSystem.SetData(part, ParticleAcceleratorVisuals.VisualState, ParticleAcceleratorVisualState.Unpowered);
+                _appearanceSystem.SetData(
+                    part,
+                    ParticleAcceleratorVisuals.VisualState,
+                    ParticleAcceleratorVisualState.Unpowered
+                );
             }
         }
     }
 
     // This is the power state for the PA control box itself.
     // Keep in mind that the PA itself can keep firing as long as the HV cable under the power box has... power.
-    private void OnControlBoxPowerChange(EntityUid uid, ParticleAcceleratorControlBoxComponent comp, ref PowerChangedEvent args)
+    private void OnControlBoxPowerChange(
+        EntityUid uid,
+        ParticleAcceleratorControlBoxComponent comp,
+        ref PowerChangedEvent args
+    )
     {
         UpdateAppearance(uid, comp);
 
@@ -373,7 +439,11 @@ public sealed partial class ParticleAcceleratorSystem
             _uiSystem.CloseUi(uid, ParticleAcceleratorControlBoxUiKey.Key);
     }
 
-    private void OnUISetEnableMessage(EntityUid uid, ParticleAcceleratorControlBoxComponent comp, ParticleAcceleratorSetEnableMessage msg)
+    private void OnUISetEnableMessage(
+        EntityUid uid,
+        ParticleAcceleratorControlBoxComponent comp,
+        ParticleAcceleratorSetEnableMessage msg
+    )
     {
         if (!ParticleAcceleratorControlBoxUiKey.Key.Equals(msg.UiKey))
             return;
@@ -393,7 +463,11 @@ public sealed partial class ParticleAcceleratorSystem
         UpdateUI(uid, comp);
     }
 
-    private void OnUISetPowerMessage(EntityUid uid, ParticleAcceleratorControlBoxComponent comp, ParticleAcceleratorSetPowerStateMessage msg)
+    private void OnUISetPowerMessage(
+        EntityUid uid,
+        ParticleAcceleratorControlBoxComponent comp,
+        ParticleAcceleratorSetPowerStateMessage msg
+    )
     {
         if (!ParticleAcceleratorControlBoxUiKey.Key.Equals(msg.UiKey))
             return;
@@ -407,7 +481,11 @@ public sealed partial class ParticleAcceleratorSystem
         UpdateUI(uid, comp);
     }
 
-    private void OnUIRescanMessage(EntityUid uid, ParticleAcceleratorControlBoxComponent comp, ParticleAcceleratorRescanPartsMessage msg)
+    private void OnUIRescanMessage(
+        EntityUid uid,
+        ParticleAcceleratorControlBoxComponent comp,
+        ParticleAcceleratorRescanPartsMessage msg
+    )
     {
         if (!ParticleAcceleratorControlBoxUiKey.Key.Equals(msg.UiKey))
             return;
@@ -433,7 +511,7 @@ public sealed partial class ParticleAcceleratorSystem
             ParticleAcceleratorPowerState.Level1 => 2,
             ParticleAcceleratorPowerState.Level2 => 3,
             ParticleAcceleratorPowerState.Level3 => 4,
-            _ => 0
+            _ => 0,
         };
     }
 }

@@ -15,8 +15,11 @@ namespace Content.Client._Goobstation.Factory;
 /// </summary>
 public sealed class RoboticArmAnimationSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     public override void FrameUpdate(float frameTime)
     {
@@ -26,7 +29,7 @@ public sealed class RoboticArmAnimationSystem : EntitySystem
             if (comp.ItemSlot == null)
                 continue;
 
-            if (comp.NextMove is {} nextMove)
+            if (comp.NextMove is { } nextMove)
                 Animate((uid, comp), nextMove);
             else
                 Reset((uid, comp));

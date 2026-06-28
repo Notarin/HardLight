@@ -46,12 +46,19 @@ namespace Content.Server.IP
             return address.IsInSubnet(maskAddress, maskLength);
         }
 
-        public static bool IsInSubnet(this System.Net.IPAddress address, (System.Net.IPAddress maskAddress, int maskLength) tuple)
+        public static bool IsInSubnet(
+            this System.Net.IPAddress address,
+            (System.Net.IPAddress maskAddress, int maskLength) tuple
+        )
         {
             return address.IsInSubnet(tuple.maskAddress, tuple.maskLength);
         }
 
-        public static bool IsInSubnet(this System.Net.IPAddress address, System.Net.IPAddress maskAddress, int maskLength)
+        public static bool IsInSubnet(
+            this System.Net.IPAddress address,
+            System.Net.IPAddress maskAddress,
+            int maskLength
+        )
         {
             if (maskAddress.AddressFamily != address.AddressFamily)
             {

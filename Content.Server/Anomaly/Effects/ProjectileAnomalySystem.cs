@@ -17,11 +17,20 @@ namespace Content.Server.Anomaly.Effects;
 /// </summary>
 public sealed class ProjectileAnomalySystem : EntitySystem
 {
-    [Dependency] private readonly TransformSystem _xform = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly GunSystem _gunSystem = default!;
+    [Dependency]
+    private readonly TransformSystem _xform = default!;
+
+    [Dependency]
+    private readonly EntityLookupSystem _lookup = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly IMapManager _mapManager = default!;
+
+    [Dependency]
+    private readonly GunSystem _gunSystem = default!;
 
     public override void Initialize()
     {
@@ -34,19 +43,26 @@ public sealed class ProjectileAnomalySystem : EntitySystem
         ShootProjectilesAtEntities(uid, component, args.Severity * args.PowerModifier);
     }
 
-    private void OnSupercritical(EntityUid uid, ProjectileAnomalyComponent component, ref AnomalySupercriticalEvent args)
+    private void OnSupercritical(
+        EntityUid uid,
+        ProjectileAnomalyComponent component,
+        ref AnomalySupercriticalEvent args
+    )
     {
         ShootProjectilesAtEntities(uid, component, args.PowerModifier);
     }
 
     private void ShootProjectilesAtEntities(EntityUid uid, ProjectileAnomalyComponent component, float severity)
     {
-        var projectileCount = (int) MathF.Round(MathHelper.Lerp(component.MinProjectiles, component.MaxProjectiles, severity));
+        var projectileCount = (int)
+            MathF.Round(MathHelper.Lerp(component.MinProjectiles, component.MaxProjectiles, severity));
         var xformQuery = GetEntityQuery<TransformComponent>();
         var mobQuery = GetEntityQuery<MobStateComponent>();
         var xform = xformQuery.GetComponent(uid);
 
-        var inRange = _lookup.GetEntitiesInRange(uid, component.ProjectileRange * severity, LookupFlags.Dynamic).ToList();
+        var inRange = _lookup
+            .GetEntitiesInRange(uid, component.ProjectileRange * severity, LookupFlags.Dynamic)
+            .ToList();
         _random.Shuffle(inRange);
         var priority = new List<EntityUid>();
         foreach (var entity in inRange)
@@ -59,17 +75,11 @@ public sealed class ProjectileAnomalySystem : EntitySystem
         while (projectileCount > 0)
         {
             Log.Debug($"{projectileCount}");
-            var target = priority.Any()
-                ? _random.PickAndTake(priority)
-                : _random.Pick(inRange);
+            var target = priority.Any() ? _random.PickAndTake(priority) : _random.Pick(inRange);
 
             var targetCoords = xformQuery.GetComponent(target).Coordinates.Offset(_random.NextVector2(0.5f));
 
-            ShootProjectile(
-                uid, component,
-                xform.Coordinates,
-                targetCoords,
-                severity);
+            ShootProjectile(uid, component, xform.Coordinates, targetCoords, severity);
             projectileCount--;
         }
     }
@@ -79,13 +89,14 @@ public sealed class ProjectileAnomalySystem : EntitySystem
         ProjectileAnomalyComponent component,
         EntityCoordinates coords,
         EntityCoordinates targetCoords,
-        float severity)
+        float severity
+    )
     {
         var mapPos = _xform.ToMapCoordinates(coords);
 
         var spawnCoords = _mapManager.TryFindGridAt(mapPos, out var gridUid, out _)
-                ? _xform.WithEntityId(coords, gridUid)
-                : new(_mapManager.GetMapEntityId(mapPos.MapId), mapPos.Position);
+            ? _xform.WithEntityId(coords, gridUid)
+            : new(_mapManager.GetMapEntityId(mapPos.MapId), mapPos.Position);
 
         var ent = Spawn(component.ProjectilePrototype, spawnCoords);
         var direction = _xform.ToMapCoordinates(targetCoords).Position - mapPos.Position;

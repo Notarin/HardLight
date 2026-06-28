@@ -16,6 +16,5 @@ public record struct MultipartMachineAssemblyStateChanged(
     bool IsAssembled,
     EntityUid? User,
     Dictionary<Enum, EntityUid> PartsAdded,
-    Dictionary<Enum, EntityUid> PartsRemoved)
-{
-}
+    Dictionary<Enum, EntityUid> PartsRemoved
+) { }

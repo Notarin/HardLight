@@ -21,12 +21,14 @@ public sealed partial class VesselPrototype : IPrototype, IInheritingPrototype
     /// <summary>
     ///     Vessel name.
     /// </summary>
-    [DataField] public string Name = string.Empty;
+    [DataField]
+    public string Name = string.Empty;
 
     /// <summary>
     ///     Short description of the vessel.
     /// </summary>
-    [DataField] public string Description = string.Empty;
+    [DataField]
+    public string Description = string.Empty;
 
     /// <summary>
     ///     The price of the vessel
@@ -103,12 +105,13 @@ public enum VesselSize : byte
     Micro,
     Small,
     Medium,
-    Large
+    Large,
 }
 
 public enum VesselClass : byte
 {
     All, // Should not be used by ships, intended as a placeholder value to represent everything
+
     // NFSD-specific categories
     Capital,
     Detainment,
@@ -116,9 +119,11 @@ public enum VesselClass : byte
     Fighter,
     Patrol,
     Pursuit,
+
     // Capabilities
     Expedition,
     Scrapyard,
+
     // General
     Salvage,
     Science,
@@ -131,6 +136,7 @@ public enum VesselClass : byte
     Medical,
     Civilian, // Service catch-all - reporter, legal, entertainment, misc. ships
     Kitchen,
+
     // Antag ships
     Syndicate,
     Pirate,

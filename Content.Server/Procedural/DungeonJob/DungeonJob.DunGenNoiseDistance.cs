@@ -25,7 +25,8 @@ public sealed partial class DungeonJob
         NoiseDistanceDunGen dungen,
         HashSet<Vector2i> reservedTiles,
         int seed,
-        Random random)
+        Random random
+    )
     {
         var tiles = new List<(Vector2i, Tile)>();
         var matrix = Matrix3Helpers.CreateTranslation(position);
@@ -39,8 +40,8 @@ public sealed partial class DungeonJob
         // at which point we floodfill the entire noise.
         var area = Box2i.FromDimensions(-dungen.Size / 2, dungen.Size);
         var roomTiles = new HashSet<Vector2i>();
-        var width = (float) area.Width;
-        var height = (float) area.Height;
+        var width = (float)area.Width;
+        var height = (float)area.Height;
 
         for (var x = area.Left; x <= area.Right; x++)
         {
@@ -67,7 +68,7 @@ public sealed partial class DungeonJob
                         continue;
 
                     var tileDef = _tileDefManager[layer.Tile];
-                    var variant = _tile.PickVariant((ContentTileDefinition) tileDef, random);
+                    var variant = _tile.PickVariant((ContentTileDefinition)tileDef, random);
                     var adjusted = Vector2.Transform(node + _grid.TileSizeHalfVector, matrix).Floored();
 
                     // Do this down here because noise has a much higher chance of failing than reserved tiles.
@@ -88,10 +89,7 @@ public sealed partial class DungeonJob
         var room = new DungeonRoom(roomTiles, area.Center, area, new HashSet<Vector2i>());
 
         _maps.SetTiles(_gridUid, _grid, tiles);
-        var dungeon = new Dungeon(new List<DungeonRoom>()
-        {
-            room,
-        });
+        var dungeon = new Dungeon(new List<DungeonRoom>() { room });
 
         await SuspendDungeon();
         return dungeon;

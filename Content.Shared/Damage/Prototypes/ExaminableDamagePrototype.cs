@@ -17,5 +17,5 @@ public sealed partial class ExaminableDamagePrototype : IPrototype
     ///     Last one describes almost destroyed.
     /// </summary>
     [DataField("messages")]
-    public string[] Messages = {};
+    public string[] Messages = { };
 }

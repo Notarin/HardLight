@@ -27,7 +27,12 @@ public sealed partial class NFCargoConsoleMenu : FancyWindow
     private readonly List<string> _categoryStrings = new();
     private string? _category;
 
-    public NFCargoConsoleMenu(EntityUid owner, IEntityManager entMan, IPrototypeManager protoManager, SpriteSystem spriteSystem)
+    public NFCargoConsoleMenu(
+        EntityUid owner,
+        IEntityManager entMan,
+        IPrototypeManager protoManager,
+        SpriteSystem spriteSystem
+    )
     {
         RobustXamlLoader.Load(this);
         _entityManager = entMan;
@@ -81,8 +86,7 @@ public sealed partial class NFCargoConsoleMenu : FancyWindow
     {
         Products.RemoveAllChildren();
         var products = ProductPrototypes.ToList();
-        products.Sort((x, y) =>
-            string.Compare(x.Name, y.Name, StringComparison.CurrentCultureIgnoreCase));
+        products.Sort((x, y) => string.Compare(x.Name, y.Name, StringComparison.CurrentCultureIgnoreCase));
 
         var search = SearchBar.Text.Trim().ToLowerInvariant();
         foreach (var prototype in products)
@@ -90,17 +94,19 @@ public sealed partial class NFCargoConsoleMenu : FancyWindow
             // if no search or category
             // else if search
             // else if category and not search
-            if (search.Length == 0 && _category == null ||
-                search.Length != 0 && prototype.Name.ToLowerInvariant().Contains(search) ||
-                search.Length != 0 && prototype.Description.ToLowerInvariant().Contains(search) ||
-                search.Length == 0 && _category != null && Loc.GetString(prototype.Category).Equals(_category))
+            if (
+                search.Length == 0 && _category == null
+                || search.Length != 0 && prototype.Name.ToLowerInvariant().Contains(search)
+                || search.Length != 0 && prototype.Description.ToLowerInvariant().Contains(search)
+                || search.Length == 0 && _category != null && Loc.GetString(prototype.Category).Equals(_category)
+            )
             {
                 var button = new CargoProductRow
                 {
                     Product = prototype,
                     ProductName = { Text = prototype.Name },
                     MainButton = { ToolTip = prototype.Description },
-                    PointCost = { Text = BankSystemExtensions.ToSpesoString(prototype.Cost) }, // Frontier: 
+                    PointCost = { Text = BankSystemExtensions.ToSpesoString(prototype.Cost) }, // Frontier:
                     Icon = { Texture = _spriteSystem.Frame0(prototype.Icon) },
                 };
                 button.MainButton.OnPressed += args =>
@@ -164,20 +170,25 @@ public sealed partial class NFCargoConsoleMenu : FancyWindow
                         "cargo-console-menu-nf-populate-orders-cargo-order-row-product-name-text",
                         ("total", order.OrderQuantity),
                         ("productName", productName),
-                        ("purchaser", order.Purchaser))
+                        ("purchaser", order.Purchaser)
+                    ),
                 },
                 Quantity =
                 {
                     Text = Loc.GetString(
                         "cargo-console-menu-nf-populate-orders-cargo-order-row-product-quantity-text",
                         ("remaining", order.OrderQuantity - order.NumDispatched)
-                    )
-                }
+                    ),
+                },
             };
             Orders.AddChild(row);
             quantitySum += order.OrderQuantity - order.NumDispatched;
         }
-        ShuttleCapacityLabel.Text = Loc.GetString("cargo-console-menu-nf-order-capacity", ("count", quantitySum), ("capacity", orderCapacity));
+        ShuttleCapacityLabel.Text = Loc.GetString(
+            "cargo-console-menu-nf-order-capacity",
+            ("count", quantitySum),
+            ("capacity", orderCapacity)
+        );
     }
 
     public void UpdateBankData(string name, int bankBalance)

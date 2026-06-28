@@ -6,9 +6,8 @@
   speciesRestriction: [Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Tajaran] # Delta V - Felinid, Oni, Vulpkanin, Rodentia
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Mobs/Customization/gauze.rsi
     state: gauze_lefteye_2
@@ -20,9 +19,8 @@
   speciesRestriction: [Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Tajaran] # Delta V - Felinid, Oni, Vulpkanin, Rodentia
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Mobs/Customization/gauze.rsi
     state: gauze_lefteye_1
@@ -34,9 +32,8 @@
   speciesRestriction: [Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Tajaran] # Delta V - Felinid, Oni, Vulpkanin, Rodentia
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Mobs/Customization/gauze.rsi
     state: gauze_righteye_2
@@ -48,9 +45,8 @@
   speciesRestriction: [Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Tajaran] # Delta V - Felinid, Oni, Vulpkanin, Rodentia
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Mobs/Customization/gauze.rsi
     state: gauze_righteye_1
@@ -62,9 +58,8 @@
   speciesRestriction: [Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Tajaran] # Delta V - Felinid, Oni, Harpy, Vulpkanin, Rodentia
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Mobs/Customization/gauze.rsi
     state: gauze_blindfold
@@ -76,9 +71,8 @@
   speciesRestriction: [Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Tajaran, Shadekin] # Delta V - Felinid, Oni, Vulpkanin, Rodentia
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Mobs/Customization/gauze.rsi
     state: gauze_shoulder
@@ -90,9 +84,8 @@
   speciesRestriction: [Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Tajaran, Shadekin] # Delta V - Felinid, Oni, Vulpkanin, Rodentia
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Mobs/Customization/gauze.rsi
     state: gauze_abdomen
@@ -104,9 +97,8 @@
   speciesRestriction: [Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Tajaran, Shadekin] # Delta V - Felinid, Oni, Vulpkanin, Rodentia
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Mobs/Customization/gauze.rsi
     state: gauze_upperarm_r
@@ -118,9 +110,8 @@
   speciesRestriction: [Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Tajaran, Shadekin] # Delta V - Felinid, Oni, Vulpkanin, Rodentia
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Mobs/Customization/gauze.rsi
     state: gauze_lowerarm_r
@@ -132,9 +123,8 @@
   speciesRestriction: [Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Tajaran, Shadekin] # Delta V - Felinid, Oni, Vulpkanin, Rodentia
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Mobs/Customization/gauze.rsi
     state: gauze_leftarm
@@ -146,9 +136,8 @@
   speciesRestriction: [Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Tajaran] # Delta V - Felinid, Oni, Vulpkanin, Rodentia
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Mobs/Customization/gauze.rsi
     state: gauze_lowerleg_l
@@ -160,9 +149,8 @@
   speciesRestriction: [Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Tajaran, Shadekin] # Delta V - Felinid, Oni, Vulpkanin, Rodentia
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Mobs/Customization/gauze.rsi
     state: gauze_upperleg_l
@@ -174,9 +162,8 @@
   speciesRestriction: [Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Tajaran, Shadekin] # Delta V - Felinid, Oni, Vulpkanin, Rodentia
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Mobs/Customization/gauze.rsi
     state: gauze_upperleg_r
@@ -188,9 +175,8 @@
   speciesRestriction: [Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Tajaran, Shadekin] # Delta V - Felinid, Oni, Vulpkanin, Rodentia
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Mobs/Customization/gauze.rsi
     state: gauze_lowerleg_r
@@ -202,9 +188,8 @@
   speciesRestriction: [Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Tajaran, Shadekin] # Delta V - Felinid, Oni, Vulpkanin, Rodentia
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Mobs/Customization/gauze.rsi
     state: gauze_boxerwrap_r
@@ -216,9 +201,8 @@
   speciesRestriction: [Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Tajaran, Shadekin] # Delta V - Felinid, Oni, Vulpkanin, Rodentia
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Mobs/Customization/gauze.rsi
     state: gauze_boxerwrap_l
@@ -230,9 +214,8 @@
   speciesRestriction: [Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Shadekin] # Frontier - added Goblin and afterwards
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Mobs/Customization/gauze.rsi
     state: gauze_head
@@ -245,9 +228,8 @@
   speciesRestriction: [Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Mobs/Customization/gauze.rsi
     state: gauze_lizard_lefteye
@@ -259,9 +241,8 @@
   speciesRestriction: [Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Mobs/Customization/gauze.rsi
     state: gauze_lizard_righteye
@@ -273,9 +254,8 @@
   speciesRestriction: [Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Mobs/Customization/gauze.rsi
     state: gauze_lizard_foot_r
@@ -287,9 +267,8 @@
   speciesRestriction: [Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Mobs/Customization/gauze.rsi
     state: gauze_lizard_foot_l
@@ -301,9 +280,8 @@
   speciesRestriction: [Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Mobs/Customization/gauze.rsi
     state: gauze_lizard_blindfold
@@ -316,9 +294,8 @@
   speciesRestriction: [Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Chitinid]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Mobs/Customization/gauze.rsi
     state: gauze_moth_blindfold
@@ -330,9 +307,8 @@
   speciesRestriction: [Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Chitinid]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Mobs/Customization/gauze.rsi
     state: gauze_moth_shoulder
@@ -344,9 +320,8 @@
   speciesRestriction: [Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Chitinid]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Mobs/Customization/gauze.rsi
     state: gauze_moth_abdomen
@@ -358,9 +333,8 @@
   speciesRestriction: [Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Chitinid]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Mobs/Customization/gauze.rsi
     state: gauze_moth_lefteye_2
@@ -372,9 +346,8 @@
   speciesRestriction: [Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Chitinid]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Mobs/Customization/gauze.rsi
     state: gauze_moth_lefteye_1
@@ -386,9 +359,8 @@
   speciesRestriction: [Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Chitinid]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Mobs/Customization/gauze.rsi
     state: gauze_moth_righteye_2
@@ -400,9 +372,8 @@
   speciesRestriction: [Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Chitinid]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Mobs/Customization/gauze.rsi
     state: gauze_moth_righteye_1
@@ -414,9 +385,8 @@
   speciesRestriction: [Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Chitinid]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Mobs/Customization/gauze.rsi
     state: gauze_moth_upperarm_r
@@ -428,9 +398,8 @@
   speciesRestriction: [Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Chitinid]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Mobs/Customization/gauze.rsi
     state: gauze_moth_upperarm_l
@@ -442,9 +411,8 @@
   speciesRestriction: [Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Chitinid]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Mobs/Customization/gauze.rsi
     state: gauze_moth_upperleg_r
@@ -456,9 +424,8 @@
   speciesRestriction: [Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Chitinid]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Mobs/Customization/gauze.rsi
     state: gauze_moth_upperleg_l
@@ -470,9 +437,8 @@
   speciesRestriction: [Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Chitinid]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Mobs/Customization/gauze.rsi
     state: gauze_moth_lowerleg_r
@@ -484,9 +450,8 @@
   speciesRestriction: [Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Chitinid]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Mobs/Customization/gauze.rsi
     state: gauze_moth_lowerleg_l

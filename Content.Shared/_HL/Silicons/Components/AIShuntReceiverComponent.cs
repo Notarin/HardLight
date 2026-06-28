@@ -1,7 +1,7 @@
-using Robust.Shared.GameStates;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Robust.Shared.GameStates;
 
 namespace Content.Shared._HL.Silicons.Components
 {

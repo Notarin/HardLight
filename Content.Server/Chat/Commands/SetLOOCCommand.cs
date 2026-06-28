@@ -12,6 +12,7 @@ public sealed class SetLOOCCommand : IConsoleCommand
     public string Command => "setlooc";
     public string Description => Loc.GetString("set-looc-command-description");
     public string Help => Loc.GetString("set-looc-command-help");
+
     public void Execute(IConsoleShell shell, string argStr, string[] args)
     {
         var cfg = IoCManager.Resolve<IConfigurationManager>();

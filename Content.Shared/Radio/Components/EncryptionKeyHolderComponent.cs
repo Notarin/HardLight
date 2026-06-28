@@ -69,6 +69,7 @@ public sealed partial class EncryptionKeyHolderComponent : Component
     [ViewVariables(VVAccess.ReadWrite)]
     [DataField("examineWhileLocked")]
     public bool ExamineWhileLocked = true;
+
     /// <summary>
     ///     HardLight: Whether or not radio channels are revealed on basic examination.
     /// </summary>

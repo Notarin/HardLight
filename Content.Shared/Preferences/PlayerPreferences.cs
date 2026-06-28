@@ -13,7 +13,11 @@ namespace Content.Shared.Preferences
     {
         private Dictionary<int, ICharacterProfile> _characters;
 
-        public PlayerPreferences(IEnumerable<KeyValuePair<int, ICharacterProfile>> characters, int selectedCharacterIndex, Color adminOOCColor)
+        public PlayerPreferences(
+            IEnumerable<KeyValuePair<int, ICharacterProfile>> characters,
+            int selectedCharacterIndex,
+            Color adminOOCColor
+        )
         {
             _characters = new Dictionary<int, ICharacterProfile>(characters);
             SelectedCharacterIndex = selectedCharacterIndex;
@@ -58,7 +62,9 @@ namespace Content.Shared.Preferences
 
         public int IndexOfCharacter(ICharacterProfile profile)
         {
-            return _characters.FirstOrNull(p => ReferenceEquals(p.Value, profile) || p.Value.MemberwiseEquals(profile))?.Key ?? -1; // HardLight: Added ReferenceEquals & p.Value.MemberwiseEquals(profile)
+            return _characters
+                    .FirstOrNull(p => ReferenceEquals(p.Value, profile) || p.Value.MemberwiseEquals(profile))
+                    ?.Key ?? -1; // HardLight: Added ReferenceEquals & p.Value.MemberwiseEquals(profile)
         }
 
         public bool TryIndexOfCharacter(ICharacterProfile profile, out int index)

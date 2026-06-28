@@ -1,7 +1,7 @@
 # Placeholder PAIs, aka semi-automatic ghost roles
 
 - type: entity
-  parent: [ BaseItem, BaseSiliconLanguages ] # Starlight: Languages
+  parent: [BaseItem, BaseSiliconLanguages] # Starlight: Languages
   id: PersonalAI
   name: personal ai device
   description: Your electronic pal who's fun to be with!
@@ -80,23 +80,23 @@
     # Note that the personal AI never "dies".
   - type: MobState
     allowedStates:
-      - Alive
+    - Alive
   - type: Appearance
   - type: GenericVisualizer
     visuals:
       enum.ToggleableGhostRoleVisuals.Status:
         screen:
-          Off: { state: pai-off-overlay }
-          Searching: { state: pai-searching-overlay }
-          On: { state: pai-on-overlay }
+          Off: {state: pai-off-overlay}
+          Searching: {state: pai-searching-overlay}
+          On: {state: pai-on-overlay}
   - type: StationMap
   - type: ChangeVoiceInContainer
     whitelist:
       components:
-        - SecretStash
+      - SecretStash
 
 - type: entity
-  parent: [ PersonalAI, BaseC3SyndicateContraband] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  parent: [PersonalAI, BaseC3SyndicateContraband] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
   id: SyndicatePersonalAI
   name: syndicate personal ai device
   description: Your Syndicate pal who's fun to be with!
@@ -125,9 +125,9 @@
     visuals:
       enum.ToggleableGhostRoleVisuals.Status:
         screen:
-          Off: { state: syndicate-pai-off-overlay }
-          Searching: { state: syndicate-pai-searching-overlay }
-          On: { state: syndicate-pai-on-overlay }
+          Off: {state: syndicate-pai-off-overlay}
+          Searching: {state: syndicate-pai-searching-overlay}
+          On: {state: syndicate-pai-on-overlay}
 
 - type: entity
   parent: PersonalAI
@@ -153,9 +153,9 @@
     visuals:
       enum.ToggleableGhostRoleVisuals.Status:
         screen:
-          Off: { state: potato-off-overlay }
-          Searching: { state: potato-searching-overlay }
-          On: { state: potato-on-overlay }
+          Off: {state: potato-off-overlay}
+          Searching: {state: potato-searching-overlay}
+          On: {state: potato-on-overlay}
   - type: Construction
     graph: PotatoAI
     node: potatoai
@@ -179,10 +179,10 @@
   - type: InstantAction
     checkCanInteract: false
     checkConsciousness: false
-    icon: { sprite: Interface/Actions/actions_ai.rsi, state: mass_scanner }
+    icon: {sprite: Interface/Actions/actions_ai.rsi, state: mass_scanner}
     itemIconStyle: NoItem
     event: !type:OpenUiActionEvent
-        key: enum.RadarConsoleUiKey.Key
+      key: enum.RadarConsoleUiKey.Key
 
 - type: entity
   id: ActionPAIPlayMidi
@@ -202,10 +202,10 @@
   name: Open Map
   description: Open your map interface and guide your owner.
   components:
-    - type: InstantAction
-      checkCanInteract: false
-      checkConsciousness: false
-      icon: { sprite: Interface/Actions/pai-map.rsi, state: icon }
-      itemIconStyle: NoItem
-      event: !type:OpenUiActionEvent
-        key: enum.StationMapUiKey.Key
+  - type: InstantAction
+    checkCanInteract: false
+    checkConsciousness: false
+    icon: {sprite: Interface/Actions/pai-map.rsi, state: icon}
+    itemIconStyle: NoItem
+    event: !type:OpenUiActionEvent
+      key: enum.StationMapUiKey.Key

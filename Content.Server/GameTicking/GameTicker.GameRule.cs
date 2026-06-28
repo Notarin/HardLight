@@ -7,15 +7,16 @@ using Content.Shared.GameTicking.Components;
 using Content.Shared.Prototypes;
 using JetBrains.Annotations;
 using Robust.Shared.Console;
+using Robust.Shared.Localization;
 using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
-using Robust.Shared.Localization;
 
 namespace Content.Server.GameTicking;
 
 public sealed partial class GameTicker
 {
-    [ViewVariables] private readonly List<(TimeSpan, string)> _allPreviousGameRules = new();
+    [ViewVariables]
+    private readonly List<(TimeSpan, string)> _allPreviousGameRules = new();
 
     /// <summary>
     ///     A list storing the start times of all game rules that have been started this round.
@@ -26,32 +27,35 @@ public sealed partial class GameTicker
     private void InitializeGameRules()
     {
         // Add game rule command.
-        _consoleHost.RegisterCommand("addgamerule",
+        _consoleHost.RegisterCommand(
+            "addgamerule",
             string.Empty,
             "addgamerule <rules>",
             AddGameRuleCommand,
-            AddGameRuleCompletions);
+            AddGameRuleCompletions
+        );
 
         // End game rule command.
-        _consoleHost.RegisterCommand("endgamerule",
+        _consoleHost.RegisterCommand(
+            "endgamerule",
             string.Empty,
             "endgamerule <rules>",
             EndGameRuleCommand,
-            EndGameRuleCompletions);
+            EndGameRuleCompletions
+        );
 
         // Clear game rules command.
-        _consoleHost.RegisterCommand("cleargamerules",
-            string.Empty,
-            "cleargamerules",
-            ClearGameRulesCommand);
+        _consoleHost.RegisterCommand("cleargamerules", string.Empty, "cleargamerules", ClearGameRulesCommand);
 
         // List game rules command.
         var localizedHelp = Loc.GetString("listgamerules-command-help");
 
-        _consoleHost.RegisterCommand("listgamerules",
+        _consoleHost.RegisterCommand(
+            "listgamerules",
             string.Empty,
             $"listgamerules - {localizedHelp}",
-            ListGameRuleCommand);
+            ListGameRuleCommand
+        );
     }
 
     private void ShutdownGameRules()
@@ -87,7 +91,10 @@ public sealed partial class GameTicker
         RaiseLocalEvent(ruleEntity, ref ev, true);
 
         var currentTime = RunLevel == GameRunLevel.PreRoundLobby ? TimeSpan.Zero : RoundDuration();
-        if (!HasComp<RoundstartStationVariationRuleComponent>(ruleEntity) && !HasComp<StationVariationPassRuleComponent>(ruleEntity))
+        if (
+            !HasComp<RoundstartStationVariationRuleComponent>(ruleEntity)
+            && !HasComp<StationVariationPassRuleComponent>(ruleEntity)
+        )
         {
             _allPreviousGameRules.Add((currentTime, ruleId + " (Pending)"));
         }
@@ -138,8 +145,10 @@ public sealed partial class GameTicker
             if (delayTime > TimeSpan.Zero)
             {
                 _sawmill.Info($"Queued start for game rule {ToPrettyString(ruleEntity)} with delay {delayTime}");
-                _adminLogger.Add(LogType.EventStarted,
-                    $"Queued start for game rule {ToPrettyString(ruleEntity)} with delay {delayTime}");
+                _adminLogger.Add(
+                    LogType.EventStarted,
+                    $"Queued start for game rule {ToPrettyString(ruleEntity)} with delay {delayTime}"
+                );
 
                 var delayed = EnsureComp<DelayedStartRuleComponent>(ruleEntity);
                 delayed.RuleStartTime = _gameTiming.CurTime + (delayTime);
@@ -156,7 +165,10 @@ public sealed partial class GameTicker
             _allPreviousGameRules.RemoveAt(pendingRuleIndex);
         }
 
-        if (!HasComp<RoundstartStationVariationRuleComponent>(ruleEntity) && !HasComp<StationVariationPassRuleComponent>(ruleEntity))
+        if (
+            !HasComp<RoundstartStationVariationRuleComponent>(ruleEntity)
+            && !HasComp<StationVariationPassRuleComponent>(ruleEntity)
+        )
         {
             _allPreviousGameRules.Add((currentTime, id));
         }
@@ -345,7 +357,9 @@ public sealed partial class GameTicker
             if (shell.Player != null)
             {
                 _adminLogger.Add(LogType.EventStarted, $"{shell.Player} tried to add game rule [{rule}] via command");
-                _chatManager.SendAdminAnnouncement(Loc.GetString("add-gamerule-admin", ("rule", rule), ("admin", shell.Player)));
+                _chatManager.SendAdminAnnouncement(
+                    Loc.GetString("add-gamerule-admin", ("rule", rule), ("admin", shell.Player))
+                );
             }
             else
             {
@@ -354,9 +368,8 @@ public sealed partial class GameTicker
             var ent = AddGameRule(rule);
 
             // Start rule if we're already in the middle of a round
-            if(RunLevel == GameRunLevel.InRound)
+            if (RunLevel == GameRunLevel.InRound)
                 StartGameRule(ent);
-
         }
     }
 
@@ -390,7 +403,9 @@ public sealed partial class GameTicker
 
     private CompletionResult EndGameRuleCompletions(IConsoleShell shell, string[] args)
     {
-        var opts = GetAddedGameRules().Select(ent => new CompletionOption(ent.ToString(), ToPrettyString(ent))).ToList();
+        var opts = GetAddedGameRules()
+            .Select(ent => new CompletionOption(ent.ToString(), ToPrettyString(ent)))
+            .ToList();
         return CompletionResult.FromHintOptions(opts, "<added rule>");
     }
 
@@ -408,6 +423,7 @@ public sealed partial class GameTicker
         var message = GetGameRulesListMessage(false);
         shell.WriteLine(message);
     }
+
     private string GetGameRulesListMessage(bool forChatWindow)
     {
         if (_allPreviousGameRules.Count > 0)
@@ -425,7 +441,7 @@ public sealed partial class GameTicker
             foreach (var (time, rule) in sortedRules)
             {
                 var formattedTime = time.ToString(@"hh\:mm\:ss");
-                message += $"| {formattedTime,-10} | {rule,-16} \n";
+                message += $"| {formattedTime, -10} | {rule, -16} \n";
             }
 
             return message;
@@ -433,7 +449,6 @@ public sealed partial class GameTicker
         else
         {
             return Loc.GetString("list-gamerule-admin-no-rules");
-
         }
     }
 

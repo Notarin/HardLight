@@ -18,9 +18,14 @@ namespace Content.Server.Atmos.EntitySystems;
 /// </summary>
 public sealed class PipeRestrictOverlapSystem : EntitySystem
 {
-    [Dependency] private readonly MapSystem _map = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly TransformSystem _xform = default!;
+    [Dependency]
+    private readonly MapSystem _map = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly TransformSystem _xform = default!;
 
     private readonly List<EntityUid> _anchoredEntities = new();
     private EntityQuery<NodeContainerComponent> _nodeContainerQuery;
@@ -57,7 +62,11 @@ public sealed class PipeRestrictOverlapSystem : EntitySystem
         var xform = Transform(ent);
         if (CheckOverlap((ent, node, xform)))
         {
-            _popup.PopupEntity(Loc.GetString("pipe-restrict-overlap-popup-blocked", ("pipe", ent.Owner)), ent, args.User);
+            _popup.PopupEntity(
+                Loc.GetString("pipe-restrict-overlap-popup-blocked", ("pipe", ent.Owner)),
+                ent,
+                args.User
+            );
             args.Cancel();
         }
     }
@@ -96,7 +105,10 @@ public sealed class PipeRestrictOverlapSystem : EntitySystem
         return false;
     }
 
-    public bool PipeNodesOverlap(Entity<NodeContainerComponent, TransformComponent> ent, Entity<NodeContainerComponent, TransformComponent> other)
+    public bool PipeNodesOverlap(
+        Entity<NodeContainerComponent, TransformComponent> ent,
+        Entity<NodeContainerComponent, TransformComponent> other
+    )
     {
         var entDirsAndLayers = GetAllDirectionsAndLayers(ent).ToList();
         var otherDirsAndLayers = GetAllDirectionsAndLayers(other).ToList();
@@ -112,13 +124,18 @@ public sealed class PipeRestrictOverlapSystem : EntitySystem
 
         return false;
 
-        IEnumerable<(PipeDirection, AtmosPipeLayer)> GetAllDirectionsAndLayers(Entity<NodeContainerComponent, TransformComponent> pipe)
+        IEnumerable<(PipeDirection, AtmosPipeLayer)> GetAllDirectionsAndLayers(
+            Entity<NodeContainerComponent, TransformComponent> pipe
+        )
         {
             foreach (var node in pipe.Comp1.Nodes.Values)
             {
                 // we need to rotate the pipe manually like this because the rotation doesn't update for pipes that are unanchored.
                 if (node is PipeNode pipeNode)
-                    yield return (pipeNode.OriginalPipeDirection.RotatePipeDirection(pipe.Comp2.LocalRotation), pipeNode.CurrentPipeLayer);
+                    yield return (
+                        pipeNode.OriginalPipeDirection.RotatePipeDirection(pipe.Comp2.LocalRotation),
+                        pipeNode.CurrentPipeLayer
+                    );
             }
         }
     }

@@ -4,6 +4,7 @@ using Content.Shared.CCVar;
 using Content.Shared.Coordinates.Helpers;
 using Content.Shared.Decals;
 using Content.Shared.Tiles;
+using Content.Shared.Tiles; // Frontier
 using Robust.Shared.Configuration;
 using Robust.Shared.GameStates;
 using Robust.Shared.Map;
@@ -12,7 +13,6 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
-using Content.Shared.Tiles; // Frontier
 
 namespace Content.Shared.Maps;
 
@@ -21,14 +21,29 @@ namespace Content.Shared.Maps;
 /// </summary>
 public sealed class TileSystem : EntitySystem
 {
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly IRobustRandom _robustRandom = default!;
-    [Dependency] private readonly ITileDefinitionManager _tileDefinitionManager = default!;
-    [Dependency] private readonly SharedDecalSystem _decal = default!;
-    [Dependency] private readonly SharedMapSystem _maps = default!;
-    [Dependency] private readonly TurfSystem _turf = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
+
+    [Dependency]
+    private readonly IMapManager _mapManager = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _robustRandom = default!;
+
+    [Dependency]
+    private readonly ITileDefinitionManager _tileDefinitionManager = default!;
+
+    [Dependency]
+    private readonly SharedDecalSystem _decal = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _maps = default!;
+
+    [Dependency]
+    private readonly TurfSystem _turf = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     public const int ChunkSize = 16;
 
@@ -165,7 +180,7 @@ public sealed class TileSystem : EntitySystem
         return PryTile(tileRef);
     }
 
-	public bool PryTile(TileRef tileRef)
+    public bool PryTile(TileRef tileRef)
     {
         return PryTile(tileRef, false);
     }
@@ -184,6 +199,7 @@ public sealed class TileSystem : EntitySystem
 
         return DeconstructTile(tileRef);
     }
+
     // Delta V
     public bool DigTile(TileRef tileRef)
     {
@@ -192,13 +208,14 @@ public sealed class TileSystem : EntitySystem
         if (tile.IsEmpty)
             return false;
 
-        var tileDef = (ContentTileDefinition) _tileDefinitionManager[tile.TypeId];
+        var tileDef = (ContentTileDefinition)_tileDefinitionManager[tile.TypeId];
 
         if (!tileDef.CanShovel)
             return false;
 
         return DeconstructTile(tileRef);
     }
+
     // Delta V
     public bool ReplaceTile(TileRef tileref, ContentTileDefinition replacementTile)
     {
@@ -207,7 +224,13 @@ public sealed class TileSystem : EntitySystem
         return ReplaceTile(tileref, replacementTile, tileref.GridUid, grid);
     }
 
-    public bool ReplaceTile(TileRef tileref, ContentTileDefinition replacementTile, EntityUid grid, MapGridComponent? component = null, byte? variant = null)
+    public bool ReplaceTile(
+        TileRef tileref,
+        ContentTileDefinition replacementTile,
+        EntityUid grid,
+        MapGridComponent? component = null,
+        byte? variant = null
+    )
     {
         DebugTools.Assert(tileref.GridUid == grid);
 
@@ -215,7 +238,7 @@ public sealed class TileSystem : EntitySystem
             return false;
 
         var key = tileref.GridIndices;
-        var currentTileDef = (ContentTileDefinition) _tileDefinitionManager[tileref.Tile.TypeId];
+        var currentTileDef = (ContentTileDefinition)_tileDefinitionManager[tileref.Tile.TypeId];
 
         // If the tile we're placing has a baseTurf that matches the tile we're replacing, we don't need to create a history
         // unless the tile already has a history.
@@ -264,7 +287,6 @@ public sealed class TileSystem : EntitySystem
         return true;
     }
 
-
     public bool DeconstructTile(TileRef tileRef, bool spawnItem = true)
     {
         if (tileRef.Tile.IsEmpty)
@@ -283,17 +305,21 @@ public sealed class TileSystem : EntitySystem
         var ev = new FloorTileAttemptEvent();
         RaiseLocalEvent(mapGrid);
 
-        if (((TryComp<ProtectedGridComponent>(gridUid, out var prot) && prot.PreventFloorRemoval) || ev.Cancelled) && tileDef.ID == "Plating")
+        if (
+            ((TryComp<ProtectedGridComponent>(gridUid, out var prot) && prot.PreventFloorRemoval) || ev.Cancelled)
+            && tileDef.ID == "Plating"
+        )
             return false;
         // Frontier end
 
         const float margin = 0.1f;
         var bounds = mapGrid.TileSize - margin * 2;
         var indices = tileRef.GridIndices;
-        var coordinates = _maps.GridTileToLocal(gridUid, mapGrid, indices)
-            .Offset(new Vector2(
-                (_robustRandom.NextFloat() - 0.5f) * bounds,
-                (_robustRandom.NextFloat() - 0.5f) * bounds));
+        var coordinates = _maps
+            .GridTileToLocal(gridUid, mapGrid, indices)
+            .Offset(
+                new Vector2((_robustRandom.NextFloat() - 0.5f) * bounds, (_robustRandom.NextFloat() - 0.5f) * bounds)
+            );
 
         var historyComp = EnsureComp<TileHistoryComponent>(gridUid);
         ProtoId<ContentTileDefinition> previousTileId;
@@ -301,8 +327,11 @@ public sealed class TileSystem : EntitySystem
         var chunkIndices = SharedMapSystem.GetChunkIndices(indices, ChunkSize);
 
         // Pop from stack if we have history
-        if (historyComp.ChunkHistory.TryGetValue(chunkIndices, out var chunk) &&
-            chunk.History.TryGetValue(indices, out var stack) && stack.Count > 0)
+        if (
+            historyComp.ChunkHistory.TryGetValue(chunkIndices, out var chunk)
+            && chunk.History.TryGetValue(indices, out var stack)
+            && stack.Count > 0
+        )
         {
             chunk.LastModified = _timing.CurTick;
             Dirty(gridUid, historyComp);
@@ -336,7 +365,11 @@ public sealed class TileSystem : EntitySystem
         }
 
         // Destroy any decals on the tile
-        var decals = _decal.GetDecalsInRange(gridUid, coordinates.SnapToGrid(EntityManager, _mapManager).Position, 0.5f);
+        var decals = _decal.GetDecalsInRange(
+            gridUid,
+            coordinates.SnapToGrid(EntityManager, _mapManager).Position,
+            0.5f
+        );
         foreach (var (id, _) in decals)
         {
             _decal.RemoveDecal(tileRef.GridUid, id);
@@ -354,8 +387,10 @@ public sealed class TileSystem : EntitySystem
         if (_tileStackLimit == 0)
             return;
         var chunkIndices = SharedMapSystem.GetChunkIndices(args.GridIndices, ChunkSize);
-        if (!ent.Comp.ChunkHistory.TryGetValue(chunkIndices, out var chunk) ||
-            !chunk.History.TryGetValue(args.GridIndices, out var stack))
+        if (
+            !ent.Comp.ChunkHistory.TryGetValue(chunkIndices, out var chunk)
+            || !chunk.History.TryGetValue(args.GridIndices, out var stack)
+        )
             return;
         args.Cancelled = stack.Count >= _tileStackLimit; // Greater or equals because the attempt itself counts as a tile we're trying to place
     }

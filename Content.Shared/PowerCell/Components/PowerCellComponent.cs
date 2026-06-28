@@ -17,10 +17,11 @@ public sealed partial class PowerCellComponent : Component
 [Serializable, NetSerializable]
 public enum PowerCellVisuals : byte
 {
-    ChargeLevel
+    ChargeLevel,
 }
+
 [Serializable, NetSerializable]
 public enum PowerCellSlotVisuals : byte
 {
-    Enabled
+    Enabled,
 }

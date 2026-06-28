@@ -8,38 +8,31 @@ namespace Content.Server.Database.Migrations.SqliteServerDb
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropIndex(
-                name: "IX_trait_profile_id",
-                table: "trait");
+            migrationBuilder.DropIndex(name: "IX_trait_profile_id", table: "trait");
 
             migrationBuilder.AddColumn<int>(
                 name: "bank_balance",
                 table: "profile",
                 type: "INTEGER",
                 nullable: false,
-                defaultValue: 0);
+                defaultValue: 0
+            );
 
             migrationBuilder.CreateIndex(
                 name: "IX_trait_profile_id_trait_name",
                 table: "trait",
                 columns: new[] { "profile_id", "trait_name" },
-                unique: true);
+                unique: true
+            );
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropIndex(
-                name: "IX_trait_profile_id_trait_name",
-                table: "trait");
+            migrationBuilder.DropIndex(name: "IX_trait_profile_id_trait_name", table: "trait");
 
-            migrationBuilder.DropColumn(
-                name: "bank_balance",
-                table: "profile");
+            migrationBuilder.DropColumn(name: "bank_balance", table: "profile");
 
-            migrationBuilder.CreateIndex(
-                name: "IX_trait_profile_id",
-                table: "trait",
-                column: "profile_id");
+            migrationBuilder.CreateIndex(name: "IX_trait_profile_id", table: "trait", column: "profile_id");
         }
     }
 }

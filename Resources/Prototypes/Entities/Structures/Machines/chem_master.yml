@@ -1,6 +1,6 @@
 - type: entity
   id: ChemMaster
-  parent: [ BaseMachinePowered, ConstructibleMachine ]
+  parent: [BaseMachinePowered, ConstructibleMachine]
   name: ChemMaster 4000
   description: An industrial grade chemical manipulator with pill and bottle production included.
   placement:
@@ -36,8 +36,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.25,-0.4,0.25,0.4"
         density: 190
         mask:
@@ -46,8 +45,7 @@
         - MachineLayer
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 50
       behaviors:
       - !type:PlaySoundBehavior
@@ -56,7 +54,7 @@
       - !type:ChangeConstructionNodeBehavior
         node: machineFrame
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: ActivatableUI
     key: enum.ChemMasterUiKey.Key
   - type: ActivatableUIRequiresPower
@@ -71,8 +69,8 @@
     visuals:
       enum.PowerDeviceVisuals.Powered:
         enum.PowerDeviceVisualLayers.Powered:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
   # Machine / Construction stuff
   - type: WiresPanel
   - type: Machine
@@ -106,8 +104,8 @@
       input: AutomationSlotBeaker
       output: AutomationSlotBeaker
       slotId: beakerSlot
-    - !type:AutomatedItemSlot # not very useful because you can't tell it to make pills
-      input: AutomationSlotBottles
+    - !type:AutomatedItemSlot
+      input: AutomationSlotBottles # not very useful because you can't tell it to make pills
       output: AutomationSlotBottles
       slotId: outputSlot
     - !type:AutomatedBeakerSlot
@@ -141,20 +139,16 @@
     enabled: false
   - type: NodeContainer
     nodes:
-      inletNorth:  # Pulls reagents FROM the network (north, east, west sides)
-        !type:PlumbingNode
+      inletNorth: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: North
-      inletEast:
-        !type:PlumbingNode
+      inletEast: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: East
-      inletWest:
-        !type:PlumbingNode
+      inletWest: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: West
-      outlet:  # Provides reagents TO the network (south side)
-        !type:PlumbingNode
+      outlet: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: South
   # Starlight-end

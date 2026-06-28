@@ -18,7 +18,7 @@
 - type: entity
   id: WeaponTurretL85Autocannon
   name: L85 20mm autocannon
-  parent: [ BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband ]
+  parent: [BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband]
   description: A light 20mm ballistic autocannon designed for rapid fire and suppressing smaller targets at close range. Cheap, light, and can be remotely activated or linked up to a GCS.
   components:
   - type: StaticPrice
@@ -64,12 +64,11 @@
     fireCost: 15
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 1500
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:PlaySoundBehavior
         sound:
           collection: MetalBreak
@@ -95,7 +94,7 @@
 - type: entity
   id: WeaponTurretRAC30
   name: RAC-30 Draupnir Autocannon
-  parent: [ BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband ]
+  parent: [BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband]
   description: A more heavy duty rapid rife autocannon, firing a hail of rounds much like its namesake became a hail of spears.
   components:
   - type: StaticPrice
@@ -141,12 +140,11 @@
     fireCost: 7.5
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 2000
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:PlaySoundBehavior
         sound:
           collection: MetalBreak
@@ -172,7 +170,7 @@
 - type: entity
   id: WeaponTurretDravon
   name: ADBP-7 DRAVON 57mm Autocannon
-  parent: [ BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband ]
+  parent: [BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband]
   description: A single-barrel autocannon made by Aetherion Dynamics. Medium artillery piece with high fire rate but relatively low impact, firing HEAT shells to damage ship armor and systems. Can be remotely activated or linked up to a GCS.
   components:
   - type: StaticPrice
@@ -212,12 +210,11 @@
     fireCost: 250
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 1800
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:PlaySoundBehavior
         sound:
           collection: MetalBreak
@@ -241,7 +238,7 @@
 - type: entity
   id: WeaponTurretAK570
   name: AK570 90mm heavy autocannon
-  parent: [ BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband ]
+  parent: [BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband]
   description: A dual-barrel, heavy 90mm autocannon firing general-purpose APHE rounds, effective for sustained fire against medium targets. Can be remotely activated or linked up to a GCS.
   components:
   - type: StaticPrice
@@ -286,12 +283,11 @@
     fireCost: 50
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 2500
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:PlaySoundBehavior
         sound:
           collection: MetalBreak
@@ -315,7 +311,7 @@
 - type: entity
   id: WeaponTurretCyrexa
   name: CYREXA 220mm cannon
-  parent: [ BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband ]
+  parent: [BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband]
   description: A main battery with dual barrels, delivering rapid, punishing salvos at extreme range. Fires 220mm auto shells with slightly reduced brute strength. Can be remotely activated or linked up to a GCS.
   components:
   - type: StaticPrice
@@ -337,8 +333,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.6,-0.6,0.6,0.6"
         density: 1500
         mask:
@@ -376,12 +371,11 @@
     visibleFromOtherGrids: true
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 4000
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:PlaySoundBehavior
         sound:
           collection: MetalBreak
@@ -401,7 +395,7 @@
 - type: entity
   id: WeaponTurretHades
   name: HADES 305mm cannon
-  parent: [ BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband ]
+  parent: [BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband]
   description: One of the largest chemical-based kinetic weapons in the sector. Its power is only rivaled by mass drivers such as the M381.
   components:
   - type: StaticPrice
@@ -423,8 +417,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.6,-0.6,0.6,0.6"
         density: 1500
         mask:
@@ -462,12 +455,11 @@
     visibleFromOtherGrids: true
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 8000
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:PlaySoundBehavior
         sound:
           collection: MetalBreak
@@ -487,7 +479,7 @@
 - type: entity
   id: WeaponTurretLongbow
   name: L65 Mk.5 "Longbow" heavy autocannon
-  parent: [ BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband ]
+  parent: [BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband]
   description: Fires 140mm HEAT shells in a 10 round burst from an internal autoloader.
   components:
   - type: StaticPrice
@@ -509,8 +501,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.6,-0.6,0.6,0.6"
         density: 1500
         mask:
@@ -548,12 +539,11 @@
     visibleFromOtherGrids: true
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 4000
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:PlaySoundBehavior
         sound:
           collection: MetalBreak
@@ -573,7 +563,7 @@
 - type: entity
   id: WeaponTurretCharonette
   name: M194 CHARONETTE mass driver
-  parent: [ BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband ]
+  parent: [BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband]
   description: A smaller, more compact railgun that fires a large slug at rapid velocity, capable of big damage to enemy ships. Medium linear accelerator, can be remotely activated or linked up to a GCS.
   components:
   - type: StaticPrice
@@ -614,8 +604,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.5,-0.5,0.5,0.5"
         density: 1000
         mask:
@@ -624,12 +613,11 @@
         - MachineLayer
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 5000
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:PlaySoundBehavior
         sound:
           collection: MetalBreak
@@ -653,7 +641,7 @@
 - type: entity
   id: WeaponTurretBofors
   name: Bofors 255mm cannon
-  parent: [ BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband ]
+  parent: [BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband]
   description: A single-barrel, heavy artillery cannon designed for cruisers, delivering massive impact with each long-range shot. Can be remotely activated or linked up to a GCS.
   components:
   - type: StaticPrice
@@ -675,8 +663,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.5,-0.5,0.5,0.5"
         density: 1500
         mask:
@@ -706,12 +693,11 @@
     fireCost: 8000
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 5000
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:PlaySoundBehavior
         sound:
           collection: MetalBreak
@@ -735,7 +721,7 @@
 - type: entity
   id: WeaponTurretKargil
   name: Kargil 203mm cannon
-  parent: [ BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband ]
+  parent: [BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband]
   description: A cruiser artillery cannon that launches devastating 203mm shells for long-range ship-to-ship combat. Can be remotely activated or linked up to a GCS.
   components:
   - type: StaticPrice
@@ -757,8 +743,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.5,-0.5,0.5,0.5"
         density: 1500
         mask:
@@ -788,12 +773,11 @@
     fireCost: 5000
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 4000
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:PlaySoundBehavior
         sound:
           collection: MetalBreak
@@ -819,7 +803,7 @@
 - type: entity
   id: WeaponTurretAdderScattercannon
   name: Adder scattercannon
-  parent: [ BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband ]
+  parent: [BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband]
   description: A large, twin-barrelled scatter cannon, firing burts of cannister shot to shred any incoming missiles or potential boarders. Uses a self loading mechanism similar to the anaconda hangun.
   components:
   - type: StaticPrice
@@ -865,12 +849,11 @@
     fireCost: 15
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 1500
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:PlaySoundBehavior
         sound:
           collection: MetalBreak
@@ -894,7 +877,7 @@
 - type: entity
   id: WeaponTurretFang
   name: Fang heavy 100mm autocannon
-  parent: [ BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband ]
+  parent: [BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband]
   description: A heavy 100mm autocannon of syndicate design, created during the corporate war. Made for shattering the hulls of NT crusiers. Uses a self loading mechanism similar to the anaconda hangun.
   components:
   - type: StaticPrice
@@ -934,12 +917,11 @@
     fireCost: 50
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 2500
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:PlaySoundBehavior
         sound:
           collection: MetalBreak
@@ -961,7 +943,7 @@
 - type: entity
   id: WeaponTurretHydra
   name: Hydra 200mm battery
-  parent: [ BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband ]
+  parent: [BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband]
   description: A main cannnonade of syndicate origin, the hydra is a monstrous tri-barreled battery of pain, designed to shatter NT's toughest vessels. Loads with a similar mechanism as the anaconda handgun.
   components:
   - type: StaticPrice
@@ -982,8 +964,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.6,-0.6,0.6,0.6"
         density: 1500
         mask:
@@ -1021,12 +1002,11 @@
     visibleFromOtherGrids: true
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 4000
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:PlaySoundBehavior
         sound:
           collection: MetalBreak

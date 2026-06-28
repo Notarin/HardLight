@@ -1,12 +1,12 @@
+using System.Linq;
 using Content.Server.NodeContainer.NodeGroups;
 using Content.Server.NodeContainer.Nodes;
 using Content.Server.Power.Components;
 using Content.Server.Power.EntitySystems;
-using JetBrains.Annotations;
-using Robust.Shared.Utility;
-using System.Linq;
 using Content.Shared.NodeContainer;
 using Content.Shared.NodeContainer.NodeGroups;
+using JetBrains.Annotations;
+using Robust.Shared.Utility;
 
 namespace Content.Server.Power.NodeGroups
 {
@@ -25,8 +25,11 @@ namespace Content.Server.Power.NodeGroups
     [UsedImplicitly]
     public sealed partial class PowerNet : BasePowerNet<IPowerNet>, IPowerNet
     {
-        [ViewVariables] public readonly List<BatteryChargerComponent> Chargers = new();
-        [ViewVariables] public readonly List<BatteryDischargerComponent> Dischargers = new();
+        [ViewVariables]
+        public readonly List<BatteryChargerComponent> Chargers = new();
+
+        [ViewVariables]
+        public readonly List<BatteryDischargerComponent> Dischargers = new();
 
         public override void Initialize(Node sourceNode, IEntityManager entMan)
         {
@@ -94,7 +97,10 @@ namespace Content.Server.Power.NodeGroups
             if (EntMan.TryGetComponent(owner, out PowerNetworkBatteryComponent? battery))
             {
                 // Linked network can be default if it was re-connected twice in one tick.
-                DebugTools.Assert(battery.NetworkBattery.LinkedNetworkDischarging == default || battery.NetworkBattery.LinkedNetworkDischarging == NetworkNode.Id);
+                DebugTools.Assert(
+                    battery.NetworkBattery.LinkedNetworkDischarging == default
+                        || battery.NetworkBattery.LinkedNetworkDischarging == NetworkNode.Id
+                );
                 battery.NetworkBattery.LinkedNetworkDischarging = default;
             }
 
@@ -134,7 +140,10 @@ namespace Content.Server.Power.NodeGroups
             if (EntMan.TryGetComponent(owner, out PowerNetworkBatteryComponent? battery))
             {
                 // Linked network can be default if it was re-connected twice in one tick.
-                DebugTools.Assert(battery.NetworkBattery.LinkedNetworkCharging == default || battery.NetworkBattery.LinkedNetworkCharging == NetworkNode.Id);
+                DebugTools.Assert(
+                    battery.NetworkBattery.LinkedNetworkCharging == default
+                        || battery.NetworkBattery.LinkedNetworkCharging == NetworkNode.Id
+                );
                 battery.NetworkBattery.LinkedNetworkCharging = default;
             }
 

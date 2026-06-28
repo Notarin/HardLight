@@ -7,15 +7,25 @@ namespace Content.Client.Atmos.Monitor;
 
 public sealed class AtmosAlarmableVisualsSystem : VisualizerSystem<AtmosAlarmableVisualsComponent>
 {
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
-    protected override void OnAppearanceChange(EntityUid uid, AtmosAlarmableVisualsComponent component, ref AppearanceChangeEvent args)
+    protected override void OnAppearanceChange(
+        EntityUid uid,
+        AtmosAlarmableVisualsComponent component,
+        ref AppearanceChangeEvent args
+    )
     {
-        if (args.Sprite == null || !_sprite.LayerMapTryGet((uid, args.Sprite), component.LayerMap, out var layer, false))
+        if (
+            args.Sprite == null
+            || !_sprite.LayerMapTryGet((uid, args.Sprite), component.LayerMap, out var layer, false)
+        )
             return;
 
-        if (!args.AppearanceData.TryGetValue(PowerDeviceVisuals.Powered, out var poweredObject) ||
-            poweredObject is not bool powered)
+        if (
+            !args.AppearanceData.TryGetValue(PowerDeviceVisuals.Powered, out var poweredObject)
+            || poweredObject is not bool powered
+        )
         {
             return;
         }
@@ -38,10 +48,12 @@ public sealed class AtmosAlarmableVisualsSystem : VisualizerSystem<AtmosAlarmabl
             }
         }
 
-        if (args.AppearanceData.TryGetValue(AtmosMonitorVisuals.AlarmType, out var alarmTypeObject)
+        if (
+            args.AppearanceData.TryGetValue(AtmosMonitorVisuals.AlarmType, out var alarmTypeObject)
             && alarmTypeObject is AtmosAlarmType alarmType
             && powered
-            && component.AlarmStates.TryGetValue(alarmType, out var state))
+            && component.AlarmStates.TryGetValue(alarmType, out var state)
+        )
         {
             _sprite.LayerSetRsiState((uid, args.Sprite), layer, new RSI.StateId(state));
         }

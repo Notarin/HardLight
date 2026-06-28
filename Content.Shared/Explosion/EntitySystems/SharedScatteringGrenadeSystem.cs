@@ -7,9 +7,14 @@ namespace Content.Shared.Explosion.EntitySystems;
 
 public abstract class SharedScatteringGrenadeSystem : EntitySystem
 {
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelistSystem = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
 
     public override void Initialize()
     {
@@ -37,7 +42,6 @@ public abstract class SharedScatteringGrenadeSystem : EntitySystem
         entity.Comp.UnspawnedCount = Math.Max(0, entity.Comp.Capacity - entity.Comp.Container.ContainedEntities.Count);
         UpdateAppearance(entity);
         Dirty(entity, entity.Comp);
-
     }
 
     /// <summary>

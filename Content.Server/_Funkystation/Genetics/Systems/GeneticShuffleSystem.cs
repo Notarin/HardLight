@@ -1,13 +1,16 @@
+using System.Linq;
 using Content.Server.GameTicking.Events;
 using Robust.Shared.Random;
-using System.Linq;
 
 namespace Content.Server._Funkystation.Genetics.Systems;
 
 public sealed class GeneticShuffleSystem : EntitySystem
 {
-    [Dependency] private readonly IEntityManager _entityManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency]
+    private readonly IEntityManager _entityManager = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
 
     private const int MaxShuffledBlocks = 150;
     private static ReadOnlySpan<char> Bases => "ATGC";
@@ -55,9 +58,10 @@ public sealed class GeneticShuffleSystem : EntitySystem
         var sequence = GenerateUniqueSequence();
 
         // Try to get a pre-shuffled block
-        int block = _shuffledBlocks.Count > 0
-            ? _shuffledBlocks[^1] // Take last
-            : _nextSequentialBlock++; // Fallback: just increment
+        int block =
+            _shuffledBlocks.Count > 0
+                ? _shuffledBlocks[^1] // Take last
+                : _nextSequentialBlock++; // Fallback: just increment
 
         if (_shuffledBlocks.Count > 0)
             _shuffledBlocks.RemoveAt(_shuffledBlocks.Count - 1);

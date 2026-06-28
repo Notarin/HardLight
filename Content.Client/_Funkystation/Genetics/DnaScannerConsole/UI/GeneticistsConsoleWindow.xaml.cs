@@ -20,7 +20,8 @@ namespace Content.Client._Funkystation.Genetics.DnaScannerConsole.UI;
 [GenerateTypedNameReferences]
 public sealed partial class GeneticistsConsoleWindow : FancyWindow
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     private GeneticistsConsoleUniqueEnzymesView _enzymesView = null!;
     private GeneticistsConsoleStorageView _storageView = null!;
@@ -106,7 +107,13 @@ public sealed partial class GeneticistsConsoleWindow : FancyWindow
         StorageTabButton.Pressed = true;
     }
 
-    public void UpdateSubjectInfo(string? name, string? health, float? radiationDamage, int instability, TimeSpan? scrambleCooldownEnd)
+    public void UpdateSubjectInfo(
+        string? name,
+        string? health,
+        float? radiationDamage,
+        int instability,
+        TimeSpan? scrambleCooldownEnd
+    )
     {
         var hasSubject = name != null;
         SubjectNameLabel.Text = hasSubject ? name : "";
@@ -146,8 +153,10 @@ public sealed partial class GeneticistsConsoleWindow : FancyWindow
 
         var remaining = cooldownEnd.Value - _timing.CurTime;
         ScrambleDnaButton.Disabled = true;
-        ScrambleDnaButton.Text = Loc.GetString("dna-scanner-scramble-cooldown",
-            ("seconds", (int)remaining.TotalSeconds));
+        ScrambleDnaButton.Text = Loc.GetString(
+            "dna-scanner-scramble-cooldown",
+            ("seconds", (int)remaining.TotalSeconds)
+        );
     }
 
     public void UpdateGeneticsTab(List<MutationEntry>? mutations, HashSet<string>? baseMutationIds)
@@ -170,7 +179,11 @@ public sealed partial class GeneticistsConsoleWindow : FancyWindow
         _storageView.UpdateDiscoveredMutations(discoveredIds);
     }
 
-    public void UpdateResearchData(Dictionary<string, int> remaining, Dictionary<string, int> original, HashSet<string> activeIds)
+    public void UpdateResearchData(
+        Dictionary<string, int> remaining,
+        Dictionary<string, int> original,
+        HashSet<string> activeIds
+    )
     {
         ResearchRemaining = remaining;
         ResearchOriginal = original;

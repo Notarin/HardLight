@@ -9,8 +9,11 @@ namespace Content.Server.Nutrition.EntitySystems
 {
     public sealed class TrashOnSolutionEmptySystem : EntitySystem
     {
-        [Dependency] private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
-        [Dependency] private readonly TagSystem _tagSystem = default!;
+        [Dependency]
+        private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
+
+        [Dependency]
+        private readonly TagSystem _tagSystem = default!;
 
         private static readonly ProtoId<TagPrototype> TrashTag = "Trash";
 
@@ -26,7 +29,10 @@ namespace Content.Server.Nutrition.EntitySystems
             CheckSolutions(entity);
         }
 
-        public void OnSolutionChange(Entity<TrashOnSolutionEmptyComponent> entity, ref SolutionContainerChangedEvent args)
+        public void OnSolutionChange(
+            Entity<TrashOnSolutionEmptyComponent> entity,
+            ref SolutionContainerChangedEvent args
+        )
         {
             CheckSolutions(entity);
         }

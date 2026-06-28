@@ -1,7 +1,7 @@
 using Content.Server.IdentityManagement;
-using Content.Shared.Contraband;
 using Content.Shared.Clothing.Components;
 using Content.Shared.Clothing.EntitySystems;
+using Content.Shared.Contraband;
 using Content.Shared.IdentityManagement.Components;
 using Content.Shared.Prototypes;
 using Robust.Shared.Prototypes;
@@ -10,9 +10,14 @@ namespace Content.Server.Clothing.Systems;
 
 public sealed class ChameleonClothingSystem : SharedChameleonClothingSystem
 {
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IComponentFactory _factory = default!;
-    [Dependency] private readonly IdentitySystem _identity = default!;
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private readonly IComponentFactory _factory = default!;
+
+    [Dependency]
+    private readonly IdentitySystem _identity = default!;
 
     public override void Initialize()
     {
@@ -55,8 +60,12 @@ public sealed class ChameleonClothingSystem : SharedChameleonClothingSystem
     /// <summary>
     ///     Change chameleon items name, description and sprite to mimic other entity prototype.
     /// </summary>
-    public void SetSelectedPrototype(EntityUid uid, string? protoId, bool forceUpdate = false,
-        ChameleonClothingComponent? component = null)
+    public void SetSelectedPrototype(
+        EntityUid uid,
+        string? protoId,
+        bool forceUpdate = false,
+        ChameleonClothingComponent? component = null
+    )
     {
         if (!Resolve(uid, ref component, false))
             return;

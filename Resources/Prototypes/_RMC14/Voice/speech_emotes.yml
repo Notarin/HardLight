@@ -5,7 +5,7 @@
   name: rmc-emote-name-r-rattle
   category: Hands
   available: false
-  icon: { sprite: _RMC14/Actions/species_emotes.rsi, state: snarl }
+  icon: {sprite: _RMC14/Actions/species_emotes.rsi, state: snarl}
   whitelist:
     components:
     - Vocal
@@ -14,16 +14,16 @@
     - BorgChassis
   chatMessages: ["rmc-emote-r-rattle"]
   chatTriggers:
-    - rattle
-    - rattles
-    - rattling
-    - rattled
-    - rattle tail
-    - rattles tail
-    - rattles their tail
-    - rattles her tail
-    - rattles his tail
-    - rattles its tail
+  - rattle
+  - rattles
+  - rattling
+  - rattled
+  - rattle tail
+  - rattles tail
+  - rattles their tail
+  - rattles her tail
+  - rattles his tail
+  - rattles its tail
 
 #Vulpkanin
 
@@ -41,18 +41,18 @@
     - BorgChassis
   chatMessages: ["rmc-emote-anger"]
   chatTriggers:
-    - anger
-    - anger.
-    - anger!
-    - angers
-    - angers.
-    - angers!
-    - trill angrily
-    - trill angrily.
-    - trill angrily!
-    - trills angrily
-    - trills angrily.
-    - trills angrily!
+  - anger
+  - anger.
+  - anger!
+  - angers
+  - angers.
+  - angers!
+  - trill angrily
+  - trill angrily.
+  - trill angrily!
+  - trills angrily
+  - trills angrily.
+  - trills angrily!
 
 - type: emote
   id: RMCSkrellPeep
@@ -67,12 +67,12 @@
     - BorgChassis
   chatMessages: ["rmc-emote-peep"]
   chatTriggers:
-    - peep
-    - peep.
-    - peep!
-    - peeps
-    - peeps.
-    - peeps!
+  - peep
+  - peep.
+  - peep!
+  - peeps
+  - peeps.
+  - peeps!
 
 - type: emote
   id: RMCSkrellWarble
@@ -87,9 +87,9 @@
     - BorgChassis
   chatMessages: ["rmc-emote-warble"]
   chatTriggers:
-    - warble
-    - warble.
-    - warble!
-    - warbles
-    - warbles.
-    - warbles!
+  - warble
+  - warble.
+  - warble!
+  - warbles
+  - warbles.
+  - warbles!

@@ -10,10 +10,16 @@ using Robust.Shared.Serialization.TypeSerializers.Interfaces;
 
 namespace Content.Shared.Construction.Serialization;
 
-public sealed class GraphNodeEntitySerializer : ITypeSerializer<IGraphNodeEntity, ValueDataNode>, ITypeSerializer<IGraphNodeEntity, MappingDataNode>
+public sealed class GraphNodeEntitySerializer
+    : ITypeSerializer<IGraphNodeEntity, ValueDataNode>,
+        ITypeSerializer<IGraphNodeEntity, MappingDataNode>
 {
-    public ValidationNode Validate(ISerializationManager serializationManager, ValueDataNode node,
-        IDependencyCollection dependencies, ISerializationContext? context = null)
+    public ValidationNode Validate(
+        ISerializationManager serializationManager,
+        ValueDataNode node,
+        IDependencyCollection dependencies,
+        ISerializationContext? context = null
+    )
     {
         var id = node.Value;
 
@@ -27,26 +33,47 @@ public sealed class GraphNodeEntitySerializer : ITypeSerializer<IGraphNodeEntity
         return new ValidatedValueNode(node);
     }
 
-    public IGraphNodeEntity Read(ISerializationManager serializationManager, ValueDataNode node,
-        IDependencyCollection dependencies, SerializationHookContext hookCtx, ISerializationContext? context = null, ISerializationManager.InstantiationDelegate<IGraphNodeEntity>? instanceProvider = null)
+    public IGraphNodeEntity Read(
+        ISerializationManager serializationManager,
+        ValueDataNode node,
+        IDependencyCollection dependencies,
+        SerializationHookContext hookCtx,
+        ISerializationContext? context = null,
+        ISerializationManager.InstantiationDelegate<IGraphNodeEntity>? instanceProvider = null
+    )
     {
         return new StaticNodeEntity(node.Value);
     }
 
-    public ValidationNode Validate(ISerializationManager serializationManager, MappingDataNode node,
-        IDependencyCollection dependencies, ISerializationContext? context = null)
+    public ValidationNode Validate(
+        ISerializationManager serializationManager,
+        MappingDataNode node,
+        IDependencyCollection dependencies,
+        ISerializationContext? context = null
+    )
     {
         return serializationManager.ValidateNode<IGraphNodeEntity>(node, context);
     }
 
-    public IGraphNodeEntity Read(ISerializationManager serializationManager, MappingDataNode node,
-        IDependencyCollection dependencies, SerializationHookContext hookCtx, ISerializationContext? context = null, ISerializationManager.InstantiationDelegate<IGraphNodeEntity>? instanceProvider = null)
+    public IGraphNodeEntity Read(
+        ISerializationManager serializationManager,
+        MappingDataNode node,
+        IDependencyCollection dependencies,
+        SerializationHookContext hookCtx,
+        ISerializationContext? context = null,
+        ISerializationManager.InstantiationDelegate<IGraphNodeEntity>? instanceProvider = null
+    )
     {
         return serializationManager.Read(node, hookCtx, context, instanceProvider, false);
     }
 
-    public DataNode Write(ISerializationManager serializationManager, IGraphNodeEntity value, IDependencyCollection dependencies,
-        bool alwaysWrite = false, ISerializationContext? context = null)
+    public DataNode Write(
+        ISerializationManager serializationManager,
+        IGraphNodeEntity value,
+        IDependencyCollection dependencies,
+        bool alwaysWrite = false,
+        ISerializationContext? context = null
+    )
     {
         return serializationManager.WriteValue(value, alwaysWrite, context, false);
     }

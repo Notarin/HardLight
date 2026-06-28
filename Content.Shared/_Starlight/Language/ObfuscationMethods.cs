@@ -11,7 +11,7 @@ public abstract partial class ObfuscationMethod
     /// </summary>
     public static readonly ObfuscationMethod Default = new ReplacementObfuscation
     {
-        Replacement = new List<string> { "<?>" }
+        Replacement = new List<string> { "<?>" },
     };
 
     /// <summary>
@@ -44,7 +44,10 @@ public partial class RandomObfuscation : ObfuscationMethod
 
         for (int i = 0; i < Chars.Length; i++)
         {
-            message = message.Replace(Chars[i], Chars[context.PseudoRandomNumber(message.GetHashCode() + i, 0, Chars.Length - 1)]);
+            message = message.Replace(
+                Chars[i],
+                Chars[context.PseudoRandomNumber(message.GetHashCode() + i, 0, Chars.Length - 1)]
+            );
         }
 
         builder.Append(message);
@@ -88,7 +91,7 @@ public sealed partial class SyllableObfuscation : ReplacementObfuscation
 
     internal override void Obfuscate(StringBuilder builder, string message, SharedLanguageSystem context)
     {
-        const char eof = (char) 0; // Special character to mark the end of the message in the code below.
+        const char eof = (char)0; // Special character to mark the end of the message in the code below.
 
         var wordBeginIndex = 0;
         var hashCode = 0;

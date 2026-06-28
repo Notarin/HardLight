@@ -12,8 +12,11 @@ namespace Content.Server.Psionics
     /// </summary>
     public sealed class PsionicInvisibleContactsSystem : EntitySystem
     {
-        [Dependency] private readonly SharedStealthSystem _stealth = default!;
-        [Dependency] private readonly EntityWhitelistSystem _whitelist = default!;
+        [Dependency]
+        private readonly SharedStealthSystem _stealth = default!;
+
+        [Dependency]
+        private readonly EntityWhitelistSystem _whitelist = default!;
 
         public override void Initialize()
         {
@@ -24,7 +27,11 @@ namespace Content.Server.Psionics
             UpdatesAfter.Add(typeof(SharedPhysicsSystem));
         }
 
-        private void OnEntityEnter(EntityUid uid, PsionicInvisibleContactsComponent component, ref StartCollideEvent args)
+        private void OnEntityEnter(
+            EntityUid uid,
+            PsionicInvisibleContactsComponent component,
+            ref StartCollideEvent args
+        )
         {
             var otherUid = args.OtherEntity;
             var ourEntity = args.OurEntity;

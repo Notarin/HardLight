@@ -1,35 +1,54 @@
 using Content.Server.Abilities.Psionics;
-using Content.Shared.Carrying; // HL: Moved Carrying Component to Shared
 using Content.Shared.ActionBlocker;
+using Content.Shared.Carrying; // HL: Moved Carrying Component to Shared
 using Content.Shared.Damage;
 using Content.Shared.DoAfter;
 using Content.Shared.Interaction;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Movement.Pulling.Components;
+using Content.Shared.NPC.Systems;
 using Content.Shared.Popups;
+using Content.Shared.Psionics.Events;
 using Content.Shared.Rejuvenate;
 using Content.Shared.Verbs;
 using Content.Shared.Whitelist;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Player;
 using Robust.Shared.Utility;
-using Content.Shared.NPC.Systems;
-using Content.Shared.Psionics.Events;
 
 namespace Content.Server.LifeDrainer;
 
 public sealed class LifeDrainerSystem : EntitySystem
 {
-    [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!;
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!;
-    [Dependency] private readonly MobStateSystem _mob = default!;
-    [Dependency] private readonly NpcFactionSystem _faction = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly SharedInteractionSystem _interaction = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly PsionicAbilitiesSystem _psionicAbilitiesSystem = default!;
+    [Dependency]
+    private readonly ActionBlockerSystem _actionBlocker = default!;
+
+    [Dependency]
+    private readonly DamageableSystem _damageable = default!;
+
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelist = default!;
+
+    [Dependency]
+    private readonly MobStateSystem _mob = default!;
+
+    [Dependency]
+    private readonly NpcFactionSystem _faction = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfter = default!;
+
+    [Dependency]
+    private readonly SharedInteractionSystem _interaction = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly PsionicAbilitiesSystem _psionicAbilitiesSystem = default!;
 
     public override void Initialize()
     {
@@ -45,34 +64,36 @@ public sealed class LifeDrainerSystem : EntitySystem
         if (!args.CanAccess || !args.CanInteract || !CanDrain(ent, target))
             return;
 
-        args.Verbs.Add(new InnateVerb()
-        {
-            Act = () =>
+        args.Verbs.Add(
+            new InnateVerb()
             {
-                TryDrain(ent, target);
-            },
-            Text = Loc.GetString("verb-life-drain"),
-            Icon = new SpriteSpecifier.Texture(new ("/Textures/Nyanotrasen/Icons/verbiconfangs.png")),
-            Priority = 2
-        });
+                Act = () =>
+                {
+                    TryDrain(ent, target);
+                },
+                Text = Loc.GetString("verb-life-drain"),
+                Icon = new SpriteSpecifier.Texture(new("/Textures/Nyanotrasen/Icons/verbiconfangs.png")),
+                Priority = 2,
+            }
+        );
     }
 
     private void OnDrain(Entity<LifeDrainerComponent> ent, ref LifeDrainDoAfterEvent args)
     {
         var (uid, comp) = ent;
         CancelDrain(comp);
-        if (args.Handled || args.Args.Target is not {} target)
+        if (args.Handled || args.Args.Target is not { } target)
             return;
 
         // attack whoever interrupted the draining
         if (args.Cancelled)
         {
             // someone pulled the psionic away
-            if (TryComp<PullableComponent>(target, out var pullable) && pullable.Puller is {} puller)
+            if (TryComp<PullableComponent>(target, out var pullable) && pullable.Puller is { } puller)
                 _faction.AggroEntity(uid, puller);
 
             // someone pulled me away
-            if (TryComp(ent, out pullable) && pullable.Puller is {} selfPuller)
+            if (TryComp(ent, out pullable) && pullable.Puller is { } selfPuller)
                 _faction.AggroEntity(uid, selfPuller);
 
             // someone carried the psionic away
@@ -82,8 +103,19 @@ public sealed class LifeDrainerSystem : EntitySystem
             return;
         }
 
-        _popup.PopupEntity(Loc.GetString("life-drain-second-end", ("drainer", uid)), target, target, PopupType.LargeCaution);
-        _popup.PopupEntity(Loc.GetString("life-drain-third-end", ("drainer", uid), ("target", target)), target, Filter.PvsExcept(target), true, PopupType.LargeCaution);
+        _popup.PopupEntity(
+            Loc.GetString("life-drain-second-end", ("drainer", uid)),
+            target,
+            target,
+            PopupType.LargeCaution
+        );
+        _popup.PopupEntity(
+            Loc.GetString("life-drain-third-end", ("drainer", uid), ("target", target)),
+            target,
+            Filter.PvsExcept(target),
+            true,
+            PopupType.LargeCaution
+        );
 
         var rejuv = new RejuvenateEvent();
         RaiseLocalEvent(uid, rejuv);
@@ -111,13 +143,28 @@ public sealed class LifeDrainerSystem : EntitySystem
     public bool TryDrain(Entity<LifeDrainerComponent> ent, EntityUid target)
     {
         var (uid, comp) = ent;
-        if (!CanDrain(ent, target) || !_actionBlocker.CanInteract(uid, target) || !_interaction.InRangeUnobstructed(ent.Owner, target, popup: true))
+        if (
+            !CanDrain(ent, target)
+            || !_actionBlocker.CanInteract(uid, target)
+            || !_interaction.InRangeUnobstructed(ent.Owner, target, popup: true)
+        )
             return false;
 
-        _popup.PopupEntity(Loc.GetString("life-drain-second-start", ("drainer", uid)), target, target, PopupType.LargeCaution);
-        _popup.PopupEntity(Loc.GetString("life-drain-third-start", ("drainer", uid), ("target", target)), target, Filter.PvsExcept(target), true, PopupType.LargeCaution);
+        _popup.PopupEntity(
+            Loc.GetString("life-drain-second-start", ("drainer", uid)),
+            target,
+            target,
+            PopupType.LargeCaution
+        );
+        _popup.PopupEntity(
+            Loc.GetString("life-drain-third-start", ("drainer", uid), ("target", target)),
+            target,
+            Filter.PvsExcept(target),
+            true,
+            PopupType.LargeCaution
+        );
 
-        if (_audio.PlayPvs(comp.DrainSound, target) is {} stream)
+        if (_audio.PlayPvs(comp.DrainSound, target) is { } stream)
             comp.DrainStream = stream.Item1;
 
         var ev = new LifeDrainDoAfterEvent();
@@ -125,7 +172,7 @@ public sealed class LifeDrainerSystem : EntitySystem
         {
             BreakOnMove = true,
             MovementThreshold = 2f,
-            NeedHand = false
+            NeedHand = false,
         };
 
         if (!_doAfter.TryStartDoAfter(args, out var id))

@@ -8,14 +8,20 @@ using Robust.Shared.Timing;
 
 namespace Content.Shared.Beeper.Systems;
 
-
 //This handles generic proximity beeper logic
 public sealed class BeeperSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly ItemToggleSystem _toggle = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly INetManager _net = default!;
+
+    [Dependency]
+    private readonly ItemToggleSystem _toggle = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
 
     public override void Update(float frameTime)
     {

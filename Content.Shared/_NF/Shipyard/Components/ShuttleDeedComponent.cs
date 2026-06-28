@@ -12,8 +12,8 @@ namespace Content.Shared._NF.Shipyard.Components
         public const int MaxNameLength = 30;
         public const int MaxSuffixLength = 3 + 1 + 4; // 3 digits, dash, up to 4 letters - should be enough
 
-    [DataField, AutoNetworkedField]
-    public NetEntity? ShuttleUid = null;
+        [DataField, AutoNetworkedField]
+        public NetEntity? ShuttleUid = null;
 
         [DataField, AutoNetworkedField]
         public string? ShuttleName = "Unknown";

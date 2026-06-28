@@ -43,8 +43,8 @@
   - type: RevolverAmmoProvider
     whitelist:
       tags:
-        - Cartridge50_magnumFMJ
-        - SpeedLoader50Magnum
+      - Cartridge50_magnumFMJ
+      - SpeedLoader50Magnum
     mayTransfer: true
     proto: Cartridge50_magnumFMJ
     capacity: 5
@@ -60,7 +60,6 @@
     missChance: 0.5
     spreadMultiplier: 3
     spreadAddition: 40 # these numbers may be adjusted. intended to punish getting around the Wielded property.
-
 
 - type: entity
   id: WeaponRevolverTitan
@@ -154,7 +153,7 @@
     angleIncrease: 5
     angleDecay: 2
     soundGunshot: /Audio/_Starlight/Weapons/Guns/Gunshots/deagle.ogg
-  - type:  RevolverAmmoProvider
+  - type: RevolverAmmoProvider
     capacity: 5
     chambers:
     - true

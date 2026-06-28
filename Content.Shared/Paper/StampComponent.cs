@@ -1,5 +1,5 @@
-using Robust.Shared.Serialization;
 using Robust.Shared.Audio;
+using Robust.Shared.Serialization;
 
 namespace Content.Shared.Paper;
 
@@ -34,7 +34,7 @@ public partial struct StampDisplayInfo
 public enum StampType
 {
     RubberStamp,
-    Signature
+    Signature,
 }
 
 [RegisterComponent]
@@ -74,7 +74,6 @@ public sealed partial class StampComponent : Component
     /// <summary>
     /// When true, stamped papers are marked as protected
     /// </summary>
-
     [DataField]
     public bool Protected = false;
     // End Frontier

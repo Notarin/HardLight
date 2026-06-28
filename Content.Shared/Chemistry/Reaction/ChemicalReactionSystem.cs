@@ -11,7 +11,6 @@ using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
-
 namespace Content.Shared.Chemistry.Reaction
 {
     public sealed class ChemicalReactionSystem : EntitySystem
@@ -28,11 +27,20 @@ namespace Content.Shared.Chemistry.Reaction
         /// </summary>
         private const int MaxReactionIterations = 20;
 
-        [Dependency] private readonly INetManager _netMan = default!;
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-        [Dependency] private readonly SharedAudioSystem _audio = default!;
-        [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
+        [Dependency]
+        private readonly INetManager _netMan = default!;
+
+        [Dependency]
+        private readonly IPrototypeManager _prototypeManager = default!;
+
+        [Dependency]
+        private readonly ISharedAdminLogManager _adminLogger = default!;
+
+        [Dependency]
+        private readonly SharedAudioSystem _audio = default!;
+
+        [Dependency]
+        private readonly SharedTransformSystem _transformSystem = default!;
 
         /// <summary>
         /// A cache of all reactions indexed by at most ONE of their required reactants.
@@ -98,7 +106,12 @@ namespace Content.Shared.Chemistry.Reaction
         /// <param name="reaction">The reaction to check.</param>
         /// <param name="lowestUnitReactions">How many times this reaction can occur.</param>
         /// <returns></returns>
-        private bool CanReact(Entity<SolutionComponent> soln, ReactionPrototype reaction, ReactionMixerComponent? mixerComponent, out FixedPoint2 lowestUnitReactions)
+        private bool CanReact(
+            Entity<SolutionComponent> soln,
+            ReactionPrototype reaction,
+            ReactionMixerComponent? mixerComponent,
+            out FixedPoint2 lowestUnitReactions
+        )
         {
             var solution = soln.Comp.Solution;
 
@@ -106,10 +119,12 @@ namespace Content.Shared.Chemistry.Reaction
             // HardLight start: Allow reactions even if solution.CanReact is false when Electrolysis is involved
             if (!solution.CanReact)
             {
-                if (mixerComponent == null
+                if (
+                    mixerComponent == null
                     || reaction.MixingCategories == null
                     || !reaction.MixingCategories.Contains(ElectrolysisCategory)
-                    || !mixerComponent.ReactionTypes.Contains(ElectrolysisCategory))
+                    || !mixerComponent.ReactionTypes.Contains(ElectrolysisCategory)
+                )
                 {
                     lowestUnitReactions = FixedPoint2.Zero;
                     return false;
@@ -127,8 +142,12 @@ namespace Content.Shared.Chemistry.Reaction
                 return false;
             }
 
-            if ((mixerComponent == null && reaction.MixingCategories != null) ||
-                mixerComponent != null && reaction.MixingCategories != null && reaction.MixingCategories.Except(mixerComponent.ReactionTypes).Any())
+            if (
+                (mixerComponent == null && reaction.MixingCategories != null)
+                || mixerComponent != null
+                    && reaction.MixingCategories != null
+                    && reaction.MixingCategories.Except(mixerComponent.ReactionTypes).Any()
+            )
             {
                 lowestUnitReactions = FixedPoint2.Zero;
                 return false;
@@ -157,7 +176,10 @@ namespace Content.Shared.Chemistry.Reaction
                     // catalyst is not consumed, so will not limit the reaction. But it still needs to be present, and
                     // for quantized reactions we need to have a minimum amount
 
-                    if (reactantQuantity == FixedPoint2.Zero || reaction.Quantized && reactantQuantity < reactantCoefficient)
+                    if (
+                        reactantQuantity == FixedPoint2.Zero
+                        || reaction.Quantized && reactantQuantity < reactantCoefficient
+                    )
                         return false;
 
                     continue;
@@ -172,7 +194,7 @@ namespace Content.Shared.Chemistry.Reaction
             }
 
             if (reaction.Quantized)
-                lowestUnitReactions = (int) lowestUnitReactions;
+                lowestUnitReactions = (int)lowestUnitReactions;
 
             return lowestUnitReactions > 0;
         }
@@ -181,7 +203,11 @@ namespace Content.Shared.Chemistry.Reaction
         ///     Perform a reaction on a solution. This assumes all reaction criteria are met.
         ///     Removes the reactants from the solution, adds products, and returns a list of products.
         /// </summary>
-        private List<string> PerformReaction(Entity<SolutionComponent> soln, ReactionPrototype reaction, FixedPoint2 unitReactions)
+        private List<string> PerformReaction(
+            Entity<SolutionComponent> soln,
+            ReactionPrototype reaction,
+            FixedPoint2 unitReactions
+        )
         {
             var (uid, comp) = soln;
             var solution = comp.Solution;
@@ -218,14 +244,31 @@ namespace Content.Shared.Chemistry.Reaction
             return products;
         }
 
-        private void OnReaction(Entity<SolutionComponent> soln, ReactionPrototype reaction, ReagentPrototype? reagent, FixedPoint2 unitReactions)
+        private void OnReaction(
+            Entity<SolutionComponent> soln,
+            ReactionPrototype reaction,
+            ReagentPrototype? reagent,
+            FixedPoint2 unitReactions
+        )
         {
-            var args = new EntityEffectReagentArgs(soln, EntityManager, null, soln.Comp.Solution, unitReactions, reagent, null, 1f);
+            var args = new EntityEffectReagentArgs(
+                soln,
+                EntityManager,
+                null,
+                soln.Comp.Solution,
+                unitReactions,
+                reagent,
+                null,
+                1f
+            );
 
             var posFound = _transformSystem.TryGetMapOrGridCoordinates(soln, out var gridPos);
 
-            _adminLogger.Add(LogType.ChemicalReaction, reaction.Impact,
-                $"Chemical reaction {reaction.ID:reaction} occurred with strength {unitReactions:strength} on entity {ToPrettyString(soln):metabolizer} at Pos:{(posFound ? $"{gridPos:coordinates}" : "[Grid or Map not Found]")}");
+            _adminLogger.Add(
+                LogType.ChemicalReaction,
+                reaction.Impact,
+                $"Chemical reaction {reaction.ID:reaction} occurred with strength {unitReactions:strength} on entity {ToPrettyString(soln):metabolizer} at Pos:{(posFound ? $"{gridPos:coordinates}" : "[Grid or Map not Found]")}"
+            );
 
             foreach (var effect in reaction.Effects)
             {
@@ -235,8 +278,11 @@ namespace Content.Shared.Chemistry.Reaction
                 if (effect.ShouldLog)
                 {
                     var entity = args.TargetEntity;
-                    _adminLogger.Add(LogType.ReagentEffect, effect.LogImpact,
-                        $"Reaction effect {effect.GetType().Name:effect} of reaction {reaction.ID:reaction} applied on entity {ToPrettyString(entity):entity} at Pos:{(posFound ? $"{gridPos:coordinates}" : "[Grid or Map not Found")}");
+                    _adminLogger.Add(
+                        LogType.ReagentEffect,
+                        effect.LogImpact,
+                        $"Reaction effect {effect.GetType().Name:effect} of reaction {reaction.ID:reaction} applied on entity {ToPrettyString(entity):entity} at Pos:{(posFound ? $"{gridPos:coordinates}" : "[Grid or Map not Found")}"
+                    );
                 }
 
                 effect.Effect(args);
@@ -254,7 +300,11 @@ namespace Content.Shared.Chemistry.Reaction
         ///     Removes the reactants from the solution, then returns a solution with all products.
         ///     WARNING: Does not trigger reactions between solution and new products.
         /// </summary>
-        private bool ProcessReactions(Entity<SolutionComponent> soln, SortedSet<ReactionPrototype> reactions, ReactionMixerComponent? mixerComponent)
+        private bool ProcessReactions(
+            Entity<SolutionComponent> soln,
+            SortedSet<ReactionPrototype> reactions,
+            ReactionMixerComponent? mixerComponent
+        )
         {
             List<string>? products = null;
 
@@ -309,7 +359,9 @@ namespace Content.Shared.Chemistry.Reaction
                     return;
             }
 
-            Log.Error($"{nameof(Solution)} {soln.Owner} could not finish reacting in under {MaxReactionIterations} loops.");
+            Log.Error(
+                $"{nameof(Solution)} {soln.Owner} could not finish reacting in under {MaxReactionIterations} loops."
+            );
         }
     }
 

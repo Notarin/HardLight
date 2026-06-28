@@ -13,7 +13,11 @@ public sealed class LatheUpdateState : BoundUserInterfaceState
 
     public LatheRecipePrototype? CurrentlyProducing;
 
-    public LatheUpdateState(List<ProtoId<LatheRecipePrototype>> recipes, List<LatheRecipeBatch> queue, LatheRecipePrototype? currentlyProducing = null) // Frontier: change queue type
+    public LatheUpdateState(
+        List<ProtoId<LatheRecipePrototype>> recipes,
+        List<LatheRecipeBatch> queue,
+        LatheRecipePrototype? currentlyProducing = null
+    ) // Frontier: change queue type
     {
         Recipes = recipes;
         Queue = queue;
@@ -25,10 +29,7 @@ public sealed class LatheUpdateState : BoundUserInterfaceState
 ///     Sent to the server to sync material storage and the recipe queue.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class LatheSyncRequestMessage : BoundUserInterfaceMessage
-{
-
-}
+public sealed class LatheSyncRequestMessage : BoundUserInterfaceMessage { }
 
 /// <summary>
 ///     Sent to the server when a client queues a new recipe.
@@ -38,6 +39,7 @@ public sealed class LatheQueueRecipeMessage : BoundUserInterfaceMessage
 {
     public readonly string ID;
     public readonly int Quantity;
+
     public LatheQueueRecipeMessage(string id, int quantity)
     {
         ID = id;

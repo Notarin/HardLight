@@ -1,7 +1,7 @@
 using Content.Server.Body.Components;
+using Content.Shared._Shitmed.Body.Organ;
 using Content.Shared.Body.Components;
 using Content.Shared.Body.Events;
-using Content.Shared._Shitmed.Body.Organ;
 using Content.Shared.Eye.Blinding.Components;
 using Content.Shared.Eye.Blinding.Systems;
 
@@ -9,8 +9,11 @@ namespace Content.Server.Body.Systems
 {
     public sealed class EyesSystem : EntitySystem
     {
-        [Dependency] private readonly BlindableSystem _blindableSystem = default!;
-        [Dependency] private readonly BodySystem _bodySystem = default!;
+        [Dependency]
+        private readonly BlindableSystem _blindableSystem = default!;
+
+        [Dependency]
+        private readonly BodySystem _bodySystem = default!;
 
         public override void Initialize()
         {
@@ -60,13 +63,11 @@ namespace Content.Server.Body.Systems
             //if there are no existing eye components for the old entity - set old sight to be blind otherwise leave it as is
             if (!hasOtherEyes && !TryComp<EyesComponent>(oldEntity, out var self))
                 _blindableSystem.AdjustEyeDamage((oldEntity, oldSight), oldSight.MaxDamage);
-
         }
 
         private void OnOrganEnabled(EntityUid uid, EyesComponent component, OrganEnabledEvent args)
         {
-            if (TerminatingOrDeleted(uid)
-            || args.Organ.Comp.Body is not { Valid: true } body)
+            if (TerminatingOrDeleted(uid) || args.Organ.Comp.Body is not { Valid: true } body)
                 return;
 
             RemComp<TemporaryBlindnessComponent>(body);
@@ -75,8 +76,7 @@ namespace Content.Server.Body.Systems
 
         private void OnOrganDisabled(EntityUid uid, EyesComponent component, OrganDisabledEvent args)
         {
-            if (TerminatingOrDeleted(uid)
-            || args.Organ.Comp.Body is not { Valid: true } body)
+            if (TerminatingOrDeleted(uid) || args.Organ.Comp.Body is not { Valid: true } body)
                 return;
 
             EnsureComp<TemporaryBlindnessComponent>(body);

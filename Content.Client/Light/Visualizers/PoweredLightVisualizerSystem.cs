@@ -9,9 +9,14 @@ namespace Content.Client.Light.Visualizers;
 
 public sealed class PoweredLightVisualizerSystem : VisualizerSystem<PoweredLightVisualsComponent>
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     public override void Initialize()
     {
@@ -19,12 +24,23 @@ public sealed class PoweredLightVisualizerSystem : VisualizerSystem<PoweredLight
         SubscribeLocalEvent<PoweredLightVisualsComponent, AnimationCompletedEvent>(OnAnimationCompleted);
     }
 
-    protected override void OnAppearanceChange(EntityUid uid, PoweredLightVisualsComponent comp, ref AppearanceChangeEvent args)
+    protected override void OnAppearanceChange(
+        EntityUid uid,
+        PoweredLightVisualsComponent comp,
+        ref AppearanceChangeEvent args
+    )
     {
         if (args.Sprite == null)
             return;
 
-        if (!AppearanceSystem.TryGetData<PoweredLightState>(uid, PoweredLightVisuals.BulbState, out var state, args.Component))
+        if (
+            !AppearanceSystem.TryGetData<PoweredLightState>(
+                uid,
+                PoweredLightVisuals.BulbState,
+                out var state,
+                args.Component
+            )
+        )
             return;
 
         if (comp.SpriteStateMap.TryGetValue(state, out var spriteState))
@@ -43,7 +59,14 @@ public sealed class PoweredLightVisualizerSystem : VisualizerSystem<PoweredLight
         SetBlinkingAnimation(
             uid,
             state == PoweredLightState.On
-            && (AppearanceSystem.TryGetData<bool>(uid, PoweredLightVisuals.Blinking, out var isBlinking, args.Component) && isBlinking),
+                && (
+                    AppearanceSystem.TryGetData<bool>(
+                        uid,
+                        PoweredLightVisuals.Blinking,
+                        out var isBlinking,
+                        args.Component
+                    ) && isBlinking
+                ),
             comp
         );
     }
@@ -60,7 +83,11 @@ public sealed class PoweredLightVisualizerSystem : VisualizerSystem<PoweredLight
         if (!comp.IsBlinking)
             return;
 
-        AnimationSystem.Play((uid, animationPlayer), BlinkingAnimation(comp), PoweredLightVisualsComponent.BlinkingAnimationKey);
+        AnimationSystem.Play(
+            (uid, animationPlayer),
+            BlinkingAnimation(comp),
+            PoweredLightVisualsComponent.BlinkingAnimationKey
+        );
     }
 
     /// <summary>
@@ -77,9 +104,15 @@ public sealed class PoweredLightVisualizerSystem : VisualizerSystem<PoweredLight
         var animationPlayer = EnsureComp<AnimationPlayerComponent>(uid);
         if (shouldBeBlinking)
         {
-            AnimationSystem.Play((uid, animationPlayer), BlinkingAnimation(comp), PoweredLightVisualsComponent.BlinkingAnimationKey);
+            AnimationSystem.Play(
+                (uid, animationPlayer),
+                BlinkingAnimation(comp),
+                PoweredLightVisualsComponent.BlinkingAnimationKey
+            );
         }
-        else if (AnimationSystem.HasRunningAnimation(uid, animationPlayer, PoweredLightVisualsComponent.BlinkingAnimationKey))
+        else if (
+            AnimationSystem.HasRunningAnimation(uid, animationPlayer, PoweredLightVisualsComponent.BlinkingAnimationKey)
+        )
         {
             AnimationSystem.Stop(uid, animationPlayer, PoweredLightVisualsComponent.BlinkingAnimationKey);
         }
@@ -92,7 +125,11 @@ public sealed class PoweredLightVisualizerSystem : VisualizerSystem<PoweredLight
     /// </summary>
     private Animation BlinkingAnimation(PoweredLightVisualsComponent comp)
     {
-        var randomTime = MathHelper.Lerp(comp.MinBlinkingAnimationCycleTime, comp.MaxBlinkingAnimationCycleTime, _random.NextFloat());
+        var randomTime = MathHelper.Lerp(
+            comp.MinBlinkingAnimationCycleTime,
+            comp.MaxBlinkingAnimationCycleTime,
+            _random.NextFloat()
+        );
         var blinkingAnim = new Animation()
         {
             Length = TimeSpan.FromSeconds(randomTime),
@@ -106,8 +143,8 @@ public sealed class PoweredLightVisualizerSystem : VisualizerSystem<PoweredLight
                     KeyFrames =
                     {
                         new AnimationTrackProperty.KeyFrame(false, 0),
-                        new AnimationTrackProperty.KeyFrame(true, 1)
-                    }
+                        new AnimationTrackProperty.KeyFrame(true, 1),
+                    },
                 },
                 new AnimationTrackSpriteFlick()
                 {
@@ -115,22 +152,18 @@ public sealed class PoweredLightVisualizerSystem : VisualizerSystem<PoweredLight
                     KeyFrames =
                     {
                         new AnimationTrackSpriteFlick.KeyFrame(comp.SpriteStateMap[PoweredLightState.Off], 0),
-                        new AnimationTrackSpriteFlick.KeyFrame(comp.SpriteStateMap[PoweredLightState.On], 0.5f)
-                    }
-                }
-            }
+                        new AnimationTrackSpriteFlick.KeyFrame(comp.SpriteStateMap[PoweredLightState.On], 0.5f),
+                    },
+                },
+            },
         };
 
         if (comp.BlinkingSound != null)
         {
             var sound = _audio.ResolveSound(comp.BlinkingSound);
-            blinkingAnim.AnimationTracks.Add(new AnimationTrackPlaySound()
-            {
-                KeyFrames =
-                {
-                    new AnimationTrackPlaySound.KeyFrame(sound, 0.5f)
-                }
-            });
+            blinkingAnim.AnimationTracks.Add(
+                new AnimationTrackPlaySound() { KeyFrames = { new AnimationTrackPlaySound.KeyFrame(sound, 0.5f) } }
+            );
         }
 
         return blinkingAnim;

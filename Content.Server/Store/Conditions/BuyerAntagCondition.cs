@@ -51,7 +51,6 @@ public sealed partial class BuyerAntagCondition : ListingCondition
             var found = false;
             foreach (var role in roles)
             {
-
                 if (!role.Antagonist || string.IsNullOrEmpty(role.Prototype))
                     continue;
 

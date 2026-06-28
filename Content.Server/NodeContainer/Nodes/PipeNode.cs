@@ -38,22 +38,30 @@ namespace Content.Server.NodeContainer.Nodes
 
         public void AddAlwaysReachable(PipeNode pipeNode)
         {
-            if (pipeNode.NodeGroupID != NodeGroupID) return;
+            if (pipeNode.NodeGroupID != NodeGroupID)
+                return;
             _alwaysReachable ??= new();
             _alwaysReachable.Add(pipeNode);
 
             if (NodeGroup != null)
-                IoCManager.Resolve<IEntityManager>().System<NodeGroupSystem>().QueueRemakeGroup((BaseNodeGroup) NodeGroup);
+                IoCManager
+                    .Resolve<IEntityManager>()
+                    .System<NodeGroupSystem>()
+                    .QueueRemakeGroup((BaseNodeGroup)NodeGroup);
         }
 
         public void RemoveAlwaysReachable(PipeNode pipeNode)
         {
-            if (_alwaysReachable == null) return;
+            if (_alwaysReachable == null)
+                return;
 
             _alwaysReachable.Remove(pipeNode);
 
             if (NodeGroup != null)
-                IoCManager.Resolve<IEntityManager>().System<NodeGroupSystem>().QueueRemakeGroup((BaseNodeGroup) NodeGroup);
+                IoCManager
+                    .Resolve<IEntityManager>()
+                    .System<NodeGroupSystem>()
+                    .QueueRemakeGroup((BaseNodeGroup)NodeGroup);
         }
 
         /// <summary>
@@ -68,7 +76,10 @@ namespace Content.Server.NodeContainer.Nodes
                 _connectionsEnabled = value;
 
                 if (NodeGroup != null)
-                    IoCManager.Resolve<IEntityManager>().System<NodeGroupSystem>().QueueRemakeGroup((BaseNodeGroup) NodeGroup);
+                    IoCManager
+                        .Resolve<IEntityManager>()
+                        .System<NodeGroupSystem>()
+                        .QueueRemakeGroup((BaseNodeGroup)NodeGroup);
             }
         }
 
@@ -87,7 +98,7 @@ namespace Content.Server.NodeContainer.Nodes
         ///     The <see cref="IPipeNet"/> this pipe is a part of.
         /// </summary>
         [ViewVariables]
-        private IPipeNet? PipeNet => (IPipeNet?) NodeGroup;
+        private IPipeNet? PipeNet => (IPipeNet?)NodeGroup;
 
         /// <summary>
         ///     The gases in this pipe.
@@ -148,7 +159,7 @@ namespace Content.Server.NodeContainer.Nodes
                 {
                     _alwaysReachable.Clear();
                     if (NodeGroup != null)
-                        entityManager.System<NodeGroupSystem>().QueueRemakeGroup((BaseNodeGroup) NodeGroup);
+                        entityManager.System<NodeGroupSystem>().QueueRemakeGroup((BaseNodeGroup)NodeGroup);
                 }
                 return;
             }
@@ -166,11 +177,13 @@ namespace Content.Server.NodeContainer.Nodes
             CurrentPipeDirection = OriginalPipeDirection.RotatePipeDirection(xform.LocalRotation);
         }
 
-        public override IEnumerable<Node> GetReachableNodes(TransformComponent xform,
+        public override IEnumerable<Node> GetReachableNodes(
+            TransformComponent xform,
             EntityQuery<NodeContainerComponent> nodeQuery,
             EntityQuery<TransformComponent> xformQuery,
             MapGridComponent? grid,
-            IEntityManager entMan)
+            IEntityManager entMan
+        )
         {
             if (_alwaysReachable != null)
             {
@@ -197,7 +210,7 @@ namespace Content.Server.NodeContainer.Nodes
 
             for (var i = 0; i < PipeDirectionHelpers.PipeDirections; i++)
             {
-                var pipeDir = (PipeDirection) (1 << i);
+                var pipeDir = (PipeDirection)(1 << i);
 
                 if (!CurrentPipeDirection.HasDirection(pipeDir))
                     continue;
@@ -212,14 +225,20 @@ namespace Content.Server.NodeContainer.Nodes
         /// <summary>
         ///     Gets the pipes that can connect to us from entities on the tile or adjacent in a direction.
         /// </summary>
-        private IEnumerable<PipeNode> LinkableNodesInDirection(Vector2i pos, PipeDirection pipeDir, MapGridComponent grid,
-            EntityQuery<NodeContainerComponent> nodeQuery)
+        private IEnumerable<PipeNode> LinkableNodesInDirection(
+            Vector2i pos,
+            PipeDirection pipeDir,
+            MapGridComponent grid,
+            EntityQuery<NodeContainerComponent> nodeQuery
+        )
         {
             foreach (var pipe in PipesInDirection(pos, pipeDir, grid, nodeQuery))
             {
-                if (pipe.NodeGroupID == NodeGroupID
+                if (
+                    pipe.NodeGroupID == NodeGroupID
                     && pipe.CurrentPipeLayer == CurrentPipeLayer
-                    && pipe.CurrentPipeDirection.HasDirection(pipeDir.GetOpposite()))
+                    && pipe.CurrentPipeDirection.HasDirection(pipeDir.GetOpposite())
+                )
                 {
                     yield return pipe;
                 }
@@ -229,8 +248,12 @@ namespace Content.Server.NodeContainer.Nodes
         /// <summary>
         ///     Gets the pipes from entities on the tile adjacent in a direction.
         /// </summary>
-        protected IEnumerable<PipeNode> PipesInDirection(Vector2i pos, PipeDirection pipeDir, MapGridComponent grid,
-            EntityQuery<NodeContainerComponent> nodeQuery)
+        protected IEnumerable<PipeNode> PipesInDirection(
+            Vector2i pos,
+            PipeDirection pipeDir,
+            MapGridComponent grid,
+            EntityQuery<NodeContainerComponent> nodeQuery
+        )
         {
             var offsetPos = pos.Offset(pipeDir.ToDirection());
 
@@ -246,6 +269,7 @@ namespace Content.Server.NodeContainer.Nodes
                 }
             }
         }
+
         public HashSet<PipeNode>? GetAlwaysReachable() => _alwaysReachable; // Starlight: DockPipeSystem
     }
 }

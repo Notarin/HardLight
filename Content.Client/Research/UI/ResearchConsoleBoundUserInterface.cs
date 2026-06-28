@@ -12,9 +12,8 @@ public sealed class ResearchConsoleBoundUserInterface : BoundUserInterface
     [ViewVariables]
     private ResearchConsoleMenu? _consoleMenu;
 
-    public ResearchConsoleBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-    }
+    public ResearchConsoleBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {

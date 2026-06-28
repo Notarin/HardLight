@@ -62,7 +62,4 @@ public sealed partial class MindRoleComponent : BaseMindRoleComponent
 // Why does this base component actually exist? It does make auto-categorization easy, but before that it was useless?
 // I used it for easy organisation/bookkeeping of what components are for mindroles
 [EntityCategory("Roles")]
-public abstract partial class BaseMindRoleComponent : Component
-{
-
-}
+public abstract partial class BaseMindRoleComponent : Component { }

@@ -13,8 +13,7 @@
     damageContainer: Inorganic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 1
       behaviors:
       - !type:DoActsBehavior
@@ -52,7 +51,7 @@
     maxItemSize: Tiny
   - type: StorageFill
     contents:
-      - id: SnapPop
-        amount: 5
+    - id: SnapPop
+      amount: 5
   - type: Dumpable
 

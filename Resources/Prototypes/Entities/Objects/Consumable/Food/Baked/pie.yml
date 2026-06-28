@@ -10,7 +10,7 @@
     storedRotation: -90
   - type: FlavorProfile
     flavors:
-      - sweet
+    - sweet
   - type: Sprite
     sprite: Objects/Consumable/Food/Baked/pie.rsi
   - type: SolutionContainerManager
@@ -43,7 +43,7 @@
     size: Tiny
   - type: FlavorProfile
     flavors:
-      - sweet
+    - sweet
   - type: Sprite
     sprite: Objects/Consumable/Food/Baked/pie.rsi
   - type: SolutionContainerManager
@@ -72,8 +72,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - sweet
-      - apple
+    - sweet
+    - apple
   - type: Sprite
     layers:
     - state: tin
@@ -92,8 +92,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - sweet
-      - apple
+    - sweet
+    - apple
   - type: Sprite
     layers:
     - state: plain-slice
@@ -114,8 +114,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - sweet
-      - nutty
+    - sweet
+    - nutty
   - type: Sprite
     layers:
     - state: tin
@@ -131,8 +131,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - sweet
-      - nutty
+    - sweet
+    - nutty
   - type: Sprite
     state: baklava-slice
 # Tastes like pie, nuts.
@@ -145,9 +145,9 @@
   components:
   - type: FlavorProfile
     flavors:
-      - sweet
-      - banana
-      - creamy
+    - sweet
+    - banana
+    - creamy
   - type: Sprite
     layers:
     - state: tin
@@ -186,9 +186,9 @@
   components:
   - type: FlavorProfile
     flavors:
-      - sweet
-      - banana
-      - creamy
+    - sweet
+    - banana
+    - creamy
   - type: Sprite
     state: bananapie-slice
   - type: Tag
@@ -206,8 +206,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - sweet
-      - berry
+    - sweet
+    - berry
   - type: Sprite
     layers:
     - state: tin
@@ -227,8 +227,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - sweet
-      - berry
+    - sweet
+    - berry
   - type: Sprite
     layers:
     - state: plain-slice
@@ -249,7 +249,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - sweet
+    - sweet
   - type: Sprite
     layers:
     - state: tin
@@ -268,7 +268,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - sweet
+    - sweet
   - type: Sprite
     layers:
     - state: plain-slice
@@ -289,7 +289,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - meaty
+    - meaty
   - type: Sprite
     layers:
     - state: tin
@@ -308,7 +308,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - meaty
+    - meaty
   - type: Sprite
     layers:
     - state: plain-slice
@@ -329,8 +329,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - sweet
-      - pumpkin
+    - sweet
+    - pumpkin
   - type: Sprite
     layers:
     - state: tin
@@ -348,8 +348,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - sweet
-      - pumpkin
+    - sweet
+    - pumpkin
   - type: Sprite
     layers:
     - state: pumpkin-slice
@@ -365,8 +365,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - meaty
-      - acid
+    - meaty
+    - acid
   - type: Sprite
     layers:
     - state: tin
@@ -385,8 +385,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - meaty
-      - acid
+    - meaty
+    - acid
   - type: Sprite
     layers:
     - state: plain-slice
@@ -407,7 +407,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - cold
+    - cold
   - type: Sprite
     layers:
     - state: tin
@@ -422,7 +422,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - cold
+    - cold
   - type: Sprite
     layers:
     - state: plain-slice
@@ -438,7 +438,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - nothing
+    - nothing
   - type: Sprite
     state: mime
   - type: Item
@@ -453,7 +453,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - nothing
+    - nothing
   - type: Sprite
     layers:
     - state: mimetart-slice
@@ -471,7 +471,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - mushroom
+    - mushroom
   - type: Sprite
     state: amanita
   - type: SolutionContainerManager
@@ -497,7 +497,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - mushroom
+    - mushroom
   - type: Sprite
     state: plump
 # Tastes like pie, mushrooms.
@@ -512,7 +512,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - sweet
+    - sweet
   - type: Sprite
     state: grape
   - type: Tag
@@ -529,7 +529,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - apple
+    - apple
   - type: Sprite
     state: gapple
   - type: Tag
@@ -546,7 +546,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - chocolate
+    - chocolate
   - type: Sprite
     state: cocolava
   - type: SolutionContainerManager

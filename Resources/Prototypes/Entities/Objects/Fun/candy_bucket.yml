@@ -8,7 +8,7 @@
     sprite: Objects/Fun/candy_bucket.rsi
     layers:
     - state: empty_icon
-      map: [ "enum.ToggleVisuals.Layer" ]
+      map: ["enum.ToggleVisuals.Layer"]
   - type: ContainerHeld
     threshold: 1
   - type: Item
@@ -17,7 +17,7 @@
   - type: Appearance
   - type: GenericVisualizer
     visuals:
-     enum.ToggleVisuals.Toggled:
+      enum.ToggleVisuals.Toggled:
         enum.ToggleVisuals.Layer:
           True: {state: full_icon}
           False: {state: empty_icon}
@@ -27,9 +27,9 @@
     - 0,0,3,2
     whitelist:
       components:
-        - Pill
+      - Pill
       tags:
-        - FoodSnack
+      - FoodSnack
   - type: ContainerContainer
     containers:
       storagebase: !type:Container

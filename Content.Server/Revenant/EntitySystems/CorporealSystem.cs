@@ -8,8 +8,11 @@ namespace Content.Server.Revenant.EntitySystems;
 
 public sealed class CorporealSystem : SharedCorporealSystem
 {
-    [Dependency] private readonly VisibilitySystem _visibilitySystem = default!;
-    [Dependency] private readonly GameTicker _ticker = default!;
+    [Dependency]
+    private readonly VisibilitySystem _visibilitySystem = default!;
+
+    [Dependency]
+    private readonly GameTicker _ticker = default!;
 
     public override void OnStartup(EntityUid uid, CorporealComponent component, ComponentStartup args)
     {
@@ -17,8 +20,8 @@ public sealed class CorporealSystem : SharedCorporealSystem
 
         if (TryComp<VisibilityComponent>(uid, out var visibility))
         {
-            _visibilitySystem.RemoveLayer((uid, visibility), (int) VisibilityFlags.Ghost, false);
-            _visibilitySystem.AddLayer((uid, visibility), (int) VisibilityFlags.Normal, false);
+            _visibilitySystem.RemoveLayer((uid, visibility), (int)VisibilityFlags.Ghost, false);
+            _visibilitySystem.AddLayer((uid, visibility), (int)VisibilityFlags.Normal, false);
             _visibilitySystem.RefreshVisibility(uid, visibility);
         }
     }
@@ -29,8 +32,8 @@ public sealed class CorporealSystem : SharedCorporealSystem
 
         if (TryComp<VisibilityComponent>(uid, out var visibility) && _ticker.RunLevel != GameRunLevel.PostRound)
         {
-            _visibilitySystem.AddLayer((uid, visibility), (int) VisibilityFlags.Ghost, false);
-            _visibilitySystem.RemoveLayer((uid, visibility), (int) VisibilityFlags.Normal, false);
+            _visibilitySystem.AddLayer((uid, visibility), (int)VisibilityFlags.Ghost, false);
+            _visibilitySystem.RemoveLayer((uid, visibility), (int)VisibilityFlags.Normal, false);
             _visibilitySystem.RefreshVisibility(uid, visibility);
         }
     }

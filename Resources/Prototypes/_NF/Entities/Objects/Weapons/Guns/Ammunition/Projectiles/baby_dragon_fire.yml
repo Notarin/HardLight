@@ -2,7 +2,7 @@
   id: BabyDragonSpark
   parent: NFPelletShotgunFlare
   name: dragon ember spark
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: PointLight
     color: "#E25822"

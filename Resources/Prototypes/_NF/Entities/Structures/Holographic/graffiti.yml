@@ -37,13 +37,13 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-        scale: 0.7, 0.7
-      - sprite: _NF/Structures/Holo/graffiti/simple.rsi
-        state: holograffiti17
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: red
+    - state: green
+      scale: 0.7, 0.7
+    - sprite: _NF/Structures/Holo/graffiti/simple.rsi
+      state: holograffiti17
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: red
   - type: RandomSpawner
     prototypes:
     - HoloGraffitiSimple01
@@ -117,20 +117,18 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb {}
+        shape: !type:PhysShapeAabb {}
   - type: Damageable
     damageContainer: Inorganic
     damageModifierSet: Metallic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 1
       behaviors:
       - !type:DoActsBehavior
         acts: ["Destruction"]
-  #- type: TimedDespawn
+        #- type: TimedDespawn
     #lifetime: 5400 # 1.5 hours
   - type: StaticPrice
     price: 0
@@ -139,7 +137,7 @@
 - type: entity
   id: HoloGraffitiSimple01
   parent: HoloGraffiti
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallMountedItems
@@ -147,7 +145,7 @@
     sprite: _NF/Structures/Holo/graffiti/simple.rsi
     layers:
     - state: holograffiti01
-      map: [ "graffiti" ]
+      map: ["graffiti"]
       shader: unshaded
       scale: 0.75, 0.75
   - type: RandomSprite
@@ -158,7 +156,7 @@
 - type: entity
   id: HoloGraffitiSimple02
   parent: HoloGraffiti
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallMountedItems
@@ -166,7 +164,7 @@
     sprite: _NF/Structures/Holo/graffiti/simple.rsi
     layers:
     - state: holograffiti02
-      map: [ "graffiti" ]
+      map: ["graffiti"]
       shader: unshaded
       scale: 0.75, 0.75
   - type: RandomSprite
@@ -177,7 +175,7 @@
 - type: entity
   id: HoloGraffitiSimple03
   parent: HoloGraffiti
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallMountedItems
@@ -185,7 +183,7 @@
     sprite: _NF/Structures/Holo/graffiti/simple.rsi
     layers:
     - state: holograffiti03
-      map: [ "graffiti" ]
+      map: ["graffiti"]
       shader: unshaded
       scale: 0.75, 0.75
   - type: RandomSprite
@@ -196,7 +194,7 @@
 - type: entity
   id: HoloGraffitiSimple04
   parent: HoloGraffiti
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallMountedItems
@@ -204,7 +202,7 @@
     sprite: _NF/Structures/Holo/graffiti/simple.rsi
     layers:
     - state: holograffiti04
-      map: [ "graffiti" ]
+      map: ["graffiti"]
       shader: unshaded
       scale: 0.75, 0.75
   - type: RandomSprite
@@ -215,7 +213,7 @@
 - type: entity
   id: HoloGraffitiSimple05
   parent: HoloGraffiti
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallMountedItems
@@ -223,7 +221,7 @@
     sprite: _NF/Structures/Holo/graffiti/simple.rsi
     layers:
     - state: holograffiti05
-      map: [ "graffiti" ]
+      map: ["graffiti"]
       shader: unshaded
       scale: 0.75, 0.75
   - type: RandomSprite
@@ -234,7 +232,7 @@
 - type: entity
   id: HoloGraffitiSimple06
   parent: HoloGraffiti
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallMountedItems
@@ -242,7 +240,7 @@
     sprite: _NF/Structures/Holo/graffiti/simple.rsi
     layers:
     - state: holograffiti06
-      map: [ "graffiti" ]
+      map: ["graffiti"]
       shader: unshaded
       scale: 0.75, 0.75
   - type: RandomSprite
@@ -253,7 +251,7 @@
 - type: entity
   id: HoloGraffitiSimple07
   parent: HoloGraffiti
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallMountedItems
@@ -261,7 +259,7 @@
     sprite: _NF/Structures/Holo/graffiti/simple.rsi
     layers:
     - state: holograffiti07
-      map: [ "graffiti" ]
+      map: ["graffiti"]
       shader: unshaded
       scale: 0.75, 0.75
   - type: RandomSprite
@@ -272,7 +270,7 @@
 - type: entity
   id: HoloGraffitiSimple08
   parent: HoloGraffiti
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallMountedItems
@@ -280,7 +278,7 @@
     sprite: _NF/Structures/Holo/graffiti/simple.rsi
     layers:
     - state: holograffiti08
-      map: [ "graffiti" ]
+      map: ["graffiti"]
       shader: unshaded
       scale: 0.75, 0.75
   - type: RandomSprite
@@ -291,7 +289,7 @@
 - type: entity
   id: HoloGraffitiSimple09
   parent: HoloGraffiti
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallMountedItems
@@ -299,7 +297,7 @@
     sprite: _NF/Structures/Holo/graffiti/simple.rsi
     layers:
     - state: holograffiti09
-      map: [ "graffiti" ]
+      map: ["graffiti"]
       shader: unshaded
       scale: 0.75, 0.75
   - type: RandomSprite
@@ -310,7 +308,7 @@
 - type: entity
   id: HoloGraffitiSimple10
   parent: HoloGraffiti
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallMountedItems
@@ -318,7 +316,7 @@
     sprite: _NF/Structures/Holo/graffiti/simple.rsi
     layers:
     - state: holograffiti10
-      map: [ "graffiti" ]
+      map: ["graffiti"]
       shader: unshaded
       scale: 0.75, 0.75
   - type: RandomSprite
@@ -329,7 +327,7 @@
 - type: entity
   id: HoloGraffitiSimple11
   parent: HoloGraffiti
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallMountedItems
@@ -337,7 +335,7 @@
     sprite: _NF/Structures/Holo/graffiti/simple.rsi
     layers:
     - state: holograffiti11
-      map: [ "graffiti" ]
+      map: ["graffiti"]
       shader: unshaded
       scale: 0.75, 0.75
   - type: RandomSprite
@@ -348,7 +346,7 @@
 - type: entity
   id: HoloGraffitiSimple12
   parent: HoloGraffiti
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallMountedItems
@@ -356,7 +354,7 @@
     sprite: _NF/Structures/Holo/graffiti/simple.rsi
     layers:
     - state: holograffiti12
-      map: [ "graffiti" ]
+      map: ["graffiti"]
       shader: unshaded
       scale: 0.75, 0.75
   - type: RandomSprite
@@ -367,7 +365,7 @@
 - type: entity
   id: HoloGraffitiSimple13
   parent: HoloGraffiti
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallMountedItems
@@ -375,7 +373,7 @@
     sprite: _NF/Structures/Holo/graffiti/simple.rsi
     layers:
     - state: holograffiti13
-      map: [ "graffiti" ]
+      map: ["graffiti"]
       shader: unshaded
       scale: 0.75, 0.75
   - type: RandomSprite
@@ -386,7 +384,7 @@
 - type: entity
   id: HoloGraffitiSimple14
   parent: HoloGraffiti
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallMountedItems
@@ -394,7 +392,7 @@
     sprite: _NF/Structures/Holo/graffiti/simple.rsi
     layers:
     - state: holograffiti14
-      map: [ "graffiti" ]
+      map: ["graffiti"]
       shader: unshaded
       scale: 0.75, 0.75
   - type: RandomSprite
@@ -405,7 +403,7 @@
 - type: entity
   id: HoloGraffitiSimple15
   parent: HoloGraffiti
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallMountedItems
@@ -413,7 +411,7 @@
     sprite: _NF/Structures/Holo/graffiti/simple.rsi
     layers:
     - state: holograffiti15
-      map: [ "graffiti" ]
+      map: ["graffiti"]
       shader: unshaded
       scale: 0.75, 0.75
   - type: RandomSprite
@@ -424,7 +422,7 @@
 - type: entity
   id: HoloGraffitiSimple16
   parent: HoloGraffiti
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallMountedItems
@@ -432,7 +430,7 @@
     sprite: _NF/Structures/Holo/graffiti/simple.rsi
     layers:
     - state: holograffiti16
-      map: [ "graffiti" ]
+      map: ["graffiti"]
       shader: unshaded
       scale: 0.75, 0.75
   - type: RandomSprite
@@ -443,7 +441,7 @@
 - type: entity
   id: HoloGraffitiSimple17
   parent: HoloGraffiti
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallMountedItems
@@ -451,7 +449,7 @@
     sprite: _NF/Structures/Holo/graffiti/simple.rsi
     layers:
     - state: holograffiti17
-      map: [ "graffiti" ]
+      map: ["graffiti"]
       shader: unshaded
       scale: 0.75, 0.75
   - type: RandomSprite
@@ -462,7 +460,7 @@
 - type: entity
   id: HoloGraffitiSimple18
   parent: HoloGraffiti
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallMountedItems
@@ -470,7 +468,7 @@
     sprite: _NF/Structures/Holo/graffiti/simple.rsi
     layers:
     - state: holograffiti18
-      map: [ "graffiti" ]
+      map: ["graffiti"]
       shader: unshaded
       scale: 0.75, 0.75
   - type: RandomSprite
@@ -481,7 +479,7 @@
 - type: entity
   id: HoloGraffitiSimple19
   parent: HoloGraffiti
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallMountedItems
@@ -489,7 +487,7 @@
     sprite: _NF/Structures/Holo/graffiti/simple.rsi
     layers:
     - state: holograffiti19
-      map: [ "graffiti" ]
+      map: ["graffiti"]
       shader: unshaded
       scale: 0.75, 0.75
   - type: RandomSprite
@@ -500,7 +498,7 @@
 - type: entity
   id: HoloGraffitiSimple20
   parent: HoloGraffiti
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallMountedItems
@@ -508,7 +506,7 @@
     sprite: _NF/Structures/Holo/graffiti/simple.rsi
     layers:
     - state: holograffiti20
-      map: [ "graffiti" ]
+      map: ["graffiti"]
       shader: unshaded
       scale: 0.75, 0.75
   - type: RandomSprite
@@ -519,7 +517,7 @@
 - type: entity
   id: HoloGraffitiSimple21
   parent: HoloGraffiti
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallMountedItems
@@ -527,7 +525,7 @@
     sprite: _NF/Structures/Holo/graffiti/simple.rsi
     layers:
     - state: holograffiti21
-      map: [ "graffiti" ]
+      map: ["graffiti"]
       shader: unshaded
       scale: 0.75, 0.75
   - type: RandomSprite
@@ -538,7 +536,7 @@
 - type: entity
   id: HoloGraffitiSimple22
   parent: HoloGraffiti
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallMountedItems
@@ -546,7 +544,7 @@
     sprite: _NF/Structures/Holo/graffiti/simple.rsi
     layers:
     - state: holograffiti22
-      map: [ "graffiti" ]
+      map: ["graffiti"]
       shader: unshaded
       scale: 0.75, 0.75
   - type: RandomSprite
@@ -558,7 +556,7 @@
 - type: entity
   id: HoloGraffitiHighlighted01
   parent: HoloGraffiti
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallMountedItems
@@ -566,10 +564,10 @@
     sprite: _NF/Structures/Holo/graffiti/highlighted.rsi
     layers:
     - state: holograffiti01
-      map: [ "graffiti" ]
+      map: ["graffiti"]
       scale: 0.75, 0.75
     - state: holograffiti_highlight01
-      map: [ "highlight" ]
+      map: ["highlight"]
       shader: unshaded
       scale: 0.75, 0.75
   - type: RandomSprite
@@ -582,7 +580,7 @@
 - type: entity
   id: HoloGraffitiHighlighted02
   parent: HoloGraffiti
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallMountedItems
@@ -590,10 +588,10 @@
     sprite: _NF/Structures/Holo/graffiti/highlighted.rsi
     layers:
     - state: holograffiti02
-      map: [ "graffiti" ]
+      map: ["graffiti"]
       scale: 0.75, 0.75
     - state: holograffiti_highlight02
-      map: [ "highlight" ]
+      map: ["highlight"]
       shader: unshaded
       scale: 0.75, 0.75
   - type: RandomSprite
@@ -606,7 +604,7 @@
 - type: entity
   id: HoloGraffitiHighlighted03
   parent: HoloGraffiti
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallMountedItems
@@ -614,10 +612,10 @@
     sprite: _NF/Structures/Holo/graffiti/highlighted.rsi
     layers:
     - state: holograffiti03
-      map: [ "graffiti" ]
+      map: ["graffiti"]
       scale: 0.75, 0.75
     - state: holograffiti_highlight03
-      map: [ "highlight" ]
+      map: ["highlight"]
       shader: unshaded
       scale: 0.75, 0.75
   - type: RandomSprite
@@ -630,7 +628,7 @@
 - type: entity
   id: HoloGraffitiHighlighted04
   parent: HoloGraffiti
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallMountedItems
@@ -638,10 +636,10 @@
     sprite: _NF/Structures/Holo/graffiti/highlighted.rsi
     layers:
     - state: holograffiti04
-      map: [ "graffiti" ]
+      map: ["graffiti"]
       scale: 0.75, 0.75
     - state: holograffiti_highlight04
-      map: [ "highlight" ]
+      map: ["highlight"]
       shader: unshaded
       scale: 0.75, 0.75
   - type: RandomSprite
@@ -654,7 +652,7 @@
 - type: entity
   id: HoloGraffitiHighlighted05
   parent: HoloGraffiti
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallMountedItems
@@ -662,10 +660,10 @@
     sprite: _NF/Structures/Holo/graffiti/highlighted.rsi
     layers:
     - state: holograffiti05
-      map: [ "graffiti" ]
+      map: ["graffiti"]
       scale: 0.75, 0.75
     - state: holograffiti_highlight05
-      map: [ "highlight" ]
+      map: ["highlight"]
       shader: unshaded
       scale: 0.75, 0.75
   - type: RandomSprite
@@ -678,7 +676,7 @@
 - type: entity
   id: HoloGraffitiHighlighted06
   parent: HoloGraffiti
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallMountedItems
@@ -686,10 +684,10 @@
     sprite: _NF/Structures/Holo/graffiti/highlighted.rsi
     layers:
     - state: holograffiti06
-      map: [ "graffiti" ]
+      map: ["graffiti"]
       scale: 0.75, 0.75
     - state: holograffiti_highlight06
-      map: [ "highlight" ]
+      map: ["highlight"]
       shader: unshaded
       scale: 0.75, 0.75
   - type: RandomSprite
@@ -702,7 +700,7 @@
 - type: entity
   id: HoloGraffitiHighlighted07
   parent: HoloGraffiti
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallMountedItems
@@ -710,10 +708,10 @@
     sprite: _NF/Structures/Holo/graffiti/highlighted.rsi
     layers:
     - state: holograffiti07
-      map: [ "graffiti" ]
+      map: ["graffiti"]
       scale: 0.75, 0.75
     - state: holograffiti_highlight07
-      map: [ "highlight" ]
+      map: ["highlight"]
       shader: unshaded
       scale: 0.75, 0.75
   - type: RandomSprite
@@ -726,7 +724,7 @@
 - type: entity
   id: HoloGraffitiHighlighted08
   parent: HoloGraffiti
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallMountedItems
@@ -734,10 +732,10 @@
     sprite: _NF/Structures/Holo/graffiti/highlighted.rsi
     layers:
     - state: holograffiti08
-      map: [ "graffiti" ]
+      map: ["graffiti"]
       scale: 0.75, 0.75
     - state: holograffiti_highlight08
-      map: [ "highlight" ]
+      map: ["highlight"]
       shader: unshaded
       scale: 0.75, 0.75
   - type: RandomSprite
@@ -750,7 +748,7 @@
 - type: entity
   id: HoloGraffitiHighlighted09
   parent: HoloGraffiti
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallMountedItems
@@ -758,10 +756,10 @@
     sprite: _NF/Structures/Holo/graffiti/highlighted.rsi
     layers:
     - state: holograffiti09
-      map: [ "graffiti" ]
+      map: ["graffiti"]
       scale: 0.75, 0.75
     - state: holograffiti_highlight09
-      map: [ "highlight" ]
+      map: ["highlight"]
       shader: unshaded
       scale: 0.75, 0.75
   - type: RandomSprite
@@ -774,7 +772,7 @@
 - type: entity
   id: HoloGraffitiHighlighted10
   parent: HoloGraffiti
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallMountedItems
@@ -782,10 +780,10 @@
     sprite: _NF/Structures/Holo/graffiti/highlighted.rsi
     layers:
     - state: holograffiti10
-      map: [ "graffiti" ]
+      map: ["graffiti"]
       scale: 0.75, 0.75
     - state: holograffiti_highlight10
-      map: [ "highlight" ]
+      map: ["highlight"]
       shader: unshaded
       scale: 0.75, 0.75
   - type: RandomSprite
@@ -798,7 +796,7 @@
 - type: entity
   id: HoloGraffitiHighlighted11
   parent: HoloGraffiti
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallMountedItems
@@ -806,10 +804,10 @@
     sprite: _NF/Structures/Holo/graffiti/highlighted.rsi
     layers:
     - state: holograffiti11
-      map: [ "graffiti" ]
+      map: ["graffiti"]
       scale: 0.75, 0.75
     - state: holograffiti_highlight11
-      map: [ "highlight" ]
+      map: ["highlight"]
       shader: unshaded
       scale: 0.75, 0.75
   - type: RandomSprite
@@ -822,7 +820,7 @@
 - type: entity
   id: HoloGraffitiHighlighted12
   parent: HoloGraffiti
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallMountedItems
@@ -830,10 +828,10 @@
     sprite: _NF/Structures/Holo/graffiti/highlighted.rsi
     layers:
     - state: holograffiti12
-      map: [ "graffiti" ]
+      map: ["graffiti"]
       scale: 0.75, 0.75
     - state: holograffiti_highlight12
-      map: [ "highlight" ]
+      map: ["highlight"]
       shader: unshaded
       scale: 0.75, 0.75
   - type: RandomSprite
@@ -846,7 +844,7 @@
 - type: entity
   id: HoloGraffitiHighlighted13
   parent: HoloGraffiti
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallMountedItems
@@ -854,10 +852,10 @@
     sprite: _NF/Structures/Holo/graffiti/highlighted.rsi
     layers:
     - state: holograffiti13
-      map: [ "graffiti" ]
+      map: ["graffiti"]
       scale: 0.75, 0.75
     - state: holograffiti_highlight13
-      map: [ "highlight" ]
+      map: ["highlight"]
       shader: unshaded
       scale: 0.75, 0.75
   - type: RandomSprite
@@ -870,7 +868,7 @@
 - type: entity
   id: HoloGraffitiHighlighted14
   parent: HoloGraffiti
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallMountedItems
@@ -878,14 +876,14 @@
     sprite: _NF/Structures/Holo/graffiti/highlighted.rsi
     layers:
     - state: holograffiti14
-      map: [ "graffiti" ]
+      map: ["graffiti"]
       scale: 0.75, 0.75
     - state: holograffiti_highlight14
-      map: [ "highlight" ]
+      map: ["highlight"]
       shader: unshaded
       scale: 0.75, 0.75
     - state: holograffiti_highlight14_1
-      map: [ "highlight1" ]
+      map: ["highlight1"]
       shader: unshaded
       scale: 0.75, 0.75
   - type: RandomSprite
@@ -900,7 +898,7 @@
 - type: entity
   id: HoloGraffitiHighlighted15
   parent: HoloGraffiti
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallMountedItems
@@ -908,15 +906,15 @@
     sprite: _NF/Structures/Holo/graffiti/highlighted.rsi
     layers:
     - state: holograffiti15
-      map: [ "graffiti" ]
+      map: ["graffiti"]
       shader: unshaded
       scale: 0.75, 0.75
     - state: holograffiti_highlight15
-      map: [ "highlight" ]
+      map: ["highlight"]
       shader: unshaded
       scale: 0.75, 0.75
     - state: holograffiti_highlight15_1
-      map: [ "highlight1" ]
+      map: ["highlight1"]
       shader: unshaded
       scale: 0.75, 0.75
   - type: RandomSprite
@@ -931,7 +929,7 @@
 - type: entity
   id: HoloGraffitiHighlighted16
   parent: HoloGraffiti
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallMountedItems
@@ -939,11 +937,11 @@
     sprite: _NF/Structures/Holo/graffiti/highlighted.rsi
     layers:
     - state: holograffiti16
-      map: [ "graffiti" ]
+      map: ["graffiti"]
       shader: unshaded
       scale: 0.75, 0.75
     - state: holograffiti_highlight16
-      map: [ "highlight" ]
+      map: ["highlight"]
       shader: unshaded
       scale: 0.75, 0.75
   - type: RandomSprite
@@ -956,7 +954,7 @@
 - type: entity
   id: HoloGraffitiHighlighted17
   parent: HoloGraffiti
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallMountedItems
@@ -964,11 +962,11 @@
     sprite: _NF/Structures/Holo/graffiti/highlighted.rsi
     layers:
     - state: holograffiti17
-      map: [ "graffiti" ]
+      map: ["graffiti"]
       shader: unshaded
       scale: 0.75, 0.75
     - state: holograffiti_highlight17
-      map: [ "highlight" ]
+      map: ["highlight"]
       shader: unshaded
       scale: 0.75, 0.75
   - type: RandomSprite
@@ -981,7 +979,7 @@
 - type: entity
   id: HoloGraffitiHighlighted18
   parent: HoloGraffiti
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallMountedItems
@@ -989,10 +987,10 @@
     sprite: _NF/Structures/Holo/graffiti/highlighted.rsi
     layers:
     - state: holograffiti18
-      map: [ "graffiti" ]
+      map: ["graffiti"]
       scale: 0.75, 0.75
     - state: holograffiti_highlight18
-      map: [ "highlight" ]
+      map: ["highlight"]
       shader: unshaded
       scale: 0.75, 0.75
   - type: RandomSprite
@@ -1005,7 +1003,7 @@
 - type: entity
   id: HoloGraffitiHighlighted19
   parent: HoloGraffiti
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallMountedItems
@@ -1013,10 +1011,10 @@
     sprite: _NF/Structures/Holo/graffiti/highlighted.rsi
     layers:
     - state: holograffiti19
-      map: [ "graffiti" ]
+      map: ["graffiti"]
       scale: 1.2, 1.2
     - state: holograffiti_highlight19
-      map: [ "highlight" ]
+      map: ["highlight"]
       shader: unshaded
       scale: 1.2, 1.2
   - type: RandomSprite
@@ -1029,7 +1027,7 @@
 - type: entity
   id: HoloGraffitiHighlighted20
   parent: HoloGraffiti
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallMountedItems
@@ -1037,10 +1035,10 @@
     sprite: _NF/Structures/Holo/graffiti/highlighted.rsi
     layers:
     - state: holograffiti20
-      map: [ "graffiti" ]
+      map: ["graffiti"]
       scale: 0.75, 0.75
     - state: holograffiti_highlight20
-      map: [ "highlight" ]
+      map: ["highlight"]
       shader: unshaded
       scale: 0.75, 0.75
   - type: RandomSprite
@@ -1053,7 +1051,7 @@
 - type: entity
   id: HoloGraffitiHighlighted21
   parent: HoloGraffiti
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallMountedItems
@@ -1061,10 +1059,10 @@
     sprite: _NF/Structures/Holo/graffiti/highlighted.rsi
     layers:
     - state: holograffiti21
-      map: [ "graffiti" ]
+      map: ["graffiti"]
       scale: 0.75, 0.75
     - state: holograffiti_highlight21
-      map: [ "highlight" ]
+      map: ["highlight"]
       shader: unshaded
       scale: 0.75, 0.75
   - type: RandomSprite
@@ -1077,7 +1075,7 @@
 - type: entity
   id: HoloGraffitiHighlighted22
   parent: HoloGraffiti
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallMountedItems
@@ -1085,10 +1083,10 @@
     sprite: _NF/Structures/Holo/graffiti/highlighted.rsi
     layers:
     - state: holograffiti22
-      map: [ "graffiti" ]
+      map: ["graffiti"]
       scale: 0.75, 0.75
     - state: holograffiti_highlight22
-      map: [ "highlight" ]
+      map: ["highlight"]
       shader: unshaded
       scale: 0.75, 0.75
   - type: RandomSprite
@@ -1101,7 +1099,7 @@
 - type: entity
   id: HoloGraffitiHighlighted23
   parent: HoloGraffiti
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallMountedItems
@@ -1109,10 +1107,10 @@
     sprite: _NF/Structures/Holo/graffiti/highlighted.rsi
     layers:
     - state: holograffiti23
-      map: [ "graffiti" ]
+      map: ["graffiti"]
       scale: 0.75, 0.75
     - state: holograffiti_highlight23
-      map: [ "highlight" ]
+      map: ["highlight"]
       shader: unshaded
       scale: 0.75, 0.75
   - type: RandomSprite
@@ -1125,7 +1123,7 @@
 - type: entity
   id: HoloGraffitiHighlighted24
   parent: HoloGraffiti
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallMountedItems
@@ -1133,10 +1131,10 @@
     sprite: _NF/Structures/Holo/graffiti/highlighted.rsi
     layers:
     - state: holograffiti24
-      map: [ "graffiti" ]
+      map: ["graffiti"]
       scale: 0.75, 0.75
     - state: holograffiti_highlight24
-      map: [ "highlight" ]
+      map: ["highlight"]
       shader: unshaded
       scale: 0.75, 0.75
   - type: RandomSprite
@@ -1149,7 +1147,7 @@
 - type: entity
   id: HoloGraffitiHighlighted25
   parent: HoloGraffiti
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallMountedItems
@@ -1157,10 +1155,10 @@
     sprite: _NF/Structures/Holo/graffiti/highlighted.rsi
     layers:
     - state: holograffiti25
-      map: [ "graffiti" ]
+      map: ["graffiti"]
       scale: 0.75, 0.75
     - state: holograffiti_highlight25
-      map: [ "highlight" ]
+      map: ["highlight"]
       shader: unshaded
       scale: 0.75, 0.75
   - type: RandomSprite
@@ -1173,7 +1171,7 @@
 - type: entity
   id: HoloGraffitiHighlighted26
   parent: HoloGraffiti
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallMountedItems
@@ -1181,10 +1179,10 @@
     sprite: _NF/Structures/Holo/graffiti/highlighted.rsi
     layers:
     - state: holograffiti26
-      map: [ "graffiti" ]
+      map: ["graffiti"]
       scale: 0.75, 0.75
     - state: holograffiti_highlight26
-      map: [ "highlight" ]
+      map: ["highlight"]
       shader: unshaded
       scale: 0.75, 0.75
   - type: RandomSprite
@@ -1197,7 +1195,7 @@
 - type: entity
   id: HoloGraffitiHighlighted27
   parent: HoloGraffiti
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallMountedItems
@@ -1205,10 +1203,10 @@
     sprite: _NF/Structures/Holo/graffiti/highlighted.rsi
     layers:
     - state: holograffiti27
-      map: [ "graffiti" ]
+      map: ["graffiti"]
       scale: 0.75, 0.75
     - state: holograffiti_highlight27
-      map: [ "highlight" ]
+      map: ["highlight"]
       shader: unshaded
       scale: 0.75, 0.75
   - type: RandomSprite

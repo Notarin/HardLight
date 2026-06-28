@@ -104,7 +104,6 @@
       MailNFMedkit: 0.5 # 1 weight total
       HLMailSecurityFuc: 6
 
-
   jobs:
     StationRepresentative:
       MailCommandNFGoldCigars: 0.15 # 0.2 weight total

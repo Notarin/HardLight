@@ -51,7 +51,7 @@
       airAlarmBase: alarmp
   - type: Tag
     tags:
-      - AirAlarm
+    - AirAlarm
   - type: AtmosDevice
   - type: AirAlarm
   - type: AtmosAlertsDevice
@@ -72,7 +72,7 @@
     access: [["Atmospherics"], ["Captain"]] # Frontier: allowed ["Captain"] to access air alarms
   - type: ContainerFill
     containers:
-      board: [ AirAlarmElectronics ]
+      board: [AirAlarmElectronics]
   - type: ContainerContainer
     containers:
       board: !type:Container
@@ -95,23 +95,21 @@
     damageModifierSet: Metallic
   - type: Destructible
     thresholds:
-      - trigger:
-          !type:DamageTrigger
-          damage: 200
-        behaviors:
-          - !type:DoActsBehavior
-            acts: [ "Destruction" ]
-      - trigger:
-          !type:DamageTrigger
-          damage: 100
-        behaviors:
-          - !type:DoActsBehavior
-            acts: [ "Destruction" ]
-          - !type:PlaySoundBehavior
-            sound:
-              collection: MetalGlassBreak
-              params:
-                volume: -4
+    - trigger: !type:DamageTrigger
+        damage: 200
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
+        damage: 100
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalGlassBreak
+          params:
+            volume: -4
   - type: GuideHelp
     guides:
     - AirAlarms
@@ -196,7 +194,7 @@
     access: [["Atmospherics"], ["Captain"], ["Research"]] # Frontier: allowed ["Captain"] to access air alarms
   - type: ContainerFill
     containers:
-      board: [ AirAlarmElectronics ]
+      board: [AirAlarmElectronics]
   - type: ContainerContainer
     containers:
       board: !type:Container
@@ -219,18 +217,16 @@
     damageModifierSet: Metallic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 200
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:PlaySoundBehavior
         sound:
           collection: MetalGlassBreak
@@ -257,14 +253,14 @@
     sprite: Structures/Wallmounts/air_monitors.rsi
     layers:
     - state: alarm_b1
-      map: [ "enum.ConstructionVisuals.Layer" ]
+      map: ["enum.ConstructionVisuals.Layer"]
   - type: Appearance
   - type: GenericVisualizer
     visuals:
       enum.ConstructionVisuals.Key:
         enum.ConstructionVisuals.Layer:
-          assembly: { state: alarm_b1 }
-          electronics: { state: alarm_b1 }
+          assembly: {state: alarm_b1}
+          electronics: {state: alarm_b1}
   - type: Construction
     graph: AirAlarm
     node: assembly

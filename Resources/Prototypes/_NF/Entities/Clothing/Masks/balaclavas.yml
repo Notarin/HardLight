@@ -27,7 +27,7 @@
     sprite: _NF/Clothing/Mask/balaclava.rsi
     layers:
     - state: icon_mask
-      map: [ "unfoldedLayer" ]
+      map: ["unfoldedLayer"]
       color: "#3e3e48"
     - state: icon
       map: ["foldedLayer"]
@@ -61,7 +61,7 @@
     sprite: _NF/Clothing/Mask/balaclava.rsi
     layers:
     - state: icon_mask
-      map: [ "unfoldedLayer" ]
+      map: ["unfoldedLayer"]
     - state: icon
       map: ["foldedLayer"]
       visible: false
@@ -70,18 +70,18 @@
     clothingVisuals:
       mask:
       - state: equipped-MASK
-        map: [ "equippedMaskBalaclava" ]
+        map: ["equippedMaskBalaclava"]
       head:
       - state: equipped-HELMET
-        map: [ "equippedHelmetBalaclava" ]
+        map: ["equippedHelmetBalaclava"]
   - type: Item
     inhandVisuals:
       left:
       - state: inhand-left
-        map: [ "inhandLeftBalaclava" ]
+        map: ["inhandLeftBalaclava"]
       right:
       - state: inhand-right
-        map: [ "inhandRightBalaclava" ]
+        map: ["inhandRightBalaclava"]
   - type: RandomSprite
     available:
     - unfoldedLayer:

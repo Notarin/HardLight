@@ -11,9 +11,14 @@ namespace Content.Server._Mono.Cleanup;
 /// </summary>
 public sealed class CleanupHelperSystem : EntitySystem
 {
-    [Dependency] private readonly IPlayerManager _players = default!;
-    [Dependency] private readonly SharedTransformSystem _xform = default!;
-    [Dependency] private readonly IMapManager _mapMan = default!;
+    [Dependency]
+    private readonly IPlayerManager _players = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _xform = default!;
+
+    [Dependency]
+    private readonly IMapManager _mapMan = default!;
 
     // Reused per call to avoid allocating a fresh list every cleanup tick.
     // Not readonly because FindGridsIntersecting takes the list by ref.

@@ -1,18 +1,26 @@
-using Content.Client.Gameplay;
-using Content.Client._Shitmed.UserInterface.Systems.Targeting.Widgets;
-using Content.Shared._Shitmed.Targeting;
 using Content.Client._Shitmed.Targeting;
+using Content.Client._Shitmed.UserInterface.Systems.Targeting.Widgets;
+using Content.Client.Gameplay;
+using Content.Shared._Shitmed.Targeting;
 using Content.Shared._Shitmed.Targeting.Events;
-using Robust.Client.UserInterface.Controllers;
 using Robust.Client.Player;
+using Robust.Client.UserInterface.Controllers;
 
 namespace Content.Client._Shitmed.UserInterface.Systems.Targeting;
 
-public sealed class TargetingUIController : UIController, IOnStateEntered<GameplayState>, IOnSystemChanged<TargetingSystem>
+public sealed class TargetingUIController
+    : UIController,
+        IOnStateEntered<GameplayState>,
+        IOnSystemChanged<TargetingSystem>
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
-    [Dependency] private readonly IEntityNetworkManager _net = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
+
+    [Dependency]
+    private readonly IEntityNetworkManager _net = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
 
     private TargetingComponent? _targetingComponent;
     private TargetingControl? TargetingControl => UIManager.GetActiveUIWidgetOrNull<TargetingControl>();
@@ -53,7 +61,6 @@ public sealed class TargetingUIController : UIController, IOnStateEntered<Gamepl
             if (_targetingComponent != null)
                 TargetingControl.SetBodyPartsVisible(_targetingComponent.Target);
         }
-
     }
 
     public void RemoveTargetingControl()
@@ -66,9 +73,11 @@ public sealed class TargetingUIController : UIController, IOnStateEntered<Gamepl
 
     public void CycleTarget(TargetBodyPart bodyPart)
     {
-        if (_playerManager.LocalEntity is not { } user
+        if (
+            _playerManager.LocalEntity is not { } user
             || _entManager.GetComponent<TargetingComponent>(user) is not { } targetingComponent
-            || TargetingControl == null)
+            || TargetingControl == null
+        )
             return;
 
         var player = _entManager.GetNetEntity(user);

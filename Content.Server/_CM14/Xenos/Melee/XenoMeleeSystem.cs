@@ -2,6 +2,4 @@
 
 namespace Content.Server.CM14.Xenos.Melee;
 
-public sealed class XenoMeleeSystem : SharedXenoMeleeSystem
-{
-}
+public sealed class XenoMeleeSystem : SharedXenoMeleeSystem { }

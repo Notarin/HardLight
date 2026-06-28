@@ -13,7 +13,8 @@ public sealed partial class JetpackComponent : Component
     [ViewVariables(VVAccess.ReadWrite), DataField("moleUsage")]
     public float MoleUsage = 0.012f;
 
-    [DataField] public EntProtoId ToggleAction = "ActionToggleJetpack";
+    [DataField]
+    public EntProtoId ToggleAction = "ActionToggleJetpack";
 
     public EntityUid? ToggleActionEntity;
 

@@ -35,24 +35,32 @@ public sealed class HyposprayStatusControl : Control
             return;
 
         // only updates the UI if any of the details are different than they previously were
-        if (PrevVolume == solution.Volume
+        if (
+            PrevVolume == solution.Volume
             && PrevMaxVolume == solution.MaxVolume
-            && PrevOnlyAffectsMobs == _parent.Comp.OnlyAffectsMobs)
+            && PrevOnlyAffectsMobs == _parent.Comp.OnlyAffectsMobs
+        )
             return;
 
         PrevVolume = solution.Volume;
         PrevMaxVolume = solution.MaxVolume;
         PrevOnlyAffectsMobs = _parent.Comp.OnlyAffectsMobs;
 
-        var modeStringLocalized = Loc.GetString(_parent.Comp.OnlyAffectsMobs switch
-        {
-            false => "hypospray-all-mode-text",
-            true => "hypospray-mobs-only-mode-text",
-        });
+        var modeStringLocalized = Loc.GetString(
+            _parent.Comp.OnlyAffectsMobs switch
+            {
+                false => "hypospray-all-mode-text",
+                true => "hypospray-mobs-only-mode-text",
+            }
+        );
 
-        _label.SetMarkup(Loc.GetString("hypospray-volume-label",
-            ("currentVolume", solution.Volume),
-            ("totalVolume", solution.MaxVolume),
-            ("modeString", modeStringLocalized)));
+        _label.SetMarkup(
+            Loc.GetString(
+                "hypospray-volume-label",
+                ("currentVolume", solution.Volume),
+                ("totalVolume", solution.MaxVolume),
+                ("modeString", modeStringLocalized)
+            )
+        );
     }
 }

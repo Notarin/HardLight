@@ -19,7 +19,11 @@ public abstract partial class BaseSolutionInjectOnEventComponent : Component
     public FixedPoint2 TransferAmount = FixedPoint2.New(1);
 
     [ViewVariables(VVAccess.ReadWrite)]
-    public float TransferEfficiency { get => _transferEfficiency; set => _transferEfficiency = Math.Clamp(value, 0, 1); }
+    public float TransferEfficiency
+    {
+        get => _transferEfficiency;
+        set => _transferEfficiency = Math.Clamp(value, 0, 1);
+    }
 
     /// <summary>
     /// Proportion of the <see cref="TransferAmount"/> that will actually be injected

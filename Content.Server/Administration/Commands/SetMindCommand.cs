@@ -11,11 +11,13 @@ namespace Content.Server.Administration.Commands
     [AdminCommand(AdminFlags.Admin)]
     sealed class SetMindCommand : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _entManager = default!;
+        [Dependency]
+        private readonly IEntityManager _entManager = default!;
 
         public string Command => "setmind";
 
-        public string Description => Loc.GetString("set-mind-command-description", ("requiredComponent", nameof(MindContainerComponent)));
+        public string Description =>
+            Loc.GetString("set-mind-command-description", ("requiredComponent", nameof(MindContainerComponent)));
 
         public string Help => Loc.GetString("set-mind-command-help-text", ("command", Command));
 
@@ -79,7 +81,10 @@ namespace Content.Server.Administration.Commands
         {
             if (args.Length == 2)
             {
-                return CompletionResult.FromHintOptions(CompletionHelper.SessionNames(), Loc.GetString("cmd-mind-command-hint"));
+                return CompletionResult.FromHintOptions(
+                    CompletionHelper.SessionNames(),
+                    Loc.GetString("cmd-mind-command-hint")
+                );
             }
 
             return CompletionResult.Empty;

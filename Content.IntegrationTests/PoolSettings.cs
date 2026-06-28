@@ -55,8 +55,6 @@ public sealed class PoolSettings : PairSettings
             return false;
 
         // Check that certain settings match.
-        return DummyTicker == next.DummyTicker
-               && Map == next.Map
-               && InLobby == next.InLobby;
+        return DummyTicker == next.DummyTicker && Map == next.Map && InLobby == next.InLobby;
     }
 }

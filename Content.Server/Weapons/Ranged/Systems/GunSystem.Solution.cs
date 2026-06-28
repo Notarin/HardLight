@@ -11,7 +11,8 @@ namespace Content.Server.Weapons.Ranged.Systems;
 
 public sealed partial class GunSystem
 {
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainer = default!;
+    [Dependency]
+    private readonly SharedSolutionContainerSystem _solutionContainer = default!;
 
     protected override void InitializeSolution()
     {
@@ -32,7 +33,11 @@ public sealed partial class GunSystem
             UpdateSolutionShots(entity.Owner, entity.Comp, args.Solution);
     }
 
-    protected override void UpdateSolutionShots(EntityUid uid, SolutionAmmoProviderComponent component, Solution? solution = null)
+    protected override void UpdateSolutionShots(
+        EntityUid uid,
+        SolutionAmmoProviderComponent component,
+        Solution? solution = null
+    )
     {
         var shots = 0;
         var maxShots = 0;
@@ -45,8 +50,8 @@ public sealed partial class GunSystem
             return;
         }
 
-        shots = (int) (solution.Volume / component.FireCost);
-        maxShots = (int) (solution.MaxVolume / component.FireCost);
+        shots = (int)(solution.Volume / component.FireCost);
+        maxShots = (int)(solution.MaxVolume / component.FireCost);
 
         component.Shots = shots;
         DirtyField(uid, component, nameof(SolutionAmmoProviderComponent.Shots));
@@ -57,7 +62,11 @@ public sealed partial class GunSystem
         UpdateSolutionAppearance(uid, component);
     }
 
-    protected override (EntityUid Entity, IShootable) GetSolutionShot(EntityUid uid, SolutionAmmoProviderComponent component, EntityCoordinates position)
+    protected override (EntityUid Entity, IShootable) GetSolutionShot(
+        EntityUid uid,
+        SolutionAmmoProviderComponent component,
+        EntityCoordinates position
+    )
     {
         var (ent, shootable) = base.GetSolutionShot(uid, component, position);
 

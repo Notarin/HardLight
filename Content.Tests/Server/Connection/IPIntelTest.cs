@@ -27,12 +27,12 @@ public static class IPIntelTest
         out IPIntel ipIntel,
         out IConfigurationManager cfg,
         Func<HttpResponseMessage> apiResponse,
-        Func<TimeSpan> realTime = null)
+        Func<TimeSpan> realTime = null
+    )
     {
         var dbManager = new Mock<IServerDbManager>();
         var gameTimingMock = new Mock<IGameTiming>();
-        gameTimingMock.SetupGet(gt => gt.RealTime)
-            .Returns(realTime ?? (() => TimeSpan.Zero));
+        gameTimingMock.SetupGet(gt => gt.RealTime).Returns(realTime ?? (() => TimeSpan.Zero));
 
         var logManager = new LogManager();
         var gameTiming = gameTimingMock.Object;
@@ -52,10 +52,7 @@ public static class IPIntelTest
     [Test]
     public static async Task TestSuccess()
     {
-        CreateIPIntel(
-            out var ipIntel,
-            out _,
-            RespondSuccess);
+        CreateIPIntel(out var ipIntel, out _, RespondSuccess);
 
         var result = await ipIntel.QueryIPIntelRateLimited(TestIp);
         Assert.Multiple(() =>
@@ -70,11 +67,7 @@ public static class IPIntelTest
     {
         var source = RespondSuccess;
         var time = TimeSpan.Zero;
-        CreateIPIntel(
-            out var ipIntel,
-            out var cfg,
-            () => source(),
-            () => time);
+        CreateIPIntel(out var ipIntel, out var cfg, () => source(), () => time);
 
         cfg.SetCVar(CCVars.GameIPIntelMaxMinute, 9);
 
@@ -99,11 +92,7 @@ public static class IPIntelTest
     {
         var source = RespondSuccess;
         var time = TimeSpan.Zero;
-        CreateIPIntel(
-            out var ipIntel,
-            out var cfg,
-            () => source(),
-            () => time);
+        CreateIPIntel(out var ipIntel, out var cfg, () => source(), () => time);
 
         cfg.SetCVar(CCVars.GameIPIntelMaxMinute, 1);
 
@@ -130,17 +119,12 @@ public static class IPIntelTest
         Assert.That(shouldSucceed.Code, Is.EqualTo(IPIntel.IPIntelResultCode.Success));
     }
 
-
     [Test]
     public static async Task SuddenRateLimitTest()
     {
         var time = TimeSpan.Zero;
         var source = RespondRateLimited;
-        CreateIPIntel(
-            out var ipIntel,
-            out _,
-            () => source(),
-            () => time);
+        CreateIPIntel(out var ipIntel, out _, () => source(), () => time);
 
         var test = await ipIntel.QueryIPIntelRateLimited(TestIp);
         Assert.That(test.Code, Is.EqualTo(IPIntel.IPIntelResultCode.RateLimited));
@@ -162,11 +146,7 @@ public static class IPIntelTest
     {
         var time = TimeSpan.Zero;
         var source = RespondRateLimited;
-        CreateIPIntel(
-            out var ipIntel,
-            out _,
-            () => source(),
-            () => time);
+        CreateIPIntel(out var ipIntel, out _, () => source(), () => time);
 
         IPIntel.IPIntelResult test;
 
@@ -189,10 +169,7 @@ public static class IPIntelTest
     [Test]
     public static async Task ErrorTest()
     {
-        CreateIPIntel(
-            out var ipIntel,
-            out _,
-            RespondError);
+        CreateIPIntel(out var ipIntel, out _, RespondError);
 
         var resp = await ipIntel.QueryIPIntelRateLimited(TestIp);
         Assert.That(resp.Code, Is.EqualTo(IPIntel.IPIntelResultCode.Errored));
@@ -235,10 +212,7 @@ public static class IPIntelTest
 
     private static HttpResponseMessage RespondSuccess()
     {
-        return new HttpResponseMessage(HttpStatusCode.OK)
-        {
-            Content = new StringContent("0.5"),
-        };
+        return new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent("0.5") };
     }
 
     private static HttpResponseMessage RespondRateLimited()
@@ -253,10 +227,7 @@ public static class IPIntelTest
 
     private static HttpResponseMessage RespondError()
     {
-        return new HttpResponseMessage(HttpStatusCode.BadRequest)
-        {
-            Content = new StringContent("-4"),
-        };
+        return new HttpResponseMessage(HttpStatusCode.BadRequest) { Content = new StringContent("-4") };
     }
 }
 

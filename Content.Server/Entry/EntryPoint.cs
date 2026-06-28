@@ -1,4 +1,5 @@
 using Content.Server._Common.Consent; // Consent system
+using Content.Server._FS.DiscordAuth; // Floofstation
 using Content.Server._NF.Auth;
 using Content.Server.Acz;
 using Content.Server.Administration;
@@ -24,6 +25,7 @@ using Content.Server.Players.RateLimiting;
 using Content.Server.Preferences.Managers;
 using Content.Server.ServerInfo;
 using Content.Server.ServerUpdates;
+using Content.Server.Shuttles;
 using Content.Server.Voting.Managers;
 using Content.Shared.CCVar;
 using Content.Shared.Kitchen;
@@ -35,8 +37,6 @@ using Robust.Shared.ContentPack;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
-using Content.Server._FS.DiscordAuth; // Floofstation
-using Content.Server.Shuttles;
 
 namespace Content.Server.Entry
 {
@@ -82,7 +82,7 @@ namespace Content.Server.Entry
 
             foreach (var callback in TestingCallbacks)
             {
-                var cast = (ServerModuleTestingCallbacks) callback;
+                var cast = (ServerModuleTestingCallbacks)callback;
                 cast.ServerBeforeIoC?.Invoke();
             }
 

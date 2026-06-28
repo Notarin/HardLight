@@ -1,5 +1,5 @@
 - type: entity
-  parent: [ ConstructibleMachine, BaseMachinePowered ]
+  parent: [ConstructibleMachine, BaseMachinePowered]
   id: RoboticArm
   name: robotic arm
   description: A high-tech robotic arm capable of moving items to and from machines that have automation upgrades.
@@ -10,23 +10,23 @@
     layers:
     - state: base
     - state: arm-long
-      map: [ "enum.RoboticArmLayers.Arm" ]
+      map: ["enum.RoboticArmLayers.Arm"]
     - state: powered
       shader: unshaded
       visible: false
-      map: [ "enum.RoboticArmLayers.Powered" ]
+      map: ["enum.RoboticArmLayers.Powered"]
   - type: Appearance
   - type: GenericVisualizer
     visuals:
       enum.RoboticArmVisuals.HasItem:
         enum.RoboticArmLayers.Arm:
           # extended when waiting for items like factorio
-          True: { state: arm-short }
-          False: { state: arm-long }
+          True: {state: arm-short}
+          False: {state: arm-long}
       enum.PowerDeviceVisuals.Powered:
         enum.RoboticArmLayers.Powered:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
   # Physics
   - type: Transform
     noRot: false

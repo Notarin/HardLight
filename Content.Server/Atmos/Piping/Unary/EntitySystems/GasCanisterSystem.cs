@@ -16,9 +16,14 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems;
 
 public sealed class GasCanisterSystem : SharedGasCanisterSystem
 {
-    [Dependency] private readonly AtmosphereSystem _atmos = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly NodeContainerSystem _nodeContainer = default!;
+    [Dependency]
+    private readonly AtmosphereSystem _atmos = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly NodeContainerSystem _nodeContainer = default!;
 
     public override void Initialize()
     {
@@ -32,7 +37,11 @@ public sealed class GasCanisterSystem : SharedGasCanisterSystem
     /// <summary>
     /// Completely dumps the content of the canister into the world.
     /// </summary>
-    public void PurgeContents(EntityUid uid, GasCanisterComponent? canister = null, TransformComponent? transform = null)
+    public void PurgeContents(
+        EntityUid uid,
+        GasCanisterComponent? canister = null,
+        TransformComponent? transform = null
+    )
     {
         if (!Resolve(uid, ref canister, ref transform))
             return;
@@ -42,11 +51,19 @@ public sealed class GasCanisterSystem : SharedGasCanisterSystem
         if (environment is not null)
             _atmos.Merge(environment, canister.Air);
 
-        AdminLogger.Add(LogType.CanisterPurged, LogImpact.Medium, $"Canister {ToPrettyString(uid):canister} purged its contents of {canister.Air:gas} into the environment.");
+        AdminLogger.Add(
+            LogType.CanisterPurged,
+            LogImpact.Medium,
+            $"Canister {ToPrettyString(uid):canister} purged its contents of {canister.Air:gas} into the environment."
+        );
         canister.Air.Clear();
     }
 
-    protected override void DirtyUI(EntityUid uid, GasCanisterComponent? canister = null, NodeContainerComponent? nodeContainer = null)
+    protected override void DirtyUI(
+        EntityUid uid,
+        GasCanisterComponent? canister = null,
+        NodeContainerComponent? nodeContainer = null
+    )
     {
         if (!Resolve(uid, ref canister, ref nodeContainer))
             return;
@@ -54,7 +71,10 @@ public sealed class GasCanisterSystem : SharedGasCanisterSystem
         var portStatus = false;
         var tankPressure = 0f;
 
-        if (_nodeContainer.TryGetNode(nodeContainer, canister.PortName, out PipeNode? portNode) && portNode.NodeGroup?.Nodes.Count > 1)
+        if (
+            _nodeContainer.TryGetNode(nodeContainer, canister.PortName, out PipeNode? portNode)
+            && portNode.NodeGroup?.Nodes.Count > 1
+        )
             portStatus = true;
 
         if (canister.GasTankSlot.Item != null)
@@ -64,22 +84,27 @@ public sealed class GasCanisterSystem : SharedGasCanisterSystem
             tankPressure = tankComponent.Air.Pressure;
         }
 
-        UI.SetUiState(uid, GasCanisterUiKey.Key,
-            new GasCanisterBoundUserInterfaceState(canister.Air.Pressure, portStatus, tankPressure));
+        UI.SetUiState(
+            uid,
+            GasCanisterUiKey.Key,
+            new GasCanisterBoundUserInterfaceState(canister.Air.Pressure, portStatus, tankPressure)
+        );
     }
 
     private void OnCanisterUpdated(EntityUid uid, GasCanisterComponent canister, ref AtmosDeviceUpdateEvent args)
     {
         _atmos.React(canister.Air, canister);
 
-        if (!TryComp<NodeContainerComponent>(uid, out var nodeContainer)
-            || !TryComp<AppearanceComponent>(uid, out var appearance))
+        if (
+            !TryComp<NodeContainerComponent>(uid, out var nodeContainer)
+            || !TryComp<AppearanceComponent>(uid, out var appearance)
+        )
             return;
 
         if (!_nodeContainer.TryGetNode(nodeContainer, canister.PortName, out PortablePipeNode? portNode))
             return;
 
-        if (portNode.NodeGroup is PipeNet {NodeCount: > 1} net)
+        if (portNode.NodeGroup is PipeNet { NodeCount: > 1 } net)
         {
             MixContainerWithPipeNet(canister.Air, net.Air);
         }

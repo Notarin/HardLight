@@ -3,27 +3,40 @@ using Content.Server.Explosion.EntitySystems;
 using Content.Shared.Atmos;
 using Content.Shared.Atmos.Components;
 using Content.Shared.Atmos.EntitySystems;
+using Content.Shared.CCVar;
 using Content.Shared.Throwing;
 using JetBrains.Annotations;
 using Robust.Server.GameObjects;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
-using Robust.Shared.Random;
 using Robust.Shared.Configuration;
-using Content.Shared.CCVar;
+using Robust.Shared.Random;
 
 namespace Content.Server.Atmos.EntitySystems
 {
     [UsedImplicitly]
     public sealed class GasTankSystem : SharedGasTankSystem
     {
-        [Dependency] private readonly AtmosphereSystem _atmosphereSystem = default!;
-        [Dependency] private readonly ExplosionSystem _explosions = default!;
-        [Dependency] private readonly SharedAudioSystem _audioSys = default!;
-        [Dependency] private readonly UserInterfaceSystem _ui = default!;
-        [Dependency] private readonly IRobustRandom _random = default!;
-        [Dependency] private readonly ThrowingSystem _throwing = default!;
-        [Dependency] private readonly IConfigurationManager _cfg = default!;
+        [Dependency]
+        private readonly AtmosphereSystem _atmosphereSystem = default!;
+
+        [Dependency]
+        private readonly ExplosionSystem _explosions = default!;
+
+        [Dependency]
+        private readonly SharedAudioSystem _audioSys = default!;
+
+        [Dependency]
+        private readonly UserInterfaceSystem _ui = default!;
+
+        [Dependency]
+        private readonly IRobustRandom _random = default!;
+
+        [Dependency]
+        private readonly ThrowingSystem _throwing = default!;
+
+        [Dependency]
+        private readonly IConfigurationManager _cfg = default!;
 
         private const float TimerDelay = 0.5f;
         private float _timer = 0f;
@@ -47,11 +60,11 @@ namespace Content.Server.Atmos.EntitySystems
         public override void UpdateUserInterface(Entity<GasTankComponent> ent)
         {
             var (owner, component) = ent;
-            _ui.SetUiState(owner, SharedGasTankUiKey.Key,
-                new GasTankBoundUserInterfaceState
-                {
-                    TankPressure = component.Air?.Pressure ?? 0,
-                });
+            _ui.SetUiState(
+                owner,
+                SharedGasTankUiKey.Key,
+                new GasTankBoundUserInterfaceState { TankPressure = component.Air?.Pressure ?? 0 }
+            );
         }
 
         private void OnParentChange(EntityUid uid, GasTankComponent component, ref EntParentChangedMessage args)
@@ -188,7 +201,11 @@ namespace Content.Server.Atmos.EntitySystems
                     if (environment != null)
                         _atmosphereSystem.Merge(environment, component.Air);
 
-                    _audioSys.PlayPvs(component.RuptureSound, Transform(owner).Coordinates, AudioParams.Default.WithVariation(0.125f));
+                    _audioSys.PlayPvs(
+                        component.RuptureSound,
+                        Transform(owner).Coordinates,
+                        AudioParams.Default.WithVariation(0.125f)
+                    );
 
                     QueueDel(owner);
                     return;

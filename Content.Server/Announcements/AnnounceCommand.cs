@@ -11,9 +11,14 @@ namespace Content.Server.Announcements;
 [AdminCommand(AdminFlags.Moderator)]
 public sealed class AnnounceCommand : LocalizedEntityCommands
 {
-    [Dependency] private readonly ChatSystem _chat = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IResourceManager _res = default!;
+    [Dependency]
+    private readonly ChatSystem _chat = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private readonly IResourceManager _res = default!;
 
     public override string Command => "announce";
     public override string Description => Loc.GetString("cmd-announce-desc");
@@ -73,7 +78,7 @@ public sealed class AnnounceCommand : LocalizedEntityCommands
                 CompletionHelper.AudioFilePath(args[3], _proto, _res),
                 Loc.GetString("cmd-announce-arg-sound")
             ),
-            _ => CompletionResult.Empty
+            _ => CompletionResult.Empty,
         };
     }
 }

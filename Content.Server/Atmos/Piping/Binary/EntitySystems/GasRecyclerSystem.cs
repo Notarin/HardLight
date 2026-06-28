@@ -18,10 +18,17 @@ namespace Content.Server.Atmos.Piping.Binary.EntitySystems
     [UsedImplicitly]
     public sealed class GasReyclerSystem : EntitySystem
     {
-        [Dependency] private readonly AppearanceSystem _appearance = default!;
-        [Dependency] private readonly AtmosphereSystem _atmosphereSystem = default!;
-        [Dependency] private readonly SharedAmbientSoundSystem _ambientSoundSystem = default!;
-        [Dependency] private readonly NodeContainerSystem _nodeContainer = default!;
+        [Dependency]
+        private readonly AppearanceSystem _appearance = default!;
+
+        [Dependency]
+        private readonly AtmosphereSystem _atmosphereSystem = default!;
+
+        [Dependency]
+        private readonly SharedAmbientSoundSystem _ambientSoundSystem = default!;
+
+        [Dependency]
+        private readonly NodeContainerSystem _nodeContainer = default!;
 
         public override void Initialize()
         {
@@ -72,7 +79,15 @@ namespace Content.Server.Atmos.Piping.Binary.EntitySystems
         private void OnUpdate(Entity<GasRecyclerComponent> ent, ref AtmosDeviceUpdateEvent args)
         {
             var comp = ent.Comp;
-            if (!_nodeContainer.TryGetNodes(ent.Owner, comp.InletName, comp.OutletName, out PipeNode? inlet, out PipeNode? outlet))
+            if (
+                !_nodeContainer.TryGetNodes(
+                    ent.Owner,
+                    comp.InletName,
+                    comp.OutletName,
+                    out PipeNode? inlet,
+                    out PipeNode? outlet
+                )
+            )
             {
                 _ambientSoundSystem.SetAmbience(ent, false);
                 return;
@@ -103,7 +118,10 @@ namespace Content.Server.Atmos.Piping.Binary.EntitySystems
                 return 0;
             }
             float overPressConst = 300; // pressure difference (in atm) to get 200 L/sec transfer rate
-            float alpha = Atmospherics.MaxTransferRate * _atmosphereSystem.PumpSpeedup() / (float)Math.Sqrt(overPressConst*Atmospherics.OneAtmosphere);
+            float alpha =
+                Atmospherics.MaxTransferRate
+                * _atmosphereSystem.PumpSpeedup()
+                / (float)Math.Sqrt(overPressConst * Atmospherics.OneAtmosphere);
             return alpha * (float)Math.Sqrt(inlet.Pressure - outlet.Pressure);
         }
 
@@ -126,14 +144,19 @@ namespace Content.Server.Atmos.Piping.Binary.EntitySystems
             var ratingTemp = args.PartRatings[component.MachinePartMinTemp];
             var ratingPressure = args.PartRatings[component.MachinePartMinPressure];
 
-            component.MinTemp = component.BaseMinTemp * MathF.Pow(component.PartRatingMinTempMultiplier, ratingTemp - 1);
-            component.MinPressure = component.BaseMinPressure * MathF.Pow(component.PartRatingMinPressureMultiplier, ratingPressure - 1);
+            component.MinTemp =
+                component.BaseMinTemp * MathF.Pow(component.PartRatingMinTempMultiplier, ratingTemp - 1);
+            component.MinPressure =
+                component.BaseMinPressure * MathF.Pow(component.PartRatingMinPressureMultiplier, ratingPressure - 1);
         }
 
         private void OnUpgradeExamine(EntityUid uid, GasRecyclerComponent component, UpgradeExamineEvent args)
         {
             args.AddPercentageUpgrade("gas-recycler-upgrade-min-temp", component.MinTemp / component.BaseMinTemp);
-            args.AddPercentageUpgrade("gas-recycler-upgrade-min-pressure", component.MinPressure / component.BaseMinPressure);
+            args.AddPercentageUpgrade(
+                "gas-recycler-upgrade-min-pressure",
+                component.MinPressure / component.BaseMinPressure
+            );
         }
     }
 }

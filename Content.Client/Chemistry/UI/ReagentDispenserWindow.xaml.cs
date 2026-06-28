@@ -16,8 +16,11 @@ namespace Content.Client.Chemistry.UI
     [GenerateTypedNameReferences]
     public sealed partial class ReagentDispenserWindow : FancyWindow
     {
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        [Dependency] private readonly IEntityManager _entityManager = default!;
+        [Dependency]
+        private readonly IPrototypeManager _prototypeManager = default!;
+
+        [Dependency]
+        private readonly IEntityManager _entityManager = default!;
         public event Action<string>? OnDispenseReagentButtonPressed;
         public event Action<string>? OnEjectJugButtonPressed;
         public event Action? OnToggleValveButtonPressed; // Starlight-edit: Plumbing valve
@@ -61,7 +64,7 @@ namespace Content.Client.Chemistry.UI
         /// <param name="state">State data sent by the server.</param>
         public void UpdateState(BoundUserInterfaceState state)
         {
-            var castState = (ReagentDispenserBoundUserInterfaceState) state;
+            var castState = (ReagentDispenserBoundUserInterfaceState)state;
             UpdateContainerInfo(castState);
             UpdateReagentsList(castState.Inventory);
 
@@ -73,9 +76,9 @@ namespace Content.Client.Chemistry.UI
             EjectButton.Disabled = castState.OutputContainer is null;
 
             // Starlight start: update valve button
-            ValveButton.Text = Loc.GetString(castState.ValveOpen
-                ? "reagent-dispenser-window-valve-open"
-                : "reagent-dispenser-window-valve-closed");
+            ValveButton.Text = Loc.GetString(
+                castState.ValveOpen ? "reagent-dispenser-window-valve-open" : "reagent-dispenser-window-valve-closed"
+            );
             // Starlight-end
             AmountGrid.Selected = ((int)castState.SelectedDispenseAmount).ToString();
         }
@@ -94,7 +97,9 @@ namespace Content.Client.Chemistry.UI
             {
                 ContainerInfoName.Text = "";
                 ContainerInfoFill.Text = "";
-                ContainerInfo.Children.Add(new Label { Text = Loc.GetString("reagent-dispenser-window-no-container-loaded-text") });
+                ContainerInfo.Children.Add(
+                    new Label { Text = Loc.GetString("reagent-dispenser-window-no-container-loaded-text") }
+                );
                 return;
             }
 
@@ -116,15 +121,13 @@ namespace Content.Client.Chemistry.UI
                     StyleClasses = { StyleNano.StyleClassLabelSecondaryColor },
                 };
 
-                ContainerInfo.Children.Add(new BoxContainer
-                {
-                    Orientation = LayoutOrientation.Horizontal,
-                    Children =
+                ContainerInfo.Children.Add(
+                    new BoxContainer
                     {
-                        nameLabel,
-                        quantityLabel,
+                        Orientation = LayoutOrientation.Horizontal,
+                        Children = { nameLabel, quantityLabel },
                     }
-                });
+                );
             }
         }
     }

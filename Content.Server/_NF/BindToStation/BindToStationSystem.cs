@@ -10,8 +10,11 @@ namespace Content.Server._NF.BindToStation;
 
 public sealed class BindToStationSystem : EntitySystem
 {
-    [Dependency] private readonly StationSystem _station = default!;
-    [Dependency] private readonly ExtensionCableSystem _extensionCable = default!;
+    [Dependency]
+    private readonly StationSystem _station = default!;
+
+    [Dependency]
+    private readonly ExtensionCableSystem _extensionCable = default!;
 
     public override void Initialize()
     {
@@ -28,16 +31,20 @@ public sealed class BindToStationSystem : EntitySystem
         if (!args.IsInDetailsRange || component.BoundStation == null || !component.Enabled)
             return;
 
-        var stationName = TryComp(component.BoundStation, out MetaDataComponent? meta) ? meta.EntityName : Loc.GetString("bound-to-grid-unknown-station");
+        var stationName = TryComp(component.BoundStation, out MetaDataComponent? meta)
+            ? meta.EntityName
+            : Loc.GetString("bound-to-grid-unknown-station");
         args.PushMarkup(Loc.GetString("bound-to-grid-examine-text", ("shipname", stationName)));
     }
 
     // Ensure consistency for station-bound machines
     public void OnBoundMapInit(Entity<BindToStationComponent> ent, ref MapInitEvent args)
     {
-        if (ent.Comp.Enabled
+        if (
+            ent.Comp.Enabled
             && TryComp<ExtensionCableReceiverComponent>(ent.Owner, out var receiver)
-            && _station.GetOwningStation(ent.Owner) != ent.Comp.BoundStation)
+            && _station.GetOwningStation(ent.Owner) != ent.Comp.BoundStation
+        )
         {
             _extensionCable.Disconnect((ent.Owner, receiver));
         }
@@ -93,11 +100,11 @@ public sealed class BindToStationSystem : EntitySystem
         // If this receives power, adjust powered status depending on bound station
         if (TryComp<ExtensionCableReceiverComponent>(target, out var receiver))
         {
-            if ((!enabled
-                || _station.GetOwningStation(target) == station
-                || station == null)
+            if (
+                (!enabled || _station.GetOwningStation(target) == station || station == null)
                 && TryComp(target, out TransformComponent? xform)
-                && xform.Anchored)
+                && xform.Anchored
+            )
             {
                 _extensionCable.Connect((target, receiver));
             }

@@ -75,11 +75,13 @@ public sealed partial class DungeonSystem
     /// <summary>
     /// Primarily for dungeon usage.
     /// </summary>
-    public void GetCorridorNodes(HashSet<Vector2i> corridorTiles,
+    public void GetCorridorNodes(
+        HashSet<Vector2i> corridorTiles,
         List<(Vector2i Start, Vector2i End)> edges,
         int pathLimit,
         HashSet<Vector2i>? forbiddenTiles = null,
-        Func<Vector2i, float>? tileCallback = null)
+        Func<Vector2i, float>? tileCallback = null
+    )
     {
         // Pathfind each entrance
         var frontier = new PriorityQueue<Vector2i, float>();
@@ -125,8 +127,7 @@ public sealed partial class DungeonSystem
                         var neighbor = new Vector2i(node.X + x, node.Y + y);
 
                         // FORBIDDEN
-                        if (neighbor != end &&
-                            forbiddenTiles.Contains(neighbor))
+                        if (neighbor != end && forbiddenTiles.Contains(neighbor))
                         {
                             continue;
                         }

@@ -15,7 +15,8 @@ public sealed class GasArrayTest
     private const string GasTankLegacyTestDummyId = "GasTankLegacyTestDummy";
 
     [TestPrototypes]
-    private const string Prototypes = $@"
+    private const string Prototypes =
+        $@"
 - type: entity
   id: {GasTankTestDummyId}
   components:

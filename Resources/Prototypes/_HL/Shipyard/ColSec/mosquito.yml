@@ -12,7 +12,7 @@
   id: Mosquito
   name: AI Mosquito
   description: A sector security vessel designed for boarding parties.
-  price: 31500  # HL: Rebalancing ship prices to 5% more than sell price (or using the MinPriceMarkup field)
+  price: 31500 # HL: Rebalancing ship prices to 5% more than sell price (or using the MinPriceMarkup field)
   category: Small
   group: Security
   access: Security
@@ -32,11 +32,10 @@
     Mosquito:
       stationProto: StandardFrontierSecurityVessel
       components:
-        - type: StationNameSetup
-          mapNameTemplate: 'Mosquito {1}'
-          nameGenerator:
-            !type:NanotrasenNameGenerator
-            prefixCreator: '14'
-        - type: StationJobs
-          availableJobs: {}
+      - type: StationNameSetup
+        mapNameTemplate: 'Mosquito {1}'
+        nameGenerator: !type:NanotrasenNameGenerator
+          prefixCreator: '14'
+      - type: StationJobs
+        availableJobs: {}
 

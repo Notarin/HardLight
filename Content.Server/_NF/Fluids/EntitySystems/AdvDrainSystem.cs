@@ -1,35 +1,51 @@
 using Content.Server.Popups;
 using Content.Server.PowerCell;
-using Content.Shared.Chemistry.EntitySystems;
+using Content.Shared._NF.Fluids.Components;
 using Content.Shared.Audio;
 using Content.Shared.Chemistry.Components.SolutionManager;
+using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Database;
 using Content.Shared.Examine;
 using Content.Shared.FixedPoint;
 using Content.Shared.Fluids;
 using Content.Shared.Fluids.Components;
-using Content.Shared._NF.Fluids.Components;
+using Content.Shared.Power;
 using Content.Shared.Verbs;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
-using Content.Shared.Power;
-
 
 namespace Content.Server._NF.Fluids.EntitySystems;
 
 public sealed class AdvDrainSystem : SharedDrainSystem
 {
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
-    [Dependency] private readonly SharedAmbientSoundSystem _ambientSoundSystem = default!;
-    [Dependency] private readonly SharedAudioSystem _audioSystem = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearanceSystem = default!;
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly PowerCellSystem _powerCell = default!;
+    [Dependency]
+    private readonly EntityLookupSystem _lookup = default!;
+
+    [Dependency]
+    private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
+
+    [Dependency]
+    private readonly SharedAmbientSoundSystem _ambientSoundSystem = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audioSystem = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearanceSystem = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly PowerCellSystem _powerCell = default!;
 
     private readonly HashSet<Entity<PuddleComponent>> _puddles = new();
 
@@ -64,8 +80,10 @@ public sealed class AdvDrainSystem : SharedDrainSystem
         if (!args.CanAccess || !args.CanInteract || args.Using == null)
             return;
 
-        if (!TryComp(args.Using, out SpillableComponent? spillable) ||
-            !TryComp(args.Target, out AdvDrainComponent? drain))
+        if (
+            !TryComp(args.Using, out SpillableComponent? spillable)
+            || !TryComp(args.Target, out AdvDrainComponent? drain)
+        )
             return;
 
         var used = args.Using.Value;
@@ -78,8 +96,7 @@ public sealed class AdvDrainSystem : SharedDrainSystem
                 Empty(used, spillable, target, drain);
             },
             Impact = LogImpact.Low,
-            Icon = new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/VerbIcons/eject.svg.192dpi.png"))
-
+            Icon = new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/VerbIcons/eject.svg.192dpi.png")),
         };
         args.Verbs.Add(verb);
     }
@@ -87,16 +104,31 @@ public sealed class AdvDrainSystem : SharedDrainSystem
     private void Empty(EntityUid container, SpillableComponent spillable, EntityUid target, AdvDrainComponent drain)
     {
         // Find the solution in the container that is emptied
-        if (!_solutionContainerSystem.TryGetDrainableSolution(container, out var containerSoln, out var containerSolution) || containerSolution.Volume == FixedPoint2.Zero)
+        if (
+            !_solutionContainerSystem.TryGetDrainableSolution(
+                container,
+                out var containerSoln,
+                out var containerSolution
+            )
+            || containerSolution.Volume == FixedPoint2.Zero
+        )
         {
             _popupSystem.PopupEntity(
                 Loc.GetString("drain-component-empty-verb-using-is-empty-message", ("object", container)),
-                container);
+                container
+            );
             return;
         }
 
         // try to find the drain's solution
-        if (!_solutionContainerSystem.ResolveSolution(target, AdvDrainComponent.SolutionName, ref drain.Solution, out var drainSolution))
+        if (
+            !_solutionContainerSystem.ResolveSolution(
+                target,
+                AdvDrainComponent.SolutionName,
+                ref drain.Solution,
+                out var drainSolution
+            )
+        )
         {
             return;
         }
@@ -115,7 +147,6 @@ public sealed class AdvDrainSystem : SharedDrainSystem
             _ambientSoundSystem.SetAmbience(target, true);
         }
 
-
         // Don't actually spill the remainder.
 
         if (amountToSpillOnGround > 0)
@@ -124,7 +155,8 @@ public sealed class AdvDrainSystem : SharedDrainSystem
             // _puddleSystem.TrySpillAt(Transform(target).Coordinates, solutionToSpill, out _);
             _popupSystem.PopupEntity(
                 Loc.GetString("drain-component-empty-verb-target-is-full-message", ("object", target)),
-                container);
+                container
+            );
         }
     }
 
@@ -173,7 +205,14 @@ public sealed class AdvDrainSystem : SharedDrainSystem
                 continue;
 
             // Best to do this one every second rather than once every tick...
-            if (!_solutionContainerSystem.ResolveSolution((uid, manager), AdvDrainComponent.SolutionName, ref drain.Solution, out var drainSolution))
+            if (
+                !_solutionContainerSystem.ResolveSolution(
+                    (uid, manager),
+                    AdvDrainComponent.SolutionName,
+                    ref drain.Solution,
+                    out var drainSolution
+                )
+            )
                 continue;
 
             if (drainSolution.AvailableVolume <= 0)
@@ -187,7 +226,13 @@ public sealed class AdvDrainSystem : SharedDrainSystem
             {
                 _appearanceSystem.SetData(uid, AdvDrainVisualState.IsVoiding, true);
                 _appearanceSystem.SetData(uid, AdvDrainVisualState.IsRunning, false); //they use the same indicator light, and cause artifacts when on at the same time
-                _solutionContainerSystem.SplitSolution(drain.Solution.Value, Math.Min(drain.UnitsDestroyedPerSecond * drain.DrainFrequency, (float)drainSolution.Volume - drain.UnitsDestroyedThreshold));
+                _solutionContainerSystem.SplitSolution(
+                    drain.Solution.Value,
+                    Math.Min(
+                        drain.UnitsDestroyedPerSecond * drain.DrainFrequency,
+                        (float)drainSolution.Volume - drain.UnitsDestroyedThreshold
+                    )
+                );
             }
             else
             {
@@ -222,7 +267,14 @@ public sealed class AdvDrainSystem : SharedDrainSystem
             {
                 // Queue the solution deletion if it's empty. EvaporationSystem might also do this
                 // but queuedelete should be pretty safe.
-                if (!_solutionContainerSystem.ResolveSolution(puddle.Owner, puddle.Comp.SolutionName, ref puddle.Comp.Solution, out var puddleSolution))
+                if (
+                    !_solutionContainerSystem.ResolveSolution(
+                        puddle.Owner,
+                        puddle.Comp.SolutionName,
+                        ref puddle.Comp.Solution,
+                        out var puddleSolution
+                    )
+                )
                 {
                     EntityManager.QueueDeleteEntity(puddle);
                     continue;
@@ -232,8 +284,10 @@ public sealed class AdvDrainSystem : SharedDrainSystem
                 // the drain component's units per second adjusted for # of puddles
                 // the puddle's remaining volume (making it cleanly zero)
                 // the drain's remaining volume in its buffer.
-                var transferSolution = _solutionContainerSystem.SplitSolution(puddle.Comp.Solution.Value,
-                    FixedPoint2.Min(FixedPoint2.New(amount), puddleSolution.Volume, drainSolution.AvailableVolume));
+                var transferSolution = _solutionContainerSystem.SplitSolution(
+                    puddle.Comp.Solution.Value,
+                    FixedPoint2.Min(FixedPoint2.New(amount), puddleSolution.Volume, drainSolution.AvailableVolume)
+                );
 
                 drainSolution.AddSolution(transferSolution, _prototypeManager);
 
@@ -249,15 +303,26 @@ public sealed class AdvDrainSystem : SharedDrainSystem
 
     private void OnExamined(Entity<AdvDrainComponent> entity, ref ExaminedEvent args)
     {
-        if (!args.IsInDetailsRange ||
-            !HasComp<SolutionContainerManagerComponent>(entity) ||
-            !TryComp<AdvDrainComponent>(entity, out var drain) ||
-            !_solutionContainerSystem.ResolveSolution(entity.Owner, AdvDrainComponent.SolutionName, ref entity.Comp.Solution, out var drainSolution))
+        if (
+            !args.IsInDetailsRange
+            || !HasComp<SolutionContainerManagerComponent>(entity)
+            || !TryComp<AdvDrainComponent>(entity, out var drain)
+            || !_solutionContainerSystem.ResolveSolution(
+                entity.Owner,
+                AdvDrainComponent.SolutionName,
+                ref entity.Comp.Solution,
+                out var drainSolution
+            )
+        )
         {
             return;
         }
 
-        var text = Loc.GetString("adv-drain-component-examine-volume", ("volume", drainSolution.Volume), ("maxvolume", drain.UnitsDestroyedThreshold));
+        var text = Loc.GetString(
+            "adv-drain-component-examine-volume",
+            ("volume", drainSolution.Volume),
+            ("maxvolume", drain.UnitsDestroyedThreshold)
+        );
         args.PushMarkup(text);
     }
 }

@@ -12,11 +12,10 @@ public abstract class SharedAphrodisiacSystem : EntitySystem
     There were no comments as to why this value was chosen three years ago. */
     public static float MagicNumber = 1100f;
 
-    [Dependency] protected readonly StatusEffectsSystem Status = default!;
+    [Dependency]
+    protected readonly StatusEffectsSystem Status = default!;
 
-    public override void Initialize()
-    {
-    }
+    public override void Initialize() { }
 
     public void TryApplyAphrodisiacs(EntityUid uid, TimeSpan aphrodisiacPower, StatusEffectsComponent? status = null)
     {

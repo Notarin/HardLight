@@ -22,7 +22,7 @@
     - stampedColor: '#333333FF'
       stampedName: Stamps-the-Papers
       stampType: Signature
-    content: |2
+    content: |
       [head=1][color=#1a6295]TSF[/color][/head]
 
       [bold]ATTN:[/bold]
@@ -48,7 +48,7 @@
   parent: Paper
   components:
   - type: Paper
-    content: |2
+    content: |
       [color=#1b67a5]█▄ █ ▀█▀    [head=3]Grifty's Script[/head]
       █ ▀█     █       Grifty's Gas and Grub
 
@@ -74,7 +74,7 @@
   parent: PaperOffice
   components:
   - type: Paper
-    content: |2
+    content: |
       Hey boss,
 
       The crack in the plasma chamber's gettin' bigger, and I'm worried about the containment unit. What happens if the glass breaks?
@@ -93,7 +93,7 @@
     - stampedColor: '#333333FF'
       stampedName: Plans-The-Party
       stampType: Signature
-    content: |2
+    content: |
       [color=#1a6295]◥[bold]N[/bold]◣ [bold]Department of Recreation[/bold][/color]
       [color=#1a6295]‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾[/color]
       [head=3]Official Party Preparation Procedure[/head]

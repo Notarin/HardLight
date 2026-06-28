@@ -9,8 +9,11 @@ namespace Content.Client.NetworkConfigurator;
 
 public sealed class NetworkConfiguratorLinkOverlay : Overlay
 {
-    [Dependency] private readonly IEntityManager _entityManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency]
+    private readonly IEntityManager _entityManager = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
     private readonly DeviceListSystem _deviceListSystem;
     private readonly SharedTransformSystem _transformSystem;
 
@@ -32,7 +35,9 @@ public sealed class NetworkConfiguratorLinkOverlay : Overlay
         var query = _entityManager.EntityQueryEnumerator<NetworkConfiguratorActiveLinkOverlayComponent>();
         while (query.MoveNext(out var uid, out _))
         {
-            if (_entityManager.Deleted(uid) || !_entityManager.TryGetComponent(uid, out DeviceListComponent? deviceList))
+            if (
+                _entityManager.Deleted(uid) || !_entityManager.TryGetComponent(uid, out DeviceListComponent? deviceList)
+            )
             {
                 _entityManager.RemoveComponentDeferred<NetworkConfiguratorActiveLinkOverlayComponent>(uid);
                 continue;
@@ -40,10 +45,7 @@ public sealed class NetworkConfiguratorLinkOverlay : Overlay
 
             if (!Colors.TryGetValue(uid, out var color))
             {
-                color = new Color(
-                    _random.Next(0, 255),
-                    _random.Next(0, 255),
-                    _random.Next(0, 255));
+                color = new Color(_random.Next(0, 255), _random.Next(0, 255), _random.Next(0, 255));
                 Colors.Add(uid, color);
             }
 
@@ -68,7 +70,11 @@ public sealed class NetworkConfiguratorLinkOverlay : Overlay
                     continue;
                 }
 
-                args.WorldHandle.DrawLine(_transformSystem.GetWorldPosition(sourceTransform), _transformSystem.GetWorldPosition(linkTransform), Colors[uid]);
+                args.WorldHandle.DrawLine(
+                    _transformSystem.GetWorldPosition(sourceTransform),
+                    _transformSystem.GetWorldPosition(linkTransform),
+                    Colors[uid]
+                );
             }
         }
     }

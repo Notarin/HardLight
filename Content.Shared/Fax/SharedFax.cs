@@ -5,7 +5,7 @@ namespace Content.Shared.Fax;
 [Serializable, NetSerializable]
 public enum FaxUiKey : byte
 {
-    Key
+    Key,
 }
 
 [Serializable, NetSerializable]
@@ -18,12 +18,14 @@ public sealed class FaxUiState : BoundUserInterfaceState
     public bool CanSend { get; }
     public bool CanCopy { get; }
 
-    public FaxUiState(string deviceName,
+    public FaxUiState(
+        string deviceName,
         Dictionary<string, string> peers,
         bool canSend,
         bool canCopy,
         bool isPaperInserted,
-        string? destAddress)
+        string? destAddress
+    )
     {
         DeviceName = deviceName;
         AvailablePeers = peers;
@@ -56,19 +58,13 @@ public static class FaxFileMessageValidation
 }
 
 [Serializable, NetSerializable]
-public sealed class FaxCopyMessage : BoundUserInterfaceMessage
-{
-}
+public sealed class FaxCopyMessage : BoundUserInterfaceMessage { }
 
 [Serializable, NetSerializable]
-public sealed class FaxSendMessage : BoundUserInterfaceMessage
-{
-}
+public sealed class FaxSendMessage : BoundUserInterfaceMessage { }
 
 [Serializable, NetSerializable]
-public sealed class FaxRefreshMessage : BoundUserInterfaceMessage
-{
-}
+public sealed class FaxRefreshMessage : BoundUserInterfaceMessage { }
 
 [Serializable, NetSerializable]
 public sealed class FaxDestinationMessage : BoundUserInterfaceMessage

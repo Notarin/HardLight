@@ -13,19 +13,24 @@ namespace Content.Shared._CD.Silicons.Borgs;
 /// </summary>
 public abstract class SharedBorgSwitchableSubtypeSystem : EntitySystem
 {
-    [Dependency] private readonly InteractionPopupSystem _interactionPopup = default!;
-    [Dependency] protected readonly IPrototypeManager Prototypes = default!;
+    [Dependency]
+    private readonly InteractionPopupSystem _interactionPopup = default!;
+
+    [Dependency]
+    protected readonly IPrototypeManager Prototypes = default!;
 
     public override void Initialize()
     {
         SubscribeLocalEvent<BorgSwitchableSubtypeComponent, MapInitEvent>(OnMapInit); // make sure that our subtype is selected first
         SubscribeLocalEvent<BorgSwitchableSubtypeComponent, AfterBorgTypeSelectEvent>(OnBorgTypeSelect);
 
-        Subs.BuiEvents<BorgSwitchableTypeComponent>(BorgSwitchableTypeUiKey.SelectBorgType,
+        Subs.BuiEvents<BorgSwitchableTypeComponent>(
+            BorgSwitchableTypeUiKey.SelectBorgType,
             sub =>
             {
                 sub.Event<BorgSelectSubtypeMessage>(SelectSubtypeMessageHandler);
-            });
+            }
+        );
 
         base.Initialize();
     }
@@ -60,8 +65,10 @@ public abstract class SharedBorgSwitchableSubtypeSystem : EntitySystem
         UpdateEntityAppearance(entity, subtypePrototype);
     }
 
-    protected virtual void UpdateEntityAppearance(Entity<BorgSwitchableSubtypeComponent> entity,
-        BorgSubtypePrototype borgSubtypePrototype)
+    protected virtual void UpdateEntityAppearance(
+        Entity<BorgSwitchableSubtypeComponent> entity,
+        BorgSubtypePrototype borgSubtypePrototype
+    )
     {
         if (TryComp(entity, out InteractionPopupComponent? popup))
         {
@@ -75,7 +82,11 @@ public abstract class SharedBorgSwitchableSubtypeSystem : EntitySystem
         }
     }
 
-    private void SelectSubtypeMessageHandler(EntityUid uid, BorgSwitchableTypeComponent borgSwitchableTypeComponent, BorgSelectSubtypeMessage args)
+    private void SelectSubtypeMessageHandler(
+        EntityUid uid,
+        BorgSwitchableTypeComponent borgSwitchableTypeComponent,
+        BorgSelectSubtypeMessage args
+    )
     {
         if (!TryComp<BorgSwitchableSubtypeComponent>(uid, out var subtypeComp))
             return;

@@ -9,7 +9,8 @@ namespace Content.Server.Power.Generator;
 /// <seealso cref="GeneratorExhaustGasComponent"/>
 public sealed class GeneratorExhaustGasSystem : EntitySystem
 {
-    [Dependency] private readonly AtmosphereSystem _atmosphere = default!;
+    [Dependency]
+    private readonly AtmosphereSystem _atmosphere = default!;
 
     public override void Initialize()
     {

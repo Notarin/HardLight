@@ -53,14 +53,16 @@ public sealed partial class EditChatPopup : DefaultWindow
 
     private void ValidateInputs()
     {
-        var isValid = !string.IsNullOrWhiteSpace(NumberInput.Text) &&
-                      !string.IsNullOrWhiteSpace(NameInput.Text) &&
-                      NumberInput.Text.Length == MaxNumberLength &&
-                      uint.TryParse(NumberInput.Text, out _) &&
-                      // Only valid if there are any changes
-                      (NumberInput.Text != _originalNumber ||
-                      NameInput.Text != _originalName ||
-                      JobInput.Text != _originalJob);
+        var isValid =
+            !string.IsNullOrWhiteSpace(NumberInput.Text)
+            && !string.IsNullOrWhiteSpace(NameInput.Text)
+            && NumberInput.Text.Length == MaxNumberLength
+            && uint.TryParse(NumberInput.Text, out _)
+            &&
+            // Only valid if there are any changes
+            (
+                NumberInput.Text != _originalNumber || NameInput.Text != _originalName || JobInput.Text != _originalJob
+            );
 
         ConfirmButton.Disabled = !isValid;
     }

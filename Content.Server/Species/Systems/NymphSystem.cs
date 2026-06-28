@@ -1,10 +1,10 @@
 using Content.Server.Cargo.Components;
 using Content.Server.Mind;
-using Content.Shared._NF.Bank.Components; // Frontier
-using Content.Shared.Species.Components;
-using Content.Shared.Body.Events;
-using Content.Shared.Zombies;
 using Content.Server.Zombies;
+using Content.Shared._NF.Bank.Components; // Frontier
+using Content.Shared.Body.Events;
+using Content.Shared.Species.Components;
+using Content.Shared.Zombies;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 
@@ -12,10 +12,17 @@ namespace Content.Server.Species.Systems;
 
 public sealed partial class NymphSystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _protoManager= default!;
-    [Dependency] private readonly MindSystem _mindSystem = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly ZombieSystem _zombie = default!;
+    [Dependency]
+    private readonly IPrototypeManager _protoManager = default!;
+
+    [Dependency]
+    private readonly MindSystem _mindSystem = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly ZombieSystem _zombie = default!;
 
     public override void Initialize()
     {
@@ -46,7 +53,6 @@ public sealed partial class NymphSystem : EntitySystem
         {
             // Move the mind if there is one and it's supposed to be transferred
             _mindSystem.TransferTo(mindId, nymph, mind: mind);
-
 
             // Frontier: bank account transfer, mob setup
             EnsureComp<CargoSellBlacklistComponent>(nymph);

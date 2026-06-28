@@ -12,13 +12,16 @@ namespace Content.Server.Chemistry.TileReactions
     [DataDefinition]
     public sealed partial class ExtinguishTileReaction : ITileReaction
     {
-        [DataField("coolingTemperature")] private float _coolingTemperature = 2f;
+        [DataField("coolingTemperature")]
+        private float _coolingTemperature = 2f;
 
-        public FixedPoint2 TileReact(TileRef tile,
+        public FixedPoint2 TileReact(
+            TileRef tile,
             ReagentPrototype reagent,
             FixedPoint2 reactVolume,
             IEntityManager entityManager,
-            List<ReagentData>? data)
+            List<ReagentData>? data
+        )
         {
             if (reactVolume <= FixedPoint2.Zero || tile.Tile.IsEmpty)
                 return FixedPoint2.Zero;
@@ -30,9 +33,13 @@ namespace Content.Server.Chemistry.TileReactions
             if (environment == null || !atmosphereSystem.IsHotspotActive(tile.GridUid, tile.GridIndices))
                 return FixedPoint2.Zero;
 
-            environment.Temperature =
-                MathF.Max(MathF.Min(environment.Temperature - (_coolingTemperature * 1000f),
-                        environment.Temperature / _coolingTemperature), Atmospherics.TCMB);
+            environment.Temperature = MathF.Max(
+                MathF.Min(
+                    environment.Temperature - (_coolingTemperature * 1000f),
+                    environment.Temperature / _coolingTemperature
+                ),
+                Atmospherics.TCMB
+            );
 
             atmosphereSystem.ReactTile(tile.GridUid, tile.GridIndices);
             atmosphereSystem.HotspotExtinguish(tile.GridUid, tile.GridIndices);

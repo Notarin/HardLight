@@ -1,7 +1,7 @@
 using Content.Shared.Movement.Components;
-using Robust.Shared.Physics.Events;
 using Content.Shared.StepTrigger.Components; // imp edit
 using Content.Shared.StepTrigger.Systems; // Imp edit
+using Robust.Shared.Physics.Events;
 
 namespace Content.Shared.Movement.Systems;
 
@@ -29,7 +29,7 @@ public abstract class SharedFloorOcclusionSystem : EntitySystem
         //{
         //    return;
         //}
-        
+
         //occlusion.Colliding.Add(entity.Owner);
         //Dirty(other, occlusion);
         //SetEnabled((other, occlusion));
@@ -56,18 +56,14 @@ public abstract class SharedFloorOcclusionSystem : EntitySystem
         SetEnabled((other, occlusion));
     }
 
-    protected virtual void SetEnabled(Entity<FloorOcclusionComponent> entity)
-    {
-
-    }
+    protected virtual void SetEnabled(Entity<FloorOcclusionComponent> entity) { }
 
     /// <summary>
     /// Imp: Occludes an entity. Moved from OnStartCollide() to allow it to be re-used in OnStepTriggered().
     /// </summary>
     private void Occlude(Entity<FloorOccluderComponent> ent, EntityUid other)
     {
-        if (!TryComp<FloorOcclusionComponent>(other, out var occlusion) ||
-            occlusion.Colliding.Contains(ent.Owner))
+        if (!TryComp<FloorOcclusionComponent>(other, out var occlusion) || occlusion.Colliding.Contains(ent.Owner))
         {
             return;
         }

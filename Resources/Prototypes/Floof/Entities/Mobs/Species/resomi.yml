@@ -61,7 +61,7 @@
         layer:
         - MobLayer
   - type: DamageVisuals
-    thresholds: [ 10, 30, 50, 70 ]
+    thresholds: [10, 30, 50, 70]
     damageOverlayGroups:
       Brute:
         sprite: Floof/Mobs/Effects/Resomi/brute_damage.rsi
@@ -235,14 +235,12 @@
     damageModifierSet: Resomi
   - type: Destructible # HardLight: Resomi now turn into fried chicken when ashed.
     thresholds:
-    - trigger:
-        !type:DamageTypeTrigger
+    - trigger: !type:DamageTypeTrigger
         damageType: Blunt
         damage: 400
       behaviors:
-      - !type:GibBehavior { }
-    - trigger: # Frontier - Removed round remover
-        !type:DamageTypeTrigger
+      - !type:GibBehavior {}
+    - trigger: !type:DamageTypeTrigger
         damageType: Heat
         damage: 1500
       behaviors:
@@ -252,8 +250,8 @@
           FoodMeatChickenFriedMystery:
             min: 2
             max: 4
-      - !type:BurnBodyBehavior # HardLight: Parity with upstream changes to Vox.
-        popupMessage: bodyburn-vox-text-others
+      - !type:BurnBodyBehavior
+        popupMessage: bodyburn-vox-text-others # HardLight: Parity with upstream changes to Vox.
       - !type:PlaySoundBehavior
         sound:
           collection: MeatLaserImpact
@@ -262,10 +260,10 @@
     heatDamageThreshold: 320.15 # Goobstation - space chickens can't tolerate reasonable temperatures, but requiring them to stay icy would be cringe, so instead make their heat damage threshold dangerously close to standard atmos, at 47°C
     coldDamage:
       types:
-        Cold : 0.05 #per second, scales with temperature & other constants
+        Cold: 0.05 #per second, scales with temperature & other constants
     heatDamage:
       types:
-        Heat : 3 #per second, scales with temperature & other constants
+        Heat: 3 #per second, scales with temperature & other constants
   - type: MovementSpeedModifier
     weightlessAcceleration: 2.5 # Goobstation - Birb move fast in zero-g
   - type: PseudoItem # Goobstation - Baggable; certified smol ops

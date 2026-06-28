@@ -12,7 +12,8 @@ namespace Content.Client.Cargo.UI;
 [GenerateTypedNameReferences]
 public sealed partial class BountyHistoryEntry : BoxContainer
 {
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototype = default!;
 
     public BountyHistoryEntry(CargoBountyHistoryData bounty)
     {
@@ -25,9 +26,13 @@ public sealed partial class BountyHistoryEntry : BoxContainer
         var items = new List<string>();
         foreach (var entry in bountyPrototype.Entries)
         {
-            items.Add(Loc.GetString("bounty-console-manifest-entry",
-                ("amount", entry.Amount),
-                ("item", Loc.GetString(entry.Name))));
+            items.Add(
+                Loc.GetString(
+                    "bounty-console-manifest-entry",
+                    ("amount", entry.Amount),
+                    ("item", Loc.GetString(entry.Name))
+                )
+            );
         }
 
         ManifestLabel.SetMarkup(Loc.GetString("bounty-console-manifest-label", ("item", string.Join(", ", items))));
@@ -42,8 +47,9 @@ public sealed partial class BountyHistoryEntry : BoxContainer
         }
         else
         {
-            NoticeLabel.SetMarkup(Loc.GetString("bounty-console-history-notice-skipped-label",
-                ("id", bounty.ActorName ?? "")));
+            NoticeLabel.SetMarkup(
+                Loc.GetString("bounty-console-history-notice-skipped-label", ("id", bounty.ActorName ?? ""))
+            );
         }
     }
 }

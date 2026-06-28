@@ -13,9 +13,8 @@ public sealed class IFFConsoleBoundUserInterface : BoundUserInterface
     [ViewVariables]
     private IFFConsoleWindow? _window;
 
-    public IFFConsoleBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-    }
+    public IFFConsoleBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {
@@ -38,18 +37,12 @@ public sealed class IFFConsoleBoundUserInterface : BoundUserInterface
 
     private void SendIFFMessage(bool obj)
     {
-        SendMessage(new IFFShowIFFMessage()
-        {
-            Show = obj,
-        });
+        SendMessage(new IFFShowIFFMessage() { Show = obj });
     }
 
     private void SendVesselMessage(bool obj)
     {
-        SendMessage(new IFFShowVesselMessage()
-        {
-            Show = obj,
-        });
+        SendMessage(new IFFShowVesselMessage() { Show = obj });
     }
 
     protected override void Dispose(bool disposing)

@@ -10,9 +10,14 @@ namespace Content.Shared.Friends.Systems;
 
 public sealed class PettableFriendSystem : EntitySystem
 {
-    [Dependency] private readonly NpcFactionSystem _factionException = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly UseDelaySystem _useDelay = default!;
+    [Dependency]
+    private readonly NpcFactionSystem _factionException = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly UseDelaySystem _useDelay = default!;
 
     private EntityQuery<FactionExceptionComponent> _exceptionQuery;
     private EntityQuery<UseDelayComponent> _useDelayQuery;

@@ -33,8 +33,11 @@ namespace Content.Client.Shuttles.UI;
 [Virtual]
 public partial class BaseShuttleControl : MapGridControl
 {
-    [Dependency] private readonly IParallelManager _parallel = default!;
-    [Dependency] private readonly ITileDefinitionManager _tileDef = default!; // Mono
+    [Dependency]
+    private readonly IParallelManager _parallel = default!;
+
+    [Dependency]
+    private readonly ITileDefinitionManager _tileDef = default!; // Mono
     protected readonly EntityLookupSystem _lookup; // Mono
     protected readonly SharedMapSystem Maps;
 
@@ -47,6 +50,7 @@ public partial class BaseShuttleControl : MapGridControl
 
     // Per-draw caching
     private readonly List<(Vector2i, ContentTileDefinition)> _gridTileList = new(); // Mono
+
     // stores inward directions of borders
     private readonly Dictionary<Vector2i, DirectionFlag> _gridNeighborSet = new(); // Mono
     private readonly List<(Vector2 Start, Vector2 End)> _edges = new();
@@ -60,28 +64,28 @@ public partial class BaseShuttleControl : MapGridControl
 
     private (DirectionFlag, Vector2i)[] _neighborDirections;
 
-    public BaseShuttleControl() : this(32f, 32f, 32f)
-    {
-    }
+    public BaseShuttleControl()
+        : this(32f, 32f, 32f) { }
 
-    public BaseShuttleControl(float minRange, float maxRange, float range) : base(minRange, maxRange, range)
+    public BaseShuttleControl(float minRange, float maxRange, float range)
+        : base(minRange, maxRange, range)
     {
         RobustXamlLoader.Load(this);
         Maps = EntManager.System<SharedMapSystem>();
         _lookup = EntManager.System<EntityLookupSystem>(); // Mono
         _xformQuery = EntManager.GetEntityQuery<TransformComponent>(); // Mono
-        Font = new VectorFont(IoCManager.Resolve<IResourceCache>().GetResource<FontResource>("/Fonts/NotoSans/NotoSans-Regular.ttf"), 12);
+        Font = new VectorFont(
+            IoCManager.Resolve<IResourceCache>().GetResource<FontResource>("/Fonts/NotoSans/NotoSans-Regular.ttf"),
+            12
+        );
 
-        _drawJob = new GridDrawJob()
-        {
-            ScaledVertices = _allVertices,
-        };
+        _drawJob = new GridDrawJob() { ScaledVertices = _allVertices };
 
         _neighborDirections = new (DirectionFlag, Vector2i)[4];
 
         for (var i = 0; i < 4; i++)
         {
-            var dir = (DirectionFlag) Math.Pow(2, i);
+            var dir = (DirectionFlag)Math.Pow(2, i);
             var dirVec = dir.AsDir().ToIntVec();
             _neighborDirections[i] = (dir, dirVec);
         }
@@ -92,10 +96,12 @@ public partial class BaseShuttleControl : MapGridControl
         var coordsDimensions = handle.GetDimensions(Font, text, 1f);
         const float coordsMargins = 5f;
 
-        handle.DrawString(Font,
+        handle.DrawString(
+            Font,
             new Vector2(coordsMargins, PixelHeight) - new Vector2(0f, coordsDimensions.Y + coordsMargins),
             text,
-            Color.FromSrgb(IFFComponent.SelfColor));
+            Color.FromSrgb(IFFComponent.SelfColor)
+        );
     }
 
     protected void DrawCircles(DrawingHandleScreen handle)
@@ -123,7 +129,13 @@ public partial class BaseShuttleControl : MapGridControl
             var textDimensions = handle.GetDimensions(Font, text, UIScale);
 
             handle.DrawCircle(origin, scaledRadius, color, false);
-            handle.DrawString(Font, ScalePosition(new Vector2(0f, -radius)) - new Vector2(0f, textDimensions.Y), text, UIScale, color);
+            handle.DrawString(
+                Font,
+                ScalePosition(new Vector2(0f, -radius)) - new Vector2(0f, textDimensions.Y),
+                text,
+                UIScale,
+                color
+            );
         }
 
         const int gridLinesRadial = 8;
@@ -146,6 +158,7 @@ public partial class BaseShuttleControl : MapGridControl
         var lineColor = Color.Red.WithAlpha(0.1f);
         handle.DrawLine(origin, origin + aExtent, lineColor);
     }
+
     // End Frontier Corvax
 
     // Mono
@@ -185,26 +198,31 @@ public partial class BaseShuttleControl : MapGridControl
             var isMajor = step % azimuthMajorTickInterval == 0;
             var isNorth = degrees == 0;
             var isEast = degrees == 90;
-            var tickLength = isCardinal
-                ? cardinalTickLength
-                : isMajor
-                    ? majorTickLength
-                    : minorTickLength;
+            var tickLength =
+                isCardinal ? cardinalTickLength
+                : isMajor ? majorTickLength
+                : minorTickLength;
 
-            if (!TryGetViewportEdgePoint(origin, direction, viewportSize, edgeInset, out var edgePoint, out var inwardNormal))
+            if (
+                !TryGetViewportEdgePoint(
+                    origin,
+                    direction,
+                    viewportSize,
+                    edgeInset,
+                    out var edgePoint,
+                    out var inwardNormal
+                )
+            )
                 continue;
 
             var outer = edgePoint + inwardNormal * tickInset;
             var inner = outer + inwardNormal * tickLength;
-            var tickColor = isNorth
-                ? northAccent.WithAlpha(0.58f)
-                : isEast
-                    ? eastAccent.WithAlpha(0.58f)
-                    : isCardinal
-                        ? cardinalTickColor
-                        : isMajor
-                            ? majorTickColor
-                            : baseTickColor;
+            var tickColor =
+                isNorth ? northAccent.WithAlpha(0.58f)
+                : isEast ? eastAccent.WithAlpha(0.58f)
+                : isCardinal ? cardinalTickColor
+                : isMajor ? majorTickColor
+                : baseTickColor;
             handle.DrawLine(outer, inner, tickColor);
             if (isNorth)
             {
@@ -217,11 +235,10 @@ public partial class BaseShuttleControl : MapGridControl
 
             var label = degrees.ToString();
             var labelScale = isCardinal ? cardinalLabelScale : regularLabelScale;
-            var labelColor = isEast
-                ? eastAccent.WithAlpha(0.76f)
-                : isCardinal
-                    ? cardinalLabelColor
-                    : regularLabelColor;
+            var labelColor =
+                isEast ? eastAccent.WithAlpha(0.76f)
+                : isCardinal ? cardinalLabelColor
+                : regularLabelColor;
             var labelSize = handle.GetDimensions(Font, label, labelScale);
             var labelPosition = GetEdgeLabelPosition(edgePoint, inwardNormal, labelSize, viewportSize, labelOffset);
             handle.DrawString(Font, labelPosition + new Vector2(1f, 1f), label, labelScale, labelShadowColor);
@@ -265,23 +282,19 @@ public partial class BaseShuttleControl : MapGridControl
             var isMajor = step % azimuthMajorTickInterval == 0;
             var isNorth = degrees == 0;
             var isEast = degrees == 90;
-            var tickLength = isCardinal
-                ? cardinalTickLength
-                : isMajor
-                    ? majorTickLength
-                    : minorTickLength;
+            var tickLength =
+                isCardinal ? cardinalTickLength
+                : isMajor ? majorTickLength
+                : minorTickLength;
 
             var outer = origin + direction * radius;
             var inner = origin + direction * (radius - tickLength);
-            var tickColor = isNorth
-                ? northAccent.WithAlpha(0.58f)
-                : isEast
-                    ? eastAccent.WithAlpha(0.58f)
-                    : isCardinal
-                        ? cardinalTickColor
-                        : isMajor
-                            ? majorTickColor
-                            : baseTickColor;
+            var tickColor =
+                isNorth ? northAccent.WithAlpha(0.58f)
+                : isEast ? eastAccent.WithAlpha(0.58f)
+                : isCardinal ? cardinalTickColor
+                : isMajor ? majorTickColor
+                : baseTickColor;
             handle.DrawLine(outer, inner, tickColor);
             if (isNorth)
             {
@@ -294,11 +307,10 @@ public partial class BaseShuttleControl : MapGridControl
 
             var label = degrees.ToString();
             var labelScale = isCardinal ? cardinalLabelScale : regularLabelScale;
-            var labelColor = isEast
-                ? eastAccent.WithAlpha(0.76f)
-                : isCardinal
-                    ? cardinalLabelColor
-                    : regularLabelColor;
+            var labelColor =
+                isEast ? eastAccent.WithAlpha(0.76f)
+                : isCardinal ? cardinalLabelColor
+                : regularLabelColor;
             var labelSize = handle.GetDimensions(Font, label, labelScale);
             var labelPosition = origin + direction * (radius - tickLength - labelPadding) - labelSize * 0.5f;
             handle.DrawString(Font, labelPosition + new Vector2(1f, 1f), label, labelScale, labelShadowColor);
@@ -317,7 +329,14 @@ public partial class BaseShuttleControl : MapGridControl
         handle.DrawCircle(compassCenter, 2.5f, ringColor.WithAlpha(0.48f), true);
 
         DrawCompassNeedle(handle, compassCenter, compassRadius, GetAzimuthDirection(heading, 0f), "N", northColor);
-        DrawCompassNeedle(handle, compassCenter, compassRadius * 0.82f, GetAzimuthDirection(heading, 90f), "E", eastColor);
+        DrawCompassNeedle(
+            handle,
+            compassCenter,
+            compassRadius * 0.82f,
+            GetAzimuthDirection(heading, 90f),
+            "E",
+            eastColor
+        );
     }
 
     private void DrawCompassNeedle(
@@ -326,7 +345,8 @@ public partial class BaseShuttleControl : MapGridControl
         float radius,
         Vector2 direction,
         string label,
-        Color color)
+        Color color
+    )
     {
         var tip = compassCenter + direction * radius;
         var tail = compassCenter - direction * (radius * 0.35f);
@@ -342,7 +362,8 @@ public partial class BaseShuttleControl : MapGridControl
         Vector2 start,
         Vector2 end,
         Color color,
-        float headLength)
+        float headLength
+    )
     {
         var direction = end - start;
         if (direction.LengthSquared() <= 0.001f)
@@ -361,7 +382,8 @@ public partial class BaseShuttleControl : MapGridControl
         Vector2 viewportSize,
         float inset,
         out Vector2 edgePoint,
-        out Vector2 inwardNormal)
+        out Vector2 inwardNormal
+    )
     {
         edgePoint = default;
         inwardNormal = default;
@@ -375,16 +397,14 @@ public partial class BaseShuttleControl : MapGridControl
         if (max.X <= min.X || max.Y <= min.Y)
             return false;
 
-        var tx = direction.X > 0f
-            ? (max.X - origin.X) / direction.X
-            : direction.X < 0f
-                ? (min.X - origin.X) / direction.X
-                : float.PositiveInfinity;
-        var ty = direction.Y > 0f
-            ? (max.Y - origin.Y) / direction.Y
-            : direction.Y < 0f
-                ? (min.Y - origin.Y) / direction.Y
-                : float.PositiveInfinity;
+        var tx =
+            direction.X > 0f ? (max.X - origin.X) / direction.X
+            : direction.X < 0f ? (min.X - origin.X) / direction.X
+            : float.PositiveInfinity;
+        var ty =
+            direction.Y > 0f ? (max.Y - origin.Y) / direction.Y
+            : direction.Y < 0f ? (min.Y - origin.Y) / direction.Y
+            : float.PositiveInfinity;
 
         var t = Math.Min(tx, ty);
         if (!float.IsFinite(t) || t <= 0f)
@@ -405,21 +425,24 @@ public partial class BaseShuttleControl : MapGridControl
         Vector2 inwardNormal,
         Vector2 labelSize,
         Vector2 viewportSize,
-        float offset)
+        float offset
+    )
     {
         var anchor = edgePoint + inwardNormal * offset;
         Vector2 requested;
         if (Math.Abs(inwardNormal.X) > Math.Abs(inwardNormal.Y))
         {
-            requested = inwardNormal.X > 0f
-                ? new Vector2(anchor.X, anchor.Y - labelSize.Y * 0.5f)
-                : new Vector2(anchor.X - labelSize.X, anchor.Y - labelSize.Y * 0.5f);
+            requested =
+                inwardNormal.X > 0f
+                    ? new Vector2(anchor.X, anchor.Y - labelSize.Y * 0.5f)
+                    : new Vector2(anchor.X - labelSize.X, anchor.Y - labelSize.Y * 0.5f);
         }
         else
         {
-            requested = inwardNormal.Y > 0f
-                ? new Vector2(anchor.X - labelSize.X * 0.5f, anchor.Y)
-                : new Vector2(anchor.X - labelSize.X * 0.5f, anchor.Y - labelSize.Y);
+            requested =
+                inwardNormal.Y > 0f
+                    ? new Vector2(anchor.X - labelSize.X * 0.5f, anchor.Y)
+                    : new Vector2(anchor.X - labelSize.X * 0.5f, anchor.Y - labelSize.Y);
         }
 
         var minPosition = new Vector2(offset, offset);
@@ -430,12 +453,19 @@ public partial class BaseShuttleControl : MapGridControl
     private static Vector2 GetAzimuthDirection(Angle baseAngle, float azimuthDegrees)
     {
         var angle = baseAngle + Angle.FromDegrees(azimuthDegrees);
-        var radians = (float) angle.Theta - MathF.PI / 2f;
+        var radians = (float)angle.Theta - MathF.PI / 2f;
         return new Vector2(MathF.Cos(radians), MathF.Sin(radians));
     }
+
     // End Mono
 
-    protected void DrawGrid(DrawingHandleScreen handle, Matrix3x2 gridToView, Entity<MapGridComponent> grid, Color color, float alpha = 0.01f)
+    protected void DrawGrid(
+        DrawingHandleScreen handle,
+        Matrix3x2 gridToView,
+        Entity<MapGridComponent> grid,
+        Color color,
+        float alpha = 0.01f
+    )
     {
         var rator = Maps.GetAllTilesEnumerator(grid.Owner, grid.Comp);
         var tileSize = grid.Comp.TileSize;
@@ -524,9 +554,11 @@ public partial class BaseShuttleControl : MapGridControl
                     else if (prev.Y == 1 && vert.Y == 1)
                         dirFlag = DirectionFlag.North;
 
-                    if (dirFlag != DirectionFlag.None
+                    if (
+                        dirFlag != DirectionFlag.None
                         && _gridNeighborSet.TryGetValue(index + dirFlag.AsDir().ToIntVec(), out var otherNeighbours)
-                        && (otherNeighbours & dirFlag) != 0)
+                        && (otherNeighbours & dirFlag) != 0
+                    )
                     {
                         prev = vert;
                         continue;
@@ -620,13 +652,21 @@ public partial class BaseShuttleControl : MapGridControl
 
         for (var i = 0; i < Math.Ceiling(triCount / BatchSize); i++)
         {
-            var start = (int) (i * BatchSize);
-            var end = (int) Math.Min(triCount, start + BatchSize);
+            var start = (int)(i * BatchSize);
+            var end = (int)Math.Min(triCount, start + BatchSize);
             var count = end - start;
-            handle.DrawPrimitives(DrawPrimitiveTopology.TriangleList, new Span<Vector2>(_allVertices, start, count), color.WithAlpha(alpha));
+            handle.DrawPrimitives(
+                DrawPrimitiveTopology.TriangleList,
+                new Span<Vector2>(_allVertices, start, count),
+                color.WithAlpha(alpha)
+            );
         }
 
-        handle.DrawPrimitives(DrawPrimitiveTopology.LineList, new Span<Vector2>(_allVertices, gridData.EdgeIndex, edgeCount), color);
+        handle.DrawPrimitives(
+            DrawPrimitiveTopology.LineList,
+            new Span<Vector2>(_allVertices, gridData.EdgeIndex, edgeCount),
+            color
+        );
     }
 
     private record struct GridDrawJob : IParallelRobustJob

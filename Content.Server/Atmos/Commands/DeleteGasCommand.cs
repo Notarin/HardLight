@@ -10,7 +10,8 @@ namespace Content.Server.Atmos.Commands
     [AdminCommand(AdminFlags.Debug)]
     public sealed class DeleteGasCommand : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _entManager = default!;
+        [Dependency]
+        private readonly IEntityManager _entManager = default!;
 
         public string Command => "deletegas";
         public string Description => "Removes all gases from a grid, or just of one type if specified.";
@@ -32,7 +33,7 @@ namespace Content.Server.Atmos.Commands
                         return;
                     }
 
-                    if (player.AttachedEntity is not {Valid: true} playerEntity)
+                    if (player.AttachedEntity is not { Valid: true } playerEntity)
                     {
                         shell.WriteLine("You have no entity to get a grid from.");
                         return;
@@ -50,7 +51,10 @@ namespace Content.Server.Atmos.Commands
                 }
                 case 1:
                 {
-                    if (!NetEntity.TryParse(args[0], out var numberEnt) || !_entManager.TryGetEntity(numberEnt, out var number))
+                    if (
+                        !NetEntity.TryParse(args[0], out var numberEnt)
+                        || !_entManager.TryGetEntity(numberEnt, out var number)
+                    )
                     {
                         // Argument is a gas
                         if (player == null)
@@ -59,7 +63,7 @@ namespace Content.Server.Atmos.Commands
                             return;
                         }
 
-                        if (player.AttachedEntity is not {Valid: true} playerEntity)
+                        if (player.AttachedEntity is not { Valid: true } playerEntity)
                         {
                             shell.WriteLine("You have no entity from which to get a grid id.");
                             return;
@@ -89,7 +93,10 @@ namespace Content.Server.Atmos.Commands
                 }
                 case 2:
                 {
-                    if (!NetEntity.TryParse(args[0], out var firstNet) || !_entManager.TryGetEntity(firstNet, out var first))
+                    if (
+                        !NetEntity.TryParse(args[0], out var firstNet)
+                        || !_entManager.TryGetEntity(firstNet, out var first)
+                    )
                     {
                         shell.WriteLine($"{args[0]} is not a valid integer for a grid id.");
                         return;
@@ -165,5 +172,4 @@ namespace Content.Server.Atmos.Commands
             shell.WriteLine($"Removed {moles} moles of gas {gas} from {tiles} tiles.");
         }
     }
-
 }

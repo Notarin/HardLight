@@ -41,8 +41,7 @@ public sealed partial class CargoSystem
                 continue;
 
             // todo cannot be fucking asked to figure out device linking rn but this shouldn't just default to the first port.
-            if (!TryGetLinkedConsole((uid, tele), out var console) ||
-                console.Value.Owner != args.OrderConsole.Owner)
+            if (!TryGetLinkedConsole((uid, tele), out var console) || console.Value.Owner != args.OrderConsole.Owner)
                 continue;
 
             for (var i = 0; i < args.Order.OrderQuantity; i++)
@@ -56,12 +55,16 @@ public sealed partial class CargoSystem
         }
     }
 
-    private bool TryGetLinkedConsole(Entity<CargoTelepadComponent> ent,
-        [NotNullWhen(true)] out Entity<CargoOrderConsoleComponent>? console)
+    private bool TryGetLinkedConsole(
+        Entity<CargoTelepadComponent> ent,
+        [NotNullWhen(true)] out Entity<CargoOrderConsoleComponent>? console
+    )
     {
         console = null;
-        if (!TryComp<DeviceLinkSinkComponent>(ent, out var sinkComponent) ||
-            sinkComponent.LinkedSources.FirstOrNull() is not { } linked)
+        if (
+            !TryComp<DeviceLinkSinkComponent>(ent, out var sinkComponent)
+            || sinkComponent.LinkedSources.FirstOrNull() is not { } linked
+        )
             return false;
 
         if (!TryComp<CargoOrderConsoleComponent>(linked, out var consoleComp))
@@ -70,7 +73,6 @@ public sealed partial class CargoSystem
         console = (linked, consoleComp);
         return true;
     }
-
 
     private void UpdateTelepad(float frameTime)
     {
@@ -139,8 +141,10 @@ public sealed partial class CargoSystem
             station = _random.Pick(_station.GetStations().Where(HasComp<StationCargoOrderDatabaseComponent>).ToList());
         }
 
-        if (!TryComp<StationCargoOrderDatabaseComponent>(station, out var db) ||
-            !TryComp<StationDataComponent>(station, out var data))
+        if (
+            !TryComp<StationCargoOrderDatabaseComponent>(station, out var db)
+            || !TryComp<StationDataComponent>(station, out var data)
+        )
             return;
 
         if (!TryGetLinkedConsole(ent, out var console))
@@ -152,8 +156,12 @@ public sealed partial class CargoSystem
         }
     }
 
-    private void SetEnabled(EntityUid uid, CargoTelepadComponent component, ApcPowerReceiverComponent? receiver = null,
-        TransformComponent? xform = null)
+    private void SetEnabled(
+        EntityUid uid,
+        CargoTelepadComponent component,
+        ApcPowerReceiverComponent? receiver = null,
+        TransformComponent? xform = null
+    )
     {
         // False due to AllCompsOneEntity test where they may not have the powerreceiver.
         if (!Resolve(uid, ref receiver, ref xform, false))

@@ -13,8 +13,8 @@
   - type: Sprite
     sprite: _Starlight/Mobs/Species/Shadekin/organs.rsi
     layers:
-      - state: eyes
-  # Removed OrganVisualization component (unknown); visual handled elsewhere if needed.
+    - state: eyes
+      # Removed OrganVisualization component (unknown); visual handled elsewhere if needed.
 
 - type: entity
   id: OrganShadekinTongue
@@ -24,7 +24,6 @@
     sprite: _Starlight/Mobs/Species/Shadekin/organs.rsi
     state: tongue
 
-
 - type: entity
   id: OrganShadekinAppendix
   parent: OrganHumanAppendix
@@ -32,8 +31,7 @@
   - type: Sprite
     sprite: _Starlight/Mobs/Species/Shadekin/organs.rsi
     layers:
-      - state: appendix
-
+    - state: appendix
 
 - type: entity
   id: OrganShadekinHeart
@@ -75,4 +73,4 @@
   - type: Sprite
     sprite: _Starlight/Mobs/Species/Shadekin/organs.rsi
     layers:
-      - state: kidneys
+    - state: kidneys

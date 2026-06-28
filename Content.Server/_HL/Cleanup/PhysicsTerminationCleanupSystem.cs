@@ -10,7 +10,8 @@ namespace Content.Server._HL.Cleanup;
 /// </summary>
 public sealed class PhysicsTerminationCleanupSystem : EntitySystem
 {
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
+    [Dependency]
+    private readonly SharedPhysicsSystem _physics = default!;
 
     public override void Initialize()
     {

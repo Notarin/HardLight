@@ -1,4 +1,6 @@
-﻿using Content.Server.Administration.Logs;
+﻿using System.Linq;
+using Content.Server._Starlight.Language; // Starlight
+using Content.Server.Administration.Logs;
 using Content.Server.Administration.Systems;
 using Content.Server.Chat.Managers;
 using Content.Server.GameTicking;
@@ -6,8 +8,8 @@ using Content.Server.Players.PlayTimeTracking;
 using Content.Shared.Administration.Logs;
 using Content.Shared.CCVar;
 using Content.Shared.Chat;
-using Content.Shared.Database;
 using Content.Shared.Damage.Components;
+using Content.Shared.Database;
 using Content.Shared.GameTicking;
 using Content.Shared.Hands.Components; // Hardlight
 using Content.Shared.Hands.EntitySystems;
@@ -26,25 +28,46 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
-using System.Linq;
-using Content.Server._Starlight.Language; // Starlight
 
 namespace Content.Server.Traits;
 
 public sealed class TraitSystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly PlayTimeTrackingManager _playTimeTracking = default!;
-    [Dependency] private readonly IConfigurationManager _configuration = default!;
-    [Dependency] private readonly IAdminLogManager _adminLog = default!;
-    [Dependency] private readonly AdminSystem _adminSystem = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IChatManager _chatManager = default!;
-    [Dependency] private readonly SharedHandsSystem _sharedHandsSystem = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
-    [Dependency] private readonly MovementSpeedModifierSystem _movementSpeed = default!; // HardLight
-    [Dependency] private readonly TagSystem _tagSystem = default!; // Hardlight
+    [Dependency]
+    private readonly IPrototypeManager _prototype = default!;
+
+    [Dependency]
+    private readonly PlayTimeTrackingManager _playTimeTracking = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _configuration = default!;
+
+    [Dependency]
+    private readonly IAdminLogManager _adminLog = default!;
+
+    [Dependency]
+    private readonly AdminSystem _adminSystem = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly IChatManager _chatManager = default!;
+
+    [Dependency]
+    private readonly SharedHandsSystem _sharedHandsSystem = default!;
+
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelistSystem = default!;
+
+    [Dependency]
+    private readonly MovementSpeedModifierSystem _movementSpeed = default!; // HardLight
+
+    [Dependency]
+    private readonly TagSystem _tagSystem = default!; // Hardlight
 
     public override void Initialize()
     {
@@ -59,8 +82,12 @@ public sealed class TraitSystem : EntitySystem
         var pointsTotal = _configuration.GetCVar(CCVars.GameTraitsDefaultPoints);
         var traitSelections = _configuration.GetCVar(CCVars.GameTraitsMax);
 
-        if (args.JobId is not null && _prototype.TryIndex<JobPrototype>(args.JobId, out var jobPrototype)
-            && jobPrototype is not null && !jobPrototype.ApplyTraits)
+        if (
+            args.JobId is not null
+            && _prototype.TryIndex<JobPrototype>(args.JobId, out var jobPrototype)
+            && jobPrototype is not null
+            && !jobPrototype.ApplyTraits
+        )
             return;
 
         var sortedTraits = new List<TraitPrototype>();
@@ -138,7 +165,13 @@ public sealed class TraitSystem : EntitySystem
     /// This is intended for non-standard spawn paths like admin spawning or cloning
     /// that already have a validated profile and just need its trait components replayed.
     /// </summary>
-    public void ApplyProfileTraits(EntityUid uid, HumanoidCharacterProfile profile, string? playerName = null, bool addTraitGear = true, bool ignoreEntityRestrictions = false)
+    public void ApplyProfileTraits(
+        EntityUid uid,
+        HumanoidCharacterProfile profile,
+        string? playerName = null,
+        bool addTraitGear = true,
+        bool ignoreEntityRestrictions = false
+    )
     {
         var sortedTraits = new List<TraitPrototype>();
         foreach (var traitId in profile.TraitPreferences)
@@ -151,8 +184,7 @@ public sealed class TraitSystem : EntitySystem
 
         foreach (var traitPrototype in sortedTraits)
         {
-            if (traitPrototype.Logins.Count > 0 &&
-                (playerName == null || !traitPrototype.Logins.Contains(playerName)))
+            if (traitPrototype.Logins.Count > 0 && (playerName == null || !traitPrototype.Logins.Contains(playerName)))
             {
                 continue;
             }
@@ -164,24 +196,38 @@ public sealed class TraitSystem : EntitySystem
     /// <summary>
     ///     Adds a single Trait Prototype to an Entity.
     /// </summary>
-    public void AddTrait(EntityUid uid, TraitPrototype traitPrototype, bool addTraitGear = true, bool ignoreEntityRestrictions = false) // HardLight: Added bool addTraitGear
+    public void AddTrait(
+        EntityUid uid,
+        TraitPrototype traitPrototype,
+        bool addTraitGear = true,
+        bool ignoreEntityRestrictions = false
+    ) // HardLight: Added bool addTraitGear
     {
         // Character-override bodies can intentionally differ from the validated profile body.
         // In that case we need to preserve the selected traits instead of re-filtering them.
-        if (!ignoreEntityRestrictions &&
-            (_whitelistSystem.IsWhitelistFail(traitPrototype.Whitelist, uid) ||
-             _whitelistSystem.IsBlacklistPass(traitPrototype.Blacklist, uid)))
+        if (
+            !ignoreEntityRestrictions
+            && (
+                _whitelistSystem.IsWhitelistFail(traitPrototype.Whitelist, uid)
+                || _whitelistSystem.IsBlacklistPass(traitPrototype.Blacklist, uid)
+            )
+        )
             return;
 
         // Add all components required by the prototype
         // Hardlight start - Add ReplaceComponents
         var components = traitPrototype.Components;
         var tagEntry = components.FirstOrDefault(kv => kv.Value.Component is TagComponent);
-        if (tagEntry.Value is { } tagEntryValue && tagEntryValue.Component is TagComponent tagEntryComp &&
-            EntityManager.TryGetComponent<TagComponent>(uid, out var existingTags))
+        if (
+            tagEntry.Value is { } tagEntryValue
+            && tagEntryValue.Component is TagComponent tagEntryComp
+            && EntityManager.TryGetComponent<TagComponent>(uid, out var existingTags)
+        )
         {
             _tagSystem.AddTags(uid, tagEntryComp.Tags);
-            components = new ComponentRegistry(components.Where(kv => kv.Key != tagEntry.Key).ToDictionary(kv => kv.Key, kv => kv.Value));
+            components = new ComponentRegistry(
+                components.Where(kv => kv.Key != tagEntry.Key).ToDictionary(kv => kv.Key, kv => kv.Value)
+            );
         }
 
         components = StackPassiveDamage(uid, components);
@@ -217,10 +263,7 @@ public sealed class TraitSystem : EntitySystem
         {
             var coords = Transform(uid).Coordinates;
             var inhandEntity = EntityManager.SpawnEntity(traitPrototype.TraitGear, coords);
-            _sharedHandsSystem.TryPickup(uid,
-                inhandEntity,
-                checkActionBlocker: false,
-                handsComp: handsComponent);
+            _sharedHandsSystem.TryPickup(uid, inhandEntity, checkActionBlocker: false, handsComp: handsComponent);
         }
     }
 
@@ -231,23 +274,29 @@ public sealed class TraitSystem : EntitySystem
     {
         var componentName = EntityManager.ComponentFactory.GetComponentName<PassiveDamageComponent>();
 
-        if (!components.TryGetValue(componentName, out var incomingEntry) ||
-            incomingEntry.Component is not PassiveDamageComponent incoming ||
-            !TryComp<PassiveDamageComponent>(uid, out var existing))
+        if (
+            !components.TryGetValue(componentName, out var incomingEntry)
+            || incomingEntry.Component is not PassiveDamageComponent incoming
+            || !TryComp<PassiveDamageComponent>(uid, out var existing)
+        )
         {
             return components;
         }
 
-        existing.Stacks.Add(new PassiveDamageStackEntry
-        {
-            AllowedStates = new List<MobState>(incoming.AllowedStates),
-            Damage = new(incoming.Damage),
-            Interval = incoming.Interval,
-            DamageCap = incoming.DamageCap,
-        });
+        existing.Stacks.Add(
+            new PassiveDamageStackEntry
+            {
+                AllowedStates = new List<MobState>(incoming.AllowedStates),
+                Damage = new(incoming.Damage),
+                Interval = incoming.Interval,
+                DamageCap = incoming.DamageCap,
+            }
+        );
 
         Dirty(uid, existing);
-        return new ComponentRegistry(components.Where(kv => kv.Key != componentName).ToDictionary(kv => kv.Key, kv => kv.Value));
+        return new ComponentRegistry(
+            components.Where(kv => kv.Key != componentName).ToDictionary(kv => kv.Key, kv => kv.Value)
+        );
     }
 
     /// <summary>
@@ -257,11 +306,16 @@ public sealed class TraitSystem : EntitySystem
     /// </summary>
     private void PunishCheater(EntityUid uid)
     {
-        _adminLog.Add(LogType.Action, LogImpact.High,
-            $"{ToPrettyString(uid):entity} attempted to spawn with an invalid trait list. This might be a mistake, or they might be cheating");
+        _adminLog.Add(
+            LogType.Action,
+            LogImpact.High,
+            $"{ToPrettyString(uid):entity} attempted to spawn with an invalid trait list. This might be a mistake, or they might be cheating"
+        );
 
-        if (!_configuration.GetCVar(CCVars.TraitsPunishCheaters)
-            || !_playerManager.TryGetSessionByEntity(uid, out var targetPlayer))
+        if (
+            !_configuration.GetCVar(CCVars.TraitsPunishCheaters)
+            || !_playerManager.TryGetSessionByEntity(uid, out var targetPlayer)
+        )
             return;
 
         // For maximum comedic effect, this is plenty of time for the cheater to get on station and start interacting with people.
@@ -277,13 +331,15 @@ public sealed class TraitSystem : EntitySystem
     {
         _adminSystem.Erase(targetPlayer.UserId);
 
-        var feedbackMessage = "[font size=24][color=#ff0000]You have spawned in with an illegal trait point total. If this was a result of cheats, then your nonexistence is a skill issue. Otherwise, feel free to click 'Return To Lobby', and fix your trait selections.[/color][/font]";
+        var feedbackMessage =
+            "[font size=24][color=#ff0000]You have spawned in with an illegal trait point total. If this was a result of cheats, then your nonexistence is a skill issue. Otherwise, feel free to click 'Return To Lobby', and fix your trait selections.[/color][/font]";
         _chatManager.ChatMessageToOne(
             ChatChannel.Server,
             feedbackMessage,
             feedbackMessage,
             EntityUid.Invalid,
             false,
-            targetPlayer.Channel);
+            targetPlayer.Channel
+        );
     }
 }

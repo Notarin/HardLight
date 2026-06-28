@@ -231,7 +231,8 @@ public sealed class AhelpTriageGetCommand : IConsoleCommand
 public sealed class AhelpTriageSetCommand : IConsoleCommand
 {
     public string Command => "ahelptriageset";
-    public string Description => "Sets active triage keywords for a category using comma, semicolon, or newline separators.";
+    public string Description =>
+        "Sets active triage keywords for a category using comma, semicolon, or newline separators.";
     public string Help => "Usage: ahelptriageset <category> <keywords>";
 
     public void Execute(IConsoleShell shell, string argStr, string[] args)

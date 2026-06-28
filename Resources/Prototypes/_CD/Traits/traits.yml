@@ -9,25 +9,25 @@
   - Synth
   blacklist:
     components:
-      - BorgChassis
+    - BorgChassis
   components:
-    - type: Synthetic
-    # Hardlight start: Gives Trinary and EAL
-    - type: LanguageSpeaker
-    - type: IntrinsicRadioReceiver
-    - type: IntrinsicRadioTransmitter
-      intrinsicChannels:
-      - Trinary
-    - type: ActiveRadio
-      intrinsicChannels:
-      - Trinary
-    - type: EncryptionKeyHolder
-      keySlots: 1
-      examineWhileLocked: false
-      preserveExistingChannels: true
-      intrinsicChannels:
-      - Trinary
+  - type: Synthetic
+  # Hardlight start: Gives Trinary and EAL
+  - type: LanguageSpeaker
+  - type: IntrinsicRadioReceiver
+  - type: IntrinsicRadioTransmitter
+    intrinsicChannels:
+    - Trinary
+  - type: ActiveRadio
+    intrinsicChannels:
+    - Trinary
+  - type: EncryptionKeyHolder
+    keySlots: 1
+    examineWhileLocked: false
+    preserveExistingChannels: true
+    intrinsicChannels:
+    - Trinary
   languagesSpoken:
-    - Machine
+  - Machine
   languagesUnderstood:
-    - Machine # Hardlight end
+  - Machine # Hardlight end

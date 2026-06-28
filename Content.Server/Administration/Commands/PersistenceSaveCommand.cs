@@ -2,8 +2,8 @@ using Content.Shared.Administration;
 using Content.Shared.CCVar;
 using Robust.Shared.Configuration;
 using Robust.Shared.Console;
-using Robust.Shared.Map;
 using Robust.Shared.EntitySerialization.Systems;
+using Robust.Shared.Map;
 using Robust.Shared.Utility;
 
 namespace Content.Server.Administration.Commands;
@@ -11,9 +11,14 @@ namespace Content.Server.Administration.Commands;
 [AdminCommand(AdminFlags.Server)]
 public sealed class PersistenceSave : IConsoleCommand
 {
-    [Dependency] private readonly IConfigurationManager _config = default!;
-    [Dependency] private readonly IEntitySystemManager _system = default!;
-    [Dependency] private readonly IMapManager _map = default!;
+    [Dependency]
+    private readonly IConfigurationManager _config = default!;
+
+    [Dependency]
+    private readonly IEntitySystemManager _system = default!;
+
+    [Dependency]
+    private readonly IMapManager _map = default!;
 
     public string Command => "persistencesave";
     public string Description => "Saves server data to a persistence file to be loaded later.";

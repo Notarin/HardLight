@@ -18,7 +18,9 @@ public sealed class ActionsAddedTest
     [Test]
     public async Task TestCombatActionsAdded()
     {
-        await using var pair = await PoolManager.GetServerClient(new PoolSettings { Connected = true, DummyTicker = false });
+        await using var pair = await PoolManager.GetServerClient(
+            new PoolSettings { Connected = true, DummyTicker = false }
+        );
         var server = pair.Server;
         var client = pair.Client;
         var sEntMan = server.ResolveDependency<IEntityManager>();
@@ -46,10 +48,14 @@ public sealed class ActionsAddedTest
         // This action should have a non-null event both on the server & client.
         var evType = typeof(ToggleCombatActionEvent);
 
-        var sActions = sActionSystem.GetActions(serverEnt).Where(
-            x => x.Comp is InstantActionComponent act && act.Event?.GetType() == evType).ToArray();
-        var cActions = cActionSystem.GetActions(clientEnt).Where(
-            x => x.Comp is InstantActionComponent act && act.Event?.GetType() == evType).ToArray();
+        var sActions = sActionSystem
+            .GetActions(serverEnt)
+            .Where(x => x.Comp is InstantActionComponent act && act.Event?.GetType() == evType)
+            .ToArray();
+        var cActions = cActionSystem
+            .GetActions(clientEnt)
+            .Where(x => x.Comp is InstantActionComponent act && act.Event?.GetType() == evType)
+            .ToArray();
 
         Assert.That(sActions.Length, Is.EqualTo(1));
         Assert.That(cActions.Length, Is.EqualTo(1));

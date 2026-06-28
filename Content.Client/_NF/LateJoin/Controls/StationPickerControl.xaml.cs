@@ -16,11 +16,20 @@ namespace Content.Client._NF.LateJoin.Controls;
 [GenerateTypedNameReferences]
 public sealed partial class StationPickerControl : PickerControl
 {
-    [Dependency] private readonly ILocalizationManager _loc = default!;
-    [Dependency] private readonly IEntitySystemManager _entitySystem = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly JobRequirementsManager _jobReqs = default!;
-    [Dependency] private readonly IClientPreferencesManager _preferencesManager = default!;
+    [Dependency]
+    private readonly ILocalizationManager _loc = default!;
+
+    [Dependency]
+    private readonly IEntitySystemManager _entitySystem = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly JobRequirementsManager _jobReqs = default!;
+
+    [Dependency]
+    private readonly IClientPreferencesManager _preferencesManager = default!;
     private readonly SpriteSystem _spriteSystem;
 
     public StationPickerControl()
@@ -119,7 +128,8 @@ public sealed partial class StationPickerControl : PickerControl
      * @return List of view states for each station.
      */
     private List<StationListItem.ViewState> BuildStationViewStateList(
-        IReadOnlyDictionary<NetEntity, StationJobInformation> obj)
+        IReadOnlyDictionary<NetEntity, StationJobInformation> obj
+    )
     {
         var stationList = obj.Where(kvp => kvp.Value.IsLateJoinStation).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
         var viewStateList = new List<StationListItem.ViewState>();
@@ -153,9 +163,11 @@ public sealed partial class StationPickerControl : PickerControl
         // Sort 0 to the end of the list in the order it is in the dictionary.
         // Sort 1 first, 2 second, etc.
         return viewStateList
-            .OrderBy(viewState => (obj[viewState.StationEntity].StationDisplayInfo?.LobbySortOrder ?? 0) == 0
-                ? int.MaxValue
-                : obj[viewState.StationEntity].StationDisplayInfo!.LobbySortOrder)
+            .OrderBy(viewState =>
+                (obj[viewState.StationEntity].StationDisplayInfo?.LobbySortOrder ?? 0) == 0
+                    ? int.MaxValue
+                    : obj[viewState.StationEntity].StationDisplayInfo!.LobbySortOrder
+            )
             .ToList();
     }
 }

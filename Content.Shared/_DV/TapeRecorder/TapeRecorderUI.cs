@@ -6,7 +6,7 @@ namespace Content.Shared._DV.TapeRecorder;
 public enum TapeRecorderVisuals : byte
 {
     Mode,
-    TapeInserted
+    TapeInserted,
 }
 
 [Serializable, NetSerializable]
@@ -15,13 +15,13 @@ public enum TapeRecorderMode : byte
     Stopped,
     Recording,
     Playing,
-    Rewinding
+    Rewinding,
 }
 
 [Serializable, NetSerializable]
 public enum TapeRecorderUIKey : byte
 {
-    Key
+    Key,
 }
 
 [Serializable, NetSerializable]
@@ -53,7 +53,8 @@ public sealed class TapeRecorderState : BoundUserInterfaceState
         float currentTime,
         float maxTime,
         string cassetteName,
-        TimeSpan printCooldown)
+        TimeSpan printCooldown
+    )
     {
         HasCasette = hasCasette;
         HasData = hasData;

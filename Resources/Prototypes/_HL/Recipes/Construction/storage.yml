@@ -9,8 +9,8 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
-    
+  - !type:WallmountCondition
+
 - type: construction
   id: LockerWallBluespaceMini
   graph: LockerWallBluespaceMini
@@ -22,8 +22,8 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
-   
+  - !type:WallmountCondition
+
 - type: construction
   id: BluespaceSafe
   graph: BluespaceSafe
@@ -31,7 +31,7 @@
   targetNode: done
   category: construction-category-storage
   objectType: Structure
-    
+
 - type: construction
   id: ShelfWallFreezerBluespace
   graph: WallFreezerBluespace
@@ -42,7 +42,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 #weapon racks
 - type: construction
@@ -55,7 +55,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: GunRackBluespaceWallmountedConstruction
@@ -68,7 +68,7 @@
   canBuildInImpassable: true
   canRotate: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: MeleeRackBluespaceConstruction
@@ -80,7 +80,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: MeleeRackBluespaceWallmountedConstruction
@@ -93,7 +93,7 @@
   canBuildInImpassable: true
   canRotate: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PistolRackBluespaceConstruction
@@ -116,8 +116,8 @@
   canBuildInImpassable: true
   canRotate: true
   conditions:
-    - !type:WallmountCondition
-    
+  - !type:WallmountCondition
+
 - type: construction
   id: SuitStorageBluespace
   graph: SuitLockerBluespace
@@ -128,8 +128,8 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
-    
+  - !type:TileNotBlocked
+
 - type: construction
   id: BookshelfBluespace
   graph: BookshelfBluespace
@@ -140,8 +140,8 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
-    
+  - !type:TileNotBlocked
+
 - type: construction
   id: BluespaceTabletop
   graph: BluespaceTabletop

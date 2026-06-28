@@ -10,7 +10,8 @@ namespace Content.Server.Explosion.EntitySystems;
 
 public sealed partial class TriggerSystem
 {
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
+    [Dependency]
+    private readonly SharedPopupSystem _popupSystem = default!;
 
     private void InitializeOnUse()
     {
@@ -45,60 +46,74 @@ public sealed partial class TriggerSystem
 
         if (component.UseVerbInstead)
         {
-            args.Verbs.Add(new AlternativeVerb()
-            {
-                Text = Loc.GetString("verb-start-detonation"),
-                Act = () => StartTimer((uid, component), args.User),
-                Priority = 2
-            });
+            args.Verbs.Add(
+                new AlternativeVerb()
+                {
+                    Text = Loc.GetString("verb-start-detonation"),
+                    Act = () => StartTimer((uid, component), args.User),
+                    Priority = 2,
+                }
+            );
         }
 
         if (component.AllowToggleStartOnStick)
         {
-            args.Verbs.Add(new AlternativeVerb()
-            {
-                Text = Loc.GetString("verb-toggle-start-on-stick"),
-                Act = () => ToggleStartOnStick(uid, args.User, component)
-            });
+            args.Verbs.Add(
+                new AlternativeVerb()
+                {
+                    Text = Loc.GetString("verb-toggle-start-on-stick"),
+                    Act = () => ToggleStartOnStick(uid, args.User, component),
+                }
+            );
         }
 
         if (component.DelayOptions == null || component.DelayOptions.Count == 1)
             return;
 
-        args.Verbs.Add(new AlternativeVerb()
-        {
-            Category = TimerOptions,
-            Text = Loc.GetString("verb-trigger-timer-cycle"),
-            Act = () => CycleDelay(component, args.User),
-            Priority = 1
-        });
+        args.Verbs.Add(
+            new AlternativeVerb()
+            {
+                Category = TimerOptions,
+                Text = Loc.GetString("verb-trigger-timer-cycle"),
+                Act = () => CycleDelay(component, args.User),
+                Priority = 1,
+            }
+        );
 
         foreach (var option in component.DelayOptions)
         {
             if (MathHelper.CloseTo(option, component.Delay))
             {
-                args.Verbs.Add(new AlternativeVerb()
-                {
-                    Category = TimerOptions,
-                    Text = Loc.GetString("verb-trigger-timer-set-current", ("time", option)),
-                    Disabled = true,
-                    Priority = (int) (-100 * option)
-                });
+                args.Verbs.Add(
+                    new AlternativeVerb()
+                    {
+                        Category = TimerOptions,
+                        Text = Loc.GetString("verb-trigger-timer-set-current", ("time", option)),
+                        Disabled = true,
+                        Priority = (int)(-100 * option),
+                    }
+                );
                 continue;
             }
 
-            args.Verbs.Add(new AlternativeVerb()
-            {
-                Category = TimerOptions,
-                Text = Loc.GetString("verb-trigger-timer-set", ("time", option)),
-                Priority = (int) (-100 * option),
-
-                Act = () =>
+            args.Verbs.Add(
+                new AlternativeVerb()
                 {
-                    component.Delay = option;
-                    _popupSystem.PopupEntity(Loc.GetString("popup-trigger-timer-set", ("time", option)), args.User, args.User);
-                },
-            });
+                    Category = TimerOptions,
+                    Text = Loc.GetString("verb-trigger-timer-set", ("time", option)),
+                    Priority = (int)(-100 * option),
+
+                    Act = () =>
+                    {
+                        component.Delay = option;
+                        _popupSystem.PopupEntity(
+                            Loc.GetString("popup-trigger-timer-set", ("time", option)),
+                            args.User,
+                            args.User
+                        );
+                    },
+                }
+            );
         }
     }
 
@@ -166,5 +181,8 @@ public sealed partial class TriggerSystem
         args.Handled = true;
     }
 
-    public static VerbCategory TimerOptions = new("verb-categories-timer", "/Textures/Interface/VerbIcons/clock.svg.192dpi.png");
+    public static VerbCategory TimerOptions = new(
+        "verb-categories-timer",
+        "/Textures/Interface/VerbIcons/clock.svg.192dpi.png"
+    );
 }

@@ -3,7 +3,7 @@
   id: ActionActivateInternalBomb
   name: Activate Internal Bomb
   description: Activates your internal explosive, completely destroying you and your equipment.
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: InstantAction
     checkCanInteract: false
@@ -19,7 +19,7 @@
   id: ActionToggleMantisBlade
   name: Toggle Mantis Blade
   description: Turns your arm into a weapon.
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: InstantAction
     useDelay: 2
@@ -33,7 +33,7 @@
   id: ActionBluespaceShunt
   name: Bluespace Shunt
   description: Teleport to anywhere you can see.
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: WorldTargetAction
     icon:

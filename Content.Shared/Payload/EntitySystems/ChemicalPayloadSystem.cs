@@ -6,8 +6,11 @@ namespace Content.Shared.Payload.EntitySystems;
 
 public sealed class ChemicalPayloadSystem : EntitySystem
 {
-    [Dependency] private readonly ItemSlotsSystem _itemSlotsSystem = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+    [Dependency]
+    private readonly ItemSlotsSystem _itemSlotsSystem = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
 
     public override void Initialize()
     {
@@ -24,7 +27,11 @@ public sealed class ChemicalPayloadSystem : EntitySystem
         UpdateAppearance(uid, component);
     }
 
-    private void UpdateAppearance(EntityUid uid, ChemicalPayloadComponent? component = null, AppearanceComponent? appearance = null)
+    private void UpdateAppearance(
+        EntityUid uid,
+        ChemicalPayloadComponent? component = null,
+        AppearanceComponent? appearance = null
+    )
     {
         if (!Resolve(uid, ref component, ref appearance, false))
             return;

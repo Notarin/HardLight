@@ -9,7 +9,9 @@ namespace Content.Shared._Starlight.Overlay;
 
 public sealed class FlashImmunitySystem : EntitySystem
 {
-    [Dependency] private readonly InventorySystem _inventory = default!;
+    [Dependency]
+    private readonly InventorySystem _inventory = default!;
+
     public override void Initialize()
     {
         base.Initialize();
@@ -31,7 +33,10 @@ public sealed class FlashImmunitySystem : EntitySystem
 
     private void OnPlayerAttached(LocalPlayerAttachedEvent args)
     {
-        FlashImmunityCheckEvent flashImmunityChangedEvent = new(args.Entity, HasFlashImmunityVisionBlockers(args.Entity));
+        FlashImmunityCheckEvent flashImmunityChangedEvent = new(
+            args.Entity,
+            HasFlashImmunityVisionBlockers(args.Entity)
+        );
         RaiseLocalEvent(args.Entity, flashImmunityChangedEvent);
     }
 
@@ -66,7 +71,11 @@ public sealed class FlashImmunitySystem : EntitySystem
         if (TryComp<ClothingComponent>(uid, out var clothingComponent))
         {
             //we want to get the wearer of the clothing, not the clothing itself
-            return IoCManager.Resolve<IEntityManager>().GetComponentOrNull<TransformComponent>(clothingComponent.Owner)?.ParentUid ?? uid;
+            return IoCManager
+                    .Resolve<IEntityManager>()
+                    .GetComponentOrNull<TransformComponent>(clothingComponent.Owner)
+                    ?.ParentUid
+                ?? uid;
         }
 
         return uid;
@@ -86,7 +95,13 @@ public sealed class FlashImmunitySystem : EntitySystem
             var slots = _inventory.GetSlotEnumerator((uid, inventoryComp), SlotFlags.WITHOUT_POCKET);
             while (slots.MoveNext(out var slot))
             {
-                if (slot.ContainedEntity != null && EntityManager.TryGetComponent(slot.ContainedEntity, out FlashImmunityComponent? wornFlashImmunityComponent))
+                if (
+                    slot.ContainedEntity != null
+                    && EntityManager.TryGetComponent(
+                        slot.ContainedEntity,
+                        out FlashImmunityComponent? wornFlashImmunityComponent
+                    )
+                )
                 {
                     if (wornFlashImmunityComponent.BlocksSpecialVision)
                         return true;

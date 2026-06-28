@@ -11,7 +11,7 @@ public abstract partial class SharedShuttleSystem
      * Handles the label visibility on radar controls. This can be hiding the label or applying other effects.
      */
 
-    protected virtual void UpdateIFFInterfaces(EntityUid gridUid, IFFComponent component) {}
+    protected virtual void UpdateIFFInterfaces(EntityUid gridUid, IFFComponent component) { }
 
     public Color GetIFFColor(EntityUid gridUid, bool self = false, IFFComponent? component = null)
     {
@@ -46,9 +46,16 @@ public abstract partial class SharedShuttleSystem
         Color? companyColor = null;
         string? companyName = null;
 
-        if (TryComp<_Mono.Company.CompanyComponent>(gridUid, out var companyComp) && !string.IsNullOrEmpty(companyComp.CompanyName))
+        if (
+            TryComp<_Mono.Company.CompanyComponent>(gridUid, out var companyComp)
+            && !string.IsNullOrEmpty(companyComp.CompanyName)
+        )
         {
-            if (IoCManager.Resolve<IPrototypeManager>().TryIndex<CompanyPrototype>(companyComp.CompanyName, out var prototype))
+            if (
+                IoCManager
+                    .Resolve<IPrototypeManager>()
+                    .TryIndex<CompanyPrototype>(companyComp.CompanyName, out var prototype)
+            )
             {
                 // Don't include "None" companies in the IFF label
                 if (prototype.ID != "None")

@@ -6,13 +6,21 @@ namespace Content.Client.DamageState;
 
 public sealed class DamageStateVisualizerSystem : VisualizerSystem<DamageStateVisualsComponent>
 {
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
-    protected override void OnAppearanceChange(EntityUid uid, DamageStateVisualsComponent component, ref AppearanceChangeEvent args)
+    protected override void OnAppearanceChange(
+        EntityUid uid,
+        DamageStateVisualsComponent component,
+        ref AppearanceChangeEvent args
+    )
     {
         var sprite = args.Sprite;
 
-        if (sprite == null || !AppearanceSystem.TryGetData<MobState>(uid, MobStateVisuals.State, out var data, args.Component))
+        if (
+            sprite == null
+            || !AppearanceSystem.TryGetData<MobState>(uid, MobStateVisuals.State, out var data, args.Component)
+        )
         {
             return;
         }
@@ -25,7 +33,8 @@ public sealed class DamageStateVisualizerSystem : VisualizerSystem<DamageStateVi
         // Brain no worky rn so this was just easier.
         foreach (var key in new[] { DamageStateVisualLayers.Base, DamageStateVisualLayers.BaseUnshaded })
         {
-            if (!_sprite.LayerMapTryGet((uid, sprite), key, out _, false)) continue;
+            if (!_sprite.LayerMapTryGet((uid, sprite), key, out _, false))
+                continue;
 
             _sprite.LayerSetVisible((uid, sprite), key, false);
         }
@@ -33,7 +42,8 @@ public sealed class DamageStateVisualizerSystem : VisualizerSystem<DamageStateVi
         foreach (var (key, state) in layers)
         {
             // Inheritance moment.
-            if (!_sprite.LayerMapTryGet((uid, sprite), key, out _, false)) continue;
+            if (!_sprite.LayerMapTryGet((uid, sprite), key, out _, false))
+                continue;
 
             _sprite.LayerSetVisible((uid, sprite), key, true);
             _sprite.LayerSetRsiState((uid, sprite), key, state);

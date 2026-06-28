@@ -10,8 +10,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb {}
+        shape: !type:PhysShapeAabb {}
         mask:
         - FullTileMask
         layer:
@@ -27,8 +26,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.49,-0.49,0.49,-0.36"
         density: 1500
         mask:
@@ -42,7 +40,7 @@
   parent:
   - WindowMurkyDungeon
   - Window
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallTops
@@ -59,7 +57,7 @@
   parent:
   - WindowMurkyDungeon
   - ReinforcedWindow
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallTops
@@ -75,7 +73,7 @@
   parent:
   - WindowMurkyDungeon
   - MiningWindow
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallTops
@@ -86,8 +84,7 @@
     color: "#ffd38c"
   - type: Destructible # Made it as durable as common window
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 50
       behaviors:
       - !type:PlaySoundBehavior
@@ -99,7 +96,7 @@
             min: 1
             max: 2
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
 
 # Plasma window
 - type: entity
@@ -107,7 +104,7 @@
   parent:
   - WindowMurkyDungeon
   - PlasmaWindow
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallTops
@@ -123,7 +120,7 @@
   parent:
   - WindowMurkyDungeon
   - ReinforcedPlasmaWindow
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallTops
@@ -139,7 +136,7 @@
   parent:
   - WindowMurkyDungeon
   - ReinforcedUraniumWindow
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: WallTops
@@ -155,7 +152,7 @@
   parent:
   - WindowDirectionalMurkyDungeon
   - WindowDirectional
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: Mobs
@@ -172,7 +169,7 @@
   parent:
   - WindowDirectionalMurkyDungeon
   - WindowFrostedDirectional
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: Structures/Windows/directional.rsi
@@ -188,7 +185,7 @@
   parent:
   - WindowDirectionalMurkyDungeon
   - WindowReinforcedDirectional
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: Structures/Windows/directional.rsi
@@ -204,7 +201,7 @@
   parent:
   - WindowDirectionalMurkyDungeon
   - PlasmaWindowDirectional
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: Structures/Windows/directional.rsi
@@ -220,7 +217,7 @@
   parent:
   - WindowDirectionalMurkyDungeon
   - PlasmaReinforcedWindowDirectional
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: Structures/Windows/directional.rsi
@@ -236,7 +233,7 @@
   parent:
   - WindowDirectionalMurkyDungeon
   - UraniumWindowDirectional
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: Structures/Windows/directional.rsi
@@ -252,7 +249,7 @@
   parent:
   - WindowDirectionalMurkyDungeon
   - UraniumReinforcedWindowDirectional
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: Structures/Windows/directional.rsi

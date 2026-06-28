@@ -41,7 +41,7 @@ public abstract class BaseBulletRenderer : Control
     {
         var countPerRow = Math.Min(Capacity, CountPerRow(availableSize.X));
 
-        var rows = Math.Min((int) MathF.Ceiling(Capacity / (float) countPerRow), Rows);
+        var rows = Math.Min((int)MathF.Ceiling(Capacity / (float)countPerRow), Rows);
 
         var height = _params.ItemHeight * rows + (_params.VerticalSeparation * rows - 1);
         var width = RowWidth(countPerRow);
@@ -79,7 +79,12 @@ public abstract class BaseBulletRenderer : Control
             // 3. MinCountPerRow is actually smaller than the count per row (avoid degenerate cases).
             // 4. There's enough bullets that at least one will end up on the next row.
             var nextRowCount = Capacity - bulletsDone - thisRowCount;
-            if (nextRowCount < _params.MinCountPerRow && row != Rows - 1 && _params.MinCountPerRow < countPerRow && nextRowCount > 0)
+            if (
+                nextRowCount < _params.MinCountPerRow
+                && row != Rows - 1
+                && _params.MinCountPerRow < countPerRow
+                && nextRowCount > 0
+            )
                 thisRowCount -= _params.MinCountPerRow - nextRowCount;
 
             // Account for row width to right-align.
@@ -110,7 +115,7 @@ public abstract class BaseBulletRenderer : Control
 
     private int CountPerRow(float width)
     {
-        return (int) ((width - _params.ItemWidth + _params.ItemSeparation) / _params.ItemSeparation);
+        return (int)((width - _params.ItemWidth + _params.ItemSeparation) / _params.ItemSeparation);
     }
 
     private int RowWidth(int count)
@@ -155,7 +160,7 @@ public sealed class BulletRender : BaseBulletRenderer
         ItemSeparation = 3,
         ItemWidth = 5,
         VerticalSeparation = VerticalSeparation,
-        MinCountPerRow = MinCountPerRow
+        MinCountPerRow = MinCountPerRow,
     };
 
     private static readonly LayoutParameters LayoutTiny = new LayoutParameters
@@ -164,7 +169,7 @@ public sealed class BulletRender : BaseBulletRenderer
         ItemSeparation = 2,
         ItemWidth = 2,
         VerticalSeparation = VerticalSeparation,
-        MinCountPerRow = MinCountPerRow
+        MinCountPerRow = MinCountPerRow,
     };
 
     private static readonly Color ColorA = Color.FromHex("#b68f0e");
@@ -189,7 +194,7 @@ public sealed class BulletRender : BaseBulletRenderer
             {
                 BulletType.Normal => LayoutNormal,
                 BulletType.Tiny => LayoutTiny,
-                _ => throw new ArgumentOutOfRangeException()
+                _ => throw new ArgumentOutOfRangeException(),
             };
 
             _type = value;
@@ -219,7 +224,7 @@ public sealed class BulletRender : BaseBulletRenderer
     public enum BulletType
     {
         Normal,
-        Tiny
+        Tiny,
     }
 }
 
@@ -240,7 +245,7 @@ public sealed class BatteryBulletRenderer : BaseBulletRenderer
             ItemHeight = SizeV,
             ItemSeparation = SizeH + Separation,
             MinCountPerRow = 3,
-            VerticalSeparation = Separation
+            VerticalSeparation = Separation,
         };
     }
 

@@ -35,7 +35,7 @@
         Quantity: 12 # Funky - Why can you juice their organs? Why not, I guess? Just gonna make the amount consistent
   - type: FlavorProfile
     flavors:
-      - thavenflesh
+    - thavenflesh
 
 - type: entity
   id: OrganThavenEyes
@@ -63,7 +63,7 @@
         Quantity: 5
   - type: FlavorProfile
     flavors:
-      - thavenflesh
+    - thavenflesh
 
 - type: entity
   id: OrganThavenLungs
@@ -90,7 +90,7 @@
       Lung:
         maxVol: 100.0
         canReact: false
-    # Funky change ends
+        # Funky change ends
   - type: Extractable
     juiceSolution:
       reagents:
@@ -98,7 +98,7 @@
         Quantity: 5
   - type: FlavorProfile
     flavors:
-      - thavenflesh
+    - thavenflesh
 
 - type: entity
   id: OrganThavenHeart
@@ -128,7 +128,7 @@
         Quantity: 5
   - type: FlavorProfile
     flavors:
-      - thavenflesh
+    - thavenflesh
 
 - type: entity
   id: OrganThavenStomach
@@ -143,8 +143,8 @@
     metabolizerTypes: [Animal, Thaven]
     removeEmpty: true
     groups:
-      - id: Food
-      - id: Drink
+    - id: Food
+    - id: Drink
   - type: SolutionContainerManager
     solutions:
       stomach:
@@ -165,7 +165,7 @@
         Quantity: 5
   - type: FlavorProfile
     flavors:
-      - thavenflesh
+    - thavenflesh
 
 - type: entity
   id: OrganThavenLiver
@@ -195,7 +195,7 @@
         Quantity: 5
   - type: FlavorProfile
     flavors:
-      - thavenflesh
+    - thavenflesh
 
 - type: entity
   id: OrganThavenKidneys
@@ -225,4 +225,4 @@
         Quantity: 5
   - type: FlavorProfile
     flavors:
-      - thavenflesh
+    - thavenflesh

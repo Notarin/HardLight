@@ -22,8 +22,7 @@
     damageModifierSet: Wood
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 30
       behaviors:
       - !type:PlaySoundBehavior
@@ -35,7 +34,7 @@
             min: 1
             max: 4
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: Construction
     graph: WoodenBarrel
     node: woodenbarrel
@@ -46,8 +45,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.2,-0.3,0.2,0.4"
         density: 150
         mask:
@@ -60,15 +58,15 @@
     visuals:
       enum.PaperLabelVisuals.HasLabel:
         enum.PaperLabelVisuals.Layer:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
       enum.PaperLabelVisuals.LabelType:
         enum.PaperLabelVisuals.Layer:
-          Paper: { state: paper }
-          Bounty: { state: paper }
-          CaptainsPaper: { state: paper }
-          Invoice: { state: paper }
-  # End Frontier
+          Paper: {state: paper}
+          Bounty: {state: paper}
+          CaptainsPaper: {state: paper}
+          Invoice: {state: paper}
+          # End Frontier
 
 - type: entity
   parent: StorageTank
@@ -114,8 +112,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.2,-0.3,0.2,0.4"
         density: 200
         mask:

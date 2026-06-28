@@ -24,7 +24,11 @@ public abstract class SharedDeviceListSystem : EntitySystem
 
     private void OnGetState(EntityUid uid, DeviceListComponent component, ref ComponentGetState args)
     {
-        args.State = new DeviceListComponentState(GetDeviceNetEntities(uid, component), component.IsAllowList, component.HandleIncomingPackets);
+        args.State = new DeviceListComponentState(
+            GetDeviceNetEntities(uid, component),
+            component.IsAllowList,
+            component.HandleIncomingPackets
+        );
     }
 
     private void OnHandleState(EntityUid uid, DeviceListComponent component, ref ComponentHandleState args)
@@ -49,11 +53,13 @@ public abstract class SharedDeviceListSystem : EntitySystem
 
         foreach (var device in component.Devices.ToArray())
         {
-            if (device.IsValid()
+            if (
+                device.IsValid()
                 && !TerminatingOrDeleted(device)
                 && HasComp<MetaDataComponent>(device)
                 && TryGetNetEntity(device, out var netEntity)
-                && netEntity != null)
+                && netEntity != null
+            )
             {
                 netEntities.Add(netEntity.Value);
                 continue;
@@ -86,5 +92,5 @@ public enum DeviceListUpdateResult : byte
 {
     NoComponent,
     TooManyDevices,
-    UpdateOk
+    UpdateOk,
 }

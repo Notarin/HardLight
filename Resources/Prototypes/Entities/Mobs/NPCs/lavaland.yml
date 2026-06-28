@@ -1,7 +1,7 @@
 - type: entity
   name: watcher
   id: MobWatcherBase
-  parent: [ SimpleSpaceMobBase, FlyingMobBase ]
+  parent: [SimpleSpaceMobBase, FlyingMobBase]
   abstract: true
   description: It's like it's staring right through you.
   components:
@@ -15,20 +15,19 @@
     drawdepth: Mobs
     sprite: Mobs/Aliens/Lavaland/watcher.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: base
-    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+    - map: ["enum.DamageStateVisualLayers.BaseUnshaded"]
       state: unshaded
       shader: unshaded
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.30
         density: 80
         mask:
-          - FlyingMobMask
+        - FlyingMobMask
         layer:
         - FlyingMobLayer
   - type: DamageStateVisuals
@@ -80,9 +79,9 @@
   components:
   - type: Sprite
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: base
-    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+    - map: ["enum.DamageStateVisualLayers.BaseUnshaded"]
       state: unshaded
       shader: unshaded
       color: red
@@ -98,9 +97,9 @@
   components:
   - type: Sprite
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: base
-    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+    - map: ["enum.DamageStateVisualLayers.BaseUnshaded"]
       state: unshaded
       shader: unshaded
       color: deepskyblue
@@ -116,9 +115,9 @@
   components:
   - type: Sprite
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: base
-    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+    - map: ["enum.DamageStateVisualLayers.BaseUnshaded"]
       state: unshaded
       shader: unshaded
       color: orangered
@@ -139,13 +138,13 @@
   components:
   - type: Sprite
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: base
-    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+    - map: ["enum.DamageStateVisualLayers.BaseUnshaded"]
       state: unshaded
       shader: unshaded
   - type: PointLight
     radius: 1.5
     energy: 1
   - type: RgbLightController
-    layers: [ 1 ]
+    layers: [1]

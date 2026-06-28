@@ -19,12 +19,23 @@ namespace Content.Server.Objectives.Systems;
 /// </summary>
 public sealed class ObjectiveTargetRefreshSystem : EntitySystem
 {
-    [Dependency] private readonly GameTicker _gameTicker = default!;
-    [Dependency] private readonly IChatManager _chatManager = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly SharedMindSystem _mind = default!;
-    [Dependency] private readonly ObjectivesSystem _objectives = default!;
-    [Dependency] private readonly TargetObjectiveSystem _target = default!;
+    [Dependency]
+    private readonly GameTicker _gameTicker = default!;
+
+    [Dependency]
+    private readonly IChatManager _chatManager = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly SharedMindSystem _mind = default!;
+
+    [Dependency]
+    private readonly ObjectivesSystem _objectives = default!;
+
+    [Dependency]
+    private readonly TargetObjectiveSystem _target = default!;
 
     public override void Initialize()
     {
@@ -85,8 +96,12 @@ public sealed class ObjectiveTargetRefreshSystem : EntitySystem
 
     private void HandleTargetLeft(EntityUid targetMindId)
     {
-        var targetName = TryComp<MindComponent>(targetMindId, out var targetMind) ? targetMind.CharacterName ?? "Unknown" : "Unknown";
-        Log.Info($"ObjectiveTargetRefresh: target mind {ToPrettyString(targetMindId)} ({targetName}) left the round, scanning traitor objectives for rerolls.");
+        var targetName = TryComp<MindComponent>(targetMindId, out var targetMind)
+            ? targetMind.CharacterName ?? "Unknown"
+            : "Unknown";
+        Log.Info(
+            $"ObjectiveTargetRefresh: target mind {ToPrettyString(targetMindId)} ({targetName}) left the round, scanning traitor objectives for rerolls."
+        );
 
         var traitorQuery = EntityQueryEnumerator<TraitorRuleComponent, GameRuleComponent>();
         while (traitorQuery.MoveNext(out var ruleUid, out var traitorComp, out var gameRule))
@@ -120,23 +135,34 @@ public sealed class ObjectiveTargetRefreshSystem : EntitySystem
                     var progress = _objectives.GetProgress(objUid, (traitorMindId, traitorMind));
                     if (progress is null or >= 0.01f)
                     {
-                        Log.Info($"ObjectiveTargetRefresh: traitor {ToPrettyString(traitorMindId)} has progress {progress} on objective {ToPrettyString(objUid)} targeting the leaver, skipping reroll.");
+                        Log.Info(
+                            $"ObjectiveTargetRefresh: traitor {ToPrettyString(traitorMindId)} has progress {progress} on objective {ToPrettyString(objUid)} targeting the leaver, skipping reroll."
+                        );
                         continue;
                     }
 
-                    Log.Info($"ObjectiveTargetRefresh: traitor {ToPrettyString(traitorMindId)} has objective {ToPrettyString(objUid)} targeting the leaver with no progress, rerolling.");
+                    Log.Info(
+                        $"ObjectiveTargetRefresh: traitor {ToPrettyString(traitorMindId)} has objective {ToPrettyString(objUid)} targeting the leaver with no progress, rerolling."
+                    );
                     TryRerollObjectiveTarget(objUid, i, traitorMindId, traitorMind);
                 }
             }
         }
     }
 
-    private void TryRerollObjectiveTarget(EntityUid objUid, int objIndex, EntityUid traitorMindId, MindComponent traitorMind)
+    private void TryRerollObjectiveTarget(
+        EntityUid objUid,
+        int objIndex,
+        EntityUid traitorMindId,
+        MindComponent traitorMind
+    )
     {
         if (!TryComp<PickRandomPersonComponent>(objUid, out var pickComp))
         {
             // Can't pick a new target without a pool — remove the unachievable objective.
-            Log.Info($"ObjectiveTargetRefresh: objective {ToPrettyString(objUid)} has no PickRandomPersonComponent pool, removing it from traitor {ToPrettyString(traitorMindId)}.");
+            Log.Info(
+                $"ObjectiveTargetRefresh: objective {ToPrettyString(objUid)} has no PickRandomPersonComponent pool, removing it from traitor {ToPrettyString(traitorMindId)}."
+            );
             _mind.TryRemoveObjective(traitorMindId, traitorMind, objIndex);
             NotifyTraitor(traitorMind, Loc.GetString("objective-target-refresh-removed"));
             return;
@@ -147,7 +173,9 @@ public sealed class ObjectiveTargetRefreshSystem : EntitySystem
         if (newTarget == null)
         {
             // No valid replacement found — remove the objective rather than leave it stuck.
-            Log.Info($"ObjectiveTargetRefresh: no valid replacement target found for objective {ToPrettyString(objUid)}, removing it from traitor {ToPrettyString(traitorMindId)}.");
+            Log.Info(
+                $"ObjectiveTargetRefresh: no valid replacement target found for objective {ToPrettyString(objUid)}, removing it from traitor {ToPrettyString(traitorMindId)}."
+            );
             _mind.TryRemoveObjective(traitorMindId, traitorMind, objIndex);
             NotifyTraitor(traitorMind, Loc.GetString("objective-target-refresh-removed"));
             return;
@@ -156,11 +184,20 @@ public sealed class ObjectiveTargetRefreshSystem : EntitySystem
         _target.SetTarget(objUid, newTarget.Value);
 
         // Refresh the entity name on the objective to match the new target.
-        var afterEv = new ObjectiveAfterAssignEvent(traitorMindId, traitorMind, Comp<ObjectiveComponent>(objUid), MetaData(objUid));
+        var afterEv = new ObjectiveAfterAssignEvent(
+            traitorMindId,
+            traitorMind,
+            Comp<ObjectiveComponent>(objUid),
+            MetaData(objUid)
+        );
         RaiseLocalEvent(objUid, ref afterEv);
 
-        var newName = TryComp<MindComponent>(newTarget.Value, out var newMind) ? newMind.CharacterName ?? "Unknown" : "Unknown";
-        Log.Info($"ObjectiveTargetRefresh: rerolled objective {ToPrettyString(objUid)} for traitor {ToPrettyString(traitorMindId)} to new target {ToPrettyString(newTarget.Value)} ({newName}).");
+        var newName = TryComp<MindComponent>(newTarget.Value, out var newMind)
+            ? newMind.CharacterName ?? "Unknown"
+            : "Unknown";
+        Log.Info(
+            $"ObjectiveTargetRefresh: rerolled objective {ToPrettyString(objUid)} for traitor {ToPrettyString(traitorMindId)} to new target {ToPrettyString(newTarget.Value)} ({newName})."
+        );
         NotifyTraitor(traitorMind, Loc.GetString("objective-target-refresh-rerolled", ("name", newName)));
     }
 

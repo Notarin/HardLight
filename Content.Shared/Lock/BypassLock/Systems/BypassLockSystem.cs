@@ -14,10 +14,17 @@ namespace Content.Shared.Lock.BypassLock.Systems;
 
 public sealed partial class BypassLockSystem : EntitySystem
 {
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly LockSystem _lock = default!;
-    [Dependency] private readonly SharedToolSystem _tool = default!;
-    [Dependency] private readonly SharedWiresSystem _wires = default!;
+    [Dependency]
+    private readonly ISharedAdminLogManager _adminLogger = default!;
+
+    [Dependency]
+    private readonly LockSystem _lock = default!;
+
+    [Dependency]
+    private readonly SharedToolSystem _tool = default!;
+
+    [Dependency]
+    private readonly SharedWiresSystem _wires = default!;
 
     public override void Initialize()
     {
@@ -35,8 +42,7 @@ public sealed partial class BypassLockSystem : EntitySystem
         if (target.Owner == args.User)
             return;
 
-        if (!_tool.HasQuality(args.Used, target.Comp.BypassingTool)
-            || !_lock.IsLocked(target.Owner))
+        if (!_tool.HasQuality(args.Used, target.Comp.BypassingTool) || !_lock.IsLocked(target.Owner))
             return;
 
         var ev = new ForceOpenLockAttemptEvent(args.User);
@@ -50,19 +56,25 @@ public sealed partial class BypassLockSystem : EntitySystem
 
     private bool TryStartDoAfter(Entity<BypassLockComponent> target, EntityUid user, EntityUid used)
     {
-        if (!_tool.UseTool(
+        if (
+            !_tool.UseTool(
                 used,
                 user,
                 target,
-                (float) target.Comp.BypassDelay.TotalSeconds,
+                (float)target.Comp.BypassDelay.TotalSeconds,
                 target.Comp.BypassingTool,
-                new ForceOpenLockDoAfterEvent()))
+                new ForceOpenLockDoAfterEvent()
+            )
+        )
         {
             return false;
         }
 
-        _adminLogger.Add(LogType.Action, LogImpact.Low,
-            $"{ToPrettyString(user):user} is prying {ToPrettyString(target):target}'s lock open at {Transform(target).Coordinates:targetlocation}");
+        _adminLogger.Add(
+            LogType.Action,
+            LogImpact.Low,
+            $"{ToPrettyString(user):user} is prying {ToPrettyString(target):target}'s lock open at {Transform(target).Coordinates:targetlocation}"
+        );
         return true;
     }
 
@@ -73,10 +85,12 @@ public sealed partial class BypassLockSystem : EntitySystem
 
         _lock.Unlock(target, args.User, target.Comp);
 
-        if (TryComp<WiresPanelComponent>(target, out var wiresPanel) &&
-            TryComp<BypassLockComponent>(target, out var bypassLock) && bypassLock.OpenWiresPanel)
+        if (
+            TryComp<WiresPanelComponent>(target, out var wiresPanel)
+            && TryComp<BypassLockComponent>(target, out var bypassLock)
+            && bypassLock.OpenWiresPanel
+        )
             _wires.TogglePanel(target, wiresPanel, true, args.User);
-
     }
 
     private void OnGetVerb(Entity<BypassLockComponent> target, ref GetVerbsEvent<InteractionVerb> args)
@@ -86,10 +100,7 @@ public sealed partial class BypassLockSystem : EntitySystem
 
         var rightTool = _tool.HasQuality(args.Using.Value, target.Comp.BypassingTool);
         var item = args.Using.Value;
-        var bypassVerb = new InteractionVerb
-        {
-            IconEntity = GetNetEntity(item),
-        };
+        var bypassVerb = new InteractionVerb { IconEntity = GetNetEntity(item) };
 
         bypassVerb.Text = bypassVerb.Message = Loc.GetString("bypass-lock-verb");
 
@@ -136,4 +147,9 @@ public record struct ForceOpenLockAttemptEvent(EntityUid User, bool CanForceOpen
 /// <param name="ShowVerb">Whether the verb should be shown.</param>
 /// <param name="ToolQuality">The required tool quality to force the lock open.</param>
 [ByRefEvent]
-public record struct CheckBypassLockVerbRequirements(InteractionVerb Verb, bool RightTool, bool ShowVerb, ProtoId<ToolQualityPrototype> ToolQuality);
+public record struct CheckBypassLockVerbRequirements(
+    InteractionVerb Verb,
+    bool RightTool,
+    bool ShowVerb,
+    ProtoId<ToolQualityPrototype> ToolQuality
+);

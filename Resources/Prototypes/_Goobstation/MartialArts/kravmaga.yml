@@ -2,14 +2,14 @@
   id: ActionLegSweep
   name: Leg Sweep
   description: Sweeps the legs out from under a target to knock them down for a few seconds.
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: InstantAction
     icon:
       sprite: _Goobstation/Actions/kravmaga.rsi
       state: legsweep
       useDelay: 3
-    event: !type:KravMagaActionEvent { }
+    event: !type:KravMagaActionEvent {}
   - type: KravMagaAction
     configuration: LegSweep
     name: Leg Sweep
@@ -18,14 +18,14 @@
   id: ActionNeckChop
   name: Neck Chop
   description: A hard swing with the side of your hand deals some damage and disables the target's ability to speak for twenty seconds
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: InstantAction
     icon:
       sprite: _Goobstation/Actions/kravmaga.rsi
       state: neckchop
       useDelay: 3
-    event: !type:KravMagaActionEvent { }
+    event: !type:KravMagaActionEvent {}
   - type: KravMagaAction
     configuration: NeckChop
     name: Neck Chop
@@ -35,14 +35,14 @@
   id: ActionLungPunch
   name: Lung Punch
   description: Deals 30 stamina damage and prevents breathing for ten seconds. Four of those will incapacitate a target less-than-lethally, but beware of the loss of breath you cause.
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: InstantAction
     icon:
       sprite: _Goobstation/Actions/kravmaga.rsi
       state: lungpunch
       useDelay: 3
-    event: !type:KravMagaActionEvent { }
+    event: !type:KravMagaActionEvent {}
   - type: KravMagaAction
     configuration: LungPunch
     name: Lung Punch

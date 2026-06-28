@@ -17,8 +17,11 @@ namespace Content.Shared.Salvage;
 
 public abstract partial class SharedSalvageSystem : EntitySystem
 {
-    [Dependency] protected readonly IConfigurationManager CfgManager = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
+    [Dependency]
+    protected readonly IConfigurationManager CfgManager = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
 
     /// <summary>
     /// Main loot table for salvage expeditions.
@@ -28,7 +31,7 @@ public abstract partial class SharedSalvageSystem : EntitySystem
     public string GetFTLName(LocalizedDatasetPrototype dataset, int seed)
     {
         var random = new System.Random(seed);
-        return $"{Loc.GetString(dataset.Values[random.Next(dataset.Values.Count)])}-{random.Next(10, 100)}-{(char) (65 + random.Next(26))}";
+        return $"{Loc.GetString(dataset.Values[random.Next(dataset.Values.Count)])}-{random.Next(10, 100)}-{(char)(65 + random.Next(26))}";
     }
 
     public SalvageMission GetMission(SalvageMissionType config, SalvageDifficultyPrototype difficulty, int seed) // Frontier: add config
@@ -48,20 +51,23 @@ public abstract partial class SharedSalvageSystem : EntitySystem
         var dungeon = GetBiomeMod<SalvageDungeonModPrototype>(biome.ID, rand, ref modifierBudget);
         // Frontier: restrict factions per difficulty
         // var factionProtos = _proto.EnumeratePrototypes<SalvageFactionPrototype>().ToList();
-        var factionProtos = _proto.EnumeratePrototypes<SalvageFactionPrototype>()
+        var factionProtos = _proto
+            .EnumeratePrototypes<SalvageFactionPrototype>()
             .Where(x =>
-                {
-                    // Accept if no filter is set
-                    if (!x.Configs.TryGetValue("Difficulties", out var difficulties) || string.IsNullOrWhiteSpace(difficulties))
-                        return true;
+            {
+                // Accept if no filter is set
+                if (
+                    !x.Configs.TryGetValue("Difficulties", out var difficulties)
+                    || string.IsNullOrWhiteSpace(difficulties)
+                )
+                    return true;
 
-                    // Robust parsing: trim items, ignore empty entries, and compare case-insensitively
-                    var target = difficulty.ID.ToString();
-                    var tokens = difficulties.Split(',', StringSplitOptions.RemoveEmptyEntries)
-                                              .Select(t => t.Trim());
-                    return tokens.Any(t => string.Equals(t, target, StringComparison.OrdinalIgnoreCase));
-                }
-            ).ToList();
+                // Robust parsing: trim items, ignore empty entries, and compare case-insensitively
+                var target = difficulty.ID.ToString();
+                var tokens = difficulties.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(t => t.Trim());
+                return tokens.Any(t => string.Equals(t, target, StringComparison.OrdinalIgnoreCase));
+            })
+            .ToList();
         // Fallback: if no factions match the difficulty filter, allow any faction to avoid crashes
         if (factionProtos.Count == 0)
             factionProtos = _proto.EnumeratePrototypes<SalvageFactionPrototype>().ToList();
@@ -89,10 +95,23 @@ public abstract partial class SharedSalvageSystem : EntitySystem
 
         var duration = TimeSpan.FromSeconds(CfgManager.GetCVar(CCVars.SalvageExpeditionDuration));
 
-        return new SalvageMission(seed, dungeon.ID, faction.ID, biome.ID, air.ID, temp.Temperature, light.Color, duration, mods, difficulty.ID, config); // Frontier: add difficulty.ID, config
+        return new SalvageMission(
+            seed,
+            dungeon.ID,
+            faction.ID,
+            biome.ID,
+            air.ID,
+            temp.Temperature,
+            light.Color,
+            duration,
+            mods,
+            difficulty.ID,
+            config
+        ); // Frontier: add difficulty.ID, config
     }
 
-    public T GetBiomeMod<T>(string biome, System.Random rand, ref float rating) where T : class, IPrototype, IBiomeSpecificMod
+    public T GetBiomeMod<T>(string biome, System.Random rand, ref float rating)
+        where T : class, IPrototype, IBiomeSpecificMod
     {
         var mods = _proto.EnumeratePrototypes<T>().ToList();
         mods.Sort((x, y) => string.Compare(x.ID, y.ID, StringComparison.Ordinal));
@@ -110,10 +129,13 @@ public abstract partial class SharedSalvageSystem : EntitySystem
 
         // VRS: include T name, biome, and remaining rating so a content author who under-budgets a difficulty
         // can identify which mod table and biome failed to find a fit instead of seeing a bare InvalidOperationException.
-        throw new InvalidOperationException($"No {typeof(T).Name} found for biome '{biome}' with remaining rating {rating}; check SalvageDifficultyPrototype.ModifierBudget vs the cheapest mod's Cost.");
+        throw new InvalidOperationException(
+            $"No {typeof(T).Name} found for biome '{biome}' with remaining rating {rating}; check SalvageDifficultyPrototype.ModifierBudget vs the cheapest mod's Cost."
+        );
     }
 
-    public T GetMod<T>(System.Random rand, ref float rating) where T : class, IPrototype, ISalvageMod
+    public T GetMod<T>(System.Random rand, ref float rating)
+        where T : class, IPrototype, ISalvageMod
     {
         var mods = _proto.EnumeratePrototypes<T>().ToList();
         mods.Sort((x, y) => string.Compare(x.ID, y.ID, StringComparison.Ordinal));
@@ -131,7 +153,9 @@ public abstract partial class SharedSalvageSystem : EntitySystem
 
         // VRS: include T name and remaining rating so a content author who under-budgets a difficulty
         // can identify which mod table failed to find a fit instead of seeing a bare InvalidOperationException.
-        throw new InvalidOperationException($"No {typeof(T).Name} found with remaining rating {rating}; check SalvageDifficultyPrototype.ModifierBudget vs the cheapest mod's Cost.");
+        throw new InvalidOperationException(
+            $"No {typeof(T).Name} found with remaining rating {rating}; check SalvageDifficultyPrototype.ModifierBudget vs the cheapest mod's Cost."
+        );
     }
 
     private List<string> GetRewards(int difficulty, System.Random rand)
@@ -155,12 +179,18 @@ public abstract partial class SharedSalvageSystem : EntitySystem
         var t5 = "ExpeditionRewardT5";
         switch (rating)
         {
-            case 0: return new[] { t1 };
-            case 1: return new[] { t2 };
-            case 2: return new[] { t3 };
-            case 3: return new[] { t4 };
-            case 4: return new[] { t5 };
-            default: throw new NotImplementedException();
+            case 0:
+                return new[] { t1 };
+            case 1:
+                return new[] { t2 };
+            case 2:
+                return new[] { t3 };
+            case 3:
+                return new[] { t4 };
+            case 4:
+                return new[] { t5 };
+            default:
+                throw new NotImplementedException();
         }
     }
 }

@@ -4,13 +4,13 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
 
 using System.Numerics;
+using Content.Shared._Funkystation.NanoChat;
 using Robust.Client.GameObjects;
 using Robust.Client.Graphics;
 using Robust.Client.ResourceManagement;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.RichText;
-using Content.Shared._Funkystation.NanoChat;
 using Robust.Shared.Utility;
 
 namespace Content.Client._Funkystation.NanoChat;
@@ -20,8 +20,11 @@ namespace Content.Client._Funkystation.NanoChat;
 /// </summary>
 public sealed class EmojiTag : IMarkupTagHandler
 {
-    [Dependency] private readonly IResourceCache _resourceCache = default!;
-    [Dependency] private readonly IEntitySystemManager _entitySystemManager = default!;
+    [Dependency]
+    private readonly IResourceCache _resourceCache = default!;
+
+    [Dependency]
+    private readonly IEntitySystemManager _entitySystemManager = default!;
 
     private SpriteSystem? _spriteSystem;
 

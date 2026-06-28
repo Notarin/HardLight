@@ -11,14 +11,13 @@ namespace Content.Server.Database.Migrations.Postgres
                 table: "profile",
                 type: "text",
                 nullable: false,
-                defaultValue: "");
+                defaultValue: ""
+            );
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "backpack",
-                table: "profile");
+            migrationBuilder.DropColumn(name: "backpack", table: "profile");
         }
     }
 }

@@ -5,6 +5,4 @@ namespace Content.Server.Salvage.Expeditions;
 /// This lets expedition cleanup ignore shuttle-themed ruin grids on salvage maps.
 /// </summary>
 [RegisterComponent]
-public sealed partial class ExpeditionParticipantShuttleComponent : Component
-{
-}
+public sealed partial class ExpeditionParticipantShuttleComponent : Component { }

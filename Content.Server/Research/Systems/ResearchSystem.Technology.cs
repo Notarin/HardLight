@@ -10,7 +10,12 @@ public sealed partial class ResearchSystem
     /// <summary>
     /// Syncs the primary entity's database to that of the secondary entity's database.
     /// </summary>
-    public void Sync(EntityUid primaryUid, EntityUid otherUid, TechnologyDatabaseComponent? primaryDb = null, TechnologyDatabaseComponent? otherDb = null)
+    public void Sync(
+        EntityUid primaryUid,
+        EntityUid otherUid,
+        TechnologyDatabaseComponent? primaryDb = null,
+        TechnologyDatabaseComponent? otherDb = null
+    )
     {
         if (!Resolve(primaryUid, ref primaryDb) || !Resolve(otherUid, ref otherDb))
             return;
@@ -33,7 +38,11 @@ public sealed partial class ResearchSystem
     ///     syncs against the research server, and the server against the local database.
     /// </summary>
     /// <returns>Whether it could sync or not</returns>
-    public void SyncClientWithServer(EntityUid uid, TechnologyDatabaseComponent? databaseComponent = null, ResearchClientComponent? clientComponent = null)
+    public void SyncClientWithServer(
+        EntityUid uid,
+        TechnologyDatabaseComponent? databaseComponent = null,
+        ResearchClientComponent? clientComponent = null
+    )
     {
         if (!Resolve(uid, ref databaseComponent, ref clientComponent, false))
             return;
@@ -48,11 +57,13 @@ public sealed partial class ResearchSystem
     /// Tries to add a technology to a database, checking if it is able to
     /// </summary>
     /// <returns>If the technology was successfully added</returns>
-    public bool UnlockTechnology(EntityUid client,
+    public bool UnlockTechnology(
+        EntityUid client,
         string prototypeid,
         EntityUid user,
         ResearchClientComponent? component = null,
-        TechnologyDatabaseComponent? clientDatabase = null)
+        TechnologyDatabaseComponent? clientDatabase = null
+    )
     {
         if (!PrototypeManager.TryIndex<TechnologyPrototype>(prototypeid, out var prototype))
             return false;
@@ -64,11 +75,13 @@ public sealed partial class ResearchSystem
     /// Tries to add a technology to a database, checking if it is able to
     /// </summary>
     /// <returns>If the technology was successfully added</returns>
-    public bool UnlockTechnology(EntityUid client,
+    public bool UnlockTechnology(
+        EntityUid client,
         TechnologyPrototype prototype,
         EntityUid user,
         ResearchClientComponent? component = null,
-        TechnologyDatabaseComponent? clientDatabase = null)
+        TechnologyDatabaseComponent? clientDatabase = null
+    )
     {
         if (!Resolve(client, ref component, ref clientDatabase, false))
             return false;
@@ -84,8 +97,11 @@ public sealed partial class ResearchSystem
         ModifyServerPoints(serverEnt.Value, -prototype.Cost);
         UpdateTechnologyCards(serverEnt.Value);
 
-        _adminLog.Add(LogType.Action, LogImpact.Medium,
-            $"{ToPrettyString(user):player} unlocked {prototype.ID} (discipline: {prototype.Discipline}, tier: {prototype.Tier}) at {ToPrettyString(client)}, for server {ToPrettyString(serverEnt.Value)}.");
+        _adminLog.Add(
+            LogType.Action,
+            LogImpact.Medium,
+            $"{ToPrettyString(user):player} unlocked {prototype.ID} (discipline: {prototype.Discipline}, tier: {prototype.Tier}) at {ToPrettyString(client)}, for server {ToPrettyString(serverEnt.Value)}."
+        );
         return true;
     }
 
@@ -106,7 +122,11 @@ public sealed partial class ResearchSystem
     /// <summary>
     ///     Adds a technology to the database without checking if it could be unlocked.
     /// </summary>
-    public void AddTechnology(EntityUid uid, TechnologyPrototype technology, TechnologyDatabaseComponent? component = null)
+    public void AddTechnology(
+        EntityUid uid,
+        TechnologyPrototype technology,
+        TechnologyDatabaseComponent? component = null
+    )
     {
         if (!Resolve(uid, ref component))
             return;
@@ -138,12 +158,13 @@ public sealed partial class ResearchSystem
     ///     taking parent technologies into account.
     /// </summary>
     /// <returns>Whether it could be unlocked or not</returns>
-    public bool CanServerUnlockTechnology(EntityUid uid,
+    public bool CanServerUnlockTechnology(
+        EntityUid uid,
         TechnologyPrototype technology,
         TechnologyDatabaseComponent? database = null,
-        ResearchClientComponent? client = null)
+        ResearchClientComponent? client = null
+    )
     {
-
         if (!Resolve(uid, ref client, ref database, false))
             return false;
 
@@ -159,7 +180,11 @@ public sealed partial class ResearchSystem
         return true;
     }
 
-    private void OnDatabaseRegistrationChanged(EntityUid uid, TechnologyDatabaseComponent component, ref ResearchRegistrationChangedEvent args)
+    private void OnDatabaseRegistrationChanged(
+        EntityUid uid,
+        TechnologyDatabaseComponent component,
+        ref ResearchRegistrationChangedEvent args
+    )
     {
         if (args.Server != null)
             return;

@@ -15,15 +15,11 @@ public sealed partial class SetFloatOperator : HTNOperator
     [DataField, ViewVariables(VVAccess.ReadWrite)]
     public float Amount;
 
-    public override async Task<(bool Valid, Dictionary<string, object>? Effects)> Plan(NPCBlackboard blackboard,
-        CancellationToken cancelToken)
+    public override async Task<(bool Valid, Dictionary<string, object>? Effects)> Plan(
+        NPCBlackboard blackboard,
+        CancellationToken cancelToken
+    )
     {
-        return (
-            true,
-            new Dictionary<string, object>
-            {
-                { TargetKey, Amount }
-            }
-        );
+        return (true, new Dictionary<string, object> { { TargetKey, Amount } });
     }
 }

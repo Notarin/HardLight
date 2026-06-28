@@ -1,7 +1,7 @@
 #region frame
 - type: entity
   id: NFBaseWeaponFrameEnergyRifleSniper
-  parent: [ NFBaseWeaponEncumbranceLauncher, BaseWeaponBattery ]
+  parent: [NFBaseWeaponEncumbranceLauncher, BaseWeaponBattery]
   suffix: Frontier
   abstract: true
   components:
@@ -88,7 +88,7 @@
   - type: HitscanBatteryAmmoProvider
     proto: NFRedSpecialLaser
     fireCost: 1000
-    
+
 - type: entity
   id: NFBaseWeaponEnergyRifleSniperHitScanXray
   abstract: true

@@ -3,8 +3,8 @@ name: Build & Test Debug
 on:
   merge_group:
   pull_request:
-    types: [ opened, reopened, synchronize, ready_for_review ]
-    branches: [ master, staging, stable ]
+    types: [opened, reopened, synchronize, ready_for_review]
+    branches: [master, staging, stable]
 
 concurrency:
   group: integration-tests-${{ github.event.pull_request.number }}
@@ -19,7 +19,7 @@ jobs:
       test-list: ${{ steps.listtests.outputs.tests }}
 
     steps:
-      # Make sure we check out the exact SHA that started the flow, so we don't test someone elses code
+    # Make sure we check out the exact SHA that started the flow, so we don't test someone elses code
     - name: Checkout Master
       uses: actions/checkout@v7
       with:
@@ -98,7 +98,6 @@ jobs:
 
     - name: Run Tests
       run: dotnet vstest ./bin/Content.Tests/Content.Tests.dll -- NUnit.ConsoleOut=0
-
 
   integrationtests:
     runs-on: ubuntu-latest
@@ -183,9 +182,9 @@ jobs:
   ci-success:
     name: Testing Success
     needs:
-      - tests
-      - integrationtests
+    - tests
+    - integrationtests
     runs-on: ubuntu-latest
     steps:
-      - name: CI succeeded
-        run: exit 0
+    - name: CI succeeded
+      run: exit 0

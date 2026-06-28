@@ -12,7 +12,8 @@ namespace Content.Client.Lobby.UI;
 [GenerateTypedNameReferences]
 public sealed partial class LobbyCharacterPreviewPanel : Control
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
 
     public Button CharacterSetupButton => CharacterSetup;
 
@@ -40,6 +41,7 @@ public sealed partial class LobbyCharacterPreviewPanel : Control
     {
         BankBalance.Text = value;
     }
+
     // End Frontier
 
     // Company Display
@@ -50,9 +52,10 @@ public sealed partial class LobbyCharacterPreviewPanel : Control
             Company.SetMessage(string.Empty);
             return;
         }
-        
+
         Company.SetMessage(FormattedMessage.FromMarkupPermissive(value));
     }
+
     // End Company Display
 
     public void SetSprite(EntityUid uid)

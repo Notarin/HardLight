@@ -7,7 +7,7 @@
     mayTransfer: true
     whitelist:
       tags:
-        - Cartridge145x114mm
+      - Cartridge145x114mm
     proto: Cartridge145x114mm
     capacity: 10
   - type: Item

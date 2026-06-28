@@ -1,12 +1,12 @@
 using Content.Shared.Clothing.Components;
+using Content.Shared.Inventory; // Frontier
 using Content.Shared.Inventory.Events;
+using Content.Shared.Mind.Components; // Frontier
 using Content.Shared.NPC.Components;
+using Content.Shared.NPC.Prototypes; // Frontier
 using Content.Shared.NPC.Systems;
 using Robust.Shared.Player; // Frontier - Dont edit AI factions
-using Content.Shared.Inventory; // Frontier
-using Content.Shared.NPC.Prototypes; // Frontier
 using Robust.Shared.Prototypes; // Frontier
-using Content.Shared.Mind.Components; // Frontier
 
 namespace Content.Shared.Clothing.EntitySystems;
 
@@ -15,8 +15,11 @@ namespace Content.Shared.Clothing.EntitySystems;
 /// </summary>
 public sealed class FactionClothingSystem : EntitySystem
 {
-    [Dependency] private readonly NpcFactionSystem _faction = default!;
-    [Dependency] private readonly InventorySystem _inventory = default!; // Frontier
+    [Dependency]
+    private readonly NpcFactionSystem _faction = default!;
+
+    [Dependency]
+    private readonly InventorySystem _inventory = default!; // Frontier
 
     public override void Initialize()
     {
@@ -71,7 +74,11 @@ public sealed class FactionClothingSystem : EntitySystem
         }
     }
 
-    public bool? CheckEntityEquipmentForFaction(EntityUid ent, ProtoId<NpcFactionPrototype> prototype, EntityUid? skipEnt = null)
+    public bool? CheckEntityEquipmentForFaction(
+        EntityUid ent,
+        ProtoId<NpcFactionPrototype> prototype,
+        EntityUid? skipEnt = null
+    )
     {
         var enumerator = _inventory.GetSlotEnumerator(ent);
         while (enumerator.NextItem(out var item))

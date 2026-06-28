@@ -8,19 +8,19 @@
     sprite: Nyanotrasen/Clothing/Belt/mantis_belt.rsi
   - type: Clothing
     sprite: Nyanotrasen/Clothing/Belt/mantis_belt.rsi
-  # - type: Storage # Hardlight: we don't do whitelisted storage
-  #   whitelist:
-  #     tags:
-  #       - Document
-  #       - Flashlight
-  #       - ForensicBeltEquip
-  #       - HandLabeler
-  #       - Sidearm
-  #       - Folder
-  #     components:
-  #       - AnomalyScanner
-  #       - NodeScanner
-  #       - Flash
+    # - type: Storage # Hardlight: we don't do whitelisted storage
+    #   whitelist:
+    #     tags:
+    #       - Document
+    #       - Flashlight
+    #       - ForensicBeltEquip
+    #       - HandLabeler
+    #       - Sidearm
+    #       - Folder
+    #     components:
+    #       - AnomalyScanner
+    #       - NodeScanner
+    #       - Flash
 
 - type: entity
   parent: ClothingBeltBase # DeltaV - reparent from ClothingBeltStorageBase
@@ -75,4 +75,4 @@
   - type: Appearance
   - type: Tag
     tags:
-      - BeltSlotNotBelt
+    - BeltSlotNotBelt

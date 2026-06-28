@@ -18,14 +18,22 @@ namespace Content.Server.UserInterface;
 [AdminCommand(AdminFlags.Debug)]
 public sealed class StatValuesCommand : IConsoleCommand
 {
-    [Dependency] private readonly EuiManager _eui = default!;
-    [Dependency] private readonly IComponentFactory _factory = default!;
-    [Dependency] private readonly IEntityManager _entManager = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
+    [Dependency]
+    private readonly EuiManager _eui = default!;
+
+    [Dependency]
+    private readonly IComponentFactory _factory = default!;
+
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
 
     public string Command => "showvalues";
     public string Description => Loc.GetString("stat-values-desc");
     public string Help => $"{Command} <cargosell / lathesell / melee / itemsize>";
+
     public void Execute(IConsoleShell shell, string argStr, string[] args)
     {
         if (shell.Player is not { } pSession)
@@ -106,21 +114,13 @@ public sealed class StatValuesCommand : IConsoleCommand
             if (price == 0)
                 continue;
 
-            values.Add(new[]
-            {
-                id,
-                $"{price:0}",
-            });
+            values.Add(new[] { id, $"{price:0}" });
         }
 
         var state = new StatValuesEuiMessage()
         {
             Title = Loc.GetString("stat-cargo-values"),
-            Headers = new List<string>()
-            {
-                Loc.GetString("stat-cargo-id"),
-                Loc.GetString("stat-cargo-price"),
-            },
+            Headers = new List<string>() { Loc.GetString("stat-cargo-id"), Loc.GetString("stat-cargo-price") },
             Values = values,
         };
 
@@ -150,21 +150,13 @@ public sealed class StatValuesCommand : IConsoleCommand
             if (!itemQuery.TryGetComponent(entity, out var itemComp))
                 continue;
 
-            values.Add(new[]
-            {
-                id,
-                $"{itemSystem.GetItemSizeLocale(itemComp.Size)}",
-            });
+            values.Add(new[] { id, $"{itemSystem.GetItemSizeLocale(itemComp.Size)}" });
         }
 
         var state = new StatValuesEuiMessage
         {
             Title = Loc.GetString("stat-item-values"),
-            Headers = new List<string>
-            {
-                Loc.GetString("stat-item-id"),
-                Loc.GetString("stat-item-price"),
-            },
+            Headers = new List<string> { Loc.GetString("stat-item-id"), Loc.GetString("stat-item-price") },
             Values = values,
         };
 
@@ -178,36 +170,32 @@ public sealed class StatValuesCommand : IConsoleCommand
 
         foreach (var proto in _proto.EnumeratePrototypes<EntityPrototype>())
         {
-            if (proto.Abstract ||
-                !proto.Components.TryGetValue(meleeName,
-                    out var meleeComp))
+            if (proto.Abstract || !proto.Components.TryGetValue(meleeName, out var meleeComp))
             {
                 continue;
             }
 
-            var comp = (MeleeWeaponComponent) meleeComp.Component;
+            var comp = (MeleeWeaponComponent)meleeComp.Component;
 
             // TODO: Wielded damage
             // TODO: Esword damage
 
-            values.Add(new[]
-            {
-                proto.ID,
-                (comp.Damage.GetTotal() * comp.AttackRate).ToString(),
-                comp.AttackRate.ToString(CultureInfo.CurrentCulture),
-                comp.Damage.GetTotal().ToString(),
-                comp.Range.ToString(CultureInfo.CurrentCulture),
-            });
+            values.Add(
+                new[]
+                {
+                    proto.ID,
+                    (comp.Damage.GetTotal() * comp.AttackRate).ToString(),
+                    comp.AttackRate.ToString(CultureInfo.CurrentCulture),
+                    comp.Damage.GetTotal().ToString(),
+                    comp.Range.ToString(CultureInfo.CurrentCulture),
+                }
+            );
         }
 
         var state = new StatValuesEuiMessage()
         {
             Title = "Cargo sell prices",
-            Headers = new List<string>()
-            {
-                "ID",
-                "Price",
-            },
+            Headers = new List<string>() { "ID", "Price" },
             Values = values,
         };
 
@@ -231,12 +219,7 @@ public sealed class StatValuesCommand : IConsoleCommand
 
             var sell = priceSystem.GetLatheRecipePrice(proto);
 
-            values.Add(new[]
-            {
-                proto.ID,
-                $"{cost:0}",
-                $"{sell:0}",
-            });
+            values.Add(new[] { proto.ID, $"{cost:0}", $"{sell:0}" });
         }
 
         var state = new StatValuesEuiMessage()
@@ -261,33 +244,23 @@ public sealed class StatValuesCommand : IConsoleCommand
 
         foreach (var proto in _proto.EnumeratePrototypes<EntityPrototype>())
         {
-            if (proto.Abstract ||
-                !proto.Components.TryGetValue(powerName,
-                    out var powerConsumer))
+            if (proto.Abstract || !proto.Components.TryGetValue(powerName, out var powerConsumer))
             {
                 continue;
             }
 
-            var comp = (ApcPowerReceiverComponent) powerConsumer.Component;
+            var comp = (ApcPowerReceiverComponent)powerConsumer.Component;
 
             if (comp.Load == 0)
                 continue;
 
-            values.Add(new[]
-            {
-                proto.ID,
-                comp.Load.ToString(CultureInfo.InvariantCulture),
-            });
+            values.Add(new[] { proto.ID, comp.Load.ToString(CultureInfo.InvariantCulture) });
         }
 
         var state = new StatValuesEuiMessage
         {
             Title = Loc.GetString("stat-drawrate-values"),
-            Headers = new List<string>
-            {
-                Loc.GetString("stat-drawrate-id"),
-                Loc.GetString("stat-drawrate-rate"),
-            },
+            Headers = new List<string> { Loc.GetString("stat-drawrate-id"), Loc.GetString("stat-drawrate-rate") },
             Values = values,
         };
 

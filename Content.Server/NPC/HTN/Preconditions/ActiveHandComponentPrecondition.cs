@@ -8,7 +8,8 @@ namespace Content.Server.NPC.HTN.Preconditions;
 /// </summary>
 public sealed partial class ActiveHandComponentPrecondition : HTNPrecondition
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
 
     [DataField("invert")]
     public bool Invert;
@@ -18,7 +19,10 @@ public sealed partial class ActiveHandComponentPrecondition : HTNPrecondition
 
     public override bool IsMet(NPCBlackboard blackboard)
     {
-        if (!blackboard.TryGetValue<Hand>(NPCBlackboard.ActiveHand, out var hand, _entManager) || hand.HeldEntity == null)
+        if (
+            !blackboard.TryGetValue<Hand>(NPCBlackboard.ActiveHand, out var hand, _entManager)
+            || hand.HeldEntity == null
+        )
         {
             return Invert;
         }
@@ -27,8 +31,7 @@ public sealed partial class ActiveHandComponentPrecondition : HTNPrecondition
         {
             var hasComp = _entManager.HasComponent(hand.HeldEntity, comp.Value.Component.GetType());
 
-            if (!hasComp ||
-                Invert && hasComp)
+            if (!hasComp || Invert && hasComp)
             {
                 return false;
             }

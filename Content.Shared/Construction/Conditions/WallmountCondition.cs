@@ -39,13 +39,21 @@ namespace Content.Shared.Construction.Conditions
 
             // now we need to check that user actually tries to build wallmount on a wall
             var physics = entManager.System<SharedPhysicsSystem>();
-            var rUserToObj = new CollisionRay(userWorldPosition, userToObject.Normalized(), (int) CollisionGroup.Impassable);
+            var rUserToObj = new CollisionRay(
+                userWorldPosition,
+                userToObject.Normalized(),
+                (int)CollisionGroup.Impassable
+            );
             var length = userToObject.Length();
 
             var tagSystem = entManager.System<TagSystem>();
 
-            var userToObjRaycastResults = physics.IntersectRayWithPredicate(entManager.GetComponent<TransformComponent>(user).MapID, rUserToObj, maxLength: length,
-                predicate: (e) => !tagSystem.HasTag(e, WallTag));
+            var userToObjRaycastResults = physics.IntersectRayWithPredicate(
+                entManager.GetComponent<TransformComponent>(user).MapID,
+                rUserToObj,
+                maxLength: length,
+                predicate: (e) => !tagSystem.HasTag(e, WallTag)
+            );
 
             var targetWall = userToObjRaycastResults.FirstOrNull();
 
@@ -54,19 +62,24 @@ namespace Content.Shared.Construction.Conditions
 
             // get this wall entity
             // check that we didn't try to build wallmount that facing another adjacent wall
-            var rAdjWall = new CollisionRay(objWorldPosition, directionWithOffset.Normalized(), (int) CollisionGroup.Impassable);
-            var adjWallRaycastResults = physics.IntersectRayWithPredicate(entManager.GetComponent<TransformComponent>(user).MapID, rAdjWall, maxLength: 0.5f,
-               predicate: e => e == targetWall.Value.HitEntity || !tagSystem.HasTag(e, WallTag));
+            var rAdjWall = new CollisionRay(
+                objWorldPosition,
+                directionWithOffset.Normalized(),
+                (int)CollisionGroup.Impassable
+            );
+            var adjWallRaycastResults = physics.IntersectRayWithPredicate(
+                entManager.GetComponent<TransformComponent>(user).MapID,
+                rAdjWall,
+                maxLength: 0.5f,
+                predicate: e => e == targetWall.Value.HitEntity || !tagSystem.HasTag(e, WallTag)
+            );
 
             return !adjWallRaycastResults.Any();
         }
 
         public ConstructionGuideEntry GenerateGuideEntry()
         {
-            return new ConstructionGuideEntry()
-            {
-                Localization = "construction-step-condition-wallmount",
-            };
+            return new ConstructionGuideEntry() { Localization = "construction-step-condition-wallmount" };
         }
     }
 }

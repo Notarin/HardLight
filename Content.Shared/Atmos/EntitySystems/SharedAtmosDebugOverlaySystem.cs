@@ -21,7 +21,8 @@ namespace Content.Shared.Atmos.EntitySystems
             bool IsSpace,
             bool MapAtmosphere,
             bool NoGrid,
-            bool Immutable);
+            bool Immutable
+        );
 
         /// <summary>
         ///     Invalid tiles for the gas overlay.
@@ -33,10 +34,15 @@ namespace Content.Shared.Atmos.EntitySystems
             public NetEntity GridId { get; }
 
             public Vector2i BaseIdx { get; }
+
             // LocalViewRange*LocalViewRange
             public AtmosDebugOverlayData?[] OverlayData { get; }
 
-            public AtmosDebugOverlayMessage(NetEntity gridIndices, Vector2i baseIdx, AtmosDebugOverlayData?[] overlayData)
+            public AtmosDebugOverlayMessage(
+                NetEntity gridIndices,
+                Vector2i baseIdx,
+                AtmosDebugOverlayData?[] overlayData
+            )
             {
                 GridId = gridIndices;
                 BaseIdx = baseIdx;
@@ -45,8 +51,6 @@ namespace Content.Shared.Atmos.EntitySystems
         }
 
         [Serializable, NetSerializable]
-        public sealed class AtmosDebugOverlayDisableMessage : EntityEventArgs
-        {
-        }
+        public sealed class AtmosDebugOverlayDisableMessage : EntityEventArgs { }
     }
 }

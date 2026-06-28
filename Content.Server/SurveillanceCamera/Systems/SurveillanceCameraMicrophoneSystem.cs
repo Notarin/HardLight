@@ -1,7 +1,7 @@
 using Content.Server.Chat.Systems;
-using Content.Shared._Starlight.Language; // Starlight
 using Content.Server.Speech;
 using Content.Server.Speech.Components;
+using Content.Shared._Starlight.Language; // Starlight
 using Content.Shared.Whitelist;
 using Robust.Shared.Player;
 using static Content.Server.Chat.Systems.ChatSystem;
@@ -10,8 +10,12 @@ namespace Content.Server.SurveillanceCamera;
 
 public sealed class SurveillanceCameraMicrophoneSystem : EntitySystem
 {
-    [Dependency] private readonly SharedTransformSystem _xforms = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
+    [Dependency]
+    private readonly SharedTransformSystem _xforms = default!;
+
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelistSystem = default!;
+
     public override void Initialize()
     {
         base.Initialize();
@@ -28,15 +32,23 @@ public sealed class SurveillanceCameraMicrophoneSystem : EntitySystem
         var sourcePos = _xforms.GetWorldPosition(sourceXform, xformQuery);
 
         // This function ensures that chat popups appear on camera views that have connected microphones.
-        foreach (var (_, __, camera, xform) in EntityQuery<SurveillanceCameraMicrophoneComponent, ActiveListenerComponent, SurveillanceCameraComponent, TransformComponent>())
+        foreach (
+            var (_, __, camera, xform) in EntityQuery<
+                SurveillanceCameraMicrophoneComponent,
+                ActiveListenerComponent,
+                SurveillanceCameraComponent,
+                TransformComponent
+            >()
+        )
         {
             if (camera.ActiveViewers.Count == 0)
                 continue;
 
             // get range to camera. This way wispers will still appear as obfuscated if they are too far from the camera's microphone
-            var range = (xform.MapID != sourceXform.MapID)
-                ? -1
-                : (sourcePos - _xforms.GetWorldPosition(xform, xformQuery)).Length();
+            var range =
+                (xform.MapID != sourceXform.MapID)
+                    ? -1
+                    : (sourcePos - _xforms.GetWorldPosition(xform, xformQuery)).Length();
 
             if (range < 0 || range > ev.VoiceRange)
                 continue;
@@ -46,7 +58,10 @@ public sealed class SurveillanceCameraMicrophoneSystem : EntitySystem
                 // if the player has not already received the chat message, send it to them but don't log it to the chat
                 // window. This is simply so that it appears in camera.
                 if (TryComp(viewer, out ActorComponent? actor))
-                    ev.Recipients.TryAdd(actor.PlayerSession, new ICChatRecipientData(range, ObserverType.NoObserver, true));
+                    ev.Recipients.TryAdd(
+                        actor.PlayerSession,
+                        new ICChatRecipientData(range, ObserverType.NoObserver, true)
+                    );
             }
         }
     }
@@ -109,4 +124,3 @@ public sealed class SurveillanceCameraSpeechSendEvent : EntityEventArgs
         Language = language; // Starlight
     }
 }
-

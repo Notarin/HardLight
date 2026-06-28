@@ -51,13 +51,7 @@ public sealed partial class DevourerComponent : Component
     public bool ShouldStoreDevoured = true;
 
     [ViewVariables(VVAccess.ReadWrite), DataField("whitelist")]
-    public EntityWhitelist? Whitelist = new()
-    {
-        Components = new[]
-        {
-            "MobState",
-        }
-    };
+    public EntityWhitelist? Whitelist = new() { Components = new[] { "MobState" } };
 
     /// <summary>
     /// The chemical ID injected upon devouring
@@ -77,4 +71,3 @@ public sealed partial class DevourerComponent : Component
     [DataField("foodPreference")]
     public FoodPreference FoodPreference = FoodPreference.All;
 }
-

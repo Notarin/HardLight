@@ -13,7 +13,7 @@ public static class Identity
     /// <summary>
     ///     Returns the name that should be used for this entity for identity purposes.
     /// </summary>
-    public static string Name(EntityUid uid, IEntityManager ent, EntityUid? viewer=null)
+    public static string Name(EntityUid uid, IEntityManager ent, EntityUid? viewer = null)
     {
         if (!uid.IsValid() || !ent.TryGetComponent(uid, out MetaDataComponent? meta)) // Frontier: add TryGetComponent
             return string.Empty;
@@ -76,5 +76,4 @@ public static class Identity
         // how everyone else will see you, otherwise people will probably get confused and think they aren't disguised
         return ent.HasComponent<GhostComponent>(viewer);
     }
-
 }

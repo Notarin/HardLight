@@ -22,13 +22,19 @@ public sealed class SalvageExpeditionConsoleBoundUserInterface : BoundUserInterf
     private SalvageExpeditionWindow? _window; // Frontier: OfferingWindow<SalvageExpeditionWindow
 
     // [Dependency] private readonly IConfigurationManager _cfgManager = default!; // Frontier: warning suppression
-    [Dependency] private readonly IEntityManager _entManager = default!;
-    [Dependency] private readonly IPrototypeManager _protoManager = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _protoManager = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     private TimeSpan? _lastStateUpdate;
 
-    public SalvageExpeditionConsoleBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
+    public SalvageExpeditionConsoleBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey)
     {
         IoCManager.InjectDependencies(this);
     }
@@ -88,52 +94,56 @@ public sealed class SalvageExpeditionConsoleBoundUserInterface : BoundUserInterf
 
             // Difficulty
             // Details
-            offering.AddContent(new Label()
-            {
-                Text = Loc.GetString("salvage-expedition-window-difficulty")
-            });
+            offering.AddContent(new Label() { Text = Loc.GetString("salvage-expedition-window-difficulty") });
 
             var difficultyColor = difficultyProto.Color;
 
-            offering.AddContent(new Label
-            {
-                Text = Loc.GetString($"salvage-expedition-difficulty-{missionParams.Difficulty}"), // Frontier: parameterize loc string
-                FontColorOverride = difficultyColor,
-                HorizontalAlignment = Control.HAlignment.Left,
-                Margin = new Thickness(0f, 0f, 0f, 5f),
-            });
+            offering.AddContent(
+                new Label
+                {
+                    Text = Loc.GetString($"salvage-expedition-difficulty-{missionParams.Difficulty}"), // Frontier: parameterize loc string
+                    FontColorOverride = difficultyColor,
+                    HorizontalAlignment = Control.HAlignment.Left,
+                    Margin = new Thickness(0f, 0f, 0f, 5f),
+                }
+            );
 
-            offering.AddContent(new Label
-            {
-                Text = Loc.GetString("salvage-expedition-difficulty-players"),
-                HorizontalAlignment = Control.HAlignment.Left,
-            });
+            offering.AddContent(
+                new Label
+                {
+                    Text = Loc.GetString("salvage-expedition-difficulty-players"),
+                    HorizontalAlignment = Control.HAlignment.Left,
+                }
+            );
 
-            offering.AddContent(new Label
-            {
-                Text = difficultyProto.RecommendedPlayers.ToString(),
-                FontColorOverride = StyleNano.NanoGold,
-                HorizontalAlignment = Control.HAlignment.Left,
-                Margin = new Thickness(0f, 0f, 0f, 5f),
-            });
+            offering.AddContent(
+                new Label
+                {
+                    Text = difficultyProto.RecommendedPlayers.ToString(),
+                    FontColorOverride = StyleNano.NanoGold,
+                    HorizontalAlignment = Control.HAlignment.Left,
+                    Margin = new Thickness(0f, 0f, 0f, 5f),
+                }
+            );
 
             // Details
-            offering.AddContent(new Label
-            {
-                Text = Loc.GetString("salvage-expedition-window-hostiles")
-            });
+            offering.AddContent(new Label { Text = Loc.GetString("salvage-expedition-window-hostiles") });
 
             var faction = mission.Faction;
 
-            offering.AddContent(new Label
-            {
-                Text = string.IsNullOrWhiteSpace(Loc.GetString(_protoManager.Index<SalvageFactionPrototype>(faction).Description))
+            offering.AddContent(
+                new Label
+                {
+                    Text = string.IsNullOrWhiteSpace(
+                        Loc.GetString(_protoManager.Index<SalvageFactionPrototype>(faction).Description)
+                    )
                         ? LogAndReturnDefaultFactionDescription(faction)
                         : Loc.GetString(_protoManager.Index<SalvageFactionPrototype>(faction).Description),
-                FontColorOverride = StyleNano.NanoGold,
-                HorizontalAlignment = Control.HAlignment.Left,
-                Margin = new Thickness(0f, 0f, 0f, 5f),
-            });
+                    FontColorOverride = StyleNano.NanoGold,
+                    HorizontalAlignment = Control.HAlignment.Left,
+                    Margin = new Thickness(0f, 0f, 0f, 5f),
+                }
+            );
 
             string LogAndReturnDefaultFactionDescription(string faction)
             {
@@ -141,38 +151,37 @@ public sealed class SalvageExpeditionConsoleBoundUserInterface : BoundUserInterf
                 return Loc.GetString(_protoManager.Index<SalvageFactionPrototype>(faction).ID);
             }
 
-
             // Duration
-            offering.AddContent(new Label
-            {
-                Text = Loc.GetString("salvage-expedition-window-duration")
-            });
+            offering.AddContent(new Label { Text = Loc.GetString("salvage-expedition-window-duration") });
 
-            offering.AddContent(new Label
-            {
-                Text = mission.Duration.ToString(),
-                FontColorOverride = StyleNano.NanoGold,
-                HorizontalAlignment = Control.HAlignment.Left,
-                Margin = new Thickness(0f, 0f, 0f, 5f),
-            });
+            offering.AddContent(
+                new Label
+                {
+                    Text = mission.Duration.ToString(),
+                    FontColorOverride = StyleNano.NanoGold,
+                    HorizontalAlignment = Control.HAlignment.Left,
+                    Margin = new Thickness(0f, 0f, 0f, 5f),
+                }
+            );
 
             // Biome
-            offering.AddContent(new Label
-            {
-                Text = Loc.GetString("salvage-expedition-window-biome")
-            });
+            offering.AddContent(new Label { Text = Loc.GetString("salvage-expedition-window-biome") });
 
             var biome = mission.Biome;
 
-            offering.AddContent(new Label
-            {
-                Text = string.IsNullOrWhiteSpace(Loc.GetString(_protoManager.Index<SalvageBiomeModPrototype>(biome).Description))
+            offering.AddContent(
+                new Label
+                {
+                    Text = string.IsNullOrWhiteSpace(
+                        Loc.GetString(_protoManager.Index<SalvageBiomeModPrototype>(biome).Description)
+                    )
                         ? LogAndReturnDefaultBiomDescription(biome)
                         : Loc.GetString(_protoManager.Index<SalvageBiomeModPrototype>(biome).Description),
-                FontColorOverride = StyleNano.NanoGold,
-                HorizontalAlignment = Control.HAlignment.Left,
-                Margin = new Thickness(0f, 0f, 0f, 5f),
-            });
+                    FontColorOverride = StyleNano.NanoGold,
+                    HorizontalAlignment = Control.HAlignment.Left,
+                    Margin = new Thickness(0f, 0f, 0f, 5f),
+                }
+            );
 
             string LogAndReturnDefaultBiomDescription(string biome)
             {
@@ -181,27 +190,23 @@ public sealed class SalvageExpeditionConsoleBoundUserInterface : BoundUserInterf
             }
 
             // Modifiers
-            offering.AddContent(new Label
-            {
-                Text = Loc.GetString("salvage-expedition-window-modifiers")
-            });
+            offering.AddContent(new Label { Text = Loc.GetString("salvage-expedition-window-modifiers") });
 
             var mods = mission.Modifiers;
 
-            offering.AddContent(new Label
-            {
-                Text = string.Join("\n", mods.Select(o => "- " + o)).TrimEnd(),
-                FontColorOverride = StyleNano.NanoGold,
-                HorizontalAlignment = Control.HAlignment.Left,
-                Margin = new Thickness(0f, 0f, 0f, 5f),
-            });
+            offering.AddContent(
+                new Label
+                {
+                    Text = string.Join("\n", mods.Select(o => "- " + o)).TrimEnd(),
+                    FontColorOverride = StyleNano.NanoGold,
+                    HorizontalAlignment = Control.HAlignment.Left,
+                    Margin = new Thickness(0f, 0f, 0f, 5f),
+                }
+            );
 
             offering.ClaimPressed += args =>
             {
-                SendMessage(new ClaimSalvageMessage()
-                {
-                    Index = missionParams.Index,
-                });
+                SendMessage(new ClaimSalvageMessage() { Index = missionParams.Index });
             };
 
             offering.Claimed = current.ActiveMission == missionParams.Index;

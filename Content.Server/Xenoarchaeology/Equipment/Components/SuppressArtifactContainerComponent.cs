@@ -4,7 +4,4 @@
 ///     Suppress artifact activation, when entity is placed inside this container.
 /// </summary>
 [RegisterComponent]
-public sealed partial class SuppressArtifactContainerComponent : Component
-{
-
-}
+public sealed partial class SuppressArtifactContainerComponent : Component { }

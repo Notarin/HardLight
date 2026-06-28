@@ -21,7 +21,7 @@ namespace Content.Shared.Containers.ItemSlots
         ///     The dictionary that stores all of the item slots whose interactions will be managed by the <see
         ///     cref="ItemSlotsSystem"/>.
         /// </summary>
-        [DataField(readOnly:true)]
+        [DataField(readOnly: true)]
         public Dictionary<string, ItemSlot> Slots = new();
 
         // There are two ways to use item slots:
@@ -268,11 +268,23 @@ namespace Content.Shared.Containers.ItemSlots
     /// Event raised on the slot entity and the item being inserted to determine if an item can be inserted into an item slot.
     /// </summary>
     [ByRefEvent]
-    public record struct ItemSlotInsertAttemptEvent(EntityUid SlotEntity, EntityUid Item, EntityUid? User, ItemSlot Slot, bool Cancelled = false);
+    public record struct ItemSlotInsertAttemptEvent(
+        EntityUid SlotEntity,
+        EntityUid Item,
+        EntityUid? User,
+        ItemSlot Slot,
+        bool Cancelled = false
+    );
 
     /// <summary>
     /// Event raised on the slot entity and the item being inserted to determine if an item can be ejected from an item slot.
     /// </summary>
     [ByRefEvent]
-    public record struct ItemSlotEjectAttemptEvent(EntityUid SlotEntity, EntityUid Item, EntityUid? User, ItemSlot Slot, bool Cancelled = false);
+    public record struct ItemSlotEjectAttemptEvent(
+        EntityUid SlotEntity,
+        EntityUid Item,
+        EntityUid? User,
+        ItemSlot Slot,
+        bool Cancelled = false
+    );
 }

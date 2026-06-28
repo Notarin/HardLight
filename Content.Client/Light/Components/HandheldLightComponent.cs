@@ -18,15 +18,9 @@ public sealed class HandheldLightStatus : Control
 
     private float _timer;
 
-    private static readonly StyleBoxFlat StyleBoxLit = new()
-    {
-        BackgroundColor = Color.LimeGreen
-    };
+    private static readonly StyleBoxFlat StyleBoxLit = new() { BackgroundColor = Color.LimeGreen };
 
-    private static readonly StyleBoxFlat StyleBoxUnlit = new()
-    {
-        BackgroundColor = Color.Black
-    };
+    private static readonly StyleBoxFlat StyleBoxUnlit = new() { BackgroundColor = Color.Black };
 
     public HandheldLightStatus(HandheldLightComponent parent)
     {
@@ -36,14 +30,14 @@ public sealed class HandheldLightStatus : Control
         {
             Orientation = LayoutOrientation.Horizontal,
             SeparationOverride = 4,
-            HorizontalAlignment = HAlignment.Center
+            HorizontalAlignment = HAlignment.Center,
         };
 
         AddChild(wrapper);
 
         for (var i = 0; i < _sections.Length; i++)
         {
-            var panel = new PanelContainer {MinSize = new Vector2(20, 20)};
+            var panel = new PanelContainer { MinSize = new Vector2(20, 20) };
             wrapper.AddChild(panel);
             _sections[i] = panel;
         }

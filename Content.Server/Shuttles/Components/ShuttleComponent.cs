@@ -41,13 +41,7 @@ namespace Content.Server.Shuttles.Components
         /// The thrusters contributing to each direction for impulse.
         /// </summary>
         // No touchy
-        public readonly List<EntityUid>[] LinearThrusters = new List<EntityUid>[]
-        {
-            new(),
-            new(),
-            new(),
-            new(),
-        };
+        public readonly List<EntityUid>[] LinearThrusters = new List<EntityUid>[] { new(), new(), new(), new() };
 
         /// <summary>
         /// The thrusters contributing to the angular impulse of the shuttle.
@@ -69,6 +63,7 @@ namespace Content.Server.Shuttles.Components
         /// </summary>
         [ViewVariables]
         public float AccelerationMultiplier = 1f;
+
         // </Mono>
 
         /// <summary>

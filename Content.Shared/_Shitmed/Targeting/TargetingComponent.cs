@@ -29,7 +29,7 @@ public sealed partial class TargetingComponent : Component
         { TargetBodyPart.LeftLeg, 0.1f },
         { TargetBodyPart.LeftFoot, 0.05f },
         { TargetBodyPart.RightLeg, 0.1f },
-        { TargetBodyPart.RightFoot, 0.05f }
+        { TargetBodyPart.RightFoot, 0.05f },
     };
 
     /// <summary>
@@ -48,7 +48,7 @@ public sealed partial class TargetingComponent : Component
         { TargetBodyPart.LeftLeg, TargetIntegrity.Healthy },
         { TargetBodyPart.LeftFoot, TargetIntegrity.Healthy },
         { TargetBodyPart.RightLeg, TargetIntegrity.Healthy },
-        { TargetBodyPart.RightFoot, TargetIntegrity.Healthy }
+        { TargetBodyPart.RightFoot, TargetIntegrity.Healthy },
     };
 
     /// <summary>

@@ -11,8 +11,11 @@ namespace Content.Shared.Objectives.Systems;
 /// </summary>
 public abstract class SharedObjectivesSystem : EntitySystem
 {
-    [Dependency] private readonly SharedMindSystem _mind = default!;
-    [Dependency] private readonly IPrototypeManager _protoMan = default!;
+    [Dependency]
+    private readonly SharedMindSystem _mind = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _protoMan = default!;
 
     private EntityQuery<MetaDataComponent> _metaQuery;
 
@@ -70,7 +73,9 @@ public abstract class SharedObjectivesSystem : EntitySystem
 
         if (!CanBeAssigned(uid, mindId, mind, comp))
         {
-            Log.Warning($"Objective {proto} did not match the requirements for {_mind.MindOwnerLoggingString(mind)}, deleted it");
+            Log.Warning(
+                $"Objective {proto} did not match the requirements for {_mind.MindOwnerLoggingString(mind)}, deleted it"
+            );
             return null;
         }
 
@@ -96,7 +101,11 @@ public abstract class SharedObjectivesSystem : EntitySystem
     /// The objective is not added to the mind's objectives, mind system does that in TryAddObjective.
     /// If the objective could not be assigned the objective is deleted and false is returned.
     /// </summary>
-    public bool TryCreateObjective(Entity<MindComponent> mind, EntProtoId proto, [NotNullWhen(true)] out EntityUid? objective)
+    public bool TryCreateObjective(
+        Entity<MindComponent> mind,
+        EntProtoId proto,
+        [NotNullWhen(true)] out EntityUid? objective
+    )
     {
         objective = TryCreateObjective(mind.Owner, mind.Comp, proto);
         return objective != null;
@@ -114,7 +123,7 @@ public abstract class SharedObjectivesSystem : EntitySystem
         if (!Resolve(mindId, ref mind))
             return null;
 
-        if (GetProgress(uid, (mindId, mind)) is not {} progress)
+        if (GetProgress(uid, (mindId, mind)) is not { } progress)
             return null;
 
         var comp = Comp<ObjectiveComponent>(uid);
@@ -123,7 +132,9 @@ public abstract class SharedObjectivesSystem : EntitySystem
         var description = meta.EntityDescription;
         if (comp.Icon == null)
         {
-            Log.Error($"An objective {ToPrettyString(uid):objective} of {_mind.MindOwnerLoggingString(mind)} is missing an icon!");
+            Log.Error(
+                $"An objective {ToPrettyString(uid):objective} of {_mind.MindOwnerLoggingString(mind)} is missing an icon!"
+            );
             return null;
         }
 
@@ -141,7 +152,9 @@ public abstract class SharedObjectivesSystem : EntitySystem
         if (ev.Progress != null)
             return ev.Progress;
 
-        Log.Error($"Objective {ToPrettyString(uid):objective} of {_mind.MindOwnerLoggingString(mind.Comp)} didn't set a progress value!");
+        Log.Error(
+            $"Objective {ToPrettyString(uid):objective} of {_mind.MindOwnerLoggingString(mind.Comp)} didn't set a progress value!"
+        );
         return null;
     }
 

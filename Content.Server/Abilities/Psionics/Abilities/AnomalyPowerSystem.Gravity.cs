@@ -1,23 +1,29 @@
+using System.Linq;
 using Content.Shared.Abilities.Psionics;
 using Content.Shared.Actions.Events;
-using Robust.Shared.Physics.Components;
 using Content.Shared.Physics;
-using System.Linq;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
+using Robust.Shared.Physics.Components;
 
 namespace Content.Server.Abilities.Psionics;
 
 public sealed partial class AnomalyPowerSystem
 {
-    private void DoGravityAnomalyEffects(EntityUid uid, PsionicComponent component, AnomalyPowerActionEvent args, bool overcharged = false)
+    private void DoGravityAnomalyEffects(
+        EntityUid uid,
+        PsionicComponent component,
+        AnomalyPowerActionEvent args,
+        bool overcharged = false
+    )
     {
         if (args.Gravity is null)
             return;
 
         if (overcharged)
             GravitySupercrit(uid, component, args);
-        else GravityPulse(uid, component, args);
+        else
+            GravityPulse(uid, component, args);
     }
 
     private void GravitySupercrit(EntityUid uid, PsionicComponent component, AnomalyPowerActionEvent args)
@@ -28,10 +34,8 @@ public sealed partial class AnomalyPowerSystem
 
         var gravity = args.Gravity!.Value;
         var worldPos = _xform.GetWorldPosition(xform);
-        var tileref = _mapSystem.GetTilesIntersecting(
-                xform.GridUid.Value,
-                grid,
-                new Circle(worldPos, gravity.SpaceRange))
+        var tileref = _mapSystem
+            .GetTilesIntersecting(xform.GridUid.Value, grid, new Circle(worldPos, gravity.SpaceRange))
             .ToArray();
 
         var tiles = tileref.Select(t => (t.GridIndices, Tile.Empty)).ToList();
@@ -45,8 +49,10 @@ public sealed partial class AnomalyPowerSystem
 
         foreach (var ent in lookup)
         {
-            if (physQuery.TryGetComponent(ent, out var phys)
-                && (phys.CollisionMask & (int) CollisionGroup.GhostImpassable) != 0)
+            if (
+                physQuery.TryGetComponent(ent, out var phys)
+                && (phys.CollisionMask & (int)CollisionGroup.GhostImpassable) != 0
+            )
                 continue;
 
             var foo = _xform.GetWorldPosition(ent, xformQuery) - worldPos;
@@ -67,8 +73,10 @@ public sealed partial class AnomalyPowerSystem
 
         foreach (var ent in lookup)
         {
-            if (physQuery.TryGetComponent(ent, out var phys)
-                && (phys.CollisionMask & (int) CollisionGroup.GhostImpassable) != 0)
+            if (
+                physQuery.TryGetComponent(ent, out var phys)
+                && (phys.CollisionMask & (int)CollisionGroup.GhostImpassable) != 0
+            )
                 continue;
 
             var foo = _xform.GetWorldPosition(ent, xformQuery) - worldPos;

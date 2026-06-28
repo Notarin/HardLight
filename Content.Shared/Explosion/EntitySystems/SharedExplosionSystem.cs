@@ -34,14 +34,17 @@ public abstract class SharedExplosionSystem : EntitySystem
     ///     specified in the yaml / by the component, but determined dynamically (e.g., by the quantity of a
     ///     solution in a reaction).
     /// </remarks>
-    public virtual void TriggerExplosive(EntityUid uid, ExplosiveComponent? explosive = null, bool delete = true, float? totalIntensity = null, float? radius = null, EntityUid? user = null)
-    {
-    }
+    public virtual void TriggerExplosive(
+        EntityUid uid,
+        ExplosiveComponent? explosive = null,
+        bool delete = true,
+        float? totalIntensity = null,
+        float? radius = null,
+        EntityUid? user = null
+    ) { }
 
     /// <summary>
     /// This forces the explosion system to re-calculate the explosion intensity required to destroy all airtight entities.
     /// </summary>
-    public virtual void ReloadMap()
-    {
-    }
+    public virtual void ReloadMap() { }
 }

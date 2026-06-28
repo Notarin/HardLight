@@ -9,7 +9,8 @@ namespace Content.Server.Verbs.Commands
     [AdminCommand(AdminFlags.Admin)]
     public sealed class InvokeVerbCommand : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _entManager = default!;
+        [Dependency]
+        private readonly IEntityManager _entManager = default!;
 
         public string Command => "invokeverb";
         public string Description => Loc.GetString("invoke-verb-command-description");
@@ -76,7 +77,14 @@ namespace Content.Server.Verbs.Commands
                 if (verb != null)
                 {
                     verbSystem.ExecuteVerb(verb, playerEntity.Value, target.Value, forced: true);
-                    shell.WriteLine(Loc.GetString("invoke-verb-command-success", ("verb", verbName), ("target", target), ("player", playerEntity)));
+                    shell.WriteLine(
+                        Loc.GetString(
+                            "invoke-verb-command-success",
+                            ("verb", verbName),
+                            ("target", target),
+                            ("player", playerEntity)
+                        )
+                    );
                     return;
                 }
             }
@@ -86,13 +94,22 @@ namespace Content.Server.Verbs.Commands
                 if (verb.Text.ToLowerInvariant() == verbName)
                 {
                     verbSystem.ExecuteVerb(verb, playerEntity.Value, target.Value, forced: true);
-                    shell.WriteLine(Loc.GetString("invoke-verb-command-success", ("verb", verb.Text), ("target", target), ("player", playerEntity)));
+                    shell.WriteLine(
+                        Loc.GetString(
+                            "invoke-verb-command-success",
+                            ("verb", verb.Text),
+                            ("target", target),
+                            ("player", playerEntity)
+                        )
+                    );
                     return;
                 }
             }
 
             // found nothing
-            shell.WriteError(Loc.GetString("invoke-verb-command-verb-not-found", ("verb", verbName), ("target", target)));
+            shell.WriteError(
+                Loc.GetString("invoke-verb-command-verb-not-found", ("verb", verbName), ("target", target))
+            );
         }
     }
 }

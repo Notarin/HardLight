@@ -10,16 +10,35 @@ namespace Content.Client.SubFloor;
 
 public sealed class TrayScannerSystem : SharedTrayScannerSystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly AnimationPlayerSystem _animation = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly InventorySystem _inventory = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
-    [Dependency] private readonly TrayScanRevealSystem _trayScanReveal = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
+
+    [Dependency]
+    private readonly AnimationPlayerSystem _animation = default!;
+
+    [Dependency]
+    private readonly EntityLookupSystem _lookup = default!;
+
+    [Dependency]
+    private readonly InventorySystem _inventory = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SharedHandsSystem _hands = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
+
+    [Dependency]
+    private readonly TrayScanRevealSystem _trayScanReveal = default!;
 
     private const string TRayAnimationKey = "trays";
     private const double AnimationLength = 0.3;
@@ -95,12 +114,13 @@ public sealed class TrayScannerSystem : SharedTrayScannerSystem
         {
             // Revealing
             // Add buffer range to avoid flickers.
-            if (subfloorQuery.TryGetComponent(uid, out var subfloor) &&
-                inRange.Contains((uid, subfloor)))
+            if (subfloorQuery.TryGetComponent(uid, out var subfloor) && inRange.Contains((uid, subfloor)))
             {
                 // Due to the fact client is predicting this server states will reset it constantly
-                if ((!_appearance.TryGetData(uid, SubFloorVisuals.ScannerRevealed, out bool value) || !value) &&
-                    sprite.Color.A > SubfloorRevealAlpha)
+                if (
+                    (!_appearance.TryGetData(uid, SubFloorVisuals.ScannerRevealed, out bool value) || !value)
+                    && sprite.Color.A > SubfloorRevealAlpha
+                )
                 {
                     _sprite.SetColor((uid, sprite), sprite.Color.WithAlpha(0f));
                 }
@@ -110,23 +130,30 @@ public sealed class TrayScannerSystem : SharedTrayScannerSystem
                 if (sprite.Color.A >= SubfloorRevealAlpha || _animation.HasRunningAnimation(uid, TRayAnimationKey))
                     continue;
 
-                _animation.Play(uid, new Animation()
-                {
-                    Length = TimeSpan.FromSeconds(AnimationLength),
-                    AnimationTracks =
+                _animation.Play(
+                    uid,
+                    new Animation()
                     {
-                        new AnimationTrackComponentProperty()
+                        Length = TimeSpan.FromSeconds(AnimationLength),
+                        AnimationTracks =
                         {
-                            ComponentType = typeof(SpriteComponent),
-                            Property = nameof(SpriteComponent.Color),
-                            KeyFrames =
+                            new AnimationTrackComponentProperty()
                             {
-                                new AnimationTrackProperty.KeyFrame(sprite.Color.WithAlpha(0f), 0f),
-                                new AnimationTrackProperty.KeyFrame(sprite.Color.WithAlpha(SubfloorRevealAlpha), (float) AnimationLength)
-                            }
-                        }
-                    }
-                }, TRayAnimationKey);
+                                ComponentType = typeof(SpriteComponent),
+                                Property = nameof(SpriteComponent.Color),
+                                KeyFrames =
+                                {
+                                    new AnimationTrackProperty.KeyFrame(sprite.Color.WithAlpha(0f), 0f),
+                                    new AnimationTrackProperty.KeyFrame(
+                                        sprite.Color.WithAlpha(SubfloorRevealAlpha),
+                                        (float)AnimationLength
+                                    ),
+                                },
+                            },
+                        },
+                    },
+                    TRayAnimationKey
+                );
             }
             // Hiding
             else
@@ -145,23 +172,30 @@ public sealed class TrayScannerSystem : SharedTrayScannerSystem
                 if (_animation.HasRunningAnimation(uid, TRayAnimationKey))
                     continue;
 
-                _animation.Play(uid, new Animation()
-                {
-                    Length = TimeSpan.FromSeconds(AnimationLength),
-                    AnimationTracks =
+                _animation.Play(
+                    uid,
+                    new Animation()
                     {
-                        new AnimationTrackComponentProperty()
+                        Length = TimeSpan.FromSeconds(AnimationLength),
+                        AnimationTracks =
                         {
-                            ComponentType = typeof(SpriteComponent),
-                            Property = nameof(SpriteComponent.Color),
-                            KeyFrames =
+                            new AnimationTrackComponentProperty()
                             {
-                                new AnimationTrackProperty.KeyFrame(sprite.Color, 0f),
-                                new AnimationTrackProperty.KeyFrame(sprite.Color.WithAlpha(0f), (float) AnimationLength)
-                            }
-                        }
-                    }
-                }, TRayAnimationKey);
+                                ComponentType = typeof(SpriteComponent),
+                                Property = nameof(SpriteComponent.Color),
+                                KeyFrames =
+                                {
+                                    new AnimationTrackProperty.KeyFrame(sprite.Color, 0f),
+                                    new AnimationTrackProperty.KeyFrame(
+                                        sprite.Color.WithAlpha(0f),
+                                        (float)AnimationLength
+                                    ),
+                                },
+                            },
+                        },
+                    },
+                    TRayAnimationKey
+                );
             }
         }
     }

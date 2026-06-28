@@ -8,21 +8,26 @@ namespace Content.Client.UserInterface.ControlExtensions;
 
 public static class ControlExtension
 {
-    public static List<T> GetControlOfType<T>(this Control parent) where T : Control
+    public static List<T> GetControlOfType<T>(this Control parent)
+        where T : Control
     {
         return parent.GetControlOfType<T>(typeof(T).Name, false);
     }
-    public static List<T> GetControlOfType<T>(this Control parent, string childType) where T : Control
+
+    public static List<T> GetControlOfType<T>(this Control parent, string childType)
+        where T : Control
     {
         return parent.GetControlOfType<T>(childType, false);
     }
 
-    public static List<T> GetControlOfType<T>(this Control parent, bool fullTreeSearch) where T : Control
+    public static List<T> GetControlOfType<T>(this Control parent, bool fullTreeSearch)
+        where T : Control
     {
         return parent.GetControlOfType<T>(typeof(T).Name, fullTreeSearch);
     }
 
-    public static List<T> GetControlOfType<T>(this Control parent, string childType, bool fullTreeSearch) where T : Control
+    public static List<T> GetControlOfType<T>(this Control parent, string childType, bool fullTreeSearch)
+        where T : Control
     {
         List<T> controlList = new List<T>();
 
@@ -35,7 +40,7 @@ public static class ControlExtension
 
             if (isType)
             {
-                controlList.Add((T) child);
+                controlList.Add((T)child);
             }
 
             if (fullTreeSearch || searchDeeper)

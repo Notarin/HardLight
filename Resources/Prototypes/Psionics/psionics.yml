@@ -3,9 +3,9 @@
   name: Dispel
   description: dispel-power-description
   actions:
-    - ActionDispel
+  - ActionDispel
   components:
-    - DispelPower
+  - DispelPower
   initializationFeedback: dispel-power-initialization-feedback
   metapsionicFeedback: dispel-power-metapsionic-feedback
   dampeningModifier: 1
@@ -15,9 +15,9 @@
   name: Mass Sleep
   description: mass-sleep-power-description
   actions:
-    - ActionMassSleep
+  - ActionMassSleep
   components:
-    - MassSleepPower
+  - MassSleepPower
   # initializationFeedback: mass-sleep-power-initialization-feedback # I apologize, I don't feel like writing a paragraph of feedback for a power that's getting replaced with a new one.
   metapsionicFeedback: mass-sleep-power-metapsionic-feedback
   amplificationModifier: 0.5
@@ -28,9 +28,9 @@
   name: Mind Swap
   description: mind-swap-power-description
   actions:
-    - ActionMindSwap
+  - ActionMindSwap
   components:
-    - MindSwapPower
+  - MindSwapPower
   initializationFeedback: mind-swap-power-initialization-feedback
   metapsionicFeedback: mind-swap-power-metapsionic-feedback
   amplificationModifier: 1
@@ -40,9 +40,9 @@
   name: Noospheric Zap
   description: noospheric-zap-power-description
   actions:
-    - ActionNoosphericZap
+  - ActionNoosphericZap
   components:
-    - NoosphericZapPower
+  - NoosphericZapPower
   initializationFeedback: noospheric-zap-power-initialization-feedback
   metapsionicFeedback: noospheric-zap-power-metapsionic-feedback
   amplificationModifier: 1
@@ -54,7 +54,7 @@
   actions:
   - ActionPyrokinesis
   components:
-    - PyrokinesisPower
+  - PyrokinesisPower
   initializationFeedback: pyrokinesis-power-initialization-feedback
   metapsionicFeedback: pyrokinesis-power-metapsionic-feedback
   amplificationModifier: 1
@@ -66,7 +66,7 @@
   actions:
   - ActionMetapsionic
   components:
-    - MetapsionicPower
+  - MetapsionicPower
   initializationFeedback: metapsionic-power-initialization-feedback
   metapsionicFeedback: metapsionic-power-metapsionic-feedback
   amplificationModifier: 0.5
@@ -79,7 +79,7 @@
   actions:
   - ActionPsionicRegeneration
   components:
-    - PsionicRegenerationPower
+  - PsionicRegenerationPower
   initializationFeedback: psionic-regeneration-power-initialization-feedback
   metapsionicFeedback: psionic-regeneration-power-metapsionic-feedback
   amplificationModifier: 0.5
@@ -92,7 +92,7 @@
   actions:
   - ActionTelegnosis
   components:
-    - TelegnosisPower
+  - TelegnosisPower
   initializationFeedback: telegnosis-power-initialization-feedback
   metapsionicFeedback: telegnosis-power-metapsionic-feedback
   amplificationModifier: 0.5
@@ -105,7 +105,7 @@
   actions:
   - ActionPsionicInvisibility
   components:
-    - PsionicInvisibilityPower
+  - PsionicInvisibilityPower
   initializationFeedback: psionic-invisibility-power-initialization-feedback
   metapsionicFeedback: psionic-invisibility-power-metapsionic-feedback
   amplificationModifier: 0.5
@@ -143,7 +143,7 @@
   name: HealingWord
   description: healing-word-power-description
   actions:
-    - ActionHealingWord
+  - ActionHealingWord
   initializationFeedback: healing-word-power-initialization-feedback
   metapsionicFeedback: healing-word-power-feedback
   amplificationModifier: 0.5
@@ -154,7 +154,7 @@
   name: Revivify
   description: revivify-power-description
   actions:
-    - ActionRevivify
+  - ActionRevivify
   initializationFeedback: revivify-power-initialization-feedback
   metapsionicFeedback: revivify-power-feedback
   amplificationModifier: 2.5 # An extremely rare and dangerous power
@@ -221,7 +221,7 @@
   name: Pyrokinetic Flare
   description: pyrokinetic-flare-power-description
   actions:
-    - ActionPyrokineticFlare
+  - ActionPyrokineticFlare
   powerSlotCost: 1
 
 - type: psionicPower
@@ -229,7 +229,7 @@
   name: Summon Imp
   description: summon-imp-power-description
   actions:
-    - ActionSummonImp
+  - ActionSummonImp
   initializationFeedback: summon-imp-power-initialization-feedback
   amplificationModifier: 0.5
   dampeningModifier: 0.5
@@ -240,7 +240,7 @@
   name: Summon Remilia
   description: summon-remilia-power-description
   actions:
-    - ActionSummonRemilia
+  - ActionSummonRemilia
   powerSlotCost: 0
 
 - type: psionicPower
@@ -248,7 +248,7 @@
   name: Assay
   description: assay-power-description
   actions:
-    - ActionAssay
+  - ActionAssay
   initializationFeedback: assay-power-initialization-feedback
   metapsionicFeedback: assay-power-metapsionic-feedback
   dampeningModifier: 0.5

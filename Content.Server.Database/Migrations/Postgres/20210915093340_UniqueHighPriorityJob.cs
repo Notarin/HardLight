@@ -11,24 +11,22 @@ namespace Content.Server.Database.Migrations.Postgres
                 table: "job",
                 column: "profile_id",
                 unique: true,
-                filter: "priority = 3");
+                filter: "priority = 3"
+            );
 
             migrationBuilder.CreateIndex(
                 name: "IX_job_profile_id_job_name",
                 table: "job",
                 columns: new[] { "profile_id", "job_name" },
-                unique: true);
+                unique: true
+            );
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropIndex(
-                name: "IX_job_one_high_priority",
-                table: "job");
+            migrationBuilder.DropIndex(name: "IX_job_one_high_priority", table: "job");
 
-            migrationBuilder.DropIndex(
-                name: "IX_job_profile_id_job_name",
-                table: "job");
+            migrationBuilder.DropIndex(name: "IX_job_profile_id_job_name", table: "job");
         }
     }
 }

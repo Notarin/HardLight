@@ -16,10 +16,10 @@
   - type: Sprite
     sprite: Objects/Specific/Chemistry/vial.rsi
     layers:
-      - state: vial-1
-      - state: vial-1-1
-        map: ["enum.SolutionContainerLayers.Fill"]
-        visible: false
+    - state: vial-1
+    - state: vial-1-1
+      map: ["enum.SolutionContainerLayers.Fill"]
+      visible: false
   - type: Appearance
   - type: SolutionContainerVisuals
     maxFillLevels: 6
@@ -78,8 +78,7 @@
     damageContainer: Inorganic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 15
       behaviors:
       - !type:PlaySoundBehavior
@@ -87,7 +86,7 @@
           collection: GlassBreak
           params:
             volume: -4
-      - !type:SpillBehavior { }
+      - !type:SpillBehavior {}
       - !type:SpawnEntitiesBehavior
         spawn:
           ShardGlass:
@@ -95,7 +94,7 @@
             max: 1
         transferForensics: true
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: Spillable
     solution: beaker
   - type: DnaSubstanceTrace
@@ -119,10 +118,10 @@
   - type: Sprite
     sprite: Objects/Specific/Chemistry/vial.rsi
     layers:
-      - state: vial-1
-      - state: vial-1-1
-        map: ["enum.SolutionContainerLayers.Fill"]
-        visible: false
+    - state: vial-1
+    - state: vial-1-1
+      map: ["enum.SolutionContainerLayers.Fill"]
+      visible: false
   - type: Appearance
   - type: SolutionContainerVisuals
     maxFillLevels: 6
@@ -182,8 +181,7 @@
     damageContainer: Inorganic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 15
       behaviors:
       - !type:PlaySoundBehavior
@@ -191,7 +189,7 @@
           collection: GlassBreak
           params:
             volume: -4
-      - !type:SpillBehavior { }
+      - !type:SpillBehavior {}
       - !type:SpawnEntitiesBehavior
         spawn:
           ShardGlass:
@@ -199,7 +197,7 @@
             max: 1
         transferForensics: true
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: Spillable
     solution: beaker
   - type: DnaSubstanceTrace
@@ -239,8 +237,8 @@
       beaker:
         maxVol: 5
         reagents:
-          - ReagentId: Radium
-            Quantity: 5
+        - ReagentId: Radium
+          Quantity: 5
 
 - type: entity
   id: ChlorineChemistryVial
@@ -254,8 +252,8 @@
       beaker:
         maxVol: 5
         reagents:
-          - ReagentId: Chlorine
-            Quantity: 5
+        - ReagentId: Chlorine
+          Quantity: 5
 
 - type: entity
   id: PlasmaChemistryVial
@@ -269,5 +267,5 @@
       beaker:
         maxVol: 10
         reagents:
-          - ReagentId: Plasma
-            Quantity: 10
+        - ReagentId: Plasma
+          Quantity: 10

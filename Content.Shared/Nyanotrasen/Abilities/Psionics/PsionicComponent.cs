@@ -124,9 +124,10 @@ namespace Content.Shared.Abilities.Psionics
             get { return _baselineAmplification; }
             private set
             {
-                _baselineAmplification = (Math.Min(
-                _baselineAmplificationFactors.Item1, _baselineAmplificationFactors.Item2),
-                Math.Max(_baselineAmplificationFactors.Item1, _baselineAmplificationFactors.Item2));
+                _baselineAmplification = (
+                    Math.Min(_baselineAmplificationFactors.Item1, _baselineAmplificationFactors.Item2),
+                    Math.Max(_baselineAmplificationFactors.Item1, _baselineAmplificationFactors.Item2)
+                );
             }
         }
         private (float, float) _baselineDampening = (0.4f, 1.2f);
@@ -146,9 +147,10 @@ namespace Content.Shared.Abilities.Psionics
             get { return _baselineDampening; }
             private set
             {
-                _baselineDampening = (Math.Min(
-                _baselineDampeningFactors.Item1, _baselineDampeningFactors.Item2),
-                Math.Max(_baselineDampeningFactors.Item1, _baselineDampeningFactors.Item2));
+                _baselineDampening = (
+                    Math.Min(_baselineDampeningFactors.Item1, _baselineDampeningFactors.Item2),
+                    Math.Max(_baselineDampeningFactors.Item1, _baselineDampeningFactors.Item2)
+                );
             }
         }
 

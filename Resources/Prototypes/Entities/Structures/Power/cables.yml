@@ -36,8 +36,7 @@
     damageModifierSet: Metallic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 50
       behaviors:
       - !type:DoActsBehavior
@@ -77,22 +76,19 @@
     state: hvcable_4
   - type: NodeContainer
     nodes:
-      power:
-        !type:CableNode
+      power: !type:CableNode
         nodeGroupID: HVPower
   - type: Cable
     cableDroppedOnCutPrototype: CableHVStack1
     cableType: HighVoltage
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors: #excess damage (nuke?). avoid computational cost of spawning entities.
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 50
       behaviors:
       - !type:SpawnEntitiesBehavior
@@ -101,7 +97,7 @@
             min: 1
             max: 1
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: CableVisualizer
     statePrefix: hvcable_
   # TODO make this change on power
@@ -137,22 +133,19 @@
     state: mvcable_4
   - type: NodeContainer
     nodes:
-      power:
-        !type:CableNode
+      power: !type:CableNode
         nodeGroupID: MVPower
   - type: Cable
     cableDroppedOnCutPrototype: CableMVStack1
     cableType: MediumVoltage
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors: #excess damage (nuke?). avoid computational cost of spawning entities.
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 50
       behaviors:
       - !type:SpawnEntitiesBehavior
@@ -161,7 +154,7 @@
             min: 1
             max: 1
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: CableVisualizer
     statePrefix: mvcable_
     extraLayerPrefix: mvstripes_
@@ -190,8 +183,7 @@
     state: lvcable_4
   - type: NodeContainer
     nodes:
-      power:
-        !type:CableNode
+      power: !type:CableNode
         nodeGroupID: Apc
   - type: PowerProvider
     voltage: Apc
@@ -201,14 +193,12 @@
     cableType: Apc
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors: #excess damage (nuke?). avoid computational cost of spawning entities.
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 50
       behaviors:
       - !type:SpawnEntitiesBehavior
@@ -217,7 +207,7 @@
             min: 1
             max: 1
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: CableVisualizer
     statePrefix: lvcable_
 

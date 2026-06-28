@@ -12,8 +12,7 @@
   - type: NodeContainer
     examinable: true
     nodes:
-      input:
-        !type:CableDeviceNode
+      input: !type:CableDeviceNode
         nodeGroupID: MVPower
   - type: Construction
     graph: ParticleAcceleratorPowerBox

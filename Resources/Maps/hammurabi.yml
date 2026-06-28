@@ -201820,12 +201820,9 @@ entities:
       content: >
         To: Logistics Officer
 
-
         Message: As Hammurabi Station is a designated prison facility, all ore is to be diverted to prison workshop for processing. Materials produced by the prisoners will be sent back to Logistics for distribution throughout the station as needed.
 
-
         Please coordinate with the warden and your salvage team to ensure the production chain is maintained efficiently.
-
 
         From: Centcom Central Logistics
   - uid: 32163
@@ -201978,19 +201975,15 @@ entities:
       content: >-
         Captain:
 
-
         A few notes:
-
 
         1. As Hammurabi Station is a designated prison facility, all ore is to be diverted to prison workshop for processing. Materials produced by the prisoners will be sent back to Logistics for distribution throughout the station as needed.
 
         Please coordinate with the warden and logistics officer to ensure the production chain is maintained efficiently.
 
-
         2. The prison is on its own power grid and thus, the AME NE of the prison needs to be fueled.
 
         Please make certain the engineering team is aware of this.
-
 
         Regards,
 
@@ -274631,4 +274624,3 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -69.59088,-67.4799
       parent: 1
-...

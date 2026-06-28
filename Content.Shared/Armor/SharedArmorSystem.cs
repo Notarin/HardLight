@@ -13,7 +13,8 @@ namespace Content.Shared.Armor;
 /// </summary>
 public abstract class SharedArmorSystem : EntitySystem
 {
-    [Dependency] private readonly ExamineSystemShared _examine = default!;
+    [Dependency]
+    private readonly ExamineSystemShared _examine = default!;
 
     /// <inheritdoc />
     public override void Initialize()
@@ -40,7 +41,10 @@ public abstract class SharedArmorSystem : EntitySystem
 
         foreach (var armorCoefficient in ent.Comp.Modifiers.Coefficients)
         {
-            args.Args.DamageModifiers.Coefficients[armorCoefficient.Key] = args.Args.DamageModifiers.Coefficients.TryGetValue(armorCoefficient.Key, out var coefficient) ? coefficient * armorCoefficient.Value : armorCoefficient.Value;
+            args.Args.DamageModifiers.Coefficients[armorCoefficient.Key] =
+                args.Args.DamageModifiers.Coefficients.TryGetValue(armorCoefficient.Key, out var coefficient)
+                    ? coefficient * armorCoefficient.Value
+                    : armorCoefficient.Value;
         }
     }
 
@@ -49,8 +53,11 @@ public abstract class SharedArmorSystem : EntitySystem
         args.Args.Damage = DamageSpecifier.ApplyModifierSet(args.Args.Damage, component.Modifiers);
     }
 
-    private void OnBorgDamageModify(EntityUid uid, ArmorComponent component,
-        ref BorgModuleRelayedEvent<DamageModifyEvent> args)
+    private void OnBorgDamageModify(
+        EntityUid uid,
+        ArmorComponent component,
+        ref BorgModuleRelayedEvent<DamageModifyEvent> args
+    )
     {
         args.Args.Damage = DamageSpecifier.ApplyModifierSet(args.Args.Damage, component.Modifiers);
     }
@@ -68,9 +75,14 @@ public abstract class SharedArmorSystem : EntitySystem
         var ev = new ArmorExamineEvent(examineMarkup);
         RaiseLocalEvent(uid, ref ev);
 
-        _examine.AddDetailedExamineVerb(args, component, examineMarkup,
-            Loc.GetString("armor-examinable-verb-text"), "/Textures/Interface/VerbIcons/dot.svg.192dpi.png",
-            Loc.GetString("armor-examinable-verb-message"));
+        _examine.AddDetailedExamineVerb(
+            args,
+            component,
+            examineMarkup,
+            Loc.GetString("armor-examinable-verb-text"),
+            "/Textures/Interface/VerbIcons/dot.svg.192dpi.png",
+            Loc.GetString("armor-examinable-verb-message")
+        );
     }
 
     private FormattedMessage GetArmorExamine(DamageModifierSet armorModifiers)
@@ -89,10 +101,13 @@ public abstract class SharedArmorSystem : EntitySystem
             msg.PushNewline();
 
             var armorType = Loc.GetString("armor-damage-type-" + coefficientArmor.Key.ToLower());
-            msg.AddMarkupOrThrow(Loc.GetString("armor-coefficient-value",
-                ("type", armorType),
-                ("value", MathF.Round((1f - coefficientArmor.Value) * 100, 1))
-            ));
+            msg.AddMarkupOrThrow(
+                Loc.GetString(
+                    "armor-coefficient-value",
+                    ("type", armorType),
+                    ("value", MathF.Round((1f - coefficientArmor.Value) * 100, 1))
+                )
+            );
         }
 
         foreach (var flatArmor in armorModifiers.FlatReduction)
@@ -103,10 +118,9 @@ public abstract class SharedArmorSystem : EntitySystem
             msg.PushNewline();
 
             var armorType = Loc.GetString("armor-damage-type-" + flatArmor.Key.ToLower());
-            msg.AddMarkupOrThrow(Loc.GetString("armor-reduction-value",
-                ("type", armorType),
-                ("value", flatArmor.Value)
-            ));
+            msg.AddMarkupOrThrow(
+                Loc.GetString("armor-reduction-value", ("type", armorType), ("value", flatArmor.Value))
+            );
         }
 
         return msg;

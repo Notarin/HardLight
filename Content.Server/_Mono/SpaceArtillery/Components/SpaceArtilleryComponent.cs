@@ -6,7 +6,6 @@ namespace Content.Server._Mono.SpaceArtillery.Components;
 [RegisterComponent]
 public sealed partial class SpaceArtilleryComponent : Component
 {
-
     /// <summary>
     /// Passive power consumption drawn continuously from the powernet while the gun is operational.
     /// This represents baseline energy upkeep and is not tied to active firing.
@@ -29,12 +28,10 @@ public sealed partial class SpaceArtilleryComponent : Component
     [DataField("powerUseActive"), ViewVariables(VVAccess.ReadWrite)]
     public int PowerUseActive = 6000;
 
-
     ///Sink Ports
     /// <summary>
     /// Signal port that makes space artillery fire.
     /// </summary>
     [DataField("spaceArtilleryFirePort", customTypeSerializer: typeof(PrototypeIdSerializer<SinkPortPrototype>))]
     public string SpaceArtilleryFirePort = "SpaceArtilleryFire";
-
 }

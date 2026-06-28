@@ -12,10 +12,17 @@ namespace Content.Server.Atmos.Rotting;
 
 public sealed class RottingSystem : SharedRottingSystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly AtmosphereSystem _atmosphere = default!;
-    [Dependency] private readonly ContainerSystem _container = default!;
-    [Dependency] private readonly DamageableSystem _damageable = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly AtmosphereSystem _atmosphere = default!;
+
+    [Dependency]
+    private readonly ContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly DamageableSystem _damageable = default!;
 
     public override void Initialize()
     {
@@ -34,7 +41,8 @@ public sealed class RottingSystem : SharedRottingSystem
         if (!TryComp<PerishableComponent>(uid, out var perishable))
             return;
 
-        var molsToDump = perishable.MolsPerSecondPerUnitMass * physics.FixturesMass * (float)component.TotalRotTime.TotalSeconds;
+        var molsToDump =
+            perishable.MolsPerSecondPerUnitMass * physics.FixturesMass * (float)component.TotalRotTime.TotalSeconds;
         var tileMix = _atmosphere.GetTileMixture(uid, excite: true);
         tileMix?.AdjustMoles(Gas.Ammonia, molsToDump);
     }
@@ -54,8 +62,10 @@ public sealed class RottingSystem : SharedRottingSystem
     /// <returns></returns>
     private float GetRotRate(EntityUid uid)
     {
-        if (_container.TryGetContainingContainer((uid, null, null), out var container) &&
-            TryComp<ProRottingContainerComponent>(container.Owner, out var rotContainer))
+        if (
+            _container.TryGetContainingContainer((uid, null, null), out var container)
+            && TryComp<ProRottingContainerComponent>(container.Owner, out var rotContainer)
+        )
         {
             return rotContainer.DecayModifier;
         }

@@ -5,104 +5,104 @@
   name: Salvage Material Crate Spawner
   id: SalvageMaterialCrateSpawner
   parent: MarkerBase
-  categories: [ HideSpawnMenu ] # Frontier: NFSalvageMaterialCrateSpawner
+  categories: [HideSpawnMenu] # Frontier: NFSalvageMaterialCrateSpawner
   components:
-    - type: Sprite
-      layers:
-        - state: red
-        - sprite: Structures/Storage/Crates/generic.rsi
-          state: icon
-    - type: RandomSpawner
-      rarePrototypes:
-        - SalvageHumanCorpse
-        - CrateMaterialPlasteel
-        - CrateMaterialWood
-        - CrateMaterialPlastic
-        - CrateSalvageEquipment
-        - CrateMaterialSteel
-        - CrateMaterialGlass
-        - CrateServiceJanitorialSupplies
-        - CrateHydroponicsSeedsMedicinal
-        - CrateEmergencyInternals
-#        - CrateFoodMRE # HardLight remove from pool
-        - CrateMaterialTextiles
-        - CrateMedicalSupplies
-        - CrateEngineeringCableBulk
-        - CrateMaterialCardboard
-        - CrateServiceBooks
-        - CrateServiceSmokeables
-        - CrateTrashCartFilled
-        - ClosetMaintenanceFilledRandom
-        - ClosetEmergencyFilledRandom
-      rareChance: 0.4
-      prototypes:
-        - CrateSalvageAssortedGoodies
-      chance: 0.9
-      offset: 0.0
+  - type: Sprite
+    layers:
+    - state: red
+    - sprite: Structures/Storage/Crates/generic.rsi
+      state: icon
+  - type: RandomSpawner
+    rarePrototypes:
+    - SalvageHumanCorpse
+    - CrateMaterialPlasteel
+    - CrateMaterialWood
+    - CrateMaterialPlastic
+    - CrateSalvageEquipment
+    - CrateMaterialSteel
+    - CrateMaterialGlass
+    - CrateServiceJanitorialSupplies
+    - CrateHydroponicsSeedsMedicinal
+    - CrateEmergencyInternals
+    #        - CrateFoodMRE # HardLight remove from pool
+    - CrateMaterialTextiles
+    - CrateMedicalSupplies
+    - CrateEngineeringCableBulk
+    - CrateMaterialCardboard
+    - CrateServiceBooks
+    - CrateServiceSmokeables
+    - CrateTrashCartFilled
+    - ClosetMaintenanceFilledRandom
+    - ClosetEmergencyFilledRandom
+    rareChance: 0.4
+    prototypes:
+    - CrateSalvageAssortedGoodies
+    chance: 0.9
+    offset: 0.0
 
 - type: entity
   name: salvage loot spawner
   id: SalvageLootSpawner
   parent: MarkerBase
   components:
-    - type: Sprite
-      layers:
-        - state: red
-        - sprite: Objects/Weapons/Melee/crusher.rsi
-          state: icon
-    - type: RandomSpawner
-      prototypes:
-      - WeaponCrusher
-      - WeaponCrusherDagger
-      - WeaponCrusherGlaive
-      - MiningDrill
-      offset: 0.0
+  - type: Sprite
+    layers:
+    - state: red
+    - sprite: Objects/Weapons/Melee/crusher.rsi
+      state: icon
+  - type: RandomSpawner
+    prototypes:
+    - WeaponCrusher
+    - WeaponCrusherDagger
+    - WeaponCrusherGlaive
+    - MiningDrill
+    offset: 0.0
 
 - type: entity
   name: Salvage Mob Spawner
   id: SalvageMobSpawner
   parent: MarkerBase
   suffix: 25
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   components:
-    - type: Sprite
-      layers:
-        - state: red
-        - sprite: Mobs/Aliens/Carps/space.rsi
-          state: icon
-    - type: RandomSpawner
-      rarePrototypes:
-      - MobSharkSalvage
-      rareChance: 0.2
-      prototypes:
-        - MobCarpSalvage
-        - MobCarpSalvage
-        - MobCarpSalvage
-        - MobCarpSalvage
-        - MobCarpSalvage
-        - MobTickSalvage
-        - MobTickSalvage
-        - MobTickSalvage
-        - PlushieCarp
-        - DehydratedSpaceCarp
-      chance: 0.25
-      offset: 0.2
+  - type: Sprite
+    layers:
+    - state: red
+    - sprite: Mobs/Aliens/Carps/space.rsi
+      state: icon
+  - type: RandomSpawner
+    rarePrototypes:
+    - MobSharkSalvage
+    rareChance: 0.2
+    prototypes:
+    - MobCarpSalvage
+    - MobCarpSalvage
+    - MobCarpSalvage
+    - MobCarpSalvage
+    - MobCarpSalvage
+    - MobTickSalvage
+    - MobTickSalvage
+    - MobTickSalvage
+    - PlushieCarp
+    - DehydratedSpaceCarp
+    chance: 0.25
+    offset: 0.2
 
 - type: entity #I made this in case someone decided to make a terrifying space tick swarm for salvage. that someone may be me -EG404
   name: Salvage Space Tick Spawner
   id: SpaceTickSpawner
   parent: MarkerBase
   suffix: 100
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   components:
-    - type: Sprite
-      layers:
-        - state: red
-        - sprite: Mobs/Aliens/Xenos/spacetick.rsi
-          state: icon
-    - type: ConditionalSpawner
-      prototypes:
-        - MobTickSalvage
+  - type: Sprite
+    layers:
+    - state: red
+    - sprite: Mobs/Aliens/Xenos/spacetick.rsi
+      state: icon
+  - type: ConditionalSpawner
+    prototypes:
+    - MobTickSalvage
 
 - type: entity
   name: Salvage Space Bear Spawner
@@ -122,7 +122,7 @@
   id: SalvageMobSpawner75
   parent: SalvageMobSpawner
   suffix: 75
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   components:
   - type: RandomSpawner
     rarePrototypes:
@@ -177,9 +177,9 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - state: spacecobra
-        sprite: Mobs/Animals/spacecobra.rsi
+    - state: green
+    - state: spacecobra
+      sprite: Mobs/Animals/spacecobra.rsi
   - type: ConditionalSpawner
     prototypes:
     - NFMobCobraSpace # Frontier MobCobraSpaceSalvage<NFMobCobraSpace
@@ -189,24 +189,24 @@
   id: SalvageFleshSpawner
   parent: SalvageMobSpawner
   suffix: 100
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   components:
-    - type: Sprite
-      layers:
-        - state: red
-        - sprite: Mobs/Aliens/flesh.rsi
-          state: jared
-    - type: RandomSpawner
-      rarePrototypes:
-      - MobSharkSalvage
-      rareChance: 0
-      prototypes:
-      - MobFleshJaredSalvage
-      - MobFleshGolemSalvage
-      - MobFleshGolemSalvage
-      - MobFleshClampSalvage
-      - MobFleshClampSalvage
-      - MobFleshLoverSalvage
-      - MobFleshLoverSalvage
-      chance: 1
-      offset: 0.2
+  - type: Sprite
+    layers:
+    - state: red
+    - sprite: Mobs/Aliens/flesh.rsi
+      state: jared
+  - type: RandomSpawner
+    rarePrototypes:
+    - MobSharkSalvage
+    rareChance: 0
+    prototypes:
+    - MobFleshJaredSalvage
+    - MobFleshGolemSalvage
+    - MobFleshGolemSalvage
+    - MobFleshClampSalvage
+    - MobFleshClampSalvage
+    - MobFleshLoverSalvage
+    - MobFleshLoverSalvage
+    chance: 1
+    offset: 0.2

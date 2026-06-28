@@ -42,10 +42,6 @@ public sealed class MobCollisionSystem : SharedMobCollisionSystem
 
     protected override void RaiseCollisionEvent(EntityUid uid, Vector2 direction, float speedMod)
     {
-        RaiseLocalEvent(uid, new MobCollisionMessage()
-        {
-            Direction = direction,
-            SpeedModifier = speedMod,
-        });
+        RaiseLocalEvent(uid, new MobCollisionMessage() { Direction = direction, SpeedModifier = speedMod });
     }
 }

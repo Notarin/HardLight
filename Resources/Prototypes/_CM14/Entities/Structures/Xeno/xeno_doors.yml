@@ -21,8 +21,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.49,-0.49,0.49,0.49" # don't want this colliding with walls or they won't close
         density: 100
         mask:
@@ -53,8 +52,7 @@
     damageModifierSet: Resin
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 600
       behaviors:
       - !type:DoActsBehavior
@@ -67,19 +65,19 @@
   - type: AccessReader
     access: [["Xeno"]]
   # - type: XenoConstructionPlasmaCost
-    # plasma: 120
+  # plasma: 120
   # - type: XenoStructureUpgradeable
-    # to: DoorXenoResinThick
-    # cost: 25
+  # to: DoorXenoResinThick
+  # cost: 25
   # - type: MeleeReceivedMultiplier
-    # xenoDamage:
-      # types:
-        # Slash: 600
+  # xenoDamage:
+  # types:
+  # Slash: 600
   # - type: XenoConstructionRequiresSupport
   - type: ExplosionResistance
     damageCoefficient: 7.5 # Doors take 15x explosive damage, resin doors reduce that by 50%
   # - type: XenoConstruct
-    # destroyWeeds: false
+  # destroyWeeds: false
   # - type: ResinDoor
   - type: Construction
     graph: ResinStructures
@@ -114,8 +112,7 @@
       path: /Audio/_RMC14/Xeno/alien_resin_move2.ogg
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 900
       behaviors:
       - !type:DoActsBehavior
@@ -124,13 +121,13 @@
     key: walls
     mode: NoSprite
   # - type: MeleeReceivedMultiplier
-    # xenoDamage:
-      # types:
-        # Slash: 900
+  # xenoDamage:
+  # types:
+  # Slash: 900
   # - type: XenoConstructionPlasmaCost
-    # plasma: 145
+  # plasma: 145
   # - type: XenoStructureUpgradeable
-    # to: null
+  # to: null
   - type: Construction
     graph: ResinStructures
     node: DoorXenoResinThick

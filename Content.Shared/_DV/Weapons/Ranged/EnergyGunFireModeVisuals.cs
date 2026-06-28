@@ -5,7 +5,7 @@ namespace Content.Shared._DV.Weapons.Ranged;
 [Serializable, NetSerializable]
 public enum EnergyGunFireModeVisuals : byte
 {
-    State
+    State,
 }
 
 [Serializable, NetSerializable]
@@ -14,6 +14,7 @@ public enum EnergyGunFireModeState : byte
     Disabler,
     Lethal,
     Special,
+
     // Frontier: holoflare modes
     Cyan,
     Red,

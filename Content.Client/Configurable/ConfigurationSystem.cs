@@ -5,7 +5,8 @@ namespace Content.Client.Configurable;
 
 public sealed class ConfigurationSystem : SharedConfigurationSystem
 {
-    [Dependency] private readonly SharedUserInterfaceSystem _uiSystem = default!;
+    [Dependency]
+    private readonly SharedUserInterfaceSystem _uiSystem = default!;
 
     public override void Initialize()
     {
@@ -15,9 +16,13 @@ public sealed class ConfigurationSystem : SharedConfigurationSystem
 
     private void OnConfigurationState(Entity<ConfigurationComponent> ent, ref AfterAutoHandleStateEvent args)
     {
-        if (_uiSystem.TryGetOpenUi<ConfigurationBoundUserInterface>(ent.Owner,
+        if (
+            _uiSystem.TryGetOpenUi<ConfigurationBoundUserInterface>(
+                ent.Owner,
                 ConfigurationComponent.ConfigurationUiKey.Key,
-                out var bui))
+                out var bui
+            )
+        )
         {
             bui.Refresh(ent);
         }

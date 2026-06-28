@@ -54,11 +54,7 @@ public sealed partial class DockingArmGeneratorComponent : Component
     /// List of grid YAML paths to randomly select from for docking arm structures.
     /// </summary>
     [DataField]
-    public List<string> DockingArmGrids = new()
-    {
-        "/Maps/Structures/dock.yml",
-
-    };
+    public List<string> DockingArmGrids = new() { "/Maps/Structures/dock.yml" };
 
     /// <summary>
     /// Number of initial docking arm options to generate.

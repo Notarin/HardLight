@@ -15,8 +15,8 @@ namespace Content.IntegrationTests.Tests.Guidebook;
 [TestOf(typeof(DocumentParsingManager))]
 public sealed class DocumentParsingTest
 {
-
-    public string TestDocument = @"multiple
+    public string TestDocument =
+        @"multiple
    lines
  separated by
 only single newlines
@@ -128,8 +128,13 @@ whitespace before newlines are ignored.
         Assert.That(val, Is.EqualTo("value2 with spaces"));
 
         test4.Params.TryGetValue("key3", out val);
-        Assert.That(val, Is.EqualTo(@"value3 with a
-  newline"));
+        Assert.That(
+            val,
+            Is.EqualTo(
+                @"value3 with a
+  newline"
+            )
+        );
 
         subTest2.Params.TryGetValue("k", out val);
         Assert.That(val, Is.EqualTo(@"<>\>=""=<-_?*3.0//"));

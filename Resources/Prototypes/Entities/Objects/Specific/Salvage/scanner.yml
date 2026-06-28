@@ -24,8 +24,8 @@
     visuals:
       enum.ToggleVisuals.Toggled:
         enum.ToggleVisuals.Layer:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
   - type: ItemToggle
     soundActivate:
       path: /Audio/Weapons/click.ogg
@@ -35,7 +35,7 @@
 
 - type: entity
   id: MineralScanner
-  parent: [ MineralScannerUnpowered, PowerCellSlotMediumItem ]
+  parent: [MineralScannerUnpowered, PowerCellSlotMediumItem]
   suffix: Powered
   components:
   - type: ToggleCellDraw
@@ -74,7 +74,7 @@
 
 - type: entity
   id: AdvancedMineralScanner
-  parent: [ AdvancedMineralScannerUnpowered, PowerCellSlotMediumItem ]
+  parent: [AdvancedMineralScannerUnpowered, PowerCellSlotMediumItem]
   suffix: Powered
   components:
   - type: ToggleCellDraw

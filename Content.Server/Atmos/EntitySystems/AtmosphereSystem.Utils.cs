@@ -29,7 +29,8 @@ public partial class AtmosphereSystem
 
         // Pay more for gas canisters that are more pure
         float purity = 1;
-        if (totalMoles > 0) {
+        if (totalMoles > 0)
+        {
             purity = maxComponent / totalMoles;
         }
 
@@ -45,7 +46,8 @@ public partial class AtmosphereSystem
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private void InvalidateVisuals(
         Entity<GridAtmosphereComponent, GasTileOverlayComponent, MapGridComponent, TransformComponent> ent,
-        TileAtmosphere tile)
+        TileAtmosphere tile
+    )
     {
         _gasTileOverlaySystem.Invalidate((ent.Owner, ent.Comp2), tile.GridIndices);
     }
@@ -61,16 +63,18 @@ public partial class AtmosphereSystem
         return Atmospherics.CellVolume * mapGrid.TileSize * tiles;
     }
 
-    public readonly record struct AirtightData(AtmosDirection BlockedDirections, bool NoAirWhenBlocked,
-        bool FixVacuum);
+    public readonly record struct AirtightData(AtmosDirection BlockedDirections, bool NoAirWhenBlocked, bool FixVacuum);
 
-    private void UpdateAirtightData(EntityUid uid, GridAtmosphereComponent atmos, MapGridComponent grid, TileAtmosphere tile)
+    private void UpdateAirtightData(
+        EntityUid uid,
+        GridAtmosphereComponent atmos,
+        MapGridComponent grid,
+        TileAtmosphere tile
+    )
     {
         var oldBlocked = tile.AirtightData.BlockedDirections;
 
-        tile.AirtightData = tile.NoGridTile
-            ? default
-            : GetAirtightData(uid, grid, tile.GridIndices);
+        tile.AirtightData = tile.NoGridTile ? default : GetAirtightData(uid, grid, tile.GridIndices);
 
         if (tile.AirtightData.BlockedDirections != oldBlocked && tile.ExcitedGroup != null)
             ExcitedGroupDispose(atmos, tile.ExcitedGroup);
@@ -89,7 +93,7 @@ public partial class AtmosphereSystem
 
             fixVacuum |= airtight.FixVacuum;
 
-            if(!airtight.AirBlocked)
+            if (!airtight.AirBlocked)
                 continue;
 
             blockedDirs |= airtight.AirBlockedDirection;

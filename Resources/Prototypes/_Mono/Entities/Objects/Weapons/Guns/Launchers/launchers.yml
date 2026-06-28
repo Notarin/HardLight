@@ -10,4 +10,4 @@
     proto: CartridgeRocketEmp
     whitelist:
       tags:
-        - CartridgeRocketEmp # Mono: only EMP rockets work in this launcher
+      - CartridgeRocketEmp # Mono: only EMP rockets work in this launcher

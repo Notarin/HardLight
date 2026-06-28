@@ -9,7 +9,11 @@ public sealed partial class ExplosionAnomalyComponent : Component
     /// <summary>
     /// The explosion prototype to spawn
     /// </summary>
-    [DataField("supercriticalExplosion", required: true, customTypeSerializer: typeof(PrototypeIdSerializer<ExplosionPrototype>))]
+    [DataField(
+        "supercriticalExplosion",
+        required: true,
+        customTypeSerializer: typeof(PrototypeIdSerializer<ExplosionPrototype>)
+    )]
     public string ExplosionPrototype = default!;
 
     /// <summary>

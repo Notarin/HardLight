@@ -5,15 +5,33 @@ namespace Content.Client.Xenoarchaeology.XenoArtifacts;
 
 public sealed class RandomArtifactSpriteSystem : VisualizerSystem<RandomArtifactSpriteComponent>
 {
-    protected override void OnAppearanceChange(EntityUid uid, RandomArtifactSpriteComponent component, ref AppearanceChangeEvent args)
+    protected override void OnAppearanceChange(
+        EntityUid uid,
+        RandomArtifactSpriteComponent component,
+        ref AppearanceChangeEvent args
+    )
     {
         if (args.Sprite == null)
             return;
 
-        if (!AppearanceSystem.TryGetData<int>(uid, SharedArtifactsVisuals.SpriteIndex, out var spriteIndex, args.Component))
+        if (
+            !AppearanceSystem.TryGetData<int>(
+                uid,
+                SharedArtifactsVisuals.SpriteIndex,
+                out var spriteIndex,
+                args.Component
+            )
+        )
             return;
 
-        if (!AppearanceSystem.TryGetData<bool>(uid, SharedArtifactsVisuals.IsActivated, out var isActivated, args.Component))
+        if (
+            !AppearanceSystem.TryGetData<bool>(
+                uid,
+                SharedArtifactsVisuals.IsActivated,
+                out var isActivated,
+                args.Component
+            )
+        )
             isActivated = false;
 
         var spriteIndexStr = spriteIndex.ToString("D2");
@@ -33,12 +51,11 @@ public sealed class RandomArtifactSpriteSystem : VisualizerSystem<RandomArtifact
             var spriteState = "ano" + spriteIndexStr + spritePrefix;
             args.Sprite.LayerSetState(ArtifactsVisualLayers.Base, spriteState);
         }
-
     }
 }
 
 public enum ArtifactsVisualLayers : byte
 {
     Base,
-    Effect // doesn't have to use this
+    Effect, // doesn't have to use this
 }

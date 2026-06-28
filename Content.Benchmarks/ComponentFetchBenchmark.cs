@@ -10,13 +10,12 @@ namespace Content.Benchmarks
     [Virtual]
     public class ComponentFetchBenchmark
     {
-        [Params(5000)] public int NEnt { get; set; }
+        [Params(5000)]
+        public int NEnt { get; set; }
 
-        private readonly Dictionary<(EntityUid, Type), BComponent>
-            _componentsFlat = new();
+        private readonly Dictionary<(EntityUid, Type), BComponent> _componentsFlat = new();
 
-        private readonly Dictionary<Type, Dictionary<EntityUid, BComponent>> _componentsPart =
-            new();
+        private readonly Dictionary<Type, Dictionary<EntityUid, BComponent>> _componentsPart = new();
 
         private UniqueIndex<Type, BComponent> _allComponents = new();
 
@@ -201,7 +200,7 @@ namespace Content.Benchmarks
 
             public override int GetHashCode()
             {
-                return (int) Value;
+                return (int)Value;
             }
 
             public static bool operator ==(EntityUid left, EntityUid right)
@@ -220,40 +219,22 @@ namespace Content.Benchmarks
             public EntityUid Uid;
         }
 
-        private sealed class BComponent1 : BComponent
-        {
-        }
+        private sealed class BComponent1 : BComponent { }
 
-        private sealed class BComponent2 : BComponent
-        {
-        }
+        private sealed class BComponent2 : BComponent { }
 
-        private sealed class BComponent3 : BComponent
-        {
-        }
+        private sealed class BComponent3 : BComponent { }
 
-        private sealed class BComponent4 : BComponent
-        {
-        }
+        private sealed class BComponent4 : BComponent { }
 
-        private sealed class BComponentLookup : BComponent
-        {
-        }
+        private sealed class BComponentLookup : BComponent { }
 
-        private sealed class BComponent6 : BComponent
-        {
-        }
+        private sealed class BComponent6 : BComponent { }
 
-        private sealed class BComponent7 : BComponent
-        {
-        }
+        private sealed class BComponent7 : BComponent { }
 
-        private sealed class BComponent8 : BComponent
-        {
-        }
+        private sealed class BComponent8 : BComponent { }
 
-        private sealed class BComponent9 : BComponent
-        {
-        }
+        private sealed class BComponent9 : BComponent { }
     }
 }

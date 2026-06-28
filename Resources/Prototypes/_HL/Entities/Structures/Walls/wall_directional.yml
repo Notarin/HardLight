@@ -8,12 +8,10 @@
   - type: RangedDamageSound
     soundGroups:
       Brute:
-        collection:
-          MetalBulletImpact
+        collection: MetalBulletImpact
     soundTypes:
       Heat:
-        collection:
-          MetalLaserImpact
+        collection: MetalLaserImpact
   - type: MeleeSound
     soundGroups:
       Brute:
@@ -27,15 +25,14 @@
     state: directionalwallwood
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 150
       behaviors:
       - !type:PlaySoundBehavior
         sound:
           collection: WoodDestroyHeavy
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: Construction
     graph: WallDirectionalWood
     node: wallDirectionalWood
@@ -50,8 +47,7 @@
   - type: MeleeSound
     soundGroups:
       Brute:
-        path:
-          "/Audio/Weapons/pierce.ogg"
+        path: "/Audio/Weapons/pierce.ogg"
   - type: Sprite
     drawdepth: SmallObjects
     sprite: _HL/Structures/Walls/Directional/cardboard.rsi
@@ -65,8 +61,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.5,-0.5,0.5,-0.28125"
         mask:
         - FullTileMask
@@ -75,12 +70,11 @@
         density: 250
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 40
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: Construction
     graph: WallDirectionalCardboard
     node: wallDirectionalCardboard
@@ -95,12 +89,10 @@
   - type: RangedDamageSound
     soundGroups:
       Brute:
-        collection:
-          MetalBulletImpact
+        collection: MetalBulletImpact
     soundTypes:
       Heat:
-        collection:
-          MetalLaserImpact
+        collection: MetalLaserImpact
   - type: MeleeSound
     soundGroups:
       Brute:
@@ -115,12 +107,11 @@
     damageModifierSet: StructuralMetallic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 225
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: Construction
     graph: WallDirectionalMining
     node: wallDirectionalMining
@@ -135,12 +126,10 @@
   - type: RangedDamageSound
     soundGroups:
       Brute:
-        collection:
-          MetalBulletImpact
+        collection: MetalBulletImpact
     soundTypes:
       Heat:
-        collection:
-          MetalLaserImpact
+        collection: MetalLaserImpact
   - type: MeleeSound
     soundGroups:
       Brute:
@@ -156,12 +145,11 @@
     damageModifierSet: StrongMetallic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 200
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: Construction
     graph: WallDirectionalBasalt
     node: wallDirectionalBasalt

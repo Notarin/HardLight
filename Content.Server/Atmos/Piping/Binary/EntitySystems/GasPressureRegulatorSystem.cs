@@ -20,11 +20,20 @@ namespace Content.Server.Atmos.Piping.Binary.EntitySystems;
 [UsedImplicitly]
 public sealed class GasPressureRegulatorSystem : SharedGasPressureRegulatorSystem
 {
-    [Dependency] private readonly SharedAmbientSoundSystem _ambientSound = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly AtmosphereSystem _atmosphere = default!;
-    [Dependency] private readonly NodeContainerSystem _nodeContainer = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly SharedAmbientSoundSystem _ambientSound = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly AtmosphereSystem _atmosphere = default!;
+
+    [Dependency]
+    private readonly NodeContainerSystem _nodeContainer = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     public override void Initialize()
     {
@@ -58,12 +67,14 @@ public sealed class GasPressureRegulatorSystem : SharedGasPressureRegulatorSyste
 
             comp.NextUiUpdate += comp.UpdateInterval;
 
-            DirtyFields(uid,
+            DirtyFields(
+                uid,
                 comp,
                 null,
                 nameof(comp.InletPressure),
                 nameof(comp.OutletPressure),
-                nameof(comp.FlowRate));
+                nameof(comp.FlowRate)
+            );
         }
     }
 
@@ -77,14 +88,17 @@ public sealed class GasPressureRegulatorSystem : SharedGasPressureRegulatorSyste
     /// </summary>
     /// <param name="ent"> the <see cref="Entity{T}" /> of the pressure regulator</param>
     /// <param name="args"> Args provided to us via <see cref="AtmosDeviceUpdateEvent" /></param>
-    private void OnPressureRegulatorUpdated(Entity<GasPressureRegulatorComponent> ent,
-        ref AtmosDeviceUpdateEvent args)
+    private void OnPressureRegulatorUpdated(Entity<GasPressureRegulatorComponent> ent, ref AtmosDeviceUpdateEvent args)
     {
-        if (!_nodeContainer.TryGetNodes(ent.Owner,
+        if (
+            !_nodeContainer.TryGetNodes(
+                ent.Owner,
                 ent.Comp.InletName,
                 ent.Comp.OutletName,
                 out PipeNode? inletPipeNode,
-                out PipeNode? outletPipeNode))
+                out PipeNode? outletPipeNode
+            )
+        )
         {
             ChangeStatus(false, ent, inletPipeNode, outletPipeNode, 0);
             return;
@@ -119,16 +133,15 @@ public sealed class GasPressureRegulatorSystem : SharedGasPressureRegulatorSyste
         var t1 = inletAir.Temperature;
 
         // First, calculate the amount of gas we need to transfer to bring us below the threshold.
-        var deltaMolesToPressureThreshold =
-            AtmosphereSystem.MolesToPressureThreshold(inletAir, ent.Comp.Threshold);
+        var deltaMolesToPressureThreshold = AtmosphereSystem.MolesToPressureThreshold(inletAir, ent.Comp.Threshold);
 
         // Second, calculate the moles required to equalize the pressure.
         // We round here to avoid the valve staying enabled for 0.00001 pressure differences.
-        var deltaMolesToEqualizePressure =
-            float.Round(_atmosphere.FractionToEqualizePressure(inletAir, outletAir) *
-                        inletAir.TotalMoles,
-                1,
-                MidpointRounding.ToPositiveInfinity);
+        var deltaMolesToEqualizePressure = float.Round(
+            _atmosphere.FractionToEqualizePressure(inletAir, outletAir) * inletAir.TotalMoles,
+            1,
+            MidpointRounding.ToPositiveInfinity
+        );
 
         // Third, make sure we only transfer the minimum of the two.
         // We do this so that we don't accidentally transfer so much gas to the point
@@ -139,8 +152,10 @@ public sealed class GasPressureRegulatorSystem : SharedGasPressureRegulatorSyste
         var desiredVolumeToTransfer = deltaMolesToTransfer * ((Atmospherics.R * t1) / p1);
 
         // And finally, limit the transfer volume to the max flow rate of the valve.
-        var actualVolumeToTransfer = Math.Min(desiredVolumeToTransfer,
-            ent.Comp.MaxTransferRate * _atmosphere.PumpSpeedup() * args.dt);
+        var actualVolumeToTransfer = Math.Min(
+            desiredVolumeToTransfer,
+            ent.Comp.MaxTransferRate * _atmosphere.PumpSpeedup() * args.dt
+        );
 
         // We remove the gas from the inlet and merge it into the outlet.
         var removed = inletAir.RemoveVolume(actualVolumeToTransfer);
@@ -159,9 +174,7 @@ public sealed class GasPressureRegulatorSystem : SharedGasPressureRegulatorSyste
     /// representing the pressure regulator with respective components.</param>
     private void UpdateAppearance(Entity<GasPressureRegulatorComponent> ent)
     {
-        _appearance.SetData(ent,
-            PressureRegulatorVisuals.State,
-            ent.Comp.Enabled);
+        _appearance.SetData(ent, PressureRegulatorVisuals.State, ent.Comp.Enabled);
     }
 
     /// <summary>
@@ -174,11 +187,13 @@ public sealed class GasPressureRegulatorSystem : SharedGasPressureRegulatorSyste
     /// <param name="inletNode">The inlet node of the pressure regulator</param>
     /// <param name="outletNode">The outlet node of the pressure regulator</param>
     /// <param name="flowRate">Current flow rate of the pressure regulator</param>
-    private void ChangeStatus(bool enabled,
+    private void ChangeStatus(
+        bool enabled,
         Entity<GasPressureRegulatorComponent> ent,
         PipeNode? inletNode,
         PipeNode? outletNode,
-        float flowRate)
+        float flowRate
+    )
     {
         // First, set data on the component server-side.
         ent.Comp.InletPressure = inletNode?.Air.Pressure ?? 0f;
@@ -196,10 +211,12 @@ public sealed class GasPressureRegulatorSystem : SharedGasPressureRegulatorSyste
 
         // The regulator has changed state, so we need to dirty all applicable fields *right now* so the UI updates
         // at the same time as everything else.
-        DirtyFields(ent.AsNullable(),
+        DirtyFields(
+            ent.AsNullable(),
             null,
             nameof(ent.Comp.InletPressure),
             nameof(ent.Comp.OutletPressure),
-            nameof(ent.Comp.FlowRate));
+            nameof(ent.Comp.FlowRate)
+        );
     }
 }

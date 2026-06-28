@@ -20,15 +20,31 @@ namespace Content.Shared._HL.Markings;
 /// </summary>
 public abstract class SharedModifyMarkingsSystem : EntitySystem
 {
-    [Dependency] private readonly MarkingManager _markingManager = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
-    [Dependency] private readonly InventorySystem _inventory = default!;
-    [Dependency] private readonly IEntityManager _entMan = default!;
-    [Dependency] private readonly INetManager _net = default!;
+    [Dependency]
+    private readonly MarkingManager _markingManager = default!;
 
-    public static readonly VerbCategory UndiesCat = new("verb-categories-undies", "/Textures/Interface/VerbIcons/undies.png");
+    [Dependency]
+    private readonly SharedPopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfterSystem = default!;
+
+    [Dependency]
+    private readonly InventorySystem _inventory = default!;
+
+    [Dependency]
+    private readonly IEntityManager _entMan = default!;
+
+    [Dependency]
+    private readonly INetManager _net = default!;
+
+    public static readonly VerbCategory UndiesCat = new(
+        "verb-categories-undies",
+        "/Textures/Interface/VerbIcons/undies.png"
+    );
     private static ProtoId<ConsentTogglePrototype> _genitalMarkingsConsent = "GenitalMarkings";
 
     /// <inheritdoc/>
@@ -83,12 +99,22 @@ public abstract class SharedModifyMarkingsSystem : EntitySystem
 
             var underwearIcon = partSlot switch
             {
-                HumanoidVisualLayers.UndergarmentTop => new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/bra.png")),
-                HumanoidVisualLayers.UndergarmentBottom => new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/underpants.png")),
-                HumanoidVisualLayers.Genital => new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/love.png")),
-                HumanoidVisualLayers.Penis => new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/love.png")),
-                HumanoidVisualLayers.Breasts => new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/love.png")),
-                _ => new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/undies.png"))
+                HumanoidVisualLayers.UndergarmentTop => new SpriteSpecifier.Texture(
+                    new("/Textures/Interface/VerbIcons/bra.png")
+                ),
+                HumanoidVisualLayers.UndergarmentBottom => new SpriteSpecifier.Texture(
+                    new("/Textures/Interface/VerbIcons/underpants.png")
+                ),
+                HumanoidVisualLayers.Genital => new SpriteSpecifier.Texture(
+                    new("/Textures/Interface/VerbIcons/love.png")
+                ),
+                HumanoidVisualLayers.Penis => new SpriteSpecifier.Texture(
+                    new("/Textures/Interface/VerbIcons/love.png")
+                ),
+                HumanoidVisualLayers.Breasts => new SpriteSpecifier.Texture(
+                    new("/Textures/Interface/VerbIcons/love.png")
+                ),
+                _ => new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/undies.png")),
             };
 
             var delay = mProt.MarkingCategory == MarkingCategories.Genital ? TimeSpan.Zero : TimeSpan.FromSeconds(2);
@@ -112,19 +138,12 @@ public abstract class SharedModifyMarkingsSystem : EntitySystem
                 {
                     var ev = new ModifyMarkingsDoAfterEvent(marking, localizedName, isVisible);
 
-                    var doAfterArgs = new DoAfterArgs(
-                        _entMan,
-                        user,
-                        delay,
-                        ev,
-                        target,
-                        target,
-                        used: user)
+                    var doAfterArgs = new DoAfterArgs(_entMan, user, delay, ev, target, target, used: user)
                     {
                         Hidden = false,
                         MovementThreshold = 0,
                         RequireCanInteract = true,
-                        BlockDuplicate = true
+                        BlockDuplicate = true,
                     };
 
                     if (isMine)
@@ -132,7 +151,8 @@ public abstract class SharedModifyMarkingsSystem : EntitySystem
                         var selfPopup = Loc.GetString(
                             "marking-toggle-self-start",
                             ("marking-name", localizedName),
-                            ("verb", isVisible ? marking.TakeOffVerb : marking.PutOnVerb));
+                            ("verb", isVisible ? marking.TakeOffVerb : marking.PutOnVerb)
+                        );
                         _popupSystem.PopupClient(selfPopup, target, target, PopupType.Medium);
                     }
                     else
@@ -141,7 +161,8 @@ public abstract class SharedModifyMarkingsSystem : EntitySystem
                         var userPopup = Loc.GetString(
                             "marking-toggle-other-start",
                             ("marking-name", localizedName),
-                            ("verb", isVisible ? marking.TakeOffVerb : marking.PutOnVerb));
+                            ("verb", isVisible ? marking.TakeOffVerb : marking.PutOnVerb)
+                        );
                         _popupSystem.PopupClient(userPopup, user, user, PopupType.Medium);
 
                         // to the target
@@ -149,7 +170,8 @@ public abstract class SharedModifyMarkingsSystem : EntitySystem
                             "marking-toggle-by-other-start",
                             ("marking-name", localizedName),
                             ("verb", isVisible ? marking.TakeOffVerb2p : marking.PutOnVerb2p),
-                            ("other", Identity.Entity(user, _entMan)));
+                            ("other", Identity.Entity(user, _entMan))
+                        );
                         _popupSystem.PopupClient(targetPopup, target, target, PopupType.MediumCaution);
                     }
 
@@ -160,9 +182,10 @@ public abstract class SharedModifyMarkingsSystem : EntitySystem
                 },
 
                 Disabled = false,
-                Message = null
+                Message = null,
             };
 
             args.Verbs.Add(verb);
         }
-    }}
+    }
+}

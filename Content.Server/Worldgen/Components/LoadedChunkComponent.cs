@@ -12,6 +12,6 @@ public sealed partial class LoadedChunkComponent : Component
     /// <summary>
     ///     The current list of entities loading this chunk.
     /// </summary>
-    [ViewVariables] public List<EntityUid>? Loaders = null;
+    [ViewVariables]
+    public List<EntityUid>? Loaders = null;
 }
-

@@ -24,11 +24,13 @@ public sealed partial class RoleTimeRequirement : JobRequirement
     [DataField(required: true)]
     public TimeSpan Time;
 
-    public override bool Check(IEntityManager entManager,
+    public override bool Check(
+        IEntityManager entManager,
         IPrototypeManager protoManager,
         HumanoidCharacterProfile? profile,
         IReadOnlyDictionary<string, TimeSpan> playTimes,
-        [NotNullWhen(false)] out FormattedMessage? reason)
+        [NotNullWhen(false)] out FormattedMessage? reason
+    )
     {
         reason = new FormattedMessage();
 
@@ -56,21 +58,27 @@ public sealed partial class RoleTimeRequirement : JobRequirement
             if (roleDiff <= 0)
                 return true;
 
-            reason = FormattedMessage.FromMarkupPermissive(Loc.GetString(
-                "role-timer-role-insufficient",
-                ("time", formattedRoleDiff),
-                ("job", indexedJob.LocalizedName),
-                ("departmentColor", departmentColor.ToHex())));
+            reason = FormattedMessage.FromMarkupPermissive(
+                Loc.GetString(
+                    "role-timer-role-insufficient",
+                    ("time", formattedRoleDiff),
+                    ("job", indexedJob.LocalizedName),
+                    ("departmentColor", departmentColor.ToHex())
+                )
+            );
             return false;
         }
 
         if (roleDiff <= 0)
         {
-            reason = FormattedMessage.FromMarkupPermissive(Loc.GetString(
-                "role-timer-role-too-high",
-                ("time", formattedRoleDiff),
-                ("job", indexedJob.LocalizedName),
-                ("departmentColor", departmentColor.ToHex())));
+            reason = FormattedMessage.FromMarkupPermissive(
+                Loc.GetString(
+                    "role-timer-role-too-high",
+                    ("time", formattedRoleDiff),
+                    ("job", indexedJob.LocalizedName),
+                    ("departmentColor", departmentColor.ToHex())
+                )
+            );
             return false;
         }
 

@@ -1,37 +1,58 @@
 using System.Linq;
+using Content.Shared.Access.Systems; // Frontier
 using Content.Shared.Administration.Logs;
-using Content.Shared.UserInterface;
 using Content.Shared.Database;
 using Content.Shared.Examine;
+using Content.Shared.Ghost; // Frontier
 using Content.Shared.Interaction;
-using Content.Shared.Random.Helpers;
 using Content.Shared.Popups;
+using Content.Shared.Random.Helpers;
 using Content.Shared.Tag;
-using Robust.Shared.Player;
+using Content.Shared.Timing; // Frontier
+using Content.Shared.UserInterface;
+using Content.Shared.Verbs; // Frontier
 using Robust.Shared.Audio.Systems;
-using static Content.Shared.Paper.PaperComponent;
+using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
-using Content.Shared.Timing; // Frontier
-using Content.Shared.Access.Systems; // Frontier
-using Content.Shared.Verbs; // Frontier
-using Content.Shared.Ghost; // Frontier
+using static Content.Shared.Paper.PaperComponent;
 
 namespace Content.Shared.Paper;
 
 public sealed class PaperSystem : EntitySystem
 {
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly IPrototypeManager _protoMan = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedInteractionSystem _interaction = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly TagSystem _tagSystem = default!;
-    [Dependency] private readonly SharedUserInterfaceSystem _uiSystem = default!;
-    [Dependency] private readonly MetaDataSystem _metaSystem = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly UseDelaySystem _useDelay = default!; // Frontier
+    [Dependency]
+    private readonly ISharedAdminLogManager _adminLogger = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _protoMan = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SharedInteractionSystem _interaction = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly TagSystem _tagSystem = default!;
+
+    [Dependency]
+    private readonly SharedUserInterfaceSystem _uiSystem = default!;
+
+    [Dependency]
+    private readonly MetaDataSystem _metaSystem = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly UseDelaySystem _useDelay = default!; // Frontier
 
     private const int ReapplyLimit = 10; // Frontier: limits on reapplied stamps
     private const int StampLimit = 100; // Frontier: limits on total stamps on a page (should be able to get a signature from everybody on the server on a page)
@@ -100,12 +121,7 @@ public sealed class PaperSystem : EntitySystem
         {
             if (entity.Comp.Content != "")
             {
-                args.PushMarkup(
-                    Loc.GetString(
-                        "paper-component-examine-detail-has-words",
-                        ("paper", entity)
-                    )
-                );
+                args.PushMarkup(Loc.GetString("paper-component-examine-detail-has-words", ("paper", entity)));
             }
 
             if (entity.Comp.StampedBy.Count > 0)
@@ -148,8 +164,11 @@ public sealed class PaperSystem : EntitySystem
     private void OnInteractUsing(Entity<PaperComponent> entity, ref InteractUsingEvent args)
     {
         // only allow editing if there are no stamps or when using a cyberpen
-        var editable = entity.Comp.StampedBy.Count == 0 || _tagSystem.HasTag(args.Used, WriteIgnoreStampsTag)
-                       || _tagSystem.HasTag(args.Used, NFWriteIgnoreUnprotectedStampsTag) && !_tagSystem.HasTag(entity, NFPaperStampProtectedTag); // Frontier: protected stamps
+        var editable =
+            entity.Comp.StampedBy.Count == 0
+            || _tagSystem.HasTag(args.Used, WriteIgnoreStampsTag)
+            || _tagSystem.HasTag(args.Used, NFWriteIgnoreUnprotectedStampsTag)
+                && !_tagSystem.HasTag(entity, NFPaperStampProtectedTag); // Frontier: protected stamps
         if (_tagSystem.HasTag(args.Used, WriteTag))
         {
             if (editable)
@@ -197,8 +216,7 @@ public sealed class PaperSystem : EntitySystem
         }
 
         // If a stamp, attempt to stamp paper
-        if (TryComp<StampComponent>(args.Used, out var stampComp) &&
-            !StampDelayed(args.Used)) // Frontier: check stamp is delayed, defer TryStamp
+        if (TryComp<StampComponent>(args.Used, out var stampComp) && !StampDelayed(args.Used)) // Frontier: check stamp is delayed, defer TryStamp
         {
             // Frontier: assign DisplayStampInfo before stamp
             var stampInfo = GetStampInfo(stampComp);
@@ -210,15 +228,24 @@ public sealed class PaperSystem : EntitySystem
             {
                 // End Frontier: assign DisplayStampInfo before stamp
                 // successfully stamped, play popup
-                var stampPaperOtherMessage = Loc.GetString("paper-component-action-stamp-paper-other",
-                        ("user", args.User),
-                        ("target", args.Target),
-                        ("stamp", args.Used));
+                var stampPaperOtherMessage = Loc.GetString(
+                    "paper-component-action-stamp-paper-other",
+                    ("user", args.User),
+                    ("target", args.Target),
+                    ("stamp", args.Used)
+                );
 
-                _popupSystem.PopupEntity(stampPaperOtherMessage, args.User, Filter.PvsExcept(args.User, entityManager: EntityManager), true);
-                var stampPaperSelfMessage = Loc.GetString("paper-component-action-stamp-paper-self",
-                        ("target", args.Target),
-                        ("stamp", args.Used));
+                _popupSystem.PopupEntity(
+                    stampPaperOtherMessage,
+                    args.User,
+                    Filter.PvsExcept(args.User, entityManager: EntityManager),
+                    true
+                );
+                var stampPaperSelfMessage = Loc.GetString(
+                    "paper-component-action-stamp-paper-self",
+                    ("target", args.Target),
+                    ("stamp", args.Used)
+                );
                 _popupSystem.PopupClient(stampPaperSelfMessage, args.User, args.User);
 
                 _audio.PlayPredicted(stampComp.Sound, entity, args.User);
@@ -242,7 +269,7 @@ public sealed class PaperSystem : EntitySystem
         {
             Reapply = stamp.Reapply, // Frontier
             StampedName = stamp.StampedName,
-            StampedColor = stamp.StampedColor
+            StampedColor = stamp.StampedColor,
         };
     }
 
@@ -265,9 +292,11 @@ public sealed class PaperSystem : EntitySystem
             if (TryComp(entity, out MetaDataComponent? meta))
                 _metaSystem.SetEntityDescription(entity, "", meta);
 
-            _adminLogger.Add(LogType.Chat,
+            _adminLogger.Add(
+                LogType.Chat,
                 LogImpact.Low,
-                $"{ToPrettyString(args.Actor):player} has written on {ToPrettyString(entity):entity} the following text: {args.Text}");
+                $"{ToPrettyString(args.Actor):player} has written on {ToPrettyString(entity):entity} the following text: {args.Text}"
+            );
 
             _audio.PlayPvs(entity.Comp.Sound, entity);
         }
@@ -280,7 +309,9 @@ public sealed class PaperSystem : EntitySystem
     {
         if (!_paperQuery.TryComp(ent, out var paperComp))
         {
-            Log.Warning($"{EntityManager.ToPrettyString(ent)} has a {nameof(RandomPaperContentComponent)} but no {nameof(PaperComponent)}!");
+            Log.Warning(
+                $"{EntityManager.ToPrettyString(ent)} has a {nameof(RandomPaperContentComponent)} but no {nameof(PaperComponent)}!"
+            );
             RemCompDeferred(ent, ent.Comp);
             return;
         }
@@ -365,8 +396,7 @@ public sealed class PaperSystem : EntitySystem
     // stamp reapplication: checks if a given stamp is delayed
     private bool StampDelayed(EntityUid stampUid)
     {
-        return TryComp<UseDelayComponent>(stampUid, out var delay) &&
-            _useDelay.IsDelayed((stampUid, delay), "stamp");
+        return TryComp<UseDelayComponent>(stampUid, out var delay) && _useDelay.IsDelayed((stampUid, delay), "stamp");
     }
 
     // stamp reapplication: resets the delay on a given stamp
@@ -397,7 +427,7 @@ public sealed class PaperSystem : EntitySystem
                 TrySign((uid, component), args.User, args.Using.Value);
             },
             Text = Loc.GetString("paper-component-verb-sign"),
-            Priority = 4 // Starlight
+            Priority = 4, // Starlight
             // Icon = Don't have an icon yet. Todo for later.
         };
         args.Verbs.Add(verb);
@@ -419,29 +449,25 @@ public sealed class PaperSystem : EntitySystem
         {
             // Signing successful, popup time.
             _popupSystem.PopupEntity(
-                Loc.GetString(
-                    "paper-component-action-signed-other",
-                    ("user", signer),
-                    ("target", paper.Owner)
-                ),
+                Loc.GetString("paper-component-action-signed-other", ("user", signer), ("target", paper.Owner)),
                 signer,
                 Filter.PvsExcept(signer, entityManager: EntityManager),
                 true
             );
 
             _popupSystem.PopupClient(
-                Loc.GetString(
-                    "paper-component-action-signed-self",
-                    ("target", paper.Owner)
-                ),
+                Loc.GetString("paper-component-action-signed-self", ("target", paper.Owner)),
                 signer,
                 signer
             );
 
             _audio.PlayPredicted(paper.Comp.Sound, paper, signer);
 
-            _adminLogger.Add(LogType.Verb, LogImpact.Low,
-                $"{ToPrettyString(signer):player} has signed {ToPrettyString(paper):paper}.");
+            _adminLogger.Add(
+                LogType.Verb,
+                LogImpact.Low,
+                $"{ToPrettyString(signer):player} has signed {ToPrettyString(paper):paper}."
+            );
 
             UpdateUserInterface(paper);
 
@@ -464,16 +490,18 @@ public sealed class PaperSystem : EntitySystem
         if (!TryComp<AppearanceComponent>(entity, out var appearance))
             return;
 
-        var status = string.IsNullOrWhiteSpace(content)
-            ? PaperStatus.Blank
-            : PaperStatus.Written;
+        var status = string.IsNullOrWhiteSpace(content) ? PaperStatus.Blank : PaperStatus.Written;
 
         _appearance.SetData(entity, PaperVisuals.Status, status, appearance);
     }
 
     private void UpdateUserInterface(Entity<PaperComponent> entity)
     {
-        _uiSystem.SetUiState(entity.Owner, PaperUiKey.Key, new PaperBoundUserInterfaceState(entity.Comp.Content, entity.Comp.StampedBy, entity.Comp.Mode));
+        _uiSystem.SetUiState(
+            entity.Owner,
+            PaperUiKey.Key,
+            new PaperBoundUserInterfaceState(entity.Comp.Content, entity.Comp.StampedBy, entity.Comp.Mode)
+        );
     }
 }
 

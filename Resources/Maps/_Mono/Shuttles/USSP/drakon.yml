@@ -3871,4 +3871,3 @@ entities:
     - type: Transform
       pos: -1.5,5.5
       parent: 1
-...

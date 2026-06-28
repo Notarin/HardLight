@@ -1,17 +1,21 @@
+using System.Numerics;
+using Content.Shared._Shitmed.Body.Events;
 using Content.Shared.Body.Part;
 using Content.Shared.Body.Systems;
-using Content.Shared._Shitmed.Body.Events;
 using Robust.Shared.Map;
-using Robust.Shared.Timing;
 using Robust.Shared.Network;
-using System.Numerics;
+using Robust.Shared.Timing;
 
 namespace Content.Shared._Shitmed.BodyEffects.Subsystems;
 
 public sealed class GenerateChildPartSystem : EntitySystem
 {
-    [Dependency] private readonly SharedBodySystem _bodySystem = default!;
-    [Dependency] private readonly INetManager _net = default!;
+    [Dependency]
+    private readonly SharedBodySystem _bodySystem = default!;
+
+    [Dependency]
+    private readonly INetManager _net = default!;
+
     public override void Initialize()
     {
         base.Initialize();
@@ -19,19 +23,21 @@ public sealed class GenerateChildPartSystem : EntitySystem
         SubscribeLocalEvent<GenerateChildPartComponent, BodyPartComponentsModifyEvent>(OnPartComponentsModify);
     }
 
-    private void OnPartComponentsModify(EntityUid uid, GenerateChildPartComponent component, ref BodyPartComponentsModifyEvent args)
+    private void OnPartComponentsModify(
+        EntityUid uid,
+        GenerateChildPartComponent component,
+        ref BodyPartComponentsModifyEvent args
+    )
     {
         if (args.Add)
             CreatePart(uid, component);
         //else
-            //DeletePart(uid, component);
+        //DeletePart(uid, component);
     }
 
     private void CreatePart(EntityUid uid, GenerateChildPartComponent component)
     {
-        if (!TryComp(uid, out BodyPartComponent? partComp)
-            || partComp.Body is null
-            || component.Active)
+        if (!TryComp(uid, out BodyPartComponent? partComp) || partComp.Body is null || component.Active)
             return;
 
         // I pinky swear to also move this to the server side properly next update :)
@@ -63,4 +69,3 @@ public sealed class GenerateChildPartSystem : EntitySystem
         QueueDel(uid);
     }
 }
-

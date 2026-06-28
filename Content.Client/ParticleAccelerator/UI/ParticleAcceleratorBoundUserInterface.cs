@@ -8,9 +8,8 @@ namespace Content.Client.ParticleAccelerator.UI
         [ViewVariables]
         private ParticleAcceleratorControlMenu? _menu;
 
-        public ParticleAcceleratorBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-        {
-        }
+        public ParticleAcceleratorBoundUserInterface(EntityUid owner, Enum uiKey)
+            : base(owner, uiKey) { }
 
         protected override void Open()
         {
@@ -41,7 +40,7 @@ namespace Content.Client.ParticleAccelerator.UI
 
         protected override void UpdateState(BoundUserInterfaceState state)
         {
-            _menu?.DataUpdate((ParticleAcceleratorUIState) state);
+            _menu?.DataUpdate((ParticleAcceleratorUIState)state);
         }
     }
 }

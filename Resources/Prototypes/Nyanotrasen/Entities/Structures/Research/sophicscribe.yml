@@ -10,8 +10,8 @@
     offset: "0.0,0.5"
     sprite: DeltaV/Structures/Decoration/statues.rsi
     layers:
-      - state: sophie
-      - map: ["enum.SolutionContainerLayers.Fill"]
+    - state: sophie
+    - map: ["enum.SolutionContainerLayers.Fill"]
   - type: SophicScribe
   - type: Speech
     speechSounds: Tenor
@@ -26,16 +26,16 @@
   - type: Psionic
     removable: false
     assayFeedback:
-      - sophic-grammateus-feedback
+    - sophic-grammateus-feedback
     psychognomicDescriptors:
-      - p-descriptor-old
-      - p-descriptor-demiurgic
-      - p-descriptor-mysterious
+    - p-descriptor-old
+    - p-descriptor-demiurgic
+    - p-descriptor-mysterious
   - type: InnatePsionicPowers
     powersToAdd:
-      - XenoglossyPower
-      - TelepathyPower
-      - NoosphericZapPower
+    - XenoglossyPower
+    - TelepathyPower
+    - NoosphericZapPower
   - type: Grammar
     attributes:
       gender: female

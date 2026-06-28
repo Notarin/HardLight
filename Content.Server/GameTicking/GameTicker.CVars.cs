@@ -36,42 +36,71 @@ namespace Content.Server.GameTicking
 
         private void InitializeCVars()
         {
-            Subs.CVar(_cfg, CCVars.GameLobbyEnabled, value =>
-            {
-                LobbyEnabled = value;
-                foreach (var (userId, status) in _playerGameStatuses)
+            Subs.CVar(
+                _cfg,
+                CCVars.GameLobbyEnabled,
+                value =>
                 {
-                    if (status == PlayerGameStatus.JoinedGame)
-                        continue;
-                    _playerGameStatuses[userId] =
-                        LobbyEnabled ? PlayerGameStatus.NotReadyToPlay : PlayerGameStatus.ReadyToPlay;
-                }
-            }, true);
+                    LobbyEnabled = value;
+                    foreach (var (userId, status) in _playerGameStatuses)
+                    {
+                        if (status == PlayerGameStatus.JoinedGame)
+                            continue;
+                        _playerGameStatuses[userId] = LobbyEnabled
+                            ? PlayerGameStatus.NotReadyToPlay
+                            : PlayerGameStatus.ReadyToPlay;
+                    }
+                },
+                true
+            );
             Subs.CVar(_cfg, CCVars.GameDummyTicker, value => DummyTicker = value, true);
             Subs.CVar(_cfg, CCVars.GameLobbyDuration, value => LobbyDuration = TimeSpan.FromSeconds(value), true);
-            Subs.CVar(_cfg, CCVars.GameDisallowLateJoins,
-                value => { DisallowLateJoin = value; UpdateLateJoinStatus(); }, true);
-            Subs.CVar(_cfg, CCVars.AdminLogsServerName, value =>
-            {
-                // TODO why tf is the server name on admin logs
-                ServerName = value;
-            }, true);
-            Subs.CVar(_cfg, CCVars.DiscordRoundUpdateWebhook, value =>
-            {
-                if (!string.IsNullOrWhiteSpace(value))
+            Subs.CVar(
+                _cfg,
+                CCVars.GameDisallowLateJoins,
+                value =>
                 {
-                    _discord.GetWebhook(value, data => _webhookIdentifier = data.ToIdentifier());
-                }
-            }, true);
-            Subs.CVar(_cfg, CCVars.DiscordRoundEndRoleWebhook, value =>
-            {
-                DiscordRoundEndRole = value;
+                    DisallowLateJoin = value;
+                    UpdateLateJoinStatus();
+                },
+                true
+            );
+            Subs.CVar(
+                _cfg,
+                CCVars.AdminLogsServerName,
+                value =>
+                {
+                    // TODO why tf is the server name on admin logs
+                    ServerName = value;
+                },
+                true
+            );
+            Subs.CVar(
+                _cfg,
+                CCVars.DiscordRoundUpdateWebhook,
+                value =>
+                {
+                    if (!string.IsNullOrWhiteSpace(value))
+                    {
+                        _discord.GetWebhook(value, data => _webhookIdentifier = data.ToIdentifier());
+                    }
+                },
+                true
+            );
+            Subs.CVar(
+                _cfg,
+                CCVars.DiscordRoundEndRoleWebhook,
+                value =>
+                {
+                    DiscordRoundEndRole = value;
 
-                if (value == string.Empty)
-                {
-                    DiscordRoundEndRole = null;
-                }
-            }, true);
+                    if (value == string.Empty)
+                    {
+                        DiscordRoundEndRole = null;
+                    }
+                },
+                true
+            );
             Subs.CVar(_cfg, CCVars.RoundEndSoundCollection, value => RoundEndSoundCollection = value, true);
 #if EXCEPTION_TOLERANCE
             Subs.CVar(_cfg, CCVars.RoundStartFailShutdownCount, value => RoundStartFailShutdownCount = value, true);

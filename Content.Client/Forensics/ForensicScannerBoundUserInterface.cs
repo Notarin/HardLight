@@ -1,13 +1,14 @@
-using Robust.Client.GameObjects;
-using Robust.Shared.Timing;
 using Content.Shared.Forensics;
+using Robust.Client.GameObjects;
 using Robust.Client.UserInterface;
+using Robust.Shared.Timing;
 
 namespace Content.Client.Forensics
 {
     public sealed class ForensicScannerBoundUserInterface : BoundUserInterface
     {
-        [Dependency] private readonly IGameTiming _gameTiming = default!;
+        [Dependency]
+        private readonly IGameTiming _gameTiming = default!;
 
         [ViewVariables]
         private ForensicScannerMenu? _window;
@@ -15,9 +16,8 @@ namespace Content.Client.Forensics
         [ViewVariables]
         private TimeSpan _printCooldown;
 
-        public ForensicScannerBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-        {
-        }
+        public ForensicScannerBoundUserInterface(EntityUid owner, Enum uiKey)
+            : base(owner, uiKey) { }
 
         protected override void Open()
         {
@@ -37,11 +37,14 @@ namespace Content.Client.Forensics
             // This UI does not require pinpoint accuracy as to when the Print
             // button is available again, so spawning client-side timers is
             // fine. The server will make sure the cooldown is honored.
-            Timer.Spawn(_printCooldown, () =>
-            {
-                if (_window != null)
-                    _window.UpdatePrinterState(false);
-            });
+            Timer.Spawn(
+                _printCooldown,
+                () =>
+                {
+                    if (_window != null)
+                        _window.UpdatePrinterState(false);
+                }
+            );
         }
 
         private void Clear()
@@ -63,11 +66,14 @@ namespace Content.Client.Forensics
 
             // TODO: Fix this
             if (cast.PrintReadyAt > _gameTiming.CurTime)
-                Timer.Spawn(cast.PrintReadyAt - _gameTiming.CurTime, () =>
-                {
-                    if (_window != null)
-                        _window.UpdatePrinterState(false);
-                });
+                Timer.Spawn(
+                    cast.PrintReadyAt - _gameTiming.CurTime,
+                    () =>
+                    {
+                        if (_window != null)
+                            _window.UpdatePrinterState(false);
+                    }
+                );
 
             _window.UpdateState(cast);
         }

@@ -1,5 +1,5 @@
 ﻿using Content.Shared.Sticky.Systems;
-﻿using Content.Shared.Whitelist;
+using Content.Shared.Whitelist;
 using Robust.Shared.GameStates;
 using Robust.Shared.Utility;
 
@@ -86,5 +86,7 @@ public sealed partial class StickyComponent : Component
     /// Icon to use for the unstick verb.
     /// </summary>
     [DataField]
-    public SpriteSpecifier VerbIcon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/eject.svg.192dpi.png"));
+    public SpriteSpecifier VerbIcon = new SpriteSpecifier.Texture(
+        new("/Textures/Interface/VerbIcons/eject.svg.192dpi.png")
+    );
 }

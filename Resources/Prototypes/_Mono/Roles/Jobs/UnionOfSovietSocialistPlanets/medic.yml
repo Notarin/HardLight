@@ -4,10 +4,10 @@
   description: job-description-ussp-medic
   playTimeTracker: JobUSSPMedic
   requirements:
-  # - !type:DepartmentTimeRequirement
-  #   department: UnionOfSovietSocialistPlanets
-  #   time: 14400 # 4 hours
   - !type:OverallPlaytimeRequirement
+    # - !type:DepartmentTimeRequirement
+    #   department: UnionOfSovietSocialistPlanets
+    #   time: 14400 # 4 hours
     time: 14400 # 4 hrs
   startingGear: USSPMedicGear
   alwaysUseSpawner: true

@@ -11,13 +11,13 @@
     sprite: Objects/Fun/spraycans.rsi
     state: clown_cap
     layers:
-      - state: clown_cap
-        map: ["enum.OpenableVisuals.Layer"]
+    - state: clown_cap
+      map: ["enum.OpenableVisuals.Layer"]
   - type: Paint
     consumptionUnit: 10
     blacklist:
       tags:
-        - NoPaint
+      - NoPaint
   - type: Item
     sprite: Objects/Fun/spraycans.rsi
     heldPrefix: spray
@@ -45,7 +45,7 @@
   parent: PaintBase
   id: FunnyPaint
   name: pink funny paint
-  description:  A tin of funny paint, manufactured by Honk! Co.
+  description: A tin of funny paint, manufactured by Honk! Co.
   components:
   - type: Paint
     color: "#fa74df"
@@ -63,7 +63,7 @@
   parent: PaintBase
   id: FunnyPaintYellow
   name: yellow funny paint
-  description:  A tin of funny paint, manufactured by Honk! Co.
+  description: A tin of funny paint, manufactured by Honk! Co.
   components:
   - type: Paint
     color: "#d5e028"
@@ -74,8 +74,8 @@
     sprite: Objects/Fun/spraycans.rsi
     state: clown2_cap
     layers:
-      - state: clown2_cap
-        map: ["enum.OpenableVisuals.Layer"]
+    - state: clown2_cap
+      map: ["enum.OpenableVisuals.Layer"]
   - type: GenericVisualizer
     visuals:
       enum.OpenableVisuals.Opened:
@@ -98,8 +98,8 @@
     sprite: Objects/Fun/spraycans.rsi
     state: death_cap
     layers:
-      - state: death_cap
-        map: ["enum.OpenableVisuals.Layer"]
+    - state: death_cap
+      map: ["enum.OpenableVisuals.Layer"]
   - type: GenericVisualizer
     visuals:
       enum.OpenableVisuals.Opened:
@@ -121,8 +121,8 @@
     sprite: Objects/Fun/spraycans.rsi
     state: death2_cap
     layers:
-      - state: death2_cap
-        map: ["enum.OpenableVisuals.Layer"]
+    - state: death2_cap
+      map: ["enum.OpenableVisuals.Layer"]
   - type: GenericVisualizer
     visuals:
       enum.OpenableVisuals.Opened:
@@ -142,19 +142,19 @@
   - type: Sprite
     sprite: Objects/Fun/spraycans.rsi
     layers:
-      - state: spray
-        map: ["Base"]
-      - state: spray_cap_colors
-        map: ["enum.OpenableVisuals.Layer"]
-        color: "#5890f7"
+    - state: spray
+      map: ["Base"]
+    - state: spray_cap_colors
+      map: ["enum.OpenableVisuals.Layer"]
+      color: "#5890f7"
   - type: Paint
     color: "#5890f7"
   - type: GenericVisualizer
     visuals:
       enum.OpenableVisuals.Opened:
         enum.OpenableVisuals.Layer:
-          True: {state: "spray_colors" , color: "#5890f7"}
-          False: {state: "spray_cap_colors" , color: "#5890f7"}
+          True: {state: "spray_colors", color: "#5890f7"}
+          False: {state: "spray_cap_colors", color: "#5890f7"}
 
 - type: entity
   parent: PaintBase
@@ -165,19 +165,19 @@
   - type: Sprite
     sprite: Objects/Fun/spraycans.rsi
     layers:
-      - state: spray
-        map: ["Base"]
-      - state: spray_cap_colors
-        map: ["enum.OpenableVisuals.Layer"]
-        color: "#0000AA"
+    - state: spray
+      map: ["Base"]
+    - state: spray_cap_colors
+      map: ["enum.OpenableVisuals.Layer"]
+      color: "#0000AA"
   - type: Paint
     color: "#0000AA"
   - type: GenericVisualizer
     visuals:
       enum.OpenableVisuals.Opened:
         enum.OpenableVisuals.Layer:
-          True: {state: "spray_colors" , color: "#0000AA"}
-          False: {state: "spray_cap_colors" , color: "#0000AA"}
+          True: {state: "spray_colors", color: "#0000AA"}
+          False: {state: "spray_cap_colors", color: "#0000AA"}
 
 #Red
 - type: entity
@@ -189,19 +189,19 @@
   - type: Sprite
     sprite: Objects/Fun/spraycans.rsi
     layers:
-      - state: spray
-        map: ["Base"]
-      - state: spray_cap_colors
-        map: ["enum.OpenableVisuals.Layer"]
-        color: "#ff3b3b"
+    - state: spray
+      map: ["Base"]
+    - state: spray_cap_colors
+      map: ["enum.OpenableVisuals.Layer"]
+      color: "#ff3b3b"
   - type: Paint
     color: "#ff3b3b"
   - type: GenericVisualizer
     visuals:
       enum.OpenableVisuals.Opened:
         enum.OpenableVisuals.Layer:
-          True: {state: "spray_colors" , color: "#ff3b3b"}
-          False: {state: "spray_cap_colors" , color: "#ff3b3b"}
+          True: {state: "spray_colors", color: "#ff3b3b"}
+          False: {state: "spray_cap_colors", color: "#ff3b3b"}
 
 - type: entity
   parent: PaintBase
@@ -212,19 +212,19 @@
   - type: Sprite
     sprite: Objects/Fun/spraycans.rsi
     layers:
-      - state: spray
-        map: ["Base"]
-      - state: spray_cap_colors
-        map: ["enum.OpenableVisuals.Layer"]
-        color: "#AA0000"
+    - state: spray
+      map: ["Base"]
+    - state: spray_cap_colors
+      map: ["enum.OpenableVisuals.Layer"]
+      color: "#AA0000"
   - type: Paint
     color: "#AA0000"
   - type: GenericVisualizer
     visuals:
       enum.OpenableVisuals.Opened:
         enum.OpenableVisuals.Layer:
-          True: {state: "spray_colors" , color: "#AA0000"}
-          False: {state: "spray_cap_colors" , color: "#AA0000"}
+          True: {state: "spray_colors", color: "#AA0000"}
+          False: {state: "spray_cap_colors", color: "#AA0000"}
 
 #Green
 - type: entity
@@ -236,19 +236,19 @@
   - type: Sprite
     sprite: Objects/Fun/spraycans.rsi
     layers:
-      - state: spray
-        map: ["Base"]
-      - state: spray_cap_colors
-        map: ["enum.OpenableVisuals.Layer"]
-        color: "#73f170"
+    - state: spray
+      map: ["Base"]
+    - state: spray_cap_colors
+      map: ["enum.OpenableVisuals.Layer"]
+      color: "#73f170"
   - type: Paint
     color: "#73f170"
   - type: GenericVisualizer
     visuals:
       enum.OpenableVisuals.Opened:
         enum.OpenableVisuals.Layer:
-          True: {state: "spray_colors" , color: "#73f170"}
-          False: {state: "spray_cap_colors" , color: "#73f170"}
+          True: {state: "spray_colors", color: "#73f170"}
+          False: {state: "spray_cap_colors", color: "#73f170"}
 
 - type: entity
   parent: PaintBase
@@ -259,19 +259,19 @@
   - type: Sprite
     sprite: Objects/Fun/spraycans.rsi
     layers:
-      - state: spray
-        map: ["Base"]
-      - state: spray_cap_colors
-        map: ["enum.OpenableVisuals.Layer"]
-        color: "#00AA00"
+    - state: spray
+      map: ["Base"]
+    - state: spray_cap_colors
+      map: ["enum.OpenableVisuals.Layer"]
+      color: "#00AA00"
   - type: Paint
     color: "#00AA00"
   - type: GenericVisualizer
     visuals:
       enum.OpenableVisuals.Opened:
         enum.OpenableVisuals.Layer:
-          True: {state: "spray_colors" , color: "#00AA00"}
-          False: {state: "spray_cap_colors" , color: "#00AA00"}
+          True: {state: "spray_colors", color: "#00AA00"}
+          False: {state: "spray_cap_colors", color: "#00AA00"}
 
 #Black
 - type: entity
@@ -283,19 +283,19 @@
   - type: Sprite
     sprite: Objects/Fun/spraycans.rsi
     layers:
-      - state: spray
-        map: ["Base"]
-      - state: spray_cap_colors
-        map: ["enum.OpenableVisuals.Layer"]
-        color: "#3a3a3a"
+    - state: spray
+      map: ["Base"]
+    - state: spray_cap_colors
+      map: ["enum.OpenableVisuals.Layer"]
+      color: "#3a3a3a"
   - type: Paint
     color: "#3a3a3a"
   - type: GenericVisualizer
     visuals:
       enum.OpenableVisuals.Opened:
         enum.OpenableVisuals.Layer:
-          True: {state: "spray_colors" , color: "#3a3a3a"}
-          False: {state: "spray_cap_colors" , color: "#3a3a3a"}
+          True: {state: "spray_colors", color: "#3a3a3a"}
+          False: {state: "spray_cap_colors", color: "#3a3a3a"}
 
 - type: entity
   parent: PaintBase
@@ -306,19 +306,19 @@
   - type: Sprite
     sprite: Objects/Fun/spraycans.rsi
     layers:
-      - state: spray
-        map: ["Base"]
-      - state: spray_cap_colors
-        map: ["enum.OpenableVisuals.Layer"]
-        color: "#000000"
+    - state: spray
+      map: ["Base"]
+    - state: spray_cap_colors
+      map: ["enum.OpenableVisuals.Layer"]
+      color: "#000000"
   - type: Paint
     color: "#000000"
   - type: GenericVisualizer
     visuals:
       enum.OpenableVisuals.Opened:
         enum.OpenableVisuals.Layer:
-          True: {state: "spray_colors" , color: "#000000"}
-          False: {state: "spray_cap_colors" , color: "#000000"}
+          True: {state: "spray_colors", color: "#000000"}
+          False: {state: "spray_cap_colors", color: "#000000"}
 
 #Orange
 - type: entity
@@ -330,19 +330,19 @@
   - type: Sprite
     sprite: Objects/Fun/spraycans.rsi
     layers:
-      - state: spray
-        map: ["Base"]
-      - state: spray_cap_colors
-        map: ["enum.OpenableVisuals.Layer"]
-        color: "#f6a44b"
+    - state: spray
+      map: ["Base"]
+    - state: spray_cap_colors
+      map: ["enum.OpenableVisuals.Layer"]
+      color: "#f6a44b"
   - type: Paint
     color: "#f6a44b"
   - type: GenericVisualizer
     visuals:
       enum.OpenableVisuals.Opened:
         enum.OpenableVisuals.Layer:
-          True: {state: "spray_colors" , color: "#f6a44b"}
-          False: {state: "spray_cap_colors" , color: "#f6a44b"}
+          True: {state: "spray_colors", color: "#f6a44b"}
+          False: {state: "spray_cap_colors", color: "#f6a44b"}
 
 #Purple
 - type: entity
@@ -354,19 +354,19 @@
   - type: Sprite
     sprite: Objects/Fun/spraycans.rsi
     layers:
-      - state: spray
-        map: ["Base"]
-      - state: spray_cap_colors
-        map: ["enum.OpenableVisuals.Layer"]
-        color: "#c063f5"
+    - state: spray
+      map: ["Base"]
+    - state: spray_cap_colors
+      map: ["enum.OpenableVisuals.Layer"]
+      color: "#c063f5"
   - type: Paint
     color: "#c063f5"
   - type: GenericVisualizer
     visuals:
       enum.OpenableVisuals.Opened:
         enum.OpenableVisuals.Layer:
-          True: {state: "spray_colors" , color: "#c063f5"}
-          False: {state: "spray_cap_colors" , color: "#c063f5"}
+          True: {state: "spray_colors", color: "#c063f5"}
+          False: {state: "spray_cap_colors", color: "#c063f5"}
 
 - type: entity
   parent: PaintBase
@@ -377,19 +377,19 @@
   - type: Sprite
     sprite: Objects/Fun/spraycans.rsi
     layers:
-      - state: spray
-        map: ["Base"]
-      - state: spray_cap_colors
-        map: ["enum.OpenableVisuals.Layer"]
-        color: "#AA00AA"
+    - state: spray
+      map: ["Base"]
+    - state: spray_cap_colors
+      map: ["enum.OpenableVisuals.Layer"]
+      color: "#AA00AA"
   - type: Paint
     color: "#AA00AA"
   - type: GenericVisualizer
     visuals:
       enum.OpenableVisuals.Opened:
         enum.OpenableVisuals.Layer:
-          True: {state: "spray_colors" , color: "#AA00AA"}
-          False: {state: "spray_cap_colors" , color: "#AA00AA"}
+          True: {state: "spray_colors", color: "#AA00AA"}
+          False: {state: "spray_cap_colors", color: "#AA00AA"}
 
 #White
 - type: entity
@@ -401,19 +401,19 @@
   - type: Sprite
     sprite: Objects/Fun/spraycans.rsi
     layers:
-      - state: spray
-        map: ["Base"]
-      - state: spray_cap_colors
-        map: ["enum.OpenableVisuals.Layer"]
-        color: "#f2f2f2"
+    - state: spray
+      map: ["Base"]
+    - state: spray_cap_colors
+      map: ["enum.OpenableVisuals.Layer"]
+      color: "#f2f2f2"
   - type: Paint
     color: "#f2f2f2"
   - type: GenericVisualizer
     visuals:
       enum.OpenableVisuals.Opened:
         enum.OpenableVisuals.Layer:
-          True: {state: "spray_colors" , color: "#f2f2f2"}
-          False: {state: "spray_cap_colors" , color: "#f2f2f2"}
+          True: {state: "spray_colors", color: "#f2f2f2"}
+          False: {state: "spray_cap_colors", color: "#f2f2f2"}
 
 - type: entity
   parent: PaintBase
@@ -425,19 +425,19 @@
   - type: Sprite
     sprite: Objects/Fun/spraycans.rsi
     layers:
-      - state: spray
-        map: ["Base"]
-      - state: spray_cap_colors
-        map: ["enum.OpenableVisuals.Layer"]
-        color: "#C6C6C6"
+    - state: spray
+      map: ["Base"]
+    - state: spray_cap_colors
+      map: ["enum.OpenableVisuals.Layer"]
+      color: "#C6C6C6"
   - type: Paint
     color: "#C6C6C6"
   - type: GenericVisualizer
     visuals:
       enum.OpenableVisuals.Opened:
         enum.OpenableVisuals.Layer:
-          True: {state: "spray_colors" , color: "#C6C6C6"}
-          False: {state: "spray_cap_colors" , color: "#C6C6C6"}
+          True: {state: "spray_colors", color: "#C6C6C6"}
+          False: {state: "spray_cap_colors", color: "#C6C6C6"}
 
 #Grey
 - type: entity
@@ -449,19 +449,19 @@
   - type: Sprite
     sprite: Objects/Fun/spraycans.rsi
     layers:
-      - state: spray
-        map: ["Base"]
-      - state: spray_cap_colors
-        map: ["enum.OpenableVisuals.Layer"]
-        color: "#AAAAAA"
+    - state: spray
+      map: ["Base"]
+    - state: spray_cap_colors
+      map: ["enum.OpenableVisuals.Layer"]
+      color: "#AAAAAA"
   - type: Paint
     color: "#AAAAAA"
   - type: GenericVisualizer
     visuals:
       enum.OpenableVisuals.Opened:
         enum.OpenableVisuals.Layer:
-          True: {state: "spray_colors" , color: "#AAAAAA"}
-          False: {state: "spray_cap_colors" , color: "#AAAAAA"}
+          True: {state: "spray_colors", color: "#AAAAAA"}
+          False: {state: "spray_cap_colors", color: "#AAAAAA"}
 
 - type: entity
   parent: PaintBase
@@ -472,19 +472,19 @@
   - type: Sprite
     sprite: Objects/Fun/spraycans.rsi
     layers:
-      - state: spray
-        map: ["Base"]
-      - state: spray_cap_colors
-        map: ["enum.OpenableVisuals.Layer"]
-        color: "#555555"
+    - state: spray
+      map: ["Base"]
+    - state: spray_cap_colors
+      map: ["enum.OpenableVisuals.Layer"]
+      color: "#555555"
   - type: Paint
     color: "#555555"
   - type: GenericVisualizer
     visuals:
       enum.OpenableVisuals.Opened:
         enum.OpenableVisuals.Layer:
-          True: {state: "spray_colors" , color: "#555555"}
-          False: {state: "spray_cap_colors" , color: "#555555"}
+          True: {state: "spray_colors", color: "#555555"}
+          False: {state: "spray_cap_colors", color: "#555555"}
 
 #Aqua
 - type: entity
@@ -496,19 +496,19 @@
   - type: Sprite
     sprite: Objects/Fun/spraycans.rsi
     layers:
-      - state: spray
-        map: ["Base"]
-      - state: spray_cap_colors
-        map: ["enum.OpenableVisuals.Layer"]
-        color: "#55FFFF"
+    - state: spray
+      map: ["Base"]
+    - state: spray_cap_colors
+      map: ["enum.OpenableVisuals.Layer"]
+      color: "#55FFFF"
   - type: Paint
     color: "#55FFFF"
   - type: GenericVisualizer
     visuals:
       enum.OpenableVisuals.Opened:
         enum.OpenableVisuals.Layer:
-          True: {state: "spray_colors" , color: "#55FFFF"}
-          False: {state: "spray_cap_colors" , color: "#55FFFF"}
+          True: {state: "spray_colors", color: "#55FFFF"}
+          False: {state: "spray_cap_colors", color: "#55FFFF"}
 
 - type: entity
   parent: PaintBase
@@ -519,19 +519,19 @@
   - type: Sprite
     sprite: Objects/Fun/spraycans.rsi
     layers:
-      - state: spray
-        map: ["Base"]
-      - state: spray_cap_colors
-        map: ["enum.OpenableVisuals.Layer"]
-        color: "#00AAAA"
+    - state: spray
+      map: ["Base"]
+    - state: spray_cap_colors
+      map: ["enum.OpenableVisuals.Layer"]
+      color: "#00AAAA"
   - type: Paint
     color: "#00AAAA"
   - type: GenericVisualizer
     visuals:
       enum.OpenableVisuals.Opened:
         enum.OpenableVisuals.Layer:
-          True: {state: "spray_colors" , color: "#00AAAA"}
-          False: {state: "spray_cap_colors" , color: "#00AAAA"}
+          True: {state: "spray_colors", color: "#00AAAA"}
+          False: {state: "spray_cap_colors", color: "#00AAAA"}
 
 #Gold
 - type: entity
@@ -544,19 +544,19 @@
   - type: Sprite
     sprite: Objects/Fun/spraycans.rsi
     layers:
-      - state: spray
-        map: ["Base"]
-      - state: spray_cap_colors
-        map: ["enum.OpenableVisuals.Layer"]
-        color: "#DDD605"
+    - state: spray
+      map: ["Base"]
+    - state: spray_cap_colors
+      map: ["enum.OpenableVisuals.Layer"]
+      color: "#DDD605"
   - type: Paint
     color: "#DDD605"
   - type: GenericVisualizer
     visuals:
       enum.OpenableVisuals.Opened:
         enum.OpenableVisuals.Layer:
-          True: {state: "spray_colors" , color: "#DDD605"}
-          False: {state: "spray_cap_colors" , color: "#DDD605"}
+          True: {state: "spray_colors", color: "#DDD605"}
+          False: {state: "spray_cap_colors", color: "#DDD605"}
 
 - type: entity
   parent: PaintBase
@@ -567,19 +567,19 @@
   - type: Sprite
     sprite: Objects/Fun/spraycans.rsi
     layers:
-      - state: spray
-        map: ["Base"]
-      - state: spray_cap_colors
-        map: ["enum.OpenableVisuals.Layer"]
-        color: "#d5e028"
+    - state: spray
+      map: ["Base"]
+    - state: spray_cap_colors
+      map: ["enum.OpenableVisuals.Layer"]
+      color: "#d5e028"
   - type: Paint
     color: "#d5e028"
   - type: GenericVisualizer
     visuals:
       enum.OpenableVisuals.Opened:
         enum.OpenableVisuals.Layer:
-          True: {state: "spray_colors" , color: "#d5e028"}
-          False: {state: "spray_cap_colors" , color: "#d5e028"}
+          True: {state: "spray_colors", color: "#d5e028"}
+          False: {state: "spray_cap_colors", color: "#d5e028"}
 
 #Pink
 - type: entity
@@ -591,19 +591,19 @@
   - type: Sprite
     sprite: Objects/Fun/spraycans.rsi
     layers:
-      - state: spray
-        map: ["Base"]
-      - state: spray_cap_colors
-        map: ["enum.OpenableVisuals.Layer"]
-        color: "#fa74df"
+    - state: spray
+      map: ["Base"]
+    - state: spray_cap_colors
+      map: ["enum.OpenableVisuals.Layer"]
+      color: "#fa74df"
   - type: Paint
     color: "#fa74df"
   - type: GenericVisualizer
     visuals:
       enum.OpenableVisuals.Opened:
         enum.OpenableVisuals.Layer:
-          True: {state: "spray_colors" , color: "#fa74df"}
-          False: {state: "spray_cap_colors" , color: "#fa74df"}
+          True: {state: "spray_colors", color: "#fa74df"}
+          False: {state: "spray_cap_colors", color: "#fa74df"}
 
 #Brown
 - type: entity
@@ -616,16 +616,16 @@
   - type: Sprite
     sprite: Objects/Fun/spraycans.rsi
     layers:
-      - state: spray
-        map: ["Base"]
-      - state: spray_cap_colors
-        map: ["enum.OpenableVisuals.Layer"]
-        color: "#B4684D"
+    - state: spray
+      map: ["Base"]
+    - state: spray_cap_colors
+      map: ["enum.OpenableVisuals.Layer"]
+      color: "#B4684D"
   - type: Paint
     color: "#B4684D"
   - type: GenericVisualizer
     visuals:
       enum.OpenableVisuals.Opened:
         enum.OpenableVisuals.Layer:
-          True: {state: "spray_colors" , color: "#B4684D"}
-          False: {state: "spray_cap_colors" , color: "#B4684D"}
+          True: {state: "spray_colors", color: "#B4684D"}
+          False: {state: "spray_cap_colors", color: "#B4684D"}

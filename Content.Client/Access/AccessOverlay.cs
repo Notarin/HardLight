@@ -18,7 +18,11 @@ public sealed class AccessOverlay : Overlay
 
     public override OverlaySpace Space => OverlaySpace.ScreenSpace;
 
-    public AccessOverlay(IEntityManager entityManager, IResourceCache resourceCache, SharedTransformSystem transformSystem)
+    public AccessOverlay(
+        IEntityManager entityManager,
+        IResourceCache resourceCache,
+        SharedTransformSystem transformSystem
+    )
     {
         _entityManager = entityManager;
         _transformSystem = transformSystem;

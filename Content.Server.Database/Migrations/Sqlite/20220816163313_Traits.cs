@@ -12,10 +12,11 @@ namespace Content.Server.Database.Migrations.Sqlite
                 name: "trait",
                 columns: table => new
                 {
-                    trait_id = table.Column<int>(type: "INTEGER", nullable: false)
+                    trait_id = table
+                        .Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     profile_id = table.Column<int>(type: "INTEGER", nullable: false),
-                    trait_name = table.Column<string>(type: "TEXT", nullable: false)
+                    trait_name = table.Column<string>(type: "TEXT", nullable: false),
                 },
                 constraints: table =>
                 {
@@ -25,19 +26,17 @@ namespace Content.Server.Database.Migrations.Sqlite
                         column: x => x.profile_id,
                         principalTable: "profile",
                         principalColumn: "profile_id",
-                        onDelete: ReferentialAction.Cascade);
-                });
+                        onDelete: ReferentialAction.Cascade
+                    );
+                }
+            );
 
-            migrationBuilder.CreateIndex(
-                name: "IX_trait_profile_id",
-                table: "trait",
-                column: "profile_id");
+            migrationBuilder.CreateIndex(name: "IX_trait_profile_id", table: "trait", column: "profile_id");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "trait");
+            migrationBuilder.DropTable(name: "trait");
         }
     }
 }

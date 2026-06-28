@@ -5,8 +5,11 @@ namespace Content.Client.IconSmoothing;
 
 public sealed class ClientRandomIconSmoothSystem : SharedRandomIconSmoothSystem
 {
-    [Dependency] private readonly IconSmoothSystem _iconSmooth = default!;
-    [Dependency] private readonly AppearanceSystem _appearance = default!;
+    [Dependency]
+    private readonly IconSmoothSystem _iconSmooth = default!;
+
+    [Dependency]
+    private readonly AppearanceSystem _appearance = default!;
 
     public override void Initialize()
     {

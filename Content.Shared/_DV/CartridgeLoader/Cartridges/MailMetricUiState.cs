@@ -42,8 +42,6 @@ public partial record struct MailStats
     public readonly double SuccessRate(int unopenedCount)
     {
         var totalMail = TotalMail(unopenedCount);
-        return (totalMail > 0)
-            ? Math.Round((double)OpenedCount / totalMail * 100, 2)
-            : 0;
+        return (totalMail > 0) ? Math.Round((double)OpenedCount / totalMail * 100, 2) : 0;
     }
 }

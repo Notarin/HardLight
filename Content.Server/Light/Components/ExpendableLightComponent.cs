@@ -14,6 +14,7 @@ namespace Content.Server.Light.Components
         [ViewVariables]
         public bool Activated => CurrentState is ExpendableLightState.Lit or ExpendableLightState.Fading;
 
-        [ViewVariables] public float StateExpiryTime = default;
+        [ViewVariables]
+        public float StateExpiryTime = default;
     }
 }

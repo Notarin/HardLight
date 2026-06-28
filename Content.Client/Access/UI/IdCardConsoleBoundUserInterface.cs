@@ -11,12 +11,14 @@ namespace Content.Client.Access.UI
 {
     public sealed class IdCardConsoleBoundUserInterface : BoundUserInterface
     {
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+        [Dependency]
+        private readonly IPrototypeManager _prototypeManager = default!;
         private readonly SharedIdCardConsoleSystem _idCardConsoleSystem = default!;
 
         private IdCardConsoleWindow? _window;
 
-        public IdCardConsoleBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
+        public IdCardConsoleBoundUserInterface(EntityUid owner, Enum uiKey)
+            : base(owner, uiKey)
         {
             _idCardConsoleSystem = EntMan.System<SharedIdCardConsoleSystem>();
         }
@@ -38,11 +40,12 @@ namespace Content.Client.Access.UI
 
             _window = new IdCardConsoleWindow(this, _prototypeManager, accessLevels)
             {
-                Title = EntMan.GetComponent<MetaDataComponent>(Owner).EntityName
+                Title = EntMan.GetComponent<MetaDataComponent>(Owner).EntityName,
             };
 
             _window.CrewManifestButton.OnPressed += _ => SendMessage(new CrewManifestOpenUiMessage());
-            _window.PrivilegedIdButton.OnPressed += _ => SendMessage(new ItemSlotButtonPressedEvent(PrivilegedIdCardSlotId));
+            _window.PrivilegedIdButton.OnPressed += _ =>
+                SendMessage(new ItemSlotButtonPressedEvent(PrivilegedIdCardSlotId));
             _window.TargetIdButton.OnPressed += _ => SendMessage(new ItemSlotButtonPressedEvent(TargetIdCardSlotId));
 
             _window.OnClose += Close;
@@ -61,11 +64,16 @@ namespace Content.Client.Access.UI
         protected override void UpdateState(BoundUserInterfaceState state)
         {
             base.UpdateState(state);
-            var castState = (IdCardConsoleBoundUserInterfaceState) state;
+            var castState = (IdCardConsoleBoundUserInterfaceState)state;
             _window?.UpdateState(castState);
         }
 
-        public void SubmitData(string newFullName, string newJobTitle, List<ProtoId<AccessLevelPrototype>> newAccessList, string newJobPrototype)
+        public void SubmitData(
+            string newFullName,
+            string newJobTitle,
+            List<ProtoId<AccessLevelPrototype>> newAccessList,
+            string newJobPrototype
+        )
         {
             if (newFullName.Length > MaxFullNameLength)
                 newFullName = newFullName[..MaxFullNameLength];
@@ -73,11 +81,9 @@ namespace Content.Client.Access.UI
             if (newJobTitle.Length > MaxJobTitleLength)
                 newJobTitle = newJobTitle[..MaxJobTitleLength];
 
-            SendMessage(new SharedIdCardSystem.WriteToTargetIdMessage(
-                newFullName,
-                newJobTitle,
-                newAccessList,
-                newJobPrototype));
+            SendMessage(
+                new SharedIdCardSystem.WriteToTargetIdMessage(newFullName, newJobTitle, newAccessList, newJobPrototype)
+            );
         }
 
         public void SubmitShipData(string newShuttleName, string newShuttleSuffix)

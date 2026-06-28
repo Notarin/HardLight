@@ -18,9 +18,12 @@ namespace Content.Server.Maps;
 public sealed class MapMigrationSystem : EntitySystem
 {
 #if DEBUG // Frontier
-    [Dependency] private readonly IPrototypeManager _protoMan = default!;
+    [Dependency]
+    private readonly IPrototypeManager _protoMan = default!;
 #endif // Frontier
-    [Dependency] private readonly IResourceManager _resMan = default!;
+
+    [Dependency]
+    private readonly IResourceManager _resMan = default!;
 
     private static readonly string[] MigrationFiles = { "/migration.yml", "/nf_migration.yml", "/hl_migration.yml" }; // Frontier: use array of migration files // HardLight: include hl_migration.yml so HL prototype renames apply on map load
 
@@ -41,8 +44,10 @@ public sealed class MapMigrationSystem : EntitySystem
             {
                 var newId = ((ValueDataNode)node).Value;
                 if (!string.IsNullOrEmpty(newId) && newId != "null")
-                    DebugTools.Assert(_protoMan.HasIndex<EntityPrototype>(newId),
-                        $"{newId} is not an entity prototype.");
+                    DebugTools.Assert(
+                        _protoMan.HasIndex<EntityPrototype>(newId),
+                        $"{newId} is not an entity prototype."
+                    );
             }
         }
         // End Delta-V
@@ -68,6 +73,7 @@ public sealed class MapMigrationSystem : EntitySystem
 
         return mappings != null && mappings.Count > 0;
     }
+
     // End Frontier
 
     private bool TryReadFile(string migrationFile, [NotNullWhen(true)] out MappingDataNode? mappings) // Frontier: add migrationFile
@@ -83,7 +89,7 @@ public sealed class MapMigrationSystem : EntitySystem
         if (documents == null)
             return false;
 
-        mappings = (MappingDataNode) documents.Root;
+        mappings = (MappingDataNode)documents.Root;
         return true;
     }
 

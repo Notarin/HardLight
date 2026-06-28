@@ -33,7 +33,7 @@ public sealed partial class ReplayMainMenuControl : Control
         {
             BackgroundColor = Color.FromHex("#303033"),
             BorderColor = Color.FromHex("#5a5a5a"),
-            BorderThickness = new Thickness(4)
+            BorderThickness = new Thickness(4),
         };
     }
 }

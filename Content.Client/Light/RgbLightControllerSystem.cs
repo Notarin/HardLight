@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Numerics;
 using Content.Client.Items.Systems;
 using Content.Shared.Clothing;
 using Content.Shared.Hands;
@@ -10,16 +11,22 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Timing;
 using static Robust.Client.GameObjects.SpriteComponent;
-using System.Numerics;
 
 namespace Content.Client.Light
 {
     public sealed class RgbLightControllerSystem : SharedRgbLightControllerSystem
     {
-        [Dependency] private readonly IGameTiming _gameTiming = default!;
-        [Dependency] private readonly ItemSystem _itemSystem = default!;
-        [Dependency] private readonly SharedPointLightSystem _lights = default!;
-        [Dependency] private readonly SpriteSystem _sprite = default!;
+        [Dependency]
+        private readonly IGameTiming _gameTiming = default!;
+
+        [Dependency]
+        private readonly ItemSystem _itemSystem = default!;
+
+        [Dependency]
+        private readonly SharedPointLightSystem _lights = default!;
+
+        [Dependency]
+        private readonly SpriteSystem _sprite = default!;
 
         public override void Initialize()
         {
@@ -77,7 +84,10 @@ namespace Content.Client.Light
 
             foreach (var key in args.RevealedLayers)
             {
-                if (!_sprite.LayerMapTryGet((args.User, sprite), key, out var index, false) || sprite[index] is not Layer layer)
+                if (
+                    !_sprite.LayerMapTryGet((args.User, sprite), key, out var index, false)
+                    || sprite[index] is not Layer layer
+                )
                     continue;
 
                 if (layer.ShaderPrototype == "unshaded")
@@ -85,7 +95,11 @@ namespace Content.Client.Light
             }
         }
 
-        private void OnEquipmentVisualsUpdated(EntityUid uid, RgbLightControllerComponent rgb, EquipmentVisualsUpdatedEvent args)
+        private void OnEquipmentVisualsUpdated(
+            EntityUid uid,
+            RgbLightControllerComponent rgb,
+            EquipmentVisualsUpdatedEvent args
+        )
         {
             rgb.Holder = args.Equipee;
             rgb.HolderLayers = new();
@@ -95,7 +109,10 @@ namespace Content.Client.Light
 
             foreach (var key in args.RevealedLayers)
             {
-                if (!_sprite.LayerMapTryGet((args.Equipee, sprite), key, out var index, false) || sprite[index] is not Layer layer)
+                if (
+                    !_sprite.LayerMapTryGet((args.Equipee, sprite), key, out var index, false)
+                    || sprite[index] is not Layer layer
+                )
                     continue;
 
                 if (layer.ShaderPrototype == "unshaded")
@@ -112,10 +129,14 @@ namespace Content.Client.Light
             rgb.CycleRate = state.CycleRate;
             rgb.Layers = state.Layers;
             GetOriginalColors(uid, rgb);
-
         }
 
-        private void GetOriginalColors(EntityUid uid, RgbLightControllerComponent? rgb = null, PointLightComponent? light = null, SpriteComponent? sprite = null)
+        private void GetOriginalColors(
+            EntityUid uid,
+            RgbLightControllerComponent? rgb = null,
+            PointLightComponent? light = null,
+            SpriteComponent? sprite = null
+        )
         {
             if (!Resolve(uid, ref rgb, ref sprite, ref light))
                 return;
@@ -148,13 +169,20 @@ namespace Content.Client.Light
                 else
                 {
                     // admeme fuck-ups or bad yaml?
-                    Log.Warning($"RGB light attempted to use invalid sprite index {index} on entity {ToPrettyString(uid)}");
+                    Log.Warning(
+                        $"RGB light attempted to use invalid sprite index {index} on entity {ToPrettyString(uid)}"
+                    );
                     rgb.Layers.Remove(index);
                 }
             }
         }
 
-        private void ResetOriginalColors(EntityUid uid, RgbLightControllerComponent? rgb = null, PointLightComponent? light = null, SpriteComponent? sprite = null)
+        private void ResetOriginalColors(
+            EntityUid uid,
+            RgbLightControllerComponent? rgb = null,
+            PointLightComponent? light = null,
+            SpriteComponent? sprite = null
+        )
         {
             if (!Resolve(uid, ref rgb, ref sprite, ref light, false))
                 return;
@@ -175,7 +203,11 @@ namespace Content.Client.Light
             var lightQuery = EntityQueryEnumerator<RgbLightControllerComponent, PointLightComponent, SpriteComponent>();
             while (lightQuery.MoveNext(out var uid, out var rgb, out var light, out var sprite))
             {
-                var color = GetCurrentRgbColor(_gameTiming.RealTime, rgb.CreationTick.Value * _gameTiming.TickPeriod, (uid, rgb));
+                var color = GetCurrentRgbColor(
+                    _gameTiming.RealTime,
+                    rgb.CreationTick.Value * _gameTiming.TickPeriod,
+                    (uid, rgb)
+                );
 
                 _lights.SetColor(uid, color, light);
 
@@ -202,22 +234,25 @@ namespace Content.Client.Light
             var mapQuery = EntityQueryEnumerator<MapLightComponent, RgbLightControllerComponent>();
             while (mapQuery.MoveNext(out var uid, out var map, out var rgb))
             {
-                var color = GetCurrentRgbColor(_gameTiming.RealTime, rgb.CreationTick.Value * _gameTiming.TickPeriod, (uid, rgb));
+                var color = GetCurrentRgbColor(
+                    _gameTiming.RealTime,
+                    rgb.CreationTick.Value * _gameTiming.TickPeriod,
+                    (uid, rgb)
+                );
                 map.AmbientLightColor = color;
             }
         }
 
-        public static Color GetCurrentRgbColor(TimeSpan curTime, TimeSpan offset, Entity<RgbLightControllerComponent> rgb)
+        public static Color GetCurrentRgbColor(
+            TimeSpan curTime,
+            TimeSpan offset,
+            Entity<RgbLightControllerComponent> rgb
+        )
         {
             var delta = (float)(curTime - offset).TotalSeconds;
             var entOffset = Math.Abs(rgb.Owner.Id * 0.09817f);
             var hue = (delta * rgb.Comp.CycleRate + entOffset) % 1;
-            return Color.FromHsv(new Vector4(
-                MathF.Abs(hue),
-                1.0f,
-                1.0f,
-                1.0f
-            ));
+            return Color.FromHsv(new Vector4(MathF.Abs(hue), 1.0f, 1.0f, 1.0f));
         }
     }
 }

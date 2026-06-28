@@ -14,10 +14,12 @@ namespace Content.Client._NF.Salvage.UI;
 /// Generic window for offering multiple selections with a timer.
 /// </summary>
 [GenerateTypedNameReferences]
-public sealed partial class SalvageExpeditionWindow : FancyWindow,
-    IComputerWindow<EmergencyConsoleBoundUserInterfaceState>
+public sealed partial class SalvageExpeditionWindow
+    : FancyWindow,
+        IComputerWindow<EmergencyConsoleBoundUserInterfaceState>
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     public Action? OnFinishPressed;
 

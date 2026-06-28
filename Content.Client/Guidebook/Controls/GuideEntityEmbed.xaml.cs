@@ -26,9 +26,14 @@ namespace Content.Client.Guidebook.Controls;
 [GenerateTypedNameReferences]
 public sealed partial class GuideEntityEmbed : BoxContainer, IDocumentTag
 {
-    [Dependency] private readonly IEntityManager _entityManager = default!;
-    [Dependency] private readonly IEntitySystemManager _systemManager = default!;
-    [Dependency] private readonly IUserInterfaceManager _ui = default!;
+    [Dependency]
+    private readonly IEntityManager _entityManager = default!;
+
+    [Dependency]
+    private readonly IEntitySystemManager _systemManager = default!;
+
+    [Dependency]
+    private readonly IUserInterfaceManager _ui = default!;
 
     private readonly TagSystem _tagSystem;
     private readonly ExamineSystem _examineSystem;
@@ -36,9 +41,8 @@ public sealed partial class GuideEntityEmbed : BoxContainer, IDocumentTag
 
     public bool Interactive;
 
-    public Entity<SpriteComponent>? Sprite => View.Entity == null || View.Sprite == null
-        ? null
-        : (View.Entity.Value, View.Sprite);
+    public Entity<SpriteComponent>? Sprite =>
+        View.Entity == null || View.Sprite == null ? null : (View.Entity.Value, View.Sprite);
 
     public Vector2 Scale
     {
@@ -56,7 +60,8 @@ public sealed partial class GuideEntityEmbed : BoxContainer, IDocumentTag
         MouseFilter = MouseFilterMode.Stop;
     }
 
-    public GuideEntityEmbed(string proto, bool caption, bool interactive) : this()
+    public GuideEntityEmbed(string proto, bool caption, bool interactive)
+        : this()
     {
         Interactive = interactive;
 
@@ -80,8 +85,7 @@ public sealed partial class GuideEntityEmbed : BoxContainer, IDocumentTag
         // do examination?
         if (args.Function == ContentKeyFunctions.ExamineEntity)
         {
-            _examineSystem.DoExamine(entity.Value,
-                userOverride: _guidebookSystem.GetGuidebookUser());
+            _examineSystem.DoExamine(entity.Value, userOverride: _guidebookSystem.GetGuidebookUser());
             args.Handle();
             return;
         }

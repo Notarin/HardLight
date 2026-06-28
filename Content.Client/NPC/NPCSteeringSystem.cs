@@ -11,7 +11,8 @@ namespace Content.Client.NPC;
 
 public sealed class NPCSteeringSystem : SharedNPCSteeringSystem
 {
-    [Dependency] private readonly IOverlayManager _overlay = default!;
+    [Dependency]
+    private readonly IOverlayManager _overlay = default!;
 
     public bool DebugEnabled
     {
@@ -26,18 +27,12 @@ public sealed class NPCSteeringSystem : SharedNPCSteeringSystem
             if (_debugEnabled)
             {
                 _overlay.AddOverlay(new NPCSteeringOverlay(EntityManager));
-                RaiseNetworkEvent(new RequestNPCSteeringDebugEvent()
-                {
-                    Enabled = true
-                });
+                RaiseNetworkEvent(new RequestNPCSteeringDebugEvent() { Enabled = true });
             }
             else
             {
                 _overlay.RemoveOverlay<NPCSteeringOverlay>();
-                RaiseNetworkEvent(new RequestNPCSteeringDebugEvent()
-                {
-                    Enabled = false
-                });
+                RaiseNetworkEvent(new RequestNPCSteeringDebugEvent() { Enabled = false });
 
                 var query = AllEntityQuery<NPCSteeringComponent>();
                 while (query.MoveNext(out var uid, out var npc))
@@ -92,7 +87,13 @@ public sealed class NPCSteeringOverlay : Overlay
 
     protected override void Draw(in OverlayDrawArgs args)
     {
-        foreach (var (comp, mover, xform) in _entManager.EntityQuery<NPCSteeringComponent, InputMoverComponent, TransformComponent>(true))
+        foreach (
+            var (comp, mover, xform) in _entManager.EntityQuery<
+                NPCSteeringComponent,
+                InputMoverComponent,
+                TransformComponent
+            >(true)
+        )
         {
             if (xform.MapID != args.MapId)
             {
@@ -117,8 +118,16 @@ public sealed class NPCSteeringOverlay : Overlay
                 var danger = comp.DangerMap[i];
                 var interest = comp.InterestMap[i];
                 var angle = Angle.FromDegrees(i * (360 / SharedNPCSteeringSystem.InterestDirections));
-                args.WorldHandle.DrawLine(worldPos, worldPos + (rotationOffset + angle).RotateVec(new Vector2(interest, 0f)), Color.LimeGreen);
-                args.WorldHandle.DrawLine(worldPos, worldPos + (rotationOffset + angle).RotateVec(new Vector2(danger, 0f)), Color.Red);
+                args.WorldHandle.DrawLine(
+                    worldPos,
+                    worldPos + (rotationOffset + angle).RotateVec(new Vector2(interest, 0f)),
+                    Color.LimeGreen
+                );
+                args.WorldHandle.DrawLine(
+                    worldPos,
+                    worldPos + (rotationOffset + angle).RotateVec(new Vector2(danger, 0f)),
+                    Color.Red
+                );
             }
 
             args.WorldHandle.DrawLine(worldPos, worldPos + rotationOffset.RotateVec(comp.Direction), Color.Cyan);

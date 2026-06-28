@@ -6,7 +6,4 @@ namespace Content.Shared.Revolutionary.Components;
 /// Component used for allowing non-humans to be converted. (Mainly monkeys)
 /// </summary>
 [RegisterComponent, NetworkedComponent, Access(typeof(SharedRevolutionarySystem))]
-public sealed partial class AlwaysRevolutionaryConvertibleComponent : Component
-{
-
-}
+public sealed partial class AlwaysRevolutionaryConvertibleComponent : Component { }

@@ -6,15 +6,16 @@ using Content.Shared.Rejuvenate;
 using Content.Shared.Timing;
 using JetBrains.Annotations;
 using Robust.Shared.Collections;
-using Robust.Shared.Utility;
 using Robust.Shared.Timing;
+using Robust.Shared.Utility;
 
 namespace Content.Server.Power.EntitySystems
 {
     [UsedImplicitly]
     public sealed class BatterySystem : EntitySystem
     {
-        [Dependency] private readonly IGameTiming _timing = default!;
+        [Dependency]
+        private readonly IGameTiming _timing = default!;
 
         // Reused to avoid a fresh ValueList backing array per tick / per net sync.
         // Two separate fields so PostSync and Update cannot stomp on each other if any
@@ -38,7 +39,6 @@ namespace Content.Server.Power.EntitySystems
             SubscribeLocalEvent<NetworkBatteryPostSync>(PostSync);
         }
 
-
         private void OnNetBatteryRejuvenate(EntityUid uid, PowerNetworkBatteryComponent component, RejuvenateEvent args)
         {
             component.NetworkBattery.CurrentStorage = component.NetworkBattery.Capacity;
@@ -59,7 +59,7 @@ namespace Content.Server.Power.EntitySystems
                 if (effectiveMax == 0)
                     effectiveMax = 1;
                 var chargeFraction = batteryComponent.CurrentCharge / effectiveMax;
-                var chargePercentRounded = (int) (chargeFraction * 100);
+                var chargePercentRounded = (int)(chargeFraction * 100);
                 args.PushMarkup(
                     Loc.GetString(
                         "examinable-battery-component-examine-detail",
@@ -110,7 +110,6 @@ namespace Content.Server.Power.EntitySystems
 
             while (query.MoveNext(out var uid, out var comp, out var batt))
             {
-
                 if (!comp.AutoRecharge || IsFull(uid, batt))
                     continue;
 
@@ -191,8 +190,10 @@ namespace Content.Server.Power.EntitySystems
 
             var old = battery.CurrentCharge;
             battery.CurrentCharge = MathHelper.Clamp(value, 0, battery.MaxCharge);
-            if (MathHelper.CloseTo(battery.CurrentCharge, old) &&
-                !(old != battery.CurrentCharge && battery.CurrentCharge == battery.MaxCharge))
+            if (
+                MathHelper.CloseTo(battery.CurrentCharge, old)
+                && !(old != battery.CurrentCharge && battery.CurrentCharge == battery.MaxCharge)
+            )
             {
                 return;
             }

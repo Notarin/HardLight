@@ -1,7 +1,7 @@
-using Robust.Shared.Serialization;
-using Robust.Shared.Configuration;
 using Content.Shared.CCVar;
 using Content.Shared.GameTicking;
+using Robust.Shared.Configuration;
+using Robust.Shared.Serialization;
 
 namespace Content.Shared.Psionics.Glimmer
 {
@@ -10,7 +10,8 @@ namespace Content.Shared.Psionics.Glimmer
     /// </summary>
     public sealed class GlimmerSystem : EntitySystem
     {
-        [Dependency] private readonly IConfigurationManager _cfg = default!;
+        [Dependency]
+        private readonly IConfigurationManager _cfg = default!;
         private int _glimmer = 0;
         public int Glimmer
         {
@@ -18,6 +19,7 @@ namespace Content.Shared.Psionics.Glimmer
             set { _glimmer = _enabled ? Math.Clamp(value, 0, 1000) : 0; }
         }
         private bool _enabled;
+
         public override void Initialize()
         {
             base.Initialize();

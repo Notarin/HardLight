@@ -8,7 +8,10 @@ namespace Content.Server.GameTicking.Rules.VariationPass;
 /// <inheritdoc cref="DeadDropHintVariationPassComponent"/>
 public sealed class DeadDropHintVariationPass : VariationPassSystem<DeadDropHintVariationPassComponent>
 {
-    protected override void ApplyVariation(Entity<DeadDropHintVariationPassComponent> ent, ref StationVariationPassEvent args)
+    protected override void ApplyVariation(
+        Entity<DeadDropHintVariationPassComponent> ent,
+        ref StationVariationPassEvent args
+    )
     {
         if (HasComp<StationDeadDropHintExemptComponent>(args.Station))
             return;

@@ -7,9 +7,14 @@ namespace Content.Server._Funkystation.Genetics.Mutations.Systems;
 
 public sealed class MutationParanoiaSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly ChatSystem _chat = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly ChatSystem _chat = default!;
 
     public override void Initialize()
     {
@@ -28,9 +33,11 @@ public sealed class MutationParanoiaSystem : EntitySystem
         var query = EntityQueryEnumerator<MutationParanoiaComponent>();
         while (query.MoveNext(out var uid, out var comp))
         {
-            if (_timing.CurTime < comp.NextCheck) continue;
+            if (_timing.CurTime < comp.NextCheck)
+                continue;
 
-            comp.NextCheck = _timing.CurTime + TimeSpan.FromSeconds(_random.NextFloat(0.8f * comp.Interval, 1.2f * comp.Interval));
+            comp.NextCheck =
+                _timing.CurTime + TimeSpan.FromSeconds(_random.NextFloat(0.8f * comp.Interval, 1.2f * comp.Interval));
 
             if (_random.Prob(comp.EmoteChance))
                 _chat.TryEmoteWithChat(uid, "Scream");

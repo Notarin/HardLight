@@ -9,8 +9,13 @@ namespace Content.Server.GameTicking.Rules.VariationPass;
 
 public sealed class BindToStationVariationPass : VariationPassSystem<BindToStationVariationPassComponent>
 {
-    [Dependency] BindToStationSystem _bindToStation = default!;
-    protected override void ApplyVariation(Entity<BindToStationVariationPassComponent> ent, ref StationVariationPassEvent args)
+    [Dependency]
+    BindToStationSystem _bindToStation = default!;
+
+    protected override void ApplyVariation(
+        Entity<BindToStationVariationPassComponent> ent,
+        ref StationVariationPassEvent args
+    )
     {
         // Exempt station?  Don't apply this variation.
         if (HasComp<BindToStationVariationPassExemptionComponent>(args.Station))

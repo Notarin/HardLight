@@ -29,7 +29,7 @@ public sealed partial class StackFilterComponent : Component
 [Serializable, NetSerializable]
 public enum StackFilterUiKey : byte
 {
-    Key
+    Key,
 }
 
 [Serializable, NetSerializable]

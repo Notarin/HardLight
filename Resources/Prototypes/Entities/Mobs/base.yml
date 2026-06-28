@@ -15,8 +15,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.35
         density: 50
         mask:
@@ -29,7 +28,7 @@
   - type: Input
     context: "human"
   - type: LagCompensation
-#  - type: BankAccount
+    #  - type: BankAccount
   - type: MobMover
   - type: Actions
   - type: Alerts
@@ -69,14 +68,12 @@
     damageContainer: Biological
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTypeTrigger
+    - trigger: !type:DamageTypeTrigger
         damageType: Blunt
         damage: 400
       behaviors:
-      - !type:GibBehavior { }
-    - trigger: # Frontier - Removed round remover
-        !type:DamageTypeTrigger
+      - !type:GibBehavior {}
+    - trigger: !type:DamageTypeTrigger
         damageType: Heat
         damage: 1500
       behaviors:
@@ -155,11 +152,11 @@
     currentTemperature: 310.15
     coldDamage: #per second, scales with temperature & other constants
       types:
-        Cold : 0.1
+        Cold: 0.1
     specificHeat: 42
     heatDamage: #per second, scales with temperature & other constants
       types:
-        Heat : 1.5
+        Heat: 1.5
   - type: ThermalRegulator
     metabolismHeat: 800
     radiatedHeat: 100

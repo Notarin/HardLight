@@ -9,10 +9,17 @@ namespace Content.Client._NF.CrateMachine;
 
 public sealed class CrateMachineSystem : SharedCrateMachineSystem
 {
-    [Dependency] private readonly AppearanceSystem _appearanceSystem = default!;
-    [Dependency] private readonly AnimationPlayerSystem _animationSystem = default!;
-    [Dependency] private readonly SharedAudioSystem _audioSystem = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly AppearanceSystem _appearanceSystem = default!;
+
+    [Dependency]
+    private readonly AnimationPlayerSystem _animationSystem = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audioSystem = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     private const string AnimationKey = "crate_machine_animation";
 
@@ -35,26 +42,64 @@ public sealed class CrateMachineSystem : SharedCrateMachineSystem
     /// <summary>
     /// Update visuals and tick animation
     /// </summary>
-    private void UpdateState(EntityUid uid, CrateMachineComponent component, SpriteComponent sprite, AppearanceComponent appearance)
+    private void UpdateState(
+        EntityUid uid,
+        CrateMachineComponent component,
+        SpriteComponent sprite,
+        AppearanceComponent appearance
+    )
     {
-        if (!_appearanceSystem.TryGetData<CrateMachineVisualState>(uid, CrateMachineVisuals.VisualState, out var state, appearance))
+        if (
+            !_appearanceSystem.TryGetData<CrateMachineVisualState>(
+                uid,
+                CrateMachineVisuals.VisualState,
+                out var state,
+                appearance
+            )
+        )
         {
             return;
         }
 
         _sprite.LayerSetVisible((uid, sprite), CrateMachineVisualLayers.Base, true);
-        _sprite.LayerSetVisible((uid, sprite), CrateMachineVisualLayers.Closed, state == CrateMachineVisualState.Closed);
-        _sprite.LayerSetVisible((uid, sprite), CrateMachineVisualLayers.Opening, state == CrateMachineVisualState.Opening);
-        _sprite.LayerSetVisible((uid, sprite), CrateMachineVisualLayers.Closing, state == CrateMachineVisualState.Closing);
+        _sprite.LayerSetVisible(
+            (uid, sprite),
+            CrateMachineVisualLayers.Closed,
+            state == CrateMachineVisualState.Closed
+        );
+        _sprite.LayerSetVisible(
+            (uid, sprite),
+            CrateMachineVisualLayers.Opening,
+            state == CrateMachineVisualState.Opening
+        );
+        _sprite.LayerSetVisible(
+            (uid, sprite),
+            CrateMachineVisualLayers.Closing,
+            state == CrateMachineVisualState.Closing
+        );
         _sprite.LayerSetVisible((uid, sprite), CrateMachineVisualLayers.Open, state == CrateMachineVisualState.Open);
-        _sprite.LayerSetVisible((uid, sprite), CrateMachineVisualLayers.Crate, state == CrateMachineVisualState.Opening);
+        _sprite.LayerSetVisible(
+            (uid, sprite),
+            CrateMachineVisualLayers.Crate,
+            state == CrateMachineVisualState.Opening
+        );
 
         if (state == CrateMachineVisualState.Opening && !_animationSystem.HasRunningAnimation(uid, AnimationKey))
         {
-            var openingState = _sprite.LayerMapTryGet((uid, sprite), CrateMachineVisualLayers.Opening, out var flushLayer, false)
+            var openingState = _sprite.LayerMapTryGet(
+                (uid, sprite),
+                CrateMachineVisualLayers.Opening,
+                out var flushLayer,
+                false
+            )
                 ? _sprite.LayerGetRsiState((uid, sprite), flushLayer)
                 : new RSI.StateId(component.OpeningSpriteState);
-            var crateState = _sprite.LayerMapTryGet((uid, sprite), CrateMachineVisualLayers.Crate, out var crateFlushLayer, false)
+            var crateState = _sprite.LayerMapTryGet(
+                (uid, sprite),
+                CrateMachineVisualLayers.Crate,
+                out var crateFlushLayer,
+                false
+            )
                 ? _sprite.LayerGetRsiState((uid, sprite), crateFlushLayer)
                 : new RSI.StateId(component.CrateSpriteState);
 
@@ -74,7 +119,7 @@ public sealed class CrateMachineSystem : SharedCrateMachineSystem
                         LayerKey = CrateMachineVisualLayers.Crate,
                         KeyFrames = { new AnimationTrackSpriteFlick.KeyFrame(crateState, 0) },
                     },
-                }
+                },
             };
 
             if (component.OpeningSound != null)
@@ -85,7 +130,7 @@ public sealed class CrateMachineSystem : SharedCrateMachineSystem
                         KeyFrames =
                         {
                             new AnimationTrackPlaySound.KeyFrame(_audioSystem.ResolveSound(component.OpeningSound), 0),
-                        }
+                        },
                     }
                 );
             }
@@ -94,7 +139,12 @@ public sealed class CrateMachineSystem : SharedCrateMachineSystem
         }
         else if (state == CrateMachineVisualState.Closing && !_animationSystem.HasRunningAnimation(uid, AnimationKey))
         {
-            var closingState = _sprite.LayerMapTryGet((uid, sprite), CrateMachineVisualLayers.Closing, out var flushLayer, false)
+            var closingState = _sprite.LayerMapTryGet(
+                (uid, sprite),
+                CrateMachineVisualLayers.Closing,
+                out var flushLayer,
+                false
+            )
                 ? _sprite.LayerGetRsiState((uid, sprite), flushLayer)
                 : new RSI.StateId(component.ClosingSpriteState);
             // Setup the opening animation to play
@@ -110,9 +160,9 @@ public sealed class CrateMachineSystem : SharedCrateMachineSystem
                         {
                             // Play the flush animation
                             new AnimationTrackSpriteFlick.KeyFrame(closingState, 0),
-                        }
+                        },
                     },
-                }
+                },
             };
 
             if (component.ClosingSound != null)
@@ -122,8 +172,11 @@ public sealed class CrateMachineSystem : SharedCrateMachineSystem
                     {
                         KeyFrames =
                         {
-                            new AnimationTrackPlaySound.KeyFrame(_audioSystem.ResolveSound(component.ClosingSound), 0.5f),
-                        }
+                            new AnimationTrackPlaySound.KeyFrame(
+                                _audioSystem.ResolveSound(component.ClosingSound),
+                                0.5f
+                            ),
+                        },
                     }
                 );
             }
@@ -148,5 +201,5 @@ public enum CrateMachineVisualLayers : byte
     Open,
     Closing,
     Closed,
-    Crate
+    Crate,
 }

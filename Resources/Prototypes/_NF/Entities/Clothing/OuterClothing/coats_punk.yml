@@ -2,7 +2,7 @@
 # Acid raincoat
 - type: entity
   id: ClothingOuterCoatAcidRaincoat
-  parent: [ ClothingOuterStorageToggleableBase, RecyclableItemClothDurable ]
+  parent: [ClothingOuterStorageToggleableBase, RecyclableItemClothDurable]
   name: acid raincoat
   description: Mostly transparent raincoat made out of acid resistant polymers. Please, for the love of Space God, do wear undergarments.
   components:
@@ -68,7 +68,7 @@
 # Jackets
 - type: entity
   id: ClothingOuterCoatBomberPunkRed
-  parent: [ ClothingOuterStorageBase, RecyclableItemClothDurable ]
+  parent: [ClothingOuterStorageBase, RecyclableItemClothDurable]
   name: red punk bomber
   description: Ya gotta 'ave style on dem streets.
   components:
@@ -79,7 +79,7 @@
 
 - type: entity
   id: ClothingOuterCoatJacketLeather
-  parent: [ ClothingOuterStorageBase, RecyclableItemClothDurable ]
+  parent: [ClothingOuterStorageBase, RecyclableItemClothDurable]
   name: leather jacket
   description: Rock'n'roll, babe!
   components:
@@ -90,7 +90,7 @@
 
 - type: entity
   id: ClothingOuterCoatJacketBiker
-  parent: [ ClothingOuterStorageBase, RecyclableItemClothDurable ]
+  parent: [ClothingOuterStorageBase, RecyclableItemClothDurable]
   name: biker jacket
   description: Made out of toughest synthleather for toughest badasses.
   components:
@@ -101,7 +101,7 @@
 
 - type: entity
   id: ClothingOuterCoatJacketJamrock
-  parent: [ ClothingOuterStorageBase, RecyclableItemClothDurable ]
+  parent: [ClothingOuterStorageBase, RecyclableItemClothDurable]
   name: jamrock blazer
   description: Welcome to jamrock.
   components:
@@ -112,7 +112,7 @@
 
 - type: entity
   id: ClothingOuterCoatBomberAerostatic
-  parent: [ ClothingOuterStorageBase, RecyclableItemClothDurable ]
+  parent: [ClothingOuterStorageBase, RecyclableItemClothDurable]
   name: aerostatic bomber
   description: When you wear it, you can always hear the sickest guitar solo in your mind.
   components:
@@ -123,7 +123,7 @@
 
 - type: entity
   id: ClothingOuterCoatJacketLettermanBlue
-  parent: [ ClothingOuterStorageBase, RecyclableItemClothDurable ]
+  parent: [ClothingOuterStorageBase, RecyclableItemClothDurable]
   name: blue letterman jacket
   description: Where is your lacrosse stick?
   components:
@@ -134,7 +134,7 @@
 
 - type: entity
   id: ClothingOuterCoatJacketLettermanBrown
-  parent: [ ClothingOuterStorageBase, RecyclableItemClothDurable ]
+  parent: [ClothingOuterStorageBase, RecyclableItemClothDurable]
   name: brown letterman jacket
   description: Where is your lacrosse stick?
   components:
@@ -145,7 +145,7 @@
 
 - type: entity
   id: ClothingOuterCoatJacketLettermanRed
-  parent: [ ClothingOuterStorageBase, RecyclableItemClothDurable ]
+  parent: [ClothingOuterStorageBase, RecyclableItemClothDurable]
   name: red letterman jacket
   description: Where is your lacrosse stick?
   components:
@@ -156,7 +156,7 @@
 
 - type: entity
   id: ClothingOuterCoatJacketLettermanMagenta
-  parent: [ ClothingOuterStorageBase, RecyclableItemClothDurable ]
+  parent: [ClothingOuterStorageBase, RecyclableItemClothDurable]
   name: magenta letterman jacket
   description: Where is your holocrosse joystick?
   components:
@@ -167,7 +167,7 @@
 
 - type: entity
   id: ClothingOuterCoatBomberPinkSleeves
-  parent: [ ClothingOuterStorageBase, RecyclableItemClothDurable ]
+  parent: [ClothingOuterStorageBase, RecyclableItemClothDurable]
   name: bomber jacket
   description: Oi! Whatcha lookin' at?
   components:
@@ -179,7 +179,7 @@
 # Procedural punk jackets
 - type: entity
   id: ClothingOuterCoatBomberRandomized
-  parent: [ ClothingOuterStorageBase, RecyclableItemClothDurable ]
+  parent: [ClothingOuterStorageBase, RecyclableItemClothDurable]
   name: punk jacket
   description: Oi! Whatcha lookin' at?
   suffix: Random visuals
@@ -188,22 +188,22 @@
     sprite: _NF/Clothing/OuterClothing/Coats/jacket_procedural.rsi
     layers:
     - state: base_OuterClothing_jacket_01
-      map: [ "jacket_main" ]
+      map: ["jacket_main"]
     - state: decor_base_OuterClothing_jacket_01
-      map: [ "jacket_decor" ]
+      map: ["jacket_decor"]
     - state: mask_null
-      map: [ "jacket_overlay" ]
+      map: ["jacket_overlay"]
       shader: unshaded
   - type: Clothing
     sprite: _NF/Clothing/OuterClothing/Coats/jacket_procedural.rsi
     clothingVisuals:
       outerClothing:
       - state: base_OuterClothing_jacket_01
-        map: [ "jacket_main" ]
+        map: ["jacket_main"]
       - state: decor_base_OuterClothing_jacket_01
-        map: [ "jacket_decor" ]
+        map: ["jacket_decor"]
       - state: mask_null
-        map: [ "jacket_overlay" ]
+        map: ["jacket_overlay"]
         shader: unshaded
   - type: RandomSprite
     available:
@@ -227,7 +227,7 @@
 
 - type: entity
   id: ClothingOuterCoatLettermanRandomized
-  parent: [ ClothingOuterStorageBase, RecyclableItemClothDurable ]
+  parent: [ClothingOuterStorageBase, RecyclableItemClothDurable]
   name: punk letterman jacket
   description: Where is your holocrosse joystick?
   suffix: Random visuals
@@ -236,17 +236,17 @@
     sprite: _NF/Clothing/OuterClothing/Coats/jacket_procedural.rsi
     layers:
     - state: base_OuterClothing_letterman
-      map: [ "jacket_main" ]
+      map: ["jacket_main"]
     - state: decor_base_OuterClothing_letterman
-      map: [ "jacket_decor" ]
+      map: ["jacket_decor"]
   - type: Clothing
     sprite: _NF/Clothing/OuterClothing/Coats/jacket_procedural.rsi
     clothingVisuals:
       outerClothing:
       - state: base_OuterClothing_letterman
-        map: [ "jacket_main" ]
+        map: ["jacket_main"]
       - state: decor_base_OuterClothing_letterman
-        map: [ "jacket_decor" ]
+        map: ["jacket_decor"]
   - type: RandomSprite
     available:
     - jacket_main:

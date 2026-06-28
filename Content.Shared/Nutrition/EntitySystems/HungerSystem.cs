@@ -16,14 +16,29 @@ namespace Content.Shared.Nutrition.EntitySystems;
 
 public sealed class HungerSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly AlertsSystem _alerts = default!;
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly MovementSpeedModifierSystem _movementSpeedModifier = default!;
-    [Dependency] private readonly SharedJetpackSystem _jetpack = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototype = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly AlertsSystem _alerts = default!;
+
+    [Dependency]
+    private readonly DamageableSystem _damageable = default!;
+
+    [Dependency]
+    private readonly MobStateSystem _mobState = default!;
+
+    [Dependency]
+    private readonly MovementSpeedModifierSystem _movementSpeedModifier = default!;
+
+    [Dependency]
+    private readonly SharedJetpackSystem _jetpack = default!;
 
     private static readonly ProtoId<SatiationIconPrototype> HungerIconOverfedId = "HungerIconOverfed";
 
@@ -44,8 +59,9 @@ public sealed class HungerSystem : EntitySystem
     private void OnMapInit(EntityUid uid, HungerComponent component, MapInitEvent args)
     {
         var amount = _random.Next(
-            (int) component.Thresholds[HungerThreshold.Peckish] + 10,
-            (int) component.Thresholds[HungerThreshold.Okay]);
+            (int)component.Thresholds[HungerThreshold.Peckish] + 10,
+            (int)component.Thresholds[HungerThreshold.Okay]
+        );
         SetHunger(uid, amount, component);
     }
 
@@ -175,9 +191,11 @@ public sealed class HungerSystem : EntitySystem
         if (!Resolve(uid, ref component))
             return;
 
-        if (component.CurrentThreshold <= HungerThreshold.Starving &&
-            component.StarvationDamage is { } damage &&
-            !_mobState.IsDead(uid))
+        if (
+            component.CurrentThreshold <= HungerThreshold.Starving
+            && component.StarvationDamage is { } damage
+            && !_mobState.IsDead(uid)
+        )
         {
             _damageable.TryChangeDamage(uid, damage, true, false);
         }
@@ -210,7 +228,12 @@ public sealed class HungerSystem : EntitySystem
     /// <summary>
     /// A check that returns if the entity is below a hunger threshold.
     /// </summary>
-    public bool IsHungerBelowState(EntityUid uid, HungerThreshold threshold, float? food = null, HungerComponent? comp = null)
+    public bool IsHungerBelowState(
+        EntityUid uid,
+        HungerThreshold threshold,
+        float? food = null,
+        HungerComponent? comp = null
+    )
     {
         if (!Resolve(uid, ref comp))
             return false; // It's never going to go hungry, so it's probably fine to assume that it's not... you know, hungry.
@@ -234,7 +257,10 @@ public sealed class HungerSystem : EntitySystem
         }
     }
 
-    public bool TryGetStatusIconPrototype(HungerComponent component, [NotNullWhen(true)] out SatiationIconPrototype? prototype)
+    public bool TryGetStatusIconPrototype(
+        HungerComponent component,
+        [NotNullWhen(true)] out SatiationIconPrototype? prototype
+    )
     {
         switch (component.CurrentThreshold)
         {
@@ -257,9 +283,11 @@ public sealed class HungerSystem : EntitySystem
 
     private static float ClampHungerWithinThresholds(HungerComponent component, float hungerValue)
     {
-        return Math.Clamp(hungerValue,
+        return Math.Clamp(
+            hungerValue,
             component.Thresholds[HungerThreshold.Dead],
-            component.Thresholds[HungerThreshold.Overfed]);
+            component.Thresholds[HungerThreshold.Overfed]
+        );
     }
 
     public override void Update(float frameTime)

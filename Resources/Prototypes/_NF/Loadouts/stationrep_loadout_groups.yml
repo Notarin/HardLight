@@ -61,7 +61,7 @@
   minLimit: 0
   loadouts:
   - StationRepClothingHandsGlovesSr
-# HL start - Add loadout options
+  # HL start - Add loadout options
   - CaptainClothingHandsGloves
   - CaptainClothingHandsWarmers
   subgroups:

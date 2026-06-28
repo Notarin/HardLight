@@ -1,20 +1,26 @@
+using Content.Server.Atmos.Components;
 using Content.Shared.Abilities.Psionics;
 using Content.Shared.Actions.Events;
-using Content.Server.Atmos.Components;
 using Robust.Shared.Map;
 
 namespace Content.Server.Abilities.Psionics;
 
 public sealed partial class AnomalyPowerSystem
 {
-    private void DoPyroclasticAnomalyEffects(EntityUid uid, PsionicComponent component, AnomalyPowerActionEvent args, bool overcharged = false)
+    private void DoPyroclasticAnomalyEffects(
+        EntityUid uid,
+        PsionicComponent component,
+        AnomalyPowerActionEvent args,
+        bool overcharged = false
+    )
     {
         if (args.Pyroclastic is null)
             return;
 
         if (overcharged)
             PyroclasticSupercrit(uid, component, args);
-        else PyroclasticPulse(uid, component, args);
+        else
+            PyroclasticPulse(uid, component, args);
     }
 
     private void PyroclasticSupercrit(EntityUid uid, PsionicComponent component, AnomalyPowerActionEvent args)
@@ -41,7 +47,7 @@ public sealed partial class AnomalyPowerSystem
         foreach (var flammable in flammables)
         {
             var ent = flammable.Owner;
-            var stackAmount = 1 + (int) (severity / 0.15f);
+            var stackAmount = 1 + (int)(severity / 0.15f);
             _flammable.AdjustFireStacks(ent, stackAmount, flammable);
             _flammable.Ignite(ent, uid, flammable);
         }

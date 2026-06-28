@@ -12,13 +12,26 @@ namespace Content.Server._NF.Digging.Systems;
 
 public sealed class DiggingSystem : EntitySystem
 {
-    [Dependency] private readonly TileSystem _tiles = default!;
-    [Dependency] private readonly SharedMapSystem _maps = default!;
-    [Dependency] private readonly SharedToolSystem _tools = default!;
-    [Dependency] private readonly TurfSystem _turfs = default!;
-    [Dependency] private readonly ITileDefinitionManager _tileDefManager = default!;
-    [Dependency] private readonly SharedInteractionSystem _interactionSystem = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency]
+    private readonly TileSystem _tiles = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _maps = default!;
+
+    [Dependency]
+    private readonly SharedToolSystem _tools = default!;
+
+    [Dependency]
+    private readonly TurfSystem _turfs = default!;
+
+    [Dependency]
+    private readonly ITileDefinitionManager _tileDefManager = default!;
+
+    [Dependency]
+    private readonly SharedInteractionSystem _interactionSystem = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
 
     public override void Initialize()
     {
@@ -27,7 +40,6 @@ public sealed class DiggingSystem : EntitySystem
         SubscribeLocalEvent<EarthDiggingComponent, AfterInteractEvent>(OnDiggingAfterInteract);
         SubscribeLocalEvent<EarthDiggingComponent, EarthDiggingDoAfterEvent>(OnEarthDigComplete);
     }
-
 
     private void OnEarthDigComplete(EntityUid shovel, EarthDiggingComponent comp, EarthDiggingDoAfterEvent args)
     {
@@ -41,10 +53,12 @@ public sealed class DiggingSystem : EntitySystem
         var grid = Comp<MapGridComponent>(gridUid.Value);
         var tile = _maps.GetTileRef(gridUid.Value, grid, coordinates);
 
-        if (_tileDefManager[tile.Tile.TypeId] is not ContentTileDefinition tileDef
+        if (
+            _tileDefManager[tile.Tile.TypeId] is not ContentTileDefinition tileDef
             || !tileDef.CanShovel
             || string.IsNullOrEmpty(tileDef.BaseTurf)
-            || _turfs.IsTileBlocked(tile, CollisionGroup.MobMask))
+            || _turfs.IsTileBlocked(tile, CollisionGroup.MobMask)
+        )
         {
             return;
         }
@@ -52,8 +66,7 @@ public sealed class DiggingSystem : EntitySystem
         _tiles.DigTile(tile);
     }
 
-    private void OnDiggingAfterInteract(EntityUid uid, EarthDiggingComponent component,
-        AfterInteractEvent args)
+    private void OnDiggingAfterInteract(EntityUid uid, EarthDiggingComponent component, AfterInteractEvent args)
     {
         if (args.Handled || !args.CanReach || args.Target != null)
             return;
@@ -62,11 +75,15 @@ public sealed class DiggingSystem : EntitySystem
             args.Handled = true;
     }
 
-    private bool TryDig(EntityUid user, EntityUid shovel, EarthDiggingComponent component,
-        EntityCoordinates clickLocation)
+    private bool TryDig(
+        EntityUid user,
+        EntityUid shovel,
+        EarthDiggingComponent component,
+        EntityCoordinates clickLocation
+    )
     {
         ToolComponent? tool = null;
-        if (component.ToolComponentNeeded && !TryComp(shovel, out  tool))
+        if (component.ToolComponentNeeded && !TryComp(shovel, out tool))
             return false;
 
         var mapUid = _transform.GetGrid(clickLocation);
@@ -80,11 +97,13 @@ public sealed class DiggingSystem : EntitySystem
         if (!_interactionSystem.InRangeUnobstructed(user, coordinates, popup: false))
             return false;
 
-        if (_tileDefManager[tile.Tile.TypeId] is not ContentTileDefinition tileDef
+        if (
+            _tileDefManager[tile.Tile.TypeId] is not ContentTileDefinition tileDef
             || !tileDef.CanShovel
             || string.IsNullOrEmpty(tileDef.BaseTurf)
             || _tileDefManager[tileDef.BaseTurf] is not ContentTileDefinition
-            || _turfs.IsTileBlocked(tile, CollisionGroup.MobMask))
+            || _turfs.IsTileBlocked(tile, CollisionGroup.MobMask)
+        )
         {
             return false;
         }

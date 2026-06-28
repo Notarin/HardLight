@@ -10,7 +10,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandAtmosiaDeclarationIndependence
@@ -23,7 +23,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandFunPolice
@@ -36,7 +36,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandLustyExomorph
@@ -49,7 +49,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandSyndicateRecruitment
@@ -62,7 +62,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandClown
@@ -75,7 +75,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandSmoke
@@ -88,7 +88,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandGreyTide
@@ -101,7 +101,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandMissingGloves
@@ -114,7 +114,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandHackingGuide
@@ -127,7 +127,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandRIPBadger
@@ -140,7 +140,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandAmbrosiaVulgaris
@@ -153,7 +153,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandDonutCorp
@@ -166,7 +166,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandEAT
@@ -179,7 +179,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandTools
@@ -192,7 +192,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandPower
@@ -205,7 +205,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandSpaceCube
@@ -218,7 +218,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandCommunistState
@@ -231,7 +231,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandLamarr
@@ -244,7 +244,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandBorgFancy
@@ -257,7 +257,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandBorgFancyv2
@@ -270,7 +270,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandKosmicheskayaStantsiya
@@ -283,7 +283,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandRebelsUnite
@@ -296,7 +296,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandC20r
@@ -309,7 +309,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandHaveaPuff
@@ -322,7 +322,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandRevolver
@@ -335,7 +335,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandDDayPromo
@@ -348,7 +348,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandSyndicatePistol
@@ -361,7 +361,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandEnergySwords
@@ -374,7 +374,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandRedRum
@@ -387,7 +387,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandCC64KAd
@@ -400,7 +400,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandPunchShit
@@ -413,7 +413,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandTheGriffin
@@ -426,7 +426,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandFreeDrone
@@ -439,7 +439,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandBustyBackdoorExoBabes6
@@ -452,7 +452,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandRobustSoftdrinks
@@ -465,7 +465,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandShamblersJuice
@@ -478,7 +478,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandPwrGame
@@ -491,7 +491,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandSunkist
@@ -504,7 +504,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandSpaceCola
@@ -517,7 +517,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandSpaceUp
@@ -530,7 +530,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandKudzu
@@ -543,7 +543,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandMaskedMen
@@ -556,7 +556,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandUnreadableAnnouncement
@@ -569,7 +569,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandFreeSyndicateEncryptionKey
@@ -582,7 +582,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandBountyHunters
@@ -595,7 +595,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandTheBigGasTruth
@@ -608,7 +608,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandWehWatches
@@ -621,7 +621,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandVoteWeh
@@ -634,7 +634,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandBeachStarYamamoto
@@ -647,7 +647,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandHighEffectEngineering
@@ -660,7 +660,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandNuclearDeviceInformational
@@ -673,7 +673,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandRise
@@ -686,7 +686,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandRevolt
@@ -699,7 +699,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandMoth
@@ -712,7 +712,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandCybersun600
@@ -725,7 +725,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandDonk
@@ -738,7 +738,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandEnlistGorlex
@@ -751,7 +751,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandInterdyne
@@ -764,7 +764,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandWaffleCorp
@@ -777,7 +777,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterContrabandMissingSpacepen
@@ -790,7 +790,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 # Legit Posters
 - type: construction
@@ -804,7 +804,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegitNanotrasenLogo
@@ -817,7 +817,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegitCleanliness
@@ -830,7 +830,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegitHelpOthers
@@ -843,7 +843,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegitBuild
@@ -856,7 +856,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegitBlessThisSpess
@@ -869,7 +869,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegitScience
@@ -882,7 +882,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegitIan
@@ -895,7 +895,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegitObey
@@ -908,7 +908,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegitWalk
@@ -921,7 +921,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegitStateLaws
@@ -934,7 +934,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegitLoveIan
@@ -947,7 +947,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegitSpaceCops
@@ -960,7 +960,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegitUeNo
@@ -973,7 +973,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegitGetYourLEGS
@@ -986,7 +986,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegitDoNotQuestion
@@ -999,7 +999,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegitWorkForAFuture
@@ -1012,7 +1012,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegitSoftCapPopArt
@@ -1025,7 +1025,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegitSafetyInternals
@@ -1038,8 +1038,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
-
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegitSafetyEyeProtection
@@ -1052,8 +1051,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
-
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegitSafetyReport
@@ -1066,8 +1064,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
-
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegitReportCrimes
@@ -1080,8 +1077,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
-
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegitIonRifle
@@ -1094,8 +1090,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
-
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegitFoamForceAd
@@ -1108,8 +1103,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
-
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegitCohibaRobustoAd
@@ -1122,8 +1116,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
-
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegit50thAnniversaryVintageReprint
@@ -1136,8 +1129,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
-
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegitFruitBowl
@@ -1150,8 +1142,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
-
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegitPDAAd
@@ -1164,8 +1155,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
-
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegitEnlist
@@ -1178,8 +1168,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
-
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegitNanomichiAd
@@ -1192,8 +1181,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
-
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegit12_gauge
@@ -1206,8 +1194,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
-
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegitHighClassMartini
@@ -1220,8 +1207,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
-
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegitTheOwl
@@ -1234,8 +1220,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
-
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegitNoERP
@@ -1248,7 +1233,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegitYesERP
@@ -1263,7 +1248,6 @@
   conditions:
   - !type:WallmountCondition
 
-
 - type: construction
   id: PosterLegitCarbonDioxide
   graph: Poster
@@ -1275,8 +1259,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
-
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegitDickGumshue
@@ -1289,8 +1272,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
-
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegitThereIsNoGasGiant
@@ -1303,8 +1285,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
-
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegitJustAWeekAway
@@ -1317,8 +1298,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
-
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegitSecWatch
@@ -1331,8 +1311,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
-
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegitAnatomyPoster
@@ -1345,8 +1324,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
-
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegitMime
@@ -1359,8 +1337,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
-
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegitCarpMount
@@ -1373,8 +1350,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
-
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegitSafetyMothDelam
@@ -1387,8 +1363,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
-
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegitSafetyMothEpi
@@ -1401,8 +1376,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
-
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegitSafetyMothPiping
@@ -1415,8 +1389,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
-
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegitSafetyMothMeth
@@ -1429,8 +1402,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
-
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegitSafetyMothHardhat
@@ -1443,8 +1415,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
-
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegitVacation
@@ -1457,8 +1428,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
-
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegitPeriodicTable
@@ -1471,8 +1441,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
-
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegitRenault
@@ -1485,8 +1454,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
-
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegitNTTGC
@@ -1499,8 +1467,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
-
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegitSafetyMothSSD
@@ -1513,8 +1480,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
-
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegitOppenhopper
@@ -1527,8 +1493,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
-
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegitTyrone
@@ -1541,8 +1506,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
-
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterLegitHelio
@@ -1555,7 +1519,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterDuskEnclave
@@ -1568,7 +1532,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterMapBagel
@@ -1581,7 +1545,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterMapDelta
@@ -1594,7 +1558,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterMapMarathon
@@ -1607,7 +1571,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterMapMoose
@@ -1620,7 +1584,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterMapPacked
@@ -1633,7 +1597,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterMapPillar
@@ -1646,7 +1610,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterMapSaltern
@@ -1659,7 +1623,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterMapSplit
@@ -1672,7 +1636,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterMapLighthouse
@@ -1685,7 +1649,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterMapWaystation
@@ -1698,7 +1662,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterMapOrigin
@@ -1711,7 +1675,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterChudMeansFrend
@@ -1724,7 +1688,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PosterChudMeansLetsFuck
@@ -1737,4 +1701,4 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition

@@ -68,7 +68,10 @@ namespace Content.Server.Tabletop
         /// <param name="uid">The UID of the tabletop game entity.</param>
         public void OpenSessionFor(ICommonSession player, EntityUid uid)
         {
-            if (!EntityManager.TryGetComponent(uid, out TabletopGameComponent? tabletop) || player.AttachedEntity is not {Valid: true} attachedEntity)
+            if (
+                !EntityManager.TryGetComponent(uid, out TabletopGameComponent? tabletop)
+                || player.AttachedEntity is not { Valid: true } attachedEntity
+            )
                 return;
 
             // Make sure we have a session, and add the player to it if not added already.
@@ -77,7 +80,7 @@ namespace Content.Server.Tabletop
             if (session.Players.ContainsKey(player))
                 return;
 
-            if(EntityManager.TryGetComponent(attachedEntity, out TabletopGamerComponent? gamer))
+            if (EntityManager.TryGetComponent(attachedEntity, out TabletopGamerComponent? gamer))
                 CloseSessionFor(player, gamer.Tabletop, false);
 
             // Set the entity as an absolute GAMER.
@@ -89,7 +92,15 @@ namespace Content.Server.Tabletop
             session.Players[player] = new TabletopSessionPlayerData { Camera = camera };
 
             // Tell the gamer to open a viewport for the tabletop game
-            RaiseNetworkEvent(new TabletopPlayEvent(GetNetEntity(uid), GetNetEntity(camera), Loc.GetString(tabletop.BoardName), tabletop.Size), player.Channel);
+            RaiseNetworkEvent(
+                new TabletopPlayEvent(
+                    GetNetEntity(uid),
+                    GetNetEntity(camera),
+                    Loc.GetString(tabletop.BoardName),
+                    tabletop.Size
+                ),
+                player.Channel
+            );
         }
 
         /// <summary>
@@ -100,13 +111,20 @@ namespace Content.Server.Tabletop
         /// <param name="removeGamerComponent">Whether to remove the <see cref="TabletopGamerComponent"/> from the player's attached entity.</param>
         public void CloseSessionFor(ICommonSession player, EntityUid uid, bool removeGamerComponent = true)
         {
-            if (!EntityManager.TryGetComponent(uid, out TabletopGameComponent? tabletop) || tabletop.Session is not { } session)
+            if (
+                !EntityManager.TryGetComponent(uid, out TabletopGameComponent? tabletop)
+                || tabletop.Session is not { } session
+            )
                 return;
 
             if (!session.Players.TryGetValue(player, out var data))
                 return;
 
-            if(removeGamerComponent && player.AttachedEntity is {} attachedEntity && EntityManager.TryGetComponent(attachedEntity, out TabletopGamerComponent? gamer))
+            if (
+                removeGamerComponent
+                && player.AttachedEntity is { } attachedEntity
+                && EntityManager.TryGetComponent(attachedEntity, out TabletopGamerComponent? gamer)
+            )
             {
                 // We invalidate this to prevent an infinite feedback from removing the component.
                 gamer.Tabletop = EntityUid.Invalid;

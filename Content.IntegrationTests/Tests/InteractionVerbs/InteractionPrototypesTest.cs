@@ -28,9 +28,11 @@ public sealed class InteractionPrototypesTest
         // TODO probably should test if an entity receives an abstract verb, but Iunno how
         foreach (var proto in protoMan.EnumeratePrototypes<InteractionVerbPrototype>())
         {
-            Assert.That(proto.Abstract || proto.Action is not null, $"Non-abstract prototype {proto.ID} lacks an action!");
+            Assert.That(
+                proto.Abstract || proto.Action is not null,
+                $"Non-abstract prototype {proto.ID} lacks an action!"
+            );
         }
-
 
         await pair.CleanReturnAsync();
     }

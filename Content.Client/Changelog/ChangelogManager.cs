@@ -13,10 +13,17 @@ namespace Content.Client.Changelog
 {
     public sealed partial class ChangelogManager : IPostInjectInit
     {
-        [Dependency] private readonly ILogManager _logManager = default!;
-        [Dependency] private readonly IResourceManager _resource = default!;
-        [Dependency] private readonly ISerializationManager _serialization = default!;
-        [Dependency] private readonly IConfigurationManager _configManager = default!;
+        [Dependency]
+        private readonly ILogManager _logManager = default!;
+
+        [Dependency]
+        private readonly IResourceManager _resource = default!;
+
+        [Dependency]
+        private readonly ISerializationManager _serialization = default!;
+
+        [Dependency]
+        private readonly IConfigurationManager _configManager = default!;
 
         private const string SawmillName = "changelog";
         public const string MainChangelogName = "HardlightChangelog";
@@ -42,7 +49,9 @@ namespace Content.Client.Changelog
             NewChangelogEntries = false;
             NewChangelogEntriesChanged?.Invoke();
 
-            using var sw = _resource.UserData.OpenWriteText(new ($"/changelog_last_seen_{_configManager.GetCVar(CCVars.ServerId)}"));
+            using var sw = _resource.UserData.OpenWriteText(
+                new($"/changelog_last_seen_{_configManager.GetCVar(CCVars.ServerId)}")
+            );
 
             sw.Write(MaxId.ToString());
         }
@@ -143,9 +152,7 @@ namespace Content.Client.Changelog
             if (string.IsNullOrEmpty(version) || string.IsNullOrEmpty(fork))
                 return Loc.GetString("changelog-version-unknown");
 
-            return Loc.GetString("changelog-version-tag",
-                ("fork", fork),
-                ("version", version));
+            return Loc.GetString("changelog-version-tag", ("fork", fork), ("version", version));
         }
 
         [DataDefinition]

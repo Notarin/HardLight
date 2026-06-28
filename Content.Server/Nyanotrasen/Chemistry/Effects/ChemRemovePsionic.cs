@@ -1,8 +1,8 @@
-using Content.Shared.Chemistry.Reagent;
 using Content.Server.Abilities.Psionics;
+using Content.Shared.Chemistry.Reagent;
+using Content.Shared.EntityEffects;
 using JetBrains.Annotations;
 using Robust.Shared.Prototypes;
-using Content.Shared.EntityEffects;
 
 namespace Content.Server.Chemistry.ReagentEffects
 {
@@ -12,8 +12,10 @@ namespace Content.Server.Chemistry.ReagentEffects
     [UsedImplicitly]
     public sealed partial class ChemRemovePsionic : EntityEffect
     {
-        protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys)
-            => Loc.GetString("reagent-effect-guidebook-chem-remove-psionic", ("chance", Probability));
+        protected override string? ReagentEffectGuidebookText(
+            IPrototypeManager prototype,
+            IEntitySystemManager entSys
+        ) => Loc.GetString("reagent-effect-guidebook-chem-remove-psionic", ("chance", Probability));
 
         public override void Effect(EntityEffectBaseArgs args)
         {

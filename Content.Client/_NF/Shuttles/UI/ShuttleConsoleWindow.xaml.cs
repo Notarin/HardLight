@@ -22,6 +22,5 @@ namespace Content.Client.Shuttles.UI
                 OnServiceFlagsChanged?.Invoke(entity, flags);
             };
         }
-
     }
 }

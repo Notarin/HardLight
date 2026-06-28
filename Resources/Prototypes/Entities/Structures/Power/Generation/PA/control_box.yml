@@ -81,7 +81,7 @@
   suffix: Unfinished
   description: This controls the density of the particles. It looks unfinished.
   components:
-    - type: Sprite
-      sprite: Structures/Power/Generation/PA/control_box.rsi
-    - type: Construction
-      graph: ParticleAcceleratorControlBox
+  - type: Sprite
+    sprite: Structures/Power/Generation/PA/control_box.rsi
+  - type: Construction
+    graph: ParticleAcceleratorControlBox

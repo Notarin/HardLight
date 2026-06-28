@@ -8,11 +8,17 @@ namespace Content.Client.UserInterface.Systems.EscapeMenu;
 [UsedImplicitly]
 public sealed class OptionsUIController : UIController
 {
-    [Dependency] private readonly IConsoleHost _con = default!;
+    [Dependency]
+    private readonly IConsoleHost _con = default!;
 
     public override void Initialize()
     {
-        _con.RegisterCommand("options", Loc.GetString("cmd-options-desc"), Loc.GetString("cmd-options-help"), OptionsCommand);
+        _con.RegisterCommand(
+            "options",
+            Loc.GetString("cmd-options-desc"),
+            Loc.GetString("cmd-options-help"),
+            OptionsCommand
+        );
     }
 
     private void OptionsCommand(IConsoleShell shell, string argStr, string[] args)

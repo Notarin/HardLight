@@ -62,7 +62,7 @@
 
 - type: entity
   name: volkitebase
-  parent: [ BaseWeaponPowerCell, BaseC3Contraband ] # Frontier: BaseSecurityContraband<BaseC1Contraband
+  parent: [BaseWeaponPowerCell, BaseC3Contraband] # Frontier: BaseSecurityContraband<BaseC1Contraband
   id: WeaponBaseVolkite
   abstract: true
   description: You should not have this, ever.

@@ -6,6 +6,4 @@ namespace Content.Server.Roles;
 ///     Added to mind role entities to tag that they are a syndicate traitor.
 /// </summary>
 [RegisterComponent]
-public sealed partial class TraitorRoleComponent : BaseMindRoleComponent
-{
-}
+public sealed partial class TraitorRoleComponent : BaseMindRoleComponent { }

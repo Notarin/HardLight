@@ -23,8 +23,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.5,-0.5,0.5,0.5"
         density: 15
         mask:
@@ -54,8 +53,8 @@
     key: Window
   - type: Tag
     tags:
-      - ForceFixRotations
-      - Window
+    - ForceFixRotations
+    - Window
   - type: Sprite
     drawdepth: WallTops
     sprite: _NF/Objects/Misc/inflatable_window.rsi
@@ -63,8 +62,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.5,-0.5,0.5,0.5"
         density: 15
         mask:
@@ -96,12 +94,11 @@
     damageModifierSet: Inflatable
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 20
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: DisassembleOnAltVerb
     prototypeToSpawn: NFInflatableDoorStack1
     disassembleTime: 3
@@ -155,27 +152,25 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.49,-0.49,0.49,0.49" # don't want this colliding with walls or they won't close
         density: 100
         mask:
-          - FullTileMask
+        - FullTileMask
         layer:
-          - AirlockLayer
+        - AirlockLayer
       docking:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.2
           position: "0,-0.5"
         hard: false
   - type: Airtight
     noAirWhenFullyAirBlocked: false
     airBlockedDirection:
-      - South
+    - South
   - type: Tag
     tags:
-      - ForceNoFixRotations
+    - ForceNoFixRotations
   - type: DisassembleOnAltVerb
     prototypeToSpawn: NFInflatableDockStack1
     disassembleTime: 3
@@ -187,7 +182,7 @@
   sprite: /Textures/_NF/Objects/Misc/inflatable_floor.rsi/inflatable-floor.png
   baseTurf: Space
   isSubfloor: true
-  deconstructTools: [ Screwing ]
+  deconstructTools: [Screwing]
   footstepSounds:
     collection: FootstepClown
     params:
@@ -230,8 +225,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.4,-0.4,0.4,0.29"
         density: 15
         mask:
@@ -243,12 +237,11 @@
     damageModifierSet: Inflatable
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 20
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:EmptyAllContainersBehaviour
       - !type:PlaySoundBehavior
         sound:
@@ -261,14 +254,14 @@
     visuals:
       enum.PaperLabelVisuals.HasLabel:
         enum.PaperLabelVisuals.Layer:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
       enum.PaperLabelVisuals.LabelType:
         enum.PaperLabelVisuals.Layer:
-          Paper: { state: paper }
-          Bounty: { state: bounty }
-          CaptainsPaper: { state: captains_paper }
-          Invoice: { state: invoice }
+          Paper: {state: paper}
+          Bounty: {state: bounty}
+          CaptainsPaper: {state: captains_paper}
+          Invoice: {state: invoice}
   - type: EntityStorage
     capacity: 20
     closeSound:
@@ -294,8 +287,8 @@
   - type: ItemSlots
   # Commented out DisassembleOnAltVerb because it deletes stored entities, but maybe one day this wont be a problem
   #- type: DisassembleOnAltVerb
-    #prototypeToSpawn: NFInflatableCrateStack1
-    #disassembleTime: 3
+  #prototypeToSpawn: NFInflatableCrateStack1
+  #disassembleTime: 3
   - type: StaticPrice
     price: 4
   - type: RequireProjectileTarget

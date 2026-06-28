@@ -26,7 +26,7 @@
       task: SimpleHostileCompound
   - type: NpcFactionMember
     factions:
-      - SimpleHostile
+    - SimpleHostile
   - type: Body
     prototype: Animal
   - type: Damageable
@@ -39,8 +39,8 @@
   - type: Sprite
     sprite: Mobs/Demons/hellspawn.rsi
     layers:
-      - map: [ "enum.DamageStateVisualLayers.Base" ]
-        state: alive
+    - map: ["enum.DamageStateVisualLayers.Base"]
+      state: alive
   - type: DamageStateVisuals
     states:
       Alive:
@@ -60,12 +60,11 @@
   - type: Reflect
     reflectProb: 0.7
     reflects:
-      - Energy
+    - Energy
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.9
         density: 300
         mask:
@@ -75,17 +74,17 @@
   - type: MobState
   - type: Tag
     tags:
-      - CannotSuicide
-      - DoorBumpOpener
-      - FootstepSound
+    - CannotSuicide
+    - DoorBumpOpener
+    - FootstepSound
   - type: MobThresholds
     thresholds:
       0: Alive
       450: Dead
   - type: Butcherable
     spawned:
-      - id: ArtifactFragment
-        amount: 4
+    - id: ArtifactFragment
+      amount: 4
   - type: MeleeWeapon
     attackRate: 0.6
     hidden: true
@@ -103,13 +102,13 @@
     energy: 4.5
     color: "#ff4242"
     castShadows: false
-    
+
 - type: entity
   name: Project F.A.T.K.I.D.
   parent:
   - MobHellspawn
   id: Fatkid
-  description: A zombie bioweapon 
+  description: A zombie bioweapon
   components:
   - type: GhostRole
     allowMovement: true
@@ -123,14 +122,12 @@
       settings: default
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTypeTrigger
+    - trigger: !type:DamageTypeTrigger
         damageType: Blunt
         damage: 50000
       behaviors:
-      - !type:GibBehavior { }
-    - trigger: # Frontier - Removed round remover
-        !type:DamageTypeTrigger
+      - !type:GibBehavior {}
+    - trigger: !type:DamageTypeTrigger
         damageType: Heat
         damage: 50000
       behaviors:
@@ -153,7 +150,7 @@
       task: SimpleHostileCompound
   - type: NpcFactionMember
     factions:
-      - SimpleHostile
+    - SimpleHostile
   - type: Body
     prototype: Animal
   - type: Damageable
@@ -165,8 +162,8 @@
   - type: Sprite
     sprite: Mobs/Demons/hellspawn.rsi
     layers:
-      - map: [ "enum.DamageStateVisualLayers.Base" ]
-        state: alive
+    - map: ["enum.DamageStateVisualLayers.Base"]
+      state: alive
   - type: DamageStateVisuals
     states:
       Alive:
@@ -186,12 +183,11 @@
   - type: Reflect
     reflectProb: 0.7
     reflects:
-      - Energy
+    - Energy
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.9
         density: 300
         mask:
@@ -202,17 +198,17 @@
   - type: Zombie
   - type: Tag
     tags:
-      - CannotSuicide
-      - DoorBumpOpener
-      - FootstepSound
+    - CannotSuicide
+    - DoorBumpOpener
+    - FootstepSound
   - type: MobThresholds
     thresholds:
       0: Alive
       50000: Dead
   - type: Butcherable
     spawned:
-      - id: ArtifactFragment
-        amount: 4
+    - id: ArtifactFragment
+      amount: 4
   - type: MeleeWeapon
     attackRate: 0.6
     hidden: true

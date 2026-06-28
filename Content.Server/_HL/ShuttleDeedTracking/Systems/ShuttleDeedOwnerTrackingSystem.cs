@@ -17,8 +17,11 @@ namespace Content.Server._HL.ShuttleDeedTracking.Systems;
 /// </summary>
 public sealed class ShuttleDeedOwnerTrackingSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
 
     /// <summary>
     /// How often to check the deed owner's status. Default: 10 minutes.
@@ -87,7 +90,9 @@ public sealed class ShuttleDeedOwnerTrackingSystem : EntitySystem
                 // Owner is online and active, reset the counter
                 if (tracking.InactiveCheckCount > 0 && _sawmill.IsLogLevelEnabled(LogLevel.Debug))
                 {
-                    _sawmill.Debug($"Shuttle {ToPrettyString(uid)} owner is now active, resetting inactive count from {tracking.InactiveCheckCount}");
+                    _sawmill.Debug(
+                        $"Shuttle {ToPrettyString(uid)} owner is now active, resetting inactive count from {tracking.InactiveCheckCount}"
+                    );
                 }
                 tracking.InactiveCheckCount = 0;
             }
@@ -96,12 +101,16 @@ public sealed class ShuttleDeedOwnerTrackingSystem : EntitySystem
                 // Owner is offline/inactive, increment the counter
                 tracking.InactiveCheckCount++;
                 if (_sawmill.IsLogLevelEnabled(LogLevel.Debug))
-                    _sawmill.Debug($"Shuttle {ToPrettyString(uid)} owner inactive check {tracking.InactiveCheckCount}/{tracking.MaxInactiveChecks}");
+                    _sawmill.Debug(
+                        $"Shuttle {ToPrettyString(uid)} owner inactive check {tracking.InactiveCheckCount}/{tracking.MaxInactiveChecks}"
+                    );
 
                 // Check if we've hit the threshold
                 if (tracking.InactiveCheckCount >= tracking.MaxInactiveChecks)
                 {
-                    _sawmill.Info($"Shuttle {ToPrettyString(uid)} owner has been inactive for {tracking.InactiveCheckCount} checks. Deleting grid.");
+                    _sawmill.Info(
+                        $"Shuttle {ToPrettyString(uid)} owner has been inactive for {tracking.InactiveCheckCount} checks. Deleting grid."
+                    );
                     QueueDel(uid);
                 }
             }

@@ -26,13 +26,12 @@
     MayflowerII:
       stationProto: StandardFrontierExpeditionVessel
       components:
-        - type: StationNameSetup
-          mapNameTemplate: 'Mayflower Mk. II {1}'
-          nameGenerator:
-            !type:NanotrasenNameGenerator
-            prefixCreator: '14'
-        - type: StationJobs
-          availableJobs:
-            Contractor: [ 0, 0 ]
-            Pilot: [ 0, 0 ]
-            Mercenary: [ 0, 0 ]
+      - type: StationNameSetup
+        mapNameTemplate: 'Mayflower Mk. II {1}'
+        nameGenerator: !type:NanotrasenNameGenerator
+          prefixCreator: '14'
+      - type: StationJobs
+        availableJobs:
+          Contractor: [0, 0]
+          Pilot: [0, 0]
+          Mercenary: [0, 0]

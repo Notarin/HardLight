@@ -9,7 +9,7 @@
     state: "normal"
   - type: Tag
     tags:
-      - Payload
+    - Payload
   - type: InteractionPopup
     successChance: 1
     interactSuccessSound:
@@ -22,20 +22,20 @@
     sound:
       collection: DeskBell
       params:
-          variation: 0.03
-          volume: 3
+        variation: 0.03
+        volume: 3
   - type: EmitSoundOnTrigger
     sound:
       collection: DeskBell
       params:
-          variation: 0.03
-          volume: 3
+        variation: 0.03
+        volume: 3
   - type: EmitSoundOnLand
     sound:
       collection: DeskBell
       params:
-          variation: 0.03
-          volume: 3
+        variation: 0.03
+        volume: 3
   - type: UseDelay
     delay: 0.5
   - type: MeleeWeapon
@@ -43,8 +43,8 @@
     soundHit:
       collection: DeskBell
       params:
-          variation: 0.03
-          volume: 3
+        variation: 0.03
+        volume: 3
     damage:
       types:
         Blunt: 4

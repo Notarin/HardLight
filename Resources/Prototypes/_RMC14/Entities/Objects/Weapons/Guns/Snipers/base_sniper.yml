@@ -1,6 +1,6 @@
-﻿- type: entity
+- type: entity
   abstract: true
-  parent: [ NFBaseWeaponEncumbranceRifleAssault, NFBaseItemWeaponGunMagazineFed, BaseC3ExpeditionContraband ]
+  parent: [NFBaseWeaponEncumbranceRifleAssault, NFBaseItemWeaponGunMagazineFed, BaseC3ExpeditionContraband]
   id: RMCBaseWeaponSniperRifle
   components:
   - type: Sprite
@@ -10,24 +10,24 @@
     availableModes:
     - SemiAuto
   # - type: RMCSelectiveFire
-    # baseFireModes:
-    # - SemiAuto
+  # baseFireModes:
+  # - SemiAuto
   # - type: WieldableSpeedModifiers
-    # base: 0.5
-    # light: 0.69
-    # medium: 0.75
-    # heavy: 0.806
+  # base: 0.5
+  # light: 0.69
+  # medium: 0.75
+  # heavy: 0.806
   - type: MagazineAmmoProvider
     autoEject: false
   - type: WieldDelay
     baseDelay: 0.8
-  # - type: GunDualWielding
+    # - type: GunDualWielding
     # weaponGroup: Rifle
-  # - type: GunPointBlank
-  # - type: WieldedCrosshair
+    # - type: GunPointBlank
+    # - type: WieldedCrosshair
     # rsi:
-      # sprite: _RMC14/Interface/MousePointer/sniper_mouse.rsi
-      # state: all
+    # sprite: _RMC14/Interface/MousePointer/sniper_mouse.rsi
+    # state: all
 
 - type: entity
   parent: [BaseCartridge, BaseC3SyndicateContraband]
@@ -46,13 +46,13 @@
   - type: CartridgeAmmo
     proto: CMBulletSniper10x28mm
     deleteOnSpawn: true
-  # - type: BallisticAmmoProvider
+    # - type: BallisticAmmoProvider
     # whitelist:
-      # tags:
-      # - Cartridge10x28mm
+    # tags:
+    # - Cartridge10x28mm
     # capacity: 5
     # proto: Cartridge10x28mm
-  # - type: SpeedModifiedOnWield
+    # - type: SpeedModifiedOnWield
     # walkModifier: 0.25
     # sprintModifier: 0.25
 

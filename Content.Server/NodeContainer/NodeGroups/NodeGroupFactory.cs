@@ -20,8 +20,11 @@ namespace Content.Server.NodeContainer.NodeGroups
 
     public sealed class NodeGroupFactory : INodeGroupFactory
     {
-        [Dependency] private readonly IReflectionManager _reflectionManager = default!;
-        [Dependency] private readonly IDynamicTypeFactory _typeFactory = default!;
+        [Dependency]
+        private readonly IReflectionManager _reflectionManager = default!;
+
+        [Dependency]
+        private readonly IDynamicTypeFactory _typeFactory = default!;
 
         private readonly Dictionary<NodeGroupID, Type> _groupTypes = new();
 

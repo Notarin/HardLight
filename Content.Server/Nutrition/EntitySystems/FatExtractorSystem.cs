@@ -22,18 +22,27 @@ namespace Content.Server.Nutrition.EntitySystems;
 /// </summary>
 public sealed class FatExtractorSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly EmagSystem _emag = default!;
-    [Dependency] private readonly HungerSystem _hunger = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly EmagSystem _emag = default!;
+
+    [Dependency]
+    private readonly HungerSystem _hunger = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
     {
         SubscribeLocalEvent<FatExtractorComponent, RefreshPartsEvent>(OnRefreshParts);
         SubscribeLocalEvent<FatExtractorComponent, UpgradeExamineEvent>(OnUpgradeExamine);
-//        SubscribeLocalEvent<FatExtractorComponent, EntityUnpausedEvent>(OnUnpaused);
+        //        SubscribeLocalEvent<FatExtractorComponent, EntityUnpausedEvent>(OnUnpaused);
         SubscribeLocalEvent<FatExtractorComponent, GotEmaggedEvent>(OnGotEmagged);
         SubscribeLocalEvent<FatExtractorComponent, GotUnEmaggedEvent>(OnGotUnemagged); // Frontier
         SubscribeLocalEvent<FatExtractorComponent, StorageAfterCloseEvent>(OnClosed);
@@ -44,12 +53,16 @@ public sealed class FatExtractorSystem : EntitySystem
     private void OnRefreshParts(EntityUid uid, FatExtractorComponent component, RefreshPartsEvent args)
     {
         var rating = args.PartRatings[component.MachinePartNutritionRate] - 1;
-        component.NutritionPerSecond = component.BaseNutritionPerSecond + (int) (component.PartRatingRateMultiplier * rating);
+        component.NutritionPerSecond =
+            component.BaseNutritionPerSecond + (int)(component.PartRatingRateMultiplier * rating);
     }
 
     private void OnUpgradeExamine(EntityUid uid, FatExtractorComponent component, UpgradeExamineEvent args)
     {
-        args.AddPercentageUpgrade("fat-extractor-component-rate", (float) component.NutritionPerSecond / component.BaseNutritionPerSecond);
+        args.AddPercentageUpgrade(
+            "fat-extractor-component-rate",
+            (float)component.NutritionPerSecond / component.BaseNutritionPerSecond
+        );
     }
 
     private void OnUnpaused(EntityUid uid, FatExtractorComponent component, ref EntityUnpausedEvent args)
@@ -79,6 +92,7 @@ public sealed class FatExtractorSystem : EntitySystem
 
         args.Handled = true;
     }
+
     // End Frontier
 
     private void OnClosed(EntityUid uid, FatExtractorComponent component, ref StorageAfterCloseEvent args)
@@ -97,7 +111,11 @@ public sealed class FatExtractorSystem : EntitySystem
             StopProcessing(uid, component);
     }
 
-    public void StartProcessing(EntityUid uid, FatExtractorComponent? component = null, EntityStorageComponent? storage = null)
+    public void StartProcessing(
+        EntityUid uid,
+        FatExtractorComponent? component = null,
+        EntityStorageComponent? storage = null
+    )
     {
         if (!Resolve(uid, ref component, ref storage))
             return;
@@ -130,7 +148,12 @@ public sealed class FatExtractorSystem : EntitySystem
         component.Stream = _audio.Stop(component.Stream);
     }
 
-    public bool TryGetValidOccupant(EntityUid uid, [NotNullWhen(true)] out EntityUid? occupant, FatExtractorComponent? component = null, EntityStorageComponent? storage = null)
+    public bool TryGetValidOccupant(
+        EntityUid uid,
+        [NotNullWhen(true)] out EntityUid? occupant,
+        FatExtractorComponent? component = null,
+        EntityStorageComponent? storage = null
+    )
     {
         occupant = null;
         if (!Resolve(uid, ref component, ref storage))

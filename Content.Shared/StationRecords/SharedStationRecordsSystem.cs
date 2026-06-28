@@ -16,6 +16,7 @@ public abstract class SharedStationRecordsSystem : EntitySystem
     {
         return new StationRecordKey(input.Item2, GetEntity(input.Item1));
     }
+
     public (NetEntity, uint) Convert(StationRecordKey input)
     {
         // Use TryGetNetEntity to avoid errors when the origin station entity is deleted/invalid

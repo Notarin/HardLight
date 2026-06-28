@@ -88,7 +88,6 @@
     Gold: 5000
     Silver: 3000
 
-
 - type: latheRecipe
   id: EWACMechaJammer
   result: EWACMechaJammer

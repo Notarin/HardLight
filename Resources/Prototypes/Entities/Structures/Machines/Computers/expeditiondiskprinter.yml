@@ -18,10 +18,10 @@
     visuals:
       enum.EdgeConnectionVisuals.ConnectionMask:
         computerLayerBody:
-          None: { state: icon, sprite: Structures/Machines/exp_disk_printer.rsi }
-          West: { state: icon, sprite: Structures/Machines/exp_disk_printer.rsi }
-          East: { state: icon, sprite: Structures/Machines/exp_disk_printer.rsi }
-          East, West: { state: icon, sprite: Structures/Machines/exp_disk_printer.rsi }
+          None: {state: icon, sprite: Structures/Machines/exp_disk_printer.rsi}
+          West: {state: icon, sprite: Structures/Machines/exp_disk_printer.rsi}
+          East: {state: icon, sprite: Structures/Machines/exp_disk_printer.rsi}
+          East, West: {state: icon, sprite: Structures/Machines/exp_disk_printer.rsi}
   # HardLight end
   - type: ExpeditionDiskPrinter
   - type: ActivatableUI

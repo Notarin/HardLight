@@ -6,6 +6,7 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
 namespace Content.Shared.Implants.Components;
+
 /// <summary>
 /// Implanters are used to implant or extract implants from an entity.
 /// Some can be single use (implant only) or some can draw out an implant
@@ -114,17 +115,17 @@ public sealed partial class ImplanterComponent : Component
 public enum ImplanterToggleMode : byte
 {
     Inject,
-    Draw
+    Draw,
 }
 
 [Serializable, NetSerializable]
 public enum ImplanterVisuals : byte
 {
-    Full
+    Full,
 }
 
 [Serializable, NetSerializable]
 public enum ImplanterImplantOnlyVisuals : byte
 {
-    ImplantOnly
+    ImplantOnly,
 }

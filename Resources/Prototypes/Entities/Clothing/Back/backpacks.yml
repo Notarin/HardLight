@@ -3,7 +3,7 @@
   id: ClothingBackpack
   name: backpack
   description: You wear this on your back and put items into it.
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   components:
   - type: Sprite
     sprite: Clothing/Back/Backpacks/backpack.rsi
@@ -62,7 +62,7 @@
       collection: IanBark
 
 - type: entity
-  parent: [NFClothingBackpack, BaseC1Contraband ] # Frontier: BaseSecurityContraband<BaseC1Contraband, ClothingBackpack<NFClothingBackpack
+  parent: [NFClothingBackpack, BaseC1Contraband] # Frontier: BaseSecurityContraband<BaseC1Contraband, ClothingBackpack<NFClothingBackpack
   id: ClothingBackpackSecurity
   name: security backpack
   description: It's a very robust backpack.
@@ -71,7 +71,7 @@
     sprite: Clothing/Back/Backpacks/security.rsi
 
 - type: entity
-  parent: [NFClothingBackpack, BaseC2ContrabandUnredeemable ] # Frontier: BaseSecurityContraband<BaseC2ContrabandUnredeemable, ClothingBackpack<NFClothingBackpack
+  parent: [NFClothingBackpack, BaseC2ContrabandUnredeemable] # Frontier: BaseSecurityContraband<BaseC2ContrabandUnredeemable, ClothingBackpack<NFClothingBackpack
   id: ClothingBackpackBrigmedic
   name: brigmedic backpack
   description: It's a very sterile backpack.
@@ -175,8 +175,8 @@
   name: cargo backpack
   description: A robust backpack for stealing cargo's loot.
   components:
-    - type: Sprite
-      sprite: Clothing/Back/Backpacks/cargo.rsi
+  - type: Sprite
+    sprite: Clothing/Back/Backpacks/cargo.rsi
 
 - type: entity
   parent: NFClothingBackpack # Frontier: ClothingBackpack<NFClothingBackpack
@@ -184,8 +184,8 @@
   name: salvage bag
   description: A robust backpack for stashing your loot.
   components:
-    - type: Sprite
-      sprite: Clothing/Back/Backpacks/salvage.rsi
+  - type: Sprite
+    sprite: Clothing/Back/Backpacks/salvage.rsi
 
 - type: entity
   parent: NFClothingBackpack # Frontier: ClothingBackpack<NFClothingBackpack
@@ -193,12 +193,12 @@
   name: mercenary backpack
   description: A backpack that has been in many dangerous places, a reliable combat backpack.
   components:
-    - type: Sprite
-      sprite: Clothing/Back/Backpacks/merc.rsi
+  - type: Sprite
+    sprite: Clothing/Back/Backpacks/merc.rsi
 
 #ERT
 - type: entity
-  parent: [ ClothingBackpack, ContentsExplosionResistanceBase ] # Goobstation
+  parent: [ClothingBackpack, ContentsExplosionResistanceBase] # Goobstation
   id: ClothingBackpackERTLeader
   name: ERT leader backpack
   description: A spacious backpack with lots of pockets, worn by the Commander of an Emergency Response Team.
@@ -271,9 +271,9 @@
   name: death squad backpack
   description: Holds the kit of ColComm's most feared agents.
   components:
-    - type: Storage
-      grid:
-      - 0,0,7,6
+  - type: Storage
+    grid:
+    - 0,0,7,6
 
 #Syndicate
 - type: entity
@@ -312,7 +312,7 @@
       - state: holding-equipped-BACKPACK # Frontier
       - state: holding-equipped-BACKPACK-unlit # Frontier
         shader: unshaded # Frontier
-    # equippedPrefix: holding # Frontier
+        # equippedPrefix: holding # Frontier
   - type: Item
     size: Ginormous
     inhandVisuals: # Frontier
@@ -378,7 +378,7 @@
   - type: TriggerOnSignal
   - type: DeviceLinkSink
     ports:
-      - Trigger
+    - Trigger
 
 # Debug
 - type: entity

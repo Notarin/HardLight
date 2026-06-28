@@ -45,21 +45,20 @@
         type: TransferAmountBoundUserInterface
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 5
       behaviors:
       - !type:PlaySoundBehavior
         sound:
           collection: GlassBreak
-      - !type:SpillBehavior { }
+      - !type:SpillBehavior {}
       - !type:SpawnEntitiesBehavior
         spawn:
           ShardGlass: # HL: Halved the glass so that it matches the cost to make
             min: 0
             max: 1
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: Tag
     tags:
     - Trash

@@ -8,9 +8,8 @@ public sealed class CrewMonitoringBoundUserInterface : BoundUserInterface
     [ViewVariables]
     private CrewMonitoringWindow? _menu;
 
-    public CrewMonitoringBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-    }
+    public CrewMonitoringBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {

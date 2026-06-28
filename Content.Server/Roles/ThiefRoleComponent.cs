@@ -6,6 +6,4 @@ namespace Content.Server.Roles;
 ///     Added to mind role entities to tag that they are a thief.
 /// </summary>
 [RegisterComponent]
-public sealed partial class ThiefRoleComponent : BaseMindRoleComponent
-{
-}
+public sealed partial class ThiefRoleComponent : BaseMindRoleComponent { }

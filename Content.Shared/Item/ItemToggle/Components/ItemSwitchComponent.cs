@@ -40,6 +40,7 @@ public sealed partial class ItemSwitchComponent : Component
     [ViewVariables(VVAccess.ReadWrite), DataField, AutoNetworkedField]
     public bool Predictable = true;
 }
+
 [DataDefinition]
 public sealed partial class ItemSwitchState : BoundUserInterfaceMessage
 {
@@ -72,8 +73,9 @@ public sealed partial class ItemSwitchState : BoundUserInterfaceMessage
 public record struct ItemSwitchAttemptEvent()
 {
     public bool Cancelled = false;
-    public required readonly EntityUid? User { get; init; }
-    public required readonly string State { get; init; }
+    public readonly required EntityUid? User { get; init; }
+    public readonly required string State { get; init; }
+
     /// <summary>
     /// Pop-up that gets shown to users explaining why the attempt was cancelled.
     /// </summary>
@@ -86,7 +88,7 @@ public record struct ItemSwitchAttemptEvent()
 [ByRefEvent]
 public readonly record struct ItemSwitchedEvent()
 {
-    public required readonly bool Predicted { get; init; }
-    public required readonly string State { get; init; }
-    public required readonly EntityUid? User { get; init; }
+    public readonly required bool Predicted { get; init; }
+    public readonly required string State { get; init; }
+    public readonly required EntityUid? User { get; init; }
 }

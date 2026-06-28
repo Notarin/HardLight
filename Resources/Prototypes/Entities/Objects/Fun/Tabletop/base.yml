@@ -5,14 +5,13 @@
   abstract: true
   description: A blank board.
   components:
-    - type: TabletopGame
-      size: 256, 256
-      setup:
-        !type:TabletopEmptySetup
-        boardPrototype: Crowbar
-    - type: Tag
-      tags:
-        - TabletopBoard
+  - type: TabletopGame
+    size: 256, 256
+    setup: !type:TabletopEmptySetup
+      boardPrototype: Crowbar
+  - type: Tag
+    tags:
+    - TabletopBoard
 
 - type: entity
   id: BaseTabletopPiece # Board piece
@@ -25,17 +24,17 @@
   - type: Appearance
   - type: Tag
     tags:
-      - TabletopPiece
+    - TabletopPiece
 
 - type: entity
   id: BaseBoardTabletop
   name: baseboard
   abstract: true
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Tag
     tags:
-      - TabletopBoard
+    - TabletopBoard
   - type: Sprite
     noRot: false
     drawdepth: FloorTiles

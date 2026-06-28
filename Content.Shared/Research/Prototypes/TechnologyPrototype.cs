@@ -119,7 +119,8 @@ public sealed partial class TechnologyPrototype : IPrototype
     /// </summary>
     public bool HasDiscipline(ProtoId<TechDisciplinePrototype> disciplineId)
     {
-        return Discipline == disciplineId || (SecondaryDiscipline.HasValue && SecondaryDiscipline.Value == disciplineId);
+        return Discipline == disciplineId
+            || (SecondaryDiscipline.HasValue && SecondaryDiscipline.Value == disciplineId);
     }
 }
 

@@ -14,7 +14,7 @@
   - type: Sprite
     layers:
     - state: icon
-      map: [ "unfoldedLayer" ]
+      map: ["unfoldedLayer"]
     - state: icon_flipped
       map: ["foldedLayer"]
       visible: false
@@ -34,7 +34,7 @@
   - type: Sprite
     layers:
     - state: icon
-      map: [ "unfoldedLayer" ]
+      map: ["unfoldedLayer"]
       visible: false
     - state: icon_flipped
       map: ["foldedLayer"]
@@ -111,7 +111,7 @@
     sprite: Clothing/Head/Soft/commandsoft.rsi
 
 - type: entity
-  parent: [ ClothingHeadHeadHatBaseFlipped, ClothingHeadHatCommandSoft ]
+  parent: [ClothingHeadHeadHatBaseFlipped, ClothingHeadHatCommandSoft]
   id: ClothingHeadHatCommandSoftFlipped
   name: command cap
 

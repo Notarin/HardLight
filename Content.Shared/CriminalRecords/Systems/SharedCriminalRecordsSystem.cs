@@ -45,7 +45,7 @@ public abstract class SharedCriminalRecordsSystem : EntitySystem
             SecurityStatus.Detained => "SecurityIconIncarcerated",
             SecurityStatus.Discharged => "SecurityIconDischarged",
             SecurityStatus.Suspected => "SecurityIconSuspected",
-            _ => record.StatusIcon
+            _ => record.StatusIcon,
         };
 
         if (previousIcon != record.StatusIcon)
@@ -54,7 +54,13 @@ public abstract class SharedCriminalRecordsSystem : EntitySystem
 }
 
 [Serializable, NetSerializable]
-public struct WantedRecord(GeneralStationRecord targetInfo, SecurityStatus status, string? reason, string? initiator, List<CrimeHistory> history)
+public struct WantedRecord(
+    GeneralStationRecord targetInfo,
+    SecurityStatus status,
+    string? reason,
+    string? initiator,
+    List<CrimeHistory> history
+)
 {
     public GeneralStationRecord TargetInfo = targetInfo;
     public SecurityStatus Status = status;

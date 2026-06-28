@@ -1,46 +1,67 @@
 using Content.Server.Administration.Logs;
 using Content.Server.Atmos.EntitySystems;
 using Content.Server.Body.Components;
-using Content.Shared._Shitmed.Body.Components; // Shitmed Change
-using Content.Shared._Shitmed.Body.Organ; // Shitmed Change
 using Content.Server.Chat.Systems;
 using Content.Server.EntityEffects.EffectConditions;
 using Content.Server.EntityEffects.Effects;
 using Content.Shared._Goobstation.MartialArts.Components; // Goobstation - Martial Arts
-using Content.Shared.Chemistry.EntitySystems;
+using Content.Shared._Shitmed.Body.Components; // Shitmed Change
+using Content.Shared._Shitmed.Body.Organ; // Shitmed Change
 using Content.Shared.Alert;
 using Content.Shared.Atmos;
 using Content.Shared.Body.Components;
 using Content.Shared.Body.Prototypes;
-using Content.Shared.Chemistry.Components;
-using Content.Shared.Chemistry.Reagent;
 using Content.Shared.Chat;
+using Content.Shared.Chemistry.Components;
+using Content.Shared.Chemistry.EntitySystems;
+using Content.Shared.Chemistry.Reagent;
 using Content.Shared.Damage;
 using Content.Shared.Database;
 using Content.Shared.EntityEffects;
 using Content.Shared.Mobs.Systems;
+using Content.Shared.Movement.Pulling.Components; // Goobstation
+using Content.Shared.Movement.Pulling.Systems; // Goobstation
 using JetBrains.Annotations;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
-using Content.Shared.Movement.Pulling.Components; // Goobstation
-using Content.Shared.Movement.Pulling.Systems; // Goobstation
 
 namespace Content.Server.Body.Systems;
 
 [UsedImplicitly]
 public sealed class RespiratorSystem : EntitySystem
 {
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly AlertsSystem _alertsSystem = default!;
-    [Dependency] private readonly AtmosphereSystem _atmosSys = default!;
-    [Dependency] private readonly BodySystem _bodySystem = default!;
-    [Dependency] private readonly DamageableSystem _damageableSys = default!;
-    [Dependency] private readonly LungSystem _lungSystem = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly IPrototypeManager _protoMan = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
-    [Dependency] private readonly ChatSystem _chat = default!;
+    [Dependency]
+    private readonly IAdminLogManager _adminLogger = default!;
+
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
+
+    [Dependency]
+    private readonly AlertsSystem _alertsSystem = default!;
+
+    [Dependency]
+    private readonly AtmosphereSystem _atmosSys = default!;
+
+    [Dependency]
+    private readonly BodySystem _bodySystem = default!;
+
+    [Dependency]
+    private readonly DamageableSystem _damageableSys = default!;
+
+    [Dependency]
+    private readonly LungSystem _lungSystem = default!;
+
+    [Dependency]
+    private readonly MobStateSystem _mobState = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _protoMan = default!;
+
+    [Dependency]
+    private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
+
+    [Dependency]
+    private readonly ChatSystem _chat = default!;
 
     private static readonly ProtoId<MetabolismGroupPrototype> GasId = new("Gas");
 
@@ -59,14 +80,14 @@ public sealed class RespiratorSystem : EntitySystem
     // Can breathe check for grab
     public bool CanBreathe(EntityUid uid, RespiratorComponent respirator)
     {
-        if(respirator.Saturation < respirator.SuffocationThreshold)
+        if (respirator.Saturation < respirator.SuffocationThreshold)
             return false;
-        if (TryComp<PullableComponent>(uid, out var pullable)
-            && pullable.GrabStage == GrabStage.Suffocate)
+        if (TryComp<PullableComponent>(uid, out var pullable) && pullable.GrabStage == GrabStage.Suffocate)
             return false;
 
         return !HasComp<KravMagaBlockedBreathingComponent>(uid);
     }
+
     // Goobstation end
 
     private void OnMapInit(Entity<RespiratorComponent> ent, ref MapInitEvent args)
@@ -99,8 +120,7 @@ public sealed class RespiratorSystem : EntitySystem
 
         foreach (var uid in toProcess)
         {
-            if (!TryComp<RespiratorComponent>(uid, out var respirator) ||
-                !TryComp<BodyComponent>(uid, out var body))
+            if (!TryComp<RespiratorComponent>(uid, out var respirator) || !TryComp<BodyComponent>(uid, out var body))
                 continue;
 
             if (_gameTiming.CurTime < respirator.NextUpdate)
@@ -111,7 +131,7 @@ public sealed class RespiratorSystem : EntitySystem
             if (_mobState.IsDead(uid) || HasComp<BreathingImmunityComponent>(uid)) // Shitmed: BreathingImmunity
                 continue;
 
-            UpdateSaturation(uid, -(float) respirator.UpdateInterval.TotalSeconds, respirator);
+            UpdateSaturation(uid, -(float)respirator.UpdateInterval.TotalSeconds, respirator);
 
             if (!_mobState.IsIncapacitated(uid) && !HasComp<DebrainedComponent>(uid)) // Shitmed Change - Cannot breathe in crit or when no brain.
             {
@@ -133,7 +153,12 @@ public sealed class RespiratorSystem : EntitySystem
                 if (_gameTiming.CurTime >= respirator.LastGaspEmoteTime + respirator.GaspEmoteCooldown)
                 {
                     respirator.LastGaspEmoteTime = _gameTiming.CurTime;
-                    _chat.TryEmoteWithChat(uid, respirator.GaspEmote, ChatTransmitRange.HideChat, ignoreActionBlocker: true);
+                    _chat.TryEmoteWithChat(
+                        uid,
+                        respirator.GaspEmote,
+                        ChatTransmitRange.HideChat,
+                        ignoreActionBlocker: true
+                    );
                 }
 
                 TakeSuffocationDamage((uid, respirator));
@@ -244,7 +269,7 @@ public sealed class RespiratorSystem : EntitySystem
 
         gas = new GasMixture(gas);
         var lungRatio = 1.0f / organs.Count;
-        gas.Multiply(MathF.Min(lungRatio * gas.Volume/Atmospherics.BreathVolume, lungRatio));
+        gas.Multiply(MathF.Min(lungRatio * gas.Volume / Atmospherics.BreathVolume, lungRatio));
         var solution = _lungSystem.GasToReagent(gas);
 
         float saturation = 0;
@@ -331,7 +356,11 @@ public sealed class RespiratorSystem : EntitySystem
             }
         }
 
-        _damageableSys.TryChangeDamage(ent, HasComp<DebrainedComponent>(ent) ? ent.Comp.Damage * 4.5f : ent.Comp.Damage, interruptsDoAfters: false);
+        _damageableSys.TryChangeDamage(
+            ent,
+            HasComp<DebrainedComponent>(ent) ? ent.Comp.Damage * 4.5f : ent.Comp.Damage,
+            interruptsDoAfters: false
+        );
     }
 
     private void StopSuffocation(Entity<RespiratorComponent> ent)
@@ -349,20 +378,16 @@ public sealed class RespiratorSystem : EntitySystem
         _damageableSys.TryChangeDamage(ent, ent.Comp.DamageRecovery);
     }
 
-    public void UpdateSaturation(EntityUid uid, float amount,
-        RespiratorComponent? respirator = null)
+    public void UpdateSaturation(EntityUid uid, float amount, RespiratorComponent? respirator = null)
     {
         if (!Resolve(uid, ref respirator, false))
             return;
 
         respirator.Saturation += amount;
-        respirator.Saturation =
-            Math.Clamp(respirator.Saturation, respirator.MinSaturation, respirator.MaxSaturation);
+        respirator.Saturation = Math.Clamp(respirator.Saturation, respirator.MinSaturation, respirator.MaxSaturation);
     }
 
-    private void OnApplyMetabolicMultiplier(
-        Entity<RespiratorComponent> ent,
-        ref ApplyMetabolicMultiplierEvent args)
+    private void OnApplyMetabolicMultiplier(Entity<RespiratorComponent> ent, ref ApplyMetabolicMultiplierEvent args)
     {
         // TODO REFACTOR THIS
         // This will slowly drift over time due to floating point errors.

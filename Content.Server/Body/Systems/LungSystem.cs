@@ -1,8 +1,8 @@
 using Content.Server.Atmos.EntitySystems;
 using Content.Server.Body.Components;
-using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Atmos;
 using Content.Shared.Chemistry.Components;
+using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Clothing;
 using Content.Shared.Inventory.Events;
 using BreathToolComponent = Content.Shared.Atmos.Components.BreathToolComponent;
@@ -12,9 +12,14 @@ namespace Content.Server.Body.Systems;
 
 public sealed class LungSystem : EntitySystem
 {
-    [Dependency] private readonly AtmosphereSystem _atmos = default!;
-    [Dependency] private readonly InternalsSystem _internals = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
+    [Dependency]
+    private readonly AtmosphereSystem _atmos = default!;
+
+    [Dependency]
+    private readonly InternalsSystem _internals = default!;
+
+    [Dependency]
+    private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
 
     public static string LungSolutionName = "Lung";
 
@@ -67,7 +72,7 @@ public sealed class LungSystem : EntitySystem
     {
         foreach (var gasId in Enum.GetValues<Gas>())
         {
-            var i = (int) gasId;
+            var i = (int)gasId;
             var moles = gas[i];
             if (moles <= 0)
                 continue;

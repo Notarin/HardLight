@@ -1,39 +1,56 @@
+using Content.Server.Carrying; // Frontier
+using Content.Server.FloofStation;
 using Content.Server.Popups;
-using Content.Shared.Storage.Components;
 using Content.Shared.ActionBlocker;
+using Content.Shared.Actions; // Frontier
+using Content.Shared.Carrying;
+using Content.Shared.Contests;
 using Content.Shared.DoAfter;
+using Content.Shared.FloofStation; // Floofstation
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Interaction.Events;
 using Content.Shared.Inventory;
 using Content.Shared.Movement.Events;
+using Content.Shared.Movement.Systems; // Frontier
 using Content.Shared.Resist;
 using Content.Shared.Storage;
+using Content.Shared.Storage.Components;
 using Robust.Shared.Containers;
-using Content.Shared.Carrying;
-using Content.Server.Carrying; // Frontier
-using Content.Shared.Actions; // Frontier
 using Robust.Shared.Prototypes; // Frontier
-using Content.Shared.Movement.Systems; // Frontier
-using Content.Server.FloofStation;
-using Content.Shared.Contests;
-using Content.Shared.FloofStation; // Floofstation
 
 namespace Content.Server.Resist;
 
 public sealed class EscapeInventorySystem : EntitySystem
 {
-    [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedContainerSystem _containerSystem = default!;
-    [Dependency] private readonly ActionBlockerSystem _actionBlockerSystem = default!;
-    [Dependency] private readonly SharedHandsSystem _handsSystem = default!;
-    [Dependency] private readonly CarryingSystem _carryingSystem = default!; // Carrying system from Nyanotrasen.
-    [Dependency] private readonly SharedActionsSystem _actions = default!; // Frontier: escape actions
-    [Dependency] private readonly ContestsSystem _contests = default!;
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfterSystem = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _containerSystem = default!;
+
+    [Dependency]
+    private readonly ActionBlockerSystem _actionBlockerSystem = default!;
+
+    [Dependency]
+    private readonly SharedHandsSystem _handsSystem = default!;
+
+    [Dependency]
+    private readonly CarryingSystem _carryingSystem = default!; // Carrying system from Nyanotrasen.
+
+    [Dependency]
+    private readonly SharedActionsSystem _actions = default!; // Frontier: escape actions
+
+    [Dependency]
+    private readonly ContestsSystem _contests = default!;
 
     // Frontier - cancel inventory escape
     private readonly EntProtoId _escapeCancelAction = "ActionCancelEscape";
-    [Dependency] private readonly VoreSystem _vore = default!;
+
+    [Dependency]
+    private readonly VoreSystem _vore = default!;
 
     /// <summary>
     /// You can't escape the hands of an entity this many times more massive than you.
@@ -55,8 +72,10 @@ public sealed class EscapeInventorySystem : EntitySystem
         if (!args.HasDirectionalMovement)
             return;
 
-        if (!_containerSystem.TryGetContainingContainer((uid, null, null), out var container)
-            || !_actionBlockerSystem.CanInteract(uid, container.Owner))
+        if (
+            !_containerSystem.TryGetContainingContainer((uid, null, null), out var container)
+            || !_actionBlockerSystem.CanInteract(uid, container.Owner)
+        )
             return;
 
         if (args.OldMovement == MoveButtons.None || args.OldMovement == MoveButtons.Walk)
@@ -85,27 +104,47 @@ public sealed class EscapeInventorySystem : EntitySystem
         }
 
         // Uncontested
-        if (HasComp<StorageComponent>(container.Owner) || HasComp<InventoryComponent>(container.Owner) || HasComp<SecretStashComponent>(container.Owner))
+        if (
+            HasComp<StorageComponent>(container.Owner)
+            || HasComp<InventoryComponent>(container.Owner)
+            || HasComp<SecretStashComponent>(container.Owner)
+        )
             AttemptEscape(uid, container.Owner, component);
     }
 
-    public void AttemptEscape(EntityUid user, EntityUid container, CanEscapeInventoryComponent component, float multiplier = 1f) //private to public for carrying system.
+    public void AttemptEscape(
+        EntityUid user,
+        EntityUid container,
+        CanEscapeInventoryComponent component,
+        float multiplier = 1f
+    ) //private to public for carrying system.
     {
         if (component.IsEscaping)
             return;
 
-        var doAfterEventArgs = new DoAfterArgs(EntityManager, user, component.BaseResistTime * multiplier, new EscapeInventoryEvent(), user, target: container)
+        var doAfterEventArgs = new DoAfterArgs(
+            EntityManager,
+            user,
+            component.BaseResistTime * multiplier,
+            new EscapeInventoryEvent(),
+            user,
+            target: container
+        )
         {
             BreakOnMove = true,
             BreakOnDamage = true,
-            NeedHand = false
+            NeedHand = false,
         };
 
         if (!_doAfterSystem.TryStartDoAfter(doAfterEventArgs, out component.DoAfter))
             return;
 
         _popupSystem.PopupEntity(Loc.GetString("escape-inventory-component-start-resisting"), user, user);
-        _popupSystem.PopupEntity(Loc.GetString("escape-inventory-component-start-resisting-target"), container, container);
+        _popupSystem.PopupEntity(
+            Loc.GetString("escape-inventory-component-start-resisting-target"),
+            container,
+            container
+        );
 
         // Frontier - escape cancel action
         if (component.EscapeCancelAction is not { Valid: true })
@@ -149,7 +188,11 @@ public sealed class EscapeInventorySystem : EntitySystem
         component.EscapeCancelAction = null;
     }
 
-    private void OnCancelEscape(EntityUid uid, CanEscapeInventoryComponent component, EscapeInventoryCancelActionEvent args)
+    private void OnCancelEscape(
+        EntityUid uid,
+        CanEscapeInventoryComponent component,
+        EscapeInventoryCancelActionEvent args
+    )
     {
         if (component.DoAfter != null)
             _doAfterSystem.Cancel(component.DoAfter);

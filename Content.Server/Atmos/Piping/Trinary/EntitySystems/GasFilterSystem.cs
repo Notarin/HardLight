@@ -52,13 +52,26 @@ namespace Content.Server.Atmos.Piping.Trinary.EntitySystems
     [UsedImplicitly]
     public sealed class GasFilterSystem : EntitySystem
     {
-        [Dependency] private UserInterfaceSystem _userInterfaceSystem = default!;
-        [Dependency] private IAdminLogManager _adminLogger = default!;
-        [Dependency] private readonly AtmosphereSystem _atmosphereSystem = default!;
-        [Dependency] private readonly SharedAmbientSoundSystem _ambientSoundSystem = default!;
-        [Dependency] private readonly SharedAppearanceSystem _appearanceSystem = default!;
-        [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-        [Dependency] private readonly NodeContainerSystem _nodeContainer = default!;
+        [Dependency]
+        private UserInterfaceSystem _userInterfaceSystem = default!;
+
+        [Dependency]
+        private IAdminLogManager _adminLogger = default!;
+
+        [Dependency]
+        private readonly AtmosphereSystem _atmosphereSystem = default!;
+
+        [Dependency]
+        private readonly SharedAmbientSoundSystem _ambientSoundSystem = default!;
+
+        [Dependency]
+        private readonly SharedAppearanceSystem _appearanceSystem = default!;
+
+        [Dependency]
+        private readonly SharedPopupSystem _popupSystem = default!;
+
+        [Dependency]
+        private readonly NodeContainerSystem _nodeContainer = default!;
 
         public override void Initialize()
         {
@@ -84,10 +97,20 @@ namespace Content.Server.Atmos.Piping.Trinary.EntitySystems
 
         private void OnFilterUpdated(EntityUid uid, GasFilterComponent filter, ref AtmosDeviceUpdateEvent args)
         {
-            if (!filter.Enabled
-                || !_nodeContainer.TryGetNodes(uid, filter.InletName, filter.FilterName, filter.OutletName, out PipeNode? inletNode, out PipeNode? filterNode, out PipeNode? outletNode)
+            if (
+                !filter.Enabled
+                || !_nodeContainer.TryGetNodes(
+                    uid,
+                    filter.InletName,
+                    filter.FilterName,
+                    filter.OutletName,
+                    out PipeNode? inletNode,
+                    out PipeNode? filterNode,
+                    out PipeNode? outletNode
+                )
                 || inletNode != outletNode // Goobstation - ignore pressure if we're inline
-                    && outletNode.Air.Pressure >= Atmospherics.MaxOutputPressure)
+                    && outletNode.Air.Pressure >= Atmospherics.MaxOutputPressure
+            )
             {
                 _ambientSoundSystem.SetAmbience(uid, false);
                 return;
@@ -134,7 +157,11 @@ namespace Content.Server.Atmos.Piping.Trinary.EntitySystems
             _atmosphereSystem.Merge(outletAir, removed);
         }
 
-        private void OnFilterLeaveAtmosphere(EntityUid uid, GasFilterComponent filter, ref AtmosDeviceDisabledEvent args)
+        private void OnFilterLeaveAtmosphere(
+            EntityUid uid,
+            GasFilterComponent filter,
+            ref AtmosDeviceDisabledEvent args
+        )
         {
             filter.Enabled = false;
 
@@ -171,8 +198,16 @@ namespace Content.Server.Atmos.Piping.Trinary.EntitySystems
             if (!Resolve(uid, ref filter))
                 return;
 
-            _userInterfaceSystem.SetUiState(uid, GasFilterUiKey.Key,
-                new GasFilterBoundUserInterfaceState(MetaData(uid).EntityName, filter.TransferRate, filter.Enabled, filter.FilterGases));
+            _userInterfaceSystem.SetUiState(
+                uid,
+                GasFilterUiKey.Key,
+                new GasFilterBoundUserInterfaceState(
+                    MetaData(uid).EntityName,
+                    filter.TransferRate,
+                    filter.Enabled,
+                    filter.FilterGases
+                )
+            );
             // Funky Station - Parameter name changed
         }
 
@@ -187,29 +222,43 @@ namespace Content.Server.Atmos.Piping.Trinary.EntitySystems
         private void OnToggleStatusMessage(EntityUid uid, GasFilterComponent filter, GasFilterToggleStatusMessage args)
         {
             filter.Enabled = args.Enabled;
-            _adminLogger.Add(LogType.AtmosPowerChanged, LogImpact.Medium,
-                $"{ToPrettyString(args.Actor):player} set the power on {ToPrettyString(uid):device} to {args.Enabled}");
+            _adminLogger.Add(
+                LogType.AtmosPowerChanged,
+                LogImpact.Medium,
+                $"{ToPrettyString(args.Actor):player} set the power on {ToPrettyString(uid):device} to {args.Enabled}"
+            );
             DirtyUI(uid, filter);
             UpdateAppearance(uid, filter);
         }
 
-        private void OnTransferRateChangeMessage(EntityUid uid, GasFilterComponent filter, GasFilterChangeRateMessage args)
+        private void OnTransferRateChangeMessage(
+            EntityUid uid,
+            GasFilterComponent filter,
+            GasFilterChangeRateMessage args
+        )
         {
             var max = filter.HighFlow ? filter.MaxTransferRate * 5f : filter.MaxTransferRate;
             filter.TransferRate = Math.Clamp(args.Rate, 0f, max);
-            _adminLogger.Add(LogType.AtmosVolumeChanged, LogImpact.Medium,
-                $"{ToPrettyString(args.Actor):player} set the transfer rate on {ToPrettyString(uid):device} to {args.Rate}");
+            _adminLogger.Add(
+                LogType.AtmosVolumeChanged,
+                LogImpact.Medium,
+                $"{ToPrettyString(args.Actor):player} set the transfer rate on {ToPrettyString(uid):device} to {args.Rate}"
+            );
             DirtyUI(uid, filter);
-
         }
+
         // Funky Station Start - Sets multigas filter server-side from message args
         private void OnChangeGasesMessage(EntityUid uid, GasFilterComponent filter, GasFilterChangeGasesMessage args)
         {
             filter.FilterGases = new HashSet<Gas>(args.Gases);
-            _adminLogger.Add(LogType.AtmosFilterChanged, LogImpact.Medium,
-                $"{ToPrettyString(args.Actor):player} set the filter gases on {ToPrettyString(uid):device} to {string.Join(", ", args.Gases)}");
+            _adminLogger.Add(
+                LogType.AtmosFilterChanged,
+                LogImpact.Medium,
+                $"{ToPrettyString(args.Actor):player} set the filter gases on {ToPrettyString(uid):device} to {string.Join(", ", args.Gases)}"
+            );
             DirtyUI(uid, filter);
         }
+
         // Funky Station End - Sets multigas filter server-side from message args
 
         /// <summary>
@@ -227,7 +276,10 @@ namespace Content.Server.Atmos.Piping.Trinary.EntitySystems
                 inletAirLocal.Volume = inlet.Volume;
                 args.GasMixtures.Add((Loc.GetString("gas-analyzer-window-text-inlet"), inletAirLocal));
             }
-            if (_nodeContainer.TryGetNode(uid, component.FilterName, out PipeNode? filterNode) && filterNode.Air.Volume != 0f)
+            if (
+                _nodeContainer.TryGetNode(uid, component.FilterName, out PipeNode? filterNode)
+                && filterNode.Air.Volume != 0f
+            )
             {
                 var filterNodeAirLocal = filterNode.Air.Clone();
                 filterNodeAirLocal.Multiply(filterNode.Volume / filterNode.Air.Volume);
@@ -246,7 +298,11 @@ namespace Content.Server.Atmos.Piping.Trinary.EntitySystems
             if (inlet == outlet)
                 return;
 
-            args.DeviceFlipped = inlet != null && filterNode != null && inlet.CurrentPipeDirection.ToDirection() == filterNode.CurrentPipeDirection.ToDirection().GetClockwise90Degrees();
+            args.DeviceFlipped =
+                inlet != null
+                && filterNode != null
+                && inlet.CurrentPipeDirection.ToDirection()
+                    == filterNode.CurrentPipeDirection.ToDirection().GetClockwise90Degrees();
         }
 
         private void OnMapInit(EntityUid uid, GasFilterComponent filter, MapInitEvent args) // Frontier - Init on map

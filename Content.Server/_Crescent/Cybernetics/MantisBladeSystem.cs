@@ -15,14 +15,20 @@ namespace Content.Shared.Cybernetics
 {
     public sealed class MantisBladeSystem : EntitySystem
     {
+        [Dependency]
+        private readonly SharedActionsSystem _actions = default!;
 
-        [Dependency] private readonly SharedActionsSystem _actions = default!;
-        [Dependency] private readonly SharedHandsSystem _hands = default!;
-        [Dependency] private readonly PopupSystem _popup = default!;
+        [Dependency]
+        private readonly SharedHandsSystem _hands = default!;
 
-        [Dependency] private readonly IRobustRandom _rand = default!;
-        [Dependency] private readonly AudioSystem _audio = default!;
+        [Dependency]
+        private readonly PopupSystem _popup = default!;
 
+        [Dependency]
+        private readonly IRobustRandom _rand = default!;
+
+        [Dependency]
+        private readonly AudioSystem _audio = default!;
 
         public override void Initialize()
         {
@@ -67,7 +73,7 @@ namespace Content.Shared.Cybernetics
             if (!comp.Equipment.TryGetValue(proto.Id, out var item))
             {
                 item = Spawn(proto, Transform(uid).Coordinates);
-                if (!_hands.TryForcePickupAnyHand(uid, (EntityUid) item))
+                if (!_hands.TryForcePickupAnyHand(uid, (EntityUid)item))
                 {
                     _popup.PopupEntity(Loc.GetString("changeling-fail-hands"), uid, uid);
                     QueueDel(item);

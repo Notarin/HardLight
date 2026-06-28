@@ -13,8 +13,7 @@ public sealed partial class CategoryColoring : LayerColoringType
     public override Color? GetCleanColor(Color? skin, Color? eyes, MarkingSet markingSet)
     {
         Color? outColor = null;
-        if (markingSet.TryGetCategory(Category, out var markings) &&
-            markings.Count > 0)
+        if (markingSet.TryGetCategory(Category, out var markings) && markings.Count > 0)
         {
             outColor = markings[0].MarkingColors.FirstOrDefault();
         }

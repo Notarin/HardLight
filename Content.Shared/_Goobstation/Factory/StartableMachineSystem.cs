@@ -6,8 +6,11 @@ namespace Content.Shared._Goobstation.Factory;
 
 public sealed class StartableMachineSystem : EntitySystem
 {
-    [Dependency] private readonly SharedDeviceLinkSystem _device = default!;
-    [Dependency] private readonly SharedPowerReceiverSystem _power = default!;
+    [Dependency]
+    private readonly SharedDeviceLinkSystem _device = default!;
+
+    [Dependency]
+    private readonly SharedPowerReceiverSystem _power = default!;
 
     private EntityQuery<StartableMachineComponent> _query;
 
@@ -54,7 +57,7 @@ public sealed class StartableMachineSystem : EntitySystem
             {
                 SignalState.Momentary => !ent.Comp.AutoStart,
                 SignalState.High => true,
-                SignalState.Low => false
+                SignalState.Low => false,
             };
         }
     }
@@ -66,8 +69,7 @@ public sealed class StartableMachineSystem : EntitySystem
     /// </summary>
     public bool TryStart(Entity<StartableMachineComponent?> ent)
     {
-        if (!_query.Resolve(ent, ref ent.Comp)
-            || !_power.IsPowered(ent.Owner))
+        if (!_query.Resolve(ent, ref ent.Comp) || !_power.IsPowered(ent.Owner))
             return false;
 
         var ev = new MachineStartedEvent();
@@ -80,8 +82,7 @@ public sealed class StartableMachineSystem : EntitySystem
     /// </summary>
     public bool TryAutoStart(Entity<StartableMachineComponent?> ent)
     {
-        if (!_query.Resolve(ent, ref ent.Comp)
-            || !ent.Comp.AutoStart)
+        if (!_query.Resolve(ent, ref ent.Comp) || !ent.Comp.AutoStart)
             return false;
 
         return TryStart(ent);

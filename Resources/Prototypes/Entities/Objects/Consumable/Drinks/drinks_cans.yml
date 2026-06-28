@@ -35,8 +35,8 @@
   - type: Sprite
     state: icon
     layers:
-      - state: icon
-        map: ["enum.OpenableVisuals.Layer"]
+    - state: icon
+      map: ["enum.OpenableVisuals.Layer"]
   - type: FitsInDispenser
     solution: drink
   - type: DrawableSolution
@@ -221,8 +221,7 @@
         restitution: 0.3
         friction: 0.2
       projectile:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.1,-0.1,0.1,0.1"
         hard: false
         mask:
@@ -576,25 +575,25 @@
   - type: Sprite
     sprite: Objects/Misc/6pack.rsi
     layers:
-      - state: plastic-thingy
-      - state: 6pack1
-        map: ["6pack1"]
-        visible: false
-      - state: 6pack2
-        map: ["6pack2"]
-        visible: false
-      - state: 6pack3
-        map: ["6pack3"]
-        visible: false
-      - state: 6pack4
-        map: ["6pack4"]
-        visible: false
-      - state: 6pack5
-        map: ["6pack5"]
-        visible: false
-      - state: 6pack6
-        map: ["6pack6"]
-        visible: false
+    - state: plastic-thingy
+    - state: 6pack1
+      map: ["6pack1"]
+      visible: false
+    - state: 6pack2
+      map: ["6pack2"]
+      visible: false
+    - state: 6pack3
+      map: ["6pack3"]
+      visible: false
+    - state: 6pack4
+      map: ["6pack4"]
+      visible: false
+    - state: 6pack5
+      map: ["6pack5"]
+      visible: false
+    - state: 6pack6
+      map: ["6pack6"]
+      visible: false
   - type: Item
     size: Normal
   - type: Storage
@@ -602,12 +601,12 @@
     - 0,0,2,3
     whitelist:
       tags:
-        - Cola
+      - Cola
     hideStackVisualsWhenClosed: false
   - type: StorageFill
     contents:
-      - id: DrinkColaCan
-        amount: 6
+    - id: DrinkColaCan
+      amount: 6
   - type: ItemCounter
     count:
       tags: [Cola]

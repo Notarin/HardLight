@@ -15,8 +15,7 @@
   - type: Fixtures # HardLight
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.35
         density: 150
         mask:
@@ -116,7 +115,7 @@
     laws: Qborg
   - type: LeashAnchor # Floofstation
     kind: Intrinsic
-  - type: InteractionPopup  # Hardlight change
+  - type: InteractionPopup # Hardlight change
     interactSuccessString: petting-success-generic-cyborg
     interactFailureString: petting-failure-generic-cyborg
     interactSuccessSound:
@@ -273,7 +272,7 @@
     hasMindState: SyndQuadl
     noMindState: SyndQuadr
   - type: Access #HL
-    tags:  #HL
+    tags: #HL
     - SyndicateAgent #HL
     - NuclearOperative #HL
   - type: AccessReader
@@ -289,7 +288,7 @@
     stateOn: SyndQuadballz
     movementStateOff: SyndQuad_moving
     movementStateOn: SyndQuad_movingballz
-  # Note: No toggle added here; no provided SyndQuad ballz states.
+    # Note: No toggle added here; no provided SyndQuad ballz states.
 
 - type: entity
   id: assaultQuad
@@ -492,7 +491,7 @@
   - type: Speech
     speechSounds: Vulpkanin
     speechVerb: Vulpkanin
-    allowedEmotes: [ 'Bark', 'Snarl', 'Whine', 'Pout', 'Howl', 'Growl', 'Yip', 'Awoo', 'Yap', 'Gekker', 'Purr' ]
+    allowedEmotes: ['Bark', 'Snarl', 'Whine', 'Pout', 'Howl', 'Growl', 'Yip', 'Awoo', 'Yap', 'Gekker', 'Purr']
   - type: Vocal
     sounds:
       Male: MaleVulpkanin
@@ -841,7 +840,7 @@
     stateOn: engieborgballz
     movementStateOff: engieborg_moving
     movementStateOn: engieborg_movingballz
-  # Note: No toggle added here; no provided engieborg ballz states.
+    # Note: No toggle added here; no provided engieborg ballz states.
 
 - type: entity
   id: BorgChassisQuadmed
@@ -924,7 +923,7 @@
     stateOn: quadspritemedballz
     movementStateOff: quadspritemed_moving
     movementStateOn: quadspritemed_movingballz
-  # - type: LanguageKnowledge
+    # - type: LanguageKnowledge
     # speaks:
     # - TauCetiBasic
     # - SolCommon
@@ -1047,7 +1046,7 @@
   # Note: No toggle added here; no provided Chip ballz states.
 
 - type: entity
-  parent: [ BaseXenoborgChassis, BaseXenoborgTransponder ]
+  parent: [BaseXenoborgChassis, BaseXenoborgTransponder]
   id: Xenoquad
   name: Quad Xenoborg
   suffix: with brain

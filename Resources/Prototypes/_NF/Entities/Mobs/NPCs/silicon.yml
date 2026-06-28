@@ -1,6 +1,6 @@
 # Upstream definitions
 - type: entity
-  parent: [ MobSiliconBase, BaseVehicle]
+  parent: [MobSiliconBase, BaseVehicle]
   id: MobSiliconBaseVehicle # for vehicles
   abstract: true
   components:

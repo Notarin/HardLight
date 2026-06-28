@@ -6,14 +6,12 @@
   components:
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 5000
       behaviors:
       - !type:DoActsBehavior
         acts: ["Destruction"]
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 1000
       behaviors:
       - !type:DoActsBehavior
@@ -39,8 +37,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-1,-1,1,1"
         density: 1500 # fat mf
   - type: DeviceNetwork # frontier
@@ -73,14 +70,12 @@
   components:
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 5000
       behaviors:
       - !type:DoActsBehavior
         acts: ["Destruction"]
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 1000
       behaviors:
       - !type:DoActsBehavior
@@ -106,8 +101,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-1.5,-1.5,1.5,1.5"
         density: 1500 # fat mf
   - type: DeviceNetwork # frontier

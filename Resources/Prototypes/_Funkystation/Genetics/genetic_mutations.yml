@@ -5,8 +5,8 @@
   desc: "Subject speaks with a thick cowboy drawl."
   instability: 0
   conflicts:
-    - ItalianAccent
-    - LiarAccent
+  - ItalianAccent
+  - LiarAccent
   components:
   - type: ReplacementAccent
     accent: cowboy
@@ -41,8 +41,8 @@
   desc: "Subject speaks with dramatic Italian flair."
   instability: 0
   conflicts:
-    - CowboyAccent
-    - LiarAccent
+  - CowboyAccent
+  - LiarAccent
   components:
   - type: ReplacementAccent
     accent: italian
@@ -69,8 +69,8 @@
   desc: "Subject cannot tell the truth."
   instability: 0
   conflicts:
-    - CowboyAccent
-    - ItalianAccent
+  - CowboyAccent
+  - ItalianAccent
   components:
   - type: ReplacementAccent
     accent: liar
@@ -149,12 +149,12 @@
   popupText: "You feel a strange craving for fabric"
   instability: 0
   entityWhitelist:
-    - MobMoth
-    - BaseMobMoth
+  - MobMoth
+  - BaseMobMoth
   conflicts:
-    - ReptilianStomach
-    - CarnivoreStomach
-    - HumanStomach
+  - ReptilianStomach
+  - CarnivoreStomach
+  - HumanStomach
   components:
   - type: MutationStomachSwap
     newStomachPrototype: OrganMothStomach
@@ -166,12 +166,12 @@
   popupText: "You feel like you could eat a whole box of crayons"
   instability: 0
   entityWhitelist:
-    - MobReptilian
-    - BaseMobReptilian
+  - MobReptilian
+  - BaseMobReptilian
   conflicts:
-    - MothStomach
-    - CarnivoreStomach
-    - HumanStomach
+  - MothStomach
+  - CarnivoreStomach
+  - HumanStomach
   components:
   - type: MutationStomachSwap
     newStomachPrototype: OrganReptilianStomach
@@ -183,12 +183,12 @@
   popupText: "Your stomach growls hungrily for fresh meat"
   instability: 0
   entityWhitelist:
-    - BaseMobVulpkanin
-    - MobFelinidBase
+  - BaseMobVulpkanin
+  - MobFelinidBase
   conflicts:
-    - MothStomach
-    - ReptilianStomach
-    - HumanStomach
+  - MothStomach
+  - ReptilianStomach
+  - HumanStomach
   components:
   - type: MutationStomachSwap
     newStomachPrototype: OrganVulpkaninStomach
@@ -200,12 +200,12 @@
   popupText: "Your guts feel disappointingly normal"
   instability: 0
   entityWhitelist:
-    - MobHuman
-    - BaseMobHuman
+  - MobHuman
+  - BaseMobHuman
   conflicts:
-    - MothStomach
-    - ReptilianStomach
-    - CarnivoreStomach
+  - MothStomach
+  - ReptilianStomach
+  - CarnivoreStomach
   components:
   - type: MutationStomachSwap
     newStomachPrototype: OrganHumanStomach
@@ -217,10 +217,10 @@
   popupText: "The air burns in your lungs!"
   instability: 0
   entityWhitelist:
-    - MobVox
-    - BaseMobVox
+  - MobVox
+  - BaseMobVox
   conflicts:
-    - PlasmaBreathingMutation
+  - PlasmaBreathingMutation
   components:
   - type: MutationLungSwap
     newLungPrototype: OrganVoxLungs
@@ -233,7 +233,7 @@
   instability: 0
   probabilityWeight: 5
   conflicts:
-    - NitrogenBreathingMutation
+  - NitrogenBreathingMutation
   components:
   - type: MutationLungSwap
     newLungPrototype: OrganPlasmaLungs
@@ -244,7 +244,7 @@
   description: "Highly adapted lungs that metabolize plasma as a respiratory gas. Oxygen is toxic, and normal breathing gas mixtures are suffocating."
   components:
   - type: Metabolizer
-    metabolizerTypes: [ PlasmaBreather ]
+    metabolizerTypes: [PlasmaBreather]
   - type: Lung
     alert: LowOxygen
   - type: Item
@@ -265,21 +265,21 @@
   popupText: "You feel unusually sober."
   instability: 0
   conflicts:
-    - AcidResistance
-    - PlasmaImmunity
-    - GeneralToxinResistance
-    - NeurotoxinResistance
-    - RadiationToxinResistance
-    - BruteMedicineImmunity
-    - BurnMedicineImmunity
-    - AirlossMedicineImmunity
-    - DetoxMedicineImmunity
-    - AdvancedMedicineImmunity
-    - MutationMedicineImmunity
+  - AcidResistance
+  - PlasmaImmunity
+  - GeneralToxinResistance
+  - NeurotoxinResistance
+  - RadiationToxinResistance
+  - BruteMedicineImmunity
+  - BurnMedicineImmunity
+  - AirlossMedicineImmunity
+  - DetoxMedicineImmunity
+  - AdvancedMedicineImmunity
+  - MutationMedicineImmunity
   components:
   - type: ChemicalResistance
     reagents:
-      - Ethanol
+    - Ethanol
 
 - type: geneticMutation
   id: AcidResistance
@@ -288,23 +288,23 @@
   popupText: "You could go for some orange juice."
   instability: 8
   conflicts:
-    - AlcoholImmunity
-    - PlasmaImmunity
-    - GeneralToxinResistance
-    - NeurotoxinResistance
-    - RadiationToxinResistance
-    - BruteMedicineImmunity
-    - BurnMedicineImmunity
-    - AirlossMedicineImmunity
-    - DetoxMedicineImmunity
-    - AdvancedMedicineImmunity
-    - MutationMedicineImmunity
+  - AlcoholImmunity
+  - PlasmaImmunity
+  - GeneralToxinResistance
+  - NeurotoxinResistance
+  - RadiationToxinResistance
+  - BruteMedicineImmunity
+  - BurnMedicineImmunity
+  - AirlossMedicineImmunity
+  - DetoxMedicineImmunity
+  - AdvancedMedicineImmunity
+  - MutationMedicineImmunity
   components:
   - type: ChemicalResistance
     reagents:
-      - SulfuricAcid
-      - FluorosulfuricAcid
-      - PolytrinicAcid
+    - SulfuricAcid
+    - FluorosulfuricAcid
+    - PolytrinicAcid
 
 - type: geneticMutation
   id: PlasmaImmunity
@@ -313,21 +313,21 @@
   popupText: "You feel unaffected by the glow of plasma."
   instability: 5
   conflicts:
-    - AlcoholImmunity
-    - AcidResistance
-    - GeneralToxinResistance
-    - NeurotoxinResistance
-    - RadiationToxinResistance
-    - BruteMedicineImmunity
-    - BurnMedicineImmunity
-    - AirlossMedicineImmunity
-    - DetoxMedicineImmunity
-    - AdvancedMedicineImmunity
-    - MutationMedicineImmunity
+  - AlcoholImmunity
+  - AcidResistance
+  - GeneralToxinResistance
+  - NeurotoxinResistance
+  - RadiationToxinResistance
+  - BruteMedicineImmunity
+  - BurnMedicineImmunity
+  - AirlossMedicineImmunity
+  - DetoxMedicineImmunity
+  - AdvancedMedicineImmunity
+  - MutationMedicineImmunity
   components:
   - type: ChemicalResistance
     reagents:
-      - Plasma
+    - Plasma
 
 - type: geneticMutation
   id: GeneralToxinResistance
@@ -336,27 +336,27 @@
   popupText: "A bitter taste fades quickly from your tongue."
   instability: 15
   conflicts:
-    - AlcoholImmunity
-    - AcidResistance
-    - PlasmaImmunity
-    - NeurotoxinResistance
-    - RadiationToxinResistance
-    - BruteMedicineImmunity
-    - BurnMedicineImmunity
-    - AirlossMedicineImmunity
-    - DetoxMedicineImmunity
-    - AdvancedMedicineImmunity
-    - MutationMedicineImmunity
+  - AlcoholImmunity
+  - AcidResistance
+  - PlasmaImmunity
+  - NeurotoxinResistance
+  - RadiationToxinResistance
+  - BruteMedicineImmunity
+  - BurnMedicineImmunity
+  - AirlossMedicineImmunity
+  - DetoxMedicineImmunity
+  - AdvancedMedicineImmunity
+  - MutationMedicineImmunity
   components:
   - type: ChemicalResistance
     reagents:
-      - Toxin
-      - CarpoToxin
-      - ChloralHydrate
-      - Lexorin
-      - Histamine
-      - Amatoxin
-      - Bungotoxin
+    - Toxin
+    - CarpoToxin
+    - ChloralHydrate
+    - Lexorin
+    - Histamine
+    - Amatoxin
+    - Bungotoxin
 
 - type: geneticMutation
   id: NeurotoxinResistance
@@ -365,23 +365,23 @@
   popupText: "Your nerves feel unusually steady."
   instability: 10
   conflicts:
-    - AlcoholImmunity
-    - AcidResistance
-    - PlasmaImmunity
-    - GeneralToxinResistance
-    - RadiationToxinResistance
-    - BruteMedicineImmunity
-    - BurnMedicineImmunity
-    - AirlossMedicineImmunity
-    - DetoxMedicineImmunity
-    - AdvancedMedicineImmunity
-    - MutationMedicineImmunity
+  - AlcoholImmunity
+  - AcidResistance
+  - PlasmaImmunity
+  - GeneralToxinResistance
+  - RadiationToxinResistance
+  - BruteMedicineImmunity
+  - BurnMedicineImmunity
+  - AirlossMedicineImmunity
+  - DetoxMedicineImmunity
+  - AdvancedMedicineImmunity
+  - MutationMedicineImmunity
   components:
   - type: ChemicalResistance
     reagents:
-      - MindbreakerToxin
-      - Vestine
-      - Pax
+    - MindbreakerToxin
+    - Vestine
+    - Pax
 
 - type: geneticMutation
   id: RadiationToxinResistance
@@ -391,21 +391,21 @@
   popupText: "Glowing substances feel harmless."
   instability: 5
   conflicts:
-    - AlcoholImmunity
-    - AcidResistance
-    - PlasmaImmunity
-    - GeneralToxinResistance
-    - NeurotoxinResistance
-    - BruteMedicineImmunity
-    - BurnMedicineImmunity
-    - AirlossMedicineImmunity
-    - DetoxMedicineImmunity
-    - AdvancedMedicineImmunity
-    - MutationMedicineImmunity
+  - AlcoholImmunity
+  - AcidResistance
+  - PlasmaImmunity
+  - GeneralToxinResistance
+  - NeurotoxinResistance
+  - BruteMedicineImmunity
+  - BurnMedicineImmunity
+  - AirlossMedicineImmunity
+  - DetoxMedicineImmunity
+  - AdvancedMedicineImmunity
+  - MutationMedicineImmunity
   components:
   - type: ChemicalResistance
     reagents:
-      - UnstableMutagen
+    - UnstableMutagen
 
 - type: geneticMutation
   id: AnaerobicMetabolism
@@ -424,13 +424,13 @@
   popupText: "You feel your skin harden."
   instability: 12
   conflicts:
-    - KeratinHyperplasia
-    - OssifiedExoskeleton
-    - CrystallineDermalLattice
-    - AblativeCuticle
-    - ComprehensiveDermalFortification
+  - KeratinHyperplasia
+  - OssifiedExoskeleton
+  - CrystallineDermalLattice
+  - AblativeCuticle
+  - ComprehensiveDermalFortification
   components:
-  - type:  MutationPassiveArmorProvider
+  - type: MutationPassiveArmorProvider
     modifierSetId: ChitinoarmisDurescutisArmor
 - type: damageModifierSet
   id: ChitinoarmisDurescutisArmor
@@ -445,13 +445,13 @@
   popupText: "Your skin grows rough and ridged"
   instability: 14
   conflicts:
-    - ChitinoarmisDurescutis
-    - OssifiedExoskeleton
-    - CrystallineDermalLattice
-    - AblativeCuticle
-    - ComprehensiveDermalFortification
+  - ChitinoarmisDurescutis
+  - OssifiedExoskeleton
+  - CrystallineDermalLattice
+  - AblativeCuticle
+  - ComprehensiveDermalFortification
   components:
-  - type:  MutationPassiveArmorProvider
+  - type: MutationPassiveArmorProvider
     modifierSetId: KeratinHyperplasiaArmor
 - type: damageModifierSet
   id: KeratinHyperplasiaArmor
@@ -466,13 +466,13 @@
   popupText: "Your skin creaks as it hardens into bone."
   instability: 18
   conflicts:
-    - ChitinoarmisDurescutis
-    - KeratinHyperplasia
-    - CrystallineDermalLattice
-    - AblativeCuticle
-    - ComprehensiveDermalFortification
+  - ChitinoarmisDurescutis
+  - KeratinHyperplasia
+  - CrystallineDermalLattice
+  - AblativeCuticle
+  - ComprehensiveDermalFortification
   components:
-  - type:  MutationPassiveArmorProvider
+  - type: MutationPassiveArmorProvider
     modifierSetId: OssifiedExoskeletonArmor
 - type: damageModifierSet
   id: OssifiedExoskeletonArmor
@@ -490,13 +490,13 @@
   researchPoints: 1600
   instability: 18
   conflicts:
-    - ChitinoarmisDurescutis
-    - KeratinHyperplasia
-    - OssifiedExoskeleton
-    - AblativeCuticle
-    - ComprehensiveDermalFortification
+  - ChitinoarmisDurescutis
+  - KeratinHyperplasia
+  - OssifiedExoskeleton
+  - AblativeCuticle
+  - ComprehensiveDermalFortification
   components:
-  - type:  MutationPassiveArmorProvider
+  - type: MutationPassiveArmorProvider
     modifierSetId: CrystallineDermalLatticeArmor
 - type: damageModifierSet
   id: CrystallineDermalLatticeArmor
@@ -514,13 +514,13 @@
   researchPoints: 1600
   instability: 18
   conflicts:
-    - ChitinoarmisDurescutis
-    - KeratinHyperplasia
-    - OssifiedExoskeleton
-    - CrystallineDermalLattice
-    - ComprehensiveDermalFortification
+  - ChitinoarmisDurescutis
+  - KeratinHyperplasia
+  - OssifiedExoskeleton
+  - CrystallineDermalLattice
+  - ComprehensiveDermalFortification
   components:
-  - type:  MutationPassiveArmorProvider
+  - type: MutationPassiveArmorProvider
     modifierSetId: AblativeCuticleArmor
 - type: damageModifierSet
   id: AblativeCuticleArmor
@@ -537,13 +537,13 @@
   researchPoints: 3000
   instability: 24
   conflicts:
-    - ChitinoarmisDurescutis
-    - KeratinHyperplasia
-    - OssifiedExoskeleton
-    - CrystallineDermalLattice
-    - AblativeCuticle
+  - ChitinoarmisDurescutis
+  - KeratinHyperplasia
+  - OssifiedExoskeleton
+  - CrystallineDermalLattice
+  - AblativeCuticle
   components:
-  - type:  MutationPassiveArmorProvider
+  - type: MutationPassiveArmorProvider
     modifierSetId: ComprehensiveDermalFortificationArmor
 - type: damageModifierSet
   id: ComprehensiveDermalFortificationArmor
@@ -565,8 +565,6 @@
   components:
   - type: MutationThermalResistance
     coolingCoefficient: 0.5
-
-
 
 - type: geneticMutation
   id: HemopoiesisOverdrive
@@ -646,7 +644,7 @@
   desc: "Subject's cellular regeneration processes are fiercely overactive, enabling rapid recovery from physical trauma."
   popupText: "Your skin feels tingly and shifty"
   conflicts:
-    - MinorRegeneration
+  - MinorRegeneration
   probabilityWeight: 2.5
   researchPoints: 4000
   instability: 35
@@ -732,7 +730,7 @@
   desc: "Subject displays quicker passive healing of minor wounds."
   popupText: "You feel healthy"
   conflicts:
-    - Regeneration
+  - Regeneration
   instability: 15
   components:
   - type: MutationRegeneration
@@ -770,21 +768,21 @@
   popupText: "Your body feels strangely heavy"
   instability: -5
   conflicts:
-    - AlcoholImmunity
-    - AcidResistance
-    - PlasmaImmunity
-    - GeneralToxinResistance
-    - NeurotoxinResistance
-    - RadiationToxinResistance
-    - BurnMedicineImmunity
-    - AirlossMedicineImmunity
-    - DetoxMedicineImmunity
-    - AdvancedMedicineImmunity
-    - MutationMedicineImmunity
+  - AlcoholImmunity
+  - AcidResistance
+  - PlasmaImmunity
+  - GeneralToxinResistance
+  - NeurotoxinResistance
+  - RadiationToxinResistance
+  - BurnMedicineImmunity
+  - AirlossMedicineImmunity
+  - DetoxMedicineImmunity
+  - AdvancedMedicineImmunity
+  - MutationMedicineImmunity
   components:
   - type: ChemicalResistance
     reagents:
-      - Bicaridine
+    - Bicaridine
 
 - type: geneticMutation
   id: BurnMedicineImmunity
@@ -793,22 +791,22 @@
   popupText: "Your skin feels oddly sensitive"
   instability: -5
   conflicts:
-    - AlcoholImmunity
-    - AcidResistance
-    - PlasmaImmunity
-    - GeneralToxinResistance
-    - NeurotoxinResistance
-    - RadiationToxinResistance
-    - BruteMedicineImmunity
-    - AirlossMedicineImmunity
-    - DetoxMedicineImmunity
-    - AdvancedMedicineImmunity
-    - MutationMedicineImmunity
+  - AlcoholImmunity
+  - AcidResistance
+  - PlasmaImmunity
+  - GeneralToxinResistance
+  - NeurotoxinResistance
+  - RadiationToxinResistance
+  - BruteMedicineImmunity
+  - AirlossMedicineImmunity
+  - DetoxMedicineImmunity
+  - AdvancedMedicineImmunity
+  - MutationMedicineImmunity
   components:
   - type: ChemicalResistance
     reagents:
-      - Kelotane
-      - Dermaline
+    - Kelotane
+    - Dermaline
 
 - type: geneticMutation
   id: AirlossMedicineImmunity
@@ -817,23 +815,23 @@
   popupText: "Your chest feels tight and heavy"
   instability: -10
   conflicts:
-    - AlcoholImmunity
-    - AcidResistance
-    - PlasmaImmunity
-    - GeneralToxinResistance
-    - NeurotoxinResistance
-    - RadiationToxinResistance
-    - BruteMedicineImmunity
-    - BurnMedicineImmunity
-    - DetoxMedicineImmunity
-    - AdvancedMedicineImmunity
-    - MutationMedicineImmunity
+  - AlcoholImmunity
+  - AcidResistance
+  - PlasmaImmunity
+  - GeneralToxinResistance
+  - NeurotoxinResistance
+  - RadiationToxinResistance
+  - BruteMedicineImmunity
+  - BurnMedicineImmunity
+  - DetoxMedicineImmunity
+  - AdvancedMedicineImmunity
+  - MutationMedicineImmunity
   components:
   - type: ChemicalResistance
     reagents:
-      - Dexalin
-      - Inaprovaline
-      - DexalinPlus
+    - Dexalin
+    - Inaprovaline
+    - DexalinPlus
 
 - type: geneticMutation
   id: DetoxMedicineImmunity
@@ -842,21 +840,21 @@
   popupText: "A faint bitterness lingers in your mouth"
   instability: -5
   conflicts:
-    - AlcoholImmunity
-    - AcidResistance
-    - PlasmaImmunity
-    - GeneralToxinResistance
-    - NeurotoxinResistance
-    - RadiationToxinResistance
-    - BruteMedicineImmunity
-    - BurnMedicineImmunity
-    - AirlossMedicineImmunity
-    - AdvancedMedicineImmunity
-    - MutationMedicineImmunity
+  - AlcoholImmunity
+  - AcidResistance
+  - PlasmaImmunity
+  - GeneralToxinResistance
+  - NeurotoxinResistance
+  - RadiationToxinResistance
+  - BruteMedicineImmunity
+  - BurnMedicineImmunity
+  - AirlossMedicineImmunity
+  - AdvancedMedicineImmunity
+  - MutationMedicineImmunity
   components:
   - type: ChemicalResistance
     reagents:
-      - Dylovene
+    - Dylovene
 
 - type: geneticMutation
   id: AdvancedMedicineImmunity
@@ -865,25 +863,25 @@
   popupText: "Your blood feels thick and sluggish"
   instability: -10
   conflicts:
-    - AlcoholImmunity
-    - AcidResistance
-    - PlasmaImmunity
-    - GeneralToxinResistance
-    - NeurotoxinResistance
-    - RadiationToxinResistance
-    - BruteMedicineImmunity
-    - BurnMedicineImmunity
-    - AirlossMedicineImmunity
-    - DetoxMedicineImmunity
-    - MutationMedicineImmunity
+  - AlcoholImmunity
+  - AcidResistance
+  - PlasmaImmunity
+  - GeneralToxinResistance
+  - NeurotoxinResistance
+  - RadiationToxinResistance
+  - BruteMedicineImmunity
+  - BurnMedicineImmunity
+  - AirlossMedicineImmunity
+  - DetoxMedicineImmunity
+  - MutationMedicineImmunity
   components:
   - type: ChemicalResistance
     reagents:
-      - Lacerinol
-      - Bruizine
-      - Puncturase
-      - Pyrazine
-      - Sigynate
+    - Lacerinol
+    - Bruizine
+    - Puncturase
+    - Pyrazine
+    - Sigynate
 
 - type: geneticMutation
   id: MutationMedicineImmunity
@@ -895,21 +893,21 @@
   researchPoints: 1200
   instability: 15
   conflicts:
-    - AlcoholImmunity
-    - AcidResistance
-    - PlasmaImmunity
-    - GeneralToxinResistance
-    - NeurotoxinResistance
-    - RadiationToxinResistance
-    - BruteMedicineImmunity
-    - BurnMedicineImmunity
-    - AirlossMedicineImmunity
-    - DetoxMedicineImmunity
-    - AdvancedMedicineImmunity
+  - AlcoholImmunity
+  - AcidResistance
+  - PlasmaImmunity
+  - GeneralToxinResistance
+  - NeurotoxinResistance
+  - RadiationToxinResistance
+  - BruteMedicineImmunity
+  - BurnMedicineImmunity
+  - AirlossMedicineImmunity
+  - DetoxMedicineImmunity
+  - AdvancedMedicineImmunity
   components:
   - type: ChemicalResistance
     reagents:
-      - Mutadone
+    - Mutadone
 
 # - type: geneticMutation # Hardlight: These don't seem to work with mutadone? Disabling until a fix is found.
 #   id: SevereMyopia
@@ -1070,7 +1068,7 @@
   popupText: "You feel frail and weak."
   instability: -5
   conflicts:
-    - MusculatureEnhancement
+  - MusculatureEnhancement
   components:
   - type: BonusMeleeDamage
     heavyDamageMultiplier: 0.7
@@ -1084,7 +1082,7 @@
   popupText: "You feel a bit sluggish."
   instability: -5
   conflicts:
-    - EnhancedPhysicalConditioning
+  - EnhancedPhysicalConditioning
   components:
   - type: MutationIncreaseStaminaCritThreshold
     thresholdBonus: -30
@@ -1096,7 +1094,7 @@
   popupText: "Your nerves feel sluggish."
   instability: -10
   conflicts:
-    - AdrenalHypersecretion
+  - AdrenalHypersecretion
   components:
   - type: MutationSpeedBoost
     walkMultiplier: 0.85
@@ -1109,7 +1107,7 @@
   popupText: "You feel your muscles burn."
   instability: -5
   conflicts:
-    - MitochondrialEfficiencyEnhancement
+  - MitochondrialEfficiencyEnhancement
   components:
   - type: MutationStaminaRegenerationBoost
     regenBonus: 0.5
@@ -1124,7 +1122,7 @@
   popupText: "Your movements feel a bit sluggish."
   instability: -10
   conflicts:
-    - NeuralHyperkinesis
+  - NeuralHyperkinesis
   components:
   - type: MutationDoAfterModifier
     multiplier: 1.45
@@ -1153,12 +1151,12 @@
   popupText: "A fluffy tail sprouts from your lower back"
   researchPoints: 600
   strictEntityWhitelist:
-    - BaseMobSpeciesOrganic
+  - BaseMobSpeciesOrganic
   conflicts:
-    - HarpyTailMutation
-    - VulpkaninTailMutation
-    - ReptilianTailMutation
-    - RodentiaTailMutation
+  - HarpyTailMutation
+  - VulpkaninTailMutation
+  - ReptilianTailMutation
+  - RodentiaTailMutation
   components:
   - type: MutationTailSwap
     newTailMarking: FelinidFluffyTail
@@ -1171,12 +1169,12 @@
   popupText: "Feathers burst from the base of your spine"
   researchPoints: 600
   strictEntityWhitelist:
-    - BaseMobSpeciesOrganic
+  - BaseMobSpeciesOrganic
   conflicts:
-    - FelinidTailMutation
-    - VulpkaninTailMutation
-    - ReptilianTailMutation
-    - RodentiaTailMutation
+  - FelinidTailMutation
+  - VulpkaninTailMutation
+  - ReptilianTailMutation
+  - RodentiaTailMutation
   components:
   - type: MutationTailSwap
     newTailMarking: HarpyTailRooster
@@ -1189,12 +1187,12 @@
   popupText: "A bushy fox-like tail grows in"
   researchPoints: 600
   strictEntityWhitelist:
-    - BaseMobSpeciesOrganic
+  - BaseMobSpeciesOrganic
   conflicts:
-    - FelinidTailMutation
-    - HarpyTailMutation
-    - ReptilianTailMutation
-    - RodentiaTailMutation
+  - FelinidTailMutation
+  - HarpyTailMutation
+  - ReptilianTailMutation
+  - RodentiaTailMutation
   components:
   - type: MutationTailSwap
     newTailMarking: VulpTail
@@ -1207,12 +1205,12 @@
   popupText: "Scales ripple down your spine into a tail"
   researchPoints: 600
   strictEntityWhitelist:
-    - BaseMobSpeciesOrganic
+  - BaseMobSpeciesOrganic
   conflicts:
-    - FelinidTailMutation
-    - HarpyTailMutation
-    - VulpkaninTailMutation
-    - RodentiaTailMutation
+  - FelinidTailMutation
+  - HarpyTailMutation
+  - VulpkaninTailMutation
+  - RodentiaTailMutation
   components:
   - type: MutationTailSwap
     newTailMarking: LizardTailSmooth
@@ -1225,12 +1223,12 @@
   instability: 5
   researchPoints: 600
   strictEntityWhitelist:
-    - BaseMobSpeciesOrganic
+  - BaseMobSpeciesOrganic
   conflicts:
-    - FelinidTailMutation
-    - HarpyTailMutation
-    - VulpkaninTailMutation
-    - ReptilianTailMutation
+  - FelinidTailMutation
+  - HarpyTailMutation
+  - VulpkaninTailMutation
+  - ReptilianTailMutation
   components:
   - type: MutationTailSwap
     newTailMarking: RodentiaTailMouse
@@ -1256,7 +1254,7 @@
   researchPoints: 600
   instability: 12
   conflicts:
-    - ClownSpiderWeb
+  - ClownSpiderWeb
   components:
   - type: Spider
   - type: IgnoreSpiderWeb
@@ -1270,7 +1268,7 @@
   hidden: true
   instability: 18
   conflicts:
-    - SpiderWeb
+  - SpiderWeb
   components:
   - type: Spider
     webPrototype: SpiderWebClown
@@ -1353,7 +1351,7 @@
 - type: entity
   id: ActionGeneticFireball
   name: fire breath
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: WorldTargetAction
     useDelay: 10
@@ -1440,7 +1438,7 @@
   id: ActionGeneticIceball
   name: "Cryokinesis"
   description: "Fire a bolt of ice from your fingertips."
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: WorldTargetAction
     useDelay: 30
@@ -1550,7 +1548,7 @@
   printable: false
   instability: 20
   strictEntityWhitelist:
-    - BaseMobHuman
+  - BaseMobHuman
   components:
   - type: MutationInstabilityPolymorph
     polymorphId: GeneticMonkeyMorph
@@ -1569,7 +1567,7 @@
   printable: false
   instability: 20
   strictEntityWhitelist:
-    - BaseMobReptilian
+  - BaseMobReptilian
   components:
   - type: MutationInstabilityPolymorph
     polymorphId: GeneticKoboldMorph

@@ -19,57 +19,57 @@
   - type: Wagging # Coyote: Wagging my tail :3
   - type: Sprite
     layers:
-    - map: [ "enum.HumanoidVisualLayers.TailBehind" ]
-    - map: [ "enum.HumanoidVisualLayers.Chest" ]
-    - map: [ "enum.HumanoidVisualLayers.Head" ]
-    - map: [ "enum.HumanoidVisualLayers.Snout" ]
-    - map: [ "enum.HumanoidVisualLayers.Eyes" ]
-    - map: [ "enum.HumanoidVisualLayers.RArm" ]
-    - map: [ "enum.HumanoidVisualLayers.LArm" ]
-    - map: [ "enum.HumanoidVisualLayers.RLeg" ]
-    - map: [ "enum.HumanoidVisualLayers.LLeg" ]
-    - map: [ "enum.HumanoidVisualLayers.Genital" ]
-    - map: [ "enum.HumanoidVisualLayers.Breasts" ] # HL: Add breasts layer
-    - map: [ "enum.HumanoidVisualLayers.UndergarmentTop" ]
-    - map: [ "enum.HumanoidVisualLayers.Penis" ]
-    - map: [ "enum.HumanoidVisualLayers.UndergarmentBottom" ]
-    - map: [ "accessory1" ]
-    - map: [ "accessory2" ]
+    - map: ["enum.HumanoidVisualLayers.TailBehind"]
+    - map: ["enum.HumanoidVisualLayers.Chest"]
+    - map: ["enum.HumanoidVisualLayers.Head"]
+    - map: ["enum.HumanoidVisualLayers.Snout"]
+    - map: ["enum.HumanoidVisualLayers.Eyes"]
+    - map: ["enum.HumanoidVisualLayers.RArm"]
+    - map: ["enum.HumanoidVisualLayers.LArm"]
+    - map: ["enum.HumanoidVisualLayers.RLeg"]
+    - map: ["enum.HumanoidVisualLayers.LLeg"]
+    - map: ["enum.HumanoidVisualLayers.Genital"]
+    - map: ["enum.HumanoidVisualLayers.Breasts"] # HL: Add breasts layer
+    - map: ["enum.HumanoidVisualLayers.UndergarmentTop"]
+    - map: ["enum.HumanoidVisualLayers.Penis"]
+    - map: ["enum.HumanoidVisualLayers.UndergarmentBottom"]
+    - map: ["accessory1"]
+    - map: ["accessory2"]
     - map: ["jumpsuit"]
     - map: ["enum.HumanoidVisualLayers.LFoot"]
     - map: ["enum.HumanoidVisualLayers.RFoot"]
     - map: ["enum.HumanoidVisualLayers.LHand"]
     - map: ["enum.HumanoidVisualLayers.RHand"]
-    - map: [ "gloves" ]
-    - map: [ "shoes" ]
-    - map: [ "ears" ]
-    - map: [ "eyes" ]
-    - map: [ "id" ]
-    - map: [ "outerClothing" ]
-    - map: [ "belt" ] # HL: change belt over outerclothing
-    - map: [ "back" ]
-    - map: [ "enum.HumanoidVisualLayers.TailOversuit" ]
-    - map: [ "neck" ]
-    - map: [ "enum.HumanoidVisualLayers.FacialHair" ]
-    - map: [ "enum.HumanoidVisualLayers.Hair" ]
-    - map: [ "enum.HumanoidVisualLayers.HeadSide" ]
-    - map: [ "enum.HumanoidVisualLayers.HeadTop" ]
-    - map: [ "enum.HumanoidVisualLayers.Tail" ]
-    - map: [ "mask" ]
-    - map: [ "head" ]
-    - map: [ "pocket1" ]
-    - map: [ "pocket2" ]
+    - map: ["gloves"]
+    - map: ["shoes"]
+    - map: ["ears"]
+    - map: ["eyes"]
+    - map: ["id"]
+    - map: ["outerClothing"]
+    - map: ["belt"] # HL: change belt over outerclothing
+    - map: ["back"]
+    - map: ["enum.HumanoidVisualLayers.TailOversuit"]
+    - map: ["neck"]
+    - map: ["enum.HumanoidVisualLayers.FacialHair"]
+    - map: ["enum.HumanoidVisualLayers.Hair"]
+    - map: ["enum.HumanoidVisualLayers.HeadSide"]
+    - map: ["enum.HumanoidVisualLayers.HeadTop"]
+    - map: ["enum.HumanoidVisualLayers.Tail"]
+    - map: ["mask"]
+    - map: ["head"]
+    - map: ["pocket1"]
+    - map: ["pocket2"]
     - map: ["enum.HumanoidVisualLayers.Handcuffs"]
       color: "#ffffff"
       sprite: Objects/Misc/handcuffs.rsi
       state: body-overlay-2
       visible: false
-    - map: [ "clownedon" ] # Dynamically generated
+    - map: ["clownedon"] # Dynamically generated
       sprite: "Effects/creampie.rsi"
       state: "creampie_human"
       visible: false
   - type: DamageVisuals
-    thresholds: [ 10, 20, 30, 50, 70, 100 ]
+    thresholds: [10, 20, 30, 50, 70, 100]
     targetLayers:
     - "enum.HumanoidVisualLayers.Chest"
     - "enum.HumanoidVisualLayers.Head"
@@ -110,8 +110,7 @@
   - type: Fixtures
     fixtures: # TODO: This needs a second fixture just for mob collisions.
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.35
         density: 185
         restitution: 0.0
@@ -123,16 +122,14 @@
   - type: RangedDamageSound
     soundGroups:
       Brute:
-        collection:
-          MeatBulletImpact
+        collection: MeatBulletImpact
     soundTypes:
       Heat:
-        collection:
-          MeatLaserImpact
+        collection: MeatLaserImpact
   - type: Reactive
     groups:
-      Flammable: [ Touch ]
-      Extinguish: [ Touch ]
+      Flammable: [Touch]
+      Extinguish: [Touch]
       Acidic: [Touch, Ingestion]
     reactions:
     - reagents: [Water, SpaceCleaner]
@@ -254,7 +251,7 @@
   - type: ExaminableCharacter # WWDP
   - type: PseudoItem # Hardlight change, technically cribbed from Den
     shape:
-      - 0,0,20,5 # 1 too wide to fit inside ClothingBackpackDuffelHolding, so only bags designed to carry people can actually fit them inside
+    - 0,0,20,5 # 1 too wide to fit inside ClothingBackpackDuffelHolding, so only bags designed to carry people can actually fit them inside
   - type: AutoImplanter # Far Horizons - Autoimplanter System
 
 - type: entity
@@ -350,22 +347,22 @@
     noRot: true
     # TODO BODY Turn these into individual body parts?
     layers:
-    - map: [ "enum.HumanoidVisualLayers.TailBehind" ]
-    - map: [ "enum.HumanoidVisualLayers.Chest" ]
-    - map: [ "enum.HumanoidVisualLayers.Head" ]
-    - map: [ "enum.HumanoidVisualLayers.Snout" ]
-    - map: [ "enum.HumanoidVisualLayers.Eyes" ]
-    - map: [ "enum.HumanoidVisualLayers.RArm" ]
-    - map: [ "enum.HumanoidVisualLayers.LArm" ]
-    - map: [ "enum.HumanoidVisualLayers.RLeg" ]
-    - map: [ "enum.HumanoidVisualLayers.LLeg" ]
-    - map: [ "enum.HumanoidVisualLayers.Genital" ]
-    - map: [ "enum.HumanoidVisualLayers.Breasts" ]
-    - map: [ "enum.HumanoidVisualLayers.UndergarmentTop" ]
-    - map: [ "enum.HumanoidVisualLayers.Penis" ]
-    - map: [ "enum.HumanoidVisualLayers.UndergarmentBottom" ]
-    - map: [ "accessory1" ]
-    - map: [ "accessory2" ]
+    - map: ["enum.HumanoidVisualLayers.TailBehind"]
+    - map: ["enum.HumanoidVisualLayers.Chest"]
+    - map: ["enum.HumanoidVisualLayers.Head"]
+    - map: ["enum.HumanoidVisualLayers.Snout"]
+    - map: ["enum.HumanoidVisualLayers.Eyes"]
+    - map: ["enum.HumanoidVisualLayers.RArm"]
+    - map: ["enum.HumanoidVisualLayers.LArm"]
+    - map: ["enum.HumanoidVisualLayers.RLeg"]
+    - map: ["enum.HumanoidVisualLayers.LLeg"]
+    - map: ["enum.HumanoidVisualLayers.Genital"]
+    - map: ["enum.HumanoidVisualLayers.Breasts"]
+    - map: ["enum.HumanoidVisualLayers.UndergarmentTop"]
+    - map: ["enum.HumanoidVisualLayers.Penis"]
+    - map: ["enum.HumanoidVisualLayers.UndergarmentBottom"]
+    - map: ["accessory1"]
+    - map: ["accessory2"]
     - map: ["jumpsuit"]
     - map: ["enum.HumanoidVisualLayers.LFoot"]
     - map: ["enum.HumanoidVisualLayers.RFoot"]
@@ -376,25 +373,25 @@
       sprite: Objects/Misc/handcuffs.rsi
       state: body-overlay-2
       visible: false
-    - map: [ "gloves" ]
-    - map: [ "shoes" ]
-    - map: [ "ears" ]
-    - map: [ "eyes" ]
-    - map: [ "id" ]
-    - map: [ "outerClothing" ]
-    - map: [ "belt" ] # HL: change belt over outerclothing
-    - map: [ "back" ]
-    - map: [ "enum.HumanoidVisualLayers.TailOversuit" ]
-    - map: [ "neck" ]
-    - map: [ "enum.HumanoidVisualLayers.FacialHair" ]
-    - map: [ "enum.HumanoidVisualLayers.Hair" ]
-    - map: [ "enum.HumanoidVisualLayers.HeadSide" ]
-    - map: [ "enum.HumanoidVisualLayers.HeadTop" ]
-    - map: [ "enum.HumanoidVisualLayers.Tail" ]
-    - map: [ "mask" ]
-    - map: [ "head" ]
-    - map: [ "pocket1" ]
-    - map: [ "pocket2" ]
+    - map: ["gloves"]
+    - map: ["shoes"]
+    - map: ["ears"]
+    - map: ["eyes"]
+    - map: ["id"]
+    - map: ["outerClothing"]
+    - map: ["belt"] # HL: change belt over outerclothing
+    - map: ["back"]
+    - map: ["enum.HumanoidVisualLayers.TailOversuit"]
+    - map: ["neck"]
+    - map: ["enum.HumanoidVisualLayers.FacialHair"]
+    - map: ["enum.HumanoidVisualLayers.Hair"]
+    - map: ["enum.HumanoidVisualLayers.HeadSide"]
+    - map: ["enum.HumanoidVisualLayers.HeadTop"]
+    - map: ["enum.HumanoidVisualLayers.Tail"]
+    - map: ["mask"]
+    - map: ["head"]
+    - map: ["pocket1"]
+    - map: ["pocket2"]
   - type: Appearance
   - type: HumanoidAppearance
     species: Human

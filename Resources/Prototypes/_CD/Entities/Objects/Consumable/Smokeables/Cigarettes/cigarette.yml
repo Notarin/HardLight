@@ -10,13 +10,13 @@
       smokable:
         maxVol: 15
         reagents:
-          - ReagentId: Nicotine
-            Quantity: 10
-          - ReagentId: OilOlive
-            Quantity: 5
+        - ReagentId: Nicotine
+          Quantity: 10
+        - ReagentId: OilOlive
+          Quantity: 5
 
 - type: entity
-  parent: [ Cigarette, FoodBase ]
+  parent: [Cigarette, FoodBase]
   id: CigaretteCandy
   name: cigarette
   suffix: candy
@@ -26,23 +26,23 @@
   - type: Food
   - type: Tag
     tags:
-      - FoodSnack
+    - FoodSnack
   - type: FlavorProfile
     flavors:
-      - sweet
+    - sweet
   - type: Sprite
     sprite: Objects/Consumable/Smokeables/Cigarettes/cigarette.rsi
     state: unlit-icon
   - type: Clothing
     sprite: Objects/Consumable/Smokeables/Cigarettes/cigarette.rsi
-    slots: [ mask ]
+    slots: [mask]
   - type: SolutionContainerManager
     solutions:
       food:
         maxVol: 10
         reagents:
-          - ReagentId: Sugar
-            Quantity: 10
+        - ReagentId: Sugar
+          Quantity: 10
 
 - type: entity
   id: CigaretteMirage
@@ -56,12 +56,12 @@
       smokable:
         maxVol: 40
         reagents:
-          - ReagentId: THC
-            Quantity: 15
-          - ReagentId: SpaceDrugs
-            Quantity: 15
-          - ReagentId: Psicodine
-            Quantity: 10
+        - ReagentId: THC
+          Quantity: 15
+        - ReagentId: SpaceDrugs
+          Quantity: 15
+        - ReagentId: Psicodine
+          Quantity: 10
 
 - type: entity
   id: CigaretteHappiPsi
@@ -75,10 +75,10 @@
       smokable:
         maxVol: 40
         reagents:
-          - ReagentId: Happiness
-            Quantity: 15
-          - ReagentId: Psicodine
-            Quantity: 15
+        - ReagentId: Happiness
+          Quantity: 15
+        - ReagentId: Psicodine
+          Quantity: 15
 
 - type: entity
   id: CigaretteWeh
@@ -92,8 +92,8 @@
       smokable:
         maxVol: 40
         reagents:
-          - ReagentId: JuiceThatMakesYouWeh
-            Quantity: 20
+        - ReagentId: JuiceThatMakesYouWeh
+          Quantity: 20
 
 # CD Chems below
 
@@ -109,8 +109,8 @@
       smokable:
         maxVol: 10
         reagents:
-          - ReagentId: Blissifylovene
-            Quantity: 7.5
+        - ReagentId: Blissifylovene
+          Quantity: 7.5
 
 - type: entity
   id: CigaretteAgono
@@ -124,8 +124,8 @@
       smokable:
         maxVol: 10
         reagents:
-          - ReagentId: Agonolexyne
-            Quantity: 7.5
+        - ReagentId: Agonolexyne
+          Quantity: 7.5
 
 - type: entity
   id: CigaretteEquili
@@ -139,5 +139,5 @@
       smokable:
         maxVol: 10
         reagents:
-          - ReagentId: Equilibrazine
-            Quantity: 7.5
+        - ReagentId: Equilibrazine
+          Quantity: 7.5

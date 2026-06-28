@@ -16,29 +16,70 @@ public sealed class RCDMenuBoundUserInterface : BoundUserInterface
 {
     private const string TopLevelActionCategory = "Main";
 
-    private static readonly Dictionary<string, (string Tooltip, SpriteSpecifier Sprite)> PrototypesGroupingInfo
-        = new Dictionary<string, (string Tooltip, SpriteSpecifier Sprite)>
+    private static readonly Dictionary<string, (string Tooltip, SpriteSpecifier Sprite)> PrototypesGroupingInfo =
+        new Dictionary<string, (string Tooltip, SpriteSpecifier Sprite)>
         {
-            ["Floors"] = ("rcd-component-walls-and-flooring", new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/Radial/RCD/metal_tile.png"))),
-            ["Walls"] = ("rcd-component-walls-and-flooring", new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/Radial/RCD/solid_wall.png"))),
-            ["WindowsAndGrilles"] = ("rcd-component-windows-and-grilles", new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/Radial/RCD/windows_and_grilles.png"))),
-            ["Airlocks"] = ("rcd-component-airlocks", new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/Radial/RCD/airlocks.png"))),
-            ["Electrical"] = ("rcd-component-electrical", new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/Radial/RCD/multicoil.png"))),
-            ["Lighting"] = ("rcd-component-lighting", new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/Radial/RCD/lighting.png"))),
+            ["Floors"] = (
+                "rcd-component-walls-and-flooring",
+                new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/Radial/RCD/metal_tile.png"))
+            ),
+            ["Walls"] = (
+                "rcd-component-walls-and-flooring",
+                new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/Radial/RCD/solid_wall.png"))
+            ),
+            ["WindowsAndGrilles"] = (
+                "rcd-component-windows-and-grilles",
+                new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/Radial/RCD/windows_and_grilles.png"))
+            ),
+            ["Airlocks"] = (
+                "rcd-component-airlocks",
+                new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/Radial/RCD/airlocks.png"))
+            ),
+            ["Electrical"] = (
+                "rcd-component-electrical",
+                new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/Radial/RCD/multicoil.png"))
+            ),
+            ["Lighting"] = (
+                "rcd-component-lighting",
+                new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/Radial/RCD/lighting.png"))
+            ),
             // Starlight start: RPLD
-            ["PlumbingDucts"] = ("rpld-component-ducts", new SpriteSpecifier.Texture(new ResPath("/Textures/_Starlight/Interface/Radial/RPLD/category_ducts.png"))),
-            ["PlumbingSupply"] = ("rpld-component-supply", new SpriteSpecifier.Texture(new ResPath("/Textures/_Starlight/Interface/Radial/RPLD/tank.png"))),
-            ["PlumbingProduction"] = ("rpld-component-production", new SpriteSpecifier.Texture(new ResPath("/Textures/_Starlight/Interface/Radial/RPLD/reaction_chamber.png"))),
-            ["LatticeTiles"] = ("rcd-component-latticetiles", new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/Radial/RCD/lattice.png"))), // Mono - #3919
-            ["PlatingTiles"] = ("rcd-component-platingtiles", new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/Radial/RCD/plating.png"))), // Mono - #3919
+            ["PlumbingDucts"] = (
+                "rpld-component-ducts",
+                new SpriteSpecifier.Texture(
+                    new ResPath("/Textures/_Starlight/Interface/Radial/RPLD/category_ducts.png")
+                )
+            ),
+            ["PlumbingSupply"] = (
+                "rpld-component-supply",
+                new SpriteSpecifier.Texture(new ResPath("/Textures/_Starlight/Interface/Radial/RPLD/tank.png"))
+            ),
+            ["PlumbingProduction"] = (
+                "rpld-component-production",
+                new SpriteSpecifier.Texture(
+                    new ResPath("/Textures/_Starlight/Interface/Radial/RPLD/reaction_chamber.png")
+                )
+            ),
+            ["LatticeTiles"] = (
+                "rcd-component-latticetiles",
+                new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/Radial/RCD/lattice.png"))
+            ), // Mono - #3919
+            ["PlatingTiles"] = (
+                "rcd-component-platingtiles",
+                new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/Radial/RCD/plating.png"))
+            ), // Mono - #3919
         };
 
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly ISharedPlayerManager _playerManager = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly ISharedPlayerManager _playerManager = default!;
 
     private SimpleRadialMenu? _menu;
 
-    public RCDMenuBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
+    public RCDMenuBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey)
     {
         IoCManager.InjectDependencies(this);
     }
@@ -70,7 +111,7 @@ public sealed class RCDMenuBoundUserInterface : BoundUserInterface
                 var topLevelActionOption = new RadialMenuActionOption<RCDPrototype>(HandleMenuOptionClick, prototype)
                 {
                     IconSpecifier = RadialMenuIconSpecifier.With(prototype.Sprite),
-                    ToolTip = GetTooltip(prototype)
+                    ToolTip = GetTooltip(prototype),
                 };
                 topLevelActions.Add(topLevelActionOption);
                 continue;
@@ -88,7 +129,7 @@ public sealed class RCDMenuBoundUserInterface : BoundUserInterface
             var actionOption = new RadialMenuActionOption<RCDPrototype>(HandleMenuOptionClick, prototype)
             {
                 IconSpecifier = RadialMenuIconSpecifier.With(prototype.Sprite),
-                ToolTip = GetTooltip(prototype)
+                ToolTip = GetTooltip(prototype),
             };
             list.Add(actionOption);
         }
@@ -101,7 +142,7 @@ public sealed class RCDMenuBoundUserInterface : BoundUserInterface
             models[i] = new RadialMenuNestedLayerOption(list)
             {
                 IconSpecifier = RadialMenuIconSpecifier.With(groupInfo.Sprite),
-                ToolTip = Loc.GetString(groupInfo.Tooltip)
+                ToolTip = Loc.GetString(groupInfo.Tooltip),
             };
             i++;
         }
@@ -121,7 +162,6 @@ public sealed class RCDMenuBoundUserInterface : BoundUserInterface
         // after this message is sent, which will stop the server from receiving it
         SendMessage(new RCDSystemMessage(proto.ID));
 
-
         if (_playerManager.LocalSession?.AttachedEntity == null)
             return;
 
@@ -131,8 +171,7 @@ public sealed class RCDMenuBoundUserInterface : BoundUserInterface
         {
             var name = Loc.GetString(proto.SetName);
 
-            if (proto.Prototype != null &&
-                _prototypeManager.TryIndex(proto.Prototype, out var entProto)) // Don't use Resolve because this can be a tile
+            if (proto.Prototype != null && _prototypeManager.TryIndex(proto.Prototype, out var entProto)) // Don't use Resolve because this can be a tile
             {
                 name = entProto.Name;
             }
@@ -149,9 +188,11 @@ public sealed class RCDMenuBoundUserInterface : BoundUserInterface
     {
         string tooltip;
 
-        if (proto.Mode is RcdMode.ConstructTile or RcdMode.ConstructObject
+        if (
+            proto.Mode is RcdMode.ConstructTile or RcdMode.ConstructObject
             && proto.Prototype != null
-            && _prototypeManager.TryIndex(proto.Prototype, out var entProto)) // Don't use Resolve because this can be a tile
+            && _prototypeManager.TryIndex(proto.Prototype, out var entProto)
+        ) // Don't use Resolve because this can be a tile
         {
             tooltip = Loc.GetString(entProto.Name);
         }

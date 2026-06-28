@@ -1,9 +1,9 @@
 using System.Diagnostics;
 using System.Linq;
-using Content.Shared.Body.Components;
-using Content.Shared.Body.Part;
 using Content.Shared._Shitmed.Body.Events;
 using Content.Shared._Shitmed.Body.Part;
+using Content.Shared.Body.Components;
+using Content.Shared.Body.Part;
 using Content.Shared.Humanoid;
 using Content.Shared.Humanoid.Markings;
 using Content.Shared.Humanoid.Prototypes;
@@ -11,11 +11,18 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
 namespace Content.Shared.Body.Systems;
+
 public partial class SharedBodySystem
 {
-    [Dependency] private readonly SharedHumanoidAppearanceSystem _humanoid = default!;
-    [Dependency] private readonly MarkingManager _markingManager = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+    [Dependency]
+    private readonly SharedHumanoidAppearanceSystem _humanoid = default!;
+
+    [Dependency]
+    private readonly MarkingManager _markingManager = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
     private void InitializePartAppearances()
     {
         base.Initialize();
@@ -28,8 +35,7 @@ public partial class SharedBodySystem
 
     private void OnPartAppearanceStartup(EntityUid uid, BodyPartAppearanceComponent component, ComponentStartup args)
     {
-        if (!TryComp(uid, out BodyPartComponent? part)
-            || part.ToHumanoidLayers() is not { } relevantLayer)
+        if (!TryComp(uid, out BodyPartComponent? part) || part.ToHumanoidLayers() is not { } relevantLayer)
             return;
 
         if (part.BaseLayerId != null)
@@ -39,8 +45,7 @@ public partial class SharedBodySystem
             return;
         }
 
-        if (part.Body is not { Valid: true } body
-            || !TryComp(body, out HumanoidAppearanceComponent? bodyAppearance))
+        if (part.Body is not { Valid: true } body || !TryComp(body, out HumanoidAppearanceComponent? bodyAppearance))
             return;
 
         var customLayers = bodyAppearance.CustomBaseLayers;
@@ -75,7 +80,9 @@ public partial class SharedBodySystem
         {
             var category = MarkingCategoriesConversion.FromHumanoidVisualLayers(layer);
             if (bodyAppearance.MarkingSet.Markings.TryGetValue(category, out var markingList))
-                markingsByLayer[layer] = markingList.Select(m => new Marking(m.MarkingId, m.MarkingColors.ToList(), m.IsGlowing)).ToList();
+                markingsByLayer[layer] = markingList
+                    .Select(m => new Marking(m.MarkingId, m.MarkingColors.ToList(), m.IsGlowing))
+                    .ToList();
         }
 
         component.Markings = markingsByLayer;
@@ -92,12 +99,14 @@ public partial class SharedBodySystem
         return HumanoidVisualLayersExtension.GetSexMorph(part, bodyAppearance.Sex, baseSprites.Sprites[part]);
     }
 
-    public void ModifyMarkings(EntityUid uid,
+    public void ModifyMarkings(
+        EntityUid uid,
         Entity<BodyPartAppearanceComponent?> partAppearance,
         HumanoidAppearanceComponent bodyAppearance,
         HumanoidVisualLayers targetLayer,
         string markingId,
-        bool remove = false)
+        bool remove = false
+    )
     {
         // Floofstation - DO NOT TOUCH MARKINGS CLIENT-SIDE, YOU ARE DUPLICATING THEM!!!
         if (_net.IsClient && !IsClientSide(uid))
@@ -108,16 +117,15 @@ public partial class SharedBodySystem
 
         if (!remove)
         {
-
             if (!_markingManager.Markings.TryGetValue(markingId, out var prototype))
                 return;
 
             var markingColors = MarkingColoring.GetMarkingLayerColors(
-                    prototype,
-                    bodyAppearance.SkinColor,
-                    bodyAppearance.EyeColor,
-                    bodyAppearance.MarkingSet
-                );
+                prototype,
+                bodyAppearance.SkinColor,
+                bodyAppearance.EyeColor,
+                bodyAppearance.MarkingSet
+            );
 
             var marking = new Marking(markingId, markingColors, true);
             var dirty = false;
@@ -133,16 +141,21 @@ public partial class SharedBodySystem
                 Dirty(uid, bodyAppearance);
         }
         //else
-            //RemovePartMarkings(uid, component, bodyAppearance);
+        //RemovePartMarkings(uid, component, bodyAppearance);
     }
 
-    private void HandleState(EntityUid uid, BodyPartAppearanceComponent component, ref AfterAutoHandleStateEvent args) =>
-        ApplyPartMarkings(uid, component);
+    private void HandleState(
+        EntityUid uid,
+        BodyPartAppearanceComponent component,
+        ref AfterAutoHandleStateEvent args
+    ) => ApplyPartMarkings(uid, component);
 
     private void OnPartAttachedToBody(EntityUid uid, BodyComponent component, ref BodyPartAddedEvent args)
     {
-        if (!TryComp(args.Part, out BodyPartAppearanceComponent? partAppearance)
-            || !TryComp(uid, out HumanoidAppearanceComponent? bodyAppearance))
+        if (
+            !TryComp(args.Part, out BodyPartAppearanceComponent? partAppearance)
+            || !TryComp(uid, out HumanoidAppearanceComponent? bodyAppearance)
+        )
             return;
 
         if (partAppearance.ID != null)
@@ -153,9 +166,11 @@ public partial class SharedBodySystem
 
     private void OnPartDroppedFromBody(EntityUid uid, BodyComponent component, ref BodyPartRemovedEvent args)
     {
-        if (TerminatingOrDeleted(uid)
+        if (
+            TerminatingOrDeleted(uid)
             || TerminatingOrDeleted(args.Part)
-            || !TryComp(uid, out HumanoidAppearanceComponent? bodyAppearance))
+            || !TryComp(uid, out HumanoidAppearanceComponent? bodyAppearance)
+        )
             return;
 
         // We check for this conditional here since some entities may not have a profile... If they dont
@@ -167,8 +182,7 @@ public partial class SharedBodySystem
             RemoveAppearance(uid, partAppearance, args.Part);
     }
 
-    protected void UpdateAppearance(EntityUid target,
-        BodyPartAppearanceComponent component)
+    protected void UpdateAppearance(EntityUid target, BodyPartAppearanceComponent component)
     {
         // Floofstation - DO NOT TOUCH MARKINGS CLIENT-SIDE, YOU ARE DUPLICATING THEM!!!
         if (_net.IsClient && !IsClientSide(target))
@@ -195,7 +209,15 @@ public partial class SharedBodySystem
             _humanoid.SetLayerVisibility((target, bodyAppearance), visualLayer, true, null, ref dirty);
             foreach (var marking in markingList)
             {
-                _humanoid.AddMarking(target, marking.MarkingId, marking.MarkingColors, marking.IsGlowing, true, true, bodyAppearance);
+                _humanoid.AddMarking(
+                    target,
+                    marking.MarkingId,
+                    marking.MarkingColors,
+                    marking.IsGlowing,
+                    true,
+                    true,
+                    bodyAppearance
+                );
             }
         }
 
@@ -221,5 +243,9 @@ public partial class SharedBodySystem
 
     protected abstract void ApplyPartMarkings(EntityUid target, BodyPartAppearanceComponent component);
 
-    protected abstract void RemoveBodyMarkings(EntityUid target, BodyPartAppearanceComponent partAppearance, HumanoidAppearanceComponent bodyAppearance);
+    protected abstract void RemoveBodyMarkings(
+        EntityUid target,
+        BodyPartAppearanceComponent partAppearance,
+        HumanoidAppearanceComponent bodyAppearance
+    );
 }

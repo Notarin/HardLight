@@ -14,28 +14,46 @@ namespace Content.Shared.Damage;
 //todo writing
 public sealed class DamageSpecifierDictionarySerializer : ITypeReader<Dictionary<string, FixedPoint2>, MappingDataNode>
 {
-    private ITypeValidator<Dictionary<string, FixedPoint2>, MappingDataNode> _damageTypeSerializer = new PrototypeIdDictionarySerializer<FixedPoint2, DamageTypePrototype>();
-    private ITypeValidator<Dictionary<string, FixedPoint2>, MappingDataNode> _damageGroupSerializer = new PrototypeIdDictionarySerializer<FixedPoint2, DamageGroupPrototype>();
+    private ITypeValidator<Dictionary<string, FixedPoint2>, MappingDataNode> _damageTypeSerializer =
+        new PrototypeIdDictionarySerializer<FixedPoint2, DamageTypePrototype>();
+    private ITypeValidator<Dictionary<string, FixedPoint2>, MappingDataNode> _damageGroupSerializer =
+        new PrototypeIdDictionarySerializer<FixedPoint2, DamageGroupPrototype>();
 
-    public ValidationNode Validate(ISerializationManager serializationManager, MappingDataNode node,
-        IDependencyCollection dependencies, ISerializationContext? context = null)
+    public ValidationNode Validate(
+        ISerializationManager serializationManager,
+        MappingDataNode node,
+        IDependencyCollection dependencies,
+        ISerializationContext? context = null
+    )
     {
         var vals = new Dictionary<ValidationNode, ValidationNode>();
         if (node.TryGet<MappingDataNode>("types", out var typesNode))
         {
-            vals.Add(new ValidatedValueNode(new ValueDataNode("types")), _damageTypeSerializer.Validate(serializationManager, typesNode, dependencies, context));
+            vals.Add(
+                new ValidatedValueNode(new ValueDataNode("types")),
+                _damageTypeSerializer.Validate(serializationManager, typesNode, dependencies, context)
+            );
         }
 
         if (node.TryGet<MappingDataNode>("groups", out var groupsNode))
         {
-            vals.Add(new ValidatedValueNode(new ValueDataNode("groups")), _damageGroupSerializer.Validate(serializationManager, groupsNode, dependencies, context));
+            vals.Add(
+                new ValidatedValueNode(new ValueDataNode("groups")),
+                _damageGroupSerializer.Validate(serializationManager, groupsNode, dependencies, context)
+            );
         }
 
         return new ValidatedMappingNode(vals);
     }
 
-    public Dictionary<string, FixedPoint2> Read(ISerializationManager serializationManager, MappingDataNode node, IDependencyCollection dependencies,
-        SerializationHookContext hookCtx, ISerializationContext? context = null, ISerializationManager.InstantiationDelegate<Dictionary<string, FixedPoint2>>? instanceProvider = null)
+    public Dictionary<string, FixedPoint2> Read(
+        ISerializationManager serializationManager,
+        MappingDataNode node,
+        IDependencyCollection dependencies,
+        SerializationHookContext hookCtx,
+        ISerializationContext? context = null,
+        ISerializationManager.InstantiationDelegate<Dictionary<string, FixedPoint2>>? instanceProvider = null
+    )
     {
         var dict = instanceProvider != null ? instanceProvider() : new();
         // Add all the damage types by just copying the type dictionary (if it is not null).
@@ -49,13 +67,20 @@ public sealed class DamageSpecifierDictionarySerializer : ITypeReader<Dictionary
 
         // Then resolve damage groups and add them
         var prototypeManager = dependencies.Resolve<IPrototypeManager>();
-        foreach (var entry in serializationManager.Read<Dictionary<string, FixedPoint2>>(groupsNode, notNullableOverride: true))
+        foreach (
+            var entry in serializationManager.Read<Dictionary<string, FixedPoint2>>(
+                groupsNode,
+                notNullableOverride: true
+            )
+        )
         {
             if (!prototypeManager.TryIndex<DamageGroupPrototype>(entry.Key, out var group))
             {
                 // This can happen if deserialized before prototypes are loaded.
                 // i made this a warning bc it was failing tests -paul
-                dependencies.Resolve<ILogManager>().RootSawmill.Error($"Unknown damage group given to DamageSpecifier: {entry.Key}");
+                dependencies
+                    .Resolve<ILogManager>()
+                    .RootSawmill.Error($"Unknown damage group given to DamageSpecifier: {entry.Key}");
                 continue;
             }
 

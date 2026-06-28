@@ -19,7 +19,8 @@ public sealed class NetworkConfiguratorBoundUserInterface : BoundUserInterface
     [ViewVariables]
     private NetworkConfiguratorListMenu? _listMenu;
 
-    public NetworkConfiguratorBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
+    public NetworkConfiguratorBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey)
     {
         _netConfig = EntMan.System<NetworkConfiguratorSystem>();
     }

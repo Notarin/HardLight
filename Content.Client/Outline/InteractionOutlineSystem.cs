@@ -16,13 +16,26 @@ namespace Content.Client.Outline;
 
 public sealed class InteractionOutlineSystem : EntitySystem
 {
-    [Dependency] private readonly IConfigurationManager _configManager = default!;
-    [Dependency] private readonly IEyeManager _eyeManager = default!;
-    [Dependency] private readonly IInputManager _inputManager = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IStateManager _stateManager = default!;
-    [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
-    [Dependency] private readonly SharedInteractionSystem _interactionSystem = default!;
+    [Dependency]
+    private readonly IConfigurationManager _configManager = default!;
+
+    [Dependency]
+    private readonly IEyeManager _eyeManager = default!;
+
+    [Dependency]
+    private readonly IInputManager _inputManager = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly IStateManager _stateManager = default!;
+
+    [Dependency]
+    private readonly IUserInterfaceManager _uiManager = default!;
+
+    [Dependency]
+    private readonly SharedInteractionSystem _interactionSystem = default!;
 
     /// <summary>
     ///     Whether to currently draw the outline. The outline may be temporarily disabled by other systems
@@ -102,12 +115,12 @@ public sealed class InteractionOutlineSystem : EntitySystem
         // Potentially change someday? who knows.
         var currentState = _stateManager.CurrentState;
 
-        if (currentState is not GameplayStateBase screen) return;
+        if (currentState is not GameplayStateBase screen)
+            return;
 
         EntityUid? entityToClick = null;
         var renderScale = 1;
-        if (_uiManager.CurrentlyHovered is IViewportControl vp
-            && _inputManager.MouseScreenPosition.IsValid)
+        if (_uiManager.CurrentlyHovered is IViewportControl vp && _inputManager.MouseScreenPosition.IsValid)
         {
             var mousePosWorld = vp.PixelToMap(_inputManager.MouseScreenPosition.Position);
 
@@ -149,8 +162,7 @@ public sealed class InteractionOutlineSystem : EntitySystem
             return;
         }
 
-        if (_lastHoveredEntity != null && !Deleted(_lastHoveredEntity) &&
-            TryComp(_lastHoveredEntity, out outline))
+        if (_lastHoveredEntity != null && !Deleted(_lastHoveredEntity) && TryComp(_lastHoveredEntity, out outline))
         {
             outline.OnMouseLeave(_lastHoveredEntity.Value);
         }

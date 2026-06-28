@@ -9,8 +9,8 @@ using Content.Shared.Mind.Components;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Players;
 using Content.Shared.Roles;
-using Robust.Shared.Enums;
 using Robust.Server.Player;
+using Robust.Shared.Enums;
 using Robust.Shared.GameObjects;
 using Robust.Shared.IoC;
 using Robust.Shared.Log;
@@ -24,8 +24,11 @@ namespace Content.Server.HL.RoundPersistence.Systems;
 /// </summary>
 public sealed class PlayerPaymentPersistenceSystem : EntitySystem
 {
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly StationSystem _station = default!;
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly StationSystem _station = default!;
 
     private ISawmill _sawmill = default!;
 
@@ -110,7 +113,7 @@ public sealed class PlayerPaymentPersistenceSystem : EntitySystem
             PlayerName = session.Name,
             UserId = session.UserId.ToString(),
             SessionStartTime = DateTime.UtcNow,
-            CurrentJob = "Unknown"
+            CurrentJob = "Unknown",
         };
 
         //_sawmill.Debug($"Started payment tracking for player {session.Name}");
@@ -184,7 +187,7 @@ public sealed class PlayerPaymentPersistenceSystem : EntitySystem
                         LastPayment = DateTime.UtcNow,
                         LastJobChange = workSession.LastJobChange,
                         IsActive = true,
-                        LastStationAssociation = GetPlayerStationAssociation(session)
+                        LastStationAssociation = GetPlayerStationAssociation(session),
                     };
                 }
             }

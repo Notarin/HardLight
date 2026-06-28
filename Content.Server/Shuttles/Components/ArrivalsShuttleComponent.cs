@@ -21,5 +21,4 @@ public sealed partial class ArrivalsShuttleComponent : Component
     /// </summary>
     [DataField("firstRun")]
     public bool FirstRun = true;
-
 }

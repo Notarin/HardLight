@@ -16,5 +16,4 @@ public sealed class SharedPreventCollideSystem : EntitySystem
         if (component.Uid == args.OtherEntity)
             args.Cancelled = true;
     }
-
 }

@@ -13,9 +13,14 @@ namespace Content.Server.Anomaly.Effects;
 
 public sealed class TileAnomalySystem : SharedTileAnomalySystem
 {
-    [Dependency] private readonly SharedAnomalySystem _anomaly = default!;
-    [Dependency] private readonly ITileDefinitionManager _tiledef = default!;
-    [Dependency] private readonly TileSystem _tile = default!;
+    [Dependency]
+    private readonly SharedAnomalySystem _anomaly = default!;
+
+    [Dependency]
+    private readonly ITileDefinitionManager _tiledef = default!;
+
+    [Dependency]
+    private readonly TileSystem _tile = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -82,7 +87,13 @@ public sealed class TileAnomalySystem : SharedTileAnomalySystem
         }
     }
 
-    private void SpawnTiles(Entity<TileSpawnAnomalyComponent> anomaly, TileSpawnSettingsEntry entry, float stability, float severity, float powerMod)
+    private void SpawnTiles(
+        Entity<TileSpawnAnomalyComponent> anomaly,
+        TileSpawnSettingsEntry entry,
+        float stability,
+        float severity,
+        float powerMod
+    )
     {
         var xform = Transform(anomaly);
         if (!TryComp<MapGridComponent>(xform.GridUid, out var grid))
@@ -94,7 +105,7 @@ public sealed class TileAnomalySystem : SharedTileAnomalySystem
 
         foreach (var tileref in tiles)
         {
-            var tile = (ContentTileDefinition) _tiledef[entry.Floor];
+            var tile = (ContentTileDefinition)_tiledef[entry.Floor];
             _tile.ReplaceTile(tileref, tile);
         }
     }

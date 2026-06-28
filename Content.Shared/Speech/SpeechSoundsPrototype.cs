@@ -22,6 +22,7 @@ namespace Content.Shared.Speech
         public SoundSpecifier AskSound { get; set; } = new SoundPathSpecifier("/Audio/Voice/Talk/speak_2_ask.ogg");
 
         [DataField("exclaimSound")]
-        public SoundSpecifier ExclaimSound { get; set; } = new SoundPathSpecifier("/Audio/Voice/Talk/speak_2_exclaim.ogg");
+        public SoundSpecifier ExclaimSound { get; set; } =
+            new SoundPathSpecifier("/Audio/Voice/Talk/speak_2_exclaim.ogg");
     }
 }

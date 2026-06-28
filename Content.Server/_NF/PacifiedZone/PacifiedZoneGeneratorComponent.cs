@@ -1,5 +1,5 @@
-using Robust.Shared.Prototypes;
 using Content.Shared.Roles;
+using Robust.Shared.Prototypes;
 
 namespace Content.Server._NF.PacifiedZone
 {

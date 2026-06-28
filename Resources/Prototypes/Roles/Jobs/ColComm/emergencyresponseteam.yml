@@ -15,8 +15,8 @@
   - CentralCommand
   special:
   - !type:AddImplantSpecial
-    implants: [ MindShieldImplant, DeathRattleImplantColcomm ]
-  #whitelisted: true # Frontier
+    implants: [MindShieldImplant, DeathRattleImplantColcomm]
+    #whitelisted: true # Frontier
 
 - type: startingGear
   id: ERTLeaderGear
@@ -110,8 +110,8 @@
     components:
     - type: BibleUser #Lets them heal with bibles
   - !type:AddImplantSpecial
-    implants: [ MindShieldImplant, DeathRattleImplantColcomm ]
-  #whitelisted: true # Frontier
+    implants: [MindShieldImplant, DeathRattleImplantColcomm]
+    #whitelisted: true # Frontier
 
 - type: startingGear
   id: ERTChaplainGear
@@ -192,8 +192,8 @@
   - CentralCommand
   special:
   - !type:AddImplantSpecial
-    implants: [ MindShieldImplant, DeathRattleImplantColcomm ]
-  #whitelisted: true # Frontier
+    implants: [MindShieldImplant, DeathRattleImplantColcomm]
+    #whitelisted: true # Frontier
 
 - type: startingGear
   id: ERTEngineerGear
@@ -268,8 +268,8 @@
   - CentralCommand
   special:
   - !type:AddImplantSpecial
-    implants: [ MindShieldImplant, DeathRattleImplantColcomm ]
-  #whitelisted: true # Frontier
+    implants: [MindShieldImplant, DeathRattleImplantColcomm]
+    #whitelisted: true # Frontier
 
 - type: startingGear
   id: ERTSecurityGear
@@ -335,7 +335,7 @@
     pocket1: Magazine556x45mmFMJ
     pocket2: Magazine556x45mmFMJ
   inhand:
-    - NFWeaponRifleAssaultLecter # Frontier: WeaponRifleLecter<NFWeaponRifleAssaultLecter
+  - NFWeaponRifleAssaultLecter # Frontier: WeaponRifleLecter<NFWeaponRifleAssaultLecter
   storage:
     back:
     - NFWeaponEnergyPistolDisabler # Frontier: WeaponDisabler<NFWeaponEnergyPistolDisabler
@@ -362,8 +362,8 @@
   - CentralCommand
   special:
   - !type:AddImplantSpecial
-    implants: [ MindShieldImplant, DeathRattleImplantColcomm ]
-  #whitelisted: true # Frontier
+    implants: [MindShieldImplant, DeathRattleImplantColcomm]
+    #whitelisted: true # Frontier
 
 - type: startingGear
   id: ERTMedicalGear
@@ -430,8 +430,8 @@
   - CentralCommand
   special:
   - !type:AddImplantSpecial
-    implants: [ MindShieldImplant, DeathRattleImplantColcomm ]
-  #whitelisted: true # Frontier
+    implants: [MindShieldImplant, DeathRattleImplantColcomm]
+    #whitelisted: true # Frontier
 
 - type: startingGear
   id: ERTJanitorGear

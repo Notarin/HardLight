@@ -1,6 +1,6 @@
 #NT hardsuit
 - type: entity
-  parent: [ ClothingOuterHardsuitBase, BaseC2ContrabandUnredeemable ]
+  parent: [ClothingOuterHardsuitBase, BaseC2ContrabandUnredeemable]
   id: ClothingOuterHardsuitNT
   name: Standard NT hardsuit
   description: A lightweight hardsuit developed by Nanotrasen's research department for the Crew of the NSV Shield of Perseus
@@ -33,7 +33,7 @@
     clothingPrototype: ClothingHeadHelmetNT
 #NT hardsuit helmet
 - type: entity
-  parent: [ ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase, BaseC2ContrabandUnredeemable ]
+  parent: [ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase, BaseC2ContrabandUnredeemable]
   id: ClothingHeadHelmetNT
   name: NT Standard Hardsuit helmet
   description: A pressure resistant and fireproof hood worn by special cleanup units.
@@ -64,7 +64,7 @@
 - type: entity
   id: ClothingBackpackSatchelNT
   name: Nanotrasen satchel
-  parent: [ ClothingBackpackSatchel ]
+  parent: [ClothingBackpackSatchel]
   description: A satchel produced by Nanotrasen.
   components:
   - type: Sprite
@@ -73,7 +73,7 @@
 - type: entity
   id: ClothingBackpackDuffelNT
   name: Nanotrasen duffel
-  parent: [ NFClothingDuffel ]
+  parent: [NFClothingDuffel]
   description: A duffelbag produced by Nanotrasen.
   components:
   - type: Sprite
@@ -144,7 +144,7 @@
     sprite: _HL/Nanotrasen/nanotrasenscarf.rsi
 
 - type: entity
-  parent: [ ClothingShoesBaseWinterBoots ] # Frontier: BaseSecurityContraband<BaseC2ContrabandUnredeemable
+  parent: [ClothingShoesBaseWinterBoots] # Frontier: BaseSecurityContraband<BaseC2ContrabandUnredeemable
   id: ClothingShoesBootsWinterNT
   name: Nanotrasen winter boots
   components:
@@ -179,7 +179,7 @@
 - type: entity
   parent: ClothingHeadHatHoodWinterBase
   id: ClothingHeadHatHoodWinterNT
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   name: Nanotrasen winter coat hood
   components:
   - type: Sprite

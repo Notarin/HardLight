@@ -237,7 +237,7 @@
   name: sofa
   id: BenchSofaCorner
   suffix: Corner
-#  parent: BenchSofaMiddle
+  #  parent: BenchSofaMiddle
   placement:
     mode: SnapgridCenter
   components:
@@ -255,8 +255,7 @@
     damageModifierSet: Metallic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 50
       behaviors:
       - !type:DoActsBehavior
@@ -308,7 +307,7 @@
   name: grey sofa
   id: BenchSofaCorpCorner
   suffix: Corner
-#  parent: BenchSofaCorpMiddle
+  #  parent: BenchSofaCorpMiddle
   placement:
     mode: SnapgridCenter
   components:
@@ -326,8 +325,7 @@
     damageModifierSet: Metallic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 50
       behaviors:
       - !type:DoActsBehavior

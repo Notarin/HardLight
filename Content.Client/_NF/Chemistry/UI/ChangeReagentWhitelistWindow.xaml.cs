@@ -14,8 +14,11 @@ namespace Content.Client._NF.Chemistry.UI;
 [GenerateTypedNameReferences]
 public sealed partial class ChangeReagentWhitelistWindow : DefaultWindow
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IEntityManager _entityManager = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly IEntityManager _entityManager = default!;
 
     private readonly EntityUid _injectorEntity;
     private readonly ChangeReagentWhitelistBoundUserInterface _owner;
@@ -43,7 +46,6 @@ public sealed partial class ChangeReagentWhitelistWindow : DefaultWindow
         UpdateApplyButton();
     }
 
-
     /// <summary>
     ///     Reset the Entity's InjectorComponent's ReagentWhitelist to nullify the reagent whitelist
     ///</summary>
@@ -67,7 +69,7 @@ public sealed partial class ChangeReagentWhitelistWindow : DefaultWindow
 
     private void ReagentListSelected(ItemList.ItemListSelectedEventArgs obj)
     {
-        _selectedReagent = (ReagentPrototype) obj.ItemList[obj.ItemIndex].Metadata!;
+        _selectedReagent = (ReagentPrototype)obj.ItemList[obj.ItemIndex].Metadata!;
         UpdateApplyButton();
     }
 
@@ -89,8 +91,7 @@ public sealed partial class ChangeReagentWhitelistWindow : DefaultWindow
             return;
         }
 
-        ApplyButton.Text = Loc.GetString("ui-change-reagent-whitelist-apply",
-            ("reagent", _selectedReagent.ID));
+        ApplyButton.Text = Loc.GetString("ui-change-reagent-whitelist-apply", ("reagent", _selectedReagent.ID));
         ApplyButton.Disabled = false;
     }
 
@@ -102,16 +103,22 @@ public sealed partial class ChangeReagentWhitelistWindow : DefaultWindow
         ReagentList.Clear();
 
         List<string> allowedReagentGroups = new();
-        if (_entityManager.TryGetComponent<ReagentWhitelistChangeComponent>(_injectorEntity, out var reagentWhitelistChangeComp))
+        if (
+            _entityManager.TryGetComponent<ReagentWhitelistChangeComponent>(
+                _injectorEntity,
+                out var reagentWhitelistChangeComp
+            )
+        )
         {
             allowedReagentGroups = reagentWhitelistChangeComp.AllowedReagentGroups;
         }
 
-
         foreach (var reagent in _prototypeManager.EnumeratePrototypes<ReagentPrototype>())
         {
-            if (!string.IsNullOrEmpty(filter) &&
-                !reagent.ID.ToLowerInvariant().Contains(filter.Trim().ToLowerInvariant()))
+            if (
+                !string.IsNullOrEmpty(filter)
+                && !reagent.ID.ToLowerInvariant().Contains(filter.Trim().ToLowerInvariant())
+            )
             {
                 continue;
             }
@@ -121,14 +128,9 @@ public sealed partial class ChangeReagentWhitelistWindow : DefaultWindow
                 continue;
             }
 
-            ItemList.Item reagentItem = new(ReagentList)
-            {
-                Metadata = reagent,
-                Text = reagent.ID
-            };
+            ItemList.Item reagentItem = new(ReagentList) { Metadata = reagent, Text = reagent.ID };
 
             ReagentList.Add(reagentItem);
         }
     }
 }
-

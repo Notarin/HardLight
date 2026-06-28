@@ -1,20 +1,20 @@
 using System.Numerics;
 using Content.Server.Shuttles.Components;
 using Content.Shared.Audio;
+using Content.Shared.Buckle.Components;
+using Content.Shared.Clothing;
+using Content.Shared.Damage;
+using Content.Shared.Inventory;
+using Content.Shared.Item.ItemToggle;
+using Content.Shared.Item.ItemToggle.Components;
+using Content.Shared.Mobs.Components;
+using Content.Shared.Slippery;
 using Robust.Shared.Audio;
 using Robust.Shared.Map;
+using Robust.Shared.Map.Components;
 using Robust.Shared.Physics.Dynamics;
 using Robust.Shared.Physics.Events;
 using Robust.Shared.Player;
-using Robust.Shared.Map.Components;
-using Content.Shared.Damage;
-using Content.Shared.Buckle.Components;
-using Content.Shared.Mobs.Components;
-using Content.Shared.Slippery;
-using Content.Shared.Inventory;
-using Content.Shared.Clothing;
-using Content.Shared.Item.ItemToggle;
-using Content.Shared.Item.ItemToggle.Components;
 
 namespace Content.Server.Shuttles.Systems;
 
@@ -66,7 +66,9 @@ public sealed partial class ShuttleSystem
 
         var coordinates = new EntityCoordinates(ourXform.MapUid.Value, wp);
         var volume = MathF.Min(10f, 1f * MathF.Pow(jungleDiff, 0.5f) - 5f);
-        var audioParams = AudioParams.Default.WithVariation(SharedContentAudioSystem.DefaultVariation).WithVolume(volume);
+        var audioParams = AudioParams
+            .Default.WithVariation(SharedContentAudioSystem.DefaultVariation)
+            .WithVolume(volume);
 
         _audio.PlayPvs(_shuttleImpactSound, coordinates, audioParams);
 
@@ -119,9 +121,11 @@ public sealed partial class ShuttleSystem
                     hasMagboots = true;
                 }
                 // If shoes are magboots and they are activated
-                else if (magbootsQuery.HasComponent(shoes) &&
-                         itemToggleQuery.TryGetComponent(shoes, out var toggle) &&
-                         toggle.Activated)
+                else if (
+                    magbootsQuery.HasComponent(shoes)
+                    && itemToggleQuery.TryGetComponent(shoes, out var toggle)
+                    && toggle.Activated
+                )
                 {
                     hasMagboots = true;
                 }
@@ -162,7 +166,14 @@ public sealed partial class ShuttleSystem
     /// <summary>
     /// Processes a zone of tiles around the impact point
     /// </summary>
-    private void ProcessImpactZone(EntityUid uid, MapGridComponent grid, Vector2i centerTile, float energy, Vector2 dir, int radius)
+    private void ProcessImpactZone(
+        EntityUid uid,
+        MapGridComponent grid,
+        Vector2i centerTile,
+        float energy,
+        Vector2 dir,
+        int radius
+    )
     {
         // // Skip processing if this grid has entities protected by grid shields
         // if (IsGridProtected(uid))
@@ -178,13 +189,13 @@ public sealed partial class ShuttleSystem
             for (var y = -radius; y <= radius; y++)
             {
                 // Skip tiles too far from impact center (creating a rough circle)
-                if (x*x + y*y > radius*radius)
+                if (x * x + y * y > radius * radius)
                     continue;
 
                 Vector2i tile = new Vector2i(centerTile.X + x, centerTile.Y + y);
 
                 // Calculate distance-based energy falloff
-                float distanceFactor = 1.0f - (float)Math.Sqrt(x*x + y*y) / (radius + 1);
+                float distanceFactor = 1.0f - (float)Math.Sqrt(x * x + y * y) / (radius + 1);
                 float tileEnergy = energy * distanceFactor;
 
                 // Process entities on this tile

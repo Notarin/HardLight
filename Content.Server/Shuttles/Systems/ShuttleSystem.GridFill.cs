@@ -52,7 +52,11 @@ public sealed partial class ShuttleSystem
         GridSpawns(uid, component);
     }
 
-    private void OnCargoSpawnPostInit(EntityUid uid, StationCargoShuttleComponent component, ref StationPostInitEvent args)
+    private void OnCargoSpawnPostInit(
+        EntityUid uid,
+        StationCargoShuttleComponent component,
+        ref StationPostInitEvent args
+    )
     {
         CargoSpawn(uid, component);
     }
@@ -110,7 +114,9 @@ public sealed partial class ShuttleSystem
         if (group.MinimumDistance > 0f)
         {
             var distancePadding = MathF.Max(targetGrid.Comp.LocalAABB.Width, targetGrid.Comp.LocalAABB.Height);
-            spawnCoords = spawnCoords.Offset(_random.NextVector2(distancePadding + group.MinimumDistance, distancePadding + group.MaximumDistance));
+            spawnCoords = spawnCoords.Offset(
+                _random.NextVector2(distancePadding + group.MinimumDistance, distancePadding + group.MaximumDistance)
+            );
         }
 
         _mapSystem.CreateMap(out var mapId);
@@ -118,13 +124,27 @@ public sealed partial class ShuttleSystem
         var spawnedGrid = _mapManager.CreateGridEntity(mapId);
 
         _transform.SetMapCoordinates(spawnedGrid, new MapCoordinates(Vector2.Zero, mapId));
-        _dungeon.GenerateDungeon(dungeonProto, dungeonProtoId, spawnedGrid.Owner, spawnedGrid.Comp, Vector2i.Zero, _random.Next(), spawnCoords); // Frontier: add dungeonProtoId
+        _dungeon.GenerateDungeon(
+            dungeonProto,
+            dungeonProtoId,
+            spawnedGrid.Owner,
+            spawnedGrid.Comp,
+            Vector2i.Zero,
+            _random.Next(),
+            spawnCoords
+        ); // Frontier: add dungeonProtoId
 
         spawned = spawnedGrid.Owner;
         return true;
     }
 
-    private bool TryGridSpawn(EntityUid targetGrid, EntityUid stationUid, MapId mapId, GridSpawnGroup group, out EntityUid spawned)
+    private bool TryGridSpawn(
+        EntityUid targetGrid,
+        EntityUid stationUid,
+        MapId mapId,
+        GridSpawnGroup group,
+        out EntityUid spawned
+    )
     {
         spawned = EntityUid.Invalid;
 
@@ -236,9 +256,11 @@ public sealed partial class ShuttleSystem
         if (!_cfg.GetCVar(CCVars.GridFill))
             return;
 
-        if (!TryComp<DockingComponent>(uid, out var dock) ||
-            !TryComp(uid, out TransformComponent? xform) ||
-            xform.GridUid == null)
+        if (
+            !TryComp<DockingComponent>(uid, out var dock)
+            || !TryComp(uid, out TransformComponent? xform)
+            || xform.GridUid == null
+        )
         {
             return;
         }
@@ -253,7 +275,14 @@ public sealed partial class ShuttleSystem
 
             if (escape != null)
             {
-                var config = _dockSystem.GetDockingConfig(grid.Value, xform.GridUid.Value, escape.Value.Entity, escape.Value.Component, uid, dock);
+                var config = _dockSystem.GetDockingConfig(
+                    grid.Value,
+                    xform.GridUid.Value,
+                    escape.Value.Entity,
+                    escape.Value.Component,
+                    uid,
+                    dock
+                );
 
                 if (config != null)
                 {

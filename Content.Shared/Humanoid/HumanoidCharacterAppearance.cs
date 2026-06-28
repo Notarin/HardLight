@@ -16,6 +16,7 @@ public sealed partial class HumanoidCharacterAppearance : ICharacterAppearance, 
 
     [DataField]
     public Color HairColor { get; set; } = Color.Black;
+
     [DataField]
     public bool HairGlowing { get; set; } = false; //starlight
 
@@ -24,11 +25,13 @@ public sealed partial class HumanoidCharacterAppearance : ICharacterAppearance, 
 
     [DataField]
     public Color FacialHairColor { get; set; } = Color.Black;
+
     [DataField]
     public bool FacialHairGlowing { get; set; } = false; //starlight
 
     [DataField]
     public Color EyeColor { get; set; } = Color.Black;
+
     [DataField]
     public bool EyeGlowing { get; set; } = false; //starlight
 
@@ -44,7 +47,8 @@ public sealed partial class HumanoidCharacterAppearance : ICharacterAppearance, 
     [DataField]
     public float Width { get; set; } = 1.0f;
 
-    public HumanoidCharacterAppearance(string hairStyleId,
+    public HumanoidCharacterAppearance(
+        string hairStyleId,
         Color hairColor,
         bool hairGlowing, //starlight
         string facialHairStyleId,
@@ -55,7 +59,8 @@ public sealed partial class HumanoidCharacterAppearance : ICharacterAppearance, 
         Color skinColor,
         List<Marking> markings,
         float height = 1.0f,
-        float width = 1.0f)
+        float width = 1.0f
+    )
     {
         HairStyleId = hairStyleId;
         HairColor = ClampColor(hairColor);
@@ -72,83 +77,252 @@ public sealed partial class HumanoidCharacterAppearance : ICharacterAppearance, 
     }
 
     // starlight, function changed to support glowing
-    public HumanoidCharacterAppearance(HumanoidCharacterAppearance other) :
-        this(other.HairStyleId, other.HairColor, other.HairGlowing, other.FacialHairStyleId, other.FacialHairColor, other.FacialHairGlowing, other.EyeColor, other.EyeGlowing, other.SkinColor, new(other.Markings), other.Height, other.Width)
-    {
-
-    }
+    public HumanoidCharacterAppearance(HumanoidCharacterAppearance other)
+        : this(
+            other.HairStyleId,
+            other.HairColor,
+            other.HairGlowing,
+            other.FacialHairStyleId,
+            other.FacialHairColor,
+            other.FacialHairGlowing,
+            other.EyeColor,
+            other.EyeGlowing,
+            other.SkinColor,
+            new(other.Markings),
+            other.Height,
+            other.Width
+        ) { }
 
     // starlight, function changed to support glowing
     public HumanoidCharacterAppearance WithHairStyleName(string newName)
     {
-        return new(newName, HairColor, HairGlowing, FacialHairStyleId, FacialHairColor, FacialHairGlowing, EyeColor, EyeGlowing, SkinColor, Markings, Height, Width);
+        return new(
+            newName,
+            HairColor,
+            HairGlowing,
+            FacialHairStyleId,
+            FacialHairColor,
+            FacialHairGlowing,
+            EyeColor,
+            EyeGlowing,
+            SkinColor,
+            Markings,
+            Height,
+            Width
+        );
     }
 
     // starlight, function changed to support glowing
     public HumanoidCharacterAppearance WithHairColor(Color newColor)
     {
-        return new(HairStyleId, newColor, HairGlowing, FacialHairStyleId, FacialHairColor, FacialHairGlowing, EyeColor, EyeGlowing, SkinColor, Markings, Height, Width);
+        return new(
+            HairStyleId,
+            newColor,
+            HairGlowing,
+            FacialHairStyleId,
+            FacialHairColor,
+            FacialHairGlowing,
+            EyeColor,
+            EyeGlowing,
+            SkinColor,
+            Markings,
+            Height,
+            Width
+        );
     }
 
     // starlight start
     public HumanoidCharacterAppearance WithHairGlowing(bool newGlowing)
     {
-        return new(HairStyleId, HairColor, newGlowing, FacialHairStyleId, FacialHairColor, FacialHairGlowing, EyeColor, EyeGlowing, SkinColor, Markings, Height, Width); // HardLight: Added Height & Width to prevent height sliders resetting.
+        return new(
+            HairStyleId,
+            HairColor,
+            newGlowing,
+            FacialHairStyleId,
+            FacialHairColor,
+            FacialHairGlowing,
+            EyeColor,
+            EyeGlowing,
+            SkinColor,
+            Markings,
+            Height,
+            Width
+        ); // HardLight: Added Height & Width to prevent height sliders resetting.
     }
+
     // starlight end
 
     // starlight, function changed to support glowing
     public HumanoidCharacterAppearance WithFacialHairStyleName(string newName)
     {
-        return new(HairStyleId, HairColor, HairGlowing, newName, FacialHairColor, FacialHairGlowing, EyeColor, EyeGlowing, SkinColor, Markings, Height, Width);
+        return new(
+            HairStyleId,
+            HairColor,
+            HairGlowing,
+            newName,
+            FacialHairColor,
+            FacialHairGlowing,
+            EyeColor,
+            EyeGlowing,
+            SkinColor,
+            Markings,
+            Height,
+            Width
+        );
     }
 
     // starlight start
     public HumanoidCharacterAppearance WithFacialHairGlowing(bool newGlowing)
     {
-        return new(HairStyleId, HairColor, HairGlowing, FacialHairStyleId, FacialHairColor, newGlowing, EyeColor, EyeGlowing, SkinColor, Markings, Height, Width); // HardLight: Added Height & Width to prevent height sliders resetting.
+        return new(
+            HairStyleId,
+            HairColor,
+            HairGlowing,
+            FacialHairStyleId,
+            FacialHairColor,
+            newGlowing,
+            EyeColor,
+            EyeGlowing,
+            SkinColor,
+            Markings,
+            Height,
+            Width
+        ); // HardLight: Added Height & Width to prevent height sliders resetting.
     }
+
     // starlight end
 
     // starlight, function changed to support glowing
     public HumanoidCharacterAppearance WithFacialHairColor(Color newColor)
     {
-        return new(HairStyleId, HairColor, HairGlowing, FacialHairStyleId, newColor, FacialHairGlowing, EyeColor, EyeGlowing, SkinColor, Markings, Height, Width);
+        return new(
+            HairStyleId,
+            HairColor,
+            HairGlowing,
+            FacialHairStyleId,
+            newColor,
+            FacialHairGlowing,
+            EyeColor,
+            EyeGlowing,
+            SkinColor,
+            Markings,
+            Height,
+            Width
+        );
     }
 
     // starlight, function changed to support glowing
     public HumanoidCharacterAppearance WithEyeColor(Color newColor)
     {
-        return new(HairStyleId, HairColor, HairGlowing, FacialHairStyleId, FacialHairColor, FacialHairGlowing, newColor, EyeGlowing, SkinColor, Markings, Height, Width);
+        return new(
+            HairStyleId,
+            HairColor,
+            HairGlowing,
+            FacialHairStyleId,
+            FacialHairColor,
+            FacialHairGlowing,
+            newColor,
+            EyeGlowing,
+            SkinColor,
+            Markings,
+            Height,
+            Width
+        );
     }
 
     // starlight start
     public HumanoidCharacterAppearance WithEyeGlowing(bool newGlowing)
     {
-        return new(HairStyleId, HairColor, HairGlowing, FacialHairStyleId, FacialHairColor, FacialHairGlowing, EyeColor, newGlowing, SkinColor, Markings, Height, Width); // HardLight: Added Height & Width to prevent height sliders resetting.
+        return new(
+            HairStyleId,
+            HairColor,
+            HairGlowing,
+            FacialHairStyleId,
+            FacialHairColor,
+            FacialHairGlowing,
+            EyeColor,
+            newGlowing,
+            SkinColor,
+            Markings,
+            Height,
+            Width
+        ); // HardLight: Added Height & Width to prevent height sliders resetting.
     }
+
     // starlight end
 
     // starlight, function changed to support glowing
     public HumanoidCharacterAppearance WithSkinColor(Color newColor)
     {
-        return new(HairStyleId, HairColor, HairGlowing, FacialHairStyleId, FacialHairColor, FacialHairGlowing, EyeColor, EyeGlowing, newColor, Markings, Height, Width);
+        return new(
+            HairStyleId,
+            HairColor,
+            HairGlowing,
+            FacialHairStyleId,
+            FacialHairColor,
+            FacialHairGlowing,
+            EyeColor,
+            EyeGlowing,
+            newColor,
+            Markings,
+            Height,
+            Width
+        );
     }
 
     // starlight, function changed to support glowing
     public HumanoidCharacterAppearance WithMarkings(List<Marking> newMarkings)
     {
-        return new(HairStyleId, HairColor, HairGlowing, FacialHairStyleId, FacialHairColor, FacialHairGlowing, EyeColor, EyeGlowing, SkinColor, newMarkings, Height, Width);
+        return new(
+            HairStyleId,
+            HairColor,
+            HairGlowing,
+            FacialHairStyleId,
+            FacialHairColor,
+            FacialHairGlowing,
+            EyeColor,
+            EyeGlowing,
+            SkinColor,
+            newMarkings,
+            Height,
+            Width
+        );
     }
 
     public HumanoidCharacterAppearance WithHeight(float newHeight)
     {
-        return new(HairStyleId, HairColor, HairGlowing, FacialHairStyleId, FacialHairColor, FacialHairGlowing, EyeColor, EyeGlowing, SkinColor, Markings, newHeight, Width);
+        return new(
+            HairStyleId,
+            HairColor,
+            HairGlowing,
+            FacialHairStyleId,
+            FacialHairColor,
+            FacialHairGlowing,
+            EyeColor,
+            EyeGlowing,
+            SkinColor,
+            Markings,
+            newHeight,
+            Width
+        );
     }
 
     public HumanoidCharacterAppearance WithWidth(float newWidth)
     {
-        return new(HairStyleId, HairColor, HairGlowing, FacialHairStyleId, FacialHairColor, FacialHairGlowing, EyeColor, EyeGlowing, SkinColor, Markings, Height, newWidth);
+        return new(
+            HairStyleId,
+            HairColor,
+            HairGlowing,
+            FacialHairStyleId,
+            FacialHairColor,
+            FacialHairGlowing,
+            EyeColor,
+            EyeGlowing,
+            SkinColor,
+            Markings,
+            Height,
+            newWidth
+        );
     }
 
     public static HumanoidCharacterAppearance DefaultWithSpecies(string species)
@@ -174,7 +348,7 @@ public sealed partial class HumanoidCharacterAppearance : ICharacterAppearance, 
             Color.Black,
             false, //starlight
             skinColor,
-            new (),
+            new(),
             1.0f,
             1.0f
         );
@@ -186,7 +360,7 @@ public sealed partial class HumanoidCharacterAppearance : ICharacterAppearance, 
         Color.Gray,
         Color.Azure,
         Color.SteelBlue,
-        Color.Black
+        Color.Black,
     };
 
     public static HumanoidCharacterAppearance Random(string species, Sex sex)
@@ -194,15 +368,16 @@ public sealed partial class HumanoidCharacterAppearance : ICharacterAppearance, 
         var random = IoCManager.Resolve<IRobustRandom>();
         var markingManager = IoCManager.Resolve<MarkingManager>();
         var hairStyles = markingManager.MarkingsByCategoryAndSpecies(MarkingCategories.Hair, species).Keys.ToList();
-        var facialHairStyles = markingManager.MarkingsByCategoryAndSpecies(MarkingCategories.FacialHair, species).Keys.ToList();
+        var facialHairStyles = markingManager
+            .MarkingsByCategoryAndSpecies(MarkingCategories.FacialHair, species)
+            .Keys.ToList();
 
-        var newHairStyle = hairStyles.Count > 0
-            ? random.Pick(hairStyles)
-            : HairStyles.DefaultHairStyle.Id;
+        var newHairStyle = hairStyles.Count > 0 ? random.Pick(hairStyles) : HairStyles.DefaultHairStyle.Id;
 
-        var newFacialHairStyle = facialHairStyles.Count == 0 || sex == Sex.Female
-            ? HairStyles.DefaultFacialHairStyle.Id
-            : random.Pick(facialHairStyles);
+        var newFacialHairStyle =
+            facialHairStyles.Count == 0 || sex == Sex.Female
+                ? HairStyles.DefaultFacialHairStyle.Id
+                : random.Pick(facialHairStyles);
 
         var newHairColor = random.Pick(HairStyles.RealisticHairColors);
         newHairColor = newHairColor
@@ -224,7 +399,6 @@ public sealed partial class HumanoidCharacterAppearance : ICharacterAppearance, 
                 break;
             default:
                 break;
-
         }
         // Starlight - End
 
@@ -254,7 +428,20 @@ public sealed partial class HumanoidCharacterAppearance : ICharacterAppearance, 
 
         var newHeight = random.NextFloat(0.8f, 1.2f); // Random height between 80% and 120% of normal
         var newWidth = random.NextFloat(0.8f, 1.2f); // Random width between 80% and 120% of normal
-        return new HumanoidCharacterAppearance(newHairStyle, newHairColor, false, newFacialHairStyle, newHairColor, false, newEyeColor, false, newSkinColor, new (), newHeight, newWidth); //starlight, glowing
+        return new HumanoidCharacterAppearance(
+            newHairStyle,
+            newHairColor,
+            false,
+            newFacialHairStyle,
+            newHairColor,
+            false,
+            newEyeColor,
+            false,
+            newSkinColor,
+            new(),
+            newHeight,
+            newWidth
+        ); //starlight, glowing
 
         float RandomizeColor(float channel)
         {
@@ -267,7 +454,11 @@ public sealed partial class HumanoidCharacterAppearance : ICharacterAppearance, 
         return new(color.RByte, color.GByte, color.BByte);
     }
 
-    public static HumanoidCharacterAppearance EnsureValid(HumanoidCharacterAppearance appearance, string species, Sex sex)
+    public static HumanoidCharacterAppearance EnsureValid(
+        HumanoidCharacterAppearance appearance,
+        string species,
+        Sex sex
+    )
     {
         var hairStyleId = appearance.HairStyleId;
         var facialHairStyleId = appearance.FacialHairStyleId;
@@ -324,43 +515,62 @@ public sealed partial class HumanoidCharacterAppearance : ICharacterAppearance, 
             skinColor,
             markingSet.GetForwardEnumerator().ToList(),
             appearance.Height,
-            appearance.Width);
+            appearance.Width
+        );
     }
 
     public bool MemberwiseEquals(ICharacterAppearance maybeOther)
     {
-        if (maybeOther is not HumanoidCharacterAppearance other) return false;
-        if (HairStyleId != other.HairStyleId) return false;
-        if (!HairColor.Equals(other.HairColor)) return false;
-        if (HairGlowing != other.HairGlowing) return false; //starlight
-        if (FacialHairStyleId != other.FacialHairStyleId) return false;
-        if (!FacialHairColor.Equals(other.FacialHairColor)) return false;
-        if (FacialHairGlowing != other.FacialHairGlowing) return false; //starlight
-        if (!EyeColor.Equals(other.EyeColor)) return false;
-        if (EyeGlowing != other.EyeGlowing) return false; //starlight
-        if (!SkinColor.Equals(other.SkinColor)) return false;
-        if (!Markings.SequenceEqual(other.Markings)) return false;
-        if (!Height.Equals(other.Height)) return false;
-        if (!Width.Equals(other.Width)) return false;
+        if (maybeOther is not HumanoidCharacterAppearance other)
+            return false;
+        if (HairStyleId != other.HairStyleId)
+            return false;
+        if (!HairColor.Equals(other.HairColor))
+            return false;
+        if (HairGlowing != other.HairGlowing)
+            return false; //starlight
+        if (FacialHairStyleId != other.FacialHairStyleId)
+            return false;
+        if (!FacialHairColor.Equals(other.FacialHairColor))
+            return false;
+        if (FacialHairGlowing != other.FacialHairGlowing)
+            return false; //starlight
+        if (!EyeColor.Equals(other.EyeColor))
+            return false;
+        if (EyeGlowing != other.EyeGlowing)
+            return false; //starlight
+        if (!SkinColor.Equals(other.SkinColor))
+            return false;
+        if (!Markings.SequenceEqual(other.Markings))
+            return false;
+        if (!Height.Equals(other.Height))
+            return false;
+        if (!Width.Equals(other.Width))
+            return false;
         return true;
     }
 
     public bool Equals(HumanoidCharacterAppearance? other)
     {
-        if (ReferenceEquals(null, other)) return false;
-        if (ReferenceEquals(this, other)) return true;
-        return HairStyleId == other.HairStyleId &&
-               HairColor.Equals(other.HairColor) &&
-               HairGlowing.Equals(other.HairGlowing) && //starlight
-               FacialHairStyleId == other.FacialHairStyleId &&
-               FacialHairColor.Equals(other.FacialHairColor) &&
-               FacialHairGlowing.Equals(other.FacialHairGlowing) && //starlight
-               EyeColor.Equals(other.EyeColor) &&
-               EyeGlowing.Equals(other.EyeGlowing) && //starlight
-               SkinColor.Equals(other.SkinColor) &&
-               Markings.SequenceEqual(other.Markings) &&
-               Height.Equals(other.Height) &&
-               Width.Equals(other.Width);
+        if (ReferenceEquals(null, other))
+            return false;
+        if (ReferenceEquals(this, other))
+            return true;
+        return HairStyleId == other.HairStyleId
+            && HairColor.Equals(other.HairColor)
+            && HairGlowing.Equals(other.HairGlowing)
+            && //starlight
+            FacialHairStyleId == other.FacialHairStyleId
+            && FacialHairColor.Equals(other.FacialHairColor)
+            && FacialHairGlowing.Equals(other.FacialHairGlowing)
+            && //starlight
+            EyeColor.Equals(other.EyeColor)
+            && EyeGlowing.Equals(other.EyeGlowing)
+            && //starlight
+            SkinColor.Equals(other.SkinColor)
+            && Markings.SequenceEqual(other.Markings)
+            && Height.Equals(other.Height)
+            && Width.Equals(other.Width);
     }
 
     public override bool Equals(object? obj)

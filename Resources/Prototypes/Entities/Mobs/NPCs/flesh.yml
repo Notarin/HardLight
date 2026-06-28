@@ -1,5 +1,5 @@
 - type: entity
-  parent: [ SimpleMobBase, MobCombat ]
+  parent: [SimpleMobBase, MobCombat]
   id: BaseMobFlesh
   name: aberrant flesh
   description: A shambling mass of flesh, animated through anomalous energy.
@@ -9,10 +9,8 @@
     rootTask:
       task: SimpleHostileCompound
     blackboard:
-      NavClimb: !type:Bool
-        true
-      NavSmash: !type:Bool
-        true
+      NavClimb: !type:Bool true
+      NavSmash: !type:Bool true
   - type: NPCImprintingOnSpawnBehaviour
     spawnFriendsSearchRadius: 10
     whitelist:
@@ -63,16 +61,16 @@
     removable: false
     roller: false
     assayFeedback:
-      - flesh-golem-feedback
+    - flesh-golem-feedback
 
 - type: entity
   parent: BaseMobFlesh
   id: MobFleshJared
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   components:
   - type: Sprite
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: jared
   - type: DamageStateVisuals
     states:
@@ -84,7 +82,7 @@
         Base: dead
   - type: MeleeWeapon
     soundHit:
-        path: /Audio/Weapons/Xeno/alien_claw_flesh3.ogg
+      path: /Audio/Weapons/Xeno/alien_claw_flesh3.ogg
     angle: 0
     animation: WeaponArcClaw
     damage:
@@ -94,11 +92,11 @@
 - type: entity
   parent: BaseMobFlesh
   id: MobFleshGolem
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   components:
   - type: Sprite
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: golem
   - type: DamageStateVisuals
     states:
@@ -114,7 +112,7 @@
       50: Dead
   - type: MeleeWeapon
     soundHit:
-        path: /Audio/Weapons/Xeno/alien_claw_flesh3.ogg
+      path: /Audio/Weapons/Xeno/alien_claw_flesh3.ogg
     angle: 0
     animation: WeaponArcClaw
     damage:
@@ -124,11 +122,11 @@
 - type: entity
   parent: BaseMobFlesh
   id: MobFleshClamp
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   components:
   - type: Sprite
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: clamp
   - type: DamageStateVisuals
     states:
@@ -149,11 +147,11 @@
 - type: entity
   parent: BaseMobFlesh
   id: MobFleshLover
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   components:
   - type: Sprite
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: lover
   - type: DamageStateVisuals
     states:
@@ -202,7 +200,7 @@
     baseSprintSpeed: 2.5
   - type: MeleeWeapon
     soundHit:
-        path: /Audio/Weapons/Xeno/alien_claw_flesh3.ogg
+      path: /Audio/Weapons/Xeno/alien_claw_flesh3.ogg
     angle: 0
     animation: WeaponArcClaw
     damage:
@@ -210,7 +208,7 @@
         Blunt: 10
 
 - type: entity
-  parent: [ NFMobRestrictions, SimpleSpaceMobBase, MobCombat ] # Frontier: add NFMobRestrictions
+  parent: [NFMobRestrictions, SimpleSpaceMobBase, MobCombat] # Frontier: add NFMobRestrictions
   id: BaseMobFleshSalvage #This one is immune to space!
   name: aberrant flesh
   suffix: "Salvage Ruleset"
@@ -221,10 +219,8 @@
     rootTask:
       task: SimpleHostileCompound
     blackboard:
-      NavClimb: !type:Bool
-        true
-      NavSmash: !type:Bool
-        true
+      NavClimb: !type:Bool true
+      NavSmash: !type:Bool true
   - type: NpcFactionMember
     factions:
     - SimpleHostile
@@ -270,11 +266,11 @@
 - type: entity
   parent: BaseMobFleshSalvage
   id: MobFleshJaredSalvage
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   components:
   - type: Sprite
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: jared
   - type: DamageStateVisuals
     states:
@@ -286,7 +282,7 @@
         Base: dead
   - type: MeleeWeapon
     soundHit:
-        path: /Audio/Weapons/Xeno/alien_claw_flesh3.ogg
+      path: /Audio/Weapons/Xeno/alien_claw_flesh3.ogg
     angle: 0
     animation: WeaponArcClaw
     damage:
@@ -296,11 +292,11 @@
 - type: entity
   parent: BaseMobFleshSalvage
   id: MobFleshGolemSalvage
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   components:
   - type: Sprite
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: golem
   - type: DamageStateVisuals
     states:
@@ -316,7 +312,7 @@
       50: Dead
   - type: MeleeWeapon
     soundHit:
-        path: /Audio/Weapons/Xeno/alien_claw_flesh3.ogg
+      path: /Audio/Weapons/Xeno/alien_claw_flesh3.ogg
     angle: 0
     animation: WeaponArcClaw
     damage:
@@ -326,11 +322,11 @@
 - type: entity
   parent: BaseMobFleshSalvage
   id: MobFleshClampSalvage
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   components:
   - type: Sprite
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: clamp
   - type: DamageStateVisuals
     states:
@@ -351,11 +347,11 @@
 - type: entity
   parent: BaseMobFleshSalvage
   id: MobFleshLoverSalvage
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   components:
   - type: Sprite
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: lover
   - type: DamageStateVisuals
     states:

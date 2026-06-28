@@ -1,5 +1,5 @@
-using Content.Shared.Containers.ItemSlots;
 using Content.Shared._Mono.Shuttle.FTL;
+using Content.Shared.Containers.ItemSlots;
 using Content.Shared.Power.EntitySystems;
 using Content.Shared.Shuttles.BUIStates;
 using Content.Shared.Shuttles.Components;
@@ -15,12 +15,23 @@ namespace Content.Shared.Shuttles.Systems;
 
 public abstract partial class SharedShuttleSystem : EntitySystem
 {
-    [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly ItemSlotsSystem _itemSlots = default!;
-    [Dependency] private readonly SharedPowerReceiverSystem _power = default!;
-    [Dependency] protected readonly SharedMapSystem Maps = default!;
-    [Dependency] protected readonly SharedTransformSystem XformSystem = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
+    [Dependency]
+    private readonly IMapManager _mapManager = default!;
+
+    [Dependency]
+    private readonly ItemSlotsSystem _itemSlots = default!;
+
+    [Dependency]
+    private readonly SharedPowerReceiverSystem _power = default!;
+
+    [Dependency]
+    protected readonly SharedMapSystem Maps = default!;
+
+    [Dependency]
+    protected readonly SharedTransformSystem XformSystem = default!;
+
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelistSystem = default!;
 
     public const float FTLRange = 256f;
     public const float FTLBufferRange = 8f;
@@ -78,7 +89,14 @@ public abstract partial class SharedShuttleSystem : EntitySystem
                 return false;
             }
 
-            if (!_itemSlots.TryGetSlot(consoleUid, SharedShuttleConsoleComponent.DiskSlotName, out var itemSlot, component: slot) || !itemSlot.HasItem)
+            if (
+                !_itemSlots.TryGetSlot(
+                    consoleUid,
+                    SharedShuttleConsoleComponent.DiskSlotName,
+                    out var itemSlot,
+                    component: slot
+                ) || !itemSlot.HasItem
+            )
             {
                 return false;
             }
@@ -105,8 +123,10 @@ public abstract partial class SharedShuttleSystem : EntitySystem
                     return false;
                 }
 
-                if (!TryComp<FTLDestinationComponent>(diskDestinationUid, out var diskDestination)
-                    || diskDestination != destination)
+                if (
+                    !TryComp<FTLDestinationComponent>(diskDestinationUid, out var diskDestination)
+                    || diskDestination != destination
+                )
                 {
                     return false;
                 }
@@ -126,7 +146,10 @@ public abstract partial class SharedShuttleSystem : EntitySystem
     /// <summary>
     /// Gets the list of map objects relevant for the specified map.
     /// </summary>
-    public IEnumerable<(ShuttleExclusionObject Exclusion, MapCoordinates Coordinates)> GetExclusions(MapId mapId, List<ShuttleExclusionObject> exclusions)
+    public IEnumerable<(ShuttleExclusionObject Exclusion, MapCoordinates Coordinates)> GetExclusions(
+        MapId mapId,
+        List<ShuttleExclusionObject> exclusions
+    )
     {
         foreach (var exc in exclusions)
         {
@@ -142,7 +165,10 @@ public abstract partial class SharedShuttleSystem : EntitySystem
     /// <summary>
     /// Gets the list of map objects relevant for the specified map.
     /// </summary>
-    public IEnumerable<(ShuttleBeaconObject Beacon, MapCoordinates Coordinates)> GetBeacons(MapId mapId, List<ShuttleBeaconObject> beacons)
+    public IEnumerable<(ShuttleBeaconObject Beacon, MapCoordinates Coordinates)> GetBeacons(
+        MapId mapId,
+        List<ShuttleBeaconObject> beacons
+    )
     {
         foreach (var beacon in beacons)
         {
@@ -158,7 +184,10 @@ public abstract partial class SharedShuttleSystem : EntitySystem
     /// <summary>
     /// Gets stations on the same map.
     /// </summary>
-    public IEnumerable<(ShuttleStationObject Station, MapCoordinates Coordinates)> GetStations(MapId mapId, List<ShuttleStationObject> stations)
+    public IEnumerable<(ShuttleStationObject Station, MapCoordinates Coordinates)> GetStations(
+        MapId mapId,
+        List<ShuttleStationObject> stations
+    )
     {
         foreach (var station in stations)
         {
@@ -260,10 +289,17 @@ public abstract partial class SharedShuttleSystem : EntitySystem
     /// <summary>
     /// Returns true if the spot is free to be FTLd to (not close to any objects and in range).
     /// </summary>
-    public bool FTLFree(EntityUid shuttleUid, EntityCoordinates coordinates, Angle angle, List<ShuttleExclusionObject>? exclusionZones)
+    public bool FTLFree(
+        EntityUid shuttleUid,
+        EntityCoordinates coordinates,
+        Angle angle,
+        List<ShuttleExclusionObject>? exclusionZones
+    )
     {
-        if (!_physicsQuery.TryGetComponent(shuttleUid, out var shuttlePhysics) ||
-            !_xformQuery.TryGetComponent(shuttleUid, out var shuttleXform))
+        if (
+            !_physicsQuery.TryGetComponent(shuttleUid, out var shuttlePhysics)
+            || !_xformQuery.TryGetComponent(shuttleUid, out var shuttleXform)
+        )
         {
             return false;
         }
@@ -302,8 +338,13 @@ public abstract partial class SharedShuttleSystem : EntitySystem
         var ourFTLBuffer = GetFTLBufferRange(shuttleUid);
         var circle = new PhysShapeCircle(ourFTLBuffer + FTLBufferRange, targetPosition);
 
-        _mapManager.FindGridsIntersecting(mapCoordinates.MapId, circle, Robust.Shared.Physics.Transform.Empty,
-            ref _grids, includeMap: false);
+        _mapManager.FindGridsIntersecting(
+            mapCoordinates.MapId,
+            circle,
+            Robust.Shared.Physics.Transform.Empty,
+            ref _grids,
+            includeMap: false
+        );
 
         // If any grids in range that aren't us then can't FTL.
         foreach (var grid in _grids)
@@ -344,4 +385,3 @@ public enum FTLState : byte
     Arriving = 1 << 3,
     Cooldown = 1 << 4,
 }
-

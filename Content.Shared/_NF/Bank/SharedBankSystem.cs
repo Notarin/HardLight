@@ -9,12 +9,13 @@ namespace Content.Shared._NF.Bank;
 public enum BankATMMenuUiKey : byte
 {
     ATM,
-    BlackMarket
+    BlackMarket,
 }
 
 public abstract partial class SharedBankSystem : EntitySystem
 {
-    [Dependency] private readonly ItemSlotsSystem _itemSlotsSystem = default!;
+    [Dependency]
+    private readonly ItemSlotsSystem _itemSlotsSystem = default!;
 
     public override void Initialize()
     {
@@ -45,4 +46,3 @@ public abstract partial class SharedBankSystem : EntitySystem
         _itemSlotsSystem.RemoveItemSlot(uid, component.CashSlot);
     }
 }
-

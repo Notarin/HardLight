@@ -1,8 +1,8 @@
+using Content.Shared.Mech.EntitySystems; // Frontier
 using Content.Shared.NPC.Prototypes;
 using Content.Shared.NPC.Systems;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
-using Content.Shared.Mech.EntitySystems; // Frontier
 
 namespace Content.Shared.NPC.Components;
 

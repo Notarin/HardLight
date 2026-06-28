@@ -30,17 +30,36 @@ namespace Content.Server.Research.Oracle;
 
 public sealed class OracleSystem : EntitySystem
 {
-    [Dependency] private readonly ChatSystem _chat = default!;
+    [Dependency]
+    private readonly ChatSystem _chat = default!;
+
     // [Dependency] private readonly TelepathicChatSystem _tChat = default!; // Not available in HardLight
-    [Dependency] private readonly IChatManager _chatMan = default!;
-    [Dependency] private readonly GlimmerSystem _glimmer = default!;
-    [Dependency] private readonly IPrototypeManager _protoMan = default!;
-    [Dependency] private readonly PuddleSystem _puddles = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly ResearchSystem _research = default!;
-    [Dependency] private readonly SolutionContainerSystem _solutions = default!;
-    [Dependency] private readonly ThrowingSystem _throwing = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly IChatManager _chatMan = default!;
+
+    [Dependency]
+    private readonly GlimmerSystem _glimmer = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _protoMan = default!;
+
+    [Dependency]
+    private readonly PuddleSystem _puddles = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly ResearchSystem _research = default!;
+
+    [Dependency]
+    private readonly SolutionContainerSystem _solutions = default!;
+
+    [Dependency]
+    private readonly ThrowingSystem _throwing = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     public override void Update(float frameTime)
     {
@@ -50,7 +69,7 @@ public sealed class OracleSystem : EntitySystem
             if (_timing.CurTime >= comp.NextDemandTime)
             {
                 // Might be null if this is the first tick. In that case this will simply initialize it.
-                var last = (EntityPrototype?) comp.DesiredPrototype;
+                var last = (EntityPrototype?)comp.DesiredPrototype;
                 if (NextItem((uid, comp)))
                     comp.LastDesiredPrototype = last;
             }
@@ -59,7 +78,8 @@ public sealed class OracleSystem : EntitySystem
             {
                 comp.NextBarkTime = _timing.CurTime + comp.BarkDelay;
 
-                var message = Loc.GetString(_random.Pick(comp.DemandMessages), ("item", comp.DesiredPrototype.Name)).ToUpper();
+                var message = Loc.GetString(_random.Pick(comp.DemandMessages), ("item", comp.DesiredPrototype.Name))
+                    .ToUpper();
                 _chat.TrySendInGameICMessage(uid, message, InGameICChatType.Speak, false);
             }
         }
@@ -76,16 +96,27 @@ public sealed class OracleSystem : EntitySystem
 
     private void OnInteractHand(Entity<OracleComponent> oracle, ref InteractHandEvent args)
     {
-        if (!TryComp(args.User, out PsionicComponent? _) || TryComp(args.User, out PsionicInsulationComponent? _)
-            || !TryComp(args.User, out ActorComponent? actor))
+        if (
+            !TryComp(args.User, out PsionicComponent? _)
+            || TryComp(args.User, out PsionicInsulationComponent? _)
+            || !TryComp(args.User, out ActorComponent? actor)
+        )
             return;
 
-        SendTelepathicInfo(oracle, actor.PlayerSession.Channel,
-            Loc.GetString("oracle-current-item", ("item", oracle.Comp.DesiredPrototype.Name)), false);
+        SendTelepathicInfo(
+            oracle,
+            actor.PlayerSession.Channel,
+            Loc.GetString("oracle-current-item", ("item", oracle.Comp.DesiredPrototype.Name)),
+            false
+        );
 
         if (oracle.Comp.LastDesiredPrototype != null)
-            SendTelepathicInfo(oracle, actor.PlayerSession.Channel,
-                Loc.GetString("oracle-previous-item", ("item", oracle.Comp.LastDesiredPrototype.Name)), false);
+            SendTelepathicInfo(
+                oracle,
+                actor.PlayerSession.Channel,
+                Loc.GetString("oracle-previous-item", ("item", oracle.Comp.LastDesiredPrototype.Name)),
+                false
+            );
     }
 
     private void OnInteractUsing(Entity<OracleComponent> oracle, ref InteractUsingEvent args)
@@ -93,14 +124,20 @@ public sealed class OracleSystem : EntitySystem
         if (args.Handled)
             return;
 
-        if (TryComp(args.Used, out MobStateComponent? _) || !TryComp(args.Used, out MetaDataComponent? meta) || meta.EntityPrototype == null)
+        if (
+            TryComp(args.Used, out MobStateComponent? _)
+            || !TryComp(args.Used, out MetaDataComponent? meta)
+            || meta.EntityPrototype == null
+        )
             return;
 
         var requestValid = IsCorrectItem(meta.EntityPrototype, oracle.Comp.DesiredPrototype);
         var updateRequest = true;
 
-        if (oracle.Comp.LastDesiredPrototype != null &&
-            IsCorrectItem(meta.EntityPrototype, oracle.Comp.LastDesiredPrototype))
+        if (
+            oracle.Comp.LastDesiredPrototype != null
+            && IsCorrectItem(meta.EntityPrototype, oracle.Comp.LastDesiredPrototype)
+        )
         {
             updateRequest = false;
             requestValid = true;
@@ -109,11 +146,18 @@ public sealed class OracleSystem : EntitySystem
 
         if (!requestValid)
         {
-            if (!TryComp(args.Used, out RefillableSolutionComponent? _) &&
-                _timing.CurTime >= oracle.Comp.NextRejectTime)
+            if (
+                !TryComp(args.Used, out RefillableSolutionComponent? _)
+                && _timing.CurTime >= oracle.Comp.NextRejectTime
+            )
             {
                 oracle.Comp.NextRejectTime = _timing.CurTime + oracle.Comp.RejectDelay;
-                _chat.TrySendInGameICMessage(oracle, _random.Pick(oracle.Comp.RejectMessages), InGameICChatType.Speak, true);
+                _chat.TrySendInGameICMessage(
+                    oracle,
+                    _random.Pick(oracle.Comp.RejectMessages),
+                    InGameICChatType.Speak,
+                    true
+                );
             }
 
             return;
@@ -126,25 +170,50 @@ public sealed class OracleSystem : EntitySystem
             NextItem(oracle);
     }
 
-    private void SendTelepathicInfo(Entity<OracleComponent> oracle, INetChannel client, string message, bool psychognomist = false)
+    private void SendTelepathicInfo(
+        Entity<OracleComponent> oracle,
+        INetChannel client,
+        string message,
+        bool psychognomist = false
+    )
     {
         if (!psychognomist)
         {
-            var messageWrap = Loc.GetString("chat-manager-send-telepathic-chat-wrap-message",
+            var messageWrap = Loc.GetString(
+                "chat-manager-send-telepathic-chat-wrap-message",
                 ("telepathicChannelName", Loc.GetString("chat-manager-telepathic-channel-name")),
-                ("message", message));
+                ("message", message)
+            );
 
-            _chatMan.ChatMessageToOne(ChatChannel.Telepathic,
-                message, messageWrap, oracle, false, client, Color.PaleVioletRed);
+            _chatMan.ChatMessageToOne(
+                ChatChannel.Telepathic,
+                message,
+                messageWrap,
+                oracle,
+                false,
+                client,
+                Color.PaleVioletRed
+            );
         }
         else
         {
             // var descriptor = _tChat.SourceToDescriptor(oracle); // Not available in HardLight
             var descriptor = Name(oracle); // Fallback to entity name
-            var psychogMessageWrap = Loc.GetString("chat-manager-send-telepathic-chat-wrap-message-psychognomy",
-                ("source", descriptor.ToUpper()), ("message", message));
+            var psychogMessageWrap = Loc.GetString(
+                "chat-manager-send-telepathic-chat-wrap-message-psychognomy",
+                ("source", descriptor.ToUpper()),
+                ("message", message)
+            );
 
-            _chatMan.ChatMessageToOne(ChatChannel.Telepathic, message, psychogMessageWrap, oracle, false, client, Color.PaleVioletRed);
+            _chatMan.ChatMessageToOne(
+                ChatChannel.Telepathic,
+                message,
+                psychogMessageWrap,
+                oracle,
+                false,
+                client,
+                Color.PaleVioletRed
+            );
         }
     }
 
@@ -185,15 +254,22 @@ public sealed class OracleSystem : EntitySystem
 
         if (_random.Prob(oracle.Comp.AbnormalReagentChance))
         {
-            var allReagents = _protoMan.EnumeratePrototypes<ReagentPrototype>()
+            var allReagents = _protoMan
+                .EnumeratePrototypes<ReagentPrototype>()
                 .Where(x => !x.Abstract)
-                .Select(x => x.ID).ToList();
+                .Select(x => x.ID)
+                .ToList();
 
             reagent = _random.Pick(allReagents);
         }
 
         temporarySol.AddReagent(reagent, amount);
-        _solutions.TryMixAndOverflow(fountainSol.Value, temporarySol, fountainSol.Value.Comp.Solution.MaxVolume, out var overflowing);
+        _solutions.TryMixAndOverflow(
+            fountainSol.Value,
+            temporarySol,
+            fountainSol.Value.Comp.Solution.MaxVolume,
+            out var overflowing
+        );
 
         if (overflowing != null && overflowing.Volume > 0)
             _puddles.TrySpillAt(oracle, overflowing, out var _);
@@ -233,32 +309,36 @@ public sealed class OracleSystem : EntitySystem
     private bool GetRandomTechProto(Entity<OracleComponent> oracle, [NotNullWhen(true)] out string? proto)
     {
         // Try to find the most advanced server.
-        var database = _research.GetServerIds()
-                .Select(x => _research.TryGetServerById(x, out var serverUid, out _) ? serverUid : null)
+        var database = _research
+            .GetServerIds()
+            .Select(x => _research.TryGetServerById(x, out var serverUid, out _) ? serverUid : null)
             .Where(x => x != null && Transform(x.Value).GridUid == Transform(oracle).GridUid)
             .Select(x =>
             {
-                    TryComp(x!.Value, out TechnologyDatabaseComponent? comp);
-                    return new Entity<TechnologyDatabaseComponent?>(x.Value, comp);
+                TryComp(x!.Value, out TechnologyDatabaseComponent? comp);
+                return new Entity<TechnologyDatabaseComponent?>(x.Value, comp);
             })
             .Where(x => x.Comp != null)
-            .OrderByDescending(x =>
-                _research.GetDisciplineTiers(x.Comp!).Select(pair => pair.Value).Max())
+            .OrderByDescending(x => _research.GetDisciplineTiers(x.Comp!).Select(pair => pair.Value).Max())
             .FirstOrDefault(EntityUid.Invalid);
 
         if (database.Owner == EntityUid.Invalid)
         {
-            Log.Warning($"Cannot find an applicable server on grid {Transform(oracle).GridUid} to form an oracle request.");
+            Log.Warning(
+                $"Cannot find an applicable server on grid {Transform(oracle).GridUid} to form an oracle request."
+            );
             proto = null;
             return false;
         }
 
         // Select a technology that's either already unlocked, or can be unlocked from current research
-        var techs = _protoMan.EnumeratePrototypes<TechnologyPrototype>()
+        var techs = _protoMan
+            .EnumeratePrototypes<TechnologyPrototype>()
             .Where(x => !x.Hidden)
             .Where(x =>
                 _research.IsTechnologyUnlocked(database.Owner, x, database.Comp)
-                || _research.IsTechnologyAvailable(database.Comp!, x))
+                || _research.IsTechnologyAvailable(database.Comp!, x)
+            )
             .SelectMany(x => x.RecipeUnlocks)
             .Select(x => _protoMan.Index(x).Result)
             .Where(x => IsDemandValid(oracle, x))
@@ -281,7 +361,8 @@ public sealed class OracleSystem : EntitySystem
 
     private bool GetRandomPlantProto(Entity<OracleComponent> oracle, [NotNullWhen(true)] out string? proto)
     {
-        var allPlants = _protoMan.EnumeratePrototypes<SeedPrototype>()
+        var allPlants = _protoMan
+            .EnumeratePrototypes<SeedPrototype>()
             .Select(x => x.ProductPrototypes.FirstOrDefault())
             .Where(x => IsDemandValid(oracle, x))
             .ToList();

@@ -6,13 +6,13 @@ namespace Content.Shared._NF.Pirate;
 public enum PirateConsoleUiKey : byte
 {
     Bounty,
-    BountyRedemption
+    BountyRedemption,
 }
 
 [NetSerializable, Serializable]
 public enum PiratePalletConsoleUiKey : byte
 {
-    Sale
+    Sale,
 }
 
-public abstract class SharedPirateSystem : EntitySystem {}
+public abstract class SharedPirateSystem : EntitySystem { }

@@ -10,10 +10,17 @@ namespace Content.Shared.Chemistry.EntitySystems;
 /// </summary>
 public sealed class ScoopableSolutionSystem : EntitySystem
 {
-    [Dependency] private readonly INetManager _netManager = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solution = default!;
-    [Dependency] private readonly SolutionTransferSystem _solutionTransfer = default!;
+    [Dependency]
+    private readonly INetManager _netManager = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly SharedSolutionContainerSystem _solution = default!;
+
+    [Dependency]
+    private readonly SolutionTransferSystem _solutionTransfer = default!;
 
     public override void Initialize()
     {
@@ -32,8 +39,10 @@ public sealed class ScoopableSolutionSystem : EntitySystem
 
     public bool TryScoop(Entity<ScoopableSolutionComponent> ent, EntityUid beaker, EntityUid user)
     {
-        if (!_solution.TryGetSolution(ent.Owner, ent.Comp.Solution, out var src, out var srcSolution) ||
-            !_solution.TryGetRefillableSolution(beaker, out var target, out _))
+        if (
+            !_solution.TryGetSolution(ent.Owner, ent.Comp.Solution, out var src, out var srcSolution)
+            || !_solution.TryGetRefillableSolution(beaker, out var target, out _)
+        )
             return false;
 
         var scooped = _solutionTransfer.Transfer(user, ent, src.Value, beaker, target.Value, srcSolution.Volume);

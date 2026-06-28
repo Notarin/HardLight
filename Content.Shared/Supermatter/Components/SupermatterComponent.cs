@@ -1,8 +1,8 @@
-using Robust.Shared.GameStates;
-using Robust.Shared.Audio;
 using Content.Shared.Atmos;
-using Content.Shared.Whitelist;
 using Content.Shared.DoAfter;
+using Content.Shared.Whitelist;
+using Robust.Shared.Audio;
+using Robust.Shared.GameStates;
 using Robust.Shared.Serialization;
 
 namespace Content.Shared.Supermatter.Components;
@@ -44,7 +44,9 @@ public sealed partial class SupermatterComponent : Component
     public string CollisionResultPrototype = "Ash";
 
     [DataField]
-    public SoundSpecifier DustSound = new SoundPathSpecifier("/Audio/Effects/Grenades/Supermatter/supermatter_start.ogg");
+    public SoundSpecifier DustSound = new SoundPathSpecifier(
+        "/Audio/Effects/Grenades/Supermatter/supermatter_start.ogg"
+    );
 
     [DataField]
     public SoundSpecifier CalmSound = new SoundPathSpecifier("/Audio/Supermatter/calm.ogg");
@@ -303,42 +305,42 @@ public sealed partial class SupermatterComponent : Component
     [DataField]
     public Dictionary<Gas, float> GasStorage = new Dictionary<Gas, float>()
     {
-        { Gas.Oxygen,        0f },
-        { Gas.Nitrogen,      0f },
+        { Gas.Oxygen, 0f },
+        { Gas.Nitrogen, 0f },
         { Gas.CarbonDioxide, 0f },
-        { Gas.Plasma,        0f },
-        { Gas.Tritium,       0f },
-        { Gas.WaterVapor,    0f },
-        { Gas.Frezon,        0f },
-        { Gas.Ammonia,       0f },
-        { Gas.NitrousOxide,  0f },
+        { Gas.Plasma, 0f },
+        { Gas.Tritium, 0f },
+        { Gas.WaterVapor, 0f },
+        { Gas.Frezon, 0f },
+        { Gas.Ammonia, 0f },
+        { Gas.NitrousOxide, 0f },
     };
 
     /// <summary>
     ///     Stores information about how every gas interacts with the SM
     /// </summary>
     //TODO: Replace this with serializable GasFact array something
-    public readonly Dictionary<Gas, (float TransmitModifier, float HeatPenalty, float PowerMixRatio)> GasDataFields = new()
-    {
-        { Gas.Oxygen,        (1.5f, 1f,    1f)  },
-        { Gas.Nitrogen,      (0f,   -1.5f, -1f) },
-        { Gas.CarbonDioxide, (2f,   0.1f,  1f)  },
-        { Gas.Plasma,        (4f,   15f,   1f)  },
-        { Gas.Tritium,       (50f,  20f,   1f)  },
-        { Gas.WaterVapor,    (2f,   12f,   1f)  },
-        { Gas.Frezon,        (3f,   -10f,  -1f) },
-        { Gas.Ammonia,       (0f,   .5f,   1f)  },
-        { Gas.NitrousOxide,  (0f,   -5f,   -1f) },
-    };
+    public readonly Dictionary<Gas, (float TransmitModifier, float HeatPenalty, float PowerMixRatio)> GasDataFields =
+        new()
+        {
+            { Gas.Oxygen, (1.5f, 1f, 1f) },
+            { Gas.Nitrogen, (0f, -1.5f, -1f) },
+            { Gas.CarbonDioxide, (2f, 0.1f, 1f) },
+            { Gas.Plasma, (4f, 15f, 1f) },
+            { Gas.Tritium, (50f, 20f, 1f) },
+            { Gas.WaterVapor, (2f, 12f, 1f) },
+            { Gas.Frezon, (3f, -10f, -1f) },
+            { Gas.Ammonia, (0f, .5f, 1f) },
+            { Gas.NitrousOxide, (0f, -5f, -1f) },
+        };
 
     #endregion
 }
 
-
 public enum SupermatterSound : sbyte
 {
     Aggressive = 0,
-    Delam = 1
+    Delam = 1,
 }
 
 public enum DelamType : int
@@ -346,7 +348,7 @@ public enum DelamType : int
     Explosion = 0,
     Singulo = 1,
     Tesla = 2,
-    Cascade = 3
+    Cascade = 3,
 }
 
 [Serializable, DataDefinition]
@@ -370,7 +372,4 @@ public sealed partial class GasFact
 }
 
 [Serializable, NetSerializable]
-public sealed partial class SupermatterDoAfterEvent : SimpleDoAfterEvent
-{
-
-}
+public sealed partial class SupermatterDoAfterEvent : SimpleDoAfterEvent { }

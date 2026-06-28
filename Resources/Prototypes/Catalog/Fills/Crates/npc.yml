@@ -6,8 +6,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: MobBee
-        amount: 8
+    - id: MobBee
+      amount: 8
 
 - type: entity
   id: CrateNPCButterflies
@@ -17,8 +17,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: MobButterfly
-        amount: 5
+    - id: MobButterfly
+      amount: 5
 
 - type: entity
   id: CrateNPCCat
@@ -28,21 +28,21 @@
   components:
   - type: StorageFill
     contents:
-      - id: MobCat
-        prob: 1
-        orGroup: MobCat
-      - id: MobCatCalico
-        prob: 1
-        orGroup: MobCat
-      - id: MobCatCaracal
-        prob: 0.5
-        orGroup: MobCat
-      - id: MobCatKitten
-        prob: 0.25
-        orGroup: MobCat
-      - id: MobBingus
-        prob: 0.005
-        orGroup: MobCat
+    - id: MobCat
+      prob: 1
+      orGroup: MobCat
+    - id: MobCatCalico
+      prob: 1
+      orGroup: MobCat
+    - id: MobCatCaracal
+      prob: 0.5
+      orGroup: MobCat
+    - id: MobCatKitten
+      prob: 0.25
+      orGroup: MobCat
+    - id: MobBingus
+      prob: 0.005
+      orGroup: MobCat
 
 - type: entity
   id: CrateNPCChicken
@@ -52,8 +52,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: MobChicken
-        amount: 2
+    - id: MobChicken
+      amount: 2
 
 - type: entity
   id: CrateNPCCrab
@@ -63,8 +63,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: MobCrab
-        amount: 3
+    - id: MobCrab
+      amount: 3
 
 - type: entity
   id: CrateNPCDuck
@@ -74,12 +74,12 @@
   components:
   - type: StorageFill
     contents:
-      - id: MobDuckMallard
-        amount: 1
-      - id: MobDuckBrown
-        amount: 1
-      - id: MobDuckWhite
-        amount: 2
+    - id: MobDuckMallard
+      amount: 1
+    - id: MobDuckBrown
+      amount: 1
+    - id: MobDuckWhite
+      amount: 2
 
 - type: entity
   id: CrateNPCCorgi
@@ -89,7 +89,7 @@
   components:
   - type: StorageFill
     contents:
-      - id: MobCorgi
+    - id: MobCorgi
 
 - type: entity
   id: CrateNPCPuppyCorgi
@@ -109,7 +109,7 @@
   components:
   - type: StorageFill
     contents:
-      - id: MobCow
+    - id: MobCow
 
 - type: entity
   id: CrateNPCGoat
@@ -119,7 +119,7 @@
   components:
   - type: StorageFill
     contents:
-      - id: MobGoat
+    - id: MobGoat
 
 - type: entity
   id: CrateNPCGoose
@@ -129,8 +129,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: MobGoose
-        amount: 2
+    - id: MobGoose
+      amount: 2
 
 - type: entity
   id: CrateNPCGorilla
@@ -140,7 +140,7 @@
   components:
   - type: StorageFill
     contents:
-      - id: MobGorilla
+    - id: MobGorilla
 
 - type: entity
   id: CrateNPCMonkeyCube
@@ -150,7 +150,7 @@
   components:
   - type: StorageFill
     contents:
-      - id: MonkeyCubeBox
+    - id: MonkeyCubeBox
 
 - type: entity
   id: CrateNPCKoboldCube
@@ -160,7 +160,7 @@
   components:
   - type: StorageFill
     contents:
-      - id: KoboldCubeBox
+    - id: KoboldCubeBox
 
 - type: entity
   id: CrateNPCMouse
@@ -170,8 +170,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: MobMouse
-        amount: 5
+    - id: MobMouse
+      amount: 5
 
 - type: entity
   id: CrateNPCParrot
@@ -181,8 +181,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: MobParrotNF # Frontier: MobParrot<MobParrotNF
-        amount: 2 # Frontier: 3<2 (loud)
+    - id: MobParrotNF # Frontier: MobParrot<MobParrotNF
+      amount: 2 # Frontier: 3<2 (loud)
 
 - type: entity
   id: CrateNPCPenguin
@@ -192,8 +192,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: MobPenguin
-        amount: 2
+    - id: MobPenguin
+      amount: 2
 
 - type: entity
   id: CrateNPCPig
@@ -203,7 +203,7 @@
   components:
   - type: StorageFill
     contents:
-      - id: MobPig
+    - id: MobPig
 
 - type: entity
   id: CrateNPCSnake
@@ -213,26 +213,26 @@
   components:
   - type: StorageFill
     contents:
-      - id: MobSnake
-        amount: 3
+    - id: MobSnake
+      amount: 3
 
 - type: entity
   id: CrateNPCHamster
   parent: CrateRodentCage
   suffix: Filled
   components:
-    - type: StorageFill
-      contents:
-        - id: MobHamster
+  - type: StorageFill
+    contents:
+    - id: MobHamster
 
 - type: entity
   id: CrateNPCHamlet
   parent: CrateRodentCage
   suffix: Hamlet
   components:
-    - type: StorageFill
-      contents:
-        - id: MobHamsterHamlet
+  - type: StorageFill
+    contents:
+    - id: MobHamsterHamlet
 
 - type: entity
   id: CrateNPCLizard
@@ -240,9 +240,9 @@
   name: lizard crate
   description: A crate containing a lizard.
   components:
-    - type: StorageFill
-      contents:
-        - id: MobLizard
+  - type: StorageFill
+    contents:
+    - id: MobLizard
 
 - type: entity
   id: CrateNPCKangaroo
@@ -252,7 +252,7 @@
   components:
   - type: StorageFill
     contents:
-      - id: MobKangaroo
+    - id: MobKangaroo
 
 - type: entity
   id: CrateNPCMothroach
@@ -262,5 +262,5 @@
   components:
   - type: StorageFill
     contents:
-      - id: MobMothroach
-        amount: 4
+    - id: MobMothroach
+      amount: 4

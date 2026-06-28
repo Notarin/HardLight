@@ -1,22 +1,25 @@
 using System.Text;
-using Robust.Shared.Random;
-using Content.Server.Speech.EntitySystems;
 using Content.Server._HL.Speech.Components;
 using Content.Server.Speech;
+using Content.Server.Speech.EntitySystems;
+using Robust.Shared.Random;
 
 namespace Content.Server._HL.Speech.EntitySystems;
 
 public sealed class ScandinavianAccentSystem : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly ReplacementAccentSystem _replacement = default!;
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly ReplacementAccentSystem _replacement = default!;
 
     private static readonly IReadOnlyDictionary<char, char[]> Vowels = new Dictionary<char, char[]>()
     {
-        { 'A',  ['Å','Ä','Æ'] },
-        { 'a',  ['å','ä','æ'] },
-        { 'O',  ['Ö','Ø'] },
-        { 'o',  ['ö','ø'] },
+        { 'A', ['Å', 'Ä', 'Æ'] },
+        { 'a', ['å', 'ä', 'æ'] },
+        { 'O', ['Ö', 'Ø'] },
+        { 'o', ['ö', 'ø'] },
     };
 
     public override void Initialize()
@@ -44,7 +47,7 @@ public sealed class ScandinavianAccentSystem : EntitySystem
                 'w' => 'v',
                 'J' => 'Y',
                 'j' => 'y',
-                _ => msgBuilder[i]
+                _ => msgBuilder[i],
             };
 
             if (umlautCooldown == 0)
@@ -57,7 +60,7 @@ public sealed class ScandinavianAccentSystem : EntitySystem
                         'a' => _random.Pick(Vowels['a']),
                         'O' => _random.Pick(Vowels['O']),
                         'o' => _random.Pick(Vowels['o']),
-                        _ => msgBuilder[i]
+                        _ => msgBuilder[i],
                     };
                     umlautCooldown = 4;
                 }

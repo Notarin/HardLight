@@ -31,16 +31,35 @@ namespace Content.Server._Starlight.Plumbing.EntitySystems;
 [UsedImplicitly]
 public sealed class PlumbingReactorSystem : EntitySystem
 {
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionSystem = default!;
-    [Dependency] private readonly ChemicalReactionSystem _reactionSystem = default!;
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
-    [Dependency] private readonly NodeContainerSystem _nodeContainer = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly PlumbingPullSystem _pullSystem = default!;
-    [Dependency] private readonly PowerReceiverSystem _power = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency]
+    private readonly SharedSolutionContainerSystem _solutionSystem = default!;
+
+    [Dependency]
+    private readonly ChemicalReactionSystem _reactionSystem = default!;
+
+    [Dependency]
+    private readonly UserInterfaceSystem _ui = default!;
+
+    [Dependency]
+    private readonly NodeContainerSystem _nodeContainer = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly PlumbingPullSystem _pullSystem = default!;
+
+    [Dependency]
+    private readonly PowerReceiverSystem _power = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
 
     /// <summary>
     ///     Temperature tolerance for considering target reached (in Kelvin).
@@ -118,7 +137,13 @@ public sealed class PlumbingReactorSystem : EntitySystem
             _appearance.SetData(ent.Owner, PlumbingVisuals.Running, true);
 
         if (neededTargets.Count > 0)
-            _pullSystem.PullSpecificReagents(ent.Owner, inletNode.PlumbingNet, bufferEnt.Value, neededTargets, ent.Comp.TransferAmount);
+            _pullSystem.PullSpecificReagents(
+                ent.Owner,
+                inletNode.PlumbingNet,
+                bufferEnt.Value,
+                neededTargets,
+                ent.Comp.TransferAmount
+            );
 
         if (allMet)
         {
@@ -184,7 +209,8 @@ public sealed class PlumbingReactorSystem : EntitySystem
         Entity<PlumbingReactorComponent> ent,
         Entity<SolutionComponent> solutionEnt,
         Solution solution,
-        float dt)
+        float dt
+    )
     {
         var currentTemp = solution.Temperature;
         var targetTemp = ent.Comp.TargetTemperature;
@@ -231,7 +257,11 @@ public sealed class PlumbingReactorSystem : EntitySystem
 
         if (!_prototypeManager.HasIndex<ReagentPrototype>(args.ReagentId))
         {
-            _popup.PopupEntity(Loc.GetString("plumbing-reactor-invalid-reagent", ("reagent", args.ReagentId)), ent.Owner, args.Actor);
+            _popup.PopupEntity(
+                Loc.GetString("plumbing-reactor-invalid-reagent", ("reagent", args.ReagentId)),
+                ent.Owner,
+                args.Actor
+            );
             return;
         }
 

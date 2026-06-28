@@ -24,4 +24,3 @@ public sealed partial class VigorComponent : Component
     [DataField]
     public float CooldownReduction = 0.75f; // 3s -> 2.25s = 3 * 0.75
 }
-

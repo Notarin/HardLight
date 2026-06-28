@@ -21,7 +21,6 @@ public sealed partial class NavMapBeaconWindow : FancyWindow
         RobustXamlLoader.Load(this);
         IoCManager.InjectDependencies(this);
 
-
         VisibleButton.OnPressed += args => UpdateVisibleButton(args.Button.Pressed);
         LabelLineEdit.OnTextChanged += OnTextChanged;
         ColorSelector.OnColorChanged += _ => TryEnableApplyButton();
@@ -44,9 +43,7 @@ public sealed partial class NavMapBeaconWindow : FancyWindow
     private void UpdateVisibleButton(bool value)
     {
         VisibleButton.Pressed = value;
-        VisibleButton.Text = Loc.GetString(value
-            ? "nav-beacon-toggle-visible"
-            : "nav-beacon-toggle-invisible");
+        VisibleButton.Text = Loc.GetString(value ? "nav-beacon-toggle-visible" : "nav-beacon-toggle-invisible");
 
         TryEnableApplyButton();
     }
@@ -61,9 +58,10 @@ public sealed partial class NavMapBeaconWindow : FancyWindow
 
     private void TryEnableApplyButton()
     {
-        ApplyButton.Disabled = LabelLineEdit.Text == (_defaultLabel ?? string.Empty) &&
-                               VisibleButton.Pressed == _defaultEnabled &&
-                               ColorSelector.Color == _defaultColor;
+        ApplyButton.Disabled =
+            LabelLineEdit.Text == (_defaultLabel ?? string.Empty)
+            && VisibleButton.Pressed == _defaultEnabled
+            && ColorSelector.Color == _defaultColor;
     }
 
     private void OnApplyPressed(BaseButton.ButtonEventArgs obj)

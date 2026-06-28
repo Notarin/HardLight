@@ -13,7 +13,8 @@ namespace Content.IntegrationTests.Tests.Utility
         private const string ValidComponent = "Physics";
 
         [TestPrototypes]
-        private const string Prototypes = $@"
+        private const string Prototypes =
+            $@"
 - type: Tag
   id: WhitelistTestValidTag
 - type: Tag
@@ -79,7 +80,7 @@ namespace Content.IntegrationTests.Tests.Utility
                 var whitelistInst = new EntityWhitelist
                 {
                     Components = new[] { $"{ValidComponent}" },
-                    Tags = new() { "WhitelistTestValidTag" }
+                    Tags = new() { "WhitelistTestValidTag" },
                 };
 
                 Assert.Multiple(() =>

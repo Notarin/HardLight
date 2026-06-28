@@ -20,12 +20,23 @@ namespace Content.Server._RMC14.Weapons.Ranged.Prediction;
 
 public sealed class GunPredictionSystem : SharedGunPredictionSystem
 {
-    [Dependency] private readonly IConfigurationManager _config = default!;
-    [Dependency] private readonly GunSystem _gun = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly SharedProjectileSystem _projectile = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
+    [Dependency]
+    private readonly IConfigurationManager _config = default!;
+
+    [Dependency]
+    private readonly GunSystem _gun = default!;
+
+    [Dependency]
+    private readonly SharedPhysicsSystem _physics = default!;
+
+    [Dependency]
+    private readonly SharedProjectileSystem _projectile = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly TransformSystem _transform = default!;
 
     private readonly Dictionary<(Guid, int), EntityUid> _predicted = new();
     private readonly List<(PredictedProjectileHitEvent Event, ICommonSession Player)> _predictedHits = new();
@@ -65,7 +76,12 @@ public sealed class GunPredictionSystem : SharedGunPredictionSystem
         Subs.CVar(_config, RMCCVars.RMCGunPredictionPreventCollision, v => _preventCollision = v, true);
         Subs.CVar(_config, RMCCVars.RMCGunPredictionLogHits, v => _logHits = v, false);
         Subs.CVar(_config, RMCCVars.RMCGunPredictionCoordinateDeviation, v => _coordinateDeviation = v, true);
-        Subs.CVar(_config, RMCCVars.RMCGunPredictionLowestCoordinateDeviation, v => _lowestCoordinateDeviation = v, true);
+        Subs.CVar(
+            _config,
+            RMCCVars.RMCGunPredictionLowestCoordinateDeviation,
+            v => _lowestCoordinateDeviation = v,
+            true
+        );
         Subs.CVar(_config, RMCCVars.RMCGunPredictionAabbEnlargement, v => _aabbEnlargement = v, true);
     }
 
@@ -111,9 +127,11 @@ public sealed class GunPredictionSystem : SharedGunPredictionSystem
             return;
 
         var other = args.OtherEntity;
-        if (!_lagCompensationQuery.TryComp(other, out var otherLagComp) ||
-            !_fixturesQuery.TryComp(other, out var otherFixtures) ||
-            !_transformQuery.TryComp(other, out var otherTransform))
+        if (
+            !_lagCompensationQuery.TryComp(other, out var otherLagComp)
+            || !_fixturesQuery.TryComp(other, out var otherFixtures)
+            || !_transformQuery.TryComp(other, out var otherTransform)
+        )
         {
             return;
         }
@@ -121,10 +139,13 @@ public sealed class GunPredictionSystem : SharedGunPredictionSystem
         if (!_physicsQuery.TryComp(ent, out var entPhysics))
             return;
 
-        if (!Collides(
+        if (
+            !Collides(
                 (ent, ent, entPhysics),
                 (other, otherLagComp, otherFixtures, args.OtherBody, otherTransform),
-                null))
+                null
+            )
+        )
         {
             args.Cancelled = true;
         }
@@ -133,7 +154,8 @@ public sealed class GunPredictionSystem : SharedGunPredictionSystem
     private bool Collides(
         Entity<PredictedProjectileServerComponent, PhysicsComponent> projectile,
         Entity<LagCompensationComponent, FixturesComponent, PhysicsComponent, TransformComponent> other,
-        MapCoordinates? clientCoordinates)
+        MapCoordinates? clientCoordinates
+    )
     {
         var projectileCoordinates = _transform.GetMapCoordinates(projectile);
         var projectilePosition = projectileCoordinates.Position;
@@ -154,13 +176,18 @@ public sealed class GunPredictionSystem : SharedGunPredictionSystem
                 lowestCoordinate = _transform.ToMapCoordinates(pos.Item2);
         }
 
-        var otherMapCoordinates = otherCoordinates == default
-            ? _transform.GetMapCoordinates(other)
-            : _transform.ToMapCoordinates(otherCoordinates);
+        var otherMapCoordinates =
+            otherCoordinates == default
+                ? _transform.GetMapCoordinates(other)
+                : _transform.ToMapCoordinates(otherCoordinates);
 
-        if (clientCoordinates != null &&
-            (clientCoordinates.Value.InRange(otherMapCoordinates, _coordinateDeviation) ||
-             clientCoordinates.Value.InRange(lowestCoordinate, _lowestCoordinateDeviation)))
+        if (
+            clientCoordinates != null
+            && (
+                clientCoordinates.Value.InRange(otherMapCoordinates, _coordinateDeviation)
+                || clientCoordinates.Value.InRange(lowestCoordinate, _lowestCoordinateDeviation)
+            )
+        )
         {
             otherMapCoordinates = clientCoordinates.Value;
         }
@@ -197,8 +224,9 @@ public sealed class GunPredictionSystem : SharedGunPredictionSystem
         if (!_predicted.TryGetValue((player.UserId, ev.Projectile), out var projectile))
             return;
 
-        if (!_predictedProjectileServerQuery.TryComp(projectile, out var predictedProjectile) ||
-            predictedProjectile.Hit)
+        if (
+            !_predictedProjectileServerQuery.TryComp(projectile, out var predictedProjectile) || predictedProjectile.Hit
+        )
         {
             return;
         }
@@ -206,8 +234,10 @@ public sealed class GunPredictionSystem : SharedGunPredictionSystem
         if (predictedProjectile.Shooter?.UserId != player.UserId.UserId)
             return;
 
-        if (!_projectileQuery.TryComp(projectile, out var projectileComp) ||
-            !_physicsQuery.TryComp(projectile, out var projectilePhysics))
+        if (
+            !_projectileQuery.TryComp(projectile, out var projectileComp)
+            || !_physicsQuery.TryComp(projectile, out var projectilePhysics)
+        )
         {
             return;
         }
@@ -218,18 +248,23 @@ public sealed class GunPredictionSystem : SharedGunPredictionSystem
             if (GetEntity(netEnt) is not { Valid: true } hit)
                 continue;
 
-            if (!_lagCompensationQuery.TryComp(hit, out var otherLagComp) ||
-                !_fixturesQuery.TryComp(hit, out var otherFixtures) ||
-                !_physicsQuery.TryComp(hit, out var otherPhysics) ||
-                !_transformQuery.TryComp(hit, out var otherTransform))
+            if (
+                !_lagCompensationQuery.TryComp(hit, out var otherLagComp)
+                || !_fixturesQuery.TryComp(hit, out var otherFixtures)
+                || !_physicsQuery.TryComp(hit, out var otherPhysics)
+                || !_transformQuery.TryComp(hit, out var otherTransform)
+            )
             {
                 continue;
             }
 
-            if (!Collides(
+            if (
+                !Collides(
                     (projectile, predictedProjectile, projectilePhysics),
                     (hit, otherLagComp, otherFixtures, otherPhysics, otherTransform),
-                    clientPos))
+                    clientPos
+                )
+            )
             {
                 if (_logHits)
                     Log.Info("missed");
@@ -265,12 +300,13 @@ public sealed class GunPredictionSystem : SharedGunPredictionSystem
         {
             var origin = hit.Origin;
             var coordinates = xform.Coordinates;
-            if (!origin.TryDistance(EntityManager, _transform, coordinates, out var distance) ||
-                distance >= hit.Distance)
+            if (
+                !origin.TryDistance(EntityManager, _transform, coordinates, out var distance)
+                || distance >= hit.Distance
+            )
             {
                 QueueDel(uid);
             }
         }
     }
 }
-

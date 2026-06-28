@@ -11,11 +11,20 @@ namespace Content.Shared.Mining;
 
 public sealed partial class MiningScannerSystem : EntitySystem // Frontier: partial
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly InventorySystem _inventory = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly INetManager _net = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly InventorySystem _inventory = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -50,8 +59,10 @@ public sealed partial class MiningScannerSystem : EntitySystem // Frontier: part
         var ents = _inventory.GetHandOrInventoryEntities(uid);
         foreach (var ent in ents)
         {
-            if (!TryComp<MiningScannerComponent>(ent, out var scannerComponent) ||
-                !TryComp<ItemToggleComponent>(ent, out var toggle))
+            if (
+                !TryComp<MiningScannerComponent>(ent, out var scannerComponent)
+                || !TryComp<ItemToggleComponent>(ent, out var toggle)
+            )
                 continue;
 
             if (!toggle.Activated)

@@ -13,8 +13,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.35
         density: 50
         mask:
@@ -22,8 +21,8 @@
         layer:
         - MobLayer
   - type: MovementSpeedModifier
-    baseWalkSpeed : 2
-    baseSprintSpeed : 3
+    baseWalkSpeed: 2
+    baseSprintSpeed: 3
   - type: Sprite
     noRot: true
     drawdepth: Mobs
@@ -46,8 +45,8 @@
     - DoorBumpOpener
   - type: MobState
     allowedStates:
-      - Alive
-      - Dead
+    - Alive
+    - Dead
   - type: MobThresholds
     thresholds:
       0: Alive
@@ -56,17 +55,15 @@
     critThreshold: 120
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:TriggerBehavior
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 120
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: Input
     context: "human"
   - type: InputMover
@@ -78,7 +75,7 @@
   abstract: true
   id: MobOreCrab
   name: ore crab
-  parent: [ MobElementalBase, MobCombat ]
+  parent: [MobElementalBase, MobCombat]
   components:
   - type: Sprite
     sprite: Mobs/Elemental/orecrab.rsi
@@ -94,21 +91,21 @@
       types:
         Blunt: 5
   - type: MovementSpeedModifier
-    baseWalkSpeed : 2
-    baseSprintSpeed : 2.25
+    baseWalkSpeed: 2
+    baseSprintSpeed: 2.25
   - type: NpcFactionMember
     factions:
-      - SimpleHostile
+    - SimpleHostile
   - type: Damageable
     damageContainer: StructuralInorganic
   - type: Psionic
     removable: false
     roller: false
     assayFeedback:
-      - orecrab-feedback
+    - orecrab-feedback
   - type: InnatePsionicPowers
     powersToAdd:
-      - TelepathyPower
+    - TelepathyPower
 
 - type: entity
   parent: MobOreCrab
@@ -120,8 +117,7 @@
     state: quartz_crab
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 40
       behaviors:
       - !type:PlaySoundBehavior
@@ -133,7 +129,7 @@
             min: 2
             max: 4
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
 
 - type: entity
   parent: MobOreCrab
@@ -148,12 +144,11 @@
       types:
         Blunt: 5
   - type: MovementSpeedModifier
-    baseWalkSpeed : 1.5
-    baseSprintSpeed : 2
+    baseWalkSpeed: 1.5
+    baseSprintSpeed: 2
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 80
       behaviors:
       - !type:PlaySoundBehavior
@@ -165,7 +160,7 @@
             min: 2
             max: 4
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
 
 - type: entity
   parent: MobOreCrab
@@ -180,12 +175,11 @@
       types:
         Blunt: 2.5
   - type: MovementSpeedModifier
-    baseWalkSpeed : 1.0
-    baseSprintSpeed : 1.5
+    baseWalkSpeed: 1.0
+    baseSprintSpeed: 1.5
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:PlaySoundBehavior
@@ -197,7 +191,7 @@
             min: 2
             max: 4
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
 
 - type: entity
   parent: MobOreCrab
@@ -210,14 +204,13 @@
     attackMemoryLength: 10
   - type: NpcFactionMember
     factions:
-      - SimpleNeutral
+    - SimpleNeutral
   - type: RadiationSource
     intensity: 2
     slope: 0.3
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 80
       behaviors:
       - !type:PlaySoundBehavior
@@ -229,7 +222,7 @@
             min: 1
             max: 3
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: PointLight
     radius: 2
     energy: 3
@@ -249,8 +242,7 @@
         Blunt: 5
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 70
       behaviors:
       - !type:PlaySoundBehavior
@@ -262,7 +254,7 @@
             min: 1
             max: 3
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
 
 - type: entity
   parent: MobOreCrab
@@ -278,8 +270,7 @@
         Blunt: 5
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 70
       behaviors:
       - !type:PlaySoundBehavior
@@ -291,13 +282,13 @@
             min: 1
             max: 3
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
 
 - type: entity
   name: reagent slime
   id: ReagentSlime
   suffix: Water
-  parent: [ MobAdultSlimes, MobCombat ]
+  parent: [MobAdultSlimes, MobCombat]
   description: It consists of a liquid, and it wants to dissolve you in itself.
   components:
   - type: GhostRole
@@ -315,9 +306,9 @@
     drawdepth: Mobs
     sprite: Mobs/Aliens/elemental.rsi
     layers:
-      - map: [ "enum.DamageStateVisualLayers.Base" ]
-        state: alive
-        color: "#75b1f0"
+    - map: ["enum.DamageStateVisualLayers.Base"]
+      state: alive
+      color: "#75b1f0"
   - type: PointLight
     radius: 2.0
     energy: 3.5
@@ -359,9 +350,9 @@
         Base: dead
   - type: Tag
     tags:
-      - FootstepSound
-      - CannotSuicide
-      - DoorBumpOpener
+    - FootstepSound
+    - CannotSuicide
+    - DoorBumpOpener
   - type: NoSlip
   - type: ZombieImmune
   - type: ExaminableSolution
@@ -374,37 +365,37 @@
     removable: false
     roller: false
     assayFeedback:
-      - reagent-slime-feedback
+    - reagent-slime-feedback
   - type: InnatePsionicPowers
     powersToAdd:
-      - TelepathyPower
+    - TelepathyPower
 
 - type: entity
   name: Reagent Slime Spawner
   id: ReagentSlimeSpawner
   parent: MarkerBase
   components:
-    - type: Sprite
-      layers:
-        - state: red
-        - sprite: Mobs/Aliens/elemental.rsi
-          state: alive
-    - type: RandomSpawner
-      prototypes:
-        - ReagentSlime
-        - ReagentSlimeBeer
-        - ReagentSlimePax
-        - ReagentSlimeNocturine
-        - ReagentSlimeTHC
-        - ReagentSlimeBicaridine
-        - ReagentSlimeToxin
-        - ReagentSlimeNapalm
-        - ReagentSlimeOmnizine
-        - ReagentSlimeMuteToxin
-        - ReagentSlimeNorepinephricAcid
-        - ReagentSlimeEphedrine
-        - ReagentSlimeRobustHarvest
-      chance: 1
+  - type: Sprite
+    layers:
+    - state: red
+    - sprite: Mobs/Aliens/elemental.rsi
+      state: alive
+  - type: RandomSpawner
+    prototypes:
+    - ReagentSlime
+    - ReagentSlimeBeer
+    - ReagentSlimePax
+    - ReagentSlimeNocturine
+    - ReagentSlimeTHC
+    - ReagentSlimeBicaridine
+    - ReagentSlimeToxin
+    - ReagentSlimeNapalm
+    - ReagentSlimeOmnizine
+    - ReagentSlimeMuteToxin
+    - ReagentSlimeNorepinephricAcid
+    - ReagentSlimeEphedrine
+    - ReagentSlimeRobustHarvest
+    chance: 1
 
 - type: entity
   id: ReagentSlimeBeer
@@ -419,9 +410,9 @@
     drawdepth: Mobs
     sprite: Mobs/Aliens/elemental.rsi
     layers:
-      - map: [ "enum.DamageStateVisualLayers.Base" ]
-        state: alive
-        color: "#cfa85f"
+    - map: ["enum.DamageStateVisualLayers.Base"]
+      state: alive
+      color: "#cfa85f"
 
 - type: entity
   id: ReagentSlimePax
@@ -436,9 +427,9 @@
     drawdepth: Mobs
     sprite: Mobs/Aliens/elemental.rsi
     layers:
-      - map: [ "enum.DamageStateVisualLayers.Base" ]
-        state: alive
-        color: "#AAAAAA"
+    - map: ["enum.DamageStateVisualLayers.Base"]
+      state: alive
+      color: "#AAAAAA"
   - type: MeleeChemicalInjector
     solution: bloodstream
     transferAmount: 1
@@ -456,9 +447,9 @@
     drawdepth: Mobs
     sprite: Mobs/Aliens/elemental.rsi
     layers:
-      - map: [ "enum.DamageStateVisualLayers.Base" ]
-        state: alive
-        color: "#128e80"
+    - map: ["enum.DamageStateVisualLayers.Base"]
+      state: alive
+      color: "#128e80"
   - type: MeleeChemicalInjector
     solution: bloodstream
     transferAmount: 3
@@ -476,9 +467,9 @@
     drawdepth: Mobs
     sprite: Mobs/Aliens/elemental.rsi
     layers:
-      - map: [ "enum.DamageStateVisualLayers.Base" ]
-        state: alive
-        color: "#808080"
+    - map: ["enum.DamageStateVisualLayers.Base"]
+      state: alive
+      color: "#808080"
 
 - type: entity
   id: ReagentSlimeBicaridine
@@ -493,9 +484,9 @@
     drawdepth: Mobs
     sprite: Mobs/Aliens/elemental.rsi
     layers:
-      - map: [ "enum.DamageStateVisualLayers.Base" ]
-        state: alive
-        color: "#ffaa00"
+    - map: ["enum.DamageStateVisualLayers.Base"]
+      state: alive
+      color: "#ffaa00"
 
 - type: entity
   id: ReagentSlimeToxin
@@ -510,9 +501,9 @@
     drawdepth: Mobs
     sprite: Mobs/Aliens/elemental.rsi
     layers:
-      - map: [ "enum.DamageStateVisualLayers.Base" ]
-        state: alive
-        color: "#cf3600"
+    - map: ["enum.DamageStateVisualLayers.Base"]
+      state: alive
+      color: "#cf3600"
 
 - type: entity
   id: ReagentSlimeNapalm
@@ -527,9 +518,9 @@
     drawdepth: Mobs
     sprite: Mobs/Aliens/elemental.rsi
     layers:
-      - map: [ "enum.DamageStateVisualLayers.Base" ]
-        state: alive
-        color: "#FA00AF"
+    - map: ["enum.DamageStateVisualLayers.Base"]
+      state: alive
+      color: "#FA00AF"
 
 - type: entity
   id: ReagentSlimeOmnizine
@@ -544,9 +535,9 @@
     drawdepth: Mobs
     sprite: Mobs/Aliens/elemental.rsi
     layers:
-      - map: [ "enum.DamageStateVisualLayers.Base" ]
-        state: alive
-        color: "#fcf7f9"
+    - map: ["enum.DamageStateVisualLayers.Base"]
+      state: alive
+      color: "#fcf7f9"
 
 - type: entity
   id: ReagentSlimeMuteToxin
@@ -561,9 +552,9 @@
     drawdepth: Mobs
     sprite: Mobs/Aliens/elemental.rsi
     layers:
-      - map: [ "enum.DamageStateVisualLayers.Base" ]
-        state: alive
-        color: "#0f0f0f"
+    - map: ["enum.DamageStateVisualLayers.Base"]
+      state: alive
+      color: "#0f0f0f"
 
 - type: entity
   id: ReagentSlimeNorepinephricAcid
@@ -578,9 +569,9 @@
     drawdepth: Mobs
     sprite: Mobs/Aliens/elemental.rsi
     layers:
-      - map: [ "enum.DamageStateVisualLayers.Base" ]
-        state: alive
-        color: "#96a8b5"
+    - map: ["enum.DamageStateVisualLayers.Base"]
+      state: alive
+      color: "#96a8b5"
 
 - type: entity
   id: ReagentSlimeEphedrine
@@ -595,9 +586,9 @@
     drawdepth: Mobs
     sprite: Mobs/Aliens/elemental.rsi
     layers:
-      - map: [ "enum.DamageStateVisualLayers.Base" ]
-        state: alive
-        color: "#D2FFFA"
+    - map: ["enum.DamageStateVisualLayers.Base"]
+      state: alive
+      color: "#D2FFFA"
 
 - type: entity
   id: ReagentSlimeRobustHarvest
@@ -612,6 +603,6 @@
     drawdepth: Mobs
     sprite: Mobs/Aliens/elemental.rsi
     layers:
-      - map: [ "enum.DamageStateVisualLayers.Base" ]
-        state: alive
-        color: "#3e901c"
+    - map: ["enum.DamageStateVisualLayers.Base"]
+      state: alive
+      color: "#3e901c"

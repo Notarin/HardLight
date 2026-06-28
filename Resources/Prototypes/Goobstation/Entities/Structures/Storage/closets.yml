@@ -2,7 +2,7 @@
   id: SuitStorageHEV
   name: H.E.V suit storage unit
   description: A fancy hi-tech storage unit made for storing H.E.V suit.
-  parent: [ BaseItemCabinetGlass, BaseStructure ]
+  parent: [BaseItemCabinetGlass, BaseStructure]
   suffix: Empty
   components:
   - type: InteractionOutline
@@ -29,8 +29,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.25,-0.48,0.25,0.48"
         density: 350
         mask:
@@ -46,14 +45,12 @@
         collection: GlassSmash
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 400
       behaviors:
-        - !type:DoActsBehavior
-          acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 200
       behaviors:
       - !type:DoActsBehavior

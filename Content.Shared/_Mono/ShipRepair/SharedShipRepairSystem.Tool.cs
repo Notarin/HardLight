@@ -1,10 +1,10 @@
+using System.Numerics;
 using Content.Shared._Mono.ShipRepair.Components;
 using Content.Shared.DoAfter;
 using Content.Shared.Interaction;
 using Content.Shared.Popups;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
-using System.Numerics;
 
 namespace Content.Shared._Mono.ShipRepair;
 
@@ -27,16 +27,29 @@ public abstract partial class SharedShipRepairSystem : EntitySystem
         var clickPos = args.ClickLocation;
         var clickWorld = _transform.ToWorldPosition(clickPos);
         var grids = new List<Entity<MapGridComponent>>();
-        _mapMan.FindGridsIntersecting(ourXform.MapID, Box2.FromDimensions(clickWorld, new Vector2(1f, 1f)), ref grids, true, false);
+        _mapMan.FindGridsIntersecting(
+            ourXform.MapID,
+            Box2.FromDimensions(clickWorld, new Vector2(1f, 1f)),
+            ref grids,
+            true,
+            false
+        );
         if (grids.Count == 0)
             return;
 
         var targetGrid = grids[0];
 
-        if (TryComp<ShipRepairRestrictComponent>(targetGrid, out var restrict)
-            && _whitelist.IsWhitelistFail(restrict.ToolWhitelist, ent))
+        if (
+            TryComp<ShipRepairRestrictComponent>(targetGrid, out var restrict)
+            && _whitelist.IsWhitelistFail(restrict.ToolWhitelist, ent)
+        )
         {
-            _popup.PopupClient(Loc.GetString("ship-repair-tool-fail-whitelist"), ent, args.User, PopupType.MediumCaution);
+            _popup.PopupClient(
+                Loc.GetString("ship-repair-tool-fail-whitelist"),
+                ent,
+                args.User,
+                PopupType.MediumCaution
+            );
             return;
         }
 
@@ -62,7 +75,14 @@ public abstract partial class SharedShipRepairSystem : EntitySystem
 
             if (storedTile != currentTile.TypeId)
             {
-                StartRepair(ent, args.User, targetGrid, gridIndices, ent.Comp.TileRepairTime * ent.Comp.RepairTimeMultiplier, ent.Comp.TileRepairCost);
+                StartRepair(
+                    ent,
+                    args.User,
+                    targetGrid,
+                    gridIndices,
+                    ent.Comp.TileRepairTime * ent.Comp.RepairTimeMultiplier,
+                    ent.Comp.TileRepairCost
+                );
                 return; // do not attempt anything else
             }
         }
@@ -75,7 +95,8 @@ public abstract partial class SharedShipRepairSystem : EntitySystem
             foreach (var (id, spec) in chunk.Entities)
             {
                 // just fail the repair if it doesn't have the comp
-                if (!_proto.TryIndex(repairData.EntityPalette[spec.ProtoIndex], out var entProto)
+                if (
+                    !_proto.TryIndex(repairData.EntityPalette[spec.ProtoIndex], out var entProto)
                     || !entProto.TryGetComponent<ShipRepairableComponent>(out var repairable, Factory)
                     || entProto.TryGetComponent<ShipRepairableRestrictComponent>(out var entRestrict, Factory)
                         && _whitelist.IsWhitelistFail(entRestrict.ToolWhitelist, ent)
@@ -120,8 +141,10 @@ public abstract partial class SharedShipRepairSystem : EntitySystem
                     _toRemoveIds.Clear();
                     foreach (var doAfterId in ent.Comp.DoAfters)
                     {
-                        if (!doAfterComp.DoAfters.TryGetValue(doAfterId.Index, out var doAfter)
-                            || doAfter.Args.Event is not ShipRepairDoAfterEvent repairEv)
+                        if (
+                            !doAfterComp.DoAfters.TryGetValue(doAfterId.Index, out var doAfter)
+                            || doAfter.Args.Event is not ShipRepairDoAfterEvent repairEv
+                        )
                         {
                             _toRemoveIds.Add(doAfterId);
                             continue;
@@ -155,13 +178,21 @@ public abstract partial class SharedShipRepairSystem : EntitySystem
             _popup.PopupEntity(Loc.GetString("ship-repair-tool-entity-exists"), ent, args.User, PopupType.SmallCaution);
     }
 
-    private void StartRepair(Entity<ShipRepairToolComponent> tool, EntityUid user, Entity<MapGridComponent> grid, Vector2i tileIndices, float delay, int cost, int? repairId = null)
+    private void StartRepair(
+        Entity<ShipRepairToolComponent> tool,
+        EntityUid user,
+        Entity<MapGridComponent> grid,
+        Vector2i tileIndices,
+        float delay,
+        int cost,
+        int? repairId = null
+    )
     {
         var ev = new ShipRepairDoAfterEvent
         {
             TargetGridIndices = tileIndices,
             RepairId = repairId,
-            Cost = cost
+            Cost = cost,
         };
 
         var args = new DoAfterArgs(EntityManager, user, delay, ev, tool, grid)
@@ -169,7 +200,7 @@ public abstract partial class SharedShipRepairSystem : EntitySystem
             BreakOnMove = true,
             BreakOnDamage = true,
             // only block if we're trying the exact same
-            DuplicateCondition = DuplicateConditions.SameEvent
+            DuplicateCondition = DuplicateConditions.SameEvent,
         };
 
         if (_doAfter.TryStartDoAfter(args, out var id))
@@ -229,7 +260,12 @@ public abstract partial class SharedShipRepairSystem : EntitySystem
 
             spec.OriginalEntity = GetNetEntity(spawned);
 
-            var dirtMsg = new RepairEntityMessage(GetNetEntity(targetGrid), args.TargetGridIndices, args.RepairId.Value, spec);
+            var dirtMsg = new RepairEntityMessage(
+                GetNetEntity(targetGrid),
+                args.TargetGridIndices,
+                args.RepairId.Value,
+                spec
+            );
             RaiseNetworkEvent(dirtMsg);
         }
         else

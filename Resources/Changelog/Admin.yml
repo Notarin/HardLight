@@ -1,4 +1,4 @@
-﻿AdminOnly: true
+AdminOnly: true
 Entries:
 - author: DrSmugleaf
   changes:
@@ -10,8 +10,7 @@ Entries:
   changes:
   - message: Added a new panic bunker UI in the F7 admin panel.
     type: Add
-  - message: Added being able to toggle the panic bunker automatically depending on
-      if admins are online or not.
+  - message: Added being able to toggle the panic bunker automatically depending on if admins are online or not.
     type: Add
   id: 2
   time: '2023-10-12T22:46:00.0000000+00:00'
@@ -29,8 +28,7 @@ Entries:
   time: '2023-10-14T09:00:00.0000000+00:00'
 - author: DrSmugleaf
   changes:
-  - message: Made the panic bunker UI also set the minimum account age/playtime requirements
-      when the two inputs lose focus, not just when pressing enter.
+  - message: Made the panic bunker UI also set the minimum account age/playtime requirements when the two inputs lose focus, not just when pressing enter.
     type: Tweak
   - message: Added message tooltip to the erase verb.
     type: Tweak
@@ -58,8 +56,7 @@ Entries:
   changes:
   - message: Fixed whitelist commands not giving feedback with 0 arguments.
     type: Fix
-  - message: Fixed not trimming starting and trailing whitespaces within names in
-      whitelist commands.
+  - message: Fixed not trimming starting and trailing whitespaces within names in whitelist commands.
     type: Fix
   - message: Added a \[player\] completion type hint to whitelist add and remove commands.
     type: Tweak
@@ -67,15 +64,13 @@ Entries:
   time: '2023-10-21T09:53:00.0000000+00:00'
 - author: DrSmugleaf
   changes:
-  - message: Fixed the Erase verb not removing all chat messages from the player in
-      some cases.
+  - message: Fixed the Erase verb not removing all chat messages from the player in some cases.
     type: Fix
   id: 9
   time: '2023-10-30T01:28:00.0000000+00:00'
 - author: Vasilis
   changes:
-  - message: AME and PA make a sound effect when they are being overloaded. Similar
-      to being sent a fax.
+  - message: AME and PA make a sound effect when they are being overloaded. Similar to being sent a fax.
     type: Add
   id: 10
   time: '2023-11-07T15:03:00.0000000+00:00'
@@ -87,15 +82,13 @@ Entries:
   time: '2023-11-22T16:39:00.0000000+00:00'
 - author: nikthechampiongr
   changes:
-  - message: The Super Bonk smite is now available. Targets will bonk their head on
-      every single table.
+  - message: The Super Bonk smite is now available. Targets will bonk their head on every single table.
     type: Add
   id: 12
   time: '2023-12-12T11:54:00.0000000+00:00'
 - author: DrSmugleaf
   changes:
-  - message: Fixed not being able to right click in AHelps and the players and objects
-      tabs.
+  - message: Fixed not being able to right click in AHelps and the players and objects tabs.
     type: Fix
   id: 13
   time: '2023-12-21T06:34:00.0000000+00:00'
@@ -114,17 +107,14 @@ Entries:
   url: https://github.com/space-wizards/space-station-14/pull/26091
 - author: PJB3005
   changes:
-  - message: Admin messages are now shown as "seen" even if the player dismisses them
-      only temporarily. Also, it is impossible for players to play without dismissing
-      the message (temporary or permanent).
+  - message: Admin messages are now shown as "seen" even if the player dismisses them only temporarily. Also, it is impossible for players to play without dismissing the message (temporary or permanent).
     type: Tweak
   id: 16
   time: '2024-03-21T15:15:46.0000000+00:00'
   url: https://github.com/space-wizards/space-station-14/pull/26223
 - author: nikthechampiongr
   changes:
-  - message: The stealthmin command has been added. Admins with the Stealth permission
-      can now hide themselves from adminwho except for other admins with that permission.
+  - message: The stealthmin command has been added. Admins with the Stealth permission can now hide themselves from adminwho except for other admins with that permission.
     type: Add
   id: 17
   time: '2024-03-24T15:39:54.0000000+00:00'
@@ -138,16 +128,14 @@ Entries:
   url: https://github.com/space-wizards/space-station-14/pull/26500
 - author: Simyon
   changes:
-  - message: The aghost command now accepts a optional username argument to aghost
-      other people.
+  - message: The aghost command now accepts a optional username argument to aghost other people.
     type: Tweak
   id: 19
   time: '2024-03-31T02:05:44.0000000+00:00'
   url: https://github.com/space-wizards/space-station-14/pull/26546
 - author: PJB3005
   changes:
-  - message: The new "grant_connect_bypass" command grants a player the ability to
-      connect, bypassing whitelist, player cap and panic bunker.
+  - message: The new "grant_connect_bypass" command grants a player the ability to connect, bypassing whitelist, player cap and panic bunker.
     type: Add
   id: 20
   time: '2024-04-09T15:25:21.0000000+00:00'
@@ -161,9 +149,7 @@ Entries:
   url: https://github.com/space-wizards/space-station-14/pull/27142
 - author: nikthechampiongr
   changes:
-  - message: Banpanel default values for ban severities, whether a server ban should
-      be applied with hwid/ip,  whether to use last available details, and whether
-      to erase the player on ban can now be configured through a Cvar.
+  - message: Banpanel default values for ban severities, whether a server ban should be applied with hwid/ip,  whether to use last available details, and whether to erase the player on ban can now be configured through a Cvar.
     type: Tweak
   id: 22
   time: '2024-04-20T16:18:26.0000000+00:00'
@@ -177,19 +163,14 @@ Entries:
   url: https://github.com/space-wizards/space-station-14/pull/27319
 - author: Errant
   changes:
-  - message: When spawning vox for admemes, they should be given/spawned in a nitrogen-filled
-      space if possible. If they must be placed in normal air, an alternate vox prototype
-      now comes with breathing gear and N2 tank already equipped, but the internals
-      must be turned on via right click and even if you do this instantly they will
-      still probably take ~4 poison damage from the air, so heal them afterwards.
+  - message: When spawning vox for admemes, they should be given/spawned in a nitrogen-filled space if possible. If they must be placed in normal air, an alternate vox prototype now comes with breathing gear and N2 tank already equipped, but the internals must be turned on via right click and even if you do this instantly they will still probably take ~4 poison damage from the air, so heal them afterwards.
     type: Add
   id: 24
   time: '2024-04-27T10:33:35.0000000+00:00'
   url: https://github.com/space-wizards/space-station-14/pull/26705
 - author: Tainakov
   changes:
-  - message: +Adminchat flag is added. Now to gain access to the admin chat you will
-      need this flag.
+  - message: +Adminchat flag is added. Now to gain access to the admin chat you will need this flag.
     type: Add
   id: 25
   time: '2024-04-27T11:17:47.0000000+00:00'
@@ -203,34 +184,27 @@ Entries:
   url: https://github.com/space-wizards/space-station-14/pull/24945
 - author: pissdemon
   changes:
-  - message: Players frozen by admins can no longer use the "ghost" or "suicide" console
-      commands.
+  - message: Players frozen by admins can no longer use the "ghost" or "suicide" console commands.
     type: Tweak
-  - message: Added a "Freeze And Mute" admin verb. In addition to acting like Freeze,
-      it will mute the targeted player, which prevents them from speaking or emoting
-      until unfrozen. It can also be used on already frozen but not yet muted players.
+  - message: Added a "Freeze And Mute" admin verb. In addition to acting like Freeze, it will mute the targeted player, which prevents them from speaking or emoting until unfrozen. It can also be used on already frozen but not yet muted players.
     type: Add
   id: 27
   time: '2024-05-12T14:35:30.0000000+00:00'
   url: https://github.com/space-wizards/space-station-14/pull/27813
 - author: nikthechampiongr
   changes:
-  - message: Admins are now able to remove station records through the records console
-      interface on their aghost. This will remove the record from the manifest and
-      criminal records as well.
+  - message: Admins are now able to remove station records through the records console interface on their aghost. This will remove the record from the manifest and criminal records as well.
     type: Add
   id: 28
   time: '2024-05-12T15:07:54.0000000+00:00'
   url: https://github.com/space-wizards/space-station-14/pull/27883
 - author: Arimah and TsjipTsjip
   changes:
-  - message: Universal access configurator which can modify all access levels with
-      the correct ID card.
+  - message: Universal access configurator which can modify all access levels with the correct ID card.
     type: Add
   - message: Universal ID card which has all access levels.
     type: Add
-  - message: Admin PDA's spawn with a universal ID card, admin ghosts get a universal
-      access configurator in their bluespace satchel.
+  - message: Admin PDA's spawn with a universal ID card, admin ghosts get a universal access configurator in their bluespace satchel.
     type: Tweak
   id: 29
   time: '2024-05-19T23:04:16.0000000+00:00'
@@ -259,8 +233,7 @@ Entries:
   changes:
   - message: Added a search bar to the admin menu player tab.
     type: Add
-  - message: Changed the player tab entry tooltip to be the player name, character
-      name, identity, and job. Moved the time tooltip to the header.
+  - message: Changed the player tab entry tooltip to be the player name, character name, identity, and job. Moved the time tooltip to the header.
     type: Tweak
   id: 32
   time: '2024-05-31T06:28:08.0000000+00:00'
@@ -292,8 +265,7 @@ Entries:
   url: https://github.com/space-wizards/space-station-14/pull/28609
 - author: nikthechampiongr
   changes:
-  - message: Freeze, freeze & mute, and unfreeze verbs now work on any entity. Not
-      just connected players.
+  - message: Freeze, freeze & mute, and unfreeze verbs now work on any entity. Not just connected players.
     type: Tweak
   id: 36
   time: '2024-06-08T10:40:33.0000000+00:00'
@@ -307,8 +279,7 @@ Entries:
   url: https://github.com/space-wizards/space-station-14/pull/28876
 - author: nikthechampiongr
   changes:
-  - message: The ahelp panel properly deselects a player when they are no longer on
-      the player list.
+  - message: The ahelp panel properly deselects a player when they are no longer on the player list.
     type: Fix
   id: 38
   time: '2024-06-15T11:25:42.0000000+00:00'
@@ -322,10 +293,7 @@ Entries:
   url: https://github.com/space-wizards/space-station-14/pull/29259
 - author: nikthechampiongr
   changes:
-  - message: It is now possible to issue BlacklistedRanges bans(This requires you
-      to edit the database manually at the moment.) Bans marked as BlacklistedRange
-      will lead to players joining for the first time who match an ip range to be
-      denied. Players that have joined the server before will be unaffected.
+  - message: It is now possible to issue BlacklistedRanges bans(This requires you to edit the database manually at the moment.) Bans marked as BlacklistedRange will lead to players joining for the first time who match an ip range to be denied. Players that have joined the server before will be unaffected.
     type: Add
   id: 40
   time: '2024-06-21T12:06:07.0000000+00:00'
@@ -346,8 +314,7 @@ Entries:
   url: https://github.com/space-wizards/space-station-14/pull/29405
 - author: Repo
   changes:
-  - message: Changed admin object tab from auto to manual refresh on tab change or
-      button press so that entries don't shift around when selecting an object.
+  - message: Changed admin object tab from auto to manual refresh on tab change or button press so that entries don't shift around when selecting an object.
     type: Tweak
   id: 43
   time: '2024-06-28T03:32:57.0000000+00:00'
@@ -361,8 +328,7 @@ Entries:
   url: https://github.com/space-wizards/space-station-14/pull/29582
 - author: Chief-Engineer
   changes:
-  - message: Baby jail no longer prevents accounts with no prior connections from
-      connecting
+  - message: Baby jail no longer prevents accounts with no prior connections from connecting
     type: Fix
   id: 45
   time: '2024-07-11T05:14:01.0000000+00:00'
@@ -401,17 +367,14 @@ Entries:
   url: https://github.com/space-wizards/space-station-14/pull/30580
 - author: Mervill
   changes:
-  - message: added a debug command to set either your hunger or thirst value to a
-      given threshold
+  - message: added a debug command to set either your hunger or thirst value to a given threshold
     type: Add
   id: 50
   time: '2024-08-05T07:36:26.0000000+00:00'
   url: https://github.com/space-wizards/space-station-14/pull/30563
 - author: nikthechampiongr
   changes:
-  - message: The player panel has now been added and can be invoked with the playerpanel
-      command. It will display general information on the selected player, as well
-      as allow for general actions to be performed on them.
+  - message: The player panel has now been added and can be invoked with the playerpanel command. It will display general information on the selected player, as well as allow for general actions to be performed on them.
     type: Add
   id: 51
   time: '2024-08-09T05:33:26.0000000+00:00'
@@ -425,8 +388,7 @@ Entries:
   url: https://github.com/space-wizards/space-station-14/pull/30581
 - author: Simyon
   changes:
-  - message: You can now view and edit the laws of silicons. Cyborg/Law bound entity
-      -> Admin -> Manage laws
+  - message: You can now view and edit the laws of silicons. Cyborg/Law bound entity -> Admin -> Manage laws
     type: Add
   id: 53
   time: '2024-08-09T06:16:22.0000000+00:00'
@@ -447,11 +409,7 @@ Entries:
   url: https://github.com/space-wizards/space-station-14/pull/30597
 - author: Errant
   changes:
-  - message: The setgamepreset command now only sets the gamemode for a limited number
-      of rounds, specified by a second parameter. Afterwards it switches back to the
-      server default. Omitting the number parameter sets it for 1 round only. To change
-      the game mode for a longer period, either specify a high number or change the
-      game.fallbackpreset cvar so it will reset to what you want
+  - message: The setgamepreset command now only sets the gamemode for a limited number of rounds, specified by a second parameter. Afterwards it switches back to the server default. Omitting the number parameter sets it for 1 round only. To change the game mode for a longer period, either specify a high number or change the game.fallbackpreset cvar so it will reset to what you want
     type: Tweak
   id: 56
   time: '2024-08-09T07:04:19.0000000+00:00'
@@ -493,8 +451,7 @@ Entries:
   url: https://github.com/space-wizards/space-station-14/pull/31045
 - author: PursuitInAshes
   changes:
-  - message: The resave command is no longer usable with the mapping permission, instead
-      it requires host permissions.
+  - message: The resave command is no longer usable with the mapping permission, instead it requires host permissions.
     type: Tweak
   id: 62
   time: '2024-08-25T01:55:31.0000000+00:00'
@@ -521,8 +478,7 @@ Entries:
   url: https://github.com/space-wizards/space-station-14/pull/30433
 - author: nikthechampiongr
   changes:
-  - message: The addobjective command will now offer completions for username and
-      objectives.
+  - message: The addobjective command will now offer completions for username and objectives.
     type: Tweak
   id: 65
   time: '2024-09-08T07:28:43.0000000+00:00'
@@ -538,16 +494,14 @@ Entries:
   changes:
   - message: Rename verb now acts the same as the rename command.
     type: Fix
-  - message: Renamed entities will now have their new name appear immediately on entity
-      examination and on crew monitor console.
+  - message: Renamed entities will now have their new name appear immediately on entity examination and on crew monitor console.
     type: Fix
   id: 67
   time: '2024-09-15T01:55:03.0000000+00:00'
   url: https://github.com/space-wizards/space-station-14/pull/31654
 - author: ElectroJr
   changes:
-  - message: The `menuvis all` once again makes all entities show up in the right-click
-      context menu.
+  - message: The `menuvis all` once again makes all entities show up in the right-click context menu.
     type: Fix
   id: 68
   time: '2024-09-23T07:28:42.0000000+00:00'
@@ -561,24 +515,21 @@ Entries:
   url: https://github.com/space-wizards/space-station-14/pull/32531
 - author: IProduceWidgets
   changes:
-  - message: invokeverb should work with smite names now. Find the names in the smite
-      tab on mouse hover.
+  - message: invokeverb should work with smite names now. Find the names in the smite tab on mouse hover.
     type: Fix
   id: 70
   time: '2024-10-16T22:24:31.0000000+00:00'
   url: https://github.com/space-wizards/space-station-14/pull/32844
 - author: BramvanZijp
   changes:
-  - message: CC, ERT, Admin, and Deathsquad PDA's now have all departmental programs
-      pre-installed.
+  - message: CC, ERT, Admin, and Deathsquad PDA's now have all departmental programs pre-installed.
     type: Tweak
   id: 71
   time: '2024-10-31T14:53:38.0000000+00:00'
   url: https://github.com/space-wizards/space-station-14/pull/32601
 - author: metalgearsloth
   changes:
-  - message: Added on-call functionality for discord relay to get notified on unanswered
-      ahelps.
+  - message: Added on-call functionality for discord relay to get notified on unanswered ahelps.
     type: Add
   id: 72
   time: '2024-11-02T09:29:16.0000000+00:00'
@@ -599,8 +550,7 @@ Entries:
   url: https://github.com/space-wizards/space-station-14/pull/30659
 - author: Aquif
   changes:
-  - message: tag:with toolshed command. It takes in a list of entities via pipe and
-      returns the entities from the list with the given tag.
+  - message: tag:with toolshed command. It takes in a list of entities via pipe and returns the entities from the list with the given tag.
     type: Add
   id: 75
   time: '2024-11-13T23:27:31.0000000+00:00'
@@ -614,8 +564,7 @@ Entries:
   url: https://github.com/space-wizards/space-station-14/pull/33262
 - author: ScarKy0, GoldenCan
   changes:
-  - message: Players that take over emagged/ion stormed borgs now correctly get assigned
-      the antag role.
+  - message: Players that take over emagged/ion stormed borgs now correctly get assigned the antag role.
     type: Fix
   id: 77
   time: '2024-11-20T07:55:12.0000000+00:00'
@@ -629,30 +578,23 @@ Entries:
   url: https://github.com/space-wizards/space-station-14/pull/31836
 - author: slarticodefast
   changes:
-  - message: Health scanning a slime as an aghost will no longer insert the scanner
-      into their inventory.
+  - message: Health scanning a slime as an aghost will no longer insert the scanner into their inventory.
     type: Fix
   id: 79
   time: '2024-12-18T00:12:35.0000000+00:00'
   url: https://github.com/space-wizards/space-station-14/pull/33884
 - author: slarticodefast
   changes:
-  - message: The panic bunker now only automatically disables when an admin with the
-      'Admin' permission is online instead of any permission.
+  - message: The panic bunker now only automatically disables when an admin with the 'Admin' permission is online instead of any permission.
     type: Tweak
   id: 80
   time: '2024-12-18T13:15:05.0000000+00:00'
   url: https://github.com/space-wizards/space-station-14/pull/33879
 - author: ElectroJr
   changes:
-  - message: Some toolshed command permissions have changed. The "emplace" and "iterate"
-      command no longer require QUER` permissions, they now match the "do" command
-      and only require DEBUG. Several previously unrestricted commands now require
-      the DEBUG flag.
+  - message: Some toolshed command permissions have changed. The "emplace" and "iterate" command no longer require QUER` permissions, they now match the "do" command and only require DEBUG. Several previously unrestricted commands now require the DEBUG flag.
     type: Tweak
-  - message: Toolshed command parsing has changed. In particular, command substitution
-      (using the output of a command in place of another command's argument) now requires
-      that the command be wrapped in curly braces
+  - message: Toolshed command parsing has changed. In particular, command substitution (using the output of a command in place of another command's argument) now requires that the command be wrapped in curly braces
     type: Tweak
   id: 81
   time: '2024-12-21T07:02:05.0000000+00:00'
@@ -680,28 +622,23 @@ Entries:
   url: https://github.com/space-wizards/space-station-14/pull/34122
 - author: Errant
   changes:
-  - message: The Admin Menu and Admin Overlay now shows the specific role types of
-      players and antagonists, respectively. The old admin overlay can still be used
-      with cvar ui.admin_overlay_classic true
+  - message: The Admin Menu and Admin Overlay now shows the specific role types of players and antagonists, respectively. The old admin overlay can still be used with cvar ui.admin_overlay_classic true
     type: Tweak
   id: 85
   time: '2025-01-11T21:17:26.0000000+00:00'
   url: https://github.com/space-wizards/space-station-14/pull/33420
 - author: Myra
   changes:
-  - message: Added IPIntel's API to the connection code. If enabled, this will automate
-      VPN/Proxy detection.
+  - message: Added IPIntel's API to the connection code. If enabled, this will automate VPN/Proxy detection.
     type: Add
   id: 86
   time: '2025-01-12T19:41:26.0000000+00:00'
   url: https://github.com/space-wizards/space-station-14/pull/33339
 - author: PJB3005
   changes:
-  - message: Deadmin status is now synchronized to database, making it persistent
-      across server restarts and between multiple game servers.
+  - message: Deadmin status is now synchronized to database, making it persistent across server restarts and between multiple game servers.
     type: Tweak
-  - message: Admins can now be suspended via the permissions panel. This effectively
-      removes their admin status without completely deleting their record.
+  - message: Admins can now be suspended via the permissions panel. This effectively removes their admin status without completely deleting their record.
     type: Add
   id: 87
   time: '2025-01-14T23:46:45.0000000+00:00'
@@ -715,8 +652,7 @@ Entries:
   url: https://github.com/space-wizards/space-station-14/pull/33483
 - author: Myra
   changes:
-  - message: Admins are by default now hidden from the reported player count on the
-      launcher.
+  - message: Admins are by default now hidden from the reported player count on the launcher.
     type: Add
   id: 89
   time: '2025-01-15T21:10:54.0000000+00:00'
@@ -730,9 +666,7 @@ Entries:
   url: https://github.com/space-wizards/space-station-14/pull/33782
 - author: PJB3005
   changes:
-  - message: Introduced an option to automatically disconnect players from their current
-      server if they join another one within the same server community. Admins are
-      always exempt.
+  - message: Introduced an option to automatically disconnect players from their current server if they join another one within the same server community. Admins are always exempt.
     type: Add
   id: 91
   time: '2025-01-21T23:23:47.0000000+00:00'
@@ -746,8 +680,7 @@ Entries:
   url: https://github.com/space-wizards/space-station-14/pull/34824
 - author: Palladinium
   changes:
-  - message: Added atmospherics device information (air alarms, vents, scrubbers)
-      to admin logs
+  - message: Added atmospherics device information (air alarms, vents, scrubbers) to admin logs
     type: Add
   id: 93
   time: '2025-02-06T05:10:21.0000000+00:00'
@@ -775,25 +708,21 @@ Entries:
   url: https://github.com/space-wizards/space-station-14/pull/35258
 - author: SlamBamActionman
   changes:
-  - message: Users with +VVEDIT perms can now use `changecvar playtest.[modifier]
-      [float]` to modify damage/healing scaling live.
+  - message: Users with +VVEDIT perms can now use `changecvar playtest.[modifier] [float]` to modify damage/healing scaling live.
     type: Add
   id: 97
   time: '2025-02-18T07:28:42.0000000+00:00'
   url: https://github.com/space-wizards/space-station-14/pull/35255
 - author: ScarKy0
   changes:
-  - message: Aghost's intrinsic comms console now uses a new color, announces globally
-      and has significantly lowered delays. Announce command and admin menu option
-      remain unchanged.
+  - message: Aghost's intrinsic comms console now uses a new color, announces globally and has significantly lowered delays. Announce command and admin menu option remain unchanged.
     type: Tweak
   id: 98
   time: '2025-02-18T09:04:37.0000000+00:00'
   url: https://github.com/space-wizards/space-station-14/pull/35248
 - author: Simyon
   changes:
-  - message: Admins with the Server and Mapping AdminFlag can now change the CVars
-      "events.enabled" and "shuttle.auto_call_time" for parity in the "mapping" command.
+  - message: Admins with the Server and Mapping AdminFlag can now change the CVars "events.enabled" and "shuttle.auto_call_time" for parity in the "mapping" command.
     type: Tweak
   id: 99
   time: '2025-02-18T10:26:09.0000000+00:00'
@@ -821,53 +750,44 @@ Entries:
   url: https://github.com/space-wizards/space-station-14/pull/35477
 - author: ScarKy0
   changes:
-  - message: Admin IDs can now freely change their name, job and icon, like the agent
-      ID. Not chameleon though.
+  - message: Admin IDs can now freely change their name, job and icon, like the agent ID. Not chameleon though.
     type: Add
   id: 103
   time: '2025-02-25T14:25:48.0000000+00:00'
   url: https://github.com/space-wizards/space-station-14/pull/35345
 - author: Errant
   changes:
-  - message: Some admin settings are now configurable from the Options menu's new
-      Admin tab.
+  - message: Some admin settings are now configurable from the Options menu's new Admin tab.
     type: Add
   id: 104
   time: '2025-02-26T22:32:43.0000000+00:00'
   url: https://github.com/space-wizards/space-station-14/pull/35543
 - author: Schrodinger71
   changes:
-  - message: For the admin overlay, new configs have been added to display the starting
-      position and total time.
+  - message: For the admin overlay, new configs have been added to display the starting position and total time.
     type: Add
   id: 105
   time: '2025-02-28T20:51:30.0000000+00:00'
   url: https://github.com/space-wizards/space-station-14/pull/35520
 - author: Beck Thompson, Errant
   changes:
-  - message: Brand new players with NULL playtime data are no longer missing the clock
-      icon in the Bwoink menu. Disconnected new players also no longer lose their
-      clock icon.
+  - message: Brand new players with NULL playtime data are no longer missing the clock icon in the Bwoink menu. Disconnected new players also no longer lose their clock icon.
     type: Fix
-  - message: Connected players who have entered the round are now sorted above connected
-      players who are still in the lobby. Players still in the lobby have a half-full
-      symbol.
+  - message: Connected players who have entered the round are now sorted above connected players who are still in the lobby. Players still in the lobby have a half-full symbol.
     type: Tweak
   id: 106
   time: '2025-03-05T16:25:43.0000000+00:00'
   url: https://github.com/space-wizards/space-station-14/pull/35648
 - author: slarticodefast
   changes:
-  - message: Added the 'forceghost < player >' command which forces someone to become
-      an observer.
+  - message: Added the 'forceghost < player >' command which forces someone to become an observer.
     type: Add
   id: 107
   time: '2025-03-08T02:39:04.0000000+00:00'
   url: https://github.com/space-wizards/space-station-14/pull/35518
 - author: Errant
   changes:
-  - message: It is no longer impossible to resize the player list in the ahelp window,
-      when at small window sizes.
+  - message: It is no longer impossible to resize the player list in the ahelp window, when at small window sizes.
     type: Fix
   id: 108
   time: '2025-03-10T09:40:36.0000000+00:00'
@@ -881,10 +801,7 @@ Entries:
   url: https://github.com/space-wizards/space-station-14/pull/35783
 - author: Errant
   changes:
-  - message: All Solo Antagonist, Team Antagonist, Altered Silicon and (non-harmless)
-      Free Agent ghostroles are now marked as Antagonist on all interfaces where this
-      distinction exists. (Classic admin overlay, admin playerlist, round end player
-      list)
+  - message: All Solo Antagonist, Team Antagonist, Altered Silicon and (non-harmless) Free Agent ghostroles are now marked as Antagonist on all interfaces where this distinction exists. (Classic admin overlay, admin playerlist, round end player list)
     type: Fix
   id: 110
   time: '2025-03-16T22:11:31.0000000+00:00'
@@ -902,8 +819,7 @@ Entries:
     type: Add
   - message: Extreme impact logs always send an admin alert.
     type: Add
-  - message: High impact logs send an admin alert if the player causing it is a new
-      player.
+  - message: High impact logs send an admin alert if the player causing it is a new player.
     type: Add
   - message: Several logs have had their impact levels adjusted.
     type: Tweak
@@ -912,25 +828,18 @@ Entries:
   url: https://github.com/space-wizards/space-station-14/pull/35961
 - author: SlamBamActionman
   changes:
-  - message: 'Any adminlog chat alert that includes an antag now has "\[ANTAG: entityName\]"
-      appended to the end.'
+  - message: 'Any adminlog chat alert that includes an antag now has "\[ANTAG: entityName\]" appended to the end.'
     type: Tweak
   id: 113
   time: '2025-03-21T23:21:32.0000000+00:00'
   url: https://github.com/space-wizards/space-station-14/pull/35994
 - author: Errant
   changes:
-  - message: The Antag column on the player list has been removed, and it's functionality
-      folded into the Character and Role Type columns.
+  - message: The Antag column on the player list has been removed, and it's functionality folded into the Character and Role Type columns.
     type: Remove
-  - message: The Role Type column now sorts entries in a revised order. All antagonist
-      types are grouped at the end.
+  - message: The Role Type column now sorts entries in a revised order. All antagonist types are grouped at the end.
     type: Tweak
-  - message: On the player list, the names of antagonist players are now prefixed
-      with an antag symbol, and (optionally) shown in the color of their current role
-      type. The default setting is to show the "standard antag dagger" symbol for
-      any type of antag, same as the ahelp relay. Optionally a distinct icon can be
-      shown for each role type for easier identification.
+  - message: On the player list, the names of antagonist players are now prefixed with an antag symbol, and (optionally) shown in the color of their current role type. The default setting is to show the "standard antag dagger" symbol for any type of antag, same as the ahelp relay. Optionally a distinct icon can be shown for each role type for easier identification.
     type: Tweak
   - message: More playerlist/overlay settings can now be changed in Admin Options.
     type: Tweak
@@ -939,32 +848,23 @@ Entries:
   url: https://github.com/space-wizards/space-station-14/pull/35538
 - author: ScarKy0
   changes:
-  - message: The "Spawn here" verb now reliably transfers mind of the target to their
-      new body.
+  - message: The "Spawn here" verb now reliably transfers mind of the target to their new body.
     type: Fix
   id: 115
   time: '2025-03-25T18:40:54.0000000+00:00'
   url: https://github.com/space-wizards/space-station-14/pull/36080
 - author: Errant
   changes:
-  - message: Admin overlays of mobs/players in very close proximity no longer overlap
-      each other. They now form stacks of up to 3. If more than 3 overlay entries
-      are stacked, any additional entries will be drawn over the 3rd element of the
-      stack. These names are ordered by vertical position, but when the coordinates
-      match exactly (such as someone carrying a mothroach/pAI, or ghosts orbiting),
-      the top member of the stack is NOT guaranteed to be the most visible/interesting
-      element in the stack.
+  - message: Admin overlays of mobs/players in very close proximity no longer overlap each other. They now form stacks of up to 3. If more than 3 overlay entries are stacked, any additional entries will be drawn over the 3rd element of the stack. These names are ordered by vertical position, but when the coordinates match exactly (such as someone carrying a mothroach/pAI, or ghosts orbiting), the top member of the stack is NOT guaranteed to be the most visible/interesting element in the stack.
     type: Add
-  - message: Ghosts near the mouse cursor no longer show up on the admin overlay,
-      including any ghosts in stacks near the mouse cursor.
+  - message: Ghosts near the mouse cursor no longer show up on the admin overlay, including any ghosts in stacks near the mouse cursor.
     type: Add
   id: 116
   time: '2025-03-25T20:15:22.0000000+00:00'
   url: https://github.com/space-wizards/space-station-14/pull/35622
 - author: slarticodefast
   changes:
-  - message: Added an antag control verb to create a paradox clone ghost role of a
-      selected player.
+  - message: Added an antag control verb to create a paradox clone ghost role of a selected player.
     type: Add
   id: 117
   time: '2025-03-27T17:04:25.0000000+00:00'
@@ -1001,8 +901,7 @@ Entries:
   url: https://github.com/space-wizards/space-station-14/pull/36396
 - author: Errant
   changes:
-  - message: The Copy button on the PlayerPanel now copies only the target username,
-      not the entire line.
+  - message: The Copy button on the PlayerPanel now copies only the target username, not the entire line.
     type: Fix
   id: 122
   time: '2025-04-11T21:04:37.0000000+00:00'
@@ -1032,8 +931,7 @@ Entries:
   changes:
   - message: '"chatwindow" command has been added to open an additional chat window'
     type: Add
-  - message: '"achatwindow" command has been added to open an additional chat window,
-      preconfigured for monitoring admin channels'
+  - message: '"achatwindow" command has been added to open an additional chat window, preconfigured for monitoring admin channels'
     type: Add
   id: 126
   time: '2025-04-14T15:37:59.0000000+00:00'
@@ -1047,62 +945,46 @@ Entries:
   url: https://github.com/space-wizards/space-station-14/pull/36607
 - author: Errant
   changes:
-  - message: Mind Roles now have subtypes, which can more specifically indicate what
-      role they are. For example, depending on clientside settings a Traitor can either
-      show as "SOLO ANTAGONIST" or "TRAITOR" on both the admin overlay and playerlist.
-      See Admin Options for the available settings. (Note, many minor roles don't
-      ((currently)) have a subtype configured, and will default to showing their role
-      type instead)
+  - message: Mind Roles now have subtypes, which can more specifically indicate what role they are. For example, depending on clientside settings a Traitor can either show as "SOLO ANTAGONIST" or "TRAITOR" on both the admin overlay and playerlist. See Admin Options for the available settings. (Note, many minor roles don't ((currently)) have a subtype configured, and will default to showing their role type instead)
     type: Tweak
   id: 128
   time: '2025-04-16T17:04:48.0000000+00:00'
   url: https://github.com/space-wizards/space-station-14/pull/35359
 - author: Errant
   changes:
-  - message: Antag tags on admin notices now show exactly what kind of antag that
-      mob is.
+  - message: Antag tags on admin notices now show exactly what kind of antag that mob is.
     type: Tweak
   id: 129
   time: '2025-04-16T22:59:36.0000000+00:00'
   url: https://github.com/space-wizards/space-station-14/pull/36640
 - author: IProduceWidgets
   changes:
-  - message: stationevent toolshed commands should now work again to provide event
-      statistics.
+  - message: stationevent toolshed commands should now work again to provide event statistics.
     type: Fix
   id: 130
   time: '2025-04-18T07:44:29.0000000+00:00'
   url: https://github.com/space-wizards/space-station-14/pull/32200
 - author: Errant
   changes:
-  - message: The setgamepreset command no longer changes the preset permanently. When
-      used with only one parameter (for the preset to be used), it will make that
-      change for the next round that starts. The optional second parameter can specify
-      the number of upcoming rounds that will use the specified preset. If you want
-      to change the game preset permanently, set an arbitrarily high number as the
-      second parameter, or preferably just modify the game.defaultpreset cvar
+  - message: The setgamepreset command no longer changes the preset permanently. When used with only one parameter (for the preset to be used), it will make that change for the next round that starts. The optional second parameter can specify the number of upcoming rounds that will use the specified preset. If you want to change the game preset permanently, set an arbitrarily high number as the second parameter, or preferably just modify the game.defaultpreset cvar
     type: Tweak
   id: 131
   time: '2025-04-18T12:24:39.0000000+00:00'
   url: https://github.com/space-wizards/space-station-14/pull/30812
 - author: Tayrtahn
   changes:
-  - message: Added MarkerOne, MarkerTwo, and MarkerThree components for testing and
-      tracking purposes.
+  - message: Added MarkerOne, MarkerTwo, and MarkerThree components for testing and tracking purposes.
     type: Add
   id: 132
   time: '2025-04-20T19:08:41.0000000+00:00'
   url: https://github.com/space-wizards/space-station-14/pull/36776
 - author: sowelipililimute
   changes:
-  - message: The Funding Allocation Computer now has a CVar to enable configuring
-      the primary cut (off by default)
+  - message: The Funding Allocation Computer now has a CVar to enable configuring the primary cut (off by default)
     type: Add
-  - message: The Funding Allocation Computer now has a CVar to enable configuring
-      the lockbox cut (on by default)
+  - message: The Funding Allocation Computer now has a CVar to enable configuring the lockbox cut (on by default)
     type: Add
-  - message: The Funding Allocation Computer now has a CVar to enable hiding the primary
-      account from the funding splits (on by default)
+  - message: The Funding Allocation Computer now has a CVar to enable hiding the primary account from the funding splits (on by default)
     type: Add
   id: 133
   time: '2025-04-22T12:34:53.0000000+00:00'

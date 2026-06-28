@@ -11,7 +11,10 @@ namespace Content.Server.Destructible.Thresholds.Behaviors
 
         public void Execute(EntityUid owner, DestructibleSystem system, EntityUid? cause = null)
         {
-            if (string.IsNullOrEmpty(Node) || !system.EntityManager.TryGetComponent(owner, out ConstructionComponent? construction))
+            if (
+                string.IsNullOrEmpty(Node)
+                || !system.EntityManager.TryGetComponent(owner, out ConstructionComponent? construction)
+            )
                 return;
 
             system.ConstructionSystem.ChangeNode(owner, null, Node, true, construction);

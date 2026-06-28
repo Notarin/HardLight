@@ -8,15 +8,12 @@ namespace Content.Shared.Defusable;
 /// <remarks>
 /// Most of the logic is in the server
 /// </remarks>
-public abstract class SharedDefusableSystem : EntitySystem
-{
-
-}
+public abstract class SharedDefusableSystem : EntitySystem { }
 
 [NetSerializable, Serializable]
 public enum DefusableVisuals
 {
-    Active
+    Active,
 }
 
 [NetSerializable, Serializable]

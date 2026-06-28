@@ -2,17 +2,17 @@
 - type: entity
   id: BaseMagazine762x51mm
   name: "magazine (762x51mm FMJ)"
-  parent: [ BaseItem, BaseC1Contraband, RecyclableItemSteelTiny ] # Frontier: BaseSecurityContraband<BaseC1Contraband added RecyclableItemSteelTiny
+  parent: [BaseItem, BaseC1Contraband, RecyclableItemSteelTiny] # Frontier: BaseSecurityContraband<BaseC1Contraband added RecyclableItemSteelTiny
   abstract: true
   components:
   - type: Tag
     tags:
-      - Magazine762x51mmFMJ
+    - Magazine762x51mmFMJ
   - type: BallisticAmmoProvider
     mayTransfer: true
     whitelist:
       tags:
-        - Cartridge762x51mmFMJ
+      - Cartridge762x51mmFMJ
     proto: Cartridge762x51mmFMJ
     capacity: 20
   - type: Item
@@ -128,7 +128,7 @@
   components:
   - type: Tag
     tags:
-      - Magazine762x51mmLowCapacityFMJ
+    - Magazine762x51mmLowCapacityFMJ
   - type: BallisticAmmoProvider
     proto: null
   - type: Item
@@ -148,7 +148,7 @@
   components:
   - type: Tag
     tags:
-      - Magazine762x51mmLowCapacityFMJ
+    - Magazine762x51mmLowCapacityFMJ
   - type: BallisticAmmoProvider
     capacity: 10
   - type: Item

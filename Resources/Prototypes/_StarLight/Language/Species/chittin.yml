@@ -9,8 +9,7 @@
       Whisper: chat-sign-language-whisper-wrap
     speechVerbOverrides:
     - chat-speech-verb-chittin-1
-  obfuscation:
-    !type:ReplacementObfuscation
+  obfuscation: !type:ReplacementObfuscation
     replacement:
     - Click
     - Clack

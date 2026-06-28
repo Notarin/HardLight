@@ -30,5 +30,5 @@ public enum ShipGunClass
     CVLight,
     CVMedium,
     CVHeavy,
-    CVSuperheavy
+    CVSuperheavy,
 }

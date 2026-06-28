@@ -11,7 +11,8 @@ namespace Content.Shared.Light.EntitySystems;
 /// </summary>
 public abstract class SharedRoofSystem : EntitySystem
 {
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
+    [Dependency]
+    private readonly EntityLookupSystem _lookup = default!;
 
     private HashSet<Entity<IsRoofComponent>> _roofSet = new();
 
@@ -28,7 +29,7 @@ public abstract class SharedRoofSystem : EntitySystem
         if (roof.Data.TryGetValue(chunkOrigin, out var bitMask))
         {
             var chunkRelative = SharedMapSystem.GetChunkRelative(index, RoofComponent.ChunkSize);
-            var bitFlag = (ulong) 1 << (chunkRelative.X + chunkRelative.Y * RoofComponent.ChunkSize);
+            var bitFlag = (ulong)1 << (chunkRelative.X + chunkRelative.Y * RoofComponent.ChunkSize);
 
             var isRoof = (bitMask & bitFlag) == bitFlag;
 
@@ -64,7 +65,7 @@ public abstract class SharedRoofSystem : EntitySystem
         if (roof.WeatherOcclusionData.TryGetValue(chunkOrigin, out var bitMask))
         {
             var chunkRelative = SharedMapSystem.GetChunkRelative(index, RoofComponent.ChunkSize);
-            var bitFlag = (ulong) 1 << (chunkRelative.X + chunkRelative.Y * RoofComponent.ChunkSize);
+            var bitFlag = (ulong)1 << (chunkRelative.X + chunkRelative.Y * RoofComponent.ChunkSize);
 
             var isWeatherOccluding = (bitMask & bitFlag) == bitFlag;
 
@@ -96,7 +97,7 @@ public abstract class SharedRoofSystem : EntitySystem
         if (roof.Data.TryGetValue(chunkOrigin, out var bitMask))
         {
             var chunkRelative = SharedMapSystem.GetChunkRelative(index, RoofComponent.ChunkSize);
-            var bitFlag = (ulong) 1 << (chunkRelative.X + chunkRelative.Y * RoofComponent.ChunkSize);
+            var bitFlag = (ulong)1 << (chunkRelative.X + chunkRelative.Y * RoofComponent.ChunkSize);
 
             var isRoof = (bitMask & bitFlag) == bitFlag;
 
@@ -133,10 +134,10 @@ public abstract class SharedRoofSystem : EntitySystem
             chunkData = 0;
 
         var chunkRelative = SharedMapSystem.GetChunkRelative(index, RoofComponent.ChunkSize);
-        var bitFlag = (ulong) 1 << (chunkRelative.X + chunkRelative.Y * RoofComponent.ChunkSize);
+        var bitFlag = (ulong)1 << (chunkRelative.X + chunkRelative.Y * RoofComponent.ChunkSize);
 
         roof.WeatherOcclusionData.TryGetValue(chunkOrigin, out var weatherChunkData);
-        var weatherOcclusionFlag = (ulong) 1 << (chunkRelative.X + chunkRelative.Y * RoofComponent.ChunkSize);
+        var weatherOcclusionFlag = (ulong)1 << (chunkRelative.X + chunkRelative.Y * RoofComponent.ChunkSize);
 
         if (occludeWeather)
             weatherChunkData |= weatherOcclusionFlag;

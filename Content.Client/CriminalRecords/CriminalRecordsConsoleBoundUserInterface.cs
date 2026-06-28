@@ -11,15 +11,21 @@ namespace Content.Client.CriminalRecords;
 
 public sealed class CriminalRecordsConsoleBoundUserInterface : BoundUserInterface
 {
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
     private readonly AccessReaderSystem _accessReader;
 
     private CriminalRecordsConsoleWindow? _window;
     private CrimeHistoryWindow? _historyWindow;
 
-    public CriminalRecordsConsoleBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
+    public CriminalRecordsConsoleBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey)
     {
         _accessReader = EntMan.System<AccessReaderSystem>();
     }
@@ -31,16 +37,11 @@ public sealed class CriminalRecordsConsoleBoundUserInterface : BoundUserInterfac
         var comp = EntMan.GetComponent<CriminalRecordsConsoleComponent>(Owner);
 
         _window = new(Owner, comp.MaxStringLength, _playerManager, _proto, _random, _accessReader);
-        _window.OnKeySelected += key =>
-            SendMessage(new SelectStationRecord(key));
-        _window.OnFiltersChanged += (type, filterValue) =>
-            SendMessage(new SetStationRecordFilter(type, filterValue));
-        _window.OnStatusSelected += status =>
-            SendMessage(new CriminalRecordChangeStatus(status, null));
-        _window.OnDialogConfirmed += (status, reason) =>
-            SendMessage(new CriminalRecordChangeStatus(status, reason));
-        _window.OnStatusFilterPressed += (statusFilter) =>
-            SendMessage(new CriminalRecordSetStatusFilter(statusFilter));
+        _window.OnKeySelected += key => SendMessage(new SelectStationRecord(key));
+        _window.OnFiltersChanged += (type, filterValue) => SendMessage(new SetStationRecordFilter(type, filterValue));
+        _window.OnStatusSelected += status => SendMessage(new CriminalRecordChangeStatus(status, null));
+        _window.OnDialogConfirmed += (status, reason) => SendMessage(new CriminalRecordChangeStatus(status, reason));
+        _window.OnStatusFilterPressed += (statusFilter) => SendMessage(new CriminalRecordSetStatusFilter(statusFilter));
         _window.OnHistoryUpdated += UpdateHistory;
         _window.OnHistoryClosed += () => _historyWindow?.Close();
         _window.OnClose += Close;

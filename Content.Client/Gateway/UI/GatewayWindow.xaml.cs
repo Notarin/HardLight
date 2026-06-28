@@ -15,8 +15,7 @@ using Robust.Shared.Timing;
 namespace Content.Client.Gateway.UI;
 
 [GenerateTypedNameReferences]
-public sealed partial class GatewayWindow : FancyWindow,
-    IComputerWindow<EmergencyConsoleBoundUserInterfaceState>
+public sealed partial class GatewayWindow : FancyWindow, IComputerWindow<EmergencyConsoleBoundUserInterfaceState>
 {
     private readonly IGameTiming _timing;
 
@@ -57,10 +56,7 @@ public sealed partial class GatewayWindow : FancyWindow,
         NextUnlockBar.ForegroundStyleBoxOverride = new StyleBoxFlat(Color.FromHex("#C74EBD"));
     }
 
-    public void SetEntity(NetEntity entity)
-    {
-
-    }
+    public void SetEntity(NetEntity entity) { }
 
     public void UpdateState(GatewayBoundUserInterfaceState state)
     {
@@ -78,19 +74,21 @@ public sealed partial class GatewayWindow : FancyWindow,
 
         if (_destinations.Count == 0)
         {
-            Container.AddChild(new BoxContainer()
-            {
-                HorizontalExpand = true,
-                VerticalExpand = true,
-                Children =
+            Container.AddChild(
+                new BoxContainer()
                 {
-                    new Label()
+                    HorizontalExpand = true,
+                    VerticalExpand = true,
+                    Children =
                     {
-                        Text = Loc.GetString("gateway-window-no-destinations"),
-                        HorizontalAlignment = HAlignment.Center
-                    }
+                        new Label()
+                        {
+                            Text = Loc.GetString("gateway-window-no-destinations"),
+                            HorizontalAlignment = HAlignment.Center,
+                        },
+                    },
                 }
-            });
+            );
             return;
         }
 
@@ -111,19 +109,12 @@ public sealed partial class GatewayWindow : FancyWindow,
             };
 
             // HOW DO I ALIGN THESE GOODER
-            var nameLabel = new RichTextLabel()
-            {
-                VerticalAlignment = VAlignment.Center,
-                SetWidth = 156f,
-            };
+            var nameLabel = new RichTextLabel() { VerticalAlignment = VAlignment.Center, SetWidth = 156f };
 
             nameLabel.SetMessage(name);
             box.AddChild(nameLabel);
             // Buffer
-            box.AddChild(new Control()
-            {
-                HorizontalExpand = true,
-            });
+            box.AddChild(new Control() { HorizontalExpand = true });
 
             bool Pressable() => ent == _current || ent == Owner;
 
@@ -140,13 +131,15 @@ public sealed partial class GatewayWindow : FancyWindow,
                         Text = Loc.GetString("gateway-window-locked"),
                         HorizontalAlignment = HAlignment.Center,
                         VerticalAlignment = VAlignment.Center,
-                    }
-                }
+                    },
+                },
             };
 
             var openButton = new Button()
             {
-                Text = Loc.GetString(dest.IsDockingArm ? "gateway-window-spawn-docking-arm" : "gateway-window-open-portal"),
+                Text = Loc.GetString(
+                    dest.IsDockingArm ? "gateway-window-spawn-docking-arm" : "gateway-window-open-portal"
+                ),
                 Pressed = Pressable(),
                 ToggleMode = !dest.IsDockingArm,
                 Disabled = now < _nextReady || Pressable() || (dest.IsDockingArm && locked),
@@ -171,25 +164,20 @@ public sealed partial class GatewayWindow : FancyWindow,
 
             var buttonContainer = new BoxContainer()
             {
-                Children =
-                {
-                    buttonStripe,
-                    openButton,
-                },
+                Children = { buttonStripe, openButton },
                 SetSize = new Vector2(128f, 40f),
             };
 
             box.AddChild(buttonContainer);
 
-            Container.AddChild(new PanelContainer()
-            {
-                PanelOverride = new StyleBoxFlat(new Color(30, 30, 34)),
-                Margin = new Thickness(10f, 5f),
-                Children =
+            Container.AddChild(
+                new PanelContainer()
                 {
-                    box
+                    PanelOverride = new StyleBoxFlat(new Color(30, 30, 34)),
+                    Margin = new Thickness(10f, 5f),
+                    Children = { box },
                 }
-            });
+            );
         }
 
         _lastState = state;
@@ -224,7 +212,7 @@ public sealed partial class GatewayWindow : FancyWindow,
             }
             else
             {
-                NextUnlockBar.Value = 1f - (float) (remaining.TotalSeconds / _unlockTime.TotalSeconds);
+                NextUnlockBar.Value = 1f - (float)(remaining.TotalSeconds / _unlockTime.TotalSeconds);
                 NextUnlockText.Text = $"{remaining.Minutes:00}:{remaining.Seconds:00}";
             }
         }
@@ -251,7 +239,7 @@ public sealed partial class GatewayWindow : FancyWindow,
             }
             else
             {
-                NextReadyBar.Value = 1f - (float) (remaining.TotalSeconds / _cooldown.TotalSeconds);
+                NextReadyBar.Value = 1f - (float)(remaining.TotalSeconds / _cooldown.TotalSeconds);
                 NextCloseText.Text = $"{remaining.Minutes:00}:{remaining.Seconds:00}";
             }
         }

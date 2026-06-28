@@ -36,7 +36,8 @@ public static class ServerDbManagerExt
         string channel,
         Action<TData> action,
         Func<bool>? earlyFilter = null,
-        Func<TData, bool>? filter = null)
+        Func<TData, bool>? filter = null
+    )
     {
         dbManager.SubscribeToNotifications(notification =>
         {
@@ -55,8 +56,9 @@ public static class ServerDbManagerExt
             TData data;
             try
             {
-                data = JsonSerializer.Deserialize<TData>(notification.Payload)
-                       ?? throw new JsonException("Content is null");
+                data =
+                    JsonSerializer.Deserialize<TData>(notification.Payload)
+                    ?? throw new JsonException("Content is null");
             }
             catch (JsonException e)
             {

@@ -469,22 +469,22 @@
   - type: Sprite
     sprite: _NF/Objects/Specific/Atmospherics/locator.rsi
     layers:
-      - state: icon
-      - state: screen
-        shader: unshaded
-        visible: false
-        map: ["enum.ToggleVisuals.Layer"]
+    - state: icon
+    - state: screen
+      shader: unshaded
+      visible: false
+      map: ["enum.ToggleVisuals.Layer"]
   - type: Appearance
   - type: GenericVisualizer
     visuals:
       enum.ToggleVisuals.Toggled:
         enum.ToggleVisuals.Layer:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
       enum.GasDepositScannerVisuals.Enabled:
         enum.ToggleVisuals.Layer:
-          True: { state: data, visible: true }
-          False: { state: screen }
+          True: {state: data, visible: true}
+          False: {state: screen}
   - type: ItemToggle
   - type: ProximityBeeper
   - type: ProximityDetector
@@ -509,7 +509,7 @@
 
 - type: entity
   id: GasDepositLocator
-  parent: [ GasDepositLocatorUnpowered, PowerCellSlotSmallItem ]
+  parent: [GasDepositLocatorUnpowered, PowerCellSlotSmallItem]
   suffix: Powered
   components:
   - type: PowerCellDraw

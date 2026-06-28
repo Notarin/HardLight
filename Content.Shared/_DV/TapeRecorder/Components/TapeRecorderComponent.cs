@@ -51,7 +51,7 @@ public sealed partial class TapeRecorderComponent : Component
     [DataField]
     public SoundSpecifier PrintSound = new SoundPathSpecifier("/Audio/Machines/diagnoser_printing.ogg")
     {
-        Params = AudioParams.Default.WithVolume(-2f).WithMaxDistance(3f)
+        Params = AudioParams.Default.WithVolume(-2f).WithMaxDistance(3f),
     };
 
     /// <summary>
@@ -60,7 +60,7 @@ public sealed partial class TapeRecorderComponent : Component
     [DataField]
     public SoundSpecifier PlaySound = new SoundPathSpecifier("/Audio/_DV/Items/TapeRecorder/play.ogg")
     {
-        Params = AudioParams.Default.WithVolume(-2f).WithMaxDistance(3f)
+        Params = AudioParams.Default.WithVolume(-2f).WithMaxDistance(3f),
     };
 
     /// <summary>
@@ -69,7 +69,7 @@ public sealed partial class TapeRecorderComponent : Component
     [DataField]
     public SoundSpecifier StopSound = new SoundPathSpecifier("/Audio/_DV/Items/TapeRecorder/stop.ogg")
     {
-        Params = AudioParams.Default.WithVolume(-2f).WithMaxDistance(3f)
+        Params = AudioParams.Default.WithVolume(-2f).WithMaxDistance(3f),
     };
 
     /// <summary>
@@ -78,6 +78,6 @@ public sealed partial class TapeRecorderComponent : Component
     [DataField]
     public SoundSpecifier RewindSound = new SoundPathSpecifier("/Audio/_DV/Items/TapeRecorder/rewind.ogg")
     {
-        Params = AudioParams.Default.WithVolume(-2f).WithMaxDistance(3f)
+        Params = AudioParams.Default.WithVolume(-2f).WithMaxDistance(3f),
     };
 }

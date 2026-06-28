@@ -1,8 +1,8 @@
 using Content.Server._Shitmed.DelayedDeath;
+using Content.Server.Popups;
 using Content.Shared._Shitmed.Body.Organ;
 using Content.Shared.Body.Systems;
 using Content.Shared.Mind;
-using Content.Server.Popups;
 using Content.Shared.Speech;
 using Content.Shared.Standing;
 using Content.Shared.Stunnable;
@@ -15,9 +15,15 @@ namespace Content.Server._Shitmed.Body.Systems;
 /// </summary>
 public sealed class DebrainedSystem : EntitySystem
 {
-    [Dependency] private readonly SharedBodySystem _bodySystem = default!;
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
-    [Dependency] private readonly StandingStateSystem _standingSystem = default!;
+    [Dependency]
+    private readonly SharedBodySystem _bodySystem = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly StandingStateSystem _standingSystem = default!;
+
     public override void Initialize()
     {
         base.Initialize();

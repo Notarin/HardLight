@@ -48,33 +48,86 @@ namespace Content.Server.Ghost
 {
     public sealed class GhostSystem : SharedGhostSystem
     {
-        [Dependency] private readonly SharedActionsSystem _actions = default!;
-        [Dependency] private readonly IAdminLogManager _adminLog = default!;
-        [Dependency] private readonly SharedEyeSystem _eye = default!;
-        [Dependency] private readonly FollowerSystem _followerSystem = default!;
-        [Dependency] private readonly IGameTiming _gameTiming = default!;
-        [Dependency] private readonly JobSystem _jobs = default!;
-        [Dependency] private readonly EntityLookupSystem _lookup = default!;
-        [Dependency] private readonly MindSystem _minds = default!;
-        [Dependency] private readonly MobStateSystem _mobState = default!;
-        [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-        [Dependency] private readonly ISharedPlayerManager _player = default!;
-        [Dependency] private readonly TransformSystem _transformSystem = default!;
-        [Dependency] private readonly VisibilitySystem _visibilitySystem = default!;
-        [Dependency] private readonly MetaDataSystem _metaData = default!;
-        [Dependency] private readonly MobThresholdSystem _mobThresholdSystem = default!;
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        [Dependency] private readonly IConfigurationManager _configurationManager = default!;
-        [Dependency] private readonly IChatManager _chatManager = default!;
-        [Dependency] private readonly SharedMindSystem _mind = default!;
-        [Dependency] private readonly GameTicker _gameTicker = default!;
-        [Dependency] private readonly DamageableSystem _damageable = default!;
-        [Dependency] private readonly SharedPopupSystem _popup = default!;
-        [Dependency] private readonly IRobustRandom _random = default!;
-        [Dependency] private readonly TagSystem _tag = default!;
-        [Dependency] private readonly NameModifierSystem _nameMod = default!;
-        [Dependency] private readonly IAdminManager _admin = default!; // Frontier
-        [Dependency] private readonly CryoSleepSystem _cryo = default!; // Frontier
+        [Dependency]
+        private readonly SharedActionsSystem _actions = default!;
+
+        [Dependency]
+        private readonly IAdminLogManager _adminLog = default!;
+
+        [Dependency]
+        private readonly SharedEyeSystem _eye = default!;
+
+        [Dependency]
+        private readonly FollowerSystem _followerSystem = default!;
+
+        [Dependency]
+        private readonly IGameTiming _gameTiming = default!;
+
+        [Dependency]
+        private readonly JobSystem _jobs = default!;
+
+        [Dependency]
+        private readonly EntityLookupSystem _lookup = default!;
+
+        [Dependency]
+        private readonly MindSystem _minds = default!;
+
+        [Dependency]
+        private readonly MobStateSystem _mobState = default!;
+
+        [Dependency]
+        private readonly SharedPhysicsSystem _physics = default!;
+
+        [Dependency]
+        private readonly ISharedPlayerManager _player = default!;
+
+        [Dependency]
+        private readonly TransformSystem _transformSystem = default!;
+
+        [Dependency]
+        private readonly VisibilitySystem _visibilitySystem = default!;
+
+        [Dependency]
+        private readonly MetaDataSystem _metaData = default!;
+
+        [Dependency]
+        private readonly MobThresholdSystem _mobThresholdSystem = default!;
+
+        [Dependency]
+        private readonly IPrototypeManager _prototypeManager = default!;
+
+        [Dependency]
+        private readonly IConfigurationManager _configurationManager = default!;
+
+        [Dependency]
+        private readonly IChatManager _chatManager = default!;
+
+        [Dependency]
+        private readonly SharedMindSystem _mind = default!;
+
+        [Dependency]
+        private readonly GameTicker _gameTicker = default!;
+
+        [Dependency]
+        private readonly DamageableSystem _damageable = default!;
+
+        [Dependency]
+        private readonly SharedPopupSystem _popup = default!;
+
+        [Dependency]
+        private readonly IRobustRandom _random = default!;
+
+        [Dependency]
+        private readonly TagSystem _tag = default!;
+
+        [Dependency]
+        private readonly NameModifierSystem _nameMod = default!;
+
+        [Dependency]
+        private readonly IAdminManager _admin = default!; // Frontier
+
+        [Dependency]
+        private readonly CryoSleepSystem _cryo = default!; // Frontier
 
         private EntityQuery<GhostComponent> _ghostQuery;
         private EntityQuery<PhysicsComponent> _physicsQuery;
@@ -180,8 +233,12 @@ namespace Content.Server.Ghost
         private void OnRelayMoveInput(EntityUid uid, GhostOnMoveComponent component, ref MoveInputEvent args)
         {
             // If they haven't actually moved then ignore it.
-            if ((args.Entity.Comp.HeldMoveButtons &
-                 (MoveButtons.Down | MoveButtons.Left | MoveButtons.Up | MoveButtons.Right)) == 0x0)
+            if (
+                (
+                    args.Entity.Comp.HeldMoveButtons
+                    & (MoveButtons.Down | MoveButtons.Left | MoveButtons.Up | MoveButtons.Right)
+                ) == 0x0
+            )
             {
                 return;
             }
@@ -206,8 +263,8 @@ namespace Content.Server.Ghost
 
             if (_gameTicker.RunLevel != GameRunLevel.PostRound)
             {
-                _visibilitySystem.AddLayer((uid, visibility), (int) VisibilityFlags.Ghost, false);
-                _visibilitySystem.RemoveLayer((uid, visibility), (int) VisibilityFlags.Normal, false);
+                _visibilitySystem.AddLayer((uid, visibility), (int)VisibilityFlags.Ghost, false);
+                _visibilitySystem.RemoveLayer((uid, visibility), (int)VisibilityFlags.Normal, false);
                 _visibilitySystem.RefreshVisibility(uid, visibilityComponent: visibility);
             }
 
@@ -226,8 +283,8 @@ namespace Content.Server.Ghost
             // Entity can't be seen by ghosts anymore.
             if (TryComp(uid, out VisibilityComponent? visibility))
             {
-                _visibilitySystem.RemoveLayer((uid, visibility), (int) VisibilityFlags.Ghost, false);
-                _visibilitySystem.AddLayer((uid, visibility), (int) VisibilityFlags.Normal, false);
+                _visibilitySystem.RemoveLayer((uid, visibility), (int)VisibilityFlags.Ghost, false);
+                _visibilitySystem.AddLayer((uid, visibility), (int)VisibilityFlags.Normal, false);
                 _visibilitySystem.RefreshVisibility(uid, visibilityComponent: visibility);
             }
 
@@ -248,9 +305,10 @@ namespace Content.Server.Ghost
         private void OnGhostExamine(EntityUid uid, GhostComponent component, ExaminedEvent args)
         {
             var timeSinceDeath = _gameTiming.RealTime.Subtract(component.TimeOfDeath);
-            var deathTimeInfo = timeSinceDeath.Minutes > 0
-                ? Loc.GetString("comp-ghost-examine-time-minutes", ("minutes", timeSinceDeath.Minutes))
-                : Loc.GetString("comp-ghost-examine-time-seconds", ("seconds", timeSinceDeath.Seconds));
+            var deathTimeInfo =
+                timeSinceDeath.Minutes > 0
+                    ? Loc.GetString("comp-ghost-examine-time-minutes", ("minutes", timeSinceDeath.Minutes))
+                    : Loc.GetString("comp-ghost-examine-time-seconds", ("seconds", timeSinceDeath.Seconds));
 
             args.PushMarkup(deathTimeInfo);
         }
@@ -294,10 +352,12 @@ namespace Content.Server.Ghost
 
         private void OnGhostReturnToBodyRequest(GhostReturnToBodyRequest msg, EntitySessionEventArgs args)
         {
-            if (args.SenderSession.AttachedEntity is not {Valid: true} attached
+            if (
+                args.SenderSession.AttachedEntity is not { Valid: true } attached
                 || !_ghostQuery.TryComp(attached, out var ghost)
                 || !ghost.CanReturnToBody
-                || !TryComp(attached, out ActorComponent? actor))
+                || !TryComp(attached, out ActorComponent? actor)
+            )
             {
                 Log.Warning($"User {args.SenderSession.Name} sent an invalid {nameof(GhostReturnToBodyRequest)}");
                 return;
@@ -310,10 +370,11 @@ namespace Content.Server.Ghost
 
         private void OnGhostWarpsRequest(GhostWarpsRequestEvent msg, EntitySessionEventArgs args)
         {
-            if (args.SenderSession.AttachedEntity is not {Valid: true} entity
-                || !_ghostQuery.HasComp(entity))
+            if (args.SenderSession.AttachedEntity is not { Valid: true } entity || !_ghostQuery.HasComp(entity))
             {
-                Log.Warning($"User {args.SenderSession.Name} sent a {nameof(GhostWarpsRequestEvent)} without being a ghost.");
+                Log.Warning(
+                    $"User {args.SenderSession.Name} sent a {nameof(GhostWarpsRequestEvent)} without being a ghost."
+                );
                 return;
             }
 
@@ -321,14 +382,12 @@ namespace Content.Server.Ghost
             bool isAdmin = _admin.IsAdmin(entity);
 
             // Only include admin ghosts if the requester is an admin
-            var warps = GetPlayerWarps(entity)
-                .Concat(GetLocationWarps(isAdmin));
+            var warps = GetPlayerWarps(entity).Concat(GetLocationWarps(isAdmin));
 
             if (isAdmin)
             {
                 // Add admin ghosts and regular ghosts to the warp list for admin users
-                warps = warps.Concat(GetAdminGhostWarps(entity))
-                            .Concat(GetRegularGhostWarps(entity));
+                warps = warps.Concat(GetAdminGhostWarps(entity)).Concat(GetRegularGhostWarps(entity));
             }
 
             var response = new GhostWarpsResponseEvent(warps.ToList());
@@ -337,8 +396,7 @@ namespace Content.Server.Ghost
 
         private void OnGhostWarpToTargetRequest(GhostWarpToTargetRequestEvent msg, EntitySessionEventArgs args)
         {
-            if (args.SenderSession.AttachedEntity is not {Valid: true} attached
-                || !_ghostQuery.HasComp(attached))
+            if (args.SenderSession.AttachedEntity is not { Valid: true } attached || !_ghostQuery.HasComp(attached))
             {
                 Log.Warning($"User {args.SenderSession.Name} tried to warp to {msg.Target} without being a ghost.");
                 return;
@@ -353,12 +411,18 @@ namespace Content.Server.Ghost
             }
 
             // Frontier: check admin status when warping to admin-only warp points
-            if (!_admin.IsAdmin(attached) &&
-                TryComp<WarpPointComponent>(target, out var warpPoint) &&
-                warpPoint.AdminOnly)
+            if (
+                !_admin.IsAdmin(attached)
+                && TryComp<WarpPointComponent>(target, out var warpPoint)
+                && warpPoint.AdminOnly
+            )
             {
                 Log.Warning($"User {args.SenderSession.Name} tried to warp to an admin-only warp point: {msg.Target}");
-                _adminLog.Add(LogType.Action, LogImpact.Medium, $"{EntityManager.ToPrettyString(attached):player} tried to warp to admin warp point {EntityManager.ToPrettyString(msg.Target)}");
+                _adminLog.Add(
+                    LogType.Action,
+                    LogImpact.Medium,
+                    $"{EntityManager.ToPrettyString(attached):player} tried to warp to admin warp point {EntityManager.ToPrettyString(msg.Target)}"
+                );
                 return;
             }
             // End Frontier
@@ -368,14 +432,13 @@ namespace Content.Server.Ghost
 
         private void OnGhostnadoRequest(GhostnadoRequestEvent msg, EntitySessionEventArgs args)
         {
-            if (args.SenderSession.AttachedEntity is not {} uid
-                || !_ghostQuery.HasComp(uid))
+            if (args.SenderSession.AttachedEntity is not { } uid || !_ghostQuery.HasComp(uid))
             {
                 Log.Warning($"User {args.SenderSession.Name} tried to ghostnado without being a ghost.");
                 return;
             }
 
-            if (_followerSystem.GetMostGhostFollowed() is not {} target)
+            if (_followerSystem.GetMostGhostFollowed() is not { } target)
                 return;
 
             WarpTo(uid, target);
@@ -415,10 +478,11 @@ namespace Content.Server.Ghost
         {
             foreach (var player in _player.Sessions)
             {
-                if (player.AttachedEntity is not {Valid: true} attached)
+                if (player.AttachedEntity is not { Valid: true } attached)
                     continue;
 
-                if (attached == except) continue;
+                if (attached == except)
+                    continue;
 
                 TryComp<MindContainerComponent>(attached, out var mind);
 
@@ -434,10 +498,11 @@ namespace Content.Server.Ghost
         {
             foreach (var player in _player.Sessions)
             {
-                if (player.AttachedEntity is not {Valid: true} attached)
+                if (player.AttachedEntity is not { Valid: true } attached)
                     continue;
 
-                if (attached == except) continue;
+                if (attached == except)
+                    continue;
 
                 // Skip if not a ghost or not an admin
                 if (!_ghostQuery.HasComp(attached) || !_admin.IsAdmin(attached))
@@ -457,10 +522,11 @@ namespace Content.Server.Ghost
         {
             foreach (var player in _player.Sessions)
             {
-                if (player.AttachedEntity is not {Valid: true} attached)
+                if (player.AttachedEntity is not { Valid: true } attached)
                     continue;
 
-                if (attached == except) continue;
+                if (attached == except)
+                    continue;
 
                 // Skip if not a ghost or if it's an admin
                 if (!_ghostQuery.HasComp(attached) || _admin.IsAdmin(attached))
@@ -478,7 +544,11 @@ namespace Content.Server.Ghost
 
         #endregion
 
-        private void OnEntityStorageInsertAttempt(EntityUid uid, GhostComponent comp, ref InsertIntoEntityStorageAttemptEvent args)
+        private void OnEntityStorageInsertAttempt(
+            EntityUid uid,
+            GhostComponent comp,
+            ref InsertIntoEntityStorageAttemptEvent args
+        )
         {
             args.Cancelled = true;
         }
@@ -505,13 +575,13 @@ namespace Content.Server.Ghost
 
                 if (visible)
                 {
-                    _visibilitySystem.AddLayer((uid, vis), (int) VisibilityFlags.Normal, false);
-                    _visibilitySystem.RemoveLayer((uid, vis), (int) VisibilityFlags.Ghost, false);
+                    _visibilitySystem.AddLayer((uid, vis), (int)VisibilityFlags.Normal, false);
+                    _visibilitySystem.RemoveLayer((uid, vis), (int)VisibilityFlags.Ghost, false);
                 }
                 else
                 {
-                    _visibilitySystem.AddLayer((uid, vis), (int) VisibilityFlags.Ghost, false);
-                    _visibilitySystem.RemoveLayer((uid, vis), (int) VisibilityFlags.Normal, false);
+                    _visibilitySystem.AddLayer((uid, vis), (int)VisibilityFlags.Ghost, false);
+                    _visibilitySystem.RemoveLayer((uid, vis), (int)VisibilityFlags.Normal, false);
                 }
                 _visibilitySystem.RefreshVisibility(uid, visibilityComponent: vis);
             }
@@ -525,8 +595,7 @@ namespace Content.Server.Ghost
             return ghostBoo.Handled;
         }
 
-        public EntityUid? SpawnGhost(Entity<MindComponent?> mind, EntityUid targetEntity,
-            bool canReturn = false)
+        public EntityUid? SpawnGhost(Entity<MindComponent?> mind, EntityUid targetEntity, bool canReturn = false)
         {
             _transformSystem.TryGetMapOrGridCoordinates(targetEntity, out var spawnPosition);
             return SpawnGhost(mind, spawnPosition, canReturn);
@@ -549,8 +618,11 @@ namespace Content.Server.Ghost
             return true;
         }
 
-        public EntityUid? SpawnGhost(Entity<MindComponent?> mind, EntityCoordinates? spawnPosition = null,
-            bool canReturn = false)
+        public EntityUid? SpawnGhost(
+            Entity<MindComponent?> mind,
+            EntityCoordinates? spawnPosition = null,
+            bool canReturn = false
+        )
         {
             if (!Resolve(mind, ref mind.Comp))
                 return null;
@@ -565,8 +637,10 @@ namespace Content.Server.Ghost
             // Make sure the new point is valid too
             if (!IsValidSpawnPosition(spawnPosition))
             {
-                Log.Warning($"No spawn valid ghost spawn position found for {mind.Comp.CharacterName}"
-                    + $" \"{ToPrettyString(mind)}\"");
+                Log.Warning(
+                    $"No spawn valid ghost spawn position found for {mind.Comp.CharacterName}"
+                        + $" \"{ToPrettyString(mind)}\""
+                );
                 _minds.TransferTo(mind.Owner, null, createGhost: false, mind: mind.Comp);
                 return null;
             }
@@ -588,7 +662,10 @@ namespace Content.Server.Ghost
             }
 
             SetCanReturnToBody((ghost, ghostComponent), canReturn);
-            SetCanReturnFromCryo(ghostComponent, mind.Comp.UserId != null ? _cryo.HasCryosleepingBody(mind.Comp.UserId.Value) : false); // Frontier
+            SetCanReturnFromCryo(
+                ghostComponent,
+                mind.Comp.UserId != null ? _cryo.HasCryosleepingBody(mind.Comp.UserId.Value) : false
+            ); // Frontier
 
             if (canReturn)
                 _minds.Visit(mind.Owner, ghost, mind.Comp);
@@ -602,7 +679,13 @@ namespace Content.Server.Ghost
             return ghost;
         }
 
-        public bool OnGhostAttempt(EntityUid mindId, bool canReturnGlobal, bool viaCommand = false, bool forced = false, MindComponent? mind = null)
+        public bool OnGhostAttempt(
+            EntityUid mindId,
+            bool canReturnGlobal,
+            bool viaCommand = false,
+            bool forced = false,
+            MindComponent? mind = null
+        )
         {
             if (!Resolve(mindId, ref mind))
                 return false;
@@ -612,9 +695,15 @@ namespace Content.Server.Ghost
             if (playerEntity != null && viaCommand)
             {
                 if (forced)
-                    _adminLog.Add(LogType.Mind, $"{EntityManager.ToPrettyString(playerEntity.Value):player} was forced to ghost via command");
+                    _adminLog.Add(
+                        LogType.Mind,
+                        $"{EntityManager.ToPrettyString(playerEntity.Value):player} was forced to ghost via command"
+                    );
                 else
-                    _adminLog.Add(LogType.Mind, $"{EntityManager.ToPrettyString(playerEntity.Value):player} is attempting to ghost via command");
+                    _adminLog.Add(
+                        LogType.Mind,
+                        $"{EntityManager.ToPrettyString(playerEntity.Value):player} is attempting to ghost via command"
+                    );
             }
 
             var handleEv = new GhostAttemptHandleEvent(mind, canReturnGlobal);
@@ -628,8 +717,7 @@ namespace Content.Server.Ghost
             {
                 if (_player.TryGetSessionById(mind.UserId, out var session)) // Logging is suppressed to prevent spam from ghost attempts caused by movement attempts
                 {
-                    _chatManager.DispatchServerMessage(session, Loc.GetString("comp-mind-ghosting-prevented"),
-                        true);
+                    _chatManager.DispatchServerMessage(session, Loc.GetString("comp-mind-ghosting-prevented"), true);
                 }
 
                 return false;
@@ -660,9 +748,11 @@ namespace Content.Server.Ghost
             //   (If the mob survives, that's a bug. Ghosting is kept regardless.)
             var canReturn = canReturnGlobal && _mind.IsCharacterDeadPhysically(mind);
 
-            if (_configurationManager.GetCVar(CCVars.GhostKillCrit) &&
-                canReturnGlobal &&
-                TryComp(playerEntity, out MobStateComponent? mobState))
+            if (
+                _configurationManager.GetCVar(CCVars.GhostKillCrit)
+                && canReturnGlobal
+                && TryComp(playerEntity, out MobStateComponent? mobState)
+            )
             {
                 if (_mobState.IsCritical(playerEntity.Value, mobState))
                 {
@@ -673,10 +763,16 @@ namespace Content.Server.Ghost
 
                     FixedPoint2 dealtDamage = 200;
 
-                    if (TryComp<DamageableComponent>(playerEntity, out var damageable)
-                        && TryComp<MobThresholdsComponent>(playerEntity, out var thresholds))
+                    if (
+                        TryComp<DamageableComponent>(playerEntity, out var damageable)
+                        && TryComp<MobThresholdsComponent>(playerEntity, out var thresholds)
+                    )
                     {
-                        var playerDeadThreshold = _mobThresholdSystem.GetThresholdForState(playerEntity.Value, MobState.Dead, thresholds);
+                        var playerDeadThreshold = _mobThresholdSystem.GetThresholdForState(
+                            playerEntity.Value,
+                            MobState.Dead,
+                            thresholds
+                        );
                         dealtDamage = playerDeadThreshold - damageable.TotalDamage;
                     }
 
@@ -687,7 +783,10 @@ namespace Content.Server.Ghost
             }
 
             if (playerEntity != null)
-                _adminLog.Add(LogType.Mind, $"{EntityManager.ToPrettyString(playerEntity.Value):player} ghosted{(!canReturn ? " (non-returnable)" : "")}");
+                _adminLog.Add(
+                    LogType.Mind,
+                    $"{EntityManager.ToPrettyString(playerEntity.Value):player} ghosted{(!canReturn ? " (non-returnable)" : "")}"
+                );
 
             var ghost = SpawnGhost((mindId, mind), position, canReturn);
 

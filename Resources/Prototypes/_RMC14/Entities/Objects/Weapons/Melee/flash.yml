@@ -20,12 +20,12 @@
     visuals:
       enum.FlashVisuals.Burnt:
         enum.FlashVisuals.BaseLayer:
-          True: { state: burnt }
-          False: { state: flash }
+          True: {state: burnt}
+          False: {state: flash}
       enum.FlashVisuals.Flashing:
         enum.FlashVisuals.LightLayer:
-          True: { visible: true }
-          False: { visible: false }
-  # - type: MeleeRequiresSkill
-    # skills:
+          True: {visible: true}
+          False: {visible: false}
+          # - type: MeleeRequiresSkill
+      # skills:
       # RMCSkillPolice: 1

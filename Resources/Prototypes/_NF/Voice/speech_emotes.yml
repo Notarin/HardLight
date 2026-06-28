@@ -12,10 +12,10 @@
     - BorgChassis
   chatMessages: ["chat-emote-msg-goblin-muttering"]
   chatTriggers:
-    - mutter
-    - mutters
-    - muttered
-    - muttering
+  - mutter
+  - mutters
+  - muttered
+  - muttering
 
 - type: emote
   id: GoblinThroatSinging
@@ -31,11 +31,11 @@
     - BorgChassis
   chatMessages: ["chat-emote-msg-goblin-throat-singing"]
   chatTriggers:
-    - sing
-    - sings
-    - sang
-    - sung
-    - singing
+  - sing
+  - sings
+  - sang
+  - sung
+  - singing
 
 - type: emote
   id: Belch
@@ -51,8 +51,8 @@
     - BorgChassis
   chatMessages: ["chat-emote-msg-belch"]
   chatTriggers:
-    - belch
-    - burp
-    - belchs
-    - burps
-    - belches
+  - belch
+  - burp
+  - belchs
+  - burps
+  - belches

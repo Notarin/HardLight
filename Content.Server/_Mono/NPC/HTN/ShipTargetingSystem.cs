@@ -1,3 +1,4 @@
+using System.Numerics;
 using Content.Server._Mono.FireControl;
 using Content.Server.Emp;
 using Content.Shared.Emp;
@@ -10,18 +11,28 @@ using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Random;
 using Robust.Shared.Spawners;
-using System.Numerics;
 
 namespace Content.Server._Mono.NPC.HTN;
 
 public sealed partial class ShipTargetingSystem : EntitySystem
 {
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly FireControlSystem _cannon = default!;
-    [Dependency] private readonly SharedGunSystem _gun = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency]
+    private readonly EntityLookupSystem _lookup = default!;
+
+    [Dependency]
+    private readonly FireControlSystem _cannon = default!;
+
+    [Dependency]
+    private readonly SharedGunSystem _gun = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly SharedPhysicsSystem _physics = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
 
     private EntityQuery<GunComponent> _gunQuery;
     private EntityQuery<PhysicsComponent> _physQuery;
@@ -51,7 +62,13 @@ public sealed partial class ShipTargetingSystem : EntitySystem
     public Angle ShortestAngleDistance(Angle from, Angle to)
     {
         var diff = (to - from) % Math.Tau;
-        return diff + Math.Tau * (diff < -Math.PI ? 1 : diff > Math.PI ? -1 : 0);
+        return diff
+            + Math.Tau
+                * (
+                    diff < -Math.PI ? 1
+                    : diff > Math.PI ? -1
+                    : 0
+                );
     }
 
     public override void Update(float frameTime)
@@ -67,7 +84,8 @@ public sealed partial class ShipTargetingSystem : EntitySystem
             var target = comp.Target;
             var targetUid = target.EntityId; // if we have a target try to lead it
 
-            if (shipUid == null
+            if (
+                shipUid == null
                 || TerminatingOrDeleted(targetUid)
                 || !_physQuery.TryComp(shipUid, out var shipBody)
                 || !TryComp<MapGridComponent>(shipUid, out var shipGrid)
@@ -111,7 +129,14 @@ public sealed partial class ShipTargetingSystem : EntitySystem
         }
     }
 
-    private void FireWeapons(EntityUid shipUid, List<EntityUid> cannons, MapCoordinates destMapPos, Vector2 ourVel, Vector2 otherVel, bool allowHitscanFire)
+    private void FireWeapons(
+        EntityUid shipUid,
+        List<EntityUid> cannons,
+        MapCoordinates destMapPos,
+        Vector2 ourVel,
+        Vector2 otherVel,
+        bool allowHitscanFire
+    )
     {
         var shipXform = Transform(shipUid);
         if (!_physQuery.TryComp(shipUid, out var shipBody))
@@ -178,7 +203,10 @@ public sealed partial class ShipTargetingSystem : EntitySystem
 
                     // might take too long to hit
                     var bulletProto = _gun.GetBulletPrototype(proto);
-                    if (bulletProto.TryGetComponent<TimedDespawnComponent>(out var despawn, Factory) && hitTime > despawn.Lifetime)
+                    if (
+                        bulletProto.TryGetComponent<TimedDespawnComponent>(out var despawn, Factory)
+                        && hitTime > despawn.Lifetime
+                    )
                         continue;
                 }
             }
@@ -200,11 +228,17 @@ public sealed partial class ShipTargetingSystem : EntitySystem
             if (comp.HitscanReaimTimeRemaining > 0f)
                 return false;
 
-            comp.HitscanBurstTimeRemaining = NextRandomInRange(comp.HitscanBurstMinDuration, comp.HitscanBurstMaxDuration);
+            comp.HitscanBurstTimeRemaining = NextRandomInRange(
+                comp.HitscanBurstMinDuration,
+                comp.HitscanBurstMaxDuration
+            );
         }
 
         if (comp.HitscanBurstTimeRemaining <= 0f)
-            comp.HitscanBurstTimeRemaining = NextRandomInRange(comp.HitscanBurstMinDuration, comp.HitscanBurstMaxDuration);
+            comp.HitscanBurstTimeRemaining = NextRandomInRange(
+                comp.HitscanBurstMinDuration,
+                comp.HitscanBurstMaxDuration
+            );
 
         comp.HitscanBurstTimeRemaining -= frameTime;
         if (comp.HitscanBurstTimeRemaining > 0f)

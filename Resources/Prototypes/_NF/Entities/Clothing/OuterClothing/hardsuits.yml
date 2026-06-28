@@ -1,6 +1,6 @@
 #Mercenary Hardsuit
 - type: entity
-  parent: [ ClothingOuterHardsuitBaseNF, BaseC2ContrabandUnredeemable ]
+  parent: [ClothingOuterHardsuitBaseNF, BaseC2ContrabandUnredeemable]
   id: ClothingOuterHardsuitMercenary # stats are of luxury mining hardsuit
   name: mercenary hardsuit
   description: A special suit that protects from the danger of space, employed by mercenary forces. Not certified to be blunderbuss-proof.
@@ -74,7 +74,7 @@
 
 #ERT Mail Carrier Hardsuit
 - type: entity
-  parent: [ ClothingOuterHardsuitCBURN, BaseC3ExpeditionContraband ]
+  parent: [ClothingOuterHardsuitCBURN, BaseC3ExpeditionContraband]
   id: ClothingOuterHardsuitERTMailCarrier
   name: ERT mail carrier's hardsuit
   description: A protective hardsuit worn by the mail carriers of an emergency response team.
@@ -88,7 +88,7 @@
 
 # MAXIM Nerfed: used best stats from spationaut, mining and luxury hardsuits, additionally increased caustic resistance
 - type: entity
-  parent: [ BaseC2ExpeditionContraband, ClothingOuterHardsuitMaxim ] # C2 parent needs to be first
+  parent: [BaseC2ExpeditionContraband, ClothingOuterHardsuitMaxim] # C2 parent needs to be first
   id: ClothingOuterHardsuitMaximPrototype
   name: experimental salvager hardsuit
   description: Fire. Heat. These things forge great weapons, they also forge great salvagers.
@@ -125,7 +125,7 @@
   - ContrabandClothing
   id: ClothingOuterHardsuitSyndieEliteUnremoveable
   name: syndicate hardsuit
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Unremoveable
   - type: Sprite
@@ -139,7 +139,7 @@
   - ContrabandClothing
   id: ClothingOuterHardsuitSyndieBloodRedUnremoveable
   name: syndicate hardsuit
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Unremoveable
   - type: Sprite
@@ -149,7 +149,7 @@
 
 # Security
 - type: entity
-  parent: [ ClothingOuterHardsuitBaseNFNfsd, BaseC3ExpeditionContraband ]
+  parent: [ClothingOuterHardsuitBaseNFNfsd, BaseC3ExpeditionContraband]
   id: ClothingOuterHardsuitNfsdBronze
   name: ColSec M73 tacsuit
   description: The standard-issue ColSec tacsuit for patrol duty. This bronze variant has private rank markings.
@@ -284,7 +284,7 @@
 
 #Security Combat Hardsuit
 - type: entity
-  parent: [ ClothingOuterHardsuitBaseNFNfsd, BaseC3ExpeditionContraband ]
+  parent: [ClothingOuterHardsuitBaseNFNfsd, BaseC3ExpeditionContraband]
   id: ClothingOuterHardsuitNfsdCombat
   name: ColSec M93 tacsuit
   description: A heavily armored ColSec suit. Space proof, with thick armor plating at the expense of mobility.
@@ -297,7 +297,7 @@
     clothingPrototype: ClothingHeadHelmetHardsuitNfsdCombat
   - type: ExplosionResistance
     damageCoefficient: 0.4
-  - type: Armor  # Hardlight change.
+  - type: Armor # Hardlight change.
     modifiers:
       coefficients:
         Blunt: 0.25
@@ -340,7 +340,7 @@
 
 # SCAF hardsuit
 - type: entity
-  parent: [ ClothingOuterHardsuitBase, BaseC2ExpeditionContraband ]
+  parent: [ClothingOuterHardsuitBase, BaseC2ExpeditionContraband]
   id: ClothingOuterHardsuitScaf
   name: SCAF hardsuit
   description: A green and brown combat hardsuit. Old yet sturdy nonetheless.

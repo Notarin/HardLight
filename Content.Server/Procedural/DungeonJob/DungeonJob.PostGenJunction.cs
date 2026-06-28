@@ -12,10 +12,18 @@ public sealed partial class DungeonJob
     /// <summary>
     /// <see cref="JunctionDunGen"/>
     /// </summary>
-    private async Task PostGen(JunctionDunGen gen, DungeonData data, Dungeon dungeon, HashSet<Vector2i> reservedTiles, Random random)
+    private async Task PostGen(
+        JunctionDunGen gen,
+        DungeonData data,
+        Dungeon dungeon,
+        HashSet<Vector2i> reservedTiles,
+        Random random
+    )
     {
-        if (!data.Tiles.TryGetValue(DungeonDataKey.FallbackTile, out var tileProto) ||
-            !data.SpawnGroups.TryGetValue(DungeonDataKey.Junction, out var junctionProto))
+        if (
+            !data.Tiles.TryGetValue(DungeonDataKey.FallbackTile, out var tileProto)
+            || !data.SpawnGroups.TryGetValue(DungeonDataKey.Junction, out var junctionProto)
+        )
         {
             _sawmill.Error($"Dungeon data keys are missing for {nameof(gen)}");
             return;
@@ -34,13 +42,13 @@ public sealed partial class DungeonJob
             // - Check if immediate neighbors are free
             // - Check if the neighbors beyond that are not free
             // - Then check either side if they're slightly more free
-            var exteriorWidth = (int) Math.Floor(gen.Width / 2f);
-            var width = (int) Math.Ceiling(gen.Width / 2f);
+            var exteriorWidth = (int)Math.Floor(gen.Width / 2f);
+            var width = (int)Math.Ceiling(gen.Width / 2f);
 
             for (var i = 0; i < 2; i++)
             {
                 var isValid = true;
-                var neighborDir = (Direction) (i * 2);
+                var neighborDir = (Direction)(i * 2);
                 var neighborVec = neighborDir.ToIntVec();
 
                 for (var j = -width; j <= width; j++)
@@ -51,8 +59,7 @@ public sealed partial class DungeonJob
                     var neighbor = tile + neighborVec * j;
 
                     // If it's an end tile then check it's occupied.
-                    if (j == -width ||
-                        j == width)
+                    if (j == -width || j == width)
                     {
                         if (!HasWall(neighbor))
                         {
@@ -64,14 +71,21 @@ public sealed partial class DungeonJob
                     }
 
                     // If we're not at the end tile then check it + perpendicular are free.
-                    if (!_anchorable.TileFree(_grid, neighbor, DungeonSystem.CollisionLayer, DungeonSystem.CollisionMask))
+                    if (
+                        !_anchorable.TileFree(
+                            _grid,
+                            neighbor,
+                            DungeonSystem.CollisionLayer,
+                            DungeonSystem.CollisionMask
+                        )
+                    )
                     {
                         isValid = false;
                         break;
                     }
 
-                    var perp1 = tile + neighborVec * j + ((Direction) ((i * 2 + 2) % 8)).ToIntVec();
-                    var perp2 = tile + neighborVec * j + ((Direction) ((i * 2 + 6) % 8)).ToIntVec();
+                    var perp1 = tile + neighborVec * j + ((Direction)((i * 2 + 2) % 8)).ToIntVec();
+                    var perp2 = tile + neighborVec * j + ((Direction)((i * 2 + 6) % 8)).ToIntVec();
 
                     if (!_anchorable.TileFree(_grid, perp1, DungeonSystem.CollisionLayer, DungeonSystem.CollisionMask))
                     {
@@ -90,18 +104,25 @@ public sealed partial class DungeonJob
                     continue;
 
                 // Check corners to see if either side opens up (if it's just a 1x wide corridor do nothing, needs to be a funnel.
-                foreach (var j in new [] {-exteriorWidth, exteriorWidth})
+                foreach (var j in new[] { -exteriorWidth, exteriorWidth })
                 {
                     var freeCount = 0;
 
                     // Need at least 3 of 4 free
                     for (var k = 0; k < 4; k++)
                     {
-                        var cornerDir = (Direction) (k * 2 + 1);
+                        var cornerDir = (Direction)(k * 2 + 1);
                         var cornerVec = cornerDir.ToIntVec();
                         var cornerNeighbor = tile + neighborVec * j + cornerVec;
 
-                        if (_anchorable.TileFree(_grid, cornerNeighbor, DungeonSystem.CollisionLayer, DungeonSystem.CollisionMask))
+                        if (
+                            _anchorable.TileFree(
+                                _grid,
+                                cornerNeighbor,
+                                DungeonSystem.CollisionLayer,
+                                DungeonSystem.CollisionMask
+                            )
+                        )
                         {
                             freeCount++;
                         }
@@ -120,10 +141,18 @@ public sealed partial class DungeonJob
                         if (reservedTiles.Contains(weh))
                             continue;
 
-                        _maps.SetTile(_gridUid, _grid, weh, _tile.GetVariantTile((ContentTileDefinition) tileDef, random));
+                        _maps.SetTile(
+                            _gridUid,
+                            _grid,
+                            weh,
+                            _tile.GetVariantTile((ContentTileDefinition)tileDef, random)
+                        );
 
                         var coords = _maps.GridTileToLocal(_gridUid, _grid, weh);
-                        _entManager.SpawnEntities(coords, EntitySpawnCollection.GetSpawns(entranceGroup.Entries, random));
+                        _entManager.SpawnEntities(
+                            coords,
+                            EntitySpawnCollection.GetSpawns(entranceGroup.Entries, random)
+                        );
                     }
 
                     break;

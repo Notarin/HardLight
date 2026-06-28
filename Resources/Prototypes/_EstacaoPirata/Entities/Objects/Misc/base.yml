@@ -1,8 +1,8 @@
 - type: entity
-  parent: [ BoxCardboard, BaseBagOpenClose ]
+  parent: [BoxCardboard, BaseBagOpenClose]
   id: CardBoxBase
   name: deck box
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Item
     size: Small
@@ -13,7 +13,7 @@
     layers:
     - state: black_box
     - state: black_box_open
-      map: [ "openLayer" ]
+      map: ["openLayer"]
       visible: false
   - type: Storage
     maxItemSize: Normal
@@ -43,15 +43,16 @@
   - type: StripMenuHidden
   - type: ContainerContainer # Frontier
     containers: # Frontier
-      cardstack-container: !type:Container # Frontier
-  - type: StaticPrice # Frontier
+      cardstack-container: !type:Container
+  - # Frontier
+    type: StaticPrice # Frontier
     price: 0.01 # Frontier
 # End Frontier
 
 - type: entity
   parent: CardStackBase
   id: CardHandBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   name: hand of cards
   components:
   - type: CardHand
@@ -62,13 +63,13 @@
     interfaces:
       enum.CardUiKey.Key:
         type: CardHandMenuBoundUserInterface
-  # - type: ActivatableUI # Frontier
-  #   key: enum.CardUiKey.Key # Frontier
+        # - type: ActivatableUI # Frontier
+        #   key: enum.CardUiKey.Key # Frontier
 
 - type: entity
   parent: CardStackBase
   id: CardDeckBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   name: deck of cards
   components:
   - type: Sprite

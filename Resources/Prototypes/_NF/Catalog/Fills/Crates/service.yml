@@ -6,8 +6,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: NFVehicleJanicart
-      - id: VehicleKeyJanicart
+    - id: NFVehicleJanicart
+    - id: VehicleKeyJanicart
 
 - type: entity
   id: CrateServiceReplacementColoredLights
@@ -16,8 +16,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: BoxColoredLighttube
-      - id: BoxColoredLightbulb
+    - id: BoxColoredLighttube
+    - id: BoxColoredLightbulb
 
 - type: entity
   id: CrateServiceCoffeeDispenser
@@ -27,12 +27,12 @@
   components:
   - type: StorageFill
     contents:
-      - id: DrinkCoffeeJug
-      - id: DrinkCreamCartonXL
-      - id: DrinkSugarJug
-      - id: DrinkIceJug
-      - id: DrinkMilkCarton
-      - id: DrinkSoyMilkCarton
-      - id: JugCaramexinin
-      - id: JugCocoa
-      - id: JugWater
+    - id: DrinkCoffeeJug
+    - id: DrinkCreamCartonXL
+    - id: DrinkSugarJug
+    - id: DrinkIceJug
+    - id: DrinkMilkCarton
+    - id: DrinkSoyMilkCarton
+    - id: JugCaramexinin
+    - id: JugCocoa
+    - id: JugWater

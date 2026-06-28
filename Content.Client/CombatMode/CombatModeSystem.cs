@@ -11,11 +11,20 @@ namespace Content.Client.CombatMode;
 
 public sealed class CombatModeSystem : SharedCombatModeSystem
 {
-    [Dependency] private readonly IOverlayManager _overlayManager = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IInputManager _inputManager = default!;
-    [Dependency] private readonly IEyeManager _eye = default!;
+    [Dependency]
+    private readonly IOverlayManager _overlayManager = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
+
+    [Dependency]
+    private readonly IInputManager _inputManager = default!;
+
+    [Dependency]
+    private readonly IEyeManager _eye = default!;
 
     /// <summary>
     /// Raised whenever combat mode changes.
@@ -79,12 +88,15 @@ public sealed class CombatModeSystem : SharedCombatModeSystem
     {
         if (isShow)
         {
-            _overlayManager.AddOverlay(new CombatModeIndicatorsOverlay(
-                _inputManager,
-                EntityManager,
-                _eye,
-                this,
-                EntityManager.System<HandsSystem>()));
+            _overlayManager.AddOverlay(
+                new CombatModeIndicatorsOverlay(
+                    _inputManager,
+                    EntityManager,
+                    _eye,
+                    this,
+                    EntityManager.System<HandsSystem>()
+                )
+            );
         }
         else
         {

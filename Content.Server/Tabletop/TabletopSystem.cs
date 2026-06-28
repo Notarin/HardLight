@@ -20,11 +20,20 @@ namespace Content.Server.Tabletop
     [UsedImplicitly]
     public sealed partial class TabletopSystem : SharedTabletopSystem
     {
-        [Dependency] private readonly SharedMapSystem _map = default!;
-        [Dependency] private readonly EyeSystem _eye = default!;
-        [Dependency] private readonly ViewSubscriberSystem _viewSubscriberSystem = default!;
-        [Dependency] private readonly PopupSystem _popupSystem = default!;
-        [Dependency] private readonly IConfigurationManager _cfg = default!;
+        [Dependency]
+        private readonly SharedMapSystem _map = default!;
+
+        [Dependency]
+        private readonly EyeSystem _eye = default!;
+
+        [Dependency]
+        private readonly ViewSubscriberSystem _viewSubscriberSystem = default!;
+
+        [Dependency]
+        private readonly PopupSystem _popupSystem = default!;
+
+        [Dependency]
+        private readonly IConfigurationManager _cfg = default!;
 
         public override void Initialize()
         {
@@ -59,7 +68,11 @@ namespace Content.Server.Tabletop
 
             if (!TryComp(entity, out TabletopHologramComponent? hologram))
             {
-                _popupSystem.PopupEntity(Loc.GetString("tabletop-error-remove-non-hologram"), table, args.SenderSession);
+                _popupSystem.PopupEntity(
+                    Loc.GetString("tabletop-error-remove-non-hologram"),
+                    table,
+                    args.SenderSession
+                );
                 return;
             }
 
@@ -113,7 +126,10 @@ namespace Content.Server.Tabletop
             if (args.SenderSession is not { } playerSession)
                 return;
 
-            if (!TryComp(GetEntity(msg.TableUid), out TabletopGameComponent? tabletop) || tabletop.Session is not { } session)
+            if (
+                !TryComp(GetEntity(msg.TableUid), out TabletopGameComponent? tabletop)
+                || tabletop.Session is not { } session
+            )
                 return;
 
             // Check if player is actually playing at this table
@@ -137,8 +153,8 @@ namespace Content.Server.Tabletop
             var playVerb = new ActivationVerb()
             {
                 Text = Loc.GetString("tabletop-verb-play-game"),
-                Icon = new SpriteSpecifier.Texture(new ("/Textures/Interface/VerbIcons/die.svg.192dpi.png")),
-                Act = () => OpenSessionFor(actor.PlayerSession, uid)
+                Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/die.svg.192dpi.png")),
+                Act = () => OpenSessionFor(actor.PlayerSession, uid),
             };
 
             args.Verbs.Add(playVerb);
@@ -168,7 +184,7 @@ namespace Content.Server.Tabletop
 
         private void OnPlayerDetached(EntityUid uid, TabletopGamerComponent component, PlayerDetachedEvent args)
         {
-            if(component.Tabletop.IsValid())
+            if (component.Tabletop.IsValid())
                 CloseSessionFor(args.Player, component.Tabletop);
         }
 
@@ -177,7 +193,7 @@ namespace Content.Server.Tabletop
             if (!EntityManager.TryGetComponent(uid, out ActorComponent? actor))
                 return;
 
-            if(component.Tabletop.IsValid())
+            if (component.Tabletop.IsValid())
                 CloseSessionFor(actor.PlayerSession, component.Tabletop);
         }
 
